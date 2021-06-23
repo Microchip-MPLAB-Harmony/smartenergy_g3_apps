@@ -7,6 +7,12 @@ children:
   - type: Integer
     attributes: {id: SRV_USI_NUM_USART}
     children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: visible}
+        children:
+        - {type: Value, value: 'true'}
     - type: Values
       children:
       - type: Dynamic
@@ -102,4 +108,4 @@ children:
             children:
             - {type: Value, value: USART1_UART}
 - type: ElementPosition
-  attributes: {x: '230', y: '338', id: srv_usi}
+  attributes: {x: '214', y: '310', id: srv_usi}

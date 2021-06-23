@@ -75,7 +75,7 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SPI0_TransferSetup,
 
     /* DMA Channel for Transmit */
-    .dmaChannelTx = SYS_DMA_CHANNEL_3,
+    .dmaChannelTx = SYS_DMA_CHANNEL_2,
 
     /* DMA Channel for Receive */
     .dmaChannelRx  = SYS_DMA_CHANNEL_1,

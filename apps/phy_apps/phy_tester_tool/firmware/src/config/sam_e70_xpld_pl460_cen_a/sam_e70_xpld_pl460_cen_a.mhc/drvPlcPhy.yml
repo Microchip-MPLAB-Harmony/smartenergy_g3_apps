@@ -121,7 +121,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: drvPlcPhy, value: '3'}
+        attributes: {id: drvPlcPhy, value: '2'}
   - type: Boolean
     attributes: {id: DRV_PLC_TX_RX_DMA}
     children:

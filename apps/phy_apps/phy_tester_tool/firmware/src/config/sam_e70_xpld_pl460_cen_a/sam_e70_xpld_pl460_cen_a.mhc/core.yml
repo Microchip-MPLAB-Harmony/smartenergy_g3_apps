@@ -63,7 +63,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '3'}
+        attributes: {id: core, value: '2'}
   - type: Integer
     attributes: {id: DMA_CH_FOR_USART1_Transmit}
     children:
@@ -122,6 +122,27 @@ children:
         attributes: {id: core, value: 'false'}
   - type: Boolean
     attributes: {id: NVIC_-1_0_HANDLER_LOCK}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: 'false'}
+  - type: Boolean
+    attributes: {id: NVIC_13_0_ENABLE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: 'false'}
+  - type: String
+    attributes: {id: NVIC_13_0_HANDLER}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: USART0_Handler}
+  - type: Boolean
+    attributes: {id: NVIC_13_0_HANDLER_LOCK}
     children:
     - type: Values
       children:
@@ -1192,6 +1213,13 @@ children:
       - type: Dynamic
         attributes: {id: core, value: 0 KB}
   - type: Boolean
+    attributes: {id: USART0_INTERRUPT_ENABLE_UPDATE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: 'true'}
+  - type: Boolean
     attributes: {id: USART1_CLOCK_ENABLE}
     children:
     - type: Values
@@ -1504,7 +1532,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: USART1_Transmit}
+        attributes: {id: core, value: SPI0_Transmit}
   - type: Boolean
     attributes: {id: XDMAC_CC2_PERID_LOCK}
     children:
@@ -1518,7 +1546,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '9'}
+        attributes: {id: core, value: '1'}
   - type: KeyValueSet
     attributes: {id: XDMAC_CC2_SAM}
     children:
@@ -1560,7 +1588,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '0'}
+        attributes: {id: core, value: '1'}
   - type: KeyValueSet
     attributes: {id: XDMAC_CC3_DIF}
     children:
@@ -1574,7 +1602,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '1'}
+        attributes: {id: core, value: '0'}
   - type: KeyValueSet
     attributes: {id: XDMAC_CC3_DWIDTH}
     children:
@@ -1595,21 +1623,21 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: SPI0_Transmit}
+        attributes: {id: core, value: Software Trigger}
   - type: Boolean
     attributes: {id: XDMAC_CC3_PERID_LOCK}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: 'true'}
+        attributes: {id: core, value: 'false'}
   - type: Integer
     attributes: {id: XDMAC_CC3_PERID_VAL}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '1'}
+        attributes: {id: core, value: '0'}
   - type: KeyValueSet
     attributes: {id: XDMAC_CC3_SAM}
     children:
@@ -1623,7 +1651,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '0'}
+        attributes: {id: core, value: '1'}
   - type: KeyValueSet
     attributes: {id: XDMAC_CC3_SWREQ}
     children:
@@ -1637,7 +1665,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '1'}
+        attributes: {id: core, value: '0'}
   - type: Boolean
     attributes: {id: XDMAC_CH0_ENABLE}
     children:
@@ -1665,7 +1693,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: 'true'}
+        attributes: {id: core, value: 'false'}
   - type: Boolean
     attributes: {id: XDMAC_CLOCK_ENABLE}
     children:
@@ -1679,7 +1707,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '4'}
+        attributes: {id: core, value: '3'}
   - type: Boolean
     attributes: {id: XDMAC_INTERRUPT_ENABLE}
     children:

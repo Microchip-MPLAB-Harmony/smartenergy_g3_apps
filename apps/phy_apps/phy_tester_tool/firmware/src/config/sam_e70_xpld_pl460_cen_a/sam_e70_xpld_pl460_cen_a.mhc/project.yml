@@ -62,13 +62,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 6069C4FD56993BDA3B1FC223DD5BAA4A
-- generatedChecksum: 379FB7B7E7EFC5695D841ACDDD12523F
+- generatedChecksum: 61C2B8702D45521C76EEF1B7B65DA191
   logicalPath: config/sam_e70_xpld_pl460_cen_a
   name: initialization.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 379FB7B7E7EFC5695D841ACDDD12523F
+  userChecksum: 61C2B8702D45521C76EEF1B7B65DA191
 - generatedChecksum: 0C6A2147AF154D0BBCC4097BD088B65A
   logicalPath: config/sam_e70_xpld_pl460_cen_a
   name: interrupts.c
@@ -146,13 +146,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: C937D4E430EF6A0F64E4267FF2EA6A84
-- generatedChecksum: 661B1A582BDE81979AEB42692391647D
+- generatedChecksum: B3B5F43A33E27978177F9B41AB42779A
   logicalPath: config/sam_e70_xpld_pl460_cen_a/peripheral/xdmac
   name: plib_xdmac.c
   physicalPath: peripheral/xdmac
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 661B1A582BDE81979AEB42692391647D
+  userChecksum: B3B5F43A33E27978177F9B41AB42779A
 - generatedChecksum: 9EE132C822572508CF61F063BAEC73CB
   logicalPath: config/sam_e70_xpld_pl460_cen_a/service/pcoup
   name: srv_pcoup.c
@@ -209,6 +209,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 3A35F794BD3C19E7B3142ED6806E4EFE
+- generatedChecksum: 9063CE23C03357B7F90CA6887D4BCAF9
+  logicalPath: config/sam_e70_xpld_pl460_cen_a/system/cache
+  name: sys_cache.c
+  physicalPath: system/cache
+  security: NON_SECURE
+  type: SOURCE
+  userChecksum: 9063CE23C03357B7F90CA6887D4BCAF9
 - generatedChecksum: C36B60946A5F6A83472CF2BA69FCEFB4
   logicalPath: config/sam_e70_xpld_pl460_cen_a/system/dma
   name: sys_dma.c
@@ -405,13 +412,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: CBD842DCA3BC175A2FE63AE2DBF3E71D
-- generatedChecksum: 4BCD83D023F86E8605E1F27BDE675CD5
+- generatedChecksum: F679ABBF2C130B527A601E9C5A498885
   logicalPath: config/sam_e70_xpld_pl460_cen_a
   name: definitions.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 4BCD83D023F86E8605E1F27BDE675CD5
+  userChecksum: F679ABBF2C130B527A601E9C5A498885
 - generatedChecksum: C679A77E2A1338BE090B760AD405B86C
   logicalPath: config/sam_e70_xpld_pl460_cen_a
   name: device.h
@@ -776,13 +783,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 2B0D6DB62F6E6E43DA189A8FA1DB7B5C
-- generatedChecksum: 4C97390839B8F680807219936655ED8E
+- generatedChecksum: 53B80F9EC4148486F3086569B5C07CEF
   logicalPath: config/sam_e70_xpld_pl460_cen_a/peripheral/xdmac
   name: plib_xdmac.h
   physicalPath: peripheral/xdmac
   security: NON_SECURE
   type: HEADER
-  userChecksum: 4C97390839B8F680807219936655ED8E
+  userChecksum: 53B80F9EC4148486F3086569B5C07CEF
 - generatedChecksum: 65A1BCFA79B2B2B9D3E8A38F6F0B882B
   logicalPath: config/sam_e70_xpld_pl460_cen_a/peripheral/xdmac
   name: plib_xdmac_common.h
@@ -1021,6 +1028,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 7DBB18FBCEF54CF96CD8FF8DD696EF29
+- generatedChecksum: AFAAF7D896D57569CA4CF73BB3339481
+  logicalPath: config/sam_e70_xpld_pl460_cen_a/system/cache
+  name: sys_cache.h
+  physicalPath: system/cache
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: AFAAF7D896D57569CA4CF73BB3339481
 - generatedChecksum: 6BB6C54C5CD963A5A940CF7BB28F4E10
   logicalPath: config/sam_e70_xpld_pl460_cen_a/system/debug
   name: sys_debug.h

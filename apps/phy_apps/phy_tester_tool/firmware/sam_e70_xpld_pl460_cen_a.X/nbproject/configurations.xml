@@ -80,6 +80,9 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f4" displayName="system" projectFiles="true">
+            <logicalFolder name="f4" displayName="cache" projectFiles="true">
+              <itemPath>../src/config/sam_e70_xpld_pl460_cen_a/system/cache/sys_cache.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="f6" displayName="debug" projectFiles="true">
               <itemPath>../src/config/sam_e70_xpld_pl460_cen_a/system/debug/sys_debug.h</itemPath>
             </logicalFolder>
@@ -325,6 +328,9 @@
             <itemPath>../src/config/sam_e70_xpld_pl460_cen_a/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f5" displayName="system" projectFiles="true">
+            <logicalFolder name="f3" displayName="cache" projectFiles="true">
+              <itemPath>../src/config/sam_e70_xpld_pl460_cen_a/system/cache/sys_cache.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="f4" displayName="dma" projectFiles="true">
               <itemPath>../src/config/sam_e70_xpld_pl460_cen_a/system/dma/sys_dma.c</itemPath>
             </logicalFolder>
