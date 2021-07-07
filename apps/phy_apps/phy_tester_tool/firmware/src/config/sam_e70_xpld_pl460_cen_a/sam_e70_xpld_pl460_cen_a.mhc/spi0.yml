@@ -4,6 +4,15 @@ attributes: {id: spi0}
 children:
 - type: Symbols
   children:
+  - type: Comment
+    attributes: {id: SPI0_NVIC_ENABLE_COMMENT}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: visible}
+        children:
+        - {type: Value, value: 'false'}
   - type: Integer
     attributes: {id: SPI_BAUD_RATE}
     children:
@@ -196,7 +205,7 @@ children:
       - type: Boolean
         attributes: {id: readOnly}
         children:
-        - {type: Value, value: 'true'}
+        - {type: Value, value: 'false'}
     - type: Values
       children:
       - type: Dynamic

@@ -93,7 +93,7 @@ void Timer2_Callback(uintptr_t context)
     LED_On();
 }
 
-static void APP_PLC360SetConfiguration(void)
+static void APP_PLC_SetCouplingConfiguration(void)
 {
     SRV_PLC_PCOUP_BRANCH plcDefaultBranch;
     
@@ -406,20 +406,8 @@ void APP_Tasks(void)
 
                 if (appData.srvUSIHandle != DRV_HANDLE_INVALID)
                 {
-                    /* Register USI callback */
-                    SRV_USI_CallbackRegister(appData.srvUSIHandle,
-                            SRV_USI_PROT_ID_PHY, APP_USIPhyProtocolEventHandler);
-
-                    /* Register Timer Callback */
-                    appData.tmr1Handle = SYS_TIME_CallbackRegisterMS(
-                            Timer1_Callback, 0, LED_BLINK_RATE_MS,
-                            SYS_TIME_PERIODIC);
-
-                    /* Enable Led */
-                    LED_On();
-
                     /* Set Application to next state */
-                    appData.state = APP_STATE_CONFIG_PLC;
+                    appData.state = APP_STATE_CONFIG_USI;
                 }
                 else
                 {
@@ -430,10 +418,32 @@ void APP_Tasks(void)
             break;
         }
 
+        case APP_STATE_CONFIG_USI:
+        {
+            if (SRV_USI_Status(appData.srvUSIHandle) == SRV_USI_STATUS_CONFIGURED)
+            {
+                /* Register USI callback */
+                SRV_USI_CallbackRegister(appData.srvUSIHandle,
+                        SRV_USI_PROT_ID_PHY, APP_USIPhyProtocolEventHandler);
+
+                /* Register Timer Callback */
+                appData.tmr1Handle = SYS_TIME_CallbackRegisterMS(
+                        Timer1_Callback, 0, LED_BLINK_RATE_MS,
+                        SYS_TIME_PERIODIC);
+
+                /* Enable Led */
+                LED_On();
+                    
+                /* Set Application to next state */
+                appData.state = APP_STATE_CONFIG_PLC;
+            }
+            break;
+        }
+
         case APP_STATE_CONFIG_PLC:
         {
             /* Set configuration fro PLC */
-            APP_PLC360SetConfiguration();
+            APP_PLC_SetCouplingConfiguration();
             /* Set Application to next state */
             appData.state = APP_STATE_READY;
             break;

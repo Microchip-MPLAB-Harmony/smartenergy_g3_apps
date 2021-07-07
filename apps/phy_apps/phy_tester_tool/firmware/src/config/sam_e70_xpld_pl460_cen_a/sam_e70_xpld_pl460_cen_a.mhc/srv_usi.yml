@@ -7,12 +7,6 @@ children:
   - type: Integer
     attributes: {id: SRV_USI_NUM_USART}
     children:
-    - type: Attributes
-      children:
-      - type: Boolean
-        attributes: {id: visible}
-        children:
-        - {type: Value, value: 'true'}
     - type: Values
       children:
       - type: Dynamic

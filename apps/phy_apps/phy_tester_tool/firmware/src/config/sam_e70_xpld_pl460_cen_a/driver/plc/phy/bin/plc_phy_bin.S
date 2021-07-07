@@ -36,9 +36,15 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
   .section .rodata
   .global plc_phy_bin_start
   .global plc_phy_bin_end
+  .global plc_phy_bin2_start
+  .global plc_phy_bin2_end
 
   .align 8
 plc_phy_bin_start:
-  .incbin "./PLC_PHY_G3_CENA.bin"
+  .incbin "./PLC_PHY_G3_FCC.bin"
   .align 8
 plc_phy_bin_end:
+plc_phy_bin2_start:
+  .incbin "./PLC_PHY_G3_CENA.bin"
+  .align 8
+plc_phy_bin2_end:
