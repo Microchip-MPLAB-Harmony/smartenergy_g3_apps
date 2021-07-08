@@ -5,138 +5,136 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="config" projectFiles="true">
-        <logicalFolder name="f1"
-                       displayName="sam_g55_xpld_pl460_cen_a"
-                       projectFiles="true">
+        <logicalFolder name="f1" displayName="sam_g55_xpld_pl460" projectFiles="true">
           <logicalFolder name="f5" displayName="bsp" projectFiles="true">
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/bsp/bsp.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/bsp/bsp.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f4" displayName="driver" projectFiles="true">
             <logicalFolder name="f1" displayName="plc" projectFiles="true">
               <logicalFolder name="f1" displayName="common" projectFiles="true">
-                <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/common/drv_plc_hal.h</itemPath>
-                <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/common/drv_plc_boot.h</itemPath>
+                <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/common/drv_plc_hal.h</itemPath>
+                <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/common/drv_plc_boot.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f2" displayName="phy" projectFiles="true">
-                <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/phy/drv_plc_phy.h</itemPath>
-                <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/phy/drv_plc_phy_definitions.h</itemPath>
-                <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/phy/drv_plc_phy_local.h</itemPath>
-                <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/phy/drv_plc_phy_comm.h</itemPath>
+                <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/drv_plc_phy.h</itemPath>
+                <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/drv_plc_phy_definitions.h</itemPath>
+                <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/drv_plc_phy_local.h</itemPath>
+                <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/drv_plc_phy_comm.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f2" displayName="usb" projectFiles="true">
               <logicalFolder name="f1" displayName="usbdp" projectFiles="true">
                 <logicalFolder name="f1" displayName="src" projectFiles="true">
-                  <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/usb/usbdp/src/drv_usbdp_variant_mapping.h</itemPath>
-                  <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/usb/usbdp/src/drv_usbdp_local.h</itemPath>
+                  <itemPath>../src/config/sam_g55_xpld_pl460/driver/usb/usbdp/src/drv_usbdp_variant_mapping.h</itemPath>
+                  <itemPath>../src/config/sam_g55_xpld_pl460/driver/usb/usbdp/src/drv_usbdp_local.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/usb/usbdp/drv_usbdp.h</itemPath>
+                <itemPath>../src/config/sam_g55_xpld_pl460/driver/usb/usbdp/drv_usbdp.h</itemPath>
               </logicalFolder>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/usb/drv_usb.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/driver/usb/drv_usb.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/driver.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/driver_common.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/driver/driver.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/driver/driver_common.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f6" displayName="osal" projectFiles="true">
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/osal/osal.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/osal/osal_definitions.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/osal/osal_impl_basic.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/osal/osal.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/osal/osal_definitions.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/osal/osal_impl_basic.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="peripheral" projectFiles="true">
             <logicalFolder name="f3" displayName="clock" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/clock/plib_clock.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/clock/plib_clock.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f5" displayName="cmcc" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/cmcc/plib_cmcc.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/cmcc/plib_cmcc.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f6" displayName="efc" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/efc/plib_efc.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/efc/plib_efc.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f1" displayName="flexcom" projectFiles="true">
               <logicalFolder name="f2" displayName="spi" projectFiles="true">
                 <logicalFolder name="f1" displayName="master" projectFiles="true">
-                  <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h</itemPath>
-                  <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/flexcom/spi/master/plib_flexcom_spi_master_common.h</itemPath>
+                  <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h</itemPath>
+                  <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/flexcom/spi/master/plib_flexcom_spi_master_common.h</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f4" displayName="nvic" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/nvic/plib_nvic.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="pio" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/pio/plib_pio.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/pio/plib_pio.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f7" displayName="tc" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/tc/plib_tc0.h</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/tc/plib_tc_common.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/tc/plib_tc0.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/tc/plib_tc_common.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f1" displayName="service" projectFiles="true">
             <logicalFolder name="f1" displayName="pcoup" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/service/pcoup/srv_pcoup.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/service/pcoup/srv_pcoup.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f4" displayName="pcrc" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/service/pcrc/srv_pcrc.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/service/pcrc/srv_pcrc.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="pserial" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/service/pserial/srv_pserial.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/service/pserial/srv_pserial.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="usi" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/service/usi/srv_usi.h</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/service/usi/srv_usi_definitions.h</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/service/usi/srv_usi_cdc.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/service/usi/srv_usi.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/service/usi/srv_usi_definitions.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/service/usi/srv_usi_cdc.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f3" displayName="system" projectFiles="true">
             <logicalFolder name="f4" displayName="cache" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/cache/sys_cache.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/system/cache/sys_cache.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f5" displayName="debug" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/debug/sys_debug.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/system/debug/sys_debug.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="int" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/int/sys_int.h</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/int/sys_int_mapping.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/system/int/sys_int.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/system/int/sys_int_mapping.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="ports" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/ports/sys_ports.h</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/ports/sys_ports_mapping.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/system/ports/sys_ports.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/system/ports/sys_ports_mapping.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f1" displayName="time" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/time/sys_time.h</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/time/sys_time_definitions.h</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/time/src/sys_time_local.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/system/time/sys_time.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/system/time/sys_time_definitions.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/system/time/src/sys_time_local.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/system.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/system_common.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/system_module.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/system/system.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/system/system_common.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/system/system_module.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f7" displayName="usb" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/src/usb_device_local.h</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/src/usb_device_mapping.h</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/src/usb_device_function_driver.h</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/src/usb_external_dependencies.h</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/src/usb_device_cdc_local.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/usb/src/usb_device_local.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/usb/src/usb_device_mapping.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/usb/src/usb_device_function_driver.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/usb/src/usb_external_dependencies.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/usb/src/usb_device_cdc_local.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/usb_host_client_driver.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/usb_host_hub_interface.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/usb_host.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/usb_hub.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/usb_device.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/usb_common.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/usb_chapter_9.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/usb_device_cdc.h</itemPath>
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/usb_cdc.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/usb/usb_host_client_driver.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/usb/usb_host_hub_interface.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/usb/usb_host.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/usb/usb_hub.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/usb/usb_device.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/usb/usb_common.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/usb/usb_chapter_9.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/usb/usb_device_cdc.h</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/usb/usb_cdc.h</itemPath>
           </logicalFolder>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/device_cache.h</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/toolchain_specifics.h</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/definitions.h</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/interrupts.h</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/device_vectors.h</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/device.h</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/user.h</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/configuration.h</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/device_cache.h</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/toolchain_specifics.h</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/definitions.h</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/interrupts.h</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/device_vectors.h</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/device.h</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/user.h</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/configuration.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="packs" projectFiles="true">
@@ -258,10 +256,8 @@
                    displayName="Linker Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="config" projectFiles="true">
-        <logicalFolder name="f1"
-                       displayName="sam_g55_xpld_pl460_cen_a"
-                       projectFiles="true">
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/ATSAMG55J19.ld</itemPath>
+        <logicalFolder name="f1" displayName="sam_g55_xpld_pl460" projectFiles="true">
+          <itemPath>../src/config/sam_g55_xpld_pl460/ATSAMG55J19.ld</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -269,107 +265,105 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="config" projectFiles="true">
-        <logicalFolder name="f1"
-                       displayName="sam_g55_xpld_pl460_cen_a"
-                       projectFiles="true">
+        <logicalFolder name="f1" displayName="sam_g55_xpld_pl460" projectFiles="true">
           <logicalFolder name="f6" displayName="bsp" projectFiles="true">
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/bsp/bsp.c</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/bsp/bsp.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f5" displayName="driver" projectFiles="true">
             <logicalFolder name="f1" displayName="plc" projectFiles="true">
               <logicalFolder name="f1" displayName="common" projectFiles="true">
-                <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/common/drv_plc_hal.c</itemPath>
-                <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/common/drv_plc_boot.c</itemPath>
+                <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/common/drv_plc_hal.c</itemPath>
+                <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/common/drv_plc_boot.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f2" displayName="phy" projectFiles="true">
                 <logicalFolder name="f1" displayName="bin" projectFiles="true">
-                  <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/phy/bin/PLC_PHY_G3_CENA.bin</itemPath>
-                  <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
+                  <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/bin/PLC_PHY_G3_CENA.bin</itemPath>
+                  <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
-                <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/phy/drv_plc_phy.c</itemPath>
-                <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/phy/drv_plc_phy_local_comm.h</itemPath>
+                <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
+                <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/drv_plc_phy.c</itemPath>
+                <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/drv_plc_phy_local_comm.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f2" displayName="usb" projectFiles="true">
               <logicalFolder name="f1" displayName="usbdp" projectFiles="true">
                 <logicalFolder name="f1" displayName="src" projectFiles="true">
-                  <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/driver/usb/usbdp/src/drv_usbdp_device.c</itemPath>
+                  <itemPath>../src/config/sam_g55_xpld_pl460/driver/usb/usbdp/src/drv_usbdp_device.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f2" displayName="peripheral" projectFiles="true">
             <logicalFolder name="f3" displayName="clock" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/clock/plib_clock.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/clock/plib_clock.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f5" displayName="cmcc" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/cmcc/plib_cmcc.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/cmcc/plib_cmcc.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f6" displayName="efc" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/efc/plib_efc.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/efc/plib_efc.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f1" displayName="flexcom" projectFiles="true">
               <logicalFolder name="f2" displayName="spi" projectFiles="true">
                 <logicalFolder name="f1" displayName="master" projectFiles="true">
-                  <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/flexcom/spi/master/plib_flexcom5_spi_master.c</itemPath>
+                  <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/flexcom/spi/master/plib_flexcom5_spi_master.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f4" displayName="nvic" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/nvic/plib_nvic.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="pio" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/pio/plib_pio.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/pio/plib_pio.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f7" displayName="tc" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/peripheral/tc/plib_tc0.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/tc/plib_tc0.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f1" displayName="service" projectFiles="true">
             <logicalFolder name="f1" displayName="pcoup" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/service/pcoup/srv_pcoup.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/service/pcoup/srv_pcoup.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f4" displayName="pcrc" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/service/pcrc/srv_pcrc.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/service/pcrc/srv_pcrc.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="pserial" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/service/pserial/srv_pserial.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/service/pserial/srv_pserial.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="usi" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/service/usi/srv_usi.c</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/service/usi/srv_usi_local.h</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/service/usi/srv_usi_cdc.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/service/usi/srv_usi.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/service/usi/srv_usi_local.h</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/service/usi/srv_usi_cdc.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f3" displayName="stdio" projectFiles="true">
-            <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/stdio/xc32_monitor.c</itemPath>
+            <itemPath>../src/config/sam_g55_xpld_pl460/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f4" displayName="system" projectFiles="true">
             <logicalFolder name="f3" displayName="cache" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/cache/sys_cache.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/system/cache/sys_cache.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="int" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/int/src/sys_int.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f1" displayName="time" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/system/time/src/sys_time.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/system/time/src/sys_time.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f7" displayName="usb" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/src/usb_device.c</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/src/usb_device_cdc.c</itemPath>
-              <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb/src/usb_device_cdc_acm.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/usb/src/usb_device.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/usb/src/usb_device_cdc.c</itemPath>
+              <itemPath>../src/config/sam_g55_xpld_pl460/usb/src/usb_device_cdc_acm.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/initialization.c</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/interrupts.c</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/exceptions.c</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/startup_xc32.c</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/libc_syscalls.c</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/tasks.c</itemPath>
-          <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/usb_device_init_data.c</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/initialization.c</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/interrupts.c</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/exceptions.c</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/startup_xc32.c</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/libc_syscalls.c</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/tasks.c</itemPath>
+          <itemPath>../src/config/sam_g55_xpld_pl460/usb_device_init_data.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
@@ -399,32 +393,32 @@
         <itemPath>../../../../../../../../../../Users/M44035/HarmonyProjects/MyProject/firmware/src/config/phy_tester_tool_same70_pl460/phy_tester_tool_same70_pl460.mhc/usb_device_cdc.yml</itemPath>
       </logicalFolder>
       <logicalFolder name="f1"
-                     displayName="sam_g55_xpld_pl460_cen_a.mhc"
+                     displayName="sam_g55_xpld_pl460.mhc"
                      projectFiles="true">
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/BSP_SAM_G55_Xplained_Pro.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/cmsis.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/core.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/dfp.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/drvPlcPhy.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/drv_usbdp.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/efc.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/flexcom5.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/GraphSettings.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/HarmonyCore.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/project.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/settings.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/srv_pcoup.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/srv_pcrc.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/srv_pserial.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/srv_usi.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/sys_time.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/tc0.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/usb_device.yml</itemPath>
-        <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/sam_g55_xpld_pl460_cen_a.mhc/usb_device_cdc.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/BSP_SAM_G55_Xplained_Pro.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/cmsis.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/core.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/dfp.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/drvPlcPhy.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/drv_usbdp.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/efc.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/flexcom5.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/GraphSettings.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/HarmonyCore.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/project.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/settings.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/srv_pcoup.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/srv_pcrc.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/srv_pserial.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/srv_usi.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/sys_time.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/tc0.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/usb_device.yml</itemPath>
+        <itemPath>../src/config/sam_g55_xpld_pl460/sam_g55_xpld_pl460.mhc/usb_device_cdc.yml</itemPath>
       </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/harmony-manifest-success.yml</itemPath>
-      <itemPath>../src/config/sam_g55_xpld_pl460_cen_a/harmony-manifest-failure.yml</itemPath>
+      <itemPath>../src/config/sam_g55_xpld_pl460/harmony-manifest-success.yml</itemPath>
+      <itemPath>../src/config/sam_g55_xpld_pl460/harmony-manifest-failure.yml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -432,7 +426,7 @@
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="sam_g55_xpld_pl460_cen_a" type="2">
+    <conf name="sam_g55_xpld_pl460" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>ATSAMG55J19</targetDevice>
@@ -444,8 +438,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMG_DFP" vendor="Microchip" version="3.3.42"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAMG_DFP" vendor="Microchip" version="3.3.42"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -507,7 +501,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_g55_xpld_pl460_cen_a;../src/packs/ATSAMG55J19_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
+                  value="../src;../src/config/sam_g55_xpld_pl460;../src/packs/ATSAMG55J19_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -534,7 +528,7 @@
         <property key="exclude-floating-point-library" value="false"/>
         <property key="expand-macros" value="false"/>
         <property key="extra-include-directories-for-assembler"
-                  value="../src/config/sam_g55_xpld_pl460_cen_a/driver/plc/phy/bin"/>
+                  value="../src/config/sam_g55_xpld_pl460/driver/plc/phy/bin"/>
         <property key="extra-include-directories-for-preprocessor" value=""/>
         <property key="false-conditionals" value="false"/>
         <property key="generate-16-bit-code" value="false"/>
@@ -604,7 +598,7 @@
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_g55_xpld_pl460_cen_a;../src/packs/ATSAMG55J19_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
+                  value="../src;../src/config/sam_g55_xpld_pl460;../src/packs/ATSAMG55J19_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>

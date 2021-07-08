@@ -89,10 +89,10 @@ static USI_CDC_OBJ gUsiCdcOBJ[SRV_USI_CDC_CONNECTIONS] = {0};
 // Section: File scope functions
 // *****************************************************************************
 // *****************************************************************************
-static uint32_t _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
+static void _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
 {
     uint8_t *pData = dObj->cdcReadBuffer;
-    uint8_t *bookmark;
+    uint8_t *bookmark = dObj->usiRdInIndex;
     
     while(dObj->cdcNumBytesRead)
     {
@@ -115,9 +115,18 @@ static uint32_t _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
             case USI_CDC_RCV:
                 if (*pData == USI_ESC_KEY_7E)
                 {
-                    /* End of USI Message */    /////////// Como sacar varios mensajes en una misma recepcion??????????????
+                    /* End of USI Message */
                     dObj->usiIsReadComplete = true;
                     dObj->devStatus = USI_CDC_IDLE;
+                    
+                    /* Report via USI callback */
+                    if (dObj->cbFunc)
+                    {
+                        dObj->cbFunc(dObj->usiRdOutIndex, dObj->usiNumBytesRead, dObj->context);
+                    }
+
+                    /* Update Out Pointer */
+                    dObj->usiRdOutIndex += dObj->usiNumBytesRead;
                 }              
                 else if (*pData == USI_ESC_KEY_7D)
                 {
@@ -163,7 +172,12 @@ static uint32_t _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
         dObj->cdcNumBytesRead--;
     }
     
-    return dObj->usiNumBytesRead;    
+    /* Update In/Out Pointers */
+    if (dObj->usiRdOutIndex == dObj->usiRdInIndex) {
+        /* Restart In/Out Pointers */
+        dObj->usiRdOutIndex = dObj->usiReadBuffer;
+        dObj->usiRdInIndex = dObj->usiReadBuffer;
+    }
 }
 
 /*******************************************************
@@ -244,6 +258,7 @@ static USB_DEVICE_CDC_EVENT_RESPONSE _USB_CDC_DeviceCDCEventHandler(USB_DEVICE_C
         case USB_DEVICE_CDC_EVENT_CONTROL_TRANSFER_DATA_RECEIVED:
 
             /* The data stage of the last control transfer is complete. */
+
             USB_DEVICE_ControlStatus(dObj->devHandle, USB_DEVICE_CONTROL_STATUS_OK);
             break;
 
@@ -287,11 +302,6 @@ static void _USI_CDC_DeviceEventHandler(USB_DEVICE_EVENT event, void * eventData
         case USB_DEVICE_EVENT_RESET:
             dObj->devStatus = USI_CDC_IDLE;
             dObj->usiStatus = SRV_USI_STATUS_UNINITIALIZED;
-            dObj->cdcIsReadComplete = true;
-            dObj->cdcIsWriteComplete = true;
-            dObj->usiIsReadComplete = false;
-            dObj->readTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
-            dObj->writeTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
             break;
 
         case USB_DEVICE_EVENT_CONFIGURED:
@@ -527,34 +537,17 @@ void USI_CDC_Tasks (uint32_t index)
         return;
     }
     
-    if(dObj->cdcIsReadComplete == true)
+    /* Extract CDC received data to USI buffer */
+    if (dObj->cdcNumBytesRead)
     {
-        /* Extract CDC received data to USI buffer */
-        if (dObj->cdcNumBytesRead)
-        {
-            _USI_CDC_Transfer_Received_Data(dObj);
-        }
+        _USI_CDC_Transfer_Received_Data(dObj);
+    }
         
-        /* Launch next CDC reception process */
+    /* Launch next CDC reception process */
+    if (dObj->cdcIsReadComplete == true)
+    {
         dObj->cdcIsReadComplete = false;
         USB_DEVICE_CDC_Read (dObj->cdcInstanceIndex, &dObj->readTransferHandle, dObj->cdcReadBuffer,
                         dObj->cdcBufferSize);
-        
-        /* Report Reception callback */
-        if (dObj->usiIsReadComplete)
-        {
-            if (dObj->cbFunc)
-            {
-                dObj->cbFunc(dObj->usiRdOutIndex, dObj->usiNumBytesRead, dObj->context);
-            }
-            
-            /* Update Out Pointer */
-            dObj->usiRdOutIndex += dObj->usiNumBytesRead;
-            if (dObj->usiRdOutIndex == dObj->usiRdInIndex) {
-                /* Restart In/Out Pointers */
-                dObj->usiRdOutIndex = dObj->usiReadBuffer;
-                dObj->usiRdInIndex = dObj->usiReadBuffer;
-            }
-        }
-    }            
+    } 
 }

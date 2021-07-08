@@ -141,7 +141,6 @@ typedef struct
     bool                                     cdcIsReadComplete;
     bool                                     usiIsReadComplete;
     bool                                     cdcIsWriteComplete;
-    bool                                     cdcIsTransferReadComplete;
     
     USI_CDC_CALLBACK                         cbFunc;
     USI_CDC_STATE                            devStatus;
