@@ -244,7 +244,6 @@ static USB_DEVICE_CDC_EVENT_RESPONSE _USB_CDC_DeviceCDCEventHandler(USB_DEVICE_C
         case USB_DEVICE_CDC_EVENT_CONTROL_TRANSFER_DATA_RECEIVED:
 
             /* The data stage of the last control transfer is complete. */
-
             USB_DEVICE_ControlStatus(dObj->devHandle, USB_DEVICE_CONTROL_STATUS_OK);
             break;
 
@@ -288,6 +287,11 @@ static void _USI_CDC_DeviceEventHandler(USB_DEVICE_EVENT event, void * eventData
         case USB_DEVICE_EVENT_RESET:
             dObj->devStatus = USI_CDC_IDLE;
             dObj->usiStatus = SRV_USI_STATUS_UNINITIALIZED;
+            dObj->cdcIsReadComplete = true;
+            dObj->cdcIsWriteComplete = true;
+            dObj->usiIsReadComplete = false;
+            dObj->readTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
+            dObj->writeTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
             break;
 
         case USB_DEVICE_EVENT_CONFIGURED:

@@ -426,10 +426,17 @@ void APP_Tasks(void)
                 SRV_USI_CallbackRegister(appData.srvUSIHandle,
                         SRV_USI_PROT_ID_PHY, APP_USIPhyProtocolEventHandler);
 
-                /* Register Timer Callback */
-                appData.tmr1Handle = SYS_TIME_CallbackRegisterMS(
-                        Timer1_Callback, 0, LED_BLINK_RATE_MS,
-                        SYS_TIME_PERIODIC);
+                if (appData.tmr1Handle == SYS_TIME_HANDLE_INVALID)
+                {
+                    /* Register Timer Callback */
+                    appData.tmr1Handle = SYS_TIME_CallbackRegisterMS(
+                            Timer1_Callback, 0, LED_BLINK_RATE_MS,
+                            SYS_TIME_PERIODIC);
+                }
+                else
+                {
+                    SYS_TIME_TimerStart(appData.tmr1Handle);
+                }
 
                 /* Enable Led */
                 LED_On();
@@ -451,7 +458,15 @@ void APP_Tasks(void)
 
         case APP_STATE_READY:
         {
-            /* waiting commands from Microchip PHY tester tool application */
+            /* Check USI status in case of USI device has been reset */
+            if (SRV_USI_Status(appData.srvUSIHandle) == SRV_USI_STATUS_NOT_CONFIGURED)
+            {
+                /* Set Application to next state */
+                appData.state = APP_STATE_CONFIG_USI;  
+                SYS_TIME_TimerStop(appData.tmr1Handle);
+                /* Disable Led */
+                LED_Off();
+            }
             break;
         }
 
