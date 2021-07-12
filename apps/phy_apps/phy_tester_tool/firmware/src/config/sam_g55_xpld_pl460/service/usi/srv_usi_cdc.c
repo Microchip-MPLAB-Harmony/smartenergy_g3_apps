@@ -361,12 +361,12 @@ DRV_HANDLE USI_CDC_Initialize(uint32_t index, const void* initData)
     dObj->cdcReadBuffer = dObjInit->cdcReadBuffer;
     dObj->usiReadBuffer = dObjInit->usiReadBuffer;
     dObj->cdcBufferSize = dObjInit->cdcBufferSize;
-    dObj->usiBufferSize = dObjInit->usiBufferSize;
     
     dObj->cdcNumBytesRead = 0;
     dObj->usiNumBytesRead = 0;
     dObj->usiRdInIndex = dObj->usiReadBuffer;
     dObj->usiRdOutIndex = dObj->usiReadBuffer;
+    dObj->usiEndIndex = dObj->usiReadBuffer + dObjInit->usiBufferSize;
     
     dObj->cbFunc = NULL;
     dObj->devStatus = USI_CDC_IDLE;
@@ -547,7 +547,11 @@ void USI_CDC_Tasks (uint32_t index)
     if (dObj->cdcIsReadComplete == true)
     {
         dObj->cdcIsReadComplete = false;
-        USB_DEVICE_CDC_Read (dObj->cdcInstanceIndex, &dObj->readTransferHandle, dObj->cdcReadBuffer,
-                        dObj->cdcBufferSize);
+        if ((dObj->usiEndIndex - dObj->usiRdInIndex) >= dObj->cdcBufferSize)
+        {
+            USB_DEVICE_CDC_Read (dObj->cdcInstanceIndex, &dObj->readTransferHandle, dObj->cdcReadBuffer,
+                    dObj->cdcBufferSize);
+        }
+        
     } 
 }

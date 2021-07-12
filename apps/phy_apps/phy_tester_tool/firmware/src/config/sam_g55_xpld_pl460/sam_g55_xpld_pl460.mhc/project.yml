@@ -181,13 +181,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 79ED42EEE24A6D2551D514592F3A370D
-- generatedChecksum: 96CB38212F679CDE6F745DAF8BC37855
+- generatedChecksum: 82F2EF9270A97276713087D5F5CF28EB
   logicalPath: config/sam_g55_xpld_pl460/service/usi
   name: srv_usi_cdc.c
   physicalPath: service/usi
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 96CB38212F679CDE6F745DAF8BC37855
+  userChecksum: 82F2EF9270A97276713087D5F5CF28EB
 - generatedChecksum: BD5E1D9EC08FF6ED8FE88255069BD729
   logicalPath: config/sam_g55_xpld_pl460/service/usi
   name: srv_usi_local.h
@@ -979,13 +979,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 436233B5191C6FE6C848D7781CD49326
-- generatedChecksum: 0E8FEA366F5A0B7BE9C795BC4F0AB651
+- generatedChecksum: 27C9264BAF4A2ECC678321166E8C711E
   logicalPath: config/sam_g55_xpld_pl460/service/usi
   name: srv_usi_cdc.h
   physicalPath: service/usi
   security: NON_SECURE
   type: HEADER
-  userChecksum: 0E8FEA366F5A0B7BE9C795BC4F0AB651
+  userChecksum: 27C9264BAF4A2ECC678321166E8C711E
 - generatedChecksum: 5701836D2B95F5E9DB2B453ED835EFF6
   logicalPath: config/sam_g55_xpld_pl460/service/usi
   name: srv_usi_definitions.h
