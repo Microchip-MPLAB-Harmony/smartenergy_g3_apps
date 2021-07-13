@@ -1,0 +1,6 @@
+format_version: v1.0
+type: UniqueComponent
+attributes: {id: srv_ptrng}
+children:
+- type: ElementPosition
+  attributes: {x: '369', y: '147', id: srv_ptrng}
