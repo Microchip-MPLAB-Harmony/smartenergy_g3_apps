@@ -10,7 +10,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: drvPlcPhy, value: '6'}
+        attributes: {id: drvPlcPhy, value: '1'}
   - type: KeyValueSet
     attributes: {id: DRV_PLC_CD_PIN}
     children:
@@ -26,7 +26,7 @@ children:
       - type: Boolean
         attributes: {id: visible}
         children:
-        - {type: Value, value: 'true'}
+        - {type: Value, value: 'false'}
   - type: Boolean
     attributes: {id: DRV_PLC_COUP_G3_MULTIBAND}
     children:
@@ -35,7 +35,7 @@ children:
       - type: Boolean
         attributes: {id: visible}
         children:
-        - {type: Value, value: 'true'}
+        - {type: Value, value: 'false'}
     - type: Values
       children:
       - type: User
@@ -67,7 +67,7 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: FCC}
+        attributes: {value: CEN-A}
   - type: Combo
     attributes: {id: DRV_PLC_G3_BAND_AUX}
     children:
@@ -86,6 +86,10 @@ children:
         attributes: {id: visible}
         children:
         - {type: Value, value: 'true'}
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: 'true'}
   - type: KeyValueSet
     attributes: {id: DRV_PLC_LDO_EN_PIN}
     children:
@@ -138,7 +142,7 @@ children:
       - type: Boolean
         attributes: {id: enabled}
         children:
-        - {type: Value, value: 'true'}
+        - {type: Value, value: 'false'}
 - type: Attachments
   children:
   - type: DirectDependency

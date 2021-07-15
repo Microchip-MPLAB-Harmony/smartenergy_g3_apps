@@ -123,11 +123,11 @@ extern "C" {
 #define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1
 
 /* PLC Driver Identification */
-#define DRV_PLC_PHY_PROFILE                   2
-#define DRV_PLC_PHY_NUM_CARRIERS              NUM_CARRIERS_FCC
+#define DRV_PLC_PHY_PROFILE                   0
+#define DRV_PLC_PHY_NUM_CARRIERS              NUM_CARRIERS_CENELEC_A
 #define DRV_PLC_PHY_HOST_PRODUCT              0x3601
 #define DRV_PLC_PHY_HOST_VERSION              0x36010300
-#define DRV_PLC_PHY_HOST_PHY                  0x36020103
+#define DRV_PLC_PHY_HOST_PHY                  0x36010103
 #define DRV_PLC_PHY_HOST_DESC                 "ATSAMG55J19"
 #define DRV_PLC_PHY_HOST_MODEL                3
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
