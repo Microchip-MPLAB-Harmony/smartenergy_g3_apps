@@ -260,7 +260,7 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
     uint8_t schemeMenu;
     uint8_t index;
     
-    APP_CONSOLE_Print("--- Tx Modulation Configuration Menu ---\r\n");
+    APP_CONSOLE_Print("\r\n--- Tx Modulation Configuration Menu ---\r\n");
     APP_CONSOLE_Print("Select Modulation:\r\n");
     
     if (appPlcTx.pl360Tx.modScheme == MOD_SCHEME_DIFFERENTIAL)
@@ -348,6 +348,25 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
                 break;
         }
     }
+    APP_CONSOLE_Print(MENU_CMD_PROMPT);
+}
+
+static void APP_CONSOLE_ShowSetSleepMenu( void )
+{
+    APP_CONSOLE_Print("\r\n--- Enable/Disable Sleep Configuration Menu ---\r\n");
+    APP_CONSOLE_Print("Select Sleep Mode:\r\n");
+    
+    if (appPlc.state != APP_PLC_STATE_SLEEP)
+    {
+        APP_CONSOLE_Print("->");
+    }
+    APP_CONSOLE_Print("\t0: Sleep mode off\r\n");
+
+    if (appPlc.state == APP_PLC_STATE_SLEEP)
+    {
+        APP_CONSOLE_Print("->");
+    }
+    APP_CONSOLE_Print("\t1: Sleep mode on\r\n");
     APP_CONSOLE_Print(MENU_CMD_PROMPT);
 }
 
@@ -505,9 +524,9 @@ void APP_CONSOLE_Tasks ( void )
             if (appPlc.state == APP_PLC_STATE_WAITING)
             {
                 /* Show PHY version */
-                APP_CONSOLE_Print("PL360 binary loaded correctly\r\nPHY version: %c.%c.%c.%c", 
-                        (char)(appPlcTx.pl360PhyVersion >> 24), (char)(appPlcTx.pl360PhyVersion >> 16),
-                        (char)(appPlcTx.pl360PhyVersion >> 8), (char)(appPlcTx.pl360PhyVersion));
+                APP_CONSOLE_Print("PL360 binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x", 
+                        (uint8_t)(appPlcTx.pl360PhyVersion >> 24), (uint8_t)(appPlcTx.pl360PhyVersion >> 16),
+                        (uint8_t)(appPlcTx.pl360PhyVersion >> 8), (uint8_t)(appPlcTx.pl360PhyVersion));
                 
                 /* Set PLC Phy Tone Map Size */
                 if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x01)
@@ -560,17 +579,15 @@ void APP_CONSOLE_Tasks ( void )
                 switch(*appConsole.pReceivedChar)
                 {
                     case CTRL_S_KEY:
+                        appConsole.state = APP_CONSOLE_STATE_MENU;
+                        APP_CONSOLE_ReadRestart(1);
+                        APP_CONSOLE_Print("\n\r-- Configuration Menu --------------\r\n");
+                        APP_CONSOLE_Print("Select parameter to configure:\r\n");
+                        APP_CONSOLE_Print("\t0: Enable/Disable sleep mode\n\r");
+                        APP_CONSOLE_Print("\t1: Tx Modulation\n\r");
                         if (appPlc.plcMultiband)
                         {
-                            appConsole.state = APP_CONSOLE_STATE_MENU;
-                            APP_CONSOLE_Print(MENU_OPTIONS);
-                            APP_CONSOLE_ReadRestart(1);
-                        }
-                        else
-                        {
-                            appConsole.state = APP_CONSOLE_STATE_SET_SCHEME;
-                            APP_CONSOLE_ShowSetSchemeMenu();
-                            APP_CONSOLE_ReadRestart(1);
+                            APP_CONSOLE_Print("\t2: Tx/Rx Coupling Band\n\r");
                         }
                         break;
                         
@@ -578,8 +595,15 @@ void APP_CONSOLE_Tasks ( void )
                         if (appConsole.dataLength)
                         {
                             /* Transmit PLC message */
-                            APP_PLC_SendData((uint8_t *)appConsole.pReceivedChar, appConsole.dataLength);
-                            appConsole.state = APP_CONSOLE_STATE_WAIT_PLC_TX_CFM;
+                            if (APP_PLC_SendData((uint8_t *)appConsole.pReceivedChar, appConsole.dataLength))
+                            {
+                                appConsole.state = APP_CONSOLE_STATE_WAIT_PLC_TX_CFM;
+                            }
+                            else
+                            {
+                                APP_CONSOLE_Print("\n\rTransmission is not available in Sleep Mode\r\n");
+                                appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
+                            }
                         }
                         else
                         {
@@ -596,11 +620,17 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (appConsole.pReceivedChar[0] == '0')
                 {
+                    appConsole.state = APP_CONSOLE_STATE_SET_SLEEP;
+                    APP_CONSOLE_ShowSetSleepMenu();
+                    APP_CONSOLE_ReadRestart(1);
+                }
+                else if (appConsole.pReceivedChar[0] == '1')
+                {
                     appConsole.state = APP_CONSOLE_STATE_SET_SCHEME;
                     APP_CONSOLE_ShowSetSchemeMenu();
                     APP_CONSOLE_ReadRestart(1);
                 }
-                else if (appConsole.pReceivedChar[0] == '1')
+                else if (appPlc.plcMultiband && (appConsole.pReceivedChar[0] == '2'))
                 {
                     appConsole.state = APP_CONSOLE_STATE_SET_PLC_BAND;
                     APP_CONSOLE_ShowMultibandMenu();
@@ -666,6 +696,37 @@ void APP_CONSOLE_Tasks ( void )
             }
         }
         break;
+
+        case APP_CONSOLE_STATE_SET_SLEEP:
+        {
+            if (appConsole.numCharToReceive == 0)
+            {
+                if (appConsole.pReceivedChar[0] == '1')
+                {
+                    if (APP_PLC_SetSleepMode(true))
+                    {
+                        APP_CONSOLE_Print("\r\nPLC Sleep mode enabled\r\n");
+                    }
+                    else
+                    {
+                        APP_CONSOLE_Print("\r\nPLC Sleep mode is already enabled\r\n");
+                    }
+                }
+                else
+                {
+                    if (APP_PLC_SetSleepMode(false))
+                    {
+                        APP_CONSOLE_Print("\r\nPLC Sleep mode disabled\r\n");
+                    }
+                    else
+                    {
+                        APP_CONSOLE_Print("\r\nPLC Sleep mode is already disabled\r\n");
+                    }
+                }
+                appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
+            }
+            break;
+        }
 
         case APP_CONSOLE_STATE_SET_SCHEME:
         {

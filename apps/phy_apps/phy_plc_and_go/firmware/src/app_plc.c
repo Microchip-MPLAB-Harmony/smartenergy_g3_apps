@@ -82,16 +82,190 @@ APP_PLC_DATA CACHE_ALIGN appPlc;
 APP_PLC_DATA_TX CACHE_ALIGN appPlcTx;
 
 static uint8_t appPlcStaticNotching[NUM_CARRIERS_CENELEC_A] = APP_PLC_TONE_MASK_STATIC_NOTCHING_EXAMPLE;
+
+static void APP_PLC_SetCouplingConfiguration ( SRV_PLC_PCOUP_BRANCH branch )
+{
+    appPLCCoupling = SRV_PCOUP_Get_Config(branch);
+
+    appPlc.plcPIB.id = PLC_ID_IC_DRIVER_CFG;
+    appPlc.plcPIB.length = 1;
+    *appPlc.plcPIB.pData = appPLCCoupling->lineDrvConf;
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+
+    appPlc.plcPIB.id = PLC_ID_DACC_TABLE_CFG;
+    appPlc.plcPIB.length = sizeof(appPLCCoupling->daccTable);
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->daccTable,
+            appPlc.plcPIB.length);
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+
+    appPlc.plcPIB.id = PLC_ID_NUM_TX_LEVELS;
+    appPlc.plcPIB.length = 1;
+    *appPlc.plcPIB.pData = appPLCCoupling->numTxLevels;
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+
+    appPlc.plcPIB.id = PLC_ID_MAX_RMS_TABLE_HI;
+    appPlc.plcPIB.length = sizeof(appPLCCoupling->rmsHigh);
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->rmsHigh,
+            appPlc.plcPIB.length);
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+
+    appPlc.plcPIB.id = PLC_ID_MAX_RMS_TABLE_VLO;
+    appPlc.plcPIB.length = sizeof(appPLCCoupling->rmsVLow);
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->rmsVLow,
+            appPlc.plcPIB.length);
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+
+    appPlc.plcPIB.id = PLC_ID_THRESHOLDS_TABLE_HI;
+    appPlc.plcPIB.length = sizeof(appPLCCoupling->thrsHigh);
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->thrsHigh,
+            appPlc.plcPIB.length);
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+
+    appPlc.plcPIB.id = PLC_ID_THRESHOLDS_TABLE_VLO;
+    appPlc.plcPIB.length = sizeof(appPLCCoupling->thrsVLow);
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->thrsVLow,
+            appPlc.plcPIB.length);
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+
+    appPlc.plcPIB.id = PLC_ID_GAIN_TABLE_HI;
+    appPlc.plcPIB.length = sizeof(appPLCCoupling->gainHigh);
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->gainHigh,
+            appPlc.plcPIB.length);
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+
+    appPlc.plcPIB.id = PLC_ID_GAIN_TABLE_VLO;
+    appPlc.plcPIB.length = sizeof(appPLCCoupling->gainVLow);
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->gainVLow,
+            appPlc.plcPIB.length);
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+
+    appPlc.plcPIB.id = PLC_ID_PREDIST_COEF_TABLE_HI;
+    appPlc.plcPIB.length = appPLCCoupling->equSize;
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->equHigh,
+            appPlc.plcPIB.length);
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+
+    appPlc.plcPIB.id = PLC_ID_PREDIST_COEF_TABLE_VLO;
+    /* Not use size of array. It depends on PHY band in use */
+    appPlc.plcPIB.length = appPLCCoupling->equSize;
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->equVlow,
+            appPlc.plcPIB.length);
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+}
+
+static void APP_PLC_SetInitialConfiguration ( void )
+{
+    DRV_PLC_PHY_PIB_OBJ pibObj;
+    uint8_t plcCrcEnable;
+    bool applyStaticNotching = false;
+                
+    /* Apply PLC coupling configuration */
+    APP_PLC_SetCouplingConfiguration(appPlcTx.couplingBranch);
+
+    /* Force Transmission to VLO mode by default in order to maximize signal level in anycase */
+    /* Disable autodetect mode */
+    appPlcTx.txAuto = 0;
+    pibObj.id = PLC_ID_CFG_AUTODETECT_IMPEDANCE;
+    pibObj.length = 1;
+    pibObj.pData = (uint8_t *)&appPlcTx.txAuto;
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+
+    /* Set VLO mode */
+    appPlcTx.txImpedance = 2;
+    pibObj.id = PLC_ID_CFG_IMPEDANCE;
+    pibObj.length = 1;
+    pibObj.pData = (uint8_t *)&appPlcTx.txImpedance;
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+
+    /* Get PLC PHY version */
+    pibObj.id = PLC_ID_VERSION_NUM;
+    pibObj.length = 4;
+    pibObj.pData = (uint8_t *)&appPlcTx.pl360PhyVersion;
+    DRV_PLC_PHY_PIBGet(appPlc.drvPl360Handle, &pibObj);
+
+    /* Adjust ToneMap Info */
+    switch ((uint8_t)(appPlcTx.pl360PhyVersion >> 16))
+    {
+        case 1:
+            /* CEN A */
+            appPlcTx.toneMapSize = TONE_MAP_SIZE_CENELEC;
+            appPlcTx.pl360Tx.toneMap[0] = 0x3F;
+            if (appPlc.staticNotchingEnable)
+            {
+                /* Caution: Example provided only for CEN-A band */
+                applyStaticNotching = true;
+            }
+            break;
+
+        case 2:
+            /* FCC */
+            appPlcTx.toneMapSize = TONE_MAP_SIZE_FCC;
+            appPlcTx.pl360Tx.toneMap[0] = 0xFF;
+            appPlcTx.pl360Tx.toneMap[1] = 0xFF;
+            appPlcTx.pl360Tx.toneMap[2] = 0xFF;
+            break;
+
+        case 3:
+            /* ARIB */
+            appPlcTx.toneMapSize = TONE_MAP_SIZE_ARIB;
+            appPlcTx.pl360Tx.toneMap[0] = 0x03;
+            appPlcTx.pl360Tx.toneMap[1] = 0xFF;
+            appPlcTx.pl360Tx.toneMap[2] = 0xFF;
+            break;
+
+        case 4:
+            /* CEN B */
+            appPlcTx.toneMapSize = TONE_MAP_SIZE_CENELEC;
+            appPlcTx.pl360Tx.toneMap[0] = 0x0F;
+            break;
+    }
+
+    /* Enable CRC calculation for transmission and reception in PLC PHY layer */
+    /* In Transmission, 16-bit CRC is computed and added to data payload by PHY layer in PLC device */
+    /* In Reception, CRC is checked by PHY layer in PLC device and the result is reported in uc_crc_ok field in rx_msg_t structure */
+    /* The CRC format is the same that uses the G3-PLC stack, which is described in the IEEE 802.15.4 standard. */
+    plcCrcEnable = 1;
+    pibObj.id = PLC_ID_CRC_TX_RX_CAPABILITY;
+    pibObj.length = 1;
+    pibObj.pData = (uint8_t *)&plcCrcEnable;
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+
+    if (applyStaticNotching)
+    {
+        /* Caution: Example provided only for CEN-A band */
+        pibObj.id = PLC_ID_TONE_MASK;
+        pibObj.length = NUM_CARRIERS_CENELEC_A;
+        pibObj.pData = (uint8_t *)&appPlcStaticNotching;
+        DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+    }
+
+    /* Get maximum data length allowed with configured Tx Parameters */
+    APP_PLC_SetModScheme(appPlcTx.pl360Tx.modType, appPlcTx.pl360Tx.modScheme);
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
 
+static void APP_PLC_SleepModeDisableCb( uintptr_t context )
+{
+    /* Avoid warning */
+    (void)context;
+
+    /* Apply PLC initial configuration */
+    APP_PLC_SetInitialConfiguration();
+
+    /* Set PLC state */
+    appPlc.state = APP_PLC_STATE_WAITING;
+}
+
 static void APP_PLC_ExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj, uintptr_t context )
 {
     /* Avoid warning */
     (void)context;
+    (void)exceptionObj;
 
     /* Clear App flag */
     appPlc.waitingTxCfm = false;
@@ -152,6 +326,9 @@ static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_
 
 static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context )
 {
+    /* Avoid warning */
+    (void)context;
+    
     if (indObj->crcOk == 1)
     {
         uint16_t us_len;
@@ -226,76 +403,6 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
 // Section: Application Initialization and State Machine Functions
 // *****************************************************************************
 // *****************************************************************************
-static void APP_PLC_SetCouplingConfiguration ( SRV_PLC_PCOUP_BRANCH branch )
-{
-    appPLCCoupling = SRV_PCOUP_Get_Config(branch);
-
-    appPlc.plcPIB.id = PLC_ID_IC_DRIVER_CFG;
-    appPlc.plcPIB.length = 1;
-    *appPlc.plcPIB.pData = appPLCCoupling->lineDrvConf;
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_DACC_TABLE_CFG;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->daccTable);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->daccTable,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_NUM_TX_LEVELS;
-    appPlc.plcPIB.length = 1;
-    *appPlc.plcPIB.pData = appPLCCoupling->numTxLevels;
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_MAX_RMS_TABLE_HI;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->rmsHigh);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->rmsHigh,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_MAX_RMS_TABLE_VLO;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->rmsVLow);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->rmsVLow,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_THRESHOLDS_TABLE_HI;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->thrsHigh);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->thrsHigh,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_THRESHOLDS_TABLE_VLO;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->thrsVLow);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->thrsVLow,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_GAIN_TABLE_HI;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->gainHigh);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->gainHigh,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_GAIN_TABLE_VLO;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->gainVLow);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->gainVLow,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_PREDIST_COEF_TABLE_HI;
-    appPlc.plcPIB.length = appPLCCoupling->equSize;
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->equHigh,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_PREDIST_COEF_TABLE_VLO;
-    /* Not use size of array. It depends on PHY band in use */
-    appPlc.plcPIB.length = appPLCCoupling->equSize;
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->equVlow,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-}
-
 /*******************************************************************************
   Function:
     void APP_PLC_Initialize(void)
@@ -419,100 +526,18 @@ void APP_PLC_Tasks ( void )
             /* Check PLC transceiver */
             if (DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX_0) == SYS_STATUS_READY)
             {
-                DRV_PLC_PHY_PIB_OBJ pibObj;
-                uint8_t plcCrcEnable;
-                bool applyStaticNotching = false;
 
                 /* Configure PLC callbacks */
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
+                DRV_PLC_PHY_SleepDisableCallbackRegister(appPlc.drvPl360Handle, APP_PLC_SleepModeDisableCb, DRV_PLC_PHY_INDEX_0);
                 
-                /* Apply PLC coupling configuration */
-                APP_PLC_SetCouplingConfiguration(appPlcTx.couplingBranch);
-                
-                /* Force Transmission to VLO mode by default in order to maximize signal level in anycase */
-                /* Disable autodetect mode */
-                appPlcTx.txAuto = 0;
-                pibObj.id = PLC_ID_CFG_AUTODETECT_IMPEDANCE;
-                pibObj.length = 1;
-                pibObj.pData = (uint8_t *)&appPlcTx.txAuto;
-                DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
-                
-                /* Set VLO mode */
-                appPlcTx.txImpedance = 2;
-                pibObj.id = PLC_ID_CFG_IMPEDANCE;
-                pibObj.length = 1;
-                pibObj.pData = (uint8_t *)&appPlcTx.txImpedance;
-                DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
-
-                /* Get PLC PHY version */
-                pibObj.id = PLC_ID_VERSION_NUM;
-                pibObj.length = 4;
-                pibObj.pData = (uint8_t *)&appPlcTx.pl360PhyVersion;
-                DRV_PLC_PHY_PIBGet(appPlc.drvPl360Handle, &pibObj);
-
-                /* Adjust ToneMap Info */
-                switch ((uint8_t)(appPlcTx.pl360PhyVersion >> 16))
-                {
-                    case 1:
-                        /* CEN A */
-                        appPlcTx.toneMapSize = TONE_MAP_SIZE_CENELEC;
-                        appPlcTx.pl360Tx.toneMap[0] = 0x3F;
-                        if (appPlc.staticNotchingEnable)
-                        {
-                            /* Caution: Example provided only for CEN-A band */
-                            applyStaticNotching = true;
-                        }
-                        break;
-
-                    case 2:
-                        /* FCC */
-                        appPlcTx.toneMapSize = TONE_MAP_SIZE_FCC;
-                        appPlcTx.pl360Tx.toneMap[0] = 0xFF;
-                        appPlcTx.pl360Tx.toneMap[1] = 0xFF;
-                        appPlcTx.pl360Tx.toneMap[2] = 0xFF;
-                        break;
-
-                    case 3:
-                        /* ARIB */
-                        appPlcTx.toneMapSize = TONE_MAP_SIZE_ARIB;
-                        appPlcTx.pl360Tx.toneMap[0] = 0x03;
-                        appPlcTx.pl360Tx.toneMap[1] = 0xFF;
-                        appPlcTx.pl360Tx.toneMap[2] = 0xFF;
-                        break;
-
-                    case 4:
-                        /* CEN B */
-                        appPlcTx.toneMapSize = TONE_MAP_SIZE_CENELEC;
-                        appPlcTx.pl360Tx.toneMap[0] = 0x0F;
-                        break;
-                }
-                
-                /* Enable CRC calculation for transmission and reception in PLC PHY layer */
-                /* In Transmission, 16-bit CRC is computed and added to data payload by PHY layer in PLC device */
-                /* In Reception, CRC is checked by PHY layer in PLC device and the result is reported in uc_crc_ok field in rx_msg_t structure */
-                /* The CRC format is the same that uses the G3-PLC stack, which is described in the IEEE 802.15.4 standard. */
-                plcCrcEnable = 1;
-                pibObj.id = PLC_ID_CRC_TX_RX_CAPABILITY;
-                pibObj.length = 1;
-                pibObj.pData = (uint8_t *)&plcCrcEnable;
-                DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
-                
-                if (applyStaticNotching)
-                {
-                    /* Caution: Example provided only for CEN-A band */
-                    pibObj.id = PLC_ID_TONE_MASK;
-                    pibObj.length = NUM_CARRIERS_CENELEC_A;
-                    pibObj.pData = (uint8_t *)&appPlcStaticNotching;
-                    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
-                }
+                /* Apply PLC initial configuration */
+                APP_PLC_SetInitialConfiguration();
                 
                 /* Set PLC state */
                 appPlc.state = APP_PLC_STATE_WAITING;
-                
-                /* Get maximum data length allowed with configured Tx Parameters */
-                APP_PLC_SetModScheme(appPlcTx.pl360Tx.modType, appPlcTx.pl360Tx.modScheme);
             }
         }
         break;
@@ -562,33 +587,44 @@ void APP_PLC_Tasks ( void )
 
 /*******************************************************************************
   Function:
-    void APP_PLC_Initialize(void)
+    bool APP_PLC_Initialize(void)
 
   Remarks:
     See prototype in app_plc.h.
  */
-void APP_PLC_SendData ( uint8_t* pData, uint16_t length )
+bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
 {
-    if ((length > 0) && (length <= APP_PLC_BUFFER_SIZE))
+    if (appPlc.state == APP_PLC_STATE_WAITING)
     {
-        /* Fill 2 first bytes with data length */
-        /* Physical Layer may add padding bytes in order to complete symbols with data */
-        /* It is needed to include real data length in the message because otherwise at reception is not possible to know if there is padding or not */
-        appPlcTx.pDataTx[0] = length >> 8;
-        appPlcTx.pDataTx[1] = length & 0xFF;
+            
+        if ((length > 0) && (length <= APP_PLC_BUFFER_SIZE))
+        {
+            /* Fill 2 first bytes with data length */
+            /* Physical Layer may add padding bytes in order to complete symbols with data */
+            /* It is needed to include real data length in the message because otherwise at reception is not possible to know if there is padding or not */
+            appPlcTx.pDataTx[0] = length >> 8;
+            appPlcTx.pDataTx[1] = length & 0xFF;
 
-        /* Set data length in Tx Parameters structure */
-        /* It should be equal or less than Maximum Data Length (see _get_max_psdu_len) */
-        /* Otherwise DRV_PLC_PHY_TX_RESULT_INV_LENGTH will be reported in Tx Confirm */
-        appPlcTx.pl360Tx.dataLength = length + 2;
-        memcpy(appPlcTx.pDataTx + 2, pData, length);
-        
-        DRV_PLC_PHY_Send(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
-        
-        /* Set PLC state */
-        appPlc.waitingTxCfm = true;
-        appPlc.state = APP_PLC_STATE_WAITING_TX_CFM;
+            /* Set data length in Tx Parameters structure */
+            /* It should be equal or less than Maximum Data Length (see _get_max_psdu_len) */
+            /* Otherwise DRV_PLC_PHY_TX_RESULT_INV_LENGTH will be reported in Tx Confirm */
+            appPlcTx.pl360Tx.dataLength = length + 2;
+            memcpy(appPlcTx.pDataTx + 2, pData, length);
+            
+            appPlc.waitingTxCfm = true;
+
+            DRV_PLC_PHY_Send(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
+
+            /* Set PLC state */
+            if (appPlc.waitingTxCfm)
+            {
+                appPlc.state = APP_PLC_STATE_WAITING_TX_CFM;
+                return true;
+            }
+        }
     }
+    
+    return false;
 }
 
 void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME modScheme )
@@ -620,6 +656,23 @@ void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME
     }
 }
 
+bool APP_PLC_SetSleepMode ( bool enable )
+{
+    bool sleepIsEnabled = (appPlc.state == APP_PLC_STATE_SLEEP);
+    
+    if (sleepIsEnabled != enable)
+    {
+        DRV_PLC_PHY_Sleep(appPlc.drvPl360Handle, enable);
+        if (enable)
+        {
+            appPlc.state = APP_PLC_STATE_SLEEP;
+        }
+        
+        return true;
+    }
+    
+    return false;
+}
 
 /*******************************************************************************
  End of File

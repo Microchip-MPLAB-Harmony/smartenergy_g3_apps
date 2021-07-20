@@ -267,6 +267,13 @@ typedef enum
     DRV_PLC_BOOT_STATUS_ERROR,
 } DRV_PLC_BOOT_STATUS;
 
+typedef enum
+{
+    DRV_PLC_BOOT_RESTART_SOFT = 0,
+    DRV_PLC_BOOT_RESTART_HARD,
+    DRV_PLC_BOOT_RESTART_SLEEP,
+} DRV_PLC_BOOT_RESTART_MODE;
+
 typedef struct
 {
     uint32_t                   binSize;
@@ -343,7 +350,7 @@ typedef struct
 void DRV_PLC_BOOT_Start( DRV_PLC_BOOT_INFO *pBootInfo, DRV_PLC_HAL_INTERFACE *pHal );
 void DRV_PLC_BOOT_Tasks( void );
 DRV_PLC_BOOT_STATUS DRV_PLC_BOOT_Status( void );
-void DRV_PLC_BOOT_Restart(bool update);
+void DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_MODE mode);
 
 /* Provide C++ Compatibility */
 #ifdef __cplusplus

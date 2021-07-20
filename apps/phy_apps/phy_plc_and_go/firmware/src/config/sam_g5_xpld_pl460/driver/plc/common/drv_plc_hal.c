@@ -146,21 +146,15 @@ void DRV_PLC_HAL_Reset(void)
 void DRV_PLC_HAL_StandBy(bool enable)
 {
     if (enable) {
-        /* Enable Reset Pin */
-        SYS_PORT_PinClear(sPlcPlib->resetPin);
-
         /* Enable Stby Pin */
         SYS_PORT_PinSet(sPlcPlib->stByPin);
     } else {
         /* Disable Stby Pin */
         SYS_PORT_PinClear(sPlcPlib->stByPin);
 
-        /* Wait to stby deactivation (100us) */
-        DRV_PLC_HAL_Delay(100);
-
         /* Disable Reset pin */
         SYS_PORT_PinSet(sPlcPlib->resetPin);
-
+        
         /* Wait to PLC startup (700us) */
         DRV_PLC_HAL_Delay(700);
     }

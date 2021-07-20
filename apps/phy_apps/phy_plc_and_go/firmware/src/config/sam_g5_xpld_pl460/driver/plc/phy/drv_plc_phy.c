@@ -94,12 +94,14 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize(
     gDrvPlcPhyObj.binSize               = plcPhyInit->binEndAddress - plcPhyInit->binStartAddress;
     gDrvPlcPhyObj.binStartAddress       = plcPhyInit->binStartAddress;
     gDrvPlcPhyObj.secure                = plcPhyInit->secure;
+    gDrvPlcPhyObj.sleep                 = false;
     
     /* Callbacks initialization */
     gDrvPlcPhyObj.dataCfmCallback       = 0;
     gDrvPlcPhyObj.dataIndCallback       = 0;
     gDrvPlcPhyObj.exceptionCallback     = 0;
     gDrvPlcPhyObj.bootDataCallback      = 0;
+    gDrvPlcPhyObj.sleepDisableCallback     = 0;
 
     /* HAL init */
     gDrvPlcPhyObj.plcHal->init((DRV_PLC_PLIB_INTERFACE *)plcPhyInit->plcHal->plcPlib);
@@ -211,7 +213,7 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
     }
 }
 
-void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ hSysObj )
+void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
 {
     if (gDrvPlcPhyObj.status == SYS_STATUS_READY)
     {
@@ -233,6 +235,11 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ hSysObj )
             DRV_PLC_PHY_Init(&gDrvPlcPhyObj);
             gDrvPlcPhyObj.status = SYS_STATUS_READY;
             gDrvPlcPhyObj.state = DRV_PLC_PHY_STATE_IDLE;
+            if (gDrvPlcPhyObj.sleep && gDrvPlcPhyObj.sleepDisableCallback)
+            {
+                gDrvPlcPhyObj.sleep = false;
+                gDrvPlcPhyObj.sleepDisableCallback(gDrvPlcPhyObj.contextSleep);
+            }
         }
         else
         {
@@ -243,6 +250,47 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ hSysObj )
     else
     {
         /* SYS_STATUS_ERROR: Nothing to do */
+    }
+}
+
+void DRV_PLC_PHY_SleepDisableCallbackRegister( 
+    const DRV_HANDLE handle, 
+    const DRV_PLC_PHY_SLEEP_CALLBACK callback, 
+    const uintptr_t context 
+)
+{
+    if((handle != DRV_HANDLE_INVALID) && (handle == 0))
+    {
+        gDrvPlcPhyObj.sleepDisableCallback = callback;
+        gDrvPlcPhyObj.contextSleep = context;
+    }
+}
+
+void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable )
+{
+    if((handle != DRV_HANDLE_INVALID) && (handle == 0))
+    {
+        if (gDrvPlcPhyObj.sleep != enable)
+        {
+            if (enable)
+            {
+                /* Disable PLC interrupt */
+                gDrvPlcPhyObj.plcHal->enableExtInt(false);
+                /* Set Stand By pin */
+                gDrvPlcPhyObj.plcHal->standBy(true);
+                /* Set Sleep flag */
+                gDrvPlcPhyObj.sleep = true;
+            }
+            else
+            {
+                /* Clear Stand By pin */
+                gDrvPlcPhyObj.plcHal->standBy(false);
+                
+                /* Restart from Sleep mode */
+                gDrvPlcPhyObj.status = SYS_STATUS_BUSY;
+                DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_SLEEP);
+            }
+        }
     }
 }
 

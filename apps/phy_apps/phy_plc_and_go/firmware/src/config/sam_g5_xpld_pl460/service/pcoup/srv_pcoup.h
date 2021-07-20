@@ -71,7 +71,7 @@
 // DOM-IGNORE-END
 
 /* PLC Phy Coupling Default Branch */
-#define SRV_PCOUP_DEFAULT_BRANCH                 SRV_PLC_PCOUP_AUXILIARY_BRANCH
+#define SRV_PCOUP_DEFAULT_BRANCH                 SRV_PLC_PCOUP_MAIN_BRANCH
 
 /* PLC Phy Coupling Configuration Options */
 #define SRV_PCOUP_MAX_NUM_TX_LEVELS              8

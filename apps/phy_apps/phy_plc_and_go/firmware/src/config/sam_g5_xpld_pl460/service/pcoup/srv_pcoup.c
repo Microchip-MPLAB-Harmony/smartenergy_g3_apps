@@ -105,6 +105,6 @@ uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch)
   } 
   else 
   {
-    return G3_CEN_A;
+    return G3_INVALID;
   }
 }

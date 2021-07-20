@@ -75,6 +75,7 @@ typedef enum
     APP_PLC_STATE_TX,
     APP_PLC_STATE_WAITING_TX_CFM,
     APP_PLC_STATE_SET_BAND,
+    APP_PLC_STATE_SLEEP,
     APP_PLC_STATE_ERROR,
 
 } APP_PLC_STATES;
@@ -238,8 +239,9 @@ void APP_PLC_Initialize ( void );
 void APP_PLC_Tasks( void );
 
 
-void APP_PLC_SendData ( uint8_t* pData, uint16_t length );
+bool APP_PLC_SendData ( uint8_t* pData, uint16_t length );
 void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME modScheme );
+bool APP_PLC_SetSleepMode ( bool enable );
 
 
 
