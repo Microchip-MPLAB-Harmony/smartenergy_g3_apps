@@ -107,12 +107,6 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* PLC External Interrupt Pin */
     .cdPin = DRV_PLC_CD_PIN,
 
-    /* PLC StandBy Pin */
-    .stByPin = DRV_PLC_STBY_PIN,
-
-    /* PLC External Interrupt Pin */
-    .thMonPin = DRV_PLC_THMON_PIN,
-    
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -130,11 +124,8 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
     /* PLC transceiver reset */
     .reset = (DRV_PLC_HAL_RESET)DRV_PLC_HAL_Reset,
 
-    /* PLC low power management */
-    .standBy = (DRV_PLC_HAL_STBY)DRV_PLC_HAL_StandBy,    
-
     /* PLC Carrier Detect Status */
-    .getCd = (DRV_PLC_HAL_GET_CD)DRV_PLC_HAL_GetCarrierDetect,
+    .getCarrierDetect = (DRV_PLC_HAL_GET_CD)DRV_PLC_HAL_GetCarrierDetect,
 
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
@@ -184,32 +175,34 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SRV_USI Instance 0 Initialization Data">
 
-uint8_t gSrvUSIUSART1ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
-uint8_t gSrvUSIUSART1WriteBuffer[SRV_USI0_WR_BUF_SIZE] = {0};
+static uint8_t CACHE_ALIGN srvUSI0ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
+static uint8_t CACHE_ALIGN srvUSI0WriteBuffer[SRV_USI0_WR_BUF_SIZE] = {0};
 
-const SRV_USI_USART_INTERFACE srvUsiUSART1PlibAPI = {
+/* Declared in USI USART service implementation (srv_usi_usart.c) */
+extern const SRV_USI_DEV_DESC srvUSIUSARTDevDesc;
+
+const SRV_USI_USART_INTERFACE srvUsi0InitDataUSART1 = {
     .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)USART1_ReadCallbackRegister,
     .read = (USI_USART_PLIB_WRRD)USART1_Read,
-    .writeCallbackRegister = (USI_USART_PLIB_WRITE_CALLBACK_REG)USART1_WriteCallbackRegister,
-    .dmaChannelTx = SYS_DMA_CHANNEL_0, 
-    .usartAddressTx = (void *)&(USART1_REGS->US_THR)
+    .write = (USI_USART_PLIB_WRRD)USART1_Write,
+    .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)USART1_WriteIsBusy,
 };
 
-const SRV_USI_INIT srvUSI0InitData =
+const USI_USART_INIT_DATA srvUsi0InitData = {
+    .plib = (void*)&srvUsi0InitDataUSART1,
+    .pRdBuffer = (void*)srvUSI0ReadBuffer,
+    .rdBufferSize = SRV_USI0_RD_BUF_SIZE,
+};
+
+const SRV_USI_INIT srvUSI0Init =
 {
-    .usiInterfaceApi = SRV_USI_USART_API,
-
-    .usiApi = (SRV_USI_USART_INTERFACE *)&srvUsiUSART1PlibAPI,
-
-    .readBuffer = (void*)gSrvUSIUSART1ReadBuffer,
-
-    .readSizeMax = SRV_USI0_RD_BUF_SIZE,
-
-    .writeBuffer = (void*)gSrvUSIUSART1WriteBuffer,
-
-    .writeSizeMax = SRV_USI0_WR_BUF_SIZE,
-
+    .deviceInitData = (const void*)&srvUsi0InitData,
+    .consDevDesc = &srvUSIUSARTDevDesc,
+    .deviceIndex = 0,
+    .pWrBuffer = srvUSI0WriteBuffer,
+    .wrBufferSize = SRV_USI0_WR_BUF_SIZE
 };
+
 
 // </editor-fold>
 
@@ -303,9 +296,12 @@ void SYS_Initialize ( void* data )
     USART1_Initialize();
 
 
-
+    /* Initialize PLC Phy Driver Instance */
+    sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
+    /* Register Callback function to handle PLC interruption */
+    PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
     /* Initialize USI Service Instance 0 */
-    sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0InitData);
+    sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
 

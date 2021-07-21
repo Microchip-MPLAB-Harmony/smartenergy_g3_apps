@@ -141,6 +141,12 @@ static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_
         case DRV_PLC_PHY_TX_RESULT_INV_DT:
             APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_INV_DT\r\n");
             break;
+        case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_ERR:
+            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_ERR\r\n");
+            break;
+        case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_WARN:
+            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_WARN\r\n");
+            break;
         case DRV_PLC_PHY_TX_RESULT_NO_TX:
             APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_NO_TX\r\n");
             break;

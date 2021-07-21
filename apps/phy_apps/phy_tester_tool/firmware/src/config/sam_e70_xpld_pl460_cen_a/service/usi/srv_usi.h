@@ -23,7 +23,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -58,6 +58,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "driver/driver_common.h"
 #include "system/system.h"
 #include "srv_usi_definitions.h"
 
@@ -68,6 +69,8 @@
 
 #endif
 // DOM-IGNORE-END
+
+typedef uintptr_t USI_DEVICE_INDEX;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -118,12 +121,6 @@ typedef uintptr_t SRV_USI_HANDLE;
 #define SRV_USI_HANDLE_INVALID  (((SRV_USI_HANDLE) -1))
 
 // *****************************************************************************
-// *****************************************************************************
-// Section: SRV_USI Common Interface Implementation
-// *****************************************************************************
-// *****************************************************************************
-
-// *****************************************************************************
 /* Function:
     void ( * SRV_USI_CALLBACK ) ( uintptr_t context, uint8_t *data, uint16_t length )
 
@@ -172,6 +169,172 @@ typedef uintptr_t SRV_USI_HANDLE;
 
 typedef void ( * SRV_USI_CALLBACK ) ( uint8_t *pData, size_t length );
 
+
+// *****************************************************************************
+/*  USI device enumeration
+
+  Summary:
+    Lists the available USI devices.
+
+  Description:
+    This enumeration lists all of the available USI devices. A USI
+    device is a physical peripheral used by the USI service to send
+    and receive data.
+
+  Remarks:
+    None.
+*/
+typedef enum
+{
+    SRV_USI_DEV_USART,
+
+    SRV_USI_DEV_USB_CDC,
+
+    SRV_USI_DEV_MAX,
+
+} SRV_USI_DEVICE;
+
+// *****************************************************************************
+/*  USI device descriptor function prototypes
+
+  Summary:
+    Function prototype for the device descriptor expected by the USI service.
+
+  Description:
+    Defines the function prototypes for the device descriptor that each device
+    must implement in order to plug in to the USI service.
+
+  Remarks:
+    None.
+*/
+
+typedef void (*USI_READ_CALLBACK) (uint8_t *data, uint16_t length, uintptr_t context); 
+
+typedef DRV_HANDLE (*SRV_USI_INIT_FPTR) (uint32_t index, const void* initData);
+
+typedef DRV_HANDLE (*SRV_USI_OPEN_FPTR) (uint32_t index);
+
+typedef void (*SRV_USI_REGISTER_READ_CALLBACK_FPTR) (uint32_t index, USI_READ_CALLBACK buf, uintptr_t context);
+
+typedef size_t (*SRV_USI_WRITE_FPTR) (uint32_t index, void* buf, size_t length);
+
+typedef void (*SRV_USI_TASK_FPTR) (uint32_t index);
+
+typedef SRV_USI_STATUS (*SRV_USI_STATUS_FPTR) (uint32_t index);
+
+typedef void (*SRV_USI_FLUSH_FPTR) (uint32_t index);
+
+typedef void (*SRV_USI_CLOSE) (uint32_t index);
+
+// *****************************************************************************
+/*  USI device descriptor
+
+  Summary:
+    The USI device must provide the implementation for the APIs described in
+    the USI device descriptor structure.
+
+  Description:
+    Each device must register its capability to the USI service. 
+    The capability APIs must confirm to the interface expected by the USI service.
+
+  Remarks:
+    None.
+*/
+typedef struct
+{
+    SRV_USI_DEVICE usiDevice;
+
+    DRV_IO_INTENT intent;
+
+    SRV_USI_INIT_FPTR init;
+
+    SRV_USI_OPEN_FPTR open;
+
+    SRV_USI_REGISTER_READ_CALLBACK_FPTR setReadCallback;
+
+    SRV_USI_WRITE_FPTR write;
+
+    SRV_USI_TASK_FPTR task;
+
+    SRV_USI_FLUSH_FPTR flush;
+
+    SRV_USI_CLOSE close;
+
+    SRV_USI_STATUS_FPTR status;
+
+} SRV_USI_DEV_DESC;
+
+// *****************************************************************************
+/* USI Service Instance Object
+
+  Summary:
+    Object used to keep any data required for each instance of the USI Service.
+
+  Description:
+    None.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    /* Flag to indicate this object is in use */
+    bool                                     inUse;
+    
+    /* State of this instance */
+    SRV_USI_STATUS                           status;
+
+    /* Device Descriptor */
+    const SRV_USI_DEV_DESC*                  devDesc;
+
+    /* Device index */
+    USI_DEVICE_INDEX                         devIndex;
+
+    /* Identifies the USI callback object */
+    SRV_USI_CALLBACK*                        callback;
+    
+    /* Pointer to data buffer used to send messages */
+    void*                                    pWrBuffer;
+    
+    /* Pointer to data buffer used to receive messages */
+    void*                                    pRdBuffer;
+    
+    /* Max size of the write buffer */
+    size_t                                   wrBufferSize;
+    
+    /* Max size of the read buffer */
+    size_t                                   rdBufferSize;
+
+} SRV_USI_OBJ;
+
+// *****************************************************************************
+//
+/* USI Service Initialize structure
+
+  Summary:
+    Identifies the USI Service initialize structure.
+
+  Description:
+    This structure identifies the USI Service initialize structure.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    const void* deviceInitData;
+
+    const SRV_USI_DEV_DESC* consDevDesc;
+
+    USI_DEVICE_INDEX deviceIndex;
+    
+    void* pWrBuffer;
+    
+    size_t wrBufferSize;
+
+} SRV_USI_INIT;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -334,7 +497,7 @@ void SRV_USI_Close( const SRV_USI_HANDLE handle );
 
 // *****************************************************************************
 /* Function:
-    SYS_STATUS SRV_USI_Status( SYS_MODULE_OBJ object)
+    SRV_USI_STATUS SRV_USI_Status( SRV_USI_HANDLE handle )
 
   Summary:
     Returns USI instance service status.
@@ -346,18 +509,20 @@ void SRV_USI_Close( const SRV_USI_HANDLE handle );
     None.
 
   Parameters:
-    object - USI service object handle, returned from the
-    SRV_USI_Initialize routine
+    object - USI service object handle, returned from the SRV_USI_Initialize routine
 
   Returns:
-    SYS_STATUS_UNINITIALIZED - Indicates that the USI instance is not initialized.
+    SRV_USI_STATUS_NOT_CONFIGURED - Indicates that the USI instance is not configured.
 
-    SYS_STATUS_READY - Indicates that the USI instance initialization is
-                       complete and it ready to be used.
+    SRV_USI_STATUS_CONFIGURED - Indicates that the USI instance is properly configured
+
+    SRV_USI_STATUS_BUSY - Indicates that the USI instance is busy
+  
+    SRV_USI_STATUS_ERROR - Indicates that there is an error with the handler
 
   Example:
     <code>
-    if (SRV_USI_Status (SRV_USI_INDEX_0) == SYS_STATUS_READY)
+    if (SRV_USI_Status (SRV_USI_INDEX_0) == SRV_USI_STATUS_CONFIGURED)
     {
        // USI service is initialized and ready to accept new requests.
     }
@@ -367,7 +532,7 @@ void SRV_USI_Close( const SRV_USI_HANDLE handle );
     None.
   */
 
-SYS_STATUS SRV_USI_Status( SYS_MODULE_OBJ object);
+SRV_USI_STATUS SRV_USI_Status( SRV_USI_HANDLE handle );
 
 // *****************************************************************************
 /* Function:
@@ -441,17 +606,18 @@ void SRV_USI_CallbackRegister(
     USI service instance.
 
   Parameters:
-    index       - Index for the instance to set the callback function
+    object - USI service object handle, returned from SRV_USI_Open
 
   Returns:
     None
 
   Example:
     <code>
+    SYS_MODULE_OBJ object;     // Returned from SRV_USI_Open
     
     while (true)
     {
-        SRV_USI_Tasks (SRV_USI_INDEX_0);
+        SRV_USI_Tasks (object);
     
         // Do other tasks
     }

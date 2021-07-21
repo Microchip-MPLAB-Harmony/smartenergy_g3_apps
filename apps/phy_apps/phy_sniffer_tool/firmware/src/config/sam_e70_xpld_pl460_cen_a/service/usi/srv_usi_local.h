@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -145,55 +145,5 @@ typedef uint8_t SRV_USI_CALLBACK_INDEX;
 */
 
 typedef SRV_USI_CALLBACK SRV_USI_CALLBACK_OBJ[10];
-
-// *****************************************************************************
-/* USI Service Instance Object
-
-  Summary:
-    Object used to keep any data required for each instance of the USI Service.
-
-  Description:
-    None.
-
-  Remarks:
-    None.
-*/
-
-typedef struct
-{
-    /* Flag to indicate this object is in use */
-    bool                                     inUse;
-
-    /* The status of the service */
-    SYS_STATUS                               status;
-
-    /* Identifies the USI instance */
-    SYS_MODULE_INDEX                         usiIndex;
-
-    /* Identifies the interface with peripherals */
-    SRV_USI_INTERFACE_API                    usiInterfaceApi;
-
-    /* Identifies the USI interface API with peripherals */
-    void*                                    usiApi;
-
-    /* Identifies the Driver used for USI interface API */
-    DRV_HANDLE                               apiDriver;
-
-    /* Pointer to the application read buffer */
-    void*                                    readBuffer;
-
-    /* Number of bytes of the buffer to receive serial data */
-    size_t                                   readSizeMax;
-
-    /* Pointer to the application write buffer */
-    void*                                    writeBuffer;
-
-    /* Number of bytes of the buffer to send serial data */
-    size_t                                   writeSizeMax;  
-
-    /* Identifies the USI callback object */
-    SRV_USI_CALLBACK*                        callback;
-
-} SRV_USI_OBJ;
 
 #endif //#ifndef SRV_USI_LOCAL_H

@@ -16,14 +16,14 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '230400'}
+        attributes: {value: '115200'}
   - type: Integer
     attributes: {id: BRG_VALUE}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: flexcom7, value: '27'}
+        attributes: {id: flexcom7, value: '54'}
   - type: File
     attributes: {id: FLEXCOM7_COMMON_HEADER}
     children:

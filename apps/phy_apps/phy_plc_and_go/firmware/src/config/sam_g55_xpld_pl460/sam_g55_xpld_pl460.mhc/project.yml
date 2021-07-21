@@ -1,6 +1,6 @@
 files:
 - generatedChecksum: 32FF245921FCFC6626627179D1A37F20
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/phy/bin
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy/bin
   name: PLC_PHY_G3_CENA.bin
   physicalPath: driver/plc/phy/bin
   security: NON_SECURE
@@ -21,70 +21,70 @@ files:
   type: SOURCE
   userChecksum: null
 - generatedChecksum: 1A81761E8B71DEB8D8FBEA31DBFD4738
-  logicalPath: config/sam_g5_xpld_pl460/bsp
+  logicalPath: config/sam_g55_xpld_pl460/bsp
   name: bsp.c
   physicalPath: bsp
   security: NON_SECURE
   type: SOURCE
   userChecksum: 1A81761E8B71DEB8D8FBEA31DBFD4738
-- generatedChecksum: 242F657AC2F4DA53DA1AAB15645B4AC9
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/common
+- generatedChecksum: 9B7A2D36F3806FCAE6C0EE3126A51279
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/common
   name: drv_plc_boot.c
   physicalPath: driver/plc/common
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 242F657AC2F4DA53DA1AAB15645B4AC9
-- generatedChecksum: 9EDCCF2EE690101AFC8E1DD320D3D1DA
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/common
+  userChecksum: 9B7A2D36F3806FCAE6C0EE3126A51279
+- generatedChecksum: F903D692DFCEBD07A5150F19A7CA21D9
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/common
   name: drv_plc_hal.c
   physicalPath: driver/plc/common
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 9EDCCF2EE690101AFC8E1DD320D3D1DA
-- generatedChecksum: E10E3C549A33E04F512F38C5F38263D0
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/phy
+  userChecksum: F903D692DFCEBD07A5150F19A7CA21D9
+- generatedChecksum: 82390D2E4D771C5C5DD12416D9FE4BE8
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy
   name: drv_plc_phy.c
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 79074848BC01C1FD25DE913F02D24E16
-- generatedChecksum: 3E0F0C27BCEBF57BFA4C0B605387FFC2
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/phy
+  userChecksum: 82390D2E4D771C5C5DD12416D9FE4BE8
+- generatedChecksum: 79E5CBBDEB40A5E003F8A3D65066E128
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy
   name: drv_plc_phy_comm.c
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 3E0F0C27BCEBF57BFA4C0B605387FFC2
-- generatedChecksum: 8D2C2A278A3AD28C3F766737E231108C
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/phy
+  userChecksum: 79E5CBBDEB40A5E003F8A3D65066E128
+- generatedChecksum: 8FF74EF6A81AA825E4CA99851E4A20B3
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy
   name: drv_plc_phy_local_comm.h
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 8D2C2A278A3AD28C3F766737E231108C
+  userChecksum: 8FF74EF6A81AA825E4CA99851E4A20B3
 - generatedChecksum: 6069C4FD56993BDA3B1FC223DD5BAA4A
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: exceptions.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
   userChecksum: 6069C4FD56993BDA3B1FC223DD5BAA4A
-- generatedChecksum: 38CB38B0286285FBE7857AD61EB117E7
-  logicalPath: config/sam_g5_xpld_pl460
+- generatedChecksum: BC857CC21324D0CFFDBCD0E8CE7BB6E8
+  logicalPath: config/sam_g55_xpld_pl460
   name: initialization.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 38CB38B0286285FBE7857AD61EB117E7
+  userChecksum: BC857CC21324D0CFFDBCD0E8CE7BB6E8
 - generatedChecksum: 5812A4B87E4EB60FF547C87CF5842C54
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: interrupts.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
   userChecksum: 5812A4B87E4EB60FF547C87CF5842C54
 - generatedChecksum: 6513F2461B8F476B68CA73906086047F
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: libc_syscalls.c
   physicalPath: ''
   security: NON_SECURE
@@ -98,154 +98,154 @@ files:
   type: SOURCE
   userChecksum: null
 - generatedChecksum: 229D3FA36B0082C0169EAC48CAB16381
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/phy/bin
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy/bin
   name: plc_phy_bin.S
   physicalPath: driver/plc/phy/bin
   security: NON_SECURE
   type: SOURCE
   userChecksum: 229D3FA36B0082C0169EAC48CAB16381
 - generatedChecksum: EF8BAB341BA085EE64340EE0E106BE42
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/clock
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/clock
   name: plib_clock.c
   physicalPath: peripheral/clock
   security: NON_SECURE
   type: SOURCE
   userChecksum: EF8BAB341BA085EE64340EE0E106BE42
 - generatedChecksum: 08455A8B76479102F310CC00F3BCD2E9
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/cmcc
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/cmcc
   name: plib_cmcc.c
   physicalPath: peripheral/cmcc
   security: NON_SECURE
   type: SOURCE
   userChecksum: 08455A8B76479102F310CC00F3BCD2E9
 - generatedChecksum: 21D66E57F9D4FC9EDB4DC67A1A6637B3
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/efc
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/efc
   name: plib_efc.c
   physicalPath: peripheral/efc
   security: NON_SECURE
   type: SOURCE
   userChecksum: 21D66E57F9D4FC9EDB4DC67A1A6637B3
 - generatedChecksum: 0E7E156890F7C402069D8FD964A43400
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/flexcom/spi/master
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/flexcom/spi/master
   name: plib_flexcom5_spi_master.c
   physicalPath: peripheral/flexcom/spi/master
   security: NON_SECURE
   type: SOURCE
   userChecksum: 0E7E156890F7C402069D8FD964A43400
 - generatedChecksum: ACB500E627FB5C83B8937E5049A7EFF6
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/flexcom/usart
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/flexcom/usart
   name: plib_flexcom7_usart.c
   physicalPath: peripheral/flexcom/usart
   security: NON_SECURE
   type: SOURCE
   userChecksum: ACB500E627FB5C83B8937E5049A7EFF6
 - generatedChecksum: E3B36E20FC34DD9312F9262A60362178
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/nvic
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/nvic
   name: plib_nvic.c
   physicalPath: peripheral/nvic
   security: NON_SECURE
   type: SOURCE
   userChecksum: E3B36E20FC34DD9312F9262A60362178
 - generatedChecksum: C0B98625E97A9EE574269B1C76386819
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/pio
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/pio
   name: plib_pio.c
   physicalPath: peripheral/pio
   security: NON_SECURE
   type: SOURCE
   userChecksum: C0B98625E97A9EE574269B1C76386819
 - generatedChecksum: 7F01F1BDCD10E1879F10093BD7250D37
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/tc
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/tc
   name: plib_tc0.c
   physicalPath: peripheral/tc
   security: NON_SECURE
   type: SOURCE
   userChecksum: 7F01F1BDCD10E1879F10093BD7250D37
 - generatedChecksum: E2F3597748D3786AF3A10D19B9AE7779
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/wdt
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/wdt
   name: plib_wdt.c
   physicalPath: peripheral/wdt
   security: NON_SECURE
   type: SOURCE
   userChecksum: E2F3597748D3786AF3A10D19B9AE7779
 - generatedChecksum: 9BF06CBC9A75F37B988539D70FF6D81F
-  logicalPath: config/sam_g5_xpld_pl460/service/pcoup
+  logicalPath: config/sam_g55_xpld_pl460/service/pcoup
   name: srv_pcoup.c
   physicalPath: service/pcoup
   security: NON_SECURE
   type: SOURCE
   userChecksum: 9BF06CBC9A75F37B988539D70FF6D81F
 - generatedChecksum: 4F007AD54887A74C492A1DA2B4F6D02A
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: startup_xc32.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
   userChecksum: 4F007AD54887A74C492A1DA2B4F6D02A
 - generatedChecksum: 92901E4C07604DD5EC594B58CEC2720B
-  logicalPath: config/sam_g5_xpld_pl460/system/cache
+  logicalPath: config/sam_g55_xpld_pl460/system/cache
   name: sys_cache.c
   physicalPath: system/cache
   security: NON_SECURE
   type: SOURCE
   userChecksum: 92901E4C07604DD5EC594B58CEC2720B
 - generatedChecksum: 20C22A19D5DC74DEBFC4CCCA83B6F603
-  logicalPath: config/sam_g5_xpld_pl460/system/console
+  logicalPath: config/sam_g55_xpld_pl460/system/console
   name: sys_console.c
   physicalPath: system/console/src
   security: NON_SECURE
   type: SOURCE
   userChecksum: 20C22A19D5DC74DEBFC4CCCA83B6F603
 - generatedChecksum: 5BA0902794A8669B3FE37E8A8BEE9D65
-  logicalPath: config/sam_g5_xpld_pl460/system/console
+  logicalPath: config/sam_g55_xpld_pl460/system/console
   name: sys_console_local.h
   physicalPath: system/console/src
   security: NON_SECURE
   type: SOURCE
   userChecksum: 5BA0902794A8669B3FE37E8A8BEE9D65
 - generatedChecksum: CA5E9B63704372DE5FBC0BDC006B16C3
-  logicalPath: config/sam_g5_xpld_pl460/system/console
+  logicalPath: config/sam_g55_xpld_pl460/system/console
   name: sys_console_uart.c
   physicalPath: system/console/src
   security: NON_SECURE
   type: SOURCE
   userChecksum: CA5E9B63704372DE5FBC0BDC006B16C3
 - generatedChecksum: 767495C6A39617A915D8107093DC1A72
-  logicalPath: config/sam_g5_xpld_pl460/system/console
+  logicalPath: config/sam_g55_xpld_pl460/system/console
   name: sys_console_uart.h
   physicalPath: system/console/src
   security: NON_SECURE
   type: SOURCE
   userChecksum: 767495C6A39617A915D8107093DC1A72
 - generatedChecksum: 5D10B9438117B64220180660AB022150
-  logicalPath: config/sam_g5_xpld_pl460/system/console
+  logicalPath: config/sam_g55_xpld_pl460/system/console
   name: sys_console_uart_definitions.h
   physicalPath: system/console/src
   security: NON_SECURE
   type: SOURCE
   userChecksum: 5D10B9438117B64220180660AB022150
 - generatedChecksum: 02C3C1B519E59992810626BB6098CF56
-  logicalPath: config/sam_g5_xpld_pl460/system/int
+  logicalPath: config/sam_g55_xpld_pl460/system/int
   name: sys_int.c
   physicalPath: system/int/src
   security: NON_SECURE
   type: SOURCE
   userChecksum: 02C3C1B519E59992810626BB6098CF56
 - generatedChecksum: 83BDE663A1AAB20C9E52263F22E2ED3C
-  logicalPath: config/sam_g5_xpld_pl460/system/time
+  logicalPath: config/sam_g55_xpld_pl460/system/time
   name: sys_time.c
   physicalPath: system/time/src
   security: NON_SECURE
   type: SOURCE
   userChecksum: 83BDE663A1AAB20C9E52263F22E2ED3C
 - generatedChecksum: 4F2C739255919025008837F72F25FFE0
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: tasks.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
   userChecksum: 4F2C739255919025008837F72F25FFE0
 - generatedChecksum: 7806B30ECAE0D18D08CD583D8775530D
-  logicalPath: config/sam_g5_xpld_pl460/stdio
+  logicalPath: config/sam_g55_xpld_pl460/stdio
   name: xc32_monitor.c
   physicalPath: stdio
   security: NON_SECURE
@@ -280,7 +280,7 @@ files:
   type: HEADER
   userChecksum: null
 - generatedChecksum: E9CACBE5EF46CAD93973FFB3ABF06E57
-  logicalPath: config/sam_g5_xpld_pl460/bsp
+  logicalPath: config/sam_g55_xpld_pl460/bsp
   name: bsp.h
   physicalPath: bsp
   security: NON_SECURE
@@ -371,7 +371,7 @@ files:
   type: HEADER
   userChecksum: 52F91AC0727F2311EDA0E3BAA7719A9F
 - generatedChecksum: D016C13049E4BA566EC723A5D8290F70
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: configuration.h
   physicalPath: ''
   security: NON_SECURE
@@ -399,89 +399,89 @@ files:
   type: HEADER
   userChecksum: 468146180FBA71A4DA27CDAE338241F1
 - generatedChecksum: FFEA816BC2ED52A86DCA5610172FDF35
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: definitions.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
   userChecksum: FFEA816BC2ED52A86DCA5610172FDF35
 - generatedChecksum: B2B6C8FA402EA332272FF5E6F01E48F9
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: device.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
   userChecksum: B2B6C8FA402EA332272FF5E6F01E48F9
 - generatedChecksum: 85D3482D395C59BDFF268B01940CDDDE
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: device_cache.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
   userChecksum: 85D3482D395C59BDFF268B01940CDDDE
 - generatedChecksum: EA925CE8B3495C7A3C783192B2D91E92
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: device_vectors.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
   userChecksum: EA925CE8B3495C7A3C783192B2D91E92
 - generatedChecksum: 1D2094DFA60F847FFD4E8153B6E78027
-  logicalPath: config/sam_g5_xpld_pl460/driver
+  logicalPath: config/sam_g55_xpld_pl460/driver
   name: driver.h
   physicalPath: driver
   security: NON_SECURE
   type: HEADER
   userChecksum: 1D2094DFA60F847FFD4E8153B6E78027
 - generatedChecksum: CC7DFCC51CD25171A3E400E18969354F
-  logicalPath: config/sam_g5_xpld_pl460/driver
+  logicalPath: config/sam_g55_xpld_pl460/driver
   name: driver_common.h
   physicalPath: driver
   security: NON_SECURE
   type: HEADER
   userChecksum: CC7DFCC51CD25171A3E400E18969354F
-- generatedChecksum: 3B5510069F2498B665E63856E6826E01
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/common
+- generatedChecksum: 3C3123B855949CE0B638ADC44FBACDE0
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/common
   name: drv_plc_boot.h
   physicalPath: driver/plc/common
   security: NON_SECURE
   type: HEADER
-  userChecksum: 3B5510069F2498B665E63856E6826E01
-- generatedChecksum: FDF1D94B219B4108B78CAF6CEE6D685C
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/common
+  userChecksum: 3C3123B855949CE0B638ADC44FBACDE0
+- generatedChecksum: 27CA6DAE89EA4CE2E724A74C12E5BD92
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/common
   name: drv_plc_hal.h
   physicalPath: driver/plc/common
   security: NON_SECURE
   type: HEADER
-  userChecksum: FDF1D94B219B4108B78CAF6CEE6D685C
-- generatedChecksum: DBD27D14DF062038566970827282052B
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/phy
+  userChecksum: 27CA6DAE89EA4CE2E724A74C12E5BD92
+- generatedChecksum: 36EE0941B15EDBA8A928BBEDEC4B6FFB
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy
   name: drv_plc_phy.h
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: HEADER
-  userChecksum: DBD27D14DF062038566970827282052B
-- generatedChecksum: EEAA27282D33F01A7EED8347E9AB0911
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/phy
+  userChecksum: 36EE0941B15EDBA8A928BBEDEC4B6FFB
+- generatedChecksum: 05096EBE0CBE7A23243307477F1F38BF
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy
   name: drv_plc_phy_comm.h
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: HEADER
-  userChecksum: EEAA27282D33F01A7EED8347E9AB0911
-- generatedChecksum: 8ED20BDC4A08564C2C886FBDCCAA37A4
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/phy
+  userChecksum: 05096EBE0CBE7A23243307477F1F38BF
+- generatedChecksum: 1AE416AEB8FE43743CCDD61FCE8493DB
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy
   name: drv_plc_phy_definitions.h
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: HEADER
-  userChecksum: 8ED20BDC4A08564C2C886FBDCCAA37A4
-- generatedChecksum: A12EDA86B1D2B85E5B04371E35C3CD6B
-  logicalPath: config/sam_g5_xpld_pl460/driver/plc/phy
+  userChecksum: 1AE416AEB8FE43743CCDD61FCE8493DB
+- generatedChecksum: 2CA692B7293FF943FCDE0903E90DA711
+  logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy
   name: drv_plc_phy_local.h
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: HEADER
-  userChecksum: A12EDA86B1D2B85E5B04371E35C3CD6B
+  userChecksum: 2CA692B7293FF943FCDE0903E90DA711
 - generatedChecksum: BAD9253DB73DB395A8C02668F100AF2D
   logicalPath: packs/ATSAMG55J19_DFP/component
   name: efc.h
@@ -609,7 +609,7 @@ files:
   type: HEADER
   userChecksum: 26130422D3A33B446D0CDCBE622D60D2
 - generatedChecksum: 73A91BEF3C1455096E39A11162A8FBDF
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: interrupts.h
   physicalPath: ''
   security: NON_SECURE
@@ -651,21 +651,21 @@ files:
   type: HEADER
   userChecksum: B96ADDA2C111E73B26EBA5E7B4498912
 - generatedChecksum: F0AD88762263B7CB89B02AB4F5876059
-  logicalPath: config/sam_g5_xpld_pl460/osal
+  logicalPath: config/sam_g55_xpld_pl460/osal
   name: osal.h
   physicalPath: osal
   security: NON_SECURE
   type: HEADER
   userChecksum: F0AD88762263B7CB89B02AB4F5876059
 - generatedChecksum: 0AC88C49E4585B606FD5AC6804F0C340
-  logicalPath: config/sam_g5_xpld_pl460/osal
+  logicalPath: config/sam_g55_xpld_pl460/osal
   name: osal_definitions.h
   physicalPath: osal
   security: NON_SECURE
   type: HEADER
   userChecksum: 0AC88C49E4585B606FD5AC6804F0C340
 - generatedChecksum: B040122CCA94A0636810D6F15F13B751
-  logicalPath: config/sam_g5_xpld_pl460/osal
+  logicalPath: config/sam_g55_xpld_pl460/osal
   name: osal_impl_basic.h
   physicalPath: osal
   security: NON_SECURE
@@ -721,84 +721,84 @@ files:
   type: HEADER
   userChecksum: D1A1EA1761A1DCDE04BA1557FCDCB97E
 - generatedChecksum: 78387EA60F98EE9F5602C2EB8CFEA8B3
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/clock
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/clock
   name: plib_clock.h
   physicalPath: peripheral/clock
   security: NON_SECURE
   type: HEADER
   userChecksum: 78387EA60F98EE9F5602C2EB8CFEA8B3
 - generatedChecksum: 95A89CFFC2B67EA718036EF9B8805872
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/cmcc
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/cmcc
   name: plib_cmcc.h
   physicalPath: peripheral/cmcc
   security: NON_SECURE
   type: HEADER
   userChecksum: 95A89CFFC2B67EA718036EF9B8805872
 - generatedChecksum: 0ABDA5C4051B45BB0C8746712B766240
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/efc
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/efc
   name: plib_efc.h
   physicalPath: peripheral/efc
   security: NON_SECURE
   type: HEADER
   userChecksum: 0ABDA5C4051B45BB0C8746712B766240
 - generatedChecksum: FD7FDE61A792FD3EAF584F756BD48F9F
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/flexcom/spi/master
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/flexcom/spi/master
   name: plib_flexcom5_spi_master.h
   physicalPath: peripheral/flexcom/spi/master
   security: NON_SECURE
   type: HEADER
   userChecksum: FD7FDE61A792FD3EAF584F756BD48F9F
 - generatedChecksum: FBA6AB9B5CA89E52770E16DDDC7FFF2D
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/flexcom/usart
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/flexcom/usart
   name: plib_flexcom7_usart.h
   physicalPath: peripheral/flexcom/usart
   security: NON_SECURE
   type: HEADER
   userChecksum: FBA6AB9B5CA89E52770E16DDDC7FFF2D
 - generatedChecksum: AC62AF09FDCFCCE807ED664CA81A2680
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/flexcom/spi/master
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/flexcom/spi/master
   name: plib_flexcom_spi_master_common.h
   physicalPath: peripheral/flexcom/spi/master
   security: NON_SECURE
   type: HEADER
   userChecksum: AC62AF09FDCFCCE807ED664CA81A2680
 - generatedChecksum: 301464123E30997D035056FEB1895A1A
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/flexcom/usart
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/flexcom/usart
   name: plib_flexcom_usart_local.h
   physicalPath: peripheral/flexcom/usart
   security: NON_SECURE
   type: HEADER
   userChecksum: 301464123E30997D035056FEB1895A1A
 - generatedChecksum: 55ECCC7FA71BD15B46EF80DC0515ED7A
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/nvic
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/nvic
   name: plib_nvic.h
   physicalPath: peripheral/nvic
   security: NON_SECURE
   type: HEADER
   userChecksum: 55ECCC7FA71BD15B46EF80DC0515ED7A
 - generatedChecksum: CA01EF37B34D96F6629796134DC29114
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/pio
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/pio
   name: plib_pio.h
   physicalPath: peripheral/pio
   security: NON_SECURE
   type: HEADER
   userChecksum: CA01EF37B34D96F6629796134DC29114
 - generatedChecksum: 5481A96AB4113BA97481FFF71C60AF23
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/tc
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/tc
   name: plib_tc0.h
   physicalPath: peripheral/tc
   security: NON_SECURE
   type: HEADER
   userChecksum: 5481A96AB4113BA97481FFF71C60AF23
 - generatedChecksum: DD7BED9EE772B5D86C4532A4FFCB2D3B
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/tc
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/tc
   name: plib_tc_common.h
   physicalPath: peripheral/tc
   security: NON_SECURE
   type: HEADER
   userChecksum: DD7BED9EE772B5D86C4532A4FFCB2D3B
 - generatedChecksum: 654C591FA885B5EF31788279ABFF6984
-  logicalPath: config/sam_g5_xpld_pl460/peripheral/wdt
+  logicalPath: config/sam_g55_xpld_pl460/peripheral/wdt
   name: plib_wdt.h
   physicalPath: peripheral/wdt
   security: NON_SECURE
@@ -938,7 +938,7 @@ files:
   type: HEADER
   userChecksum: 537C63D01CA9B8B80607902E1C0C67A1
 - generatedChecksum: 2D42722B9B5F896E396FEAED9238200E
-  logicalPath: config/sam_g5_xpld_pl460/service/pcoup
+  logicalPath: config/sam_g55_xpld_pl460/service/pcoup
   name: srv_pcoup.h
   physicalPath: service/pcoup
   security: NON_SECURE
@@ -959,91 +959,91 @@ files:
   type: HEADER
   userChecksum: 776D0F3B33550B6F4AC8013EDC575608
 - generatedChecksum: AFAAF7D896D57569CA4CF73BB3339481
-  logicalPath: config/sam_g5_xpld_pl460/system/cache
+  logicalPath: config/sam_g55_xpld_pl460/system/cache
   name: sys_cache.h
   physicalPath: system/cache
   security: NON_SECURE
   type: HEADER
   userChecksum: AFAAF7D896D57569CA4CF73BB3339481
 - generatedChecksum: 91CB36F6EC29DAA7C584282A875E5CBA
-  logicalPath: config/sam_g5_xpld_pl460/system/console
+  logicalPath: config/sam_g55_xpld_pl460/system/console
   name: sys_console.h
   physicalPath: system/console
   security: NON_SECURE
   type: HEADER
   userChecksum: 91CB36F6EC29DAA7C584282A875E5CBA
 - generatedChecksum: 6BB6C54C5CD963A5A940CF7BB28F4E10
-  logicalPath: config/sam_g5_xpld_pl460/system/debug
+  logicalPath: config/sam_g55_xpld_pl460/system/debug
   name: sys_debug.h
   physicalPath: system/debug
   security: NON_SECURE
   type: HEADER
   userChecksum: 6BB6C54C5CD963A5A940CF7BB28F4E10
 - generatedChecksum: 1329D2DEB6E5AC9515AD4D165C60DC74
-  logicalPath: config/sam_g5_xpld_pl460/system/int
+  logicalPath: config/sam_g55_xpld_pl460/system/int
   name: sys_int.h
   physicalPath: system/int
   security: NON_SECURE
   type: HEADER
   userChecksum: 1329D2DEB6E5AC9515AD4D165C60DC74
 - generatedChecksum: 00278F169FFB0CBBAB3A68B5D647F093
-  logicalPath: config/sam_g5_xpld_pl460/system/int
+  logicalPath: config/sam_g55_xpld_pl460/system/int
   name: sys_int_mapping.h
   physicalPath: system/int
   security: NON_SECURE
   type: HEADER
   userChecksum: 00278F169FFB0CBBAB3A68B5D647F093
 - generatedChecksum: 0BE57E23DA242E57ADE27F509ACDF659
-  logicalPath: config/sam_g5_xpld_pl460/system/ports
+  logicalPath: config/sam_g55_xpld_pl460/system/ports
   name: sys_ports.h
   physicalPath: system/ports
   security: NON_SECURE
   type: HEADER
   userChecksum: 0BE57E23DA242E57ADE27F509ACDF659
 - generatedChecksum: CAF280BE12C2D4F40321A45E88524D29
-  logicalPath: config/sam_g5_xpld_pl460/system/ports
+  logicalPath: config/sam_g55_xpld_pl460/system/ports
   name: sys_ports_mapping.h
   physicalPath: system/ports
   security: NON_SECURE
   type: HEADER
   userChecksum: CAF280BE12C2D4F40321A45E88524D29
 - generatedChecksum: 466D676839280C0E7FC2CC6F78BA6EE9
-  logicalPath: config/sam_g5_xpld_pl460/system/time
+  logicalPath: config/sam_g55_xpld_pl460/system/time
   name: sys_time.h
   physicalPath: system/time
   security: NON_SECURE
   type: HEADER
   userChecksum: 466D676839280C0E7FC2CC6F78BA6EE9
 - generatedChecksum: 125CB4EFA4E80BCD6041E8AC22F2E2FC
-  logicalPath: config/sam_g5_xpld_pl460/system/time
+  logicalPath: config/sam_g55_xpld_pl460/system/time
   name: sys_time_definitions.h
   physicalPath: system/time
   security: NON_SECURE
   type: HEADER
   userChecksum: 125CB4EFA4E80BCD6041E8AC22F2E2FC
 - generatedChecksum: 62F39464265EC34979649F761FB4FE57
-  logicalPath: config/sam_g5_xpld_pl460/system/time
+  logicalPath: config/sam_g55_xpld_pl460/system/time
   name: sys_time_local.h
   physicalPath: system/time/src
   security: NON_SECURE
   type: HEADER
   userChecksum: 62F39464265EC34979649F761FB4FE57
 - generatedChecksum: BE95B4F134C5C929787B9DA6FDBF3501
-  logicalPath: config/sam_g5_xpld_pl460/system
+  logicalPath: config/sam_g55_xpld_pl460/system
   name: system.h
   physicalPath: system
   security: NON_SECURE
   type: HEADER
   userChecksum: BE95B4F134C5C929787B9DA6FDBF3501
 - generatedChecksum: C3F5136D520DAC4416512EBFCCA023C3
-  logicalPath: config/sam_g5_xpld_pl460/system
+  logicalPath: config/sam_g55_xpld_pl460/system
   name: system_common.h
   physicalPath: system
   security: NON_SECURE
   type: HEADER
   userChecksum: C3F5136D520DAC4416512EBFCCA023C3
 - generatedChecksum: 1C75A8A6B60598A2FD0D533F57839B72
-  logicalPath: config/sam_g5_xpld_pl460/system
+  logicalPath: config/sam_g55_xpld_pl460/system
   name: system_module.h
   physicalPath: system
   security: NON_SECURE
@@ -1071,7 +1071,7 @@ files:
   type: HEADER
   userChecksum: 08740D1CEE89BD30D749028D3247E147
 - generatedChecksum: 3448B62FDF48416310C7CED2A0A37D1C
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: toolchain_specifics.h
   physicalPath: ''
   security: NON_SECURE
@@ -1232,7 +1232,7 @@ files:
   type: HEADER
   userChecksum: 255474B4F1E7AD7AF9DB59078CB4C5DA
 - generatedChecksum: null
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: user.h
   physicalPath: ''
   security: NON_SECURE
@@ -1253,7 +1253,7 @@ files:
   type: HEADER
   userChecksum: 17831FB47110836CCD0F9D9CF379216D
 - generatedChecksum: 978CBDCC85398D9B603FF6B4CADF9E6F
-  logicalPath: config/sam_g5_xpld_pl460
+  logicalPath: config/sam_g55_xpld_pl460
   name: ATSAMG55J19.ld
   physicalPath: ''
   security: NON_SECURE
@@ -1267,13 +1267,13 @@ settings:
   delimiter: ;
   key: extra-include-directories
   security: NON_SECURE
-  value: ../src;../src/config/sam_g5_xpld_pl460;../src/packs/ATSAMG55J19_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/
+  value: ../src;../src/config/sam_g55_xpld_pl460;../src/packs/ATSAMG55J19_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/
 - append: true
   category: C32-AS
   delimiter: ;
   key: extra-include-directories-for-assembler
   security: NON_SECURE
-  value: ../src/config/sam_g5_xpld_pl460/driver/plc/phy/bin
+  value: ../src/config/sam_g55_xpld_pl460/driver/plc/phy/bin
 - append: false
   category: C32-LD
   delimiter: ''
@@ -1297,7 +1297,7 @@ settings:
   delimiter: ;
   key: extra-include-directories
   security: NON_SECURE
-  value: ../src;../src/config/sam_g5_xpld_pl460;../src/packs/ATSAMG55J19_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/
+  value: ../src;../src/config/sam_g55_xpld_pl460;../src/packs/ATSAMG55J19_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/
 - append: false
   category: C32Global
   delimiter: ''

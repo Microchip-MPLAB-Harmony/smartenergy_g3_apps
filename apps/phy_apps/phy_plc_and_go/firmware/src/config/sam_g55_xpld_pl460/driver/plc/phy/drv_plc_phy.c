@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -101,7 +101,7 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize(
     gDrvPlcPhyObj.dataIndCallback       = 0;
     gDrvPlcPhyObj.exceptionCallback     = 0;
     gDrvPlcPhyObj.bootDataCallback      = 0;
-    gDrvPlcPhyObj.sleepDisableCallback     = 0;
+    gDrvPlcPhyObj.sleepDisableCallback  = 0;
 
     /* HAL init */
     gDrvPlcPhyObj.plcHal->init((DRV_PLC_PLIB_INTERFACE *)plcPhyInit->plcHal->plcPlib);
@@ -214,7 +214,7 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
 }
 
 void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
-{
+{   
     if (gDrvPlcPhyObj.status == SYS_STATUS_READY)
     {
         /* Run PLC communication task */
@@ -277,14 +277,14 @@ void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable )
                 /* Disable PLC interrupt */
                 gDrvPlcPhyObj.plcHal->enableExtInt(false);
                 /* Set Stand By pin */
-                gDrvPlcPhyObj.plcHal->standBy(true);
+                gDrvPlcPhyObj.plcHal->setStandBy(true);
                 /* Set Sleep flag */
                 gDrvPlcPhyObj.sleep = true;
             }
             else
             {
                 /* Clear Stand By pin */
-                gDrvPlcPhyObj.plcHal->standBy(false);
+                gDrvPlcPhyObj.plcHal->setStandBy(false);
                 
                 /* Restart from Sleep mode */
                 gDrvPlcPhyObj.status = SYS_STATUS_BUSY;

@@ -96,7 +96,7 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* PLC StandBy Pin */
     .stByPin = DRV_PLC_STBY_PIN,
-
+    
     /* PLC External Interrupt Pin */
     .thMonPin = DRV_PLC_THMON_PIN,
     
@@ -117,11 +117,14 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
     /* PLC transceiver reset */
     .reset = (DRV_PLC_HAL_RESET)DRV_PLC_HAL_Reset,
 
-    /* PLC low power management */
-    .standBy = (DRV_PLC_HAL_STBY)DRV_PLC_HAL_StandBy,    
-
+    /* PLC Set StandBy Mode */
+    .setStandBy = (DRV_PLC_HAL_SET_STBY)DRV_PLC_HAL_SetStandBy,
+    
+    /* PLC Get Thermal Monitor value */
+    .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,
+    
     /* PLC Carrier Detect Status */
-    .getCd = (DRV_PLC_HAL_GET_CD)DRV_PLC_HAL_GetCarrierDetect,
+    .getCarrierDetect = (DRV_PLC_HAL_GET_CD)DRV_PLC_HAL_GetCarrierDetect,
 
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
@@ -142,6 +145,8 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 /* PLC Binary file addressing */
 extern uint8_t plc_phy_bin_start;
 extern uint8_t plc_phy_bin_end;
+extern uint8_t plc_phy_bin2_start;
+extern uint8_t plc_phy_bin2_end;
 
 /* PLC Driver Initialization Data */
 DRV_PLC_PHY_INIT drvPlcPhyInitData = {
@@ -320,7 +325,6 @@ void SYS_Initialize ( void* data )
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
     /* Register Callback function to handle PLC interruption */
     PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
-
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 

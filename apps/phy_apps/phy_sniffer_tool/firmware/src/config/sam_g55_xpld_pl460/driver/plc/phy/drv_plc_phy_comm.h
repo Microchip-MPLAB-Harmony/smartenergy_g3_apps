@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -101,8 +101,10 @@
       
 /* Tone Map size for Cenelec(A,B) bandplan */
 #define TONE_MAP_SIZE_CENELEC                      1
-/* Tone Map size for FCC and ARIB bandplans */
+/* Tone Map size for FCC bandplan */
 #define TONE_MAP_SIZE_FCC                          3
+/* Tone Map size for ARIB bandplan */
+#define TONE_MAP_SIZE_ARIB                         3
 /* Maximum number of protocol carriers */
 #define PROTOCOL_CARRIERS_MAX                      NUM_CARRIERS_FCC
 /* Maximum number of tone map */
@@ -232,6 +234,8 @@ typedef enum {
   PLC_ID_IC_DRIVER_CFG,
   PLC_ID_RX_CHN_EST_REAL,
   PLC_ID_RX_CHN_EST_IMAG,
+  PLC_ID_TX_DISABLE,
+  PLC_ID_TX_HIGH_TEMP_120,
   PLC_ID_END_ID,
 } DRV_PLC_PHY_ID;
 
@@ -316,7 +320,7 @@ typedef enum {
   /* Transmission result: No transmission ongoing */
   DRV_PLC_PHY_TX_RESULT_NO_TX = 255,
 }DRV_PLC_PHY_TX_RESULT;
-
+ 
 // *****************************************************************************
 /* G3 Tone map response data
 

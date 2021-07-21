@@ -73,14 +73,6 @@ static const SRV_PLC_PCOUP srvPlcCoup = {
   SRV_PCOUP_PRED_HIGH_TBL, SRV_PCOUP_PRED_VLOW_TBL
 };
 
-static const SRV_PLC_PCOUP srvPlcCoupAux = {
-  SRV_PCOUP_AUX_RMS_HIGH_TBL, SRV_PCOUP_AUX_RMS_VLOW_TBL,
-  SRV_PCOUP_AUX_THRS_HIGH_TBL, SRV_PCOUP_AUX_THRS_VLOW_TBL,
-  SRV_PCOUP_AUX_DACC_TBL, 
-  SRV_PCOUP_AUX_GAIN_HIGH_TBL, SRV_PCOUP_AUX_GAIN_VLOW_TBL,
-  SRV_PCOUP_AUX_MAX_NUM_TX_LEVELS, SRV_PCOUP_EQU_NUM_COEF << 1, SRV_PCOUP_AUX_LINE_DRV_CONF,
-  SRV_PCOUP_AUX_PRED_HIGH_TBL, SRV_PCOUP_AUX_PRED_VLOW_TBL
-};
 
 // *****************************************************************************
 // *****************************************************************************
@@ -95,7 +87,8 @@ SRV_PLC_PCOUP * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch)
   } 
   else 
   {
-    return (SRV_PLC_PCOUP *)&srvPlcCoupAux;
+    /* Auxiliary Branch has not been configured. Please review project configuration with MHC */
+    return SYS_STATUS_UNINITIALIZED;
   }
 }
 
@@ -108,10 +101,10 @@ uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch)
 {
   if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
   {
-    return G3_FCC;
+    return G3_CEN_A;
   } 
   else 
   {
-    return G3_CEN_A;
+    return G3_INVALID;
   }
 }

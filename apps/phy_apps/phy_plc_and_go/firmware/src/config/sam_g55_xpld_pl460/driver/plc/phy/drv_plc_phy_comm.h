@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -234,6 +234,8 @@ typedef enum {
   PLC_ID_IC_DRIVER_CFG,
   PLC_ID_RX_CHN_EST_REAL,
   PLC_ID_RX_CHN_EST_IMAG,
+  PLC_ID_TX_DISABLE,
+  PLC_ID_TX_HIGH_TEMP_120,
   PLC_ID_END_ID,
 } DRV_PLC_PHY_ID;
 
@@ -315,10 +317,14 @@ typedef enum {
   DRV_PLC_PHY_TX_RESULT_INV_MODTYPE = 9,
   /* Transmission result: invalid delimiter type error */
   DRV_PLC_PHY_TX_RESULT_INV_DT = 10,
+  /* Transmission result: high temperature error */
+  DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_ERR = 11,
+  /* Transmission result: high temperature warning */
+  DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_WARN = 12,
   /* Transmission result: No transmission ongoing */
   DRV_PLC_PHY_TX_RESULT_NO_TX = 255,
 }DRV_PLC_PHY_TX_RESULT;
-
+ 
 // *****************************************************************************
 /* G3 Tone map response data
 

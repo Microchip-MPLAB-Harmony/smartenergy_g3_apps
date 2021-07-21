@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -190,11 +190,6 @@ typedef struct
     /* PLC Carrier Detect pin */
     SYS_PORT_PIN                           cdPin;
 
-    /* PLC StandBy Pin */
-    SYS_PORT_PIN                           stByPin;
-
-    /* PLC Thermal Monitor pin */
-    SYS_PORT_PIN                           thMonPin;
 
 } DRV_PLC_PLIB_INTERFACE;
 
@@ -205,8 +200,6 @@ typedef void (* DRV_PLC_HAL_INIT)(DRV_PLC_PLIB_INTERFACE*);
 typedef void (* DRV_PLC_HAL_SETUP)(bool);
 
 typedef void (* DRV_PLC_HAL_RESET)(void);
-
-typedef void (* DRV_PLC_HAL_STBY)(bool);
 
 typedef bool (* DRV_PLC_HAL_GET_CD)(void);
 
@@ -246,11 +239,8 @@ typedef struct
     /* PLC HAL reset device */
     DRV_PLC_HAL_RESET                        reset;
 
-    /* PLC low power management */
-    DRV_PLC_HAL_STBY                         standBy;
-
     /* PLC HAL Get Carrier Detect or PLC Line Status */
-    DRV_PLC_HAL_GET_CD                       getCd;
+    DRV_PLC_HAL_GET_CD                       getCarrierDetect;
 
     /* PLC HAL Enable/Disable external interrupt */
     DRV_PLC_HAL_ENABLE_EXT_INT               enableExtInt;
@@ -314,7 +304,6 @@ typedef struct
 
 void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib);
 void DRV_PLC_HAL_Reset(void);
-void DRV_PLC_HAL_StandBy(bool enable);
 void DRV_PLC_HAL_Setup(bool set16Bits);
 bool DRV_PLC_HAL_GetCarrierDetect(void);
 void DRV_PLC_HAL_EnableInterrupts(bool enable);

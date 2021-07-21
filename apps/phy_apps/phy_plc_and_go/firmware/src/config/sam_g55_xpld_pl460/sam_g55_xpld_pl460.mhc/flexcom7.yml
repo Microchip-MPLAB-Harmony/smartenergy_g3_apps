@@ -40,7 +40,7 @@ children:
       - type: String
         attributes: {id: project}
         children:
-        - {type: Value, value: config/sam_g5_xpld_pl460/peripheral/flexcom/usart/}
+        - {type: Value, value: config/sam_g55_xpld_pl460/peripheral/flexcom/usart/}
       - type: String
         attributes: {id: source}
         children:
@@ -73,7 +73,7 @@ children:
       - type: String
         attributes: {id: project}
         children:
-        - {type: Value, value: config/sam_g5_xpld_pl460/peripheral/flexcom/usart/}
+        - {type: Value, value: config/sam_g55_xpld_pl460/peripheral/flexcom/usart/}
       - type: String
         attributes: {id: source}
         children:
@@ -106,7 +106,7 @@ children:
       - type: String
         attributes: {id: project}
         children:
-        - {type: Value, value: config/sam_g5_xpld_pl460/peripheral/flexcom/usart/}
+        - {type: Value, value: config/sam_g55_xpld_pl460/peripheral/flexcom/usart/}
       - type: String
         attributes: {id: source}
         children:

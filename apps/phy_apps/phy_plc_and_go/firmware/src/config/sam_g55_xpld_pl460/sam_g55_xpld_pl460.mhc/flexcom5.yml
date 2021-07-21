@@ -28,7 +28,7 @@ children:
       - type: String
         attributes: {id: project}
         children:
-        - {type: Value, value: config/sam_g5_xpld_pl460/peripheral/flexcom/spi/master/}
+        - {type: Value, value: config/sam_g55_xpld_pl460/peripheral/flexcom/spi/master/}
       - type: String
         attributes: {id: source}
         children:
@@ -61,7 +61,7 @@ children:
       - type: String
         attributes: {id: project}
         children:
-        - {type: Value, value: config/sam_g5_xpld_pl460/peripheral/flexcom/spi/master/}
+        - {type: Value, value: config/sam_g55_xpld_pl460/peripheral/flexcom/spi/master/}
       - type: String
         attributes: {id: source}
         children:
@@ -94,7 +94,7 @@ children:
       - type: String
         attributes: {id: project}
         children:
-        - {type: Value, value: config/sam_g5_xpld_pl460/peripheral/flexcom/spi/master/}
+        - {type: Value, value: config/sam_g55_xpld_pl460/peripheral/flexcom/spi/master/}
       - type: String
         attributes: {id: source}
         children:

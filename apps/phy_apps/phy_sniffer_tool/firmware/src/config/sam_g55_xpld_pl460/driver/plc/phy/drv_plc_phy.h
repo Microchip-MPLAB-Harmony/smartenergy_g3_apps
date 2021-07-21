@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -211,10 +211,6 @@ typedef enum
       necessary to identify the client context or instance (such as a pointer to
       the client's data) of the client that made the transfer add request.
 
-    - The event handler function executes in task context of the peripheral.
-      Hence it is recommended of the application to not perform process
-      intensive or blocking operations with in this function.
-
 */
 
 typedef void ( *DRV_PLC_PHY_DATA_CFM_CALLBACK )( DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t context );
@@ -269,10 +265,6 @@ typedef void ( *DRV_PLC_PHY_DATA_CFM_CALLBACK )( DRV_PLC_PHY_TRANSMISSION_CFM_OB
       passed back to the client as the "context" parameter.  It can be any value
       necessary to identify the client context or instance (such as a pointer to
       the client's data) of the client that made the transfer add request.
-
-    - The event handler function executes in task context of the peripheral.
-      Hence it is recommended of the application to not perform process
-      intensive or blocking operations with in this function.
 
 */
 
@@ -344,10 +336,6 @@ typedef void ( *DRV_PLC_PHY_DATA_IND_CALLBACK )( DRV_PLC_PHY_RECEPTION_OBJ *indO
       passed back to the client as the "context" parameter.  It can be any value
       necessary to identify the client context or instance (such as a pointer to
       the client's data) of the client that made the transfer add request.
-
-    - The event handler function executes during the last SPI transaction of the 
-      peripheral. Hence it is recommended of the application to not perform process
-      intensive or blocking operations with in this function.
 
 */
 

@@ -281,47 +281,6 @@ static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_
     /* Update App flags */
     appPlc.waitingTxCfm = false;
     appPlc.lastTxResult = cfmObj->result;
-
-    /* Handle result of transmission : Show it through Console */
-    switch(cfmObj->result)
-    {
-        case DRV_PLC_PHY_TX_RESULT_PROCESS:
-            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_PROCESS\r\n");
-            break;
-        case DRV_PLC_PHY_TX_RESULT_SUCCESS:
-            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_SUCCESS\r\n");
-            break;
-        case DRV_PLC_PHY_TX_RESULT_INV_LENGTH:
-            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_INV_LENGTH\r\n");
-            break;
-        case DRV_PLC_PHY_TX_RESULT_BUSY_CH:
-            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_BUSY_CH\r\n");
-            break;
-        case DRV_PLC_PHY_TX_RESULT_BUSY_TX:
-            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_BUSY_TX\r\n");
-            break;
-        case DRV_PLC_PHY_TX_RESULT_BUSY_RX:
-            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_BUSY_RX\r\n");
-            break;
-        case DRV_PLC_PHY_TX_RESULT_INV_SCHEME:
-            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_INV_SCHEME\r\n");
-            break;
-        case DRV_PLC_PHY_TX_RESULT_TIMEOUT:
-            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_TIMEOUT\r\n");
-            break;
-        case DRV_PLC_PHY_TX_RESULT_INV_TONEMAP:
-            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_INV_TONEMAP\r\n");
-            break;
-        case DRV_PLC_PHY_TX_RESULT_INV_MODTYPE:
-            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_INV_MODTYPE\r\n");
-            break;
-        case DRV_PLC_PHY_TX_RESULT_INV_DT:
-            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_INV_DT\r\n");
-            break;
-        case DRV_PLC_PHY_TX_RESULT_NO_TX:
-            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_NO_TX\r\n");
-            break;
-    }
 }
 
 static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context )

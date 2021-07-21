@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -147,6 +147,9 @@ typedef struct
     /* Secure mode */
     bool                            secure;
 
+    /* Sleep mode */
+    bool                            sleep;
+
     /* Application Data Confirm Callback */
     DRV_PLC_PHY_DATA_CFM_CALLBACK   dataCfmCallback;
 
@@ -155,6 +158,9 @@ typedef struct
 
     /* Application Exception Callback */
     DRV_PLC_PHY_EXCEPTION_CALLBACK  exceptionCallback;
+
+    /* Application Exception Callback */
+    DRV_PLC_PHY_SLEEP_CALLBACK      sleepDisableCallback;
 
     /* Application Bootloader Data Callback */
     DRV_PLC_BOOT_DATA_CALLBACK      bootDataCallback;
@@ -167,6 +173,9 @@ typedef struct
 
     /* Application context for Exception Callback */
     uintptr_t                       contextExc;
+
+    /* Application context for Sleep Mode Callback */
+    uintptr_t                       contextSleep;
 
     /* Application context for Bootloader Dara Callback */
     uintptr_t                       contextBoot;

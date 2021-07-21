@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -211,8 +211,8 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
     }
 }
 
-void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ hSysObj )
-{
+void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
+{   
     if (gDrvPlcPhyObj.status == SYS_STATUS_READY)
     {
         /* Run PLC communication task */
@@ -245,4 +245,5 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ hSysObj )
         /* SYS_STATUS_ERROR: Nothing to do */
     }
 }
+
 

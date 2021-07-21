@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -89,9 +89,6 @@ void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
 {
     sPlcPlib = plcPlib;   
     
-    /* Clear StandBy pin */
-    SYS_PORT_PinClear(sPlcPlib->stByPin);
-    
     /* Disable External Pin Interrupt */
     PIO_PinInterruptDisable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
     /* Enable External Interrupt Source */
@@ -139,7 +136,7 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
     /* CS rises if there is no more data to transfer */
     sPlcPlib->spiCSR[chipSelect] &= ~SPI_CSR_CSAAT_Msk;
     sPlcPlib->spiCSR[chipSelect] &= ~SPI_CSR_CSNAAT_Msk;
-    
+
 }
 
 void DRV_PLC_HAL_Reset(void)
@@ -161,29 +158,6 @@ void DRV_PLC_HAL_Reset(void)
 
     /* Wait to PLC startup (1000us) */
     DRV_PLC_HAL_Delay(1000);
-}
-
-void DRV_PLC_HAL_StandBy(bool enable)
-{
-    if (enable) {
-        /* Enable Reset Pin */
-        SYS_PORT_PinClear(sPlcPlib->resetPin);
-
-        /* Enable Stby Pin */
-        SYS_PORT_PinSet(sPlcPlib->stByPin);
-    } else {
-        /* Disable Stby Pin */
-        SYS_PORT_PinClear(sPlcPlib->stByPin);
-
-        /* Wait to stby deactivation (100us) */
-        DRV_PLC_HAL_Delay(100);
-
-        /* Disable Reset pin */
-        SYS_PORT_PinSet(sPlcPlib->resetPin);
-
-        /* Wait to PLC startup (700us) */
-        DRV_PLC_HAL_Delay(700);
-    }
 }
 
 bool DRV_PLC_HAL_GetCarrierDetect(void)
@@ -250,7 +224,7 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
 
     /* Get length of transaction in bytes */
     size = pTxData - sTxSpiData;
-       
+
     if (DATA_CACHE_IS_ENABLED())
     {
         /* Invalidate cache lines having received buffer before using it
@@ -259,6 +233,7 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
         DCACHE_INVALIDATE_BY_ADDR((uint32_t *)sRxSpiData, HAL_SPI_BUFFER_SIZE);
     }
 
+   
     SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelRx, (const void *)sPlcPlib->spiAddressRx, (const void *)sRxSpiData, size);
     SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelTx, (const void *)sTxSpiData, (const void *)sPlcPlib->spiAddressTx, size);
 
@@ -323,7 +298,7 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
         DCACHE_CLEAN_BY_ADDR((uint32_t *)sTxSpiData, HAL_SPI_BUFFER_SIZE);
         DCACHE_INVALIDATE_BY_ADDR((uint32_t *)sRxSpiData, HAL_SPI_BUFFER_SIZE);
     }
-
+   
     SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelRx, (const void *)sPlcPlib->spiAddressRx, (const void *)sRxSpiData, cmdSize >> 1);
     SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelTx, (const void *)sTxSpiData, (const void *)sPlcPlib->spiAddressTx, cmdSize >> 1);
 

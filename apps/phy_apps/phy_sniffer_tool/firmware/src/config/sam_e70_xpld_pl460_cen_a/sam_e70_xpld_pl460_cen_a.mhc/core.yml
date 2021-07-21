@@ -1037,6 +1037,13 @@ children:
       children:
       - type: Dynamic
         attributes: {id: usart1, value: 'true'}
+  - type: Integer
+    attributes: {id: USART1_CLOCK_FREQUENCY}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: '150000000'}
   - type: Boolean
     attributes: {id: USART1_INTERRUPT_ENABLE}
     children:

@@ -92,7 +92,7 @@ void FLEXCOM7_USART_Initialize( void )
     USART7_REGS->US_MR = ((US_MR_USCLKS_MCK) | US_MR_CHRL_8_BIT | US_MR_PAR_NO | US_MR_NBSTOP_1_BIT | (0 << US_MR_OVER_Pos));
 
     /* Configure FLEXCOM7 USART Baud Rate */
-    USART7_REGS->US_BRGR = US_BRGR_CD(27);
+    USART7_REGS->US_BRGR = US_BRGR_CD(54);
 
     flexcom7UsartObj.rdCallback = NULL;
     flexcom7UsartObj.rdInIndex = 0;

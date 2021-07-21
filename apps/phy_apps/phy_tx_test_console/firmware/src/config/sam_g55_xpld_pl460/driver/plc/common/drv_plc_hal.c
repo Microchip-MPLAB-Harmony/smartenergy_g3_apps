@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -91,7 +91,7 @@ void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
     
     /* Clear StandBy pin */
     SYS_PORT_PinClear(sPlcPlib->stByPin);
-    
+
     /* Disable External Pin Interrupt */
     PIO_PinInterruptDisable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
     /* Enable External Interrupt Source */
@@ -119,7 +119,6 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
     spiPlibSetup.clockPolarity = DRV_PLC_SPI_CLOCK_POLARITY_IDLE_LOW;    
     sPlcPlib->spiPlibTransferSetup((uintptr_t)&spiPlibSetup, 0);
     
-    
 }
 
 void DRV_PLC_HAL_Reset(void)
@@ -143,27 +142,26 @@ void DRV_PLC_HAL_Reset(void)
     DRV_PLC_HAL_Delay(1000);
 }
 
-void DRV_PLC_HAL_StandBy(bool enable)
+void DRV_PLC_HAL_SetStandBy(bool enable)
 {
     if (enable) {
-        /* Enable Reset Pin */
-        SYS_PORT_PinClear(sPlcPlib->resetPin);
-
         /* Enable Stby Pin */
         SYS_PORT_PinSet(sPlcPlib->stByPin);
     } else {
         /* Disable Stby Pin */
         SYS_PORT_PinClear(sPlcPlib->stByPin);
 
-        /* Wait to stby deactivation (100us) */
-        DRV_PLC_HAL_Delay(100);
-
         /* Disable Reset pin */
         SYS_PORT_PinSet(sPlcPlib->resetPin);
-
+        
         /* Wait to PLC startup (700us) */
         DRV_PLC_HAL_Delay(700);
     }
+}
+
+bool DRV_PLC_HAL_GetThermalMonitor(void)
+{
+    return SYS_PORT_PinRead(sPlcPlib->thMonPin);
 }
 
 bool DRV_PLC_HAL_GetCarrierDetect(void)

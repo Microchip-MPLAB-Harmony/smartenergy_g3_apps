@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -211,10 +211,6 @@ typedef enum
       necessary to identify the client context or instance (such as a pointer to
       the client's data) of the client that made the transfer add request.
 
-    - The event handler function executes in task context of the peripheral.
-      Hence it is recommended of the application to not perform process
-      intensive or blocking operations with in this function.
-
 */
 
 typedef void ( *DRV_PLC_PHY_DATA_CFM_CALLBACK )( DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t context );
@@ -269,10 +265,6 @@ typedef void ( *DRV_PLC_PHY_DATA_CFM_CALLBACK )( DRV_PLC_PHY_TRANSMISSION_CFM_OB
       passed back to the client as the "context" parameter.  It can be any value
       necessary to identify the client context or instance (such as a pointer to
       the client's data) of the client that made the transfer add request.
-
-    - The event handler function executes in task context of the peripheral.
-      Hence it is recommended of the application to not perform process
-      intensive or blocking operations with in this function.
 
 */
 
@@ -345,13 +337,56 @@ typedef void ( *DRV_PLC_PHY_DATA_IND_CALLBACK )( DRV_PLC_PHY_RECEPTION_OBJ *indO
       necessary to identify the client context or instance (such as a pointer to
       the client's data) of the client that made the transfer add request.
 
-    - The event handler function executes during the last SPI transaction of the 
-      peripheral. Hence it is recommended of the application to not perform process
-      intensive or blocking operations with in this function.
-
 */
 
 typedef void ( *DRV_PLC_PHY_EXCEPTION_CALLBACK )( DRV_PLC_PHY_EXCEPTION exception, uintptr_t context );
+
+// *****************************************************************************
+/* PLC Driver Sleep Mode Disable Event Handler Function Pointer
+
+   Summary
+    Notifies when SLeep Mode is disabled and PLC driver is able to be used again.
+
+   Description
+    This data type defines the required function signature for the PLC driver
+    sleep mode disable event handling callback function. A client must register 
+	a pointer using the callback register function whose function signature 
+	(parameter and return value types) match the types specified by this function 
+	pointer in order to receive transfer related event calls back from the driver.
+
+    The parameters and return values are described here and a partial example
+    implementation is provided.
+
+  Parameters:
+    context -           Value identifying the context of the application that
+                        registered the event handling function.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    void APP_MySleepDisableEventHandler( uintptr_t context )
+    {
+        MY_APP_DATA_STRUCT appData = (MY_APP_DATA_STRUCT) context;
+
+        // Do initial configuration of the application if needed
+		
+        appData.plc_sleep = false;
+    }
+    </code>
+
+  Remarks:
+    - The context parameter contains the a handle to the client context,
+      provided at the time the event handling function was registered using the
+      DRV_PLC_PHY_SleepDisableCallbackRegister function.  This context handle value is
+      passed back to the client as the "context" parameter.  It can be any value
+      necessary to identify the client context or instance (such as a pointer to
+      the client's data) of the client that made the transfer add request.
+
+*/
+
+typedef void ( *DRV_PLC_PHY_SLEEP_CALLBACK )( uintptr_t context );
 
 // *****************************************************************************
 // *****************************************************************************
@@ -902,6 +937,77 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
 
 // *****************************************************************************
 /* Function:
+	void DRV_PLC_PHY_SleepDisableCallbackRegister( 
+	    const DRV_HANDLE handle, 
+	    const DRV_PLC_PHY_SLEEP_CALLBACK callback, 
+	    const uintptr_t context 
+    );
+
+  Summary:
+    Allows a client to identify an sleep mode disable event handling function 
+	for the driver to call back when the PLC driver is active again.
+
+  Description:
+    This function allows a client to register a PLC sleep mode disable event handling 
+    function with the driver to call back when sleep mode is disabled and PLC driver 
+	has been restarted.
+
+    The event handler should be set before the client submits any transmission
+    requests that could generate events. The callback once set, persists
+    until the client closes the driver or sets another callback (which
+    could be a "NULL" pointer to indicate no callback).
+
+  Precondition:
+    DRV_PLC_PHY_Open must have been called to obtain a valid opened device handle.
+
+  Parameters:
+    handle - A valid open-instance handle, returned from the driver's open routine.
+
+    callback - Pointer to the callback function.
+
+    context - The value of parameter will be passed back to the client unchanged, 
+    when the callback function is called.  It can be used to identify any client 
+    specific data object that identifies the instance of the client module (for example, 
+    it may be a pointer to the client module's state structure).
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+
+    void APP_PLC_SleepModeDisableCb( uintptr_t context )
+    {
+        // The context handle was set to an application specific
+        // object. It is now retrievable easily in the event handler.
+        MY_APP_OBJ myAppObj = (MY_APP_OBJ *) context;
+
+        // Sleep Disable handling here.
+
+    }
+      
+    // myAppObj is an application specific state data object.
+    MY_APP_OBJ myAppObj;
+
+    // myHandle is the handle returned from DRV_PLC_PHY_Open API.
+
+    // Client registers a data confirm callback with driver. This is done once
+
+    DRV_PLC_PHY_SleepDisableCallbackRegister( myHandle, APP_PLC_SleepModeDisableCb, (uintptr_t)&myAppObj );
+
+    // Event is received when PLC device comes out of sleep mode and becomes active again.
+    </code>
+
+*/
+
+void DRV_PLC_PHY_SleepDisableCallbackRegister( 
+    const DRV_HANDLE handle, 
+    const DRV_PLC_PHY_SLEEP_CALLBACK callback, 
+    const uintptr_t context 
+);
+
+// *****************************************************************************
+/* Function:
     void DRV_PLC_PHY_ExternalInterruptHandler( 
         const PIO_PIN pin, 
         const uintptr_t context 
@@ -1016,6 +1122,48 @@ SYS_STATUS DRV_PLC_PHY_Status( const SYS_MODULE_INDEX index );
   ***************************************************************************/
 
 void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object );
+
+/***************************************************************************
+  Function:
+       void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable )
+    
+  Summary:
+    PLC Sleep mode management.
+
+  Description:
+    This function disables PLC interrupts before going to sleep, and will leave
+    them disabled upon return. If there are any PLC transmission in progress, 
+    sleep mode will be enabled after the notification of the TX confirmation.
+
+  Precondition:
+    The DRV_PLC_PHY_Initialize routine must have been called for the
+    specified PLC driver instance.
+
+  Parameters:
+    - object -  Object handle for the specified driver instance (returned from
+                DRV_PLC_PHY_Initialize)
+    - enable -  Set True to enter in sleep mode. Set False to exit from sleep mode.
+  Returns:
+    None.
+  Example:
+    <code>
+    SYS_MODULE_OBJ      object;     // Returned from DRV_PLC_PHY_Initialize
+    
+    while (true)
+    {
+      if (sleep_condition)
+      {
+        DRV_PLC_PHY_Sleep (object, true);
+      }
+    }
+    </code>
+
+  Remarks:
+    - This function will never block or access any resources that may cause
+      it to block.                        
+  ***************************************************************************/
+
+void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable );
 
 #ifdef __cplusplus
 }

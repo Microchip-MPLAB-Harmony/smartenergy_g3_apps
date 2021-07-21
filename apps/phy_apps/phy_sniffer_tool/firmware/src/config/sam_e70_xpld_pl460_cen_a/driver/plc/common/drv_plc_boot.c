@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -392,9 +392,9 @@ void DRV_PLC_BOOT_Tasks( void )
     }
 }
 
-void DRV_PLC_BOOT_Restart(bool update)
+void DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_MODE mode)
 {
-    if (!update)
+    if (mode == DRV_PLC_BOOT_RESTART_SOFT)
     {
         /* Configure 8 bits transfer */
         sDrvPlcHalObj->setup(false);
@@ -408,7 +408,7 @@ void DRV_PLC_BOOT_Restart(bool update)
         /* Wait to PLC startup (2ms) */
         sDrvPlcHalObj->delay(2000);
     }
-    else
+    else if (mode == DRV_PLC_BOOT_RESTART_HARD)
     {
         /* Restore initial boot parameters */
         sDrvPlcBootInfo.pendingLength = sDrvPlcBootInfo.binSize;
@@ -421,5 +421,12 @@ void DRV_PLC_BOOT_Restart(bool update)
         sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_PROCESING;
         
         _DRV_PLC_BOOT_FirmwareUploadTask();
+    }
+    else if (mode == DRV_PLC_BOOT_RESTART_SLEEP)
+    {
+        /* Enable Boot Command Mode */
+        _DRV_PLC_BOOT_EnableBootCmd();
+        _DRV_PLC_BOOT_DisableBootCmd();
+        sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_VALIDATING;
     }
 }

@@ -58,6 +58,7 @@
 #include "peripheral/tc/plib_tc0.h"
 #include "bsp/bsp.h"
 #include "service/usi/srv_usi.h"
+#include "service/usi/srv_usi_usart.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
@@ -195,13 +196,9 @@ Remarks:
 
 typedef struct
 {
-    /* PLC PHY Driver Object */
     SYS_MODULE_OBJ drvPlcPhy;
-
     SYS_MODULE_OBJ  sysTime;
-    /* USI0 Service Object */
     SYS_MODULE_OBJ srvUSI0;
-
 
 } SYSTEM_OBJECTS;
 

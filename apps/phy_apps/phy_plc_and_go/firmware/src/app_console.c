@@ -651,7 +651,7 @@ void APP_CONSOLE_Tasks ( void )
         {
             if (appPlc.waitingTxCfm == false)
             {
-                APP_CONSOLE_Print("Tx (%u bytes): ", appConsole.dataLength);
+                APP_CONSOLE_Print("\r\nTx (%u bytes): ", appConsole.dataLength);
                 switch(appPlc.lastTxResult)
                 {
                     case DRV_PLC_PHY_TX_RESULT_PROCESS:
@@ -686,6 +686,12 @@ void APP_CONSOLE_Tasks ( void )
                         break;
                     case DRV_PLC_PHY_TX_RESULT_INV_DT:
                         APP_CONSOLE_Print("  TX_RESULT_INV_DT\r\n");
+                        break;
+                    case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_ERR:
+                        APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_ERR\r\n");
+                        break;
+                    case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_WARN:
+                        APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_WARN\r\n");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_NO_TX:
                         APP_CONSOLE_Print("  TX_RESULT_NO_TX\r\n");

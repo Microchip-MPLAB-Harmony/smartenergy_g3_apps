@@ -4,6 +4,13 @@ attributes: {id: srv_pcoup}
 children:
 - type: Symbols
   children:
+  - type: Combo
+    attributes: {id: SRV_PCOUP_AUX_G3_BAND}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: None}
   - type: Integer
     attributes: {id: SRV_PCOUP_GAIN_HIGH_0}
     children:
@@ -53,6 +60,13 @@ children:
       children:
       - type: Dynamic
         attributes: {id: srv_pcoup, value: '5'}
+  - type: Combo
+    attributes: {id: SRV_PCOUP_MAIN_G3_BAND}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: CEN-A}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_HIGH_0}
     children:

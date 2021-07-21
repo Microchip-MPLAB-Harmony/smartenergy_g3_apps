@@ -19,7 +19,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -42,8 +42,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef SRV_USART_USI_H    // Guards against multiple inclusion
-#define SRV_USART_USI_H
+#ifndef SRV_USI_USART_H    // Guards against multiple inclusion
+#define SRV_USI_USART_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -94,29 +94,39 @@ typedef enum
     USI_USART_ESC
 } USI_USART_STATE;
 
+typedef void (* PLIB_CALLBACK)( uintptr_t context );
+
+typedef void(* USI_USART_PLIB_READ_CALLBACK_REG)(PLIB_CALLBACK callback, uintptr_t context);
+typedef bool(* USI_USART_PLIB_WRRD)(void *buffer, const size_t size);
+typedef bool(* USI_USART_PLIB_WRITE_ISBUSY)(void);
+
+typedef struct
+{
+    USI_USART_PLIB_READ_CALLBACK_REG readCallbackRegister;
+    USI_USART_PLIB_WRRD read;
+    USI_USART_PLIB_WRRD write;
+    USI_USART_PLIB_WRITE_ISBUSY writeIsBusy;
+} SRV_USI_USART_INTERFACE;
+
 typedef struct
 {
     void*                                    plib;
     void*                                    pRdBuffer;
-    void*                                    pWrBuffer;
     size_t                                   rdBufferSize;
-    size_t                                   wrBufferSize;
-} USI_USART_INIT; 
+} USI_USART_INIT_DATA; 
 
 typedef struct
 {
     SRV_USI_USART_INTERFACE*                 plib;
     USI_USART_CALLBACK                       cbFunc;
-    void*                                    pWrBuffer;
     void*                                    pRdBuffer;
-    size_t                                   wrBufferSize;
     size_t                                   rdBufferSize;
-    size_t                                   writeLength;
     size_t                                   byteCount;
     uint8_t                                  rcvChar;
     USI_USART_MSG*                           pRcvMsg;
     USI_USART_MSG_QUEUE*                     pMsgQueue;
-    USI_USART_STATE                          status;
+    USI_USART_STATE                          devStatus;
+    SRV_USI_STATUS                           usiStatus;
     uintptr_t                                context;
 } USI_USART_OBJ;
         
@@ -126,16 +136,20 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 
-DRV_HANDLE USI_USART_Initialize(const USI_USART_INIT* const init);
+DRV_HANDLE USI_USART_Initialize(uint32_t index, const void* initData);
 
-void USI_USART_Tasks (SYS_MODULE_OBJ object);
+DRV_HANDLE USI_USART_Open(uint32_t index);
 
-size_t USI_USART_Write(DRV_HANDLE handle, size_t length);
+void USI_USART_Tasks (uint32_t index);
 
-void USI_USART_RegisterCallback(DRV_HANDLE handle, USI_USART_CALLBACK cbFunc, uintptr_t context);
+size_t USI_USART_Write(uint32_t index, void* pData, size_t length);
 
-void USI_USART_Flush(DRV_HANDLE handle);
+void USI_USART_RegisterCallback(uint32_t index, USI_USART_CALLBACK cbFunc, uintptr_t context);
 
-void USI_USART_Close(DRV_HANDLE handle);
+void USI_USART_Flush(uint32_t index);
 
-#endif //SRV_USART_USI_H
+void USI_USART_Close(uint32_t index);
+
+SRV_USI_STATUS USI_USART_Status(uint32_t index);
+
+#endif //SRV_USI_USART_H
