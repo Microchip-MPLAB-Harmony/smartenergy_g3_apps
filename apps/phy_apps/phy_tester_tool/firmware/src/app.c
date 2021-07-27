@@ -274,8 +274,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
         nextCmpMode = SRV_PVDDMON_CMP_MODE_OUT;
     }
     
-    SRV_PPVDDMON_Start(appData.pvddMonADCChannel, nextCmpMode, 
-            appData.pvddMonHighThreshold, appData.pvddMonLowThreshold);
+    SRV_PPVDDMON_Restart(nextCmpMode);
     
 }
 
@@ -400,18 +399,7 @@ void APP_Initialize(void)
     appData.plcPIB.pData = appData.pPLCDataPIB;
     
     /* Set PVDD Monitor tracking data */
-    appData.pvddMonADCChannel = ADC_CH0;
     appData.pvddMonTxEnable = true;
-    /* According to the value of Supply Monitor circuit: */
-    /* PVdd = 12V, Rup = 43K, Rdown = 10K */
-    /* High Threshold = 13V * Rdown / (Rup + Rdown) = 13 * 10 / (10 + 43.2) */
-    /* High Threshold = 2.44 V */
-    /* ADC 12 bits = 3.3V = 0xFFFF -> High Threshold = 2.44V -> 12 bits = 3033 = 0x0BD9 */
-    appData.pvddMonHighThreshold = 0x0BD9;
-    /* Low Threshold = 10V * Rdown / (Rup + Rdown) = 10 * 10 / (10 + 43.2) */
-    /* Low Threshold =  1.87 V */
-    /* ADC 12 bits = 3.3V = 0xFFFF -> High Threshold = 1.87V -> 12 bits = 2333 = 0x091D */
-    appData.pvddMonLowThreshold = 0x091D;
 
 }
 
@@ -513,8 +501,7 @@ void APP_Tasks(void)
             APP_PLC_SetCouplingConfiguration();
             /* Enable PLC PVDD Monitor Service: ADC channel 0 */
             SRV_PPVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
-            SRV_PPVDDMON_Start(appData.pvddMonADCChannel, SRV_PVDDMON_CMP_MODE_OUT, 
-                    appData.pvddMonHighThreshold, appData.pvddMonLowThreshold);
+            SRV_PPVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
             /* Set Application to next state */
             appData.state = APP_STATE_READY;
             break;

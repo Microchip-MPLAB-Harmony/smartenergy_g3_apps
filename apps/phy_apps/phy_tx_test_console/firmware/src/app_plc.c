@@ -5,7 +5,7 @@
     Microchip Technology Inc.
 
   File Name:
-    app.c
+    app_plc.c
 
   Summary:
     This file contains the source code for the MPLAB Harmony application.
@@ -182,8 +182,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
         nextCmpMode = SRV_PVDDMON_CMP_MODE_OUT;
     }
     
-    SRV_PPVDDMON_Start(appPlc.pvddMonADCChannel, nextCmpMode, 
-            appPlc.pvddMonHighThreshold, appPlc.pvddMonLowThreshold);
+    SRV_PPVDDMON_Restart(nextCmpMode);
     
 }
 
@@ -291,18 +290,7 @@ void APP_PLC_Initialize ( void )
     }
     
     /* Set PVDD Monitor tracking data */
-    appPlc.pvddMonADCChannel = ADC_CH0;
     appPlc.pvddMonTxEnable = true;
-    /* According to the value of Supply Monitor circuit: */
-    /* PVdd = 12V, Rup = 43K, Rdown = 10K */
-    /* High Threshold = 13V * Rdown / (Rup + Rdown) = 13 * 10 / (10 + 43.2) */
-    /* High Threshold = 2.44 V */
-    /* ADC 12 bits = 3.3V = 0xFFFF -> High Threshold = 2.44V -> 12 bits = 3033 = 0x0BD9 */
-    appPlc.pvddMonHighThreshold = 0x0BD9;
-    /* Low Threshold = 10V * Rdown / (Rup + Rdown) = 10 * 10 / (10 + 43.2) */
-    /* Low Threshold =  1.87 V */
-    /* ADC 12 bits = 3.3V = 0xFFFF -> High Threshold = 1.87V -> 12 bits = 2333 = 0x091D */
-    appPlc.pvddMonLowThreshold = 0x091D;
 }
 
 /******************************************************************************
@@ -468,8 +456,7 @@ void APP_PLC_Tasks ( void )
                 
                 /* Enable PLC PVDD Monitor Service: ADC channel 0 */
                 SRV_PPVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
-                SRV_PPVDDMON_Start(appPlc.pvddMonADCChannel, SRV_PVDDMON_CMP_MODE_OUT, 
-                        appPlc.pvddMonHighThreshold, appPlc.pvddMonLowThreshold);
+                SRV_PPVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
 
                 /* Get PLC PHY version */
                 pibObj.id = PLC_ID_VERSION_NUM;

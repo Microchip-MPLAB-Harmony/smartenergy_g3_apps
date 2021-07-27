@@ -65,9 +65,9 @@ static void _ADC_PVDDMONCallback( uint32_t status, uintptr_t context )
 }
 
 /* Start PLC PVDD Monitor */
-void SRV_PPVDDMON_Start(ADC_CHANNEL_NUM channel, SRV_PVDDMON_CMP_MODE cmpMode, uint16_t highThres, uint16_t lowThres)
+void SRV_PPVDDMON_Start(SRV_PVDDMON_CMP_MODE cmpMode)
 {
-    ADC_CHANNEL_MASK channelMsk = (1 << channel);
+    ADC_CHANNEL_MASK channelMsk = (1 << 0);
 
     /* Disable ADC channel */
     ADC_ChannelsDisable(channelMsk);
@@ -79,7 +79,7 @@ void SRV_PPVDDMON_Start(ADC_CHANNEL_NUM channel, SRV_PVDDMON_CMP_MODE cmpMode, u
     ADC_REGS->ADC_MR |= ADC_MR_FREERUN_Msk;
 
     /* Set Compare Window Register */
-    ADC_REGS->ADC_CWR = ADC_CWR_HIGHTHRES(highThres) || ADC_CWR_LOWTHRES(lowThres); 
+    ADC_REGS->ADC_CWR = ADC_CWR_HIGHTHRES(SRV_PVDDMON_HIGH_TRESHOLD) || ADC_CWR_LOWTHRES(SRV_PVDDMON_LOW_TRESHOLD); 
 
     /* Set Comparison Mode */
     ADC_REGS->ADC_EMR &= ~ADC_EMR_CMPMODE_Msk;
@@ -102,13 +102,48 @@ void SRV_PPVDDMON_Start(ADC_CHANNEL_NUM channel, SRV_PVDDMON_CMP_MODE cmpMode, u
 
     /* Set Comparison Selected Channel */
     ADC_REGS->ADC_EMR &= ~ADC_EMR_CMPSEL_Msk;
-    ADC_REGS->ADC_EMR |=  ADC_EMR_CMPSEL(channel);
+    ADC_REGS->ADC_EMR |=  ADC_EMR_CMPSEL(0);
 
     /* Enable Comparison Event Interrupt */
     ADC_REGS->ADC_IER |= ADC_IER_COMPE_Msk;
 
     /* Enable ADC channel */
+    ADC_ChannelsEnable(channelMsk);
+
+    /* Start ADC conversion */
+    ADC_ConversionStart();
+
+}
+
+/* Start PLC PVDD Monitor */
+void SRV_PPVDDMON_Restart(SRV_PVDDMON_CMP_MODE cmpMode)
+{
+    ADC_CHANNEL_MASK channelMsk = (1 << 0);
+
+    /* Disable ADC channel */
     ADC_ChannelsDisable(channelMsk);
+
+    /* Disable channel COMPE interrupt */
+    ADC_REGS->ADC_IDR |= ADC_IER_COMPE_Msk;
+
+    /* Set Comparison Mode */
+    ADC_REGS->ADC_EMR &= ~ADC_EMR_CMPMODE_Msk;
+    if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
+    {
+      srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_OUT;
+      ADC_REGS->ADC_EMR |= ADC_EMR_CMPMODE_OUT;
+    }
+    else
+    {
+      srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_IN;
+      ADC_REGS->ADC_EMR |= ADC_EMR_CMPMODE_IN;
+    }
+
+    /* Enable Comparison Event Interrupt */
+    ADC_REGS->ADC_IER |= ADC_IER_COMPE_Msk;
+
+    /* Enable ADC channel */
+    ADC_ChannelsEnable(channelMsk);
 
     /* Start ADC conversion */
     ADC_ConversionStart();

@@ -137,13 +137,7 @@ typedef struct
     
     bool staticNotchingEnable;
     
-    ADC_CHANNEL_NUM pvddMonADCChannel;
-    
     bool pvddMonTxEnable;
-    
-    uint16_t pvddMonHighThreshold;
-    
-    uint16_t pvddMonLowThreshold;
     
 } APP_PLC_DATA;
 
