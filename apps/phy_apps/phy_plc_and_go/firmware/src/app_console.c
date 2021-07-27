@@ -601,7 +601,14 @@ void APP_CONSOLE_Tasks ( void )
                             }
                             else
                             {
-                                APP_CONSOLE_Print("\n\rTransmission is not available in Sleep Mode\r\n");
+                                if (appPlc.pvddMonTxEnable)
+                                {
+                                    APP_CONSOLE_Print("\n\rTransmission is not available. PVDD Monitor out of thresholds.\r\n");
+                                }
+                                else
+                                {
+                                    APP_CONSOLE_Print("\n\rTransmission is not available in Sleep Mode\r\n");
+                                }
                                 appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
                             }
                         }
@@ -651,6 +658,11 @@ void APP_CONSOLE_Tasks ( void )
         {
             if (appPlc.waitingTxCfm == false)
             {
+                if (appPlc.pvddMonTxEnable)
+                {
+                    APP_CONSOLE_Print("\r\nPVDD Monitor: Tranmission has been cancelled\r\n");
+                }
+                
                 APP_CONSOLE_Print("\r\nTx (%u bytes): ", appConsole.dataLength);
                 switch(appPlc.lastTxResult)
                 {
@@ -687,11 +699,11 @@ void APP_CONSOLE_Tasks ( void )
                     case DRV_PLC_PHY_TX_RESULT_INV_DT:
                         APP_CONSOLE_Print("  TX_RESULT_INV_DT\r\n");
                         break;
-                    case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_ERR:
-                        APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_ERR\r\n");
+                    case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120:
+                        APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120\r\n");
                         break;
-                    case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_WARN:
-                        APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_WARN\r\n");
+                    case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_110:
+                        APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_110\r\n");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_NO_TX:
                         APP_CONSOLE_Print("  TX_RESULT_NO_TX\r\n");

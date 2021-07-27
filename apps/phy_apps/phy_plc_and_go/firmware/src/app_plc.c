@@ -243,6 +243,40 @@ static void APP_PLC_SetInitialConfiguration ( void )
     APP_PLC_SetModScheme(appPlcTx.pl360Tx.modType, appPlcTx.pl360Tx.modScheme);
 }
 
+static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
+{
+    DRV_PLC_PHY_PIB_OBJ pibObj;
+    uint8_t plcTxDisable;
+    SRV_PVDDMON_CMP_MODE nextCmpMode;
+    
+    (void)context;
+    
+    if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
+    {
+        /* ADC Converted data is out of the comparison window. */
+        appPlc.pvddMonTxEnable = false;
+        nextCmpMode = SRV_PVDDMON_CMP_MODE_IN;
+        
+        /* Stop any transmissions ongoing */
+        plcTxDisable = 1;
+        pibObj.id = PLC_ID_TX_DISABLE;
+        pibObj.length = 1;
+        pibObj.pData = (uint8_t *)&plcTxDisable;
+        DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+    }
+    else
+    {
+        /* ADC Converted data is into the comparison window. */
+        /* PLC Transmission is permitted again */
+        appPlc.pvddMonTxEnable = true;
+        nextCmpMode = SRV_PVDDMON_CMP_MODE_OUT;
+    }
+    
+    SRV_PPVDDMON_Start(appPlc.pvddMonADCChannel, nextCmpMode, 
+            appPlc.pvddMonHighThreshold, appPlc.pvddMonLowThreshold);
+    
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
@@ -382,6 +416,20 @@ void APP_PLC_Initialize ( void )
     
     /* Set PLC state */
     appPlc.state = APP_PLC_STATE_IDLE;
+    
+    /* Set PVDD Monitor tracking data */
+    appPlc.pvddMonADCChannel = ADC_CH0;
+    appPlc.pvddMonTxEnable = true;
+    /* According to the value of Supply Monitor circuit: */
+    /* PVdd = 12V, Rup = 43K, Rdown = 10K */
+    /* High Threshold = 13V * Rdown / (Rup + Rdown) = 13 * 10 / (10 + 43.2) */
+    /* High Threshold = 2.44 V */
+    /* ADC 12 bits = 3.3V = 0xFFFF -> High Threshold = 2.44V -> 12 bits = 3033 = 0x0BD9 */
+    appPlc.pvddMonHighThreshold = 0x0BD9;
+    /* Low Threshold = 10V * Rdown / (Rup + Rdown) = 10 * 10 / (10 + 43.2) */
+    /* Low Threshold =  1.87 V */
+    /* ADC 12 bits = 3.3V = 0xFFFF -> High Threshold = 1.87V -> 12 bits = 2333 = 0x091D */
+    appPlc.pvddMonLowThreshold = 0x091D;
 }
 
 /******************************************************************************
@@ -485,7 +533,6 @@ void APP_PLC_Tasks ( void )
             /* Check PLC transceiver */
             if (DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX_0) == SYS_STATUS_READY)
             {
-
                 /* Configure PLC callbacks */
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
@@ -494,6 +541,11 @@ void APP_PLC_Tasks ( void )
                 
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
+                
+                /* Enable PLC PVDD Monitor Service: ADC channel 0 */
+                SRV_PPVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
+                SRV_PPVDDMON_Start(appPlc.pvddMonADCChannel, SRV_PVDDMON_CMP_MODE_OUT, 
+                        appPlc.pvddMonHighThreshold, appPlc.pvddMonLowThreshold);
                 
                 /* Set PLC state */
                 appPlc.state = APP_PLC_STATE_WAITING;
@@ -555,30 +607,32 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
 {
     if (appPlc.state == APP_PLC_STATE_WAITING)
     {
-            
-        if ((length > 0) && (length <= APP_PLC_BUFFER_SIZE))
+        if (appPlc.pvddMonTxEnable)
         {
-            /* Fill 2 first bytes with data length */
-            /* Physical Layer may add padding bytes in order to complete symbols with data */
-            /* It is needed to include real data length in the message because otherwise at reception is not possible to know if there is padding or not */
-            appPlcTx.pDataTx[0] = length >> 8;
-            appPlcTx.pDataTx[1] = length & 0xFF;
-
-            /* Set data length in Tx Parameters structure */
-            /* It should be equal or less than Maximum Data Length (see _get_max_psdu_len) */
-            /* Otherwise DRV_PLC_PHY_TX_RESULT_INV_LENGTH will be reported in Tx Confirm */
-            appPlcTx.pl360Tx.dataLength = length + 2;
-            memcpy(appPlcTx.pDataTx + 2, pData, length);
-            
-            appPlc.waitingTxCfm = true;
-
-            DRV_PLC_PHY_Send(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
-
-            /* Set PLC state */
-            if (appPlc.waitingTxCfm)
+            if ((length > 0) && (length <= APP_PLC_BUFFER_SIZE))
             {
-                appPlc.state = APP_PLC_STATE_WAITING_TX_CFM;
-                return true;
+                /* Fill 2 first bytes with data length */
+                /* Physical Layer may add padding bytes in order to complete symbols with data */
+                /* It is needed to include real data length in the message because otherwise at reception is not possible to know if there is padding or not */
+                appPlcTx.pDataTx[0] = length >> 8;
+                appPlcTx.pDataTx[1] = length & 0xFF;
+
+                /* Set data length in Tx Parameters structure */
+                /* It should be equal or less than Maximum Data Length (see _get_max_psdu_len) */
+                /* Otherwise DRV_PLC_PHY_TX_RESULT_INV_LENGTH will be reported in Tx Confirm */
+                appPlcTx.pl360Tx.dataLength = length + 2;
+                memcpy(appPlcTx.pDataTx + 2, pData, length);
+
+                appPlc.waitingTxCfm = true;
+
+                DRV_PLC_PHY_Send(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
+
+                /* Set PLC state */
+                if (appPlc.waitingTxCfm)
+                {
+                    appPlc.state = APP_PLC_STATE_WAITING_TX_CFM;
+                    return true;
+                }
             }
         }
     }

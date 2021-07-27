@@ -129,6 +129,14 @@ typedef struct
     DRV_PLC_PHY_PIB_OBJ plcPIB;
     
     uint8_t pPLCDataPIB[APP_PLC_PIB_BUFFER_SIZE];
+    
+    ADC_CHANNEL_NUM pvddMonADCChannel;
+    
+    bool pvddMonTxEnable;
+    
+    uint16_t pvddMonHighThreshold;
+    
+    uint16_t pvddMonLowThreshold;
 
 } APP_PLC_DATA;
 

@@ -245,6 +245,40 @@ static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t
 
 }
 
+static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
+{
+    DRV_PLC_PHY_PIB_OBJ pibObj;
+    uint8_t plcTxDisable;
+    SRV_PVDDMON_CMP_MODE nextCmpMode;
+    
+    (void)context;
+    
+    if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
+    {
+        /* ADC Converted data is out of the comparison window. */
+        appData.pvddMonTxEnable = false;
+        nextCmpMode = SRV_PVDDMON_CMP_MODE_IN;
+        
+        /* Stop any transmissions ongoing */
+        plcTxDisable = 1;
+        pibObj.id = PLC_ID_TX_DISABLE;
+        pibObj.length = 1;
+        pibObj.pData = (uint8_t *)&plcTxDisable;
+        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &pibObj);
+    }
+    else
+    {
+        /* ADC Converted data is into the comparison window. */
+        /* PLC Transmission is permitted again */
+        appData.pvddMonTxEnable = true;
+        nextCmpMode = SRV_PVDDMON_CMP_MODE_OUT;
+    }
+    
+    SRV_PPVDDMON_Start(appData.pvddMonADCChannel, nextCmpMode, 
+            appData.pvddMonHighThreshold, appData.pvddMonLowThreshold);
+    
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
@@ -303,11 +337,23 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
 
         case SRV_PSERIAL_CMD_PHY_SEND_MSG:
         {
-            /* Capture and parse data from USI */
-            SRV_PSERIAL_ParseTxMessage(&appData.plcTxObj, pData);
+            if (appData.pvddMonTxEnable)
+            {
+                /* Capture and parse data from USI */
+                SRV_PSERIAL_ParseTxMessage(&appData.plcTxObj, pData);
 
-            /* Send Message through PLC */
-            DRV_PLC_PHY_Send(appData.drvPl360Handle, &appData.plcTxObj);
+                /* Send Message through PLC */
+                DRV_PLC_PHY_Send(appData.drvPl360Handle, &appData.plcTxObj);
+            }
+            else
+            {
+                DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmData;
+                
+                cfmData.time = 0;
+                cfmData.rmsCalc = 0;
+                cfmData.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
+                APP_PLCDataCfmCb(&cfmData, 0);
+            }
         }
         break;
 
@@ -352,6 +398,20 @@ void APP_Initialize(void)
     appData.plcTxObj.pTransmitData = appData.pPLCDataTx;
     appData.plcRxObj.pReceivedData = appData.pPLCDataRx;
     appData.plcPIB.pData = appData.pPLCDataPIB;
+    
+    /* Set PVDD Monitor tracking data */
+    appData.pvddMonADCChannel = ADC_CH0;
+    appData.pvddMonTxEnable = true;
+    /* According to the value of Supply Monitor circuit: */
+    /* PVdd = 12V, Rup = 43K, Rdown = 10K */
+    /* High Threshold = 13V * Rdown / (Rup + Rdown) = 13 * 10 / (10 + 43.2) */
+    /* High Threshold = 2.44 V */
+    /* ADC 12 bits = 3.3V = 0xFFFF -> High Threshold = 2.44V -> 12 bits = 3033 = 0x0BD9 */
+    appData.pvddMonHighThreshold = 0x0BD9;
+    /* Low Threshold = 10V * Rdown / (Rup + Rdown) = 10 * 10 / (10 + 43.2) */
+    /* Low Threshold =  1.87 V */
+    /* ADC 12 bits = 3.3V = 0xFFFF -> High Threshold = 1.87V -> 12 bits = 2333 = 0x091D */
+    appData.pvddMonLowThreshold = 0x091D;
 
 }
 
@@ -451,6 +511,10 @@ void APP_Tasks(void)
         {
             /* Set configuration fro PLC */
             APP_PLC_SetCouplingConfiguration();
+            /* Enable PLC PVDD Monitor Service: ADC channel 0 */
+            SRV_PPVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
+            SRV_PPVDDMON_Start(appData.pvddMonADCChannel, SRV_PVDDMON_CMP_MODE_OUT, 
+                    appData.pvddMonHighThreshold, appData.pvddMonLowThreshold);
             /* Set Application to next state */
             appData.state = APP_STATE_READY;
             break;

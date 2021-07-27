@@ -317,6 +317,8 @@ void SYS_Initialize ( void* data )
 	WDT_Initialize();
 
 
+    ADC_Initialize();
+
     FLEXCOM5_SPI_Initialize();
 
   

@@ -513,7 +513,7 @@ void DRV_PLC_PHY_Send(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ *tra
         {
             cfmObj.rmsCalc = 0;
             cfmObj.time = 0;
-            cfmObj.result = DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_WARN;
+            cfmObj.result = DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_110;
             /* Report to upper layer */
             gPlcPhyObj->dataCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
         }

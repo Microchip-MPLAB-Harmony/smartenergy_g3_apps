@@ -132,6 +132,14 @@ typedef struct
     DRV_PLC_PHY_RECEPTION_OBJ plcRxObj;
     
     DRV_PLC_PHY_PIB_OBJ plcPIB;
+    
+    ADC_CHANNEL_NUM pvddMonADCChannel;
+    
+    bool pvddMonTxEnable;
+    
+    uint16_t pvddMonHighThreshold;
+    
+    uint16_t pvddMonLowThreshold;
 
 } APP_DATA;
 

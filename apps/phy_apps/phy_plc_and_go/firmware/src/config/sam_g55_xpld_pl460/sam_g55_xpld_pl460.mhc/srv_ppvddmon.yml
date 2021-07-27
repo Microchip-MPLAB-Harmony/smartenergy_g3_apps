@@ -1,0 +1,6 @@
+format_version: v1.0
+type: UniqueComponent
+attributes: {id: srv_ppvddmon}
+children:
+- type: ElementPosition
+  attributes: {x: '377', y: '208', id: srv_ppvddmon}
