@@ -1,27 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configurationDescriptor version="65">
-  <logicalFolder name="root" displayName="root" projectFiles="true">
-    <logicalFolder name="HeaderFiles"
-                   displayName="Header Files"
-                   projectFiles="true">
-      <logicalFolder name="f1" displayName="config" projectFiles="true">
-        <logicalFolder name="f1" displayName="pl485_ek" projectFiles="true">
-          <logicalFolder name="f1" displayName="bsp" projectFiles="true">
+  <logicalFolder displayName="root" name="root" projectFiles="true">
+    <logicalFolder displayName="Header Files" name="HeaderFiles" projectFiles="true">
+      <logicalFolder displayName="config" name="f1" projectFiles="true">
+        <logicalFolder displayName="pl485_ek" name="f1" projectFiles="true">
+          <logicalFolder displayName="bsp" name="f1" projectFiles="true">
             <itemPath>../src/config/pl485_ek/bsp/bsp.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f2" displayName="driver" projectFiles="true">
-            <logicalFolder name="f1" displayName="memory" projectFiles="true">
+          <logicalFolder displayName="driver" name="f2" projectFiles="true">
+            <logicalFolder displayName="memory" name="f1" projectFiles="true">
               <itemPath>../src/config/pl485_ek/driver/memory/src/drv_memory_local.h</itemPath>
               <itemPath>../src/config/pl485_ek/driver/memory/drv_memory.h</itemPath>
               <itemPath>../src/config/pl485_ek/driver/memory/drv_memory_definitions.h</itemPath>
               <itemPath>../src/config/pl485_ek/driver/memory/drv_memory_efc.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="plc" projectFiles="true">
-              <logicalFolder name="f1" displayName="common" projectFiles="true">
+            <logicalFolder displayName="plc" name="f2" projectFiles="true">
+              <logicalFolder displayName="common" name="f1" projectFiles="true">
                 <itemPath>../src/config/pl485_ek/driver/plc/common/drv_plc_hal.h</itemPath>
                 <itemPath>../src/config/pl485_ek/driver/plc/common/drv_plc_boot.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f2" displayName="phy" projectFiles="true">
+              <logicalFolder displayName="phy" name="f2" projectFiles="true">
                 <itemPath>../src/config/pl485_ek/driver/plc/phy/drv_plc_phy.h</itemPath>
                 <itemPath>../src/config/pl485_ek/driver/plc/phy/drv_plc_phy_definitions.h</itemPath>
                 <itemPath>../src/config/pl485_ek/driver/plc/phy/drv_plc_phy_local.h</itemPath>
@@ -31,74 +29,74 @@
             <itemPath>../src/config/pl485_ek/driver/driver.h</itemPath>
             <itemPath>../src/config/pl485_ek/driver/driver_common.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f3" displayName="osal" projectFiles="true">
+          <logicalFolder displayName="osal" name="f3" projectFiles="true">
             <itemPath>../src/config/pl485_ek/osal/osal.h</itemPath>
             <itemPath>../src/config/pl485_ek/osal/osal_definitions.h</itemPath>
             <itemPath>../src/config/pl485_ek/osal/osal_impl_basic.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f4" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f1" displayName="clock" projectFiles="true">
+          <logicalFolder displayName="peripheral" name="f4" projectFiles="true">
+            <logicalFolder displayName="clock" name="f1" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/clock/plib_clock.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="cmcc" projectFiles="true">
+            <logicalFolder displayName="cmcc" name="f2" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/cmcc/plib_cmcc.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="efc" projectFiles="true">
+            <logicalFolder displayName="efc" name="f3" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/efc/plib_efc.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="flexcom" projectFiles="true">
-              <logicalFolder name="f1" displayName="spi" projectFiles="true">
-                <logicalFolder name="f1" displayName="master" projectFiles="true">
+            <logicalFolder displayName="flexcom" name="f4" projectFiles="true">
+              <logicalFolder displayName="spi" name="f1" projectFiles="true">
+                <logicalFolder displayName="master" name="f1" projectFiles="true">
                   <itemPath>../src/config/pl485_ek/peripheral/flexcom/spi/master/plib_flexcom7_spi_master.h</itemPath>
                   <itemPath>../src/config/pl485_ek/peripheral/flexcom/spi/master/plib_flexcom_spi_master_common.h</itemPath>
                 </logicalFolder>
               </logicalFolder>
-              <logicalFolder name="f2" displayName="usart" projectFiles="true">
+              <logicalFolder displayName="usart" name="f2" projectFiles="true">
                 <itemPath>../src/config/pl485_ek/peripheral/flexcom/usart/plib_flexcom4_usart.h</itemPath>
                 <itemPath>../src/config/pl485_ek/peripheral/flexcom/usart/plib_flexcom_usart_local.h</itemPath>
               </logicalFolder>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="nvic" projectFiles="true">
+            <logicalFolder displayName="nvic" name="f5" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="pio" projectFiles="true">
+            <logicalFolder displayName="pio" name="f6" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/pio/plib_pio.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="tc" projectFiles="true">
+            <logicalFolder displayName="tc" name="f7" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/tc/plib_tc0.h</itemPath>
               <itemPath>../src/config/pl485_ek/peripheral/tc/plib_tc_common.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="wdt" projectFiles="true">
+            <logicalFolder displayName="wdt" name="f8" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/wdt/plib_wdt.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f5" displayName="service" projectFiles="true">
-            <logicalFolder name="f1" displayName="pcoup" projectFiles="true">
+          <logicalFolder displayName="service" name="f5" projectFiles="true">
+            <logicalFolder displayName="pcoup" name="f1" projectFiles="true">
               <itemPath>../src/config/pl485_ek/service/pcoup/srv_pcoup.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="ptrng" projectFiles="true">
+            <logicalFolder displayName="ptrng" name="f2" projectFiles="true">
               <itemPath>../src/config/pl485_ek/service/ptrng/srv_ptrng.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f6" displayName="system" projectFiles="true">
-            <logicalFolder name="f1" displayName="cache" projectFiles="true">
+          <logicalFolder displayName="system" name="f6" projectFiles="true">
+            <logicalFolder displayName="cache" name="f1" projectFiles="true">
               <itemPath>../src/config/pl485_ek/system/cache/sys_cache.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="console" projectFiles="true">
+            <logicalFolder displayName="console" name="f2" projectFiles="true">
               <itemPath>../src/config/pl485_ek/system/console/sys_console.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="debug" projectFiles="true">
+            <logicalFolder displayName="debug" name="f3" projectFiles="true">
               <itemPath>../src/config/pl485_ek/system/debug/sys_debug.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="int" projectFiles="true">
+            <logicalFolder displayName="int" name="f4" projectFiles="true">
               <itemPath>../src/config/pl485_ek/system/int/sys_int.h</itemPath>
               <itemPath>../src/config/pl485_ek/system/int/sys_int_mapping.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="ports" projectFiles="true">
+            <logicalFolder displayName="ports" name="f5" projectFiles="true">
               <itemPath>../src/config/pl485_ek/system/ports/sys_ports.h</itemPath>
               <itemPath>../src/config/pl485_ek/system/ports/sys_ports_mapping.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="time" projectFiles="true">
+            <logicalFolder displayName="time" name="f6" projectFiles="true">
               <itemPath>../src/config/pl485_ek/system/time/sys_time.h</itemPath>
               <itemPath>../src/config/pl485_ek/system/time/sys_time_definitions.h</itemPath>
               <itemPath>../src/config/pl485_ek/system/time/src/sys_time_local.h</itemPath>
@@ -118,9 +116,9 @@
           <itemPath>../src/config/pl485_ek/configuration.h</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <logicalFolder name="f2" displayName="packs" projectFiles="true">
-        <logicalFolder name="f1" displayName="ATSAMG55J19_DFP" projectFiles="true">
-          <logicalFolder name="f1" displayName="component" projectFiles="true">
+      <logicalFolder displayName="packs" name="f2" projectFiles="true">
+        <logicalFolder displayName="ATSAMG55J19_DFP" name="f1" projectFiles="true">
+          <logicalFolder displayName="component" name="f1" projectFiles="true">
             <itemPath>../src/packs/ATSAMG55J19_DFP/component/adc.h</itemPath>
             <itemPath>../src/packs/ATSAMG55J19_DFP/component/chipid.h</itemPath>
             <itemPath>../src/packs/ATSAMG55J19_DFP/component/cmcc.h</itemPath>
@@ -148,7 +146,7 @@
             <itemPath>../src/packs/ATSAMG55J19_DFP/component/usart.h</itemPath>
             <itemPath>../src/packs/ATSAMG55J19_DFP/component/wdt.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f2" displayName="instance" projectFiles="true">
+          <logicalFolder displayName="instance" name="f2" projectFiles="true">
             <itemPath>../src/packs/ATSAMG55J19_DFP/instance/adc.h</itemPath>
             <itemPath>../src/packs/ATSAMG55J19_DFP/instance/chipid.h</itemPath>
             <itemPath>../src/packs/ATSAMG55J19_DFP/instance/cmcc.h</itemPath>
@@ -207,15 +205,15 @@
             <itemPath>../src/packs/ATSAMG55J19_DFP/instance/usart7.h</itemPath>
             <itemPath>../src/packs/ATSAMG55J19_DFP/instance/wdt.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f3" displayName="pio" projectFiles="true">
+          <logicalFolder displayName="pio" name="f3" projectFiles="true">
             <itemPath>../src/packs/ATSAMG55J19_DFP/pio/samg55j19.h</itemPath>
           </logicalFolder>
           <itemPath>../src/packs/ATSAMG55J19_DFP/samg55j19.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="f2" displayName="CMSIS" projectFiles="true">
-          <logicalFolder name="f1" displayName="CMSIS" projectFiles="true">
-            <logicalFolder name="f1" displayName="Core" projectFiles="true">
-              <logicalFolder name="f1" displayName="Include" projectFiles="true">
+        <logicalFolder displayName="CMSIS" name="f2" projectFiles="true">
+          <logicalFolder displayName="CMSIS" name="f1" projectFiles="true">
+            <logicalFolder displayName="Core" name="f1" projectFiles="true">
+              <logicalFolder displayName="Include" name="f1" projectFiles="true">
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
@@ -235,10 +233,8 @@
       <itemPath>../src/app_console.h</itemPath>
       <itemPath>../src/app_nvm.h</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="true">
-      <logicalFolder name="f1" displayName="pl485_ek.mhc" projectFiles="true">
+    <logicalFolder displayName="Important Files" name="ExternalFiles" projectFiles="true">
+      <logicalFolder displayName="pl485_ek.mhc" name="f1" projectFiles="true">
         <itemPath>../src/config/pl485_ek/pl485_ek.mhc/BSP_PL485_Evaluation_kit.yml</itemPath>
         <itemPath>../src/config/pl485_ek/pl485_ek.mhc/cmsis.yml</itemPath>
         <itemPath>../src/config/pl485_ek/pl485_ek.mhc/core.yml</itemPath>
@@ -261,35 +257,31 @@
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/pl485_ek/harmony-manifest-success.yml</itemPath>
     </logicalFolder>
-    <logicalFolder name="LinkerScript"
-                   displayName="Linker Files"
-                   projectFiles="true">
-      <logicalFolder name="f1" displayName="config" projectFiles="true">
-        <logicalFolder name="f1" displayName="pl485_ek" projectFiles="true">
+    <logicalFolder displayName="Linker Files" name="LinkerScript" projectFiles="true">
+      <logicalFolder displayName="config" name="f1" projectFiles="true">
+        <logicalFolder displayName="pl485_ek" name="f1" projectFiles="true">
           <itemPath>../src/config/pl485_ek/ATSAMG55J19.ld</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
-    <logicalFolder name="SourceFiles"
-                   displayName="Source Files"
-                   projectFiles="true">
-      <logicalFolder name="f1" displayName="config" projectFiles="true">
-        <logicalFolder name="f1" displayName="pl485_ek" projectFiles="true">
-          <logicalFolder name="f1" displayName="bsp" projectFiles="true">
+    <logicalFolder displayName="Source Files" name="SourceFiles" projectFiles="true">
+      <logicalFolder displayName="config" name="f1" projectFiles="true">
+        <logicalFolder displayName="pl485_ek" name="f1" projectFiles="true">
+          <logicalFolder displayName="bsp" name="f1" projectFiles="true">
             <itemPath>../src/config/pl485_ek/bsp/bsp.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f2" displayName="driver" projectFiles="true">
-            <logicalFolder name="f1" displayName="memory" projectFiles="true">
+          <logicalFolder displayName="driver" name="f2" projectFiles="true">
+            <logicalFolder displayName="memory" name="f1" projectFiles="true">
               <itemPath>../src/config/pl485_ek/driver/memory/src/drv_memory.c</itemPath>
               <itemPath>../src/config/pl485_ek/driver/memory/src/drv_memory_efc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="plc" projectFiles="true">
-              <logicalFolder name="f1" displayName="common" projectFiles="true">
+            <logicalFolder displayName="plc" name="f2" projectFiles="true">
+              <logicalFolder displayName="common" name="f1" projectFiles="true">
                 <itemPath>../src/config/pl485_ek/driver/plc/common/drv_plc_hal.c</itemPath>
                 <itemPath>../src/config/pl485_ek/driver/plc/common/drv_plc_boot.c</itemPath>
               </logicalFolder>
-              <logicalFolder name="f2" displayName="phy" projectFiles="true">
-                <logicalFolder name="f1" displayName="bin" projectFiles="true">
+              <logicalFolder displayName="phy" name="f2" projectFiles="true">
+                <logicalFolder displayName="bin" name="f1" projectFiles="true">
                   <itemPath>../src/config/pl485_ek/driver/plc/phy/bin/PLC_PHY_G3_CENB.bin</itemPath>
                   <itemPath>../src/config/pl485_ek/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
                 </logicalFolder>
@@ -299,65 +291,65 @@
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f3" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f1" displayName="clock" projectFiles="true">
+          <logicalFolder displayName="peripheral" name="f3" projectFiles="true">
+            <logicalFolder displayName="clock" name="f1" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/clock/plib_clock.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="cmcc" projectFiles="true">
+            <logicalFolder displayName="cmcc" name="f2" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/cmcc/plib_cmcc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="efc" projectFiles="true">
+            <logicalFolder displayName="efc" name="f3" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/efc/plib_efc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="flexcom" projectFiles="true">
-              <logicalFolder name="f1" displayName="spi" projectFiles="true">
-                <logicalFolder name="f1" displayName="master" projectFiles="true">
+            <logicalFolder displayName="flexcom" name="f4" projectFiles="true">
+              <logicalFolder displayName="spi" name="f1" projectFiles="true">
+                <logicalFolder displayName="master" name="f1" projectFiles="true">
                   <itemPath>../src/config/pl485_ek/peripheral/flexcom/spi/master/plib_flexcom7_spi_master.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
-              <logicalFolder name="f2" displayName="usart" projectFiles="true">
+              <logicalFolder displayName="usart" name="f2" projectFiles="true">
                 <itemPath>../src/config/pl485_ek/peripheral/flexcom/usart/plib_flexcom4_usart.c</itemPath>
               </logicalFolder>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="nvic" projectFiles="true">
+            <logicalFolder displayName="nvic" name="f5" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="pio" projectFiles="true">
+            <logicalFolder displayName="pio" name="f6" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/pio/plib_pio.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="tc" projectFiles="true">
+            <logicalFolder displayName="tc" name="f7" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/tc/plib_tc0.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="wdt" projectFiles="true">
+            <logicalFolder displayName="wdt" name="f8" projectFiles="true">
               <itemPath>../src/config/pl485_ek/peripheral/wdt/plib_wdt.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f4" displayName="service" projectFiles="true">
-            <logicalFolder name="f1" displayName="pcoup" projectFiles="true">
+          <logicalFolder displayName="service" name="f4" projectFiles="true">
+            <logicalFolder displayName="pcoup" name="f1" projectFiles="true">
               <itemPath>../src/config/pl485_ek/service/pcoup/srv_pcoup.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="ptrng" projectFiles="true">
+            <logicalFolder displayName="ptrng" name="f2" projectFiles="true">
               <itemPath>../src/config/pl485_ek/service/ptrng/srv_ptrng.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f5" displayName="stdio" projectFiles="true">
+          <logicalFolder displayName="stdio" name="f5" projectFiles="true">
             <itemPath>../src/config/pl485_ek/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f6" displayName="system" projectFiles="true">
-            <logicalFolder name="f1" displayName="cache" projectFiles="true">
+          <logicalFolder displayName="system" name="f6" projectFiles="true">
+            <logicalFolder displayName="cache" name="f1" projectFiles="true">
               <itemPath>../src/config/pl485_ek/system/cache/sys_cache.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="console" projectFiles="true">
+            <logicalFolder displayName="console" name="f2" projectFiles="true">
               <itemPath>../src/config/pl485_ek/system/console/src/sys_console.c</itemPath>
               <itemPath>../src/config/pl485_ek/system/console/src/sys_console_local.h</itemPath>
               <itemPath>../src/config/pl485_ek/system/console/src/sys_console_uart.h</itemPath>
               <itemPath>../src/config/pl485_ek/system/console/src/sys_console_uart_definitions.h</itemPath>
               <itemPath>../src/config/pl485_ek/system/console/src/sys_console_uart.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="int" projectFiles="true">
+            <logicalFolder displayName="int" name="f3" projectFiles="true">
               <itemPath>../src/config/pl485_ek/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="time" projectFiles="true">
+            <logicalFolder displayName="time" name="f4" projectFiles="true">
               <itemPath>../src/config/pl485_ek/system/time/src/sys_time.c</itemPath>
             </logicalFolder>
           </logicalFolder>
@@ -384,8 +376,8 @@
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>ATSAMG55J19</targetDevice>
-        <targetHeader></targetHeader>
-        <targetPluginBoard></targetPluginBoard>
+        <targetHeader/>
+        <targetPluginBoard/>
         <platformTool>Simulator</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.50</languageToolchainVersion>
@@ -407,7 +399,7 @@
         <loading>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
           <parseOnProdLoad>false</parseOnProdLoad>
-          <alternateLoadableFile></alternateLoadableFile>
+          <alternateLoadableFile/>
         </loading>
         <subordinates>
         </subordinates>
@@ -415,9 +407,9 @@
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeUseCleanTarget>false</makeUseCleanTarget>
-        <makeCustomizationPreStep></makeCustomizationPreStep>
+        <makeCustomizationPreStep/>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
-        <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationPostStep/>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
@@ -434,8 +426,7 @@
         <property key="memories.eeprom" value="true"/>
         <property key="memories.flashdata" value="true"/>
         <property key="memories.id" value="true"/>
-        <property key="memories.instruction.ram.ranges"
-                  value="${memories.instruction.ram.ranges}"/>
+        <property key="memories.instruction.ram.ranges" value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0x400000-0x5fffff"/>
         <property key="programoptions.eraseb4program" value="false"/>
@@ -453,8 +444,7 @@
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories"
-                  value="../src;../src/config/pl485_ek;../src/packs/ATSAMG55J19_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
+        <property key="extra-include-directories" value="../src;../src/config/pl485_ek;../src/packs/ATSAMG55J19_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -474,8 +464,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
-        <property key="extra-include-directories-for-assembler"
-                  value="../src/config/pl485_ek/driver/plc/phy/bin"/>
+        <property key="extra-include-directories-for-assembler" value="../src/config/pl485_ek/driver/plc/phy/bin"/>
       </C32-AS>
       <C32-CO>
         <property key="coverage-enable" value=""/>
@@ -522,8 +511,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories"
-                  value="../src;../src/config/pl485_ek;../src/packs/ATSAMG55J19_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
+        <property key="extra-include-directories" value="../src;../src/config/pl485_ek;../src/packs/ATSAMG55J19_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -579,8 +567,7 @@
         <property key="TIMER3" value="true"/>
         <property key="TIMER4" value="true"/>
         <property key="TIMER5" value="true"/>
-        <property key="ToolFirmwareFilePath"
-                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareFilePath" value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="UART1" value="true"/>
         <property key="UART2" value="true"/>
