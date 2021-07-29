@@ -33,6 +33,10 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
+#define APP_USER_LED_On        LED_On
+#define APP_USER_LED_Off       LED_Off
+#define APP_USER_LED_Toggle    LED_Toggle
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

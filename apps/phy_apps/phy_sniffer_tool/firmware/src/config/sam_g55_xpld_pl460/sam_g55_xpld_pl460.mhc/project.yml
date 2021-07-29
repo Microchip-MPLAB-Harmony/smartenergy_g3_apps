@@ -97,13 +97,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: null
-- generatedChecksum: 229D3FA36B0082C0169EAC48CAB16381
+- generatedChecksum: A54B0CC252A670119722592E2F39A6CB
   logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy/bin
   name: plc_phy_bin.S
   physicalPath: driver/plc/phy/bin
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 229D3FA36B0082C0169EAC48CAB16381
+  userChecksum: A54B0CC252A670119722592E2F39A6CB
 - generatedChecksum: 2E3BF99787C5639710FE4E73323902DD
   logicalPath: config/sam_g55_xpld_pl460/peripheral/clock
   name: plib_clock.c
