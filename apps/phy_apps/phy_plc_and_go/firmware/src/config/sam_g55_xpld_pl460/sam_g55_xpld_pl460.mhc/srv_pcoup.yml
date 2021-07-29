@@ -396,6 +396,125 @@ children:
       children:
       - type: Dynamic
         attributes: {id: srv_pcoup, value: '6370'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_0}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '0'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_1}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '0'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_10}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '4'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_11}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '853'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_12}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '0'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_13}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '1057008'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_14}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '853'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_15}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '0'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_16}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '1057023'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_2}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '256'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_3}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '256'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_4}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '0'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_5}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '0'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_6}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '2640052479'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_7}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '336860180'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_8}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '0'}
+  - type: Hex
+    attributes: {id: SRV_PCOUP_DACC_9}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_pcoup, value: '0'}
   - type: Integer
     attributes: {id: SRV_PCOUP_GAIN_HIGH_0}
     children:

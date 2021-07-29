@@ -63,11 +63,6 @@ APP_CONSOLE_DATA CACHE_ALIGN appConsole;
 // *****************************************************************************
 // *****************************************************************************
 
-void Timer1_Callback (uintptr_t context)
-{
-    /* RX Led off */
-    LED_Off();
-}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -257,7 +252,7 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
 
 static void APP_CONSOLE_ShowSetSchemeMenu( void )
 {
-    uint8_t schemeMenu;
+    uint8_t schemeMenu = 0xFF;
     uint8_t index;
     
     APP_CONSOLE_Print("\r\n--- Tx Modulation Configuration Menu ---\r\n");
@@ -470,12 +465,6 @@ static bool APP_CONSOLE_SetPlcBand(char *mode)
 
 void APP_CONSOLE_Initialize ( void )
 {
-    /* Place the App state machine in its initial state. */
-    appConsole.state = APP_CONSOLE_STATE_IDLE;
-
-    /* Init Timer handler */
-    appConsole.tmr1Handle = SYS_TIME_HANDLE_INVALID;
-
     /* Update state machine */
     appConsole.state = APP_CONSOLE_STATE_INIT;
 

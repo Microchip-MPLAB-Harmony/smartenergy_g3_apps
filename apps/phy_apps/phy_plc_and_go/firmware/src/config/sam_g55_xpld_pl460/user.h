@@ -32,8 +32,12 @@ extern "C" {
 // Section: User Configuration macros
 // *****************************************************************************
 // *****************************************************************************
-
-
+    
+#define USER_BLINK_LED_Toogle()       LED_Toggle()
+    
+#define USER_PLC_IND_LED_On()         
+#define USER_PLC_IND_LED_Off()        
+    
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

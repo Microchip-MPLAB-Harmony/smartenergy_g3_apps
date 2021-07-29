@@ -43,8 +43,11 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-#define APP_PLC_BUFFER_SIZE           512    
-#define APP_PLC_PIB_BUFFER_SIZE       256
+#define LED_BLINK_RATE_MS                         500
+#define LED_PLC_RX_MSG_RATE_MS                    50
+    
+#define APP_PLC_BUFFER_SIZE                       512    
+#define APP_PLC_PIB_BUFFER_SIZE                   256
     
 /* Each carrier corresponding to the band can be notched (no energy is sent in those carriers) */
 /* Each carrier is represented by one byte (0: carrier used; 1: carrier notched). By default it is all 0's in PLC device */
@@ -121,6 +124,14 @@ typedef struct {
 typedef struct
 {
     /* The application's current state */
+    SYS_TIME_HANDLE tmr1Handle;
+    
+    volatile bool tmr1Expired;
+    
+    SYS_TIME_HANDLE tmr2Handle;
+    
+    volatile bool tmr2Expired;
+    
     APP_PLC_STATES state;
     
     DRV_HANDLE drvPl360Handle;

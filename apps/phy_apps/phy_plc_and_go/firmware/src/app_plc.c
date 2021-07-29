@@ -243,6 +243,21 @@ static void APP_PLC_SetInitialConfiguration ( void )
     APP_PLC_SetModScheme(appPlcTx.pl360Tx.modType, appPlcTx.pl360Tx.modScheme);
 }
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Callback Functions
+// *****************************************************************************
+// *****************************************************************************
+void Timer1_Callback (uintptr_t context)
+{
+    appPlc.tmr1Expired = true;
+}
+
+void Timer2_Callback (uintptr_t context)
+{
+    appPlc.tmr2Expired = true;
+}
+
 static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     DRV_PLC_PHY_PIB_OBJ pibObj;
@@ -275,12 +290,6 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     SRV_PPVDDMON_Restart(nextCmpMode);
     
 }
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Callback Functions
-// *****************************************************************************
-// *****************************************************************************
 
 static void APP_PLC_SleepModeDisableCb( uintptr_t context )
 {
@@ -335,6 +344,9 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
         }
         else
         {
+            /* Init Timer to handle PLC Reception led */
+            appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
+                
             APP_CONSOLE_Print("\rRx (");
             /* Show Modulation of received frame */
             if (indObj->modScheme == MOD_SCHEME_DIFFERENTIAL)
@@ -418,6 +430,15 @@ void APP_PLC_Initialize ( void )
     
     /* Set PVDD Monitor tracking data */
     appPlc.pvddMonTxEnable = true;
+
+    /* Init Timer handler */
+    appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
+    appPlc.tmr2Handle = SYS_TIME_HANDLE_INVALID;
+    appPlc.tmr1Expired = false;
+    appPlc.tmr2Expired = false;
+    
+    /* Init signalling */
+    USER_PLC_IND_LED_Off();
     
 }
 
@@ -431,6 +452,19 @@ void APP_PLC_Initialize ( void )
 
 void APP_PLC_Tasks ( void )
 {
+    /* Signalling */
+    if (appPlc.tmr1Expired)
+    {
+        appPlc.tmr1Expired = false;
+        USER_BLINK_LED_Toogle();
+    }
+    
+    if (appPlc.tmr2Expired)
+    {
+        appPlc.tmr2Expired = false;
+        USER_PLC_IND_LED_Off();
+    }
+    
     /* Check the application's current state. */
     switch ( appPlc.state )
     {
@@ -534,6 +568,9 @@ void APP_PLC_Tasks ( void )
                 /* Enable PLC PVDD Monitor Service: ADC channel 0 */
                 SRV_PPVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
                 SRV_PPVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
+            
+                /* Init Timer to handle blinking led */
+                appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
                 
                 /* Set PLC state */
                 appPlc.state = APP_PLC_STATE_WAITING;

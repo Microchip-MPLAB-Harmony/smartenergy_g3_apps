@@ -43,8 +43,7 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-#define SERIAL_BUFFER_SIZE        512
-#define LED_RX_OFF_RATE_MS        100    
+#define SERIAL_BUFFER_SIZE                        512
     
 // *****************************************************************************
 /* Application states
@@ -89,9 +88,7 @@ typedef enum
 
 typedef struct
 {
-    /* The application's current state */
-    SYS_TIME_HANDLE tmr1Handle;   
-    
+    /* The application's current state */    
     APP_CONSOLE_STATES state;
 
     char pTrasmitChar[SERIAL_BUFFER_SIZE];
