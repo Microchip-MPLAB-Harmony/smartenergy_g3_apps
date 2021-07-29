@@ -73,23 +73,14 @@ SRV_PLC_PCOUP *appPLCCoupling;
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-
-void Timer1_Callback(uintptr_t context)
+void Timer1_Callback (uintptr_t context)
 {
-    /* Avoid warning */
-    (void)context;
-
-    /* Status Led Toogle */
-    APP_USER_LED_Toggle();
+    appData.tmr1Expired = true;
 }
 
-void Timer2_Callback(uintptr_t context)
+void Timer2_Callback (uintptr_t context)
 {
-    /* Avoid warning */
-    (void)context;
-
-    /* RX Led Signalling */
-    APP_USER_LED_On();
+    appData.tmr2Expired = true;
 }
 
 static void APP_PLC_SetCouplingConfiguration(void)
@@ -217,7 +208,7 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
         size_t length;
 
         /* Start Timer: LED blinking for each received message */
-        APP_USER_LED_Off();
+        USER_PLC_IND_LED_On();
         appData.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0,
                 LED_BLINK_PLC_MSG_MS, SYS_TIME_SINGLE);
 
@@ -335,9 +326,11 @@ void APP_PL360_Initialize(void)
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_IDLE;
 
-    /* Initialize Timer handler */
+    /* Init Timer handler */
     appData.tmr1Handle = SYS_TIME_HANDLE_INVALID;
     appData.tmr2Handle = SYS_TIME_HANDLE_INVALID;
+    appData.tmr1Expired = false;
+    appData.tmr2Expired = false;
 
     /* Reset PLC exceptions statistics */
     appData.plc_phy_err_unexpected = 0;
@@ -364,6 +357,19 @@ void APP_PL360_Initialize(void)
  */
 void APP_PL360_Tasks(void)
 {
+    /* Signalling */
+    if (appData.tmr1Expired)
+    {
+        appData.tmr1Expired = false;
+        USER_BLINK_LED_Toggle();
+    }
+    
+    if (appData.tmr2Expired)
+    {
+        appData.tmr2Expired = false;
+        USER_PLC_IND_LED_Off();
+    }
+    
     /* Check the application's current state. */
     switch(appData.state)
     {
@@ -437,9 +443,6 @@ void APP_PL360_Tasks(void)
                     SYS_TIME_TimerStart(appData.tmr1Handle);
                 }
 
-                /* Enable Led */
-                APP_USER_LED_On();
-                    
                 /* Set Application to next state */
                 appData.state = APP_STATE_CONFIG_PLC;
             }
@@ -463,8 +466,8 @@ void APP_PL360_Tasks(void)
                 /* Set Application to next state */
                 appData.state = APP_STATE_CONFIG_USI;  
                 SYS_TIME_TimerStop(appData.tmr1Handle);
-                /* Disable Led */
-                APP_USER_LED_Off();
+                /* Disable Blink Led */
+                USER_BLINK_LED_Off();
             }
             break;
         }

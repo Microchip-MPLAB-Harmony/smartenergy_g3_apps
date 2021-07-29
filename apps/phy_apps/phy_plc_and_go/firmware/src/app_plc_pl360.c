@@ -299,6 +299,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
         else
         {
             /* Init Timer to handle PLC Reception led */
+            USER_PLC_IND_LED_On();
             appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
                 
             APP_CONSOLE_Print("\rRx (");
@@ -388,9 +389,6 @@ void APP_PLC_PL360_Initialize ( void )
     appPlc.tmr1Expired = false;
     appPlc.tmr2Expired = false;
     
-    /* Init signalling */
-    USER_PLC_IND_LED_Off();
-    
 }
 
 /******************************************************************************
@@ -407,7 +405,7 @@ void APP_PLC_PL360_Tasks ( void )
     if (appPlc.tmr1Expired)
     {
         appPlc.tmr1Expired = false;
-        USER_BLINK_LED_Toogle();
+        USER_BLINK_LED_Toggle();
     }
     
     if (appPlc.tmr2Expired)

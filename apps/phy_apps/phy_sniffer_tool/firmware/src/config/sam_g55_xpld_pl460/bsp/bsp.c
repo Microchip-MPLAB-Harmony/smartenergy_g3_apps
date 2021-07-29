@@ -75,6 +75,7 @@ void BSP_Initialize(void )
 
 
     /* Switch off LEDs */
+		LED_EXT4_Pin9_Off(); 
 		LED_Off(); 
 
 

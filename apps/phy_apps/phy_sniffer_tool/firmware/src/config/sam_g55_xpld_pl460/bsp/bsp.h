@@ -60,6 +60,10 @@
 // Section: BSP Macros
 // *****************************************************************************
 // *****************************************************************************
+/*** LED Macros for LED_EXT4_Pin9 ***/
+#define LED_EXT4_Pin9_Toggle() (PIOB_REGS->PIO_ODSR ^= (1<<14))
+#define LED_EXT4_Pin9_On() (PIOB_REGS->PIO_CODR = (1<<14))
+#define LED_EXT4_Pin9_Off() (PIOB_REGS->PIO_SODR = (1<<14))
 /*** LED Macros for LED ***/
 #define LED_Toggle() (PIOA_REGS->PIO_ODSR ^= (1<<6))
 #define LED_On() (PIOA_REGS->PIO_CODR = (1<<6))

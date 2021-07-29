@@ -250,6 +250,32 @@
       </logicalFolder>
       <itemPath>../src/app.h</itemPath>
     </logicalFolder>
+    <logicalFolder displayName="Important Files" name="ExternalFiles" projectFiles="true">
+      <logicalFolder displayName="pl485_ek.mhc" name="f1" projectFiles="true">
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/BSP_PL485_Evaluation_kit.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/cmsis.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/core.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/dfp.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/drvPlcPhy.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/drv_usbdp.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/efc.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/flexcom7.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/GraphSettings.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/HarmonyCore.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/project.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/settings.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/srv_pcoup.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/srv_pcrc.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/srv_psniffer.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/srv_usi.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/sys_time.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/tc0.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/usb_device.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/usb_device_cdc.yml</itemPath>
+      </logicalFolder>
+      <itemPath>Makefile</itemPath>
+      <itemPath>../src/config/pl485_ek/harmony-manifest-success.yml</itemPath>
+    </logicalFolder>
     <logicalFolder displayName="Linker Files" name="LinkerScript" projectFiles="true">
       <logicalFolder displayName="config" name="f1" projectFiles="true">
         <logicalFolder displayName="pl485_ek" name="f1" projectFiles="true">
@@ -362,32 +388,6 @@
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/app.c</itemPath>
-    </logicalFolder>
-    <logicalFolder displayName="Important Files" name="ExternalFiles" projectFiles="true">
-      <logicalFolder displayName="pl485_ek.mhc" name="f1" projectFiles="true">
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/BSP_PL485_Evaluation_kit.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/cmsis.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/core.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/dfp.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/drvPlcPhy.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/drv_usbdp.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/efc.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/flexcom7.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/GraphSettings.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/HarmonyCore.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/project.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/settings.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/srv_pcoup.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/srv_pcrc.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/srv_psniffer.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/srv_usi.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/sys_time.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/tc0.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/usb_device.yml</itemPath>
-        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/usb_device_cdc.yml</itemPath>
-      </logicalFolder>
-      <itemPath>Makefile</itemPath>
-      <itemPath>../src/config/pl485_ek/harmony-manifest-success.yml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>

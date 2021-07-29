@@ -65,7 +65,7 @@ static void _ADC_PVDDMONCallback( uint32_t status, uintptr_t context )
 }
 
 /* Start PLC PVDD Monitor */
-void SRV_PPVDDMON_Start(SRV_PVDDMON_CMP_MODE cmpMode)
+void SRV_PPVDDMON_Initialize (void)
 {
     ADC_CHANNEL_MASK channelMsk = (1 << 0);
 
@@ -74,6 +74,12 @@ void SRV_PPVDDMON_Start(SRV_PVDDMON_CMP_MODE cmpMode)
 
     /* Disable channel interrupt */
     ADC_ChannelsInterruptDisable(channelMsk);
+}
+
+/* Start PLC PVDD Monitor */
+void SRV_PPVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
+{
+    ADC_CHANNEL_MASK channelMsk = (1 << 0);
 
     /* Set Free Run reset */
     ADC_REGS->ADC_MR |= ADC_MR_FREERUN_Msk;
@@ -116,7 +122,7 @@ void SRV_PPVDDMON_Start(SRV_PVDDMON_CMP_MODE cmpMode)
 }
 
 /* Start PLC PVDD Monitor */
-void SRV_PPVDDMON_Restart(SRV_PVDDMON_CMP_MODE cmpMode)
+void SRV_PPVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
 {
     ADC_CHANNEL_MASK channelMsk = (1 << 0);
 
@@ -150,7 +156,7 @@ void SRV_PPVDDMON_Restart(SRV_PVDDMON_CMP_MODE cmpMode)
 
 }
 
-void SRV_PPVDDMON_RegisterCallback(SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context)
+void SRV_PPVDDMON_RegisterCallback (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context)
 {
     /* Register ADC Callback */
     ADC_CallbackRegister(_ADC_PVDDMONCallback, context);

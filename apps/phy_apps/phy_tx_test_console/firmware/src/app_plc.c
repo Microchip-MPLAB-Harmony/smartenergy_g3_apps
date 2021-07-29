@@ -28,7 +28,6 @@
 // *****************************************************************************
 
 #include <string.h>
-#include "app_plc.h"
 #include "definitions.h"
 
 // *****************************************************************************
@@ -85,6 +84,15 @@ APP_PLC_DATA_TX CACHE_ALIGN appPlcTx;
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
+void Timer1_Callback (uintptr_t context)
+{
+    appPlc.tmr1Expired = true;
+}
+
+void Timer2_Callback (uintptr_t context)
+{
+    appPlc.tmr2Expired = true;
+}
 
 static void APP_PLC_ExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj, uintptr_t context )
 {
@@ -150,6 +158,19 @@ static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_
         case DRV_PLC_PHY_TX_RESULT_NO_TX:
             APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_NO_TX\r\n");
             break;
+    }
+}
+
+static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context )
+{
+    /* Avoid warning */
+    (void)context;
+    
+    if (indObj->dataLength)
+    {
+        USER_PLC_IND_LED_On();
+        /* Start signal timer */
+        appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
     }
 }
 
@@ -270,8 +291,8 @@ static void APP_PLC_SetCouplingConfiguration ( SRV_PLC_PCOUP_BRANCH branch )
  */
 void APP_PLC_Initialize ( void )
 {
-    /* Read configuration from NVM memory */
-    appPlc.state = APP_PLC_STATE_READ_CONFIG;
+    /* IDLE state is used to signal when application is started */
+    appPlc.state = APP_PLC_STATE_IDLE;
 
     /* Init flags of PLC transmission */
     appPlc.waitingTxCfm = false;
@@ -289,8 +310,19 @@ void APP_PLC_Initialize ( void )
         appPlc.plcMultiband = true;
     }
     
-    /* Set PVDD Monitor tracking data */
+    /* Init Timer handler */
+    appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
+    appPlc.tmr2Handle = SYS_TIME_HANDLE_INVALID;
+    appPlc.tmr1Expired = false;
+    appPlc.tmr2Expired = false;
+    
+    /* Init signalling */
+    appPlc.signalResetCounter = LED_RESET_BLINK_RATE_MS;
+    
+    /* Init PLC PVDD Monitor */
+    SRV_PPVDDMON_Initialize();
     appPlc.pvddMonTxEnable = true;
+    
 }
 
 /******************************************************************************
@@ -303,10 +335,49 @@ void APP_PLC_Initialize ( void )
 
 void APP_PLC_Tasks ( void )
 {
+    /* Signalling */
+    if (appPlc.tmr1Expired)
+    {
+        appPlc.tmr1Expired = false;
+        USER_BLINK_LED_Toggle();
+        
+        if (appPlc.signalResetCounter)
+        {
+            appPlc.signalResetCounter--;
+        }
+    }
+    
+    if (appPlc.tmr2Expired)
+    {
+        appPlc.tmr2Expired = false;
+        USER_PLC_IND_LED_Off();
+    }
 
     /* Check the application's current state. */
     switch ( appPlc.state )
     {
+        case APP_PLC_STATE_IDLE:
+        {
+            /* Signalling when the application is starting */
+            if (appPlc.signalResetCounter)
+            {
+                if (appPlc.tmr1Handle == SYS_TIME_HANDLE_INVALID)
+                {
+                    /* Init Timer to handle blinking led */
+                    appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_RESET_BLINK_RATE_MS, SYS_TIME_PERIODIC);
+                }
+            }
+            else
+            {
+                SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
+                appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
+                
+                /* Read configuration from NVM memory */
+                appPlc.state = APP_PLC_STATE_READ_CONFIG;
+            }
+            break;
+        }
+        
         case APP_PLC_STATE_READ_CONFIG:
         {
             if (appNvm.state == APP_NVM_STATE_CMD_WAIT)
@@ -450,6 +521,7 @@ void APP_PLC_Tasks ( void )
                 /* Configure PLC callbacks */
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
+                DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
                 
                 /* Apply PLC coupling configuration */
                 APP_PLC_SetCouplingConfiguration(appPlcTx.couplingBranch);
@@ -457,7 +529,10 @@ void APP_PLC_Tasks ( void )
                 /* Enable PLC PVDD Monitor Service: ADC channel 0 */
                 SRV_PPVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
                 SRV_PPVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
-
+                
+                /* Init Timer to handle blinking led */
+                appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
+                
                 /* Get PLC PHY version */
                 pibObj.id = PLC_ID_VERSION_NUM;
                 pibObj.length = 4;

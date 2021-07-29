@@ -95,13 +95,15 @@ typedef enum
 
 typedef struct
 {
-    /* The application's current state */ 
     APP_STATE state;
     
-    /* TODO: Define any additional data used by the application. */
-    SYS_TIME_HANDLE tmr1Handle; 
+    SYS_TIME_HANDLE tmr1Handle;
+    
+    volatile bool tmr1Expired;
     
     SYS_TIME_HANDLE tmr2Handle;
+    
+    volatile bool tmr2Expired;
     
     DRV_HANDLE drvPl360Handle;
     

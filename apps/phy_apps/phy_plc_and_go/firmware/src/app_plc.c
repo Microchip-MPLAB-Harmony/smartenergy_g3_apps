@@ -5,7 +5,7 @@
     Microchip Technology Inc.
 
   File Name:
-    app.c
+    app_plc.c
 
   Summary:
     This file contains the source code for the MPLAB Harmony application.
@@ -28,7 +28,6 @@
 // *****************************************************************************
 
 #include <string.h>
-#include "app_plc.h"
 #include "definitions.h"
 
 // *****************************************************************************
@@ -345,6 +344,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
         else
         {
             /* Init Timer to handle PLC Reception led */
+            USER_PLC_IND_LED_On();
             appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
                 
             APP_CONSOLE_Print("\rRx (");
@@ -429,6 +429,7 @@ void APP_PLC_Initialize ( void )
     appPlc.state = APP_PLC_STATE_IDLE;
     
     /* Set PVDD Monitor tracking data */
+    SRV_PPVDDMON_Initialize();
     appPlc.pvddMonTxEnable = true;
 
     /* Init Timer handler */
@@ -436,9 +437,6 @@ void APP_PLC_Initialize ( void )
     appPlc.tmr2Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr1Expired = false;
     appPlc.tmr2Expired = false;
-    
-    /* Init signalling */
-    USER_PLC_IND_LED_Off();
     
 }
 
@@ -456,7 +454,7 @@ void APP_PLC_Tasks ( void )
     if (appPlc.tmr1Expired)
     {
         appPlc.tmr1Expired = false;
-        USER_BLINK_LED_Toogle();
+        USER_BLINK_LED_Toggle();
     }
     
     if (appPlc.tmr2Expired)
