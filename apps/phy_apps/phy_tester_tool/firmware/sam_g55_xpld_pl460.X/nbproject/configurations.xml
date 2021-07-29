@@ -41,20 +41,20 @@
             <itemPath>../src/config/sam_g55_xpld_pl460/osal/osal_impl_basic.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f4" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f8" displayName="adc" projectFiles="true">
+            <logicalFolder name="f1" displayName="adc" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/adc/plib_adc.h</itemPath>
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/adc/plib_adc_common.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="clock" projectFiles="true">
+            <logicalFolder name="f2" displayName="clock" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/clock/plib_clock.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="cmcc" projectFiles="true">
+            <logicalFolder name="f3" displayName="cmcc" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/cmcc/plib_cmcc.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="efc" projectFiles="true">
+            <logicalFolder name="f4" displayName="efc" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/efc/plib_efc.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="flexcom" projectFiles="true">
+            <logicalFolder name="f5" displayName="flexcom" projectFiles="true">
               <logicalFolder name="f1" displayName="spi" projectFiles="true">
                 <logicalFolder name="f1" displayName="master" projectFiles="true">
                   <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h</itemPath>
@@ -62,13 +62,13 @@
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="nvic" projectFiles="true">
+            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="pio" projectFiles="true">
+            <logicalFolder name="f7" displayName="pio" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/pio/plib_pio.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="tc" projectFiles="true">
+            <logicalFolder name="f8" displayName="tc" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/tc/plib_tc0.h</itemPath>
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/tc/plib_tc_common.h</itemPath>
             </logicalFolder>
@@ -80,13 +80,13 @@
             <logicalFolder name="f2" displayName="pcrc" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pcrc/srv_pcrc.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="ppvddmon" projectFiles="true">
+            <logicalFolder name="f3" displayName="ppvddmon" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/ppvddmon/srv_ppvddmon.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="pserial" projectFiles="true">
+            <logicalFolder name="f4" displayName="pserial" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pserial/srv_pserial.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="usi" projectFiles="true">
+            <logicalFolder name="f5" displayName="usi" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/usi/srv_usi.h</itemPath>
               <itemPath>../src/config/sam_g55_xpld_pl460/service/usi/srv_usi_definitions.h</itemPath>
               <itemPath>../src/config/sam_g55_xpld_pl460/service/usi/srv_usi_cdc.h</itemPath>
@@ -282,6 +282,28 @@
         <itemPath>../../../../../../../../../../Users/M44035/HarmonyProjects/MyProject/firmware/src/config/phy_tester_tool_same70_pl460/phy_tester_tool_same70_pl460.mhc/usb_device.yml</itemPath>
         <itemPath>../../../../../../../../../../Users/M44035/HarmonyProjects/MyProject/firmware/src/config/phy_tester_tool_same70_pl460/phy_tester_tool_same70_pl460.mhc/usb_device_cdc.yml</itemPath>
       </logicalFolder>
+      <logicalFolder name="f3" displayName="pl485_ek.mhc" projectFiles="true">
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/BSP_PL485_Evaluation_kit.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/cmsis.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/core.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/dfp.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/drvPlcPhy.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/drv_usbdp.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/efc.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/flexcom7.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/GraphSettings.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/HarmonyCore.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/project.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/settings.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/srv_pcoup.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/srv_pcrc.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/srv_pserial.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/srv_usi.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/sys_time.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/tc0.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/usb_device.yml</itemPath>
+        <itemPath>../src/config/pl485_ek/pl485_ek.mhc/usb_device_cdc.yml</itemPath>
+      </logicalFolder>
       <logicalFolder name="f2"
                      displayName="sam_g55_xpld_pl460.mhc"
                      projectFiles="true">
@@ -354,32 +376,32 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f3" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f8" displayName="adc" projectFiles="true">
+            <logicalFolder name="f1" displayName="adc" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/adc/plib_adc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="clock" projectFiles="true">
+            <logicalFolder name="f2" displayName="clock" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/clock/plib_clock.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="cmcc" projectFiles="true">
+            <logicalFolder name="f3" displayName="cmcc" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/cmcc/plib_cmcc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="efc" projectFiles="true">
+            <logicalFolder name="f4" displayName="efc" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/efc/plib_efc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="flexcom" projectFiles="true">
+            <logicalFolder name="f5" displayName="flexcom" projectFiles="true">
               <logicalFolder name="f1" displayName="spi" projectFiles="true">
                 <logicalFolder name="f1" displayName="master" projectFiles="true">
                   <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/flexcom/spi/master/plib_flexcom5_spi_master.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="nvic" projectFiles="true">
+            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="pio" projectFiles="true">
+            <logicalFolder name="f7" displayName="pio" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/pio/plib_pio.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="tc" projectFiles="true">
+            <logicalFolder name="f8" displayName="tc" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/peripheral/tc/plib_tc0.c</itemPath>
             </logicalFolder>
           </logicalFolder>
@@ -390,13 +412,13 @@
             <logicalFolder name="f2" displayName="pcrc" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pcrc/srv_pcrc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="ppvddmon" projectFiles="true">
+            <logicalFolder name="f3" displayName="ppvddmon" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/ppvddmon/srv_ppvddmon.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="pserial" projectFiles="true">
+            <logicalFolder name="f4" displayName="pserial" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pserial/srv_pserial.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="usi" projectFiles="true">
+            <logicalFolder name="f5" displayName="usi" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/usi/srv_usi.c</itemPath>
               <itemPath>../src/config/sam_g55_xpld_pl460/service/usi/srv_usi_local.h</itemPath>
               <itemPath>../src/config/sam_g55_xpld_pl460/service/usi/srv_usi_cdc.c</itemPath>

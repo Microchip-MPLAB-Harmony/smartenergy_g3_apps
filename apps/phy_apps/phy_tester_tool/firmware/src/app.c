@@ -28,7 +28,6 @@
 // *****************************************************************************
 
 #include <string.h>
-#include "app.h"
 #include "definitions.h"
 
 // *****************************************************************************
@@ -81,7 +80,7 @@ void Timer1_Callback(uintptr_t context)
     (void)context;
 
     /* Status Led Toogle */
-    LED_Toggle();
+    APP_USER_LED_Toggle();
 }
 
 void Timer2_Callback(uintptr_t context)
@@ -90,7 +89,7 @@ void Timer2_Callback(uintptr_t context)
     (void)context;
 
     /* RX Led Signalling */
-    LED_On();
+    APP_USER_LED_On();
 }
 
 static void APP_PLC_SetCouplingConfiguration(void)
@@ -218,7 +217,7 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
         size_t length;
 
         /* Start Timer: LED blinking for each received message */
-        LED_Off();
+        APP_USER_LED_Off();
         appData.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0,
                 LED_BLINK_PLC_MSG_MS, SYS_TIME_SINGLE);
 
@@ -487,7 +486,7 @@ void APP_Tasks(void)
                 }
 
                 /* Enable Led */
-                LED_On();
+                APP_USER_LED_On();
                     
                 /* Set Application to next state */
                 appData.state = APP_STATE_CONFIG_PLC;
@@ -516,7 +515,7 @@ void APP_Tasks(void)
                 appData.state = APP_STATE_CONFIG_USI;  
                 SYS_TIME_TimerStop(appData.tmr1Handle);
                 /* Disable Led */
-                LED_Off();
+                APP_USER_LED_Off();
             }
             break;
         }
