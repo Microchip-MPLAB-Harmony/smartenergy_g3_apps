@@ -1,6 +1,0 @@
-format_version: v1.0
-type: UniqueComponent
-attributes: {id: srv_psniffer}
-children:
-- type: ElementPosition
-  attributes: {x: '568', y: '139', id: srv_psniffer}
