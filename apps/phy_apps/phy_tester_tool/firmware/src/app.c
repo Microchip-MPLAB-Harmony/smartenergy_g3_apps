@@ -406,6 +406,8 @@ void APP_Initialize(void)
  */
 void APP_Tasks(void)
 {
+    WDT_Clear();
+    
     /* Signalling */
     if (appData.tmr1Expired)
     {

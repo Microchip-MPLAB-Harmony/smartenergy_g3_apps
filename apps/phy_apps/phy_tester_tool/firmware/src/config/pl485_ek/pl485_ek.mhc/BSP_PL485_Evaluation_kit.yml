@@ -3,4 +3,4 @@ type: UniqueComponent
 attributes: {id: BSP_PL485_Evaluation_kit, bsp: 'true'}
 children:
 - type: ElementPosition
-  attributes: {x: '21', y: '66', id: BSP_PL485_Evaluation_kit}
+  attributes: {x: '18', y: '64', id: BSP_PL485_Evaluation_kit}

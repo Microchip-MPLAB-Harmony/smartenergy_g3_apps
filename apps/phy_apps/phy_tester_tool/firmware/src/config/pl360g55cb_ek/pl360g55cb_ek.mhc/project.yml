@@ -1,11 +1,11 @@
 files:
-- generatedChecksum: FB733DCBDE68E952A17AA72E08A17C94
+- generatedChecksum: 478D19CC1220952BD33C9B6177710D6D
   logicalPath: config/pl360g55cb_ek/driver/plc/phy/bin
   name: PLC_PHY_G3_CENB.bin
   physicalPath: driver/plc/phy/bin
   security: NON_SECURE
   type: SOURCE
-  userChecksum: FB733DCBDE68E952A17AA72E08A17C94
+  userChecksum: 478D19CC1220952BD33C9B6177710D6D
 - generatedChecksum: null
   logicalPath: ''
   name: app_pl360.c

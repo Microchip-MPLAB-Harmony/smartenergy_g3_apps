@@ -10,6 +10,6 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pserial, value: '0'}
+        attributes: {id: srv_pserial, value: '1'}
 - type: ElementPosition
   attributes: {x: '391', y: '186', id: srv_pserial}

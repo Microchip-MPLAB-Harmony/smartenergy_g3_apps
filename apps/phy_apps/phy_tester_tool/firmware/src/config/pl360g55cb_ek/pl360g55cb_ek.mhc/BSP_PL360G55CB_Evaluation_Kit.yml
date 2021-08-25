@@ -3,4 +3,4 @@ type: UniqueComponent
 attributes: {id: BSP_PL360G55CB_Evaluation_Kit, bsp: 'true'}
 children:
 - type: ElementPosition
-  attributes: {x: '24', y: '71', id: BSP_PL360G55CB_Evaluation_Kit}
+  attributes: {x: '23', y: '73', id: BSP_PL360G55CB_Evaluation_Kit}

@@ -89,6 +89,9 @@ void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
 {
     sPlcPlib = plcPlib;   
     
+    /* Clear StandBy pin */
+    SYS_PORT_PinClear(sPlcPlib->stByPin);
+
     /* Disable External Pin Interrupt */
     PIO_PinInterruptDisable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
     /* Enable External Interrupt Source */
@@ -137,6 +140,23 @@ void DRV_PLC_HAL_Reset(void)
 
     /* Wait to PLC startup (1000us) */
     DRV_PLC_HAL_Delay(1000);
+}
+
+void DRV_PLC_HAL_SetStandBy(bool enable)
+{
+    if (enable) {
+        /* Enable Stby Pin */
+        SYS_PORT_PinSet(sPlcPlib->stByPin);
+    } else {
+        /* Disable Stby Pin */
+        SYS_PORT_PinClear(sPlcPlib->stByPin);
+
+        /* Disable Reset pin */
+        SYS_PORT_PinSet(sPlcPlib->resetPin);
+        
+        /* Wait to PLC startup (700us) */
+        DRV_PLC_HAL_Delay(700);
+    }
 }
 
 bool DRV_PLC_HAL_GetCarrierDetect(void)

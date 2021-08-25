@@ -57,8 +57,6 @@ children:
     children:
     - type: Values
       children:
-      - type: Dynamic
-        attributes: {id: drvPlcPhy, value: CEN-A}
       - type: User
         attributes: {value: CEN-B}
   - type: KeyValueSet
@@ -92,12 +90,10 @@ children:
   - type: Boolean
     attributes: {id: DRV_PLC_SLEEP_MODE}
     children:
-    - type: Attributes
+    - type: Values
       children:
-      - type: Boolean
-        attributes: {id: visible}
-        children:
-        - {type: Value, value: 'false'}
+      - type: User
+        attributes: {value: 'true'}
   - type: KeyValueSet
     attributes: {id: DRV_PLC_STBY_PIN}
     children:
@@ -106,7 +102,11 @@ children:
       - type: Boolean
         attributes: {id: visible}
         children:
-        - {type: Value, value: 'false'}
+        - {type: Value, value: 'true'}
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: '47'}
   - type: Boolean
     attributes: {id: DRV_PLC_THERMAL_MONITOR}
     children:
@@ -159,4 +159,4 @@ children:
         children:
         - {type: Value, value: FLEXCOM7_SPI}
 - type: ElementPosition
-  attributes: {x: '572', y: '331', id: drvPlcPhy}
+  attributes: {x: '576', y: '331', id: drvPlcPhy}

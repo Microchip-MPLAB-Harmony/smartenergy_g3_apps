@@ -357,6 +357,8 @@ void APP_PL360_Initialize(void)
  */
 void APP_PL360_Tasks(void)
 {
+    WDT_Clear();
+    
     /* Signalling */
     if (appData.tmr1Expired)
     {

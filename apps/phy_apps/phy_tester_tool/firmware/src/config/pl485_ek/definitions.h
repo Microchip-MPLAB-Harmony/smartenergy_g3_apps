@@ -55,6 +55,7 @@
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/clock/plib_clock.h"
 #include "peripheral/nvic/plib_nvic.h"
+#include "peripheral/wdt/plib_wdt.h"
 #include "peripheral/cmcc/plib_cmcc.h"
 #include "usb/usb_chapter_9.h"
 #include "usb/usb_device.h"
