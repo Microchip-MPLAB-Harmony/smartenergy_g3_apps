@@ -101,8 +101,8 @@ void PIO_Initialize ( void )
 
     /************************ PIO B Initialization ************************/
     /* PORTB PIO Disable and Peripheral Enable*/
-    ((pio_registers_t*)PIO_PORT_B)->PIO_PDR = 0xc00;
-    ((pio_registers_t*)PIO_PORT_B)->PIO_PER = ~0xc00;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_PDR = 0x300;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_PER = ~0x300;
     ((pio_registers_t*)PIO_PORT_B)->PIO_MDDR = 0xFFFFFFFF;
     /* PORTB Pull Up Enable/Disable as per MHC selection */
     ((pio_registers_t*)PIO_PORT_B)->PIO_PUDR = 0xFFFFFFFF;
@@ -111,8 +111,8 @@ void PIO_Initialize ( void )
     /* PORTB Output Write Enable */
     ((pio_registers_t*)PIO_PORT_B)->PIO_OWER = PIO_OWER_Msk;
     /* PORTB Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_B)->PIO_OER = 0x2000;
-    ((pio_registers_t*)PIO_PORT_B)->PIO_ODR = ~0x2000;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_OER = 0xa000;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_ODR = ~0xa000;
     /* PORTB Initial state High */
     ((pio_registers_t*)PIO_PORT_B)->PIO_ODSR = 0x0;
     /* PORTB drive control */

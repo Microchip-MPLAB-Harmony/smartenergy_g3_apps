@@ -1,11 +1,11 @@
 files:
-- generatedChecksum: 32FF245921FCFC6626627179D1A37F20
+- generatedChecksum: 478D19CC1220952BD33C9B6177710D6D
   logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy/bin
-  name: PLC_PHY_G3_CENA.bin
+  name: PLC_PHY_G3_CENB.bin
   physicalPath: driver/plc/phy/bin
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 32FF245921FCFC6626627179D1A37F20
+  userChecksum: 478D19CC1220952BD33C9B6177710D6D
 - generatedChecksum: null
   logicalPath: ''
   name: app_console.c
@@ -34,13 +34,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 9B7A2D36F3806FCAE6C0EE3126A51279
-- generatedChecksum: F903D692DFCEBD07A5150F19A7CA21D9
+- generatedChecksum: 845350B3DAD37EDE70B34B20094FEB3F
   logicalPath: config/sam_g55_xpld_pl460/driver/plc/common
   name: drv_plc_hal.c
   physicalPath: driver/plc/common
   security: NON_SECURE
   type: SOURCE
-  userChecksum: F903D692DFCEBD07A5150F19A7CA21D9
+  userChecksum: 845350B3DAD37EDE70B34B20094FEB3F
 - generatedChecksum: 82390D2E4D771C5C5DD12416D9FE4BE8
   logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy
   name: drv_plc_phy.c
@@ -97,13 +97,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: null
-- generatedChecksum: A54B0CC252A670119722592E2F39A6CB
+- generatedChecksum: 22B85A8124BB059489DEA03ACD50DBD5
   logicalPath: config/sam_g55_xpld_pl460/driver/plc/phy/bin
   name: plc_phy_bin.S
   physicalPath: driver/plc/phy/bin
   security: NON_SECURE
   type: SOURCE
-  userChecksum: A54B0CC252A670119722592E2F39A6CB
+  userChecksum: 22B85A8124BB059489DEA03ACD50DBD5
 - generatedChecksum: DF3E4C2C2CE6CB1385AA5F9ABBF53F5C
   logicalPath: config/sam_g55_xpld_pl460/peripheral/adc
   name: plib_adc.c
@@ -174,13 +174,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: E2F3597748D3786AF3A10D19B9AE7779
-- generatedChecksum: 9BF06CBC9A75F37B988539D70FF6D81F
+- generatedChecksum: 2C5C400DBABF7DF19B828084118A2BFF
   logicalPath: config/sam_g55_xpld_pl460/service/pcoup
   name: srv_pcoup.c
   physicalPath: service/pcoup
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 9BF06CBC9A75F37B988539D70FF6D81F
+  userChecksum: 2C5C400DBABF7DF19B828084118A2BFF
 - generatedChecksum: 08BB13FE561960D3B15400DBB930E109
   logicalPath: config/sam_g55_xpld_pl460/service/ppvddmon
   name: srv_ppvddmon.c
@@ -384,13 +384,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 52F91AC0727F2311EDA0E3BAA7719A9F
-- generatedChecksum: D016C13049E4BA566EC723A5D8290F70
+- generatedChecksum: 558AEF35DCF7672D81A9E3AD5ECEFC2B
   logicalPath: config/sam_g55_xpld_pl460
   name: configuration.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: D016C13049E4BA566EC723A5D8290F70
+  userChecksum: 558AEF35DCF7672D81A9E3AD5ECEFC2B
 - generatedChecksum: 624A16D50759D7A491C523D747764B49
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: core_cm4.h
@@ -965,13 +965,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 537C63D01CA9B8B80607902E1C0C67A1
-- generatedChecksum: 2D42722B9B5F896E396FEAED9238200E
+- generatedChecksum: A58D8D4AE0FB44DDAC3203A4B4C042BB
   logicalPath: config/sam_g55_xpld_pl460/service/pcoup
   name: srv_pcoup.h
   physicalPath: service/pcoup
   security: NON_SECURE
   type: HEADER
-  userChecksum: 2D42722B9B5F896E396FEAED9238200E
+  userChecksum: A58D8D4AE0FB44DDAC3203A4B4C042BB
 - generatedChecksum: 833968BFFDDD08E4A2D769FCC9AFAA04
   logicalPath: config/sam_g55_xpld_pl460/service/ppvddmon
   name: srv_ppvddmon.h

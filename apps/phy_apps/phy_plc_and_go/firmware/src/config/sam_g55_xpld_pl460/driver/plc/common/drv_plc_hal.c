@@ -161,7 +161,11 @@ void DRV_PLC_HAL_SetStandBy(bool enable)
 
 bool DRV_PLC_HAL_GetThermalMonitor(void)
 {
-    return SYS_PORT_PinRead(sPlcPlib->thMonPin);
+    if (SYS_PORT_PinRead(sPlcPlib->thMonPin)) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 bool DRV_PLC_HAL_GetCarrierDetect(void)

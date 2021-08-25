@@ -114,6 +114,7 @@ extern "C" {
 #define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PA25
 #define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PB13
 #define DRV_PLC_CD_PIN                        SYS_PORT_PIN_PA24
+#define DRV_PLC_STBY_PIN                      SYS_PORT_PIN_PB15
 
 #define DRV_PLC_SPI_CLK                       8000000
 #define DRV_PLC_PHY_INSTANCES_NUMBER          1

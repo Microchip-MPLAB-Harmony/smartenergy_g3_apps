@@ -285,8 +285,8 @@
               </logicalFolder>
               <logicalFolder name="f2" displayName="phy" projectFiles="true">
                 <logicalFolder name="f1" displayName="bin" projectFiles="true">
-                  <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/bin/PLC_PHY_G3_CENA.bin</itemPath>
                   <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
+                  <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/bin/PLC_PHY_G3_CENB.bin</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
                 <itemPath>../src/config/sam_g55_xpld_pl460/driver/plc/phy/drv_plc_phy.c</itemPath>
