@@ -385,7 +385,7 @@ children:
       - type: Boolean
         attributes: {id: readOnly}
         children:
-        - {type: Value, value: 'true'}
+        - {type: Value, value: 'false'}
       - type: Boolean
         attributes: {id: visible}
         children:

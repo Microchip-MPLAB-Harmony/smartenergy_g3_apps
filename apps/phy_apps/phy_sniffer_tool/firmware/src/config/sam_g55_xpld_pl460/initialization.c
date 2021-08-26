@@ -94,6 +94,9 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* PLC External Interrupt Pin */
     .cdPin = DRV_PLC_CD_PIN,
 
+    /* PLC StandBy Pin */
+    .stByPin = DRV_PLC_STBY_PIN,
+    
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -111,6 +114,9 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
     /* PLC transceiver reset */
     .reset = (DRV_PLC_HAL_RESET)DRV_PLC_HAL_Reset,
 
+    /* PLC Set StandBy Mode */
+    .setStandBy = (DRV_PLC_HAL_SET_STBY)DRV_PLC_HAL_SetStandBy,
+    
     /* PLC Carrier Detect Status */
     .getCarrierDetect = (DRV_PLC_HAL_GET_CD)DRV_PLC_HAL_GetCarrierDetect,
 
@@ -297,7 +303,8 @@ void SYS_Initialize ( void* data )
 
 
 
-	WDT_REGS->WDT_MR = WDT_MR_WDDIS_Msk; 		// Disable WDT 
+	WDT_Initialize();
+
 
     FLEXCOM5_SPI_Initialize();
 

@@ -190,6 +190,9 @@ typedef struct
     /* PLC Carrier Detect pin */
     SYS_PORT_PIN                           cdPin;
 
+    /* PLC StandBy Pin */
+    SYS_PORT_PIN                           stByPin;
+
 
 } DRV_PLC_PLIB_INTERFACE;
 
@@ -200,6 +203,8 @@ typedef void (* DRV_PLC_HAL_INIT)(DRV_PLC_PLIB_INTERFACE*);
 typedef void (* DRV_PLC_HAL_SETUP)(bool);
 
 typedef void (* DRV_PLC_HAL_RESET)(void);
+
+typedef void (* DRV_PLC_HAL_SET_STBY)(bool);
 
 typedef bool (* DRV_PLC_HAL_GET_CD)(void);
 
@@ -238,6 +243,9 @@ typedef struct
 
     /* PLC HAL reset device */
     DRV_PLC_HAL_RESET                        reset;
+
+    /* PLC low power management */
+    DRV_PLC_HAL_SET_STBY                     setStandBy;
 
     /* PLC HAL Get Carrier Detect or PLC Line Status */
     DRV_PLC_HAL_GET_CD                       getCarrierDetect;
@@ -304,6 +312,7 @@ typedef struct
 
 void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib);
 void DRV_PLC_HAL_Reset(void);
+void DRV_PLC_HAL_SetStandBy(bool enable);
 void DRV_PLC_HAL_Setup(bool set16Bits);
 bool DRV_PLC_HAL_GetCarrierDetect(void);
 void DRV_PLC_HAL_EnableInterrupts(bool enable);

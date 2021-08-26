@@ -62,6 +62,15 @@
 // *****************************************************************************
 
 
+/*** Macros for PLC_STBY pin ***/
+#define PLC_STBY_Set()               (PIOB_REGS->PIO_SODR = (1<<15))
+#define PLC_STBY_Clear()             (PIOB_REGS->PIO_CODR = (1<<15))
+#define PLC_STBY_Toggle()            (PIOB_REGS->PIO_ODSR ^= (1<<15))
+#define PLC_STBY_OutputEnable()      (PIOB_REGS->PIO_OER = (1<<15))
+#define PLC_STBY_InputEnable()       (PIOB_REGS->PIO_ODR = (1<<15))
+#define PLC_STBY_Get()               ((PIOB_REGS->PIO_PDSR >> 15) & 0x1)
+#define PLC_STBY_PIN                  PIO_PIN_PB15
+
 /*** Macros for PLC_INT pin ***/
 #define PLC_INT_Set()               (PIOA_REGS->PIO_SODR = (1<<26))
 #define PLC_INT_Clear()             (PIOA_REGS->PIO_CODR = (1<<26))

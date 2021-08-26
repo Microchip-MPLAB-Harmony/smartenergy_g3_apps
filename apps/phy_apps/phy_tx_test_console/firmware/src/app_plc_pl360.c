@@ -584,12 +584,9 @@ void APP_PLC_PL360_Tasks ( void )
             {
                 if (!appPlc.waitingTxCfm)
                 {
-                    DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmData;
-
-                    cfmData.time = 0;
-                    cfmData.rmsCalc = 0;
-                    cfmData.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
-                    APP_PLC_DataCfmCb(&cfmData, 0);
+                    appPlc.waitingTxCfm = true;
+                    /* Send PLC message */
+                    DRV_PLC_PHY_Send(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
                 }
             }
 

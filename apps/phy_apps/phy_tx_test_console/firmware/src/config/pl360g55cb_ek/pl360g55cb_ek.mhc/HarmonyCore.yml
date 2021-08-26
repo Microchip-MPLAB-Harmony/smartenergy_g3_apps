@@ -65,6 +65,10 @@ children:
         attributes: {id: enabled}
         children:
         - {type: Value, value: 'true'}
+      - type: String
+        attributes: {id: name}
+        children:
+        - {type: Value, value: app_nvm.c}
   - type: File
     attributes: {id: APP2_H}
     children:
@@ -74,6 +78,10 @@ children:
         attributes: {id: enabled}
         children:
         - {type: Value, value: 'true'}
+      - type: String
+        attributes: {id: name}
+        children:
+        - {type: Value, value: app_nvm.h}
   - type: KeyValueSet
     attributes: {id: COMMON_SYMBOL_CNTR}
     children:
@@ -269,6 +277,13 @@ children:
       children:
       - type: User
         attributes: {value: app_console}
+  - type: String
+    attributes: {id: GEN_APP_TASK_NAME_2}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: app_nvm}
   - type: File
     attributes: {id: INT_DEF}
     children:

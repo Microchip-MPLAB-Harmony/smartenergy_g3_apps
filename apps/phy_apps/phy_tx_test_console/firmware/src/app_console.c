@@ -644,6 +644,9 @@ void APP_CONSOLE_Tasks ( void )
         {
             /* Show console interface */
             APP_CONSOLE_Print(MENU_HEADER);
+            
+            /* Show console prompt */
+            APP_CONSOLE_Print(MENU_PROMPT);
 
             /* Waiting Console command */
             appConsole.state = APP_CONSOLE_STATE_CONSOLE;
@@ -660,7 +663,7 @@ void APP_CONSOLE_Tasks ( void )
                 {
                     case '0':
                         appConsole.state = APP_CONSOLE_STATE_SET_ATT_LEVEL;
-                        APP_CONSOLE_Print("\r\nEnter attenuation level using 2 digits [00..1F][use FF for signal 0] : ");
+                        APP_CONSOLE_Print("\r\nEnter attenuation level using 2 digits [00..FF][use FF for signal 0] : ");
                         APP_CONSOLE_ReadRestart(2);
                         break;
 

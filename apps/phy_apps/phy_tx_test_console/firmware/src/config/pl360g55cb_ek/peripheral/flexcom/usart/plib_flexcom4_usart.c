@@ -51,8 +51,8 @@
 #include "plib_flexcom4_usart.h"
 #include "interrupts.h"
 
-#define FLEXCOM4_USART_READ_BUFFER_SIZE             128
-#define FLEXCOM4_USART_READ_BUFFER_SIZE_9BIT        (128 >> 1)
+#define FLEXCOM4_USART_READ_BUFFER_SIZE             512
+#define FLEXCOM4_USART_READ_BUFFER_SIZE_9BIT        (512 >> 1)
 
 /* Disable Read, Overrun, Parity and Framing error interrupts */
 #define FLEXCOM4_USART_RX_INT_DISABLE()      USART4_REGS->US_IDR = (US_IDR_RXRDY_Msk | US_IDR_FRAME_Msk | US_IDR_PARE_Msk | US_IDR_OVRE_Msk)
@@ -61,8 +61,8 @@
 
 static uint8_t FLEXCOM4_USART_ReadBuffer[FLEXCOM4_USART_READ_BUFFER_SIZE];
 
-#define FLEXCOM4_USART_WRITE_BUFFER_SIZE            128
-#define FLEXCOM4_USART_WRITE_BUFFER_SIZE_9BIT       (128 >> 1)
+#define FLEXCOM4_USART_WRITE_BUFFER_SIZE            512
+#define FLEXCOM4_USART_WRITE_BUFFER_SIZE_9BIT       (512 >> 1)
 
 #define FLEXCOM4_USART_TX_INT_DISABLE()      USART4_REGS->US_IDR = US_IDR_TXRDY_Msk
 #define FLEXCOM4_USART_TX_INT_ENABLE()       USART4_REGS->US_IER = US_IER_TXRDY_Msk

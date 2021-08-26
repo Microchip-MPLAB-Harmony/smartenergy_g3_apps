@@ -1,14 +1,14 @@
 /*******************************************************************************
-  NVIC PLIB Implementation
+  WDT Peripheral Library
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    plib_nvic.c
+    plib_wdt.c
 
   Summary:
-    NVIC PLIB Source File
+    WDT Source File
 
   Description:
     None
@@ -39,67 +39,20 @@
 *******************************************************************************/
 
 #include "device.h"
-#include "plib_nvic.h"
+#include "plib_wdt.h"
+#include "interrupts.h"
 
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: NVIC Implementation
-// *****************************************************************************
-// *****************************************************************************
-
-void NVIC_Initialize( void )
+void WDT_Initialize( void )
 {
-    /* Priority 0 to 7 and no sub-priority. 0 is the highest priority */
-    NVIC_SetPriorityGrouping( 0x00 );
 
-    /* Enable NVIC Controller */
-    __DMB();
-    __enable_irq();
-
-    /* Enable the interrupt sources and configure the priorities as configured
-     * from within the "Interrupt Manager" of MHC. */
-    NVIC_SetPriority(PIOA_IRQn, 9);
-    NVIC_EnableIRQ(PIOA_IRQn);
-    NVIC_SetPriority(FLEXCOM3_IRQn, 8);
-    NVIC_EnableIRQ(FLEXCOM3_IRQn);
-    NVIC_SetPriority(TC0_CH0_IRQn, 7);
-    NVIC_EnableIRQ(TC0_CH0_IRQn);
-    NVIC_SetPriority(UDP_IRQn, 9);
-    NVIC_EnableIRQ(UDP_IRQn);
-
-
+    WDT_REGS->WDT_MR = WDT_MR_WDD (4095) | WDT_MR_WDV(4095) \
+               | WDT_MR_WDDBGHLT_Msk | WDT_MR_WDIDLEHLT_Msk | WDT_MR_WDRSTEN_Msk;
 
 }
 
-void NVIC_INT_Enable( void )
+void WDT_Clear(void)
 {
-    __DMB();
-    __enable_irq();
+   WDT_REGS->WDT_CR = (WDT_CR_KEY_PASSWD | WDT_CR_WDRSTT_Msk);
 }
 
-bool NVIC_INT_Disable( void )
-{
-    bool processorStatus;
 
-    processorStatus = (bool) (__get_PRIMASK() == 0);
-
-    __disable_irq();
-    __DMB();
-
-    return processorStatus;
-}
-
-void NVIC_INT_Restore( bool state )
-{
-    if( state == true )
-    {
-        __DMB();
-        __enable_irq();
-    }
-    else
-    {
-        __disable_irq();
-        __DMB();
-    }
-}

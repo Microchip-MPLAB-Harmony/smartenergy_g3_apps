@@ -175,7 +175,7 @@ extern APP_CONSOLE_DATA appConsole;
 	"0: CEN A\n\r" \
 	"1: FCC\n\r"
 
-#define MENU_CONSOLE "\n\rPHY-Console>"
+#define MENU_PROMPT "\n\rPHY-Console>"
 
 /*******************************************************************************
   Function:

@@ -438,6 +438,11 @@ void DRV_PLC_PHY_Init(DRV_PLC_PHY_OBJ *pl360)
 
 void DRV_PLC_PHY_Task(void)
 {
+    if (gPlcPhyObj->sleep)
+    {
+        return;
+    }
+
     /* Check event flags */
     if ((gPlcPhyObj->evTxCfm[0]) || (gPlcPhyObj->evResetTxCfm))
     {
@@ -485,6 +490,21 @@ void DRV_PLC_PHY_Task(void)
 void DRV_PLC_PHY_Send(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ *transmitObj)
 {    
     DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmObj;
+
+    if (gPlcPhyObj->sleep)
+    {
+        /* Do not transmit in SLeep Mode. */
+        if (gPlcPhyObj->dataCfmCallback)
+        {
+            cfmObj.rmsCalc = 0;
+            cfmObj.time = 0;
+            cfmObj.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
+            /* Report to upper layer */
+            gPlcPhyObj->dataCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
+        }
+        
+        return;
+    }
 
     if((handle != DRV_HANDLE_INVALID) && (handle == 0) && (gPlcPhyObj->state == DRV_PLC_PHY_STATE_IDLE))
     {
@@ -556,6 +576,11 @@ bool DRV_PLC_PHY_PIBGet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj)
 {    
     if((handle != DRV_HANDLE_INVALID) && (handle == 0))
     {
+        if (gPlcPhyObj->sleep)
+        {
+            return false;
+        }
+
         if (pibObj->id == PLC_ID_TIME_REF_ID)
         {
             /* Send PIB information request */
@@ -665,6 +690,11 @@ bool DRV_PLC_PHY_PIBSet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj)
 {    
     if((handle != DRV_HANDLE_INVALID) && (handle == 0))
     {
+        if (gPlcPhyObj->sleep)
+        {
+            return false;
+        }
+
         if (pibObj->id & DRV_PLC_PHY_REG_ID_MASK)
         {
             uint8_t *pDst;

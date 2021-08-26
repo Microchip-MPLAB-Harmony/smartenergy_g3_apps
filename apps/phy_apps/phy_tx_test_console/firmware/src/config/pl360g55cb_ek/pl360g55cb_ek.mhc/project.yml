@@ -1,11 +1,11 @@
 files:
-- generatedChecksum: FB733DCBDE68E952A17AA72E08A17C94
+- generatedChecksum: 478D19CC1220952BD33C9B6177710D6D
   logicalPath: config/pl360g55cb_ek/driver/plc/phy/bin
   name: PLC_PHY_G3_CENB.bin
   physicalPath: driver/plc/phy/bin
   security: NON_SECURE
   type: SOURCE
-  userChecksum: FB733DCBDE68E952A17AA72E08A17C94
+  userChecksum: 478D19CC1220952BD33C9B6177710D6D
 - generatedChecksum: null
   logicalPath: ''
   name: app_console.c
@@ -153,13 +153,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 72E8CD9E73827D7C79607473EA257196
-- generatedChecksum: E29D49D9CD330A612951CA1A749FA99A
+- generatedChecksum: 32AC4BD9209006C291132BBEAB2BAC2E
   logicalPath: config/pl360g55cb_ek/peripheral/flexcom/usart
   name: plib_flexcom4_usart.c
   physicalPath: peripheral/flexcom/usart
   security: NON_SECURE
   type: SOURCE
-  userChecksum: E29D49D9CD330A612951CA1A749FA99A
+  userChecksum: 32AC4BD9209006C291132BBEAB2BAC2E
 - generatedChecksum: F47F01147D33D55FB36A50735A7B44C5
   logicalPath: config/pl360g55cb_ek/peripheral/nvic
   name: plib_nvic.c
@@ -433,13 +433,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 468146180FBA71A4DA27CDAE338241F1
-- generatedChecksum: 860EACC987C8E17D87A5CCFFB03654BC
+- generatedChecksum: 075354D65AC831DC818D0C709CDB86B9
   logicalPath: config/pl360g55cb_ek
   name: definitions.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 860EACC987C8E17D87A5CCFFB03654BC
+  userChecksum: 075354D65AC831DC818D0C709CDB86B9
 - generatedChecksum: B2B6C8FA402EA332272FF5E6F01E48F9
   logicalPath: config/pl360g55cb_ek
   name: device.h
@@ -1308,13 +1308,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 255474B4F1E7AD7AF9DB59078CB4C5DA
-- generatedChecksum: 4B3C3EF8A318908A22B78500515C3288
+- generatedChecksum: null
   logicalPath: config/pl360g55cb_ek
   name: user.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 4B3C3EF8A318908A22B78500515C3288
+  userChecksum: null
 - generatedChecksum: B9F80C02572301661862F82FBB4825A1
   logicalPath: packs/ATSAMG55J19_DFP/component
   name: wdt.h

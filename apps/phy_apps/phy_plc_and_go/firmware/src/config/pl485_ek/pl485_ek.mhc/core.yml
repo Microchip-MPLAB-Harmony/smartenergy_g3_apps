@@ -476,28 +476,28 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: ''}
+        attributes: {value: USART4_TXD}
   - type: String
     attributes: {id: PIN_46_PERIPHERAL_FUNCTION}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: ''}
+        attributes: {value: A}
   - type: String
     attributes: {id: PIN_47_FUNCTION_TYPE}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: ''}
+        attributes: {value: USART4_RXD}
   - type: String
     attributes: {id: PIN_47_PERIPHERAL_FUNCTION}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: ''}
+        attributes: {value: A}
   - type: String
     attributes: {id: PIN_51_FUNCTION_TYPE}
     children:
@@ -644,28 +644,28 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: USART4_TXD}
+        attributes: {value: ''}
   - type: String
     attributes: {id: PIN_59_PERIPHERAL_FUNCTION}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: A}
+        attributes: {value: ''}
   - type: String
     attributes: {id: PIN_60_FUNCTION_TYPE}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: USART4_RXD}
+        attributes: {value: ''}
   - type: String
     attributes: {id: PIN_60_PERIPHERAL_FUNCTION}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: A}
+        attributes: {value: ''}
   - type: Hex
     attributes: {id: PIOA_ABCDSR1_VALUE}
     children:
@@ -812,7 +812,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '768'}
+        attributes: {id: core, value: '3072'}
   - type: Hex
     attributes: {id: PIOB_SODR_VALUE}
     children:

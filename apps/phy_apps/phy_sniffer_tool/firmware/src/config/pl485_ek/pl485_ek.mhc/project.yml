@@ -1,11 +1,11 @@
 files:
-- generatedChecksum: FB733DCBDE68E952A17AA72E08A17C94
+- generatedChecksum: 478D19CC1220952BD33C9B6177710D6D
   logicalPath: config/pl485_ek/driver/plc/phy/bin
   name: PLC_PHY_G3_CENB.bin
   physicalPath: driver/plc/phy/bin
   security: NON_SECURE
   type: SOURCE
-  userChecksum: FB733DCBDE68E952A17AA72E08A17C94
+  userChecksum: 478D19CC1220952BD33C9B6177710D6D
 - generatedChecksum: null
   logicalPath: ''
   name: app.c
@@ -27,27 +27,27 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 9B7A2D36F3806FCAE6C0EE3126A51279
-- generatedChecksum: 1204E2A6A11D5A3FAFE80AFB9BF429C5
+- generatedChecksum: C00FED3F863DAAEC1DA4CDDE98321D22
   logicalPath: config/pl485_ek/driver/plc/common
   name: drv_plc_hal.c
   physicalPath: driver/plc/common
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 1204E2A6A11D5A3FAFE80AFB9BF429C5
-- generatedChecksum: AB4A4DCCFD28DFE13C626FEC25EA053F
+  userChecksum: C00FED3F863DAAEC1DA4CDDE98321D22
+- generatedChecksum: 82390D2E4D771C5C5DD12416D9FE4BE8
   logicalPath: config/pl485_ek/driver/plc/phy
   name: drv_plc_phy.c
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: SOURCE
-  userChecksum: AB4A4DCCFD28DFE13C626FEC25EA053F
-- generatedChecksum: 216232C05A752E1A3A3D0C3590792685
+  userChecksum: 82390D2E4D771C5C5DD12416D9FE4BE8
+- generatedChecksum: BE86A7E7933C398E2367A6A7EF7CEEF8
   logicalPath: config/pl485_ek/driver/plc/phy
   name: drv_plc_phy_comm.c
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 216232C05A752E1A3A3D0C3590792685
+  userChecksum: BE86A7E7933C398E2367A6A7EF7CEEF8
 - generatedChecksum: 8FF74EF6A81AA825E4CA99851E4A20B3
   logicalPath: config/pl485_ek/driver/plc/phy
   name: drv_plc_phy_local_comm.h
@@ -69,13 +69,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 6069C4FD56993BDA3B1FC223DD5BAA4A
-- generatedChecksum: 5BF17AE7FBF02DBC3B7264DE6547BB18
+- generatedChecksum: FD653C76D848E614203D03BB7431AB0B
   logicalPath: config/pl485_ek
   name: initialization.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 5BF17AE7FBF02DBC3B7264DE6547BB18
+  userChecksum: FD653C76D848E614203D03BB7431AB0B
 - generatedChecksum: 5C9BBE1DE879E86A71D2554808C5F85B
   logicalPath: config/pl485_ek
   name: interrupts.c
@@ -139,13 +139,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 0EABDD88771A8CF0B2C6FC8DB0594A8F
-- generatedChecksum: 1F73ACC8C5FDDE262679A8B79E164B32
+- generatedChecksum: 3FE040F9645BE707E9BDFDD463A6EFB3
   logicalPath: config/pl485_ek/peripheral/pio
   name: plib_pio.c
   physicalPath: peripheral/pio
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 1F73ACC8C5FDDE262679A8B79E164B32
+  userChecksum: 3FE040F9645BE707E9BDFDD463A6EFB3
 - generatedChecksum: 7F01F1BDCD10E1879F10093BD7250D37
   logicalPath: config/pl485_ek/peripheral/tc
   name: plib_tc0.c
@@ -153,6 +153,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 7F01F1BDCD10E1879F10093BD7250D37
+- generatedChecksum: E2F3597748D3786AF3A10D19B9AE7779
+  logicalPath: config/pl485_ek/peripheral/wdt
+  name: plib_wdt.c
+  physicalPath: peripheral/wdt
+  security: NON_SECURE
+  type: SOURCE
+  userChecksum: E2F3597748D3786AF3A10D19B9AE7779
 - generatedChecksum: 2C5C400DBABF7DF19B828084118A2BFF
   logicalPath: config/pl485_ek/service/pcoup
   name: srv_pcoup.c
@@ -377,13 +384,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 52F91AC0727F2311EDA0E3BAA7719A9F
-- generatedChecksum: CE0B81229E80321FDB30C4203162EB9F
+- generatedChecksum: 8B32126C602B5121CF10A0D79D368958
   logicalPath: config/pl485_ek
   name: configuration.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: CE0B81229E80321FDB30C4203162EB9F
+  userChecksum: 8B32126C602B5121CF10A0D79D368958
 - generatedChecksum: 624A16D50759D7A491C523D747764B49
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: core_cm4.h
@@ -405,13 +412,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 468146180FBA71A4DA27CDAE338241F1
-- generatedChecksum: 833E39333B2805F346FACD06A045C9FA
+- generatedChecksum: 0054150DB244CB7FDC3FEF1B88F2A042
   logicalPath: config/pl485_ek
   name: definitions.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 833E39333B2805F346FACD06A045C9FA
+  userChecksum: 0054150DB244CB7FDC3FEF1B88F2A042
 - generatedChecksum: B2B6C8FA402EA332272FF5E6F01E48F9
   logicalPath: config/pl485_ek
   name: device.h
@@ -454,20 +461,20 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 3C3123B855949CE0B638ADC44FBACDE0
-- generatedChecksum: 836FCD7937B2C6889657DFEF375C2603
+- generatedChecksum: 0979998B46BFA29EF5187673AED8F674
   logicalPath: config/pl485_ek/driver/plc/common
   name: drv_plc_hal.h
   physicalPath: driver/plc/common
   security: NON_SECURE
   type: HEADER
-  userChecksum: 836FCD7937B2C6889657DFEF375C2603
-- generatedChecksum: B810631186D961751373CF908E8E0513
+  userChecksum: 0979998B46BFA29EF5187673AED8F674
+- generatedChecksum: 36EE0941B15EDBA8A928BBEDEC4B6FFB
   logicalPath: config/pl485_ek/driver/plc/phy
   name: drv_plc_phy.h
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: HEADER
-  userChecksum: B810631186D961751373CF908E8E0513
+  userChecksum: 36EE0941B15EDBA8A928BBEDEC4B6FFB
 - generatedChecksum: A2DCC32B633301FA2B8325760768CFF5
   logicalPath: config/pl485_ek/driver/plc/phy
   name: drv_plc_phy_comm.h
@@ -482,13 +489,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 1AE416AEB8FE43743CCDD61FCE8493DB
-- generatedChecksum: B9EBB812335751052DC5C8D096F123F3
+- generatedChecksum: 2CA692B7293FF943FCDE0903E90DA711
   logicalPath: config/pl485_ek/driver/plc/phy
   name: drv_plc_phy_local.h
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: HEADER
-  userChecksum: B9EBB812335751052DC5C8D096F123F3
+  userChecksum: 2CA692B7293FF943FCDE0903E90DA711
 - generatedChecksum: DF147276AE56CA76E3E9BEB8447620AB
   logicalPath: config/pl485_ek/driver/usb
   name: drv_usb.h
@@ -797,13 +804,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 55ECCC7FA71BD15B46EF80DC0515ED7A
-- generatedChecksum: ACFF3E2D16CD1ADCE3BEFE4EBEF62DD2
+- generatedChecksum: C5CB90A3C0B406414BFFB4776A5CD4D1
   logicalPath: config/pl485_ek/peripheral/pio
   name: plib_pio.h
   physicalPath: peripheral/pio
   security: NON_SECURE
   type: HEADER
-  userChecksum: ACFF3E2D16CD1ADCE3BEFE4EBEF62DD2
+  userChecksum: C5CB90A3C0B406414BFFB4776A5CD4D1
 - generatedChecksum: 5481A96AB4113BA97481FFF71C60AF23
   logicalPath: config/pl485_ek/peripheral/tc
   name: plib_tc0.h
@@ -818,6 +825,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: DD7BED9EE772B5D86C4532A4FFCB2D3B
+- generatedChecksum: 654C591FA885B5EF31788279ABFF6984
+  logicalPath: config/pl485_ek/peripheral/wdt
+  name: plib_wdt.h
+  physicalPath: peripheral/wdt
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 654C591FA885B5EF31788279ABFF6984
 - generatedChecksum: F4FBE11D03BDE9390C759A7B295129FB
   logicalPath: packs/ATSAMG55J19_DFP/component
   name: pmc.h
