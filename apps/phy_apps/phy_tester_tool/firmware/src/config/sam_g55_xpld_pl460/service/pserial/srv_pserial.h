@@ -70,10 +70,10 @@
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
-#define PSERIAL_TONEMAP_SIZE     1
-#define PSERIAL_SUBBANDS_SIZE    4   
-#define PSERIAL_CARRIERS_SIZE    16        
-#define PSERIAL_RS_2_BLOCKS      0
+#define PSERIAL_TONEMAP_SIZE     3
+#define PSERIAL_SUBBANDS_SIZE    24   
+#define PSERIAL_CARRIERS_SIZE    72        
+#define PSERIAL_RS_2_BLOCKS      1
 
 /* PLC Phy Tester Tool command
 

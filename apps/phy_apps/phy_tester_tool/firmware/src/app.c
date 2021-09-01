@@ -356,7 +356,11 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
 // Section: Application Initialization and State Machine Functions
 // *****************************************************************************
 // *****************************************************************************
-
+void on_reset(void)
+{
+    /* Configure PIO interface with PLC device ASAP */
+    PIO_Initialize();
+}
 
 /*******************************************************************************
   Function:

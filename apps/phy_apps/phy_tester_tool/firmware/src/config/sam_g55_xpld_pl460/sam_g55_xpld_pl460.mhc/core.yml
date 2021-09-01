@@ -92,6 +92,19 @@ children:
         attributes: {id: visible}
         children:
         - {type: Value, value: 'false'}
+  - type: File
+    attributes: {id: DEBUG_CONSOLE_C}
+    children:
+    - type: Attributes
+      children:
+      - type: String
+        attributes: {id: name}
+        children:
+        - {type: Value, value: xc32_monitor.c}
+      - type: String
+        attributes: {id: source}
+        children:
+        - {type: Value, value: ../arch/arm/templates/xc32/stdio/xc32_monitor.c.ftl}
   - type: KeyValueSet
     attributes: {id: DEVICE_BOOT}
     children:
@@ -197,6 +210,28 @@ children:
       children:
       - type: Dynamic
         attributes: {id: core, value: '0x1200'}
+  - type: File
+    attributes: {id: LINKER_SCRIPT}
+    children:
+    - type: Attributes
+      children:
+      - type: String
+        attributes: {id: name}
+        children:
+        - {type: Value, value: ATSAMG55J19.ld}
+      - type: String
+        attributes: {id: source}
+        children:
+        - {type: Value, value: 'C:/0_CHRIS/Proyectos/03_MCHP_Harmony_3/BitBucket/dev_packs/Microchip/SAMG_DFP/3.5.60/samg55/xc32/ATSAMG55J19/ATSAMG55J19.ld'}
+  - type: File
+    attributes: {id: MAIN_C}
+    children:
+    - type: Attributes
+      children:
+      - type: String
+        attributes: {id: name}
+        children:
+        - {type: Value, value: main.c}
   - type: Integer
     attributes: {id: MASTER_CLOCK_FREQUENCY}
     children:
@@ -546,14 +581,14 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: USART7_TXD}
+        attributes: {value: ''}
   - type: String
     attributes: {id: PIN_21_PERIPHERAL_FUNCTION}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: B}
+        attributes: {value: ''}
   - type: String
     attributes: {id: PIN_22_FUNCTION_NAME}
     children:
@@ -749,14 +784,14 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: USART7_RXD}
+        attributes: {value: ''}
   - type: String
     attributes: {id: PIN_51_PERIPHERAL_FUNCTION}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: B}
+        attributes: {value: ''}
   - type: String
     attributes: {id: PIN_57_DIR}
     children:
@@ -994,7 +1029,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '402653184'}
+        attributes: {id: core, value: '0'}
   - type: Hex
     attributes: {id: PIOA_ABCDSR2_VALUE}
     children:
@@ -1071,7 +1106,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '402683904'}
+        attributes: {id: core, value: '30720'}
   - type: Hex
     attributes: {id: PIOA_PPDEN_VALUE}
     children:
@@ -1282,6 +1317,19 @@ children:
       children:
       - type: User
         attributes: {value: '-1'}
+  - type: File
+    attributes: {id: STARTUP_C}
+    children:
+    - type: Attributes
+      children:
+      - type: String
+        attributes: {id: name}
+        children:
+        - {type: Value, value: startup_xc32.c}
+      - type: String
+        attributes: {id: source}
+        children:
+        - {type: Value, value: ../arch/arm/templates/xc32/cortex_m/startup/startup_xc32.c.ftl}
   - type: KeyValueSet
     attributes: {id: SUPC_CR_MDXTALSEL}
     children:

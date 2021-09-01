@@ -68,7 +68,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define FLEXCOM7_USART_FrequencyGet()    (uint32_t)(119996416UL)
+#define FLEXCOM7_USART_FrequencyGet()    (uint32_t)(100007936UL)
 
 /****************************** FLEXCOM7 USART API *********************************/
 
@@ -82,19 +82,15 @@ bool FLEXCOM7_USART_Write( void *buffer, const size_t size );
 
 bool FLEXCOM7_USART_Read( void *buffer, const size_t size );
 
-bool FLEXCOM7_USART_WriteIsBusy( void );
+uint8_t FLEXCOM7_USART_ReadByte( void );
 
-bool FLEXCOM7_USART_ReadIsBusy( void );
+void FLEXCOM7_USART_WriteByte( uint8_t data );
 
-size_t FLEXCOM7_USART_WriteCountGet( void );
+bool FLEXCOM7_USART_TransmitComplete( void );
 
-size_t FLEXCOM7_USART_ReadCountGet( void );
+bool FLEXCOM7_USART_TransmitterIsReady( void );
 
-bool FLEXCOM7_USART_ReadAbort(void);
-
-void FLEXCOM7_USART_WriteCallbackRegister( FLEXCOM_USART_CALLBACK callback, uintptr_t context );
-
-void FLEXCOM7_USART_ReadCallbackRegister( FLEXCOM_USART_CALLBACK callback, uintptr_t context );
+bool FLEXCOM7_USART_ReceiverIsReady( void );
 
 
 // DOM-IGNORE-BEGIN

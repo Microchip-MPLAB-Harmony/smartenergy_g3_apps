@@ -101,7 +101,7 @@ uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch)
 {
   if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
   {
-    return G3_CEN_B;
+    return G3_FCC;
   } 
   else 
   {

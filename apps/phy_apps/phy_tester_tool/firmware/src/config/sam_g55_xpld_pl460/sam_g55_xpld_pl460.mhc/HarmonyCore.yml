@@ -13,6 +13,10 @@ children:
         attributes: {id: enabled}
         children:
         - {type: Value, value: 'true'}
+      - type: String
+        attributes: {id: name}
+        children:
+        - {type: Value, value: app.c}
   - type: File
     attributes: {id: APP0_H}
     children:
