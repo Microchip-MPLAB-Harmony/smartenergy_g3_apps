@@ -1,0 +1,15 @@
+format_version: v1.0
+type: UniqueComponent
+attributes: {id: srv_psniffer}
+children:
+- type: Symbols
+  children:
+  - type: KeyValueSet
+    attributes: {id: SRV_PSNF_PLC_PROFILE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_psniffer, value: '2'}
+- type: ElementPosition
+  attributes: {x: '588', y: '167', id: srv_psniffer}

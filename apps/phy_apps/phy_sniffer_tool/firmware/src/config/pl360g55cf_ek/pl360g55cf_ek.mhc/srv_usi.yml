@@ -1,0 +1,104 @@
+format_version: v1.0
+type: GeneratorComponent
+attributes: {id: srv_usi}
+children:
+- type: Symbols
+  children:
+  - type: Boolean
+    attributes: {id: SRV_USI_CDC_API}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_usi, value: 'true'}
+  - type: File
+    attributes: {id: SRV_USI_CDC_HEADER}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: enabled}
+        children:
+        - {type: Value, value: 'true'}
+  - type: File
+    attributes: {id: SRV_USI_CDC_SOURCE}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: enabled}
+        children:
+        - {type: Value, value: 'true'}
+  - type: Integer
+    attributes: {id: SRV_USI_NUM_CDC}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_usi, value: '1'}
+  - type: Integer
+    attributes: {id: SRV_USI_NUM_USART}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_usi, value: '0'}
+  - type: Boolean
+    attributes: {id: SRV_USI_USART_API}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: srv_usi, value: 'false'}
+- type: Instances
+  children:
+  - type: InstanceComponent
+    attributes: {instance: '0', id: srv_usi}
+    children:
+    - type: Symbols
+      children:
+      - type: Integer
+        attributes: {id: SRV_USI_CDC_API_INDEX}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: srv_usi, value: '0'}
+      - type: Integer
+        attributes: {id: SRV_USI_CDC_DEVICE_INDEX}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: srv_usi_0, value: '0'}
+      - type: String
+        attributes: {id: SRV_USI_DEVICE}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: srv_usi_0, value: USB_DEVICE_CDC_0}
+      - type: String
+        attributes: {id: SRV_USI_DEVICE_SET}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: srv_usi_0, value: USB_CDC}
+    - type: Attachments
+      children:
+      - type: DirectDependency
+        attributes: {id: srv_usi_CDC_dependency}
+        children:
+        - type: Attributes
+          children:
+          - type: String
+            attributes: {id: targetComponentID}
+            children:
+            - {type: Value, value: usb_device_cdc_0}
+          - type: String
+            attributes: {id: targetAttachmentID}
+            children:
+            - {type: Value, value: USB Device}
+- type: ElementPosition
+  attributes: {x: '242', y: '398', id: srv_usi}
