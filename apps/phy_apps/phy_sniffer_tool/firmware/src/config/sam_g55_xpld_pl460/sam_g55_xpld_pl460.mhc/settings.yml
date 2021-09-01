@@ -10,5 +10,5 @@ settings:
   GENERATE_BACKUP: 'true'
   TRUSTZONE: 'false'
   CMSISPath: .\dev_packs\arm\CMSIS\5.7.0
-  MERGE_STRATEGY: ALL
+  MERGE_STRATEGY: OVERWRITE
   DFPPath: .\dev_packs\Microchip\SAMG_DFP\3.5.60\samg55\atdf\ATSAMG55J19.atdf

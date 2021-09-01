@@ -69,10 +69,10 @@
 // Section: Macro definitions
 // *****************************************************************************
 // *****************************************************************************
-#define PSNIFFER_TONEMAP_SIZE     1
-#define PSNIFFER_SUBBANDS_SIZE    4   
-#define PSNIFFER_CARRIERS_SIZE    16        
-#define PSNIFFER_RS_2_BLOCKS      0
+#define PSNIFFER_TONEMAP_SIZE     3
+#define PSNIFFER_SUBBANDS_SIZE    24   
+#define PSNIFFER_CARRIERS_SIZE    72        
+#define PSNIFFER_RS_2_BLOCKS      1
 #define PSNIFFER_VERSION          0x02
 #define PSNIFFER_PROFILE          0x12
 

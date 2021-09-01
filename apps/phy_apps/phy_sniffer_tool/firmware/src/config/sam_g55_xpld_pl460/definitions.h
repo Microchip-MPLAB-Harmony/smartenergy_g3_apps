@@ -48,7 +48,6 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "service/pcoup/srv_pcoup.h"
 #include "driver/usb/usbdp/drv_usbdp.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/clock/plib_clock.h"
@@ -62,10 +61,10 @@
 #include "peripheral/tc/plib_tc0.h"
 #include "service/usi/srv_usi.h"
 #include "service/usi/srv_usi_cdc.h"
+#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
-#include "system/time/sys_time.h"
 #include "usb/usb_device_cdc.h"
 #include "usb/usb_cdc.h"
 #include "bsp/bsp.h"
@@ -204,8 +203,8 @@ typedef struct
 
 	SYS_MODULE_OBJ  usbDevObject0;
 
-    SYS_MODULE_OBJ drvPlcPhy;
     SYS_MODULE_OBJ  sysTime;
+    SYS_MODULE_OBJ drvPlcPhy;
     SYS_MODULE_OBJ srvUSI0;
 
 } SYSTEM_OBJECTS;

@@ -3,4 +3,4 @@ type: UniqueComponent
 attributes: {id: srv_pcrc}
 children:
 - type: ElementPosition
-  attributes: {x: '522', y: '188', id: srv_pcrc}
+  attributes: {x: '460', y: '267', id: srv_pcrc}
