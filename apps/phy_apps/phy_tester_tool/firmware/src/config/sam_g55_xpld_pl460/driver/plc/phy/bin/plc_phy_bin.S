@@ -45,4 +45,6 @@ plc_phy_bin_start:
   .align 8
 plc_phy_bin_end:
 plc_phy_bin2_start:
+  .incbin "./PLC_PHY_G3_CENA.bin"
+  .align 8
 plc_phy_bin2_end:

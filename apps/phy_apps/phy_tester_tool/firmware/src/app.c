@@ -226,6 +226,9 @@ static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t
 
     /* Avoid warning */
     (void)context;
+    
+    /* Clear Flag to wait Tx confirmation */
+    appData.waitingTxCfm = false;
 
     /* Add received message */
     length = SRV_PSERIAL_SerialCfmMessage(appData.pSerialData, cfmObj);
@@ -239,33 +242,40 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
 {
     DRV_PLC_PHY_PIB_OBJ pibObj;
     uint8_t plcTxDisable;
-    SRV_PVDDMON_CMP_MODE nextCmpMode;
     
     (void)context;
     
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
-        /* ADC Converted data is out of the comparison window. */
-        appData.pvddMonTxEnable = false;
-        nextCmpMode = SRV_PVDDMON_CMP_MODE_IN;
-        
-        /* Stop any transmissions ongoing */
-        plcTxDisable = 1;
-        pibObj.id = PLC_ID_TX_DISABLE;
-        pibObj.length = 1;
-        pibObj.pData = (uint8_t *)&plcTxDisable;
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &pibObj);
+        if (SRV_PPVDDMON_CheckComparisonInWindow() == false)
+        {
+            /* Check if there is any pending TX */
+            if (appData.waitingTxCfm)
+            {
+                /* Stop any transmissions ongoing */
+                plcTxDisable = 1;
+                pibObj.id = PLC_ID_TX_DISABLE;
+                pibObj.length = 1;
+                pibObj.pData = (uint8_t *)&plcTxDisable;
+                DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &pibObj);
+            }
+            
+            /* PLC Transmission is not permitted */
+            appData.pvddMonTxEnable = false;
+            /* Restart PVDD Monitor to check when VDD is within the comparison window */
+            SRV_PPVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
+        }
     }
     else
     {
-        /* ADC Converted data is into the comparison window. */
-        /* PLC Transmission is permitted again */
-        appData.pvddMonTxEnable = true;
-        nextCmpMode = SRV_PVDDMON_CMP_MODE_OUT;
+        if (SRV_PPVDDMON_CheckComparisonInWindow() == true)
+        {
+            /* PLC Transmission is permitted again */
+            appData.pvddMonTxEnable = true;
+            /* Restart PVDD Monitor to check when VDD is out of the comparison window */
+            SRV_PPVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
+        }
     }
-    
-    SRV_PPVDDMON_Restart(nextCmpMode);
-    
 }
 
 // *****************************************************************************
@@ -328,6 +338,9 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
         {
             if (appData.pvddMonTxEnable)
             {
+                /* Set Flag to wait Tx confirmation */
+                appData.waitingTxCfm = true;
+                
                 /* Capture and parse data from USI */
                 SRV_PSERIAL_ParseTxMessage(&appData.plcTxObj, pData);
 
@@ -397,6 +410,9 @@ void APP_Initialize(void)
     /* Set PVDD Monitor tracking data */
     SRV_PPVDDMON_Initialize();
     appData.pvddMonTxEnable = true;
+    
+    /* Init Flag to wait Tx confirmation */
+    appData.waitingTxCfm = false;
 
 }
 

@@ -135,10 +135,10 @@ typedef struct
     uint8_t*                                 usiRdInIndex;
     uint8_t*                                 usiRdOutIndex;
     uint8_t*                                 usiEndIndex;
-    uint32_t                                 cdcNumBytesRead;
+    volatile uint32_t                        cdcNumBytesRead;
     uint32_t                                 usiNumBytesRead;
     size_t                                   cdcBufferSize;
-    bool                                     cdcIsReadComplete;
+    volatile bool                            cdcIsReadComplete;
     bool                                     usiIsReadComplete;
     bool                                     cdcIsWriteComplete;
     

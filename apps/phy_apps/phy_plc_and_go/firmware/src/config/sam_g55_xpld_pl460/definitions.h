@@ -48,13 +48,17 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include "service/pcoup/srv_pcoup.h"
+#include "driver/usb/usbdp/drv_usbdp.h"
 #include "peripheral/flexcom/usart/plib_flexcom7_usart.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/clock/plib_clock.h"
 #include "peripheral/nvic/plib_nvic.h"
 #include "peripheral/wdt/plib_wdt.h"
 #include "peripheral/cmcc/plib_cmcc.h"
+#include "usb/usb_chapter_9.h"
+#include "usb/usb_device.h"
 #include "peripheral/adc/plib_adc.h"
 #include "peripheral/efc/plib_efc.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h"
@@ -64,9 +68,11 @@
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
 #include "system/time/sys_time.h"
+#include "usb/usb_device_cdc.h"
+#include "usb/usb_cdc.h"
 #include "bsp/bsp.h"
 #include "system/console/sys_console.h"
-#include "system/console/src/sys_console_uart_definitions.h"
+#include "system/console/src/sys_console_usb_cdc_definitions.h"
 #include "system/int/sys_int.h"
 #include "system/ports/sys_ports.h"
 #include "system/cache/sys_cache.h"
@@ -198,6 +204,10 @@ Remarks:
 
 typedef struct
 {
+	SYS_MODULE_OBJ  drvUSBDPObject;
+
+	SYS_MODULE_OBJ  usbDevObject0;
+
     SYS_MODULE_OBJ drvPlcPhy;
     SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  sysConsole0;
@@ -210,6 +220,8 @@ typedef struct
 // Section: extern declarations
 // *****************************************************************************
 // *****************************************************************************
+
+extern const USB_DEVICE_INIT usbDevInitData; 
 
 
 

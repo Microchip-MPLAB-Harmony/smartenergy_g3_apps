@@ -56,7 +56,7 @@
 */
 
 #include "user.h"
-#include "toolchain_specifics.h"
+#include "device.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -100,7 +100,6 @@ extern "C" {
 
 
 
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: Driver Configuration
@@ -125,11 +124,11 @@ extern "C" {
 #define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1
 
 /* PLC Driver Identification */
-#define DRV_PLC_PHY_PROFILE                   1
-#define DRV_PLC_PHY_NUM_CARRIERS              NUM_CARRIERS_CENELEC_B
+#define DRV_PLC_PHY_PROFILE                   2
+#define DRV_PLC_PHY_NUM_CARRIERS              NUM_CARRIERS_FCC
 #define DRV_PLC_PHY_HOST_PRODUCT              0x3601
 #define DRV_PLC_PHY_HOST_VERSION              0x36010300
-#define DRV_PLC_PHY_HOST_PHY                  0x36040103
+#define DRV_PLC_PHY_HOST_PHY                  0x36020103
 #define DRV_PLC_PHY_HOST_DESC                 "ATSAMG55J19"
 #define DRV_PLC_PHY_HOST_MODEL                3
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
@@ -140,6 +139,7 @@ extern "C" {
 #define DRV_MEMORY_BUFFER_QUEUE_SIZE_IDX0    1
 #define DRV_MEMORY_DEVICE_START_ADDRESS      0x440000
 #define DRV_MEMORY_DEVICE_MEDIA_SIZE         256UL
+#define DRV_MEMORY_DEVICE_MEDIA_SIZE_BYTES   (DRV_MEMORY_DEVICE_MEDIA_SIZE * 1024)
 #define DRV_MEMORY_DEVICE_PROGRAM_SIZE       512
 #define DRV_MEMORY_DEVICE_ERASE_SIZE         8192
 

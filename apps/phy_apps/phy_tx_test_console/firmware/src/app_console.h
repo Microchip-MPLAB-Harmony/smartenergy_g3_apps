@@ -171,10 +171,6 @@ extern APP_CONSOLE_DATA appConsole;
 	"1: High Impedance\n\r"	\
 	"2: Very Low Impedance\n\r"
 
-#define MENU_MULTIBAND "\n\r-- Select PLC band --------------\r\n"	\
-	"0: CEN A\n\r" \
-	"1: FCC\n\r"
-
 #define MENU_PROMPT "\n\rPHY-Console>"
 
 /*******************************************************************************

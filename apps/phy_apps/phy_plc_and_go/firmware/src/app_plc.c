@@ -256,38 +256,49 @@ void Timer2_Callback (uintptr_t context)
 {
     appPlc.tmr2Expired = true;
 }
-
+uint16_t pvddcounter = 0;
+uint16_t pvddcounterIn = 0;
+uint16_t pvddcounterOut = 0;
 static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     DRV_PLC_PHY_PIB_OBJ pibObj;
     uint8_t plcTxDisable;
-    SRV_PVDDMON_CMP_MODE nextCmpMode;
     
     (void)context;
+    pvddcounter++;
     
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
-        /* ADC Converted data is out of the comparison window. */
-        appPlc.pvddMonTxEnable = false;
-        nextCmpMode = SRV_PVDDMON_CMP_MODE_IN;
-        
-        /* Stop any transmissions ongoing */
-        plcTxDisable = 1;
-        pibObj.id = PLC_ID_TX_DISABLE;
-        pibObj.length = 1;
-        pibObj.pData = (uint8_t *)&plcTxDisable;
-        DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+        if (SRV_PPVDDMON_CheckComparisonInWindow() == false)
+        {
+            if (appPlc.waitingTxCfm)
+            {
+                /* Stop any transmissions ongoing */
+                plcTxDisable = 1;
+                pibObj.id = PLC_ID_TX_DISABLE;
+                pibObj.length = 1;
+                pibObj.pData = (uint8_t *)&plcTxDisable;
+                DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+            }
+            
+            /* PLC Transmission is not permitted */
+            appPlc.pvddMonTxEnable = false;
+            /* Restart PVDD Monitor to check when VDD is within the comparison window */
+            SRV_PPVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
+            pvddcounterIn++;
+        }
     }
     else
     {
-        /* ADC Converted data is into the comparison window. */
-        /* PLC Transmission is permitted again */
-        appPlc.pvddMonTxEnable = true;
-        nextCmpMode = SRV_PVDDMON_CMP_MODE_OUT;
+        if (SRV_PPVDDMON_CheckComparisonInWindow() == true)
+        {
+            /* PLC Transmission is permitted again */
+            appPlc.pvddMonTxEnable = true;
+            /* Restart PVDD Monitor to check when VDD is out of the comparison window */
+            SRV_PPVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
+            pvddcounterOut++;
+        }
     }
-    
-    SRV_PPVDDMON_Restart(nextCmpMode);
-    
 }
 
 static void APP_PLC_SleepModeDisableCb( uintptr_t context )
@@ -613,7 +624,7 @@ void APP_PLC_Tasks ( void )
         /* The default state should never be executed. */
         default:
         {
-            /* TODO: Handle error in application's state machine. */
+            /* Handle error in application's state machine. */
             break;
         }
     }

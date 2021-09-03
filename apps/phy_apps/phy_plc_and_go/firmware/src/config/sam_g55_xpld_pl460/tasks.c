@@ -72,7 +72,8 @@
 void SYS_Tasks ( void )
 {
     /* Maintain system services */
-    
+    SYS_CONSOLE_Tasks(SYS_CONSOLE_INDEX_0);
+
 
 
     /* Maintain Device Drivers */
@@ -82,7 +83,13 @@ void SYS_Tasks ( void )
 
 
     /* Maintain Middleware & Other Libraries */
-    
+    	/* USB UDP Driver Task Routine */ 
+    DRV_USBDP_Tasks(sysObj.drvUSBDPObject);
+
+	/* USB Device layer tasks routine */ 
+    USB_DEVICE_Tasks(sysObj.usbDevObject0);
+
+
 
     /* Maintain the application's state machine. */
         /* Call Application task APP_CONSOLE. */

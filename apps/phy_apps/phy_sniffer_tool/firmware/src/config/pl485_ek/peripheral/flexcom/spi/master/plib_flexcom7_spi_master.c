@@ -202,6 +202,11 @@ bool FLEXCOM7_SPI_Read( void* pReceiveData, size_t rxSize )
     return (FLEXCOM7_SPI_WriteRead(NULL, 0, pReceiveData, rxSize));
 }
 
+bool FLEXCOM7_SPI_IsTransmitterBusy( void )
+{
+    return ((SPI7_REGS->SPI_SR & SPI_SR_TXEMPTY_Msk) == 0)? true : false;
+}
+
 void FLEXCOM7_SPI_CallbackRegister( FLEXCOM_SPI_CALLBACK callback, uintptr_t context )
 {
     flexcom7SpiObj.callback = callback;

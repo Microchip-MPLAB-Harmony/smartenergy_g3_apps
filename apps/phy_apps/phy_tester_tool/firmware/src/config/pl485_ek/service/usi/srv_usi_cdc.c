@@ -59,6 +59,7 @@
 #include "srv_usi_local.h"
 #include "srv_usi_definitions.h"
 #include "srv_usi_cdc.h"
+#include "definitions.h"                // SYS function prototypes
 
 // *****************************************************************************
 // *****************************************************************************
@@ -93,8 +94,9 @@ static void _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
 {
     uint8_t *pData = dObj->cdcReadBuffer;
     uint8_t *bookmark = dObj->usiRdInIndex;
+    uint16_t readBytes = (uint16_t)dObj->cdcNumBytesRead;
     
-    while(dObj->cdcNumBytesRead)
+    while(readBytes)
     {
         switch(dObj->devStatus)
         {
@@ -115,10 +117,6 @@ static void _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
             case USI_CDC_RCV:
                 if (*pData == USI_ESC_KEY_7E)
                 {
-                    /* End of USI Message */
-                    dObj->usiIsReadComplete = true;
-                    dObj->devStatus = USI_CDC_IDLE;
-                    
                     /* Report via USI callback */
                     if (dObj->cbFunc)
                     {
@@ -127,6 +125,10 @@ static void _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
 
                     /* Update Out Pointer */
                     dObj->usiRdOutIndex += dObj->usiNumBytesRead;
+                    
+                    /* End of USI Message */
+                    dObj->usiIsReadComplete = true;
+                    dObj->devStatus = USI_CDC_IDLE;
                 }              
                 else if (*pData == USI_ESC_KEY_7D)
                 {
@@ -135,9 +137,21 @@ static void _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
                 } 
                 else
                 {
-                    /* Store character */
-                    *dObj->usiRdInIndex++ = *pData;
-                    dObj->usiNumBytesRead++;
+                    if (dObj->usiRdInIndex <= dObj->usiEndIndex)
+                    {
+                        /* Store character */
+                        *dObj->usiRdInIndex++ = *pData;
+                        dObj->usiNumBytesRead++;
+                    }
+                    else
+                    {
+                        /* ERROR: Full buffer - restore USI buffer */
+                        dObj->usiRdInIndex = bookmark;
+                        dObj->usiNumBytesRead = 0;
+                        dObj->devStatus = USI_CDC_IDLE;
+                        /* Force exit loop */
+                        readBytes = 0;
+                    }
                 }
 
                 break;
@@ -163,17 +177,24 @@ static void _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
                     dObj->usiRdInIndex = bookmark;
                     dObj->usiNumBytesRead = 0;
                     dObj->devStatus = USI_CDC_IDLE;
+                    /* Force exit loop */
+                    readBytes = 0;
                 }
 
                 break;
         }    
         
-        pData++;
-        dObj->cdcNumBytesRead--;
+        if (readBytes) 
+        {
+            readBytes--;
+            dObj->cdcNumBytesRead--;
+            pData++;
+        }
     }
     
     /* Update In/Out Pointers */
-    if (dObj->usiRdOutIndex == dObj->usiRdInIndex) {
+    if (dObj->usiRdOutIndex == dObj->usiRdInIndex) 
+    {
         /* Restart In/Out Pointers */
         dObj->usiRdOutIndex = dObj->usiReadBuffer;
         dObj->usiRdInIndex = dObj->usiReadBuffer;
@@ -537,16 +558,14 @@ void USI_CDC_Tasks (uint32_t index)
         return;
     }
     
-    /* Extract CDC received data to USI buffer */
-    if (dObj->cdcNumBytesRead)
-    {
-        _USI_CDC_Transfer_Received_Data(dObj);
-    }
-        
-    /* Launch next CDC reception process */
+    /* CDC reception process */
     if (dObj->cdcIsReadComplete == true)
     {
         dObj->cdcIsReadComplete = false;
+        
+        /* Extract CDC received data to USI buffer */
+        _USI_CDC_Transfer_Received_Data(dObj);
+        
         if ((dObj->usiEndIndex - dObj->usiRdInIndex) >= dObj->cdcBufferSize)
         {
             USB_DEVICE_CDC_Read (dObj->cdcInstanceIndex, &dObj->readTransferHandle, dObj->cdcReadBuffer,

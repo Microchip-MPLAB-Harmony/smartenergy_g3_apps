@@ -71,6 +71,15 @@
 #define PLC_STBY_Get()               ((PIOB_REGS->PIO_PDSR >> 15) & 0x1)
 #define PLC_STBY_PIN                  PIO_PIN_PB15
 
+/*** Macros for USB_VBUS_SENSE pin ***/
+#define USB_VBUS_SENSE_Set()               (PIOB_REGS->PIO_SODR = (1<<14))
+#define USB_VBUS_SENSE_Clear()             (PIOB_REGS->PIO_CODR = (1<<14))
+#define USB_VBUS_SENSE_Toggle()            (PIOB_REGS->PIO_ODSR ^= (1<<14))
+#define USB_VBUS_SENSE_OutputEnable()      (PIOB_REGS->PIO_OER = (1<<14))
+#define USB_VBUS_SENSE_InputEnable()       (PIOB_REGS->PIO_ODR = (1<<14))
+#define USB_VBUS_SENSE_Get()               ((PIOB_REGS->PIO_PDSR >> 14) & 0x1)
+#define USB_VBUS_SENSE_PIN                  PIO_PIN_PB14
+
 /*** Macros for PLC_INT pin ***/
 #define PLC_INT_Set()               (PIOA_REGS->PIO_SODR = (1<<26))
 #define PLC_INT_Clear()             (PIOA_REGS->PIO_CODR = (1<<26))

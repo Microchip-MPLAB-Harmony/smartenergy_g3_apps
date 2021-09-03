@@ -125,4 +125,4 @@ children:
             children:
             - {type: Value, value: FLEXCOM7_UART}
 - type: ElementPosition
-  attributes: {x: '216', y: '408', id: sys_console}
+  attributes: {x: '198', y: '408', id: sys_console}

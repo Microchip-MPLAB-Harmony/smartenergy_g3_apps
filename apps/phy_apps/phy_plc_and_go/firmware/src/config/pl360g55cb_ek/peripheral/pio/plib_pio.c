@@ -98,8 +98,8 @@ void PIO_Initialize ( void )
 
     /************************ PIO B Initialization ************************/
     /* PORTB PIO Disable and Peripheral Enable*/
-    ((pio_registers_t*)PIO_PORT_B)->PIO_PDR = 0x6c00;
-    ((pio_registers_t*)PIO_PORT_B)->PIO_PER = ~0x6c00;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_PDR = 0x6000;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_PER = ~0x6000;
     ((pio_registers_t*)PIO_PORT_B)->PIO_MDDR = 0xFFFFFFFF;
     /* PORTB Pull Up Enable/Disable as per MHC selection */
     ((pio_registers_t*)PIO_PORT_B)->PIO_PUDR = 0xFFFFFFFF;

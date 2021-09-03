@@ -635,7 +635,6 @@ void APP_PLC_PL360_Tasks ( void )
         /* The default state should never be executed. */
         default:
         {
-            /* TODO: Handle error in application's state machine. */
             break;
         }
     }

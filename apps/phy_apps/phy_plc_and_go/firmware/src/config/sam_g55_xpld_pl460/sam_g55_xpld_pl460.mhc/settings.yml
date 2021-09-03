@@ -5,10 +5,10 @@ frameworkPath: ..\..\..\..
 processor: ATSAMG55J19
 projectName: sam_g55_xpld_pl460
 settings:
-  PackageFilter: bsp;core;core_apps_sam_e70_s70_v70_v71;core_apps_sam_g55;csp;csp_apps_sam_e70_s70_v70_v71;csp_apps_sam_g55;mbed_os_rtos;mbed_os_rtos_apps;net;net_apps_sam_e70_v71;smartenergy;smartenergy_g3;smartenergy_g3_apps;smartenergy_prime;smartenergy_prime_apps;usb;usb_apps_device;wireless
+  PackageFilter: bsp;core;core_apps_sam_e70_s70_v70_v71;core_apps_sam_g55;csp;csp_apps_sam_e70_s70_v70_v71;csp_apps_sam_g55;mbed_os_rtos;mbed_os_rtos_apps;net;smartenergy;smartenergy_g3;smartenergy_g3_apps;smartenergy_prime;smartenergy_prime_apps;usb;usb_apps_device;wireless
   FORCE_OPTIMIZATION: 'false'
   GENERATE_BACKUP: 'true'
   TRUSTZONE: 'false'
-  CMSISPath: .\dev_packs\arm\CMSIS\5.7.0
-  MERGE_STRATEGY: USER_RECENT
+  CMSISPath: .\dev_packs\arm\CMSIS\5.8.0
+  MERGE_STRATEGY: ALL
   DFPPath: .\dev_packs\Microchip\SAMG_DFP\3.5.60\samg55\atdf\ATSAMG55J19.atdf

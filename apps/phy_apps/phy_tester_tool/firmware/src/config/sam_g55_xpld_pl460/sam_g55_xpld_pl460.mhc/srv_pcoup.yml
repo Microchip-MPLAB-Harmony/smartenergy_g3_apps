@@ -4,6 +4,15 @@ attributes: {id: srv_pcoup}
 children:
 - type: Symbols
   children:
+  - type: Menu
+    attributes: {id: SRV_PCOUP_AUX_BRANCH}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: visible}
+        children:
+        - {type: Value, value: 'true'}
   - type: Hex
     attributes: {id: SRV_PCOUP_AUX_DACC_0}
     children:
@@ -129,7 +138,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: None}
+        attributes: {id: srv_pcoup, value: CEN-A}
   - type: Integer
     attributes: {id: SRV_PCOUP_AUX_GAIN_HIGH_0}
     children:
@@ -640,14 +649,14 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '49'}
+        attributes: {id: srv_pcoup, value: '105'}
   - type: Integer
     attributes: {id: SRV_PCOUP_GAIN_HIGH_1}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '20'}
+        attributes: {id: srv_pcoup, value: '50'}
   - type: Integer
     attributes: {id: SRV_PCOUP_GAIN_HIGH_2}
     children:
@@ -668,7 +677,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '480'}
+        attributes: {id: srv_pcoup, value: '180'}
   - type: Integer
     attributes: {id: SRV_PCOUP_GAIN_VLOW_2}
     children:
@@ -682,7 +691,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '5'}
+        attributes: {id: srv_pcoup, value: '7'}
   - type: Combo
     attributes: {id: SRV_PCOUP_MAIN_G3_BAND}
     children:
@@ -696,112 +705,112 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '1313'}
+        attributes: {id: srv_pcoup, value: '1064'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_HIGH_1}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '937'}
+        attributes: {id: srv_pcoup, value: '763'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_HIGH_2}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '667'}
+        attributes: {id: srv_pcoup, value: '549'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_HIGH_3}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '477'}
+        attributes: {id: srv_pcoup, value: '394'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_HIGH_4}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '342'}
+        attributes: {id: srv_pcoup, value: '283'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_HIGH_5}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '247'}
+        attributes: {id: srv_pcoup, value: '204'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_HIGH_6}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '180'}
+        attributes: {id: srv_pcoup, value: '148'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_HIGH_7}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '131'}
+        attributes: {id: srv_pcoup, value: '108'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_VLOW_0}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '4329'}
+        attributes: {id: srv_pcoup, value: '3614'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_VLOW_1}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '3314'}
+        attributes: {id: srv_pcoup, value: '2775'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_VLOW_2}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '2387'}
+        attributes: {id: srv_pcoup, value: '2009'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_VLOW_3}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '1692'}
+        attributes: {id: srv_pcoup, value: '1431'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_VLOW_4}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '1201'}
+        attributes: {id: srv_pcoup, value: '1019'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_VLOW_5}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '853'}
+        attributes: {id: srv_pcoup, value: '725'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_VLOW_6}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '608'}
+        attributes: {id: srv_pcoup, value: '516'}
   - type: Integer
     attributes: {id: SRV_PCOUP_RMS_VLOW_7}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '432'}
+        attributes: {id: srv_pcoup, value: '367'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_HIGH_0}
     children:
@@ -822,42 +831,42 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '519'}
+        attributes: {id: srv_pcoup, value: '480'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_HIGH_11}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '372'}
+        attributes: {id: srv_pcoup, value: '345'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_HIGH_12}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '265'}
+        attributes: {id: srv_pcoup, value: '247'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_HIGH_13}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '191'}
+        attributes: {id: srv_pcoup, value: '179'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_HIGH_14}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '140'}
+        attributes: {id: srv_pcoup, value: '129'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_HIGH_15}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '101'}
+        attributes: {id: srv_pcoup, value: '94'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_HIGH_2}
     children:
@@ -906,14 +915,14 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '1025'}
+        attributes: {id: srv_pcoup, value: '929'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_HIGH_9}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '729'}
+        attributes: {id: srv_pcoup, value: '668'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_VLOW_0}
     children:
@@ -934,42 +943,42 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '5197'}
+        attributes: {id: srv_pcoup, value: '4955'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_VLOW_11}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '3708'}
+        attributes: {id: srv_pcoup, value: '3538'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_VLOW_12}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '2649'}
+        attributes: {id: srv_pcoup, value: '2520'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_VLOW_13}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '1906'}
+        attributes: {id: srv_pcoup, value: '1793'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_VLOW_14}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '1366'}
+        attributes: {id: srv_pcoup, value: '1276'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_VLOW_15}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '979'}
+        attributes: {id: srv_pcoup, value: '909'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_VLOW_2}
     children:
@@ -1018,13 +1027,13 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '10242'}
+        attributes: {id: srv_pcoup, value: '9668'}
   - type: Integer
     attributes: {id: SRV_PCOUP_THRS_VLOW_9}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: srv_pcoup, value: '7302'}
+        attributes: {id: srv_pcoup, value: '6931'}
 - type: ElementPosition
-  attributes: {x: '627', y: '188', id: srv_pcoup}
+  attributes: {x: '640', y: '188', id: srv_pcoup}

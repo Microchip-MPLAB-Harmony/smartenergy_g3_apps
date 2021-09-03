@@ -91,6 +91,7 @@ extern void RTT_Handler                ( void ) __attribute__((weak, alias("Dumm
 extern void WDT_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void PMC_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void EFC_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
+extern void FLEXCOM7_InterruptHandler  ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void FLEXCOM0_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void FLEXCOM1_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void PIOB_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -109,7 +110,6 @@ extern void TC1_CH0_Handler            ( void ) __attribute__((weak, alias("Dumm
 extern void TC1_CH1_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void TC1_CH2_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void UHP_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
-extern void UDP_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void CRCCU_Handler              ( void ) __attribute__((weak, alias("Dummy_Handler")));
 
 
@@ -123,6 +123,7 @@ const H3DeviceVectors exception_table=
 {
     /* Configure Initial Stack Pointer, using linker-generated symbols */
     .pvStack = &_stack,
+
 
     .pfnReset_Handler              = Reset_Handler,
     .pfnNonMaskableInt_Handler     = NonMaskableInt_Handler,
@@ -164,7 +165,7 @@ const H3DeviceVectors exception_table=
     .pfnTC1_CH2_Handler            = TC1_CH2_Handler,
     .pfnADC_Handler                = ADC_InterruptHandler,
     .pfnUHP_Handler                = UHP_Handler,
-    .pfnUDP_Handler                = UDP_Handler,
+    .pfnUDP_Handler                = DRV_USBDP_Handler,
     .pfnCRCCU_Handler              = CRCCU_Handler,
 
 

@@ -69,7 +69,7 @@ void SRV_PPVDDMON_Initialize (void);
 void SRV_PPVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode);
 void SRV_PPVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode);
 void SRV_PPVDDMON_RegisterCallback (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context);
-
+bool SRV_PPVDDMON_CheckComparisonInWindow(void);
 
 #ifdef __cplusplus // Provide C++ Compatibility
  }

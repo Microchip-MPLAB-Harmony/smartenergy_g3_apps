@@ -114,6 +114,19 @@ static void CLK_MasterClockInitialize(void)
 }
 
 
+/*********************************************************************************
+Initialize USB FS clock
+*********************************************************************************/
+
+static void CLK_USBClockInitialize ( void )
+{
+    /* Configure Full-Speed USB Clock source and Clock Divider */
+    PMC_REGS->PMC_USB = PMC_USB_USBDIV(0)  | PMC_USB_USBS_Msk;
+
+
+    /* Enable Full-Speed USB Clock Output */
+    PMC_REGS->PMC_SCER = 0 | PMC_SCER_UDP_Msk  | PMC_SCER_UHP_Msk;
+}
 
 
 
@@ -138,9 +151,12 @@ void CLOCK_Initialize( void )
     /* Initialize Master Clock */
     CLK_MasterClockInitialize();
 
+    /* Initialize USB Clock */
+    CLK_USBClockInitialize();
 
 
     /* Enable Peripheral Clock */
-    PMC_REGS->PMC_PCER0 = 0x981800;
+    PMC_REGS->PMC_PCER0 = 0x881800;
+    PMC_REGS->PMC_PCER1 = 0x10000;
 }
 

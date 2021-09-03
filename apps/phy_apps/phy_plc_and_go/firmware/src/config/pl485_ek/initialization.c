@@ -181,6 +181,40 @@ SYSTEM_OBJECTS sysObj;
 // Section: Library/Stack Initialization Data
 // *****************************************************************************
 // *****************************************************************************
+/******************************************************
+ * USB Driver Initialization
+ ******************************************************/
+ 
+static DRV_USB_VBUS_LEVEL DRV_USBDP_VBUS_Comparator(void)
+{
+    DRV_USB_VBUS_LEVEL retVal = DRV_USB_VBUS_LEVEL_INVALID;
+    if(true == USB_VBUS_SENSE_Get())
+    {
+        retVal = DRV_USB_VBUS_LEVEL_VALID;
+    }
+	return (retVal);
+
+}
+
+const DRV_USBDP_INIT drvUSBInit =
+{
+    /* Interrupt Source for USB module */
+    .interruptSource = UDP_IRQn,
+
+    /* System module initialization */
+    .moduleInit = {0},
+
+    /* To operate in USB Normal Mode */
+	.operationSpeed = USB_SPEED_FULL,
+
+    /* Identifies peripheral (PLIB-level) ID */
+    .usbID = UDP_REGS,
+	
+    /* Function to check for VBus */
+    .vbusComparator = DRV_USBDP_VBUS_Comparator
+};
+
+
 
 
 // *****************************************************************************
@@ -210,31 +244,34 @@ const SYS_TIME_INIT sysTimeInitData =
 // <editor-fold defaultstate="collapsed" desc="SYS_CONSOLE Instance 0 Initialization Data">
 
 
-/* Declared in console device implementation (sys_console_uart.c) */
-extern const SYS_CONSOLE_DEV_DESC sysConsoleUARTDevDesc;
+/* These buffers are passed to the USB CDC Function Driver */
+static uint8_t CACHE_ALIGN sysConsole0USBCdcRdBuffer[SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE];
+static uint8_t CACHE_ALIGN sysConsole0USBCdcWrBuffer[SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE];
 
-const SYS_CONSOLE_UART_PLIB_INTERFACE sysConsole0UARTPlibAPI =
-{
-    .read = (SYS_CONSOLE_UART_PLIB_READ)FLEXCOM4_USART_Read,
-	.readCountGet = (SYS_CONSOLE_UART_PLIB_READ_COUNT_GET)FLEXCOM4_USART_ReadCountGet,
-	.readFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_READ_FREE_BUFFFER_COUNT_GET)FLEXCOM4_USART_ReadFreeBufferCountGet,
-    .write = (SYS_CONSOLE_UART_PLIB_WRITE)FLEXCOM4_USART_Write,
-	.writeCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_COUNT_GET)FLEXCOM4_USART_WriteCountGet,
-	.writeFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_FREE_BUFFER_COUNT_GET)FLEXCOM4_USART_WriteFreeBufferCountGet,
-};
+/* These are the USB CDC Ring Buffers. Data received from USB layer are copied to these ring buffer. */
+static uint8_t sysConsole0USBCdcRdRingBuffer[SYS_CONSOLE_USB_CDC_RD_BUFFER_SIZE_IDX0];
+static uint8_t sysConsole0USBCdcWrRingBuffer[SYS_CONSOLE_USB_CDC_WR_BUFFER_SIZE_IDX0];
 
-const SYS_CONSOLE_UART_INIT_DATA sysConsole0UARTInitData =
+/* Declared in console device implementation (sys_console_usb_cdc.c) */
+extern const SYS_CONSOLE_DEV_DESC sysConsoleUSBCdcDevDesc;
+
+const SYS_CONSOLE_USB_CDC_INIT_DATA sysConsole0USBCdcInitData =
 {
-    .uartPLIB = &sysConsole0UARTPlibAPI,    
+	.cdcInstanceIndex			= 0,
+	.cdcReadBuffer				= sysConsole0USBCdcRdBuffer,
+	.cdcWriteBuffer				= sysConsole0USBCdcWrBuffer,
+    .consoleReadBuffer 			= sysConsole0USBCdcRdRingBuffer,
+    .consoleWriteBuffer 		= sysConsole0USBCdcWrRingBuffer,
+    .consoleReadBufferSize 		= SYS_CONSOLE_USB_CDC_RD_BUFFER_SIZE_IDX0,
+    .consoleWriteBufferSize 	= SYS_CONSOLE_USB_CDC_WR_BUFFER_SIZE_IDX0,
 };
 
 const SYS_CONSOLE_INIT sysConsole0Init =
 {
-    .deviceInitData = (const void*)&sysConsole0UARTInitData,
-    .consDevDesc = &sysConsoleUARTDevDesc,
+    .deviceInitData = (const void*)&sysConsole0USBCdcInitData,
+    .consDevDesc = &sysConsoleUSBCdcDevDesc,
     .deviceIndex = 0,
 };
-
 
 
 // </editor-fold>
@@ -277,8 +314,6 @@ void SYS_Initialize ( void* data )
 	WDT_Initialize();
 
 
-    FLEXCOM4_USART_Initialize();
-
 	BSP_Initialize();
   
 
@@ -295,6 +330,15 @@ void SYS_Initialize ( void* data )
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
     sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
 
+
+	/* Initialize USB Driver */ 
+    sysObj.drvUSBDPObject = DRV_USBDP_Initialize(DRV_USBDP_INDEX_0, (SYS_MODULE_INIT *) &drvUSBInit);	
+
+
+	 /* Initialize the USB device layer */
+    sysObj.usbDevObject0 = USB_DEVICE_Initialize (USB_DEVICE_INDEX_0 , ( SYS_MODULE_INIT* ) & usbDevInitData);
+	
+	
 
 
     APP_PLC_PL360_Initialize();

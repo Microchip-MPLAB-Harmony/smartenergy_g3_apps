@@ -57,10 +57,10 @@ static void _ADC_PVDDMONCallback( uint32_t status, uintptr_t context )
 {
     if (status & ADC_ISR_COMPE_Msk)
     {
-      if (ADC_CompareCallback)
-      {
-        ADC_CompareCallback(srv_pvddmon_mode, context);
-      }
+        if (ADC_CompareCallback)
+        {
+            ADC_CompareCallback(srv_pvddmon_mode, context);
+        }
     }
 }
 
@@ -79,36 +79,36 @@ void SRV_PPVDDMON_Initialize (void)
 /* Start PLC PVDD Monitor */
 void SRV_PPVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
 {
+    uint32_t emr = 0;
     ADC_CHANNEL_MASK channelMsk = (1 << 0);
 
     /* Set Free Run reset */
     ADC_REGS->ADC_MR |= ADC_MR_FREERUN_Msk;
 
     /* Set Compare Window Register */
-    ADC_REGS->ADC_CWR = ADC_CWR_HIGHTHRES(SRV_PVDDMON_HIGH_TRESHOLD) || ADC_CWR_LOWTHRES(SRV_PVDDMON_LOW_TRESHOLD); 
+    ADC_REGS->ADC_CWR = ADC_CWR_HIGHTHRES(SRV_PVDDMON_HIGH_TRESHOLD) | ADC_CWR_LOWTHRES(SRV_PVDDMON_LOW_TRESHOLD); 
 
     /* Set Comparison Mode */
-    ADC_REGS->ADC_EMR &= ~ADC_EMR_CMPMODE_Msk;
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
-      srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_OUT;
-      ADC_REGS->ADC_EMR |= ADC_EMR_CMPMODE_OUT;
+        srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_OUT;
+        emr |= ADC_EMR_CMPMODE_OUT;
     }
     else
     {
-      srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_IN;
-      ADC_REGS->ADC_EMR |= ADC_EMR_CMPMODE_IN;
+        srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_IN;
+        emr |= ADC_EMR_CMPMODE_IN;
     }
 
-    /* Clear Comparison Type */
-    ADC_REGS->ADC_EMR &= ~(1 << 2);
-
-    /* Clear Compare All and Compare Filter fields */
-    ADC_REGS->ADC_EMR &= ~(ADC_EMR_CMPALL_Msk || ADC_EMR_CMPFILTER_Msk);
-
     /* Set Comparison Selected Channel */
-    ADC_REGS->ADC_EMR &= ~ADC_EMR_CMPSEL_Msk;
-    ADC_REGS->ADC_EMR |=  ADC_EMR_CMPSEL(0);
+    emr |= ADC_EMR_CMPSEL(0);
+
+    /* Set Compare Type */
+    emr |= ADC_EMR_CMPTYPE_Msk;
+
+    /* Set Filter */
+    emr |= ADC_EMR_CMPFILTER(3);
+    ADC_REGS->ADC_EMR = emr;
 
     /* Enable Comparison Event Interrupt */
     ADC_REGS->ADC_IER |= ADC_IER_COMPE_Msk;
@@ -116,44 +116,48 @@ void SRV_PPVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
     /* Enable ADC channel */
     ADC_ChannelsEnable(channelMsk);
 
+    /* Comparison Restart */
+    ADC_REGS->ADC_CR = 0x1U << ADC_CR_CMPRST_Pos;
+
     /* Start ADC conversion */
     ADC_ConversionStart();
-
 }
 
-/* Start PLC PVDD Monitor */
+/* Restart PLC PVDD Monitor */
 void SRV_PPVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
 {
+    uint32_t emr;
     ADC_CHANNEL_MASK channelMsk = (1 << 0);
-
-    /* Disable ADC channel */
-    ADC_ChannelsDisable(channelMsk);
 
     /* Disable channel COMPE interrupt */
     ADC_REGS->ADC_IDR |= ADC_IER_COMPE_Msk;
 
+    /* Disable ADC channel */
+    ADC_ChannelsDisable(channelMsk);
+
     /* Set Comparison Mode */
-    ADC_REGS->ADC_EMR &= ~ADC_EMR_CMPMODE_Msk;
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
       srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_OUT;
-      ADC_REGS->ADC_EMR |= ADC_EMR_CMPMODE_OUT;
+      emr = ADC_EMR_CMPMODE_OUT;
     }
     else
     {
       srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_IN;
-      ADC_REGS->ADC_EMR |= ADC_EMR_CMPMODE_IN;
+      emr = ADC_EMR_CMPMODE_IN;
     }
+    ADC_REGS->ADC_EMR &= ~ADC_EMR_CMPMODE_Msk;
+    ADC_REGS->ADC_EMR |= emr;
 
-    /* Enable Comparison Event Interrupt */
-    ADC_REGS->ADC_IER |= ADC_IER_COMPE_Msk;
+    /* Comparison Restart */
+    while(ADC_REGS->ADC_ISR & ADC_ISR_COMPE_Msk);
+    ADC_REGS->ADC_CR = 0x1U << ADC_CR_CMPRST_Pos;
 
     /* Enable ADC channel */
     ADC_ChannelsEnable(channelMsk);
 
-    /* Start ADC conversion */
-    ADC_ConversionStart();
-
+    /* Enable Comparison Event Interrupt */
+    ADC_REGS->ADC_IER |= ADC_IER_COMPE_Msk;
 }
 
 void SRV_PPVDDMON_RegisterCallback (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context)
@@ -161,4 +165,23 @@ void SRV_PPVDDMON_RegisterCallback (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t 
     /* Register ADC Callback */
     ADC_CallbackRegister(_ADC_PVDDMONCallback, context);
     ADC_CompareCallback = callback_fn;
+}
+
+bool SRV_PPVDDMON_CheckComparisonInWindow(void)
+{
+    uint16_t adcData;
+    
+    adcData = (uint16_t) ((ADC_REGS->ADC_LCDR & ADC_LCDR_LDATA_Msk) >> ADC_LCDR_LDATA_Pos);
+    
+    if (adcData > SRV_PVDDMON_HIGH_TRESHOLD)
+    {
+        return false;
+    }
+    
+    if (adcData < SRV_PVDDMON_LOW_TRESHOLD)
+    {
+        return false;
+    }
+    
+    return true;
 }

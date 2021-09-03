@@ -481,10 +481,13 @@ void APP_CONSOLE_PL360_Tasks ( void )
         /* Application's initial state. */
         case APP_CONSOLE_STATE_INIT:
         {
-            appConsole.state = APP_CONSOLE_STATE_WAIT_PLC;
-
-            /* Show App Header */
-            APP_CONSOLE_Print(STRING_HEADER);
+            char data;
+            
+            /* Wait for any serial data to start Console application */
+            if (SYS_CONSOLE_Read(SYS_CONSOLE_INDEX_0, &data, 1) > 0)
+            {
+                appConsole.state = APP_CONSOLE_STATE_WAIT_PLC;
+            }
             break;
         }
 
@@ -493,6 +496,9 @@ void APP_CONSOLE_PL360_Tasks ( void )
             /* Wait for PLC transceiver initialization */
             if (appPlc.state == APP_PLC_STATE_WAITING)
             {
+                /* Show App Header */
+                APP_CONSOLE_Print(STRING_HEADER);
+            
                 /* Show PHY version */
                 APP_CONSOLE_Print("PL360 binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x", 
                         (uint8_t)(appPlcTx.pl360PhyVersion >> 24), (uint8_t)(appPlcTx.pl360PhyVersion >> 16),
@@ -719,8 +725,25 @@ void APP_CONSOLE_Print(const char *format, ...)
 {
     size_t len = 0;
     va_list args = {0};
+    uint32_t numRetries = 100;
+    
+    if (appConsole.state == APP_CONSOLE_STATE_INIT)
+    {
+        return;
+    }
 
-    while(SYS_CONSOLE_WriteCountGet(SYS_CONSOLE_INDEX_0));
+    while(SYS_CONSOLE_WriteCountGet(SYS_CONSOLE_INDEX_0))
+    {
+        if (numRetries--)
+        {
+            /* Maintain Console service */
+            SYS_CONSOLE_Tasks(SYS_CONSOLE_INDEX_0);
+        }
+        else
+        {
+            return;
+        }
+    }
 
     va_start( args, format );
     len = vsnprintf(appConsole.pTrasmitChar, SERIAL_BUFFER_SIZE - 1, format, args);

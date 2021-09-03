@@ -131,7 +131,8 @@ extern APP_CONSOLE_DATA appConsole;
     "Select parameter to configure:\r\n"	\
 	"\t0: Tx Modulation\n\r" \
 	"\t1: Tx/Rx Coupling Band\n\r"
-
+//TODO Check out the Coupling Band selection
+//TODO Check PVdd Monitor
 /*******************************************************************************
   Function:
     void APP_CONSOLE_Initialize ( void )

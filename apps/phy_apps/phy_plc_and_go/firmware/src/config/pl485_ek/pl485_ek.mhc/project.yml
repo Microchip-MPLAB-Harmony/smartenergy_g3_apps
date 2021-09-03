@@ -48,13 +48,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 82390D2E4D771C5C5DD12416D9FE4BE8
-- generatedChecksum: BE86A7E7933C398E2367A6A7EF7CEEF8
+- generatedChecksum: D0D6655C164A952FD196E302C8B568AF
   logicalPath: config/pl485_ek/driver/plc/phy
   name: drv_plc_phy_comm.c
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: SOURCE
-  userChecksum: BE86A7E7933C398E2367A6A7EF7CEEF8
+  userChecksum: D0D6655C164A952FD196E302C8B568AF
 - generatedChecksum: 8FF74EF6A81AA825E4CA99851E4A20B3
   logicalPath: config/pl485_ek/driver/plc/phy
   name: drv_plc_phy_local_comm.h
@@ -62,6 +62,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 8FF74EF6A81AA825E4CA99851E4A20B3
+- generatedChecksum: 754B2883765181D02C11A21F76E56FB3
+  logicalPath: config/pl485_ek/driver/usb/usbdp/src
+  name: drv_usbdp_device.c
+  physicalPath: driver/usb/usbdp/src
+  security: NON_SECURE
+  type: SOURCE
+  userChecksum: 754B2883765181D02C11A21F76E56FB3
 - generatedChecksum: 6069C4FD56993BDA3B1FC223DD5BAA4A
   logicalPath: config/pl485_ek
   name: exceptions.c
@@ -69,20 +76,20 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 6069C4FD56993BDA3B1FC223DD5BAA4A
-- generatedChecksum: 438527673C9B1F9FC3BD5D15C4F6379A
+- generatedChecksum: 71E108E9259FBAF8CF03AD6054CB65ED
   logicalPath: config/pl485_ek
   name: initialization.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 438527673C9B1F9FC3BD5D15C4F6379A
-- generatedChecksum: 242B1604C128003DF876B567F275DA6E
+  userChecksum: 71E108E9259FBAF8CF03AD6054CB65ED
+- generatedChecksum: 5C9BBE1DE879E86A71D2554808C5F85B
   logicalPath: config/pl485_ek
   name: interrupts.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 242B1604C128003DF876B567F275DA6E
+  userChecksum: 5C9BBE1DE879E86A71D2554808C5F85B
 - generatedChecksum: 6513F2461B8F476B68CA73906086047F
   logicalPath: config/pl485_ek
   name: libc_syscalls.c
@@ -104,13 +111,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 22B85A8124BB059489DEA03ACD50DBD5
-- generatedChecksum: DCA9028B868CFF037EFAC7F8C5CA2CC3
+- generatedChecksum: 3BF706CB1AEB513D44AD95C4767235EB
   logicalPath: config/pl485_ek/peripheral/clock
   name: plib_clock.c
   physicalPath: peripheral/clock
   security: NON_SECURE
   type: SOURCE
-  userChecksum: DCA9028B868CFF037EFAC7F8C5CA2CC3
+  userChecksum: 3BF706CB1AEB513D44AD95C4767235EB
 - generatedChecksum: 08455A8B76479102F310CC00F3BCD2E9
   logicalPath: config/pl485_ek/peripheral/cmcc
   name: plib_cmcc.c
@@ -125,27 +132,20 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 21D66E57F9D4FC9EDB4DC67A1A6637B3
-- generatedChecksum: E29D49D9CD330A612951CA1A749FA99A
-  logicalPath: config/pl485_ek/peripheral/flexcom/usart
-  name: plib_flexcom4_usart.c
-  physicalPath: peripheral/flexcom/usart
-  security: NON_SECURE
-  type: SOURCE
-  userChecksum: E29D49D9CD330A612951CA1A749FA99A
-- generatedChecksum: D6CD312FA25A6A9F78E03C5E14C71F4B
+- generatedChecksum: 76D04DABD54BA051A50B306CFB5FCBA8
   logicalPath: config/pl485_ek/peripheral/flexcom/spi/master
   name: plib_flexcom7_spi_master.c
   physicalPath: peripheral/flexcom/spi/master
   security: NON_SECURE
   type: SOURCE
-  userChecksum: D6CD312FA25A6A9F78E03C5E14C71F4B
-- generatedChecksum: 8268B86BC4C3BF7E8C3CDF1020C555C7
+  userChecksum: 76D04DABD54BA051A50B306CFB5FCBA8
+- generatedChecksum: 0EABDD88771A8CF0B2C6FC8DB0594A8F
   logicalPath: config/pl485_ek/peripheral/nvic
   name: plib_nvic.c
   physicalPath: peripheral/nvic
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 8268B86BC4C3BF7E8C3CDF1020C555C7
+  userChecksum: 0EABDD88771A8CF0B2C6FC8DB0594A8F
 - generatedChecksum: 05991BE00E4E17CE75476BC39532B180
   logicalPath: config/pl485_ek/peripheral/pio
   name: plib_pio.c
@@ -202,27 +202,27 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 5BA0902794A8669B3FE37E8A8BEE9D65
-- generatedChecksum: CA5E9B63704372DE5FBC0BDC006B16C3
+- generatedChecksum: 99C68D06AEF73EFB138AE43A8A0A2002
   logicalPath: config/pl485_ek/system/console
-  name: sys_console_uart.c
+  name: sys_console_usb_cdc.c
   physicalPath: system/console/src
   security: NON_SECURE
   type: SOURCE
-  userChecksum: CA5E9B63704372DE5FBC0BDC006B16C3
-- generatedChecksum: 767495C6A39617A915D8107093DC1A72
+  userChecksum: 99C68D06AEF73EFB138AE43A8A0A2002
+- generatedChecksum: C89BC66EBA5BC88371BC248BC05B0133
   logicalPath: config/pl485_ek/system/console
-  name: sys_console_uart.h
+  name: sys_console_usb_cdc.h
   physicalPath: system/console/src
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 767495C6A39617A915D8107093DC1A72
-- generatedChecksum: 5D10B9438117B64220180660AB022150
+  userChecksum: C89BC66EBA5BC88371BC248BC05B0133
+- generatedChecksum: 66F10F136633A5BA94B3990BE996E8B6
   logicalPath: config/pl485_ek/system/console
-  name: sys_console_uart_definitions.h
+  name: sys_console_usb_cdc_definitions.h
   physicalPath: system/console/src
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 5D10B9438117B64220180660AB022150
+  userChecksum: 66F10F136633A5BA94B3990BE996E8B6
 - generatedChecksum: 02C3C1B519E59992810626BB6098CF56
   logicalPath: config/pl485_ek/system/int
   name: sys_int.c
@@ -237,13 +237,41 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 83BDE663A1AAB20C9E52263F22E2ED3C
-- generatedChecksum: F89D4C0249E0736FEE0C2FADF2A8B646
+- generatedChecksum: AE8B014FF2DC163E396F60C19AED6751
   logicalPath: config/pl485_ek
   name: tasks.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: F89D4C0249E0736FEE0C2FADF2A8B646
+  userChecksum: AE8B014FF2DC163E396F60C19AED6751
+- generatedChecksum: BCCEF5B801FFD0CF22D0B454D2F25F1F
+  logicalPath: config/pl485_ek/usb/src
+  name: usb_device.c
+  physicalPath: usb/src
+  security: NON_SECURE
+  type: SOURCE
+  userChecksum: BCCEF5B801FFD0CF22D0B454D2F25F1F
+- generatedChecksum: A40DCA3705B81ABAAC49D5107947C230
+  logicalPath: config/pl485_ek/usb/src
+  name: usb_device_cdc.c
+  physicalPath: usb/src
+  security: NON_SECURE
+  type: SOURCE
+  userChecksum: A40DCA3705B81ABAAC49D5107947C230
+- generatedChecksum: ABA41F10EA872DBEBB285D03A009BC51
+  logicalPath: config/pl485_ek/usb/src
+  name: usb_device_cdc_acm.c
+  physicalPath: usb/src
+  security: NON_SECURE
+  type: SOURCE
+  userChecksum: ABA41F10EA872DBEBB285D03A009BC51
+- generatedChecksum: F96C38F5B2714380BEDD7E8E83DED873
+  logicalPath: config/pl485_ek
+  name: usb_device_init_data.c
+  physicalPath: ''
+  security: NON_SECURE
+  type: SOURCE
+  userChecksum: F96C38F5B2714380BEDD7E8E83DED873
 - generatedChecksum: 7806B30ECAE0D18D08CD583D8775530D
   logicalPath: config/pl485_ek/stdio
   name: xc32_monitor.c
@@ -286,13 +314,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 42F405498199EE9612E887FAC8AF5A4A
-- generatedChecksum: 01B82424BC59A54620F7E9E0DB808EBB
+- generatedChecksum: 14F1AD56D242EFD0AF76849C6ADFECC4
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: cachel1_armv7.h
   physicalPath: ../../packs/CMSIS/CMSIS/Core/Include
   security: NON_SECURE
   type: HEADER
-  userChecksum: 01B82424BC59A54620F7E9E0DB808EBB
+  userChecksum: 14F1AD56D242EFD0AF76849C6ADFECC4
 - generatedChecksum: 4BAC1BD9DF3EAAE9FCF0CCA8DCC0D1B3
   logicalPath: packs/ATSAMG55J19_DFP/component
   name: chipid.h
@@ -321,27 +349,27 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 6A25141C154BEACBC3FA063A7482F81D
-- generatedChecksum: 00A88E28C299A373117BC4D5B9E80C80
+- generatedChecksum: B79C08E0901948AD04D944B4BCE1B60D
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: cmsis_armcc.h
   physicalPath: ../../packs/CMSIS/CMSIS/Core/Include
   security: NON_SECURE
   type: HEADER
-  userChecksum: 00A88E28C299A373117BC4D5B9E80C80
-- generatedChecksum: 734DF6998F09B2D22A4D9FE1D544FDFC
+  userChecksum: B79C08E0901948AD04D944B4BCE1B60D
+- generatedChecksum: 6B4E2EBA8708D9E04E6136F29460ACB9
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: cmsis_armclang.h
   physicalPath: ../../packs/CMSIS/CMSIS/Core/Include
   security: NON_SECURE
   type: HEADER
-  userChecksum: 734DF6998F09B2D22A4D9FE1D544FDFC
-- generatedChecksum: 5D653BEFE5E6B1D00AB3682CE5D24C11
+  userChecksum: 6B4E2EBA8708D9E04E6136F29460ACB9
+- generatedChecksum: 415E22EBE7A3BACE87240A7F16492C46
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: cmsis_armclang_ltm.h
   physicalPath: ../../packs/CMSIS/CMSIS/Core/Include
   security: NON_SECURE
   type: HEADER
-  userChecksum: 5D653BEFE5E6B1D00AB3682CE5D24C11
+  userChecksum: 415E22EBE7A3BACE87240A7F16492C46
 - generatedChecksum: 60385A5C6C9882B5D30709A1F6EAEC35
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: cmsis_compiler.h
@@ -349,20 +377,20 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 60385A5C6C9882B5D30709A1F6EAEC35
-- generatedChecksum: 42E8B722917508A3A9373D13AD827ED6
+- generatedChecksum: 4DC978B079559EB044AFD32A57768238
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: cmsis_gcc.h
   physicalPath: ../../packs/CMSIS/CMSIS/Core/Include
   security: NON_SECURE
   type: HEADER
-  userChecksum: 42E8B722917508A3A9373D13AD827ED6
-- generatedChecksum: 376D5C7FD29CAA507ACB1AAB8746B1AD
+  userChecksum: 4DC978B079559EB044AFD32A57768238
+- generatedChecksum: 11521476050CAC6C1F3A91A5BB5DBB9A
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: cmsis_iccarm.h
   physicalPath: ../../packs/CMSIS/CMSIS/Core/Include
   security: NON_SECURE
   type: HEADER
-  userChecksum: 376D5C7FD29CAA507ACB1AAB8746B1AD
+  userChecksum: 11521476050CAC6C1F3A91A5BB5DBB9A
 - generatedChecksum: 52F91AC0727F2311EDA0E3BAA7719A9F
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: cmsis_version.h
@@ -370,20 +398,20 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 52F91AC0727F2311EDA0E3BAA7719A9F
-- generatedChecksum: FBC37D2B78F987CF0B270F1F2B901CD3
+- generatedChecksum: 1FAA08631D2D5EA62A47437FC0E395A6
   logicalPath: config/pl485_ek
   name: configuration.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: FBC37D2B78F987CF0B270F1F2B901CD3
-- generatedChecksum: 624A16D50759D7A491C523D747764B49
+  userChecksum: 1FAA08631D2D5EA62A47437FC0E395A6
+- generatedChecksum: 7EF1FAD7778FEEAC9467270306D7F7C0
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: core_cm4.h
   physicalPath: ../../packs/CMSIS/CMSIS/Core/Include
   security: NON_SECURE
   type: HEADER
-  userChecksum: 624A16D50759D7A491C523D747764B49
+  userChecksum: 7EF1FAD7778FEEAC9467270306D7F7C0
 - generatedChecksum: D682CB19B0B4D14B5C595185E8E61BA8
   logicalPath: packs/ATSAMG55J19_DFP/component
   name: crccu.h
@@ -398,13 +426,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 468146180FBA71A4DA27CDAE338241F1
-- generatedChecksum: 5ABBA827B462ED1DD8973D7805BFCAB5
+- generatedChecksum: 7DFB32B049B629AC6441DF0A7682577F
   logicalPath: config/pl485_ek
   name: definitions.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 5ABBA827B462ED1DD8973D7805BFCAB5
+  userChecksum: 7DFB32B049B629AC6441DF0A7682577F
 - generatedChecksum: B2B6C8FA402EA332272FF5E6F01E48F9
   logicalPath: config/pl485_ek
   name: device.h
@@ -482,6 +510,34 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 2CA692B7293FF943FCDE0903E90DA711
+- generatedChecksum: DF147276AE56CA76E3E9BEB8447620AB
+  logicalPath: config/pl485_ek/driver/usb
+  name: drv_usb.h
+  physicalPath: driver/usb
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: DF147276AE56CA76E3E9BEB8447620AB
+- generatedChecksum: 3BBD63B490078EE9A65640DA5FF3929F
+  logicalPath: config/pl485_ek/driver/usb/usbdp
+  name: drv_usbdp.h
+  physicalPath: driver/usb/usbdp
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 3BBD63B490078EE9A65640DA5FF3929F
+- generatedChecksum: 37AF31EFF6EC8D077ED1D4464E44500A
+  logicalPath: config/pl485_ek/driver/usb/usbdp/src
+  name: drv_usbdp_local.h
+  physicalPath: driver/usb/usbdp/src
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 37AF31EFF6EC8D077ED1D4464E44500A
+- generatedChecksum: 02CBE18DD79146C139E0B6BFCB932DFA
+  logicalPath: config/pl485_ek/driver/usb/usbdp/src
+  name: drv_usbdp_variant_mapping.h
+  physicalPath: driver/usb/usbdp/src
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 02CBE18DD79146C139E0B6BFCB932DFA
 - generatedChecksum: BAD9253DB73DB395A8C02668F100AF2D
   logicalPath: packs/ATSAMG55J19_DFP/component
   name: efc.h
@@ -608,13 +664,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 26130422D3A33B446D0CDCBE622D60D2
-- generatedChecksum: 91E40596569E5671B62E78E6444E79EE
+- generatedChecksum: 90F3C390E75CF262799E9B8787338938
   logicalPath: config/pl485_ek
   name: interrupts.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 91E40596569E5671B62E78E6444E79EE
+  userChecksum: 90F3C390E75CF262799E9B8787338938
 - generatedChecksum: 4BBC7BDBED294C1A35138ED661A03106
   logicalPath: packs/ATSAMG55J19_DFP/component
   name: matrix.h
@@ -643,13 +699,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 569162CE11E823D695FCF0B83BAF3B29
-- generatedChecksum: B96ADDA2C111E73B26EBA5E7B4498912
+- generatedChecksum: 47E760D36E42A7B436306A9CB4E72A0E
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: mpu_armv7.h
   physicalPath: ../../packs/CMSIS/CMSIS/Core/Include
   security: NON_SECURE
   type: HEADER
-  userChecksum: B96ADDA2C111E73B26EBA5E7B4498912
+  userChecksum: 47E760D36E42A7B436306A9CB4E72A0E
 - generatedChecksum: F0AD88762263B7CB89B02AB4F5876059
   logicalPath: config/pl485_ek/osal
   name: osal.h
@@ -741,20 +797,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 0ABDA5C4051B45BB0C8746712B766240
-- generatedChecksum: 6AE7DFA8EA7C5ACAFC5A1A3D9FDECE2A
-  logicalPath: config/pl485_ek/peripheral/flexcom/usart
-  name: plib_flexcom4_usart.h
-  physicalPath: peripheral/flexcom/usart
-  security: NON_SECURE
-  type: HEADER
-  userChecksum: 6AE7DFA8EA7C5ACAFC5A1A3D9FDECE2A
-- generatedChecksum: 4E3FCF5B0EF1D5ECEB6296974914984D
+- generatedChecksum: 1ED52C28C343AEC6FE42CFA11D0C91FD
   logicalPath: config/pl485_ek/peripheral/flexcom/spi/master
   name: plib_flexcom7_spi_master.h
   physicalPath: peripheral/flexcom/spi/master
   security: NON_SECURE
   type: HEADER
-  userChecksum: 4E3FCF5B0EF1D5ECEB6296974914984D
+  userChecksum: 1ED52C28C343AEC6FE42CFA11D0C91FD
 - generatedChecksum: 3F741FB205921F5AE8DD04D3699F6CB4
   logicalPath: config/pl485_ek/peripheral/flexcom/spi/master
   name: plib_flexcom_spi_master_common.h
@@ -762,13 +811,6 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 3F741FB205921F5AE8DD04D3699F6CB4
-- generatedChecksum: 301464123E30997D035056FEB1895A1A
-  logicalPath: config/pl485_ek/peripheral/flexcom/usart
-  name: plib_flexcom_usart_local.h
-  physicalPath: peripheral/flexcom/usart
-  security: NON_SECURE
-  type: HEADER
-  userChecksum: 301464123E30997D035056FEB1895A1A
 - generatedChecksum: 55ECCC7FA71BD15B46EF80DC0515ED7A
   logicalPath: config/pl485_ek/peripheral/nvic
   name: plib_nvic.h
@@ -776,13 +818,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 55ECCC7FA71BD15B46EF80DC0515ED7A
-- generatedChecksum: 8B64630E734CF53522158D6BC1F3DEE9
+- generatedChecksum: C5CB90A3C0B406414BFFB4776A5CD4D1
   logicalPath: config/pl485_ek/peripheral/pio
   name: plib_pio.h
   physicalPath: peripheral/pio
   security: NON_SECURE
   type: HEADER
-  userChecksum: 8B64630E734CF53522158D6BC1F3DEE9
+  userChecksum: C5CB90A3C0B406414BFFB4776A5CD4D1
 - generatedChecksum: 5481A96AB4113BA97481FFF71C60AF23
   logicalPath: config/pl485_ek/peripheral/tc
   name: plib_tc0.h
@@ -1070,13 +1112,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 08740D1CEE89BD30D749028D3247E147
-- generatedChecksum: 3448B62FDF48416310C7CED2A0A37D1C
+- generatedChecksum: 267E11FBC03D0FD88E7330DDB79B19FC
   logicalPath: config/pl485_ek
   name: toolchain_specifics.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 3448B62FDF48416310C7CED2A0A37D1C
+  userChecksum: 267E11FBC03D0FD88E7330DDB79B19FC
 - generatedChecksum: FF7EA830E15974ABB344CA3E04C9A3DD
   logicalPath: packs/ATSAMG55J19_DFP/component
   name: twi.h
@@ -1231,6 +1273,104 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 255474B4F1E7AD7AF9DB59078CB4C5DA
+- generatedChecksum: F698C0AF1ADC5A3E18B4832DFEAB8DB0
+  logicalPath: config/pl485_ek/usb
+  name: usb_cdc.h
+  physicalPath: usb
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: F698C0AF1ADC5A3E18B4832DFEAB8DB0
+- generatedChecksum: 39659CDE2CC726544BD68544FB7EF4B2
+  logicalPath: config/pl485_ek/usb
+  name: usb_chapter_9.h
+  physicalPath: usb
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 39659CDE2CC726544BD68544FB7EF4B2
+- generatedChecksum: E7B6EAD8687A8EBC0355E0CE413B6A87
+  logicalPath: config/pl485_ek/usb
+  name: usb_common.h
+  physicalPath: usb
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: E7B6EAD8687A8EBC0355E0CE413B6A87
+- generatedChecksum: 68F7DBD311EDCAF1098CDF2FD15B8C73
+  logicalPath: config/pl485_ek/usb
+  name: usb_device.h
+  physicalPath: usb
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 68F7DBD311EDCAF1098CDF2FD15B8C73
+- generatedChecksum: EE6F55EAA31844DFFD1822493E3BE0FF
+  logicalPath: config/pl485_ek/usb
+  name: usb_device_cdc.h
+  physicalPath: usb
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: EE6F55EAA31844DFFD1822493E3BE0FF
+- generatedChecksum: A8E75B653DC44962608C0013C17A01F7
+  logicalPath: config/pl485_ek/usb/src
+  name: usb_device_cdc_local.h
+  physicalPath: usb/src
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: A8E75B653DC44962608C0013C17A01F7
+- generatedChecksum: 626BFDDD140B808E90C9DD2E4A27421E
+  logicalPath: config/pl485_ek/usb/src
+  name: usb_device_function_driver.h
+  physicalPath: usb/src
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 626BFDDD140B808E90C9DD2E4A27421E
+- generatedChecksum: 9B727D396CAEBD5FCB12F1F8264C4FD9
+  logicalPath: config/pl485_ek/usb/src
+  name: usb_device_local.h
+  physicalPath: usb/src
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 9B727D396CAEBD5FCB12F1F8264C4FD9
+- generatedChecksum: C8D4A1D9092FD842506F565CE9B8C265
+  logicalPath: config/pl485_ek/usb/src
+  name: usb_device_mapping.h
+  physicalPath: usb/src
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: C8D4A1D9092FD842506F565CE9B8C265
+- generatedChecksum: 6C4A6859DB16EA8C046F995C6B6C1C6F
+  logicalPath: config/pl485_ek/usb/src
+  name: usb_external_dependencies.h
+  physicalPath: usb/src
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 6C4A6859DB16EA8C046F995C6B6C1C6F
+- generatedChecksum: F127C67A3E33E5788C0F057F648EE57C
+  logicalPath: config/pl485_ek/usb
+  name: usb_host.h
+  physicalPath: usb
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: F127C67A3E33E5788C0F057F648EE57C
+- generatedChecksum: 6EBC5E4D06FC96A02ADF3B7416957DD6
+  logicalPath: config/pl485_ek/usb
+  name: usb_host_client_driver.h
+  physicalPath: usb
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 6EBC5E4D06FC96A02ADF3B7416957DD6
+- generatedChecksum: 757C8484C955543C893361992D11FD4C
+  logicalPath: config/pl485_ek/usb
+  name: usb_host_hub_interface.h
+  physicalPath: usb
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 757C8484C955543C893361992D11FD4C
+- generatedChecksum: 3E3CC6BC9128194CB4D19F29C57E312B
+  logicalPath: config/pl485_ek/usb
+  name: usb_hub.h
+  physicalPath: usb
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 3E3CC6BC9128194CB4D19F29C57E312B
 - generatedChecksum: null
   logicalPath: config/pl485_ek
   name: user.h

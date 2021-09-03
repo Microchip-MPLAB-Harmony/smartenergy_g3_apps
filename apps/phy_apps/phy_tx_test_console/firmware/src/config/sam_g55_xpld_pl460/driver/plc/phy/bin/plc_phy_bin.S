@@ -41,8 +41,10 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 
   .align 8
 plc_phy_bin_start:
-  .incbin "./PLC_PHY_G3_CENB.bin"
+  .incbin "./PLC_PHY_G3_FCC.bin"
   .align 8
 plc_phy_bin_end:
 plc_phy_bin2_start:
+  .incbin "./PLC_PHY_G3_CENA.bin"
+  .align 8
 plc_phy_bin2_end:

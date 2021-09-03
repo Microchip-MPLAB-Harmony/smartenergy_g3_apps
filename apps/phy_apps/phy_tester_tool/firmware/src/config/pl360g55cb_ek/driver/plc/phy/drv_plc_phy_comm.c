@@ -512,18 +512,6 @@ void DRV_PLC_PHY_Send(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ *tra
                 /* Update PLC state: waiting confirmation */
                 gPlcPhyObj->state = DRV_PLC_PHY_STATE_WAITING_TX_CFM;
             }
-            else
-            {
-                /* Notify DRV_PLC_PHY_TX_RESULT_BUSY_TX */
-                if (gPlcPhyObj->dataCfmCallback)
-                {
-                    cfmObj.rmsCalc = 0;
-                    cfmObj.time = 0;
-                    cfmObj.result = DRV_PLC_PHY_TX_RESULT_BUSY_TX;
-                    /* Report to upper layer */
-                    gPlcPhyObj->dataCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
-                }
-            }
         }
         else
         {

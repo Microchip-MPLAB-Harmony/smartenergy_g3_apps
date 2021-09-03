@@ -101,6 +101,7 @@ extern void I2SC0_Handler              ( void ) __attribute__((weak, alias("Dumm
 extern void I2SC1_Handler              ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void PDMIC1_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void FLEXCOM3_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler")));
+extern void FLEXCOM4_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void FLEXCOM5_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void FLEXCOM6_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void TC0_CH1_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -110,7 +111,6 @@ extern void TC1_CH1_Handler            ( void ) __attribute__((weak, alias("Dumm
 extern void TC1_CH2_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void ADC_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void UHP_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
-extern void UDP_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void CRCCU_Handler              ( void ) __attribute__((weak, alias("Dummy_Handler")));
 
 
@@ -124,6 +124,7 @@ const H3DeviceVectors exception_table=
 {
     /* Configure Initial Stack Pointer, using linker-generated symbols */
     .pvStack = &_stack,
+
 
     .pfnReset_Handler              = Reset_Handler,
     .pfnNonMaskableInt_Handler     = NonMaskableInt_Handler,
@@ -154,7 +155,7 @@ const H3DeviceVectors exception_table=
     .pfnI2SC1_Handler              = I2SC1_Handler,
     .pfnPDMIC1_Handler             = PDMIC1_Handler,
     .pfnFLEXCOM3_Handler           = FLEXCOM3_Handler,
-    .pfnFLEXCOM4_Handler           = FLEXCOM4_InterruptHandler,
+    .pfnFLEXCOM4_Handler           = FLEXCOM4_Handler,
     .pfnFLEXCOM5_Handler           = FLEXCOM5_Handler,
     .pfnFLEXCOM6_Handler           = FLEXCOM6_Handler,
     .pfnTC0_CH0_Handler            = TC0_CH0_InterruptHandler,
@@ -165,7 +166,7 @@ const H3DeviceVectors exception_table=
     .pfnTC1_CH2_Handler            = TC1_CH2_Handler,
     .pfnADC_Handler                = ADC_Handler,
     .pfnUHP_Handler                = UHP_Handler,
-    .pfnUDP_Handler                = UDP_Handler,
+    .pfnUDP_Handler                = DRV_USBDP_Handler,
     .pfnCRCCU_Handler              = CRCCU_Handler,
 
 

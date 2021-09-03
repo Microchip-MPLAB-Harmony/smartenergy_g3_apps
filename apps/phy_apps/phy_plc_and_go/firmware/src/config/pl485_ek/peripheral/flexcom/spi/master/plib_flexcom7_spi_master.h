@@ -78,6 +78,8 @@ bool FLEXCOM7_SPI_Read( void * pReceiveData, size_t rxSize );
 
 bool FLEXCOM7_SPI_TransferSetup( FLEXCOM_SPI_TRANSFER_SETUP * setup, uint32_t spiSourceClock );
 
+bool FLEXCOM7_SPI_IsTransmitterBusy( void );
+
 
 bool FLEXCOM7_SPI_IsBusy( void );
 

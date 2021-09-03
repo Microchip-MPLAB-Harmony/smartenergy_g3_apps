@@ -385,7 +385,7 @@ children:
       - type: Boolean
         attributes: {id: readOnly}
         children:
-        - {type: Value, value: 'true'}
+        - {type: Value, value: 'false'}
       - type: Boolean
         attributes: {id: visible}
         children:
@@ -459,4 +459,4 @@ children:
         children:
         - {type: Value, value: 'false'}
 - type: ElementPosition
-  attributes: {x: '417', y: '363', id: flexcom3}
+  attributes: {x: '430', y: '372', id: flexcom3}

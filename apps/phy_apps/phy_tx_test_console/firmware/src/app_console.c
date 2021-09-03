@@ -717,7 +717,43 @@ void APP_CONSOLE_Tasks ( void )
                     case '6':
                         if (appPlc.plcMultiband)
                         {
-                            APP_CONSOLE_Print(MENU_MULTIBAND);
+                            uint8_t phyBand;
+                            
+                            APP_CONSOLE_Print("\n\r-- Select PLC band  --------------\r\n");
+                            phyBand = SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_MAIN_BRANCH);
+                            switch(phyBand)
+                            {
+                                case G3_CEN_A:
+                                    APP_CONSOLE_Print("0: MAIN BRANCH [CEN-A]\n\r");
+                                    break;
+                                    
+                                case G3_CEN_B:
+                                    APP_CONSOLE_Print("0: MAIN BRANCH [CEN-B]\n\r");
+                                    break;
+                                    
+                                case G3_FCC:
+                                    APP_CONSOLE_Print("0: MAIN BRANCH [FCC]\n\r");
+                                    break;
+                                    
+                            }
+                            
+                            phyBand = SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_AUXILIARY_BRANCH);
+                            switch(phyBand)
+                            {
+                                case G3_CEN_A:
+                                    APP_CONSOLE_Print("1: AUXILIARY BRANCH [CEN-A]\n\r");
+                                    break;
+                                    
+                                case G3_CEN_B:
+                                    APP_CONSOLE_Print("1: AUXILIARY BRANCH [CEN-B]\n\r");
+                                    break;
+                                    
+                                case G3_FCC:
+                                    APP_CONSOLE_Print("1: AUXILIARY BRANCH [FCC]\n\r");
+                                    break;
+                                    
+                            }
+                            
                             appConsole.state = APP_CONSOLE_STATE_SET_PLC_BAND;
                             APP_CONSOLE_ReadRestart(1);
                         }
@@ -986,7 +1022,6 @@ void APP_CONSOLE_Tasks ( void )
         /* The default state should never be executed. */
         default:
         {
-            /* TODO: Handle error in application's state machine. */
             break;
         }
     }
@@ -996,8 +1031,25 @@ void APP_CONSOLE_Print(const char *format, ...)
 {
     size_t len = 0;
     va_list args = {0};
+    uint32_t numRetries = 1000;
+    
+    if (appConsole.state == APP_CONSOLE_STATE_INIT)
+    {
+        return;
+    }
 
-    while(SYS_CONSOLE_WriteCountGet(SYS_CONSOLE_INDEX_0));
+    while(SYS_CONSOLE_WriteCountGet(SYS_CONSOLE_INDEX_0))
+    {
+        if (numRetries--)
+        {
+            /* Maintain Console service */
+            SYS_CONSOLE_Tasks(SYS_CONSOLE_INDEX_0);
+        }
+        else
+        {
+            return;
+        }
+    }
 
     va_start( args, format );
     len = vsnprintf(appConsole.pTrasmitChar, SERIAL_BUFFER_SIZE - 1, format, args);

@@ -137,6 +137,8 @@ typedef struct
     
     bool pvddMonTxEnable;
     
+    bool waitingTxCfm;
+    
 } APP_DATA;
 
 // *****************************************************************************

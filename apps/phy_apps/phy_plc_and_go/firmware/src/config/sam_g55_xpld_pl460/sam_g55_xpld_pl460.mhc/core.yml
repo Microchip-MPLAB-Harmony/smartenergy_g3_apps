@@ -17,7 +17,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '100007936'}
+        attributes: {id: core, value: '8000000'}
   - type: Boolean
     attributes: {id: ADC_INTERRUPT_ENABLE}
     children:
@@ -189,14 +189,14 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: flexcom7, value: 'true'}
+        attributes: {id: flexcom7, value: 'false'}
   - type: Boolean
     attributes: {id: FLEXCOM7_INTERRUPT_ENABLE_UPDATE}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: 'false'}
+        attributes: {id: core, value: 'true'}
   - type: String
     attributes: {id: FLEXCOM7_INTERRUPT_HANDLER}
     children:
@@ -210,7 +210,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: flexcom7, value: 'true'}
+        attributes: {id: flexcom7, value: 'false'}
   - type: Boolean
     attributes: {id: INTERRUPT_ACTIVE}
     children:
@@ -394,6 +394,27 @@ children:
       - type: Dynamic
         attributes: {id: core, value: 'true'}
   - type: Boolean
+    attributes: {id: NVIC_48_0_ENABLE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: 'true'}
+  - type: String
+    attributes: {id: NVIC_48_0_HANDLER}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: DRV_USBDP_Handler}
+  - type: Boolean
+    attributes: {id: NVIC_48_0_HANDLER_LOCK}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: 'true'}
+  - type: Boolean
     attributes: {id: NVIC_4_0_ENABLE}
     children:
     - type: Values
@@ -420,9 +441,9 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: 'true'}
+        attributes: {id: core, value: 'false'}
       - type: User
-        attributes: {value: 'true'}
+        attributes: {value: 'false'}
   - type: String
     attributes: {id: NVIC_7_0_HANDLER}
     children:
@@ -436,7 +457,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: 'true'}
+        attributes: {id: core, value: 'false'}
   - type: Boolean
     attributes: {id: NVIC_8_0_ENABLE}
     children:
@@ -884,21 +905,21 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: ''}
+        attributes: {value: USB_VBUS_SENSE}
   - type: String
     attributes: {id: PIN_62_FUNCTION_TYPE}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: ''}
+        attributes: {value: GPIO}
   - type: String
     attributes: {id: PIN_62_PERIPHERAL_FUNCTION}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: ''}
+        attributes: {value: GPIO}
   - type: String
     attributes: {id: PIN_6_DIR}
     children:
@@ -1199,7 +1220,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '0'}
+        attributes: {id: core, value: '16'}
   - type: Integer
     attributes: {id: PLLA_CLOCK_FREQUENCY}
     children:
@@ -1235,27 +1256,41 @@ children:
       children:
       - type: Dynamic
         attributes: {id: core, value: '547362944'}
+  - type: Hex
+    attributes: {id: PMC_PCER1}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: '65536'}
   - type: Boolean
     attributes: {id: PMC_SCER_PCK5}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: 'false'}
+        attributes: {id: core, value: 'true'}
   - type: Boolean
     attributes: {id: PMC_SCER_UDP}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: 'false'}
+        attributes: {id: core, value: 'true'}
   - type: Boolean
     attributes: {id: PMC_SCER_UHP}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: 'false'}
+        attributes: {id: core, value: 'true'}
+  - type: Integer
+    attributes: {id: PMC_USB_USBDIV}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: '0'}
   - type: KeyValueSet
     attributes: {id: PMC_USB_USBS}
     children:
@@ -1263,6 +1298,13 @@ children:
       children:
       - type: User
         attributes: {value: '1'}
+  - type: Integer
+    attributes: {id: PROG_5_CLOCK_FREQUENCY}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: '8000000'}
   - type: KeyValueSet
     attributes: {id: SUPC_CR_MDXTALSEL}
     children:
@@ -1412,6 +1454,55 @@ children:
       children:
       - type: Dynamic
         attributes: {id: tc0, value: 'false'}
+  - type: Boolean
+    attributes: {id: UDP_CLOCK_ENABLE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: drv_usbdp, value: 'true'}
+  - type: Integer
+    attributes: {id: UDP_CLOCK_FREQUENCY}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: '100007936'}
+  - type: Boolean
+    attributes: {id: UDP_INTERRUPT_ENABLE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: drv_usbdp, value: 'true'}
+  - type: Boolean
+    attributes: {id: UDP_INTERRUPT_ENABLE_UPDATE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: 'false'}
+  - type: String
+    attributes: {id: UDP_INTERRUPT_HANDLER}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: drv_usbdp, value: DRV_USBDP_Handler}
+  - type: Boolean
+    attributes: {id: UDP_INTERRUPT_HANDLER_LOCK}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: drv_usbdp, value: 'true'}
+  - type: Integer
+    attributes: {id: USBFS_CLOCK_FREQUENCY}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: '48005120'}
   - type: Boolean
     attributes: {id: WDT_INTERRUPT_ENABLE}
     children:
