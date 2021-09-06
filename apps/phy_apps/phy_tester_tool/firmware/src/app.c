@@ -247,7 +247,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
-        if (SRV_PPVDDMON_CheckComparisonInWindow() == false)
+        if (SRV_PVDDMON_CheckComparisonInWindow() == false)
         {
             /* Check if there is any pending TX */
             if (appData.waitingTxCfm)
@@ -263,17 +263,17 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
             /* PLC Transmission is not permitted */
             appData.pvddMonTxEnable = false;
             /* Restart PVDD Monitor to check when VDD is within the comparison window */
-            SRV_PPVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
+            SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
         }
     }
     else
     {
-        if (SRV_PPVDDMON_CheckComparisonInWindow() == true)
+        if (SRV_PVDDMON_CheckComparisonInWindow() == true)
         {
             /* PLC Transmission is permitted again */
             appData.pvddMonTxEnable = true;
             /* Restart PVDD Monitor to check when VDD is out of the comparison window */
-            SRV_PPVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
+            SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
         }
     }
 }
@@ -408,7 +408,7 @@ void APP_Initialize(void)
     appData.plcPIB.pData = appData.pPLCDataPIB;
     
     /* Set PVDD Monitor tracking data */
-    SRV_PPVDDMON_Initialize();
+    SRV_PVDDMON_Initialize();
     appData.pvddMonTxEnable = true;
     
     /* Init Flag to wait Tx confirmation */
@@ -525,8 +525,8 @@ void APP_Tasks(void)
             /* Set configuration fro PLC */
             APP_PLC_SetCouplingConfiguration();
             /* Enable PLC PVDD Monitor Service: ADC channel 0 */
-            SRV_PPVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
-            SRV_PPVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
+            SRV_PVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
+            SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
             /* Set Application to next state */
             appData.state = APP_STATE_READY;
             break;

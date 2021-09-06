@@ -5,7 +5,7 @@
     Microchip Technology Inc.
 
   File Name:
-    srv_ppvddmon.h
+    srv_pvddmon.h
 
   Summary:
     Interface definition of the True Random Number Generator Plib (TRNG).
@@ -38,8 +38,8 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
-#ifndef SRV_PPVDDMON_H    // Guards against multiple inclusion
-#define SRV_PPVDDMON_H
+#ifndef SRV_PVDDMON_H    // Guards against multiple inclusion
+#define SRV_PVDDMON_H
 
 #include <stdint.h>
 #include "device.h"
@@ -65,10 +65,11 @@ typedef void (*SRV_PVDDMON_CALLBACK)( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t co
 #define SRV_PVDDMON_LOW_TRESHOLD               0xa8a
 
 /***************************** SRV PLC PVDD MONITOR API *******************************/
-void SRV_PPVDDMON_Start(SRV_PVDDMON_CMP_MODE cmpMode);
-void SRV_PPVDDMON_Restart(SRV_PVDDMON_CMP_MODE cmpMode);
-void SRV_PPVDDMON_RegisterCallback(SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context);
-
+void SRV_PVDDMON_Initialize (void);
+void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode);
+void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode);
+void SRV_PVDDMON_RegisterCallback (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context);
+bool SRV_PVDDMON_CheckComparisonInWindow(void);
 
 #ifdef __cplusplus // Provide C++ Compatibility
  }

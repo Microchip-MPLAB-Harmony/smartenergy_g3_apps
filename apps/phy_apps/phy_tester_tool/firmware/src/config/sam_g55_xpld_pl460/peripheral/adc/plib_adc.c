@@ -63,10 +63,10 @@ void ADC_Initialize( void )
     ADC_REGS->ADC_CR = ADC_CR_SWRST_Msk;
 
     /* Prescaler and different time settings as per CLOCK section  */
-    ADC_REGS->ADC_MR = ADC_MR_PRESCAL(7U) | ADC_MR_TRACKTIM(15U) | ADC_MR_STARTUP_SUT64 | ADC_MR_TRANSFER(2U) | ADC_MR_ANACH_Msk | ADC_MR_FREERUN_Msk ;
+    ADC_REGS->ADC_MR = ADC_MR_PRESCAL(19U) | ADC_MR_TRACKTIM(15U) | ADC_MR_STARTUP_SUT64 | ADC_MR_TRANSFER(2U) | ADC_MR_ANACH_Msk | ADC_MR_FREERUN_Msk ;
 
     /* resolution and sign mode of result */
-    ADC_REGS->ADC_EMR = ADC_EMR_OSR_NO_AVERAGE  | ADC_EMR_SRCCLK_PERIPH_CLK | ADC_EMR_TAG_Msk;
+    ADC_REGS->ADC_EMR = ADC_EMR_OSR_NO_AVERAGE  | ADC_EMR_SRCCLK_PMC_PCK | ADC_EMR_TAG_Msk;
 
     /* Enable interrupt */
     ADC_REGS->ADC_IER = ADC_IER_EOC0_Msk;

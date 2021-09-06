@@ -129,6 +129,26 @@ static void CLK_USBClockInitialize ( void )
 }
 
 
+/*********************************************************************************
+Initialize Programmable Clock (PCKx)
+*********************************************************************************/
+
+static void CLK_ProgrammableClockInitialize(void)
+{
+    /* Disable selected programmable clock  */
+    PMC_REGS->PMC_SCDR = PMC_SCDR_PCK5_Msk;
+
+    /* Configure selected programmable clock    */
+    PMC_REGS->PMC_PCK[5]= PMC_PCK_CSS_MAIN_CLK | PMC_PCK_PRES(0);
+
+    /* Enable selected programmable clock   */
+    PMC_REGS->PMC_SCER =    PMC_SCER_PCK5_Msk;
+
+    /* Wait for clock to be ready   */
+    while( (PMC_REGS->PMC_SR & (PMC_SR_PCKRDY5_Msk) ) != (PMC_SR_PCKRDY5_Msk));
+
+
+}
 
 
 /*********************************************************************************
@@ -154,6 +174,8 @@ void CLOCK_Initialize( void )
     /* Initialize USB Clock */
     CLK_USBClockInitialize();
 
+    /* Initialize Programmable Clock */
+    CLK_ProgrammableClockInitialize();
 
     /* Enable Peripheral Clock */
     PMC_REGS->PMC_PCER0 = 0x20a01800;

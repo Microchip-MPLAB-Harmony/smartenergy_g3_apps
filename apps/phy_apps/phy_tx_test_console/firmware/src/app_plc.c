@@ -183,7 +183,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
-        if (SRV_PPVDDMON_CheckComparisonInWindow() == false)
+        if (SRV_PVDDMON_CheckComparisonInWindow() == false)
         {
             if (appPlc.waitingTxCfm)
             {
@@ -198,17 +198,17 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
             /* PLC Transmission is not permitted */
             appPlc.pvddMonTxEnable = false;
             /* Restart PVDD Monitor to check when VDD is within the comparison window */
-            SRV_PPVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
+            SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
         }
     }
     else
     {
-        if (SRV_PPVDDMON_CheckComparisonInWindow() == true)
+        if (SRV_PVDDMON_CheckComparisonInWindow() == true)
         {
             /* PLC Transmission is permitted again */
             appPlc.pvddMonTxEnable = true;
             /* Restart PVDD Monitor to check when VDD is out of the comparison window */
-            SRV_PPVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
+            SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
         }
     }
     
@@ -327,7 +327,7 @@ void APP_PLC_Initialize ( void )
     appPlc.signalResetCounter = LED_RESET_BLINK_RATE_MS;
     
     /* Init PLC PVDD Monitor */
-    SRV_PPVDDMON_Initialize();
+    SRV_PVDDMON_Initialize();
     appPlc.pvddMonTxEnable = true;
     
 }
@@ -534,8 +534,8 @@ void APP_PLC_Tasks ( void )
                 APP_PLC_SetCouplingConfiguration(appPlcTx.couplingBranch);
                 
                 /* Enable PLC PVDD Monitor Service: ADC channel 0 */
-                SRV_PPVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
-                SRV_PPVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
+                SRV_PVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
+                SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
                 
                 /* Init Timer to handle blinking led */
                 appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);

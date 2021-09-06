@@ -5,7 +5,7 @@
     Microchip Technology Inc.
 
   File Name:
-    srv_ppvddmon.c
+    srv_pvddmon.c
 
   Summary:
     PLC PVDD Monitor Service File
@@ -40,7 +40,7 @@
 
 #include "device.h"
 #include "interrupts.h"
-#include "srv_ppvddmon.h"
+#include "srv_pvddmon.h"
 #include "peripheral/adc/plib_adc.h"
 
 static SRV_PVDDMON_CMP_MODE srv_pvddmon_mode;
@@ -65,7 +65,7 @@ static void _ADC_PVDDMONCallback( uint32_t status, uintptr_t context )
 }
 
 /* Start PLC PVDD Monitor */
-void SRV_PPVDDMON_Initialize (void)
+void SRV_PVDDMON_Initialize (void)
 {
     ADC_CHANNEL_MASK channelMsk = (1 << 0);
 
@@ -77,7 +77,7 @@ void SRV_PPVDDMON_Initialize (void)
 }
 
 /* Start PLC PVDD Monitor */
-void SRV_PPVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
+void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
 {
     uint32_t emr = 0;
     ADC_CHANNEL_MASK channelMsk = (1 << 0);
@@ -124,7 +124,7 @@ void SRV_PPVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
 }
 
 /* Restart PLC PVDD Monitor */
-void SRV_PPVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
+void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
 {
     uint32_t emr;
     ADC_CHANNEL_MASK channelMsk = (1 << 0);
@@ -160,14 +160,14 @@ void SRV_PPVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
     ADC_REGS->ADC_IER |= ADC_IER_COMPE_Msk;
 }
 
-void SRV_PPVDDMON_RegisterCallback (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context)
+void SRV_PVDDMON_RegisterCallback (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context)
 {
     /* Register ADC Callback */
     ADC_CallbackRegister(_ADC_PVDDMONCallback, context);
     ADC_CompareCallback = callback_fn;
 }
 
-bool SRV_PPVDDMON_CheckComparisonInWindow(void)
+bool SRV_PVDDMON_CheckComparisonInWindow(void)
 {
     uint16_t adcData;
     

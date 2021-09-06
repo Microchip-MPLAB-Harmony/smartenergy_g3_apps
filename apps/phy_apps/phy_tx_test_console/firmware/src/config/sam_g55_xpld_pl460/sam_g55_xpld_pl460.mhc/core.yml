@@ -17,7 +17,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '100007936'}
+        attributes: {id: core, value: '8000000'}
   - type: Boolean
     attributes: {id: ADC_INTERRUPT_ENABLE}
     children:
@@ -1260,7 +1260,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: 'false'}
+        attributes: {id: core, value: 'true'}
   - type: Boolean
     attributes: {id: PMC_SCER_UDP}
     children:
@@ -1282,6 +1282,13 @@ children:
       children:
       - type: User
         attributes: {value: '-1'}
+  - type: Integer
+    attributes: {id: PROG_5_CLOCK_FREQUENCY}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: '8000000'}
   - type: KeyValueSet
     attributes: {id: SUPC_CR_MDXTALSEL}
     children:

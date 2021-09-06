@@ -195,13 +195,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 8A407D37EE4A342993C34B1C933BA21D
-- generatedChecksum: BCDE86C2B9DA83570AD38DA47E363D62
-  logicalPath: config/sam_g55_xpld_pl460/service/ppvddmon
-  name: srv_ppvddmon.c
-  physicalPath: service/ppvddmon
+- generatedChecksum: FA0E7F79D2F885B2CCB7CE0BC1E58C97
+  logicalPath: config/sam_g55_xpld_pl460/service/pvddmon
+  name: srv_pvddmon.c
+  physicalPath: service/pvddmon
   security: NON_SECURE
   type: SOURCE
-  userChecksum: BCDE86C2B9DA83570AD38DA47E363D62
+  userChecksum: FA0E7F79D2F885B2CCB7CE0BC1E58C97
 - generatedChecksum: 4F007AD54887A74C492A1DA2B4F6D02A
   logicalPath: config/sam_g55_xpld_pl460
   name: startup_xc32.c
@@ -454,13 +454,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 468146180FBA71A4DA27CDAE338241F1
-- generatedChecksum: C913ABC010EF69B8B0C10F486AB1653C
+- generatedChecksum: AB4169052C05592A0CC86130B0AD8BF3
   logicalPath: config/sam_g55_xpld_pl460
   name: definitions.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: C913ABC010EF69B8B0C10F486AB1653C
+  userChecksum: AB4169052C05592A0CC86130B0AD8BF3
 - generatedChecksum: B2B6C8FA402EA332272FF5E6F01E48F9
   logicalPath: config/sam_g55_xpld_pl460
   name: device.h
@@ -1042,13 +1042,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 1B1C0161ED8041760D9E7F31D330B42A
-- generatedChecksum: 60E70F129DFFCEDB9C0D2EF076742A96
-  logicalPath: config/sam_g55_xpld_pl460/service/ppvddmon
-  name: srv_ppvddmon.h
-  physicalPath: service/ppvddmon
+- generatedChecksum: 9B419539D4D8564A4C8D7A39ADC93A79
+  logicalPath: config/sam_g55_xpld_pl460/service/pvddmon
+  name: srv_pvddmon.h
+  physicalPath: service/pvddmon
   security: NON_SECURE
   type: HEADER
-  userChecksum: 60E70F129DFFCEDB9C0D2EF076742A96
+  userChecksum: 9B419539D4D8564A4C8D7A39ADC93A79
 - generatedChecksum: 0714BBDF2A045ED4B3466C1C622A2DAC
   logicalPath: packs/ATSAMG55J19_DFP/component
   name: supc.h
