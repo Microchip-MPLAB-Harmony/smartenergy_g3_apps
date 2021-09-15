@@ -149,8 +149,9 @@ void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
     ADC_REGS->ADC_EMR &= ~ADC_EMR_CMPMODE_Msk;
     ADC_REGS->ADC_EMR |= emr;
 
-    /* Comparison Restart */
     while(ADC_REGS->ADC_ISR & ADC_ISR_COMPE_Msk);
+
+    /* Comparison Restart */
     ADC_REGS->ADC_CR = 0x1U << ADC_CR_CMPRST_Pos;
 
     /* Enable ADC channel */

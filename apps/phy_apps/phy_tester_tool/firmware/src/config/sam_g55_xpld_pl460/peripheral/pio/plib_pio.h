@@ -89,6 +89,24 @@
 #define PLC_LDO_Get()               ((PIOA_REGS->PIO_PDSR >> 23) & 0x1)
 #define PLC_LDO_PIN                  PIO_PIN_PA23
 
+/*** Macros for PVDDMON_DBG pin ***/
+#define PVDDMON_DBG_Set()               (PIOA_REGS->PIO_SODR = (1<<19))
+#define PVDDMON_DBG_Clear()             (PIOA_REGS->PIO_CODR = (1<<19))
+#define PVDDMON_DBG_Toggle()            (PIOA_REGS->PIO_ODSR ^= (1<<19))
+#define PVDDMON_DBG_OutputEnable()      (PIOA_REGS->PIO_OER = (1<<19))
+#define PVDDMON_DBG_InputEnable()       (PIOA_REGS->PIO_ODR = (1<<19))
+#define PVDDMON_DBG_Get()               ((PIOA_REGS->PIO_PDSR >> 19) & 0x1)
+#define PVDDMON_DBG_PIN                  PIO_PIN_PA19
+
+/*** Macros for PVDDMON_ADC_DBG pin ***/
+#define PVDDMON_ADC_DBG_Set()               (PIOB_REGS->PIO_SODR = (1<<3))
+#define PVDDMON_ADC_DBG_Clear()             (PIOB_REGS->PIO_CODR = (1<<3))
+#define PVDDMON_ADC_DBG_Toggle()            (PIOB_REGS->PIO_ODSR ^= (1<<3))
+#define PVDDMON_ADC_DBG_OutputEnable()      (PIOB_REGS->PIO_OER = (1<<3))
+#define PVDDMON_ADC_DBG_InputEnable()       (PIOB_REGS->PIO_ODR = (1<<3))
+#define PVDDMON_ADC_DBG_Get()               ((PIOB_REGS->PIO_PDSR >> 3) & 0x1)
+#define PVDDMON_ADC_DBG_PIN                  PIO_PIN_PB3
+
 /*** Macros for PLC_STBY pin ***/
 #define PLC_STBY_Set()               (PIOB_REGS->PIO_SODR = (1<<10))
 #define PLC_STBY_Clear()             (PIOB_REGS->PIO_CODR = (1<<10))

@@ -651,7 +651,7 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_WAIT_PLC_TX_CFM:
         {
-            if (appPlc.waitingTxCfm == false)
+            if (appPlc.plcTxState == APP_PLC_TX_STATE_WAIT_TX_CFM)
             {
                 APP_CONSOLE_Print("\r\nTx (%u bytes): ", appConsole.dataLength);
                 switch(appPlc.lastTxResult)
@@ -688,6 +688,9 @@ void APP_CONSOLE_Tasks ( void )
                         break;
                     case DRV_PLC_PHY_TX_RESULT_INV_DT:
                         APP_CONSOLE_Print("  TX_RESULT_INV_DT\r\n");
+                        break;
+                    case DRV_PLC_PHY_TX_CANCELLED:
+                        APP_CONSOLE_Print("  DRV_PLC_PHY_TX_CANCELLED\r\n");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120:
                         APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120\r\n");

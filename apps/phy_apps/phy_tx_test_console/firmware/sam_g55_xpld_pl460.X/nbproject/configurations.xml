@@ -80,10 +80,10 @@
             <logicalFolder name="f1" displayName="pcoup" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pcoup/srv_pcoup.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="ptrng" projectFiles="true">
+            <logicalFolder name="f2" displayName="ptrng" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/ptrng/srv_ptrng.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="pvddmon" projectFiles="true">
+            <logicalFolder name="f3" displayName="pvddmon" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pvddmon/srv_pvddmon.h</itemPath>
             </logicalFolder>
           </logicalFolder>
@@ -351,10 +351,10 @@
             <logicalFolder name="f1" displayName="pcoup" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pcoup/srv_pcoup.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="ptrng" projectFiles="true">
+            <logicalFolder name="f2" displayName="ptrng" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/ptrng/srv_ptrng.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="pvddmon" projectFiles="true">
+            <logicalFolder name="f3" displayName="pvddmon" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pvddmon/srv_pvddmon.c</itemPath>
             </logicalFolder>
           </logicalFolder>

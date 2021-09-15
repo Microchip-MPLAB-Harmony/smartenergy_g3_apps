@@ -317,6 +317,8 @@ typedef enum {
   DRV_PLC_PHY_TX_RESULT_INV_MODTYPE = 9,
   /* Transmission result: invalid delimiter type error */
   DRV_PLC_PHY_TX_RESULT_INV_DT = 10,
+  /* Transmission result: transmission cancelled */
+  DRV_PLC_PHY_TX_CANCELLED = 11,
   /* Transmission result: No transmission ongoing */
   DRV_PLC_PHY_TX_RESULT_NO_TX = 255,
 }DRV_PLC_PHY_TX_RESULT;

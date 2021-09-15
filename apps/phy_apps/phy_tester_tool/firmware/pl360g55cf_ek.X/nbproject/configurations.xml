@@ -253,6 +253,32 @@
       </logicalFolder>
       <itemPath>../src/app_pl360.h</itemPath>
     </logicalFolder>
+    <logicalFolder displayName="Important Files" name="ExternalFiles" projectFiles="true">
+      <logicalFolder displayName="pl360g55cf_ek.mhc" name="f1" projectFiles="true">
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/BSP_PL360G55CF_Evaluation_Kit.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/cmsis.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/core.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/dfp.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/drvPlcPhy.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/drv_usbdp.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/efc.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/flexcom3.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/GraphSettings.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/HarmonyCore.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/project.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/settings.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/srv_pcoup.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/srv_pcrc.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/srv_pserial.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/srv_usi.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/sys_time.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/tc0.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/usb_device.yml</itemPath>
+        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/usb_device_cdc.yml</itemPath>
+      </logicalFolder>
+      <itemPath>Makefile</itemPath>
+      <itemPath>../src/config/pl360g55cf_ek/harmony-manifest-success.yml</itemPath>
+    </logicalFolder>
     <logicalFolder displayName="Linker Files" name="LinkerScript" projectFiles="true">
       <logicalFolder displayName="config" name="f1" projectFiles="true">
         <logicalFolder displayName="pl360g55cf_ek" name="f1" projectFiles="true">
@@ -369,32 +395,6 @@
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/app_pl360.c</itemPath>
-    </logicalFolder>
-    <logicalFolder displayName="Important Files" name="ExternalFiles" projectFiles="true">
-      <logicalFolder displayName="pl360g55cf_ek.mhc" name="f1" projectFiles="true">
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/BSP_PL360G55CF_Evaluation_Kit.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/cmsis.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/core.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/dfp.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/drvPlcPhy.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/drv_usbdp.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/efc.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/flexcom3.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/GraphSettings.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/HarmonyCore.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/project.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/settings.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/srv_pcoup.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/srv_pcrc.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/srv_pserial.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/srv_usi.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/sys_time.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/tc0.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/usb_device.yml</itemPath>
-        <itemPath>../src/config/pl360g55cf_ek/pl360g55cf_ek.mhc/usb_device_cdc.yml</itemPath>
-      </logicalFolder>
-      <itemPath>Makefile</itemPath>
-      <itemPath>../src/config/pl360g55cf_ek/harmony-manifest-success.yml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>

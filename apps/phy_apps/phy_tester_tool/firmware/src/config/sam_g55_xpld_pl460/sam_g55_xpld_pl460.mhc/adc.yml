@@ -57,7 +57,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: adc, value: '200000'}
+        attributes: {id: adc, value: '3846459'}
   - type: Comment
     attributes: {id: ADC_CLK_ENABLE_COMMENT}
     children:
@@ -73,7 +73,7 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '1'}
+        attributes: {value: '0'}
   - type: Comment
     attributes: {id: ADC_CONV_TIME}
     children:
@@ -82,14 +82,14 @@ children:
       - type: String
         attributes: {id: text}
         children:
-        - {type: Value, value: '**** Conversion Time is 100.0 us ****'}
+        - {type: Value, value: '**** Conversion Time is 5.19958736075 us ****'}
   - type: Integer
     attributes: {id: ADC_MR_PRESCAL}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '19'}
+        attributes: {value: '12'}
   - type: Comment
     attributes: {id: ADC_NVIC_ENABLE_COMMENT}
     children:

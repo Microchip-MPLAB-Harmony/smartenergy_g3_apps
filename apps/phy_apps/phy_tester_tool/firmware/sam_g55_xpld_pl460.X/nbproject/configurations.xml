@@ -83,10 +83,10 @@
             <logicalFolder name="f2" displayName="pcrc" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pcrc/srv_pcrc.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="pserial" projectFiles="true">
+            <logicalFolder name="f3" displayName="pserial" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pserial/srv_pserial.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="pvddmon" projectFiles="true">
+            <logicalFolder name="f4" displayName="pvddmon" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pvddmon/srv_pvddmon.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f5" displayName="usi" projectFiles="true">
@@ -419,10 +419,10 @@
             <logicalFolder name="f2" displayName="pcrc" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pcrc/srv_pcrc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="pserial" projectFiles="true">
+            <logicalFolder name="f3" displayName="pserial" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pserial/srv_pserial.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="pvddmon" projectFiles="true">
+            <logicalFolder name="f4" displayName="pvddmon" projectFiles="true">
               <itemPath>../src/config/sam_g55_xpld_pl460/service/pvddmon/srv_pvddmon.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f5" displayName="usi" projectFiles="true">

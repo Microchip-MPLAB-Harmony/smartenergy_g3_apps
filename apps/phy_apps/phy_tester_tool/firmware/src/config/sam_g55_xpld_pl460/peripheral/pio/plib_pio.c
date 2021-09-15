@@ -75,15 +75,16 @@ void PIO_Initialize ( void )
     ((pio_registers_t*)PIO_PORT_A)->PIO_PER = ~0x7800;
     ((pio_registers_t*)PIO_PORT_A)->PIO_MDDR = 0xFFFFFFFF;
     /* PORTA Pull Up Enable/Disable as per MHC selection */
-    ((pio_registers_t*)PIO_PORT_A)->PIO_PUDR = 0xFFFFFFFF;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_PUDR = ~0x80000;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_PUER = 0x80000;
     /* PORTA Pull Down Enable/Disable as per MHC selection */
     ((pio_registers_t*)PIO_PORT_A)->PIO_PPDDR = ~0x1000000;
     ((pio_registers_t*)PIO_PORT_A)->PIO_PPDER = 0x1000000;
     /* PORTA Output Write Enable */
     ((pio_registers_t*)PIO_PORT_A)->PIO_OWER = PIO_OWER_Msk;
     /* PORTA Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_A)->PIO_OER = 0x800041;
-    ((pio_registers_t*)PIO_PORT_A)->PIO_ODR = ~0x800041;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_OER = 0x880041;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_ODR = ~0x880041;
     /* PORTA Initial state High */
     ((pio_registers_t*)PIO_PORT_A)->PIO_ODSR = 0x1;
     /* PORTA Additional interrupt mode Enable */
@@ -102,14 +103,15 @@ void PIO_Initialize ( void )
     ((pio_registers_t*)PIO_PORT_B)->PIO_PER = 0xFFFFFFFF;
     ((pio_registers_t*)PIO_PORT_B)->PIO_MDDR = 0xFFFFFFFF;
     /* PORTB Pull Up Enable/Disable as per MHC selection */
-    ((pio_registers_t*)PIO_PORT_B)->PIO_PUDR = 0xFFFFFFFF;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_PUDR = ~0x8;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_PUER = 0x8;
     /* PORTB Pull Down Enable/Disable as per MHC selection */
     ((pio_registers_t*)PIO_PORT_B)->PIO_PPDDR = 0xFFFFFFFF;
     /* PORTB Output Write Enable */
     ((pio_registers_t*)PIO_PORT_B)->PIO_OWER = PIO_OWER_Msk;
     /* PORTB Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_B)->PIO_OER = 0x4400;
-    ((pio_registers_t*)PIO_PORT_B)->PIO_ODR = ~0x4400;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_OER = 0x4408;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_ODR = ~0x4408;
     /* PORTB Initial state High */
     ((pio_registers_t*)PIO_PORT_B)->PIO_ODSR = 0x0;
     /* PORTB drive control */

@@ -227,8 +227,13 @@ static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t
     /* Avoid warning */
     (void)context;
     
-    /* Clear Flag to wait Tx confirmation */
-    appData.waitingTxCfm = false;
+    if (appData.plcTxState == APP_PLC_TX_STATE_WAIT_TX_CANCEL)
+    {
+        PVDDMON_ADC_DBG_Clear();
+        appData.sendTxEnable = true;
+    }
+    
+    appData.plcTxState = APP_PLC_TX_STATE_IDLE;
 
     /* Add received message */
     length = SRV_PSERIAL_SerialCfmMessage(appData.pSerialData, cfmObj);
@@ -240,25 +245,13 @@ static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t
 
 static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
-    DRV_PLC_PHY_PIB_OBJ pibObj;
-    uint8_t plcTxDisable;
-    
     (void)context;
     
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         if (SRV_PVDDMON_CheckComparisonInWindow() == false)
         {
-            /* Check if there is any pending TX */
-            if (appData.waitingTxCfm)
-            {
-                /* Stop any transmissions ongoing */
-                plcTxDisable = 1;
-                pibObj.id = PLC_ID_TX_DISABLE;
-                pibObj.length = 1;
-                pibObj.pData = (uint8_t *)&plcTxDisable;
-                DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &pibObj);
-            }
+            PVDDMON_DBG_Set();
             
             /* PLC Transmission is not permitted */
             appData.pvddMonTxEnable = false;
@@ -270,12 +263,35 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     {
         if (SRV_PVDDMON_CheckComparisonInWindow() == true)
         {
+            PVDDMON_DBG_Clear();
+            
             /* PLC Transmission is permitted again */
             appData.pvddMonTxEnable = true;
             /* Restart PVDD Monitor to check when VDD is out of the comparison window */
             SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
         }
     }
+}
+
+static void APP_PLC_SetPLCTXEnable(bool enable)
+{
+    DRV_PLC_PHY_PIB_OBJ pibObj;
+    uint8_t pibData;
+    
+    if (enable)
+    {
+        pibData = 0;
+    }
+    else
+    {
+        pibData = 1;
+    }
+
+    /* Send PIB */
+    pibObj.id = PLC_ID_TX_DISABLE;
+    pibObj.length = 1;
+    pibObj.pData = &pibData;
+    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &pibObj);
 }
 
 // *****************************************************************************
@@ -338,8 +354,8 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
         {
             if (appData.pvddMonTxEnable)
             {
-                /* Set Flag to wait Tx confirmation */
-                appData.waitingTxCfm = true;
+                /* Set PLC TX State to wait Tx confirmation */
+                appData.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CFM;
                 
                 /* Capture and parse data from USI */
                 SRV_PSERIAL_ParseTxMessage(&appData.plcTxObj, pData);
@@ -411,9 +427,9 @@ void APP_Initialize(void)
     SRV_PVDDMON_Initialize();
     appData.pvddMonTxEnable = true;
     
-    /* Init Flag to wait Tx confirmation */
-    appData.waitingTxCfm = false;
-
+    /* Init PLC TX status */
+    appData.plcTxState = APP_PLC_TX_STATE_IDLE;
+    appData.sendTxEnable = false;
 }
 
 
@@ -428,13 +444,34 @@ void APP_Tasks(void)
 {
     WDT_Clear();
     
-    /* Signalling */
+    /* Check if there is any pending TX and it should be canceled */
+    if ((!appData.pvddMonTxEnable) && (appData.plcTxState == APP_PLC_TX_STATE_WAIT_TX_CFM))
+    {
+        appData.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CANCEL;
+        
+        PVDDMON_ADC_DBG_Set();
+        
+        /* Send PIB to disable TX */
+        APP_PLC_SetPLCTXEnable(false);
+    }
+    
+    /* Check if PLC TX should be re-enabled */
+    if (appData.sendTxEnable)
+    {
+        appData.sendTxEnable = false;
+        
+        /* Send PIB to enable TX */
+        APP_PLC_SetPLCTXEnable(true);
+    }
+    
+    /* Signalling: LED Toggle */
     if (appData.tmr1Expired)
     {
         appData.tmr1Expired = false;
         USER_BLINK_LED_Toggle();
     }
     
+    /* Signalling: PLC RX */
     if (appData.tmr2Expired)
     {
         appData.tmr2Expired = false;
@@ -555,7 +592,6 @@ void APP_Tasks(void)
         /* The default state should never be executed. */
         default:
         {
-            /* TODO: Handle error in application's state machine. */
             break;
         }
     }

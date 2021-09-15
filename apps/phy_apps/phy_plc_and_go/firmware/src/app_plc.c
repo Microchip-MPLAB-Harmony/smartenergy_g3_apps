@@ -256,36 +256,19 @@ void Timer2_Callback (uintptr_t context)
 {
     appPlc.tmr2Expired = true;
 }
-uint16_t pvddcounter = 0;
-uint16_t pvddcounterIn = 0;
-uint16_t pvddcounterOut = 0;
+
 static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
-    DRV_PLC_PHY_PIB_OBJ pibObj;
-    uint8_t plcTxDisable;
-    
     (void)context;
-    pvddcounter++;
     
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         if (SRV_PVDDMON_CheckComparisonInWindow() == false)
         {
-            if (appPlc.waitingTxCfm)
-            {
-                /* Stop any transmissions ongoing */
-                plcTxDisable = 1;
-                pibObj.id = PLC_ID_TX_DISABLE;
-                pibObj.length = 1;
-                pibObj.pData = (uint8_t *)&plcTxDisable;
-                DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
-            }
-            
             /* PLC Transmission is not permitted */
             appPlc.pvddMonTxEnable = false;
             /* Restart PVDD Monitor to check when VDD is within the comparison window */
             SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
-            pvddcounterIn++;
         }
     }
     else
@@ -296,9 +279,29 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
             appPlc.pvddMonTxEnable = true;
             /* Restart PVDD Monitor to check when VDD is out of the comparison window */
             SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
-            pvddcounterOut++;
         }
     }
+}
+
+static void APP_PLC_SetPLCTXEnable(bool enable)
+{
+    DRV_PLC_PHY_PIB_OBJ pibObj;
+    uint8_t pibData;
+    
+    if (enable)
+    {
+        pibData = 0;
+    }
+    else
+    {
+        pibData = 1;
+    }
+
+    /* Send PIB */
+    pibObj.id = PLC_ID_TX_DISABLE;
+    pibObj.length = 1;
+    pibObj.pData = &pibData;
+    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
 }
 
 static void APP_PLC_SleepModeDisableCb( uintptr_t context )
@@ -319,8 +322,8 @@ static void APP_PLC_ExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj, uintptr_t co
     (void)context;
     (void)exceptionObj;
 
-    /* Clear App flag */
-    appPlc.waitingTxCfm = false;
+    /* Update PLC TX Status */
+    appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
     /* Restart PLC task */
     appPlc.state = APP_PLC_STATE_IDLE;
 }
@@ -330,8 +333,15 @@ static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_
     /* Avoid warning */
     (void)context;
 
-    /* Update App flags */
-    appPlc.waitingTxCfm = false;
+    if (appPlc.plcTxState == APP_PLC_TX_STATE_WAIT_TX_CANCEL)
+    {
+        appPlc.sendTxEnable = true;
+    }
+
+    /* Update PLC TX Status */
+    appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
+    
+    /* Capture TX result of the last transmission */
     appPlc.lastTxResult = cfmObj->result;
 }
 
@@ -427,9 +437,6 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
  */
 void APP_PLC_Initialize ( void )
 {
-    /* Init flags of PLC transmission */
-    appPlc.waitingTxCfm = false;
-
     /* Init PLC PIB buffer */
     appPlc.plcPIB.pData = appPlc.pPLCDataPIB;
 
@@ -442,6 +449,10 @@ void APP_PLC_Initialize ( void )
     /* Set PVDD Monitor tracking data */
     SRV_PVDDMON_Initialize();
     appPlc.pvddMonTxEnable = true;
+    
+    /* Init PLC TX status */
+    appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
+    appPlc.sendTxEnable = false;
 
     /* Init Timer handler */
     appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
@@ -461,6 +472,24 @@ void APP_PLC_Initialize ( void )
 
 void APP_PLC_Tasks ( void )
 {
+    /* Check if there is any pending TX and it should be canceled */
+    if ((!appPlc.pvddMonTxEnable) && (appPlc.plcTxState == APP_PLC_TX_STATE_WAIT_TX_CFM))
+    {
+        appPlc.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CANCEL;
+        
+        /* Send PIB to disable TX */
+        APP_PLC_SetPLCTXEnable(false);
+    }
+    
+    /* Check if PLC TX should be re-enabled */
+    if (appPlc.sendTxEnable)
+    {
+        appPlc.sendTxEnable = false;
+        
+        /* Send PIB to enable TX */
+        APP_PLC_SetPLCTXEnable(true);
+    }
+    
     /* Signalling */
     if (appPlc.tmr1Expired)
     {
@@ -594,7 +623,7 @@ void APP_PLC_Tasks ( void )
 
         case APP_PLC_STATE_WAITING_TX_CFM:
         {
-            if (appPlc.waitingTxCfm == false)
+            if (appPlc.plcTxState != APP_PLC_TX_STATE_WAIT_TX_CFM)
             {
                  appPlc.state = APP_PLC_STATE_WAITING;
             }
@@ -610,14 +639,12 @@ void APP_PLC_Tasks ( void )
                 break;
             }
 
-            /* Clear Transmission flags */
-            appPlc.waitingTxCfm = false;
-
             /* Close PLC Driver */
             DRV_PLC_PHY_Close(appPlc.drvPl360Handle);
 
             /* Restart PLC Driver */
             appPlc.state = APP_PLC_STATE_INIT;
+            appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
             break;
         }
 
@@ -657,12 +684,12 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
                 appPlcTx.pl360Tx.dataLength = length + 2;
                 memcpy(appPlcTx.pDataTx + 2, pData, length);
 
-                appPlc.waitingTxCfm = true;
+                appPlc.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CFM;
 
                 DRV_PLC_PHY_Send(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
 
                 /* Set PLC state */
-                if (appPlc.waitingTxCfm)
+                if (appPlc.plcTxState == APP_PLC_TX_STATE_WAIT_TX_CFM)
                 {
                     appPlc.state = APP_PLC_STATE_WAITING_TX_CFM;
                     return true;

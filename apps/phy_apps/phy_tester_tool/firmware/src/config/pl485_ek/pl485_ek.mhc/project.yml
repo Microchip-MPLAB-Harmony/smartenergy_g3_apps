@@ -1,11 +1,11 @@
 files:
-- generatedChecksum: 478D19CC1220952BD33C9B6177710D6D
+- generatedChecksum: 958841941972BBD769AA64F2E75455E1
   logicalPath: config/pl485_ek/driver/plc/phy/bin
   name: PLC_PHY_G3_CENB.bin
   physicalPath: driver/plc/phy/bin
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 478D19CC1220952BD33C9B6177710D6D
+  userChecksum: 958841941972BBD769AA64F2E75455E1
 - generatedChecksum: null
   logicalPath: ''
   name: app_pl360.c
@@ -475,13 +475,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 36EE0941B15EDBA8A928BBEDEC4B6FFB
-- generatedChecksum: A2DCC32B633301FA2B8325760768CFF5
+- generatedChecksum: A3A90DCDDF4AF41CE65177E501DC7A24
   logicalPath: config/pl485_ek/driver/plc/phy
   name: drv_plc_phy_comm.h
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: HEADER
-  userChecksum: A2DCC32B633301FA2B8325760768CFF5
+  userChecksum: A3A90DCDDF4AF41CE65177E501DC7A24
 - generatedChecksum: 1AE416AEB8FE43743CCDD61FCE8493DB
   logicalPath: config/pl485_ek/driver/plc/phy
   name: drv_plc_phy_definitions.h

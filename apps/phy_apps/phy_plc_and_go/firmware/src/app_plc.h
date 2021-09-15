@@ -83,6 +83,23 @@ typedef enum
 
 } APP_PLC_STATES;
 
+/* PLC Transmission Status
+
+  Summary:
+    PLC Transmission states enumeration
+
+  Description:
+    This structure holds the PLC transmission's status.
+ */
+
+typedef enum
+{
+    APP_PLC_TX_STATE_IDLE=0,
+    APP_PLC_TX_STATE_WAIT_TX_CFM,
+    APP_PLC_TX_STATE_WAIT_TX_CANCEL
+
+} APP_PLC_TX_STATE;
+
 // *****************************************************************************
 /* Application Data
 
@@ -110,8 +127,6 @@ typedef struct
     
     DRV_HANDLE drvPl360Handle;
     
-    bool waitingTxCfm;
-    
     DRV_PLC_PHY_TX_RESULT lastTxResult;
     
     bool plcMultiband;
@@ -123,6 +138,10 @@ typedef struct
     bool staticNotchingEnable;
     
     bool pvddMonTxEnable;
+    
+    APP_PLC_TX_STATE plcTxState;
+    
+    bool sendTxEnable;
     
 } APP_PLC_DATA;
 

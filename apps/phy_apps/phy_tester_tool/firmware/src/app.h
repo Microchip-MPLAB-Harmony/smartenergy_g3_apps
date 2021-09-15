@@ -80,6 +80,23 @@ typedef enum
 
 } APP_STATE;
 
+/* PLC Transmission Status
+
+  Summary:
+    PLC Transmission states enumeration
+
+  Description:
+    This structure holds the PLC transmission's status.
+ */
+
+typedef enum
+{
+    APP_PLC_TX_STATE_IDLE=0,
+    APP_PLC_TX_STATE_WAIT_TX_CFM,
+    APP_PLC_TX_STATE_WAIT_TX_CANCEL
+
+} APP_PLC_TX_STATE;
+
 // *****************************************************************************
 /* Application Data
 
@@ -137,7 +154,9 @@ typedef struct
     
     bool pvddMonTxEnable;
     
-    bool waitingTxCfm;
+    APP_PLC_TX_STATE plcTxState;
+    
+    bool sendTxEnable;
     
 } APP_DATA;
 
