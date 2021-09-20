@@ -1,0 +1,14 @@
+configName: sam_e70_xult_pl460
+folderName: sam_e70_xult_pl460
+format_version: v1.0
+frameworkPath: ..\..\..\..
+processor: ATSAME70Q21B
+projectName: sam_e70_xult_pl460
+settings:
+  PackageFilter: bsp;core;core_apps_sam_e70_s70_v70_v71;core_apps_sam_g55;csp;csp_apps_sam_e70_s70_v70_v71;csp_apps_sam_g55;mbed_os_rtos;mbed_os_rtos_apps;net;smartenergy;smartenergy_g3;smartenergy_g3_apps;smartenergy_prime;smartenergy_prime_apps;usb;usb_apps_device;wireless
+  FORCE_OPTIMIZATION: 'false'
+  GENERATE_BACKUP: 'true'
+  TRUSTZONE: 'false'
+  CMSISPath: .\dev_packs\arm\CMSIS\5.8.0
+  MERGE_STRATEGY: OVERWRITE
+  DFPPath: .\dev_packs\Microchip\SAME70_DFP\4.5.86\same70b\atdf\ATSAME70Q21B.atdf

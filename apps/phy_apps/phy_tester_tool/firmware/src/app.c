@@ -229,7 +229,6 @@ static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t
     
     if (appData.plcTxState == APP_PLC_TX_STATE_WAIT_TX_CANCEL)
     {
-        PVDDMON_ADC_DBG_Clear();
         appData.sendTxEnable = true;
     }
     
@@ -251,8 +250,6 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     {
         if (SRV_PVDDMON_CheckComparisonInWindow() == false)
         {
-            PVDDMON_DBG_Set();
-            
             /* PLC Transmission is not permitted */
             appData.pvddMonTxEnable = false;
             /* Restart PVDD Monitor to check when VDD is within the comparison window */
@@ -263,8 +260,6 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     {
         if (SRV_PVDDMON_CheckComparisonInWindow() == true)
         {
-            PVDDMON_DBG_Clear();
-            
             /* PLC Transmission is permitted again */
             appData.pvddMonTxEnable = true;
             /* Restart PVDD Monitor to check when VDD is out of the comparison window */
@@ -448,8 +443,6 @@ void APP_Tasks(void)
     if ((!appData.pvddMonTxEnable) && (appData.plcTxState == APP_PLC_TX_STATE_WAIT_TX_CFM))
     {
         appData.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CANCEL;
-        
-        PVDDMON_ADC_DBG_Set();
         
         /* Send PIB to disable TX */
         APP_PLC_SetPLCTXEnable(false);
