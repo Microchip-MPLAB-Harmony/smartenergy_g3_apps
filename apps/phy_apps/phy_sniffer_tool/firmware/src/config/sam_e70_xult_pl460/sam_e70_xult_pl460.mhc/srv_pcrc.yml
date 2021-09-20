@@ -1,0 +1,6 @@
+format_version: v1.0
+type: UniqueComponent
+attributes: {id: srv_pcrc}
+children:
+- type: ElementPosition
+  attributes: {x: '280', y: '292', id: srv_pcrc}
