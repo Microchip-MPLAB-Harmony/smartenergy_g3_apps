@@ -27,13 +27,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: F81DE8E66E4D2920362F49CE328AC90C
-- generatedChecksum: 9B7A2D36F3806FCAE6C0EE3126A51279
+- generatedChecksum: D8A995FEEE58E1E46675C066077C757A
   logicalPath: config/pl360g55cf_ek/driver/plc/common
   name: drv_plc_boot.c
   physicalPath: driver/plc/common
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 9B7A2D36F3806FCAE6C0EE3126A51279
+  userChecksum: D8A995FEEE58E1E46675C066077C757A
 - generatedChecksum: 1204E2A6A11D5A3FAFE80AFB9BF429C5
   logicalPath: config/pl360g55cf_ek/driver/plc/common
   name: drv_plc_hal.c

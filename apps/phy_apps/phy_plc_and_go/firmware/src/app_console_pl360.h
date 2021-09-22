@@ -43,7 +43,7 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-#define SERIAL_BUFFER_SIZE                        512
+#define SERIAL_BUFFER_SIZE                        256
     
 // *****************************************************************************
 /* Application states
@@ -90,9 +90,9 @@ typedef struct
     /* The application's current state */    
     APP_CONSOLE_STATES state;
 
-    char pTrasmitChar[SERIAL_BUFFER_SIZE];
+    char *pTransmitChar;
     
-    char pReceivedChar[SERIAL_BUFFER_SIZE];
+    char *pReceivedChar;
 
     char* pNextChar;
     

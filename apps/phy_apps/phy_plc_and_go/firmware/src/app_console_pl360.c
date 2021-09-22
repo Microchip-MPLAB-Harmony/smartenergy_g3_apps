@@ -55,7 +55,10 @@
     Application strings and buffers are be defined outside this structure.
 */
 
-APP_CONSOLE_DATA CACHE_ALIGN appConsole;
+APP_CONSOLE_DATA appConsole;
+
+static CACHE_ALIGN char pTransmitBuffer[CACHE_ALIGNED_SIZE_GET(SERIAL_BUFFER_SIZE)];
+static CACHE_ALIGN char pReceivedBuffer[CACHE_ALIGNED_SIZE_GET(SERIAL_BUFFER_SIZE)];
 
 // *****************************************************************************
 // *****************************************************************************
@@ -450,7 +453,9 @@ void APP_CONSOLE_PL360_Initialize ( void )
     appConsole.state = APP_CONSOLE_STATE_INIT;
 
     /* Init Reception data */
-    appConsole.pNextChar = appConsole.pReceivedChar;
+    appConsole.pTransmitChar = pTransmitBuffer;
+    appConsole.pReceivedChar = pReceivedBuffer;
+    appConsole.pNextChar = pReceivedBuffer;
     appConsole.dataLength = 0;
     appConsole.numCharToReceive = 0;
     
@@ -656,6 +661,9 @@ void APP_CONSOLE_PL360_Tasks ( void )
                     case DRV_PLC_PHY_TX_RESULT_INV_DT:
                         APP_CONSOLE_Print("  TX_RESULT_INV_DT\r\n");
                         break;
+                    case DRV_PLC_PHY_TX_CANCELLED:
+                        APP_CONSOLE_Print("  DRV_PLC_PHY_TX_CANCELLED\r\n");
+                        break;
                     case DRV_PLC_PHY_TX_RESULT_NO_TX:
                         APP_CONSOLE_Print("  TX_RESULT_NO_TX\r\n");
                         break;
@@ -725,7 +733,7 @@ void APP_CONSOLE_Print(const char *format, ...)
 {
     size_t len = 0;
     va_list args = {0};
-    uint32_t numRetries = 100;
+    uint32_t numRetries = 1000;
     
     if (appConsole.state == APP_CONSOLE_STATE_INIT)
     {
@@ -746,15 +754,16 @@ void APP_CONSOLE_Print(const char *format, ...)
     }
 
     va_start( args, format );
-    len = vsnprintf(appConsole.pTrasmitChar, SERIAL_BUFFER_SIZE - 1, format, args);
+    len = vsnprintf(appConsole.pTransmitChar, SERIAL_BUFFER_SIZE - 1, format, args);
     va_end( args );
-
-    if (len > 0 && len < SERIAL_BUFFER_SIZE - 1)
+    
+    if (len > SERIAL_BUFFER_SIZE - 1)
     {
-        appConsole.pTrasmitChar[len] = '\0';
-
-        SYS_CONSOLE_Write(SYS_CONSOLE_INDEX_0, appConsole.pTrasmitChar, len);
+        len = SERIAL_BUFFER_SIZE - 1;
     }
+    
+    appConsole.pTransmitChar[len] = '\0';
+    SYS_CONSOLE_Message(SYS_CONSOLE_INDEX_0, (const char *) appConsole.pTransmitChar);
 }
 
 

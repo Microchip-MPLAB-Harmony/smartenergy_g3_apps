@@ -34,34 +34,34 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: F81DE8E66E4D2920362F49CE328AC90C
-- generatedChecksum: 9B7A2D36F3806FCAE6C0EE3126A51279
+- generatedChecksum: D8A995FEEE58E1E46675C066077C757A
   logicalPath: config/pl360g55cf_ek/driver/plc/common
   name: drv_plc_boot.c
   physicalPath: driver/plc/common
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 9B7A2D36F3806FCAE6C0EE3126A51279
-- generatedChecksum: 1204E2A6A11D5A3FAFE80AFB9BF429C5
+  userChecksum: D8A995FEEE58E1E46675C066077C757A
+- generatedChecksum: DF6EC50AB5FB81C6B6D17AA1E2844F0B
   logicalPath: config/pl360g55cf_ek/driver/plc/common
   name: drv_plc_hal.c
   physicalPath: driver/plc/common
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 1204E2A6A11D5A3FAFE80AFB9BF429C5
-- generatedChecksum: AB4A4DCCFD28DFE13C626FEC25EA053F
+  userChecksum: DF6EC50AB5FB81C6B6D17AA1E2844F0B
+- generatedChecksum: 498ADB4B30A2D8006D7996CFD9678EA3
   logicalPath: config/pl360g55cf_ek/driver/plc/phy
   name: drv_plc_phy.c
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: SOURCE
-  userChecksum: AB4A4DCCFD28DFE13C626FEC25EA053F
-- generatedChecksum: C42C6F6FFC78789E16D37E13FCC29498
+  userChecksum: 498ADB4B30A2D8006D7996CFD9678EA3
+- generatedChecksum: 586B6DBC11C982D5CD863F376B9686C9
   logicalPath: config/pl360g55cf_ek/driver/plc/phy
   name: drv_plc_phy_comm.c
   physicalPath: driver/plc/phy
   security: NON_SECURE
   type: SOURCE
-  userChecksum: C42C6F6FFC78789E16D37E13FCC29498
+  userChecksum: 586B6DBC11C982D5CD863F376B9686C9
 - generatedChecksum: 8FF74EF6A81AA825E4CA99851E4A20B3
   logicalPath: config/pl360g55cf_ek/driver/plc/phy
   name: drv_plc_phy_local_comm.h

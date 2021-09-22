@@ -133,8 +133,6 @@ typedef struct
     
     DRV_PLC_PHY_PIB_OBJ plcPIB;
     
-    uint8_t pPLCDataPIB[APP_PLC_PIB_BUFFER_SIZE];
-    
     bool staticNotchingEnable;
     
     bool pvddMonTxEnable;
@@ -151,7 +149,7 @@ typedef struct
     
     DRV_PLC_PHY_TRANSMISSION_OBJ pl360Tx;
     
-    uint8_t pDataTx[APP_PLC_BUFFER_SIZE];
+    uint8_t *pDataTx;
     
 	uint8_t txAuto;
     

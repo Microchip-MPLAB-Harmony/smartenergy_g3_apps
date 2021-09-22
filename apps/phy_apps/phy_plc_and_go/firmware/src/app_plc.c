@@ -77,10 +77,12 @@ SRV_PLC_PCOUP *appPLCCoupling;
     Application strings and buffers are be defined outside this structure.
 */
 
-APP_PLC_DATA CACHE_ALIGN appPlc;
-APP_PLC_DATA_TX CACHE_ALIGN appPlcTx;
+APP_PLC_DATA appPlc;
+APP_PLC_DATA_TX appPlcTx;
 
-static uint8_t appPlcStaticNotching[NUM_CARRIERS_CENELEC_A] = APP_PLC_TONE_MASK_STATIC_NOTCHING_EXAMPLE;
+static CACHE_ALIGN uint8_t appPlcPibDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_PIB_BUFFER_SIZE)];
+static CACHE_ALIGN uint8_t appPlcTxDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_BUFFER_SIZE)];
+static CACHE_ALIGN uint8_t appPlcStaticNotching[CACHE_ALIGNED_SIZE_GET(NUM_CARRIERS_CENELEC_A)] = APP_PLC_TONE_MASK_STATIC_NOTCHING_EXAMPLE;
 
 static void APP_PLC_SetCouplingConfiguration ( SRV_PLC_PCOUP_BRANCH branch )
 {
@@ -438,9 +440,10 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
 void APP_PLC_Initialize ( void )
 {
     /* Init PLC PIB buffer */
-    appPlc.plcPIB.pData = appPlc.pPLCDataPIB;
+    appPlc.plcPIB.pData = appPlcPibDataBuffer;
 
     /* Init PLC objects */
+    appPlcTx.pDataTx = appPlcTxDataBuffer;
     appPlcTx.pl360Tx.pTransmitData = appPlcTx.pDataTx;
     
     /* Set PLC state */
@@ -553,8 +556,10 @@ void APP_PLC_Tasks ( void )
 
         case APP_PLC_STATE_INIT:
         {
+            SYS_STATUS drvPlcStatus = DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX);
+            
             /* Select PLC Binary file for multi-band solution */
-            if (appPlc.plcMultiband)
+            if (appPlc.plcMultiband && (drvPlcStatus == SYS_STATUS_UNINITIALIZED))
             {
                 if (appPlcTx.bin2InUse)
                 {
@@ -718,15 +723,16 @@ void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME
 
         /* Set parameters for MAX_PSDU_LEN computation in PLC device */
         appPlc.plcPIB.id = PLC_ID_MAX_PSDU_LEN_PARAMS;
-        appPlc.plcPIB.length = sizeof(DRV_PLC_PHY_MAX_PSDU_LEN_PARAMS);
+        appPlc.plcPIB.length = sizeof(parameters);
         memcpy(appPlc.plcPIB.pData, (uint8_t *)&parameters, appPlc.plcPIB.length); 
         DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
 
         /* Get MAX_PSDU_LEN from PL360 device */
         appPlc.plcPIB.id = PLC_ID_MAX_PSDU_LEN;
         appPlc.plcPIB.length = 2;
-        memcpy(appPlc.plcPIB.pData, (uint8_t *)&appPlcTx.maxPsduLen, 2); 
         DRV_PLC_PHY_PIBGet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+        appPlcTx.maxPsduLen = appPlc.plcPIB.pData[0];
+        appPlcTx.maxPsduLen += (uint16_t)appPlc.plcPIB.pData[1] << 8;
     }
 }
 
