@@ -76,8 +76,11 @@ SRV_PLC_PCOUP *appPLCCoupling;
     Application strings and buffers are be defined outside this structure.
 */
 
-APP_PLC_DATA CACHE_ALIGN appPlc;
-APP_PLC_DATA_TX CACHE_ALIGN appPlcTx;
+CACHE_ALIGN APP_PLC_DATA appPlc;
+CACHE_ALIGN APP_PLC_DATA_TX appPlcTx;
+
+static CACHE_ALIGN uint8_t appPlcPibDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_PIB_BUFFER_SIZE)];
+static CACHE_ALIGN uint8_t appPlcTxDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_BUFFER_SIZE)];
 
 // *****************************************************************************
 // *****************************************************************************
@@ -148,6 +151,9 @@ static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_
             break;
         case DRV_PLC_PHY_TX_RESULT_INV_DT:
             APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_INV_DT\r\n");
+            break;
+        case DRV_PLC_PHY_TX_CANCELLED:
+            APP_CONSOLE_Print("...DRV_PLC_PHY_TX_CANCELLED\r\n");
             break;
         case DRV_PLC_PHY_TX_RESULT_NO_TX:
             APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_NO_TX\r\n");
@@ -259,10 +265,10 @@ void APP_PLC_PL360_Initialize ( void )
     appPlc.waitingTxCfm = false;
 
     /* Init PLC PIB buffer */
-    appPlc.plcPIB.pData = appPlc.pPLCDataPIB;
+    appPlc.plcPIB.pData = appPlcPibDataBuffer;
 
-    /* Init PLC objects */
-    appPlcTx.pl360Tx.pTransmitData = appPlcTx.pDataTx;
+    /* Init PLC TX Buffer */
+    appPlcTx.pl360Tx.pTransmitData = appPlcTxDataBuffer;
     
     /* Set PLC Multiband flag */
     if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == SYS_STATUS_UNINITIALIZED) {
@@ -278,7 +284,7 @@ void APP_PLC_PL360_Initialize ( void )
     appPlc.tmr2Expired = false;
     
     /* Init signalling */
-    appPlc.signalResetCounter = LED_RESET_BLINK_RATE_MS;
+    appPlc.signalResetCounter = LED_RESET_BLINK_COUNTER;
     
 }
 
@@ -292,7 +298,7 @@ void APP_PLC_PL360_Initialize ( void )
 
 void APP_PLC_PL360_Tasks ( void )
 {
-    /* Signalling */
+    /* Signalling: LED Toggle */
     if (appPlc.tmr1Expired)
     {
         appPlc.tmr1Expired = false;
@@ -304,6 +310,7 @@ void APP_PLC_PL360_Tasks ( void )
         }
     }
     
+    /* Signalling: PLC RX */
     if (appPlc.tmr2Expired)
     {
         appPlc.tmr2Expired = false;
@@ -370,9 +377,9 @@ void APP_PLC_PL360_Tasks ( void )
                     appPlcTx.pl360Tx.mode = TX_MODE_RELATIVE;
                     appPlcTx.pl360Tx.rs2Blocks = 0;
                     appPlcTx.pl360Tx.pdc = 0;
-                    appPlcTx.pl360Tx.pTransmitData = appPlcTx.pDataTx;
                     appPlcTx.pl360Tx.dataLength = 64;
-                    pData = appPlcTx.pDataTx;
+                    appPlcTx.pl360Tx.pTransmitData = appPlcTxDataBuffer;
+                    pData = appPlcTx.pl360Tx.pTransmitData;
                     for(index = 0; index < appPlcTx.pl360Tx.dataLength; index++)
                     {
                         *pData++ = index;
@@ -428,11 +435,13 @@ void APP_PLC_PL360_Tasks ( void )
 
         case APP_PLC_STATE_INIT:
         {
+            SYS_STATUS drvPlcStatus = DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX);
+			
             /* Set Coupling branch by default */
             appPlcTx.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
             
             /* Select PLC Binary file for multi-band solution */
-            if (appPlc.plcMultiband)
+            if (appPlc.plcMultiband && (drvPlcStatus == SYS_STATUS_UNINITIALIZED))
             {
                 if (appPlcTx.bin2InUse)
                 {
@@ -626,6 +635,10 @@ void APP_PLC_PL360_Tasks ( void )
 
             /* Close PLC Driver */
             DRV_PLC_PHY_Close(appPlc.drvPl360Handle);
+            
+            /* Destroy Blink Timer */
+            SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
+            appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
 
             /* Restart PLC Driver */
             appPlc.state = APP_PLC_STATE_INIT;

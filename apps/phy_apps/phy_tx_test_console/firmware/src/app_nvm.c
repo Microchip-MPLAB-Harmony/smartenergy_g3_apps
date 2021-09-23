@@ -77,7 +77,10 @@ SYS_MEDIA_GEOMETRY *nvmGeometry = NULL;
     Application strings and buffers are be defined outside this structure.
 */
 
-APP_NVM_DATA CACHE_ALIGN appNvm;
+CACHE_ALIGN APP_NVM_DATA appNvm;
+
+/* NVM Data buffer */
+static CACHE_ALIGN uint8_t pNvmBuffer[CACHE_ALIGNED_SIZE_GET(NVM_BUFFER_SIZE)];
 
 // *****************************************************************************
 // *****************************************************************************
@@ -103,7 +106,7 @@ void appNvmTransferHandler
                 /* Update Data Source */
                 if (appNvm.pData)
                 {
-                    memcpy(appNvm.pData, appNvm.pNvmBuffer, appNvm.dataLength);
+                    memcpy(appNvm.pData, appNvm.pNVMData, appNvm.dataLength);
                 }
             }
             else if (commandHandle == app_data->eraseHandle)
@@ -152,6 +155,7 @@ void APP_NVM_Initialize ( void )
     /* Place the App state machine in its initial state. */
     appNvm.state = APP_NVM_STATE_OPEN_DRIVER;
     appNvm.erase_done = false;
+    appNvm.pNVMData = pNvmBuffer;
 }
 
 
@@ -224,7 +228,7 @@ void APP_NVM_Tasks ( void )
         case APP_NVM_STATE_WRITE_MEMORY:
         {
             if (appNvm.erase_done) {
-                DRV_MEMORY_AsyncWrite(appNvm.memoryHandle, &appNvm.writeHandle, (void *)appNvm.pNvmBuffer, BLOCK_START, appNvm.numWriteBlocks);
+                DRV_MEMORY_AsyncWrite(appNvm.memoryHandle, &appNvm.writeHandle, (void *)appNvm.pNVMData, BLOCK_START, appNvm.numWriteBlocks);
 
                 if (DRV_MEMORY_COMMAND_HANDLE_INVALID == appNvm.writeHandle)
                 {
@@ -242,7 +246,7 @@ void APP_NVM_Tasks ( void )
                 {
                     appNvm.dataLength = NVM_BUFFER_SIZE;
                 }
-                memcpy(appNvm.pNvmBuffer, appNvm.pData, appNvm.dataLength);
+                memcpy(appNvm.pNVMData, appNvm.pData, appNvm.dataLength);
 
                 appNvm.state = APP_NVM_STATE_ERASE_FLASH;
             }
@@ -268,7 +272,7 @@ void APP_NVM_Tasks ( void )
 
         case APP_NVM_STATE_READ_MEMORY:
         {
-            DRV_MEMORY_AsyncRead(appNvm.memoryHandle, &appNvm.readHandle, (void *)appNvm.pNvmBuffer, BLOCK_START, appNvm.numReadBlocks);
+            DRV_MEMORY_AsyncRead(appNvm.memoryHandle, &appNvm.readHandle, (void *)appNvm.pNVMData, BLOCK_START, appNvm.numReadBlocks);
 
             if (DRV_MEMORY_COMMAND_HANDLE_INVALID == appNvm.readHandle)
             {

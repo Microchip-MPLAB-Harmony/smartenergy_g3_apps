@@ -161,11 +161,11 @@ typedef struct
     /* Number of Erase blocks */
     uint32_t numEraseBlocks;
     
-    /* NVM Data buffer */
-    uint8_t pNvmBuffer[NVM_BUFFER_SIZE];
-
     /* Pointer to store Data */
     uint8_t* pData;
+    
+    /* Pointer to NVM Data buffer */
+    uint8_t* pNVMData;
     
     /* Length of data to store */
     size_t dataLength;

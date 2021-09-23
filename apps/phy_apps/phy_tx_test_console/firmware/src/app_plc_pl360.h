@@ -116,8 +116,6 @@ typedef struct
     
     DRV_PLC_PHY_PIB_OBJ plcPIB;
     
-    uint8_t pPLCDataPIB[APP_PLC_PIB_BUFFER_SIZE];
-    
     uint8_t signalResetCounter;
     
 } APP_PLC_DATA;
@@ -129,8 +127,6 @@ typedef struct
     uint32_t pl360PhyVersion;
     
     DRV_PLC_PHY_TRANSMISSION_OBJ pl360Tx;
-    
-    uint8_t pDataTx[APP_PLC_BUFFER_SIZE];
     
 	uint32_t txEndTime;
     

@@ -99,9 +99,9 @@ typedef struct
     
     APP_CONSOLE_STATES state;
 
-    char pTrasmitChar[SERIAL_BUFFER_SIZE];
+    char *pTransmitChar;
     
-    char pReceivedChar[SERIAL_BUFFER_SIZE];
+    char *pReceivedChar;
 
     char* pNextChar;
     
