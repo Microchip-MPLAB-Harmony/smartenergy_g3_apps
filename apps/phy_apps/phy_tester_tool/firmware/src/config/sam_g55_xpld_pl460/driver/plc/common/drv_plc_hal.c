@@ -66,9 +66,9 @@
 #define HAL_SPI_BUFFER_SIZE      (HAL_SPI_HEADER_SIZE + HAL_SPI_MSG_DATA_SIZE + HAL_SPI_MSG_PARAMS_SIZE)
 
 /* PDC Receive buffer */
-static uint8_t sRxSpiData[HAL_SPI_BUFFER_SIZE];
+static CACHE_ALIGN uint8_t sRxSpiData[CACHE_ALIGNED_SIZE_GET(HAL_SPI_BUFFER_SIZE)];
 /* PDC Transmission buffer */
-static uint8_t sTxSpiData[HAL_SPI_BUFFER_SIZE];
+static CACHE_ALIGN uint8_t sTxSpiData[CACHE_ALIGNED_SIZE_GET(HAL_SPI_BUFFER_SIZE)];
 
 /* Static pointer to PLIB interface used to handle PLC */
 static DRV_PLC_PLIB_INTERFACE *sPlcPlib;

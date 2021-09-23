@@ -63,12 +63,12 @@
 static DRV_PLC_PHY_OBJ *gPlcPhyObj;
 
 /* Buffer definition to communicate with PLC */
-static uint8_t sDataInfo[PLC_STATUS_LENGTH];
-static uint8_t sDataTxPar[PLC_TX_PAR_SIZE];
-static uint8_t sDataRxPar[PLC_RX_PAR_SIZE];
-static uint8_t sDataRxDat[PLC_DATA_PKT_SIZE];
-static uint8_t sDataTxCfm[PLC_CMF_PKT_SIZE];
-static uint8_t sDataReg[PLC_REG_PKT_SIZE];
+static CACHE_ALIGN uint8_t sDataInfo[CACHE_ALIGNED_SIZE_GET(PLC_STATUS_LENGTH)];
+static CACHE_ALIGN uint8_t sDataTxPar[CACHE_ALIGNED_SIZE_GET(PLC_TX_PAR_SIZE)];
+static CACHE_ALIGN uint8_t sDataRxPar[CACHE_ALIGNED_SIZE_GET(PLC_RX_PAR_SIZE)];
+static CACHE_ALIGN uint8_t sDataRxDat[CACHE_ALIGNED_SIZE_GET(PLC_DATA_PKT_SIZE)];
+static CACHE_ALIGN uint8_t sDataTxCfm[CACHE_ALIGNED_SIZE_GET(PLC_CMF_PKT_SIZE)];
+static CACHE_ALIGN uint8_t sDataReg[CACHE_ALIGNED_SIZE_GET(PLC_REG_PKT_SIZE)];
 
 // *****************************************************************************
 // *****************************************************************************

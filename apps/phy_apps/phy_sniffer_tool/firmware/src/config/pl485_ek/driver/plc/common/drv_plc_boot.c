@@ -377,7 +377,6 @@ void DRV_PLC_BOOT_Tasks( void )
     }
     else if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_VALIDATING)
     {
-        
         /* Check firmware */
         if (_DRV_PLC_BOOT_CheckFirmware())
         {
@@ -386,8 +385,7 @@ void DRV_PLC_BOOT_Tasks( void )
         }
         else
         {
-            /* Update boot status */
-            sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_ERROR;
+            sDrvPlcHalObj->delay(200);
         }
     }
 }
@@ -405,8 +403,8 @@ void DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_MODE mode)
         /* Configure 16 bits transfer */
         sDrvPlcHalObj->setup(true);
 
-        /* Wait to PLC startup (2ms) */
-        sDrvPlcHalObj->delay(2000);
+        /* Wait to PLC startup */
+        sDrvPlcHalObj->delay(200);
     }
     else if (mode == DRV_PLC_BOOT_RESTART_HARD)
     {

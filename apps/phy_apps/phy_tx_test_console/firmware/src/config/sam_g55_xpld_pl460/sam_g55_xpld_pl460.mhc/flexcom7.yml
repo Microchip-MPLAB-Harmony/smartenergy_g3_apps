@@ -322,6 +322,13 @@ children:
         attributes: {id: visible}
         children:
         - {type: Value, value: 'true'}
+  - type: Integer
+    attributes: {id: FP_VALUE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: flexcom7, value: '2'}
   - type: String
     attributes: {id: RECEIVE_DATA_REGISTER}
     children:

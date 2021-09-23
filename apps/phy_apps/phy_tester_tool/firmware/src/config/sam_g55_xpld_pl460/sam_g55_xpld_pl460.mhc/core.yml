@@ -222,7 +222,7 @@ children:
       - type: String
         attributes: {id: source}
         children:
-        - {type: Value, value: 'C:/0_CHRIS/Proyectos/03_MCHP_Harmony_3/BitBucket/dev_packs/Microchip/SAMG_DFP/3.5.60/samg55/xc32/ATSAMG55J19/ATSAMG55J19.ld'}
+        - {type: Value, value: 'C:/0_CHRIS/Proyectos/03_MCHP_Harmony_3/BitBucket/dev_packs/Microchip/SAMG_DFP/3.5.65/samg55/xc32/ATSAMG55J19/ATSAMG55J19.ld'}
   - type: File
     attributes: {id: MAIN_C}
     children:

@@ -19,7 +19,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: flexcom4, value: '65'}
+        attributes: {id: flexcom4, value: '130'}
   - type: File
     attributes: {id: FLEXCOM4_COMMON_HEADER}
     children:
@@ -228,7 +228,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: flexcom4, value: '0'}
+        attributes: {id: flexcom4, value: '1'}
   - type: KeyValueSet
     attributes: {id: FLEXCOM_USART_MR_USCLKS}
     children:
@@ -318,6 +318,13 @@ children:
         attributes: {id: visible}
         children:
         - {type: Value, value: 'true'}
+  - type: Integer
+    attributes: {id: FP_VALUE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: flexcom4, value: '1'}
   - type: String
     attributes: {id: RECEIVE_DATA_REGISTER}
     children:

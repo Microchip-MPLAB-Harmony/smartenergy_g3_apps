@@ -150,15 +150,6 @@ children:
         children:
         - {type: Value, value: 'false'}
   - type: File
-    attributes: {id: PLC_SOURCE_BIN_G3_CENB}
-    children:
-    - type: Attributes
-      children:
-      - type: Boolean
-        attributes: {id: enabled}
-        children:
-        - {type: Value, value: 'false'}
-  - type: File
     attributes: {id: PLC_SOURCE_BIN_G3_FCC}
     children:
     - type: Attributes

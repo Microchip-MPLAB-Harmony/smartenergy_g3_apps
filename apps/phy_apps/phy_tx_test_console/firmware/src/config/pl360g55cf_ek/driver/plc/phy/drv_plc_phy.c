@@ -169,6 +169,7 @@ void DRV_PLC_PHY_Close( const DRV_HANDLE handle )
     {
         gDrvPlcPhyObj.nClients--;
         gDrvPlcPhyObj.inUse = false;
+        gDrvPlcPhyObj.status = SYS_STATUS_UNINITIALIZED;
     }
 }
 
