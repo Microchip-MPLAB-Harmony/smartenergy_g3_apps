@@ -109,11 +109,7 @@ typedef struct
     
     SRV_USI_HANDLE srvUSIHandle;    
     
-    uint8_t pPLCDataRx[APP_PLC_DATA_BUFFER_SIZE];
-    
-    uint8_t pPLCDataPIB[APP_PLC_PIB_BUFFER_SIZE];
-    
-    uint8_t pSerialData[APP_SERIAL_DATA_BUFFER_SIZE];
+    uint8_t *pSerialData;
     
     DRV_PLC_PHY_RECEPTION_OBJ plcRxObj;
     
