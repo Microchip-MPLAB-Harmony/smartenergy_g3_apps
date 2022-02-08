@@ -87,7 +87,7 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
                 LED_BLINK_PLC_MSG_MS, SYS_TIME_SINGLE);
 
         /* Report RX Symbols */
-        appData.plcPIB.id = PLC_ID_RX_PAY_SYMBOLS;
+        appData.plcPIB.id = PLC_ID_PAY_SYMBOLS_RX;
         appData.plcPIB.length = 2;
         DRV_PLC_PHY_PIBGet(appData.drvPl360Handle, &appData.plcPIB);
 

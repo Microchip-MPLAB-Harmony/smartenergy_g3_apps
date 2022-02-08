@@ -1,7 +1,7 @@
 /*
  * Component description for MCAN
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2021-12-23T09:59:43Z */
 #ifndef _SAME70_MCAN_COMPONENT_H_
 #define _SAME70_MCAN_COMPONENT_H_
 
@@ -2244,70 +2244,70 @@
 
 
 /** \brief MCAN register offsets definitions */
-#define MCAN_RXBE_0_REG_OFST           (0x00)              /**< (MCAN_RXBE_0) Rx Buffer Element 0 Offset */
-#define MCAN_RXBE_1_REG_OFST           (0x04)              /**< (MCAN_RXBE_1) Rx Buffer Element 1 Offset */
-#define MCAN_RXBE_DATA_REG_OFST        (0x08)              /**< (MCAN_RXBE_DATA) Rx Buffer Element Data Offset */
-#define MCAN_RXF0E_0_REG_OFST          (0x00)              /**< (MCAN_RXF0E_0) Rx FIFO 0 Element 0 Offset */
-#define MCAN_RXF0E_1_REG_OFST          (0x04)              /**< (MCAN_RXF0E_1) Rx FIFO 0 Element 1 Offset */
-#define MCAN_RXF0E_DATA_REG_OFST       (0x08)              /**< (MCAN_RXF0E_DATA) Rx FIFO 0 Element Data Offset */
-#define MCAN_RXF1E_0_REG_OFST          (0x00)              /**< (MCAN_RXF1E_0) Rx FIFO 1 Element 0 Offset */
-#define MCAN_RXF1E_1_REG_OFST          (0x04)              /**< (MCAN_RXF1E_1) Rx FIFO 1 Element 1 Offset */
-#define MCAN_RXF1E_DATA_REG_OFST       (0x08)              /**< (MCAN_RXF1E_DATA) Rx FIFO 1 Element Data Offset */
-#define MCAN_TXBE_0_REG_OFST           (0x00)              /**< (MCAN_TXBE_0) Tx Buffer Element 0 Offset */
-#define MCAN_TXBE_1_REG_OFST           (0x04)              /**< (MCAN_TXBE_1) Tx Buffer Element 1 Offset */
-#define MCAN_TXBE_DATA_REG_OFST        (0x08)              /**< (MCAN_TXBE_DATA) Tx Buffer Element Data Offset */
-#define MCAN_TXEFE_0_REG_OFST          (0x00)              /**< (MCAN_TXEFE_0) Tx Event FIFO Element 0 Offset */
-#define MCAN_TXEFE_1_REG_OFST          (0x04)              /**< (MCAN_TXEFE_1) Tx Event FIFO Element 1 Offset */
-#define MCAN_SIDFE_0_REG_OFST          (0x00)              /**< (MCAN_SIDFE_0) Standard Message ID Filter Element 0 Offset */
-#define MCAN_XIDFE_0_REG_OFST          (0x00)              /**< (MCAN_XIDFE_0) Extended Message ID Filter Element 0 Offset */
-#define MCAN_XIDFE_1_REG_OFST          (0x04)              /**< (MCAN_XIDFE_1) Extended Message ID Filter Element 1 Offset */
-#define MCAN_CREL_REG_OFST             (0x00)              /**< (MCAN_CREL) Core Release Register Offset */
-#define MCAN_ENDN_REG_OFST             (0x04)              /**< (MCAN_ENDN) Endian Register Offset */
-#define MCAN_CUST_REG_OFST             (0x08)              /**< (MCAN_CUST) Customer Register Offset */
-#define MCAN_DBTP_REG_OFST             (0x0C)              /**< (MCAN_DBTP) Data Bit Timing and Prescaler Register Offset */
-#define MCAN_TEST_REG_OFST             (0x10)              /**< (MCAN_TEST) Test Register Offset */
-#define MCAN_RWD_REG_OFST              (0x14)              /**< (MCAN_RWD) RAM Watchdog Register Offset */
-#define MCAN_CCCR_REG_OFST             (0x18)              /**< (MCAN_CCCR) CC Control Register Offset */
-#define MCAN_NBTP_REG_OFST             (0x1C)              /**< (MCAN_NBTP) Nominal Bit Timing and Prescaler Register Offset */
-#define MCAN_TSCC_REG_OFST             (0x20)              /**< (MCAN_TSCC) Timestamp Counter Configuration Register Offset */
-#define MCAN_TSCV_REG_OFST             (0x24)              /**< (MCAN_TSCV) Timestamp Counter Value Register Offset */
-#define MCAN_TOCC_REG_OFST             (0x28)              /**< (MCAN_TOCC) Timeout Counter Configuration Register Offset */
-#define MCAN_TOCV_REG_OFST             (0x2C)              /**< (MCAN_TOCV) Timeout Counter Value Register Offset */
-#define MCAN_ECR_REG_OFST              (0x40)              /**< (MCAN_ECR) Error Counter Register Offset */
-#define MCAN_PSR_REG_OFST              (0x44)              /**< (MCAN_PSR) Protocol Status Register Offset */
-#define MCAN_TDCR_REG_OFST             (0x48)              /**< (MCAN_TDCR) Transmit Delay Compensation Register Offset */
-#define MCAN_IR_REG_OFST               (0x50)              /**< (MCAN_IR) Interrupt Register Offset */
-#define MCAN_IE_REG_OFST               (0x54)              /**< (MCAN_IE) Interrupt Enable Register Offset */
-#define MCAN_ILS_REG_OFST              (0x58)              /**< (MCAN_ILS) Interrupt Line Select Register Offset */
-#define MCAN_ILE_REG_OFST              (0x5C)              /**< (MCAN_ILE) Interrupt Line Enable Register Offset */
-#define MCAN_GFC_REG_OFST              (0x80)              /**< (MCAN_GFC) Global Filter Configuration Register Offset */
-#define MCAN_SIDFC_REG_OFST            (0x84)              /**< (MCAN_SIDFC) Standard ID Filter Configuration Register Offset */
-#define MCAN_XIDFC_REG_OFST            (0x88)              /**< (MCAN_XIDFC) Extended ID Filter Configuration Register Offset */
-#define MCAN_XIDAM_REG_OFST            (0x90)              /**< (MCAN_XIDAM) Extended ID AND Mask Register Offset */
-#define MCAN_HPMS_REG_OFST             (0x94)              /**< (MCAN_HPMS) High Priority Message Status Register Offset */
-#define MCAN_NDAT1_REG_OFST            (0x98)              /**< (MCAN_NDAT1) New Data 1 Register Offset */
-#define MCAN_NDAT2_REG_OFST            (0x9C)              /**< (MCAN_NDAT2) New Data 2 Register Offset */
-#define MCAN_RXF0C_REG_OFST            (0xA0)              /**< (MCAN_RXF0C) Receive FIFO 0 Configuration Register Offset */
-#define MCAN_RXF0S_REG_OFST            (0xA4)              /**< (MCAN_RXF0S) Receive FIFO 0 Status Register Offset */
-#define MCAN_RXF0A_REG_OFST            (0xA8)              /**< (MCAN_RXF0A) Receive FIFO 0 Acknowledge Register Offset */
-#define MCAN_RXBC_REG_OFST             (0xAC)              /**< (MCAN_RXBC) Receive Rx Buffer Configuration Register Offset */
-#define MCAN_RXF1C_REG_OFST            (0xB0)              /**< (MCAN_RXF1C) Receive FIFO 1 Configuration Register Offset */
-#define MCAN_RXF1S_REG_OFST            (0xB4)              /**< (MCAN_RXF1S) Receive FIFO 1 Status Register Offset */
-#define MCAN_RXF1A_REG_OFST            (0xB8)              /**< (MCAN_RXF1A) Receive FIFO 1 Acknowledge Register Offset */
-#define MCAN_RXESC_REG_OFST            (0xBC)              /**< (MCAN_RXESC) Receive Buffer / FIFO Element Size Configuration Register Offset */
-#define MCAN_TXBC_REG_OFST             (0xC0)              /**< (MCAN_TXBC) Transmit Buffer Configuration Register Offset */
-#define MCAN_TXFQS_REG_OFST            (0xC4)              /**< (MCAN_TXFQS) Transmit FIFO/Queue Status Register Offset */
-#define MCAN_TXESC_REG_OFST            (0xC8)              /**< (MCAN_TXESC) Transmit Buffer Element Size Configuration Register Offset */
-#define MCAN_TXBRP_REG_OFST            (0xCC)              /**< (MCAN_TXBRP) Transmit Buffer Request Pending Register Offset */
-#define MCAN_TXBAR_REG_OFST            (0xD0)              /**< (MCAN_TXBAR) Transmit Buffer Add Request Register Offset */
-#define MCAN_TXBCR_REG_OFST            (0xD4)              /**< (MCAN_TXBCR) Transmit Buffer Cancellation Request Register Offset */
-#define MCAN_TXBTO_REG_OFST            (0xD8)              /**< (MCAN_TXBTO) Transmit Buffer Transmission Occurred Register Offset */
-#define MCAN_TXBCF_REG_OFST            (0xDC)              /**< (MCAN_TXBCF) Transmit Buffer Cancellation Finished Register Offset */
-#define MCAN_TXBTIE_REG_OFST           (0xE0)              /**< (MCAN_TXBTIE) Transmit Buffer Transmission Interrupt Enable Register Offset */
-#define MCAN_TXBCIE_REG_OFST           (0xE4)              /**< (MCAN_TXBCIE) Transmit Buffer Cancellation Finished Interrupt Enable Register Offset */
-#define MCAN_TXEFC_REG_OFST            (0xF0)              /**< (MCAN_TXEFC) Transmit Event FIFO Configuration Register Offset */
-#define MCAN_TXEFS_REG_OFST            (0xF4)              /**< (MCAN_TXEFS) Transmit Event FIFO Status Register Offset */
-#define MCAN_TXEFA_REG_OFST            (0xF8)              /**< (MCAN_TXEFA) Transmit Event FIFO Acknowledge Register Offset */
+#define MCAN_RXBE_0_REG_OFST           (0x00)              /* (MCAN_RXBE_0) Rx Buffer Element 0 Offset */
+#define MCAN_RXBE_1_REG_OFST           (0x04)              /* (MCAN_RXBE_1) Rx Buffer Element 1 Offset */
+#define MCAN_RXBE_DATA_REG_OFST        (0x08)              /* (MCAN_RXBE_DATA) Rx Buffer Element Data Offset */
+#define MCAN_RXF0E_0_REG_OFST          (0x00)              /* (MCAN_RXF0E_0) Rx FIFO 0 Element 0 Offset */
+#define MCAN_RXF0E_1_REG_OFST          (0x04)              /* (MCAN_RXF0E_1) Rx FIFO 0 Element 1 Offset */
+#define MCAN_RXF0E_DATA_REG_OFST       (0x08)              /* (MCAN_RXF0E_DATA) Rx FIFO 0 Element Data Offset */
+#define MCAN_RXF1E_0_REG_OFST          (0x00)              /* (MCAN_RXF1E_0) Rx FIFO 1 Element 0 Offset */
+#define MCAN_RXF1E_1_REG_OFST          (0x04)              /* (MCAN_RXF1E_1) Rx FIFO 1 Element 1 Offset */
+#define MCAN_RXF1E_DATA_REG_OFST       (0x08)              /* (MCAN_RXF1E_DATA) Rx FIFO 1 Element Data Offset */
+#define MCAN_TXBE_0_REG_OFST           (0x00)              /* (MCAN_TXBE_0) Tx Buffer Element 0 Offset */
+#define MCAN_TXBE_1_REG_OFST           (0x04)              /* (MCAN_TXBE_1) Tx Buffer Element 1 Offset */
+#define MCAN_TXBE_DATA_REG_OFST        (0x08)              /* (MCAN_TXBE_DATA) Tx Buffer Element Data Offset */
+#define MCAN_TXEFE_0_REG_OFST          (0x00)              /* (MCAN_TXEFE_0) Tx Event FIFO Element 0 Offset */
+#define MCAN_TXEFE_1_REG_OFST          (0x04)              /* (MCAN_TXEFE_1) Tx Event FIFO Element 1 Offset */
+#define MCAN_SIDFE_0_REG_OFST          (0x00)              /* (MCAN_SIDFE_0) Standard Message ID Filter Element 0 Offset */
+#define MCAN_XIDFE_0_REG_OFST          (0x00)              /* (MCAN_XIDFE_0) Extended Message ID Filter Element 0 Offset */
+#define MCAN_XIDFE_1_REG_OFST          (0x04)              /* (MCAN_XIDFE_1) Extended Message ID Filter Element 1 Offset */
+#define MCAN_CREL_REG_OFST             (0x00)              /* (MCAN_CREL) Core Release Register Offset */
+#define MCAN_ENDN_REG_OFST             (0x04)              /* (MCAN_ENDN) Endian Register Offset */
+#define MCAN_CUST_REG_OFST             (0x08)              /* (MCAN_CUST) Customer Register Offset */
+#define MCAN_DBTP_REG_OFST             (0x0C)              /* (MCAN_DBTP) Data Bit Timing and Prescaler Register Offset */
+#define MCAN_TEST_REG_OFST             (0x10)              /* (MCAN_TEST) Test Register Offset */
+#define MCAN_RWD_REG_OFST              (0x14)              /* (MCAN_RWD) RAM Watchdog Register Offset */
+#define MCAN_CCCR_REG_OFST             (0x18)              /* (MCAN_CCCR) CC Control Register Offset */
+#define MCAN_NBTP_REG_OFST             (0x1C)              /* (MCAN_NBTP) Nominal Bit Timing and Prescaler Register Offset */
+#define MCAN_TSCC_REG_OFST             (0x20)              /* (MCAN_TSCC) Timestamp Counter Configuration Register Offset */
+#define MCAN_TSCV_REG_OFST             (0x24)              /* (MCAN_TSCV) Timestamp Counter Value Register Offset */
+#define MCAN_TOCC_REG_OFST             (0x28)              /* (MCAN_TOCC) Timeout Counter Configuration Register Offset */
+#define MCAN_TOCV_REG_OFST             (0x2C)              /* (MCAN_TOCV) Timeout Counter Value Register Offset */
+#define MCAN_ECR_REG_OFST              (0x40)              /* (MCAN_ECR) Error Counter Register Offset */
+#define MCAN_PSR_REG_OFST              (0x44)              /* (MCAN_PSR) Protocol Status Register Offset */
+#define MCAN_TDCR_REG_OFST             (0x48)              /* (MCAN_TDCR) Transmit Delay Compensation Register Offset */
+#define MCAN_IR_REG_OFST               (0x50)              /* (MCAN_IR) Interrupt Register Offset */
+#define MCAN_IE_REG_OFST               (0x54)              /* (MCAN_IE) Interrupt Enable Register Offset */
+#define MCAN_ILS_REG_OFST              (0x58)              /* (MCAN_ILS) Interrupt Line Select Register Offset */
+#define MCAN_ILE_REG_OFST              (0x5C)              /* (MCAN_ILE) Interrupt Line Enable Register Offset */
+#define MCAN_GFC_REG_OFST              (0x80)              /* (MCAN_GFC) Global Filter Configuration Register Offset */
+#define MCAN_SIDFC_REG_OFST            (0x84)              /* (MCAN_SIDFC) Standard ID Filter Configuration Register Offset */
+#define MCAN_XIDFC_REG_OFST            (0x88)              /* (MCAN_XIDFC) Extended ID Filter Configuration Register Offset */
+#define MCAN_XIDAM_REG_OFST            (0x90)              /* (MCAN_XIDAM) Extended ID AND Mask Register Offset */
+#define MCAN_HPMS_REG_OFST             (0x94)              /* (MCAN_HPMS) High Priority Message Status Register Offset */
+#define MCAN_NDAT1_REG_OFST            (0x98)              /* (MCAN_NDAT1) New Data 1 Register Offset */
+#define MCAN_NDAT2_REG_OFST            (0x9C)              /* (MCAN_NDAT2) New Data 2 Register Offset */
+#define MCAN_RXF0C_REG_OFST            (0xA0)              /* (MCAN_RXF0C) Receive FIFO 0 Configuration Register Offset */
+#define MCAN_RXF0S_REG_OFST            (0xA4)              /* (MCAN_RXF0S) Receive FIFO 0 Status Register Offset */
+#define MCAN_RXF0A_REG_OFST            (0xA8)              /* (MCAN_RXF0A) Receive FIFO 0 Acknowledge Register Offset */
+#define MCAN_RXBC_REG_OFST             (0xAC)              /* (MCAN_RXBC) Receive Rx Buffer Configuration Register Offset */
+#define MCAN_RXF1C_REG_OFST            (0xB0)              /* (MCAN_RXF1C) Receive FIFO 1 Configuration Register Offset */
+#define MCAN_RXF1S_REG_OFST            (0xB4)              /* (MCAN_RXF1S) Receive FIFO 1 Status Register Offset */
+#define MCAN_RXF1A_REG_OFST            (0xB8)              /* (MCAN_RXF1A) Receive FIFO 1 Acknowledge Register Offset */
+#define MCAN_RXESC_REG_OFST            (0xBC)              /* (MCAN_RXESC) Receive Buffer / FIFO Element Size Configuration Register Offset */
+#define MCAN_TXBC_REG_OFST             (0xC0)              /* (MCAN_TXBC) Transmit Buffer Configuration Register Offset */
+#define MCAN_TXFQS_REG_OFST            (0xC4)              /* (MCAN_TXFQS) Transmit FIFO/Queue Status Register Offset */
+#define MCAN_TXESC_REG_OFST            (0xC8)              /* (MCAN_TXESC) Transmit Buffer Element Size Configuration Register Offset */
+#define MCAN_TXBRP_REG_OFST            (0xCC)              /* (MCAN_TXBRP) Transmit Buffer Request Pending Register Offset */
+#define MCAN_TXBAR_REG_OFST            (0xD0)              /* (MCAN_TXBAR) Transmit Buffer Add Request Register Offset */
+#define MCAN_TXBCR_REG_OFST            (0xD4)              /* (MCAN_TXBCR) Transmit Buffer Cancellation Request Register Offset */
+#define MCAN_TXBTO_REG_OFST            (0xD8)              /* (MCAN_TXBTO) Transmit Buffer Transmission Occurred Register Offset */
+#define MCAN_TXBCF_REG_OFST            (0xDC)              /* (MCAN_TXBCF) Transmit Buffer Cancellation Finished Register Offset */
+#define MCAN_TXBTIE_REG_OFST           (0xE0)              /* (MCAN_TXBTIE) Transmit Buffer Transmission Interrupt Enable Register Offset */
+#define MCAN_TXBCIE_REG_OFST           (0xE4)              /* (MCAN_TXBCIE) Transmit Buffer Cancellation Finished Interrupt Enable Register Offset */
+#define MCAN_TXEFC_REG_OFST            (0xF0)              /* (MCAN_TXEFC) Transmit Event FIFO Configuration Register Offset */
+#define MCAN_TXEFS_REG_OFST            (0xF4)              /* (MCAN_TXEFS) Transmit Event FIFO Status Register Offset */
+#define MCAN_TXEFA_REG_OFST            (0xF8)              /* (MCAN_TXEFA) Transmit Event FIFO Acknowledge Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief MCAN_RXBE register API structure */

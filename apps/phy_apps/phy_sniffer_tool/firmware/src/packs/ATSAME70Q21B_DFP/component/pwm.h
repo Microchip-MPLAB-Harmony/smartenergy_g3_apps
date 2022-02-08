@@ -1,7 +1,7 @@
 /*
  * Component description for PWM
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2021-12-23T09:59:43Z */
 #ifndef _SAME70_PWM_COMPONENT_H_
 #define _SAME70_PWM_COMPONENT_H_
 
@@ -1432,63 +1432,63 @@
 
 
 /** \brief PWM register offsets definitions */
-#define PWM_CMR_REG_OFST               (0x00)              /**< (PWM_CMR) PWM Channel Mode Register Offset */
-#define PWM_CDTY_REG_OFST              (0x04)              /**< (PWM_CDTY) PWM Channel Duty Cycle Register Offset */
-#define PWM_CDTYUPD_REG_OFST           (0x08)              /**< (PWM_CDTYUPD) PWM Channel Duty Cycle Update Register Offset */
-#define PWM_CPRD_REG_OFST              (0x0C)              /**< (PWM_CPRD) PWM Channel Period Register Offset */
-#define PWM_CPRDUPD_REG_OFST           (0x10)              /**< (PWM_CPRDUPD) PWM Channel Period Update Register Offset */
-#define PWM_CCNT_REG_OFST              (0x14)              /**< (PWM_CCNT) PWM Channel Counter Register Offset */
-#define PWM_DT_REG_OFST                (0x18)              /**< (PWM_DT) PWM Channel Dead Time Register Offset */
-#define PWM_DTUPD_REG_OFST             (0x1C)              /**< (PWM_DTUPD) PWM Channel Dead Time Update Register Offset */
-#define PWM_CMPV_REG_OFST              (0x00)              /**< (PWM_CMPV) PWM Comparison 0 Value Register Offset */
-#define PWM_CMPVUPD_REG_OFST           (0x04)              /**< (PWM_CMPVUPD) PWM Comparison 0 Value Update Register Offset */
-#define PWM_CMPM_REG_OFST              (0x08)              /**< (PWM_CMPM) PWM Comparison 0 Mode Register Offset */
-#define PWM_CMPMUPD_REG_OFST           (0x0C)              /**< (PWM_CMPMUPD) PWM Comparison 0 Mode Update Register Offset */
-#define PWM_CLK_REG_OFST               (0x00)              /**< (PWM_CLK) PWM Clock Register Offset */
-#define PWM_ENA_REG_OFST               (0x04)              /**< (PWM_ENA) PWM Enable Register Offset */
-#define PWM_DIS_REG_OFST               (0x08)              /**< (PWM_DIS) PWM Disable Register Offset */
-#define PWM_SR_REG_OFST                (0x0C)              /**< (PWM_SR) PWM Status Register Offset */
-#define PWM_IER1_REG_OFST              (0x10)              /**< (PWM_IER1) PWM Interrupt Enable Register 1 Offset */
-#define PWM_IDR1_REG_OFST              (0x14)              /**< (PWM_IDR1) PWM Interrupt Disable Register 1 Offset */
-#define PWM_IMR1_REG_OFST              (0x18)              /**< (PWM_IMR1) PWM Interrupt Mask Register 1 Offset */
-#define PWM_ISR1_REG_OFST              (0x1C)              /**< (PWM_ISR1) PWM Interrupt Status Register 1 Offset */
-#define PWM_SCM_REG_OFST               (0x20)              /**< (PWM_SCM) PWM Sync Channels Mode Register Offset */
-#define PWM_DMAR_REG_OFST              (0x24)              /**< (PWM_DMAR) PWM DMA Register Offset */
-#define PWM_SCUC_REG_OFST              (0x28)              /**< (PWM_SCUC) PWM Sync Channels Update Control Register Offset */
-#define PWM_SCUP_REG_OFST              (0x2C)              /**< (PWM_SCUP) PWM Sync Channels Update Period Register Offset */
-#define PWM_SCUPUPD_REG_OFST           (0x30)              /**< (PWM_SCUPUPD) PWM Sync Channels Update Period Update Register Offset */
-#define PWM_IER2_REG_OFST              (0x34)              /**< (PWM_IER2) PWM Interrupt Enable Register 2 Offset */
-#define PWM_IDR2_REG_OFST              (0x38)              /**< (PWM_IDR2) PWM Interrupt Disable Register 2 Offset */
-#define PWM_IMR2_REG_OFST              (0x3C)              /**< (PWM_IMR2) PWM Interrupt Mask Register 2 Offset */
-#define PWM_ISR2_REG_OFST              (0x40)              /**< (PWM_ISR2) PWM Interrupt Status Register 2 Offset */
-#define PWM_OOV_REG_OFST               (0x44)              /**< (PWM_OOV) PWM Output Override Value Register Offset */
-#define PWM_OS_REG_OFST                (0x48)              /**< (PWM_OS) PWM Output Selection Register Offset */
-#define PWM_OSS_REG_OFST               (0x4C)              /**< (PWM_OSS) PWM Output Selection Set Register Offset */
-#define PWM_OSC_REG_OFST               (0x50)              /**< (PWM_OSC) PWM Output Selection Clear Register Offset */
-#define PWM_OSSUPD_REG_OFST            (0x54)              /**< (PWM_OSSUPD) PWM Output Selection Set Update Register Offset */
-#define PWM_OSCUPD_REG_OFST            (0x58)              /**< (PWM_OSCUPD) PWM Output Selection Clear Update Register Offset */
-#define PWM_FMR_REG_OFST               (0x5C)              /**< (PWM_FMR) PWM Fault Mode Register Offset */
-#define PWM_FSR_REG_OFST               (0x60)              /**< (PWM_FSR) PWM Fault Status Register Offset */
-#define PWM_FCR_REG_OFST               (0x64)              /**< (PWM_FCR) PWM Fault Clear Register Offset */
-#define PWM_FPV1_REG_OFST              (0x68)              /**< (PWM_FPV1) PWM Fault Protection Value Register 1 Offset */
-#define PWM_FPE_REG_OFST               (0x6C)              /**< (PWM_FPE) PWM Fault Protection Enable Register Offset */
-#define PWM_ELMR_REG_OFST              (0x7C)              /**< (PWM_ELMR) PWM Event Line 0 Mode Register 0 Offset */
-#define PWM_ELMR0_REG_OFST             (0x7C)              /**< (PWM_ELMR0) PWM Event Line 0 Mode Register 0 Offset */
-#define PWM_ELMR1_REG_OFST             (0x80)              /**< (PWM_ELMR1) PWM Event Line 0 Mode Register 0 Offset */
-#define PWM_SSPR_REG_OFST              (0xA0)              /**< (PWM_SSPR) PWM Spread Spectrum Register Offset */
-#define PWM_SSPUP_REG_OFST             (0xA4)              /**< (PWM_SSPUP) PWM Spread Spectrum Update Register Offset */
-#define PWM_SMMR_REG_OFST              (0xB0)              /**< (PWM_SMMR) PWM Stepper Motor Mode Register Offset */
-#define PWM_FPV2_REG_OFST              (0xC0)              /**< (PWM_FPV2) PWM Fault Protection Value 2 Register Offset */
-#define PWM_WPCR_REG_OFST              (0xE4)              /**< (PWM_WPCR) PWM Write Protection Control Register Offset */
-#define PWM_WPSR_REG_OFST              (0xE8)              /**< (PWM_WPSR) PWM Write Protection Status Register Offset */
-#define PWM_CMUPD0_REG_OFST            (0x400)             /**< (PWM_CMUPD0) PWM Channel Mode Update Register (ch_num = 0) Offset */
-#define PWM_CMUPD1_REG_OFST            (0x420)             /**< (PWM_CMUPD1) PWM Channel Mode Update Register (ch_num = 1) Offset */
-#define PWM_ETRG1_REG_OFST             (0x42C)             /**< (PWM_ETRG1) PWM External Trigger Register (trg_num = 1) Offset */
-#define PWM_LEBR1_REG_OFST             (0x430)             /**< (PWM_LEBR1) PWM Leading-Edge Blanking Register (trg_num = 1) Offset */
-#define PWM_CMUPD2_REG_OFST            (0x440)             /**< (PWM_CMUPD2) PWM Channel Mode Update Register (ch_num = 2) Offset */
-#define PWM_ETRG2_REG_OFST             (0x44C)             /**< (PWM_ETRG2) PWM External Trigger Register (trg_num = 2) Offset */
-#define PWM_LEBR2_REG_OFST             (0x450)             /**< (PWM_LEBR2) PWM Leading-Edge Blanking Register (trg_num = 2) Offset */
-#define PWM_CMUPD3_REG_OFST            (0x460)             /**< (PWM_CMUPD3) PWM Channel Mode Update Register (ch_num = 3) Offset */
+#define PWM_CMR_REG_OFST               (0x00)              /* (PWM_CMR) PWM Channel Mode Register Offset */
+#define PWM_CDTY_REG_OFST              (0x04)              /* (PWM_CDTY) PWM Channel Duty Cycle Register Offset */
+#define PWM_CDTYUPD_REG_OFST           (0x08)              /* (PWM_CDTYUPD) PWM Channel Duty Cycle Update Register Offset */
+#define PWM_CPRD_REG_OFST              (0x0C)              /* (PWM_CPRD) PWM Channel Period Register Offset */
+#define PWM_CPRDUPD_REG_OFST           (0x10)              /* (PWM_CPRDUPD) PWM Channel Period Update Register Offset */
+#define PWM_CCNT_REG_OFST              (0x14)              /* (PWM_CCNT) PWM Channel Counter Register Offset */
+#define PWM_DT_REG_OFST                (0x18)              /* (PWM_DT) PWM Channel Dead Time Register Offset */
+#define PWM_DTUPD_REG_OFST             (0x1C)              /* (PWM_DTUPD) PWM Channel Dead Time Update Register Offset */
+#define PWM_CMPV_REG_OFST              (0x00)              /* (PWM_CMPV) PWM Comparison 0 Value Register Offset */
+#define PWM_CMPVUPD_REG_OFST           (0x04)              /* (PWM_CMPVUPD) PWM Comparison 0 Value Update Register Offset */
+#define PWM_CMPM_REG_OFST              (0x08)              /* (PWM_CMPM) PWM Comparison 0 Mode Register Offset */
+#define PWM_CMPMUPD_REG_OFST           (0x0C)              /* (PWM_CMPMUPD) PWM Comparison 0 Mode Update Register Offset */
+#define PWM_CLK_REG_OFST               (0x00)              /* (PWM_CLK) PWM Clock Register Offset */
+#define PWM_ENA_REG_OFST               (0x04)              /* (PWM_ENA) PWM Enable Register Offset */
+#define PWM_DIS_REG_OFST               (0x08)              /* (PWM_DIS) PWM Disable Register Offset */
+#define PWM_SR_REG_OFST                (0x0C)              /* (PWM_SR) PWM Status Register Offset */
+#define PWM_IER1_REG_OFST              (0x10)              /* (PWM_IER1) PWM Interrupt Enable Register 1 Offset */
+#define PWM_IDR1_REG_OFST              (0x14)              /* (PWM_IDR1) PWM Interrupt Disable Register 1 Offset */
+#define PWM_IMR1_REG_OFST              (0x18)              /* (PWM_IMR1) PWM Interrupt Mask Register 1 Offset */
+#define PWM_ISR1_REG_OFST              (0x1C)              /* (PWM_ISR1) PWM Interrupt Status Register 1 Offset */
+#define PWM_SCM_REG_OFST               (0x20)              /* (PWM_SCM) PWM Sync Channels Mode Register Offset */
+#define PWM_DMAR_REG_OFST              (0x24)              /* (PWM_DMAR) PWM DMA Register Offset */
+#define PWM_SCUC_REG_OFST              (0x28)              /* (PWM_SCUC) PWM Sync Channels Update Control Register Offset */
+#define PWM_SCUP_REG_OFST              (0x2C)              /* (PWM_SCUP) PWM Sync Channels Update Period Register Offset */
+#define PWM_SCUPUPD_REG_OFST           (0x30)              /* (PWM_SCUPUPD) PWM Sync Channels Update Period Update Register Offset */
+#define PWM_IER2_REG_OFST              (0x34)              /* (PWM_IER2) PWM Interrupt Enable Register 2 Offset */
+#define PWM_IDR2_REG_OFST              (0x38)              /* (PWM_IDR2) PWM Interrupt Disable Register 2 Offset */
+#define PWM_IMR2_REG_OFST              (0x3C)              /* (PWM_IMR2) PWM Interrupt Mask Register 2 Offset */
+#define PWM_ISR2_REG_OFST              (0x40)              /* (PWM_ISR2) PWM Interrupt Status Register 2 Offset */
+#define PWM_OOV_REG_OFST               (0x44)              /* (PWM_OOV) PWM Output Override Value Register Offset */
+#define PWM_OS_REG_OFST                (0x48)              /* (PWM_OS) PWM Output Selection Register Offset */
+#define PWM_OSS_REG_OFST               (0x4C)              /* (PWM_OSS) PWM Output Selection Set Register Offset */
+#define PWM_OSC_REG_OFST               (0x50)              /* (PWM_OSC) PWM Output Selection Clear Register Offset */
+#define PWM_OSSUPD_REG_OFST            (0x54)              /* (PWM_OSSUPD) PWM Output Selection Set Update Register Offset */
+#define PWM_OSCUPD_REG_OFST            (0x58)              /* (PWM_OSCUPD) PWM Output Selection Clear Update Register Offset */
+#define PWM_FMR_REG_OFST               (0x5C)              /* (PWM_FMR) PWM Fault Mode Register Offset */
+#define PWM_FSR_REG_OFST               (0x60)              /* (PWM_FSR) PWM Fault Status Register Offset */
+#define PWM_FCR_REG_OFST               (0x64)              /* (PWM_FCR) PWM Fault Clear Register Offset */
+#define PWM_FPV1_REG_OFST              (0x68)              /* (PWM_FPV1) PWM Fault Protection Value Register 1 Offset */
+#define PWM_FPE_REG_OFST               (0x6C)              /* (PWM_FPE) PWM Fault Protection Enable Register Offset */
+#define PWM_ELMR_REG_OFST              (0x7C)              /* (PWM_ELMR) PWM Event Line 0 Mode Register 0 Offset */
+#define PWM_ELMR0_REG_OFST             (0x7C)              /* (PWM_ELMR0) PWM Event Line 0 Mode Register 0 Offset */
+#define PWM_ELMR1_REG_OFST             (0x80)              /* (PWM_ELMR1) PWM Event Line 0 Mode Register 0 Offset */
+#define PWM_SSPR_REG_OFST              (0xA0)              /* (PWM_SSPR) PWM Spread Spectrum Register Offset */
+#define PWM_SSPUP_REG_OFST             (0xA4)              /* (PWM_SSPUP) PWM Spread Spectrum Update Register Offset */
+#define PWM_SMMR_REG_OFST              (0xB0)              /* (PWM_SMMR) PWM Stepper Motor Mode Register Offset */
+#define PWM_FPV2_REG_OFST              (0xC0)              /* (PWM_FPV2) PWM Fault Protection Value 2 Register Offset */
+#define PWM_WPCR_REG_OFST              (0xE4)              /* (PWM_WPCR) PWM Write Protection Control Register Offset */
+#define PWM_WPSR_REG_OFST              (0xE8)              /* (PWM_WPSR) PWM Write Protection Status Register Offset */
+#define PWM_CMUPD0_REG_OFST            (0x400)             /* (PWM_CMUPD0) PWM Channel Mode Update Register (ch_num = 0) Offset */
+#define PWM_CMUPD1_REG_OFST            (0x420)             /* (PWM_CMUPD1) PWM Channel Mode Update Register (ch_num = 1) Offset */
+#define PWM_ETRG1_REG_OFST             (0x42C)             /* (PWM_ETRG1) PWM External Trigger Register (trg_num = 1) Offset */
+#define PWM_LEBR1_REG_OFST             (0x430)             /* (PWM_LEBR1) PWM Leading-Edge Blanking Register (trg_num = 1) Offset */
+#define PWM_CMUPD2_REG_OFST            (0x440)             /* (PWM_CMUPD2) PWM Channel Mode Update Register (ch_num = 2) Offset */
+#define PWM_ETRG2_REG_OFST             (0x44C)             /* (PWM_ETRG2) PWM External Trigger Register (trg_num = 2) Offset */
+#define PWM_LEBR2_REG_OFST             (0x450)             /* (PWM_LEBR2) PWM Leading-Edge Blanking Register (trg_num = 2) Offset */
+#define PWM_CMUPD3_REG_OFST            (0x460)             /* (PWM_CMUPD3) PWM Channel Mode Update Register (ch_num = 3) Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief PWM_CH_NUM register API structure */

@@ -14,7 +14,7 @@
     The Microchip G3-PLC and PRIME implementations include default PHY layer 
     configuration values optimized for the Evaluation Kits. With the help of 
     the PHY Calibration Tool it is possible to obtain the optimal configuration 
-    values for the customer´s hardware implementation. Please refer to the 
+    values for the custom hardware implementation. Please refer to the 
     PL360 Host Controller document for more details about the available 
     configuration values and their purpose. 
 

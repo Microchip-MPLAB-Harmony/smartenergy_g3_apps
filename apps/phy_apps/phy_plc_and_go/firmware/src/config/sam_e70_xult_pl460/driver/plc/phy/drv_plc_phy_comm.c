@@ -508,7 +508,7 @@ void DRV_PLC_PHY_Send(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ *tra
 
     if (gPlcPhyObj->plcHal->getThermalMonitor()) 
     {
-        /* Check thermal warning (>110ºC). Do not transmit and report High Temperature warning. */
+        /* Check thermal warning (>110ÂºC). Do not transmit and report High Temperature warning. */
         if (gPlcPhyObj->dataCfmCallback)
         {
             cfmObj.rmsCalc = 0;

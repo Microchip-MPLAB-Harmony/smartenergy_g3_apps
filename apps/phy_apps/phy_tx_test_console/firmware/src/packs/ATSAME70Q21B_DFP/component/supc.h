@@ -1,7 +1,7 @@
 /*
  * Component description for SUPC
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2021-12-23T09:59:43Z */
 #ifndef _SAME70_SUPC_COMPONENT_H_
 #define _SAME70_SUPC_COMPONENT_H_
 
@@ -586,12 +586,12 @@
 #define SUPC_SR_WKUPIS(value)                 (SUPC_SR_WKUPIS_Msk & ((value) << SUPC_SR_WKUPIS_Pos)) 
 
 /** \brief SUPC register offsets definitions */
-#define SUPC_CR_REG_OFST               (0x00)              /**< (SUPC_CR) Supply Controller Control Register Offset */
-#define SUPC_SMMR_REG_OFST             (0x04)              /**< (SUPC_SMMR) Supply Controller Supply Monitor Mode Register Offset */
-#define SUPC_MR_REG_OFST               (0x08)              /**< (SUPC_MR) Supply Controller Mode Register Offset */
-#define SUPC_WUMR_REG_OFST             (0x0C)              /**< (SUPC_WUMR) Supply Controller Wake-up Mode Register Offset */
-#define SUPC_WUIR_REG_OFST             (0x10)              /**< (SUPC_WUIR) Supply Controller Wake-up Inputs Register Offset */
-#define SUPC_SR_REG_OFST               (0x14)              /**< (SUPC_SR) Supply Controller Status Register Offset */
+#define SUPC_CR_REG_OFST               (0x00)              /* (SUPC_CR) Supply Controller Control Register Offset */
+#define SUPC_SMMR_REG_OFST             (0x04)              /* (SUPC_SMMR) Supply Controller Supply Monitor Mode Register Offset */
+#define SUPC_MR_REG_OFST               (0x08)              /* (SUPC_MR) Supply Controller Mode Register Offset */
+#define SUPC_WUMR_REG_OFST             (0x0C)              /* (SUPC_WUMR) Supply Controller Wake-up Mode Register Offset */
+#define SUPC_WUIR_REG_OFST             (0x10)              /* (SUPC_WUIR) Supply Controller Wake-up Inputs Register Offset */
+#define SUPC_SR_REG_OFST               (0x14)              /* (SUPC_SR) Supply Controller Status Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief SUPC register API structure */

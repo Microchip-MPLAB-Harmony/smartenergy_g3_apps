@@ -1,7 +1,7 @@
 /*
  * Component description for USART
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2021-12-23T09:59:43Z */
 #ifndef _SAME70_USART_COMPONENT_H_
 #define _SAME70_USART_COMPONENT_H_
 
@@ -1342,37 +1342,37 @@
 
 
 /** \brief USART register offsets definitions */
-#define US_CR_REG_OFST                 (0x00)              /**< (US_CR) Control Register Offset */
-#define US_MR_REG_OFST                 (0x04)              /**< (US_MR) Mode Register Offset */
-#define US_IER_REG_OFST                (0x08)              /**< (US_IER) Interrupt Enable Register Offset */
-#define US_IDR_REG_OFST                (0x0C)              /**< (US_IDR) Interrupt Disable Register Offset */
-#define US_IMR_REG_OFST                (0x10)              /**< (US_IMR) Interrupt Mask Register Offset */
-#define US_CSR_REG_OFST                (0x14)              /**< (US_CSR) Channel Status Register Offset */
-#define US_RHR_REG_OFST                (0x18)              /**< (US_RHR) Receive Holding Register Offset */
-#define US_THR_REG_OFST                (0x1C)              /**< (US_THR) Transmit Holding Register Offset */
-#define US_BRGR_REG_OFST               (0x20)              /**< (US_BRGR) Baud Rate Generator Register Offset */
-#define US_RTOR_REG_OFST               (0x24)              /**< (US_RTOR) Receiver Timeout Register Offset */
-#define US_TTGR_REG_OFST               (0x28)              /**< (US_TTGR) Transmitter Timeguard Register Offset */
-#define US_FIDI_REG_OFST               (0x40)              /**< (US_FIDI) FI DI Ratio Register Offset */
-#define US_NER_REG_OFST                (0x44)              /**< (US_NER) Number of Errors Register Offset */
-#define US_IF_REG_OFST                 (0x4C)              /**< (US_IF) IrDA Filter Register Offset */
-#define US_MAN_REG_OFST                (0x50)              /**< (US_MAN) Manchester Configuration Register Offset */
-#define US_LINMR_REG_OFST              (0x54)              /**< (US_LINMR) LIN Mode Register Offset */
-#define US_LINIR_REG_OFST              (0x58)              /**< (US_LINIR) LIN Identifier Register Offset */
-#define US_LINBRR_REG_OFST             (0x5C)              /**< (US_LINBRR) LIN Baud Rate Register Offset */
-#define US_LONMR_REG_OFST              (0x60)              /**< (US_LONMR) LON Mode Register Offset */
-#define US_LONPR_REG_OFST              (0x64)              /**< (US_LONPR) LON Preamble Register Offset */
-#define US_LONDL_REG_OFST              (0x68)              /**< (US_LONDL) LON Data Length Register Offset */
-#define US_LONL2HDR_REG_OFST           (0x6C)              /**< (US_LONL2HDR) LON L2HDR Register Offset */
-#define US_LONBL_REG_OFST              (0x70)              /**< (US_LONBL) LON Backlog Register Offset */
-#define US_LONB1TX_REG_OFST            (0x74)              /**< (US_LONB1TX) LON Beta1 Tx Register Offset */
-#define US_LONB1RX_REG_OFST            (0x78)              /**< (US_LONB1RX) LON Beta1 Rx Register Offset */
-#define US_LONPRIO_REG_OFST            (0x7C)              /**< (US_LONPRIO) LON Priority Register Offset */
-#define US_IDTTX_REG_OFST              (0x80)              /**< (US_IDTTX) LON IDT Tx Register Offset */
-#define US_IDTRX_REG_OFST              (0x84)              /**< (US_IDTRX) LON IDT Rx Register Offset */
-#define US_ICDIFF_REG_OFST             (0x88)              /**< (US_ICDIFF) IC DIFF Register Offset */
-#define US_WPMR_REG_OFST               (0xE4)              /**< (US_WPMR) Write Protection Mode Register Offset */
-#define US_WPSR_REG_OFST               (0xE8)              /**< (US_WPSR) Write Protection Status Register Offset */
+#define US_CR_REG_OFST                 (0x00)              /* (US_CR) Control Register Offset */
+#define US_MR_REG_OFST                 (0x04)              /* (US_MR) Mode Register Offset */
+#define US_IER_REG_OFST                (0x08)              /* (US_IER) Interrupt Enable Register Offset */
+#define US_IDR_REG_OFST                (0x0C)              /* (US_IDR) Interrupt Disable Register Offset */
+#define US_IMR_REG_OFST                (0x10)              /* (US_IMR) Interrupt Mask Register Offset */
+#define US_CSR_REG_OFST                (0x14)              /* (US_CSR) Channel Status Register Offset */
+#define US_RHR_REG_OFST                (0x18)              /* (US_RHR) Receive Holding Register Offset */
+#define US_THR_REG_OFST                (0x1C)              /* (US_THR) Transmit Holding Register Offset */
+#define US_BRGR_REG_OFST               (0x20)              /* (US_BRGR) Baud Rate Generator Register Offset */
+#define US_RTOR_REG_OFST               (0x24)              /* (US_RTOR) Receiver Timeout Register Offset */
+#define US_TTGR_REG_OFST               (0x28)              /* (US_TTGR) Transmitter Timeguard Register Offset */
+#define US_FIDI_REG_OFST               (0x40)              /* (US_FIDI) FI DI Ratio Register Offset */
+#define US_NER_REG_OFST                (0x44)              /* (US_NER) Number of Errors Register Offset */
+#define US_IF_REG_OFST                 (0x4C)              /* (US_IF) IrDA Filter Register Offset */
+#define US_MAN_REG_OFST                (0x50)              /* (US_MAN) Manchester Configuration Register Offset */
+#define US_LINMR_REG_OFST              (0x54)              /* (US_LINMR) LIN Mode Register Offset */
+#define US_LINIR_REG_OFST              (0x58)              /* (US_LINIR) LIN Identifier Register Offset */
+#define US_LINBRR_REG_OFST             (0x5C)              /* (US_LINBRR) LIN Baud Rate Register Offset */
+#define US_LONMR_REG_OFST              (0x60)              /* (US_LONMR) LON Mode Register Offset */
+#define US_LONPR_REG_OFST              (0x64)              /* (US_LONPR) LON Preamble Register Offset */
+#define US_LONDL_REG_OFST              (0x68)              /* (US_LONDL) LON Data Length Register Offset */
+#define US_LONL2HDR_REG_OFST           (0x6C)              /* (US_LONL2HDR) LON L2HDR Register Offset */
+#define US_LONBL_REG_OFST              (0x70)              /* (US_LONBL) LON Backlog Register Offset */
+#define US_LONB1TX_REG_OFST            (0x74)              /* (US_LONB1TX) LON Beta1 Tx Register Offset */
+#define US_LONB1RX_REG_OFST            (0x78)              /* (US_LONB1RX) LON Beta1 Rx Register Offset */
+#define US_LONPRIO_REG_OFST            (0x7C)              /* (US_LONPRIO) LON Priority Register Offset */
+#define US_IDTTX_REG_OFST              (0x80)              /* (US_IDTTX) LON IDT Tx Register Offset */
+#define US_IDTRX_REG_OFST              (0x84)              /* (US_IDTRX) LON IDT Rx Register Offset */
+#define US_ICDIFF_REG_OFST             (0x88)              /* (US_ICDIFF) IC DIFF Register Offset */
+#define US_WPMR_REG_OFST               (0xE4)              /* (US_WPMR) Write Protection Mode Register Offset */
+#define US_WPSR_REG_OFST               (0xE8)              /* (US_WPSR) Write Protection Status Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief USART register API structure */

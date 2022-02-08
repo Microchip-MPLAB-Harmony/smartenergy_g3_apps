@@ -1,7 +1,7 @@
 /*
  * Component description for QSPI
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2021-12-23T09:59:43Z */
 #ifndef _SAME70_QSPI_COMPONENT_H_
 #define _SAME70_QSPI_COMPONENT_H_
 
@@ -357,22 +357,22 @@
 
 
 /** \brief QSPI register offsets definitions */
-#define QSPI_CR_REG_OFST               (0x00)              /**< (QSPI_CR) Control Register Offset */
-#define QSPI_MR_REG_OFST               (0x04)              /**< (QSPI_MR) Mode Register Offset */
-#define QSPI_RDR_REG_OFST              (0x08)              /**< (QSPI_RDR) Receive Data Register Offset */
-#define QSPI_TDR_REG_OFST              (0x0C)              /**< (QSPI_TDR) Transmit Data Register Offset */
-#define QSPI_SR_REG_OFST               (0x10)              /**< (QSPI_SR) Status Register Offset */
-#define QSPI_IER_REG_OFST              (0x14)              /**< (QSPI_IER) Interrupt Enable Register Offset */
-#define QSPI_IDR_REG_OFST              (0x18)              /**< (QSPI_IDR) Interrupt Disable Register Offset */
-#define QSPI_IMR_REG_OFST              (0x1C)              /**< (QSPI_IMR) Interrupt Mask Register Offset */
-#define QSPI_SCR_REG_OFST              (0x20)              /**< (QSPI_SCR) Serial Clock Register Offset */
-#define QSPI_IAR_REG_OFST              (0x30)              /**< (QSPI_IAR) Instruction Address Register Offset */
-#define QSPI_ICR_REG_OFST              (0x34)              /**< (QSPI_ICR) Instruction Code Register Offset */
-#define QSPI_IFR_REG_OFST              (0x38)              /**< (QSPI_IFR) Instruction Frame Register Offset */
-#define QSPI_SMR_REG_OFST              (0x40)              /**< (QSPI_SMR) Scrambling Mode Register Offset */
-#define QSPI_SKR_REG_OFST              (0x44)              /**< (QSPI_SKR) Scrambling Key Register Offset */
-#define QSPI_WPMR_REG_OFST             (0xE4)              /**< (QSPI_WPMR) Write Protection Mode Register Offset */
-#define QSPI_WPSR_REG_OFST             (0xE8)              /**< (QSPI_WPSR) Write Protection Status Register Offset */
+#define QSPI_CR_REG_OFST               (0x00)              /* (QSPI_CR) Control Register Offset */
+#define QSPI_MR_REG_OFST               (0x04)              /* (QSPI_MR) Mode Register Offset */
+#define QSPI_RDR_REG_OFST              (0x08)              /* (QSPI_RDR) Receive Data Register Offset */
+#define QSPI_TDR_REG_OFST              (0x0C)              /* (QSPI_TDR) Transmit Data Register Offset */
+#define QSPI_SR_REG_OFST               (0x10)              /* (QSPI_SR) Status Register Offset */
+#define QSPI_IER_REG_OFST              (0x14)              /* (QSPI_IER) Interrupt Enable Register Offset */
+#define QSPI_IDR_REG_OFST              (0x18)              /* (QSPI_IDR) Interrupt Disable Register Offset */
+#define QSPI_IMR_REG_OFST              (0x1C)              /* (QSPI_IMR) Interrupt Mask Register Offset */
+#define QSPI_SCR_REG_OFST              (0x20)              /* (QSPI_SCR) Serial Clock Register Offset */
+#define QSPI_IAR_REG_OFST              (0x30)              /* (QSPI_IAR) Instruction Address Register Offset */
+#define QSPI_ICR_REG_OFST              (0x34)              /* (QSPI_ICR) Instruction Code Register Offset */
+#define QSPI_IFR_REG_OFST              (0x38)              /* (QSPI_IFR) Instruction Frame Register Offset */
+#define QSPI_SMR_REG_OFST              (0x40)              /* (QSPI_SMR) Scrambling Mode Register Offset */
+#define QSPI_SKR_REG_OFST              (0x44)              /* (QSPI_SKR) Scrambling Key Register Offset */
+#define QSPI_WPMR_REG_OFST             (0xE4)              /* (QSPI_WPMR) Write Protection Mode Register Offset */
+#define QSPI_WPSR_REG_OFST             (0xE8)              /* (QSPI_WPSR) Write Protection Status Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief QSPI register API structure */

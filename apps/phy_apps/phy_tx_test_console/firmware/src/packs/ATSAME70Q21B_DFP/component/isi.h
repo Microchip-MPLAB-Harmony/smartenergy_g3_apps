@@ -1,7 +1,7 @@
 /*
  * Component description for ISI
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2021-12-23T09:59:43Z */
 #ifndef _SAME70_ISI_COMPONENT_H_
 #define _SAME70_ISI_COMPONENT_H_
 
@@ -480,31 +480,31 @@
 
 
 /** \brief ISI register offsets definitions */
-#define ISI_CFG1_REG_OFST              (0x00)              /**< (ISI_CFG1) ISI Configuration 1 Register Offset */
-#define ISI_CFG2_REG_OFST              (0x04)              /**< (ISI_CFG2) ISI Configuration 2 Register Offset */
-#define ISI_PSIZE_REG_OFST             (0x08)              /**< (ISI_PSIZE) ISI Preview Size Register Offset */
-#define ISI_PDECF_REG_OFST             (0x0C)              /**< (ISI_PDECF) ISI Preview Decimation Factor Register Offset */
-#define ISI_Y2R_SET0_REG_OFST          (0x10)              /**< (ISI_Y2R_SET0) ISI Color Space Conversion YCrCb To RGB Set 0 Register Offset */
-#define ISI_Y2R_SET1_REG_OFST          (0x14)              /**< (ISI_Y2R_SET1) ISI Color Space Conversion YCrCb To RGB Set 1 Register Offset */
-#define ISI_R2Y_SET0_REG_OFST          (0x18)              /**< (ISI_R2Y_SET0) ISI Color Space Conversion RGB To YCrCb Set 0 Register Offset */
-#define ISI_R2Y_SET1_REG_OFST          (0x1C)              /**< (ISI_R2Y_SET1) ISI Color Space Conversion RGB To YCrCb Set 1 Register Offset */
-#define ISI_R2Y_SET2_REG_OFST          (0x20)              /**< (ISI_R2Y_SET2) ISI Color Space Conversion RGB To YCrCb Set 2 Register Offset */
-#define ISI_CR_REG_OFST                (0x24)              /**< (ISI_CR) ISI Control Register Offset */
-#define ISI_SR_REG_OFST                (0x28)              /**< (ISI_SR) ISI Status Register Offset */
-#define ISI_IER_REG_OFST               (0x2C)              /**< (ISI_IER) ISI Interrupt Enable Register Offset */
-#define ISI_IDR_REG_OFST               (0x30)              /**< (ISI_IDR) ISI Interrupt Disable Register Offset */
-#define ISI_IMR_REG_OFST               (0x34)              /**< (ISI_IMR) ISI Interrupt Mask Register Offset */
-#define ISI_DMA_CHER_REG_OFST          (0x38)              /**< (ISI_DMA_CHER) DMA Channel Enable Register Offset */
-#define ISI_DMA_CHDR_REG_OFST          (0x3C)              /**< (ISI_DMA_CHDR) DMA Channel Disable Register Offset */
-#define ISI_DMA_CHSR_REG_OFST          (0x40)              /**< (ISI_DMA_CHSR) DMA Channel Status Register Offset */
-#define ISI_DMA_P_ADDR_REG_OFST        (0x44)              /**< (ISI_DMA_P_ADDR) DMA Preview Base Address Register Offset */
-#define ISI_DMA_P_CTRL_REG_OFST        (0x48)              /**< (ISI_DMA_P_CTRL) DMA Preview Control Register Offset */
-#define ISI_DMA_P_DSCR_REG_OFST        (0x4C)              /**< (ISI_DMA_P_DSCR) DMA Preview Descriptor Address Register Offset */
-#define ISI_DMA_C_ADDR_REG_OFST        (0x50)              /**< (ISI_DMA_C_ADDR) DMA Codec Base Address Register Offset */
-#define ISI_DMA_C_CTRL_REG_OFST        (0x54)              /**< (ISI_DMA_C_CTRL) DMA Codec Control Register Offset */
-#define ISI_DMA_C_DSCR_REG_OFST        (0x58)              /**< (ISI_DMA_C_DSCR) DMA Codec Descriptor Address Register Offset */
-#define ISI_WPMR_REG_OFST              (0xE4)              /**< (ISI_WPMR) Write Protection Mode Register Offset */
-#define ISI_WPSR_REG_OFST              (0xE8)              /**< (ISI_WPSR) Write Protection Status Register Offset */
+#define ISI_CFG1_REG_OFST              (0x00)              /* (ISI_CFG1) ISI Configuration 1 Register Offset */
+#define ISI_CFG2_REG_OFST              (0x04)              /* (ISI_CFG2) ISI Configuration 2 Register Offset */
+#define ISI_PSIZE_REG_OFST             (0x08)              /* (ISI_PSIZE) ISI Preview Size Register Offset */
+#define ISI_PDECF_REG_OFST             (0x0C)              /* (ISI_PDECF) ISI Preview Decimation Factor Register Offset */
+#define ISI_Y2R_SET0_REG_OFST          (0x10)              /* (ISI_Y2R_SET0) ISI Color Space Conversion YCrCb To RGB Set 0 Register Offset */
+#define ISI_Y2R_SET1_REG_OFST          (0x14)              /* (ISI_Y2R_SET1) ISI Color Space Conversion YCrCb To RGB Set 1 Register Offset */
+#define ISI_R2Y_SET0_REG_OFST          (0x18)              /* (ISI_R2Y_SET0) ISI Color Space Conversion RGB To YCrCb Set 0 Register Offset */
+#define ISI_R2Y_SET1_REG_OFST          (0x1C)              /* (ISI_R2Y_SET1) ISI Color Space Conversion RGB To YCrCb Set 1 Register Offset */
+#define ISI_R2Y_SET2_REG_OFST          (0x20)              /* (ISI_R2Y_SET2) ISI Color Space Conversion RGB To YCrCb Set 2 Register Offset */
+#define ISI_CR_REG_OFST                (0x24)              /* (ISI_CR) ISI Control Register Offset */
+#define ISI_SR_REG_OFST                (0x28)              /* (ISI_SR) ISI Status Register Offset */
+#define ISI_IER_REG_OFST               (0x2C)              /* (ISI_IER) ISI Interrupt Enable Register Offset */
+#define ISI_IDR_REG_OFST               (0x30)              /* (ISI_IDR) ISI Interrupt Disable Register Offset */
+#define ISI_IMR_REG_OFST               (0x34)              /* (ISI_IMR) ISI Interrupt Mask Register Offset */
+#define ISI_DMA_CHER_REG_OFST          (0x38)              /* (ISI_DMA_CHER) DMA Channel Enable Register Offset */
+#define ISI_DMA_CHDR_REG_OFST          (0x3C)              /* (ISI_DMA_CHDR) DMA Channel Disable Register Offset */
+#define ISI_DMA_CHSR_REG_OFST          (0x40)              /* (ISI_DMA_CHSR) DMA Channel Status Register Offset */
+#define ISI_DMA_P_ADDR_REG_OFST        (0x44)              /* (ISI_DMA_P_ADDR) DMA Preview Base Address Register Offset */
+#define ISI_DMA_P_CTRL_REG_OFST        (0x48)              /* (ISI_DMA_P_CTRL) DMA Preview Control Register Offset */
+#define ISI_DMA_P_DSCR_REG_OFST        (0x4C)              /* (ISI_DMA_P_DSCR) DMA Preview Descriptor Address Register Offset */
+#define ISI_DMA_C_ADDR_REG_OFST        (0x50)              /* (ISI_DMA_C_ADDR) DMA Codec Base Address Register Offset */
+#define ISI_DMA_C_CTRL_REG_OFST        (0x54)              /* (ISI_DMA_C_CTRL) DMA Codec Control Register Offset */
+#define ISI_DMA_C_DSCR_REG_OFST        (0x58)              /* (ISI_DMA_C_DSCR) DMA Codec Descriptor Address Register Offset */
+#define ISI_WPMR_REG_OFST              (0xE4)              /* (ISI_WPMR) Write Protection Mode Register Offset */
+#define ISI_WPSR_REG_OFST              (0xE8)              /* (ISI_WPSR) Write Protection Status Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief ISI register API structure */

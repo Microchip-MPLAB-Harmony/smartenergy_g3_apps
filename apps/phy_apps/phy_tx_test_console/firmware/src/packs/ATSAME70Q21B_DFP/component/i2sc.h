@@ -1,7 +1,7 @@
 /*
  * Component description for I2SC
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2021-12-23T09:59:43Z */
 #ifndef _SAME70_I2SC_COMPONENT_H_
 #define _SAME70_I2SC_COMPONENT_H_
 
@@ -260,16 +260,16 @@
 
 
 /** \brief I2SC register offsets definitions */
-#define I2SC_CR_REG_OFST               (0x00)              /**< (I2SC_CR) Control Register Offset */
-#define I2SC_MR_REG_OFST               (0x04)              /**< (I2SC_MR) Mode Register Offset */
-#define I2SC_SR_REG_OFST               (0x08)              /**< (I2SC_SR) Status Register Offset */
-#define I2SC_SCR_REG_OFST              (0x0C)              /**< (I2SC_SCR) Status Clear Register Offset */
-#define I2SC_SSR_REG_OFST              (0x10)              /**< (I2SC_SSR) Status Set Register Offset */
-#define I2SC_IER_REG_OFST              (0x14)              /**< (I2SC_IER) Interrupt Enable Register Offset */
-#define I2SC_IDR_REG_OFST              (0x18)              /**< (I2SC_IDR) Interrupt Disable Register Offset */
-#define I2SC_IMR_REG_OFST              (0x1C)              /**< (I2SC_IMR) Interrupt Mask Register Offset */
-#define I2SC_RHR_REG_OFST              (0x20)              /**< (I2SC_RHR) Receiver Holding Register Offset */
-#define I2SC_THR_REG_OFST              (0x24)              /**< (I2SC_THR) Transmitter Holding Register Offset */
+#define I2SC_CR_REG_OFST               (0x00)              /* (I2SC_CR) Control Register Offset */
+#define I2SC_MR_REG_OFST               (0x04)              /* (I2SC_MR) Mode Register Offset */
+#define I2SC_SR_REG_OFST               (0x08)              /* (I2SC_SR) Status Register Offset */
+#define I2SC_SCR_REG_OFST              (0x0C)              /* (I2SC_SCR) Status Clear Register Offset */
+#define I2SC_SSR_REG_OFST              (0x10)              /* (I2SC_SSR) Status Set Register Offset */
+#define I2SC_IER_REG_OFST              (0x14)              /* (I2SC_IER) Interrupt Enable Register Offset */
+#define I2SC_IDR_REG_OFST              (0x18)              /* (I2SC_IDR) Interrupt Disable Register Offset */
+#define I2SC_IMR_REG_OFST              (0x1C)              /* (I2SC_IMR) Interrupt Mask Register Offset */
+#define I2SC_RHR_REG_OFST              (0x20)              /* (I2SC_RHR) Receiver Holding Register Offset */
+#define I2SC_THR_REG_OFST              (0x24)              /* (I2SC_THR) Transmitter Holding Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief I2SC register API structure */

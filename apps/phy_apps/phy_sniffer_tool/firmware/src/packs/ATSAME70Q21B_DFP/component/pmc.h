@@ -1,7 +1,7 @@
 /*
  * Component description for PMC
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2021-12-23T09:59:43Z */
 #ifndef _SAME70_PMC_COMPONENT_H_
 #define _SAME70_PMC_COMPONENT_H_
 
@@ -1890,51 +1890,51 @@
 
 
 /** \brief PMC register offsets definitions */
-#define PMC_SCER_REG_OFST              (0x00)              /**< (PMC_SCER) System Clock Enable Register Offset */
-#define PMC_SCDR_REG_OFST              (0x04)              /**< (PMC_SCDR) System Clock Disable Register Offset */
-#define PMC_SCSR_REG_OFST              (0x08)              /**< (PMC_SCSR) System Clock Status Register Offset */
-#define PMC_PCER0_REG_OFST             (0x10)              /**< (PMC_PCER0) Peripheral Clock Enable Register 0 Offset */
-#define PMC_PCDR0_REG_OFST             (0x14)              /**< (PMC_PCDR0) Peripheral Clock Disable Register 0 Offset */
-#define PMC_PCSR0_REG_OFST             (0x18)              /**< (PMC_PCSR0) Peripheral Clock Status Register 0 Offset */
-#define CKGR_UCKR_REG_OFST             (0x1C)              /**< (CKGR_UCKR) UTMI Clock Register Offset */
-#define CKGR_MOR_REG_OFST              (0x20)              /**< (CKGR_MOR) Main Oscillator Register Offset */
-#define CKGR_MCFR_REG_OFST             (0x24)              /**< (CKGR_MCFR) Main Clock Frequency Register Offset */
-#define CKGR_PLLAR_REG_OFST            (0x28)              /**< (CKGR_PLLAR) PLLA Register Offset */
-#define PMC_MCKR_REG_OFST              (0x30)              /**< (PMC_MCKR) Master Clock Register Offset */
-#define PMC_USB_REG_OFST               (0x38)              /**< (PMC_USB) USB Clock Register Offset */
-#define PMC_PCK_REG_OFST               (0x40)              /**< (PMC_PCK) Programmable Clock Register Offset */
-#define PMC_PCK0_REG_OFST              (0x40)              /**< (PMC_PCK0) Programmable Clock Register Offset */
-#define PMC_PCK1_REG_OFST              (0x44)              /**< (PMC_PCK1) Programmable Clock Register Offset */
-#define PMC_PCK2_REG_OFST              (0x48)              /**< (PMC_PCK2) Programmable Clock Register Offset */
-#define PMC_PCK3_REG_OFST              (0x4C)              /**< (PMC_PCK3) Programmable Clock Register Offset */
-#define PMC_PCK4_REG_OFST              (0x50)              /**< (PMC_PCK4) Programmable Clock Register Offset */
-#define PMC_PCK5_REG_OFST              (0x54)              /**< (PMC_PCK5) Programmable Clock Register Offset */
-#define PMC_PCK6_REG_OFST              (0x58)              /**< (PMC_PCK6) Programmable Clock Register Offset */
-#define PMC_PCK7_REG_OFST              (0x5C)              /**< (PMC_PCK7) Programmable Clock Register Offset */
-#define PMC_IER_REG_OFST               (0x60)              /**< (PMC_IER) Interrupt Enable Register Offset */
-#define PMC_IDR_REG_OFST               (0x64)              /**< (PMC_IDR) Interrupt Disable Register Offset */
-#define PMC_SR_REG_OFST                (0x68)              /**< (PMC_SR) Status Register Offset */
-#define PMC_IMR_REG_OFST               (0x6C)              /**< (PMC_IMR) Interrupt Mask Register Offset */
-#define PMC_FSMR_REG_OFST              (0x70)              /**< (PMC_FSMR) Fast Startup Mode Register Offset */
-#define PMC_FSPR_REG_OFST              (0x74)              /**< (PMC_FSPR) Fast Startup Polarity Register Offset */
-#define PMC_FOCR_REG_OFST              (0x78)              /**< (PMC_FOCR) Fault Output Clear Register Offset */
-#define PMC_WPMR_REG_OFST              (0xE4)              /**< (PMC_WPMR) Write Protection Mode Register Offset */
-#define PMC_WPSR_REG_OFST              (0xE8)              /**< (PMC_WPSR) Write Protection Status Register Offset */
-#define PMC_PCER1_REG_OFST             (0x100)             /**< (PMC_PCER1) Peripheral Clock Enable Register 1 Offset */
-#define PMC_PCDR1_REG_OFST             (0x104)             /**< (PMC_PCDR1) Peripheral Clock Disable Register 1 Offset */
-#define PMC_PCSR1_REG_OFST             (0x108)             /**< (PMC_PCSR1) Peripheral Clock Status Register 1 Offset */
-#define PMC_PCR_REG_OFST               (0x10C)             /**< (PMC_PCR) Peripheral Control Register Offset */
-#define PMC_OCR_REG_OFST               (0x110)             /**< (PMC_OCR) Oscillator Calibration Register Offset */
-#define PMC_SLPWK_ER0_REG_OFST         (0x114)             /**< (PMC_SLPWK_ER0) SleepWalking Enable Register 0 Offset */
-#define PMC_SLPWK_DR0_REG_OFST         (0x118)             /**< (PMC_SLPWK_DR0) SleepWalking Disable Register 0 Offset */
-#define PMC_SLPWK_SR0_REG_OFST         (0x11C)             /**< (PMC_SLPWK_SR0) SleepWalking Status Register 0 Offset */
-#define PMC_SLPWK_ASR0_REG_OFST        (0x120)             /**< (PMC_SLPWK_ASR0) SleepWalking Activity Status Register 0 Offset */
-#define PMC_PMMR_REG_OFST              (0x130)             /**< (PMC_PMMR) PLL Maximum Multiplier Value Register Offset */
-#define PMC_SLPWK_ER1_REG_OFST         (0x134)             /**< (PMC_SLPWK_ER1) SleepWalking Enable Register 1 Offset */
-#define PMC_SLPWK_DR1_REG_OFST         (0x138)             /**< (PMC_SLPWK_DR1) SleepWalking Disable Register 1 Offset */
-#define PMC_SLPWK_SR1_REG_OFST         (0x13C)             /**< (PMC_SLPWK_SR1) SleepWalking Status Register 1 Offset */
-#define PMC_SLPWK_ASR1_REG_OFST        (0x140)             /**< (PMC_SLPWK_ASR1) SleepWalking Activity Status Register 1 Offset */
-#define PMC_SLPWK_AIPR_REG_OFST        (0x144)             /**< (PMC_SLPWK_AIPR) SleepWalking Activity In Progress Register Offset */
+#define PMC_SCER_REG_OFST              (0x00)              /* (PMC_SCER) System Clock Enable Register Offset */
+#define PMC_SCDR_REG_OFST              (0x04)              /* (PMC_SCDR) System Clock Disable Register Offset */
+#define PMC_SCSR_REG_OFST              (0x08)              /* (PMC_SCSR) System Clock Status Register Offset */
+#define PMC_PCER0_REG_OFST             (0x10)              /* (PMC_PCER0) Peripheral Clock Enable Register 0 Offset */
+#define PMC_PCDR0_REG_OFST             (0x14)              /* (PMC_PCDR0) Peripheral Clock Disable Register 0 Offset */
+#define PMC_PCSR0_REG_OFST             (0x18)              /* (PMC_PCSR0) Peripheral Clock Status Register 0 Offset */
+#define CKGR_UCKR_REG_OFST             (0x1C)              /* (CKGR_UCKR) UTMI Clock Register Offset */
+#define CKGR_MOR_REG_OFST              (0x20)              /* (CKGR_MOR) Main Oscillator Register Offset */
+#define CKGR_MCFR_REG_OFST             (0x24)              /* (CKGR_MCFR) Main Clock Frequency Register Offset */
+#define CKGR_PLLAR_REG_OFST            (0x28)              /* (CKGR_PLLAR) PLLA Register Offset */
+#define PMC_MCKR_REG_OFST              (0x30)              /* (PMC_MCKR) Master Clock Register Offset */
+#define PMC_USB_REG_OFST               (0x38)              /* (PMC_USB) USB Clock Register Offset */
+#define PMC_PCK_REG_OFST               (0x40)              /* (PMC_PCK) Programmable Clock Register Offset */
+#define PMC_PCK0_REG_OFST              (0x40)              /* (PMC_PCK0) Programmable Clock Register Offset */
+#define PMC_PCK1_REG_OFST              (0x44)              /* (PMC_PCK1) Programmable Clock Register Offset */
+#define PMC_PCK2_REG_OFST              (0x48)              /* (PMC_PCK2) Programmable Clock Register Offset */
+#define PMC_PCK3_REG_OFST              (0x4C)              /* (PMC_PCK3) Programmable Clock Register Offset */
+#define PMC_PCK4_REG_OFST              (0x50)              /* (PMC_PCK4) Programmable Clock Register Offset */
+#define PMC_PCK5_REG_OFST              (0x54)              /* (PMC_PCK5) Programmable Clock Register Offset */
+#define PMC_PCK6_REG_OFST              (0x58)              /* (PMC_PCK6) Programmable Clock Register Offset */
+#define PMC_PCK7_REG_OFST              (0x5C)              /* (PMC_PCK7) Programmable Clock Register Offset */
+#define PMC_IER_REG_OFST               (0x60)              /* (PMC_IER) Interrupt Enable Register Offset */
+#define PMC_IDR_REG_OFST               (0x64)              /* (PMC_IDR) Interrupt Disable Register Offset */
+#define PMC_SR_REG_OFST                (0x68)              /* (PMC_SR) Status Register Offset */
+#define PMC_IMR_REG_OFST               (0x6C)              /* (PMC_IMR) Interrupt Mask Register Offset */
+#define PMC_FSMR_REG_OFST              (0x70)              /* (PMC_FSMR) Fast Startup Mode Register Offset */
+#define PMC_FSPR_REG_OFST              (0x74)              /* (PMC_FSPR) Fast Startup Polarity Register Offset */
+#define PMC_FOCR_REG_OFST              (0x78)              /* (PMC_FOCR) Fault Output Clear Register Offset */
+#define PMC_WPMR_REG_OFST              (0xE4)              /* (PMC_WPMR) Write Protection Mode Register Offset */
+#define PMC_WPSR_REG_OFST              (0xE8)              /* (PMC_WPSR) Write Protection Status Register Offset */
+#define PMC_PCER1_REG_OFST             (0x100)             /* (PMC_PCER1) Peripheral Clock Enable Register 1 Offset */
+#define PMC_PCDR1_REG_OFST             (0x104)             /* (PMC_PCDR1) Peripheral Clock Disable Register 1 Offset */
+#define PMC_PCSR1_REG_OFST             (0x108)             /* (PMC_PCSR1) Peripheral Clock Status Register 1 Offset */
+#define PMC_PCR_REG_OFST               (0x10C)             /* (PMC_PCR) Peripheral Control Register Offset */
+#define PMC_OCR_REG_OFST               (0x110)             /* (PMC_OCR) Oscillator Calibration Register Offset */
+#define PMC_SLPWK_ER0_REG_OFST         (0x114)             /* (PMC_SLPWK_ER0) SleepWalking Enable Register 0 Offset */
+#define PMC_SLPWK_DR0_REG_OFST         (0x118)             /* (PMC_SLPWK_DR0) SleepWalking Disable Register 0 Offset */
+#define PMC_SLPWK_SR0_REG_OFST         (0x11C)             /* (PMC_SLPWK_SR0) SleepWalking Status Register 0 Offset */
+#define PMC_SLPWK_ASR0_REG_OFST        (0x120)             /* (PMC_SLPWK_ASR0) SleepWalking Activity Status Register 0 Offset */
+#define PMC_PMMR_REG_OFST              (0x130)             /* (PMC_PMMR) PLL Maximum Multiplier Value Register Offset */
+#define PMC_SLPWK_ER1_REG_OFST         (0x134)             /* (PMC_SLPWK_ER1) SleepWalking Enable Register 1 Offset */
+#define PMC_SLPWK_DR1_REG_OFST         (0x138)             /* (PMC_SLPWK_DR1) SleepWalking Disable Register 1 Offset */
+#define PMC_SLPWK_SR1_REG_OFST         (0x13C)             /* (PMC_SLPWK_SR1) SleepWalking Status Register 1 Offset */
+#define PMC_SLPWK_ASR1_REG_OFST        (0x140)             /* (PMC_SLPWK_ASR1) SleepWalking Activity Status Register 1 Offset */
+#define PMC_SLPWK_AIPR_REG_OFST        (0x144)             /* (PMC_SLPWK_AIPR) SleepWalking Activity In Progress Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief PMC register API structure */

@@ -1,7 +1,7 @@
 /*
  * Component description for TC
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2021-12-23T09:59:43Z */
 #ifndef _SAME70_TC_COMPONENT_H_
 #define _SAME70_TC_COMPONENT_H_
 
@@ -632,27 +632,27 @@
 
 
 /** \brief TC register offsets definitions */
-#define TC_CCR_REG_OFST                (0x00)              /**< (TC_CCR) Channel Control Register (channel = 0) Offset */
-#define TC_CMR_REG_OFST                (0x04)              /**< (TC_CMR) Channel Mode Register (channel = 0) Offset */
-#define TC_SMMR_REG_OFST               (0x08)              /**< (TC_SMMR) Stepper Motor Mode Register (channel = 0) Offset */
-#define TC_RAB_REG_OFST                (0x0C)              /**< (TC_RAB) Register AB (channel = 0) Offset */
-#define TC_CV_REG_OFST                 (0x10)              /**< (TC_CV) Counter Value (channel = 0) Offset */
-#define TC_RA_REG_OFST                 (0x14)              /**< (TC_RA) Register A (channel = 0) Offset */
-#define TC_RB_REG_OFST                 (0x18)              /**< (TC_RB) Register B (channel = 0) Offset */
-#define TC_RC_REG_OFST                 (0x1C)              /**< (TC_RC) Register C (channel = 0) Offset */
-#define TC_SR_REG_OFST                 (0x20)              /**< (TC_SR) Status Register (channel = 0) Offset */
-#define TC_IER_REG_OFST                (0x24)              /**< (TC_IER) Interrupt Enable Register (channel = 0) Offset */
-#define TC_IDR_REG_OFST                (0x28)              /**< (TC_IDR) Interrupt Disable Register (channel = 0) Offset */
-#define TC_IMR_REG_OFST                (0x2C)              /**< (TC_IMR) Interrupt Mask Register (channel = 0) Offset */
-#define TC_EMR_REG_OFST                (0x30)              /**< (TC_EMR) Extended Mode Register (channel = 0) Offset */
-#define TC_BCR_REG_OFST                (0xC0)              /**< (TC_BCR) Block Control Register Offset */
-#define TC_BMR_REG_OFST                (0xC4)              /**< (TC_BMR) Block Mode Register Offset */
-#define TC_QIER_REG_OFST               (0xC8)              /**< (TC_QIER) QDEC Interrupt Enable Register Offset */
-#define TC_QIDR_REG_OFST               (0xCC)              /**< (TC_QIDR) QDEC Interrupt Disable Register Offset */
-#define TC_QIMR_REG_OFST               (0xD0)              /**< (TC_QIMR) QDEC Interrupt Mask Register Offset */
-#define TC_QISR_REG_OFST               (0xD4)              /**< (TC_QISR) QDEC Interrupt Status Register Offset */
-#define TC_FMR_REG_OFST                (0xD8)              /**< (TC_FMR) Fault Mode Register Offset */
-#define TC_WPMR_REG_OFST               (0xE4)              /**< (TC_WPMR) Write Protection Mode Register Offset */
+#define TC_CCR_REG_OFST                (0x00)              /* (TC_CCR) Channel Control Register (channel = 0) Offset */
+#define TC_CMR_REG_OFST                (0x04)              /* (TC_CMR) Channel Mode Register (channel = 0) Offset */
+#define TC_SMMR_REG_OFST               (0x08)              /* (TC_SMMR) Stepper Motor Mode Register (channel = 0) Offset */
+#define TC_RAB_REG_OFST                (0x0C)              /* (TC_RAB) Register AB (channel = 0) Offset */
+#define TC_CV_REG_OFST                 (0x10)              /* (TC_CV) Counter Value (channel = 0) Offset */
+#define TC_RA_REG_OFST                 (0x14)              /* (TC_RA) Register A (channel = 0) Offset */
+#define TC_RB_REG_OFST                 (0x18)              /* (TC_RB) Register B (channel = 0) Offset */
+#define TC_RC_REG_OFST                 (0x1C)              /* (TC_RC) Register C (channel = 0) Offset */
+#define TC_SR_REG_OFST                 (0x20)              /* (TC_SR) Status Register (channel = 0) Offset */
+#define TC_IER_REG_OFST                (0x24)              /* (TC_IER) Interrupt Enable Register (channel = 0) Offset */
+#define TC_IDR_REG_OFST                (0x28)              /* (TC_IDR) Interrupt Disable Register (channel = 0) Offset */
+#define TC_IMR_REG_OFST                (0x2C)              /* (TC_IMR) Interrupt Mask Register (channel = 0) Offset */
+#define TC_EMR_REG_OFST                (0x30)              /* (TC_EMR) Extended Mode Register (channel = 0) Offset */
+#define TC_BCR_REG_OFST                (0xC0)              /* (TC_BCR) Block Control Register Offset */
+#define TC_BMR_REG_OFST                (0xC4)              /* (TC_BMR) Block Mode Register Offset */
+#define TC_QIER_REG_OFST               (0xC8)              /* (TC_QIER) QDEC Interrupt Enable Register Offset */
+#define TC_QIDR_REG_OFST               (0xCC)              /* (TC_QIDR) QDEC Interrupt Disable Register Offset */
+#define TC_QIMR_REG_OFST               (0xD0)              /* (TC_QIMR) QDEC Interrupt Mask Register Offset */
+#define TC_QISR_REG_OFST               (0xD4)              /* (TC_QISR) QDEC Interrupt Status Register Offset */
+#define TC_FMR_REG_OFST                (0xD8)              /* (TC_FMR) Fault Mode Register Offset */
+#define TC_WPMR_REG_OFST               (0xE4)              /* (TC_WPMR) Write Protection Mode Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief TC_CHANNEL register API structure */

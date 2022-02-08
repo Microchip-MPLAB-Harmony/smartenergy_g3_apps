@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------------------
  * MPLAB XC32 Compiler -  ATSAME70Q21B linker script
  * 
- * Copyright (c) 2021, Microchip Technology Inc. and its subsidiaries ("Microchip")
+ * Copyright (c) 2022, Microchip Technology Inc. and its subsidiaries ("Microchip")
  * All rights reserved.
  * 
  * This software is developed by Microchip Technology Inc. and its
@@ -99,6 +99,7 @@ ENTRY(__XC32_RESET_HANDLER_NAME)
 #  undef __XC32_DTCM_LENGTH
 #  define __XC32_DTCM_LENGTH 0x20000
 #endif
+
 
 
 /*************************************************************************

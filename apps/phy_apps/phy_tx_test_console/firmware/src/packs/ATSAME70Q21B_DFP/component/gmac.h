@@ -1,7 +1,7 @@
 /*
  * Component description for GMAC
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2021-12-23T09:59:43Z */
 #ifndef _SAME70_GMAC_COMPONENT_H_
 #define _SAME70_GMAC_COMPONENT_H_
 
@@ -1557,175 +1557,175 @@
 
 
 /** \brief GMAC register offsets definitions */
-#define GMAC_SAB_REG_OFST              (0x00)              /**< (GMAC_SAB) Specific Address 1 Bottom Register Offset */
-#define GMAC_SAT_REG_OFST              (0x04)              /**< (GMAC_SAT) Specific Address 1 Top Register Offset */
-#define GMAC_ST2CW0_REG_OFST           (0x00)              /**< (GMAC_ST2CW0) Screening Type 2 Compare Word 0 Register Offset */
-#define GMAC_ST2CW1_REG_OFST           (0x04)              /**< (GMAC_ST2CW1) Screening Type 2 Compare Word 1 Register Offset */
-#define GMAC_NCR_REG_OFST              (0x00)              /**< (GMAC_NCR) Network Control Register Offset */
-#define GMAC_NCFGR_REG_OFST            (0x04)              /**< (GMAC_NCFGR) Network Configuration Register Offset */
-#define GMAC_NSR_REG_OFST              (0x08)              /**< (GMAC_NSR) Network Status Register Offset */
-#define GMAC_UR_REG_OFST               (0x0C)              /**< (GMAC_UR) User Register Offset */
-#define GMAC_DCFGR_REG_OFST            (0x10)              /**< (GMAC_DCFGR) DMA Configuration Register Offset */
-#define GMAC_TSR_REG_OFST              (0x14)              /**< (GMAC_TSR) Transmit Status Register Offset */
-#define GMAC_RBQB_REG_OFST             (0x18)              /**< (GMAC_RBQB) Receive Buffer Queue Base Address Register Offset */
-#define GMAC_TBQB_REG_OFST             (0x1C)              /**< (GMAC_TBQB) Transmit Buffer Queue Base Address Register Offset */
-#define GMAC_RSR_REG_OFST              (0x20)              /**< (GMAC_RSR) Receive Status Register Offset */
-#define GMAC_ISR_REG_OFST              (0x24)              /**< (GMAC_ISR) Interrupt Status Register Offset */
-#define GMAC_IER_REG_OFST              (0x28)              /**< (GMAC_IER) Interrupt Enable Register Offset */
-#define GMAC_IDR_REG_OFST              (0x2C)              /**< (GMAC_IDR) Interrupt Disable Register Offset */
-#define GMAC_IMR_REG_OFST              (0x30)              /**< (GMAC_IMR) Interrupt Mask Register Offset */
-#define GMAC_MAN_REG_OFST              (0x34)              /**< (GMAC_MAN) PHY Maintenance Register Offset */
-#define GMAC_RPQ_REG_OFST              (0x38)              /**< (GMAC_RPQ) Received Pause Quantum Register Offset */
-#define GMAC_TPQ_REG_OFST              (0x3C)              /**< (GMAC_TPQ) Transmit Pause Quantum Register Offset */
-#define GMAC_TPSF_REG_OFST             (0x40)              /**< (GMAC_TPSF) TX Partial Store and Forward Register Offset */
-#define GMAC_RPSF_REG_OFST             (0x44)              /**< (GMAC_RPSF) RX Partial Store and Forward Register Offset */
-#define GMAC_RJFML_REG_OFST            (0x48)              /**< (GMAC_RJFML) RX Jumbo Frame Max Length Register Offset */
-#define GMAC_HRB_REG_OFST              (0x80)              /**< (GMAC_HRB) Hash Register Bottom Offset */
-#define GMAC_HRT_REG_OFST              (0x84)              /**< (GMAC_HRT) Hash Register Top Offset */
-#define GMAC_TIDM1_REG_OFST            (0xA8)              /**< (GMAC_TIDM1) Type ID Match 1 Register Offset */
-#define GMAC_TIDM2_REG_OFST            (0xAC)              /**< (GMAC_TIDM2) Type ID Match 2 Register Offset */
-#define GMAC_TIDM3_REG_OFST            (0xB0)              /**< (GMAC_TIDM3) Type ID Match 3 Register Offset */
-#define GMAC_TIDM4_REG_OFST            (0xB4)              /**< (GMAC_TIDM4) Type ID Match 4 Register Offset */
-#define GMAC_WOL_REG_OFST              (0xB8)              /**< (GMAC_WOL) Wake on LAN Register Offset */
-#define GMAC_IPGS_REG_OFST             (0xBC)              /**< (GMAC_IPGS) IPG Stretch Register Offset */
-#define GMAC_SVLAN_REG_OFST            (0xC0)              /**< (GMAC_SVLAN) Stacked VLAN Register Offset */
-#define GMAC_TPFCP_REG_OFST            (0xC4)              /**< (GMAC_TPFCP) Transmit PFC Pause Register Offset */
-#define GMAC_SAMB1_REG_OFST            (0xC8)              /**< (GMAC_SAMB1) Specific Address 1 Mask Bottom Register Offset */
-#define GMAC_SAMT1_REG_OFST            (0xCC)              /**< (GMAC_SAMT1) Specific Address 1 Mask Top Register Offset */
-#define GMAC_NSC_REG_OFST              (0xDC)              /**< (GMAC_NSC) 1588 Timer Nanosecond Comparison Register Offset */
-#define GMAC_SCL_REG_OFST              (0xE0)              /**< (GMAC_SCL) 1588 Timer Second Comparison Low Register Offset */
-#define GMAC_SCH_REG_OFST              (0xE4)              /**< (GMAC_SCH) 1588 Timer Second Comparison High Register Offset */
-#define GMAC_EFTSH_REG_OFST            (0xE8)              /**< (GMAC_EFTSH) PTP Event Frame Transmitted Seconds High Register Offset */
-#define GMAC_EFRSH_REG_OFST            (0xEC)              /**< (GMAC_EFRSH) PTP Event Frame Received Seconds High Register Offset */
-#define GMAC_PEFTSH_REG_OFST           (0xF0)              /**< (GMAC_PEFTSH) PTP Peer Event Frame Transmitted Seconds High Register Offset */
-#define GMAC_PEFRSH_REG_OFST           (0xF4)              /**< (GMAC_PEFRSH) PTP Peer Event Frame Received Seconds High Register Offset */
-#define GMAC_OTLO_REG_OFST             (0x100)             /**< (GMAC_OTLO) Octets Transmitted Low Register Offset */
-#define GMAC_OTHI_REG_OFST             (0x104)             /**< (GMAC_OTHI) Octets Transmitted High Register Offset */
-#define GMAC_FT_REG_OFST               (0x108)             /**< (GMAC_FT) Frames Transmitted Register Offset */
-#define GMAC_BCFT_REG_OFST             (0x10C)             /**< (GMAC_BCFT) Broadcast Frames Transmitted Register Offset */
-#define GMAC_MFT_REG_OFST              (0x110)             /**< (GMAC_MFT) Multicast Frames Transmitted Register Offset */
-#define GMAC_PFT_REG_OFST              (0x114)             /**< (GMAC_PFT) Pause Frames Transmitted Register Offset */
-#define GMAC_BFT64_REG_OFST            (0x118)             /**< (GMAC_BFT64) 64 Byte Frames Transmitted Register Offset */
-#define GMAC_TBFT127_REG_OFST          (0x11C)             /**< (GMAC_TBFT127) 65 to 127 Byte Frames Transmitted Register Offset */
-#define GMAC_TBFT255_REG_OFST          (0x120)             /**< (GMAC_TBFT255) 128 to 255 Byte Frames Transmitted Register Offset */
-#define GMAC_TBFT511_REG_OFST          (0x124)             /**< (GMAC_TBFT511) 256 to 511 Byte Frames Transmitted Register Offset */
-#define GMAC_TBFT1023_REG_OFST         (0x128)             /**< (GMAC_TBFT1023) 512 to 1023 Byte Frames Transmitted Register Offset */
-#define GMAC_TBFT1518_REG_OFST         (0x12C)             /**< (GMAC_TBFT1518) 1024 to 1518 Byte Frames Transmitted Register Offset */
-#define GMAC_GTBFT1518_REG_OFST        (0x130)             /**< (GMAC_GTBFT1518) Greater Than 1518 Byte Frames Transmitted Register Offset */
-#define GMAC_TUR_REG_OFST              (0x134)             /**< (GMAC_TUR) Transmit Underruns Register Offset */
-#define GMAC_SCF_REG_OFST              (0x138)             /**< (GMAC_SCF) Single Collision Frames Register Offset */
-#define GMAC_MCF_REG_OFST              (0x13C)             /**< (GMAC_MCF) Multiple Collision Frames Register Offset */
-#define GMAC_EC_REG_OFST               (0x140)             /**< (GMAC_EC) Excessive Collisions Register Offset */
-#define GMAC_LC_REG_OFST               (0x144)             /**< (GMAC_LC) Late Collisions Register Offset */
-#define GMAC_DTF_REG_OFST              (0x148)             /**< (GMAC_DTF) Deferred Transmission Frames Register Offset */
-#define GMAC_CSE_REG_OFST              (0x14C)             /**< (GMAC_CSE) Carrier Sense Errors Register Offset */
-#define GMAC_ORLO_REG_OFST             (0x150)             /**< (GMAC_ORLO) Octets Received Low Received Register Offset */
-#define GMAC_ORHI_REG_OFST             (0x154)             /**< (GMAC_ORHI) Octets Received High Received Register Offset */
-#define GMAC_FR_REG_OFST               (0x158)             /**< (GMAC_FR) Frames Received Register Offset */
-#define GMAC_BCFR_REG_OFST             (0x15C)             /**< (GMAC_BCFR) Broadcast Frames Received Register Offset */
-#define GMAC_MFR_REG_OFST              (0x160)             /**< (GMAC_MFR) Multicast Frames Received Register Offset */
-#define GMAC_PFR_REG_OFST              (0x164)             /**< (GMAC_PFR) Pause Frames Received Register Offset */
-#define GMAC_BFR64_REG_OFST            (0x168)             /**< (GMAC_BFR64) 64 Byte Frames Received Register Offset */
-#define GMAC_TBFR127_REG_OFST          (0x16C)             /**< (GMAC_TBFR127) 65 to 127 Byte Frames Received Register Offset */
-#define GMAC_TBFR255_REG_OFST          (0x170)             /**< (GMAC_TBFR255) 128 to 255 Byte Frames Received Register Offset */
-#define GMAC_TBFR511_REG_OFST          (0x174)             /**< (GMAC_TBFR511) 256 to 511 Byte Frames Received Register Offset */
-#define GMAC_TBFR1023_REG_OFST         (0x178)             /**< (GMAC_TBFR1023) 512 to 1023 Byte Frames Received Register Offset */
-#define GMAC_TBFR1518_REG_OFST         (0x17C)             /**< (GMAC_TBFR1518) 1024 to 1518 Byte Frames Received Register Offset */
-#define GMAC_TMXBFR_REG_OFST           (0x180)             /**< (GMAC_TMXBFR) 1519 to Maximum Byte Frames Received Register Offset */
-#define GMAC_UFR_REG_OFST              (0x184)             /**< (GMAC_UFR) Undersize Frames Received Register Offset */
-#define GMAC_OFR_REG_OFST              (0x188)             /**< (GMAC_OFR) Oversize Frames Received Register Offset */
-#define GMAC_JR_REG_OFST               (0x18C)             /**< (GMAC_JR) Jabbers Received Register Offset */
-#define GMAC_FCSE_REG_OFST             (0x190)             /**< (GMAC_FCSE) Frame Check Sequence Errors Register Offset */
-#define GMAC_LFFE_REG_OFST             (0x194)             /**< (GMAC_LFFE) Length Field Frame Errors Register Offset */
-#define GMAC_RSE_REG_OFST              (0x198)             /**< (GMAC_RSE) Receive Symbol Errors Register Offset */
-#define GMAC_AE_REG_OFST               (0x19C)             /**< (GMAC_AE) Alignment Errors Register Offset */
-#define GMAC_RRE_REG_OFST              (0x1A0)             /**< (GMAC_RRE) Receive Resource Errors Register Offset */
-#define GMAC_ROE_REG_OFST              (0x1A4)             /**< (GMAC_ROE) Receive Overrun Register Offset */
-#define GMAC_IHCE_REG_OFST             (0x1A8)             /**< (GMAC_IHCE) IP Header Checksum Errors Register Offset */
-#define GMAC_TCE_REG_OFST              (0x1AC)             /**< (GMAC_TCE) TCP Checksum Errors Register Offset */
-#define GMAC_UCE_REG_OFST              (0x1B0)             /**< (GMAC_UCE) UDP Checksum Errors Register Offset */
-#define GMAC_TISUBN_REG_OFST           (0x1BC)             /**< (GMAC_TISUBN) 1588 Timer Increment Sub-nanoseconds Register Offset */
-#define GMAC_TSH_REG_OFST              (0x1C0)             /**< (GMAC_TSH) 1588 Timer Seconds High Register Offset */
-#define GMAC_TSL_REG_OFST              (0x1D0)             /**< (GMAC_TSL) 1588 Timer Seconds Low Register Offset */
-#define GMAC_TN_REG_OFST               (0x1D4)             /**< (GMAC_TN) 1588 Timer Nanoseconds Register Offset */
-#define GMAC_TA_REG_OFST               (0x1D8)             /**< (GMAC_TA) 1588 Timer Adjust Register Offset */
-#define GMAC_TI_REG_OFST               (0x1DC)             /**< (GMAC_TI) 1588 Timer Increment Register Offset */
-#define GMAC_EFTSL_REG_OFST            (0x1E0)             /**< (GMAC_EFTSL) PTP Event Frame Transmitted Seconds Low Register Offset */
-#define GMAC_EFTN_REG_OFST             (0x1E4)             /**< (GMAC_EFTN) PTP Event Frame Transmitted Nanoseconds Register Offset */
-#define GMAC_EFRSL_REG_OFST            (0x1E8)             /**< (GMAC_EFRSL) PTP Event Frame Received Seconds Low Register Offset */
-#define GMAC_EFRN_REG_OFST             (0x1EC)             /**< (GMAC_EFRN) PTP Event Frame Received Nanoseconds Register Offset */
-#define GMAC_PEFTSL_REG_OFST           (0x1F0)             /**< (GMAC_PEFTSL) PTP Peer Event Frame Transmitted Seconds Low Register Offset */
-#define GMAC_PEFTN_REG_OFST            (0x1F4)             /**< (GMAC_PEFTN) PTP Peer Event Frame Transmitted Nanoseconds Register Offset */
-#define GMAC_PEFRSL_REG_OFST           (0x1F8)             /**< (GMAC_PEFRSL) PTP Peer Event Frame Received Seconds Low Register Offset */
-#define GMAC_PEFRN_REG_OFST            (0x1FC)             /**< (GMAC_PEFRN) PTP Peer Event Frame Received Nanoseconds Register Offset */
-#define GMAC_RXLPI_REG_OFST            (0x270)             /**< (GMAC_RXLPI) Received LPI Transitions Offset */
-#define GMAC_RXLPITIME_REG_OFST        (0x274)             /**< (GMAC_RXLPITIME) Received LPI Time Offset */
-#define GMAC_TXLPI_REG_OFST            (0x278)             /**< (GMAC_TXLPI) Transmit LPI Transitions Offset */
-#define GMAC_TXLPITIME_REG_OFST        (0x27C)             /**< (GMAC_TXLPITIME) Transmit LPI Time Offset */
-#define GMAC_ISRPQ_REG_OFST            (0x400)             /**< (GMAC_ISRPQ) Interrupt Status Register Priority Queue (1..5) Offset */
-#define GMAC_ISRPQ0_REG_OFST           (0x400)             /**< (GMAC_ISRPQ0) Interrupt Status Register Priority Queue (1..5) Offset */
-#define GMAC_ISRPQ1_REG_OFST           (0x404)             /**< (GMAC_ISRPQ1) Interrupt Status Register Priority Queue (1..5) Offset */
-#define GMAC_ISRPQ2_REG_OFST           (0x408)             /**< (GMAC_ISRPQ2) Interrupt Status Register Priority Queue (1..5) Offset */
-#define GMAC_ISRPQ3_REG_OFST           (0x40C)             /**< (GMAC_ISRPQ3) Interrupt Status Register Priority Queue (1..5) Offset */
-#define GMAC_ISRPQ4_REG_OFST           (0x410)             /**< (GMAC_ISRPQ4) Interrupt Status Register Priority Queue (1..5) Offset */
-#define GMAC_TBQBAPQ_REG_OFST          (0x440)             /**< (GMAC_TBQBAPQ) Transmit Buffer Queue Base Address Register Priority Queue (1..5) Offset */
-#define GMAC_TBQBAPQ0_REG_OFST         (0x440)             /**< (GMAC_TBQBAPQ0) Transmit Buffer Queue Base Address Register Priority Queue (1..5) Offset */
-#define GMAC_TBQBAPQ1_REG_OFST         (0x444)             /**< (GMAC_TBQBAPQ1) Transmit Buffer Queue Base Address Register Priority Queue (1..5) Offset */
-#define GMAC_TBQBAPQ2_REG_OFST         (0x448)             /**< (GMAC_TBQBAPQ2) Transmit Buffer Queue Base Address Register Priority Queue (1..5) Offset */
-#define GMAC_TBQBAPQ3_REG_OFST         (0x44C)             /**< (GMAC_TBQBAPQ3) Transmit Buffer Queue Base Address Register Priority Queue (1..5) Offset */
-#define GMAC_TBQBAPQ4_REG_OFST         (0x450)             /**< (GMAC_TBQBAPQ4) Transmit Buffer Queue Base Address Register Priority Queue (1..5) Offset */
-#define GMAC_RBQBAPQ_REG_OFST          (0x480)             /**< (GMAC_RBQBAPQ) Receive Buffer Queue Base Address Register Priority Queue (1..5) Offset */
-#define GMAC_RBQBAPQ0_REG_OFST         (0x480)             /**< (GMAC_RBQBAPQ0) Receive Buffer Queue Base Address Register Priority Queue (1..5) Offset */
-#define GMAC_RBQBAPQ1_REG_OFST         (0x484)             /**< (GMAC_RBQBAPQ1) Receive Buffer Queue Base Address Register Priority Queue (1..5) Offset */
-#define GMAC_RBQBAPQ2_REG_OFST         (0x488)             /**< (GMAC_RBQBAPQ2) Receive Buffer Queue Base Address Register Priority Queue (1..5) Offset */
-#define GMAC_RBQBAPQ3_REG_OFST         (0x48C)             /**< (GMAC_RBQBAPQ3) Receive Buffer Queue Base Address Register Priority Queue (1..5) Offset */
-#define GMAC_RBQBAPQ4_REG_OFST         (0x490)             /**< (GMAC_RBQBAPQ4) Receive Buffer Queue Base Address Register Priority Queue (1..5) Offset */
-#define GMAC_RBSRPQ_REG_OFST           (0x4A0)             /**< (GMAC_RBSRPQ) Receive Buffer Size Register Priority Queue (1..5) Offset */
-#define GMAC_RBSRPQ0_REG_OFST          (0x4A0)             /**< (GMAC_RBSRPQ0) Receive Buffer Size Register Priority Queue (1..5) Offset */
-#define GMAC_RBSRPQ1_REG_OFST          (0x4A4)             /**< (GMAC_RBSRPQ1) Receive Buffer Size Register Priority Queue (1..5) Offset */
-#define GMAC_RBSRPQ2_REG_OFST          (0x4A8)             /**< (GMAC_RBSRPQ2) Receive Buffer Size Register Priority Queue (1..5) Offset */
-#define GMAC_RBSRPQ3_REG_OFST          (0x4AC)             /**< (GMAC_RBSRPQ3) Receive Buffer Size Register Priority Queue (1..5) Offset */
-#define GMAC_RBSRPQ4_REG_OFST          (0x4B0)             /**< (GMAC_RBSRPQ4) Receive Buffer Size Register Priority Queue (1..5) Offset */
-#define GMAC_CBSCR_REG_OFST            (0x4BC)             /**< (GMAC_CBSCR) Credit-Based Shaping Control Register Offset */
-#define GMAC_CBSISQA_REG_OFST          (0x4C0)             /**< (GMAC_CBSISQA) Credit-Based Shaping IdleSlope Register for Queue A Offset */
-#define GMAC_CBSISQB_REG_OFST          (0x4C4)             /**< (GMAC_CBSISQB) Credit-Based Shaping IdleSlope Register for Queue B Offset */
-#define GMAC_ST1RPQ_REG_OFST           (0x500)             /**< (GMAC_ST1RPQ) Screening Type 1 Register Priority Queue Offset */
-#define GMAC_ST1RPQ0_REG_OFST          (0x500)             /**< (GMAC_ST1RPQ0) Screening Type 1 Register Priority Queue Offset */
-#define GMAC_ST1RPQ1_REG_OFST          (0x504)             /**< (GMAC_ST1RPQ1) Screening Type 1 Register Priority Queue Offset */
-#define GMAC_ST1RPQ2_REG_OFST          (0x508)             /**< (GMAC_ST1RPQ2) Screening Type 1 Register Priority Queue Offset */
-#define GMAC_ST1RPQ3_REG_OFST          (0x50C)             /**< (GMAC_ST1RPQ3) Screening Type 1 Register Priority Queue Offset */
-#define GMAC_ST2RPQ_REG_OFST           (0x540)             /**< (GMAC_ST2RPQ) Screening Type 2 Register Priority Queue Offset */
-#define GMAC_ST2RPQ0_REG_OFST          (0x540)             /**< (GMAC_ST2RPQ0) Screening Type 2 Register Priority Queue Offset */
-#define GMAC_ST2RPQ1_REG_OFST          (0x544)             /**< (GMAC_ST2RPQ1) Screening Type 2 Register Priority Queue Offset */
-#define GMAC_ST2RPQ2_REG_OFST          (0x548)             /**< (GMAC_ST2RPQ2) Screening Type 2 Register Priority Queue Offset */
-#define GMAC_ST2RPQ3_REG_OFST          (0x54C)             /**< (GMAC_ST2RPQ3) Screening Type 2 Register Priority Queue Offset */
-#define GMAC_ST2RPQ4_REG_OFST          (0x550)             /**< (GMAC_ST2RPQ4) Screening Type 2 Register Priority Queue Offset */
-#define GMAC_ST2RPQ5_REG_OFST          (0x554)             /**< (GMAC_ST2RPQ5) Screening Type 2 Register Priority Queue Offset */
-#define GMAC_ST2RPQ6_REG_OFST          (0x558)             /**< (GMAC_ST2RPQ6) Screening Type 2 Register Priority Queue Offset */
-#define GMAC_ST2RPQ7_REG_OFST          (0x55C)             /**< (GMAC_ST2RPQ7) Screening Type 2 Register Priority Queue Offset */
-#define GMAC_IERPQ_REG_OFST            (0x600)             /**< (GMAC_IERPQ) Interrupt Enable Register Priority Queue (1..5) Offset */
-#define GMAC_IERPQ0_REG_OFST           (0x600)             /**< (GMAC_IERPQ0) Interrupt Enable Register Priority Queue (1..5) Offset */
-#define GMAC_IERPQ1_REG_OFST           (0x604)             /**< (GMAC_IERPQ1) Interrupt Enable Register Priority Queue (1..5) Offset */
-#define GMAC_IERPQ2_REG_OFST           (0x608)             /**< (GMAC_IERPQ2) Interrupt Enable Register Priority Queue (1..5) Offset */
-#define GMAC_IERPQ3_REG_OFST           (0x60C)             /**< (GMAC_IERPQ3) Interrupt Enable Register Priority Queue (1..5) Offset */
-#define GMAC_IERPQ4_REG_OFST           (0x610)             /**< (GMAC_IERPQ4) Interrupt Enable Register Priority Queue (1..5) Offset */
-#define GMAC_IDRPQ_REG_OFST            (0x620)             /**< (GMAC_IDRPQ) Interrupt Disable Register Priority Queue (1..5) Offset */
-#define GMAC_IDRPQ0_REG_OFST           (0x620)             /**< (GMAC_IDRPQ0) Interrupt Disable Register Priority Queue (1..5) Offset */
-#define GMAC_IDRPQ1_REG_OFST           (0x624)             /**< (GMAC_IDRPQ1) Interrupt Disable Register Priority Queue (1..5) Offset */
-#define GMAC_IDRPQ2_REG_OFST           (0x628)             /**< (GMAC_IDRPQ2) Interrupt Disable Register Priority Queue (1..5) Offset */
-#define GMAC_IDRPQ3_REG_OFST           (0x62C)             /**< (GMAC_IDRPQ3) Interrupt Disable Register Priority Queue (1..5) Offset */
-#define GMAC_IDRPQ4_REG_OFST           (0x630)             /**< (GMAC_IDRPQ4) Interrupt Disable Register Priority Queue (1..5) Offset */
-#define GMAC_IMRPQ_REG_OFST            (0x640)             /**< (GMAC_IMRPQ) Interrupt Mask Register Priority Queue (1..5) Offset */
-#define GMAC_IMRPQ0_REG_OFST           (0x640)             /**< (GMAC_IMRPQ0) Interrupt Mask Register Priority Queue (1..5) Offset */
-#define GMAC_IMRPQ1_REG_OFST           (0x644)             /**< (GMAC_IMRPQ1) Interrupt Mask Register Priority Queue (1..5) Offset */
-#define GMAC_IMRPQ2_REG_OFST           (0x648)             /**< (GMAC_IMRPQ2) Interrupt Mask Register Priority Queue (1..5) Offset */
-#define GMAC_IMRPQ3_REG_OFST           (0x64C)             /**< (GMAC_IMRPQ3) Interrupt Mask Register Priority Queue (1..5) Offset */
-#define GMAC_IMRPQ4_REG_OFST           (0x650)             /**< (GMAC_IMRPQ4) Interrupt Mask Register Priority Queue (1..5) Offset */
-#define GMAC_ST2ER_REG_OFST            (0x6E0)             /**< (GMAC_ST2ER) Screening Type 2 Ethertype Register Offset */
-#define GMAC_ST2ER0_REG_OFST           (0x6E0)             /**< (GMAC_ST2ER0) Screening Type 2 Ethertype Register Offset */
-#define GMAC_ST2ER1_REG_OFST           (0x6E4)             /**< (GMAC_ST2ER1) Screening Type 2 Ethertype Register Offset */
-#define GMAC_ST2ER2_REG_OFST           (0x6E8)             /**< (GMAC_ST2ER2) Screening Type 2 Ethertype Register Offset */
-#define GMAC_ST2ER3_REG_OFST           (0x6EC)             /**< (GMAC_ST2ER3) Screening Type 2 Ethertype Register Offset */
+#define GMAC_SAB_REG_OFST              (0x00)              /* (GMAC_SAB) Specific Address 1 Bottom Register Offset */
+#define GMAC_SAT_REG_OFST              (0x04)              /* (GMAC_SAT) Specific Address 1 Top Register Offset */
+#define GMAC_ST2CW0_REG_OFST           (0x00)              /* (GMAC_ST2CW0) Screening Type 2 Compare Word 0 Register Offset */
+#define GMAC_ST2CW1_REG_OFST           (0x04)              /* (GMAC_ST2CW1) Screening Type 2 Compare Word 1 Register Offset */
+#define GMAC_NCR_REG_OFST              (0x00)              /* (GMAC_NCR) Network Control Register Offset */
+#define GMAC_NCFGR_REG_OFST            (0x04)              /* (GMAC_NCFGR) Network Configuration Register Offset */
+#define GMAC_NSR_REG_OFST              (0x08)              /* (GMAC_NSR) Network Status Register Offset */
+#define GMAC_UR_REG_OFST               (0x0C)              /* (GMAC_UR) User Register Offset */
+#define GMAC_DCFGR_REG_OFST            (0x10)              /* (GMAC_DCFGR) DMA Configuration Register Offset */
+#define GMAC_TSR_REG_OFST              (0x14)              /* (GMAC_TSR) Transmit Status Register Offset */
+#define GMAC_RBQB_REG_OFST             (0x18)              /* (GMAC_RBQB) Receive Buffer Queue Base Address Register Offset */
+#define GMAC_TBQB_REG_OFST             (0x1C)              /* (GMAC_TBQB) Transmit Buffer Queue Base Address Register Offset */
+#define GMAC_RSR_REG_OFST              (0x20)              /* (GMAC_RSR) Receive Status Register Offset */
+#define GMAC_ISR_REG_OFST              (0x24)              /* (GMAC_ISR) Interrupt Status Register Offset */
+#define GMAC_IER_REG_OFST              (0x28)              /* (GMAC_IER) Interrupt Enable Register Offset */
+#define GMAC_IDR_REG_OFST              (0x2C)              /* (GMAC_IDR) Interrupt Disable Register Offset */
+#define GMAC_IMR_REG_OFST              (0x30)              /* (GMAC_IMR) Interrupt Mask Register Offset */
+#define GMAC_MAN_REG_OFST              (0x34)              /* (GMAC_MAN) PHY Maintenance Register Offset */
+#define GMAC_RPQ_REG_OFST              (0x38)              /* (GMAC_RPQ) Received Pause Quantum Register Offset */
+#define GMAC_TPQ_REG_OFST              (0x3C)              /* (GMAC_TPQ) Transmit Pause Quantum Register Offset */
+#define GMAC_TPSF_REG_OFST             (0x40)              /* (GMAC_TPSF) TX Partial Store and Forward Register Offset */
+#define GMAC_RPSF_REG_OFST             (0x44)              /* (GMAC_RPSF) RX Partial Store and Forward Register Offset */
+#define GMAC_RJFML_REG_OFST            (0x48)              /* (GMAC_RJFML) RX Jumbo Frame Max Length Register Offset */
+#define GMAC_HRB_REG_OFST              (0x80)              /* (GMAC_HRB) Hash Register Bottom Offset */
+#define GMAC_HRT_REG_OFST              (0x84)              /* (GMAC_HRT) Hash Register Top Offset */
+#define GMAC_TIDM1_REG_OFST            (0xA8)              /* (GMAC_TIDM1) Type ID Match 1 Register Offset */
+#define GMAC_TIDM2_REG_OFST            (0xAC)              /* (GMAC_TIDM2) Type ID Match 2 Register Offset */
+#define GMAC_TIDM3_REG_OFST            (0xB0)              /* (GMAC_TIDM3) Type ID Match 3 Register Offset */
+#define GMAC_TIDM4_REG_OFST            (0xB4)              /* (GMAC_TIDM4) Type ID Match 4 Register Offset */
+#define GMAC_WOL_REG_OFST              (0xB8)              /* (GMAC_WOL) Wake on LAN Register Offset */
+#define GMAC_IPGS_REG_OFST             (0xBC)              /* (GMAC_IPGS) IPG Stretch Register Offset */
+#define GMAC_SVLAN_REG_OFST            (0xC0)              /* (GMAC_SVLAN) Stacked VLAN Register Offset */
+#define GMAC_TPFCP_REG_OFST            (0xC4)              /* (GMAC_TPFCP) Transmit PFC Pause Register Offset */
+#define GMAC_SAMB1_REG_OFST            (0xC8)              /* (GMAC_SAMB1) Specific Address 1 Mask Bottom Register Offset */
+#define GMAC_SAMT1_REG_OFST            (0xCC)              /* (GMAC_SAMT1) Specific Address 1 Mask Top Register Offset */
+#define GMAC_NSC_REG_OFST              (0xDC)              /* (GMAC_NSC) 1588 Timer Nanosecond Comparison Register Offset */
+#define GMAC_SCL_REG_OFST              (0xE0)              /* (GMAC_SCL) 1588 Timer Second Comparison Low Register Offset */
+#define GMAC_SCH_REG_OFST              (0xE4)              /* (GMAC_SCH) 1588 Timer Second Comparison High Register Offset */
+#define GMAC_EFTSH_REG_OFST            (0xE8)              /* (GMAC_EFTSH) PTP Event Frame Transmitted Seconds High Register Offset */
+#define GMAC_EFRSH_REG_OFST            (0xEC)              /* (GMAC_EFRSH) PTP Event Frame Received Seconds High Register Offset */
+#define GMAC_PEFTSH_REG_OFST           (0xF0)              /* (GMAC_PEFTSH) PTP Peer Event Frame Transmitted Seconds High Register Offset */
+#define GMAC_PEFRSH_REG_OFST           (0xF4)              /* (GMAC_PEFRSH) PTP Peer Event Frame Received Seconds High Register Offset */
+#define GMAC_OTLO_REG_OFST             (0x100)             /* (GMAC_OTLO) Octets Transmitted Low Register Offset */
+#define GMAC_OTHI_REG_OFST             (0x104)             /* (GMAC_OTHI) Octets Transmitted High Register Offset */
+#define GMAC_FT_REG_OFST               (0x108)             /* (GMAC_FT) Frames Transmitted Register Offset */
+#define GMAC_BCFT_REG_OFST             (0x10C)             /* (GMAC_BCFT) Broadcast Frames Transmitted Register Offset */
+#define GMAC_MFT_REG_OFST              (0x110)             /* (GMAC_MFT) Multicast Frames Transmitted Register Offset */
+#define GMAC_PFT_REG_OFST              (0x114)             /* (GMAC_PFT) Pause Frames Transmitted Register Offset */
+#define GMAC_BFT64_REG_OFST            (0x118)             /* (GMAC_BFT64) 64 Byte Frames Transmitted Register Offset */
+#define GMAC_TBFT127_REG_OFST          (0x11C)             /* (GMAC_TBFT127) 65 to 127 Byte Frames Transmitted Register Offset */
+#define GMAC_TBFT255_REG_OFST          (0x120)             /* (GMAC_TBFT255) 128 to 255 Byte Frames Transmitted Register Offset */
+#define GMAC_TBFT511_REG_OFST          (0x124)             /* (GMAC_TBFT511) 256 to 511 Byte Frames Transmitted Register Offset */
+#define GMAC_TBFT1023_REG_OFST         (0x128)             /* (GMAC_TBFT1023) 512 to 1023 Byte Frames Transmitted Register Offset */
+#define GMAC_TBFT1518_REG_OFST         (0x12C)             /* (GMAC_TBFT1518) 1024 to 1518 Byte Frames Transmitted Register Offset */
+#define GMAC_GTBFT1518_REG_OFST        (0x130)             /* (GMAC_GTBFT1518) Greater Than 1518 Byte Frames Transmitted Register Offset */
+#define GMAC_TUR_REG_OFST              (0x134)             /* (GMAC_TUR) Transmit Underruns Register Offset */
+#define GMAC_SCF_REG_OFST              (0x138)             /* (GMAC_SCF) Single Collision Frames Register Offset */
+#define GMAC_MCF_REG_OFST              (0x13C)             /* (GMAC_MCF) Multiple Collision Frames Register Offset */
+#define GMAC_EC_REG_OFST               (0x140)             /* (GMAC_EC) Excessive Collisions Register Offset */
+#define GMAC_LC_REG_OFST               (0x144)             /* (GMAC_LC) Late Collisions Register Offset */
+#define GMAC_DTF_REG_OFST              (0x148)             /* (GMAC_DTF) Deferred Transmission Frames Register Offset */
+#define GMAC_CSE_REG_OFST              (0x14C)             /* (GMAC_CSE) Carrier Sense Errors Register Offset */
+#define GMAC_ORLO_REG_OFST             (0x150)             /* (GMAC_ORLO) Octets Received Low Received Register Offset */
+#define GMAC_ORHI_REG_OFST             (0x154)             /* (GMAC_ORHI) Octets Received High Received Register Offset */
+#define GMAC_FR_REG_OFST               (0x158)             /* (GMAC_FR) Frames Received Register Offset */
+#define GMAC_BCFR_REG_OFST             (0x15C)             /* (GMAC_BCFR) Broadcast Frames Received Register Offset */
+#define GMAC_MFR_REG_OFST              (0x160)             /* (GMAC_MFR) Multicast Frames Received Register Offset */
+#define GMAC_PFR_REG_OFST              (0x164)             /* (GMAC_PFR) Pause Frames Received Register Offset */
+#define GMAC_BFR64_REG_OFST            (0x168)             /* (GMAC_BFR64) 64 Byte Frames Received Register Offset */
+#define GMAC_TBFR127_REG_OFST          (0x16C)             /* (GMAC_TBFR127) 65 to 127 Byte Frames Received Register Offset */
+#define GMAC_TBFR255_REG_OFST          (0x170)             /* (GMAC_TBFR255) 128 to 255 Byte Frames Received Register Offset */
+#define GMAC_TBFR511_REG_OFST          (0x174)             /* (GMAC_TBFR511) 256 to 511 Byte Frames Received Register Offset */
+#define GMAC_TBFR1023_REG_OFST         (0x178)             /* (GMAC_TBFR1023) 512 to 1023 Byte Frames Received Register Offset */
+#define GMAC_TBFR1518_REG_OFST         (0x17C)             /* (GMAC_TBFR1518) 1024 to 1518 Byte Frames Received Register Offset */
+#define GMAC_TMXBFR_REG_OFST           (0x180)             /* (GMAC_TMXBFR) 1519 to Maximum Byte Frames Received Register Offset */
+#define GMAC_UFR_REG_OFST              (0x184)             /* (GMAC_UFR) Undersize Frames Received Register Offset */
+#define GMAC_OFR_REG_OFST              (0x188)             /* (GMAC_OFR) Oversize Frames Received Register Offset */
+#define GMAC_JR_REG_OFST               (0x18C)             /* (GMAC_JR) Jabbers Received Register Offset */
+#define GMAC_FCSE_REG_OFST             (0x190)             /* (GMAC_FCSE) Frame Check Sequence Errors Register Offset */
+#define GMAC_LFFE_REG_OFST             (0x194)             /* (GMAC_LFFE) Length Field Frame Errors Register Offset */
+#define GMAC_RSE_REG_OFST              (0x198)             /* (GMAC_RSE) Receive Symbol Errors Register Offset */
+#define GMAC_AE_REG_OFST               (0x19C)             /* (GMAC_AE) Alignment Errors Register Offset */
+#define GMAC_RRE_REG_OFST              (0x1A0)             /* (GMAC_RRE) Receive Resource Errors Register Offset */
+#define GMAC_ROE_REG_OFST              (0x1A4)             /* (GMAC_ROE) Receive Overrun Register Offset */
+#define GMAC_IHCE_REG_OFST             (0x1A8)             /* (GMAC_IHCE) IP Header Checksum Errors Register Offset */
+#define GMAC_TCE_REG_OFST              (0x1AC)             /* (GMAC_TCE) TCP Checksum Errors Register Offset */
+#define GMAC_UCE_REG_OFST              (0x1B0)             /* (GMAC_UCE) UDP Checksum Errors Register Offset */
+#define GMAC_TISUBN_REG_OFST           (0x1BC)             /* (GMAC_TISUBN) 1588 Timer Increment Sub-nanoseconds Register Offset */
+#define GMAC_TSH_REG_OFST              (0x1C0)             /* (GMAC_TSH) 1588 Timer Seconds High Register Offset */
+#define GMAC_TSL_REG_OFST              (0x1D0)             /* (GMAC_TSL) 1588 Timer Seconds Low Register Offset */
+#define GMAC_TN_REG_OFST               (0x1D4)             /* (GMAC_TN) 1588 Timer Nanoseconds Register Offset */
+#define GMAC_TA_REG_OFST               (0x1D8)             /* (GMAC_TA) 1588 Timer Adjust Register Offset */
+#define GMAC_TI_REG_OFST               (0x1DC)             /* (GMAC_TI) 1588 Timer Increment Register Offset */
+#define GMAC_EFTSL_REG_OFST            (0x1E0)             /* (GMAC_EFTSL) PTP Event Frame Transmitted Seconds Low Register Offset */
+#define GMAC_EFTN_REG_OFST             (0x1E4)             /* (GMAC_EFTN) PTP Event Frame Transmitted Nanoseconds Register Offset */
+#define GMAC_EFRSL_REG_OFST            (0x1E8)             /* (GMAC_EFRSL) PTP Event Frame Received Seconds Low Register Offset */
+#define GMAC_EFRN_REG_OFST             (0x1EC)             /* (GMAC_EFRN) PTP Event Frame Received Nanoseconds Register Offset */
+#define GMAC_PEFTSL_REG_OFST           (0x1F0)             /* (GMAC_PEFTSL) PTP Peer Event Frame Transmitted Seconds Low Register Offset */
+#define GMAC_PEFTN_REG_OFST            (0x1F4)             /* (GMAC_PEFTN) PTP Peer Event Frame Transmitted Nanoseconds Register Offset */
+#define GMAC_PEFRSL_REG_OFST           (0x1F8)             /* (GMAC_PEFRSL) PTP Peer Event Frame Received Seconds Low Register Offset */
+#define GMAC_PEFRN_REG_OFST            (0x1FC)             /* (GMAC_PEFRN) PTP Peer Event Frame Received Nanoseconds Register Offset */
+#define GMAC_RXLPI_REG_OFST            (0x270)             /* (GMAC_RXLPI) Received LPI Transitions Offset */
+#define GMAC_RXLPITIME_REG_OFST        (0x274)             /* (GMAC_RXLPITIME) Received LPI Time Offset */
+#define GMAC_TXLPI_REG_OFST            (0x278)             /* (GMAC_TXLPI) Transmit LPI Transitions Offset */
+#define GMAC_TXLPITIME_REG_OFST        (0x27C)             /* (GMAC_TXLPITIME) Transmit LPI Time Offset */
+#define GMAC_ISRPQ_REG_OFST            (0x400)             /* (GMAC_ISRPQ) Interrupt Status Register Priority Queue (1..5) Offset */
+#define GMAC_ISRPQ0_REG_OFST           (0x400)             /* (GMAC_ISRPQ0) Interrupt Status Register Priority Queue (1..5) Offset */
+#define GMAC_ISRPQ1_REG_OFST           (0x404)             /* (GMAC_ISRPQ1) Interrupt Status Register Priority Queue (1..5) Offset */
+#define GMAC_ISRPQ2_REG_OFST           (0x408)             /* (GMAC_ISRPQ2) Interrupt Status Register Priority Queue (1..5) Offset */
+#define GMAC_ISRPQ3_REG_OFST           (0x40C)             /* (GMAC_ISRPQ3) Interrupt Status Register Priority Queue (1..5) Offset */
+#define GMAC_ISRPQ4_REG_OFST           (0x410)             /* (GMAC_ISRPQ4) Interrupt Status Register Priority Queue (1..5) Offset */
+#define GMAC_TBQBAPQ_REG_OFST          (0x440)             /* (GMAC_TBQBAPQ) Transmit Buffer Queue Base Address Register Priority Queue (1..5) Offset */
+#define GMAC_TBQBAPQ0_REG_OFST         (0x440)             /* (GMAC_TBQBAPQ0) Transmit Buffer Queue Base Address Register Priority Queue (1..5) Offset */
+#define GMAC_TBQBAPQ1_REG_OFST         (0x444)             /* (GMAC_TBQBAPQ1) Transmit Buffer Queue Base Address Register Priority Queue (1..5) Offset */
+#define GMAC_TBQBAPQ2_REG_OFST         (0x448)             /* (GMAC_TBQBAPQ2) Transmit Buffer Queue Base Address Register Priority Queue (1..5) Offset */
+#define GMAC_TBQBAPQ3_REG_OFST         (0x44C)             /* (GMAC_TBQBAPQ3) Transmit Buffer Queue Base Address Register Priority Queue (1..5) Offset */
+#define GMAC_TBQBAPQ4_REG_OFST         (0x450)             /* (GMAC_TBQBAPQ4) Transmit Buffer Queue Base Address Register Priority Queue (1..5) Offset */
+#define GMAC_RBQBAPQ_REG_OFST          (0x480)             /* (GMAC_RBQBAPQ) Receive Buffer Queue Base Address Register Priority Queue (1..5) Offset */
+#define GMAC_RBQBAPQ0_REG_OFST         (0x480)             /* (GMAC_RBQBAPQ0) Receive Buffer Queue Base Address Register Priority Queue (1..5) Offset */
+#define GMAC_RBQBAPQ1_REG_OFST         (0x484)             /* (GMAC_RBQBAPQ1) Receive Buffer Queue Base Address Register Priority Queue (1..5) Offset */
+#define GMAC_RBQBAPQ2_REG_OFST         (0x488)             /* (GMAC_RBQBAPQ2) Receive Buffer Queue Base Address Register Priority Queue (1..5) Offset */
+#define GMAC_RBQBAPQ3_REG_OFST         (0x48C)             /* (GMAC_RBQBAPQ3) Receive Buffer Queue Base Address Register Priority Queue (1..5) Offset */
+#define GMAC_RBQBAPQ4_REG_OFST         (0x490)             /* (GMAC_RBQBAPQ4) Receive Buffer Queue Base Address Register Priority Queue (1..5) Offset */
+#define GMAC_RBSRPQ_REG_OFST           (0x4A0)             /* (GMAC_RBSRPQ) Receive Buffer Size Register Priority Queue (1..5) Offset */
+#define GMAC_RBSRPQ0_REG_OFST          (0x4A0)             /* (GMAC_RBSRPQ0) Receive Buffer Size Register Priority Queue (1..5) Offset */
+#define GMAC_RBSRPQ1_REG_OFST          (0x4A4)             /* (GMAC_RBSRPQ1) Receive Buffer Size Register Priority Queue (1..5) Offset */
+#define GMAC_RBSRPQ2_REG_OFST          (0x4A8)             /* (GMAC_RBSRPQ2) Receive Buffer Size Register Priority Queue (1..5) Offset */
+#define GMAC_RBSRPQ3_REG_OFST          (0x4AC)             /* (GMAC_RBSRPQ3) Receive Buffer Size Register Priority Queue (1..5) Offset */
+#define GMAC_RBSRPQ4_REG_OFST          (0x4B0)             /* (GMAC_RBSRPQ4) Receive Buffer Size Register Priority Queue (1..5) Offset */
+#define GMAC_CBSCR_REG_OFST            (0x4BC)             /* (GMAC_CBSCR) Credit-Based Shaping Control Register Offset */
+#define GMAC_CBSISQA_REG_OFST          (0x4C0)             /* (GMAC_CBSISQA) Credit-Based Shaping IdleSlope Register for Queue A Offset */
+#define GMAC_CBSISQB_REG_OFST          (0x4C4)             /* (GMAC_CBSISQB) Credit-Based Shaping IdleSlope Register for Queue B Offset */
+#define GMAC_ST1RPQ_REG_OFST           (0x500)             /* (GMAC_ST1RPQ) Screening Type 1 Register Priority Queue Offset */
+#define GMAC_ST1RPQ0_REG_OFST          (0x500)             /* (GMAC_ST1RPQ0) Screening Type 1 Register Priority Queue Offset */
+#define GMAC_ST1RPQ1_REG_OFST          (0x504)             /* (GMAC_ST1RPQ1) Screening Type 1 Register Priority Queue Offset */
+#define GMAC_ST1RPQ2_REG_OFST          (0x508)             /* (GMAC_ST1RPQ2) Screening Type 1 Register Priority Queue Offset */
+#define GMAC_ST1RPQ3_REG_OFST          (0x50C)             /* (GMAC_ST1RPQ3) Screening Type 1 Register Priority Queue Offset */
+#define GMAC_ST2RPQ_REG_OFST           (0x540)             /* (GMAC_ST2RPQ) Screening Type 2 Register Priority Queue Offset */
+#define GMAC_ST2RPQ0_REG_OFST          (0x540)             /* (GMAC_ST2RPQ0) Screening Type 2 Register Priority Queue Offset */
+#define GMAC_ST2RPQ1_REG_OFST          (0x544)             /* (GMAC_ST2RPQ1) Screening Type 2 Register Priority Queue Offset */
+#define GMAC_ST2RPQ2_REG_OFST          (0x548)             /* (GMAC_ST2RPQ2) Screening Type 2 Register Priority Queue Offset */
+#define GMAC_ST2RPQ3_REG_OFST          (0x54C)             /* (GMAC_ST2RPQ3) Screening Type 2 Register Priority Queue Offset */
+#define GMAC_ST2RPQ4_REG_OFST          (0x550)             /* (GMAC_ST2RPQ4) Screening Type 2 Register Priority Queue Offset */
+#define GMAC_ST2RPQ5_REG_OFST          (0x554)             /* (GMAC_ST2RPQ5) Screening Type 2 Register Priority Queue Offset */
+#define GMAC_ST2RPQ6_REG_OFST          (0x558)             /* (GMAC_ST2RPQ6) Screening Type 2 Register Priority Queue Offset */
+#define GMAC_ST2RPQ7_REG_OFST          (0x55C)             /* (GMAC_ST2RPQ7) Screening Type 2 Register Priority Queue Offset */
+#define GMAC_IERPQ_REG_OFST            (0x600)             /* (GMAC_IERPQ) Interrupt Enable Register Priority Queue (1..5) Offset */
+#define GMAC_IERPQ0_REG_OFST           (0x600)             /* (GMAC_IERPQ0) Interrupt Enable Register Priority Queue (1..5) Offset */
+#define GMAC_IERPQ1_REG_OFST           (0x604)             /* (GMAC_IERPQ1) Interrupt Enable Register Priority Queue (1..5) Offset */
+#define GMAC_IERPQ2_REG_OFST           (0x608)             /* (GMAC_IERPQ2) Interrupt Enable Register Priority Queue (1..5) Offset */
+#define GMAC_IERPQ3_REG_OFST           (0x60C)             /* (GMAC_IERPQ3) Interrupt Enable Register Priority Queue (1..5) Offset */
+#define GMAC_IERPQ4_REG_OFST           (0x610)             /* (GMAC_IERPQ4) Interrupt Enable Register Priority Queue (1..5) Offset */
+#define GMAC_IDRPQ_REG_OFST            (0x620)             /* (GMAC_IDRPQ) Interrupt Disable Register Priority Queue (1..5) Offset */
+#define GMAC_IDRPQ0_REG_OFST           (0x620)             /* (GMAC_IDRPQ0) Interrupt Disable Register Priority Queue (1..5) Offset */
+#define GMAC_IDRPQ1_REG_OFST           (0x624)             /* (GMAC_IDRPQ1) Interrupt Disable Register Priority Queue (1..5) Offset */
+#define GMAC_IDRPQ2_REG_OFST           (0x628)             /* (GMAC_IDRPQ2) Interrupt Disable Register Priority Queue (1..5) Offset */
+#define GMAC_IDRPQ3_REG_OFST           (0x62C)             /* (GMAC_IDRPQ3) Interrupt Disable Register Priority Queue (1..5) Offset */
+#define GMAC_IDRPQ4_REG_OFST           (0x630)             /* (GMAC_IDRPQ4) Interrupt Disable Register Priority Queue (1..5) Offset */
+#define GMAC_IMRPQ_REG_OFST            (0x640)             /* (GMAC_IMRPQ) Interrupt Mask Register Priority Queue (1..5) Offset */
+#define GMAC_IMRPQ0_REG_OFST           (0x640)             /* (GMAC_IMRPQ0) Interrupt Mask Register Priority Queue (1..5) Offset */
+#define GMAC_IMRPQ1_REG_OFST           (0x644)             /* (GMAC_IMRPQ1) Interrupt Mask Register Priority Queue (1..5) Offset */
+#define GMAC_IMRPQ2_REG_OFST           (0x648)             /* (GMAC_IMRPQ2) Interrupt Mask Register Priority Queue (1..5) Offset */
+#define GMAC_IMRPQ3_REG_OFST           (0x64C)             /* (GMAC_IMRPQ3) Interrupt Mask Register Priority Queue (1..5) Offset */
+#define GMAC_IMRPQ4_REG_OFST           (0x650)             /* (GMAC_IMRPQ4) Interrupt Mask Register Priority Queue (1..5) Offset */
+#define GMAC_ST2ER_REG_OFST            (0x6E0)             /* (GMAC_ST2ER) Screening Type 2 Ethertype Register Offset */
+#define GMAC_ST2ER0_REG_OFST           (0x6E0)             /* (GMAC_ST2ER0) Screening Type 2 Ethertype Register Offset */
+#define GMAC_ST2ER1_REG_OFST           (0x6E4)             /* (GMAC_ST2ER1) Screening Type 2 Ethertype Register Offset */
+#define GMAC_ST2ER2_REG_OFST           (0x6E8)             /* (GMAC_ST2ER2) Screening Type 2 Ethertype Register Offset */
+#define GMAC_ST2ER3_REG_OFST           (0x6EC)             /* (GMAC_ST2ER3) Screening Type 2 Ethertype Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief GMAC_SA register API structure */

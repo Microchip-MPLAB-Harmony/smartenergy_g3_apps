@@ -1,7 +1,7 @@
 /*
  * Component description for SMC
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2021-12-23T09:59:43Z */
 #ifndef _SAME70_SMC_COMPONENT_H_
 #define _SAME70_SMC_COMPONENT_H_
 
@@ -179,15 +179,15 @@
 
 
 /** \brief SMC register offsets definitions */
-#define SMC_SETUP_REG_OFST             (0x00)              /**< (SMC_SETUP) SMC Setup Register Offset */
-#define SMC_PULSE_REG_OFST             (0x04)              /**< (SMC_PULSE) SMC Pulse Register Offset */
-#define SMC_CYCLE_REG_OFST             (0x08)              /**< (SMC_CYCLE) SMC Cycle Register Offset */
-#define SMC_MODE_REG_OFST              (0x0C)              /**< (SMC_MODE) SMC Mode Register Offset */
-#define SMC_OCMS_REG_OFST              (0x80)              /**< (SMC_OCMS) SMC Off-Chip Memory Scrambling Register Offset */
-#define SMC_KEY1_REG_OFST              (0x84)              /**< (SMC_KEY1) SMC Off-Chip Memory Scrambling KEY1 Register Offset */
-#define SMC_KEY2_REG_OFST              (0x88)              /**< (SMC_KEY2) SMC Off-Chip Memory Scrambling KEY2 Register Offset */
-#define SMC_WPMR_REG_OFST              (0xE4)              /**< (SMC_WPMR) SMC Write Protection Mode Register Offset */
-#define SMC_WPSR_REG_OFST              (0xE8)              /**< (SMC_WPSR) SMC Write Protection Status Register Offset */
+#define SMC_SETUP_REG_OFST             (0x00)              /* (SMC_SETUP) SMC Setup Register Offset */
+#define SMC_PULSE_REG_OFST             (0x04)              /* (SMC_PULSE) SMC Pulse Register Offset */
+#define SMC_CYCLE_REG_OFST             (0x08)              /* (SMC_CYCLE) SMC Cycle Register Offset */
+#define SMC_MODE_REG_OFST              (0x0C)              /* (SMC_MODE) SMC Mode Register Offset */
+#define SMC_OCMS_REG_OFST              (0x80)              /* (SMC_OCMS) SMC Off-Chip Memory Scrambling Register Offset */
+#define SMC_KEY1_REG_OFST              (0x84)              /* (SMC_KEY1) SMC Off-Chip Memory Scrambling KEY1 Register Offset */
+#define SMC_KEY2_REG_OFST              (0x88)              /* (SMC_KEY2) SMC Off-Chip Memory Scrambling KEY2 Register Offset */
+#define SMC_WPMR_REG_OFST              (0xE4)              /* (SMC_WPMR) SMC Write Protection Mode Register Offset */
+#define SMC_WPSR_REG_OFST              (0xE8)              /* (SMC_WPSR) SMC Write Protection Status Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief SMC_CS_NUMBER register API structure */
