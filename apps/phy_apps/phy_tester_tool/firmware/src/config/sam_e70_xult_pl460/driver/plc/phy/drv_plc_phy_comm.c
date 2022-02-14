@@ -767,7 +767,7 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
     {
         DRV_PLC_PHY_EVENTS_OBJ evObj;
         
-        /* Time guard ?? */
+        /* Time guard */
         gPlcPhyObj->plcHal->delay(20);
         
         /* Get PLC events information */
@@ -807,7 +807,7 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
             gPlcPhyObj->evRegRspLength = evObj.regRspLength;
         }
         
-        /* Time guard ?? */
+        /* Time guard */
         gPlcPhyObj->plcHal->delay(50);
     }
     

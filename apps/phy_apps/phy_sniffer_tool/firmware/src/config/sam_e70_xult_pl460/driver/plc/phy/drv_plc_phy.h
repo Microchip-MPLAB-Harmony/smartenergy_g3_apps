@@ -1132,7 +1132,7 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object );
 
   Description:
     This function disables PLC interrupts before going to sleep, and will leave
-    them disabled upon return. If there are any PLC transmission in progress, 
+    them disabled upon return. If there is any PLC transmission in progress, 
     sleep mode will be enabled after the notification of the TX confirmation.
 
   Precondition:
@@ -1164,6 +1164,55 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object );
   ***************************************************************************/
 
 void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable );
+
+#ifdef __cplusplus
+}
+#endif
+
+/***************************************************************************
+  Function:
+       void DRV_PLC_PHY_Enable_TX( const DRV_HANDLE handle, bool enable )
+    
+  Summary:
+    Enable PLC transmission.
+
+  Description:
+    This function allows a client to enable or disable the PLC tranmission.
+    If there is any transmission on going, it will be cancelled and notified
+    through the TX confirmation callback. 
+    
+  Precondition:
+    The DRV_PLC_PHY_Initialize routine must have been called for the
+    specified PLC driver instance.
+
+  Parameters:
+    - object -  Object handle for the specified driver instance (returned from
+                DRV_PLC_PHY_Initialize)
+    - enable -  Set True to enable PLC tranmission. Set False to disable it.
+  Returns:
+    None.
+  Example:
+    <code>
+    SYS_MODULE_OBJ      object;     // Returned from DRV_PLC_PHY_Initialize
+    
+    while (true)
+    {
+        ...
+        if (cancel_tx)
+        {
+            DRV_PLC_PHY_Enable_TX (object, false);
+        }
+        else
+        {
+            DRV_PLC_PHY_Enable_TX (object, true);
+        }
+        ...
+    }
+    </code>
+                   
+  ***************************************************************************/
+
+void DRV_PLC_PHY_Enable_TX( const DRV_HANDLE handle, bool enable );
 
 #ifdef __cplusplus
 }

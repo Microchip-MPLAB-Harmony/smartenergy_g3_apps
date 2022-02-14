@@ -85,19 +85,20 @@ void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
     /* Set Free Run reset */
     AFEC1_REGS->AFEC_MR |= AFEC_MR_FREERUN_Msk;
 
-    /* Set Compare Window Register */
-    AFEC1_REGS->AFEC_CWR = AFEC_CWR_HIGHTHRES(SRV_PVDDMON_HIGH_TRESHOLD) | AFEC_CWR_LOWTHRES(SRV_PVDDMON_LOW_TRESHOLD); 
-
     /* Set Comparison Mode */
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_OUT;
         emr |= AFEC_EMR_CMPMODE_OUT;
+        /* Set Compare Window Register */
+        AFEC1_REGS->AFEC_CWR = AFEC_CWR_HIGHTHRES(SRV_PVDDMON_HIGH_TRESHOLD) | AFEC_CWR_LOWTHRES(SRV_PVDDMON_LOW_TRESHOLD);
     }
     else
     {
         srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_IN;
         emr |= AFEC_EMR_CMPMODE_IN;
+        /* Set Compare Window Register */
+        AFEC1_REGS->AFEC_CWR = AFEC_CWR_HIGHTHRES(SRV_PVDDMON_HIGH_TRESHOLD_HYST) | AFEC_CWR_LOWTHRES(SRV_PVDDMON_LOW_TRESHOLD_HYST); 
     }
 
     /* Set Comparison Selected Channel */
@@ -132,13 +133,17 @@ void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
     /* Set Comparison Mode */
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
-      srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_OUT;
-      emr = AFEC_EMR_CMPMODE_OUT;
+        srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_OUT;
+        emr = AFEC_EMR_CMPMODE_OUT;
+        /* Set Compare Window Register */
+        AFEC1_REGS->AFEC_CWR = AFEC_CWR_HIGHTHRES(SRV_PVDDMON_HIGH_TRESHOLD) | AFEC_CWR_LOWTHRES(SRV_PVDDMON_LOW_TRESHOLD);
     }
     else
     {
-      srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_IN;
-      emr = AFEC_EMR_CMPMODE_IN;
+        srv_pvddmon_mode = SRV_PVDDMON_CMP_MODE_IN;
+        emr = AFEC_EMR_CMPMODE_IN;
+        /* Set Compare Window Register */
+        AFEC1_REGS->AFEC_CWR = AFEC_CWR_HIGHTHRES(SRV_PVDDMON_HIGH_TRESHOLD_HYST) | AFEC_CWR_LOWTHRES(SRV_PVDDMON_LOW_TRESHOLD_HYST); 
     }
     AFEC1_REGS->AFEC_EMR &= ~AFEC_EMR_CMPMODE_Msk;
     AFEC1_REGS->AFEC_EMR |= emr;
@@ -157,23 +162,4 @@ void SRV_PVDDMON_RegisterCallback (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t c
     /* Register AFEC1 Callback */
     AFEC1_CallbackRegister(_AFEC1_PVDDMONCallback, context);
     AFEC1_CompareCallback = callback_fn;
-}
-
-bool SRV_PVDDMON_CheckComparisonInWindow(void)
-{
-    uint16_t adcData;
-    
-    adcData = (uint16_t) ((AFEC1_REGS->AFEC_LCDR & AFEC_LCDR_LDATA_Msk) >> AFEC_LCDR_LDATA_Pos);
-    
-    if (adcData > SRV_PVDDMON_HIGH_TRESHOLD)
-    {
-        return false;
-    }
-    
-    if (adcData < SRV_PVDDMON_LOW_TRESHOLD)
-    {
-        return false;
-    }
-    
-    return true;
 }

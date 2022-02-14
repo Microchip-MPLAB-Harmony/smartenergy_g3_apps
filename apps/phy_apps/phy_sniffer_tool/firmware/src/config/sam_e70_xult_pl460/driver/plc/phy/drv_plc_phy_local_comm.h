@@ -42,7 +42,6 @@
 #ifndef _DRV_PLC_PHY_LOCAL_COMM_H
 #define _DRV_PLC_PHY_LOCAL_COMM_H
 
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
@@ -55,6 +54,7 @@
 // Section: Macro Definitions
 // *****************************************************************************
 // ***************************************************************************** 
+
 #define PLC_STATUS_LENGTH     8
 #define PLC_DATA_PKT_SIZE     512
 #define PLC_TX_PAR_SIZE       sizeof(DRV_PLC_PHY_TRANSMISSION_OBJ)

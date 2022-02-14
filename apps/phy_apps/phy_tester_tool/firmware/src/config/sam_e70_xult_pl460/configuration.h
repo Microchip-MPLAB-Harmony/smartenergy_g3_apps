@@ -107,7 +107,7 @@ extern "C" {
 #define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PD28
 #define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PA0
 #define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PC30
-#define DRV_PLC_CD_PIN                        SYS_PORT_PIN_PA4
+#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA4
 #define DRV_PLC_STBY_PIN                      SYS_PORT_PIN_PA3
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PC17
 

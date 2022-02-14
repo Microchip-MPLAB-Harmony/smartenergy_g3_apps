@@ -63,13 +63,14 @@ typedef void (*SRV_PVDDMON_CALLBACK)( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t co
 
 #define SRV_PVDDMON_HIGH_TRESHOLD              0xdb3
 #define SRV_PVDDMON_LOW_TRESHOLD               0xa8a
+#define SRV_PVDDMON_HIGH_TRESHOLD_HYST         0xd98
+#define SRV_PVDDMON_LOW_TRESHOLD_HYST          0xaa5
 
 /***************************** SRV PLC PVDD MONITOR API *******************************/
 void SRV_PVDDMON_Initialize (void);
 void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode);
 void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode);
 void SRV_PVDDMON_RegisterCallback (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context);
-bool SRV_PVDDMON_CheckComparisonInWindow(void);
 
 #ifdef __cplusplus // Provide C++ Compatibility
  }

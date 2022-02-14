@@ -197,8 +197,8 @@ typedef struct
     /* PLC external interrupt pin */
     SYS_PORT_PIN                           extIntPin;
 
-    /* PLC Carrier Detect pin */
-    SYS_PORT_PIN                           cdPin;
+    /* PLC Tx Enable pin */
+    SYS_PORT_PIN                           txEnablePin;
 
     /* PLC StandBy Pin */
     SYS_PORT_PIN                           stByPin;
@@ -216,7 +216,7 @@ typedef void (* DRV_PLC_HAL_RESET)(void);
 
 typedef void (* DRV_PLC_HAL_SET_STBY)(bool);
 
-typedef bool (* DRV_PLC_HAL_GET_CD)(void);
+typedef bool (* DRV_PLC_HAL_SET_TXENABLE)(bool);
 
 typedef void (* DRV_PLC_HAL_ENABLE_EXT_INT)(bool);
 
@@ -257,8 +257,8 @@ typedef struct
     /* PLC low power management */
     DRV_PLC_HAL_SET_STBY                     setStandBy;
 
-    /* PLC HAL Get Carrier Detect or PLC Line Status */
-    DRV_PLC_HAL_GET_CD                       getCarrierDetect;
+    /* PLC HAL Set Tx Enable pin */
+    DRV_PLC_HAL_SET_TXENABLE                 setTxEnable;
 
     /* PLC HAL Enable/Disable external interrupt */
     DRV_PLC_HAL_ENABLE_EXT_INT               enableExtInt;
@@ -324,7 +324,7 @@ void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib);
 void DRV_PLC_HAL_Reset(void);
 void DRV_PLC_HAL_SetStandBy(bool enable);
 void DRV_PLC_HAL_Setup(bool set16Bits);
-bool DRV_PLC_HAL_GetCarrierDetect(void);
+void DRV_PLC_HAL_SetTxEnable(bool enable);
 void DRV_PLC_HAL_EnableInterrupts(bool enable);
 void DRV_PLC_HAL_Delay(uint64_t delayUs);
 void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t address, uint32_t dataLength, uint8_t *pDataWr, uint8_t *pDataRd);

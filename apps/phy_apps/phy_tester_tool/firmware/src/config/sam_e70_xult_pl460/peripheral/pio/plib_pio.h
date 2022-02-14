@@ -82,14 +82,14 @@
 #define PLC_INT_InterruptEnable()   (PIOD_REGS->PIO_IER = (1<<28))
 #define PLC_INT_InterruptDisable()  (PIOD_REGS->PIO_IDR = (1<<28))
 
-/*** Macros for PLC_CD pin ***/
-#define PLC_CD_Set()               (PIOA_REGS->PIO_SODR = (1<<4))
-#define PLC_CD_Clear()             (PIOA_REGS->PIO_CODR = (1<<4))
-#define PLC_CD_Toggle()            (PIOA_REGS->PIO_ODSR ^= (1<<4))
-#define PLC_CD_OutputEnable()      (PIOA_REGS->PIO_OER = (1<<4))
-#define PLC_CD_InputEnable()       (PIOA_REGS->PIO_ODR = (1<<4))
-#define PLC_CD_Get()               ((PIOA_REGS->PIO_PDSR >> 4) & 0x1)
-#define PLC_CD_PIN                  PIO_PIN_PA4
+/*** Macros for PLC_TX_ENABLE pin ***/
+#define PLC_TX_ENABLE_Set()               (PIOA_REGS->PIO_SODR = (1<<4))
+#define PLC_TX_ENABLE_Clear()             (PIOA_REGS->PIO_CODR = (1<<4))
+#define PLC_TX_ENABLE_Toggle()            (PIOA_REGS->PIO_ODSR ^= (1<<4))
+#define PLC_TX_ENABLE_OutputEnable()      (PIOA_REGS->PIO_OER = (1<<4))
+#define PLC_TX_ENABLE_InputEnable()       (PIOA_REGS->PIO_ODR = (1<<4))
+#define PLC_TX_ENABLE_Get()               ((PIOA_REGS->PIO_PDSR >> 4) & 0x1)
+#define PLC_TX_ENABLE_PIN                  PIO_PIN_PA4
 
 /*** Macros for PLC_STBY pin ***/
 #define PLC_STBY_Set()               (PIOA_REGS->PIO_SODR = (1<<3))

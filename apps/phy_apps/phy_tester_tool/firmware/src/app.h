@@ -150,8 +150,6 @@ typedef struct
     
     APP_PLC_TX_STATE plcTxState;
     
-    bool sendTxEnable;
-    
 } APP_DATA;
 
 // *****************************************************************************

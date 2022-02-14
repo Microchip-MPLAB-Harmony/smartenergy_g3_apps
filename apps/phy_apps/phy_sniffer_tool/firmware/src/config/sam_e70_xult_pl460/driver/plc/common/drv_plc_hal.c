@@ -180,9 +180,15 @@ void DRV_PLC_HAL_SetStandBy(bool enable)
     }
 }
 
-bool DRV_PLC_HAL_GetCarrierDetect(void)
+void DRV_PLC_HAL_SetTxEnable(bool enable)
 {
-    return SYS_PORT_PinRead(sPlcPlib->cdPin);
+    if (enable) {
+        /* Set TX Enable Pin */
+        SYS_PORT_PinSet(sPlcPlib->txEnablePin);
+    } else {
+        /* Clear TX Enable Pin */
+        SYS_PORT_PinClear(sPlcPlib->txEnablePin);
+    }
 }
 
 void DRV_PLC_HAL_Delay(uint64_t delayUs)

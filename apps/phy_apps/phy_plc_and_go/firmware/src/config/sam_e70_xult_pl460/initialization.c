@@ -104,9 +104,9 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
 
-    /* PLC External Interrupt Pin */
-    .cdPin = DRV_PLC_CD_PIN,
-
+    /* PLC TX Enable Pin */
+    .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
+    
     /* PLC StandBy Pin */
     .stByPin = DRV_PLC_STBY_PIN,
     
@@ -136,9 +136,9 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
     /* PLC Get Thermal Monitor value */
     .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,
     
-    /* PLC Carrier Detect Status */
-    .getCarrierDetect = (DRV_PLC_HAL_GET_CD)DRV_PLC_HAL_GetCarrierDetect,
-
+    /* PLC Set TX Enable Pin */
+    .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
+    
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
 

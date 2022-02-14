@@ -56,10 +56,10 @@
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
-static DRV_PLC_PHY_TRANSMISSION_OBJ gLastTxObj;
-static uint8_t gLastTxData[512];
-static uint16_t gLastRxPayloadSymbols;
-static uint16_t gLastTxPayloadSymbols;
+static DRV_PLC_PHY_TRANSMISSION_OBJ srvPsnifferLastTxObj;
+static uint8_t srvPsnifferLastTxData[512];
+static uint16_t srvPsnifferLastRxPayloadSymbols;
+static uint16_t srvPsnifferLastTxPayloadSymbols;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -75,19 +75,19 @@ SRV_PSNIFFER_COMMAND SRV_PSNIFFER_GetCommand(uint8_t* pData)
 void SRV_PSNIFFER_SetTxMessage(DRV_PLC_PHY_TRANSMISSION_OBJ* pDataDst)
 {
     /* Use internal buffer to report TX messages as a received message when TX_CFM arrives */
-    gLastTxObj.pTransmitData = gLastTxData;
-    memcpy((uint8_t *)&gLastTxObj, (uint8_t *)pDataDst, sizeof(DRV_PLC_PHY_TRANSMISSION_OBJ));
-    memcpy(gLastTxData, pDataDst->pTransmitData, pDataDst->dataLength);
+    srvPsnifferLastTxObj.pTransmitData = srvPsnifferLastTxData;
+    memcpy((uint8_t *)&srvPsnifferLastTxObj, (uint8_t *)pDataDst, sizeof(DRV_PLC_PHY_TRANSMISSION_OBJ));
+    memcpy(srvPsnifferLastTxData, pDataDst->pTransmitData, pDataDst->dataLength);
 }
 
 void SRV_PSNIFFER_SetRxPayloadSymbols(uint16_t payloadSym)
 {
-    gLastRxPayloadSymbols = payloadSym;
+    srvPsnifferLastRxPayloadSymbols = payloadSym;
 }
 
 void SRV_PSNIFFER_SetTxPayloadSymbols(uint16_t payloadSym)
 {
-    gLastTxPayloadSymbols = payloadSym;
+    srvPsnifferLastTxPayloadSymbols = payloadSym;
 }
 
 size_t SRV_PSNIFFER_SerialRxMessage(uint8_t* pDataDst, DRV_PLC_PHY_RECEPTION_OBJ* pDataSrc)
@@ -122,8 +122,8 @@ size_t SRV_PSNIFFER_SerialRxMessage(uint8_t* pDataDst, DRV_PLC_PHY_RECEPTION_OBJ
         }
 
         /* Number of symbols (2 bytes) */
-        *pData++ = (uint8_t)(gLastRxPayloadSymbols >> 8);
-        *pData++ = (uint8_t)gLastRxPayloadSymbols;
+        *pData++ = (uint8_t)(srvPsnifferLastRxPayloadSymbols >> 8);
+        *pData++ = (uint8_t)srvPsnifferLastRxPayloadSymbols;
         /* SNR */
         *pData++ = pDataSrc->lqi;
 
@@ -196,27 +196,27 @@ size_t SRV_PSNIFFER_SerialCfmMessage(uint8_t* pDataDst, DRV_PLC_PHY_TRANSMISSION
     *pData++ = PSNIFFER_PROFILE; 
     
     /* ModType (high) + ModScheme (low) */
-    *pData++ = (uint8_t)((gLastTxObj.modScheme & 0x0F) + (((gLastTxObj.modType) << 4) & 0xF0));
+    *pData++ = (uint8_t)((srvPsnifferLastTxObj.modScheme & 0x0F) + (((srvPsnifferLastTxObj.modType) << 4) & 0xF0));
     /* Tone Map */
     if (PSNIFFER_TONEMAP_SIZE == 1) {
         *pData++ = 0;
         *pData++ = 0;
-        *pData++ = gLastTxObj.toneMap[0];
+        *pData++ = srvPsnifferLastTxObj.toneMap[0];
     } else {
-        *pData++ = gLastTxObj.toneMap[2];
-        *pData++ = gLastTxObj.toneMap[1];
-        *pData++ = gLastTxObj.toneMap[0];
+        *pData++ = srvPsnifferLastTxObj.toneMap[2];
+        *pData++ = srvPsnifferLastTxObj.toneMap[1];
+        *pData++ = srvPsnifferLastTxObj.toneMap[0];
     }
 
     /* Number of symbols (2 bytes) */
-    *pData++ = (uint8_t)(gLastTxPayloadSymbols >> 8);
-    *pData++ = (uint8_t)gLastTxPayloadSymbols;
+    *pData++ = (uint8_t)(srvPsnifferLastTxPayloadSymbols >> 8);
+    *pData++ = (uint8_t)srvPsnifferLastTxPayloadSymbols;
     /* SNR */
     *pData++ = 0xFF;
     /* Delimiter Type */
-    *pData++ = gLastTxObj.delimiterType;
+    *pData++ = srvPsnifferLastTxObj.delimiterType;
     /* TimeIni */
-    timeIni = gLastTxObj.time;
+    timeIni = srvPsnifferLastTxObj.time;
 
     *pData++ = (timeIni >> 24);
     *pData++ = (timeIni >> 16) & 0xFF;
@@ -235,11 +235,11 @@ size_t SRV_PSNIFFER_SerialCfmMessage(uint8_t* pDataDst, DRV_PLC_PHY_TRANSMISSION
     *pData++ = (uint8_t)(0xFF >> 8);
     *pData++ = (uint8_t)(0xFF);
     /* Length in bytes */
-    *pData++ = (uint8_t)(gLastTxObj.dataLength >> 8);
-    *pData++ = (uint8_t)(gLastTxObj.dataLength);
+    *pData++ = (uint8_t)(srvPsnifferLastTxObj.dataLength >> 8);
+    *pData++ = (uint8_t)(srvPsnifferLastTxObj.dataLength);
     /* PDU */
-    memcpy(pData, gLastTxData, gLastTxObj.dataLength);
-    pData += gLastTxObj.dataLength;
+    memcpy(pData, srvPsnifferLastTxData, srvPsnifferLastTxObj.dataLength);
+    pData += srvPsnifferLastTxObj.dataLength;
     
     return (pData - pDataDst);    
 }

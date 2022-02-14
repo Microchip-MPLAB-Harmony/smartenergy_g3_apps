@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef DRV_PLC_PHY_G3_H
-#define DRV_PLC_PHY_G3_H
+#ifndef DRV_PLC_PHY_COMM_H
+#define DRV_PLC_PHY_COMM_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -196,8 +196,8 @@ typedef enum {
   PLC_ID_CFG_IMPEDANCE,
   PLC_ID_ZC_PERIOD,
   PLC_ID_FCH_SYMBOLS,
-  PLC_ID_PAY_SYMBOLS_TX,
-  PLC_ID_PAY_SYMBOLS_RX,
+  PLC_ID_TX_PAY_SYMBOLS,
+  PLC_ID_RX_PAY_SYMBOLS,
   PLC_ID_RRC_NOTCH_AUTODETECT,
   PLC_ID_MAX_RMS_TABLE_HI,
   PLC_ID_MAX_RMS_TABLE_VLO,
@@ -514,7 +514,7 @@ typedef struct {
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef DRV_PLC_PHY_G3_H
+#endif // #ifndef DRV_PLC_PHY_COMM_H
 
 /*******************************************************************************
  End of File
