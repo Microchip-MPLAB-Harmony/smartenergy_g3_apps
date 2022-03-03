@@ -66,6 +66,10 @@
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
+         <string>trng</string>
+         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
+      </entry>
+      <entry>
          <string>usb_device</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
@@ -376,7 +380,8 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;GraphSettings canvasHeight=&quot;562&quot; canvasWidth=&quot;783&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E70_Xplained_Ultra&quot; x=&quot;16&quot; y=&quot;60&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;640&quot; y=&quot;20&quot;/&gt;
@@ -393,11 +398,11 @@
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;sys_console&quot; x=&quot;238&quot; y=&quot;283&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;sys_time&quot; x=&quot;237&quot; y=&quot;109&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;tc0&quot; x=&quot;70&quot; y=&quot;131&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;usb_device&quot; x=&quot;30&quot; y=&quot;240&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;usb_device_cdc&quot; x=&quot;25&quot; y=&quot;317&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;trng&quot; x=&quot;464&quot; y=&quot;150&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;usb_device&quot; x=&quot;30&quot; y=&quot;240&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;usb_device_cdc&quot; x=&quot;25&quot; y=&quot;317&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;562&quot; canvasWidth=&quot;798&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -1731,7 +1736,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PMC_PCER1&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;67109124&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;100663556&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -1996,6 +2001,17 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;TC0_CHANNEL2_CLOCK_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tc0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="TRNG_CLOCK_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;TRNG_CLOCK_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;trng&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -2425,6 +2441,39 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;XDMAC_INTERRUPT_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="wdtENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;wdtENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="wdtdebugHalt"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;wdtdebugHalt&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="wdtidleHalt"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;wdtidleHalt&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -3926,6 +3975,10 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="trng" name="#&amp;__MCC_Group_Parrent_id"/>
+         <value>__ROOTVIEW</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="usb_device" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;usb_device&gt;
   &lt;usb_device dnOrder=&quot;0&quot;/&gt;
@@ -4265,7 +4318,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\clk\plib_clk.c</file>
-         <hash>72f67fcf83675df40944c3421a8944ac9ab6ffdad3782414f41cc75d3761ae43</hash>
+         <hash>16cdf9742adf21ef69ef4d328021308d46e5dc417c59c9d6d04fa08aa7ea4249</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\system_module.h</file>
@@ -4441,7 +4494,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\configuration.h</file>
-         <hash>95d9e193ce440bd10660f17383e0531c8b4e59d0b642e7b1c49dcd2ce7a58a62</hash>
+         <hash>baab59731c62c9bca01a2c4e17a805925948effce049312342a81dc7825f86fc</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\usb\usbhsv1\src\drv_usbhsv1_variant_mapping.h</file>
@@ -4477,7 +4530,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\initialization.c</file>
-         <hash>f7542622a16c384289f78976a109793a766b392f4f97763812f17e06a965d404</hash>
+         <hash>d54f40677bdcb215a0af34f577b6a6db6ef34d20b4832faed7ea5ee219e92e9b</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\mcan.h</file>
@@ -4496,8 +4549,16 @@
          <hash>462c81af301d394d7be2165cc45107c7d254d336868ae3b9b17fc65980bbd1d5</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_e70_xult_pl460\peripheral\wdt\plib_wdt.h</file>
+         <hash>291babb93ddf2f7029fbbacd836c08cfb7ca39790cfaa02cdd2b656d7854dad3</hash>
+      </entry>
+      <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\pwm.h</file>
          <hash>01c277d1cff87bfd9d47077d0c3dcac18423645364be23b02434784e7fba0010</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_e70_xult_pl460\peripheral\wdt\plib_wdt.c</file>
+         <hash>7e056ed3237d64b8ba9be8efbb8ed44f9762a7ff5f65c620d27bf4992886d350</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\pioe.h</file>
@@ -4513,7 +4574,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\g3MacRt\drv_g3_macrt_comm.h</file>
-         <hash>0cf7521fbc2e6b1a0c537fb375aae3bec88d8ec391da687fbebe5706e7f1b69c</hash>
+         <hash>8b01e79ea110882b94bc705136e0b9e290ba815278c4a522d2702caf5cdf8e54</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\usb\usb_hub.h</file>
@@ -4561,7 +4622,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\g3MacRt\drv_g3_macrt_local_comm.c</file>
-         <hash>3b172b28727b322130f7061e25a102256a5db90f0e2a50bdd29e22c04448fdd5</hash>
+         <hash>e4a99529216843e6ca414ac56f581d8a7d08ce76f6211eeadaa1cd00ac3c1260</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\xdmac\plib_xdmac_common.h</file>
@@ -4593,7 +4654,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\g3MacRt\drv_g3_macrt_definitions.h</file>
-         <hash>785ff3c641bc0ce5e85b248e36d0a4332fafa033beca4db089f939a0dd2c7d8a</hash>
+         <hash>cdc22cfe456af2d7e805c0389daf4b090d9296b32400ddcea4b465328112136b</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\trng.h</file>
@@ -4657,7 +4718,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\definitions.h</file>
-         <hash>888e96a0ca0072891b46e3d00e0a3e4c63da0c36151ede04a398942ceac71395</hash>
+         <hash>ef40f2aa5d5fcbbc14d239f14fbb554af8630b418ef6d3992df004a5ecef170b</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\bsp\bsp.c</file>
@@ -4748,12 +4809,20 @@
          <hash>76af018a4cba362f2b85062c78e33fdd26afb0e5fa7243a8ede98a7c13645d63</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_e70_xult_pl460\peripheral\trng\plib_trng.c</file>
+         <hash>02849f19fb349406a25353a88fdeb7df935642b2e58bb4cdb020709af4aac4be</hash>
+      </entry>
+      <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\console\src\sys_console_usb_cdc_definitions.h</file>
          <hash>5e457fc9eecf5825b04d2c2ff3ab8b8cc1ae52231b8856a2213b8b9762673bf9</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\usb\usbhsv1\src\drv_usbhsv1_device.c</file>
          <hash>a5b4b4344d51ec725b7e204d0c5c607fed77538ee3723763d629f7b44717918b</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_e70_xult_pl460\peripheral\trng\plib_trng.h</file>
+         <hash>f2e79f6d3a503c9a91e9df5d089b8becc5d5a3bafd5c0341e8f1279a5193ecf0</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\rtt.h</file>

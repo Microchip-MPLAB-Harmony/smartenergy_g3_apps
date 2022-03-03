@@ -72,6 +72,13 @@
 #define G3_ARIB                         3
 #define G3_INVALID                      0xFF
 
+/* Tone Map size for Cenelec(A,B) bandplan */
+#define TONE_MAP_SIZE_CENELEC           1
+/* Tone Map size for FCC bandplan */
+#define TONE_MAP_SIZE_FCC               3
+/* Tone Map size for ARIB bandplan */
+#define TONE_MAP_SIZE_ARIB              3
+
 #define MAC_RT_MAX_PAYLOAD_SIZE         (404u)
 #define MAC_RT_FULL_HEADER_SIZE         (32)
 #define MAC_RT_DATA_MAX_SIZE            (MAC_RT_MAX_PAYLOAD_SIZE + MAC_RT_FULL_HEADER_SIZE)
@@ -211,68 +218,86 @@ typedef enum {
     None
 */
 typedef enum {
-  /* Phy layer version number. 32 bits. */
-  PHY_PARAM_VERSION = 0x010c,
-  /* Correctly transmitted frame count. 32 bits. */
-  PHY_PARAM_TX_TOTAL = 0x0110,
-  /* Transmitted bytes count. 32 bits. */
-  PHY_PARAM_TX_TOTAL_BYTES = 0x0114,
-  /* Transmission errors count. 32 bits. */
-  PHY_PARAM_TX_TOTAL_ERRORS = 0x0118,
-  /* Transmission failure due to already in transmission. 32 bits. */
-  PHY_PARAM_BAD_BUSY_TX = 0x011C,
-  /* Transmission failure due to busy channel. 32 bits. */
-  PHY_PARAM_TX_BAD_BUSY_CHANNEL = 0x0120,
-  /* Bad len in message (too short - too long). 32 bits. */
-  PHY_PARAM_TX_BAD_LEN = 0x0124,
-  /* Message to transmit in bad format. 32 bits. */
-  PHY_PARAM_TX_BAD_FORMAT = 0x0128,
-  /* Timeout error in transmission. 32 bits. */
-  PHY_PARAM_TX_TIMEOUT = 0x012C,
-  /* Received correctly messages count. 32 bits. */
-  PHY_PARAM_RX_TOTAL = 0x0130,
-  /* Received bytes count. 32 bits. */
-  PHY_PARAM_RX_TOTAL_BYTES = 0x0134,
-  /* Reception RS errors count. 32 bits. */
-  PHY_PARAM_RX_RS_ERRORS = 0x0138,
-  /* Reception Exceptions count. 32 bits. */
-  PHY_PARAM_RX_EXCEPTIONS = 0x013C,
-  /* Bad len in message (too short - too long). 32 bits. */
-  PHY_PARAM_RX_BAD_LEN = 0x0140,
-  /* Bad CRC in received FCH. 32 bits. */
-  PHY_PARAM_RX_BAD_CRC_FCH = 0x0144,
-  /* CRC correct but invalid protocol. 32 bits. */
-  PHY_PARAM_RX_FALSE_POSITIVE = 0x0148,
-  /* Received message in bad format. 32 bits. */
-  PHY_PARAM_RX_BAD_FORMAT = 0x014C,
-  /* Time between noise captures (in ms). 32 bits. */
-  PHY_PARAM_TIME_BETWEEN_NOISE_CAPTURES = 0x0158,
-  /* Auto detect impedance */
-  PHY_PARAM_CFG_AUTODETECT_BRANCH = 0x0161,
-  /* Manual impedance configuration */
-  PHY_PARAM_CFG_IMPEDANCE = 0x0162,
-  /* Indicate if notch filter is active or not. 8 bits. */
-  PHY_PARAM_RRC_NOTCH_ACTIVE = 0x0163,
-  /* Index of the notch filter. 8 bits. */
-  PHY_PARAM_RRC_NOTCH_INDEX = 0x0164,
-  /* Enable periodic noise autodetect and adaptation. 8 bits. */
-  PHY_PARAM_ENABLE_AUTO_NOISE_CAPTURE = 0x0166,
-  /* Noise detection timer reloaded after a correct reception. 8 bits. */
-  PHY_PARAM_DELAY_NOISE_CAPTURE_AFTER_RX = 0x0167,
-  /* Disable PLC Tx/Rx. 8 bits. */
-  PHY_PARAM_PLC_DISABLE = 0x016A,
-  /* Indicate noise power in dBuV for the noisier carrier */
-  PHY_PARAM_NOISE_PEAK_POWER = 0x016B,
-  /* LQI value of the last received message */
-  PHY_PARAM_LAST_MSG_LQI = 0x016C,
-  /* LQI value of the last received message */
-  PHY_PARAM_LAST_MSG_RSSI = 0x016D,
-  /* Success transmission of ACK packets */
-  PHY_PARAM_ACK_TX_CFM = 0x016E,
-  /* Inform PHY layer about enabled modulations on TMR */
-  PHY_PARAM_TONE_MAP_RSP_ENABLED_MODS = 0x0174,
-  /* Reset Phy Statistics */
-  PHY_PARAM_RESET_PHY_STATS = 0x0176
+    PHY_PIB_PRODID = 0,
+    PHY_PIB_MODEL,
+    PHY_PIB_VERSION_STR,
+    PHY_PIB_VERSION_NUM,
+    PHY_PIB_TONE_MASK,
+    PHY_PIB_TONE_MAP_RSP_DATA,
+    PHY_PIB_TX_TOTAL,
+    PHY_PIB_TX_TOTAL_BYTES,
+    PHY_PIB_TX_TOTAL_ERRORS,
+    PHY_PIB_TX_BAD_BUSY_TX,
+    PHY_PIB_TX_BAD_BUSY_CHANNEL,
+    PHY_PIB_TX_BAD_LEN,
+    PHY_PIB_TX_BAD_FORMAT,
+    PHY_PIB_TX_TIMEOUT,
+    PHY_PIB_RX_TOTAL,
+    PHY_PIB_RX_TOTAL_BYTES,
+    PHY_PIB_RX_RS_ERRORS,
+    PHY_PIB_RX_EXCEPTIONS,
+    PHY_PIB_RX_BAD_LEN,
+    PHY_PIB_RX_BAD_CRC_FCH,
+    PHY_PIB_RX_FALSE_POSITIVE,
+    PHY_PIB_RX_BAD_FORMAT,
+    PHY_PIB_ENABLE_AUTO_NOISE_CAPTURE,
+    PHY_PIB_TIME_BETWEEN_NOISE_CAPTURES,
+    PHY_PIB_DELAY_NOISE_CAPTURE_AFTER_RX,
+    PHY_PIB_RRC_NOTCH_ACTIVE,
+    PHY_PIB_RRC_NOTCH_INDEX,
+    PHY_PIB_NOISE_PEAK_POWER,
+    PHY_PIB_CRC_TX_RX_CAPABILITY,
+    PHY_PIB_RX_BAD_CRC_PAY,
+    PHY_PIB_CFG_AUTODETECT_IMPEDANCE,
+    PHY_PIB_CFG_IMPEDANCE,
+    PHY_PIB_ZC_PERIOD,
+    PHY_PIB_FCH_SYMBOLS,
+    PHY_PIB_PAY_SYMBOLS_TX,
+    PHY_PIB_PAY_SYMBOLS_RX,
+    PHY_PIB_RRC_NOTCH_AUTODETECT,
+    PHY_PIB_MAX_RMS_TABLE_HI,
+    PHY_PIB_MAX_RMS_TABLE_VLO,
+    PHY_PIB_THRESHOLDS_TABLE_HI,
+    PHY_PIB_THRESHOLDS_TABLE_LO,
+    PHY_PIB_THRESHOLDS_TABLE_VLO,
+    PHY_PIB_PREDIST_COEF_TABLE_HI,
+    PHY_PIB_PREDIST_COEF_TABLE_LO,
+    PHY_PIB_PREDIST_COEF_TABLE_VLO,
+    PHY_PIB_GAIN_TABLE_HI,
+    PHY_PIB_GAIN_TABLE_LO,
+    PHY_PIB_GAIN_TABLE_VLO,
+    PHY_PIB_DACC_TABLE_CFG,
+    PHY_PIB_RSV0,
+    PHY_PIB_NUM_TX_LEVELS,
+    PHY_PIB_CORRECTED_RMS_CALC,
+    PHY_PIB_RRC_NOTCH_THR_ON,
+    PHY_PIB_RRC_NOTCH_THR_OFF,
+    PHY_PIB_CURRENT_GAIN,
+    PHY_PIB_ZC_CONF_INV,
+    PHY_PIB_ZC_CONF_FREQ,
+    PHY_PIB_ZC_CONF_DELAY,
+    PHY_PIB_NOISE_PER_CARRIER,
+    PHY_PIB_SYNC_XCORR_THRESHOLD,
+    PHY_PIB_SYNC_XCORR_PEAK_VALUE,
+    PHY_PIB_SYNC_SYNCM_THRESHOLD,
+    PHY_PIB_TONE_MAP_RSP_ENABLED_MODS,
+    PHY_PIB_PPM_CALIB_ON,
+    PHY_PIB_SFO_ESTIMATION_LAST_RX,
+    PHY_PIB_PDC_TX_LAST_RX,
+    PHY_PIB_MAX_PSDU_LEN_PARAMS,
+    PHY_PIB_MAX_PSDU_LEN,
+    PHY_PIB_RESET_STATS,
+    PHY_PIB_PLC_IC_DRIVER_CFG,
+    PHY_PIB_RX_CHN_EST_REAL,
+    PHY_PIB_RX_CHN_EST_IMAG,
+    PHY_PIB_TX_DISABLE,
+    PHY_PIB_TX_HIGH_TEMP_120,
+    PHY_PIB_TX_CANCELLED,
+    PHY_PIB_ZC_VALUE,
+    PHY_PIB_PDC_RX_LAST_RX,
+    PHY_PIB_PDC_ZC_TIME_LAST_RX,
+    PHY_PIB_PDC_ZC_PERIOD_LAST_RX,
+    PHY_PIB_PREAMBLE_NUM_SYNCP
 } MAC_RT_PHY_PIB;
 
 // *****************************************************************************
@@ -308,7 +333,8 @@ typedef struct {
     The list of all types of modulation supported by G3 spec.
 
    Remarks:
-    None
+    Ordered from higher to lower data rate and from higher to lower required 
+    SNR (Signal to Noise Ratio): 16QAM, 8PSK, QPSK, BPSK, Robust BPSK
 */
 typedef enum {
     MAC_RT_MOD_ROBUST = 0x00,
@@ -325,7 +351,11 @@ typedef enum {
     The list of all modulation schemes supported by G3 spec.
 
    Remarks:
-    None
+    Coherent Scheme supports worst SNR (about 3 dB) than Differential Scheme
+    Differential Scheme provides a bit higher data rate because Coherent Scheme 
+    uses some carriers for pilots
+    Coherent Scheme requires an accurate crystal oscillator. G3-PLC specifies 
+    that the frequency error must be less than 25 PPM
 */
 typedef enum {
     MAC_RT_MOD_SCHEME_DIFFERENTIAL = 0x00,
@@ -601,31 +631,6 @@ typedef struct __attribute__((packed, aligned(1))) {
 } MAC_RT_HEADER;
 
 // *****************************************************************************
-/* G3 MAC RT frame
-
-   Summary
-    This struct includes information related to MAC frame
-
-   Remarks:
-    For more information, please refer to G3 Specification
-    
-*/
-typedef struct __attribute__((packed, aligned(1))) {
-    /* Frame Control Information */
-    MAC_RT_SEGMENT_CONTROL segmentControl;
-    /* MAC Header */
-    MAC_RT_HEADER header;
-    /* Length of the payload */
-    uint16_t payloadLength;
-    /* Pointer to Payload */
-    uint8_t* pPayload;
-    /* Length of the padding */
-    uint16_t padLength;
-    /* Frame Check Sequence */
-    uint16_t fcs;
-} MAC_RT_FRAME;
-
-// *****************************************************************************
 /* G3 MAC RT Tone Map response
 
    Summary
@@ -773,44 +778,6 @@ typedef enum {
     /* Unexpected PHY error */
     MAC_RT_TX_ABORT
 } MAC_RT_TX_STATE;
-
-// *****************************************************************************
-/* G3 MAC RT Transmission setup parameters
-
-   Summary
-    This struct includes information to configure any transmission.
-
-   Remarks:
-    None
-*/
-typedef struct __attribute__((packed, aligned(1))) {
-    /* Destination Address */
-    MAC_RT_ADDRESS dstAddr;
-    /* Gain of transmission */
-    uint8_t txGain;
-    /* */
-    uint8_t txCoef[6];
-    /* TX Resolution */
-    uint8_t txRes;
-    /* Modulation Type */
-    MAC_RT_MOD_TYPE modType;
-    /* Modulation Scheme */
-    MAC_RT_MOD_SCHEME modScheme;
-    /* Tone Map */
-    uint8_t toneMap[3];
-    /* Length of MAC Header */
-    uint8_t macHeaderLen;
-    /* Flag to request ACK */
-    bool requestAck;
-    /* Flag to set high priority */
-    bool highPriority;
-    /* Flag to request Tone Map */
-    bool toneMapRequest;
-    /* Flag to force Robo mode */
-    bool forceRobo;
-    /* Flag to enable security */
-    bool securityEnabled;
-} MAC_RT_TX_PARAMETERS_OBJ;
 
 // *****************************************************************************
 /* G3 MAC RT Reception parameters

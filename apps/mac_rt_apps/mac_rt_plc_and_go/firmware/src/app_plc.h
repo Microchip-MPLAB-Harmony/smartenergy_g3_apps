@@ -46,16 +46,24 @@ extern "C" {
 #define LED_BLINK_RATE_MS                         500
 #define LED_PLC_RX_MSG_RATE_MS                    50
     
-#define APP_PLC_BUFFER_SIZE                       512    
 #define APP_PLC_PIB_BUFFER_SIZE                   256
     
 /* Each carrier corresponding to the band can be notched (no energy is sent in those carriers) */
-/* Each carrier is represented by one byte (0: carrier used; 1: carrier notched). By default it is all 0's in PLC device */
-/* The length is the number of carriers corresponding to the band in use. */
-/* In this example case 36 (only valid for CENELEC-A band). */
+/* Each carrier is represented by one bit (1: carrier used; 0: carrier notched). By default it is all 1's in PL360 device */
+/* The length is the max number of carriers of the broadest band, this is 72 bits (9 bytes), where only the number of carriers in band is used, in this case 72 (FCC) */
 /* The same Tone Mask must be set in both transmitter and receiver. Otherwise they don't understand each other */
 #define APP_PLC_STATIC_NOTCHING_ENABLE                0    
-#define APP_PLC_TONE_MASK_STATIC_NOTCHING_EXAMPLE     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+#define APP_PLC_TONE_MASK_STATIC_NOTCHING_EXAMPLE     {0xFF, 0xFF, 0x01, 0xF0, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}
+    
+/* ACK request modes */
+#define CONF_ACK_REQUEST_DISABLE           0
+#define CONF_ACK_REQUEST_ENABLE            1
+
+/* Configure ACK request */
+#define CONF_ACK_REQUEST                   CONF_ACK_REQUEST_DISABLE
+
+/* Configure PAN ID */
+#define CONF_PAN_ID                        0x781D
     
 // *****************************************************************************
 /* Application states
@@ -123,40 +131,44 @@ typedef struct
     
     volatile bool tmr2Expired;
     
-    APP_PLC_STATES state;
-    
     DRV_HANDLE drvPl360Handle;
-    
-    MAC_RT_STATUS lastTxStatus;
     
     bool plcMultiband;
     
-    MAC_RT_PIB_OBJ plcPIB;
+    bool bin2InUse;
     
     bool staticNotchingEnable;
     
     bool pvddMonTxEnable;
     
+    uint32_t phyVersion;
+    
+    uint8_t toneMapSize;
+    
+    APP_PLC_STATES state;
+    
+    uint16_t maxPsduLen;
+    
     APP_PLC_TX_STATE plcTxState;
+    
+    MAC_RT_PIB_OBJ plcPIB;
+    
+    SRV_PLC_PCOUP_BRANCH couplingBranch;
     
 } APP_PLC_DATA;
 
 typedef struct
 {    
-    uint32_t version;
+    uint8_t *pTxFrame;
     
-    MAC_RT_RX_PARAMETERS_OBJ txParams;
+    uint8_t *pRxFrame;
     
-    uint8_t *pDataTx;
+    MAC_RT_HEADER txHeader;
     
-    uint8_t toneMapSize;
+    MAC_RT_RX_PARAMETERS_OBJ rxParams;
     
-    bool bin2InUse;
+    MAC_RT_STATUS lastTxStatus;
     
-    SRV_PLC_PCOUP_BRANCH couplingBranch;
-    
-    uint16_t maxPsduLen;
-
 } APP_PLC_DATA_TX;
 
 extern APP_PLC_DATA appPlc;
@@ -238,7 +250,6 @@ void APP_PLC_Tasks( void );
 
 
 bool APP_PLC_SendData ( uint8_t* pData, uint16_t length );
-void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME modScheme );
 bool APP_PLC_SetSleepMode ( bool enable );
 
 

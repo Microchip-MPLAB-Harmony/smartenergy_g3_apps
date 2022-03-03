@@ -166,10 +166,6 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 
     /* SPI PLIB API interface*/
     .plcHal = &drvPLCHalAPI,
-
-    /* G3 MAC RT Number of clients */
-    .numClients = DRV_G3_MACRT_CLIENTS_NUMBER_IDX,  
-    
  
     /* PLC MAC RT Binary start address */
     .binStartAddress = (uint32_t)&g3_mac_rt_bin_start,
@@ -354,7 +350,8 @@ void SYS_Initialize ( void* data )
 
 	RSWDT_REGS->RSWDT_MR = RSWDT_MR_WDDIS_Msk;	// Disable RSWDT 
 
-	WDT_REGS->WDT_MR = WDT_MR_WDDIS_Msk; 		// Disable WDT 
+	WDT_Initialize();
+
 
   
 

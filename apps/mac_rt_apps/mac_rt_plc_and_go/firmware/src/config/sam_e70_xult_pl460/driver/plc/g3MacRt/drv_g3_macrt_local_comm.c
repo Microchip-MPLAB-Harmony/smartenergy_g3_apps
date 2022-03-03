@@ -94,8 +94,7 @@ static bool _DRV_G3_MACRT_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
             DRV_PLC_BOOT_Restart(false);
             if (gG3MacRtObj->exceptionCallback)
             {
-                gG3MacRtObj->exceptionCallback(DRV_G3_MACRT_EXCEPTION_DEBUG, 
-                        gG3MacRtObj->contextExc);
+                gG3MacRtObj->exceptionCallback(DRV_G3_MACRT_EXCEPTION_DEBUG);
             }
         }
         else
@@ -104,8 +103,7 @@ static bool _DRV_G3_MACRT_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
             DRV_PLC_BOOT_Restart(true);
             if (gG3MacRtObj->exceptionCallback)
             {
-                gG3MacRtObj->exceptionCallback(DRV_G3_MACRT_EXCEPTION_RESET, 
-                        gG3MacRtObj->contextExc);
+                gG3MacRtObj->exceptionCallback(DRV_G3_MACRT_EXCEPTION_RESET);
             }
             
             /* Update Driver Status */
@@ -126,10 +124,7 @@ static bool _DRV_G3_MACRT_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
         DRV_PLC_BOOT_Restart(true);
         if (gG3MacRtObj->exceptionCallback)
         {
-            gG3MacRtObj->exceptionCallback(
-                    DRV_G3_MACRT_EXCEPTION_UNEXPECTED_KEY, 
-                    gG3MacRtObj->contextExc
-            );
+            gG3MacRtObj->exceptionCallback(DRV_G3_MACRT_EXCEPTION_UNEXPECTED_KEY);
         }
             
         /* Update Driver Status */
@@ -164,9 +159,7 @@ static void _DRV_G3_MACRT_COMM_SpiWriteCmd(DRV_G3_MACRT_MEM_ID id, uint8_t *pDat
             if (gG3MacRtObj->exceptionCallback)
             {
                 gG3MacRtObj->exceptionCallback(
-                        DRV_G3_MACRT_EXCEPTION_CRITICAL_ERROR, 
-                        gG3MacRtObj->contextExc
-                );
+                        DRV_G3_MACRT_EXCEPTION_CRITICAL_ERROR);
             }
             break;
         }
@@ -203,9 +196,7 @@ static void _DRV_G3_MACRT_COMM_SpiReadCmd(DRV_G3_MACRT_MEM_ID id, uint8_t *pData
             if (gG3MacRtObj->exceptionCallback)
             {
                 gG3MacRtObj->exceptionCallback(
-                        DRV_G3_MACRT_EXCEPTION_CRITICAL_ERROR, 
-                        gG3MacRtObj->contextExc
-                );
+                        DRV_G3_MACRT_EXCEPTION_CRITICAL_ERROR);
             }
             break;
         }
@@ -224,10 +215,10 @@ static void _DRV_G3_MACRT_COMM_GetEventsInfo(DRV_G3_MACRT_EVENTS_OBJ *eventsObj)
     DRV_PLC_HAL_INFO halInfo;
     uint8_t failures = 0;
     
-    pData = gG3Info;    
+    pData = gG3StatusInfo;    
     
     halCmd.cmd = DRV_PLC_HAL_CMD_RD;
-    halCmd.memId = STATUS_ID;
+    halCmd.memId = STATUS_INFO_ID;
     halCmd.length = DRV_G3_MACRT_STATUS_LENGTH;
     halCmd.pData = pData;
     
@@ -241,9 +232,7 @@ static void _DRV_G3_MACRT_COMM_GetEventsInfo(DRV_G3_MACRT_EVENTS_OBJ *eventsObj)
             if (gG3MacRtObj->exceptionCallback)
             {
                 gG3MacRtObj->exceptionCallback(
-                        DRV_G3_MACRT_EXCEPTION_CRITICAL_ERROR, 
-                        gG3MacRtObj->contextExc
-                );
+                        DRV_G3_MACRT_EXCEPTION_CRITICAL_ERROR);
             }
             break;
         }
@@ -251,8 +240,8 @@ static void _DRV_G3_MACRT_COMM_GetEventsInfo(DRV_G3_MACRT_EVENTS_OBJ *eventsObj)
     }    
     
     /* Extract Events information */
-    eventsObj->evTxCfm = (halInfo.flags & DRV_G3_MACRT_EV_TX_CFM_MASK)? 1:0;
-    eventsObj->evDataInd = (halInfo.flags & DRV_G3_MACRT_EV_DATA_IND_MASK)? 1:0;
+    eventsObj->evTxCfm = (halInfo.flags & DRV_G3_MACRT_EV_TX_CFM_FLAG_MASK)? 1:0;
+    eventsObj->evDataInd = (halInfo.flags & DRV_G3_MACRT_EV_DATA_IND_FLAG_MASK)? 1:0;
     eventsObj->evMacSniffer = (halInfo.flags & DRV_G3_MACRT_EV_MAC_SNF_FLAG_MASK)? 1:0;
     eventsObj->evCommStatus = (halInfo.flags & DRV_G3_MACRT_EV_COMM_STATUS_FLAG_MASK)? 1:0;
     eventsObj->evRxParInd = (halInfo.flags & DRV_G3_MACRT_EV_RX_PAR_IND_FLAG_MASK)? 1:0;
@@ -412,6 +401,28 @@ void DRV_G3_MACRT_TxRequest(const DRV_HANDLE handle, uint8_t *pData, uint16_t le
             memcpy(pTxData, pData, length);
             _DRV_G3_MACRT_COMM_SpiWriteCmd(TX_REQ_ID, gG3TxData, length + 2);
 		}
+        else
+        {
+            MAC_RT_TX_CFM_OBJ cfmObj;
+
+            cfmObj.status = MAC_RT_STATUS_INVALID_PARAMETER;
+            cfmObj.updateTimestamp = 0;
+            if (gG3MacRtObj->txCfmCallback)
+            {
+                gG3MacRtObj->txCfmCallback(&cfmObj);
+            }
+        }
+    }
+    else
+    {
+        MAC_RT_TX_CFM_OBJ cfmObj;
+
+        cfmObj.status = MAC_RT_STATUS_DENIED;
+        cfmObj.updateTimestamp = 0;
+        if (gG3MacRtObj->txCfmCallback)
+        {
+            gG3MacRtObj->txCfmCallback(&cfmObj);
+        }
     }
 }
 
@@ -444,7 +455,7 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBGet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
         pDst += pibObj->length;
 
         /* Send PIB information request */
-        _DRV_G3_MACRT_COMM_SpiWriteCmd(REG_INFO_ID, gG3RegResponse, pDst - gG3RegResponse);
+        _DRV_G3_MACRT_COMM_SpiWriteCmd(REG_RSP_ID, gG3RegResponse, pDst - gG3RegResponse);
         
         /* Sync function: Wait to response from interrupt */
 		waitCounter = 100;
@@ -508,7 +519,7 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBSet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
         pDst += pibObj->length;
 
         /* Send PIB information request */
-        _DRV_G3_MACRT_COMM_SpiWriteCmd(REG_INFO_ID, gG3RegResponse, pDst - gG3RegResponse);
+        _DRV_G3_MACRT_COMM_SpiWriteCmd(REG_RSP_ID, gG3RegResponse, pDst - gG3RegResponse);
         
         /* Sync function: Wait to response from interrupt */
 		waitCounter = 100;
@@ -579,6 +590,15 @@ void DRV_G3_MACRT_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
             gG3MacRtObj->evTxCfm = true;
         }
         
+        /* Check RX paramenters indication event */
+        if (evObj.evRxParInd)
+        {        
+            _DRV_G3_MACRT_COMM_SpiReadCmd(RX_PAR_IND_ID, gG3RxParameters, 
+                    DRV_G3_MACRT_RX_PAR_SIZE);
+            /* update event flag */
+            gG3MacRtObj->evRxParams = true;
+        }
+        
         /* Check received new data event */
         if (evObj.evDataInd)
         {       
@@ -597,11 +617,11 @@ void DRV_G3_MACRT_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
         if (evObj.evMacSniffer)
         {          
             if ((evObj.macSnifLength == 0) || 
-                (evObj.macSnifLength > DRV_G3_MACRT_MAC_SNIF_MAX_SIZE))
+                (evObj.macSnifLength > DRV_G3_MACRT_DATA_MAX_SIZE))
             {
                 evObj.macSnifLength = 1;
             }
-            _DRV_G3_MACRT_COMM_SpiReadCmd(MAC_SNIF_ID, XXXXXXXXXXXXXXXXXXXXXXXXXXXX, 
+            _DRV_G3_MACRT_COMM_SpiReadCmd(MAC_SNIF_ID, gG3MacRtObj->pMacDataSniffer, 
                     evObj.macSnifLength);
             /* update event flag */
             gG3MacRtObj->evMacSnifLength = evObj.macSnifLength;
@@ -620,27 +640,18 @@ void DRV_G3_MACRT_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
         if (evObj.evPhySniffer)
         {            
             if ((evObj.phySnifLength == 0) || 
-                (evObj.phySnifLength > DRV_G3_MACRT_PHY_SNIF_MAX_SIZE))
+                (evObj.phySnifLength > DRV_G3_MACRT_PHY_MAX_SIZE))
             {
                 evObj.phySnifLength = 1;
             }
-            _DRV_G3_MACRT_COMM_SpiReadCmd(PHY_SNIF_ID, XXXXXXXXXXXXXXXXXXXXXXXXXXXX, 
+            _DRV_G3_MACRT_COMM_SpiReadCmd(PHY_SNF_ID, gG3MacRtObj->pPhyDataSniffer, 
                     evObj.phySnifLength);
             /* update event flag */
             gG3MacRtObj->evPhySnifLength = evObj.phySnifLength;
         }
         
-        /* Check RX paramenters indication event */
-        if (evObj.evRxParInd)
-        {        
-            _DRV_G3_MACRT_COMM_SpiReadCmd(RX_PAR_IND_ID, gG3RxParameters, 
-                    DRV_G3_MACRT_RX_PAR_SIZE);
-            /* update event flag */
-            gG3MacRtObj->evRxParams = true;
-        }
-        
         /* Check Register info event */
-        if (evObj.evReg)
+        if (evObj.evRegRsp)
         {          
             if ((evObj.regRspLength == 0) || 
                 (evObj.regRspLength > DRV_G3_MACRT_REG_PKT_SIZE))

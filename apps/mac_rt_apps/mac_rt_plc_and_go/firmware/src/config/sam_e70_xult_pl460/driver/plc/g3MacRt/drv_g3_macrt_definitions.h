@@ -86,9 +86,6 @@ typedef struct
      * peripherals. */
     DRV_PLC_HAL_INTERFACE           *plcHal;
 
-    /* Number of clients */
-    size_t                          numClients;
-
     /* PLC Profile */
     uint8_t                         plcProfile;
 
