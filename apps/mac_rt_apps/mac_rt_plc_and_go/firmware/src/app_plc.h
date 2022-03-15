@@ -169,6 +169,8 @@ typedef struct
     
     MAC_RT_STATUS lastTxStatus;
     
+    bool ackRequest;
+    
 } APP_PLC_DATA_TX;
 
 extern APP_PLC_DATA appPlc;

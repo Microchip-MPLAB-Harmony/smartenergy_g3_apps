@@ -196,214 +196,6 @@ static uint8_t APP_CONSOLE_ReadSerialChar( void )
     return appConsole.dataLength;
 }
 
-static bool APP_CONSOLE_SetScheme(char *scheme)
-{
-    MAC_RT_MOD_TYPE modType;
-    MAC_RT_MOD_SCHEME modScheme;
-    bool result = true;
-    uint8_t version;
-    
-    version = (uint8_t)(appPlc.phyVersion >> 16);
-
-	switch (*scheme)
-    {
-		case '0':
-			modType = MAC_RT_MOD_ROBUST;
-			modScheme = MAC_RT_MOD_SCHEME_DIFFERENTIAL;
-            APP_CONSOLE_Print("\r\nTx Modulation: BPSK Robust Differential ");
-			break;
-
-		case '1':
-			modType = MAC_RT_MOD_BPSK;
-			modScheme = MAC_RT_MOD_SCHEME_DIFFERENTIAL;
-            APP_CONSOLE_Print("\r\nTx Modulation: BPSK Differential ");
-			break;
-
-		case '2':
-			modType = MAC_RT_MOD_QPSK;
-			modScheme = MAC_RT_MOD_SCHEME_DIFFERENTIAL;
-            APP_CONSOLE_Print("\r\nTx Modulation: QPSK Differential ");
-			break;
-
-		case '3':
-			modType = MAC_RT_MOD_8PSK;
-			modScheme = MAC_RT_MOD_SCHEME_DIFFERENTIAL;
-            if (version == 0x03)
-            {
-                APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
-                result = false;
-            }
-            else
-            {
-                APP_CONSOLE_Print("\r\nTx Modulation: 8PSK Differential ");
-            }
-			break;
-
-		case '4':
-			modType = MAC_RT_MOD_ROBUST;
-			modScheme = MAC_RT_MOD_SCHEME_COHERENT;
-            if (version == 0x03)
-            {
-                APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
-                result = false;
-            }
-            else
-            {
-                APP_CONSOLE_Print("\r\nTx Modulation: BPSK Robust Coherent ");
-            }
-			break;
-
-		case '5':
-			modType = MAC_RT_MOD_BPSK;
-			modScheme = MAC_RT_MOD_SCHEME_COHERENT;
-            if (version == 0x03)
-            {
-                APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
-                result = false;
-            }
-            else
-            {
-                APP_CONSOLE_Print("\r\nTx Modulation: BPSK Coherent ");
-            }
-			break;
-
-		case '6':
-			modType = MAC_RT_MOD_QPSK;
-			modScheme = MAC_RT_MOD_SCHEME_COHERENT;
-            if (version == 0x03)
-            {
-                APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
-                result = false;
-            }
-            else
-            {
-                APP_CONSOLE_Print("\r\nTx Modulation: QPSK Coherent ");
-            }
-			break;
-
-		case '7':
-			modType = MAC_RT_MOD_8PSK;
-			modScheme = MAC_RT_MOD_SCHEME_COHERENT;
-            if (version == 0x03)
-            {
-                APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
-                result = false;
-            }
-            else
-            {
-                APP_CONSOLE_Print("\r\nTx Modulation: 8PSK Coherent ");
-            }
-			break;
-
-		default:
-			result = false;
-	}
-    
-    if (result)
-    {
-        appPlcTx.txParams.modScheme = modScheme;
-        appPlcTx.txParams.modType = modType;
-    }
-
-    return result;
-}
-
-static void APP_CONSOLE_ShowSetSchemeMenu( void )
-{
-    uint8_t schemeMenu = 0xFF;
-    uint8_t index;
-    
-    APP_CONSOLE_Print("\r\n--- Tx Modulation Configuration Menu ---\r\n");
-    APP_CONSOLE_Print("Select Modulation:\r\n");
-    
-    if (appPlcTx.modScheme == MAC_RT_MOD_SCHEME_DIFFERENTIAL)
-    {
-        if (appPlcTx.modType == MAC_RT_MOD_ROBUST)
-        {
-            schemeMenu = 0;
-        }
-        else if (appPlcTx.modType == MAC_RT_MOD_BPSK)
-        {
-            schemeMenu = 1;
-        }
-        else if (appPlcTx.modType == MAC_RT_MOD_QPSK)
-        {
-            schemeMenu = 2;
-        }
-        else if (appPlcTx.modType == MAC_RT_MOD_8PSK)
-        {
-            schemeMenu = 3;
-        }
-    }
-    else
-    {   /* MOD_SCHEME_COHERENT */
-        if (appPlcTx.modType == MAC_RT_MOD_ROBUST)
-        {
-            schemeMenu = 4;
-        }
-        else if (appPlcTx.modType == MAC_RT_MOD_BPSK)
-        {
-            schemeMenu = 5;
-        }
-        else if (appPlcTx.modType == MAC_RT_MOD_QPSK)
-        {
-            schemeMenu = 6;
-        }
-        else if (appPlcTx.modType == MAC_RT_MOD_8PSK)
-        {
-            schemeMenu = 7;
-        }
-    }
-    
-    for (index = 0; index < 8; index++)
-    {
-        if (index == schemeMenu)
-        {
-            APP_CONSOLE_Print("->\t");
-        }
-        else
-        {
-            APP_CONSOLE_Print("\t");
-        }
-        
-        switch (index)
-        {
-            case 0:
-                APP_CONSOLE_Print("0: BPSK Robust Differential ... 5.5 kbit/s\r\n");
-                break;
-
-            case 1:
-                APP_CONSOLE_Print("1: BPSK Differential .......... 20.1 kbit/s\r\n");
-                break;
-
-            case 2:
-                APP_CONSOLE_Print("2: QPSK Differential .......... 34.5 kbit/s\r\n");
-                break;
-
-            case 3:
-                APP_CONSOLE_Print("3: 8PSK Differential .......... 44.6 kbit/s\r\n");
-                break;
-
-            case 4:
-                APP_CONSOLE_Print("4: BPSK Robust Coherent ....... 5 kbit/s\r\n");
-                break;
-
-            case 5:
-                APP_CONSOLE_Print("5: BPSK Coherent .............. 18.5 kbit/s\r\n");
-                break;
-
-            case 6:
-                APP_CONSOLE_Print("6: QPSK Coherent .............. 31.3 kbit/s\r\n");
-                break;
-
-            case 7:
-                APP_CONSOLE_Print("7: 8PSK Coherent .............. 41.2 kbit/s\r\n");
-                break;
-        }
-    }
-    APP_CONSOLE_Print(MENU_CMD_PROMPT);
-}
-
 static void APP_CONSOLE_ShowSetSleepMenu( void )
 {
     APP_CONSOLE_Print("\r\n--- Enable/Disable Sleep Configuration Menu ---\r\n");
@@ -432,7 +224,7 @@ static void APP_CONSOLE_ShowMultibandMenu( void )
     APP_CONSOLE_Print("\r\n--- Tx/Rx Coupling Band Configuration Menu ---\r\n");
     APP_CONSOLE_Print("Select PLC Coupling branch:\r\n");
     
-    currentBranch = appPlcTx.couplingBranch;
+    currentBranch = appPlc.couplingBranch;
     
     for (index = 0; index < 2; index++)
     {
@@ -482,58 +274,124 @@ static void APP_CONSOLE_ShowMultibandMenu( void )
 static void APP_CONSOLE_ShowSetSourceAddressMenu( void )
 {
     APP_CONSOLE_Print("\r\n--- G3 MAC Source Address Configuration Menu ---\r\n");
-    APP_CONSOLE_Print("Introduce New Address (0x%04X) : ", appPlcTx.srcShortAddress);
+    APP_CONSOLE_Print("Introduce New Address (0x%04X) : ", 
+            appPlcTx.txHeader.sourceAddress.shortAddress);
 }
 
 static bool APP_CONSOLE_SetSourceAddress(char *pData)
 {
+    uint16_t address;
+    
     if (appConsole.dataLength != 4)
     {
         return false;
     }
     
-    return APP_CONSOLE_GetValue16(pData, &appPlcTx.srcShortAddress);
+    if (APP_CONSOLE_GetValue16(pData, &address) == false)
+    {
+        return false;
+    }
+    
+    if (address == MAC_RT_SHORT_ADDRESS_BROADCAST)
+    {
+        /* Broadcast address is not permitted as Source address */
+        return false;
+    }
+    
+    appPlcTx.txHeader.sourceAddress.shortAddress = address;
+    
+    return true;
 }
 
 static void APP_CONSOLE_ShowSetDestinationAddressMenu( void )
 {
     APP_CONSOLE_Print("\r\n--- G3 MAC Source Destiantion Configuration Menu ---\r\n");
-    APP_CONSOLE_Print("Introduce New Address (0x%04X) : ", appPlcTx.dstShortAddress);
+    APP_CONSOLE_Print("Introduce New Address (0x%04X) : ", 
+            appPlcTx.txHeader.destinationAddress.shortAddress);
 }
 
 static bool APP_CONSOLE_SetDestinationAddress(char *pData)
 {
+    uint16_t address;
+    
     if (appConsole.dataLength != 4)
     {
         return false;
     }
     
-    return APP_CONSOLE_GetValue16(pData, &appPlcTx.dstShortAddress);
+    if (APP_CONSOLE_GetValue16(pData, &address) == false)
+    {
+        return false;
+    }
+    
+    if ((address == MAC_RT_SHORT_ADDRESS_BROADCAST) && (appPlcTx.txHeader.frameControl.ackRequest))
+    {
+        /* Broadcast address is not permitted if ACK request is enabled */
+        return false;
+    }
+    
+    appPlcTx.txHeader.destinationAddress.shortAddress = address;
+    
+    return true;
 }
 
-static bool APP_CONSOLE_SetPlcBand(char *mode)
+static void APP_CONSOLE_ShowSetACKMenu( void )
 {
-    bool result = false;
+    APP_CONSOLE_Print("\r\n--- G3 MAC ACK request Configuration Menu ---\r\n");
+    APP_CONSOLE_Print("Enable automatic ACK request [Y/N] : ");
+}
+
+static bool APP_CONSOLE_SetACKRequest( char *enable )
+{
+    bool result;
+
+	switch (*enable)
+    {
+		case 'Y':
+        case 'y':
+            appPlcTx.ackRequest = true;
+            result = true;
+			break;
+
+		case 'N':
+        case 'n':
+            appPlcTx.ackRequest = false;
+            result = true;
+			break;
+           
+        default:
+            result = false;
+	}
+
+    return result;
+}
+
+static bool APP_CONSOLE_SetPlcBand( char *mode )
+{
+    bool result;
 
 	switch (*mode)
     {
 		case '0':
-            if (appPlcTx.couplingBranch == SRV_PLC_PCOUP_AUXILIARY_BRANCH)
+            if (appPlc.couplingBranch == SRV_PLC_PCOUP_AUXILIARY_BRANCH)
             {
-                appPlcTx.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
-                appPlcTx.bin2InUse = 0;
+                appPlc.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
+                appPlc.bin2InUse = 0;
                 result = true;
             }
 			break;
 
 		case '1':
-            if (appPlcTx.couplingBranch == SRV_PLC_PCOUP_MAIN_BRANCH)
+            if (appPlc.couplingBranch == SRV_PLC_PCOUP_MAIN_BRANCH)
             {
-                appPlcTx.couplingBranch = SRV_PLC_PCOUP_AUXILIARY_BRANCH;
-                appPlcTx.bin2InUse = 1;
+                appPlc.couplingBranch = SRV_PLC_PCOUP_AUXILIARY_BRANCH;
+                appPlc.bin2InUse = 1;
                 result = true;
             }
 			break;
+           
+        default:
+            result = false;
 	}
 
     return result;
@@ -637,26 +495,26 @@ void APP_CONSOLE_Tasks ( void )
             
                 /* Show PHY version */
                 APP_CONSOLE_Print("PL360 binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x", 
-                        (uint8_t)(appPlcTx.phyVersion >> 24), (uint8_t)(appPlcTx.phyVersion >> 16),
-                        (uint8_t)(appPlcTx.phyVersion >> 8), (uint8_t)(appPlcTx.phyVersion));
+                        (uint8_t)(appPlc.phyVersion >> 24), (uint8_t)(appPlc.phyVersion >> 16),
+                        (uint8_t)(appPlc.phyVersion >> 8), (uint8_t)(appPlc.phyVersion));
                 
                 /* Set PLC Phy Tone Map Size */
-                if (((appPlcTx.phyVersion >> 16) & 0xFF) == 0x01)
+                if (((appPlc.phyVersion >> 16) & 0xFF) == 0x01)
                 {
                     /* Show PHY Band */
                     APP_CONSOLE_Print("(CENELEC-A band: 35 - 91 kHz)\r\n");
                 }
-                else if (((appPlcTx.phyVersion >> 16) & 0xFF) == 0x02)
+                else if (((appPlc.phyVersion >> 16) & 0xFF) == 0x02)
                 {
                     /* Show PHY Band */
                     APP_CONSOLE_Print("(FCC band: 154 - 488 kHz)\r\n");
                 }
-                else if (((appPlcTx.phyVersion >> 16) & 0xFF) == 0x03)
+                else if (((appPlc.phyVersion >> 16) & 0xFF) == 0x03)
                 {
                     /* Show PHY Band */
                     APP_CONSOLE_Print("(ARIB band: 154 - 404 kHz)\r\n");
                 }
-                else if (((appPlcTx.phyVersion >> 16) & 0xFF) == 0x04)
+                else if (((appPlc.phyVersion >> 16) & 0xFF) == 0x04)
                 {
                     /* Show PHY Band */
                     APP_CONSOLE_Print("(CENELEC-B band: 98 - 122 kHz)\r\n");
@@ -666,11 +524,12 @@ void APP_CONSOLE_Tasks ( void )
                 APP_CONSOLE_Print("Configuring G3 MAC RT Header\r\n" \
                     "G3 MAC PAN ID: 0x%04X\r\n" \
                     "G3 MAC Source Address: 0x%04X\r\n" \
-                    "G3 MAC Destination Address: 0x%04X\r\n", 
-                    appPlcTx.panId, appPlcTx.srcShortAddress, appPlcTx.dstShortAddress);
-                
-                /* Set Tx modulation by default: BPSK differential  */
-                APP_CONSOLE_SetScheme('1');
+                    "G3 MAC Destination Address: 0x%04X\r\n" \
+                    "G3 MAC ACK request: %u\r\n", 
+                    appPlcTx.txHeader.destinationPAN, 
+                    appPlcTx.txHeader.sourceAddress.shortAddress, 
+                    appPlcTx.txHeader.destinationAddress.shortAddress,
+                    appPlcTx.txHeader.frameControl.ackRequest);
                 
                 /* Show configuration options */
                 APP_CONSOLE_Print("\r\nPress 'CTRL+D' to show the current configuration." \
@@ -708,9 +567,13 @@ void APP_CONSOLE_Tasks ( void )
                         APP_CONSOLE_Print("\n\r--- Configuration Parameters---------\r\n" \
                             "G3 MAC PAN ID: 0x%04X\r\n" \
                             "G3 MAC Source Address: 0x%04X\r\n" \
-                            "G3 MAC Destination Address: 0x%04X\r\n", 
-                            appPlcTx.panId, appPlcTx.srcShortAddress, appPlcTx.dstShortAddress);
-                        APP_CONSOLE_ShowPhyBand(appPlcTx.phyVersion);
+                            "G3 MAC Destination Address: 0x%04X\r\n" \
+                            "G3 MAC ACK request: %u\r\n", 
+                            appPlcTx.txHeader.destinationPAN, 
+                            appPlcTx.txHeader.sourceAddress.shortAddress, 
+                            appPlcTx.txHeader.destinationAddress.shortAddress,
+                            appPlcTx.txHeader.frameControl.ackRequest);
+                        APP_CONSOLE_ShowPhyBand(appPlc.phyVersion);
                         break;
                         
                     case CTRL_S_KEY:
@@ -719,9 +582,9 @@ void APP_CONSOLE_Tasks ( void )
                         APP_CONSOLE_Print("\n\r--- Configuration Menu --------------\r\n");
                         APP_CONSOLE_Print("Select parameter to configure:\r\n");
                         APP_CONSOLE_Print("\t0: Enable/Disable sleep mode\n\r");
-                        APP_CONSOLE_Print("\t1: G3 MAC Tx Modulation\n\r");
-                        APP_CONSOLE_Print("\t2: G3 MAC Source Address\n\r");
-                        APP_CONSOLE_Print("\t3: G3 MAC Destination Address\n\r");
+                        APP_CONSOLE_Print("\t1: G3 MAC Source Address\n\r");
+                        APP_CONSOLE_Print("\t2: G3 MAC Destination Address\n\r");
+                        APP_CONSOLE_Print("\t3: G3 MAC ACK request\n\r");
                         if (appPlc.plcMultiband)
                         {
                             APP_CONSOLE_Print("\t4: Tx/Rx Band\n\r");
@@ -770,21 +633,21 @@ void APP_CONSOLE_Tasks ( void )
                 }
                 else if (appConsole.pReceivedChar[0] == '1')
                 {
-                    appConsole.state = APP_CONSOLE_STATE_SET_SCHEME;
-                    APP_CONSOLE_ShowSetSchemeMenu();
-                    APP_CONSOLE_ReadRestart(1);
-                }
-                else if (appConsole.pReceivedChar[0] == '2')
-                {
                     appConsole.state = APP_CONSOLE_STATE_SET_SRC_ADDR;
                     APP_CONSOLE_ShowSetSourceAddressMenu();
                     APP_CONSOLE_ReadRestart(4);
                 }
-                else if (appConsole.pReceivedChar[0] == '3')
+                else if (appConsole.pReceivedChar[0] == '2')
                 {
                     appConsole.state = APP_CONSOLE_STATE_SET_DST_ADDR;
                     APP_CONSOLE_ShowSetDestinationAddressMenu();
                     APP_CONSOLE_ReadRestart(4);
+                }
+                else if (appConsole.pReceivedChar[0] == '3')
+                {
+                    appConsole.state = APP_CONSOLE_STATE_SET_ACK;
+                    APP_CONSOLE_ShowSetACKMenu();
+                    APP_CONSOLE_ReadRestart(1);
                 }
                 else if (appPlc.plcMultiband && (appConsole.pReceivedChar[0] == '4'))
                 {
@@ -808,7 +671,7 @@ void APP_CONSOLE_Tasks ( void )
             if (appPlc.plcTxState == APP_PLC_TX_STATE_IDLE)
             {
                 APP_CONSOLE_Print("\r\nTx (%u bytes): ", appConsole.dataLength);
-                switch(appPlc.lastTxStatus)
+                switch(appPlcTx.lastTxStatus)
                 {
                     case MAC_RT_STATUS_SUCCESS:
                         APP_CONSOLE_Print("  MAC_RT_STATUS_SUCCESS\r\n");
@@ -875,32 +738,14 @@ void APP_CONSOLE_Tasks ( void )
             break;
         }
 
-        case APP_CONSOLE_STATE_SET_SCHEME:
-        {
-            if (appConsole.numCharToReceive == 0)
-            {
-                if (APP_CONSOLE_SetScheme(appConsole.pReceivedChar))
-                {
-                    APP_CONSOLE_Print("(Max data length = %u bytes)\r\n", (unsigned int)appPlcTx.maxPsduLen);
-                    appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
-                }
-                else
-                {
-                    /* Try it again */
-                    APP_CONSOLE_Print("\r\nERROR: Scheme not permitted. Try again : ");
-                    APP_CONSOLE_ReadRestart(1);
-                }
-            }
-            break;
-        }
-
         case APP_CONSOLE_STATE_SET_SRC_ADDR:
         {
             if (appConsole.numCharToReceive == 0)
             {
                 if (APP_CONSOLE_SetSourceAddress(appConsole.pReceivedChar))
                 {
-                    APP_CONSOLE_Print("G3 MAC Source Address: 0x%04X\r\n", (unsigned int)appPlcTx.srcShortAddress);
+                    APP_CONSOLE_Print("G3 MAC Source Address: 0x%04X\r\n", 
+                            (unsigned int)appPlcTx.txHeader.sourceAddress.shortAddress);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
                 }
                 else
@@ -919,13 +764,41 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (APP_CONSOLE_SetDestinationAddress(appConsole.pReceivedChar))
                 {
-                    APP_CONSOLE_Print("G3 MAC Source Address: 0x%04X\r\n", (unsigned int)appPlcTx.dstShortAddress);
+                    APP_CONSOLE_Print("G3 MAC Destination Address: 0x%04X\r\n", 
+                            (unsigned int)appPlcTx.txHeader.destinationAddress.shortAddress);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
                 }
                 else
                 {
                     /* Try it again */
                     APP_CONSOLE_Print("\r\nERROR: Address not permitted. Try again : ");
+                    APP_CONSOLE_ReadRestart(1);
+                }
+            }
+            break;
+        }
+
+        case APP_CONSOLE_STATE_SET_ACK:
+        {
+            if (appConsole.numCharToReceive == 0)
+            {
+                if (APP_CONSOLE_SetACKRequest(appConsole.pReceivedChar))
+                {
+                    if (appPlcTx.ackRequest)
+                    {
+                        APP_CONSOLE_Print("ACK Request has been enabled\r\n");
+                    }
+                    else
+                    {
+                        APP_CONSOLE_Print("ACK Request has not been enabled." \
+                                " Broadcast address is not permitted. Check the destination address.\r\n");
+                    }
+                    appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
+                }
+                else
+                {
+                    /* Try it again */
+                    APP_CONSOLE_Print("\r\nERROR: Value not permitted. Try again : ");
                     APP_CONSOLE_ReadRestart(1);
                 }
             }
@@ -938,7 +811,7 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (APP_CONSOLE_SetPlcBand(appConsole.pReceivedChar))
                 {
-                    if (appPlcTx.bin2InUse)
+                    if (appPlc.bin2InUse)
                     {
                         APP_CONSOLE_Print("\r\nSet Auxiliary branch\r\n");
                     }

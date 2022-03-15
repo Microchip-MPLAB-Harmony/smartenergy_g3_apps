@@ -184,8 +184,8 @@ static void APP_PLC_SetInitialConfiguration ( void )
     appPlcTx.txHeader.frameControl.frameType = MAC_RT_FRAME_TYPE_DATA;
     appPlcTx.txHeader.frameControl.securityEnabled = 0;
     appPlcTx.txHeader.frameControl.framePending = 0;
-    appPlcTx.txHeader.frameControl.ackRequest = 0;
-    appPlcTx.txHeader.frameControl.panIdCompression = 0;
+    appPlcTx.txHeader.frameControl.ackRequest = 0; // No en Broadcast
+    appPlcTx.txHeader.frameControl.panIdCompression = 1;
     appPlcTx.txHeader.frameControl.destAddressingMode = MAC_RT_SHORT_ADDRESS;
     appPlcTx.txHeader.frameControl.frameVersion = 1;
     appPlcTx.txHeader.frameControl.srcAddressingMode = MAC_RT_SHORT_ADDRESS;
@@ -201,50 +201,23 @@ static void APP_PLC_SetInitialConfiguration ( void )
 static uint8_t APP_PLC_BuildMacRTHeader ( uint8_t *pFrame, MAC_RT_HEADER *pHeader )
 {
     uint8_t *pData;
-    MAC_RT_FRAME_CONTROL *frameControl;
     
     pData = pFrame;
-    frameControl = (MAC_RT_FRAME_CONTROL *)pHeader;
     
     /* Copy Frame Control and Sequence number */
     memcpy(pData, pHeader, 3);
     pData += 3;
-    
-    if (frameControl->destAddressingMode != MAC_RT_NO_ADDRESS)
-    {
-        *pData++ = (uint8_t)(pHeader->destinationPAN);
-        *pData++ = (uint8_t)(pHeader->destinationPAN >> 8);
-        if (frameControl->destAddressingMode == MAC_RT_SHORT_ADDRESS)
-        {
-            /* MAC_RT_SHORT_ADDRESS */
-            *pData++ = (uint8_t)(pHeader->destinationAddress.shortAddress);
-            *pData++ = (uint8_t)(pHeader->destinationAddress.shortAddress >> 8);
-        }
-        else
-        {
-            /* MAC_RT_EXTENDED_ADDRESS */
-            memcpy(pData, pHeader->destinationAddress.extendedAddress.address, 8);
-            pData += 8;
-        }
-    }
-    
-    if (frameControl->srcAddressingMode != MAC_RT_NO_ADDRESS)
-    {
-        *pData++ = (uint8_t)(pHeader->sourcePAN);
-        *pData++ = (uint8_t)(pHeader->sourcePAN >> 8);
-        if (frameControl->srcAddressingMode == MAC_RT_SHORT_ADDRESS)
-        {
-            /* MAC_RT_SHORT_ADDRESS */
-            *pData++ = (uint8_t)(pHeader->sourceAddress.shortAddress);
-            *pData++ = (uint8_t)(pHeader->sourceAddress.shortAddress >> 8);
-        }
-        else
-        {
-            /* MAC_RT_EXTENDED_ADDRESS */
-            memcpy(pData, pHeader->sourceAddress.extendedAddress.address, 8);
-            pData += 8;
-        }
-    }
+    /* Build Header to use MAC_RT_SHORT_ADDRESS mode */
+    /* Destination PAN ID */
+    *pData++ = (uint8_t)(pHeader->destinationPAN);
+    *pData++ = (uint8_t)(pHeader->destinationPAN >> 8);
+    /* Destination address */
+    *pData++ = (uint8_t)(pHeader->destinationAddress.shortAddress);
+    *pData++ = (uint8_t)(pHeader->destinationAddress.shortAddress >> 8);
+    /* panIdCompression = 1 -> No Source PAN ID */
+    /* Source Address */
+    *pData++ = (uint8_t)(pHeader->sourceAddress.shortAddress);
+    *pData++ = (uint8_t)(pHeader->sourceAddress.shortAddress >> 8);
     
     /* Return Header length */
     return (uint8_t)(pFrame - pData);
@@ -253,50 +226,29 @@ static uint8_t APP_PLC_BuildMacRTHeader ( uint8_t *pFrame, MAC_RT_HEADER *pHeade
 static uint8_t APP_PLC_GetMacRTHeaderInfo ( uint8_t *pFrame )
 {
     uint8_t *pData;
-    MAC_RT_FRAME_CONTROL *frameControl;
     uint16_t address;
     
     /* Frame Struct :
-     * Frame Control(2b) + Seq Num(1b) + Dest PAN ID(2b) + Dest Addr(2b) + 
-     * Src PAN ID(2b) + Src Addr(2b) */
+     * Frame Control(2b) + Seq Num(1b) + Dest PAN ID(2b) + Dest Addr(2b) + Src Addr(2b) */
     
     pData = pFrame;
-    frameControl = (MAC_RT_FRAME_CONTROL *)pData;
     pData += 2;
     
     pData++; /* Sequence number */
     
-    if (frameControl->destAddressingMode != MAC_RT_NO_ADDRESS)
-    {
-        pData += 2; /* PAN ID */
-        if (frameControl->destAddressingMode == MAC_RT_SHORT_ADDRESS)
-        {
-            /* SHORT ADDRESS */
-            address = *pData++;
-            address += (uint16_t)*pData++ << 8;
-            APP_CONSOLE_Print("Destination Address: 0x%04X ", address);
-        }
-        else
-        {
-            pData += 8; /* EXTENDED ADDRESS */
-        }
-    }
+    pData += 2; /* PAN ID */
     
-    if (frameControl->srcAddressingMode != MAC_RT_NO_ADDRESS)
-    {
-        pData += 2; /* PAN ID */
-        if (frameControl->destAddressingMode == MAC_RT_SHORT_ADDRESS)
-        {
-            /* SHORT ADDRESS */
-            address = *pData++;
-            address += (uint16_t)*pData++ << 8;
-            APP_CONSOLE_Print(" - Source Address: 0x%04X\r\n", address);
-        }
-        else
-        {
-            pData += 8; /* EXTENDED ADDRESS */
-        }
-    }
+    /* Destination address */
+    address = *pData++;
+    address += (uint16_t)*pData++ << 8;
+    APP_CONSOLE_Print("Destination Address: 0x%04X ", address);
+
+    /* panIdCompression = 1 -> No Source PAN ID */
+    
+    /* Source address */
+    address = *pData++;
+    address += (uint16_t)*pData++ << 8;
+    APP_CONSOLE_Print(" - Source Address: 0x%04X\r\n", address);
 
     /* Return Header length */
     return (uint8_t)(pFrame - pData);
@@ -339,11 +291,8 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     }
 }
 
-static void APP_PLC_SleepModeDisableCb( uintptr_t context )
+static void APP_PLC_SleepModeDisableCb( void )
 {
-    /* Avoid warning */
-    (void)context;
-
     /* Apply PLC initial configuration */
     APP_PLC_SetInitialConfiguration();
 
@@ -351,10 +300,9 @@ static void APP_PLC_SleepModeDisableCb( uintptr_t context )
     appPlc.state = APP_PLC_STATE_WAITING;
 }
 
-static void APP_PLC_ExceptionCb(DRV_G3_MACRT_EXCEPTION exceptionObj, uintptr_t context )
+static void APP_PLC_ExceptionCb( DRV_G3_MACRT_EXCEPTION exceptionObj )
 {
     /* Avoid warning */
-    (void)context;
     (void)exceptionObj;
 
     /* Update PLC TX Status */
@@ -363,11 +311,8 @@ static void APP_PLC_ExceptionCb(DRV_G3_MACRT_EXCEPTION exceptionObj, uintptr_t c
     appPlc.state = APP_PLC_STATE_IDLE;
 }
 
-static void APP_PLC_DataCfmCb(MAC_RT_TX_CFM_OBJ *cfmObj, uintptr_t context )
+static void APP_PLC_DataCfmCb( MAC_RT_TX_CFM_OBJ *cfmObj )
 {
-    /* Avoid warning */
-    (void)context;
-
     /* Update PLC TX Status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
     
@@ -426,9 +371,10 @@ static void APP_PLC_DataIndCb( uint8_t *pData, uint16_t length )
     }
     /* Show LQI (Link Quality Indicator). It is in quarters of dB and 10-dB 
      * offset: SNR(dB) = (LQI - 40) / 4 */
-    APP_CONSOLE_Print("LQI %ddB): ", div_round((int16_t)appPlcTx.rxParams.lqi - 40, 4));
+    APP_CONSOLE_Print("LQI %ddB): ", div_round((int16_t)appPlcTx.rxParams.pduLinkQuality - 40, 4));
     
     /* Extract MAC RT Header */
+    pFrame = pData;
     headerLength = APP_PLC_GetMacRTHeaderInfo(pFrame);
     pFrame += headerLength;
     
@@ -440,7 +386,15 @@ static void APP_PLC_DataIndCb( uint8_t *pData, uint16_t length )
 
 static void APP_PLC_RxParamsIndCb( MAC_RT_RX_PARAMETERS_OBJ *pParameters )
 {
-    memcpy((uint8_t *)appPlcTx.rxParams, (uint8_t *)pParameters, sizeof(MAC_RT_RX_PARAMETERS_OBJ));
+    appPlcTx.rxParams.highPriority = pParameters->highPriority;
+    appPlcTx.rxParams.pduLinkQuality = pParameters->pduLinkQuality;
+    appPlcTx.rxParams.phaseDifferential = pParameters->phaseDifferential;
+    appPlcTx.rxParams.modType = pParameters->modType;
+    appPlcTx.rxParams.modScheme = pParameters->modScheme;
+    
+    memcpy(&appPlcTx.rxParams.toneMap, &pParameters->toneMap, sizeof(MAC_RT_TONE_MAP));
+    
+    memcpy(&appPlcTx.rxParams.toneMapRsp, &pParameters->toneMapRsp, sizeof(MAC_RT_TONE_MAP_RSP_DATA));
 }
 
 // *****************************************************************************

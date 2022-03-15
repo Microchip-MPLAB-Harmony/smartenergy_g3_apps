@@ -66,7 +66,7 @@ typedef enum
     APP_CONSOLE_STATE_CONSOLE,
     APP_CONSOLE_STATE_MENU,
     APP_CONSOLE_STATE_SET_SLEEP,
-    APP_CONSOLE_STATE_SET_SCHEME,
+    APP_CONSOLE_STATE_SET_ACK,
     APP_CONSOLE_STATE_SET_SRC_ADDR,
     APP_CONSOLE_STATE_SET_DST_ADDR,
     APP_CONSOLE_STATE_SET_PLC_BAND,
@@ -124,8 +124,7 @@ extern APP_CONSOLE_DATA appConsole;
 // *****************************************************************************
 #define STRING_EOL    "\r"
 #define STRING_HEADER "\r\n-- MCHP PHY PLC & Go Application (G3-PLC) --\r\n" \
-	"-- Compiled: "__DATE__ " "__TIME__ " --\r\n" \
-	"-- HOST version: "DRV_PLC_PHY_HOST_DESC " --\r\n"
+	"-- Compiled: "__DATE__ " "__TIME__ " --\r\n"
 
 #define MENU_CMD_PROMPT     "\r\n>>> "
 
