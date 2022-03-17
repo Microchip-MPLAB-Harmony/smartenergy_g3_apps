@@ -59,7 +59,7 @@
 #define DRV_G3_MACRT_REG_CMD_RD            (0)
 #define DRV_G3_MACRT_REG_CMD_WR            (1)
 
-#define DRV_G3_MACRT_STATUS_LENGTH         8
+#define DRV_G3_MACRT_STATUS_LENGTH         12
 #define DRV_G3_MACRT_DATA_MAX_SIZE         MAC_RT_DATA_MAX_SIZE
 #define DRV_G3_MACRT_COMM_STATUS_SIZE      32
 #define DRV_G3_MACRT_TX_CFM_SIZE           sizeof(MAC_RT_TX_CFM_OBJ)

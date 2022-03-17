@@ -37,7 +37,7 @@
 // Section: Global Data Definitions
 // *****************************************************************************
 // *****************************************************************************
-#define CTRL_D_KEY         0x14
+#define CTRL_D_KEY         0x04
 #define CTRL_S_KEY         0x13
 #define BACKSPACE_KEY      0x08
 #define DELETE_KEY         0x7F
@@ -110,15 +110,17 @@ static bool APP_CONSOLE_CharToHex(char value, uint8_t *hex)
 
 static bool APP_CONSOLE_GetValue16(char *pData, uint16_t *pValue16)
 {
-    uint16_t address;
+    uint16_t value;
     uint8_t hexValue;
     uint8_t index;
     
-    for (index = 4; index > 0; index--)
+    value = 0;
+    for (index = 0; index < 4; index++)
     {
         if (APP_CONSOLE_CharToHex(*pData++, &hexValue))
         {
-            address = hexValue << ((index - 1) << 3);
+            value <<= 4;
+            value += hexValue;
         }
         else
         {
@@ -126,7 +128,7 @@ static bool APP_CONSOLE_GetValue16(char *pData, uint16_t *pValue16)
         }
     }
     
-    *pValue16 = address;
+    *pValue16 = value;
     return true;
     
 }
@@ -274,7 +276,7 @@ static void APP_CONSOLE_ShowMultibandMenu( void )
 static void APP_CONSOLE_ShowSetSourceAddressMenu( void )
 {
     APP_CONSOLE_Print("\r\n--- G3 MAC Source Address Configuration Menu ---\r\n");
-    APP_CONSOLE_Print("Introduce New Address (0x%04X) : ", 
+    APP_CONSOLE_Print("Introduce New Address (0x%04X) : 0x", 
             appPlcTx.txHeader.sourceAddress.shortAddress);
 }
 
@@ -298,6 +300,12 @@ static bool APP_CONSOLE_SetSourceAddress(char *pData)
         return false;
     }
     
+    if (address == appPlcTx.txHeader.destinationAddress.shortAddress)
+    {
+        /* Source and Destination addresses must be different */
+        return false;
+    }
+    
     appPlcTx.txHeader.sourceAddress.shortAddress = address;
     
     return true;
@@ -306,7 +314,7 @@ static bool APP_CONSOLE_SetSourceAddress(char *pData)
 static void APP_CONSOLE_ShowSetDestinationAddressMenu( void )
 {
     APP_CONSOLE_Print("\r\n--- G3 MAC Source Destiantion Configuration Menu ---\r\n");
-    APP_CONSOLE_Print("Introduce New Address (0x%04X) : ", 
+    APP_CONSOLE_Print("Introduce New Address (0x%04X) : 0x", 
             appPlcTx.txHeader.destinationAddress.shortAddress);
 }
 
@@ -330,6 +338,12 @@ static bool APP_CONSOLE_SetDestinationAddress(char *pData)
         return false;
     }
     
+    if (address == appPlcTx.txHeader.sourceAddress.shortAddress)
+    {
+        /* Source and Destination addresses must be different */
+        return false;
+    }
+    
     appPlcTx.txHeader.destinationAddress.shortAddress = address;
     
     return true;
@@ -349,13 +363,13 @@ static bool APP_CONSOLE_SetACKRequest( char *enable )
     {
 		case 'Y':
         case 'y':
-            appPlcTx.ackRequest = true;
+            appPlcTx.txHeader.frameControl.ackRequest = true;
             result = true;
 			break;
 
 		case 'N':
         case 'n':
-            appPlcTx.ackRequest = false;
+            appPlcTx.txHeader.frameControl.ackRequest = false;
             result = true;
 			break;
            
@@ -419,6 +433,11 @@ static void APP_CONSOLE_ShowPhyBand( uint32_t phyVersion )
     {
         /* Show PHY Band */
         APP_CONSOLE_Print("CENELEC-B band (98 - 122 kHz)\r\n");
+    }
+    else
+    {
+        /* ERROR in PHY Band */
+        APP_CONSOLE_Print("Find ERROR in PHY band\r\n");
     }
 }
 
@@ -519,6 +538,11 @@ void APP_CONSOLE_Tasks ( void )
                     /* Show PHY Band */
                     APP_CONSOLE_Print("(CENELEC-B band: 98 - 122 kHz)\r\n");
                 }
+                else
+                {
+                    /* Show PHY Band */
+                    APP_CONSOLE_Print(" (Find ERROR in PHY version.)\r\n");
+                }
                 
                 /* Show G3 MAC RT Configuration */
                 APP_CONSOLE_Print("Configuring G3 MAC RT Header\r\n" \
@@ -561,8 +585,6 @@ void APP_CONSOLE_Tasks ( void )
                 switch(*appConsole.pReceivedChar)
                 {
                     case CTRL_D_KEY:
-                        appConsole.state = APP_CONSOLE_STATE_MENU;
-                        APP_CONSOLE_ReadRestart(1);
                         /* Show G3 MAC RT Configuration */
                         APP_CONSOLE_Print("\n\r--- Configuration Parameters---------\r\n" \
                             "G3 MAC PAN ID: 0x%04X\r\n" \
@@ -573,7 +595,9 @@ void APP_CONSOLE_Tasks ( void )
                             appPlcTx.txHeader.sourceAddress.shortAddress, 
                             appPlcTx.txHeader.destinationAddress.shortAddress,
                             appPlcTx.txHeader.frameControl.ackRequest);
+                        
                         APP_CONSOLE_ShowPhyBand(appPlc.phyVersion);
+                        appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
                         break;
                         
                     case CTRL_S_KEY:
@@ -744,15 +768,15 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (APP_CONSOLE_SetSourceAddress(appConsole.pReceivedChar))
                 {
-                    APP_CONSOLE_Print("G3 MAC Source Address: 0x%04X\r\n", 
+                    APP_CONSOLE_Print("\r\nG3 MAC Source Address: 0x%04X\r\n", 
                             (unsigned int)appPlcTx.txHeader.sourceAddress.shortAddress);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
                 }
                 else
                 {
                     /* Try it again */
-                    APP_CONSOLE_Print("\r\nERROR: Address not permitted. Try again : ");
-                    APP_CONSOLE_ReadRestart(1);
+                    APP_CONSOLE_Print("\r\nERROR: Address not permitted. Try again : 0x");
+                    APP_CONSOLE_ReadRestart(4);
                 }
             }
             break;
@@ -764,15 +788,15 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (APP_CONSOLE_SetDestinationAddress(appConsole.pReceivedChar))
                 {
-                    APP_CONSOLE_Print("G3 MAC Destination Address: 0x%04X\r\n", 
+                    APP_CONSOLE_Print("\r\nG3 MAC Destination Address: 0x%04X\r\n", 
                             (unsigned int)appPlcTx.txHeader.destinationAddress.shortAddress);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
                 }
                 else
                 {
                     /* Try it again */
-                    APP_CONSOLE_Print("\r\nERROR: Address not permitted. Try again : ");
-                    APP_CONSOLE_ReadRestart(1);
+                    APP_CONSOLE_Print("\r\nERROR: Address not permitted. Try again : 0x");
+                    APP_CONSOLE_ReadRestart(4);
                 }
             }
             break;
@@ -784,14 +808,14 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (APP_CONSOLE_SetACKRequest(appConsole.pReceivedChar))
                 {
-                    if (appPlcTx.ackRequest)
+                    if (appPlcTx.txHeader.frameControl.ackRequest)
                     {
-                        APP_CONSOLE_Print("ACK Request has been enabled\r\n");
+                        APP_CONSOLE_Print("\r\nACK Request has been enabled\r\n");
                     }
                     else
                     {
-                        APP_CONSOLE_Print("ACK Request has not been enabled." \
-                                " Broadcast address is not permitted. Check the destination address.\r\n");
+                        APP_CONSOLE_Print("\r\nACK Request has not been enabled." \
+                                " Check the destination address. Broadcast address is not permitted. \r\n");
                     }
                     appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
                 }

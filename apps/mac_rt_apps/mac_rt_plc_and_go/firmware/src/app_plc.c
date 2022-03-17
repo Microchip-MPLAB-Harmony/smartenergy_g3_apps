@@ -80,8 +80,8 @@ SRV_PLC_PCOUP *appPLCCoupling;
 APP_PLC_DATA appPlc;
 APP_PLC_DATA_TX appPlcTx;
 
-static CACHE_ALIGN uint8_t appPlcPibTxFrameBuffer[CACHE_ALIGNED_SIZE_GET(MAC_RT_DATA_MAX_SIZE)];
-static CACHE_ALIGN uint8_t appPlcPibRxFrameBuffer[CACHE_ALIGNED_SIZE_GET(MAC_RT_DATA_MAX_SIZE)];
+static CACHE_ALIGN uint8_t appPlcTxFrameBuffer[CACHE_ALIGNED_SIZE_GET(MAC_RT_DATA_MAX_SIZE)];
+static CACHE_ALIGN uint8_t appPlcRxFrameBuffer[CACHE_ALIGNED_SIZE_GET(MAC_RT_DATA_MAX_SIZE)];
 
 static void APP_PLC_SetCouplingConfiguration ( SRV_PLC_PCOUP_BRANCH branch )
 {
@@ -91,7 +91,7 @@ static void APP_PLC_SetCouplingConfiguration ( SRV_PLC_PCOUP_BRANCH branch )
     
     appPlc.plcPIB.index = PHY_PIB_PLC_IC_DRIVER_CFG;
     appPlc.plcPIB.length = 1;
-    *appPlc.plcPIB.pData = appPLCCoupling->lineDrvConf;
+    appPlc.plcPIB.pData[0] = appPLCCoupling->lineDrvConf;
     DRV_G3_MACRT_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
 
     appPlc.plcPIB.index = PHY_PIB_DACC_TABLE_CFG;
@@ -102,7 +102,7 @@ static void APP_PLC_SetCouplingConfiguration ( SRV_PLC_PCOUP_BRANCH branch )
 
     appPlc.plcPIB.index = PHY_PIB_NUM_TX_LEVELS;
     appPlc.plcPIB.length = 1;
-    *appPlc.plcPIB.pData = appPLCCoupling->numTxLevels;
+    appPlc.plcPIB.pData[0] = appPLCCoupling->numTxLevels;
     DRV_G3_MACRT_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
 
     appPlc.plcPIB.index = PHY_PIB_MAX_RMS_TABLE_HI;
@@ -177,8 +177,8 @@ static void APP_PLC_SetInitialConfiguration ( void )
     /* Get PLC PHY version */
     appPlc.plcPIB.index = PHY_PIB_VERSION_NUM;
     appPlc.plcPIB.length = 4;
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)&appPlc.phyVersion, 4);
     DRV_G3_MACRT_PIBGet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+    memcpy((uint8_t *)&appPlc.phyVersion, appPlc.plcPIB.pData, 4);
     
     /* Fill MAC RT Header */
     appPlcTx.txHeader.frameControl.frameType = MAC_RT_FRAME_TYPE_DATA;
@@ -220,7 +220,7 @@ static uint8_t APP_PLC_BuildMacRTHeader ( uint8_t *pFrame, MAC_RT_HEADER *pHeade
     *pData++ = (uint8_t)(pHeader->sourceAddress.shortAddress >> 8);
     
     /* Return Header length */
-    return (uint8_t)(pFrame - pData);
+    return (uint8_t)(pData - pFrame);
 }
 
 static uint8_t APP_PLC_GetMacRTHeaderInfo ( uint8_t *pFrame )
@@ -412,8 +412,8 @@ static void APP_PLC_RxParamsIndCb( MAC_RT_RX_PARAMETERS_OBJ *pParameters )
 void APP_PLC_Initialize ( void )
 {
     /* Init PLC data buffers */
-    appPlcTx.pTxFrame = appPlcPibTxFrameBuffer;
-    appPlcTx.pRxFrame = appPlcPibRxFrameBuffer;
+    appPlcTx.pTxFrame = appPlcTxFrameBuffer;
+    appPlcTx.pRxFrame = appPlcRxFrameBuffer;
     
     /* Set PLC state */
     appPlc.state = APP_PLC_STATE_IDLE;
@@ -539,13 +539,15 @@ void APP_PLC_Tasks ( void )
                 DRV_G3_MACRT_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb);
                 DRV_G3_MACRT_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb);
                 DRV_G3_MACRT_RxParamsIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_RxParamsIndCb);
-                
                 DRV_G3_MACRT_SleepIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_SleepModeDisableCb);
                 
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
                 
-                /* Enable PLC PVDD Monitor Service: ADC channel 0 */
+                /* Enable PLC Transmission */
+                DRV_G3_MACRT_Enable_TX(appPlc.drvPl360Handle, true);
+                
+                /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
             

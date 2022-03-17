@@ -87,7 +87,7 @@
                                                  0x4f5000ff, 0x1b1b1b1b, 0x0, 0x0, 0x6, 0x355, \
                                                  0x0, 0x1020f0, 0x355, 0x0, 0x1020ff}
 #define SRV_PCOUP_GAIN_HIGH_TBL                  {49, 20, 256}
-#define SRV_PCOUP_GAIN_VLOW_TBL                  {364, 480, 408}
+#define SRV_PCOUP_GAIN_VLOW_TBL                  {364, 180, 408}
 
 #define SRV_PCOUP_LINE_DRV_CONF                  5
 

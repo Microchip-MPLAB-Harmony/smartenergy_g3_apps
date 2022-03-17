@@ -396,8 +396,8 @@ void DRV_G3_MACRT_TxRequest(const DRV_HANDLE handle, uint8_t *pData, uint16_t le
 
             /* Build and Send TX data */
             pTxData = gG3TxData;
-            *pTxData++= (uint8_t)(length >> 8);
             *pTxData++= (uint8_t)length;
+            *pTxData++= (uint8_t)(length >> 8);
             memcpy(pTxData, pData, length);
             _DRV_G3_MACRT_COMM_SpiWriteCmd(TX_REQ_ID, gG3TxData, length + 2);
 		}
@@ -440,6 +440,9 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBGet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
 			return MAC_RT_STATUS_INVALID_PARAMETER;
 		}
         
+        /* Reset Event flag */
+        gG3MacRtObj->evRegRspLength = 0;
+        
         /* Build command */
         pDst = gG3RegResponse;
 
@@ -450,10 +453,7 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBGet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
         *pDst++ = (uint8_t)(pibObj->pib);
         *pDst++ = (uint8_t)(pibObj->index >> 8);
         *pDst++ = (uint8_t)(pibObj->index);
-        *pDst++ = (uint8_t)(pibObj->length);
-        memcpy(pDst, pibObj->pData, pibObj->length);
-        pDst += pibObj->length;
-
+        
         /* Send PIB information request */
         _DRV_G3_MACRT_COMM_SpiWriteCmd(REG_RSP_ID, gG3RegResponse, pDst - gG3RegResponse);
         

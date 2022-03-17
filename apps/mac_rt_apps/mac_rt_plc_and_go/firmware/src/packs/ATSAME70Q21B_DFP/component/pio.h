@@ -1,7 +1,7 @@
 /*
  * Component description for PIO
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2020-11-26T11:12:57Z */
 #ifndef _SAME70_PIO_COMPONENT_H_
 #define _SAME70_PIO_COMPONENT_H_
 
@@ -4911,62 +4911,62 @@
 
 
 /** \brief PIO register offsets definitions */
-#define PIO_PER_REG_OFST               (0x00)              /* (PIO_PER) PIO Enable Register Offset */
-#define PIO_PDR_REG_OFST               (0x04)              /* (PIO_PDR) PIO Disable Register Offset */
-#define PIO_PSR_REG_OFST               (0x08)              /* (PIO_PSR) PIO Status Register Offset */
-#define PIO_OER_REG_OFST               (0x10)              /* (PIO_OER) Output Enable Register Offset */
-#define PIO_ODR_REG_OFST               (0x14)              /* (PIO_ODR) Output Disable Register Offset */
-#define PIO_OSR_REG_OFST               (0x18)              /* (PIO_OSR) Output Status Register Offset */
-#define PIO_IFER_REG_OFST              (0x20)              /* (PIO_IFER) Glitch Input Filter Enable Register Offset */
-#define PIO_IFDR_REG_OFST              (0x24)              /* (PIO_IFDR) Glitch Input Filter Disable Register Offset */
-#define PIO_IFSR_REG_OFST              (0x28)              /* (PIO_IFSR) Glitch Input Filter Status Register Offset */
-#define PIO_SODR_REG_OFST              (0x30)              /* (PIO_SODR) Set Output Data Register Offset */
-#define PIO_CODR_REG_OFST              (0x34)              /* (PIO_CODR) Clear Output Data Register Offset */
-#define PIO_ODSR_REG_OFST              (0x38)              /* (PIO_ODSR) Output Data Status Register Offset */
-#define PIO_PDSR_REG_OFST              (0x3C)              /* (PIO_PDSR) Pin Data Status Register Offset */
-#define PIO_IER_REG_OFST               (0x40)              /* (PIO_IER) Interrupt Enable Register Offset */
-#define PIO_IDR_REG_OFST               (0x44)              /* (PIO_IDR) Interrupt Disable Register Offset */
-#define PIO_IMR_REG_OFST               (0x48)              /* (PIO_IMR) Interrupt Mask Register Offset */
-#define PIO_ISR_REG_OFST               (0x4C)              /* (PIO_ISR) Interrupt Status Register Offset */
-#define PIO_MDER_REG_OFST              (0x50)              /* (PIO_MDER) Multi-driver Enable Register Offset */
-#define PIO_MDDR_REG_OFST              (0x54)              /* (PIO_MDDR) Multi-driver Disable Register Offset */
-#define PIO_MDSR_REG_OFST              (0x58)              /* (PIO_MDSR) Multi-driver Status Register Offset */
-#define PIO_PUDR_REG_OFST              (0x60)              /* (PIO_PUDR) Pull-up Disable Register Offset */
-#define PIO_PUER_REG_OFST              (0x64)              /* (PIO_PUER) Pull-up Enable Register Offset */
-#define PIO_PUSR_REG_OFST              (0x68)              /* (PIO_PUSR) Pad Pull-up Status Register Offset */
-#define PIO_ABCDSR_REG_OFST            (0x70)              /* (PIO_ABCDSR) Peripheral ABCD Select Register 0 Offset */
-#define PIO_ABCDSR0_REG_OFST           (0x70)              /* (PIO_ABCDSR0) Peripheral ABCD Select Register 0 Offset */
-#define PIO_ABCDSR1_REG_OFST           (0x74)              /* (PIO_ABCDSR1) Peripheral ABCD Select Register 0 Offset */
-#define PIO_IFSCDR_REG_OFST            (0x80)              /* (PIO_IFSCDR) Input Filter Slow Clock Disable Register Offset */
-#define PIO_IFSCER_REG_OFST            (0x84)              /* (PIO_IFSCER) Input Filter Slow Clock Enable Register Offset */
-#define PIO_IFSCSR_REG_OFST            (0x88)              /* (PIO_IFSCSR) Input Filter Slow Clock Status Register Offset */
-#define PIO_SCDR_REG_OFST              (0x8C)              /* (PIO_SCDR) Slow Clock Divider Debouncing Register Offset */
-#define PIO_PPDDR_REG_OFST             (0x90)              /* (PIO_PPDDR) Pad Pull-down Disable Register Offset */
-#define PIO_PPDER_REG_OFST             (0x94)              /* (PIO_PPDER) Pad Pull-down Enable Register Offset */
-#define PIO_PPDSR_REG_OFST             (0x98)              /* (PIO_PPDSR) Pad Pull-down Status Register Offset */
-#define PIO_OWER_REG_OFST              (0xA0)              /* (PIO_OWER) Output Write Enable Offset */
-#define PIO_OWDR_REG_OFST              (0xA4)              /* (PIO_OWDR) Output Write Disable Offset */
-#define PIO_OWSR_REG_OFST              (0xA8)              /* (PIO_OWSR) Output Write Status Register Offset */
-#define PIO_AIMER_REG_OFST             (0xB0)              /* (PIO_AIMER) Additional Interrupt Modes Enable Register Offset */
-#define PIO_AIMDR_REG_OFST             (0xB4)              /* (PIO_AIMDR) Additional Interrupt Modes Disable Register Offset */
-#define PIO_AIMMR_REG_OFST             (0xB8)              /* (PIO_AIMMR) Additional Interrupt Modes Mask Register Offset */
-#define PIO_ESR_REG_OFST               (0xC0)              /* (PIO_ESR) Edge Select Register Offset */
-#define PIO_LSR_REG_OFST               (0xC4)              /* (PIO_LSR) Level Select Register Offset */
-#define PIO_ELSR_REG_OFST              (0xC8)              /* (PIO_ELSR) Edge/Level Status Register Offset */
-#define PIO_FELLSR_REG_OFST            (0xD0)              /* (PIO_FELLSR) Falling Edge/Low-Level Select Register Offset */
-#define PIO_REHLSR_REG_OFST            (0xD4)              /* (PIO_REHLSR) Rising Edge/High-Level Select Register Offset */
-#define PIO_FRLHSR_REG_OFST            (0xD8)              /* (PIO_FRLHSR) Fall/Rise - Low/High Status Register Offset */
-#define PIO_LOCKSR_REG_OFST            (0xE0)              /* (PIO_LOCKSR) Lock Status Offset */
-#define PIO_WPMR_REG_OFST              (0xE4)              /* (PIO_WPMR) Write Protection Mode Register Offset */
-#define PIO_WPSR_REG_OFST              (0xE8)              /* (PIO_WPSR) Write Protection Status Register Offset */
-#define PIO_SCHMITT_REG_OFST           (0x100)             /* (PIO_SCHMITT) Schmitt Trigger Register Offset */
-#define PIO_DRIVER_REG_OFST            (0x118)             /* (PIO_DRIVER) I/O Drive Register Offset */
-#define PIO_PCMR_REG_OFST              (0x150)             /* (PIO_PCMR) Parallel Capture Mode Register Offset */
-#define PIO_PCIER_REG_OFST             (0x154)             /* (PIO_PCIER) Parallel Capture Interrupt Enable Register Offset */
-#define PIO_PCIDR_REG_OFST             (0x158)             /* (PIO_PCIDR) Parallel Capture Interrupt Disable Register Offset */
-#define PIO_PCIMR_REG_OFST             (0x15C)             /* (PIO_PCIMR) Parallel Capture Interrupt Mask Register Offset */
-#define PIO_PCISR_REG_OFST             (0x160)             /* (PIO_PCISR) Parallel Capture Interrupt Status Register Offset */
-#define PIO_PCRHR_REG_OFST             (0x164)             /* (PIO_PCRHR) Parallel Capture Reception Holding Register Offset */
+#define PIO_PER_REG_OFST               (0x00)              /**< (PIO_PER) PIO Enable Register Offset */
+#define PIO_PDR_REG_OFST               (0x04)              /**< (PIO_PDR) PIO Disable Register Offset */
+#define PIO_PSR_REG_OFST               (0x08)              /**< (PIO_PSR) PIO Status Register Offset */
+#define PIO_OER_REG_OFST               (0x10)              /**< (PIO_OER) Output Enable Register Offset */
+#define PIO_ODR_REG_OFST               (0x14)              /**< (PIO_ODR) Output Disable Register Offset */
+#define PIO_OSR_REG_OFST               (0x18)              /**< (PIO_OSR) Output Status Register Offset */
+#define PIO_IFER_REG_OFST              (0x20)              /**< (PIO_IFER) Glitch Input Filter Enable Register Offset */
+#define PIO_IFDR_REG_OFST              (0x24)              /**< (PIO_IFDR) Glitch Input Filter Disable Register Offset */
+#define PIO_IFSR_REG_OFST              (0x28)              /**< (PIO_IFSR) Glitch Input Filter Status Register Offset */
+#define PIO_SODR_REG_OFST              (0x30)              /**< (PIO_SODR) Set Output Data Register Offset */
+#define PIO_CODR_REG_OFST              (0x34)              /**< (PIO_CODR) Clear Output Data Register Offset */
+#define PIO_ODSR_REG_OFST              (0x38)              /**< (PIO_ODSR) Output Data Status Register Offset */
+#define PIO_PDSR_REG_OFST              (0x3C)              /**< (PIO_PDSR) Pin Data Status Register Offset */
+#define PIO_IER_REG_OFST               (0x40)              /**< (PIO_IER) Interrupt Enable Register Offset */
+#define PIO_IDR_REG_OFST               (0x44)              /**< (PIO_IDR) Interrupt Disable Register Offset */
+#define PIO_IMR_REG_OFST               (0x48)              /**< (PIO_IMR) Interrupt Mask Register Offset */
+#define PIO_ISR_REG_OFST               (0x4C)              /**< (PIO_ISR) Interrupt Status Register Offset */
+#define PIO_MDER_REG_OFST              (0x50)              /**< (PIO_MDER) Multi-driver Enable Register Offset */
+#define PIO_MDDR_REG_OFST              (0x54)              /**< (PIO_MDDR) Multi-driver Disable Register Offset */
+#define PIO_MDSR_REG_OFST              (0x58)              /**< (PIO_MDSR) Multi-driver Status Register Offset */
+#define PIO_PUDR_REG_OFST              (0x60)              /**< (PIO_PUDR) Pull-up Disable Register Offset */
+#define PIO_PUER_REG_OFST              (0x64)              /**< (PIO_PUER) Pull-up Enable Register Offset */
+#define PIO_PUSR_REG_OFST              (0x68)              /**< (PIO_PUSR) Pad Pull-up Status Register Offset */
+#define PIO_ABCDSR_REG_OFST            (0x70)              /**< (PIO_ABCDSR) Peripheral ABCD Select Register 0 Offset */
+#define PIO_ABCDSR0_REG_OFST           (0x70)              /**< (PIO_ABCDSR0) Peripheral ABCD Select Register 0 Offset */
+#define PIO_ABCDSR1_REG_OFST           (0x74)              /**< (PIO_ABCDSR1) Peripheral ABCD Select Register 0 Offset */
+#define PIO_IFSCDR_REG_OFST            (0x80)              /**< (PIO_IFSCDR) Input Filter Slow Clock Disable Register Offset */
+#define PIO_IFSCER_REG_OFST            (0x84)              /**< (PIO_IFSCER) Input Filter Slow Clock Enable Register Offset */
+#define PIO_IFSCSR_REG_OFST            (0x88)              /**< (PIO_IFSCSR) Input Filter Slow Clock Status Register Offset */
+#define PIO_SCDR_REG_OFST              (0x8C)              /**< (PIO_SCDR) Slow Clock Divider Debouncing Register Offset */
+#define PIO_PPDDR_REG_OFST             (0x90)              /**< (PIO_PPDDR) Pad Pull-down Disable Register Offset */
+#define PIO_PPDER_REG_OFST             (0x94)              /**< (PIO_PPDER) Pad Pull-down Enable Register Offset */
+#define PIO_PPDSR_REG_OFST             (0x98)              /**< (PIO_PPDSR) Pad Pull-down Status Register Offset */
+#define PIO_OWER_REG_OFST              (0xA0)              /**< (PIO_OWER) Output Write Enable Offset */
+#define PIO_OWDR_REG_OFST              (0xA4)              /**< (PIO_OWDR) Output Write Disable Offset */
+#define PIO_OWSR_REG_OFST              (0xA8)              /**< (PIO_OWSR) Output Write Status Register Offset */
+#define PIO_AIMER_REG_OFST             (0xB0)              /**< (PIO_AIMER) Additional Interrupt Modes Enable Register Offset */
+#define PIO_AIMDR_REG_OFST             (0xB4)              /**< (PIO_AIMDR) Additional Interrupt Modes Disable Register Offset */
+#define PIO_AIMMR_REG_OFST             (0xB8)              /**< (PIO_AIMMR) Additional Interrupt Modes Mask Register Offset */
+#define PIO_ESR_REG_OFST               (0xC0)              /**< (PIO_ESR) Edge Select Register Offset */
+#define PIO_LSR_REG_OFST               (0xC4)              /**< (PIO_LSR) Level Select Register Offset */
+#define PIO_ELSR_REG_OFST              (0xC8)              /**< (PIO_ELSR) Edge/Level Status Register Offset */
+#define PIO_FELLSR_REG_OFST            (0xD0)              /**< (PIO_FELLSR) Falling Edge/Low-Level Select Register Offset */
+#define PIO_REHLSR_REG_OFST            (0xD4)              /**< (PIO_REHLSR) Rising Edge/High-Level Select Register Offset */
+#define PIO_FRLHSR_REG_OFST            (0xD8)              /**< (PIO_FRLHSR) Fall/Rise - Low/High Status Register Offset */
+#define PIO_LOCKSR_REG_OFST            (0xE0)              /**< (PIO_LOCKSR) Lock Status Offset */
+#define PIO_WPMR_REG_OFST              (0xE4)              /**< (PIO_WPMR) Write Protection Mode Register Offset */
+#define PIO_WPSR_REG_OFST              (0xE8)              /**< (PIO_WPSR) Write Protection Status Register Offset */
+#define PIO_SCHMITT_REG_OFST           (0x100)             /**< (PIO_SCHMITT) Schmitt Trigger Register Offset */
+#define PIO_DRIVER_REG_OFST            (0x118)             /**< (PIO_DRIVER) I/O Drive Register Offset */
+#define PIO_PCMR_REG_OFST              (0x150)             /**< (PIO_PCMR) Parallel Capture Mode Register Offset */
+#define PIO_PCIER_REG_OFST             (0x154)             /**< (PIO_PCIER) Parallel Capture Interrupt Enable Register Offset */
+#define PIO_PCIDR_REG_OFST             (0x158)             /**< (PIO_PCIDR) Parallel Capture Interrupt Disable Register Offset */
+#define PIO_PCIMR_REG_OFST             (0x15C)             /**< (PIO_PCIMR) Parallel Capture Interrupt Mask Register Offset */
+#define PIO_PCISR_REG_OFST             (0x160)             /**< (PIO_PCISR) Parallel Capture Interrupt Status Register Offset */
+#define PIO_PCRHR_REG_OFST             (0x164)             /**< (PIO_PCRHR) Parallel Capture Reception Holding Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief PIO register API structure */

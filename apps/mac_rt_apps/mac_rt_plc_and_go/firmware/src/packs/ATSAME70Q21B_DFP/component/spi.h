@@ -1,7 +1,7 @@
 /*
  * Component description for SPI
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2020-11-26T11:12:57Z */
 #ifndef _SAME70_SPI_COMPONENT_H_
 #define _SAME70_SPI_COMPONENT_H_
 
@@ -232,10 +232,10 @@
 #define SPI_CSR_NCPHA_Pos                     _U_(1)                                               /**< (SPI_CSR) Clock Phase Position */
 #define SPI_CSR_NCPHA_Msk                     (_U_(0x1) << SPI_CSR_NCPHA_Pos)                      /**< (SPI_CSR) Clock Phase Mask */
 #define SPI_CSR_NCPHA(value)                  (SPI_CSR_NCPHA_Msk & ((value) << SPI_CSR_NCPHA_Pos))
-#define   SPI_CSR_NCPHA_VALID_LEADING_EDGE_Val _U_(0x1)                                             /**< (SPI_CSR) Data is valid on clock leading edge (NCPHA=1)  */
-#define   SPI_CSR_NCPHA_VALID_TRAILING_EDGE_Val _U_(0x0)                                             /**< (SPI_CSR) Data is valid on clock trailing edge (NCPHA=0)  */
-#define SPI_CSR_NCPHA_VALID_LEADING_EDGE      (SPI_CSR_NCPHA_VALID_LEADING_EDGE_Val << SPI_CSR_NCPHA_Pos) /**< (SPI_CSR) Data is valid on clock leading edge (NCPHA=1) Position  */
-#define SPI_CSR_NCPHA_VALID_TRAILING_EDGE     (SPI_CSR_NCPHA_VALID_TRAILING_EDGE_Val << SPI_CSR_NCPHA_Pos) /**< (SPI_CSR) Data is valid on clock trailing edge (NCPHA=0) Position  */
+#define   SPI_CSR_NCPHA_VALID_LEADING_EDGE_Val _U_(0x1)                                             /**< (SPI_CSR) Data is valid on clock leading edge (CPHA=0)  */
+#define   SPI_CSR_NCPHA_VALID_TRAILING_EDGE_Val _U_(0x0)                                             /**< (SPI_CSR) Data is valid on clock trailing edge (CPHA=1)  */
+#define SPI_CSR_NCPHA_VALID_LEADING_EDGE      (SPI_CSR_NCPHA_VALID_LEADING_EDGE_Val << SPI_CSR_NCPHA_Pos) /**< (SPI_CSR) Data is valid on clock leading edge (CPHA=0) Position  */
+#define SPI_CSR_NCPHA_VALID_TRAILING_EDGE     (SPI_CSR_NCPHA_VALID_TRAILING_EDGE_Val << SPI_CSR_NCPHA_Pos) /**< (SPI_CSR) Data is valid on clock trailing edge (CPHA=1) Position  */
 #define SPI_CSR_CSNAAT_Pos                    _U_(2)                                               /**< (SPI_CSR) Chip Select Not Active After Transfer (Ignored if CSAAT = 1) Position */
 #define SPI_CSR_CSNAAT_Msk                    (_U_(0x1) << SPI_CSR_CSNAAT_Pos)                     /**< (SPI_CSR) Chip Select Not Active After Transfer (Ignored if CSAAT = 1) Mask */
 #define SPI_CSR_CSNAAT(value)                 (SPI_CSR_CSNAAT_Msk & ((value) << SPI_CSR_CSNAAT_Pos))
@@ -298,21 +298,21 @@
 
 
 /** \brief SPI register offsets definitions */
-#define SPI_CR_REG_OFST                (0x00)              /* (SPI_CR) Control Register Offset */
-#define SPI_MR_REG_OFST                (0x04)              /* (SPI_MR) Mode Register Offset */
-#define SPI_RDR_REG_OFST               (0x08)              /* (SPI_RDR) Receive Data Register Offset */
-#define SPI_TDR_REG_OFST               (0x0C)              /* (SPI_TDR) Transmit Data Register Offset */
-#define SPI_SR_REG_OFST                (0x10)              /* (SPI_SR) Status Register Offset */
-#define SPI_IER_REG_OFST               (0x14)              /* (SPI_IER) Interrupt Enable Register Offset */
-#define SPI_IDR_REG_OFST               (0x18)              /* (SPI_IDR) Interrupt Disable Register Offset */
-#define SPI_IMR_REG_OFST               (0x1C)              /* (SPI_IMR) Interrupt Mask Register Offset */
-#define SPI_CSR_REG_OFST               (0x30)              /* (SPI_CSR) Chip Select Register Offset */
-#define SPI_CSR0_REG_OFST              (0x30)              /* (SPI_CSR0) Chip Select Register Offset */
-#define SPI_CSR1_REG_OFST              (0x34)              /* (SPI_CSR1) Chip Select Register Offset */
-#define SPI_CSR2_REG_OFST              (0x38)              /* (SPI_CSR2) Chip Select Register Offset */
-#define SPI_CSR3_REG_OFST              (0x3C)              /* (SPI_CSR3) Chip Select Register Offset */
-#define SPI_WPMR_REG_OFST              (0xE4)              /* (SPI_WPMR) Write Protection Mode Register Offset */
-#define SPI_WPSR_REG_OFST              (0xE8)              /* (SPI_WPSR) Write Protection Status Register Offset */
+#define SPI_CR_REG_OFST                (0x00)              /**< (SPI_CR) Control Register Offset */
+#define SPI_MR_REG_OFST                (0x04)              /**< (SPI_MR) Mode Register Offset */
+#define SPI_RDR_REG_OFST               (0x08)              /**< (SPI_RDR) Receive Data Register Offset */
+#define SPI_TDR_REG_OFST               (0x0C)              /**< (SPI_TDR) Transmit Data Register Offset */
+#define SPI_SR_REG_OFST                (0x10)              /**< (SPI_SR) Status Register Offset */
+#define SPI_IER_REG_OFST               (0x14)              /**< (SPI_IER) Interrupt Enable Register Offset */
+#define SPI_IDR_REG_OFST               (0x18)              /**< (SPI_IDR) Interrupt Disable Register Offset */
+#define SPI_IMR_REG_OFST               (0x1C)              /**< (SPI_IMR) Interrupt Mask Register Offset */
+#define SPI_CSR_REG_OFST               (0x30)              /**< (SPI_CSR) Chip Select Register Offset */
+#define SPI_CSR0_REG_OFST              (0x30)              /**< (SPI_CSR0) Chip Select Register Offset */
+#define SPI_CSR1_REG_OFST              (0x34)              /**< (SPI_CSR1) Chip Select Register Offset */
+#define SPI_CSR2_REG_OFST              (0x38)              /**< (SPI_CSR2) Chip Select Register Offset */
+#define SPI_CSR3_REG_OFST              (0x3C)              /**< (SPI_CSR3) Chip Select Register Offset */
+#define SPI_WPMR_REG_OFST              (0xE4)              /**< (SPI_WPMR) Write Protection Mode Register Offset */
+#define SPI_WPSR_REG_OFST              (0xE8)              /**< (SPI_WPSR) Write Protection Status Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief SPI register API structure */
