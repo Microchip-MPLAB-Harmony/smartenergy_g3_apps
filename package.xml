@@ -2,5 +2,6 @@
 <Package name="smartenergy_g3_apps">
     <Dependencies>
         <Dependency name="smartenergy" version="1.0.0"/>
+        <Dependency name="usb" version="v3.8.1"/>
     </Dependencies>
 </Package>
