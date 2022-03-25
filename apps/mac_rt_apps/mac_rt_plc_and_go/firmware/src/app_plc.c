@@ -185,17 +185,15 @@ static void APP_PLC_SetInitialConfiguration ( void )
     appPlcTx.txHeader.frameControl.securityEnabled = 0;
     appPlcTx.txHeader.frameControl.framePending = 0;
     appPlcTx.txHeader.frameControl.ackRequest = 0; // No en Broadcast
-    appPlcTx.txHeader.frameControl.panIdCompression = 1;
-    appPlcTx.txHeader.frameControl.destAddressingMode = MAC_RT_SHORT_ADDRESS;
     appPlcTx.txHeader.frameControl.frameVersion = 1;
-    appPlcTx.txHeader.frameControl.srcAddressingMode = MAC_RT_SHORT_ADDRESS;
     appPlcTx.txHeader.sequenceNumber = 0;
-    appPlcTx.txHeader.destinationPAN = CONF_PAN_ID;
-    appPlcTx.txHeader.destinationAddress.addressMode = MAC_RT_SHORT_ADDRESS;
-    appPlcTx.txHeader.destinationAddress.shortAddress = MAC_RT_SHORT_ADDRESS_BROADCAST;
-    appPlcTx.txHeader.sourcePAN = CONF_PAN_ID;
-    appPlcTx.txHeader.sourceAddress.addressMode = MAC_RT_SHORT_ADDRESS;
-    appPlcTx.txHeader.sourceAddress.shortAddress = (uint16_t)TRNG_ReadData();
+    
+    /* Set PAN_ID */
+    APP_PLC_SetPANID(CONF_PAN_ID);
+    
+    /* Set Addresses */
+    APP_PLC_SetDestinationAddress(MAC_RT_SHORT_ADDRESS_BROADCAST);
+    APP_PLC_SetSourceAddress((uint16_t)TRNG_ReadData());
 }
 
 static uint8_t APP_PLC_BuildMacRTHeader ( uint8_t *pFrame, MAC_RT_HEADER *pHeader )
@@ -251,7 +249,7 @@ static uint8_t APP_PLC_GetMacRTHeaderInfo ( uint8_t *pFrame )
     APP_CONSOLE_Print(" - Source Address: 0x%04X\r\n", address);
 
     /* Return Header length */
-    return (uint8_t)(pFrame - pData);
+    return (uint8_t)(pData - pFrame);
 }
 
 // *****************************************************************************
@@ -665,6 +663,44 @@ bool APP_PLC_SetSleepMode ( bool enable )
     }
     
     return false;
+}
+
+void APP_PLC_SetSourceAddress ( uint16_t address )
+{
+    /* Set Short Address in TX header */
+    appPlcTx.txHeader.frameControl.srcAddressingMode = MAC_RT_SHORT_ADDRESS;
+    appPlcTx.txHeader.sourceAddress.addressMode = MAC_RT_SHORT_ADDRESS;
+    appPlcTx.txHeader.sourceAddress.shortAddress = address;
+    
+    /* Set Short Address in G3 MAC RT device */
+    appPlc.plcPIB.pib = MAC_RT_PIB_SHORT_ADDRESS;
+    appPlc.plcPIB.index = 0;
+    appPlc.plcPIB.length = 2;
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)&address, 2);
+    DRV_G3_MACRT_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+}
+
+void APP_PLC_SetDestinationAddress ( uint16_t address )
+{
+    /* Set Short Address in TX header */
+    appPlcTx.txHeader.frameControl.destAddressingMode = MAC_RT_SHORT_ADDRESS;
+    appPlcTx.txHeader.destinationAddress.addressMode = MAC_RT_SHORT_ADDRESS;
+    appPlcTx.txHeader.destinationAddress.shortAddress = address;
+}
+
+void APP_PLC_SetPANID ( uint16_t panid )
+{
+    /* Set Short Address in TX header */
+    appPlcTx.txHeader.frameControl.panIdCompression = 1;
+    appPlcTx.txHeader.destinationPAN = panid;
+    appPlcTx.txHeader.sourcePAN = panid;
+    
+    /* Set Short Address in G3 MAC RT device */
+    appPlc.plcPIB.pib = MAC_RT_PIB_PAN_ID;
+    appPlc.plcPIB.index = 0;
+    appPlc.plcPIB.length = 2;
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)&panid, 2);
+    DRV_G3_MACRT_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
 }
 
 /*******************************************************************************

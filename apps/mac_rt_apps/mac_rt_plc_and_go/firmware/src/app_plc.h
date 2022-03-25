@@ -253,6 +253,9 @@ void APP_PLC_Tasks( void );
 
 bool APP_PLC_SendData ( uint8_t* pData, uint16_t length );
 bool APP_PLC_SetSleepMode ( bool enable );
+void APP_PLC_SetSourceAddress ( uint16_t address );
+void APP_PLC_SetDestinationAddress ( uint16_t address );
+void APP_PLC_SetPANID ( uint16_t panid );
 
 
 

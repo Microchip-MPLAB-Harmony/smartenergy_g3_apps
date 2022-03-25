@@ -306,7 +306,7 @@ static bool APP_CONSOLE_SetSourceAddress(char *pData)
         return false;
     }
     
-    appPlcTx.txHeader.sourceAddress.shortAddress = address;
+    APP_PLC_SetSourceAddress(address);
     
     return true;
 }
@@ -344,7 +344,7 @@ static bool APP_CONSOLE_SetDestinationAddress(char *pData)
         return false;
     }
     
-    appPlcTx.txHeader.destinationAddress.shortAddress = address;
+    APP_PLC_SetDestinationAddress(address);
     
     return true;
 }
