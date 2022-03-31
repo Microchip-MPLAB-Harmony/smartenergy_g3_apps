@@ -108,7 +108,8 @@ void PIO_Initialize ( void )
     /* PORTC Pull Up Enable/Disable as per MHC selection */
     ((pio_registers_t*)PIO_PORT_C)->PIO_PUDR = 0xFFFFFFFF;
     /* PORTC Pull Down Enable/Disable as per MHC selection */
-    ((pio_registers_t*)PIO_PORT_C)->PIO_PPDDR = 0xFFFFFFFF;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_PPDDR = ~0x20000;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_PPDER = 0x20000;
     /* PORTC Output Write Enable */
     ((pio_registers_t*)PIO_PORT_C)->PIO_OWER = PIO_OWER_Msk;
     /* PORTC Output Direction Enable */

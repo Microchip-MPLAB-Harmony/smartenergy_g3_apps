@@ -1,4 +1,4 @@
-<config configName="sam_e70_xult_pl460" projectName="sam_e70_xult_pl460" configVersion="1.1" device="ATSAME70Q21B" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.1">
+<config configName="sam_e70_xult_pl460" projectName="sam_e70_xult_pl460" configVersion="1.1" device="ATSAME70Q21B" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.2">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -83,7 +83,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.0.8"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.1.0"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -366,7 +366,18 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;afec1&gt;
   &lt;afec1 dnOrder=&quot;0&quot; id=&quot;AFEC_CLK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;afec1&quot; value=&quot;18750000&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;afec1&quot; value=&quot;7500000&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/afec1&gt;
+&lt;/afec1&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="afec1" name="AFEC_MR_PRESCAL"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;afec1&gt;
+  &lt;afec1 dnOrder=&quot;0&quot; id=&quot;AFEC_MR_PRESCAL&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;19&quot;/&gt;
     &lt;/Values&gt;
   &lt;/afec1&gt;
 &lt;/afec1&gt;
@@ -391,7 +402,8 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;GraphSettings canvasHeight=&quot;555&quot; canvasWidth=&quot;783&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E70_Xplained_Ultra&quot; x=&quot;16&quot; y=&quot;60&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;641&quot; y=&quot;20&quot;/&gt;
@@ -402,7 +414,7 @@
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvG3MacRt&quot; x=&quot;627&quot; y=&quot;375&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;drv_usbhs_v1&quot; x=&quot;24&quot; y=&quot;445&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;efc&quot; x=&quot;481&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;spi0&quot; x=&quot;475&quot; y=&quot;424&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;spi0&quot; x=&quot;476&quot; y=&quot;419&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;srv_pcoup&quot; x=&quot;632&quot; y=&quot;290&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;srv_pvddmon&quot; x=&quot;626&quot; y=&quot;219&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;sys_console&quot; x=&quot;233&quot; y=&quot;283&quot;/&gt;
@@ -413,7 +425,6 @@
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;usb_device_cdc&quot; x=&quot;25&quot; y=&quot;317&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;555&quot; canvasWidth=&quot;783&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -1083,6 +1094,17 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_103_PD"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_103_PD&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;True&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_103_PERIPHERAL_FUNCTION"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_103_PERIPHERAL_FUNCTION&quot;&gt;
@@ -1501,6 +1523,17 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_77_LAT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_77_LAT&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_77_PERIPHERAL_FUNCTION"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_77_PERIPHERAL_FUNCTION&quot;&gt;
@@ -1792,6 +1825,17 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIOC_PDR_VALUE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOC_PPDEN_VALUE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIOC_PPDEN_VALUE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;131072&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -3670,72 +3714,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_AUX_GAIN_HIGH_0"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
-  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_AUX_GAIN_HIGH_0&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;142&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/srv_pcoup&gt;
-&lt;/srv_pcoup&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_AUX_GAIN_HIGH_1"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
-  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_AUX_GAIN_HIGH_1&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;70&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/srv_pcoup&gt;
-&lt;/srv_pcoup&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_AUX_GAIN_HIGH_2"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
-  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_AUX_GAIN_HIGH_2&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;336&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/srv_pcoup&gt;
-&lt;/srv_pcoup&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_AUX_GAIN_VLOW_0"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
-  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_AUX_GAIN_VLOW_0&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;474&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/srv_pcoup&gt;
-&lt;/srv_pcoup&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_AUX_GAIN_VLOW_1"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
-  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_AUX_GAIN_VLOW_1&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;230&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/srv_pcoup&gt;
-&lt;/srv_pcoup&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_AUX_GAIN_VLOW_2"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
-  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_AUX_GAIN_VLOW_2&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;597&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/srv_pcoup&gt;
-&lt;/srv_pcoup&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_AUX_LINE_DRIVER"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
   &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_AUX_LINE_DRIVER&quot;&gt;
@@ -4456,72 +4434,6 @@
   &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_DACC_9&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;0&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/srv_pcoup&gt;
-&lt;/srv_pcoup&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_GAIN_HIGH_0"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
-  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_GAIN_HIGH_0&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;49&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/srv_pcoup&gt;
-&lt;/srv_pcoup&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_GAIN_HIGH_1"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
-  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_GAIN_HIGH_1&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;20&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/srv_pcoup&gt;
-&lt;/srv_pcoup&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_GAIN_HIGH_2"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
-  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_GAIN_HIGH_2&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;256&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/srv_pcoup&gt;
-&lt;/srv_pcoup&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_GAIN_VLOW_0"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
-  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_GAIN_VLOW_0&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;364&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/srv_pcoup&gt;
-&lt;/srv_pcoup&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_GAIN_VLOW_1"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
-  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_GAIN_VLOW_1&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;180&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/srv_pcoup&gt;
-&lt;/srv_pcoup&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_G3_GAIN_VLOW_2"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
-  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_GAIN_VLOW_2&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;408&quot;/&gt;
     &lt;/Values&gt;
   &lt;/srv_pcoup&gt;
 &lt;/srv_pcoup&gt;
@@ -6001,7 +5913,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\pio\plib_pio.c</file>
-         <hash>7b56d32785a169ebd8ea607fb60ef0886a12e4babc801ce4958df4e5d6c98074</hash>
+         <hash>19f2f6344008c2a86671d2e1742ee051fc8653294946e544b05cbdc62442d6b9</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\pio\plib_pio.h</file>
@@ -6257,7 +6169,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\configuration.h</file>
-         <hash>75b6be43d6979d868f00208a74da86651e9b6c92695a34a564c9536227af6f56</hash>
+         <hash>e7209dd47cda05dd3dab7fe300e2731a435627e5ace6f5684093a9881be924da</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\usb\usbhsv1\src\drv_usbhsv1_variant_mapping.h</file>
@@ -6481,7 +6393,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\definitions.h</file>
-         <hash>34cd58b4ec6a2d76b44e047ecbf3d1096d3e33788e9ab3b91f53e1af6907e661</hash>
+         <hash>f1831ed0b019f07802a87d80515b7166ccc33d86676e7b80f70d8b6cad80a59d</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\bsp\bsp.c</file>
@@ -6613,7 +6525,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\service\pcoup\srv_pcoup.h</file>
-         <hash>d02ae550e632c7e5c27953083e9f9a20412e6a6ab247240321deab32ba310852</hash>
+         <hash>2a0db32224fcbe4e974bbc219804d29af874d212c0d8e94731ec34a0e782e460</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\uart1.h</file>
@@ -6693,7 +6605,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\service\pcoup\srv_pcoup.c</file>
-         <hash>057d6c68e87ae2bb5c0c56d817be0078b84010d24db38bfae3e8020f81d19502</hash>
+         <hash>7e50c84d163530ccd2c2c29b21ea067888e3efa648b903f032a52dfac5942e9d</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\time\sys_time_definitions.h</file>
@@ -6753,7 +6665,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\afec\plib_afec1.c</file>
-         <hash>5278f5ad072a9272d1bfa014fb794ee2be4b94b8d80b0ddf6a7dbe2bb86fdd7e</hash>
+         <hash>9745d0e888951f9bb9cfa13f9092bba9a1eeb2f7c5e5a821719da690005953fc</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\matrix.h</file>

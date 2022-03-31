@@ -4,10 +4,10 @@
 
 
 project: mac_rt_plc_and_go
-creation_date: 2022-03-23T13:22:41.488+01:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2022-03-31T18:55:09.342+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mhc_mode: Standalone            # [IDE|Standalone|Headless]
-mhc_version: v3.8.2
+mhc_version: v3.8.4
 mplabx_version: NA        # if MPLAB X plugin only
 plugin_version: NA        # if MPLAB X plugin only
 compiler: xc32

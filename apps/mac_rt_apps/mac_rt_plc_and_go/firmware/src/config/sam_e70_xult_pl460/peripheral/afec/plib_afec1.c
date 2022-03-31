@@ -65,7 +65,7 @@ void AFEC1_Initialize()
     AFEC1_REGS->AFEC_CR = AFEC_CR_SWRST_Msk;
 
     /* Prescaler and different time settings as per CLOCK section  */
-    AFEC1_REGS->AFEC_MR = AFEC_MR_PRESCAL(7U) | AFEC_MR_TRACKTIM(15U) | AFEC_MR_STARTUP_SUT64 |
+    AFEC1_REGS->AFEC_MR = AFEC_MR_PRESCAL(19U) | AFEC_MR_TRACKTIM(15U) | AFEC_MR_STARTUP_SUT64 |
         AFEC_MR_TRANSFER(2U) | AFEC_MR_ONE_Msk | AFEC_MR_FREERUN_Msk  ;
 
     /* resolution and sign mode of result */
