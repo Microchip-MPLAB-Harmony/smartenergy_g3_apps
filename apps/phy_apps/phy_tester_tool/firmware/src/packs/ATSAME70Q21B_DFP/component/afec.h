@@ -1,7 +1,7 @@
 /*
  * Component description for AFEC
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2020-11-26T11:12:57Z */
 #ifndef _SAME70_AFEC_COMPONENT_H_
 #define _SAME70_AFEC_COMPONENT_H_
 
@@ -922,35 +922,35 @@
 
 
 /** \brief AFEC register offsets definitions */
-#define AFEC_CR_REG_OFST               (0x00)              /* (AFEC_CR) AFEC Control Register Offset */
-#define AFEC_MR_REG_OFST               (0x04)              /* (AFEC_MR) AFEC Mode Register Offset */
-#define AFEC_EMR_REG_OFST              (0x08)              /* (AFEC_EMR) AFEC Extended Mode Register Offset */
-#define AFEC_SEQ1R_REG_OFST            (0x0C)              /* (AFEC_SEQ1R) AFEC Channel Sequence 1 Register Offset */
-#define AFEC_SEQ2R_REG_OFST            (0x10)              /* (AFEC_SEQ2R) AFEC Channel Sequence 2 Register Offset */
-#define AFEC_CHER_REG_OFST             (0x14)              /* (AFEC_CHER) AFEC Channel Enable Register Offset */
-#define AFEC_CHDR_REG_OFST             (0x18)              /* (AFEC_CHDR) AFEC Channel Disable Register Offset */
-#define AFEC_CHSR_REG_OFST             (0x1C)              /* (AFEC_CHSR) AFEC Channel Status Register Offset */
-#define AFEC_LCDR_REG_OFST             (0x20)              /* (AFEC_LCDR) AFEC Last Converted Data Register Offset */
-#define AFEC_IER_REG_OFST              (0x24)              /* (AFEC_IER) AFEC Interrupt Enable Register Offset */
-#define AFEC_IDR_REG_OFST              (0x28)              /* (AFEC_IDR) AFEC Interrupt Disable Register Offset */
-#define AFEC_IMR_REG_OFST              (0x2C)              /* (AFEC_IMR) AFEC Interrupt Mask Register Offset */
-#define AFEC_ISR_REG_OFST              (0x30)              /* (AFEC_ISR) AFEC Interrupt Status Register Offset */
-#define AFEC_OVER_REG_OFST             (0x4C)              /* (AFEC_OVER) AFEC Overrun Status Register Offset */
-#define AFEC_CWR_REG_OFST              (0x50)              /* (AFEC_CWR) AFEC Compare Window Register Offset */
-#define AFEC_CGR_REG_OFST              (0x54)              /* (AFEC_CGR) AFEC Channel Gain Register Offset */
-#define AFEC_DIFFR_REG_OFST            (0x60)              /* (AFEC_DIFFR) AFEC Channel Differential Register Offset */
-#define AFEC_CSELR_REG_OFST            (0x64)              /* (AFEC_CSELR) AFEC Channel Selection Register Offset */
-#define AFEC_CDR_REG_OFST              (0x68)              /* (AFEC_CDR) AFEC Channel Data Register Offset */
-#define AFEC_COCR_REG_OFST             (0x6C)              /* (AFEC_COCR) AFEC Channel Offset Compensation Register Offset */
-#define AFEC_TEMPMR_REG_OFST           (0x70)              /* (AFEC_TEMPMR) AFEC Temperature Sensor Mode Register Offset */
-#define AFEC_TEMPCWR_REG_OFST          (0x74)              /* (AFEC_TEMPCWR) AFEC Temperature Compare Window Register Offset */
-#define AFEC_ACR_REG_OFST              (0x94)              /* (AFEC_ACR) AFEC Analog Control Register Offset */
-#define AFEC_SHMR_REG_OFST             (0xA0)              /* (AFEC_SHMR) AFEC Sample & Hold Mode Register Offset */
-#define AFEC_COSR_REG_OFST             (0xD0)              /* (AFEC_COSR) AFEC Correction Select Register Offset */
-#define AFEC_CVR_REG_OFST              (0xD4)              /* (AFEC_CVR) AFEC Correction Values Register Offset */
-#define AFEC_CECR_REG_OFST             (0xD8)              /* (AFEC_CECR) AFEC Channel Error Correction Register Offset */
-#define AFEC_WPMR_REG_OFST             (0xE4)              /* (AFEC_WPMR) AFEC Write Protection Mode Register Offset */
-#define AFEC_WPSR_REG_OFST             (0xE8)              /* (AFEC_WPSR) AFEC Write Protection Status Register Offset */
+#define AFEC_CR_REG_OFST               (0x00)              /**< (AFEC_CR) AFEC Control Register Offset */
+#define AFEC_MR_REG_OFST               (0x04)              /**< (AFEC_MR) AFEC Mode Register Offset */
+#define AFEC_EMR_REG_OFST              (0x08)              /**< (AFEC_EMR) AFEC Extended Mode Register Offset */
+#define AFEC_SEQ1R_REG_OFST            (0x0C)              /**< (AFEC_SEQ1R) AFEC Channel Sequence 1 Register Offset */
+#define AFEC_SEQ2R_REG_OFST            (0x10)              /**< (AFEC_SEQ2R) AFEC Channel Sequence 2 Register Offset */
+#define AFEC_CHER_REG_OFST             (0x14)              /**< (AFEC_CHER) AFEC Channel Enable Register Offset */
+#define AFEC_CHDR_REG_OFST             (0x18)              /**< (AFEC_CHDR) AFEC Channel Disable Register Offset */
+#define AFEC_CHSR_REG_OFST             (0x1C)              /**< (AFEC_CHSR) AFEC Channel Status Register Offset */
+#define AFEC_LCDR_REG_OFST             (0x20)              /**< (AFEC_LCDR) AFEC Last Converted Data Register Offset */
+#define AFEC_IER_REG_OFST              (0x24)              /**< (AFEC_IER) AFEC Interrupt Enable Register Offset */
+#define AFEC_IDR_REG_OFST              (0x28)              /**< (AFEC_IDR) AFEC Interrupt Disable Register Offset */
+#define AFEC_IMR_REG_OFST              (0x2C)              /**< (AFEC_IMR) AFEC Interrupt Mask Register Offset */
+#define AFEC_ISR_REG_OFST              (0x30)              /**< (AFEC_ISR) AFEC Interrupt Status Register Offset */
+#define AFEC_OVER_REG_OFST             (0x4C)              /**< (AFEC_OVER) AFEC Overrun Status Register Offset */
+#define AFEC_CWR_REG_OFST              (0x50)              /**< (AFEC_CWR) AFEC Compare Window Register Offset */
+#define AFEC_CGR_REG_OFST              (0x54)              /**< (AFEC_CGR) AFEC Channel Gain Register Offset */
+#define AFEC_DIFFR_REG_OFST            (0x60)              /**< (AFEC_DIFFR) AFEC Channel Differential Register Offset */
+#define AFEC_CSELR_REG_OFST            (0x64)              /**< (AFEC_CSELR) AFEC Channel Selection Register Offset */
+#define AFEC_CDR_REG_OFST              (0x68)              /**< (AFEC_CDR) AFEC Channel Data Register Offset */
+#define AFEC_COCR_REG_OFST             (0x6C)              /**< (AFEC_COCR) AFEC Channel Offset Compensation Register Offset */
+#define AFEC_TEMPMR_REG_OFST           (0x70)              /**< (AFEC_TEMPMR) AFEC Temperature Sensor Mode Register Offset */
+#define AFEC_TEMPCWR_REG_OFST          (0x74)              /**< (AFEC_TEMPCWR) AFEC Temperature Compare Window Register Offset */
+#define AFEC_ACR_REG_OFST              (0x94)              /**< (AFEC_ACR) AFEC Analog Control Register Offset */
+#define AFEC_SHMR_REG_OFST             (0xA0)              /**< (AFEC_SHMR) AFEC Sample & Hold Mode Register Offset */
+#define AFEC_COSR_REG_OFST             (0xD0)              /**< (AFEC_COSR) AFEC Correction Select Register Offset */
+#define AFEC_CVR_REG_OFST              (0xD4)              /**< (AFEC_CVR) AFEC Correction Values Register Offset */
+#define AFEC_CECR_REG_OFST             (0xD8)              /**< (AFEC_CECR) AFEC Channel Error Correction Register Offset */
+#define AFEC_WPMR_REG_OFST             (0xE4)              /**< (AFEC_WPMR) AFEC Write Protection Mode Register Offset */
+#define AFEC_WPSR_REG_OFST             (0xE8)              /**< (AFEC_WPSR) AFEC Write Protection Status Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief AFEC register API structure */

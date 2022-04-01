@@ -59,21 +59,6 @@ static CACHE_ALIGN uint8_t pPLCDataPIBBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_PIB_
 static CACHE_ALIGN uint8_t pSerialDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_SERIAL_DATA_BUFFER_SIZE)];
 
 // *****************************************************************************
-/* Pointer to PLC Coupling configuration data
-
-  Summary:
-    Holds PLC configuration data
-
-  Description:
-    This structure holds the PLC coupling configuration data.
-
-  Remarks:
-    Parameters are defined in srv_pcoup.h file
- */
-
-SRV_PLC_PCOUP *appPLCCoupling;
-
-// *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
 // *****************************************************************************
@@ -90,77 +75,10 @@ void Timer2_Callback (uintptr_t context)
 
 static void APP_PLC_SetCouplingConfiguration(void)
 {
-    SRV_PLC_PCOUP_BRANCH plcDefaultBranch;
+    SRV_PLC_PCOUP_BRANCH plcBranch;
     
-    plcDefaultBranch = SRV_PCOUP_Get_Default_Branch();
-    appPLCCoupling = SRV_PCOUP_Get_Config(plcDefaultBranch);
-
-    appData.plcPIB.id = PLC_ID_IC_DRIVER_CFG;
-    appData.plcPIB.length = 1;
-    *appData.plcPIB.pData = appPLCCoupling->lineDrvConf;
-    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-    appData.plcPIB.id = PLC_ID_DACC_TABLE_CFG;
-    appData.plcPIB.length = sizeof(appPLCCoupling->daccTable);
-    memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->daccTable,
-            appData.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-    appData.plcPIB.id = PLC_ID_NUM_TX_LEVELS;
-    appData.plcPIB.length = 1;
-    *appData.plcPIB.pData = appPLCCoupling->numTxLevels;
-    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-    appData.plcPIB.id = PLC_ID_MAX_RMS_TABLE_HI;
-    appData.plcPIB.length = sizeof(appPLCCoupling->rmsHigh);
-    memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->rmsHigh,
-            appData.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-    appData.plcPIB.id = PLC_ID_MAX_RMS_TABLE_VLO;
-    appData.plcPIB.length = sizeof(appPLCCoupling->rmsVLow);
-    memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->rmsVLow,
-            appData.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-    appData.plcPIB.id = PLC_ID_THRESHOLDS_TABLE_HI;
-    appData.plcPIB.length = sizeof(appPLCCoupling->thrsHigh);
-    memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->thrsHigh,
-            appData.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-    appData.plcPIB.id = PLC_ID_THRESHOLDS_TABLE_VLO;
-    appData.plcPIB.length = sizeof(appPLCCoupling->thrsVLow);
-    memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->thrsVLow,
-            appData.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-    appData.plcPIB.id = PLC_ID_GAIN_TABLE_HI;
-    appData.plcPIB.length = sizeof(appPLCCoupling->gainHigh);
-    memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->gainHigh,
-            appData.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-    appData.plcPIB.id = PLC_ID_GAIN_TABLE_VLO;
-    appData.plcPIB.length = sizeof(appPLCCoupling->gainVLow);
-    memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->gainVLow,
-            appData.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-    appData.plcPIB.id = PLC_ID_PREDIST_COEF_TABLE_HI;
-    appData.plcPIB.length = appPLCCoupling->equSize;
-    memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->equHigh,
-            appData.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-    appData.plcPIB.id = PLC_ID_PREDIST_COEF_TABLE_VLO;
-    /* Not use size of array. It depends on PHY band in use */
-    appData.plcPIB.length = appPLCCoupling->equSize;
-    memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->equVlow,
-            appData.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-    
-    
+    plcBranch = SRV_PCOUP_Get_Default_Branch();
+    SRV_PCOUP_Set_Config(appData.drvPl360Handle, plcBranch);
     
     /* Disable AUTO mode and set VLO behavior by default in order to
      * maximize signal level in any case */

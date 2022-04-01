@@ -1,5 +1,5 @@
 /*******************************************************************************
-  PLC Coupling Service Library Interface Header File
+  PLC PHY Coupling Service Library Interface Header File
 
   Company
     Microchip Technology Inc.
@@ -14,18 +14,18 @@
     The Microchip G3-PLC and PRIME implementations include default PHY layer 
     configuration values optimized for the Evaluation Kits. With the help of 
     the PHY Calibration Tool it is possible to obtain the optimal configuration 
-    values for the custom hardware implementation. Please refer to the 
-    PL360 Host Controller document for more details about the available 
-    configuration values and their purpose. 
+    values for the customer's hardware implementation. Refer to the online
+    documentation for more details about the available configuration values and 
+    their purpose. 
 
   Remarks:
-    This provides the required information to be included on PLC PHY projects 
-    for PL360/PL460 in order to apply the custom calibration.
+    This service provides the required information to be included on PLC 
+    projects for PL360/PL460 in order to apply the custom calibration.
 *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -60,7 +60,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "system/system.h"
+#include "driver/plc/phy/drv_plc_phy.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -73,12 +73,14 @@
 /* PLC Phy Coupling Default Branch */
 #define SRV_PCOUP_DEFAULT_BRANCH                 SRV_PLC_PCOUP_MAIN_BRANCH
 
-/* PLC Phy Coupling Configuration Options */
+/* Maximum value of PLC_ID_NUM_TX_LEVELS */
+/* Number of TX attenuation levels (3 dB step) suppoting automatic TX mode */
 #define SRV_PCOUP_MAX_NUM_TX_LEVELS              8
 
-/* Equalization number of coefficients (number of carriers) */
+/* Equalization number of coefficients (number of carriers) for Main branch */
 #define SRV_PCOUP_EQU_NUM_COEF                   72
 
+/* PLC Tx Coupling Settings for Main branch */
 #define SRV_PCOUP_RMS_HIGH_TBL                   {1313, 937, 667, 477, 342, 247, 180, 131}
 #define SRV_PCOUP_RMS_VLOW_TBL                   {4329, 3314, 2387, 1692, 1201, 853, 608, 432}
 #define SRV_PCOUP_THRS_HIGH_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 1025, 729, 519, 372, 265, 191, 140, 101}
@@ -87,8 +89,8 @@
                                                  0x4f5000ff, 0x1b1b1b1b, 0x0, 0x0, 0x6, 0x355, \
                                                  0x0, 0x1020f0, 0x355, 0x0, 0x1020ff}
 #define SRV_PCOUP_GAIN_HIGH_TBL                  {49, 20, 256}
-#define SRV_PCOUP_GAIN_VLOW_TBL                  {364, 480, 408}
-
+#define SRV_PCOUP_GAIN_VLOW_TBL                  {364, 180, 408}
+#define SRV_PCOUP_NUM_TX_LEVELS                  8
 #define SRV_PCOUP_LINE_DRV_CONF                  5
 
 #define SRV_PCOUP_PRED_HIGH_TBL                  {0x7399, 0x6D5B, 0x6982, 0x671E, 0x6699, 0x6730, 0x6875, 0x6975, 0x6AE7, 0x6CE3, 0x6EF9, 0x70A7, 0x7276, 0x74B0, \
@@ -104,12 +106,10 @@
                                                   0x7348, 0x7371, 0x7453, 0x7566, 0x75C8, 0x764F, 0x77A2, 0x78F2, 0x7929, 0x7990, 0x7AB0, 0x7B90, 0x7B35, 0x7C1E, \
                                                   0x7DE6, 0x7FFF}  
 
-/* PLC Phy Coupling Configuration Options */
-#define SRV_PCOUP_AUX_MAX_NUM_TX_LEVELS          8
-
 /* Equalization number of coefficients (number of carriers) for Auxiliary branch */
 #define SRV_PCOUP_AUX_EQU_NUM_COEF               36
 
+/* PLC Tx Coupling Settings for Auxiliary branch */
 #define SRV_PCOUP_AUX_RMS_HIGH_TBL               {1991, 1381, 976, 695, 495, 351, 250, 179}
 #define SRV_PCOUP_AUX_RMS_VLOW_TBL               {6356, 4706, 3317, 2308, 1602, 1112, 778, 546}
 #define SRV_PCOUP_AUX_THRS_HIGH_TBL              {0, 0, 0, 0, 0, 0, 0, 0, 1685, 1173, 828, 589, 419, 298, 212, 151}
@@ -119,7 +119,7 @@
                                                  0xf0000000, 0x1020f0, 0x3aa, 0xf0000000, 0x1020ff}
 #define SRV_PCOUP_AUX_GAIN_HIGH_TBL              {142, 70, 336}
 #define SRV_PCOUP_AUX_GAIN_VLOW_TBL              {474, 230, 597}
-
+#define SRV_PCOUP_AUX_NUM_TX_LEVELS              8
 #define SRV_PCOUP_AUX_LINE_DRV_CONF              8
 
 #define SRV_PCOUP_AUX_PRED_HIGH_TBL              {0x670A, 0x660F, 0x676A, 0x6A6B, 0x6F3F, 0x7440, 0x74ED, 0x7792, 0x762D, 0x7530, 0x7938, 0x7C0A, 0x7C2A, 0x7B0E, \
@@ -135,7 +135,7 @@
 // *****************************************************************************
 // *****************************************************************************
 // *****************************************************************************
-/* PLC Phy Coupling Branch definitions
+/* PLC PHY Coupling Branch definitions
 
  Summary:
     Defines two independent transmission branches.
@@ -158,56 +158,61 @@ typedef enum
 } SRV_PLC_PCOUP_BRANCH;     
 
 // *****************************************************************************
-/* PLC Phy Coupling Interface Data
+/* PLC PHY Tx Coupling Settings Data
 
   Summary:
-    Defines the data required to initialize the PLC PHY Coupling Interface.
+    Defines the data required to set the PLC PHY Coupling parameters.
 
   Description:
-    This data type defines the data required to initialize the PLC PHY Coupling
-    Interface.
+    This data type defines the data required to set the PLC Tx Coupling PHY 
+    parameters.
 
   Remarks:
-    None.
+    Tx equalization coefficients tables are not stored in the struct, just 
+    pointers to them.
 */
 
 typedef struct
 {  
-    /* Target RMS high values for each Transmission */
-    uint32_t                               rmsHigh[SRV_PCOUP_MAX_NUM_TX_LEVELS];
-    
-    /* Target RMS very low values for each Transmission */
-    uint32_t                               rmsVLow[SRV_PCOUP_MAX_NUM_TX_LEVELS];
-    
-    /* Table of thresholds to automatically update Tx Mode from HIGH mode */
-    uint32_t                               thrsHigh[SRV_PCOUP_MAX_NUM_TX_LEVELS << 1];
-    
-    /* Table of thresholds to automatically update Tx Mode from VLOW mode */
-    uint32_t                               thrsVLow[SRV_PCOUP_MAX_NUM_TX_LEVELS << 1];
-    
-    /* Configuration values of DACC peripheral according to hardware configuration */
-    uint32_t                               daccTable[17];
-    
-    /* Table of gain values for HIGH Tx Mode [HIGH_INI, HIGH_MIN, HIGH_MAX] */
-    uint16_t                               gainHigh[3];
-    
-    /* Table of gain values for VLOW Tx Mode [VLOW_INI, VLOW_MIN, VLOW_MAX] */
-    uint16_t                               gainVLow[3];
-    
-    /* Number of Tx attenuation levels (3 dB steps) for normal transmission behavior */
-    uint8_t                                numTxLevels;
-    
-    /* Size of Equalization Coefficients table in Tx mode in bytes. */
-    uint8_t                                equSize;
-    
-    /* Configuration of the embedded PLC Line Driver */
-    uint8_t                                lineDrvConf;
-    
-    /* Equalization Coefficients table in HIGH Tx mode. There is one coefficient for each carrier in the used band */
-    uint16_t                               equHigh[SRV_PCOUP_EQU_NUM_COEF];
-    
-    /* Equalization Coefficients table in VLOW Tx mode. There is one coefficient for each carrier in the used band */
-    uint16_t                               equVlow[SRV_PCOUP_EQU_NUM_COEF];
+    /* Target RMS values in HIGH mode for dynamic Tx gain */
+    uint32_t                         rmsHigh[SRV_PCOUP_MAX_NUM_TX_LEVELS];
+
+    /* Target RMS values in VLOW mode for dynamic Tx gain */
+    uint32_t                         rmsVLow[SRV_PCOUP_MAX_NUM_TX_LEVELS];
+
+    /* Threshold RMS values in HIGH mode for dynamic Tx mode */
+    uint32_t                         thrsHigh[SRV_PCOUP_MAX_NUM_TX_LEVELS << 1];
+
+    /* Threshold RMS values in VLOW mode for dynamic Tx mode */
+    uint32_t                         thrsVLow[SRV_PCOUP_MAX_NUM_TX_LEVELS << 1];
+
+    /* Values for configuration of PLC DACC peripheral, according to hardware 
+       coupling design and PLC device (PL360/PL460) */
+    uint32_t                         daccTable[17];
+
+    /* Pointer to Tx equalization coefficients table in HIGH mode. 
+       There is one coefficient for each carrier in the used band */
+    const uint16_t *                 equHigh;
+
+    /* Pointer to Tx equalization coefficients table in VLOW mode. 
+       There is one coefficient for each carrier in the used band */
+    const uint16_t *                 equVlow;
+
+    /* Tx gain values for HIGH mode [HIGH_INI, HIGH_MIN, HIGH_MAX] */
+    uint16_t                         gainHigh[3];
+
+    /* Tx gain values for VLOW mode [VLOW_INI, VLOW_MIN, VLOW_MAX] */
+    uint16_t                         gainVLow[3];
+
+    /* Number of Tx attenuation levels (3 dB step) suppoting dynamic Tx mode */
+    uint8_t                          numTxLevels;
+
+    /* Size of Tx equalization coefficients table in bytes */
+    uint8_t                          equSize;
+
+    /* Configuration of the PLC Tx Line Driver, according to hardware coupling 
+       design and PLC device (PL360/PL460) */
+    uint8_t                          lineDrvConf;
 
 } SRV_PLC_PCOUP;
 
@@ -222,25 +227,23 @@ typedef struct
     SRV_PLC_PCOUP * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch)
     
   Summary:
-    Get the proper parameters to configure the PLC PHY Coupling according to
-    the customer values.
+    Get the PLC Tx Coupling PHY parameters for the desired transmission branch.
 
   Description:
-    This function is used to Get the proper parameters to configure the 
-    PLC PHY Coupling. This parameters should be sent to the PLC device through
-    PIB interface.
+    This function is used to get the PLC Tx Coupling PHY parameters for the 
+    desired transmission branch. These parameters should be sent to the PLC 
+    device through PLC Driver PIB interface.
 
   Precondition:
     None.
 
   Parameters:
-    pCoupValues        - Pointer to PLC PHY Coupling parameters.
-    branch             - Branch from which the parameters are obtained
+    branch          - Transmission branch for which the parameters are requested
 
   Returns:
-    SYS_STATUS_UNINITIALIZED - Indicates that has been an error in the coupling configuration.
+    NULL - Indicates an error in the PLC PHY Coupling settings.
 
-    Pointer to PLC PHY Coupling parameters to be used.
+    Pointer to PLC Tx Coupling PHY parameters.
 
   Example:
     <code>
@@ -257,13 +260,49 @@ SRV_PLC_PCOUP * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch);
 
 /***************************************************************************
   Function:
+    bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
+    
+  Summary:
+    Set the PLC Tx Coupling PHY parameters for the desired transmission branch.
+
+  Description:
+    This function is used to set the PLC Tx Coupling PHY parameters for the 
+    desired transmission branch, using the PLC Driver PIB interface.
+
+  Precondition:
+    DRV_PLC_PHY_Open must have been called to obtain a valid driver handle.
+
+  Parameters:
+    handle  - PLC driver handle used to set PIB parameters
+    branch  - Transmission branch for which the parameters will be set
+
+  Returns:
+    true    - Successful configuration
+    false   - Failed configuration
+
+  Example:
+    <code>
+    // 'handle', returned from the DRV_PLC_PHY_Open
+    bool result;
+
+    result = SRV_PCOUP_Set_Config(handle, SRV_PLC_PCOUP_MAIN_BRANCH);
+    </code>
+
+  Remarks:
+    None.
+  ***************************************************************************/
+
+bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
+
+/***************************************************************************
+  Function:
     SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void )
     
   Summary:
-    Get the transmission branch that is configured by default.
+    Get the default PLC PHY Tx Coupling Branch.
 
   Description:
-    This function is used to Get the default tranmission branch of the 
+    This function is used to get the default tranmission branch of the 
     PLC PHY Coupling.
 
   Precondition:
@@ -281,7 +320,7 @@ SRV_PLC_PCOUP * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch);
     SRV_PLC_PCOUP *pCoupValues;
 
     plcDefaultBranch = SRV_PCOUP_Get_Default_Branch();
-    pCoupValues = SRV_PCOUP_Get_Config(plcDefaultBranch);
+    SRV_PCOUP_Set_Config(plcDefaultBranch);
     </code>
 
   Remarks:
@@ -298,14 +337,14 @@ SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void );
     Get the PHY band of the branch that is selected.
 
   Description:
-    This function is used to Get the PHY band linked to the selected branch 
+    This function is used to get the PHY band linked to the selected branch 
     of the PLC PHY Coupling.
 
   Precondition:
     None.
 
   Parameters:
-    branch             - Branch from which the phy band is obtained
+    branch             - Tx branch from which the PHY band is requested
 
   Returns:
     PHY band linked to the coupling branch. See "drv_plc_phy_comm.h" .
@@ -315,7 +354,7 @@ SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void );
     <code>
     uint8_t pCoupPhyBand;
 
-    pCoupPhyBand = SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_MAIN_BRANCH);
+    pCoupPhyBand = SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_MAIN_BRANCH);
 
     if (pCoupPhyBand == G3_CEN_A) {
       // G3 CEN-A band
