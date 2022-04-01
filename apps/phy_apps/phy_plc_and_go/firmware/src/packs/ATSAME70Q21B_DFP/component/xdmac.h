@@ -1,7 +1,7 @@
 /*
  * Component description for XDMAC
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2020-11-26T11:12:57Z */
 #ifndef _SAME70_XDMAC_COMPONENT_H_
 #define _SAME70_XDMAC_COMPONENT_H_
 
@@ -1610,37 +1610,37 @@
 #define XDMAC_GSWF_SWF(value)                 (XDMAC_GSWF_SWF_Msk & ((value) << XDMAC_GSWF_SWF_Pos)) 
 
 /** \brief XDMAC register offsets definitions */
-#define XDMAC_CIE_REG_OFST             (0x00)              /* (XDMAC_CIE) Channel Interrupt Enable Register Offset */
-#define XDMAC_CID_REG_OFST             (0x04)              /* (XDMAC_CID) Channel Interrupt Disable Register Offset */
-#define XDMAC_CIM_REG_OFST             (0x08)              /* (XDMAC_CIM) Channel Interrupt Mask Register Offset */
-#define XDMAC_CIS_REG_OFST             (0x0C)              /* (XDMAC_CIS) Channel Interrupt Status Register Offset */
-#define XDMAC_CSA_REG_OFST             (0x10)              /* (XDMAC_CSA) Channel Source Address Register Offset */
-#define XDMAC_CDA_REG_OFST             (0x14)              /* (XDMAC_CDA) Channel Destination Address Register Offset */
-#define XDMAC_CNDA_REG_OFST            (0x18)              /* (XDMAC_CNDA) Channel Next Descriptor Address Register Offset */
-#define XDMAC_CNDC_REG_OFST            (0x1C)              /* (XDMAC_CNDC) Channel Next Descriptor Control Register Offset */
-#define XDMAC_CUBC_REG_OFST            (0x20)              /* (XDMAC_CUBC) Channel Microblock Control Register Offset */
-#define XDMAC_CBC_REG_OFST             (0x24)              /* (XDMAC_CBC) Channel Block Control Register Offset */
-#define XDMAC_CC_REG_OFST              (0x28)              /* (XDMAC_CC) Channel Configuration Register Offset */
-#define XDMAC_CDS_MSP_REG_OFST         (0x2C)              /* (XDMAC_CDS_MSP) Channel Data Stride Memory Set Pattern Offset */
-#define XDMAC_CSUS_REG_OFST            (0x30)              /* (XDMAC_CSUS) Channel Source Microblock Stride Offset */
-#define XDMAC_CDUS_REG_OFST            (0x34)              /* (XDMAC_CDUS) Channel Destination Microblock Stride Offset */
-#define XDMAC_GTYPE_REG_OFST           (0x00)              /* (XDMAC_GTYPE) Global Type Register Offset */
-#define XDMAC_GCFG_REG_OFST            (0x04)              /* (XDMAC_GCFG) Global Configuration Register Offset */
-#define XDMAC_GWAC_REG_OFST            (0x08)              /* (XDMAC_GWAC) Global Weighted Arbiter Configuration Register Offset */
-#define XDMAC_GIE_REG_OFST             (0x0C)              /* (XDMAC_GIE) Global Interrupt Enable Register Offset */
-#define XDMAC_GID_REG_OFST             (0x10)              /* (XDMAC_GID) Global Interrupt Disable Register Offset */
-#define XDMAC_GIM_REG_OFST             (0x14)              /* (XDMAC_GIM) Global Interrupt Mask Register Offset */
-#define XDMAC_GIS_REG_OFST             (0x18)              /* (XDMAC_GIS) Global Interrupt Status Register Offset */
-#define XDMAC_GE_REG_OFST              (0x1C)              /* (XDMAC_GE) Global Channel Enable Register Offset */
-#define XDMAC_GD_REG_OFST              (0x20)              /* (XDMAC_GD) Global Channel Disable Register Offset */
-#define XDMAC_GS_REG_OFST              (0x24)              /* (XDMAC_GS) Global Channel Status Register Offset */
-#define XDMAC_GRS_REG_OFST             (0x28)              /* (XDMAC_GRS) Global Channel Read Suspend Register Offset */
-#define XDMAC_GWS_REG_OFST             (0x2C)              /* (XDMAC_GWS) Global Channel Write Suspend Register Offset */
-#define XDMAC_GRWS_REG_OFST            (0x30)              /* (XDMAC_GRWS) Global Channel Read Write Suspend Register Offset */
-#define XDMAC_GRWR_REG_OFST            (0x34)              /* (XDMAC_GRWR) Global Channel Read Write Resume Register Offset */
-#define XDMAC_GSWR_REG_OFST            (0x38)              /* (XDMAC_GSWR) Global Channel Software Request Register Offset */
-#define XDMAC_GSWS_REG_OFST            (0x3C)              /* (XDMAC_GSWS) Global Channel Software Request Status Register Offset */
-#define XDMAC_GSWF_REG_OFST            (0x40)              /* (XDMAC_GSWF) Global Channel Software Flush Request Register Offset */
+#define XDMAC_CIE_REG_OFST             (0x00)              /**< (XDMAC_CIE) Channel Interrupt Enable Register Offset */
+#define XDMAC_CID_REG_OFST             (0x04)              /**< (XDMAC_CID) Channel Interrupt Disable Register Offset */
+#define XDMAC_CIM_REG_OFST             (0x08)              /**< (XDMAC_CIM) Channel Interrupt Mask Register Offset */
+#define XDMAC_CIS_REG_OFST             (0x0C)              /**< (XDMAC_CIS) Channel Interrupt Status Register Offset */
+#define XDMAC_CSA_REG_OFST             (0x10)              /**< (XDMAC_CSA) Channel Source Address Register Offset */
+#define XDMAC_CDA_REG_OFST             (0x14)              /**< (XDMAC_CDA) Channel Destination Address Register Offset */
+#define XDMAC_CNDA_REG_OFST            (0x18)              /**< (XDMAC_CNDA) Channel Next Descriptor Address Register Offset */
+#define XDMAC_CNDC_REG_OFST            (0x1C)              /**< (XDMAC_CNDC) Channel Next Descriptor Control Register Offset */
+#define XDMAC_CUBC_REG_OFST            (0x20)              /**< (XDMAC_CUBC) Channel Microblock Control Register Offset */
+#define XDMAC_CBC_REG_OFST             (0x24)              /**< (XDMAC_CBC) Channel Block Control Register Offset */
+#define XDMAC_CC_REG_OFST              (0x28)              /**< (XDMAC_CC) Channel Configuration Register Offset */
+#define XDMAC_CDS_MSP_REG_OFST         (0x2C)              /**< (XDMAC_CDS_MSP) Channel Data Stride Memory Set Pattern Offset */
+#define XDMAC_CSUS_REG_OFST            (0x30)              /**< (XDMAC_CSUS) Channel Source Microblock Stride Offset */
+#define XDMAC_CDUS_REG_OFST            (0x34)              /**< (XDMAC_CDUS) Channel Destination Microblock Stride Offset */
+#define XDMAC_GTYPE_REG_OFST           (0x00)              /**< (XDMAC_GTYPE) Global Type Register Offset */
+#define XDMAC_GCFG_REG_OFST            (0x04)              /**< (XDMAC_GCFG) Global Configuration Register Offset */
+#define XDMAC_GWAC_REG_OFST            (0x08)              /**< (XDMAC_GWAC) Global Weighted Arbiter Configuration Register Offset */
+#define XDMAC_GIE_REG_OFST             (0x0C)              /**< (XDMAC_GIE) Global Interrupt Enable Register Offset */
+#define XDMAC_GID_REG_OFST             (0x10)              /**< (XDMAC_GID) Global Interrupt Disable Register Offset */
+#define XDMAC_GIM_REG_OFST             (0x14)              /**< (XDMAC_GIM) Global Interrupt Mask Register Offset */
+#define XDMAC_GIS_REG_OFST             (0x18)              /**< (XDMAC_GIS) Global Interrupt Status Register Offset */
+#define XDMAC_GE_REG_OFST              (0x1C)              /**< (XDMAC_GE) Global Channel Enable Register Offset */
+#define XDMAC_GD_REG_OFST              (0x20)              /**< (XDMAC_GD) Global Channel Disable Register Offset */
+#define XDMAC_GS_REG_OFST              (0x24)              /**< (XDMAC_GS) Global Channel Status Register Offset */
+#define XDMAC_GRS_REG_OFST             (0x28)              /**< (XDMAC_GRS) Global Channel Read Suspend Register Offset */
+#define XDMAC_GWS_REG_OFST             (0x2C)              /**< (XDMAC_GWS) Global Channel Write Suspend Register Offset */
+#define XDMAC_GRWS_REG_OFST            (0x30)              /**< (XDMAC_GRWS) Global Channel Read Write Suspend Register Offset */
+#define XDMAC_GRWR_REG_OFST            (0x34)              /**< (XDMAC_GRWR) Global Channel Read Write Resume Register Offset */
+#define XDMAC_GSWR_REG_OFST            (0x38)              /**< (XDMAC_GSWR) Global Channel Software Request Register Offset */
+#define XDMAC_GSWS_REG_OFST            (0x3C)              /**< (XDMAC_GSWS) Global Channel Software Request Status Register Offset */
+#define XDMAC_GSWF_REG_OFST            (0x40)              /**< (XDMAC_GSWF) Global Channel Software Flush Request Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief XDMAC_CHID register API structure */

@@ -1,7 +1,7 @@
 /*
  * Component description for RTC
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2020-11-26T11:12:57Z */
 #ifndef _SAME70_RTC_COMPONENT_H_
 #define _SAME70_RTC_COMPONENT_H_
 
@@ -372,18 +372,18 @@
 
 
 /** \brief RTC register offsets definitions */
-#define RTC_CR_REG_OFST                (0x00)              /* (RTC_CR) Control Register Offset */
-#define RTC_MR_REG_OFST                (0x04)              /* (RTC_MR) Mode Register Offset */
-#define RTC_TIMR_REG_OFST              (0x08)              /* (RTC_TIMR) Time Register Offset */
-#define RTC_CALR_REG_OFST              (0x0C)              /* (RTC_CALR) Calendar Register Offset */
-#define RTC_TIMALR_REG_OFST            (0x10)              /* (RTC_TIMALR) Time Alarm Register Offset */
-#define RTC_CALALR_REG_OFST            (0x14)              /* (RTC_CALALR) Calendar Alarm Register Offset */
-#define RTC_SR_REG_OFST                (0x18)              /* (RTC_SR) Status Register Offset */
-#define RTC_SCCR_REG_OFST              (0x1C)              /* (RTC_SCCR) Status Clear Command Register Offset */
-#define RTC_IER_REG_OFST               (0x20)              /* (RTC_IER) Interrupt Enable Register Offset */
-#define RTC_IDR_REG_OFST               (0x24)              /* (RTC_IDR) Interrupt Disable Register Offset */
-#define RTC_IMR_REG_OFST               (0x28)              /* (RTC_IMR) Interrupt Mask Register Offset */
-#define RTC_VER_REG_OFST               (0x2C)              /* (RTC_VER) Valid Entry Register Offset */
+#define RTC_CR_REG_OFST                (0x00)              /**< (RTC_CR) Control Register Offset */
+#define RTC_MR_REG_OFST                (0x04)              /**< (RTC_MR) Mode Register Offset */
+#define RTC_TIMR_REG_OFST              (0x08)              /**< (RTC_TIMR) Time Register Offset */
+#define RTC_CALR_REG_OFST              (0x0C)              /**< (RTC_CALR) Calendar Register Offset */
+#define RTC_TIMALR_REG_OFST            (0x10)              /**< (RTC_TIMALR) Time Alarm Register Offset */
+#define RTC_CALALR_REG_OFST            (0x14)              /**< (RTC_CALALR) Calendar Alarm Register Offset */
+#define RTC_SR_REG_OFST                (0x18)              /**< (RTC_SR) Status Register Offset */
+#define RTC_SCCR_REG_OFST              (0x1C)              /**< (RTC_SCCR) Status Clear Command Register Offset */
+#define RTC_IER_REG_OFST               (0x20)              /**< (RTC_IER) Interrupt Enable Register Offset */
+#define RTC_IDR_REG_OFST               (0x24)              /**< (RTC_IDR) Interrupt Disable Register Offset */
+#define RTC_IMR_REG_OFST               (0x28)              /**< (RTC_IMR) Interrupt Mask Register Offset */
+#define RTC_VER_REG_OFST               (0x2C)              /**< (RTC_VER) Valid Entry Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief RTC register API structure */

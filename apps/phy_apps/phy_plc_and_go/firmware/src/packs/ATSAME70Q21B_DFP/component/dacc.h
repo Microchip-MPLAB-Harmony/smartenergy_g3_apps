@@ -1,7 +1,7 @@
 /*
  * Component description for DACC
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2020-11-26T11:12:57Z */
 #ifndef _SAME70_DACC_COMPONENT_H_
 #define _SAME70_DACC_COMPONENT_H_
 
@@ -344,22 +344,22 @@
 
 
 /** \brief DACC register offsets definitions */
-#define DACC_CR_REG_OFST               (0x00)              /* (DACC_CR) Control Register Offset */
-#define DACC_MR_REG_OFST               (0x04)              /* (DACC_MR) Mode Register Offset */
-#define DACC_TRIGR_REG_OFST            (0x08)              /* (DACC_TRIGR) Trigger Register Offset */
-#define DACC_CHER_REG_OFST             (0x10)              /* (DACC_CHER) Channel Enable Register Offset */
-#define DACC_CHDR_REG_OFST             (0x14)              /* (DACC_CHDR) Channel Disable Register Offset */
-#define DACC_CHSR_REG_OFST             (0x18)              /* (DACC_CHSR) Channel Status Register Offset */
-#define DACC_CDR_REG_OFST              (0x1C)              /* (DACC_CDR) Conversion Data Register 0 Offset */
-#define DACC_CDR0_REG_OFST             (0x1C)              /* (DACC_CDR0) Conversion Data Register 0 Offset */
-#define DACC_CDR1_REG_OFST             (0x20)              /* (DACC_CDR1) Conversion Data Register 0 Offset */
-#define DACC_IER_REG_OFST              (0x24)              /* (DACC_IER) Interrupt Enable Register Offset */
-#define DACC_IDR_REG_OFST              (0x28)              /* (DACC_IDR) Interrupt Disable Register Offset */
-#define DACC_IMR_REG_OFST              (0x2C)              /* (DACC_IMR) Interrupt Mask Register Offset */
-#define DACC_ISR_REG_OFST              (0x30)              /* (DACC_ISR) Interrupt Status Register Offset */
-#define DACC_ACR_REG_OFST              (0x94)              /* (DACC_ACR) Analog Current Register Offset */
-#define DACC_WPMR_REG_OFST             (0xE4)              /* (DACC_WPMR) Write Protection Mode Register Offset */
-#define DACC_WPSR_REG_OFST             (0xE8)              /* (DACC_WPSR) Write Protection Status Register Offset */
+#define DACC_CR_REG_OFST               (0x00)              /**< (DACC_CR) Control Register Offset */
+#define DACC_MR_REG_OFST               (0x04)              /**< (DACC_MR) Mode Register Offset */
+#define DACC_TRIGR_REG_OFST            (0x08)              /**< (DACC_TRIGR) Trigger Register Offset */
+#define DACC_CHER_REG_OFST             (0x10)              /**< (DACC_CHER) Channel Enable Register Offset */
+#define DACC_CHDR_REG_OFST             (0x14)              /**< (DACC_CHDR) Channel Disable Register Offset */
+#define DACC_CHSR_REG_OFST             (0x18)              /**< (DACC_CHSR) Channel Status Register Offset */
+#define DACC_CDR_REG_OFST              (0x1C)              /**< (DACC_CDR) Conversion Data Register 0 Offset */
+#define DACC_CDR0_REG_OFST             (0x1C)              /**< (DACC_CDR0) Conversion Data Register 0 Offset */
+#define DACC_CDR1_REG_OFST             (0x20)              /**< (DACC_CDR1) Conversion Data Register 0 Offset */
+#define DACC_IER_REG_OFST              (0x24)              /**< (DACC_IER) Interrupt Enable Register Offset */
+#define DACC_IDR_REG_OFST              (0x28)              /**< (DACC_IDR) Interrupt Disable Register Offset */
+#define DACC_IMR_REG_OFST              (0x2C)              /**< (DACC_IMR) Interrupt Mask Register Offset */
+#define DACC_ISR_REG_OFST              (0x30)              /**< (DACC_ISR) Interrupt Status Register Offset */
+#define DACC_ACR_REG_OFST              (0x94)              /**< (DACC_ACR) Analog Current Register Offset */
+#define DACC_WPMR_REG_OFST             (0xE4)              /**< (DACC_WPMR) Write Protection Mode Register Offset */
+#define DACC_WPSR_REG_OFST             (0xE8)              /**< (DACC_WPSR) Write Protection Status Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief DACC register API structure */
