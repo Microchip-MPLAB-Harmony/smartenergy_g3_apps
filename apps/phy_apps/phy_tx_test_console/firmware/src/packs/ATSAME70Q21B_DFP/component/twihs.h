@@ -1,7 +1,7 @@
 /*
  * Component description for TWIHS
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2020-11-26T11:12:57Z */
 #ifndef _SAME70_TWIHS_COMPONENT_H_
 #define _SAME70_TWIHS_COMPONENT_H_
 
@@ -478,22 +478,22 @@
 
 
 /** \brief TWIHS register offsets definitions */
-#define TWIHS_CR_REG_OFST              (0x00)              /* (TWIHS_CR) Control Register Offset */
-#define TWIHS_MMR_REG_OFST             (0x04)              /* (TWIHS_MMR) Master Mode Register Offset */
-#define TWIHS_SMR_REG_OFST             (0x08)              /* (TWIHS_SMR) Slave Mode Register Offset */
-#define TWIHS_IADR_REG_OFST            (0x0C)              /* (TWIHS_IADR) Internal Address Register Offset */
-#define TWIHS_CWGR_REG_OFST            (0x10)              /* (TWIHS_CWGR) Clock Waveform Generator Register Offset */
-#define TWIHS_SR_REG_OFST              (0x20)              /* (TWIHS_SR) Status Register Offset */
-#define TWIHS_IER_REG_OFST             (0x24)              /* (TWIHS_IER) Interrupt Enable Register Offset */
-#define TWIHS_IDR_REG_OFST             (0x28)              /* (TWIHS_IDR) Interrupt Disable Register Offset */
-#define TWIHS_IMR_REG_OFST             (0x2C)              /* (TWIHS_IMR) Interrupt Mask Register Offset */
-#define TWIHS_RHR_REG_OFST             (0x30)              /* (TWIHS_RHR) Receive Holding Register Offset */
-#define TWIHS_THR_REG_OFST             (0x34)              /* (TWIHS_THR) Transmit Holding Register Offset */
-#define TWIHS_SMBTR_REG_OFST           (0x38)              /* (TWIHS_SMBTR) SMBus Timing Register Offset */
-#define TWIHS_FILTR_REG_OFST           (0x44)              /* (TWIHS_FILTR) Filter Register Offset */
-#define TWIHS_SWMR_REG_OFST            (0x4C)              /* (TWIHS_SWMR) SleepWalking Matching Register Offset */
-#define TWIHS_WPMR_REG_OFST            (0xE4)              /* (TWIHS_WPMR) Write Protection Mode Register Offset */
-#define TWIHS_WPSR_REG_OFST            (0xE8)              /* (TWIHS_WPSR) Write Protection Status Register Offset */
+#define TWIHS_CR_REG_OFST              (0x00)              /**< (TWIHS_CR) Control Register Offset */
+#define TWIHS_MMR_REG_OFST             (0x04)              /**< (TWIHS_MMR) Master Mode Register Offset */
+#define TWIHS_SMR_REG_OFST             (0x08)              /**< (TWIHS_SMR) Slave Mode Register Offset */
+#define TWIHS_IADR_REG_OFST            (0x0C)              /**< (TWIHS_IADR) Internal Address Register Offset */
+#define TWIHS_CWGR_REG_OFST            (0x10)              /**< (TWIHS_CWGR) Clock Waveform Generator Register Offset */
+#define TWIHS_SR_REG_OFST              (0x20)              /**< (TWIHS_SR) Status Register Offset */
+#define TWIHS_IER_REG_OFST             (0x24)              /**< (TWIHS_IER) Interrupt Enable Register Offset */
+#define TWIHS_IDR_REG_OFST             (0x28)              /**< (TWIHS_IDR) Interrupt Disable Register Offset */
+#define TWIHS_IMR_REG_OFST             (0x2C)              /**< (TWIHS_IMR) Interrupt Mask Register Offset */
+#define TWIHS_RHR_REG_OFST             (0x30)              /**< (TWIHS_RHR) Receive Holding Register Offset */
+#define TWIHS_THR_REG_OFST             (0x34)              /**< (TWIHS_THR) Transmit Holding Register Offset */
+#define TWIHS_SMBTR_REG_OFST           (0x38)              /**< (TWIHS_SMBTR) SMBus Timing Register Offset */
+#define TWIHS_FILTR_REG_OFST           (0x44)              /**< (TWIHS_FILTR) Filter Register Offset */
+#define TWIHS_SWMR_REG_OFST            (0x4C)              /**< (TWIHS_SWMR) SleepWalking Matching Register Offset */
+#define TWIHS_WPMR_REG_OFST            (0xE4)              /**< (TWIHS_WPMR) Write Protection Mode Register Offset */
+#define TWIHS_WPSR_REG_OFST            (0xE8)              /**< (TWIHS_WPSR) Write Protection Status Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief TWIHS register API structure */

@@ -1,5 +1,5 @@
 /*******************************************************************************
-  PLC Phy Coupling Service Implementation.
+  PLC PHY Coupling Service Implementation.
 
   Company:
     Microchip Technology Inc.
@@ -12,12 +12,13 @@
 
   Description:
     This file contains the source code for the implementation of the
-    PLC PHY Cpupling service.
+    PLC PHY Coupling service. It helps to configure the PLC PHY Coupling 
+    parameters through PLC Driver PIB interface.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -47,39 +48,61 @@
 // *****************************************************************************
 
 #include "configuration.h"
-#include "driver/driver_common.h"
 #include "service/pcoup/srv_pcoup.h"
-#include "driver/plc/phy/drv_plc_phy_comm.h"
 
 // *****************************************************************************
-/* PLC Coupling configuration data
+/* PLC PHY Tx Coupling Equalization Data
 
   Summary:
-    Holds PLC configuration data
+    Holds the Tx equalization coefficients tables.
 
   Description:
-    This structure holds the PLC coupling configuration data.
+    Predistorsion applies specific gain for each carrier, which can be used to 
+    compensate the hardware coupling filter frequency response, equalizing the 
+    PLC transmission frequency response.
 
   Remarks:
-    Parameters are defined in srv_pcoup.h file
+    Values are defined in srv_pcoup.h file. Different values for HIGH and VLOW 
+    modes
+ */
+
+static const uint16_t srvPlcCoupPredistCoefHigh[SRV_PCOUP_EQU_NUM_COEF] = SRV_PCOUP_PRED_HIGH_TBL;
+static const uint16_t srvPlcCoupPredistCoefVLow[SRV_PCOUP_EQU_NUM_COEF] = SRV_PCOUP_PRED_VLOW_TBL;
+
+static const uint16_t srvPlcCoupAuxPredistCoefHigh[SRV_PCOUP_AUX_EQU_NUM_COEF] = SRV_PCOUP_AUX_PRED_HIGH_TBL;
+static const uint16_t srvPlcCoupAuxPredistCoefVLow[SRV_PCOUP_AUX_EQU_NUM_COEF] = SRV_PCOUP_AUX_PRED_VLOW_TBL;
+
+/* PLC PHY Tx Coupling Settings Data
+
+  Summary:
+    Holds the data required to set the PLC PHY Coupling parameters.
+
+  Description:
+    This structure holds the data required to set the PLC Tx Coupling PHY 
+    parameters.
+
+  Remarks:
+    Values are defined in srv_pcoup.h file
  */
 
 static const SRV_PLC_PCOUP srvPlcCoup = {
   SRV_PCOUP_RMS_HIGH_TBL, SRV_PCOUP_RMS_VLOW_TBL,
   SRV_PCOUP_THRS_HIGH_TBL, SRV_PCOUP_THRS_VLOW_TBL,
-  SRV_PCOUP_DACC_TBL, 
+  SRV_PCOUP_DACC_TBL,
+  srvPlcCoupPredistCoefHigh, srvPlcCoupPredistCoefVLow,
   SRV_PCOUP_GAIN_HIGH_TBL, SRV_PCOUP_GAIN_VLOW_TBL,
-  SRV_PCOUP_MAX_NUM_TX_LEVELS, SRV_PCOUP_EQU_NUM_COEF << 1, SRV_PCOUP_LINE_DRV_CONF,
-  SRV_PCOUP_PRED_HIGH_TBL, SRV_PCOUP_PRED_VLOW_TBL
+  SRV_PCOUP_NUM_TX_LEVELS, SRV_PCOUP_EQU_NUM_COEF << 1,
+  SRV_PCOUP_LINE_DRV_CONF
 };
 
 static const SRV_PLC_PCOUP srvPlcCoupAux = {
   SRV_PCOUP_AUX_RMS_HIGH_TBL, SRV_PCOUP_AUX_RMS_VLOW_TBL,
   SRV_PCOUP_AUX_THRS_HIGH_TBL, SRV_PCOUP_AUX_THRS_VLOW_TBL,
-  SRV_PCOUP_AUX_DACC_TBL, 
+  SRV_PCOUP_AUX_DACC_TBL,
+  srvPlcCoupAuxPredistCoefHigh, srvPlcCoupAuxPredistCoefVLow,
   SRV_PCOUP_AUX_GAIN_HIGH_TBL, SRV_PCOUP_AUX_GAIN_VLOW_TBL,
-  SRV_PCOUP_AUX_MAX_NUM_TX_LEVELS, SRV_PCOUP_EQU_NUM_COEF << 1, SRV_PCOUP_AUX_LINE_DRV_CONF,
-  SRV_PCOUP_AUX_PRED_HIGH_TBL, SRV_PCOUP_AUX_PRED_VLOW_TBL
+  SRV_PCOUP_AUX_NUM_TX_LEVELS, SRV_PCOUP_AUX_EQU_NUM_COEF << 1,
+  SRV_PCOUP_AUX_LINE_DRV_CONF
 };
 
 // *****************************************************************************
@@ -91,12 +114,86 @@ SRV_PLC_PCOUP * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch)
 {
   if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
   {
+    /* PLC Tx Coupling PHY parameters for Main transmission branch */
     return (SRV_PLC_PCOUP *)&srvPlcCoup;
-  } 
-  else 
+  }
+  else if (branch == SRV_PLC_PCOUP_AUXILIARY_BRANCH)
   {
+    /* PLC Tx Coupling PHY parameters for Auxiliary transmission branch */
     return (SRV_PLC_PCOUP *)&srvPlcCoupAux;
   }
+
+  /* Transmission branch not recognized */
+  return NULL;
+}
+
+bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch)
+{
+  SRV_PLC_PCOUP *pCoupValues;
+  DRV_PLC_PHY_PIB_OBJ pibObj;
+  bool result;  
+
+  /* Get PLC Tx Coupling PHY parameters for the desired transmission branch */
+  pCoupValues = SRV_PCOUP_Get_Config(branch);
+
+  if (pCoupValues == NULL)
+  {
+    /* Transmission branch not recognized */
+    return false;
+  }
+
+  /* Set PLC Tx Coupling PHY parameters */
+  pibObj.id = PLC_ID_IC_DRIVER_CFG;
+  pibObj.length = 1;
+  pibObj.pData = &pCoupValues->lineDrvConf;
+  result = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_NUM_TX_LEVELS;
+  pibObj.pData = &pCoupValues->numTxLevels;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_DACC_TABLE_CFG;
+  pibObj.length = sizeof(pCoupValues->daccTable);
+  pibObj.pData = (uint8_t *)pCoupValues->daccTable;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);  
+
+  pibObj.id = PLC_ID_MAX_RMS_TABLE_HI;
+  pibObj.length = sizeof(pCoupValues->rmsHigh);
+  pibObj.pData = (uint8_t *)pCoupValues->rmsHigh;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_MAX_RMS_TABLE_VLO;
+  pibObj.pData = (uint8_t *)pCoupValues->rmsVLow;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_THRESHOLDS_TABLE_HI;
+  pibObj.length = sizeof(pCoupValues->thrsHigh);
+  pibObj.pData = (uint8_t *)pCoupValues->thrsHigh;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_THRESHOLDS_TABLE_VLO;
+  pibObj.pData = (uint8_t *)pCoupValues->thrsVLow;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_GAIN_TABLE_HI;
+  pibObj.length = sizeof(pCoupValues->gainHigh);
+  pibObj.pData = (uint8_t *)pCoupValues->gainHigh;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_GAIN_TABLE_VLO;
+  pibObj.pData = (uint8_t *)pCoupValues->gainVLow;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_PREDIST_COEF_TABLE_HI;
+  pibObj.length = pCoupValues->equSize;
+  pibObj.pData = (uint8_t *)pCoupValues->equHigh;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_PREDIST_COEF_TABLE_VLO;
+  pibObj.pData = (uint8_t *)pCoupValues->equVlow;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  return result;
 }
 
 SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void )
@@ -108,10 +205,12 @@ uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch)
 {
   if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
   {
+    /* PHY band for Main transmission branch */
     return G3_FCC;
   } 
   else 
   {
+    /* PHY band for Auxiliary transmission branch */
     return G3_CEN_A;
   }
 }

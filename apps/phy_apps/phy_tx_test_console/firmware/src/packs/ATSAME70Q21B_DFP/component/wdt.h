@@ -1,7 +1,7 @@
 /*
  * Component description for WDT
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2020-11-26T11:12:57Z */
 #ifndef _SAME70_WDT_COMPONENT_H_
 #define _SAME70_WDT_COMPONENT_H_
 
@@ -76,9 +76,9 @@
 
 
 /** \brief WDT register offsets definitions */
-#define WDT_CR_REG_OFST                (0x00)              /* (WDT_CR) Control Register Offset */
-#define WDT_MR_REG_OFST                (0x04)              /* (WDT_MR) Mode Register Offset */
-#define WDT_SR_REG_OFST                (0x08)              /* (WDT_SR) Status Register Offset */
+#define WDT_CR_REG_OFST                (0x00)              /**< (WDT_CR) Control Register Offset */
+#define WDT_MR_REG_OFST                (0x04)              /**< (WDT_MR) Mode Register Offset */
+#define WDT_SR_REG_OFST                (0x08)              /**< (WDT_SR) Status Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief WDT register API structure */
