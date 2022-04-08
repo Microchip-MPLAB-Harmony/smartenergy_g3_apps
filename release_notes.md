@@ -24,7 +24,7 @@ The following table provides the list of the SE PLC applications:
 
 | Application                 | Platform                        | Description                                                          |
 | ------------ | ------------ | ------------ |
-| PHY PLC and Go         | SAME70                  | PLC demo using PHY PLC API |
+| PLC PHY and Go         | SAME70                  | PLC demo using PLC PHY API |
 | PHY Tester Tool         | SAME70                  | PLC PHY  application to connect to Microchip PLC PHY Tester Tool |
 | PHY Sniffer Tool         | SAME70                  | PLC PHY  application to connect to Microchip PLC PHY Sniffer Tool |
 | PHY Tx Test Console         | SAME70                  | PLC PHY demo application to manage PLC transmissions via serial console |

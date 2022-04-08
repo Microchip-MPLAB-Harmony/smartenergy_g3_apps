@@ -72,32 +72,6 @@
 // *****************************************************************************
 
 // *****************************************************************************
-/* DRV_PLC_PHY Transfer Status
-
- Summary:
-    Defines the data type for PLC Driver transfer status.
-
- Description:
-    This will be used to indicate the current transfer status of the
-    PLC driver operations.
-
- Remarks:
-    None.
-*/
-
-typedef enum
-{
-    /* Transfer is being processed */
-    DRV_PLC_PHY_TRANSFER_STATUS_BUSY,
-
-    /* Transfer is successfully completed*/
-    DRV_PLC_PHY_TRANSFER_STATUS_COMPLETED,
-
-    /* Transfer had error or first transfer request is not made */
-    DRV_PLC_PHY_TRANSFER_STATUS_ERROR
-
-} DRV_PLC_PHY_TRANSFER_STATUS;     
-
 /* DRV_PLC_PHY Transfer Errors
 
  Summary:
@@ -206,14 +180,14 @@ typedef enum
 
     - The context parameter contains the a handle to the client context,
       provided at the time the event handling function was registered using the
-      DRV_PLC_PHY_DataCfmCallbackRegister function.  This context handle value is
+      DRV_PLC_PHY_TxCfmCallbackRegister function.  This context handle value is
       passed back to the client as the "context" parameter.  It can be any value
       necessary to identify the client context or instance (such as a pointer to
       the client's data) of the client that made the transfer add request.
 
 */
 
-typedef void ( *DRV_PLC_PHY_DATA_CFM_CALLBACK )( DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t context );
+typedef void ( *DRV_PLC_PHY_TX_CFM_CALLBACK )( DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t context );
 
 // *****************************************************************************
 /* PLC Driver Reception Event Handler Function Pointer
@@ -428,28 +402,34 @@ typedef void ( *DRV_PLC_PHY_SLEEP_CALLBACK )( uintptr_t context );
     SYS_MODULE_OBJ   sysObjDrvPLC;
 
     DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
-
         .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SPI0_TransferSetup,
         .dmaChannelTx = SYS_DMA_CHANNEL_1,
         .dmaChannelRx  = SYS_DMA_CHANNEL_0,
         .spiAddressTx =  (void *)&(SPI0_REGS->SPI_TDR),
         .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
+        .spiMR  = (void *)&(SPI0_REGS->SPI_MR),
+        .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR),
         .spiClockFrequency = DRV_PLC_SPI_CLK,
         .ldoPin = DRV_PLC_LDO_EN_PIN, 
         .resetPin = DRV_PLC_RESET_PIN,
         .extIntPin = DRV_PLC_EXT_INT_PIN,
+        .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
+        .stByPin = DRV_PLC_STBY_PIN,
+        .thMonPin = DRV_PLC_THMON_PIN,
     };
 
     DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
         .plcPlib = &drvPLCPlib,
-        .init = (DRV_PLC_HAL_INIT)drv_plc_phy_hal_init,
-        .setup = (DRV_PLC_HAL_SETUP)drv_plc_phy_hal_setup,
-        .reset = (DRV_PLC_HAL_RESET)drv_plc_phy_hal_reset,
-        .getCd = (DRV_PLC_HAL_GET_CD)drv_plc_phy_hal_get_cd,
-        .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)drv_plc_phy_hal_enable_interrupt,
-        .delay = (DRV_PLC_HAL_DELAY)drv_plc_phy_hal_delay,
-        .sendBootCmd = (DRV_PLC_HAL_SEND_BOOT_CMD)drv_plc_phy_hal_send_boot_cmd,
-        .sendWrRdCmd = (DRV_PLC_HAL_SEND_WRRD_CMD)drv_plc_phy_hal_send_wrrd_cmd,
+        .init = (DRV_PLC_HAL_INIT)DRV_PLC_HAL_Init,
+        .setup = (DRV_PLC_HAL_SETUP)DRV_PLC_HAL_Setup,
+        .reset = (DRV_PLC_HAL_RESET)DRV_PLC_HAL_Reset,
+        .setStandBy = (DRV_PLC_HAL_SET_STBY)DRV_PLC_HAL_SetStandBy,
+        .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,
+        .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
+        .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
+        .delay = (DRV_PLC_HAL_DELAY)DRV_PLC_HAL_Delay,
+        .sendBootCmd = (DRV_PLC_HAL_SEND_BOOT_CMD)DRV_PLC_HAL_SendBootCmd,
+        .sendWrRdCmd = (DRV_PLC_HAL_SEND_WRRD_CMD)DRV_PLC_HAL_SendWrRdCmd,
     };
 
     extern uint8_t plc_phy_bin_start;
@@ -458,15 +438,15 @@ typedef void ( *DRV_PLC_PHY_SLEEP_CALLBACK )( uintptr_t context );
     DRV_PLC_PHY_INIT drvPlcPhyInitData = {
         .plcHal = &drvPLCHalAPI,
         .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,  
-        .plcProfile = DRV_PLC_PHY_PLC_PROFILE,
+        .plcProfile = DRV_PLC_PHY_PROFILE,
         .binStartAddress = (uint32_t)&plc_phy_bin_start,
         .binEndAddress = (uint32_t)&plc_phy_bin_end,
-        .secure = DRV_PLC_PHY_SECURE,       
+        .secure = DRV_PLC_SECURE,        
     };
 
     sysObjDrvPLC0 = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX_0, (SYS_MODULE_INIT *)&drvPLC0InitData);
     // Register Callback function is mandatory to handle PLC interruption 
-    PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPLC);
+    PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObjDrvPLC0);
 
     </code>
 
@@ -574,7 +554,7 @@ void DRV_PLC_PHY_Close(const DRV_HANDLE handle);
 
 // *****************************************************************************
 /* Function:
-    void DRV_PLC_PHY_Send( DRV_Handle handle, DRV_PLC_PHY_TRANSMISSION_OBJ *transmitObj )
+    void DRV_PLC_PHY_TxRequest( DRV_Handle handle, DRV_PLC_PHY_TRANSMISSION_OBJ *transmitObj )
 
   Summary:
     Allows a client to transmit data through Power Line (PLC).
@@ -587,9 +567,7 @@ void DRV_PLC_PHY_Close(const DRV_HANDLE handle);
     DRV_PLC_PHY_TRANSMISSION_OBJ must be configured before to send any data message.
 
   Parameters:
-    handle -    A valid open-instance handle, returned from the driver's
-                open routine
-
+    handle - A valid instance handle, returned from the driver DRV_PLC_PHY_Open routine
     transmitObj - Pointer to the object to transmit.
 
   Returns:
@@ -611,14 +589,14 @@ void DRV_PLC_PHY_Close(const DRV_HANDLE handle);
 
     // Rest of the paramenters in transmitObj were configured previously
 
-    DRV_PLC_PHY_Send(handle, &transmitObj);
+    DRV_PLC_PHY_TxRequest(handle, &transmitObj);
 
     </code>
 
   Remarks:
     None.
 */
-void DRV_PLC_PHY_Send(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ *transmitObj);
+void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ *transmitObj);
 
 // *****************************************************************************
 /* Function:
@@ -628,17 +606,15 @@ void DRV_PLC_PHY_Send(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ *tra
     Allows a client to get information from PLC transceiver about PLC information base (PIB).
 
   Description:
-    This routine get PLC data information from the PLC transceiver.
+    This routine gets PLC data information from the PLC transceiver.
 
   Precondition:
     DRV_PLC_PHY_Open must have been called to obtain a valid opened device handle.
     DRV_PLC_PHY_PIB_OBJ must be configured before to get information.
 
   Parameters:
-    handle -    A valid open-instance handle, returned from the driver's
-                open routine
-
-    pibObj -    Pointer to the PIB oobject to get.
+    handle - A valid instance handle, returned from the driver DRV_PLC_PHY_Open routine
+    pibObj - Pointer to the PIB object to get.
 
   Returns:
     None.
@@ -679,10 +655,8 @@ bool DRV_PLC_PHY_PIBGet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj);
     DRV_PLC_PHY_PIB_OBJ must be configured before to set information.
 
   Parameters:
-    handle -    A valid open-instance handle, returned from the driver's
-                open routine
-
-    pibObj -    Pointer to the PIB object to set.
+    handle - A valid instance handle, returned from the driver DRV_PLC_PHY_Open routine
+    pibObj - Pointer to the PIB object to set.
 
   Returns:
     None.
@@ -720,9 +694,9 @@ bool DRV_PLC_PHY_PIBSet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj);
 
 // *****************************************************************************
 /* Function:
-    void DRV_PLC_PHY_DataCfmCallbackRegister( 
+    void DRV_PLC_PHY_TxCfmCallbackRegister( 
         const DRV_HANDLE handle, 
-        const DRV_PLC_PHY_DATA_CFM_CALLBACK callback, 
+        const DRV_PLC_PHY_TX_CFM_CALLBACK callback, 
         const uintptr_t context 
     );
 
@@ -748,9 +722,7 @@ bool DRV_PLC_PHY_PIBSet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj);
     callback - Pointer to the callback function.
 
     context - The value of parameter will be passed back to the client unchanged, 
-    when the callback function is called.  It can be used to identify any client 
-    specific data object that identifies the instance of the client module (for example, 
-    it may be a pointer to the client module's state structure).
+    when the callback function is called. 
 
   Returns:
     None.
@@ -780,17 +752,17 @@ bool DRV_PLC_PHY_PIBSet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj);
 
     // Client registers a data confirm callback with driver. This is done once
 
-    DRV_PLC_PHY_DataCfmCallbackRegister( myHandle, APP_PLC_Data_Cfm_callback, (uintptr_t)&myAppObj );
+    DRV_PLC_PHY_TxCfmCallbackRegister( myHandle, APP_PLC_Data_Cfm_callback, (uintptr_t)&myAppObj );
 
-    DRV_PLC_PHY_Send(myHandle, myTransmissionObj) == false);
+    DRV_PLC_PHY_TxRequest(myHandle, myTransmissionObj) == false);
    
     </code>
 
 */
 
-void DRV_PLC_PHY_DataCfmCallbackRegister( 
+void DRV_PLC_PHY_TxCfmCallbackRegister( 
     const DRV_HANDLE handle, 
-    const DRV_PLC_PHY_DATA_CFM_CALLBACK callback, 
+    const DRV_PLC_PHY_TX_CFM_CALLBACK callback, 
     const uintptr_t context 
 );
 
@@ -824,9 +796,7 @@ void DRV_PLC_PHY_DataCfmCallbackRegister(
     callback - Pointer to the callback function.
 
     context - The value of parameter will be passed back to the client unchanged, 
-    when the callback function is called.  It can be used to identify any client 
-    specific data object that identifies the instance of the client module (for example, 
-    it may be a pointer to the client module's state structure).
+    when the callback function is called.
 
   Returns:
     None.
@@ -895,9 +865,7 @@ void DRV_PLC_PHY_DataIndCallbackRegister(
     callback - Pointer to the callback function.
 
     context - The value of parameter will be passed back to the client unchanged, 
-    when the callback function is called.  It can be used to identify any client 
-    specific data object that identifies the instance of the client module (for example, 
-    it may be a pointer to the client module's state structure).
+    when the callback function is called.
 
   Returns:
     None.
@@ -924,7 +892,6 @@ void DRV_PLC_PHY_DataIndCallbackRegister(
 
     DRV_PLC_PHY_ExceptionCallbackRegister( myHandle, APP_PLC_Exception_callback, (uintptr_t)&myAppObj );
 
-    // Event is received when PLC data is receiving.
     </code>
 
 */
@@ -966,9 +933,7 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
     callback - Pointer to the callback function.
 
     context - The value of parameter will be passed back to the client unchanged, 
-    when the callback function is called.  It can be used to identify any client 
-    specific data object that identifies the instance of the client module (for example, 
-    it may be a pointer to the client module's state structure).
+    when the callback function is called.
 
   Returns:
     None.
@@ -995,7 +960,6 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
 
     DRV_PLC_PHY_SleepDisableCallbackRegister( myHandle, APP_PLC_SleepModeDisableCb, (uintptr_t)&myAppObj );
 
-    // Event is received when PLC device comes out of sleep mode and becomes active again.
     </code>
 
 */
@@ -1133,7 +1097,7 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object );
   Description:
     This function disables PLC interrupts before going to sleep, and will leave
     them disabled upon return. If there is any PLC transmission in progress, 
-    sleep mode will be enabled after the notification of the TX confirmation.
+    this transmission will be discarded.
 
   Precondition:
     The DRV_PLC_PHY_Initialize routine must have been called for the
@@ -1171,13 +1135,13 @@ void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable );
 
 /***************************************************************************
   Function:
-       void DRV_PLC_PHY_Enable_TX( const DRV_HANDLE handle, bool enable )
+       void DRV_PLC_PHY_EnableTX( const DRV_HANDLE handle, bool enable )
     
   Summary:
     Enable PLC transmission.
 
   Description:
-    This function allows a client to enable or disable the PLC tranmission.
+    This function allows a client to enable or disable the PLC transmission.
     If there is any transmission on going, it will be cancelled and notified
     through the TX confirmation callback. 
     
@@ -1188,7 +1152,7 @@ void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable );
   Parameters:
     - object -  Object handle for the specified driver instance (returned from
                 DRV_PLC_PHY_Initialize)
-    - enable -  Set True to enable PLC tranmission. Set False to disable it.
+    - enable -  Set True to enable PLC transmission. Set False to disable it.
   Returns:
     None.
   Example:
@@ -1200,11 +1164,11 @@ void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable );
         ...
         if (cancel_tx)
         {
-            DRV_PLC_PHY_Enable_TX (object, false);
+            DRV_PLC_PHY_EnableTX (object, false);
         }
         else
         {
-            DRV_PLC_PHY_Enable_TX (object, true);
+            DRV_PLC_PHY_EnableTX (object, true);
         }
         ...
     }
@@ -1212,7 +1176,7 @@ void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable );
                    
   ***************************************************************************/
 
-void DRV_PLC_PHY_Enable_TX( const DRV_HANDLE handle, bool enable );
+void DRV_PLC_PHY_EnableTX( const DRV_HANDLE handle, bool enable );
 
 #ifdef __cplusplus
 }

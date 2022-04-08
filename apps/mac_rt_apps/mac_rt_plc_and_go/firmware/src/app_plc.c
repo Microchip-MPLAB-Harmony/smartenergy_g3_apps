@@ -459,7 +459,7 @@ void APP_PLC_Tasks ( void )
                 DRV_G3_MACRT_Enable_TX(appPlc.drvPl360Handle, true);
                 
                 /* Enable PLC PVDD Monitor Service */
-                SRV_PVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
+                SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
             
                 /* Init Timer to handle blinking led */

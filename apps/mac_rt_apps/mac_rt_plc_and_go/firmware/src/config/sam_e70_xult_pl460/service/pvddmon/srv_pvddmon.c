@@ -157,7 +157,7 @@ void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
     AFEC1_REGS->AFEC_IER |= AFEC_IER_COMPE_Msk;
 }
 
-void SRV_PVDDMON_RegisterCallback (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context)
+void SRV_PVDDMON_CallbackRegister (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context)
 {
     /* Register AFEC1 Callback */
     AFEC1_CallbackRegister(_AFEC1_PVDDMONCallback, context);

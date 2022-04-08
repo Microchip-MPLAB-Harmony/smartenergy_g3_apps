@@ -37,7 +37,7 @@ The following applications are provided to demonstrate the typical or interestin
 
 | Name               | Description |
 | ----               | ----------- |
-| [PHY PLC and Go](apps/phy_apps/phy_plc_and_go/readme.md) | This example is intended to show a simple application running on top of the G3 PHY layer. |
+| [PLC PHY and Go](apps/phy_apps/phy_plc_and_go/readme.md) | This example is intended to show a simple application running on top of the G3 PHY layer. |
 | [PHY Tester Tool](apps/phy_apps/phy_tester_tool/readme.md) | The PHY Tester tool is an application example that allows checking of the complete performance of the Microchip G3 PHY Layer on PLC boards |
 | [PHY Sniffer Tool](apps/phy_apps/phy_sniffer_tool/readme.md) | The PHY Sniffer is an application example that uses the PHY layer to monitor PLC frames in the G3 network and send them via USI serialization. |
 | [PHY Tx Test Console](apps/phy_apps/phy_tx_test_console/readme.md) | The PHY Tx Test Console is an application example that demonstrates the complete performance of the Microchip G3 PHY Layer avoiding timing limitations in the PC host |

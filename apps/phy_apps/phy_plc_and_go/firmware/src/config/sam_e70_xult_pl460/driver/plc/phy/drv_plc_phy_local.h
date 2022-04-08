@@ -151,7 +151,7 @@ typedef struct
     bool                            sleep;
 
     /* Application Data Confirm Callback */
-    DRV_PLC_PHY_DATA_CFM_CALLBACK   dataCfmCallback;
+    DRV_PLC_PHY_TX_CFM_CALLBACK     txCfmCallback;
 
     /* Application Data Indication Callback */
     DRV_PLC_PHY_DATA_IND_CALLBACK   dataIndCallback;

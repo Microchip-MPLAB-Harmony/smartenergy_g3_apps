@@ -120,7 +120,7 @@ extern APP_CONSOLE_DATA appConsole;
 // *****************************************************************************
 // *****************************************************************************
 #define STRING_EOL    "\r"
-#define STRING_HEADER "\r\n-- MCHP PHY PLC & Go Application (G3-PLC) --\r\n" \
+#define STRING_HEADER "\r\n-- MCHP PLC PHY & Go Application (G3-PLC) --\r\n" \
 	"-- Compiled: "__DATE__ " "__TIME__ " --\r\n" \
 	"-- HOST version: "DRV_PLC_PHY_HOST_DESC " --\r\n"
 

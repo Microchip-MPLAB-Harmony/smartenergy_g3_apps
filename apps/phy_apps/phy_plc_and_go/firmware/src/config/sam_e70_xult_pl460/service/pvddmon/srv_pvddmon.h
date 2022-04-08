@@ -70,7 +70,7 @@ typedef void (*SRV_PVDDMON_CALLBACK)( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t co
 void SRV_PVDDMON_Initialize (void);
 void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode);
 void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode);
-void SRV_PVDDMON_RegisterCallback (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context);
+void SRV_PVDDMON_CallbackRegister (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context);
 
 #ifdef __cplusplus // Provide C++ Compatibility
  }
