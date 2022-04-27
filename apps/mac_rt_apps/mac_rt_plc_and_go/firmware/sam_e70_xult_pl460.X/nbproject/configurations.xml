@@ -434,8 +434,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAME70_DFP" vendor="Microchip" version="4.8.125"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAME70_DFP" vendor="Microchip" version="4.7.120"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -691,6 +691,7 @@
         <property key="debugoptions.reset-behaviour" value="Main"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
+        <property key="jlink.override" value=""/>
         <property key="lastid" value=""/>
         <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
         <property key="memories.aux" value="false"/>
@@ -735,6 +736,7 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="script.has_reset" value="true"/>
         <property key="script.log_level" value="1"/>
+        <property key="script.reset_by_pin" value="false"/>
         <property key="script.reset_delay" value="0"/>
         <property key="script.show_output" value="false"/>
         <property key="voltagevalue" value="3.25"/>
