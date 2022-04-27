@@ -20,15 +20,15 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_EFC_INSTANCE_
 #define _SAME70_EFC_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for EFC peripheral ========== */
-#define EFC_FLASH_SIZE                           _UL_(2097152) 
-#define EFC_PAGE_SIZE                            _UL_(512)  
-#define EFC_INSTANCE_ID                          _UL_(6)    
-#define EFC_PAGES_PR_REGION                      _UL_(32)   
+#define EFC_FLASH_SIZE                           (2097152)  
+#define EFC_PAGE_SIZE                            (512)      
+#define EFC_INSTANCE_ID                          (6)        
+#define EFC_PAGES_PR_REGION                      (32)       
 
 #endif /* _SAME70_EFC_INSTANCE_ */

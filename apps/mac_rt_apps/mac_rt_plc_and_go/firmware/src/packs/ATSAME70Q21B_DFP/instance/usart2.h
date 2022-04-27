@@ -20,19 +20,19 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_USART2_INSTANCE_
 #define _SAME70_USART2_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for USART2 peripheral ========== */
-#define USART2_DMAC_ID_RX                        _UL_(12)   
-#define USART2_DMAC_ID_TX                        _UL_(11)   
-#define USART2_INSTANCE_ID                       _UL_(15)   
-#define USART2_CLOCK_ID                          _UL_(15)   
-#define USART2_USCLKS_MCK                        _UL_(0)    /* MCK */
-#define USART2_USCLKS_DIV                        _UL_(1)    /* MCK/8 */
-#define USART2_USCLKS_PCK                        _UL_(2)    /* PCK4 */
-#define USART2_USCLKS_SCK                        _UL_(3)    /* SCK */
+#define USART2_DMAC_ID_RX                        (12)       
+#define USART2_DMAC_ID_TX                        (11)       
+#define USART2_INSTANCE_ID                       (15)       
+#define USART2_CLOCK_ID                          (15)       
+#define USART2_USCLKS_MCK                        (0)        /* MCK */
+#define USART2_USCLKS_DIV                        (1)        /* MCK/8 */
+#define USART2_USCLKS_PCK                        (2)        /* PCK4 */
+#define USART2_USCLKS_SCK                        (3)        /* SCK */
 
 #endif /* _SAME70_USART2_INSTANCE_ */

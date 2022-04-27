@@ -20,17 +20,17 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_UART0_INSTANCE_
 #define _SAME70_UART0_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for UART0 peripheral ========== */
-#define UART0_DMAC_ID_RX                         _UL_(21)   
-#define UART0_DMAC_ID_TX                         _UL_(20)   
-#define UART0_INSTANCE_ID                        _UL_(7)    
-#define UART0_CLOCK_ID                           _UL_(7)    
-#define UART0_BRSRCCK_PERIPH_CLK                 _UL_(0)    /* MCK */
-#define UART0_BRSRCCK_PMC_PCK                    _UL_(0)    /* PCK4 */
+#define UART0_DMAC_ID_RX                         (21)       
+#define UART0_DMAC_ID_TX                         (20)       
+#define UART0_INSTANCE_ID                        (7)        
+#define UART0_CLOCK_ID                           (7)        
+#define UART0_BRSRCCK_PERIPH_CLK                 (0)        /* MCK */
+#define UART0_BRSRCCK_PMC_PCK                    (0)        /* PCK4 */
 
 #endif /* _SAME70_UART0_INSTANCE_ */

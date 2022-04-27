@@ -20,17 +20,17 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_I2SC0_INSTANCE_
 #define _SAME70_I2SC0_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for I2SC0 peripheral ========== */
-#define I2SC0_INSTANCE_ID                        _UL_(69)   
-#define I2SC0_CLOCK_ID                           _UL_(69)   
-#define I2SC0_DMAC_ID_TX_LEFT                    _UL_(44)   
-#define I2SC0_DMAC_ID_RX_LEFT                    _UL_(45)   
-#define I2SC0_DMAC_ID_TX_RIGHT                   _UL_(48)   
-#define I2SC0_DMAC_ID_RX_RIGHT                   _UL_(49)   
+#define I2SC0_INSTANCE_ID                        (69)       
+#define I2SC0_CLOCK_ID                           (69)       
+#define I2SC0_DMAC_ID_TX_LEFT                    (44)       
+#define I2SC0_DMAC_ID_RX_LEFT                    (45)       
+#define I2SC0_DMAC_ID_TX_RIGHT                   (48)       
+#define I2SC0_DMAC_ID_RX_RIGHT                   (49)       
 
 #endif /* _SAME70_I2SC0_INSTANCE_ */

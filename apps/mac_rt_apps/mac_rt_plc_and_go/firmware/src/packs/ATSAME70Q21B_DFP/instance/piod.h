@@ -20,13 +20,13 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_PIOD_INSTANCE_
 #define _SAME70_PIOD_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for PIOD peripheral ========== */
-#define PIOD_INSTANCE_ID                         _UL_(16)   
-#define PIOD_CLOCK_ID                            _UL_(16)   
+#define PIOD_INSTANCE_ID                         (16)       
+#define PIOD_CLOCK_ID                            (16)       
 
 #endif /* _SAME70_PIOD_INSTANCE_ */

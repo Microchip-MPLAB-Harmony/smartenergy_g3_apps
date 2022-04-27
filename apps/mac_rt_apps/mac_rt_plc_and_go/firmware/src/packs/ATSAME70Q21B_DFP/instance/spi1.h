@@ -20,15 +20,15 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_SPI1_INSTANCE_
 #define _SAME70_SPI1_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for SPI1 peripheral ========== */
-#define SPI1_DMAC_ID_RX                          _UL_(4)    
-#define SPI1_DMAC_ID_TX                          _UL_(3)    
-#define SPI1_INSTANCE_ID                         _UL_(42)   
-#define SPI1_CLOCK_ID                            _UL_(42)   
+#define SPI1_DMAC_ID_RX                          (4)        
+#define SPI1_DMAC_ID_TX                          (3)        
+#define SPI1_INSTANCE_ID                         (42)       
+#define SPI1_CLOCK_ID                            (42)       
 
 #endif /* _SAME70_SPI1_INSTANCE_ */
