@@ -343,7 +343,7 @@ void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable )
     }
 }
 
-void DRV_G3_MACRT_Enable_TX( const DRV_HANDLE handle, bool enable )
+void DRV_G3_MACRT_EnableTX( const DRV_HANDLE handle, bool enable )
 {
      if((handle != DRV_HANDLE_INVALID) && (handle == 0))
     {

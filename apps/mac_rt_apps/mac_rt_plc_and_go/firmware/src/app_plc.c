@@ -187,7 +187,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
-        DRV_G3_MACRT_Enable_TX(appPlc.drvPl360Handle, false);
+        DRV_G3_MACRT_EnableTX(appPlc.drvPl360Handle, false);
         appPlc.pvddMonTxEnable = false;
         /* Restart PVDD Monitor to check when VDD is within the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
@@ -195,7 +195,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     else
     {
         /* PLC Transmission is permitted again */
-        DRV_G3_MACRT_Enable_TX(appPlc.drvPl360Handle, true);
+        DRV_G3_MACRT_EnableTX(appPlc.drvPl360Handle, true);
         appPlc.pvddMonTxEnable = true;
         /* Restart PVDD Monitor to check when VDD is out of the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
@@ -330,7 +330,6 @@ void APP_PLC_Initialize ( void )
     appPlc.state = APP_PLC_STATE_IDLE;
     
     /* Set PVDD Monitor tracking data */
-    SRV_PVDDMON_Initialize();
     appPlc.pvddMonTxEnable = true;
     
     /* Init PLC TX status */
@@ -456,7 +455,7 @@ void APP_PLC_Tasks ( void )
                 APP_PLC_SetInitialConfiguration();
                 
                 /* Enable PLC Transmission */
-                DRV_G3_MACRT_Enable_TX(appPlc.drvPl360Handle, true);
+                DRV_G3_MACRT_EnableTX(appPlc.drvPl360Handle, true);
                 
                 /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);

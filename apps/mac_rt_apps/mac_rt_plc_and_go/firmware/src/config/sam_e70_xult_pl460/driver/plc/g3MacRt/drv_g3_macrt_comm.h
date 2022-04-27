@@ -806,10 +806,10 @@ typedef struct __attribute__((packed, aligned(1))) {
 } MAC_RT_RX_PARAMETERS_OBJ;
 
 // *****************************************************************************
-/* G3 MAC RT Reception parameters
+/* G3 MAC RT Transmission result
 
    Summary
-    This struct includes information to describe any new received message.
+    This struct includes a transmission result and timestamp.
 
    Remarks:
     None

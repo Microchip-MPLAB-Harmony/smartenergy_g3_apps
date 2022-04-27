@@ -16,7 +16,7 @@
     the PHY Calibration Tool it is possible to obtain the optimal configuration 
     values for the customer's hardware implementation. Refer to the online
     documentation for more details about the available configuration values and 
-    their purpose. 
+    their purpose.
 
   Remarks:
     This service provides the required information to be included on PLC 
@@ -70,17 +70,13 @@
 #endif
 // DOM-IGNORE-END
 
-/* PLC Phy Coupling Default Branch */
+/* Default branch of the PLC transmission coupling */
 #define SRV_PCOUP_DEFAULT_BRANCH                 SRV_PLC_PCOUP_MAIN_BRANCH
-
-/* Maximum value of PHY_PIB_NUM_TX_LEVELS */
-/* Number of TX attenuation levels (3 dB step) suppoting automatic TX mode */
-#define SRV_PCOUP_MAX_NUM_TX_LEVELS              8
 
 /* Equalization number of coefficients (number of carriers) for Main branch */
 #define SRV_PCOUP_EQU_NUM_COEF                   72
 
-/* PLC Tx Coupling Settings for Main branch */
+/* PLC PHY Coupling parameters for Main branch */
 #define SRV_PCOUP_RMS_HIGH_TBL                   {1313, 937, 667, 477, 342, 247, 180, 131}
 #define SRV_PCOUP_RMS_VLOW_TBL                   {4329, 3314, 2387, 1692, 1201, 853, 608, 432}
 #define SRV_PCOUP_THRS_HIGH_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 1025, 729, 519, 372, 265, 191, 140, 101}
@@ -109,7 +105,7 @@
 /* Equalization number of coefficients (number of carriers) for Auxiliary branch */
 #define SRV_PCOUP_AUX_EQU_NUM_COEF               36
 
-/* PLC Tx Coupling Settings for Auxiliary branch */
+/* PLC PHY Coupling parameters for Auxiliary branch */
 #define SRV_PCOUP_AUX_RMS_HIGH_TBL               {1991, 1381, 976, 695, 495, 351, 250, 179}
 #define SRV_PCOUP_AUX_RMS_VLOW_TBL               {6356, 4706, 3317, 2308, 1602, 1112, 778, 546}
 #define SRV_PCOUP_AUX_THRS_HIGH_TBL              {0, 0, 0, 0, 0, 0, 0, 0, 1685, 1173, 828, 589, 419, 298, 212, 151}
@@ -138,10 +134,10 @@
 /* PLC PHY Coupling Branch definitions
 
  Summary:
-    Defines two independent transmission branches.
+    List of possible transmission branches.
 
  Description:
-    This will be used to indicate the branch to work with.
+    This type defines the possible values of PLC transmission coupling branches.
 
  Remarks:
     None.
@@ -158,33 +154,35 @@ typedef enum
 } SRV_PLC_PCOUP_BRANCH;     
 
 // *****************************************************************************
-/* PLC PHY Tx Coupling Settings Data
+/* PLC PHY Coupling data
 
   Summary:
-    Defines the data required to set the PLC PHY Coupling parameters.
+    PLC PHY Coupling data.
 
   Description:
-    This data type defines the data required to set the PLC Tx Coupling PHY 
-    parameters.
+    This structure contains all the data required to set the PLC PHY Coupling 
+    parameters, for a specific transmission branch (associated to a G3-PLC 
+    PHY band).
 
   Remarks:
-    Tx equalization coefficients tables are not stored in the struct, just 
-    pointers to them.
+    Equalization coefficients are not stored in the structure, just pointers to 
+    arrays were they are actually stored. This allows to use the same type for 
+    different G3-PLC PHY bands.
 */
 
 typedef struct
 {  
     /* Target RMS values in HIGH mode for dynamic Tx gain */
-    uint32_t                         rmsHigh[SRV_PCOUP_MAX_NUM_TX_LEVELS];
+    uint32_t                         rmsHigh[8];
 
     /* Target RMS values in VLOW mode for dynamic Tx gain */
-    uint32_t                         rmsVLow[SRV_PCOUP_MAX_NUM_TX_LEVELS];
+    uint32_t                         rmsVLow[8];
 
     /* Threshold RMS values in HIGH mode for dynamic Tx mode */
-    uint32_t                         thrsHigh[SRV_PCOUP_MAX_NUM_TX_LEVELS << 1];
+    uint32_t                         thrsHigh[16];
 
     /* Threshold RMS values in VLOW mode for dynamic Tx mode */
-    uint32_t                         thrsVLow[SRV_PCOUP_MAX_NUM_TX_LEVELS << 1];
+    uint32_t                         thrsVLow[16];
 
     /* Values for configuration of PLC DACC peripheral, according to hardware 
        coupling design and PLC device (PL360/PL460) */
@@ -214,7 +212,7 @@ typedef struct
        design and PLC device (PL360/PL460) */
     uint8_t                          lineDrvConf;
 
-} SRV_PLC_PCOUP;
+} SRV_PLC_PCOUP_DATA;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -224,15 +222,15 @@ typedef struct
 
 /***************************************************************************
   Function:
-    SRV_PLC_PCOUP * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch)
+    SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch)
     
   Summary:
-    Get the PLC Tx Coupling PHY parameters for the desired transmission branch.
+    Get the PLC PHY Coupling parameters for the specified transmission branch.
 
   Description:
-    This function is used to get the PLC Tx Coupling PHY parameters for the 
-    desired transmission branch. These parameters should be sent to the PLC 
-    device through PLC Driver PIB interface.
+    This function allows to get the PLC PHY Coupling parameters for the 
+    specified transmission branch. These parameters can be sent to the PLC 
+    device through PLC Driver PIB interface (DRV_G3_MACRT_PIBSet).
 
   Precondition:
     None.
@@ -241,48 +239,55 @@ typedef struct
     branch          - Transmission branch for which the parameters are requested
 
   Returns:
-    NULL - Indicates an error in the PLC PHY Coupling settings.
-
-    Pointer to PLC Tx Coupling PHY parameters.
+    - Pointer PLC PHY Coupling parameters
+      - if branch parameter is valid
+    - NULL
+      - if branch parameter is not valid
 
   Example:
     <code>
-    SRV_PLC_PCOUP *pCoupValues;
+    SRV_PLC_PCOUP_DATA *pCoupValues;
 
     pCoupValues = SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_MAIN_BRANCH);
     </code>
 
   Remarks:
-    None.
+    If SRV_PCOUP_Set_Config is used to set the PLC PHY Coupling parameters, 
+    this function is not needed.
   ***************************************************************************/
 
-SRV_PLC_PCOUP * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch);
+SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch);
 
 /***************************************************************************
   Function:
     bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
     
   Summary:
-    Set the PLC Tx Coupling PHY parameters for the desired transmission branch.
+    Set the PLC PHY Coupling parameters for the specified transmission branch.
 
   Description:
-    This function is used to set the PLC Tx Coupling PHY parameters for the 
-    desired transmission branch, using the PLC Driver PIB interface.
+    This function allows to set the PLC PHY Coupling parameters for the 
+    specified transmission branch, using the PLC Driver PIB 
+    interface (DRV_G3_MACRT_PIBSet).
 
   Precondition:
-    DRV_PLC_PHY_Open must have been called to obtain a valid driver handle.
+    DRV_G3_MACRT_Open must have been called to obtain a valid 
+    opened device handle.
 
   Parameters:
-    handle  - PLC driver handle used to set PIB parameters
+    handle  - A valid instance handle, returned from DRV_G3_MACRT_Open
     branch  - Transmission branch for which the parameters will be set
 
   Returns:
-    true    - Successful configuration
-    false   - Failed configuration
+    - true
+      - Successful configuration
+    - false
+      - if branch parameter is not valid
+      - if there is an error when calling DRV_G3_MACRT_PIBSet
 
   Example:
     <code>
-    // 'handle', returned from the DRV_PLC_PHY_Open
+    // 'handle', returned from DRV_G3_MACRT_Open
     bool result;
 
     result = SRV_PCOUP_Set_Config(handle, SRV_PLC_PCOUP_MAIN_BRANCH);
@@ -299,11 +304,10 @@ bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
     SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void )
     
   Summary:
-    Get the default PLC PHY Tx Coupling Branch.
+    Get the default branch of the PLC transmission coupling.
 
   Description:
-    This function is used to get the default tranmission branch of the 
-    PLC PHY Coupling.
+    This function allows to get the tranmission branch used by default.
 
   Precondition:
     None.
@@ -312,12 +316,11 @@ bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
     None.
 
   Returns:
-    SRV_PLC_PCOUP_BRANCH - Indicates the tranmission branch by default.
+    Default transmission branch.
 
   Example:
     <code>
     SRV_PLC_PCOUP_BRANCH plcDefaultBranch;
-    SRV_PLC_PCOUP *pCoupValues;
 
     plcDefaultBranch = SRV_PCOUP_Get_Default_Branch();
     SRV_PCOUP_Set_Config(plcDefaultBranch);
@@ -334,30 +337,34 @@ SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void );
     uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch)
     
   Summary:
-    Get the PHY band of the branch that is selected.
+    Get the G3-PLC PHY band associated to the specified transmission branch.
 
   Description:
-    This function is used to get the PHY band linked to the selected branch 
-    of the PLC PHY Coupling.
+    This function allows to get the G3-PLC PHY band associated to the 
+    specified transmission branch.
 
   Precondition:
     None.
 
   Parameters:
-    branch             - Tx branch from which the PHY band is requested
+    branch         - Transmission branch from which the PHY band is requested
 
   Returns:
-    PHY band linked to the coupling branch. See "drv_plc_phy_comm.h" .
-    [G3_CEN_A, G3_CEN_B, G3_FCC, G3_ARIB, G3_INVALID]
+    G3-PLC PHY band associated to the specified transmission branch
+    (see drv_g3_macrt_comm.h):
+    - 0: G3_CEN_A
+    - 1: G3_CEN_B
+    - 2: G3_FCC
+    - 3: G3_ARIB
+    - 0xFF: G3_INVALID (if transmission branch is not valid)
 
   Example:
     <code>
-    uint8_t pCoupPhyBand;
+    phyBand = SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_MAIN_BRANCH);
 
-    pCoupPhyBand = SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_MAIN_BRANCH);
-
-    if (pCoupPhyBand == G3_CEN_A) {
-      // G3 CEN-A band
+    if (phyBand == G3_CEN_A)
+    {
+        // G3 CEN-A band
     }
     </code>
 

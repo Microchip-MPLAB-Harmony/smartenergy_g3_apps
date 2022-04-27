@@ -1,7 +1,7 @@
 /*
  * Component description for SSC
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2021-12-23T09:59:43Z */
 #ifndef _SAME70_SSC_COMPONENT_H_
 #define _SAME70_SSC_COMPONENT_H_
 
@@ -463,24 +463,24 @@
 
 
 /** \brief SSC register offsets definitions */
-#define SSC_CR_REG_OFST                (0x00)              /**< (SSC_CR) Control Register Offset */
-#define SSC_CMR_REG_OFST               (0x04)              /**< (SSC_CMR) Clock Mode Register Offset */
-#define SSC_RCMR_REG_OFST              (0x10)              /**< (SSC_RCMR) Receive Clock Mode Register Offset */
-#define SSC_RFMR_REG_OFST              (0x14)              /**< (SSC_RFMR) Receive Frame Mode Register Offset */
-#define SSC_TCMR_REG_OFST              (0x18)              /**< (SSC_TCMR) Transmit Clock Mode Register Offset */
-#define SSC_TFMR_REG_OFST              (0x1C)              /**< (SSC_TFMR) Transmit Frame Mode Register Offset */
-#define SSC_RHR_REG_OFST               (0x20)              /**< (SSC_RHR) Receive Holding Register Offset */
-#define SSC_THR_REG_OFST               (0x24)              /**< (SSC_THR) Transmit Holding Register Offset */
-#define SSC_RSHR_REG_OFST              (0x30)              /**< (SSC_RSHR) Receive Sync. Holding Register Offset */
-#define SSC_TSHR_REG_OFST              (0x34)              /**< (SSC_TSHR) Transmit Sync. Holding Register Offset */
-#define SSC_RC0R_REG_OFST              (0x38)              /**< (SSC_RC0R) Receive Compare 0 Register Offset */
-#define SSC_RC1R_REG_OFST              (0x3C)              /**< (SSC_RC1R) Receive Compare 1 Register Offset */
-#define SSC_SR_REG_OFST                (0x40)              /**< (SSC_SR) Status Register Offset */
-#define SSC_IER_REG_OFST               (0x44)              /**< (SSC_IER) Interrupt Enable Register Offset */
-#define SSC_IDR_REG_OFST               (0x48)              /**< (SSC_IDR) Interrupt Disable Register Offset */
-#define SSC_IMR_REG_OFST               (0x4C)              /**< (SSC_IMR) Interrupt Mask Register Offset */
-#define SSC_WPMR_REG_OFST              (0xE4)              /**< (SSC_WPMR) Write Protection Mode Register Offset */
-#define SSC_WPSR_REG_OFST              (0xE8)              /**< (SSC_WPSR) Write Protection Status Register Offset */
+#define SSC_CR_REG_OFST                (0x00)              /* (SSC_CR) Control Register Offset */
+#define SSC_CMR_REG_OFST               (0x04)              /* (SSC_CMR) Clock Mode Register Offset */
+#define SSC_RCMR_REG_OFST              (0x10)              /* (SSC_RCMR) Receive Clock Mode Register Offset */
+#define SSC_RFMR_REG_OFST              (0x14)              /* (SSC_RFMR) Receive Frame Mode Register Offset */
+#define SSC_TCMR_REG_OFST              (0x18)              /* (SSC_TCMR) Transmit Clock Mode Register Offset */
+#define SSC_TFMR_REG_OFST              (0x1C)              /* (SSC_TFMR) Transmit Frame Mode Register Offset */
+#define SSC_RHR_REG_OFST               (0x20)              /* (SSC_RHR) Receive Holding Register Offset */
+#define SSC_THR_REG_OFST               (0x24)              /* (SSC_THR) Transmit Holding Register Offset */
+#define SSC_RSHR_REG_OFST              (0x30)              /* (SSC_RSHR) Receive Sync. Holding Register Offset */
+#define SSC_TSHR_REG_OFST              (0x34)              /* (SSC_TSHR) Transmit Sync. Holding Register Offset */
+#define SSC_RC0R_REG_OFST              (0x38)              /* (SSC_RC0R) Receive Compare 0 Register Offset */
+#define SSC_RC1R_REG_OFST              (0x3C)              /* (SSC_RC1R) Receive Compare 1 Register Offset */
+#define SSC_SR_REG_OFST                (0x40)              /* (SSC_SR) Status Register Offset */
+#define SSC_IER_REG_OFST               (0x44)              /* (SSC_IER) Interrupt Enable Register Offset */
+#define SSC_IDR_REG_OFST               (0x48)              /* (SSC_IDR) Interrupt Disable Register Offset */
+#define SSC_IMR_REG_OFST               (0x4C)              /* (SSC_IMR) Interrupt Mask Register Offset */
+#define SSC_WPMR_REG_OFST              (0xE4)              /* (SSC_WPMR) Write Protection Mode Register Offset */
+#define SSC_WPSR_REG_OFST              (0xE8)              /* (SSC_WPSR) Write Protection Status Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief SSC register API structure */

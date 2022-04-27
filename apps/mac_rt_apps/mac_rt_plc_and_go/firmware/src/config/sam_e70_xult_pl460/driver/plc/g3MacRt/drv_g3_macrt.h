@@ -143,7 +143,7 @@ typedef enum
     </code>
 
   Remarks:
-    - If the result field is MAC_RT_STATUS_SUCCESS, it means that the data was
+    - If the status field is MAC_RT_STATUS_SUCCESS, it means that the data was
       transferred successfully.
 
     - Otherwise, it means that the data was not transferred successfully.
@@ -185,6 +185,7 @@ typedef void ( *DRV_G3_MACRT_TX_CFM_CALLBACK )( MAC_RT_TX_CFM_OBJ *cfmObj );
           // extract data from received message
           memcpy(appData->dataRxBuffer, pData, length);
         }
+    }
     </code>
 
 */
@@ -201,7 +202,8 @@ typedef void ( *DRV_G3_MACRT_DATA_IND_CALLBACK )( uint8_t *pData, uint16_t lengt
 
    Description
     This data type defines the required function signature for the MAC RT driver
-    reception event handling callback function. A client must register a pointer 
+    reception parameters event handling callback function.
+    A client must register a pointer 
     using the callback register function whose function signature (parameter 
     and return value types) match the types specified by this function pointer 
     in order to receive transfer related event calls back from the driver.
@@ -222,7 +224,7 @@ typedef void ( *DRV_G3_MACRT_DATA_IND_CALLBACK )( uint8_t *pData, uint16_t lengt
     {
         // extract all parameters from received message
         memcpy(appData->rxParams, (uint8_t *)pParameters, sizeof(MAC_RT_RX_PARAMETERS_OBJ));
-        }
+    }
     </code>
 
 */
@@ -385,11 +387,11 @@ typedef void ( *DRV_G3_MACRT_PHY_SNIFFER_IND_CALLBACK )( uint8_t *pData, uint16_
                 break;
 
             case DRV_G3_MACRT_EXCEPTION_DEBUG:
-                // PLC transceiver has been reseted by Debugging tool
+                // PLC transceiver has been reset by Debugging tool
                 break;
 
             case DRV_G3_MACRT_EXCEPTION_RESET:
-                // PLC transceiver has been reseted
+                // PLC transceiver has been reset
                 break;
 
             default:
@@ -408,7 +410,8 @@ typedef void ( *DRV_G3_MACRT_EXCEPTION_CALLBACK )( DRV_G3_MACRT_EXCEPTION except
 /* G3 MAC RT Sleep Mode Disable Event Handler Function Pointer
 
    Summary
-    Notifies when SLeep Mode is disabled and MAC RT driver is able to be used again.
+    Pointer to notification when Sleep Mode is disabled and MAC RT driver
+    is available to be used again.
 
    Description
     This data type defines the required function signature for the PLC driver
@@ -635,7 +638,6 @@ void DRV_G3_MACRT_Close(const DRV_HANDLE handle);
 
   Precondition:
     DRV_G3_MACRT_Open must have been called to obtain a valid opened device handle.
-    DRV_G3_MACRT_MlmeSet must have been called before to send any data message.
 
   Parameters:
     handle -    A valid open-instance handle, returned from the driver's
@@ -653,8 +655,6 @@ void DRV_G3_MACRT_Close(const DRV_HANDLE handle);
     <code>
     // 'handle', returned from the DRV_G3_MACRT_Open
     
-    // It is mandatory to set all transmission parameters using DRV_G3_MACRT_MlmeSet
-    // Those parameters depends on the PLC profile in use.
     // Local function implemented in the user application
     _setupTransmissionParameters();
 
@@ -669,18 +669,18 @@ void DRV_G3_MACRT_TxRequest(const DRV_HANDLE handle, uint8_t *pData, uint16_t le
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3_MACRT_PIBGet( const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibObj )
+    MAC_RT_STATUS DRV_G3_MACRT_PIBGet( const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibObj )
 
   Summary:
     Allows a client to get information from PLC transceiver about MAC RT and PHY
     information base (PIB).
 
   Description:
-    This routine get MAC RT and PHY data information from the PLC transceiver.
+    This routine gets MAC RT and PHY data information from the PLC transceiver.
 
   Precondition:
     DRV_G3_MACRT_Open must have been called to obtain a valid opened device handle.
-    MAC_RT_PIB_OBJ must be configured before to get information.
+    MAC_RT_PIB_OBJ must be configured before getting information.
 
   Parameters:
     handle -    A valid open-instance handle, returned from the driver's
@@ -689,7 +689,7 @@ void DRV_G3_MACRT_TxRequest(const DRV_HANDLE handle, uint8_t *pData, uint16_t le
     pibObj -    Pointer to the PIB object to get.
 
   Returns:
-    None.
+    MAC_RT_STATUS Enum value containing the result of get operation.
 
   Example:
     <code>
@@ -722,18 +722,18 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBGet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3_MACRT_PIBSet( const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibObj )
+    MAC_RT_STATUS DRV_G3_MACRT_PIBSet( const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibObj )
 
   Summary:
-    Allows a client to set information to PLC transceiver about MAC RT and PHY 
+    Allows a client to set information to PLC transceiver on MAC RT and PHY 
     information base (PIB).
 
   Description:
-    This routine set MAC RT and PHY data information to the PLC transceiver.
+    This routine sets MAC RT and PHY data information to the PLC transceiver.
 
   Precondition:
     DRV_G3_MACRT_Open must have been called to obtain a valid opened device handle.
-    MAC_RT_PIB_OBJ must be configured before to set information.
+    MAC_RT_PIB_OBJ must be configured before setting information.
 
   Parameters:
     handle -    A valid open-instance handle, returned from the driver's
@@ -742,7 +742,7 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBGet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
     pibObj -    Pointer to the PIB object to set.
 
   Returns:
-    Mac Rt Status.
+    MAC_RT_STATUS Enum value containing the result of set operation.
 
   Example:
     <code>
@@ -792,13 +792,13 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBSet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
     uint32_t DRV_G3_MACRT_GetTimerReference( const DRV_HANDLE handle )
 
   Summary:
-    Get the internal timer reference from PLC transceiver in microseconds
+    Gets the internal timer reference from PLC transceiver in microseconds
 
   Description:
     PLC transceiver has an internal 32 bits counter which is used as internal
     time reference for all time calculations in PHY layer. This counter is 
-    internally configured to be increased each microsecond. This function let 
-    use this counter as accurate time reference to upper layers.
+    internally configured to be increased each microsecond. This function allows 
+    using this counter as an accurate time reference to upper layers.
     
   Precondition:
     DRV_G3_MACRT_Open must have been called to obtain a valid opened device 
@@ -821,7 +821,9 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBSet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
     </code>
 
   Remarks:
-    None.
+    This function requires an SPI transaction to retrieve time from
+    PLC transceiver, so potential jitter in different SPI accesses
+    may impact accuracy.
 */
 uint32_t DRV_G3_MACRT_GetTimerReference(const DRV_HANDLE handle);
 
@@ -833,7 +835,7 @@ uint32_t DRV_G3_MACRT_GetTimerReference(const DRV_HANDLE handle);
     );
 
   Summary:
-    Allows a client to identify a data confirm event handling function for the driver
+    Allows a client to set a data confirm event handling function for the driver
     to call back when the requested transmission has finished.
 
   Description:
@@ -896,15 +898,15 @@ void DRV_G3_MACRT_TxCfmCallbackRegister(
     );
 
   Summary:
-    Allows a client to identify a data indication event handling function for the driver
+    Allows a client to set a data indication event handling function for the driver
     to call back when a data reception has finished.
 
   Description:
     This function allows a client to register a MAC RT data indication event handling 
     function with the driver to call back when a data reception PLC event occurs.
 
-    The event handler should be set before the client submits any transmission
-    requests that could generate events. The callback once set, persists
+    Before this callback is set, any received frame by the PLC transceiver
+    will not be notified. The callback once set, persists
     until the client closes the driver or sets another callback (which
     could be a "NULL" pointer to indicate no callback).
 
@@ -938,7 +940,7 @@ void DRV_G3_MACRT_TxCfmCallbackRegister(
 
     // myHandle is the handle returned from DRV_G3_MACRT_Open API.
 
-    // Client registers a data confirm callback with driver. This is done once
+    // Client registers a data indication callback with driver. This is done once
 
     DRV_G3_MACRT_DataIndCallbackRegister( myAppObj.myHandle, APP_PLC_Data_Ind_callback );
 
@@ -961,18 +963,18 @@ void DRV_G3_MACRT_DataIndCallbackRegister(
     );
 
   Summary:
-    Allows a client to identify a parameters event handling function 
+    Allows a client to set a reception parameters event handling function 
     for the driver to call back when a new data message is received.
 
   Description:
-    This function allows a client to register a MAC RT Rx Params confirm event 
-    handling function with the driver to call back when a new data message is 
-    received.
+    This function allows a client to register a MAC RT Rx Params indication
+    event handling function with the driver to call back when a new data
+    message is received.
 
-    The event handler should be set as soon as possible in order to be notified 
-    when new message is received. The callback once set, persists
-    until the client closes the driver or sets another callback (which
-    could be a "NULL" pointer to indicate no callback).
+    This callback has to be set to get the reception parameters related to
+    a received frame, otherwise such information will be unknown.
+    The callback once set, persists until the client closes the driver or sets
+    another callback (which could be a "NULL" pointer to indicate no callback).
 
   Precondition:
     DRV_G3_MACRT_Open must have been called to obtain a valid opened device handle.
@@ -998,7 +1000,7 @@ void DRV_G3_MACRT_DataIndCallbackRegister(
 
     // myHandle is the handle returned from DRV_G3_MACRT_Open API.
 
-    // Client registers a data confirm callback with driver. This is done once
+    // Client registers a RxParams indication callback with driver. This is done once
 
     DRV_G3_MACRT_RxParamsIndCallbackRegister( myAppObj.myHandle, APP_PLC_Params_Ind_callback );
 
@@ -1017,12 +1019,12 @@ void DRV_G3_MACRT_RxParamsIndCallbackRegister(
 /* Function:
     void DRV_G3_MACRT_MacSnifferCallbackRegister( 
         const DRV_HANDLE handle, 
-        const DRV_G3_MACRT_MAC_SNIFFER_CALLBACK callback
+        const DRV_G3_MACRT_MAC_SNIFFER_CALLBACK callback, 
 		uint8_t* pDataBuffer
     );
 
   Summary:
-    Allows enable G3 MAC RT Sniffer capabilities and set the data buffer 
+    Allows enabling G3 MAC RT Sniffer capabilities and set the data buffer 
     in which the content of the sniffer packet will be stored when a new PLC
     message is received.
 
@@ -1030,8 +1032,8 @@ void DRV_G3_MACRT_RxParamsIndCallbackRegister(
     This function allows a client to register a G3 MAC RT Sniffer event handling 
     function with the driver to call back when either a data reception event or 
     confirmation of the last transmission event occurs.
-    The content of the sniffer data is compliant with MCHP PLC Sniffer tool 
-    provided by Microchip.
+    A MAC RT Sniffer will receive any frame in the PLC medium,
+    regardless of addressing or frame type.
 
     The callback once set, persists until the client closes the driver or sets 
     another callback (which could be a "NULL" pointer to indicate no callback).
@@ -1091,13 +1093,13 @@ void DRV_G3_MACRT_MacSnifferCallbackRegister(
     );
 
   Summary:
-    Allows enable G3 MAC RT Comm Status capabilities and set the data buffer 
-    in which the content of the status packet will be stored.
+    Allows a client to set a Comm Status indication event handling function
+    for the driver to call back when a Comm Status event has to be reported.
 
   Description:
-    This function allows a client to register a G3 MAC RT Comm Status event handling 
-    function with the driver to call back when either a data reception event or 
-    confirmation of the last transmission event occurs.
+    This function allows a client to register a MAC RT Comm Status indication
+    event handling function with the driver to call back when a Comm Status
+    event occurs. Comm Status events are defined in IEEE 802.15.4 standard.
 
     The callback once set, persists until the client closes the driver or sets 
     another callback (which could be a "NULL" pointer to indicate no callback).
@@ -1214,19 +1216,19 @@ void DRV_G3_MACRT_PhySnifferCallbackRegister(
 /* Function:
     void DRV_G3_MACRT_ExceptionCallbackRegister( 
         const DRV_HANDLE handle, 
-        const DRV_G3_MACRT_EXCEPTION_CALLBACK callback,
+        const DRV_G3_MACRT_EXCEPTION_CALLBACK callback
     );
 
   Summary:
-    Allows a client to identify an exception event handling function for the driver
+    Allows a client to set an exception event handling function for the driver
     to call back when some error occurs through PLC transceiver communication.
 
   Description:
     This function allows a client to register a PLC exception event handling 
     function with the driver to call back when a communication SPI error occurs.
 
-    The event handler should be set before the client submits any transmission
-    requests that could generate events. The callback once set, persists
+    The event handler should be set before using the PLC transceiver in order
+    to capture error events. The callback once set, persists
     until the client closes the driver or sets another callback (which
     could be a "NULL" pointer to indicate no callback).
 
@@ -1255,7 +1257,7 @@ void DRV_G3_MACRT_PhySnifferCallbackRegister(
 
     // myHandle is the handle returned from DRV_G3_MACRT_Open API.
 
-    // Client registers a data confirm callback with driver. This is done once
+    // Client registers an exception callback with driver. This is done once
 
     DRV_G3_MACRT_ExceptionCallbackRegister( myAppObj.myHandle, APP_PLC_Exception_callback );
 
@@ -1285,6 +1287,11 @@ void DRV_G3_MACRT_ExceptionCallbackRegister(
     
   Precondition:
     DRV_G3_MACRT_Initialize must have been called to obtain a valid system object.
+
+  Parameters:
+    pin - PIO pin where interrupt source is connected.
+
+    context - Pointer to parameters to be passed to Handler function.
 
   Returns:
     None.
@@ -1324,7 +1331,7 @@ void DRV_G3_MACRT_ExternalInterruptHandler( PIO_PIN pin, uintptr_t context );
     index   -  Identifier for the instance used to initialize driver
 
   Returns:
-    SYS_STATUS_READY - Indicates that the driver is ready and accept
+    SYS_STATUS_READY - Indicates that the driver is ready to accept
                        requests for new operations.
 
     SYS_STATUS_UNINITIALIZED - Indicates the driver is not initialized.
@@ -1336,7 +1343,7 @@ void DRV_G3_MACRT_ExternalInterruptHandler( PIO_PIN pin, uintptr_t context );
   Example:
     <code>
     SYS_STATUS status;
-
+    // 'DRV_G3_MACRT_INDEX' is the one used before for Driver Initialization
     status = DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX);
     </code>
 
@@ -1388,13 +1395,13 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object );
 
 // *****************************************************************************
 /* Function:
-	void DRV_G3_MACRT_SleepDisableCallbackRegister( 
+	void DRV_G3_MACRT_SleepIndCallbackRegister( 
 	    const DRV_HANDLE handle, 
-	    const DRV_G3_MACRT_SLEEP_CALLBACK callback
+	    const DRV_G3_MACRT_SLEEP_IND_CALLBACK callback
     );
 
   Summary:
-    Allows a client to identify an sleep mode disable event handling function 
+    Allows a client to set an sleep mode disable event handling function 
 	for the driver to call back when the PLC driver is active again.
 
   Description:
@@ -1432,7 +1439,7 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object );
 
     // myHandle is the handle returned from DRV_G3_MACRT_Open API.
 
-    // Client registers a data confirm callback with driver. This is done once
+    // Client registers a Sleep indication callback with driver. This is done once
 
     DRV_G3_MACRT_SleepDisableCallbackRegister( myAppObj.myHandle, APP_PLC_SleepModeDisableCb );
 
@@ -1457,14 +1464,14 @@ void DRV_G3_MACRT_SleepIndCallbackRegister(
   Description:
     This function disables PLC interrupts before going to sleep, and will leave
     them disabled upon return. If there is any PLC transmission in progress, 
-    sleep mode will be enabled after the notification of the TX confirmation.
+    it will be silently discarded before sleep mode is entered.
 
   Precondition:
     The DRV_G3_MACRT_Initialize routine must have been called for the
     specified PLC driver instance.
 
   Parameters:
-    - object -  Object handle for the specified driver instance (returned from
+    - handle -  Object handle for the specified driver instance (returned from
                 DRV_G3_MACRT_Initialize)
     - enable -  Set True to enter in sleep mode. Set False to exit from sleep mode.
   Returns:
@@ -1493,10 +1500,10 @@ void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable );
 //***************************************************************************
 /*
   Function:
-       void DRV_G3_MACRT_Enable_TX( const DRV_HANDLE handle, bool enable )
+       void DRV_G3_MACRT_EnableTX( const DRV_HANDLE handle, bool enable )
     
   Summary:
-    Enable PLC transmission.
+    Enables/Disables PLC transmission.
 
   Description:
     This function allows a client to enable or disable the PLC tranmission.
@@ -1522,11 +1529,11 @@ void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable );
         ...
         if (cancel_tx)
         {
-            DRV_G3_MACRT_Enable_TX (object, false);
+            DRV_G3_MACRT_EnableTX (object, false);
         }
         else
         {
-            DRV_G3_MACRT_Enable_TX (object, true);
+            DRV_G3_MACRT_EnableTX (object, true);
         }
         ...
     }
@@ -1534,7 +1541,7 @@ void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable );
                    
   */
 
-void DRV_G3_MACRT_Enable_TX( const DRV_HANDLE handle, bool enable );
+void DRV_G3_MACRT_EnableTX( const DRV_HANDLE handle, bool enable );
 
 #ifdef __cplusplus
 }
