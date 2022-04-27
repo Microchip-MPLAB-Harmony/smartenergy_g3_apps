@@ -335,7 +335,6 @@ void APP_PLC_Initialize ( void )
     appPlc.state = APP_PLC_STATE_IDLE;
     
     /* Set PVDD Monitor tracking data */
-    SRV_PVDDMON_Initialize();
     appPlc.pvddMonTxEnable = true;
     
     /* Init PLC TX status */
@@ -474,7 +473,7 @@ void APP_PLC_Tasks ( void )
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
                 
-                /* Enable PLC PVDD Monitor Service: ADC channel 0 */
+                /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
             

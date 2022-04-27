@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------------------
  * MPLAB XC32 Compiler -  ATSAME70Q21B linker script
  * 
- * Copyright (c) 2021, Microchip Technology Inc. and its subsidiaries ("Microchip")
+ * Copyright (c) 2022, Microchip Technology Inc. and its subsidiaries ("Microchip")
  * All rights reserved.
  * 
  * This software is developed by Microchip Technology Inc. and its
@@ -110,11 +110,6 @@ MEMORY
   ram (WX!R) : ORIGIN = RAM_ORIGIN, LENGTH = RAM_LENGTH-__XC32_ITCM_LENGTH-__XC32_DTCM_LENGTH
  itcm (WX) : ORIGIN = ITCM_ORIGIN, LENGTH = __XC32_ITCM_LENGTH
 dtcm (WX!R) : ORIGIN = DTCM_ORIGIN, LENGTH = __XC32_DTCM_LENGTH
-  config_D0000000 : ORIGIN = 0xD0000000, LENGTH = 0x4
-  config_D0000008 : ORIGIN = 0xD0000008, LENGTH = 0x4
-  config_D0000004 : ORIGIN = 0xD0000004, LENGTH = 0x4
-  config_D000000C : ORIGIN = 0xD000000C, LENGTH = 0x4
-  config_D0000010 : ORIGIN = 0xD0000010, LENGTH = 0x4
 
 }
 /*************************************************************************
@@ -150,21 +145,6 @@ __ram_end = ORIGIN(ram) + LENGTH(ram);
  *************************************************************************/
 SECTIONS
 {
-    .config_D0000000 : {
-      KEEP(*(.config_D0000000))
-    } > config_D0000000
-    .config_D0000008 : {
-      KEEP(*(.config_D0000008))
-    } > config_D0000008
-    .config_D0000004 : {
-      KEEP(*(.config_D0000004))
-    } > config_D0000004
-    .config_D000000C : {
-      KEEP(*(.config_D000000C))
-    } > config_D000000C
-    .config_D0000010 : {
-      KEEP(*(.config_D0000010))
-    } > config_D0000010
 
     /*
      * The linker moves the .vectors section into itcm when itcm is

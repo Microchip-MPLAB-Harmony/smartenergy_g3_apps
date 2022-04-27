@@ -54,9 +54,9 @@
 // Section: Configuration Bits
 // ****************************************************************************
 // ****************************************************************************
-//#pragma config TCM_CONFIGURATION = 0
-//#pragma config SECURITY_BIT = CLEAR
-//#pragma config BOOT_MODE = SET
+#pragma config TCM_CONFIGURATION = 0
+#pragma config SECURITY_BIT = CLEAR
+#pragma config BOOT_MODE = SET
 
 
 
@@ -375,6 +375,8 @@ void SYS_Initialize ( void* data )
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
     /* Register Callback function to handle PLC interruption */
     PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+    /* Initialize PVDD Monitor Service */
+    SRV_PVDDMON_Initialize();
 
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
     sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
