@@ -58,7 +58,7 @@
 // *****************************************************************************
 // *****************************************************************************
 /* This is the service instance object array. */
-static SRV_USI_OBJ gSrvUSIOBJ[SRV_USI_INSTANCES_NUMBER] = {NULL};
+static SRV_USI_OBJ gSrvUSIOBJ[SRV_USI_INSTANCES_NUMBER] = {0};
 
 /* This is the USI callback object for each USI instance. */
 static SRV_USI_CALLBACK gSrvUSICallbackOBJ[SRV_USI_INSTANCES_NUMBER][10] = {NULL};

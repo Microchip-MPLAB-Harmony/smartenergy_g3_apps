@@ -71,22 +71,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
-typedef void ( * USI_CDC_CALLBACK ) ( uint8_t *data, uint16_t length, uintptr_t context ); 
-
-typedef struct
-{
-    uint8_t*                                 pMessage;
-    uint8_t*                                 pDataRd;
-    size_t                                   length;
-    bool                                     inUse;
-    struct USI_CDC_MSG*                      next; 
-} USI_CDC_MSG; 
-
-typedef struct
-{
-    USI_CDC_MSG*                           front;
-    USI_CDC_MSG*                           rear;
-} USI_CDC_MSG_QUEUE; 
+typedef void ( * USI_CDC_CALLBACK ) ( uint8_t *data, uint16_t length, uintptr_t context );
 
 typedef enum
 {
@@ -139,8 +124,6 @@ typedef struct
     uint32_t                                 usiNumBytesRead;
     size_t                                   cdcBufferSize;
     volatile bool                            cdcIsReadComplete;
-    bool                                     usiIsReadComplete;
-    bool                                     cdcIsWriteComplete;
     
     USI_CDC_CALLBACK                         cbFunc;
     USI_CDC_STATE                            devStatus;
@@ -163,8 +146,6 @@ void USI_CDC_Tasks (uint32_t index);
 size_t USI_CDC_Write(uint32_t index, void* pData, size_t length);
 
 void USI_CDC_RegisterCallback(uint32_t index, USI_CDC_CALLBACK cbFunc, uintptr_t context);
-
-void USI_CDC_Flush(uint32_t index);
 
 void USI_CDC_Close(uint32_t index);
 

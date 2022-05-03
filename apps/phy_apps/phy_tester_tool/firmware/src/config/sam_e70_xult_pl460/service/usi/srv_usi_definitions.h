@@ -67,14 +67,14 @@
 /* USI Service Serial Protocol Identifiers
 
   Summary:
-    Defines the identifier to use for each USI serial protocol
+    List of available USI protocols.
 
   Description:
-    This data type defines the identifier required to specify the
-    serial protocol to use by USI service.
+    This data type defines the identifier required to specify the protocol to 
+    use by USI service.
 
   Remarks:
-    Do not rely on the underlying type as it may change in different versions.
+    None.
 */
 
 typedef enum
@@ -139,64 +139,18 @@ typedef enum
 } SRV_USI_PROTOCOL_ID;
 
 // *****************************************************************************
-/* USI Service Error
+/* USI Service Serial Protocol Identifiers
 
   Summary:
-    Defines the error values
+    List of possible values of USI status.
 
   Description:
-    This data type defines the error values for the errors occurred during transfer.
+    This type defines the possible return values for SRV_USI_Status function.
 
   Remarks:
     None.
 */
 
-typedef enum
-{
-    /* Error in protocol identifier */
-    SRV_USI_PROTOCOL_ERROR,
-
-    /* Protocol is not registered */
-    SRV_USI_PROTOCOL_NOT_REGISTERED,
-
-    /* Error in the format of message */
-    SRV_USI_FORMAT_ERROR,
-
-    /* Error in PLIB communication */
-    SRV_USI_PLIB_ERROR,
-
-    /* Invalid operation */
-    SRV_USI_INVALID
-
-} SRV_USI_ERROR;
-
-// *****************************************************************************
-/* USI Serive Communication Interface
-
-  Summary:
-    Defines the Communication Interface values
-
-  Description:
-    This data type defines the Communication Interface values for the connection
-    with peripherals.
-
-  Remarks:
-    None.
-*/
-
-typedef enum
-{
-    /* Invalid interface API */
-    SRV_USI_INVALID_API,
-
-    /* USART interface API */
-    SRV_USI_USART_API,
-    
-    /* USB CDC Class interface API */
-    SRV_USI_CDC_API,
-    
-} SRV_USI_INTERFACE_API;
-        
 typedef enum
 {
     SRV_USI_STATUS_UNINITIALIZED,

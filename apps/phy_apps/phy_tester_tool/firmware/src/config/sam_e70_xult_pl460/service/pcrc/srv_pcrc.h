@@ -73,8 +73,8 @@
 /* USI Header Types
 
    Summary
-    The list of all header types supported by PRIME spec and specific type to 
-    use with USI service.
+    The list of all header types supported by PRIME spec and an specific type
+    to use with USI service.
 
    Remarks:
     None
@@ -82,10 +82,10 @@
 
 typedef enum 
 {
-    PCRC_HT_GENERIC = 0,
-    PCRC_HT_PROMOTION = 1,
-    PCRC_HT_BEACON = 2,
-    PCRC_HT_USI = 3
+    PCRC_HT_GENERIC = 0, /* PRIME Generic Packet type */
+    PCRC_HT_PROMOTION = 1, /* PRIME Promotion Packet type */
+    PCRC_HT_BEACON = 2, /* PRIME Beacon Packet type */
+    PCRC_HT_USI = 3 /* USI Packet type */
 }PCRC_HEADER_TYPE;
 
 // *****************************************************************************
@@ -100,10 +100,10 @@ typedef enum
 
 typedef enum 
 {
-    PCRC_CRC8 = 0,
-    PCRC_CRC16 = 1,
-    PCRC_CRC32 = 2,
-    PCRC_NOCRC = 3
+    PCRC_CRC8 = 0, /* 8-bit CRC */
+    PCRC_CRC16 = 1, /* 16-bit CRC */
+    PCRC_CRC32 = 2, /* 32-bit CRC */
+    PCRC_NOCRC = 3 /* No CRC */
 }PCRC_CRC_TYPE;
 
 /* SRV_PCRC Handle Macro: Invalid CRC */  
@@ -123,33 +123,36 @@ typedef enum
     );
 
   Summary:
-    Function to obtain the CRC value of the data.
+    Obtains the CRC for a data stream.
 
   Description:
-    This routine gets the CRC value of the data passed in arguments.
+    This routine gets the CRC value (8, 16 or 32 bits, depending on arguments)
+    of the data stream provided as argument.
 
   Precondition:
     None.
 
   Parameters:
-    pData  -    Pointer to the content of data to obtain CRC value.
+    pData  -    Pointer to buffer containing the data stream.
 
-    length -    Length of the data to obtain CRC value.
+    length -    Length of the data stream.
 
-    hdrType -   Header type to determine what method to obtain CRC 
-                should be used. It is different for USI and PRIME 
+    hdrType -   Header type to determine the method to obtain CRC. 
+                It is different for USI and PRIME 
                 packets (GENERIC, PROMOTION and BEACON).
 
-    crcType -   CRC type(8, 16 or 32 bits). Valid only in case to use 
-                PCRC_HT_USI.
+    crcType -   CRC type(8, 16 or 32 bits). Valid only in case of
+                header type PCRC_HT_USI.
 
-    initValue - First value to start obtaining CRC value. Valid only in case 
-                to use PCRC_HT_USI.
+    initValue - Initialization value for CRC computation. Valid only in case 
+                of header type PCRC_HT_USI.
 
   Returns:
     If successful, the routine returns a valid CRC value.
     If an error occurs, the return value is PCRC_INVALID. Error can occur if
     hdrType or crcType are wrong.
+    Returned CRC is always a 32-bit value, in case 8-bit or 16-bit CRC
+    is calculated it is casted to 32-bit.
 
   Example:
     <code>
@@ -169,17 +172,18 @@ uint32_t SRV_PCRC_GetValue(uint8_t *pData, size_t length,
     void SRV_PCRC_SetSNAValue (uint8_t* sna);
 
   Summary:
-    Function to set SNA value as initial value to get the CRC value of the data.
+    Sets SNA (Sub-Network Address) value to be used as initial value on
+    further CRC calculations (used by PRIME stack).
 
   Description:
-    This routine gets the CRC value of the data passed in arguments.
+    This routine sets the value that will be set as the initial CRC value
+    for computations related to PRIME stack, as stated on PRIME specification.
 
   Precondition:
     None.
 
   Parameters:
-    sna    -    Sub-Network Address used in PRIME specification to obtain
-                CRC values in some PRIME control packets.
+    sna    -    Pointer to buffer containing SNA value.
 
   Returns:
     None.

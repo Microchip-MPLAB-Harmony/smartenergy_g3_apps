@@ -167,7 +167,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
-        DRV_PLC_PHY_Enable_TX(appData.drvPl360Handle, false);
+        DRV_PLC_PHY_EnableTX(appData.drvPl360Handle, false);
         appData.pvddMonTxEnable = false;
         /* Restart PVDD Monitor to check when VDD is within the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
@@ -175,7 +175,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     else
     {
         /* PLC Transmission is permitted again */
-        DRV_PLC_PHY_Enable_TX(appData.drvPl360Handle, true);
+        DRV_PLC_PHY_EnableTX(appData.drvPl360Handle, true);
         appData.pvddMonTxEnable = true;
         /* Restart PVDD Monitor to check when VDD is out of the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
@@ -249,7 +249,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                 SRV_PSERIAL_ParseTxMessage(&appData.plcTxObj, pData);
 
                 /* Send Message through PLC */
-                DRV_PLC_PHY_Send(appData.drvPl360Handle, &appData.plcTxObj);
+                DRV_PLC_PHY_TxRequest(appData.drvPl360Handle, &appData.plcTxObj);
             }
             else
             {
@@ -313,7 +313,6 @@ void APP_Initialize(void)
     appData.pSerialData = pSerialDataBuffer;
     
     /* Set PVDD Monitor tracking data */
-    SRV_PVDDMON_Initialize();
     appData.pvddMonTxEnable = true;
     
     /* Init PLC TX status */
@@ -379,7 +378,7 @@ void APP_Tasks(void)
                         APP_PLCExceptionCb, DRV_PLC_PHY_INDEX);
                 DRV_PLC_PHY_DataIndCallbackRegister(appData.drvPl360Handle,
                         APP_PLCDataIndCb, DRV_PLC_PHY_INDEX);
-                DRV_PLC_PHY_DataCfmCallbackRegister(appData.drvPl360Handle,
+                DRV_PLC_PHY_TxCfmCallbackRegister(appData.drvPl360Handle,
                         APP_PLCDataCfmCb, DRV_PLC_PHY_INDEX);
 
                 /* Open USI Service */
