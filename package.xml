@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Package name="smartenergy_g3_apps">
     <Dependencies>
-        <Dependency name="smartenergy" version="1.0.0"/>
-        <Dependency name="usb" version="v3.8.1"/>
+        <Dependency name="smartenergy" version="v1.0.0"/>
+        <Dependency name="usb" version="v3.9.0"/>
     </Dependencies>
 </Package>
