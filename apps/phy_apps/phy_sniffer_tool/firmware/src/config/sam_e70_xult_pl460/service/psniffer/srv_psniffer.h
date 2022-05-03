@@ -105,12 +105,335 @@ typedef enum
 // *****************************************************************************
 // *****************************************************************************
 
+// *****************************************************************************
+/* Function:
+    SRV_PSNIFFER_COMMAND SRV_PSNIFFER_GetCommand
+    (
+      uint8_t* pData
+    )
+
+  Summary:
+    Extracts Command field from Sniffer frame.
+
+  Description:
+    Takes Sniffer frame as parameter and extracts the Command field from the
+    expected position in buffer.
+
+  Precondition:
+    None.
+
+  Parameters:
+    pData - Pointer to buffer containing Sniffer frame
+
+  Returns:
+    Command in the form of SRV_PSNIFFER_COMMAND Enum.
+
+  Example:
+    <code>
+    SRV_PSNIFFER_COMMAND command;
+
+    // Process received message from Sniffer Tool
+    command = SRV_PSNIFFER_GetCommand(pData);
+    </code>
+
+  Remarks:
+    None.
+*/
 SRV_PSNIFFER_COMMAND SRV_PSNIFFER_GetCommand(uint8_t* pData);
+
+// *****************************************************************************
+/* Function:
+    size_t SRV_PSNIFFER_SerialRxMessage
+    (
+      uint8_t* pDataDst,
+      DRV_PLC_PHY_RECEPTION_OBJ* pDataSrc
+    )
+
+  Summary:
+    Serializes a received PLC frame along with its parameters.
+
+  Description:
+    This function takes an object containing a PLC frame and its related
+    parameters and serializes it in a buffer for further transmission.
+
+  Precondition:
+    SRV_PSNIFFER_SetRxPayloadSymbols has to be called before to set the
+    correct number of received symbols in Sniffer library.
+
+  Parameters:
+    pDataDst - Pointer to buffer where frame is serialized
+
+    pDataSrc - Pointer to PLC Reception object containing the frame
+               and parameters
+
+  Returns:
+    Number of bytes for serialized output.
+
+  Example:
+    <code>
+    static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
+    {
+      // Report RX Symbols
+      appData.plcPIB.id = PLC_ID_RX_PAY_SYMBOLS;
+      appData.plcPIB.length = 2;
+      DRV_PLC_PHY_PIBGet(appData.drvPl360Handle, &appData.plcPIB);
+
+      SRV_PSNIFFER_SetRxPayloadSymbols(*(uint16_t *)appData.plcPIB.pData);
+
+      // Serialize received message
+      length = SRV_PSNIFFER_SerialRxMessage(appData.pSerialData, indObj);
+      // Send through USI
+      SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_SNIFF_G3,
+              appData.pSerialData, length);
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
 size_t SRV_PSNIFFER_SerialRxMessage(uint8_t* pDataDst, DRV_PLC_PHY_RECEPTION_OBJ* pDataSrc);
+
+// *****************************************************************************
+/* Function:
+    size_t SRV_PSNIFFER_SerialCfmMessage
+    (
+      uint8_t* pDataDst,
+      DRV_PLC_PHY_TRANSMISSION_CFM_OBJ* pCfmObj
+    )
+
+  Summary:
+    Serializes a transmitted PLC frame along with its parameters.
+
+  Description:
+    This function takes a previously stored PLC transmitted frame and its
+    related parameters and serializes it in a buffer for further transmission.
+
+  Precondition:
+    SRV_PSNIFFER_SetTxMessage has to be previously called to store the PLC
+    transmitted frame and its parameters.
+    SRV_PSNIFFER_SetTxPayloadSymbols has to be called before to set the
+    correct number of transmitted symbols in Sniffer library.
+
+  Parameters:
+    pDataDst - Pointer to buffer where frame is serialized
+
+    pCfmObj - Pointer to PLC Transmission Confirm object containing the
+              transmission result
+
+  Returns:
+    Number of bytes for serialized output.
+
+  Example:
+    <code>
+    static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj)
+    {
+      // Report TX Symbols
+      appData.plcPIB.id = PLC_ID_TX_PAY_SYMBOLS;
+      appData.plcPIB.length = 2;
+      DRV_PLC_PHY_PIBGet(appData.drvPl360Handle, &appData.plcPIB);
+
+      SRV_PSNIFFER_SetTxPayloadSymbols(*(uint16_t *)appData.plcPIB.pData);
+
+      // Serialize transmitted message
+      length = SRV_PSNIFFER_SerialCfmMessage(appData.pSerialData, pCfmObj);
+      // Send through USI
+      SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_SNIFF_G3,
+              appData.pSerialData, length);
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
 size_t SRV_PSNIFFER_SerialCfmMessage(uint8_t* pDataDst, DRV_PLC_PHY_TRANSMISSION_CFM_OBJ* pCfmObj);
+
+// *****************************************************************************
+/* Function:
+    void SRV_PSNIFFER_SetTxMessage
+    (
+      DRV_PLC_PHY_TRANSMISSION_OBJ* pTxObj
+    )
+
+  Summary:
+    Gives a transmitted PLC object to Sniffer library so it is stored for
+    later serialization.
+
+  Description:
+    The given transmitted PLC object contains a PLC frame and its related
+    parameters, all this info is stored in sniffer library for later
+    serialization when SRV_PSNIFFER_SerialCfmMessage is called.
+
+  Precondition:
+    None.
+
+  Parameters:
+    pTxObj - Pointer to a PLC transmission object to be stored
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    static void APP_PLCTxFrame(DRV_PLC_PHY_TRANSMISSION_OBJ* pTxObj)
+    {
+      // Give transmission object to Sniffer
+      SRV_PSNIFFER_SetTxMessage(pTxObj);
+      // Send PLC frame through PHY Driver
+      // DRV_PLC_PHY_xxx(pTxObj);
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
 void SRV_PSNIFFER_SetTxMessage(DRV_PLC_PHY_TRANSMISSION_OBJ* pTxObj);
+
+// *****************************************************************************
+/* Function:
+    void SRV_PSNIFFER_SetRxPayloadSymbols
+    (
+      uint16_t payloadSym
+    )
+
+  Summary:
+    Sets the number of received symbols on Sniffer library for further use.
+
+  Description:
+    Number of received symbols is set on Sniffer library so that info can be
+    later serialized along with other reception parameters.
+
+  Precondition:
+    None.
+
+  Parameters:
+    payloadSym - Number of symbols
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
+    {
+      // Report RX Symbols
+      appData.plcPIB.id = PLC_ID_RX_PAY_SYMBOLS;
+      appData.plcPIB.length = 2;
+      DRV_PLC_PHY_PIBGet(appData.drvPl360Handle, &appData.plcPIB);
+
+      SRV_PSNIFFER_SetRxPayloadSymbols(*(uint16_t *)appData.plcPIB.pData);
+
+      // Serialize received message
+      length = SRV_PSNIFFER_SerialRxMessage(appData.pSerialData, indObj);
+      // Send through USI
+      SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_SNIFF_G3,
+              appData.pSerialData, length);
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
 void SRV_PSNIFFER_SetRxPayloadSymbols(uint16_t payloadSym);
+
+// *****************************************************************************
+/* Function:
+    void SRV_PSNIFFER_SetTxPayloadSymbols
+    (
+      uint16_t payloadSym
+    )
+
+  Summary:
+    Sets the number of transmitted symbols on Sniffer library for further use.
+
+  Description:
+    Number of transmitted symbols is set on Sniffer library so that info can be
+    later serialized along with other transmission parameters.
+
+  Precondition:
+    None.
+
+  Parameters:
+    payloadSym - Number of symbols
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj)
+    {
+      // Report TX Symbols
+      appData.plcPIB.id = PLC_ID_TX_PAY_SYMBOLS;
+      appData.plcPIB.length = 2;
+      DRV_PLC_PHY_PIBGet(appData.drvPl360Handle, &appData.plcPIB);
+
+      SRV_PSNIFFER_SetTxPayloadSymbols(*(uint16_t *)appData.plcPIB.pData);
+
+      // Serialize transmitted message
+      length = SRV_PSNIFFER_SerialCfmMessage(appData.pSerialData, pCfmObj);
+      // Send through USI
+      SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_SNIFF_G3,
+              appData.pSerialData, length);
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
 void SRV_PSNIFFER_SetTxPayloadSymbols(uint16_t payloadSym);
+
+
+// *****************************************************************************
+/* Function:
+    void SRV_PSNIFFER_ConvertToneMask
+    (
+      uint8_t* pToneMaskDst,
+      uint8_t* pToneMaskSrc
+    )
+
+  Summary:
+    Converts a Tone Mask configuration coming from an external tool to the
+    right format to be configured on PLC PHY layer.
+
+  Description:
+    This function takes a Tone Mask configuration with the format coming from
+    MCHP PLC Sniffer Tool and converts it to a format to be configured on PLC PHY
+    layer to be used on further transmissions and receptions.
+    If misconfigured, no PLC frames will be seen.
+
+  Precondition:
+    None.
+
+  Parameters:
+    pToneMaskDst - The Tone Mask converted to PHY format
+    pToneMaskSrc - The Tone Mask with format coming from external tool
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+	  switch (command) {
+        case SRV_PSNIFFER_CMD_SET_TONE_MASK:
+        {
+            // Convert ToneMask from Sniffer Tool to PLC phy layer
+            SRV_PSNIFFER_ConvertToneMask(appData.plcPIB.pData, pData + 1);
+
+            // Send data to PLC
+            appData.plcPIB.id = PLC_ID_TONE_MASK;
+            appData.plcPIB.length = PSNIFFER_CARRIERS_SIZE;
+            DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
+        }
+        break;
+
+        // ...
+    }
+    </code>
+
+  Remarks:
+    This function is only available in G3 PLC profile.
+*/
 void SRV_PSNIFFER_ConvertToneMask(uint8_t* pToneMaskDst, uint8_t* pToneMaskSrc);
+
 
 #endif //SRV_PSNIFFER_H

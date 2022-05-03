@@ -20,15 +20,15 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_SSC_INSTANCE_
 #define _SAME70_SSC_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for SSC peripheral ========== */
-#define SSC_DMAC_ID_RX                           _UL_(33)   
-#define SSC_DMAC_ID_TX                           _UL_(32)   
-#define SSC_INSTANCE_ID                          _UL_(22)   
-#define SSC_CLOCK_ID                             _UL_(22)   
+#define SSC_DMAC_ID_RX                           (33)       
+#define SSC_DMAC_ID_TX                           (32)       
+#define SSC_INSTANCE_ID                          (22)       
+#define SSC_CLOCK_ID                             (22)       
 
 #endif /* _SAME70_SSC_INSTANCE_ */

@@ -75,8 +75,8 @@ SRV_PSNIFFER_COMMAND SRV_PSNIFFER_GetCommand(uint8_t* pData)
 void SRV_PSNIFFER_SetTxMessage(DRV_PLC_PHY_TRANSMISSION_OBJ* pDataDst)
 {
     /* Use internal buffer to report TX messages as a received message when TX_CFM arrives */
-    srvPsnifferLastTxObj.pTransmitData = srvPsnifferLastTxData;
     memcpy((uint8_t *)&srvPsnifferLastTxObj, (uint8_t *)pDataDst, sizeof(DRV_PLC_PHY_TRANSMISSION_OBJ));
+    srvPsnifferLastTxObj.pTransmitData = srvPsnifferLastTxData;
     memcpy(srvPsnifferLastTxData, pDataDst->pTransmitData, pDataDst->dataLength);
 }
 

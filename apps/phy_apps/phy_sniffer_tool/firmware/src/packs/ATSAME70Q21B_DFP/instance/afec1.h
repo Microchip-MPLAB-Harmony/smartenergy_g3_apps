@@ -20,21 +20,21 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_AFEC1_INSTANCE_
 #define _SAME70_AFEC1_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for AFEC1 peripheral ========== */
-#define AFEC1_DMAC_ID_RX                         _UL_(36)   
-#define AFEC1_INSTANCE_ID                        _UL_(40)   
-#define AFEC1_CLOCK_ID                           _UL_(40)   
-#define AFEC1_TRGSEL_AFEC_TRIG0                  _UL_(0x0)  /* External ADC Trigger Input (AFE1_ADTRG Pin) */
-#define AFEC1_TRGSEL_AFEC_TRIG1                  _UL_(0x1)  /* TC1 Channel 0 Output (TIOA3) */
-#define AFEC1_TRGSEL_AFEC_TRIG2                  _UL_(0x2)  /* TC1 Channel 1 Output (TIOA4) */
-#define AFEC1_TRGSEL_AFEC_TRIG3                  _UL_(0x3)  /* TC1 Channel 2 Output (TIOA5) */
-#define AFEC1_TRGSEL_AFEC_TRIG4                  _UL_(0x4)  /* PWM1 event line 0 */
-#define AFEC1_TRGSEL_AFEC_TRIG5                  _UL_(0x5)  /* PWM1 event line 1 */
-#define AFEC1_TRGSEL_AFEC_TRIG6                  _UL_(0x6)  /* Analog Comparator Fault Output */
+#define AFEC1_DMAC_ID_RX                         (36)       
+#define AFEC1_INSTANCE_ID                        (40)       
+#define AFEC1_CLOCK_ID                           (40)       
+#define AFEC1_TRGSEL_AFEC_TRIG0                  (0x0)      /* External ADC Trigger Input (AFE1_ADTRG Pin) */
+#define AFEC1_TRGSEL_AFEC_TRIG1                  (0x1)      /* TC1 Channel 0 Output (TIOA3) */
+#define AFEC1_TRGSEL_AFEC_TRIG2                  (0x2)      /* TC1 Channel 1 Output (TIOA4) */
+#define AFEC1_TRGSEL_AFEC_TRIG3                  (0x3)      /* TC1 Channel 2 Output (TIOA5) */
+#define AFEC1_TRGSEL_AFEC_TRIG4                  (0x4)      /* PWM1 event line 0 */
+#define AFEC1_TRGSEL_AFEC_TRIG5                  (0x5)      /* PWM1 event line 1 */
+#define AFEC1_TRGSEL_AFEC_TRIG6                  (0x6)      /* Analog Comparator Fault Output */
 
 #endif /* _SAME70_AFEC1_INSTANCE_ */

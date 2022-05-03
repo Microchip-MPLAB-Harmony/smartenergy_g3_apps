@@ -20,15 +20,15 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_AES_INSTANCE_
 #define _SAME70_AES_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for AES peripheral ========== */
-#define AES_DMAC_ID_TX                           _UL_(37)   
-#define AES_DMAC_ID_RX                           _UL_(38)   
-#define AES_INSTANCE_ID                          _UL_(56)   
-#define AES_CLOCK_ID                             _UL_(56)   
+#define AES_DMAC_ID_TX                           (37)       
+#define AES_DMAC_ID_RX                           (38)       
+#define AES_INSTANCE_ID                          (56)       
+#define AES_CLOCK_ID                             (56)       
 
 #endif /* _SAME70_AES_INSTANCE_ */

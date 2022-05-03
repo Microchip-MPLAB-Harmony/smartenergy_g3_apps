@@ -20,13 +20,13 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_MCAN1_INSTANCE_
 #define _SAME70_MCAN1_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for MCAN1 peripheral ========== */
-#define MCAN1_INSTANCE_ID                        _UL_(37)   
-#define MCAN1_CLOCK_ID                           _UL_(37)   
+#define MCAN1_INSTANCE_ID                        (37)       
+#define MCAN1_CLOCK_ID                           (37)       
 
 #endif /* _SAME70_MCAN1_INSTANCE_ */

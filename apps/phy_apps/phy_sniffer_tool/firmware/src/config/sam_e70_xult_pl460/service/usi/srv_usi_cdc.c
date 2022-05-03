@@ -69,14 +69,11 @@
 /* This is the service instance object array. */
 const SRV_USI_DEV_DESC srvUSICDCDevDesc =
 {
-    .usiDevice                  = SRV_USI_DEV_USB_CDC,
-    .intent                     = DRV_IO_INTENT_READWRITE,
     .init                       = USI_CDC_Initialize,
     .open                       = USI_CDC_Open,
     .setReadCallback            = USI_CDC_RegisterCallback,
     .write                      = USI_CDC_Write,
     .task                       = USI_CDC_Tasks,
-    .flush                      = USI_CDC_Flush,
     .close                      = USI_CDC_Close,
     .status                     = USI_CDC_Status,
 };
@@ -104,7 +101,6 @@ static void _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
                 /* Waiting to MSG KEY */
                 if (*pData == USI_ESC_KEY_7E)
                 {
-                    dObj->usiIsReadComplete = false;
                     /* Start of USI Message */
                     dObj->usiNumBytesRead = 0;
                     /* New Message, start reception */
@@ -117,17 +113,19 @@ static void _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
             case USI_CDC_RCV:
                 if (*pData == USI_ESC_KEY_7E)
                 {
-                    /* Report via USI callback */
-                    if (dObj->cbFunc)
+                    if (dObj->usiNumBytesRead)
                     {
-                        dObj->cbFunc(dObj->usiRdOutIndex, dObj->usiNumBytesRead, dObj->context);
-                    }
+                        /* Report via USI callback */
+                        if (dObj->cbFunc)
+                        {
+                            dObj->cbFunc(dObj->usiRdOutIndex, dObj->usiNumBytesRead, dObj->context);
+                        }
 
-                    /* Update Out Pointer */
-                    dObj->usiRdOutIndex += dObj->usiNumBytesRead;
+                        /* Update Out Pointer */
+                        dObj->usiRdOutIndex += dObj->usiNumBytesRead;
+                    }
                     
                     /* End of USI Message */
-                    dObj->usiIsReadComplete = true;
                     dObj->devStatus = USI_CDC_IDLE;
                 }              
                 else if (*pData == USI_ESC_KEY_7D)
@@ -291,8 +289,6 @@ static USB_DEVICE_CDC_EVENT_RESPONSE _USB_CDC_DeviceCDCEventHandler(USB_DEVICE_C
         case USB_DEVICE_CDC_EVENT_WRITE_COMPLETE:
 
             /* This means that the data write got completed. */
-
-            dObj->cdcIsWriteComplete = true;
             break;
 
         default:
@@ -394,8 +390,6 @@ DRV_HANDLE USI_CDC_Initialize(uint32_t index, const void* initData)
     dObj->usiStatus = SRV_USI_STATUS_NOT_CONFIGURED;
 
     dObj->cdcIsReadComplete = true;
-    dObj->cdcIsWriteComplete = true;
-    dObj->usiIsReadComplete = false;
     dObj->readTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
     dObj->writeTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
 
@@ -495,11 +489,6 @@ void USI_CDC_RegisterCallback(uint32_t index, USI_CDC_CALLBACK cbFunc,
     
     /* Set context related to cbFunc */
     dObj->context = context;
-}
-
-void USI_CDC_Flush(uint32_t index)
-{
-    (void)index;
 }
 
 void USI_CDC_Close(uint32_t index)

@@ -270,31 +270,7 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
-      <logicalFolder name="f1"
-                     displayName="sam_e70_xult_pl460.mhc"
-                     projectFiles="true">
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/BSP_SAM_E70_Xplained_Ultra.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/cmsis.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/core.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/dfp.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/drvPlcPhy.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/drv_usbhs_v1.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/efc.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/GraphSettings.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/HarmonyCore.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/project.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/settings.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/spi0.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/srv_pcrc.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/srv_psniffer.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/srv_usi.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/sys_time.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/tc0.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/usb_device.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/usb_device_cdc.yml</itemPath>
-      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>../src/config/sam_e70_xult_pl460/harmony-manifest-success.yml</itemPath>
       <itemPath>sam_e70_xult_pl460.mc3</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -428,14 +404,14 @@
         <targetDevice>ATSAME70Q21B</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>j32</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>3.01</languageToolchainVersion>
+        <languageToolchainVersion>4.00</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
+        <pack name="SAME70_DFP" vendor="Microchip" version="4.8.125"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
-        <pack name="SAME70_DFP" vendor="Microchip" version="4.5.86"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -498,7 +474,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_e70_xult_pl460;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;"/>
+                  value="../src;../src/config/sam_e70_xult_pl460;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -510,6 +486,7 @@
         <property key="preprocessor-macros" value=""/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
+        <property key="tentative-definitions" value="-fno-common"/>
         <property key="toplevel-reordering" value=""/>
         <property key="unaligned-access" value=""/>
         <property key="use-cci" value="false"/>
@@ -543,6 +520,7 @@
       </C32-AS>
       <C32-CO>
         <property key="coverage-enable" value=""/>
+        <property key="stack-guidance" value="false"/>
       </C32-CO>
       <C32-LD>
         <property key="additional-options-use-response-files" value="false"/>
@@ -575,7 +553,7 @@
         <property key="no-startup-files" value="false"/>
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value=""/>
-        <property key="preprocessor-macros" value=";"/>
+        <property key="preprocessor-macros" value=""/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>
@@ -598,7 +576,7 @@
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_e70_xult_pl460;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;"/>
+                  value="../src;../src/config/sam_e70_xult_pl460;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -627,6 +605,7 @@
         <property key="omit-pack-options" value="1"/>
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
+        <property key="stack-smashing" value=""/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
       <PICkit3PlatformTool>
@@ -1150,6 +1129,72 @@
                   value=""/>
         <property key="warningmessagebreakoptions.warningmessages" value="holdstate"/>
       </Simulator>
+      <Tool>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="arm.use_vtor" value="false"/>
+        <property key="arm.vtor_adr" value="exception_table"/>
+        <property key="communication.autoselectspeed" value="true"/>
+        <property key="communication.interface" value="swd"/>
+        <property key="communication.speed" value="4"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="jlink.override" value=""/>
+        <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges.default}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0x400000-0x5fffff"/>
+        <property key="programoptions.eraseb4program" value="false"/>
+        <property key="programoptions.preservebootflash" value="false"/>
+        <property key="programoptions.preserveprogrammemory" value="false"/>
+        <property key="programoptions.preserveprogramrange.ranges"
+                  value="0x400000-0x5fffff"/>
+        <property key="programoptions.resetafterprogram" value="true"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
+        <property key="script.reset_by_pin" value="false"/>
+        <property key="script.reset_delay" value="0"/>
+        <property key="script.show_output" value="false"/>
+      </Tool>
+      <j32>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="arm.use_vtor" value="false"/>
+        <property key="arm.vtor_adr" value="exception_table"/>
+        <property key="communication.autoselectspeed" value="true"/>
+        <property key="communication.interface" value="swd"/>
+        <property key="communication.speed" value="4"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="jlink.override" value=""/>
+        <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges.default}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0x400000-0x5fffff"/>
+        <property key="programoptions.eraseb4program" value="false"/>
+        <property key="programoptions.preservebootflash" value="false"/>
+        <property key="programoptions.preserveprogrammemory" value="false"/>
+        <property key="programoptions.preserveprogramrange.ranges"
+                  value="0x400000-0x5fffff"/>
+        <property key="programoptions.resetafterprogram" value="true"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
+        <property key="script.reset_by_pin" value="false"/>
+        <property key="script.reset_delay" value="0"/>
+        <property key="script.show_output" value="false"/>
+      </j32>
       <jlink>
         <property key="AutoSelectMemRanges" value="auto"/>
         <property key="arm.use_vtor" value="false"/>

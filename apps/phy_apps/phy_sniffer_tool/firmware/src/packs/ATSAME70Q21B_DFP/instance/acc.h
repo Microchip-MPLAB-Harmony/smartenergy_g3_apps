@@ -20,21 +20,21 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_ACC_INSTANCE_
 #define _SAME70_ACC_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for ACC peripheral ========== */
-#define ACC_INSTANCE_ID                          _UL_(33)   
-#define ACC_CLOCK_ID                             _UL_(33)   
-#define ACC_HAS_PLUS_COMPARATOR_SELECTION        _UL_(1)    
-#define ACC_HAS_MINUS_COMPARATOR_SELECTION       _UL_(1)    
-#define ACC_HAS_INVERTED_COMPARATOR              _UL_(1)    
-#define ACC_HAS_EDGETYPE_SELECTION               _UL_(1)    
-#define ACC_HAS_INTERRUPTS                       _UL_(1)    
-#define ACC_HAS_CURRENT_SELECTION                _UL_(1)    
-#define ACC_HAS_HYSTERESIS                       _UL_(1)    
-#define ACC_HAS_FAULT_ENABLE                     _UL_(1)    
+#define ACC_INSTANCE_ID                          (33)       
+#define ACC_CLOCK_ID                             (33)       
+#define ACC_HAS_PLUS_COMPARATOR_SELECTION        (1)        
+#define ACC_HAS_MINUS_COMPARATOR_SELECTION       (1)        
+#define ACC_HAS_INVERTED_COMPARATOR              (1)        
+#define ACC_HAS_EDGETYPE_SELECTION               (1)        
+#define ACC_HAS_INTERRUPTS                       (1)        
+#define ACC_HAS_CURRENT_SELECTION                (1)        
+#define ACC_HAS_HYSTERESIS                       (1)        
+#define ACC_HAS_FAULT_ENABLE                     (1)        
 
 #endif /* _SAME70_ACC_INSTANCE_ */

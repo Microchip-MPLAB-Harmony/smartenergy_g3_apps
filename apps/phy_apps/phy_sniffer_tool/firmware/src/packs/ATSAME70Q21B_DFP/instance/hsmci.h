@@ -20,15 +20,15 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_HSMCI_INSTANCE_
 #define _SAME70_HSMCI_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for HSMCI peripheral ========== */
-#define HSMCI_DMAC_ID_RX                         _UL_(0)    
-#define HSMCI_DMAC_ID_TX                         _UL_(0)    
-#define HSMCI_INSTANCE_ID                        _UL_(18)   
-#define HSMCI_CLOCK_ID                           _UL_(18)   
+#define HSMCI_DMAC_ID_RX                         (0)        
+#define HSMCI_DMAC_ID_TX                         (0)        
+#define HSMCI_INSTANCE_ID                        (18)       
+#define HSMCI_CLOCK_ID                           (18)       
 
 #endif /* _SAME70_HSMCI_INSTANCE_ */

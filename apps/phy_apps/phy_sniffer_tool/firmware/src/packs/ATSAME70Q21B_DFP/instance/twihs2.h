@@ -20,15 +20,15 @@
  *
  */
 
-/* file generated from device description version 2021-12-23T09:59:43Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_TWIHS2_INSTANCE_
 #define _SAME70_TWIHS2_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for TWIHS2 peripheral ========== */
-#define TWIHS2_DMAC_ID_RX                        _UL_(19)   
-#define TWIHS2_DMAC_ID_TX                        _UL_(18)   
-#define TWIHS2_INSTANCE_ID                       _UL_(41)   
-#define TWIHS2_CLOCK_ID                          _UL_(41)   
+#define TWIHS2_DMAC_ID_RX                        (19)       
+#define TWIHS2_DMAC_ID_TX                        (18)       
+#define TWIHS2_INSTANCE_ID                       (41)       
+#define TWIHS2_CLOCK_ID                          (41)       
 
 #endif /* _SAME70_TWIHS2_INSTANCE_ */

@@ -460,10 +460,10 @@ void DRV_PLC_PHY_Task(void)
             _DRV_PLC_PHY_COMM_TxCfmEvent(&cfmObj);            
         }
         
-        if (gPlcPhyObj->dataCfmCallback)
+        if (gPlcPhyObj->txCfmCallback)
         {
             /* Report to upper layer */
-            gPlcPhyObj->dataCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
+            gPlcPhyObj->txCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
         }
         
         /* Reset event flag */
@@ -487,20 +487,20 @@ void DRV_PLC_PHY_Task(void)
     }
 }
 
-void DRV_PLC_PHY_Send(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ *transmitObj)
+void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ *transmitObj)
 {    
     DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmObj;
 
     if (gPlcPhyObj->sleep)
     {
         /* Do not transmit in SLeep Mode. */
-        if (gPlcPhyObj->dataCfmCallback)
+        if (gPlcPhyObj->txCfmCallback)
         {
             cfmObj.rmsCalc = 0;
             cfmObj.time = 0;
             cfmObj.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
             /* Report to upper layer */
-            gPlcPhyObj->dataCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
+            gPlcPhyObj->txCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
         }
         
         return;
@@ -536,26 +536,26 @@ void DRV_PLC_PHY_Send(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ *tra
         else
         {
             /* Notify DRV_PLC_PHY_TX_RESULT_INV_LENGTH */
-            if (gPlcPhyObj->dataCfmCallback)
+            if (gPlcPhyObj->txCfmCallback)
             {
                 cfmObj.rmsCalc = 0;
                 cfmObj.time = 0;
                 cfmObj.result = DRV_PLC_PHY_TX_RESULT_INV_LENGTH;
                 /* Report to upper layer */
-                gPlcPhyObj->dataCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
+                gPlcPhyObj->txCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
             }
         }
     }
     else
     {
-        if (gPlcPhyObj->dataCfmCallback)
+        if (gPlcPhyObj->txCfmCallback)
         {
             /* Notify DRV_PLC_PHY_TX_RESULT_NO_TX */
             cfmObj.rmsCalc = 0;
             cfmObj.time = 0;
             cfmObj.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
             /* Report to upper layer */
-            gPlcPhyObj->dataCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
+            gPlcPhyObj->txCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
         }
     }
 }
