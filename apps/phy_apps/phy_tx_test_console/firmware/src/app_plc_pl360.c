@@ -47,21 +47,6 @@ extern uint8_t plc_phy_bin2_end;
 extern DRV_PLC_PHY_INIT drvPlcPhyInitData;
 
 // *****************************************************************************
-/* Pointer to PLC Coupling configuration data
-
-  Summary:
-    Holds PLC configuration data
-
-  Description:
-    This structure holds the PLC coupling configuration data.
-
-  Remarks:
-    Parameters are defined in srv_pcoup.h file
- */
-
-SRV_PLC_PCOUP *appPLCCoupling;
-
-// *****************************************************************************
 /* Application Data
 
   Summary:
@@ -172,81 +157,6 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
         /* Start signal timer */
         appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
     }
-}
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Initialization and State Machine Functions
-// *****************************************************************************
-// *****************************************************************************
-static void APP_PLC_SetCouplingConfiguration ( SRV_PLC_PCOUP_BRANCH branch )
-{
-    appPLCCoupling = SRV_PCOUP_Get_Config(branch);
-
-    appPlc.plcPIB.id = PLC_ID_IC_DRIVER_CFG;
-    appPlc.plcPIB.length = 1;
-    *appPlc.plcPIB.pData = appPLCCoupling->lineDrvConf;
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_DACC_TABLE_CFG;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->daccTable);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->daccTable,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_NUM_TX_LEVELS;
-    appPlc.plcPIB.length = 1;
-    *appPlc.plcPIB.pData = appPLCCoupling->numTxLevels;
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_MAX_RMS_TABLE_HI;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->rmsHigh);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->rmsHigh,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_MAX_RMS_TABLE_VLO;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->rmsVLow);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->rmsVLow,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_THRESHOLDS_TABLE_HI;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->thrsHigh);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->thrsHigh,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_THRESHOLDS_TABLE_VLO;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->thrsVLow);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->thrsVLow,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_GAIN_TABLE_HI;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->gainHigh);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->gainHigh,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_GAIN_TABLE_VLO;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->gainVLow);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->gainVLow,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_PREDIST_COEF_TABLE_HI;
-    appPlc.plcPIB.length = appPLCCoupling->equSize;
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->equHigh,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_PREDIST_COEF_TABLE_VLO;
-    /* Not use size of array. It depends on PHY band in use */
-    appPlc.plcPIB.length = appPLCCoupling->equSize;
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->equVlow,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
 }
 
 /*******************************************************************************
@@ -486,11 +396,11 @@ void APP_PLC_PL360_Tasks ( void )
 
                 /* Configure PLC callbacks */
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
-                DRV_PLC_PHY_DataCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
+                DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
                 
                 /* Apply PLC coupling configuration */
-                APP_PLC_SetCouplingConfiguration(appPlcTx.couplingBranch);
+                SRV_PCOUP_Set_Config(appPlc.drvPl360Handle, appPlcTx.couplingBranch);
                 
                 /* Init Timer to handle blinking led */
                 appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
@@ -595,7 +505,7 @@ void APP_PLC_PL360_Tasks ( void )
                 {
                     appPlc.waitingTxCfm = true;
                     /* Send PLC message */
-                    DRV_PLC_PHY_Send(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
+                    DRV_PLC_PHY_TxRequest(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
                 }
             }
 
@@ -615,7 +525,7 @@ void APP_PLC_PL360_Tasks ( void )
             {
                 /* Send PLC Cancel message */
                 appPlcTx.pl360Tx.mode = TX_MODE_CANCEL | TX_MODE_RELATIVE;
-                DRV_PLC_PHY_Send(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
+                DRV_PLC_PHY_TxRequest(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
             }
             break;
         }

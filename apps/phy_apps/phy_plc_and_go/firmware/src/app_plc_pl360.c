@@ -48,21 +48,6 @@ extern uint8_t plc_phy_bin2_end;
 extern DRV_PLC_PHY_INIT drvPlcPhyInitData;
 
 // *****************************************************************************
-/* Pointer to PLC Coupling configuration data
-
-  Summary:
-    Holds PLC configuration data
-
-  Description:
-    This structure holds the PLC coupling configuration data.
-
-  Remarks:
-    Parameters are defined in srv_pcoup.h file
- */
-
-SRV_PLC_PCOUP *appPLCCoupling;
-
-// *****************************************************************************
 /* Application Data
 
   Summary:
@@ -84,76 +69,6 @@ static CACHE_ALIGN uint8_t appPlcPibDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_PI
 static CACHE_ALIGN uint8_t appPlcTxDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_BUFFER_SIZE)];
 static CACHE_ALIGN uint8_t appPlcStaticNotching[CACHE_ALIGNED_SIZE_GET(NUM_CARRIERS_CENELEC_A)] = APP_PLC_TONE_MASK_STATIC_NOTCHING_EXAMPLE;
 
-static void APP_PLC_SetCouplingConfiguration ( SRV_PLC_PCOUP_BRANCH branch )
-{
-    appPLCCoupling = SRV_PCOUP_Get_Config(branch);
-
-    appPlc.plcPIB.id = PLC_ID_IC_DRIVER_CFG;
-    appPlc.plcPIB.length = 1;
-    *appPlc.plcPIB.pData = appPLCCoupling->lineDrvConf;
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_DACC_TABLE_CFG;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->daccTable);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->daccTable,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_NUM_TX_LEVELS;
-    appPlc.plcPIB.length = 1;
-    *appPlc.plcPIB.pData = appPLCCoupling->numTxLevels;
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_MAX_RMS_TABLE_HI;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->rmsHigh);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->rmsHigh,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_MAX_RMS_TABLE_VLO;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->rmsVLow);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->rmsVLow,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_THRESHOLDS_TABLE_HI;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->thrsHigh);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->thrsHigh,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_THRESHOLDS_TABLE_VLO;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->thrsVLow);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->thrsVLow,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_GAIN_TABLE_HI;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->gainHigh);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->gainHigh,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_GAIN_TABLE_VLO;
-    appPlc.plcPIB.length = sizeof(appPLCCoupling->gainVLow);
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->gainVLow,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_PREDIST_COEF_TABLE_HI;
-    appPlc.plcPIB.length = appPLCCoupling->equSize;
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->equHigh,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-
-    appPlc.plcPIB.id = PLC_ID_PREDIST_COEF_TABLE_VLO;
-    /* Not use size of array. It depends on PHY band in use */
-    appPlc.plcPIB.length = appPLCCoupling->equSize;
-    memcpy(appPlc.plcPIB.pData, (uint8_t *)appPLCCoupling->equVlow,
-            appPlc.plcPIB.length);
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-}
-
 static void APP_PLC_SetInitialConfiguration ( void )
 {
     DRV_PLC_PHY_PIB_OBJ pibObj;
@@ -161,7 +76,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
     bool applyStaticNotching = false;
                 
     /* Apply PLC coupling configuration */
-    APP_PLC_SetCouplingConfiguration(appPlcTx.couplingBranch);
+    SRV_PCOUP_Set_Config(appPlc.drvPl360Handle, appPlcTx.couplingBranch);
 
     /* Force Transmission to VLO mode by default in order to maximize signal level in anycase */
     /* Disable autodetect mode */
@@ -511,9 +426,9 @@ void APP_PLC_PL360_Tasks ( void )
             if (DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX_0) == SYS_STATUS_READY)
             {
                 /* Configure PLC callbacks */
-                DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
-                DRV_PLC_PHY_DataCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
-                DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
+                DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, 0);
+                DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, 0);
+                DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb, 0);
                 
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
@@ -597,7 +512,7 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
 
             appPlc.waitingTxCfm = true;
 
-            DRV_PLC_PHY_Send(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
+            DRV_PLC_PHY_TxRequest(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
 
             /* Set PLC state */
             if (appPlc.waitingTxCfm)

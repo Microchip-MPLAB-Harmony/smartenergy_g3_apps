@@ -119,13 +119,7 @@ typedef struct
     
     uint32_t plc_phy_err_unknow;
     
-    uint8_t pPLCDataTx[APP_PLC_DATA_BUFFER_SIZE];
-    
-    uint8_t pPLCDataRx[APP_PLC_DATA_BUFFER_SIZE];
-    
-    uint8_t pPLCDataPIB[APP_PLC_PIB_BUFFER_SIZE];
-    
-    uint8_t pSerialData[APP_SERIAL_DATA_BUFFER_SIZE];
+    uint8_t *pSerialData;
     
     DRV_PLC_PHY_TRANSMISSION_OBJ plcTxObj;
     
