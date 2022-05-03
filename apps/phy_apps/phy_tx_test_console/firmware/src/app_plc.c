@@ -172,7 +172,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
-        DRV_PLC_PHY_Enable_TX(appPlc.drvPl360Handle, false);
+        DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, false);
         appPlc.pvddMonTxEnable = false;
         /* Restart PVDD Monitor to check when VDD is within the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
@@ -180,7 +180,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     else
     {
         /* PLC Transmission is permitted again */
-        DRV_PLC_PHY_Enable_TX(appPlc.drvPl360Handle, true);
+        DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, true);
         appPlc.pvddMonTxEnable = true;
         /* Restart PVDD Monitor to check when VDD is out of the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
@@ -227,8 +227,7 @@ void APP_PLC_Initialize ( void )
     /* Init signalling */
     appPlc.signalResetCounter = LED_RESET_BLINK_COUNTER;
     
-    /* Init PLC PVDD Monitor */
-    SRV_PVDDMON_Initialize();
+    /* Set PVDD Monitor tracking data */
     appPlc.pvddMonTxEnable = true;
     
     /* Init PLC TX status */
@@ -434,7 +433,7 @@ void APP_PLC_Tasks ( void )
 
                 /* Configure PLC callbacks */
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
-                DRV_PLC_PHY_DataCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
+                DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
                 
                 /* Apply PLC coupling configuration */
@@ -549,7 +548,7 @@ void APP_PLC_Tasks ( void )
                     {
                         appPlc.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CFM;
                         /* Send PLC message */
-                        DRV_PLC_PHY_Send(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
+                        DRV_PLC_PHY_TxRequest(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
                     }
                     else
                     {
@@ -579,7 +578,7 @@ void APP_PLC_Tasks ( void )
             {
                 /* Send PLC Cancel message */
                 appPlcTx.pl360Tx.mode = TX_MODE_CANCEL | TX_MODE_RELATIVE;
-                DRV_PLC_PHY_Send(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
+                DRV_PLC_PHY_TxRequest(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
             }
             break;
         }

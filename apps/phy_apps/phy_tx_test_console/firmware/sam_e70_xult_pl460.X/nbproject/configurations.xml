@@ -259,32 +259,7 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
-      <logicalFolder name="f1"
-                     displayName="sam_e70_xult_pl460.mhc"
-                     projectFiles="true">
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/afec1.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/BSP_SAM_E70_Xplained_Ultra.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/cmsis.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/core.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/dfp.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/drvPlcPhy.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/drv_memory.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/efc.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/GraphSettings.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/HarmonyCore.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/project.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/settings.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/spi0.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/srv_pcoup.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/srv_pvddmon.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/sys_console.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/sys_time.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/tc0.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/trng.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/usart1.yml</itemPath>
-      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>../src/config/sam_e70_xult_pl460/harmony-manifest-success.yml</itemPath>
       <itemPath>sam_e70_xult_pl460.mc3</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -422,12 +397,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>3.01</languageToolchainVersion>
+        <languageToolchainVersion>4.00</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAME70_DFP" vendor="Microchip" version="4.6.98"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAME70_DFP" vendor="Microchip" version="4.8.125"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -490,7 +465,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_e70_xult_pl460;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;"/>
+                  value="../src;../src/config/sam_e70_xult_pl460;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -569,7 +544,7 @@
         <property key="no-startup-files" value="false"/>
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value=""/>
-        <property key="preprocessor-macros" value=";"/>
+        <property key="preprocessor-macros" value=""/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>
@@ -592,7 +567,7 @@
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_e70_xult_pl460;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;"/>
+                  value="../src;../src/config/sam_e70_xult_pl460;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>

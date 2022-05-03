@@ -50,7 +50,6 @@ static SRV_PVDDMON_CMP_MODE srv_pvddmon_mode;
 // Section: PLC PVDD Monitor Service Implementation
 // *****************************************************************************
 // *****************************************************************************
-/* Objects to hold callback function and context */
 static SRV_PVDDMON_CALLBACK AFEC1_CompareCallback = NULL;
 
 static void _AFEC1_PVDDMONCallback( uint32_t status, uintptr_t context )
@@ -64,7 +63,6 @@ static void _AFEC1_PVDDMONCallback( uint32_t status, uintptr_t context )
     }
 }
 
-/* Start PLC PVDD Monitor */
 void SRV_PVDDMON_Initialize (void)
 {
     AFEC_CHANNEL_MASK channelMsk = (1 << 6);
@@ -76,7 +74,6 @@ void SRV_PVDDMON_Initialize (void)
     AFEC1_ChannelsInterruptDisable(channelMsk);
 }
 
-/* Start PLC PVDD Monitor */
 void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
 {
     uint32_t emr = 0;
@@ -118,7 +115,6 @@ void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
     AFEC1_ConversionStart();
 }
 
-/* Restart PLC PVDD Monitor */
 void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
 {
     uint32_t emr;
@@ -157,9 +153,9 @@ void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
     AFEC1_REGS->AFEC_IER |= AFEC_IER_COMPE_Msk;
 }
 
-void SRV_PVDDMON_CallbackRegister (SRV_PVDDMON_CALLBACK callback_fn, uintptr_t context)
+void SRV_PVDDMON_CallbackRegister (SRV_PVDDMON_CALLBACK callback, uintptr_t context)
 {
     /* Register AFEC1 Callback */
     AFEC1_CallbackRegister(_AFEC1_PVDDMONCallback, context);
-    AFEC1_CompareCallback = callback_fn;
+    AFEC1_CompareCallback = callback;
 }

@@ -1,7 +1,7 @@
 /*
  * Instance header file for ATSAME70Q21B
  *
- * Copyright (c) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,13 +20,13 @@
  *
  */
 
-/* file generated from device description version 2020-11-26T11:12:57Z */
+/* file generated from device description version 2022-03-15T11:02:07Z */
 #ifndef _SAME70_SDRAMC_INSTANCE_
 #define _SAME70_SDRAMC_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for SDRAMC peripheral ========== */
-#define SDRAMC_INSTANCE_ID                       _UL_(62)   
-#define SDRAMC_CLOCK_ID                          _UL_(62)   
+#define SDRAMC_INSTANCE_ID                       (62)       
+#define SDRAMC_CLOCK_ID                          (62)       
 
 #endif /* _SAME70_SDRAMC_INSTANCE_ */
