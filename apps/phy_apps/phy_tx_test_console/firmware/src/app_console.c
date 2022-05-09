@@ -1057,7 +1057,7 @@ void APP_CONSOLE_Tasks ( void )
 void APP_CONSOLE_Print(const char *format, ...)
 {
     size_t len = 0;
-    va_list args = {0};
+    va_list args = { 0 };
     uint32_t numRetries = CPU_CLOCK_FREQUENCY / 10000;
     
     if (appConsole.state == APP_CONSOLE_STATE_INIT)

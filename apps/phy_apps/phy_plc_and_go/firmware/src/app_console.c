@@ -167,8 +167,8 @@ static uint8_t APP_CONSOLE_ReadSerialChar( void )
 
 static bool APP_CONSOLE_SetScheme(char *scheme)
 {
-    DRV_PLC_PHY_MOD_TYPE modType;
-    DRV_PLC_PHY_MOD_SCHEME modScheme;
+    DRV_PLC_PHY_MOD_TYPE modType = MOD_TYPE_BPSK;
+    DRV_PLC_PHY_MOD_SCHEME modScheme = MOD_SCHEME_DIFFERENTIAL;
     bool result = true;
     uint8_t version;
     
@@ -825,7 +825,7 @@ void APP_CONSOLE_Tasks ( void )
 void APP_CONSOLE_Print(const char *format, ...)
 {
     size_t len = 0;
-    va_list args = {0};
+    va_list args = { 0 };
     uint32_t numRetries = 1000;
     
     if (appConsole.state == APP_CONSOLE_STATE_INIT)
