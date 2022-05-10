@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
+<meta name="DC.rights.owner" content="(C) Copyright 2022" />
+<meta name="DC.type" content="concept" />
+<meta name="DC.title" content="Appendix A. PRIME SQLite Log Database" />
+<meta name="DC.relation" scheme="URI" content="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB.html" />
+<meta name="DC.format" content="XHTML" />
+<meta name="DC.identifier" content="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286" />
+<meta name="DC.language" content="en-US" />
+<link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
+<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>Appendix A. PRIME SQLite Log Database</title>
+<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286" />
+<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB" />
+<meta name="Microsoft.Help.TocOrder" content="0" />
+<meta name="Microsoft.Help.Locale" content="en-US" />
+<meta name="Microsoft.Help.TopicLocale" content="en-US" />
+<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Smart Energy G3 Applications Reference A 02/2022" />
+<script language="javascript">
+       
+       if (window.parent.location.protocol != 'file:') {
+				document.addEventListener('click', function(e) {
+				    if (e.target) {
+               if (e.target.nodeName == "A" ) {
+                    if (!e.target.target) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                              
+                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
+                      if (origUrl.length === 0) {
+                          origUrl = window.parent.location.href;
+                      }
+                      var href= e.target.getAttribute("href");
+                      var parts = href.split("#");
+          
+                      var url = "";
+                      if (parts.length == 2 ) {
+                        if (!parts[0].length) {
+                            url = window.parent.location.search.replace('?','')
+                        } else {
+                            url = parts[0].replace('.html','');
+                        }
+                      } else {
+                        url = parts[0].replace('.html','');
+                      }
+
+                      if (parts.length == 2) {
+                          url += "#" + parts[1];
+                      }
+    
+                      window.parent.location.href = origUrl + "?" + url;
+
+                      return false;
+                    }
+               }
+            }
+				});
+			}
+
+		</script><script language="javascript">
+        function cpy(id, button) {
+        
+            var element = document.getElementById(id);
+            var content = element.getAttribute("content");
+            var textArea = document.createElement("textarea");
+            
+            // Place in the top-left corner of screen regardless of scroll position.
+            textArea.style.position = 'fixed';
+            textArea.style.top = 0;
+            textArea.style.left = 0;
+            
+            // Ensure it has a small width and height. Setting to 1px / 1em
+            // doesn't work as this gives a negative w/h on some browsers.
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+            
+            // We don't need padding, reducing the size if it does flash render.
+            textArea.style.padding = 0;
+            
+            // Clean up any borders.
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            
+            // Avoid flash of the white box if rendered for any reason.
+            textArea.style.background = 'transparent';
+            
+            
+            textArea.value = content;
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+               var successful = document.execCommand('copy');
+               var msg = successful ? 'successful' : 'unsuccessful';
+               if (!button.classList.contains("copied")){
+                  button.textContent = "Copied";
+                  button.classList.add("copied");
+                  setTimeout(function(){
+                    button.textContent = "Copy";
+                    button.classList.remove("copied");
+                  },1000);
+               }
+            } catch (err) {
+              console.log('Oops, unable to copy');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+      </script><script language="javascript">
+          
+          // Add the MathML namespace to html
+          var html = document.getElementsByTagName("html")[0],
+          head = document.getElementsByTagName("head")[0];
+          
+          var mathJax = document.createElement("script");
+          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
+          head.appendChild(mathJax);
+          
+          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
+          
+          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
+          
+          if (!inIframe()) { 
+          
+          var Default = "index.html?GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286"; 
+          
+          var displaylocation = "value" + window.location.href;
+          
+          var GUIDS = displaylocation.split('GUID');          
+          
+          if (displaylocation.indexOf('#GUID') != -1) {            
+          var First = GUIDS[1].split('.html');  
+          if (GUIDS[3]){First = GUIDS[2].split('.html');}
+          if (GUIDS[4]){First = GUIDS[3].split('.html');}
+          if (GUIDS[5]){First = GUIDS[4].split('.html');}
+          
+          var Second = GUIDS[2].split('#');   
+          if (GUIDS[3]){Second = GUIDS[3].split('#');}
+          if (GUIDS[4]){Second = GUIDS[4].split('#');}
+          if (GUIDS[5]){Second = GUIDS[5].split('#');}
+          
+          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
+          }                    
+          window.top.location = Default;
+          }       
+          
+        </script><style xml:space="">
+        
+          button.copy-code{
+            display:none;
+            padding:0.7em 1.4em;
+            margin:0 0.3em 0.3em 0;
+            border-radius:0.15em;
+            box-sizing: border-box;
+            text-decoration:none;
+            font-family:'Roboto',sans-serif;
+            text-transform:uppercase;
+            font-weight:400;
+            color:#FFFFFF;
+            background-color:#9c9c9c;
+            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+            text-align:center;
+            position:relative;
+            border: 0;
+            float: right;
+            border-radius: .5em;
+            cursor: pointer;
+          }
+          button.copy-code:active{
+            top:0.1em;
+          }
+          
+          pre:hover button.copy-code{
+            display: inline-block !important;
+          }
+          button.copy-code.copied {
+            cursor: default !important;
+          }
+          
+          
+          @media all and (max-width:30em){
+            button.copy-code{
+              display:block;
+              margin:0.4em auto;
+            }
+          }
+        
+        
+      </style></head>
+<body id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286">
+
+<h1 class="title topictitle1" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-0B93B5FB-5D9E-461B-8B62-6C8A01EF0B27">Appendix A. PRIME SQLite Log Database</h1>
+<div class="body conbody">
+        <p class="p" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__ID-00000322">The PLC Sniffer creates a relational database using SQLite to store the
+            PRIME logs. Using this type of database to store the information helps to handle logs
+            from complex networks and to inspect the data in very flexible ways. Third party tools
+            to handle SQLite databases can also be used. A useful tool for SQLite database
+            inspection is the <em class="ph i">SQLite Manager</em> plug-in for Firefox browser.</p>
+
+        <div class="p" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__ID-00000325">The current version of the database has 24 tables. New tables have been
+            included since version 1.1.9 to accommodate changes in the new PRIME 1.4 version. This
+            is the list of tables:<ul class="ul" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__UL_NMX_GYM_SCB">
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-D4A1CACC-EB77-4735-B0CE-3B0280BB6A3A"><strong class="ph b">LogInfo:</strong> contains information about the database</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-18540ABA-C940-4113-9287-2E309F514181"><strong class="ph b">Frame:</strong> each row of this table represents a PLC message on the power line.
+                    This table contains the information displayed on the Capture and Log windows.
+                    Includes the raw data of the received PDU and some parameters from the PHY Layer
+                    provided by the hardware. Also includes a timestamp value</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-DDD4424D-60D9-4ABD-A42A-198064F003AE"><strong class="ph b">Beacon:</strong> disassembled information of the Beacon PDU as defined in PRIME
+                    1.3 standard</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-48078116-6304-4A25-B244-3A351FBC2CD0"><strong class="ph b">Beacon1_4:</strong> disassembled information of the Beacon PDU as defined in PRIME
+                    1.4 standard</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-588060D3-B680-464B-936D-D153EA57EDAC"><strong class="ph b">PN:</strong> disassembled information of the Promotion Needed PDU as defined in
+                    PRIME 1.3 standard</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-E1AB79C5-FD2A-4795-AD97-08CE575F8E47"><strong class="ph b">PN1_4:</strong> disassembled information of the Promotion Needed PDU as defined in
+                    PRIME 1.4 standard</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-81BE4379-2E39-49A5-8C2D-CD37DCF5E544"><strong class="ph b">BeaconSlotInfo:</strong> disassembled information of BeaconSlotInfo control PDU
+                    (either PRIME 1.3 or 1.4)</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-2C259AAD-F4CA-4116-8789-F251F18C6AD2"><strong class="ph b">CFP:</strong> Content Free Period control PDU disassembled information (PRIME 1.3
+                    only)</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-ACF1B6D3-D105-408B-AD90-0A8C54F86986"><strong class="ph b">ConnectionMng:</strong> Connection Management control PDU disassembled information
+                    (either PRIME 1.3 or 1.4)</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-BAC6DC58-E2FC-4628-B58C-5EB18FB74419"><strong class="ph b">FrameControl:</strong> Frame Control PDU disassembled information for PRIME 1.3
+                    standard</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-8D8DE995-70F5-4AAE-9675-EAE2BB774E76"><strong class="ph b">FrameControl1_4:</strong> Frame Control PDU disassembled information for PRIME 1.4
+                    standard</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-619FF98C-6AF3-46E2-9389-5829579059C4"><strong class="ph b">GenericData:</strong> Generic Data PDU information. Includes SAR and ARQ
+                    disassembled information and a data integrity check for PRIME 1.3 standard</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-10668FCF-EA6C-43B7-A2FF-1F2541E26E68"><strong class="ph b">GenericData1_4:</strong> Generic Data PDU information. Includes SAR and ARQ
+                    disassembled information and a data integrity check for PRIME 1.4 standard</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-C44BCAA6-A700-4276-8977-A46FB7E80747"><strong class="ph b">KeepAlive:</strong> Alive control PDU disassembled information (only
+                        <em class="ph i">KeepAlives</em> PRIME 1.3 are supported)</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-09EBF2A5-91D0-40F0-865C-1B87AA7ABDEE"><strong class="ph b">Multicast:</strong> Multicast management control PDUs disassembled information.
+                    PRIME 1.3 standard</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-DF252089-EFC3-4877-BFF7-751A45E99D21"><strong class="ph b">Multicast1_4:</strong> Multicast management control PDUs disassembled information.
+                    PRIME 1.4 standard</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-3FF70166-D483-4896-921C-95CE740FD451"><strong class="ph b">PhyRobustness:</strong> Phy Robustness control PDUs disassembled information (only
+                    in PRIME 1.3)</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-9FB5D7D7-B8AC-4627-AEA2-CC8E823A9BBA"><strong class="ph b">Promotion:</strong> Promotion control PDUs disassembled information for PRIME 1.3
+                    frames</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-267E6D3C-CEF7-4458-BC0F-6000C435FA0D"><strong class="ph b">Promotion1_4:</strong> Promotion control PDUs disassembled information for PRIME
+                    1.4 frames</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-846B89D5-0486-419D-AAC3-C62F24219259"><strong class="ph b">Register:</strong> Register control PDU disassembled information as defined in
+                    PRIME 1.3 standard</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-FE433DBD-1884-40C1-AFD9-D00CFF93A22A"><strong class="ph b">Register1_4:</strong> Register control PDU disassembled information as defined in
+                    PRIME 1.4 standard</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-2B167A70-0917-48E9-A773-B10B3F6907F8"><strong class="ph b">Security:</strong> Security Information control PDU frames</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-0BDE0E86-FB90-413F-970C-FC7CA5984E8A"><strong class="ph b">Event:</strong> table containing network events detected: register, unregister,
+                    promotion, demotion, connection creation of nodes. Also stores the number of
+                    nodes and switches currently active on the network. Based on the information on
+                    this table, it is possible to trace the status for each node on the network</li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-83930313-1DC9-40B7-9DC9-7460EDD0B511"><strong class="ph b">Node:</strong> table containing the current status of all the nodes detected on
+                    the network. Updated each time a new row is inserted on Event table. Keeps track
+                    of last known state of the PLC network</li>
+
+            </ul>
+</div>
+
+        <p class="p" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__ID-00000358">All tables are linked through a common “idFrame” index. This unique
+            index is assigned when a new frame is inserted on the database. This allows building
+            complex search queries with SQL. Table fields are encoded as specified in the PRIME
+            standard.</p>
+
+        <p class="p" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__ID-0000035A"><a class="xref" href="#GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__FIG_KBV_ZYM_SCB">Figure 1</a> shows the tables and relations of a PRIME 1.3 log database. New
+            PRIME 1.4 tables connect in similar way to the table Frame.</p>
+
+        <div class="fig fignone" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__FIG_KBV_ZYM_SCB"><div class="figcap"><span class="fig--title-label">Figure 1. </span>PLC Sniffer Prime 1.3 Log
+                Database</div>
+            
+            <img class="image" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__IMAGE_RQS_HLW_TCB" src="GUID-4EC9B9AC-A515-4F1F-85E4-2CD30866680F-low.png" />
+        </div>
+
+        <p class="p"></p>
+
+        <div class="p" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__ID-00000362">A few examples of queries are:<ul class="ul" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__UL_LX5_GZM_SCB">
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-1BD21051-3F7A-4CEE-B23B-BDF308518FB5">Select all frames after idFrame 31060 that belong to the device registered as
+                    284 and all register
+                    frames:<pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d7728e180', this);">Copy</button><code id="d7728e180" content="Select * from frame where idFrame &gt;= 31060 and (lnid = 284 OR Gentype=1)">Select * from frame where idFrame &gt;= 31060 and (lnid = 284 OR Gentype=1)</code></pre></li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-F28BB303-A0CA-4575-B49A-AA7496CBBCE1">Select all <em class="ph i">Register</em> and
+                        <em class="ph i">KeepAlive</em> frames from device
+                    284:<pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d7728e191', this);">Copy</button><code id="d7728e191" content="Select * from frame where lnid = 284 and (GenType = 1 OR Gentype= 7)">Select * from frame where lnid = 284 and (GenType = 1 OR Gentype= 7)</code></pre></li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-1F30C79B-AC52-4FB3-B8FC-1089ED0533BA">Select all the register events for a node defined by a MAC
+                    address:<pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d7728e196', this);">Copy</button><code id="d7728e196" content="Select * From Event Where Lnid IN (Select DISTINCT (lnid ) from Event WHERE MAC = X’001122334455’ AND SID IN (Select Distinct (SID) from Event Where MAC = X’001122334455’) AND Status = 4">Select * From Event Where Lnid IN (Select DISTINCT (lnid ) from Event WHERE MAC = X’001122334455’ AND SID IN (Select Distinct (SID) from Event Where MAC = X’001122334455’) AND Status = 4</code></pre></li>
+
+                <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-29F216E2-DF86-4EF4-8084-0467A7BC1578">Select Frames with LNID 35 and
+                    Promotion Needed frames for the node with MAC <em class="ph i">001122334455</em>. Some PRIME
+                    concentrators may assign the same LNID to different nodes at different time.
+                    Therefore, this query might not return all the frames sniffed for a
+                    node:<pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d7728e204', this);">Copy</button><code id="d7728e204" content="Select * From Frame Where Lnid = 35 UNION Select Frame.* From Frame, PN WHERE idFrame = PN_idFrame and PNH_PNA = X’001122334455’">Select * From Frame Where Lnid = 35 UNION Select Frame.* From Frame, PN WHERE idFrame = PN_idFrame and PNH_PNA = X’001122334455’</code></pre></li>
+
+            </ul>
+</div>
+
+    </div>
+
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB.html">PHY Sniffer</a></div>
+</div>
+</div></body>
+</html>

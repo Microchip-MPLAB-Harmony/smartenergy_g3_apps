@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
+<meta name="DC.rights.owner" content="(C) Copyright 2022" />
+<meta name="DC.type" content="concept" />
+<meta name="DC.title" content="Event Table" />
+<meta name="DC.relation" scheme="URI" content="GUID-B1D36D7B-7A26-4B4E-B5DB-E314EF9CEF9F.html" />
+<meta name="DC.format" content="XHTML" />
+<meta name="DC.identifier" content="GUID-E8EA7841-B747-4373-9373-443D66C7E220" />
+<meta name="DC.language" content="en-US" />
+<link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
+<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>Event Table</title>
+<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-E8EA7841-B747-4373-9373-443D66C7E220" />
+<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-B1D36D7B-7A26-4B4E-B5DB-E314EF9CEF9F" />
+<meta name="Microsoft.Help.TocOrder" content="0" />
+<meta name="Microsoft.Help.Locale" content="en-US" />
+<meta name="Microsoft.Help.TopicLocale" content="en-US" />
+<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Smart Energy G3 Applications Reference A 02/2022" />
+<script language="javascript">
+       
+       if (window.parent.location.protocol != 'file:') {
+				document.addEventListener('click', function(e) {
+				    if (e.target) {
+               if (e.target.nodeName == "A" ) {
+                    if (!e.target.target) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                              
+                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
+                      if (origUrl.length === 0) {
+                          origUrl = window.parent.location.href;
+                      }
+                      var href= e.target.getAttribute("href");
+                      var parts = href.split("#");
+          
+                      var url = "";
+                      if (parts.length == 2 ) {
+                        if (!parts[0].length) {
+                            url = window.parent.location.search.replace('?','')
+                        } else {
+                            url = parts[0].replace('.html','');
+                        }
+                      } else {
+                        url = parts[0].replace('.html','');
+                      }
+
+                      if (parts.length == 2) {
+                          url += "#" + parts[1];
+                      }
+    
+                      window.parent.location.href = origUrl + "?" + url;
+
+                      return false;
+                    }
+               }
+            }
+				});
+			}
+
+		</script><script language="javascript">
+        function cpy(id, button) {
+        
+            var element = document.getElementById(id);
+            var content = element.getAttribute("content");
+            var textArea = document.createElement("textarea");
+            
+            // Place in the top-left corner of screen regardless of scroll position.
+            textArea.style.position = 'fixed';
+            textArea.style.top = 0;
+            textArea.style.left = 0;
+            
+            // Ensure it has a small width and height. Setting to 1px / 1em
+            // doesn't work as this gives a negative w/h on some browsers.
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+            
+            // We don't need padding, reducing the size if it does flash render.
+            textArea.style.padding = 0;
+            
+            // Clean up any borders.
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            
+            // Avoid flash of the white box if rendered for any reason.
+            textArea.style.background = 'transparent';
+            
+            
+            textArea.value = content;
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+               var successful = document.execCommand('copy');
+               var msg = successful ? 'successful' : 'unsuccessful';
+               if (!button.classList.contains("copied")){
+                  button.textContent = "Copied";
+                  button.classList.add("copied");
+                  setTimeout(function(){
+                    button.textContent = "Copy";
+                    button.classList.remove("copied");
+                  },1000);
+               }
+            } catch (err) {
+              console.log('Oops, unable to copy');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+      </script><script language="javascript">
+          
+          // Add the MathML namespace to html
+          var html = document.getElementsByTagName("html")[0],
+          head = document.getElementsByTagName("head")[0];
+          
+          var mathJax = document.createElement("script");
+          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
+          head.appendChild(mathJax);
+          
+          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
+          
+          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
+          
+          if (!inIframe()) { 
+          
+          var Default = "index.html?GUID-E8EA7841-B747-4373-9373-443D66C7E220"; 
+          
+          var displaylocation = "value" + window.location.href;
+          
+          var GUIDS = displaylocation.split('GUID');          
+          
+          if (displaylocation.indexOf('#GUID') != -1) {            
+          var First = GUIDS[1].split('.html');  
+          if (GUIDS[3]){First = GUIDS[2].split('.html');}
+          if (GUIDS[4]){First = GUIDS[3].split('.html');}
+          if (GUIDS[5]){First = GUIDS[4].split('.html');}
+          
+          var Second = GUIDS[2].split('#');   
+          if (GUIDS[3]){Second = GUIDS[3].split('#');}
+          if (GUIDS[4]){Second = GUIDS[4].split('#');}
+          if (GUIDS[5]){Second = GUIDS[5].split('#');}
+          
+          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
+          }                    
+          window.top.location = Default;
+          }       
+          
+        </script><style xml:space="">
+        
+          button.copy-code{
+            display:none;
+            padding:0.7em 1.4em;
+            margin:0 0.3em 0.3em 0;
+            border-radius:0.15em;
+            box-sizing: border-box;
+            text-decoration:none;
+            font-family:'Roboto',sans-serif;
+            text-transform:uppercase;
+            font-weight:400;
+            color:#FFFFFF;
+            background-color:#9c9c9c;
+            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+            text-align:center;
+            position:relative;
+            border: 0;
+            float: right;
+            border-radius: .5em;
+            cursor: pointer;
+          }
+          button.copy-code:active{
+            top:0.1em;
+          }
+          
+          pre:hover button.copy-code{
+            display: inline-block !important;
+          }
+          button.copy-code.copied {
+            cursor: default !important;
+          }
+          
+          
+          @media all and (max-width:30em){
+            button.copy-code{
+              display:block;
+              margin:0.4em auto;
+            }
+          }
+        
+        
+      </style></head>
+<body id="GUID-E8EA7841-B747-4373-9373-443D66C7E220">
+
+<h1 class="title topictitle1" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-65CB2632-B65F-4686-A243-D03CE65F7F03">Event Table</h1>
+<div class="body conbody">
+        <p class="p" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-0000049B">Event table is used to store network events related to device nodes.
+            Event and Frame tables are linked using the field <em class="ph i">FrameId/IdFrame</em>, also, Event
+            and Node tables are related through key <em class="ph i">NodeId/IdNode</em>.</p>
+
+        <div class="p" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-0000049E">Fields in this table are:<ul class="ul" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__UL_NCF_FKV_TCB">
+                <li class="li" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-9AB8A86B-A183-40B7-BB0A-2117654B2C25"><strong class="ph b">IdEvent:</strong> table key. Unique
+                    identifier for events</li>
+
+                <li class="li" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-2ED66CB2-07A8-405F-A918-746DB2E04716"><strong class="ph b">FrameId:</strong> foreign key to
+                    link with the main database table: Frame. This field points to a specific frame
+                    that has triggered this event</li>
+
+                <li class="li" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-D076BAF1-E8D9-4D57-8794-62BDEF00D2C7"><strong class="ph b">Event:</strong> type of event. It
+                    can have these values:<ul class="ul" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__UL_G4Q_CZV_TCB">
+                        <li class="li" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-B09C371B-111E-4D7B-9CFE-03C59284003E"><strong class="ph b">Joining.</strong> A node
+                            has started a bootstrap process</li>
+
+                        <li class="li" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-D7554FB7-31F2-40E3-AA10-CDF53E7485A9"><strong class="ph b">Challenge.</strong>
+                            Coordinator has send a challenge information to a device</li>
+
+                        <li class="li" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-26FBA4A0-0C0F-46E0-B179-9D48BEDC0AB3"><strong class="ph b">Accepted.</strong>
+                            Coordinator has received a Bootstrap confirmation from a device</li>
+
+                        <li class="li" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-96ABE057-ADA0-4F71-81A3-92F91C476CA7"><strong class="ph b">Denied.</strong> Either a
+                            node has been kicked from the network by the coordinator or has been
+                            denied access</li>
+
+                        <li class="li" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-206B695A-3230-46A1-B646-A3F609458BB1"><strong class="ph b">Route Update.</strong> The
+                            coordinator has received a route request from a node. This frame
+                            contains information related to the route cost to a device</li>
+
+                        <li class="li" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-A2BA3CB4-C74D-408B-BC97-29DFAB197626"><strong class="ph b">Hop Count Update.</strong>
+                            The event is triggered when a message (targeting PAN coordinator)
+                            contains a Mesh Header. Mesh Header has the number of hops that a node
+                            needs to communicate with the coordinator. That information is used to
+                            sort the device list in levels</li>
+
+                        <li class="li" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-837D324F-2A92-4A33-B327-49532980F884"><strong class="ph b">Path Update</strong>. This
+                            event is triggered when a path response message is received by the PAN
+                            Coordinator. This information is used to update the Device List
+                            accordingly</li>
+
+                    </ul>
+</li>
+
+                <li class="li" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-FDB5B7B7-B102-467F-93A7-5FFE602D1BC7"><strong class="ph b">NodeId:</strong> Foreign key to
+                    Node table. This field uniquely links an event to a device node</li>
+
+                <li class="li" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__GUID-E1D72F01-7D58-4A6E-B297-789210951AB8"><strong class="ph b">Data:</strong> this field holds
+                    different values depending on the event:
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004B9" class="table nocolor" frame="border" border="1" rules="all"><caption><span class="tablecap"><span class="table--title-label">Table 1. </span>Event Data</span></caption>
+                            <col style="width:0.922in" />
+                            <col style="width:1.279in" />
+                            <col style="width:4.233in" />
+                            <thead class="thead" style="text-align:left;">
+                                <tr id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004BF" class="row">
+                                    <th class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C0" style="text-align:center;vertical-align:middle;"><span>Event</span></th>
+
+                                    <th class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C3" style="text-align:center;vertical-align:middle;"><span>Name</span></th>
+
+                                    <th class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C6" style="text-align:left;vertical-align:middle;"><span>Data</span></th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody class="tbody">
+                                <tr id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C9" class="row">
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004CA" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C0 "><span>1</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004CC" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C3 "><span>Joining</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004CE" style="text-align:left;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C6 "><span>Empty</span></td>
+
+                                </tr>
+
+                                <tr id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004D0" class="row">
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004D1" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C0 "><span>2</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004D3" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C3 "><span>Challenge</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004D5" style="text-align:left;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C6 "><span>Short Address assigned to a node</span></td>
+
+                                </tr>
+
+                                <tr id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004D7" class="row">
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004D8" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C0 "><span>3</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004DA" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C3 "><span>Accepted</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004DC" style="text-align:left;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C6 "><span>LoWPAN Bootstrap Agent for this node</span></td>
+
+                                </tr>
+
+                                <tr id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004DE" class="row">
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004DF" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C0 "><span>4</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004E1" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C3 "><span>Denied</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004E3" style="text-align:left;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C6 "><span>Empty</span></td>
+
+                                </tr>
+
+                                <tr id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004E5" class="row">
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004E6" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C0 "><span>5</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004E8" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C3 "><span>Route Cost Update</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004EA" style="text-align:left;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C6 "><span>Array containing: Source Node (16-bit),
+                                        Destination Node (16-bit), Neighbor node (16-bit), Cost
+                                        (16-bit), number of hops (8-bit)</span></td>
+
+                                </tr>
+
+                                <tr id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004EC" class="row">
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004ED" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C0 "><span>6</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004EF" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C3 "><span>Hop Count Update</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004F1" style="text-align:left;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C6 "><span>Array containing: Destination Node (16-bit)
+                                        and number of Hops (8-bit)</span></td>
+
+                                </tr>
+
+                                <tr id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004F3" class="row">
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004F4" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C0 "><span>7</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004F6" style="text-align:center;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C3 "><span>Path Update</span></td>
+
+                                    <td class="entry cellrowborder" id="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004F8" style="text-align:left;vertical-align:middle;" headers="GUID-E8EA7841-B747-4373-9373-443D66C7E220__ID-000004C6 "><span>String containing the route path to a
+                                        node</span></td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+</div>
+</li>
+
+            </ul>
+</div>
+
+    </div>
+
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-B1D36D7B-7A26-4B4E-B5DB-E314EF9CEF9F.html">Appendix B. G3 SQLite Log Database</a></div>
+</div>
+</div></body>
+</html>

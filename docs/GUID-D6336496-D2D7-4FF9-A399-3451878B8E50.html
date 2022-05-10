@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
+<meta name="DC.rights.owner" content="(C) Copyright 2022" />
+<meta name="DC.type" content="concept" />
+<meta name="DC.title" content="Reception" />
+<meta name="DC.relation" scheme="URI" content="GUID-D8E2814E-98EA-4380-A781-862A488F5734.html" />
+<meta name="DC.format" content="XHTML" />
+<meta name="DC.identifier" content="GUID-D6336496-D2D7-4FF9-A399-3451878B8E50" />
+<meta name="DC.language" content="en-US" />
+<link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
+<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>Reception</title>
+<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-D6336496-D2D7-4FF9-A399-3451878B8E50" />
+<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-D8E2814E-98EA-4380-A781-862A488F5734" />
+<meta name="Microsoft.Help.TocOrder" content="0" />
+<meta name="Microsoft.Help.Locale" content="en-US" />
+<meta name="Microsoft.Help.TopicLocale" content="en-US" />
+<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Smart Energy G3 Applications Reference A 02/2022" />
+<script language="javascript">
+       
+       if (window.parent.location.protocol != 'file:') {
+				document.addEventListener('click', function(e) {
+				    if (e.target) {
+               if (e.target.nodeName == "A" ) {
+                    if (!e.target.target) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                              
+                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
+                      if (origUrl.length === 0) {
+                          origUrl = window.parent.location.href;
+                      }
+                      var href= e.target.getAttribute("href");
+                      var parts = href.split("#");
+          
+                      var url = "";
+                      if (parts.length == 2 ) {
+                        if (!parts[0].length) {
+                            url = window.parent.location.search.replace('?','')
+                        } else {
+                            url = parts[0].replace('.html','');
+                        }
+                      } else {
+                        url = parts[0].replace('.html','');
+                      }
+
+                      if (parts.length == 2) {
+                          url += "#" + parts[1];
+                      }
+    
+                      window.parent.location.href = origUrl + "?" + url;
+
+                      return false;
+                    }
+               }
+            }
+				});
+			}
+
+		</script><script language="javascript">
+        function cpy(id, button) {
+        
+            var element = document.getElementById(id);
+            var content = element.getAttribute("content");
+            var textArea = document.createElement("textarea");
+            
+            // Place in the top-left corner of screen regardless of scroll position.
+            textArea.style.position = 'fixed';
+            textArea.style.top = 0;
+            textArea.style.left = 0;
+            
+            // Ensure it has a small width and height. Setting to 1px / 1em
+            // doesn't work as this gives a negative w/h on some browsers.
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+            
+            // We don't need padding, reducing the size if it does flash render.
+            textArea.style.padding = 0;
+            
+            // Clean up any borders.
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            
+            // Avoid flash of the white box if rendered for any reason.
+            textArea.style.background = 'transparent';
+            
+            
+            textArea.value = content;
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+               var successful = document.execCommand('copy');
+               var msg = successful ? 'successful' : 'unsuccessful';
+               if (!button.classList.contains("copied")){
+                  button.textContent = "Copied";
+                  button.classList.add("copied");
+                  setTimeout(function(){
+                    button.textContent = "Copy";
+                    button.classList.remove("copied");
+                  },1000);
+               }
+            } catch (err) {
+              console.log('Oops, unable to copy');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+      </script><script language="javascript">
+          
+          // Add the MathML namespace to html
+          var html = document.getElementsByTagName("html")[0],
+          head = document.getElementsByTagName("head")[0];
+          
+          var mathJax = document.createElement("script");
+          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
+          head.appendChild(mathJax);
+          
+          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
+          
+          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
+          
+          if (!inIframe()) { 
+          
+          var Default = "index.html?GUID-D6336496-D2D7-4FF9-A399-3451878B8E50"; 
+          
+          var displaylocation = "value" + window.location.href;
+          
+          var GUIDS = displaylocation.split('GUID');          
+          
+          if (displaylocation.indexOf('#GUID') != -1) {            
+          var First = GUIDS[1].split('.html');  
+          if (GUIDS[3]){First = GUIDS[2].split('.html');}
+          if (GUIDS[4]){First = GUIDS[3].split('.html');}
+          if (GUIDS[5]){First = GUIDS[4].split('.html');}
+          
+          var Second = GUIDS[2].split('#');   
+          if (GUIDS[3]){Second = GUIDS[3].split('#');}
+          if (GUIDS[4]){Second = GUIDS[4].split('#');}
+          if (GUIDS[5]){Second = GUIDS[5].split('#');}
+          
+          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
+          }                    
+          window.top.location = Default;
+          }       
+          
+        </script><style xml:space="">
+        
+          button.copy-code{
+            display:none;
+            padding:0.7em 1.4em;
+            margin:0 0.3em 0.3em 0;
+            border-radius:0.15em;
+            box-sizing: border-box;
+            text-decoration:none;
+            font-family:'Roboto',sans-serif;
+            text-transform:uppercase;
+            font-weight:400;
+            color:#FFFFFF;
+            background-color:#9c9c9c;
+            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+            text-align:center;
+            position:relative;
+            border: 0;
+            float: right;
+            border-radius: .5em;
+            cursor: pointer;
+          }
+          button.copy-code:active{
+            top:0.1em;
+          }
+          
+          pre:hover button.copy-code{
+            display: inline-block !important;
+          }
+          button.copy-code.copied {
+            cursor: default !important;
+          }
+          
+          
+          @media all and (max-width:30em){
+            button.copy-code{
+              display:block;
+              margin:0.4em auto;
+            }
+          }
+        
+        
+      </style></head>
+<body id="GUID-D6336496-D2D7-4FF9-A399-3451878B8E50">
+
+<h1 class="title topictitle1" id="GUID-D6336496-D2D7-4FF9-A399-3451878B8E50__GUID-248BAFBC-A803-47F9-9177-D57908AE96BF">Reception</h1>
+<div class="body conbody">
+        <p class="p">When a PLC message is received, it is processed in the callback function
+				<code class="ph codeph">APP_PLC_DataIndCb()</code>. This function receives a structure of type
+				<code class="ph codeph">DRV_PLC_PHY_RECEPTION_OBJ</code> as a parameter containing all the
+			available data from the message.</p>
+
+        <p class="p">The callback function checks if CRC validation was OK, extracts some data about the
+			modulation and signal received. The  function checks the length of the message and sends
+			the content and information about the signal quality to the host console.</p>
+
+		<p class="p"><strong class="ph b">Structure <code class="ph codeph">DRV_PLC_PHY_RECEPTION_OBJ</code></strong></p>
+
+		<pre class="pre codeblock" id="GUID-D6336496-D2D7-4FF9-A399-3451878B8E50__CODEBLOCK_SNB_VCT_CTB"><button title="Copy Code" class="copy-code" onclick="cpy('d8741e34', this);">Copy</button><code id="d8741e34" content="// *****************************************************************************&#xA;/* PRIME Reception parameters&#xA;&#xA;   Summary&#xA;    This struct includes all information to describe any new received message.&#xA;&#xA;   Remarks:&#xA;    None&#xA;*/&#xA;typedef struct __attribute__((packed, aligned(1))) {&#xA;  /* Pointer to received data buffer */&#xA;  uint8_t *pReceivedData;&#xA;  /* Instant when frame was received (start of message) referred to 1us PHY counter */&#xA;  uint32_t time;&#xA;  /* Accumulated Error Vector Magnitude for header */&#xA;  uint32_t evmHeaderAcum;&#xA;  /* Accumulated Error Vector Magnitude for payload */&#xA;  uint32_t evmPayloadAcum;&#xA;  /* Error Vector Magnitude for header */&#xA;  uint16_t evmHeader;&#xA;  /* Error Vector Magnitude for payload */&#xA;  uint16_t evmPayload;&#xA;  /* Length of the received data in bytes */&#xA;  uint16_t dataLength;&#xA;  /* Scheme of Modulation */&#xA;  DRV_PLC_PHY_SCH scheme;&#xA;  /* PRIME Frame type */&#xA;  DRV_PLC_PHY_FRAME_TYPE frameType;&#xA;  /* Header type */&#xA;  DRV_PLC_PHY_HEADER headerType;&#xA;  /* Average RSSI (Received Signal Strength Indication) in dBuV */&#xA;  uint8_t rssiAvg;&#xA;  /* Average CNIR (Carrier to Interference + Noise ratio) */&#xA;  uint8_t cinrAvg;&#xA;  /* Minimum CNIR (Carrier to Interference + Noise ratio) */&#xA;  uint8_t cinrMin;&#xA;  /* Average Soft BER (Bit Error Rate) */&#xA;  uint8_t berSoftAvg;&#xA;  /* Maximum Soft BER (Bit Error Rate) */&#xA;  uint8_t berSoftMax;&#xA;  /* Percentage of carriers affected by narrow band noise */&#xA;  uint8_t narBandPercent;&#xA;  /* Percentage of symbols affected by impulsive noise */&#xA;  uint8_t impNoisePercent;&#xA;} DRV_PLC_PHY_RECEPTION_OBJ;&#xA;&#xA; ">// *****************************************************************************
+/* PRIME Reception parameters
+
+   Summary
+    This struct includes all information to describe any new received message.
+
+   Remarks:
+    None
+*/
+typedef struct __attribute__((packed, aligned(1))) {
+  /* Pointer to received data buffer */
+  uint8_t *pReceivedData;
+  /* Instant when frame was received (start of message) referred to 1us PHY counter */
+  uint32_t time;
+  /* Accumulated Error Vector Magnitude for header */
+  uint32_t evmHeaderAcum;
+  /* Accumulated Error Vector Magnitude for payload */
+  uint32_t evmPayloadAcum;
+  /* Error Vector Magnitude for header */
+  uint16_t evmHeader;
+  /* Error Vector Magnitude for payload */
+  uint16_t evmPayload;
+  /* Length of the received data in bytes */
+  uint16_t dataLength;
+  /* Scheme of Modulation */
+  DRV_PLC_PHY_SCH scheme;
+  /* PRIME Frame type */
+  DRV_PLC_PHY_FRAME_TYPE frameType;
+  /* Header type */
+  DRV_PLC_PHY_HEADER headerType;
+  /* Average RSSI (Received Signal Strength Indication) in dBuV */
+  uint8_t rssiAvg;
+  /* Average CNIR (Carrier to Interference + Noise ratio) */
+  uint8_t cinrAvg;
+  /* Minimum CNIR (Carrier to Interference + Noise ratio) */
+  uint8_t cinrMin;
+  /* Average Soft BER (Bit Error Rate) */
+  uint8_t berSoftAvg;
+  /* Maximum Soft BER (Bit Error Rate) */
+  uint8_t berSoftMax;
+  /* Percentage of carriers affected by narrow band noise */
+  uint8_t narBandPercent;
+  /* Percentage of symbols affected by impulsive noise */
+  uint8_t impNoisePercent;
+} DRV_PLC_PHY_RECEPTION_OBJ;
+
+ </code></pre>
+		<p class="p">The structure contains all the information available about the message received. The
+			fields of the structure are: </p>
+
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-D6336496-D2D7-4FF9-A399-3451878B8E50__TABLE_YVK_M22_PFB" class="table nocolor" frame="void" border="0" rules="none">
+				<col style="width:" />
+				<col style="width:" />
+				<tbody class="tbody">
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">pReceivedData</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Pointer to data buffer containing received
+							frame. The received frame includes padding (if needed). CRC is included
+							if the CRC capability in the PL360 is disabled</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">time</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Reception time (start of message) referred to 1us PHY
+							counter</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">evmHeaderAcum</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Accumulated Error Vector Magnitude for header</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">evmPayloadAcum</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Accumulated Error Vector Magnitude for payload</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">evmHeader</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Error Vector Magnitude for header</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">evmPayload</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Error Vector Magnitude for payload</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">dataLength</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Length of the data buffer in bytes</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">scheme</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>
+							<p class="p">Modulation scheme of the received message</p>
+
+						</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">frameType</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Type A, Type B or Type BC frames</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">headerType</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Header Type of the received message</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">rssiAvg</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Average RSSI (Received Signal Strength Indication)</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">cinrAvg</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Average CNIR (Carrier to Interference + Noise ratio)</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">cinrMin</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Minimum CNIR (Carrier to Interference + Noise ratio)</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">berSoftAvg</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Average Soft BER (Bit Error Rate)</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">narBandPercent</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Percentage of carriers affected by narrow band noise</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">impNoisePercent</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Percentage of symbols affected by impulsive noise</span></td>
+
+					</tr>
+
+				</tbody>
+
+			</table>
+</div>
+
+		<div class="p">Related symbolic constants affecting <code class="ph codeph">headerType</code> parameter:
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-D6336496-D2D7-4FF9-A399-3451878B8E50__TABLE_OSN_PV4_3TB" class="table nocolor" frame="border" border="1" rules="all">
+					<col style="width:40%" />
+					<col style="width:60%" />
+					<thead class="thead" style="text-align:left;">
+						<tr class="row">
+							<th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d8741e236"><span>headerType</span></th>
+
+							<th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d8741e239"><span>Description</span></th>
+
+						</tr>
+
+					</thead>
+
+					<tbody class="tbody">
+						<tr class="row">
+							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d8741e236 "><span>PHY_HT_GENERIC</span></td>
+
+							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d8741e239 "><span>Generic PDU are used for all data
+								traffic and most control traffic</span></td>
+
+						</tr>
+
+						<tr class="row">
+							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d8741e236 "><span>PHY_HT_PROMOTION</span></td>
+
+							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d8741e239 "><span>Promotion Needed PDU sent by
+								disconnected nodes</span></td>
+
+						</tr>
+
+						<tr class="row">
+							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d8741e236 "><span>PHY_HT_BEACON</span></td>
+
+							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d8741e239 "><span>Beacon PDU sent by switch
+								devices.</span></td>
+
+						</tr>
+
+					</tbody>
+
+				</table>
+</div>
+</div>
+
+    </div>
+
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-D8E2814E-98EA-4380-A781-862A488F5734.html">Application Example</a></div>
+</div>
+</div></body>
+</html>

@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
+<meta name="DC.rights.owner" content="(C) Copyright 2022" />
+<meta name="DC.type" content="concept" />
+<meta name="DC.title" content="Test Execution Tab" />
+<meta name="DC.relation" scheme="URI" content="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0.html" />
+<meta name="DC.format" content="XHTML" />
+<meta name="DC.identifier" content="GUID-78A16873-B401-41CD-84C9-638D2324436A" />
+<meta name="DC.language" content="en-US" />
+<link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
+<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>Test Execution Tab</title>
+<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-78A16873-B401-41CD-84C9-638D2324436A" />
+<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0" />
+<meta name="Microsoft.Help.TocOrder" content="0" />
+<meta name="Microsoft.Help.Locale" content="en-US" />
+<meta name="Microsoft.Help.TopicLocale" content="en-US" />
+<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Smart Energy G3 Applications Reference A 02/2022" />
+<script language="javascript">
+       
+       if (window.parent.location.protocol != 'file:') {
+				document.addEventListener('click', function(e) {
+				    if (e.target) {
+               if (e.target.nodeName == "A" ) {
+                    if (!e.target.target) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                              
+                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
+                      if (origUrl.length === 0) {
+                          origUrl = window.parent.location.href;
+                      }
+                      var href= e.target.getAttribute("href");
+                      var parts = href.split("#");
+          
+                      var url = "";
+                      if (parts.length == 2 ) {
+                        if (!parts[0].length) {
+                            url = window.parent.location.search.replace('?','')
+                        } else {
+                            url = parts[0].replace('.html','');
+                        }
+                      } else {
+                        url = parts[0].replace('.html','');
+                      }
+
+                      if (parts.length == 2) {
+                          url += "#" + parts[1];
+                      }
+    
+                      window.parent.location.href = origUrl + "?" + url;
+
+                      return false;
+                    }
+               }
+            }
+				});
+			}
+
+		</script><script language="javascript">
+        function cpy(id, button) {
+        
+            var element = document.getElementById(id);
+            var content = element.getAttribute("content");
+            var textArea = document.createElement("textarea");
+            
+            // Place in the top-left corner of screen regardless of scroll position.
+            textArea.style.position = 'fixed';
+            textArea.style.top = 0;
+            textArea.style.left = 0;
+            
+            // Ensure it has a small width and height. Setting to 1px / 1em
+            // doesn't work as this gives a negative w/h on some browsers.
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+            
+            // We don't need padding, reducing the size if it does flash render.
+            textArea.style.padding = 0;
+            
+            // Clean up any borders.
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            
+            // Avoid flash of the white box if rendered for any reason.
+            textArea.style.background = 'transparent';
+            
+            
+            textArea.value = content;
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+               var successful = document.execCommand('copy');
+               var msg = successful ? 'successful' : 'unsuccessful';
+               if (!button.classList.contains("copied")){
+                  button.textContent = "Copied";
+                  button.classList.add("copied");
+                  setTimeout(function(){
+                    button.textContent = "Copy";
+                    button.classList.remove("copied");
+                  },1000);
+               }
+            } catch (err) {
+              console.log('Oops, unable to copy');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+      </script><script language="javascript">
+          
+          // Add the MathML namespace to html
+          var html = document.getElementsByTagName("html")[0],
+          head = document.getElementsByTagName("head")[0];
+          
+          var mathJax = document.createElement("script");
+          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
+          head.appendChild(mathJax);
+          
+          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
+          
+          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
+          
+          if (!inIframe()) { 
+          
+          var Default = "index.html?GUID-78A16873-B401-41CD-84C9-638D2324436A"; 
+          
+          var displaylocation = "value" + window.location.href;
+          
+          var GUIDS = displaylocation.split('GUID');          
+          
+          if (displaylocation.indexOf('#GUID') != -1) {            
+          var First = GUIDS[1].split('.html');  
+          if (GUIDS[3]){First = GUIDS[2].split('.html');}
+          if (GUIDS[4]){First = GUIDS[3].split('.html');}
+          if (GUIDS[5]){First = GUIDS[4].split('.html');}
+          
+          var Second = GUIDS[2].split('#');   
+          if (GUIDS[3]){Second = GUIDS[3].split('#');}
+          if (GUIDS[4]){Second = GUIDS[4].split('#');}
+          if (GUIDS[5]){Second = GUIDS[5].split('#');}
+          
+          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
+          }                    
+          window.top.location = Default;
+          }       
+          
+        </script><style xml:space="">
+        
+          button.copy-code{
+            display:none;
+            padding:0.7em 1.4em;
+            margin:0 0.3em 0.3em 0;
+            border-radius:0.15em;
+            box-sizing: border-box;
+            text-decoration:none;
+            font-family:'Roboto',sans-serif;
+            text-transform:uppercase;
+            font-weight:400;
+            color:#FFFFFF;
+            background-color:#9c9c9c;
+            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+            text-align:center;
+            position:relative;
+            border: 0;
+            float: right;
+            border-radius: .5em;
+            cursor: pointer;
+          }
+          button.copy-code:active{
+            top:0.1em;
+          }
+          
+          pre:hover button.copy-code{
+            display: inline-block !important;
+          }
+          button.copy-code.copied {
+            cursor: default !important;
+          }
+          
+          
+          @media all and (max-width:30em){
+            button.copy-code{
+              display:block;
+              margin:0.4em auto;
+            }
+          }
+        
+        
+      </style></head>
+<body id="GUID-78A16873-B401-41CD-84C9-638D2324436A">
+
+   <h1 class="title topictitle1" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-0C0F5569-62E5-4B09-A92F-47117A1E0F21">Test Execution Tab</h1>
+   <div class="body conbody">
+      <p class="p" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-0000019F">This is the tab shown while the test is being executed; it shows the
+         transmission or reception of each message in form of a table. The following figures show
+         examples of this tab for transmission and a reception tests:</p>
+
+      <p class="p" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-000001AE">Both views (Tx and Rx) show tables representing different information
+         depending on test type (transmission/reception). When the test is finished or is cancelled,
+         a final report is shown at the bottom of the tab.</p>
+
+      <p class="p" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-000001B0">This tab will provide additional information about signal quality in case
+         of selecting "Performing EVM and SNR Test" check-box in the "Reception Parameters" tab.</p>
+
+      <p class="p" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-000001B2">The user can copy the information included in the corresponding table to
+         the clipboard by clicking on the "Copy Table" button. This tab is only able to hold the
+         information of the last 10000 frames; the user can choose a bigger number of frames to be
+         transmitted/received but only the last 10000 frames will be available.</p>
+
+      <p class="p"><strong class="ph b">Transmission Test Results</strong></p>
+
+      <div class="fig fignone" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-FIG-0000001D"><div class="figcap"><span class="fig--title-label">Figure 1. </span>Execution Tab for G3-PLC PHY Layer in Tx Test</div>
+         
+         <img class="image" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__IMAGE_KX3_JJ2_C1B" src="GUID-88CF08B1-8D14-403A-8C15-ADC076831FA2-low.png" height="656" width="525" />
+      </div>
+
+      <div class="p" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-000002E5"> There are eight columns that show the following information:<ul class="ul" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__UL_EJJ_LJ2_C1B">
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-598D833F-7162-438C-A08D-259561C98E3B">Frame #: Indicates the number of
+               frames transmitted. It is useful to track the test progress</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-D5A1BCA3-B503-4842-9950-1010244C534C">Tx Result: Indicates the result of
+               the transmission. If an error occurs, a descriptive text will appear</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-7B690752-C4DE-4B36-BE34-712707E6BCCC">RMS_Calc: This number is related with
+               the impedance detected in the power line; it is used by the PHY layer to determine
+               the transmission mode.</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-41A0D53E-9870-4AEA-952D-0509E003AE79">Modulation Scheme: Indicates if
+               modulation scheme is differential or coherent</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-92881F09-F2C9-475C-99FA-31E51489CC77">Modulation Type: Indicates the type
+               of modulation: BPSK, QPSK, 8PSK or BPSK_ROBO</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-D01E3083-568C-4509-8211-883AAFFEAA1B">Tone Map: Indicates active sub-bands
+               in the frame</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-845E100C-D2C2-400B-B391-3CBFB883F511">Data: Shows the message received in
+               ASCII format</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-66AA200B-E2A5-44C5-941E-E4D43633E9E9">Tx Interval: Represents the time
+               interval between the current frame and the previous one</li>
+
+         </ul>
+</div>
+
+      <p class="p" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-000002F6">After all frames have been transmitted, a text box with information about
+         the test will appear at the bottom of the tab. </p>
+
+      <div class="p">Test timestamps are provided; this information is measured by the PC
+         application. After that, there is a section of information called Frame Error information
+         that shows information about transmitted frames and possible errors. Finally, another
+         section shows a summary of the transmission test; apart from known transmission parameters
+         other parameters are shown:<ul class="ul" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__UL_AMQ_4J2_C1B">
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-98FE150F-4CC8-4E72-B8AE-97228325D657">Frame Duration: Is the duration in
+               millisecond of the frame</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-211FA59F-404E-4067-B160-7CB83E0E45BD">Tx Mean Interval: Is the average
+               interval between transmissions calculated from top table data</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-29238C40-D6EC-4101-A44A-D2B1607B8B5A">Effective Baudrate (Peak): Is the
+               effective baudrate if frames were transmitted consecutively, calculated as
+                  follows:
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__TABLE_R2K_QJ2_C1B" class="table nocolor" frame="void" border="0" rules="none">
+                     <col style="width:100%" />
+                     <tbody class="tbody">
+                        <tr class="row" style="vertical-align:middle;">
+                           <td class="entry nocellnorowborder" style="text-align:center;vertical-align:middle;"><span><span class="ph equation-inline" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-000002FF">
+                                    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" xmlns:dita-ot="http://dita-ot.sourceforge.net/ns/201007/dita-ot"><m:mfrac><m:mrow><m:mrow><m:mi>Message length in Bytes x</m:mi><m:mn>8</m:mn></m:mrow></m:mrow><m:mrow><m:mrow><m:mi>Frame Duration</m:mi></m:mrow></m:mrow></m:mfrac></m:math>
+                                 </span></span></td>
+
+                        </tr>
+
+                     </tbody>
+
+                  </table>
+</div>
+</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-F0A58A5D-411D-4B49-968A-1F633FAFF438">Effective Baudrate (Real): Is the
+               effective baudrate, calculated as follows:
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__TABLE_DHN_TJ2_C1B" class="table nocolor" frame="void" border="0" rules="none">
+                     <col style="width:100%" />
+                     <tbody class="tbody">
+                        <tr class="row" style="vertical-align:middle;">
+                           <td class="entry nocellnorowborder" style="text-align:center;vertical-align:middle;"><span><span class="ph equation-inline" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-00000303">
+                                    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" xmlns:dita-ot="http://dita-ot.sourceforge.net/ns/201007/dita-ot"><m:mfrac><m:mrow><m:mrow><m:mi>Message length in Bytes x</m:mi><m:mn>8</m:mn></m:mrow></m:mrow><m:mrow><m:mrow><m:mi>Tx mean interval</m:mi></m:mrow></m:mrow></m:mfrac></m:math>
+                                 </span></span></td>
+
+                        </tr>
+
+                     </tbody>
+
+                  </table>
+</div>
+</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-F0313EC4-A744-476E-ACEF-EB5E8D9ADF48">Raw Baudrate (Peak): Is the baudrate
+               taking into account all headers and redundancies:
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__TABLE_KZ4_VJ2_C1B" class="table nocolor" style="font-size: 90%;" frame="void" border="0" rules="none">
+                     <col style="width:100%" />
+                     <tbody class="tbody">
+                        <tr class="row" style="vertical-align:middle;">
+                           <td class="entry nocellnorowborder" style="text-align:center;vertical-align:middle;"><span><span class="ph equation-inline" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-00000308">
+                                    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" xmlns:dita-ot="http://dita-ot.sourceforge.net/ns/201007/dita-ot"><m:mfrac><m:mrow><m:mrow><m:mi>Num Symbols FCH*Carriers FCH*Bits per carrier FCH</m:mi><m:mo>+</m:mo><m:mi>Num Symbols Payload*Carriers Payload*Bits per carrier Payload</m:mi></m:mrow></m:mrow><m:mrow><m:mrow><m:mi>Frame Duration</m:mi></m:mrow></m:mrow></m:mfrac></m:math>
+                                 </span></span></td>
+
+                        </tr>
+
+                     </tbody>
+
+                  </table>
+</div>
+</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-D5A2E1FA-A6D8-466D-87DC-874B38DB171D">Raw Baudrate (Real): Is the baudrate
+               taking into account all headers and redundancies, calculated as follows:
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__TABLE_VFR_WJ2_C1B" class="table nocolor" style="font-size: 90%;" frame="void" border="0" rules="none">
+                     <col style="width:100%" />
+                     <tbody class="tbody">
+                        <tr class="row" style="vertical-align:middle;">
+                           <td class="entry nocellnorowborder" style="text-align:center;vertical-align:middle;"><span><span class="ph equation-inline" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-0000030E">
+                                    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" xmlns:dita-ot="http://dita-ot.sourceforge.net/ns/201007/dita-ot"><m:mfrac><m:mrow><m:mrow><m:mi>Num Symbols FCH*Carriers FCH*Bits per carrier FCH</m:mi><m:mo>+</m:mo><m:mi>Num Symbols Payload*Carriers Payload*Bits per carrier Payload</m:mi></m:mrow></m:mrow><m:mrow><m:mrow><m:mi>Tx mean interval</m:mi></m:mrow></m:mrow></m:mfrac></m:math>
+                                 </span></span></td>
+
+                        </tr>
+
+                     </tbody>
+
+                  </table>
+</div>
+</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-D0D81DAE-8AB4-4EEB-B5DB-A9E29E9E54C1">Channel Usage : Is the percentage of
+               channel that has been used, calculated as follows:
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__TABLE_WHX_XJ2_C1B" class="table nocolor" frame="void" border="0" rules="none">
+                     <col style="width:100%" />
+                     <tbody class="tbody">
+                        <tr class="row" style="vertical-align:middle;">
+                           <td class="entry nocellnorowborder" style="text-align:center;vertical-align:middle;"><span><span class="ph equation-inline" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-00000313">
+                                    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" xmlns:dita-ot="http://dita-ot.sourceforge.net/ns/201007/dita-ot"><m:mfrac><m:mrow><m:mrow><m:mi>Frame Duration</m:mi></m:mrow></m:mrow><m:mrow><m:mrow><m:mi>Tx mean interval</m:mi></m:mrow></m:mrow></m:mfrac></m:math>
+                                 </span></span></td>
+
+                        </tr>
+
+                     </tbody>
+
+                  </table>
+</div>
+</li>
+
+         </ul>
+</div>
+
+      <p class="p"><strong class="ph b">Reception Test Results</strong></p>
+
+      <div class="fig fignone" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-FIG-0000001E"><div class="figcap"><span class="fig--title-label">Figure 2. </span>Execution Tab for G3-PLC PHY Layer Rx Test</div>
+         
+         <img class="image" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__IMAGE_W1H_GK2_C1B" src="GUID-2A5D6881-98F5-438A-B803-AACDB1153CAC-low.png" height="656" width="525" />
+      </div>
+
+      <div class="p" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-0000031E">Information included in the table is as follows:<ul class="ul" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__UL_STL_3K2_C1B">
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-69456591-3980-47AF-8958-AB4D236F3059">Frame #: Indicates the received frame
+               number</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-33F78536-CD66-4A69-AA31-10B6093F99CB">Modulation Type: Indicates the type
+               of modulation: BPSK, QPSK, 8PSK or BPSK_ROBO</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-0DECF454-F697-440D-BBF4-7AF90D8BEDB1">Modulation Scheme: Indicates if
+               modulation scheme is differential or coherent</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-DF71235E-ED40-4D04-8FBC-42FDEBDAB56C">Tone Map: Indicates active sub-bands
+               in the frame</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-167EA39E-6B52-4FF5-A9E7-85C285118C50">RSSI (dBuV): Indicates the strength
+               of the received signal in dBuV</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-DF0EEC26-69D3-473E-A987-58694A980842">LQI (dB): Link Quality Indicator (See
+               G3-PLC specification for more information)</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-3019BB4B-383C-476F-86BB-992A15B505A8">Data: Is the received info in ASCII
+               format</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-A05F0371-C157-46E8-B6C7-55A20D2DF1E0">Rx Interval: Is the interval of time
+               between the reception of the current frame and the previous one</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-016E9C3D-3AF6-43BC-8616-882DD97886C8">Payload Integrity: Shows if the
+               content of the frame is correct or not</li>
+
+         </ul>
+</div>
+
+      <div class="p" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__ID-00000331">After all frames have been received, or the test has been cancelled, a
+         text box with information about the test will be shown at the bottom of the tab. First of
+         all, test timestamps are shown; this information is measured by the PC application. After
+         that, there is a section called Frame Error information that shows information about
+         received frames and possible errors. Fields shown in this section are:<ul class="ul" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__UL_IP2_MK2_C1B">
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-9A264D43-28DF-45D1-897C-9E6CE9CE9065">Total Frames Received: Shows the
+               number of frames detected, not taking into account if the frame has errors</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-5614E176-00C4-4652-B2AF-5BFEB89804A4">Total Frames Bad FCH CRC: Shows the
+               number of frames in which the header CRC is not valid. These frames are discarded by
+               the firmware and are not reported in the application</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-4155B412-9CF1-429A-8734-4E26253D8AA7">Total Frames Bad RS LEN: Frames that
+               RS block is not able to correct are discarded by the firmware</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-68EF8FC2-89DB-4B3B-B23C-449B413F94EC">Total Exception Errors: Other kinds
+               of errors in the reception chain</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-7F47B0CB-60AB-405E-88BC-42182DC8F454">Total Frames Bad Payload: Shows the
+               number of frames where the content of the payload is not what it is supposed to
+               be</li>
+
+            <li class="li" id="GUID-78A16873-B401-41CD-84C9-638D2324436A__GUID-A1E9FCEE-DFBB-4672-BCF7-24E71BF64E5F">Total Frames Received OK: Shows the
+               number of frames received with the correct content</li>
+
+         </ul>
+</div>
+
+   </div>
+
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0.html">PHY Tester Tool</a></div>
+</div>
+</div></body>
+</html>

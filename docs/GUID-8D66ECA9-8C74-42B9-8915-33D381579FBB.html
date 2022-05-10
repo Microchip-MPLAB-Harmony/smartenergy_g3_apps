@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
+<meta name="DC.rights.owner" content="(C) Copyright 2022" />
+<meta name="DC.type" content="concept" />
+<meta name="DC.title" content="PHY Sniffer" />
+<meta name="DC.relation" scheme="URI" content="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-9575B70A-C7F8-4E9C-AE69-BB596643090F.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-F7A45B4F-41B2-4AF9-84AA-839C4328E4A8.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-02A0409B-737D-4B57-BADB-0ECC8AF4714C.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-65C1065C-E3CA-40BE-BB5B-0E8E7B074563.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-B1D36D7B-7A26-4B4E-B5DB-E314EF9CEF9F.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-373ECDE6-AFFD-44B5-AE97-7CF1A8FCC4AD.html" />
+<meta name="DC.format" content="XHTML" />
+<meta name="DC.identifier" content="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB" />
+<meta name="DC.language" content="en-US" />
+<link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
+<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>PHY Sniffer</title>
+<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB" />
+<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D" />
+<meta name="Microsoft.Help.TocOrder" content="0" />
+<meta name="Microsoft.Help.Locale" content="en-US" />
+<meta name="Microsoft.Help.TopicLocale" content="en-US" />
+<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Smart Energy G3 Applications Reference A 02/2022" />
+<script language="javascript">
+       
+       if (window.parent.location.protocol != 'file:') {
+				document.addEventListener('click', function(e) {
+				    if (e.target) {
+               if (e.target.nodeName == "A" ) {
+                    if (!e.target.target) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                              
+                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
+                      if (origUrl.length === 0) {
+                          origUrl = window.parent.location.href;
+                      }
+                      var href= e.target.getAttribute("href");
+                      var parts = href.split("#");
+          
+                      var url = "";
+                      if (parts.length == 2 ) {
+                        if (!parts[0].length) {
+                            url = window.parent.location.search.replace('?','')
+                        } else {
+                            url = parts[0].replace('.html','');
+                        }
+                      } else {
+                        url = parts[0].replace('.html','');
+                      }
+
+                      if (parts.length == 2) {
+                          url += "#" + parts[1];
+                      }
+    
+                      window.parent.location.href = origUrl + "?" + url;
+
+                      return false;
+                    }
+               }
+            }
+				});
+			}
+
+		</script><script language="javascript">
+        function cpy(id, button) {
+        
+            var element = document.getElementById(id);
+            var content = element.getAttribute("content");
+            var textArea = document.createElement("textarea");
+            
+            // Place in the top-left corner of screen regardless of scroll position.
+            textArea.style.position = 'fixed';
+            textArea.style.top = 0;
+            textArea.style.left = 0;
+            
+            // Ensure it has a small width and height. Setting to 1px / 1em
+            // doesn't work as this gives a negative w/h on some browsers.
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+            
+            // We don't need padding, reducing the size if it does flash render.
+            textArea.style.padding = 0;
+            
+            // Clean up any borders.
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            
+            // Avoid flash of the white box if rendered for any reason.
+            textArea.style.background = 'transparent';
+            
+            
+            textArea.value = content;
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+               var successful = document.execCommand('copy');
+               var msg = successful ? 'successful' : 'unsuccessful';
+               if (!button.classList.contains("copied")){
+                  button.textContent = "Copied";
+                  button.classList.add("copied");
+                  setTimeout(function(){
+                    button.textContent = "Copy";
+                    button.classList.remove("copied");
+                  },1000);
+               }
+            } catch (err) {
+              console.log('Oops, unable to copy');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+      </script><script language="javascript">
+          
+          // Add the MathML namespace to html
+          var html = document.getElementsByTagName("html")[0],
+          head = document.getElementsByTagName("head")[0];
+          
+          var mathJax = document.createElement("script");
+          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
+          head.appendChild(mathJax);
+          
+          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
+          
+          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
+          
+          if (!inIframe()) { 
+          
+          var Default = "index.html?GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB"; 
+          
+          var displaylocation = "value" + window.location.href;
+          
+          var GUIDS = displaylocation.split('GUID');          
+          
+          if (displaylocation.indexOf('#GUID') != -1) {            
+          var First = GUIDS[1].split('.html');  
+          if (GUIDS[3]){First = GUIDS[2].split('.html');}
+          if (GUIDS[4]){First = GUIDS[3].split('.html');}
+          if (GUIDS[5]){First = GUIDS[4].split('.html');}
+          
+          var Second = GUIDS[2].split('#');   
+          if (GUIDS[3]){Second = GUIDS[3].split('#');}
+          if (GUIDS[4]){Second = GUIDS[4].split('#');}
+          if (GUIDS[5]){Second = GUIDS[5].split('#');}
+          
+          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
+          }                    
+          window.top.location = Default;
+          }       
+          
+        </script><style xml:space="">
+        
+          button.copy-code{
+            display:none;
+            padding:0.7em 1.4em;
+            margin:0 0.3em 0.3em 0;
+            border-radius:0.15em;
+            box-sizing: border-box;
+            text-decoration:none;
+            font-family:'Roboto',sans-serif;
+            text-transform:uppercase;
+            font-weight:400;
+            color:#FFFFFF;
+            background-color:#9c9c9c;
+            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+            text-align:center;
+            position:relative;
+            border: 0;
+            float: right;
+            border-radius: .5em;
+            cursor: pointer;
+          }
+          button.copy-code:active{
+            top:0.1em;
+          }
+          
+          pre:hover button.copy-code{
+            display: inline-block !important;
+          }
+          button.copy-code.copied {
+            cursor: default !important;
+          }
+          
+          
+          @media all and (max-width:30em){
+            button.copy-code{
+              display:block;
+              margin:0.4em auto;
+            }
+          }
+        
+        
+      </style></head>
+<body id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB">
+
+   <h1 class="title topictitle1" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__GUID-9BC57115-C63E-4502-88D6-67EF735B0059">PHY Sniffer</h1>
+   <div class="body conbody">
+      <p class="p" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__ID-00000085">The PLC Sniffer has been developed to monitor data traffic on power line
+         networks. This tool focuses on PRIME (versions 1.3 and 1.4) and G3-PLC standards. It
+         requires a hardware probe device physically connected to the power line to snoop. This
+         hardware device will send the packet sent on the network through a serial link or a TCP/IP
+         connection to a PC host running this software. Hardware probes are passive elements inside
+         the network. Thus, they do not interfere either physically or logically with the
+         network.</p>
+
+      <div class="p" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__ID-00000087">The sniffer tool can be used to:<ul class="ul" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__UL_QMB_PJM_SCB">
+            <li class="li" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__GUID-BF033C3B-EB88-4252-94A6-942409DFD092">Analyze network problems</li>
+
+            <li class="li" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__GUID-C4C26DE9-B4E1-4DDA-86A6-BB0546212E4F">Gather and report network
+               statistics</li>
+
+            <li class="li" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__GUID-81894B8A-38C5-4883-8F17-5A5B292D642D">Monitor network usage</li>
+
+            <li class="li" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__GUID-07A09CE7-8924-4D13-B249-39222682104D">Debug network protocols</li>
+
+            <li class="li" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__GUID-7AEA80AD-780C-4741-85AD-F76FCE35DD41">Improve network understanding</li>
+
+         </ul>
+</div>
+
+      <div class="fig fignone" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__ID-FIG-00000001"><div class="figcap"><span class="fig--title-label">Figure 1. </span>Sniffer Scheme</div>
+         
+         <img class="image" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__ID-00000096" src="GUID-9D088A0C-568C-481C-9F98-558309A69291-low.png" width="560" height="120" />
+         <div class="p" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__ID-00000099">The various messages received from the sniffer hardware are properly
+            processed and displayed in the different existing windows:<ul class="ul" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__UL_O5K_RJM_SCB">
+               <li class="li" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__GUID-36CFE494-ACD8-4E64-B330-A320CA4A5D2C"><strong class="ph b">Packet view.</strong> This is the
+                  basic presentation. It is made on the main application window and it is always
+                  visible. Each message is decoded and split in its different fields. These fields
+                  are selectively shown in the windows, in a sample per line basis. Color codes are
+                  applied depending on the packet type</li>
+
+               <li class="li" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__GUID-F9805118-DD90-4C2F-A120-BDBB49A32F96"><strong class="ph b">PDU view.</strong> This window
+                  displays detailed information associated with a certain message, which has been
+                  selected by the user from the message list</li>
+
+               <li class="li" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__GUID-260FAB49-617B-4DBE-8BB4-B4999162D4B7"><strong class="ph b">Hexadecimal view.</strong> This view
+                  allows inspecting packet data in raw mode. Data is shown in hexadecimal
+                  format</li>
+
+               <li class="li" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__GUID-A8EEB175-E33C-4578-BAA0-3FC52CF92320"><strong class="ph b">Network structure view.</strong>
+                  This view displays the logical network structure. This information is inferred
+                  analyzing in real time all the packets received from the sniffer. Selecting a
+                  packet in the Packet View will update this view accordingly. It is recommended to
+                  use this feature with a sniffer connected nearby a concentrator. This view is only
+                  available for PRIME standard</li>
+
+            </ul>
+</div>
+
+         <p class="p" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__ID-000000A2">On the acquired packets, we can also apply a set of filtering rules, so we can remove unnecessary information in the samples or highlight the desired portions of them. The application of these filters does not affect the sample database, so that we can reverse their action at any time.</p>
+
+         <p class="p" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__ID-000000A3">The PLC Sniffer stores all the acquired frames in a SQLite database.
+            Using a SQL database allows performing of complex analysis of the data, even if the
+            database is being updated at the same time. SQL also helps to handle the complexity of
+            large log files.</p>
+
+      </div>
+
+      <p class="p"><strong class="ph b">Disclaimer</strong></p>
+
+      <p class="p" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__ID-000000A7">It should be kept in mind that the traffic analysis could include
+         discrepancies with reality. Traffic seen by the hardware sniffer device may differ from
+         what other devices on the network see due to the nature of the PLC channel. Recording
+         information nearby the concentrator will produce the best results.</p>
+
+      <p class="p" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__ID-000000A9">It also should be noted that the database stores the events to build the
+         logical structure of the network. These events may or may not have a full representation of
+         a network depending on when the sniffer has started to collect data and the point where the
+         hardware device is connected. Best results are obtained when the sniffer session is started
+         right after the Base Node starts operating in the network.</p>
+
+      <p class="p"><strong class="ph b">PLC Channels Configuration</strong></p>
+
+      <p class="p">The PHY Sniffer application loads by default the configuration to use all the channels
+         available in single and double modes supported by the platform. If other coupling
+         configuration is required, it can be easily modified in PLC_PHY module of the project graph
+         in MPLAB Code Configurator:</p>
+
+      <div class="fig fignone" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__FIG_JWB_LTK_CTB"><div class="figcap"><span class="fig--title-label">Figure 2. </span>Coupling Configuration in PLC_PHY
+            Module</div>
+         
+         <br /><div class="imagecenter"><img class="image imagecenter" id="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB__IMAGE_KWB_LTK_CTB" src="GUID-DEAFFCBA-16FA-4E03-ADAD-45E28E741F52-low.png" /></div><br />
+      </div>
+
+   </div>
+
+<div class="related-links">
+<ul class="ullinks">
+<li class="link ulchildlink"><strong><a href="GUID-9575B70A-C7F8-4E9C-AE69-BB596643090F.html">Initial Steps</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-F7A45B4F-41B2-4AF9-84AA-839C4328E4A8.html">Capture Window</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-02A0409B-737D-4B57-BADB-0ECC8AF4714C.html">Log View</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-65C1065C-E3CA-40BE-BB5B-0E8E7B074563.html">Import and Export Databases</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286.html">Appendix A. PRIME SQLite Log Database</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-B1D36D7B-7A26-4B4E-B5DB-E314EF9CEF9F.html">Appendix B. G3 SQLite Log Database</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-373ECDE6-AFFD-44B5-AE97-7CF1A8FCC4AD.html">Appendix C. PRIMEv1.3 Use Case Examples</a></strong><br />
+</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html">MPLAB® Harmony 3 Smart Energy G3 application examples</a></div>
+</div>
+</div></body>
+</html>
