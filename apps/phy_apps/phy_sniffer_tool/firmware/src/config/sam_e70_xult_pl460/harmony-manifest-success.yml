@@ -15,8 +15,7 @@ compiler: xc32
 modules:
     - {name: "csp", version: "v3.12.0"}
     - {name: "core", version: "v3.10.0"}
-    - {name: "dev_packs", version: "unknown"}
     - {name: "usb", version: "v3.9.0"}
-    - {name: "smartenergy", version: "unknown"}
+    - {name: "smartenergy", version: "v1.0.0"}
     - {name: "bsp", version: "v3.12.0"}
 
