@@ -1,0 +1,15 @@
+package:
+  format-version: "1.0.0"
+  name: "smartenergy_g3_apps"
+  version: "v1.0.0"
+  type: "application"
+  status: "production"
+  required: true
+
+  dependencies:
+    - name: "smartenergy"
+      type: "package"
+      version: "v1.0.0"
+    - name: "usb"
+      type: "package"
+      version: "v3.9.0"
