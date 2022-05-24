@@ -225,7 +225,7 @@ static void _DRV_PLC_PHY_COMM_RxEvent(DRV_PLC_PHY_RECEPTION_OBJ *pRxObj)
     pRxObj->payloadNoisedSymbols = (uint16_t)*pSrc++;
     pRxObj->payloadNoisedSymbols += (uint16_t)*pSrc++ << 8;
     pRxObj->payloadSnrWorstCarrier = *pSrc++;
-    pRxObj->payloadSnrWorstSymbol = *pSrc++;
+    pRxObj->payloadSnrWorstSymbol  = *pSrc++;
     pRxObj->payloadSnrImpulsive = *pSrc++;
     pRxObj->payloadSnrBand = *pSrc++;
     pRxObj->payloadSnrBackground = *pSrc++;

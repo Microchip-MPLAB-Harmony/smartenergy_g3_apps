@@ -6588,7 +6588,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\definitions.h</file>
-         <hash>4046013762e364a788f30ac4095ef3b4cc122ac548b6be70977fd9a05e5133f8</hash>
+         <hash>727a084864ee77a848c6d9861429891f4d83edf582a1a994df656b7dde704052</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\bsp\bsp.c</file>
@@ -6632,7 +6632,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>f61f47bfe22acec287b311fd7d8392da7b360054b66dd8ef34cfb97952ef7f84</hash>
+         <hash>df842b259d43268e334d478c7979232470e3d085e467102d2b14b5e39daac51a</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\gmac.h</file>
