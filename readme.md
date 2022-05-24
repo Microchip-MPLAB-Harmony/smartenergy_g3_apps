@@ -1,10 +1,5 @@
-﻿---
-title: Harmony 3 Smart Energy application examples
-nav_order: 1
-has_children: true
-has_toc: false
----
-[![MCHP](https://www.microchip.com/ResourcePackages/Microchip/assets/dist/images/logo.png)](https://www.microchip.com)
+﻿![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
+![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
 # Harmony 3 Smart Energy G3 application examples
 
@@ -16,12 +11,12 @@ MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating embedded
 - [Microchip MPLAB® Harmony](https://www.microchip.com/mplab/mplab-harmony)
 - [Microchip MPLAB® Harmony Pages](https://microchip-mplab-harmony.github.io/)
 
-This repository contains the MPLAB® Harmony 3 Smart Energy G3 application examples for SAME70 family
+This repository contains the MPLAB® Harmony 3 Smart Energy G3 application examples
 
 - [Release Notes](release_notes.md)
 - [MPLAB® Harmony License](mplab_harmony_license.md)
 
-To clone or download these applications from Github, go to the [main page of this repository](https://github.com/Microchip-MPLAB-Harmony/XXXXXXXX) and then click **Clone** button to clone this repository or download as zip file.
+To clone or download these applications from Github, go to the [main page of this repository](https://github.com/Microchip-MPLAB-Harmony/smartenergy_g3_apps) and then click **Clone** button to clone this repository or download as zip file.
 This content can also be downloaded using content manager by following these [instructions](https://github.com/Microchip-MPLAB-Harmony/contentmanager/wiki).
 
 ## Contents Summary
@@ -29,7 +24,7 @@ This content can also be downloaded using content manager by following these [in
 | Folder     | Description                             |
 | ---        | ---                                     |
 | apps       | Contains peripheral library example applications |
-| docs       | Contains documentation in html format for offline viewing (to be used only after cloning this repository onto a local machine). Use [github pages](https://microchip-mplab-harmony.github.io/csp_apps_sam_e70_s70_v70_v71/) of this repository for viewing it online. |
+| docs       | Contains documentation in html format for offline viewing (to be used only after cloning this repository onto a local machine). Use [github pages](https://microchip-mplab-harmony.github.io/smartenergy_g3_apps/) of this repository for viewing it online. |
 
 ## Code Examples
 
@@ -44,11 +39,11 @@ The following applications are provided to demonstrate the typical or interestin
 
 ____
 
-[![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/csp_apps_sam_e70_s70_v70_v71/blob/master/mplab_harmony_license.md)
-[![Latest release](https://img.shields.io/github/release/Microchip-MPLAB-Harmony/csp_apps_sam_e70_s70_v70_v71.svg)](https://github.com/Microchip-MPLAB-Harmony/csp_apps_sam_e70_s70_v70_v71/releases/latest)
-[![Latest release date](https://img.shields.io/github/release-date/Microchip-MPLAB-Harmony/csp_apps_sam_e70_s70_v70_v71.svg)](https://github.com/Microchip-MPLAB-Harmony/csp_apps_sam_e70_s70_v70_v71/releases/latest)
-[![Commit activity](https://img.shields.io/github/commit-activity/y/Microchip-MPLAB-Harmony/csp_apps_sam_e70_s70_v70_v71.svg)](https://github.com/Microchip-MPLAB-Harmony/csp_apps_sam_e70_s70_v70_v71/graphs/commit-activity)
-[![Contributors](https://img.shields.io/github/contributors-anon/Microchip-MPLAB-Harmony/csp_apps_sam_e70_s70_v70_v71.svg)]()
+[![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_g3_apps/blob/master/mplab_harmony_license.md)
+[![Latest release](https://img.shields.io/github/release/Microchip-MPLAB-Harmony/smartenergy_g3_apps.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_g3_apps/releases/latest)
+[![Latest release date](https://img.shields.io/github/release-date/Microchip-MPLAB-Harmony/smartenergy_g3_apps.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_g3_apps/releases/latest)
+[![Commit activity](https://img.shields.io/github/commit-activity/y/Microchip-MPLAB-Harmony/smartenergy_g3_apps.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_g3_apps/graphs/commit-activity)
+[![Contributors](https://img.shields.io/github/contributors-anon/Microchip-MPLAB-Harmony/smartenergy_g3_apps.svg)]()
 
 ____
 
@@ -57,5 +52,5 @@ ____
 [![Follow us on Facebook](https://img.shields.io/badge/Facebook-Follow%20us%20on%20Facebook-blue.svg)](https://www.facebook.com/microchiptechnology/)
 [![Follow us on Twitter](https://img.shields.io/twitter/follow/MicrochipTech.svg?style=social)](https://twitter.com/MicrochipTech)
 
-[![](https://img.shields.io/github/stars/Microchip-MPLAB-Harmony/csp_apps_sam_e70_s70_v70_v71.svg?style=social)]()
-[![](https://img.shields.io/github/watchers/Microchip-MPLAB-Harmony/csp_apps_sam_e70_s70_v70_v71.svg?style=social)]()
+[![](https://img.shields.io/github/stars/Microchip-MPLAB-Harmony/smartenergy_g3_apps.svg?style=social)]()
+[![](https://img.shields.io/github/watchers/Microchip-MPLAB-Harmony/smartenergy_g3_apps.svg?style=social)]()
