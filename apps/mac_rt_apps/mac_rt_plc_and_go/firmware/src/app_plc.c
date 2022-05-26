@@ -534,13 +534,6 @@ void APP_PLC_Tasks ( void )
     }
 }
 
-/*******************************************************************************
-  Function:
-    bool APP_PLC_Initialize(void)
-
-  Remarks:
-    See prototype in app_plc.h.
- */
 bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
 {
     if (appPlc.state == APP_PLC_STATE_WAITING)
