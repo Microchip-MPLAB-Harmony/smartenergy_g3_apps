@@ -1,8 +1,8 @@
 # Application Example
 
-Microchip PLC & Go application is a point to multi-point chat application built on top of the PHY layer of state-of-the-art PRIME protocol.
+Microchip PLC & Go application is a point to multi-point chat application built on top of the PHY layer of state-of-the-art G3-PLC protocol.
 
-Note that `phy_plc_and_go` application example can be used with Microchip PRIME stack version included on MPLAB Harmony in any Microchip platforms implementing PL360/PL460 device as PLC modem.
+Note that `phy_plc_and_go` application example can be used with Microchip G3-PLC stack version 1.4.1 or above in any Microchip platforms implementing PL360/PL460 device as PLC modem.
 
 This application example assumes that a host device \(a PC, for example\) is connected through a serial interface \(USB, UART\) to a Microchip evaluation kit acting as a PLC modem.
 
@@ -16,12 +16,12 @@ When the serial port is opened, the PLC & Go application shows in the console so
 
 The PLC & Go application allows to:
 
--   Configure modulation
--   Configure the TX/RX channel
+-   Configure modulation type and modulation scheme
+-   Configure the band of transmission \(in case of using a Microchip evaluation board that supports several bands of transmission\).
 
-In addition, the application provides some information about the transmitted messages \(length of the message\) and the received messages \(Modulation type, received signal strength indicator and carrier interference noise ratio\), which can be displayed by means of a terminal emulator in the PC.
+In addition, the application provides some information about the transmitted messages \(length of the message\) and the received messages \(Modulation type and scheme, signal quality\), which can be displayed by means of a terminal emulator in the PC.
 
-![](GUID-F6841125-3574-4D46-8379-39B459C64C84-low.png "PLC & Go Console")
+![](GUID-E5E793E2-188B-42FD-9F42-E2C926C5EC9A-low.png "PLC & Go Console")
 
 In the example project, the `app_plc.c` file contains:
 
@@ -30,12 +30,5 @@ In the example project, the `app_plc.c` file contains:
 
 The `app_console.c` file contains the chat application which communicates with the PC using the serial port.
 
--   **[Initialization](GUID-9FCAE429-C7DF-46F9-A612-502134E591D2.md)**  
-
--   **[Transmission](GUID-23C1C481-5759-45DD-99E8-F29F74ABDB0D.md)**  
-
--   **[Reception](GUID-D6336496-D2D7-4FF9-A399-3451878B8E50.md)**  
-
-
-**Parent topic:**[PHY PLC & Go](GUID-B538C5C8-9467-490F-95A6-13E59BB430FA.md)
+**Parent topic:**[PHY PLC & Go](GUID-E87515D0-BD4F-4456-8D21-13BD460238A8.md)
 

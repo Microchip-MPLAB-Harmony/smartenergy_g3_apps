@@ -8,7 +8,7 @@
 <meta name="DC.rights.owner" content="(C) Copyright 2022" />
 <meta name="DC.type" content="concept" />
 <meta name="DC.title" content="Appendix A. PRIME SQLite Log Database" />
-<meta name="DC.relation" scheme="URI" content="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E.html" />
 <meta name="DC.format" content="XHTML" />
 <meta name="DC.identifier" content="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286" />
 <meta name="DC.language" content="en-US" />
@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
 <link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>Appendix A. PRIME SQLite Log Database</title>
 <meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286" />
-<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB" />
+<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E" />
 <meta name="Microsoft.Help.TocOrder" content="0" />
 <meta name="Microsoft.Help.Locale" content="en-US" />
 <meta name="Microsoft.Help.TopicLocale" content="en-US" />
@@ -305,20 +305,20 @@
         <div class="p" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__ID-00000362">A few examples of queries are:<ul class="ul" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__UL_LX5_GZM_SCB">
                 <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-1BD21051-3F7A-4CEE-B23B-BDF308518FB5">Select all frames after idFrame 31060 that belong to the device registered as
                     284 and all register
-                    frames:<pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d7728e180', this);">Copy</button><code id="d7728e180" content="Select * from frame where idFrame &gt;= 31060 and (lnid = 284 OR Gentype=1)">Select * from frame where idFrame &gt;= 31060 and (lnid = 284 OR Gentype=1)</code></pre></li>
+                    frames:<pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d9068e180', this);">Copy</button><code id="d9068e180" content="Select * from frame where idFrame &gt;= 31060 and (lnid = 284 OR Gentype=1)">Select * from frame where idFrame &gt;= 31060 and (lnid = 284 OR Gentype=1)</code></pre></li>
 
                 <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-F28BB303-A0CA-4575-B49A-AA7496CBBCE1">Select all <em class="ph i">Register</em> and
                         <em class="ph i">KeepAlive</em> frames from device
-                    284:<pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d7728e191', this);">Copy</button><code id="d7728e191" content="Select * from frame where lnid = 284 and (GenType = 1 OR Gentype= 7)">Select * from frame where lnid = 284 and (GenType = 1 OR Gentype= 7)</code></pre></li>
+                    284:<pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d9068e191', this);">Copy</button><code id="d9068e191" content="Select * from frame where lnid = 284 and (GenType = 1 OR Gentype= 7)">Select * from frame where lnid = 284 and (GenType = 1 OR Gentype= 7)</code></pre></li>
 
                 <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-1F30C79B-AC52-4FB3-B8FC-1089ED0533BA">Select all the register events for a node defined by a MAC
-                    address:<pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d7728e196', this);">Copy</button><code id="d7728e196" content="Select * From Event Where Lnid IN (Select DISTINCT (lnid ) from Event WHERE MAC = X’001122334455’ AND SID IN (Select Distinct (SID) from Event Where MAC = X’001122334455’) AND Status = 4">Select * From Event Where Lnid IN (Select DISTINCT (lnid ) from Event WHERE MAC = X’001122334455’ AND SID IN (Select Distinct (SID) from Event Where MAC = X’001122334455’) AND Status = 4</code></pre></li>
+                    address:<pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d9068e196', this);">Copy</button><code id="d9068e196" content="Select * From Event Where Lnid IN (Select DISTINCT (lnid ) from Event WHERE MAC = X’001122334455’ AND SID IN (Select Distinct (SID) from Event Where MAC = X’001122334455’) AND Status = 4">Select * From Event Where Lnid IN (Select DISTINCT (lnid ) from Event WHERE MAC = X’001122334455’ AND SID IN (Select Distinct (SID) from Event Where MAC = X’001122334455’) AND Status = 4</code></pre></li>
 
                 <li class="li" id="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286__GUID-29F216E2-DF86-4EF4-8084-0467A7BC1578">Select Frames with LNID 35 and
                     Promotion Needed frames for the node with MAC <em class="ph i">001122334455</em>. Some PRIME
                     concentrators may assign the same LNID to different nodes at different time.
                     Therefore, this query might not return all the frames sniffed for a
-                    node:<pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d7728e204', this);">Copy</button><code id="d7728e204" content="Select * From Frame Where Lnid = 35 UNION Select Frame.* From Frame, PN WHERE idFrame = PN_idFrame and PNH_PNA = X’001122334455’">Select * From Frame Where Lnid = 35 UNION Select Frame.* From Frame, PN WHERE idFrame = PN_idFrame and PNH_PNA = X’001122334455’</code></pre></li>
+                    node:<pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d9068e204', this);">Copy</button><code id="d9068e204" content="Select * From Frame Where Lnid = 35 UNION Select Frame.* From Frame, PN WHERE idFrame = PN_idFrame and PNH_PNA = X’001122334455’">Select * From Frame Where Lnid = 35 UNION Select Frame.* From Frame, PN WHERE idFrame = PN_idFrame and PNH_PNA = X’001122334455’</code></pre></li>
 
             </ul>
 </div>
@@ -327,7 +327,7 @@
 
 <div class="related-links">
 <div class="familylinks">
-<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB.html">PHY Sniffer</a></div>
+<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E.html">PHY Sniffer</a></div>
 </div>
 </div></body>
 </html>

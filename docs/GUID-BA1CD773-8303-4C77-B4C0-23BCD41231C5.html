@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
+<meta name="DC.rights.owner" content="(C) Copyright 2022" />
+<meta name="DC.type" content="concept" />
+<meta name="DC.title" content="Reception" />
+<meta name="DC.relation" scheme="URI" content="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F.html" />
+<meta name="DC.format" content="XHTML" />
+<meta name="DC.identifier" content="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5" />
+<meta name="DC.language" content="en-US" />
+<link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
+<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>Reception</title>
+<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5" />
+<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F" />
+<meta name="Microsoft.Help.TocOrder" content="0" />
+<meta name="Microsoft.Help.Locale" content="en-US" />
+<meta name="Microsoft.Help.TopicLocale" content="en-US" />
+<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Smart Energy G3 Applications Reference A 02/2022" />
+<script language="javascript">
+       
+       if (window.parent.location.protocol != 'file:') {
+				document.addEventListener('click', function(e) {
+				    if (e.target) {
+               if (e.target.nodeName == "A" ) {
+                    if (!e.target.target) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                              
+                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
+                      if (origUrl.length === 0) {
+                          origUrl = window.parent.location.href;
+                      }
+                      var href= e.target.getAttribute("href");
+                      var parts = href.split("#");
+          
+                      var url = "";
+                      if (parts.length == 2 ) {
+                        if (!parts[0].length) {
+                            url = window.parent.location.search.replace('?','')
+                        } else {
+                            url = parts[0].replace('.html','');
+                        }
+                      } else {
+                        url = parts[0].replace('.html','');
+                      }
+
+                      if (parts.length == 2) {
+                          url += "#" + parts[1];
+                      }
+    
+                      window.parent.location.href = origUrl + "?" + url;
+
+                      return false;
+                    }
+               }
+            }
+				});
+			}
+
+		</script><script language="javascript">
+        function cpy(id, button) {
+        
+            var element = document.getElementById(id);
+            var content = element.getAttribute("content");
+            var textArea = document.createElement("textarea");
+            
+            // Place in the top-left corner of screen regardless of scroll position.
+            textArea.style.position = 'fixed';
+            textArea.style.top = 0;
+            textArea.style.left = 0;
+            
+            // Ensure it has a small width and height. Setting to 1px / 1em
+            // doesn't work as this gives a negative w/h on some browsers.
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+            
+            // We don't need padding, reducing the size if it does flash render.
+            textArea.style.padding = 0;
+            
+            // Clean up any borders.
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            
+            // Avoid flash of the white box if rendered for any reason.
+            textArea.style.background = 'transparent';
+            
+            
+            textArea.value = content;
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+               var successful = document.execCommand('copy');
+               var msg = successful ? 'successful' : 'unsuccessful';
+               if (!button.classList.contains("copied")){
+                  button.textContent = "Copied";
+                  button.classList.add("copied");
+                  setTimeout(function(){
+                    button.textContent = "Copy";
+                    button.classList.remove("copied");
+                  },1000);
+               }
+            } catch (err) {
+              console.log('Oops, unable to copy');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+      </script><script language="javascript">
+          
+          // Add the MathML namespace to html
+          var html = document.getElementsByTagName("html")[0],
+          head = document.getElementsByTagName("head")[0];
+          
+          var mathJax = document.createElement("script");
+          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
+          head.appendChild(mathJax);
+          
+          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
+          
+          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
+          
+          if (!inIframe()) { 
+          
+          var Default = "index.html?GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5"; 
+          
+          var displaylocation = "value" + window.location.href;
+          
+          var GUIDS = displaylocation.split('GUID');          
+          
+          if (displaylocation.indexOf('#GUID') != -1) {            
+          var First = GUIDS[1].split('.html');  
+          if (GUIDS[3]){First = GUIDS[2].split('.html');}
+          if (GUIDS[4]){First = GUIDS[3].split('.html');}
+          if (GUIDS[5]){First = GUIDS[4].split('.html');}
+          
+          var Second = GUIDS[2].split('#');   
+          if (GUIDS[3]){Second = GUIDS[3].split('#');}
+          if (GUIDS[4]){Second = GUIDS[4].split('#');}
+          if (GUIDS[5]){Second = GUIDS[5].split('#');}
+          
+          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
+          }                    
+          window.top.location = Default;
+          }       
+          
+        </script><style xml:space="">
+        
+          button.copy-code{
+            display:none;
+            padding:0.7em 1.4em;
+            margin:0 0.3em 0.3em 0;
+            border-radius:0.15em;
+            box-sizing: border-box;
+            text-decoration:none;
+            font-family:'Roboto',sans-serif;
+            text-transform:uppercase;
+            font-weight:400;
+            color:#FFFFFF;
+            background-color:#9c9c9c;
+            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+            text-align:center;
+            position:relative;
+            border: 0;
+            float: right;
+            border-radius: .5em;
+            cursor: pointer;
+          }
+          button.copy-code:active{
+            top:0.1em;
+          }
+          
+          pre:hover button.copy-code{
+            display: inline-block !important;
+          }
+          button.copy-code.copied {
+            cursor: default !important;
+          }
+          
+          
+          @media all and (max-width:30em){
+            button.copy-code{
+              display:block;
+              margin:0.4em auto;
+            }
+          }
+        
+        
+      </style></head>
+<body id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5">
+
+<h1 class="title topictitle1" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-248BAFBC-A803-47F9-9177-D57908AE96BF">Reception</h1>
+<div class="body conbody">
+        <p class="p">In a normal situation, when a PLC message is received, it is processed by the G3_MAC_RT
+			module so that if the Destination PANid is not the Broadcast PANid 0xFFFF) and is
+			different than the PANid configured by the application, the callback function run is the
+				<code class="ph codeph">DRV_G3_MACRT_COMM_STATUS_IND_CALLBACK</code> where the only parameter is a
+			pointer to the MAC frame without the length. It’s not configured on this example.</p>
+
+		<div class="p">Any other frame addressed to the PANid and any of the addresses (short or extended) configured,
+			up to the host application in two steps: <ul class="ul" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__UL_RTL_FVZ_QTB">
+				<li class="li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-B49931D7-214B-4C91-A41D-C219A5105F4B">Reception of parameters: specific
+					to G3-PLC MAC implementation which callback is set to
+						<code class="ph codeph">APP_PLC_RxParamsIndCb()</code> and where the information is stored
+					on a <code class="ph codeph">MAC_RT_RX_PARAMETERS_OBJ</code> structure pointer.</li>
+
+				<li class="li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-FCFE4BF0-D22F-42EF-A1AD-E83A8DFE0789">Reception of standard 802.15.4
+					MAC data frame: handled by callback <code class="ph codeph">APP_PLC_DataIndCb()</code> where
+					the information (a common 802.15.4 MAC data frame) is stored in the buffer
+					pointer <code class="ph codeph">pData</code> with <code class="ph codeph">length</code> length.</li>
+
+			</ul>
+</div>
+
+		<p class="p">The <code class="ph codeph">APP_PLC_DataIndCb()</code> callback function doesn’t check any FCS, so, all the
+			received frames has been validated previously on the G3_MAC_RT.</p>
+
+		<p class="p">For any frame addressed to the device, the G3_MAC_RT handles the acknowledge if it is requested
+			on the MAC header (<code class="ph codeph">ackRequest</code> bit on the
+				<code class="ph codeph">MAC_RT_FRAME_CONTROL</code> structure) and the reception of duplicated
+			frames.</p>
+
+		<p class="p">On this application the content of the MAC frame as well as the modulation and the LQI is
+			shown on the console.</p>
+
+		<p class="p">The <code class="ph codeph">MAC_RT_RX_PARAMETERS_OBJ</code> structure definition is defined on
+				<tt class="ph tt">drv_g3_macrt_comm.h</tt>:</p>
+
+		<pre class="pre codeblock" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__CODEBLOCK_SNB_VCT_CTB"><button title="Copy Code" class="copy-code" onclick="cpy('d10043e76', this);">Copy</button><code id="d10043e76" content="// *****************************************************************************&#xA;/* G3 MAC RT Reception parameters&#xA;&#xA;   Summary&#xA;    This struct includes information to describe any new received message.&#xA;&#xA;   Remarks:&#xA;    None&#xA;*/&#xA;typedef struct __attribute__((packed, aligned(1))) {&#xA;    /* High Priority */&#xA;    bool highPriority;&#xA;    /* PDU Link Quality */&#xA;    uint8_t pduLinkQuality;&#xA;    /* Phase Differential */&#xA;    uint8_t phaseDifferential;&#xA;    /* Modulation Type */&#xA;    MAC_RT_MOD_TYPE modType;&#xA;    /* Modulation Scheme */&#xA;    MAC_RT_MOD_SCHEME modScheme;&#xA;    /* Tone map */&#xA;    MAC_RT_TONE_MAP toneMap;&#xA;    /* Tone map Response */&#xA;    MAC_RT_TONE_MAP_RSP_DATA toneMapRsp;&#xA;} MAC_RT_RX_PARAMETERS_OBJ;&#xA;">// *****************************************************************************
+/* G3 MAC RT Reception parameters
+
+   Summary
+    This struct includes information to describe any new received message.
+
+   Remarks:
+    None
+*/
+typedef struct __attribute__((packed, aligned(1))) {
+    /* High Priority */
+    bool highPriority;
+    /* PDU Link Quality */
+    uint8_t pduLinkQuality;
+    /* Phase Differential */
+    uint8_t phaseDifferential;
+    /* Modulation Type */
+    MAC_RT_MOD_TYPE modType;
+    /* Modulation Scheme */
+    MAC_RT_MOD_SCHEME modScheme;
+    /* Tone map */
+    MAC_RT_TONE_MAP toneMap;
+    /* Tone map Response */
+    MAC_RT_TONE_MAP_RSP_DATA toneMapRsp;
+} MAC_RT_RX_PARAMETERS_OBJ;
+</code></pre>
+		<p class="p">The structure contains all the G3-PLC MAC specific information available about the received
+			message. The fields of the structure are: </p>
+
+		
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_YVK_M22_PFB" class="table nocolor" frame="void" border="0" rules="none">
+				<col style="width:" />
+				<col style="width:" />
+				<tbody class="tbody">
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">highPriority</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Indicates if the frame was sent in the High Priority</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">pduLinkQuality</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>PDU Link Quality</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">phaseDifferential</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Phase Differential</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">modType</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Modulation Type</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">modScheme</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Modulation Scheme</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">toneMap</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Tone Map</span></td>
+
+					</tr>
+
+					<tr class="row">
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">toneMapRsp</code></span></td>
+
+						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Tone Map Response</span></td>
+
+					</tr>
+
+				</tbody>
+
+			</table>
+</div>
+
+		<div class="p">Related symbolic constants affecting <code class="ph codeph">modType</code> parameter:
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB" class="table nocolor" frame="border" border="1" rules="all">
+					<col style="width:40%" />
+					<col style="width:60%" />
+					<thead class="thead" style="text-align:left;">
+						<tr class="row">
+							<th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d10043e183"><span>MAC_RT_MOD_TYPE</span></th>
+
+							<th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d10043e186"><span>Description</span></th>
+
+						</tr>
+
+					</thead>
+
+					<tbody class="tbody">
+						<tr class="row">
+							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e183 "><span>MAC_RT_MOD_ROBUST</span></td>
+
+							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e186 "><span>ROBO-4 Modulation</span></td>
+
+						</tr>
+
+						<tr class="row">
+							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e183 "><span>MAC_RT_MOD_BPSK</span></td>
+
+							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e186 "><span>BPSK Modulation</span></td>
+
+						</tr>
+
+						<tr class="row">
+							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e183 "><span>MAC_RT_MOD_QPSK</span></td>
+
+							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e186 "><span>QPSK Modulation</span></td>
+
+						</tr>
+
+						<tr class="row">
+							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e183 "><span>MAC_RT_MOD_8PSK</span></td>
+
+							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e186 "><span>8PSK Modulation</span></td>
+
+						</tr>
+
+						<tr class="row">
+							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e183 "><span>MAC_RT_MOD_16QAM</span></td>
+
+							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e186 "><span>16QAM Modulation</span></td>
+
+						</tr>
+
+					</tbody>
+
+				</table>
+</div>
+</div>
+
+		<div class="p">Related symbolic constants affecting <code class="ph codeph">modScheme</code> parameter:
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB" class="table nocolor" frame="border" border="1" rules="all">
+					<col style="width:50.73891625615763%" />
+					<col style="width:49.26108374384236%" />
+					<thead class="thead" style="text-align:left;">
+						<tr class="row">
+							<th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d10043e258"><span>MAC_RT_MOD_SCHEME</span></th>
+
+							<th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d10043e261"><span>Description</span></th>
+
+						</tr>
+
+					</thead>
+
+					<tbody class="tbody">
+						<tr class="row">
+							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e258 "><span>MAC_RT_MOD_SCHEME_DIFFERENTIAL</span></td>
+
+							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e261 "><span>Differential Modulation</span></td>
+
+						</tr>
+
+						<tr class="row">
+							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e258 "><span>MAC_RT_MOD_SCHEME_COHERENT</span></td>
+
+							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e261 "><span>Coherent Modulation</span></td>
+
+						</tr>
+
+					</tbody>
+
+				</table>
+</div>
+</div>
+
+    </div>
+
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F.html">Application Example</a></div>
+</div>
+</div></body>
+</html>

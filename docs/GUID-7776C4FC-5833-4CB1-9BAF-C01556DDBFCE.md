@@ -7,15 +7,15 @@ In the code of the example project `phy_plc_and_go`, the initialization of the P
 The first states of the state machine configure and initialize different parts of the PLC hardware:
 
 -   `APP_PLC_STATE_IDLE` initializes the variables related to the coupling stage.
--   `APP_PLC_STATE_INIT` opens the PLC driver to load the PLC\_PHY binary.
+-   `APP_PLC_STATE_INIT` opens the PLC driver to load the PL360 binary.
 
-The PLC & Go application loads by default the configuration to use the default coupling stage of the evaluation kit. If other coupling configuration is required, it can be easily modified in PLC\_PHY module of the project graph in MPLAB Code Configurator:
+The PLC & Go application loads by default the configuration to use the default coupling stage of the evaluation kit \(CENELEC-A for the ATPL360-EK and FCC + CENELEC-A Multiband for the PL460-EK\). If other coupling configuration is required, it can be easily modified in PLC\_PHY module of the project graph in MPLAB Code Configurator:
 
-![](GUID-DEAFFCBA-16FA-4E03-ADAD-45E28E741F52-low.png "Coupling Configuration in PLC_PHY Module")
+![](GUID-6A63ADFF-73E9-4D62-BAED-4A45D9747189-low.png "Coupling Configuration in PLC_PHY Module")
 
 **Callback setting**
 
-The state `APP_PLC_STATE_OPEN` configures the PLC\_PHY callbacks to manage the different events coming from the PLC\_PHY module, applies the initial configuration and enables the PVDD monitor, required to transmit with the PLC\_PHY module.
+The state `APP_PLC_STATE_OPEN` configures the PLC callbacks to manage the different events coming from the PL460, applies the initial configuration and enables the PVDD monitor, required to transmit with the PL460.
 
 The callbacks to manage different events are:
 
@@ -45,9 +45,9 @@ The callbacks to manage different events are:
 
 ```
 
-**PLC\_PHY module enabling**
+**PL360 enabling**
 
-When the callbacks are set, the PLC\_PHY module binary is already loaded from flash memory and its integrity is checked, but transmission is not allowed until the PVDD Monitor Service starts:
+When the callbacks are set, the PL360 binary is already loaded from flash memory and its integrity is checked, but transmission is not allowed until the PVDD Monitor Service starts:
 
 ``` {#CODEBLOCK_JJZ_QW4_BTB}
                 /* Enable PLC PVDD Monitor Service: ADC channel 0 */
@@ -56,5 +56,5 @@ When the callbacks are set, the PLC\_PHY module binary is already loaded from fl
 
 ```
 
-**Parent topic:**[Application Example](GUID-D8E2814E-98EA-4380-A781-862A488F5734.md)
+**Parent topic:**[PHY PLC & Go](GUID-E87515D0-BD4F-4456-8D21-13BD460238A8.md)
 

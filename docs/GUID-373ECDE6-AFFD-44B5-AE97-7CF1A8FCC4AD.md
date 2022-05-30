@@ -19,5 +19,5 @@ In the next points we will analyze some PRIME application examples logged with t
 -   **[Data Transfer](GUID-AFBA1025-60D0-48D4-AA2B-0F2B41F1ECFE.md)**  
 
 
-**Parent topic:**[PHY Sniffer](GUID-8D66ECA9-8C74-42B9-8915-33D381579FBB.md)
+**Parent topic:**[PHY Sniffer](GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E.md)
 

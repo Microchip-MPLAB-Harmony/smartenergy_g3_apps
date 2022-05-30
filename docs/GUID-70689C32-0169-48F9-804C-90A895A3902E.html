@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
+<meta name="DC.rights.owner" content="(C) Copyright 2022" />
+<meta name="DC.type" content="concept" />
+<meta name="DC.title" content="Transmission" />
+<meta name="DC.relation" scheme="URI" content="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8.html" />
+<meta name="DC.format" content="XHTML" />
+<meta name="DC.identifier" content="GUID-70689C32-0169-48F9-804C-90A895A3902E" />
+<meta name="DC.language" content="en-US" />
+<link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
+<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>Transmission</title>
+<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-70689C32-0169-48F9-804C-90A895A3902E" />
+<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-E87515D0-BD4F-4456-8D21-13BD460238A8" />
+<meta name="Microsoft.Help.TocOrder" content="0" />
+<meta name="Microsoft.Help.Locale" content="en-US" />
+<meta name="Microsoft.Help.TopicLocale" content="en-US" />
+<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Smart Energy G3 Applications Reference A 02/2022" />
+<script language="javascript">
+       
+       if (window.parent.location.protocol != 'file:') {
+				document.addEventListener('click', function(e) {
+				    if (e.target) {
+               if (e.target.nodeName == "A" ) {
+                    if (!e.target.target) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                              
+                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
+                      if (origUrl.length === 0) {
+                          origUrl = window.parent.location.href;
+                      }
+                      var href= e.target.getAttribute("href");
+                      var parts = href.split("#");
+          
+                      var url = "";
+                      if (parts.length == 2 ) {
+                        if (!parts[0].length) {
+                            url = window.parent.location.search.replace('?','')
+                        } else {
+                            url = parts[0].replace('.html','');
+                        }
+                      } else {
+                        url = parts[0].replace('.html','');
+                      }
+
+                      if (parts.length == 2) {
+                          url += "#" + parts[1];
+                      }
+    
+                      window.parent.location.href = origUrl + "?" + url;
+
+                      return false;
+                    }
+               }
+            }
+				});
+			}
+
+		</script><script language="javascript">
+        function cpy(id, button) {
+        
+            var element = document.getElementById(id);
+            var content = element.getAttribute("content");
+            var textArea = document.createElement("textarea");
+            
+            // Place in the top-left corner of screen regardless of scroll position.
+            textArea.style.position = 'fixed';
+            textArea.style.top = 0;
+            textArea.style.left = 0;
+            
+            // Ensure it has a small width and height. Setting to 1px / 1em
+            // doesn't work as this gives a negative w/h on some browsers.
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+            
+            // We don't need padding, reducing the size if it does flash render.
+            textArea.style.padding = 0;
+            
+            // Clean up any borders.
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            
+            // Avoid flash of the white box if rendered for any reason.
+            textArea.style.background = 'transparent';
+            
+            
+            textArea.value = content;
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+               var successful = document.execCommand('copy');
+               var msg = successful ? 'successful' : 'unsuccessful';
+               if (!button.classList.contains("copied")){
+                  button.textContent = "Copied";
+                  button.classList.add("copied");
+                  setTimeout(function(){
+                    button.textContent = "Copy";
+                    button.classList.remove("copied");
+                  },1000);
+               }
+            } catch (err) {
+              console.log('Oops, unable to copy');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+      </script><script language="javascript">
+          
+          // Add the MathML namespace to html
+          var html = document.getElementsByTagName("html")[0],
+          head = document.getElementsByTagName("head")[0];
+          
+          var mathJax = document.createElement("script");
+          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
+          head.appendChild(mathJax);
+          
+          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
+          
+          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
+          
+          if (!inIframe()) { 
+          
+          var Default = "index.html?GUID-70689C32-0169-48F9-804C-90A895A3902E"; 
+          
+          var displaylocation = "value" + window.location.href;
+          
+          var GUIDS = displaylocation.split('GUID');          
+          
+          if (displaylocation.indexOf('#GUID') != -1) {            
+          var First = GUIDS[1].split('.html');  
+          if (GUIDS[3]){First = GUIDS[2].split('.html');}
+          if (GUIDS[4]){First = GUIDS[3].split('.html');}
+          if (GUIDS[5]){First = GUIDS[4].split('.html');}
+          
+          var Second = GUIDS[2].split('#');   
+          if (GUIDS[3]){Second = GUIDS[3].split('#');}
+          if (GUIDS[4]){Second = GUIDS[4].split('#');}
+          if (GUIDS[5]){Second = GUIDS[5].split('#');}
+          
+          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
+          }                    
+          window.top.location = Default;
+          }       
+          
+        </script><style xml:space="">
+        
+          button.copy-code{
+            display:none;
+            padding:0.7em 1.4em;
+            margin:0 0.3em 0.3em 0;
+            border-radius:0.15em;
+            box-sizing: border-box;
+            text-decoration:none;
+            font-family:'Roboto',sans-serif;
+            text-transform:uppercase;
+            font-weight:400;
+            color:#FFFFFF;
+            background-color:#9c9c9c;
+            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+            text-align:center;
+            position:relative;
+            border: 0;
+            float: right;
+            border-radius: .5em;
+            cursor: pointer;
+          }
+          button.copy-code:active{
+            top:0.1em;
+          }
+          
+          pre:hover button.copy-code{
+            display: inline-block !important;
+          }
+          button.copy-code.copied {
+            cursor: default !important;
+          }
+          
+          
+          @media all and (max-width:30em){
+            button.copy-code{
+              display:block;
+              margin:0.4em auto;
+            }
+          }
+        
+        
+      </style></head>
+<body id="GUID-70689C32-0169-48F9-804C-90A895A3902E">
+
+<h1 class="title topictitle1" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-98AFA0B5-AA07-43C7-BC95-BAEE9B898E92">Transmission</h1>
+<div class="body conbody">
+        <p class="p">In the PLC &amp; Go application, to transmit a message, it is only needed to call the
+            function <code class="ph codeph">APP_PLC_SendData()</code> passing as parameters the pointer to the
+            data buffer and the data length. The function includes the length of the message to
+            transmit in the first two bytes of the data buffer so that, at the reception of the
+            message, it is possible to know the real length of the message.</p>
+
+        <p class="p">Any message transmitted by the PL360 requires a header including some transmission
+            parameters. These parameters and the data are stored in the structure <a class="xref" href="#GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-FD496811-F1AF-4D56-81F4-814F66EAEB58"><code class="ph codeph">DRV_PLC_PHY_TRANSMISSION_OBJ</code></a>.</p>
+
+        <p class="p">The PLC &amp; Go application only allow the configuration of some transmission parameters
+            related to the modulation. The rest of the parameters required to send a PLC message are
+            configured by default during the initialization stage in the function
+                <code class="ph codeph">APP_PLC_SetInitialConfiguration()</code> in the state
+                <code class="ph codeph">APP_PLC_STATE_OPEN</code>.</p>
+
+        <p class="p">The function <code class="ph codeph">APP_PLC_SetInitialConfiguration()</code> configures the
+            transmission parameters and stores the values in the structure. In case of G3-PLC, the
+            maximum PSDU length depends on the modulation, Reed-Solomon configuration, tone mask and
+            tone map. Due to G3-PLC requirements, before sending the message, the data buffer is
+            accommodated adding some padding bytes if it is necessary. Zero bit padding is used to
+            fit the encoded bits into a number of OFDM symbols that is a multiple of 4. In the
+            example, the PL360 is configured to add padding and CRC automatically, enabling PIB
+            ATPL360_REG_CRC_TX_RX_CAPABILITY (0x401C).</p>
+
+        <p class="p">Once the transmission is configured, the function <code class="ph codeph">APP_PLC_SendData()</code>
+            prepares the data to be sent by PLC, storing the data in the transmission buffer
+                (<code class="ph codeph">appPlcTx.pDataTx</code>) and indicating the length of the data buffer
+                (<code class="ph codeph">appPlcTx.pl360Tx.dataLength</code>). When all the information is in the
+            transmission structure, the function <code class="ph codeph">DRV_PLC_PHY_Send()</code> sends the PLC
+            message. </p>
+
+        <p class="p">After sending the message to be transmitted to the PL360 device, a TX data confirm event
+            is triggered indicating the result of the transmission. This event is managed by the
+                <code class="ph codeph">APP_PLC_DataCfmCb()</code> callback function. This callback receives as
+            parameter a data structure of type <a class="xref" href="#GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-5FBF00EB-BA0A-4BB9-A15C-21A80FC044E4"><code class="ph codeph">DRV_PLC_PHY_TRANSMISSION_CFM_OBJ</code></a>. </p>
+
+        <ol class="ol" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-6AA49BE0-33FC-46DC-9E1F-BBAFA5157BC5">
+            <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-FD496811-F1AF-4D56-81F4-814F66EAEB58"><span class="indent-level-default">1.</span><strong class="ph b">Structure
+                        <code class="ph codeph">DRV_PLC_PHY_TRANSMISSION_OBJ</code></strong><div class="p">
+                    <pre class="pre codeblock" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__CODEBLOCK_KG3_4ZS_CTB"><button title="Copy Code" class="copy-code" onclick="cpy('d6059e81', this);">Copy</button><code id="d6059e81" content="// *****************************************************************************&#xA;/* G3 Transmission setup data&#xA;   Summary:    This struct includes all information to describe any transmissions.&#xA;   Remarks:    None&#xA;*/&#xA;typedef struct __attribute__((packed, aligned(1))) {&#xA;  uint8_t *pTransmitData;                 /* Pointer to data buffer to transmit */&#xA;  uint32_t time;                          /* Instant when transmission has to start referred to 1us PHY counter */&#xA;  uint16_t dataLength;                    /* Length of the data to transmit in bytes */&#xA;  uint8_t preemphasis[NUM_SUBBANDS_MAX];  /* Preemphasis for transmission */&#xA;  uint8_t toneMap[TONE_MAP_SIZE_MAX];     /* Tone Map to use on transmission */&#xA;  uint8_t mode;                           /* Transmission Mode (absolute, relative, forced, continuous, cancel) */&#xA;  uint8_t attenuation;                    /* Power to transmit */&#xA;  uint8_t pdc;                            /* Phase Detector Counter */&#xA;  uint8_t rs2Blocks;                      /* Flag to indicate whether 2 Reed-Solomon blocks have to be used (only used for FCC) */&#xA;  DRV_PLC_PHY_MOD_TYPE modType;           /* Modulation type */&#xA;  DRV_PLC_PHY_MOD_SCHEME modScheme;       /* Modulation scheme */&#xA;  DRV_PLC_PHY_DEL_TYPE delimiterType;     /* DT field to be used in header */&#xA;} DRV_PLC_PHY_TRANSMISSION_OBJ;&#xA;">// *****************************************************************************
+/* G3 Transmission setup data
+   Summary:    This struct includes all information to describe any transmissions.
+   Remarks:    None
+*/
+typedef struct __attribute__((packed, aligned(1))) {
+  uint8_t *pTransmitData;                 /* Pointer to data buffer to transmit */
+  uint32_t time;                          /* Instant when transmission has to start referred to 1us PHY counter */
+  uint16_t dataLength;                    /* Length of the data to transmit in bytes */
+  uint8_t preemphasis[NUM_SUBBANDS_MAX];  /* Preemphasis for transmission */
+  uint8_t toneMap[TONE_MAP_SIZE_MAX];     /* Tone Map to use on transmission */
+  uint8_t mode;                           /* Transmission Mode (absolute, relative, forced, continuous, cancel) */
+  uint8_t attenuation;                    /* Power to transmit */
+  uint8_t pdc;                            /* Phase Detector Counter */
+  uint8_t rs2Blocks;                      /* Flag to indicate whether 2 Reed-Solomon blocks have to be used (only used for FCC) */
+  DRV_PLC_PHY_MOD_TYPE modType;           /* Modulation type */
+  DRV_PLC_PHY_MOD_SCHEME modScheme;       /* Modulation scheme */
+  DRV_PLC_PHY_DEL_TYPE delimiterType;     /* DT field to be used in header */
+} DRV_PLC_PHY_TRANSMISSION_OBJ;
+</code></pre>
+                </div>
+<p class="p">Transmission messages are composed using data structure
+                        <code class="ph codeph">DRV_PLC_PHY_TRANSMISSION_OBJ</code> defined in
+                        <code class="ph codeph">drv_plc_phy_comm.h</code>.</p>
+<div class="p"> Where: <ul class="ul" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__UL_B1R_JC2_KKB">
+                        <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-AE3B2F12-5D49-4069-8470-6B7EF378ABCA"><code class="ph codeph">pTransmitData</code>: Pointer to the buffer containing
+                            the data to transmit</li>
+
+                        <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-204D3DB9-C8FD-417D-A315-DBACCCB6EC5E"><code class="ph codeph">time</code>:
+                            Delay to send the message in ms referred to PL360 internal timer</li>
+
+                        <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-B62ABE12-1DC0-415A-B68A-304572649B01"><code class="ph codeph">dataLength</code>: length of the data buffer containing
+                            the data to transmit</li>
+
+                        <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-5A25E662-F748-431B-83A4-A46D4F536F50"><code class="ph codeph">preemphasis</code>: Attenuation of subbands. Not
+                            used</li>
+
+                        <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-4ADD13DB-B558-4A91-9A71-54DE90E34154"><code class="ph codeph">toneMap</code>:
+                            Dynamic notching of carriers in the subband</li>
+
+                        <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-14FB7DFD-30D2-474A-AE66-CEA711DEDC94"><code class="ph codeph">mode</code>:
+                            Transmission mode</li>
+
+                    </ul>
+</div>
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__TABLE_WBS_4FC_CKB" class="table nocolor" frame="border" border="1" rules="all">
+                        <col style="width:40%" />
+                        <col style="width:60%" />
+                        <thead class="thead" style="text-align:left;">
+                            <tr class="row">
+                                <th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d6059e139"><span>uc_tx_mode</span></th>
+
+                                <th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d6059e142"><span>Description</span></th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody class="tbody">
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="vertical-align:middle;" headers="d6059e139 "><span>TX_MODE_ABSOLUTE</span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e142 "><span>The message is sent at the
+                                    specified time, referred to PL360 internal timer (1 us). Time
+                                    defined in <code class="ph codeph">ul_tx_time</code></span></td>
+
+                            </tr>
+
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e139 "><span>TX_MODE_RELATIVE</span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e142 "><span>The message is sent with a delay
+                                    referred to the transmission request time. Delay defined in
+                                        <code class="ph codeph">ul_tx_time</code></span></td>
+
+                            </tr>
+
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e139 "><span>TX_MODE_FORCED</span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e142 "><span>Transmission has a higher
+                                    priority than a reception in progress</span></td>
+
+                            </tr>
+
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="vertical-align:middle;" headers="d6059e139 "><span>TX_MODE_SYNCP_CONTINUOUS</span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e142 "><span>Continuous transmission of the
+                                    preamble. Used for testing</span></td>
+
+                            </tr>
+
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e139 "><span>TX_MODE_SYMBOLS_CONTINUOUS</span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e142 "><span>Continuous transmission of a
+                                    message. Used for testing</span></td>
+
+                            </tr>
+
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e139 "><span>TX_MODE_CANCEL</span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e142 "><span>Cancels the ongoing transmission
+                                    (started or programmed)</span></td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+</div>
+<ul class="ul" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__UL_LSV_WS2_KKB">
+                    <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-374B4100-00D1-476D-ABD4-4BCB7C45B5D8"><code class="ph codeph">attenuation</code>:
+                        Signal attenuation (3dBs/unit, and 0 means maximum signal level)</li>
+
+                    <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-C8ED15D8-AAA5-4565-B22D-3D339D2B3F2B"><code class="ph codeph">pdc</code>: Phase
+                        detector counter</li>
+
+                    <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-A7C1D1E6-A4F4-469C-9C58-472585CE2B16"><code class="ph codeph">rs2Blocks</code>:
+                        Number of Reed-Solomon blocks used (only valid for FCC band). </li>
+
+                    <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-F14DF33E-620C-473A-BADD-ECC7F3767812"><code class="ph codeph">modType</code>:
+                        Modulation type</li>
+
+                </ul>
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__TABLE_TKR_L2H_QFB" class="table nocolor" frame="border" border="1" rules="all">
+                        <col style="width:33.33333333333333%" />
+                        <col style="width:16.666666666666664%" />
+                        <col style="width:50%" />
+                        <thead class="thead" style="text-align:left;">
+                            <tr class="row">
+                                <th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d6059e246"><span>uc_mod_type</span></th>
+
+                                <th class="entry cellrowborder" style="text-align:center;vertical-align:middle;" id="d6059e249"><span>Value</span></th>
+
+                                <th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d6059e252"><span>Description</span></th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody class="tbody">
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e246 "><span>MOD_TYPE_BPSK </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:center;vertical-align:middle;" headers="d6059e249 "><span>0 </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e252 "><span>BPSK Modulation </span></td>
+
+                            </tr>
+
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e246 "><span>MOD_TYPE_QPSK </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:center;vertical-align:middle;" headers="d6059e249 "><span>1 </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e252 "><span>QPSK Modulation </span></td>
+
+                            </tr>
+
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e246 "><span>MOD_TYPE_8PSK </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:center;vertical-align:middle;" headers="d6059e249 "><span>2 </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e252 "><span>8PSK Modulation </span></td>
+
+                            </tr>
+
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e246 "><span>MOD_TYPE_BPSK_ROBO </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:center;vertical-align:middle;" headers="d6059e249 "><span>4</span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e252 "><span>BPSK Robust Modulation </span></td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+</div>
+<ul class="ul" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__UL_LG3_4ZS_CTB">
+                    <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-D3F5DC88-F39B-4989-B9D7-EC28FBDA9BA4"><code class="ph codeph">modScheme</code>:
+                        Modulation scheme</li>
+
+                </ul>
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__TABLE_YXW_Z2H_QFB" class="table nocolor" frame="border" border="1" rules="all">
+                        <col style="width:33.33333333333333%" />
+                        <col style="width:16.666666666666664%" />
+                        <col style="width:50%" />
+                        <thead class="thead" style="text-align:left;">
+                            <tr class="row">
+                                <th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d6059e330"><span>uc_mod_scheme</span></th>
+
+                                <th class="entry cellrowborder" style="text-align:center;vertical-align:middle;" id="d6059e333"><span>Value</span></th>
+
+                                <th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d6059e336"><span>Description</span></th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody class="tbody">
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e330 "><span>MOD_SCHEME_DIFFERENTIAL </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:center;vertical-align:middle;" headers="d6059e333 "><span>0 </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e336 "><span>Modulation Scheme Differential
+                                </span></td>
+
+                            </tr>
+
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e330 "><span>MOD_SCHEME_COHERENT </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:center;vertical-align:middle;" headers="d6059e333 "><span>1 </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e336 "><span>Modulation Scheme Coherent
+                                </span></td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+</div>
+<ul class="ul" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__UL_JN5_2T2_KKB">
+                    <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-E8C6D143-654E-4D09-9BC3-20A94F14EEDB"><code class="ph codeph">delimiterType</code>: Delimiter type used in the header</li>
+
+                </ul>
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__TABLE_MYR_DFH_QFB" class="table nocolor" frame="border" border="1" rules="all">
+                        <col style="width:33.33333333333333%" />
+                        <col style="width:16.666666666666664%" />
+                        <col style="width:50%" />
+                        <thead class="thead" style="text-align:left;">
+                            <tr class="row">
+                                <th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d6059e390"><span>uc_delimiter_type</span></th>
+
+                                <th class="entry cellrowborder" style="text-align:center;vertical-align:middle;" id="d6059e393"><span>Value</span></th>
+
+                                <th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d6059e396"><span>Description</span></th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody class="tbody">
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="vertical-align:middle;" headers="d6059e390 "><span>DT_SOF_NO_RESP</span></td>
+
+                                <td class="entry cellrowborder" style="text-align:center;vertical-align:middle;" headers="d6059e393 "><span>0 </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e396 "><span>Acknowledgment is not
+                                    requested</span></td>
+
+                            </tr>
+
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e390 "><span>DT_SOF_RESP</span></td>
+
+                                <td class="entry cellrowborder" style="text-align:center;vertical-align:middle;" headers="d6059e393 "><span>1 </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e396 "><span>Acknowledgment is
+                                    requested</span></td>
+
+                            </tr>
+
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e390 "><span>DT_ACK </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:center;vertical-align:middle;" headers="d6059e393 "><span>2 </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e396 "><span>Positive acknowledgement</span></td>
+
+                            </tr>
+
+                            <tr class="row">
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e390 "><span>DT_NACK </span></td>
+
+                                <td class="entry cellrowborder" style="text-align:center;vertical-align:middle;" headers="d6059e393 "><span>3</span></td>
+
+                                <td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d6059e396 "><span>Negative acknowledgement</span></td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+</div>
+</li>
+
+            <li class="li" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__GUID-5FBF00EB-BA0A-4BB9-A15C-21A80FC044E4"><span class="indent-level-default">2.</span><strong class="ph b">Structure <code class="ph codeph">DRV_PLC_PHY_TRANSMISSION_CFM_OBJ</code></strong><div class="p">
+                    <pre class="pre codeblock" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__CODEBLOCK_MG3_4ZS_CTB"><button title="Copy Code" class="copy-code" onclick="cpy('d6059e461', this);">Copy</button><code id="d6059e461" content="// *****************************************************************************&#xA;/* G3 Result of a transmission&#xA;   Summary:    This struct includes all information to describe any result of a previous &#xA;               transmission.&#xA;   Remarks:    None&#xA;*/&#xA;typedef struct {&#xA;  uint32_t time;                 /* Instant when frame transmission ended referred to 1us PHY counter */&#xA;  uint32_t rmsCalc;              /* RMS_CALC it allows to estimate tx power injected */&#xA;  DRV_PLC_PHY_TX_RESULT result;  /* Tx Result (see &#34;TX Result values&#34; above) */&#xA;} DRV_PLC_PHY_TRANSMISSION_CFM_OBJ;&#xA;">// *****************************************************************************
+/* G3 Result of a transmission
+   Summary:    This struct includes all information to describe any result of a previous 
+               transmission.
+   Remarks:    None
+*/
+typedef struct {
+  uint32_t time;                 /* Instant when frame transmission ended referred to 1us PHY counter */
+  uint32_t rmsCalc;              /* RMS_CALC it allows to estimate tx power injected */
+  DRV_PLC_PHY_TX_RESULT result;  /* Tx Result (see "TX Result values" above) */
+} DRV_PLC_PHY_TRANSMISSION_CFM_OBJ;
+</code></pre>
+                </div>
+<div class="p">The event returns one of the following transmission result values:
+                    <pre class="pre codeblock" id="GUID-70689C32-0169-48F9-804C-90A895A3902E__CODEBLOCK_NG3_4ZS_CTB"><button title="Copy Code" class="copy-code" onclick="cpy('d6059e466', this);">Copy</button><code id="d6059e466" content="// *****************************************************************************&#xA;/* G3 Result values of a previous transmission&#xA;   Summary:    This list involves all available results from MCHP implementation&#xA;   Remarks:    None&#xA;*/&#xA;typedef enum {&#xA;  DRV_PLC_PHY_TX_RESULT_PROCESS = 0,         /* Transmission result: already in process */&#xA;  DRV_PLC_PHY_TX_RESULT_SUCCESS = 1,         /* Transmission result: end successfully */&#xA;  DRV_PLC_PHY_TX_RESULT_INV_LENGTH = 2,      /* Transmission result: invalid length error */&#xA;  DRV_PLC_PHY_TX_RESULT_BUSY_CH = 3,         /* Transmission result: busy channel error */&#xA;  DRV_PLC_PHY_TX_RESULT_BUSY_TX = 4,         /* Transmission result: busy in transmission error */&#xA;  DRV_PLC_PHY_TX_RESULT_BUSY_RX = 5,         /* Transmission result: busy in reception error */&#xA;  DRV_PLC_PHY_TX_RESULT_INV_SCHEME = 6,      /* Transmission result: invalid modulation scheme error */&#xA;  DRV_PLC_PHY_TX_RESULT_TIMEOUT = 7,         /* Transmission result: timeout error */&#xA;  DRV_PLC_PHY_TX_RESULT_INV_TONEMAP = 8,     /* Transmission result: invalid tone map error */&#xA;  DRV_PLC_PHY_TX_RESULT_INV_MODTYPE = 9,     /* Transmission result: invalid modulation type error */&#xA;  DRV_PLC_PHY_TX_RESULT_INV_DT = 10,         /* Transmission result: invalid delimiter type error */&#xA;  DRV_PLC_PHY_TX_CANCELLED = 11,             /* Transmission result: transmission cancelled */&#xA;  DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120 = 12,  /* Transmission result: high temperature error */&#xA;  DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_110 = 13,  /* Transmission result: high temperature warning */&#xA;  DRV_PLC_PHY_TX_RESULT_NO_TX = 255,         /* Transmission result: No transmission ongoing */&#xA;}DRV_PLC_PHY_TX_RESULT;&#xA;">// *****************************************************************************
+/* G3 Result values of a previous transmission
+   Summary:    This list involves all available results from MCHP implementation
+   Remarks:    None
+*/
+typedef enum {
+  DRV_PLC_PHY_TX_RESULT_PROCESS = 0,         /* Transmission result: already in process */
+  DRV_PLC_PHY_TX_RESULT_SUCCESS = 1,         /* Transmission result: end successfully */
+  DRV_PLC_PHY_TX_RESULT_INV_LENGTH = 2,      /* Transmission result: invalid length error */
+  DRV_PLC_PHY_TX_RESULT_BUSY_CH = 3,         /* Transmission result: busy channel error */
+  DRV_PLC_PHY_TX_RESULT_BUSY_TX = 4,         /* Transmission result: busy in transmission error */
+  DRV_PLC_PHY_TX_RESULT_BUSY_RX = 5,         /* Transmission result: busy in reception error */
+  DRV_PLC_PHY_TX_RESULT_INV_SCHEME = 6,      /* Transmission result: invalid modulation scheme error */
+  DRV_PLC_PHY_TX_RESULT_TIMEOUT = 7,         /* Transmission result: timeout error */
+  DRV_PLC_PHY_TX_RESULT_INV_TONEMAP = 8,     /* Transmission result: invalid tone map error */
+  DRV_PLC_PHY_TX_RESULT_INV_MODTYPE = 9,     /* Transmission result: invalid modulation type error */
+  DRV_PLC_PHY_TX_RESULT_INV_DT = 10,         /* Transmission result: invalid delimiter type error */
+  DRV_PLC_PHY_TX_CANCELLED = 11,             /* Transmission result: transmission cancelled */
+  DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120 = 12,  /* Transmission result: high temperature error */
+  DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_110 = 13,  /* Transmission result: high temperature warning */
+  DRV_PLC_PHY_TX_RESULT_NO_TX = 255,         /* Transmission result: No transmission ongoing */
+}DRV_PLC_PHY_TX_RESULT;
+</code></pre></div>
+</li>
+
+        </ol>
+
+    </div>
+
+<div class="related-links">
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8.html">PHY PLC &amp; Go</a></div>
+</div>
+</div></body>
+</html>

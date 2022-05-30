@@ -240,7 +240,7 @@
          route. To obtain this information from the sniffer database, it is needed to execute an SQL
          query filter as:</p>
 
-      <pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d772e58', this);">Copy</button><code id="d772e58" content="SELECT Frame.* FROM Frame,RREQ WHERE (CmdType &amp; 16383) = 4096 AND idframe=RREQ_idFrame AND Originator = 5 ORDER BY idFrame DESC">SELECT Frame.* FROM Frame,RREQ WHERE (CmdType &amp; 16383) = 4096 AND idframe=RREQ_idFrame AND Originator = 5 ORDER BY idFrame DESC</code></pre>
+      <pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d821e58', this);">Copy</button><code id="d821e58" content="SELECT Frame.* FROM Frame,RREQ WHERE (CmdType &amp; 16383) = 4096 AND idframe=RREQ_idFrame AND Originator = 5 ORDER BY idFrame DESC">SELECT Frame.* FROM Frame,RREQ WHERE (CmdType &amp; 16383) = 4096 AND idframe=RREQ_idFrame AND Originator = 5 ORDER BY idFrame DESC</code></pre>
       <p class="p" id="GUID-4EDE83FB-AE28-483E-8180-C8ABB0538A21__ID-000002A0">That query will produce all route request frames for a device (originator)
          with short address “5”, ordered by idFrame (i.e. showing newest request first).</p>
 
@@ -250,7 +250,7 @@
          route may change over time, and similarly to the Route Cost, it is possible to query the
          sniffer database to find out the Path updates for a device node:</p>
 
-      <pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d772e67', this);">Copy</button><code id="d772e67" content="SELECT Frame.* FROM Frame,PREP WHERE (CmdType &amp; 16383) = 4349 AND PREP_idframe = idframe AND Originator = 3 ORDER BY idFrame DESC">SELECT Frame.* FROM Frame,PREP WHERE (CmdType &amp; 16383) = 4349 AND PREP_idframe = idframe AND Originator = 3 ORDER BY idFrame DESC</code></pre>
+      <pre class="pre codeblock"><button title="Copy Code" class="copy-code" onclick="cpy('d821e67', this);">Copy</button><code id="d821e67" content="SELECT Frame.* FROM Frame,PREP WHERE (CmdType &amp; 16383) = 4349 AND PREP_idframe = idframe AND Originator = 3 ORDER BY idFrame DESC">SELECT Frame.* FROM Frame,PREP WHERE (CmdType &amp; 16383) = 4349 AND PREP_idframe = idframe AND Originator = 3 ORDER BY idFrame DESC</code></pre>
       <div class="p" id="GUID-4EDE83FB-AE28-483E-8180-C8ABB0538A21__ID-000002A3">Path request frames may not be present on the network. It depends on the
          coordinator behavior. Device List shows path as a list of hops. Forward hops to reach the
          node are shown between square brackets (i.e. <em class="ph i">“[0001, 0, 0]”</em>) and reverse hops with

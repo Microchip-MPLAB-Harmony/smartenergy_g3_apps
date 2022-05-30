@@ -7,16 +7,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
 <meta name="DC.rights.owner" content="(C) Copyright 2022" />
 <meta name="DC.type" content="concept" />
-<meta name="DC.title" content="PHY PLC &amp; Go" />
+<meta name="DC.title" content="MACrt PLC &amp; Go" />
 <meta name="DC.relation" scheme="URI" content="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html" />
-<meta name="DC.relation" scheme="URI" content="GUID-D8E2814E-98EA-4380-A781-862A488F5734.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F.html" />
 <meta name="DC.format" content="XHTML" />
-<meta name="DC.identifier" content="GUID-B538C5C8-9467-490F-95A6-13E59BB430FA" />
+<meta name="DC.identifier" content="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1" />
 <meta name="DC.language" content="en-US" />
 <link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
-<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>PHY PLC &amp; Go</title>
-<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-B538C5C8-9467-490F-95A6-13E59BB430FA" />
+<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>MACrt PLC &amp; Go</title>
+<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1" />
 <meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D" />
 <meta name="Microsoft.Help.TocOrder" content="0" />
 <meta name="Microsoft.Help.Locale" content="en-US" />
@@ -131,7 +131,7 @@
           
           if (!inIframe()) { 
           
-          var Default = "index.html?GUID-B538C5C8-9467-490F-95A6-13E59BB430FA"; 
+          var Default = "index.html?GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1"; 
           
           var displaylocation = "value" + window.location.href;
           
@@ -196,33 +196,61 @@
         
         
       </style></head>
-<body id="GUID-B538C5C8-9467-490F-95A6-13E59BB430FA">
+<body id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1">
 
-    <h1 class="title topictitle1" id="GUID-B538C5C8-9467-490F-95A6-13E59BB430FA__GUID-23B2A139-AD09-4A3F-AED7-3ABC5BC3ED95">PHY PLC &amp; Go</h1>
+    <h1 class="title topictitle1" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__GUID-23B2A139-AD09-4A3F-AED7-3ABC5BC3ED95">MACrt PLC &amp; Go</h1>
     <div class="body conbody">
-        <p class="p">PLC &amp; Go is Microchip’s example to get started quickly with Power Line Communications
-            (PLC). PLC &amp; Go implements a basic application example of low data rate PLC (up to
-            200 of kbps) using OFDM modulation, that supports point to point and multi-point
-            communications.</p>
+        <p class="p">MACrt PLC &amp; Go is Microchip’s example to get started quickly with Power Line
+            Communications (PLC). MACrt PLC &amp; Go implements a basic application example of low
+            data rate PLC (up to 200 of kbps) using OFDM modulation, that supports point to point
+            and multi-point communications accessing through Microchip G3-PLC MAC realtime (MACrt)
+            implementation (G3_MAC_RT).</p>
 
-        <p class="p">PLC &amp; Go runs a chat application between two or more end points using Microchip PLC
-            modem boards. The end points in this example are PCs which are connected via serial
+        <div class="p">G3_MAC_RT PLC includes some of the advanced features available in the G3-PLC MAC
+            simplifying the communication process between devices:<ul class="ul" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__UL_ONL_TLR_QTB">
+                <li class="li" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__GUID-071A81ED-DC0F-420A-9540-86CD105A1103">TX/RX API Params Interface:
+                    configures/stores the transmission and reception parameters (G3-PLC
+                    specific)</li>
+
+                <li class="li" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__GUID-37DED851-B128-41C8-B76D-AE992FB8DD62">TX/RX API Data Interface
+                    compatible with standard MAC 802.15.4</li>
+
+                <li class="li" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__GUID-089937FC-9E81-420E-A939-C6F21033135E">Automatic Medium access
+                    capabilities: CSMA/CA, retransmissions, inter-frame spacing </li>
+
+                <li class="li" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__GUID-2A5D935F-C4B6-4C50-BC98-DEEA405AE229">Automatic Link parameters
+                    selection between devices handled through TMR mechanism</li>
+
+                <li class="li" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__GUID-E840A940-4BD9-45CE-B6ED-F1D8F6D0A7C0">ARQ Enabled/Disabled according to
+                    provided MAC 802.15.4 Data Header</li>
+
+                <li class="li" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__GUID-0CB1E974-9E1A-4348-BCC2-8667931F2BBD">Automatic segmentation and
+                    reassembly</li>
+
+                <li class="li" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__GUID-7D95C6E2-DA92-4EB5-A75E-DC76376845F3">Addressing according to provided
+                    MAC 802.15.4 Data Header: allows point to point (unicast short/extended address)
+                    or multipoint (broadcast) communication</li>
+
+                <li class="li" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__GUID-EDB3C6CD-6A2D-427E-9C11-D14EF2635428">Frame Reception filtering
+                    capabilities by own MAC address</li>
+
+                <li class="li" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__GUID-4E73147E-E4B4-418F-B4BC-028743403FAF">Duplicated frames filtering</li>
+
+                <li class="li" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__GUID-2497BA59-D55E-46FE-A610-54CAAE4A71D2">Sniffering capabilities</li>
+
+            </ul>
+</div>
+
+        <p class="p">MACrt PLC &amp; Go runs a chat application between two or more end points using Microchip
+            PLC modem boards. The end points in this example are PCs which are connected via serial
             interface (USB, UART) to Microchip evaluation boards acting as PLC modems. Any end point
-            can transmit a message, which is received by the other end points in the network. The
-            application example allows end points to configure several PLC parameters such as
-            modulation type, modulation scheme and band of transmission (in case of using a
-            Microchip evaluation board that supports several bands of transmission). </p>
+            can transmit a message, which is received by the destination (one device or all). The
+            application example allows end points to configure several PLC parameters as PLC Band
+            (in case of using a Microchip evaluation board that supports several bands of
+            transmission). </p>
 
-        <p class="p">PLC &amp; Go chat application is built on top of the physical layer (PHY) of
-            state-of-the-art standards for PLC, such as PRIME and G3-PLC. As such, PLC &amp; Go is
-            taking advantage of the speed, robustness and frequency band profiles defined by the PHY
-            layers of these standards. For the sake of simplicity, PLC &amp; Go removes all advanced
-            networking features available in the MAC layers of PRIME and G3-PLC. These are not
-            required for the basic point to point / point to multi-point communication scenarios
-            described in this application note.</p>
-
-        <div class="fig fignone" id="GUID-B538C5C8-9467-490F-95A6-13E59BB430FA__FIG_IDN_RFB_SKB">
-            <img class="image" id="GUID-B538C5C8-9467-490F-95A6-13E59BB430FA__IMAGE_JDN_RFB_SKB" src="GUID-E4B51A9B-B50A-440D-B879-7C2900F6E9A7-low.png" height="358" width="360" />
+        <div class="fig fignone" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__FIG_IDN_RFB_SKB">
+            <img class="image" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1__IMAGE_JDN_RFB_SKB" src="GUID-E4B51A9B-B50A-440D-B879-7C2900F6E9A7-low.png" height="358" width="360" />
         </div>
 
         <p class="p">Microchip PLC solution is flexible and provides designs optimized for several frequency
@@ -234,7 +262,7 @@
 
 <div class="related-links">
 <ul class="ullinks">
-<li class="link ulchildlink"><strong><a href="GUID-D8E2814E-98EA-4380-A781-862A488F5734.html">Application Example</a></strong><br />
+<li class="link ulchildlink"><strong><a href="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F.html">Application Example</a></strong><br />
 </li>
 </ul>
 

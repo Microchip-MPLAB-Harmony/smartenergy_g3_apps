@@ -7,19 +7,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
 <meta name="DC.rights.owner" content="(C) Copyright 2022" />
 <meta name="DC.type" content="concept" />
-<meta name="DC.title" content="Application Example" />
-<meta name="DC.relation" scheme="URI" content="GUID-B538C5C8-9467-490F-95A6-13E59BB430FA.html" />
-<meta name="DC.relation" scheme="URI" content="GUID-9FCAE429-C7DF-46F9-A612-502134E591D2.html" />
-<meta name="DC.relation" scheme="URI" content="GUID-23C1C481-5759-45DD-99E8-F29F74ABDB0D.html" />
-<meta name="DC.relation" scheme="URI" content="GUID-D6336496-D2D7-4FF9-A399-3451878B8E50.html" />
+<meta name="DC.title" content="PHY PLC &amp; Go" />
+<meta name="DC.relation" scheme="URI" content="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-CB22CEE4-8CC0-4FE4-BE82-CAFC9A5F41E2.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-7776C4FC-5833-4CB1-9BAF-C01556DDBFCE.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-70689C32-0169-48F9-804C-90A895A3902E.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED.html" />
 <meta name="DC.format" content="XHTML" />
-<meta name="DC.identifier" content="GUID-D8E2814E-98EA-4380-A781-862A488F5734" />
+<meta name="DC.identifier" content="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8" />
 <meta name="DC.language" content="en-US" />
 <link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
-<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>Application Example</title>
-<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-D8E2814E-98EA-4380-A781-862A488F5734" />
-<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-B538C5C8-9467-490F-95A6-13E59BB430FA" />
+<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>PHY PLC &amp; Go</title>
+<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-E87515D0-BD4F-4456-8D21-13BD460238A8" />
+<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D" />
 <meta name="Microsoft.Help.TocOrder" content="0" />
 <meta name="Microsoft.Help.Locale" content="en-US" />
 <meta name="Microsoft.Help.TopicLocale" content="en-US" />
@@ -133,7 +134,7 @@
           
           if (!inIframe()) { 
           
-          var Default = "index.html?GUID-D8E2814E-98EA-4380-A781-862A488F5734"; 
+          var Default = "index.html?GUID-E87515D0-BD4F-4456-8D21-13BD460238A8"; 
           
           var displaylocation = "value" + window.location.href;
           
@@ -198,86 +199,56 @@
         
         
       </style></head>
-<body id="GUID-D8E2814E-98EA-4380-A781-862A488F5734">
+<body id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8">
 
-<h1 class="title topictitle1" id="GUID-D8E2814E-98EA-4380-A781-862A488F5734__GUID-C7389C5B-55D3-4DC9-9184-898A79630013">Application Example</h1>
-<div class="body conbody">
-        <p class="p">Microchip PLC &amp; Go application is a point to multi-point chat application built on
-            top of the PHY layer of state-of-the-art PRIME protocol.</p>
+    <h1 class="title topictitle1" id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8__GUID-23B2A139-AD09-4A3F-AED7-3ABC5BC3ED95">PHY PLC &amp; Go</h1>
+    <div class="body conbody">
+        <p class="p">PLC &amp; Go is Microchip’s example to get started quickly with Power Line Communications
+            (PLC). PLC &amp; Go implements a basic application example of low data rate PLC (up to
+            200 of kbps) using OFDM modulation, that supports point to point and multi-point
+            communications.</p>
 
-        <p class="p">Note that <code class="ph codeph">phy_plc_and_go</code> application example can be used with Microchip
-            PRIME stack version included on MPLAB Harmony in any Microchip platforms implementing
-            PL360/PL460 device as PLC modem. </p>
+        <p class="p">PLC &amp; Go runs a chat application between two or more end points using Microchip PLC
+            modem boards. The end points in this example are PCs which are connected via serial
+            interface (USB, UART) to Microchip evaluation boards acting as PLC modems. Any end point
+            can transmit a message, which is received by the other end points in the network. The
+            application example allows end points to configure several PLC parameters such as
+            modulation type, modulation scheme and band of transmission (in case of using a
+            Microchip evaluation board that supports several bands of transmission). </p>
 
-        <p class="p">This application example assumes that a host device (a PC, for example) is
-            connected through a serial interface (USB, UART) to a Microchip evaluation kit acting as
-            a PLC modem. </p>
+        <p class="p">PLC &amp; Go chat application is built on top of the physical layer (PHY) of
+            state-of-the-art standards for PLC, such as PRIME and G3-PLC. As such, PLC &amp; Go is
+            taking advantage of the speed, robustness and frequency band profiles defined by the PHY
+            layers of these standards. For the sake of simplicity, PLC &amp; Go removes all advanced
+            networking features available in the MAC layers of PRIME and G3-PLC. These are not
+            required for the basic point to point / point to multi-point communication scenarios
+            described in this application note.</p>
 
-        <p class="p">The figure below provides an example of the minimum hardware and firmware resources
-            required to run PLC &amp; Go.</p>
-
-        <div class="fig fignone" id="GUID-D8E2814E-98EA-4380-A781-862A488F5734__FIG_JBZ_SNC_4KB"><div class="figcap"><span class="fig--title-label">Figure 1. </span>PLC &amp; Go Block Diagram</div>
-            
-            <br /><div class="imagecenter"><img class="image imagecenter" id="GUID-D8E2814E-98EA-4380-A781-862A488F5734__IMAGE_KBZ_SNC_4KB" src="GUID-7C8B71F0-B089-48D4-968D-A3C35B19EB74-low.png" /></div><br />
+        <div class="fig fignone" id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8__FIG_IDN_RFB_SKB">
+            <img class="image" id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8__IMAGE_JDN_RFB_SKB" src="GUID-E4B51A9B-B50A-440D-B879-7C2900F6E9A7-low.png" height="358" width="360" />
         </div>
 
-        <p class="p">The PLC &amp; Go application interchanges data with the PC through a serial port using a
-            terminal emulator (see figure PLC &amp; Go console where terminal emulator TeraTerm is
-            used). The settings of the serial port are: 921600 bps, 8 data bits, no parity, 1 stop
-            bit and flow control.</p>
-
-        <p class="p">When the serial port is opened, the PLC &amp; Go application shows in the
-            console some information about the hardware platform and the firmware running, and it
-            waits for a message to be sent. The message is sent when a carriage return character is
-            received or the maximum length of the PLC data message is reached. If the user sends the
-            ASCII character 0x13 (‘CTRL+S’), a configuration menu is shown.</p>
-
-        <p class="p">The  PLC &amp; Go application allows to:</p>
-
-        <ul class="ul" id="GUID-D8E2814E-98EA-4380-A781-862A488F5734__UL_EPW_VY1_H3B">
-            <li class="li" id="GUID-D8E2814E-98EA-4380-A781-862A488F5734__GUID-BE56F3D1-DF43-45C6-BEAE-0D588E0DC219">Configure modulation</li>
-
-            <li class="li" id="GUID-D8E2814E-98EA-4380-A781-862A488F5734__GUID-AE48F5AD-0CE7-4B3F-94AF-1EB556E5E29F">Configure the TX/RX channel</li>
-
-        </ul>
-
-        <p class="p">In addition, the application provides some information about the transmitted messages
-            (length of the message) and the received messages (Modulation type, received signal
-            strength indicator and carrier interference noise ratio), which can be displayed by
-            means of a terminal emulator in the PC.</p>
-
-        <div class="p"><div class="fig fignone" id="GUID-D8E2814E-98EA-4380-A781-862A488F5734__FIG_JXR_ZG4_3TB"><div class="figcap"><span class="fig--title-label">Figure 2. </span>PLC &amp; Go Console</div>
-                
-                <br /><div class="imagecenter"><img class="image imagecenter" id="GUID-D8E2814E-98EA-4380-A781-862A488F5734__IMAGE_KXR_ZG4_3TB" src="GUID-F6841125-3574-4D46-8379-39B459C64C84-low.png" /></div><br />
-            </div>
-In the example project, the <code class="ph codeph">app_plc.c</code> file contains: </div>
-
-        <ul class="ul" id="GUID-D8E2814E-98EA-4380-A781-862A488F5734__UL_FBH_FBB_H3B">
-            <li class="li" id="GUID-D8E2814E-98EA-4380-A781-862A488F5734__GUID-3B682348-66FB-4A98-97B8-BB4565FD5425">PLC initialization and configuration
-                functions</li>
-
-            <li class="li" id="GUID-D8E2814E-98EA-4380-A781-862A488F5734__GUID-6080F456-08A0-4FC8-9473-40E28CD55E0F">Handlers for received messages,
-                transmission and events</li>
-
-        </ul>
-
-        <p class="p">The <code class="ph codeph">app_console.c</code> file contains the chat application which
-            communicates with the PC using the serial port.</p>
+        <p class="p">Microchip PLC solution is flexible and provides designs optimized for several frequency
+            sub-bands below 500 kHz. Adopters can decide which band to use based on application’s
+            restrictions and /or communications performance, which can be affected by different
+            types of noise sources in the PLC channel.</p>
 
     </div>
 
 <div class="related-links">
 <ul class="ullinks">
-<li class="link ulchildlink"><strong><a href="GUID-9FCAE429-C7DF-46F9-A612-502134E591D2.html">Initialization</a></strong><br />
+<li class="link ulchildlink"><strong><a href="GUID-CB22CEE4-8CC0-4FE4-BE82-CAFC9A5F41E2.html">Application Example</a></strong><br />
 </li>
-<li class="link ulchildlink"><strong><a href="GUID-23C1C481-5759-45DD-99E8-F29F74ABDB0D.html">Transmission</a></strong><br />
+<li class="link ulchildlink"><strong><a href="GUID-7776C4FC-5833-4CB1-9BAF-C01556DDBFCE.html">Initialization</a></strong><br />
 </li>
-<li class="link ulchildlink"><strong><a href="GUID-D6336496-D2D7-4FF9-A399-3451878B8E50.html">Reception</a></strong><br />
+<li class="link ulchildlink"><strong><a href="GUID-70689C32-0169-48F9-804C-90A895A3902E.html">Transmission</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED.html">Reception</a></strong><br />
 </li>
 </ul>
 
 <div class="familylinks">
-<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-B538C5C8-9467-490F-95A6-13E59BB430FA.html">PHY PLC &amp; Go</a></div>
+<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html">MPLAB® Harmony 3 Smart Energy G3 application examples</a></div>
 </div>
 </div></body>
 </html>
