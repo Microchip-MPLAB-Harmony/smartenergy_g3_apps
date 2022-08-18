@@ -13,3 +13,6 @@ package:
     - name: "smartenergy_g3"
       type: "package"
       version: "v1.0.0"
+    - name: "usb"
+      type: "package"
+      version: "v3.9.0"

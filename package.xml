@@ -3,5 +3,6 @@
     <Dependencies>
         <Dependency name="smartenergy" version="v1.0.0"/>
         <Dependency name="smartenergy_g3" version="v1.0.0"/>
+		<Dependency name="usb" version="v3.9.0"/>
     </Dependencies>
 </Package>
