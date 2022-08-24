@@ -48,10 +48,12 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include "crypto/crypto.h"
+#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
 #include "peripheral/clk/plib_clk.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/nvic/plib_nvic.h"
-#include "system/console/sys_console.h"
+#include "peripheral/trng/plib_trng.h"
 #include "peripheral/efc/plib_efc.h"
 #include "system/int/sys_int.h"
 #include "system/cache/sys_cache.h"
@@ -182,11 +184,7 @@ Remarks:
 
 typedef struct
 {
-    SYS_MODULE_OBJ  sysConsole0;
-
-    SYS_MODULE_OBJ  sysDebug;
-
-
+    char RESERVED;
 } SYSTEM_OBJECTS;
 
 // *****************************************************************************

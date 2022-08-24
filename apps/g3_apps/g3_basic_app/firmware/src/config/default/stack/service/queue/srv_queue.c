@@ -46,398 +46,251 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#include <stdio.h>
+#include <stddef.h>
+#include <stdbool.h>
 #include "srv_queue.h"
-#include "sys_debug.h"
 
-static bool _qmm_is_queue_consistent(SRV_QUEUE *queue)
+// *****************************************************************************
+// *****************************************************************************
+// Section: File scope functions
+// *****************************************************************************
+// *****************************************************************************
+
+static bool _SRV_QUEUE_Check_Queue_Consistent(SRV_QUEUE *queue)
 {
-	queue_element_t *p_element;
-	uint16_t us_i, us_num_elements;
-	bool b_check_pointers;
-	bool b_consistent = true;
+    SRV_QUEUE_ELEMENT *element;
+    uint16_t index, numElements;
+    bool checkPointers;
+    bool isConsistent = true;
 
-	/* No data to check consistent */
-	if ((q->ini_queue != NULL) && (q->last_element != NULL)) {
-		b_check_pointers = true;
-	} else {
-		b_check_pointers = false;
+    /* No data to check consistency */
+    if ((queue->iniQueue != NULL) && (queue->lastElement != NULL)) 
+    {
+	checkPointers = true;
+    } 
+    else 
+    {
+        checkPointers = false;
+    }
+
+    /* Check for size 0 */
+    if (queue->size == 0) 
+    {
+        if ((queue->head != NULL) || (queue->tail != NULL)) 
+        {
+            //TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: Non Well Initialized queue 0 size");
+            //TBD mac_debug_report_error(QMM_QUEUE_NOT_INIT_0);
+            isConsistent = false;
 	}
 
-	/* Check for size 0 */
-	if (q->size == 0) {
-		if ((q->head != NULL) || (q->tail != NULL)) {
-			mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: Non Well Initialized queue 0 size");
-			mac_debug_report_error(QMM_QUEUE_NOT_INIT_0);
-			b_consistent = false;
-		}
+	return isConsistent;
+    }
 
-		return b_consistent;
+    /* Check consistency with elements in the queue*/
+    numElements = queue->size;
+    element = queue->head;
+    for (index = 0; index < numElements; index++) 
+    {
+	/* Check first element */
+	if ((index == 0) && (element->prev != NULL)) 
+        {
+            //TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: First element bad initialized");
+            //TBD mac_debug_report_error(QMM_QUEUE_FIRST_BAD_INIT);
+            isConsistent = false;
+            break;
 	}
 
-	/* Check consistency with elements in the queue*/
-	us_num_elements = q->size;
-	p_element = q->head;
-	for (us_i = 0; us_i < us_num_elements; us_i++) {
-		/* Check first element */
-		if ((us_i == 0) && (p_element->prev != NULL)) {
-			mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: First element bad initialized");
-			mac_debug_report_error(QMM_QUEUE_FIRST_BAD_INIT);
-			b_consistent = false;
-			break;
-		}
+	/* Check last element */
+	if (index == (numElements - 1)) 
+        {
+            if (element != queue->tail) 
+            {
+		//TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: Latest element different from tail");
+		//TBD mac_debug_report_error(QMM_QUEUE_LAST_NOT_TAIL);
+		isConsistent = false;
+		break;
+            }
 
-		/* Check last element */
-		if (us_i == (us_num_elements - 1)) {
-			if (p_element != q->tail) {
-				mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: Latest element different from tail");
-				mac_debug_report_error(QMM_QUEUE_LAST_NOT_TAIL);
-				b_consistent = false;
-				break;
-			}
+            if (element->next != NULL) 
+            {
+		//TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: There are more elements than size");
+		//TBD mac_debug_report_error(QMM_QUEUE_TOO_BIG);
+                isConsistent = false;
+		break;
+            }
+	} 
+        else 
+        {
+            if (checkPointers && ((element->next < queue->iniQueue) || 
+                (element->next > queue->lastElement))) 
+            {
+		//TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: Bad next element");
+		//TBD mac_debug_report_error(QMM_QUEUE_BAD_NEXT_ELEMENT);
+		isConsistent = false;
+		break;
+            }
 
-			if (p_element->next != NULL) {
-				mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: There are more elements than size");
-				mac_debug_report_error(QMM_QUEUE_TOO_BIG);
-				b_consistent = false;
-				break;
-			}
-		} else {
-			if(b_check_pointers && ((p_element->next < q->ini_queue) || (p_element->next > q->last_element))) {
-				mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: Bad next element");
-				mac_debug_report_error(QMM_QUEUE_BAD_NEXT_ELEMENT);
-				b_consistent = false;
-				break;
-			}
-
-			if (p_element->next->prev != p_element) {
-				mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: Wrongly chained queue");
-				mac_debug_report_error(QMM_QUEUE_WRONG_CHAIN);
-				b_consistent = false;
-				break;
-			}
-		}
-
-		if (b_check_pointers && ((p_element < q->ini_queue) || (p_element > q->last_element))) {
-			mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: Bad element in the queue");
-			mac_debug_report_error(QMM_DEBUG_BAD_ELEMENT);
-			b_consistent = false;
-			break;
-		}
-
-		p_element = p_element->next;
+            if (element->next->prev != element) 
+            {
+		//TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: Wrongly chained queue");
+                //TBD mac_debug_report_error(QMM_QUEUE_WRONG_CHAIN);
+		isConsistent = false;
+		break;
+            }
 	}
 
-	return b_consistent;
+	if (checkPointers && ((element < queue->iniQueue) || 
+            (element > queue->lastElement))) 
+        {
+            //TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: Bad element in the queue");
+            //TBD mac_debug_report_error(QMM_DEBUG_BAD_ELEMENT);
+            isConsistent = false;
+            break;
+	}
+
+	element = element->next;
+    }
+
+    return (isConsistent);
 }
 
-/**
- * \brief Insert and element in the queue after the last element
- *
- * Insert an element in the queue after the last element
- *
- * \param q The queue which should be initialized.
- * \param q_element element to be inserted at the queue tail
- *
- */
-static void _qmm_insert_queue_end(SRV_QUEUE *queue, queue_element_t *q_element)
+static void _SRV_QUEUE_Insert_Last_Element(SRV_QUEUE *queue, 
+                                           SRV_QUEUE_ELEMENT *element)
 {
-	if (q->size >= q->capacity) {
-		/* Buffer cannot be appended as queue is full */
-		/* PRIME_DEBUG QUEUE full no resources */
-		mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in _qmm_insert_queue_end: QUEUE_FULL");
-		mac_debug_report_error(QMM_QUEUE_FULL_INSERT_END);
-		return;
-	}
+    if (queue->size >= queue->capacity) 
+    {
+	/* Buffer cannot be appended as queue is full */
+	//TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in _qmm_insert_queue_end: QUEUE_FULL");
+	//TBD mac_debug_report_error(QMM_QUEUE_FULL_INSERT_END);
+	return;
+    }
 
-	if (q->mode & DEBUG_QUEUE) {
-		if ((q_element < q->ini_queue) || (q_element > q->last_element)) {
-			mac_debug_report_error(QMM_DEBUG_BAD_ELEMENT);
-			mac_debug_report_error((uint32_t)q_element);
-		}
+    if ((element < queue->iniQueue) || (element > queue->lastElement)) 
+    {
+	//TBD mac_debug_report_error(QMM_DEBUG_BAD_ELEMENT);
+	//TBD mac_debug_report_error((uint32_t)q_element);
+    }
 
-		if (q->tail->next != NULL) {
-			mac_debug_report_error(QMM_DEBUG_BAD_TAIL);
-		}
-	}
+    if (queue->tail->next != NULL) 
+    {
+        //TBD mac_debug_report_error(QMM_DEBUG_BAD_TAIL);
+    }
 
-	q_element->prev = q->tail;
-	/* Terminate the list */
-	q_element->next = NULL;
-	q_element->prev->next = q_element;
-	q->tail = q_element;
-	q->size++;
+    element->prev = queue->tail;
+    /* Add the element at the end */
+    element->next = NULL;
+    element->prev->next = element;
+    queue->tail = element;
+    queue->size++;
 }
 
-/**
- * \brief Modify total capacity of a queue.
- *
- * Modify total capacity of a queue.
- *
- * \param q The queue which should be modified.
- * \param new_capacity
- *
- */
-void qmm_set_capacity(SRV_QUEUE *queue, uint16_t us_new_capacity)
+static void _SRV_QUEUE_Insert_First_Element(SRV_QUEUE *queue, 
+                                            SRV_QUEUE_ELEMENT *element)
 {
-	/* Capacity can be reduced more than size (number of elements currently present in the queue)
-	 * The only consequence is that no more elements will be appended */
-		q->capacity = us_new_capacity;
+    if (queue->size >= queue->capacity) 
+    {
+	/* Buffer cannot be appended as queue is full */
+	//TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in _qmm_insert_first_element_queue: QUEUE_FULL");
+	//TBD mac_debug_report_error(QMM_QUEUE_FULL_INSERT_FIRST);
+	return;
+    }
+
+    if ((element < queue->iniQueue) || (element > queue->lastElement)) 
+    {
+	//TBD mac_debug_report_error(QMM_DEBUG_BAD_ELEMENT);
+	//TBD mac_debug_report_error((uint32_t)queue_element);
+    }
+
+    element->next = NULL;
+    element->prev = NULL;
+    /* Add the element at the beginning */
+    queue->head = element;
+    /* Update the list */
+    queue->tail = element;
+    queue->size = 1;
 }
 
-/**
- * \brief Insert and element in the queue in the before
- *
- * Insert an element in the queue before the current element of the queue
- *
- * \param q The queue which should be initialized.
- * \param q_current_element position to insert the new element
- * \param q_element element to be inserted at the queue head
- *
- */
-void qmm_insert_queue_before(SRV_QUEUE *queue, queue_element_t *q_current_element, queue_element_t *q_element)
+static SRV_QUEUE_ELEMENT *_SRV_QUEUE_Remove_Tail(SRV_QUEUE *queue)
 {
-	if (q->size >= q->capacity) {
-		/* Buffer cannot be appended as queue is full */
-		/* PRIME_DEBUG QUEUE full no resources */
-		mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in qmm_inser_queue_before: QUEUE_FULL");
-		mac_debug_report_error(QMM_QUEUE_FULL_INSERT_BEFORE);
-		return;
-	}
+    SRV_QUEUE_ELEMENT *element;
 
-	if (q_current_element->prev == NULL) {
-		q->head = q_element;
-		q_element->prev = NULL;
-	} else {
-		q_current_element->prev->next = q_element;
-		q_element->prev = q_current_element->prev;
-	}
+    element = queue->tail;
 
-	q_element->next = q_current_element;
-	q_current_element->prev = q_element;
-	q->size++;
+    if (queue->size > 1) 
+    {
+	queue->tail = queue->tail->prev;
+	queue->tail->next = NULL;
+    } 
+    else 
+    {
+	/* Empty queue */
+	queue->head = NULL;
+	queue->tail = NULL;
+    }
 
-	_qmm_is_queue_consistent(q);
+    /* Clear previous and next pointers */
+    element->prev = NULL;
+    element->next = NULL;
+    queue->size--;
+	
+    return (element);
 }
 
-/**
- * \brief Insert and element in the queue after the current element
- *
- * Insert an element in the queue before the current element of the queue
- *
- * \param q The queue which should be initialized.
- * \param q_current_element position to insert the new element
- * \param q_element element to be inserted at the queue head
- *
- */
-
-void qmm_insert_queue_after(SRV_QUEUE *queue, queue_element_t *q_current_element, queue_element_t *q_element)
+static SRV_QUEUE_ELEMENT *_SRV_QUEUE_Remove_Head(SRV_QUEUE *queue)
 {
-	if (q->size >= q->capacity) {
-		/* Buffer cannot be appended as queue is full */
-		/* PRIME_DEBUG queue full error  */
-		mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in qmm_insert_queue_after: QUEUE_FULL");
-		mac_debug_report_error(QMM_QUEUE_FULL_INSERT_AFTER);
-		return;
-	}
+    if (queue->size == 0) 
+    {
+	//TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in _qmm_remove_head: QUEUE_EMPTY");
+	//TBD mac_debug_report_error(QMM_QUEUE_EMPTY_REMOVE_HEAD);
+	return NULL;
+    }
 
-	if (q_current_element->next == NULL) {
-		q->tail = q_element;
-		q_element->next = NULL;
-	} else {
-		q_current_element->next->prev = q_element;
-		q_element->next = q_current_element->next;
-	}
+    SRV_QUEUE_ELEMENT *element;
+    
+    element = queue->head;
+    
+    if (queue->size > 1) 
+    {
+	/* Point head to the previous element */
+	queue->head = queue->head->next;
+	/* First element previous pointer is null */
+	queue->head->prev = NULL;
+    } 
+    else 
+    {
+	/* Empty queue */
+	queue->head = NULL;
+	queue->tail = NULL;
+    }
 
-	q_element->prev = q_current_element;
-	q_current_element->next = q_element;
-	q->size++;
-
-	_qmm_is_queue_consistent(q);
+    /* Clear previous and next pointers */
+    element->prev = NULL;
+    element->next = NULL;
+    queue->size--;
+    
+    return (element);
 }
 
-/**
- * \brief Insert the first element of the queue
- *
- * Insert an element in the queue before the current element of the queue
- *
- * \param q              The queue which should be initialized.
- * \param queue_element  Element to be inserted at the queue head
- *
- */
-static void _qmm_insert_first_element_queue(SRV_QUEUE *q, queue_element_t *queue_element)
+// *****************************************************************************
+// *****************************************************************************
+// Section: Common Interface Implementation
+// *****************************************************************************
+// *****************************************************************************
+
+void SRV_QUEUE_Init(SRV_QUEUE *queue, uint16_t capacity, SRV_QUEUE_TYPE type)
 {
-	if (q->size >= q->capacity) {
-		/* Buffer cannot be appended as queue is full */
-		/* PRIME_DEBUG QUEUE full no resources */
-		mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in _qmm_insert_first_element_queue: QUEUE_FULL");
-		mac_debug_report_error(QMM_QUEUE_FULL_INSERT_FIRST);
-		return;
-	}
+    /* Initialize pointers, type and capacity */
+    queue->head = NULL;
+    queue->tail = NULL;
+    queue->size = 0;
+    queue->capacity = capacity;
+    queue->type = type;
 
-	if (q->mode & DEBUG_QUEUE) {
-		if ((queue_element < q->ini_queue) || (queue_element > q->last_element)) {
-			mac_debug_report_error(QMM_DEBUG_BAD_ELEMENT);
-			mac_debug_report_error((uint32_t)queue_element);
-		}
-	}
-
-	queue_element->next = NULL;
-	queue_element->prev = NULL;
-	/* Add the buffer at the head */
-	q->head = queue_element;
-	/* Update the list */
-	q->tail = queue_element;
-	q->size = 1;
+    queue->iniQueue = NULL;
+    queue->lastElement = NULL;
 }
 
-/*
- * \brief removes a queue element from queue tail
- *
- * This function  removes a queue element from the queue tail and return queue_element
- * return null is queue is empty
- *
- * \param q Queue from which buffer is to be emoved.
- *
- */
-static queue_element_t *_qmm_remove_tail(SRV_QUEUE *queue)
-{
-	queue_element_t *q_element;
-	q_element = q->tail;
-	if (q->size > 1) {
-		q->tail = q->tail->prev;
-		q->tail->next = NULL;
-	} else {
-		/*empty queue */
-		q->head = NULL;
-		q->tail = NULL;
-	}
-
-	/* erase prev and next pointer */
-	q_element->prev = NULL;
-	q_element->next = NULL;
-	q->size--;
-	return (q_element);
-}
-
-/*
- * \brief removes a queue element from queue head
- *
- * This function  removes a queue element from the queue head and return queue_element
- * return null is queue is empty
- *
- * \param q Queue from which buffer is to be removed.
- *
- */
-static queue_element_t *_qmm_remove_head(SRV_QUEUE *queue)
-{
-	if (q->size == 0) {
-		mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in _qmm_remove_head: QUEUE_EMPTY");
-		mac_debug_report_error(QMM_QUEUE_EMPTY_REMOVE_HEAD);
-		return NULL;
-	}
-
-	queue_element_t *q_element;
-	q_element = q->head;
-	if (q->size > 1) {
-		/* point head to the previous element */
-		q->head = q->head->next;
-		/* first element prev pointer is null */
-		q->head->prev = NULL;
-	} else {
-		/* empty queue */
-		q->head = NULL;
-		q->tail = NULL;
-	}
-
-	/* erase prev and next pointer */
-	q_element->prev = NULL;
-	q_element->next = NULL;
-	q->size--;
-	return (q_element);
-}
-
-/*
- * \brief Reads or removes a buffer from queue
- *
- * This function reads or removes a buffer from a queue as per the search criteria provided. If search criteria is NULL, then the first  buffer is returned,
- * otherwise buffer matching the given criteria is returned
- *
- * \param q Queue from which buffer is to be read or removed.
- *
- * \param mode Mode of operations. If this parameter has value REMOVE_MODE, buffer will be removed from queue and returned. If this parameter is READ_MODE,
- * buffer pointer will be returned without removing from queue.
- *
- * \param search Search criteria structure pointer.
- *
- * \return void header pointer, if the queue element is successfully removed or read, otherwise NULL is returned.
- */
-queue_element_t *qmm_queue_read_or_remove(SRV_QUEUE *queue, queue_mode_t access_mode, queue_mode_t queue_mode)
-{
-	queue_element_t *element_current;
-
-	if (q->size == 0) {
-		mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in qmm_queue_read_or_remove: QUEUE_EMPTY");
-		mac_debug_report_error(QMM_QUEUE_EMPTY_READ_REMOVE);
-		return NULL;
-	}
-
-	if (queue_mode == HEAD) {
-		/* remove or read first element of the queue */
-		if (access_mode == REMOVE_MODE) {
-			element_current = _qmm_remove_head(q);
-		} else {
-			element_current = q->head;
-		}
-	} else {
-		/* remove or read last element of the queue */
-		if (access_mode == REMOVE_MODE) {
-			element_current = _qmm_remove_tail(q);
-		} else {
-			element_current = q->tail;
-		}
-	}
-
-	if (access_mode == REMOVE_MODE) {
-		_qmm_is_queue_consistent(q);
-	}
-
-	return (element_current);
-}
-
-/**
- * \brief Initializes the queue.
- *
- * This function initializes the queue. Note that this function should be called before invoking any other functionality of QMM.
- *
- * \param q The queue which should be initialized.
- * \param capacity  maximum number of element in queue
- * \param  mode queue modes  SINGLE_QUEUE or PRIORITY_QUEUE
- *
- */
-void qmm_init(SRV_QUEUE *queue, uint16_t capacity, uint8_t mode, ...)
-{
-	/* Initialize pointers, mode and capacity */
-	q->head = NULL;
-	q->tail = NULL;
-	q->size = 0;
-	q->capacity = capacity;
-	q->mode = mode;
-
-	if (mode & DEBUG_QUEUE) {
-		va_list ap;
-
-		va_start(ap, mode);
-		q->ini_queue = va_arg(ap, void *);
-		q->last_element = va_arg(ap, void *);
-		va_end(ap);
-	} else {
-		q->ini_queue = NULL;
-		q->last_element = NULL;
-	}
-}
-
-void SRV_QUEUE_Append(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
+void SRV_QUEUE_Append(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element)
 {
     SRV_QUEUE_ELEMENT *currentElement;
     uint16_t queueCounter;
@@ -460,57 +313,76 @@ void SRV_QUEUE_Append(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
 	return;
     }
 
-    if (((queue->ini_queue != NULL) && (queue->last_element != NULL)) && 
-        ((element < queue->ini_queue) || (element > queue->last_element))) 
+    if (((queue->iniQueue != NULL) && (queue->lastElement != NULL)) && 
+        ((element < queue->iniQueue) || (element > queue->lastElement))) 
     {
 	//TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG: Trying to append a bad element");
 	//TBD mac_debug_report_error(QMM_QUEUE_APPEND_BAD_ELEMENT);
 	return;
     }
 
-	/* Check if queue is full */
-	if (q->size >= q->capacity) {
-		/* Buffer cannot be appended because queue is full QUEUE_FULL */
-		mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in qmm_queue_append: QUEUE_FULL");
-		mac_debug_report_error(QMM_QUEUE_FULL_APPEND);
-		return;
-	} else { /* 1 */
-		 /* Check whether queue is empty */
-		if (q->size == 0) {
-			_qmm_insert_first_element_queue(q, queue_element);
-		} else { /* 2 */
-			if (q->mode == SINGLE_QUEUE) {
-				_qmm_insert_queue_end(q, queue_element);
-			} else { /* 3 */
-				 /* insert in priority queue */
-				 /* search for the firsts element with the same priority and insert at the end */
-				uc_counter_queue = q->size + 1;
-				element_current = q->tail;
-				while (uc_counter_queue != 0) {
-					if (queue_element->priority < element_current->priority) {
-						if (element_current->prev != NULL) {
-							/* move current element to previous element*/
-							element_current = element_current->prev;
-							uc_counter_queue--;
-						} else {
-							/* first element of the queue : add element in the begining  of the  queue */
-							qmm_insert_queue_before(q, element_current, queue_element);
-							break;
-						}
-					} else {
-						qmm_insert_queue_after(q, element_current, queue_element);
-						break;
-					}
-				}
+    /* Check if queue is full */
+    if (queue->size >= queue->capacity) 
+    {
+	/* Element cannot be appended because queue is full */
+	//TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in qmm_queue_append: QUEUE_FULL");
+	//TBD mac_debug_report_error(QMM_QUEUE_FULL_APPEND);
+	return;
+    } 
+    else 
+    {
+	/* Check whether queue is empty */
+	if (queue->size == 0) 
+        {
+            _SRV_QUEUE_Insert_First_Element(queue, element);
+	} 
+        else 
+        { 
+            if (queue->type == SRV_QUEUE_TYPE_SINGLE) 
+            {
+		_SRV_QUEUE_Insert_Last_Element(queue, element);
+            } 
+            else 
+            {
+                /* Insert in priority queue */
+		/* Search for the first element with the same priority and */
+                /* and insert at the end */
+		queueCounter = queue->size + 1;
+		currentElement = queue->tail;
+		while (queueCounter != 0) 
+                {
+                    if (element->priority < currentElement->priority) 
+                    {
+			if (currentElement->prev != NULL) 
+                        {
+                            /* Move current element to previous element*/
+                            currentElement = currentElement->prev;
+                            queueCounter--;
+			} 
+                        else 
+                        {
+                            /* First element of the queue */
+                            /* Add element at the beginning*/
+                            SRV_QUEUE_Insert_Before(queue, currentElement, 
+                                                    element);
+                            break;
 			}
+                    } 
+                    else 
+                    {
+			SRV_QUEUE_Insert_After(queue, currentElement, element);
+			break;
+                    }
 		}
+            }
 	}
+    }
 
-    _is_queue_consistent(queue);
+    _SRV_QUEUE_Check_Queue_Consistent(queue);
 }
 
 void SRV_QUEUE_Append_With_Priority(SRV_QUEUE *queue, uint32_t priority, 
-                                    SRV_QUEUE_ELEMENT *element);
+                                    SRV_QUEUE_ELEMENT *element)
 {
     if (queue->type != SRV_QUEUE_TYPE_PRIORITY) {
 	/* Cannot be added with priority */
@@ -523,7 +395,7 @@ void SRV_QUEUE_Append_With_Priority(SRV_QUEUE *queue, uint32_t priority,
     SRV_QUEUE_Append(queue, element);
 }
 
-void SRV_QUEUE_Remove_Element(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
+void SRV_QUEUE_Remove_Element(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element)
 {
     SRV_QUEUE_ELEMENT *currentElement;
     uint16_t i;
@@ -539,13 +411,13 @@ void SRV_QUEUE_Remove_Element(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
             if (i == 1) 
             {
 		/* Remove first element of the queue */
-		_remove_head(queue);
+		_SRV_QUEUE_Remove_Head(queue);
 		break;
             } 
             else if (i == queue->size) 
             {
 		/* Remove last element of the queue */
-		_remove_tail(queue);
+		_SRV_QUEUE_Remove_Tail(queue);
 		break;
             } 
             else 
@@ -568,7 +440,7 @@ void SRV_QUEUE_Remove_Element(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
 	}
     }
 
-    _is_queue_consistent(queue);
+    _SRV_QUEUE_Check_Queue_Consistent(queue);
 }
 
 SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Element(SRV_QUEUE *queue, 
@@ -600,12 +472,111 @@ SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Element(SRV_QUEUE *queue,
     return element;
 }
 
-/**
- * \brief Internal function for flushing a specific queue
- *
- * \param q Queue to be flushed
- *
- */
+void SRV_QUEUE_Insert_Before(SRV_QUEUE *queue, 
+                             SRV_QUEUE_ELEMENT *currentElement, 
+                             SRV_QUEUE_ELEMENT *element)
+{
+    if (queue->size >= queue->capacity) {
+	/* Buffer cannot be appended as queue is full */
+	//TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in qmm_inser_queue_before: QUEUE_FULL");
+	//TBD mac_debug_report_error(QMM_QUEUE_FULL_INSERT_BEFORE);
+	return;
+    }
+
+    if (currentElement->prev == NULL) 
+    {
+	queue->head = element;
+        element->prev = NULL;
+    } 
+    else 
+    {
+	currentElement->prev->next = element;
+	element->prev = currentElement->prev;
+    }
+
+    element->next = currentElement;
+    currentElement->prev = element;
+    queue->size++;
+
+    _SRV_QUEUE_Check_Queue_Consistent(queue);
+}
+
+void SRV_QUEUE_Insert_After(SRV_QUEUE *queue, 
+                            SRV_QUEUE_ELEMENT *currentElement, 
+                            SRV_QUEUE_ELEMENT *element)
+{
+    if (queue->size >= queue->capacity) 
+    {
+	/* Buffer cannot be appended as queue is full */
+	//TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in qmm_insert_queue_after: QUEUE_FULL");
+	//TBD mac_debug_report_error(QMM_QUEUE_FULL_INSERT_AFTER);
+	return;
+    }
+
+    if (currentElement->next == NULL) 
+    {
+	queue->tail = element;
+	element->next = NULL;
+    } 
+    else 
+    {
+	currentElement->next->prev = element;
+	element->next = currentElement->next;
+    }
+
+    element->prev = currentElement;
+    currentElement->next = element;
+    queue->size++;
+
+    _SRV_QUEUE_Check_Queue_Consistent(queue);
+}
+
+SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Or_Remove(SRV_QUEUE *queue, 
+                                            SRV_QUEUE_MODE accessMode, 
+                                            SRV_QUEUE_POSITION position)
+{
+    SRV_QUEUE_ELEMENT *currentElement;
+
+    if (queue->size == 0) 
+    {
+	//TBD mac_debug_generate_error(MAC_DBG_QMM, "PRIME_DEBUG:Error in qmm_queue_read_or_remove: QUEUE_EMPTY");
+	//TBD mac_debug_report_error(QMM_QUEUE_EMPTY_READ_REMOVE);
+	return NULL;
+    }
+
+    if (position == SRV_QUEUE_POSITION_HEAD) 
+    {
+	/* Remove or read first element of the queue */
+	if (accessMode == SRV_QUEUE_MODE_REMOVE) 
+        {
+            currentElement = _SRV_QUEUE_Remove_Head(queue);
+	} 
+        else 
+        {
+            currentElement = queue->head;
+	}
+    } 
+    else 
+    {
+	/* Remove or read last element of the queue */
+	if (accessMode == SRV_QUEUE_MODE_REMOVE) 
+        {
+            currentElement = _SRV_QUEUE_Remove_Tail(queue);
+	} 
+        else 
+        {
+            currentElement = queue->tail;
+	}
+    }
+
+    if (accessMode == SRV_QUEUE_MODE_REMOVE) 
+    {
+	_SRV_QUEUE_Check_Queue_Consistent(queue);
+    }
+
+    return (currentElement);
+}
+
 void SRV_QUEUE_Flush(SRV_QUEUE *queue)
 {
     while (queue->size > 0) 
@@ -618,4 +589,12 @@ void SRV_QUEUE_Flush(SRV_QUEUE *queue)
     queue->head = NULL;
     queue->tail = NULL;
     queue->size = 0;
+}
+
+void SRV_QUEUE_Set_Capacity(SRV_QUEUE *queue, uint16_t capacity)
+{
+    /* Capacity can be reduced more than size (number of elements currently */
+    /* present in the queue) */
+    /* The only consequence is that no more elements will be appended */
+    queue->capacity = capacity;
 }

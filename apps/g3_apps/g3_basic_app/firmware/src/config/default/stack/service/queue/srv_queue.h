@@ -131,7 +131,7 @@ typedef enum
   Remarks:
     None.
 */
-typedef struct 
+typedef struct _queue_element_tag
 {
 	/* Pointer to the previous object of the queue */
 	struct _queue_element_tag *prev;                
@@ -158,16 +158,16 @@ typedef struct
 typedef struct  
 {
 	/* Pointer to the head of the queue */
-	queue_element_t *head;                           
+	SRV_QUEUE_ELEMENT *head;                           
 	
 	/* Pointer to the tail of the queue */
-	queue_element_t *tail;                           
+	SRV_QUEUE_ELEMENT *tail;                           
 	
 	/* Pointer to the initial element of the queue */
-	queue_element_t *iniQueue;
+	SRV_QUEUE_ELEMENT *iniQueue;
 	
 	/* Pointer to the last element of the queue */
-	queue_element_t *lastElement;
+	SRV_QUEUE_ELEMENT *lastElement;
 	
 	/* Queue capacity */
 	uint16_t capacity;                               
@@ -218,7 +218,6 @@ typedef struct
 	This function must be called before invoking any other functionality of 
 	the queue management module.
 */
-
 void SRV_QUEUE_Init(SRV_QUEUE *queue, uint16_t capacity, SRV_QUEUE_TYPE type);
 
 /***************************************************************************
