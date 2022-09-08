@@ -3,9 +3,9 @@
     <Dependencies>
         <Dependency name="smartenergy" version="v1.0.0"/>
         <Dependency name="smartenergy_g3" version="v1.0.0"/>
-		<Dependency name="usb" version="v3.9.0"/>
-		<Dependency name="crypto" version="v3.7.6"/>
-		<Dependency name="wolfssl" version="v4.7.0"/>
+        <Dependency name="usb" version="v3.9.0"/>
+        <Dependency name="crypto" version="v3.7.6"/>
+        <Dependency name="wolfssl" version="v4.7.0"/>
         <Dependency name="zlib" version="v1.2.11"/>
     </Dependencies>
 </Package>
