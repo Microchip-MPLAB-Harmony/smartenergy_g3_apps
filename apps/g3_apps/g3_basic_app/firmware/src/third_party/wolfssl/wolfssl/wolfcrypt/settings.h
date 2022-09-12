@@ -2256,7 +2256,6 @@ extern void uITRON4_free(void *p) ;
     #define WOLFSSL_ALERT_COUNT_MAX 5
 #endif
 
-#define WC_NO_HARDEN
 /* warning for not using harden build options (default with ./configure) */
 #ifndef WC_NO_HARDEN
     #if (defined(USE_FAST_MATH) && !defined(TFM_TIMING_RESISTANT)) || \

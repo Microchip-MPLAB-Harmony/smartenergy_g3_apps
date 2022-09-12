@@ -80,6 +80,28 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
+#define SYS_DEBUG_ENABLE
+#define SYS_DEBUG_GLOBAL_ERROR_LEVEL       SYS_ERROR_DEBUG
+#define SYS_DEBUG_BUFFER_DMA_READY
+
+
+#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			1
+#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			0
+#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		1
+#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		200
+
+#define SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE 	512
+
+#define SYS_CONSOLE_INDEX_0                       0
+
+/* RX buffer size has one additional element for the empty spot needed in circular buffer */
+#define SYS_CONSOLE_USB_CDC_RD_BUFFER_SIZE_IDX0    129
+
+/* TX buffer size has one additional element for the empty spot needed in circular buffer */
+#define SYS_CONSOLE_USB_CDC_WR_BUFFER_SIZE_IDX0    129
+
+
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -93,6 +115,19 @@ extern "C" {
 // Section: Middleware & Other Library Configuration
 // *****************************************************************************
 // *****************************************************************************
+/* Number of Endpoints used */
+#define DRV_USBHSV1_ENDPOINTS_NUMBER                        4
+
+/* The USB Device Layer will not initialize the USB Driver */
+#define USB_DEVICE_DRIVER_INITIALIZE_EXPLICIT
+
+/* Maximum device layer instances */
+#define USB_DEVICE_INSTANCES_NUMBER                         1
+
+/* EP0 size in bytes */
+#define USB_DEVICE_EP0_BUFFER_SIZE                          64
+
+
 
 /*** wolfCrypt Library Configuration ***/
 #define MICROCHIP_PIC32
@@ -128,10 +163,9 @@ extern "C" {
 #define NO_AES_256 // not supported by HW accelerator
 #define WOLFSSL_AES_DIRECT
 #define HAVE_AES_DECRYPT
-#define WOLFSSL_HAVE_MCHP_HW_AES_DIRECT
 #define HAVE_AES_ECB
-#define WOLFSSL_HAVE_MCHP_HW_AES_ECB
 #define NO_AES_CBC
+#define WOLFSSL_AES_COUNTER
 #define HAVE_AESCCM
 #define WOLFSSL_CMAC
 #define NO_RC4
@@ -150,6 +184,32 @@ extern "C" {
 #define NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY
 // ---------- FUNCTIONAL CONFIGURATION END ----------
+
+/* Maximum instances of CDC function driver */
+#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1
+
+
+/* CDC Transfer Queue Size for both read and
+   write. Applicable to all instances of the
+   function driver */
+#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3
+
+/*** USB Driver Configuration ***/
+
+/* Maximum USB driver instances */
+#define DRV_USBHSV1_INSTANCES_NUMBER                        1
+
+/* Interrupt mode enabled */
+#define DRV_USBHSV1_INTERRUPT_MODE                          true
+
+/* Enables Device Support */
+#define DRV_USBHSV1_DEVICE_SUPPORT                          true
+	
+/* Disable Host Support */
+#define DRV_USBHSV1_HOST_SUPPORT                            false
+
+/* Alignment for buffers that are submitted to USB Driver*/ 
+#define USB_ALIGN  CACHE_ALIGN
 
 
 

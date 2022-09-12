@@ -10,6 +10,17 @@
             <itemPath>../src/config/default/crypto/crypto.h</itemPath>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
+            <logicalFolder name="usb" displayName="usb" projectFiles="true">
+              <logicalFolder name="usbhsv1" displayName="usbhsv1" projectFiles="true">
+                <logicalFolder name="src" displayName="src" projectFiles="true">
+                  <itemPath>../src/config/default/driver/usb/usbhsv1/src/drv_usbhsv1_local.h</itemPath>
+                  <itemPath>../src/config/default/driver/usb/usbhsv1/src/drv_usbhsv1_variant_mapping.h</itemPath>
+                </logicalFolder>
+                <itemPath>../src/config/default/driver/usb/usbhsv1/drv_usbhsv1.h</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/default/driver/usb/drv_usb_external_dependencies.h</itemPath>
+              <itemPath>../src/config/default/driver/usb/drv_usb.h</itemPath>
+            </logicalFolder>
             <itemPath>../src/config/default/driver/driver.h</itemPath>
             <itemPath>../src/config/default/driver/driver_common.h</itemPath>
           </logicalFolder>
@@ -37,6 +48,11 @@
           </logicalFolder>
           <logicalFolder name="stack" displayName="stack" projectFiles="true">
             <logicalFolder name="service" displayName="service" projectFiles="true">
+              <logicalFolder name="debug_report"
+                             displayName="debug_report"
+                             projectFiles="true">
+                <itemPath>../src/config/default/stack/service/debug_report/srv_debugreport.h</itemPath>
+              </logicalFolder>
               <logicalFolder name="queue" displayName="queue" projectFiles="true">
                 <itemPath>../src/config/default/stack/service/queue/srv_queue.h</itemPath>
               </logicalFolder>
@@ -57,7 +73,14 @@
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
               <itemPath>../src/config/default/system/cache/sys_cache.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="console" displayName="console" projectFiles="true">
+              <itemPath>../src/config/default/system/console/src/sys_console_local.h</itemPath>
+              <itemPath>../src/config/default/system/console/src/sys_console_usb_cdc.h</itemPath>
+              <itemPath>../src/config/default/system/console/src/sys_console_usb_cdc_definitions.h</itemPath>
+              <itemPath>../src/config/default/system/console/sys_console.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
+              <itemPath>../src/config/default/system/debug/src/sys_debug_local.h</itemPath>
               <itemPath>../src/config/default/system/debug/sys_debug.h</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
@@ -68,14 +91,32 @@
             <itemPath>../src/config/default/system/system_common.h</itemPath>
             <itemPath>../src/config/default/system/system_module.h</itemPath>
           </logicalFolder>
+          <logicalFolder name="usb" displayName="usb" projectFiles="true">
+            <logicalFolder name="src" displayName="src" projectFiles="true">
+              <itemPath>../src/config/default/usb/src/usb_device_cdc_local.h</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_device_function_driver.h</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_device_mapping.h</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_external_dependencies.h</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_device_local.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/default/usb/usb_host.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_hub.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_host_client_driver.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_cdc.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_host_hub_interface.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_common.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_chapter_9.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_device.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_device_cdc.h</itemPath>
+          </logicalFolder>
           <itemPath>../src/config/default/interrupts.h</itemPath>
-          <itemPath>../src/config/default/user.h</itemPath>
           <itemPath>../src/config/default/device_vectors.h</itemPath>
           <itemPath>../src/config/default/device.h</itemPath>
           <itemPath>../src/config/default/toolchain_specifics.h</itemPath>
           <itemPath>../src/config/default/definitions.h</itemPath>
-          <itemPath>../src/config/default/configuration.h</itemPath>
           <itemPath>../src/config/default/device_cache.h</itemPath>
+          <itemPath>../src/config/default/user.h</itemPath>
+          <itemPath>../src/config/default/configuration.h</itemPath>
           <itemPath>../src/config/default/config.h</itemPath>
         </logicalFolder>
       </logicalFolder>
@@ -372,6 +413,16 @@
           <logicalFolder name="crypto" displayName="crypto" projectFiles="true">
             <itemPath>../src/config/default/crypto/src/crypto.c</itemPath>
           </logicalFolder>
+          <logicalFolder name="driver" displayName="driver" projectFiles="true">
+            <logicalFolder name="usb" displayName="usb" projectFiles="true">
+              <logicalFolder name="usbhsv1" displayName="usbhsv1" projectFiles="true">
+                <logicalFolder name="src" displayName="src" projectFiles="true">
+                  <itemPath>../src/config/default/driver/usb/usbhsv1/src/drv_usbhsv1_device.c</itemPath>
+                  <itemPath>../src/config/default/driver/usb/usbhsv1/src/drv_usbhsv1.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="clk" displayName="clk" projectFiles="true">
               <itemPath>../src/config/default/peripheral/clk/plib_clk.c</itemPath>
@@ -391,6 +442,11 @@
           </logicalFolder>
           <logicalFolder name="stack" displayName="stack" projectFiles="true">
             <logicalFolder name="service" displayName="service" projectFiles="true">
+              <logicalFolder name="debug_report"
+                             displayName="debug_report"
+                             projectFiles="true">
+                <itemPath>../src/config/default/stack/service/debug_report/srv_debugreport.c</itemPath>
+              </logicalFolder>
               <logicalFolder name="queue" displayName="queue" projectFiles="true">
                 <itemPath>../src/config/default/stack/service/queue/srv_queue.c</itemPath>
               </logicalFolder>
@@ -411,8 +467,22 @@
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
               <itemPath>../src/config/default/system/cache/sys_cache.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="console" displayName="console" projectFiles="true">
+              <itemPath>../src/config/default/system/console/src/sys_console_usb_cdc.c</itemPath>
+              <itemPath>../src/config/default/system/console/src/sys_console.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="debug" displayName="debug" projectFiles="true">
+              <itemPath>../src/config/default/system/debug/src/sys_debug.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/default/system/int/src/sys_int.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="usb" displayName="usb" projectFiles="true">
+            <logicalFolder name="src" displayName="src" projectFiles="true">
+              <itemPath>../src/config/default/usb/src/usb_device_cdc.c</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_device.c</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_device_cdc_acm.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <itemPath>../src/config/default/startup_xc32.c</itemPath>
@@ -421,6 +491,7 @@
           <itemPath>../src/config/default/exceptions.c</itemPath>
           <itemPath>../src/config/default/initialization.c</itemPath>
           <itemPath>../src/config/default/tasks.c</itemPath>
+          <itemPath>../src/config/default/usb_device_init_data.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
@@ -535,8 +606,8 @@
         <itemPath>../src/third_party/zlib/inffast.c</itemPath>
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
-      <itemPath>../src/app.c</itemPath>
       <itemPath>../src/config/default/pin_configurations.csv</itemPath>
+      <itemPath>../src/app.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

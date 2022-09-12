@@ -43,6 +43,10 @@
 #ifndef _SRV_RANDOM_H
 #define _SRV_RANDOM_H
 
+#ifdef __cplusplus // Provide C++ Compatibility
+ extern "C" {
+#endif
+
 //******************************************************************************
 /* Function:
     uint16_t SRV_RANDOM_Get16bits(void)
@@ -194,5 +198,9 @@ uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t min, uint32_t max);
 */
 
 void SRV_RANDOM_Get128bits(uint8_t rndValue[16]);
+
+#ifdef __cplusplus // Provide C++ Compatibility
+ }
+#endif
 
 #endif /* _SRV_RANDOM_H */

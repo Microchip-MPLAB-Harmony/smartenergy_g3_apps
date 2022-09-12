@@ -311,7 +311,6 @@
     #endif
 
 #else
-#define SINGLE_THREADED
     #ifndef SINGLE_THREADED
         #ifndef WOLFSSL_USER_MUTEX
             #if defined(WOLFSSL_LINUXKM)
