@@ -5103,7 +5103,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\definitions.h</file>
-         <hash>db5e44f1edd7344ae164b7ec4c23a867183ca1e9473a7dd47e7cb99781c3c7c4</hash>
+         <hash>7266d101e757e350d07ecc3bd1f9fc27126db1bc54fc8ea78fa275a08c79a744</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy.h</file>
@@ -5315,7 +5315,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\service\rsniffer\srv_rsniffer.c</file>
-         <hash>e768a2e7605a4f9a5ba31577a7150cc7428e3e1f8f09535d4d321364d9820450</hash>
+         <hash>c9aa60261a6a88ed1f810c3e607e7712f48256567842eeca6f19c199411a4763</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\wdt.h</file>
@@ -5554,12 +5554,12 @@
          <hash>35b2dc469f80bd6a5a06bc7ffd9e48a08a521ea0d4652ed9233826cd2d1eff21</hash>
       </entry>
       <entry>
-         <file>..\src\config\sam_e70_xult_pl460_rf215\driver\usb\drv_usb_external_dependencies.h</file>
-         <hash>9c425976fc28dee4877b6dc97e3d85c69d99a3bbacf7813ea324948a6c9e8431</hash>
-      </entry>
-      <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\bsp\bsp.h</file>
          <hash>46ec54d370d0d770312562d131aacdaba5089b5d68c2df424bc46c664c1f85e1</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_e70_xult_pl460_rf215\driver\usb\drv_usb_external_dependencies.h</file>
+         <hash>9c425976fc28dee4877b6dc97e3d85c69d99a3bbacf7813ea324948a6c9e8431</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\pmc.h</file>
