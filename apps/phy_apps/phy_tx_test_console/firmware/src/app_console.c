@@ -61,6 +61,9 @@
 // *****************************************************************************
 // *****************************************************************************
 
+
+static va_list sArgs = {0};
+
 /* Application Data
 
   Summary:
@@ -1057,8 +1060,7 @@ void APP_CONSOLE_Tasks ( void )
 void APP_CONSOLE_Print(const char *format, ...)
 {
     size_t len = 0;
-    va_list args = { 0 };
-    uint32_t numRetries = CPU_CLOCK_FREQUENCY / 10000;
+    uint32_t numRetries = 1000;
     
     if (appConsole.state == APP_CONSOLE_STATE_INIT)
     {
@@ -1074,14 +1076,13 @@ void APP_CONSOLE_Print(const char *format, ...)
         }
         else
         {
-            numRetries = 0xFF;
             return;
         }
     }
 
-    va_start( args, format );
-    len = vsnprintf(appConsole.pTransmitChar, SERIAL_BUFFER_SIZE - 1, format, args);
-    va_end( args );
+    va_start( sArgs, format );
+    len = vsnprintf(appConsole.pTransmitChar, SERIAL_BUFFER_SIZE - 1, format, sArgs);
+    va_end( sArgs );
     
     if (len > SERIAL_BUFFER_SIZE - 1)
     {
