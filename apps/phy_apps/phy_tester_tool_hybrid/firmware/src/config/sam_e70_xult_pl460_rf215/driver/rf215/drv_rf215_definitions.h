@@ -1,0 +1,991 @@
+/*******************************************************************************
+  RF215 Driver Definitions Header File
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    drv_rf215_definitions.h
+
+  Summary:
+    RF215 Driver Definitions Header File
+
+  Description:
+    This file provides implementation-specific definitions for the RF215
+    driver's system interface.
+*******************************************************************************/
+
+//DOM-IGNORE-BEGIN
+/*******************************************************************************
+* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+*
+* Subject to your compliance with these terms, you may use Microchip software
+* and any derivatives exclusively with Microchip products. It is your
+* responsibility to comply with third party license terms applicable to your
+* use of third party software (including open source software) that may
+* accompany Microchip software.
+*
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+*******************************************************************************/
+//DOM-IGNORE-END
+
+#ifndef _DRV_RF215_DEFINITIONS_H
+#define _DRV_RF215_DEFINITIONS_H
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: File includes
+// *****************************************************************************
+// *****************************************************************************
+#include <stdint.h>
+#include "system/int/sys_int.h"
+#include "peripheral/spi/spi_master/plib_spi_master_common.h"
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
+    extern "C" {
+
+#endif
+// DOM-IGNORE-END
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Data Types
+// *****************************************************************************
+// *****************************************************************************
+
+// *****************************************************************************
+/* RF215 Driver PHY Band and Operating Mode
+
+  Summary:
+    Defines the available PHY bands and operating modes.
+
+  Description:
+    This data type defines the list of available bands and operating modes for
+    the RF215 PHY.
+
+  Remarks:
+    This data type is just to simplify the PHY band and operating mode
+    configuration, for the most common ones, defined in IEEE 802.15.4-2020 (see
+    ieee_15_4_sun_fsk.h and ieee_15_4_sun_ofdm.h). But it is also possible to
+    apply a different PHY configuration, using the DRV_RF215_PHY_CFG_OBJ data type.
+*/
+
+typedef enum
+{
+    /* 863 (863-870 MHz) band. Europe, India */
+    SUN_FSK_BAND_863_OPM1     = 0x0001,
+    SUN_FSK_BAND_863_OPM2     = 0x0002,
+    SUN_FSK_BAND_863_OPM3     = 0x0003,
+    SUN_OFDM_BAND_863_OPT4    = 0x0040,
+
+    /* 866 (865-867 MHz) band. */
+    SUN_FSK_BAND_866_OPM1     = 0x0101,
+    SUN_FSK_BAND_866_OPM2     = 0x0102,
+    SUN_FSK_BAND_866_OPM3     = 0x0103,
+    SUN_OFDM_BAND_866_OPT4    = 0x0140,
+
+    /* 870 (870-876 MHz) band. Europe */
+    SUN_FSK_BAND_870_OPM1     = 0x0201,
+    SUN_FSK_BAND_870_OPM2     = 0x0202,
+    SUN_FSK_BAND_870_OPM3     = 0x0203,
+    SUN_OFDM_BAND_870_OPT4    = 0x0240,
+
+    /* 915 (902-928 MHz) band. USA, Canada, Mexico, Colombia */
+    SUN_FSK_BAND_915_OPM1     = 0x0301,
+    SUN_FSK_BAND_915_OPM2     = 0x0302,
+    SUN_FSK_BAND_915_OPM3     = 0x0303,
+    SUN_OFDM_BAND_915_OPT4    = 0x0340,
+    SUN_OFDM_BAND_915_OPT3    = 0x0330,
+    SUN_OFDM_BAND_915_OPT2    = 0x0320,
+    SUN_OFDM_BAND_915_OPT1    = 0x0310,
+
+    /* 915-a (902-928 MHz alternate) band. USA, Canada, Mexico */
+    SUN_FSK_BAND_915A_OPM1    = 0x0401,
+    SUN_FSK_BAND_915A_OPM2    = 0x0402,
+    SUN_FSK_BAND_915A_OPM3    = 0x0403,
+    SUN_FSK_BAND_915A_OPM4    = 0x0404,
+    SUN_FSK_BAND_915A_OPM5    = 0x0405,
+    SUN_OFDM_BAND_915A_OPT4   = 0x0440,
+    SUN_OFDM_BAND_915A_OPT3   = 0x0430,
+    SUN_OFDM_BAND_915A_OPT2   = 0x0420,
+    SUN_OFDM_BAND_915A_OPT1   = 0x0410,
+
+    /* 915-b (902-907.5 & 915-928 MHz) band. Brazil */
+    SUN_FSK_BAND_915B_OPM1    = 0x0501,
+    SUN_FSK_BAND_915B_OPM2    = 0x0502,
+    SUN_FSK_BAND_915B_OPM3    = 0x0503,
+    SUN_FSK_BAND_915B_OPM4    = 0x0504,
+    SUN_FSK_BAND_915B_OPM5    = 0x0505,
+    SUN_OFDM_BAND_915B_OPT4   = 0x0540,
+    SUN_OFDM_BAND_915B_OPT3   = 0x0530,
+    SUN_OFDM_BAND_915B_OPT2   = 0x0520,
+    SUN_OFDM_BAND_915B_OPT1   = 0x0510,
+
+    /* 915-c (915-928 MHz) band. Argentina, Australia, New Zeland */
+    SUN_FSK_BAND_915C_OPM1    = 0x0601,
+    SUN_FSK_BAND_915C_OPM2    = 0x0602,
+    SUN_FSK_BAND_915C_OPM3    = 0x0603,
+    SUN_FSK_BAND_915C_OPM4    = 0x0604,
+    SUN_FSK_BAND_915C_OPM5    = 0x0605,
+    SUN_OFDM_BAND_915C_OPT4   = 0x0640,
+    SUN_OFDM_BAND_915C_OPT3   = 0x0630,
+    SUN_OFDM_BAND_915C_OPT2   = 0x0620,
+    SUN_OFDM_BAND_915C_OPT1   = 0x0610,
+
+    /* 2450 (2400-2483.5 MHz) band. */
+    SUN_FSK_BAND_2450_OPM1    = 0x0701,
+    SUN_FSK_BAND_2450_OPM2    = 0x0702,
+    SUN_FSK_BAND_2450_OPM3    = 0x0703,
+    SUN_OFDM_BAND_2450_OPT4   = 0x0740,
+    SUN_OFDM_BAND_2450_OPT3   = 0x0730,
+    SUN_OFDM_BAND_2450_OPT2   = 0x0720,
+    SUN_OFDM_BAND_2450_OPT1   = 0x0710,
+
+    /* Custom band and operating mode (DRV_RF215_PHY_CFG_OBJ) */
+    DRV_RF215_BAND_OPM_CUSTOM = 0x0000
+
+} DRV_RF215_PHY_BAND_OPM;
+
+// *****************************************************************************
+/* RF215 Driver FSK Symbol Rate
+
+  Summary:
+    Defines the available FSK symbol rates.
+
+  Description:
+    This data type defines the list of available symbol rates for the RF215 FSK
+    PHY.
+
+  Remarks:
+    None.
+*/
+
+typedef enum
+{
+    FSK_SYM_RATE_50kHz  = 0,
+    FSK_SYM_RATE_100kHz = 1,
+    FSK_SYM_RATE_150kHz = 2,
+    FSK_SYM_RATE_200kHz = 3,
+    FSK_SYM_RATE_300kHz = 4,
+    FSK_SYM_RATE_400kHz = 5,
+
+} DRV_RF215_FSK_SYM_RATE;
+
+// *****************************************************************************
+/* RF215 Driver FSK Modulation Index
+
+  Summary:
+    Defines the available FSK modulation indexes.
+
+  Description:
+    This data type defines the list of available modulation indexes for the
+    RF215 FSK PHY. The modulation index defines the maximum FSK frequency
+    deviation: fdev = (symRate * modIdx) / 2
+
+  Remarks:
+    The interpretation of modulation index for 4-FSK is slightly different to
+    802.15.4 specification. 4-FSK & modIdx=0.33 (in 802.15.4) is equivalent to
+    4-FSK & modIdx=1.0 (in RF215).
+
+    For 4-FSK, the RF215 has the following restriction: modIdx >= 1.0.
+*/
+
+typedef enum
+{
+    /* modIdx = 1.0 */
+    FSK_MOD_IDX_1_0 = 0,
+
+    /* modIdx = 0.5 */
+    FSK_MOD_IDX_0_5 = 1,
+
+} DRV_RF215_FSK_MOD_IDX;
+
+// *****************************************************************************
+/* RF215 Driver FSK Modulation Order
+
+  Summary:
+    Defines the available FSK modulation orders.
+
+  Description:
+    This data type defines the list of available modulation orders for the RF215
+    FSK PHY.
+
+  Remarks:
+    The interpretation of modulation index for 4-FSK is slightly different to
+    802.15.4 specification. 4-FSK & modIdx=0.33 (in 802.15.4) is equivalent to
+    4-FSK & modIdx=1.0 (in RF215).
+
+    For 4-FSK, the RF215 has the following restriction: modIdx >= 1.0.
+*/
+
+typedef enum
+{
+    /* 2-FSK. Frequency deviations: {-fdev, +fdev} */
+    FSK_MOD_ORD_2FSK = 0,
+
+    /* 4-FSK. Frequency deviations: {-fdev, -fdev/3, +fdev/3, +fdev} */
+    FSK_MOD_ORD_4FSK = 1,
+
+} DRV_RF215_FSK_MOD_ORD;
+
+// *****************************************************************************
+/* RF215 Driver OFDM Bandwidth Option
+
+  Summary:
+    Defines the available OFDM bandwidth options.
+
+  Description:
+    This data type defines the list of available bandwidth options for the RF215
+    OFDM PHY.
+
+  Remarks:
+    None.
+*/
+
+typedef enum
+{
+    /* Option 1: Nominal bandwidth 1094 kHz */
+    OFDM_BW_OPT_1 = 0,
+
+    /* Option 2: Nominal bandwidth 552 kHz */
+    OFDM_BW_OPT_2 = 1,
+
+    /* Option 3: Nominal bandwidth 281 kHz */
+    OFDM_BW_OPT_3 = 2,
+
+    /* Option 4: Nominal bandwidth 156 kHz */
+    OFDM_BW_OPT_4 = 3,
+
+} DRV_RF215_OFDM_BW_OPT;
+
+// *****************************************************************************
+/* RF215 Driver OFDM Interleaving Mode
+
+  Summary:
+    Defines the available OFDM interleaving modes.
+
+  Description:
+    This data type defines the list of available interleaving modes for the
+    RF215 OFDM PHY. This is equivalent to phyOFDMInterleaving in 802.15.4
+    specification.
+
+  Remarks:
+    None.
+*/
+
+typedef enum
+{
+    /* Interleaving depth: one symbol */
+    OFDM_INTERLEAVING_0 = 0,
+
+    /* Interleaving depth: frequency domain spreading factor symbols */
+    OFDM_INTERLEAVING_1 = 1,
+
+} DRV_RF215_OFDM_ITLV_MODE;
+
+// *****************************************************************************
+/* RF215 Driver PHY Type
+
+  Summary:
+    Defines the available PHY types.
+
+  Description:
+    This data type defines the list of available RF215 PHY types.
+
+  Remarks:
+    None.
+*/
+
+typedef enum
+{
+    PHY_TYPE_FSK  = 0,
+    PHY_TYPE_OFDM = 1,
+
+} DRV_RF215_PHY_TYPE;
+
+// *****************************************************************************
+/* RF215 Driver PHY Modulation Scheme
+
+  Summary:
+    Defines the available PHY modulation schemes.
+
+  Description:
+    This data type defines the list of available modulation schemes, depending
+    on the RF215 PHY type.
+
+    It is a dynamic PHY configuration, meaning that a RF215 device is capable of
+    receiving messages with any scheme associated to the configured PHY type
+    (FSK or OFDM). That is why it is used as parameter in TX request and RX
+    indication.
+
+    For FSK, the dynamic parameter is Forward Error Correction (FEC), which can
+    be enabled or disabled.
+
+    For OFDM, the dynamic parameter is Modulation and Coding Scheme (MCS).
+
+  Remarks:
+    OFDM MCS1 is not available in bandwidth option 4.
+    OFDM MCS0 is not available in bandwidth options 3 and 4.
+*/
+
+typedef enum
+{
+    /* FSK: FEC enabled */
+    FSK_FEC_OFF  = 0,
+
+    /* FSK: FEC disabled */
+    FSK_FEC_ON   = 1,
+
+    /* OFDM: BPSK, 1/2 convolutional encoder rate, 4x frequency repetition */
+    OFDM_MCS_0   = 2,
+
+    /* OFDM: BPSK, 1/2 convolutional encoder rate, 2x frequency repetition */
+    OFDM_MCS_1   = 3,
+
+    /* OFDM: QPSK, 1/2 convolutional encoder rate, 2x frequency repetition */
+    OFDM_MCS_2   = 4,
+
+    /* OFDM: QPSK, 1/2 convolutional encoder rate */
+    OFDM_MCS_3   = 5,
+
+    /* OFDM: QPSK, 3/4 convolutional encoder rate */
+    OFDM_MCS_4   = 6,
+
+    /* OFDM: 16-QAM, 1/2 convolutional encoder rate */
+    OFDM_MCS_5   = 7,
+
+    /* OFDM: 16-QAM, 3/4 convolutional encoder rate */
+    OFDM_MCS_6   = 8,
+
+    /* Invalid modulation scheme */
+    MOD_SCHEME_INVALID = 0xFF,
+
+} DRV_RF215_PHY_MOD_SCHEME;
+
+// *****************************************************************************
+/* RF215 Driver PHY CCA Modes
+
+  Summary:
+    Defines the available PHY CCA (Clear Channel Assessment) modes.
+
+  Description:
+    This data type defines the list of available PHY CCA (Clear Channel
+    Assessment) modes in RF215 driver. It is used as parameter in TX request.
+
+  Remarks:
+    None.
+*/
+
+typedef enum
+{
+    /* Energy above threshold only */
+    PHY_CCA_MODE_1 = 0,
+
+    /* Carrier sense only */
+    PHY_CCA_MODE_2 = 1,
+
+    /* Energy above threshold and carrier sense */
+    PHY_CCA_MODE_3 = 2,
+
+    /* ALOHA. CCA always reports idle medium */
+    PHY_CCA_MODE_4 = 3,
+
+    /* Transmit always, even if payload reception in progress */
+    PHY_CCA_OFF    = 4,
+
+} DRV_RF215_PHY_CCA_MODE;
+
+// *****************************************************************************
+/* RF215 Driver TX Time Modes
+
+  Summary:
+    Defines the available TX time modes.
+
+  Description:
+    This data type defines the list of available transmission time modes. It is
+    used as parameter in TX request.
+
+  Remarks:
+    None.
+*/
+
+typedef enum
+{
+    /* Absolute time, referred to system 32-bit counter */
+    TX_TIME_ABSOLUTE = 0,
+
+    /* Relative time, referred to current system time */
+    TX_TIME_RELATIVE = 1,
+
+} DRV_RF215_TX_TIME_MODE;
+
+// *****************************************************************************
+/* RF215 Driver PHY TX Results
+
+  Summary:
+    Defines the possible PHY transmission results.
+
+  Description:
+    This data type defines the list of possible PHY transmission results in
+    RF215 driver.
+
+  Remarks:
+    None.
+*/
+
+typedef enum
+{
+    RF215_TX_SUCCESS            = 0,
+    RF215_TX_ERROR_UNDERRUN     = 1,
+    RF215_TX_ABORTED            = 2,
+    RF215_TX_BUSY_TX            = 3,
+    RF215_TX_BUSY_RX            = 4,
+    RF215_TX_BUSY_CHN           = 5,
+    RF215_TX_TRX_SLEPT          = 6,
+    RF215_TX_CANCEL_BY_RX       = 7,
+    RF215_TX_TIMEOUT            = 8,
+    RF215_TX_FULL_BUFFERS       = 9,
+    RF215_TX_INVALID_LEN        = 10,
+    RF215_TX_INVALID_DRV_HANDLE = 11,
+    RF215_TX_INVALID_PARAM      = 12,
+    RF215_TX_CANCELLED          = 13,
+
+} DRV_RF215_TX_RESULT;
+
+// *****************************************************************************
+/* RF215 Driver PIB Attributes
+
+  Summary:
+    Defines the list of PIB attributes.
+
+  Description:
+    This data type defines the list of available PIB attributes in RF215 driver.
+
+  Remarks:
+    None.
+*/
+
+typedef enum
+{
+    /* RF device identifier (read-only). 16 bits */
+    RF215_PIB_DEVICE_ID                 = 0x0000,
+
+    /* RF PHY layer firmware version number (read-only).
+     * 6 bytes (see DRV_RF215_FW_VERSION) */
+    RF215_PIB_FW_VERSION                = 0x0001,
+
+    /* RF device reset (write-only). 8 bits */
+    RF215_PIB_DEVICE_RESET              = 0x0002,
+
+    /* RF transceiver reset (write-only). 8 bits */
+    RF215_PIB_TRX_RESET                 = 0x0080,
+
+    /* RF transceiver sleep. 8 bits */
+    RF215_PIB_TRX_SLEEP                 = 0x0081,
+
+    /* RF PHY configuration. 19 bytes (see DRV_RF215_PHY_CFG_OBJ) */
+    RF215_PIB_PHY_CONFIG                = 0x0100,
+
+    /* RF PHY band and operating mode. 16 bits (see DRV_RF215_PHY_BAND_OPM) */
+    RF215_PIB_PHY_BAND_OPERATING_MODE   = 0x0101,
+
+    /* RF channel number used for transmission and reception. 16 bits */
+    RF215_PIB_PHY_CHANNEL_NUM           = 0x0120,
+
+    /* RF frequency in Hz used for transmit and receive (read-only). 32 bits */
+    RF215_PIB_PHY_CHANNEL_FREQ_HZ       = 0x0121,
+
+    /* Duration in us of Energy Detection for CCA. 16 bits */
+    RF215_PIB_PHY_CCA_ED_DURATION       = 0x0141,
+
+    /* Threshold in dBm of for CCA with Energy Detection. 8 bits */
+    RF215_PIB_PHY_CCA_ED_THRESHOLD      = 0x0142,
+
+    /* Turnaround time in us (aTurnaroundTime in IEEE 802.15.4).
+     * 16 bits (read-only) */
+    RF215_PIB_PHY_TURNAROUND_TIME       = 0x0160,
+
+    /* Number of payload symbols in last transmitted message (read-only).
+     * 16 bits */
+    RF215_PIB_PHY_TX_PAY_SYMBOLS        = 0x0180,
+
+    /* Number of payload symbols in last received message (read-only).
+     * 16 bits */
+    RF215_PIB_PHY_RX_PAY_SYMBOLS        = 0x0181,
+
+    /* Successfully transmitted messages count (read-only). 32 bits */
+    RF215_PIB_PHY_TX_TOTAL              = 0x01A0,
+
+    /* Successfully transmitted bytes count (read-only). 32 bits */
+    RF215_PIB_PHY_TX_TOTAL_BYTES        = 0x01A1,
+
+    /* Transmission errors count (read-only). 32 bits */
+    RF215_PIB_PHY_TX_ERR_TOTAL          = 0x01A2,
+
+    /* Transmission errors count due to already in transmission (read-only).
+     * 32 bits */
+    RF215_PIB_PHY_TX_ERR_BUSY_TX        = 0x01A3,
+
+    /* Transmission errors count due to already in reception (read-only).
+     * 32 bits */
+    RF215_PIB_PHY_TX_ERR_BUSY_RX        = 0x01A4,
+
+    /* Transmission errors count due to busy channel (read-only). 32 bits */
+    RF215_PIB_PHY_TX_ERR_BUSY_CHN       = 0x01A5,
+
+    /* Transmission errors count due to bad message length (read-only).
+     * 32 bits */
+    RF215_PIB_PHY_TX_ERR_BAD_LEN        = 0x01A6,
+
+    /* Transmission errors count due to bad format (read-only). 32 bits */
+    RF215_PIB_PHY_TX_ERR_BAD_FORMAT     = 0x01A7,
+
+    /* Transmission errors count due to timeout (read-only). 32 bits */
+    RF215_PIB_PHY_TX_ERR_TIMEOUT        = 0x01A8,
+
+    /* Transmission aborted count (read-only). 32 bits */
+    RF215_PIB_PHY_TX_ERR_ABORTED        = 0x01A9,
+
+    /* Transmission confirms not handled by upper layer count (read-only).
+     * 32 bits */
+    RF215_PIB_PHY_TX_CFM_NOT_HANDLED    = 0x01AA,
+
+    /* Successfully received messages count (read-only). 32 bits */
+    RF215_PIB_PHY_RX_TOTAL              = 0x01B0,
+
+    /* Successfully received bytes count (read-only). 32 bits */
+    RF215_PIB_PHY_RX_TOTAL_BYTES        = 0x01B1,
+
+    /* Reception errors count (read-only). 32 bits */
+    RF215_PIB_PHY_RX_ERR_TOTAL          = 0x01B2,
+
+    /* Reception false positive count (read-only). 32 bits */
+    RF215_PIB_PHY_RX_ERR_FALSE_POSITIVE = 0x01B3,
+
+    /* Reception errors count due to bad message length(read-only). 32 bits */
+    RF215_PIB_PHY_RX_ERR_BAD_LEN        = 0x01B4,
+
+    /* Reception errors count due to bad format or bad FCS in header
+     * (read-only). 32 bits */
+    RF215_PIB_PHY_RX_ERR_BAD_FORMAT     = 0x01B5,
+
+    /* Reception errors count due to bad FCS in payload (read-only). 32 bits */
+    RF215_PIB_PHY_RX_ERR_BAD_FCS_PAY    = 0x01B6,
+
+    /* Reception aborted count (read-only). 32 bits */
+    RF215_PIB_PHY_RX_ERR_ABORTED        = 0x01B7,
+
+    /* Reception override (another message with higher signal level) count
+     * (read-only). 32 bits */
+    RF215_PIB_PHY_RX_OVERRIDE           = 0x01B8,
+
+    /* Reception indications not handled by upper layer count (read-only).
+     * 32 bits */
+    RF215_PIB_PHY_RX_IND_NOT_HANDLED    = 0x01B9,
+
+    /* Reset PHY Statistics (write-only) */
+    RF215_PIB_PHY_STATS_RESET           = 0x01C0,
+
+    /* Back-off period unit in us (aUnitBackoffPeriod in IEEE 802.15.4) used for
+     * CSMA-CA . 16 bits (read-only) */
+    RF215_PIB_MAC_UNIT_BACKOFF_PERIOD   = 0x0200,
+
+} DRV_RF215_PIB_ATTRIBUTE;
+
+// *****************************************************************************
+/* RF215 Driver PIB Results
+
+  Summary:
+    Defines the list of PIB results.
+
+  Description:
+    This data type defines the list of possible results in PIB management
+    routines (DRV_RF215_GetPib, DRV_RF215_SetPib).
+
+  Remarks:
+    None.
+*/
+
+typedef enum
+{
+    RF215_PIB_RESULT_SUCCESS        = 0,
+    RF215_PIB_RESULT_INVALID_PARAM  = 1,
+    RF215_PIB_RESULT_INVALID_ATTR   = 2,
+    RF215_PIB_RESULT_INVALID_HANDLE = 3,
+    RF215_PIB_RESULT_READ_ONLY      = 4,
+    RF215_PIB_RESULT_WRITE_ONLY     = 5,
+
+} DRV_RF215_PIB_RESULT;
+
+// *****************************************************************************
+/* RF215 Driver FSK PHY Configuration Data
+
+  Summary:
+    Defines the data required to configure the RF215 FSK PHY.
+
+  Description:
+    This data type defines the data required to configure the RF215 FSK PHY.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    DRV_RF215_FSK_SYM_RATE       symRate;
+    DRV_RF215_FSK_MOD_IDX        modIdx;
+    DRV_RF215_FSK_MOD_ORD        modOrd;
+
+} DRV_RF215_FSK_CFG_OBJ;
+
+// *****************************************************************************
+/* RF215 Driver OFDM PHY Configuration Data
+
+  Summary:
+    Defines the data required to configure the RF215 OFDM PHY.
+
+  Description:
+    This data type defines the data required to configure the RF215 OFDM PHY.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    DRV_RF215_OFDM_BW_OPT        opt;
+    DRV_RF215_OFDM_ITLV_MODE     itlv;
+
+} DRV_RF215_OFDM_CFG_OBJ;
+
+// *****************************************************************************
+/* RF215 Driver FSK/OFDM PHY Configuration Data
+
+  Summary:
+    Defines the data required to configure the RF215 FSK/OFDM PHY.
+
+  Description:
+    This data type defines the data required to configure the parameters
+    associated to the corresponding RF215 PHY (FSK or OFDM).
+
+    It is a static PHY configuration, meaning that a RF215 device will only
+    receive messages if the configuration is the same as in the transmitter.
+
+  Remarks:
+    None.
+*/
+
+typedef union
+{
+    DRV_RF215_FSK_CFG_OBJ        fsk;
+    DRV_RF215_OFDM_CFG_OBJ       ofdm;
+
+} DRV_RF215_PHY_TYPE_CFG_OBJ;
+
+// *****************************************************************************
+/* RF215 Driver PHY Configuration Data
+
+  Summary:
+    Defines the data required to configure the RF215 PHY.
+
+  Description:
+    This data type defines the data required to configure the RF215 PHY.
+
+    It is a static PHY configuration, meaning that a RF215 device will only
+    receive messages if the configuration is the same as in the transmitter.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    /* Channel center frequency F0 in Hz */
+    uint32_t                     chnF0Hz;
+
+    /* Channel spacing in Hz */
+    uint32_t                     chnSpaHz;
+
+    /* Minimum channel number */
+    uint16_t                     chnNumMin;
+
+    /* Maximum channel number */
+    uint16_t                     chnNumMax;
+
+    /* Minimum channel number (second range) (>0 for only one range) */
+    uint16_t                     chnNumMin2;
+
+    /* Maximum channel number (second range) (0 for only one range) */
+    uint16_t                     chnNumMax2;
+
+    /* Duration of Energy Detection for CCA (Clear Channel Assessment), in us */
+    uint16_t                     ccaEdDurationUS;
+
+    /* Energy Detection threshold for CCA, in dBm */
+    int8_t                       ccaEdThresholdDBm;
+
+    /* PHY type (FSK or OFDM) */
+    DRV_RF215_PHY_TYPE           phyType;
+
+    /* Configuration parameters for the specific PHY type (FSK or OFDM) */
+    DRV_RF215_PHY_TYPE_CFG_OBJ   phyTypeCfg;
+
+} DRV_RF215_PHY_CFG_OBJ;
+
+// *****************************************************************************
+/* RF215 Driver RX Indication Data
+
+  Summary:
+    Defines the data reported in RF215 RX indication.
+
+  Description:
+    This data type defines the data reported in the RF215 receive indication.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    /* RX time (PPDU start), referred to system 64-bit counter */
+    uint64_t                     timeIni;
+
+    /* Pointer to received PSDU data */
+    uint8_t*                     psdu;
+
+    /* PPDU duration in us */
+    uint32_t                     ppduDurationUS;
+
+    /* PSDU length in bytes (including FCS) */
+    uint16_t                     psduLen;
+
+    /* RSSI in dBm */
+    int8_t                       rssiDBm;
+
+    /* Modulation scheme for the specific PHY type (FSK or OFDM) */
+    DRV_RF215_PHY_MOD_SCHEME     modScheme;
+
+    /* Correct FCS flag */
+    bool                         fcsOk;
+
+} DRV_RF215_RX_INDICATION_OBJ;
+
+// *****************************************************************************
+/* RF215 Driver TX Request Data
+
+  Summary:
+    Defines the parameters for TX request.
+
+  Description:
+    This data type defines the parameters needed to request a transmission,
+    using the DRV_RF215_TxRequest function.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    /* TX time (PPDU start), referred to system time (absolute/relative) */
+    uint64_t                     time;
+
+    /* Pointer to PSDU data to be transmitted */
+    uint8_t*                     psdu;
+
+    /* TX time mode */
+    DRV_RF215_TX_TIME_MODE       timeMode;
+
+    /* Modulation scheme for the specific PHY type (FSK or OFDM) */
+    DRV_RF215_PHY_MOD_SCHEME     modScheme;
+
+    /* Clear Channel Assessment (CCA) mode */
+    DRV_RF215_PHY_CCA_MODE       ccaMode;
+
+    /* PSDU length in bytes (including FCS) */
+    uint16_t                     psduLen;
+
+    /* Transmitter power attenuation in dB (max 31 dB) */
+    uint8_t                      txPwrAtt;
+
+    /* Cancel TX if PPDU received before programmed TX time */
+    bool                         cancelByRx;
+
+} DRV_RF215_TX_REQUEST_OBJ;
+
+// *****************************************************************************
+/* RF215 Driver TX Confirm Data
+
+  Summary:
+    Defines the data reported in RF215 TX confirm.
+
+  Description:
+    This data type defines the data reported in the RF215 transmit confirm
+    callback function.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    /* TX time (PPDU start), referred to system 64-bit counter */
+    uint64_t                     timeIni;
+
+    /* PPDU duration in us */
+    uint32_t                     ppduDurationUS;
+
+    /* Transmission result */
+    DRV_RF215_TX_RESULT          txResult;
+
+} DRV_RF215_TX_CONFIRM_OBJ;
+
+// *****************************************************************************
+/* RF215 Driver FW Version Data
+
+  Summary:
+    Defines the RF215 Driver firmware version data.
+
+  Description:
+    This data type defines the RF215 Driver firmware version data
+    (RF215_PIB_FW_VERSION).
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    uint8_t                      major;
+    uint8_t                      minor;
+    uint8_t                      revision;
+    uint8_t                      year; /* year since 2000 */
+    uint8_t                      month;
+    uint8_t                      day;
+
+} DRV_RF215_FW_VERSION;
+
+// *****************************************************************************
+/* RF215 Driver PLIB SPI Is Busy
+
+  Summary:
+    Pointer to a PLIB function to check if SPI transmitter is busy.
+
+  Description:
+    This data type defines the required function signature for the RF215 driver
+    to check if SPI transmitter is busy.
+
+  Parameters:
+    None.
+
+  Returns:
+    SPI transmitter busy (true) or free (false).
+
+  Example:
+    <code>
+    </code>
+
+  Remarks:
+    None.
+*/
+
+typedef bool ( *DRV_RF215_PLIB_SPI_IS_BUSY ) (void);
+
+// *****************************************************************************
+/* RF215 Driver PLIB SPI Set Chip Select
+
+  Summary:
+    Pointer to a PLIB function to set the SPI chip select line.
+
+  Description:
+    This data type defines the required function signature for the RF215 driver
+    to set the SPI chip select line.
+
+  Parameters:
+    - chipSelect - Chip select line to be set.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    </code>
+
+  Remarks:
+    None.
+*/
+
+typedef void ( *DRV_RF215_PLIB_SPI_SET_CS ) (SPI_CHIP_SELECT chipSelect);
+
+// *****************************************************************************
+/* RF215 Driver Initialization Data
+
+  Summary:
+    Defines the data required to initialize the RF215 driver.
+
+  Description:
+    This data type defines the data required to initialize the RF215 driver.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    /* SPI chip select register address used for SPI configuration */
+    uint32_t*                    spiCSRegAddress;
+
+    /* SPI transmit register address used for DMA operation */
+    const void*                  spiTransmitAddress;
+
+    /* SPI receive register address used for DMA operation */
+    const void*                  spiReceiveAddress;
+
+    /* Pointer to SPI PLIB is busy function */
+    DRV_RF215_PLIB_SPI_IS_BUSY   spiPlibIsBusy;
+
+    /* Pointer to SPI PLIB chip select function */
+    DRV_RF215_PLIB_SPI_SET_CS    spiPlibSetChipSelect;
+
+    /* Interrupt source ID for DMA */
+    INT_SOURCE                   dmaIntSource;
+
+    /* Interrupt source ID for SYS_TIME */
+    INT_SOURCE                   sysTimeIntSource;
+
+    /* Interrupt source ID for PLC external interrupt */
+    INT_SOURCE                   plcExtIntSource;
+
+    /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */
+    DRV_RF215_PHY_BAND_OPM       rf09PhyBandOpmIni;
+
+    /* Initial PHY frequency channel number for Sub-GHz transceiver */
+    uint16_t                     rf09PhyChnNumIni;
+
+    /* Initial PHY frequency band and operating mode for 2.4 GHz transceiver */
+    DRV_RF215_PHY_BAND_OPM       rf24PhyBandOpmIni;
+
+    /* Initial PHY frequency channel number for 2.4 GHz transceiver */
+    uint16_t                     rf24PhyChnNumIni;
+
+} DRV_RF215_INIT;
+
+//DOM-IGNORE-BEGIN
+#ifdef __cplusplus
+}
+#endif
+//DOM-IGNORE-END
+
+#endif // #ifndef _DRV_RF215_DEFINITIONS_H
