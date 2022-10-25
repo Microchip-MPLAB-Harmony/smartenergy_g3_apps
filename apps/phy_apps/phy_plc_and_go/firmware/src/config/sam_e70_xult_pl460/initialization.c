@@ -71,7 +71,7 @@
 /* HAL Interface Initialization for PLC transceiver */
 DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
-     /* SPI Transfer Setup */
+    /* SPI Transfer Setup */
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SPI0_TransferSetup,
 
     /* DMA Channel for Transmit */
@@ -86,12 +86,9 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI Receive Register */
     .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
 
-    /* SPI MR register address. */
-    .spiMR  = (void *)&(SPI0_REGS->SPI_MR),
-
     /* SPI CSR register address. */
-    .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR),
-    
+    .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[DRV_PLC_CSR_INDEX]),
+
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
     
@@ -343,6 +340,8 @@ const SYS_CONSOLE_INIT sysConsole0Init =
 
 void SYS_Initialize ( void* data )
 {
+    /* MISRAC 2012 deviation block start */
+    /* MISRA C-2012 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2012_R_2_2_DR_1 */
 
 
     EFC_Initialize();
@@ -371,10 +370,9 @@ void SYS_Initialize ( void* data )
 	SPI0_Initialize();
 
 
-    /* Initialize PLC Phy Driver Instance */
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
-    /* Register Callback function to handle PLC interruption */
     PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
 
@@ -383,10 +381,9 @@ void SYS_Initialize ( void* data )
 
 
 
-	 /* Initialize the USB device layer */
+    /* Initialize the USB device layer */
     sysObj.usbDevObject0 = USB_DEVICE_Initialize (USB_DEVICE_INDEX_0 , ( SYS_MODULE_INIT* ) & usbDevInitData);
-	
-	
+
 
 	/* Initialize USB Driver */ 
     sysObj.drvUSBHSV1Object = DRV_USBHSV1_Initialize(DRV_USBHSV1_INDEX_0, (SYS_MODULE_INIT *) &drvUSBInit);	
@@ -398,6 +395,7 @@ void SYS_Initialize ( void* data )
 
     NVIC_Initialize();
 
+    /* MISRAC 2012 deviation block end */
 }
 
 

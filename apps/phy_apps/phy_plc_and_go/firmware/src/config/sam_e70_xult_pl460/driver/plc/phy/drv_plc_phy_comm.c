@@ -653,27 +653,35 @@ bool DRV_PLC_PHY_PIBGet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj)
                     
                 case PLC_ID_HOST_MODEL_ID:
                     value = DRV_PLC_PHY_HOST_MODEL;
-                    memcpy(pibObj->pData, (uint8_t*)&value, 2);
+                    pibObj->pData[0] = (uint8_t)value;
+                    pibObj->pData[1] = (uint8_t)(value >> 8);
                     break;
                     
                 case PLC_ID_HOST_PHY_ID:
                     value = DRV_PLC_PHY_HOST_PHY;
-                    memcpy(pibObj->pData, (uint8_t*)&value, 4);
+                    pibObj->pData[0] = (uint8_t)value;
+                    pibObj->pData[1] = (uint8_t)(value >> 8);
+                    pibObj->pData[2] = (uint8_t)(value >> 16);
+                    pibObj->pData[3] = (uint8_t)(value >> 24);
                     break;
                     
                 case PLC_ID_HOST_PRODUCT_ID:
                     value = DRV_PLC_PHY_HOST_PRODUCT;
-                    memcpy(pibObj->pData, (uint8_t*)&value, 2);
+                    pibObj->pData[0] = (uint8_t)value;
+                    pibObj->pData[1] = (uint8_t)(value >> 8);
                     break;
                     
                 case PLC_ID_HOST_VERSION_ID:
                     value = DRV_PLC_PHY_HOST_VERSION;
-                    memcpy(pibObj->pData, (uint8_t*)&value, 4);
+                    pibObj->pData[0] = (uint8_t)value;
+                    pibObj->pData[1] = (uint8_t)(value >> 8);
+                    pibObj->pData[2] = (uint8_t)(value >> 16);
+                    pibObj->pData[3] = (uint8_t)(value >> 24);
                     break;
                     
                 case PLC_ID_HOST_BAND_ID:
                     value = DRV_PLC_PHY_HOST_BAND;
-                    memcpy(pibObj->pData, (uint8_t*)&value, 1);
+                    pibObj->pData[0] = (uint8_t)value;
                     break;
                     
                 default:
@@ -762,7 +770,7 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
 {   
     /* Avoid warning */
     (void)context;
-
+	
     if ((gPlcPhyObj) && (pin == (PIO_PIN)gPlcPhyObj->plcHal->plcPlib->extIntPin))
     {
         DRV_PLC_PHY_EVENTS_OBJ evObj;
@@ -811,6 +819,6 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
         gPlcPhyObj->plcHal->delay(50);
     }
     
-    /* PORTD Interrupt Status Clear */
+    /* PORT Interrupt Status Clear */
     ((pio_registers_t*)DRV_PLC_EXT_INT_PIO_PORT)->PIO_ISR;
 }
