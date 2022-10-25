@@ -529,8 +529,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;633&quot; canvasWidth=&quot;750&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E70_Xplained_Ultra&quot; x=&quot;212&quot; y=&quot;19&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;550&quot; y=&quot;17&quot;/&gt;
@@ -557,6 +556,7 @@
         &lt;ElementPosition dnOrder=&quot;22&quot; id=&quot;usb_device_cdc&quot; x=&quot;14&quot; y=&quot;359&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;633&quot; canvasWidth=&quot;750&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -6959,7 +6959,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\initialization.c</file>
-         <hash>1a0578a02d757635a871b584c59d2e7ece4d60374ea58e1987f1743d18adac1b</hash>
+         <hash>0bac1478f7bdeccda318fed774aa4e905c190a9a068e17643225fa4cb7d5909a</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\usb_device_init_data.c</file>
@@ -7027,7 +7027,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\definitions.h</file>
-         <hash>7c9488d2c78aba1fc5743e0f2fad94b12e103e005e0c16f6387ed11cd02aaee3</hash>
+         <hash>f24f95c49b2fee903a0313491dbdad53748431eb0b1b261f2a0da34689a84209</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy.h</file>
@@ -7083,7 +7083,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\phy\rf215_phy.c</file>
-         <hash>e6b3066ed4cf94cc12f97778ade4f7f7033ea79736ce709d5b009e2999dce8a7</hash>
+         <hash>b43011dabb48b862c025eba03e711b45df579c996cfa597c15b62fcfb74cdad0</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\usb\src\usb_device_cdc_acm.c</file>
@@ -7439,7 +7439,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\drv_rf215_definitions.h</file>
-         <hash>af32299fed9fa59dd4d4d5b640b4c2a1c8f55d43856df3ce9b2659f15bcd0fe1</hash>
+         <hash>fe26cec5122168c6a365ac70b1b120efacf78b76d5b86a7d7187d43bdff4de67</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\rtc.h</file>
@@ -7447,11 +7447,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\drv_rf215.h</file>
-         <hash>153fda4139cdf1d5f7b6a89a8bab33073d5aa577012a63a85c80825b4f610ecd</hash>
+         <hash>101f7f184ca418a628e460ef221b76dcae3aec8101a1d2aef2fa2470606fc0b3</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\drv_rf215.c</file>
-         <hash>ce51a69788354f27cb059374d247dc98e676ce700e7a40e56546c63749fb99f3</hash>
+         <hash>4bf8ac1edec24027930c6ba6ebf91ea4d32e221eaf627404e023dc30efb5ce8a</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\pio\plib_pio.h</file>
@@ -7499,7 +7499,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\service\rserial\srv_rserial.h</file>
-         <hash>e629c452522315c2886e6813cbfb03d3a418da1d546a6c6282e350d94aeb4c1a</hash>
+         <hash>db97a5bacf173ac70ff42d406d824fd19c802cc544fff033913a65d1acf3f7e6</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\tc\plib_tc_common.h</file>

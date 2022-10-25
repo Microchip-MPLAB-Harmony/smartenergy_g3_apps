@@ -532,7 +532,7 @@ DRV_HANDLE DRV_RF215_Open (
     return DRV_HANDLE_INVALID;
 }
 
-void DRV_RF215_Close( const DRV_HANDLE drvHandle)
+void DRV_RF215_Close( const DRV_HANDLE drvHandle )
 {
     DRV_RF215_CLIENT_OBJ* clientObj = _DRV_RF215_DrvHandleValidate(drvHandle);
     if (clientObj != NULL)

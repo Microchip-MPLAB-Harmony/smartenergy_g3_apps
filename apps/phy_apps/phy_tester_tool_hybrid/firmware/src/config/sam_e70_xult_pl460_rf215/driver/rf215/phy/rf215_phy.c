@@ -4088,7 +4088,10 @@ void RF215_PHY_TxCancel(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     if (txCancel == true)
     {
         RF215_PHY_SetTxCfm(txBufObj, RF215_TX_CANCELLED);
-        SYS_TIME_TimerDestroy(txBufObj->timeHandle);
+        // SYS_TIME_TimerDestroy(txBufObj->timeHandle);
+
+        /* Free TX buffer. TX confirm will not be notified */
+        txBufObj->inUse = false;
     }
 }
 

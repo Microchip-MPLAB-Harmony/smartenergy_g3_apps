@@ -732,6 +732,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="400000-5fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/WORK/GIT/mh3/smartenergy_g3_apps/apps/phy_apps/phy_tester_tool_hybrid/firmware/sam_e70_xult_pl460_rf215.X/debug/sam_e70_xult_pl460_rf215/sam_e70_xult_pl460_rf215_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

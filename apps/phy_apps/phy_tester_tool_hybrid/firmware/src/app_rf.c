@@ -67,22 +67,26 @@ static void _APP_RF_TimeExpired(uintptr_t context)
 
 static void _APP_RF_RxIndCb(DRV_RF215_RX_INDICATION_OBJ* indObj, uintptr_t ctxt)
 {
-    DRV_RF215_PHY_CFG_OBJ* phyCfg;
+    DRV_RF215_PHY_CFG_OBJ phyCfg;
+    DRV_HANDLE rf215Handle;
     uint8_t* pSerialData;
     size_t length;
     DRV_RF215_TRX_ID trxId = (DRV_RF215_TRX_ID) ctxt;
 
     if (trxId == RF215_TRX_ID_RF09)
     {
-        phyCfg = &app_rfData.rfPhyConfigRF09;
+        rf215Handle = app_rfData.rf215HandleRF09;
     }
     else
     {
-        phyCfg = &app_rfData.rfPhyConfigRF24;
+        rf215Handle = app_rfData.rf215HandleRF24;
     }
-    
+
+    /* Get RF PHY configuration */
+    DRV_RF215_GetPib(rf215Handle, RF215_PIB_PHY_CONFIG, &phyCfg);
+
     /* Serialize received message and send through USI */
-    pSerialData = SRV_RSERIAL_SerialRxMessage(indObj, trxId, phyCfg, &length);
+    pSerialData = SRV_RSERIAL_SerialRxMessage(indObj, trxId, &phyCfg, &length);
     SRV_USI_Send_Message(app_rfData.srvUSIHandle, SRV_USI_PROT_ID_PHY_RF215,
             pSerialData, length);
 }
@@ -111,7 +115,7 @@ void _APP_RF_UsiPhyProtocolEventCb(uint8_t *pData, size_t usiLength)
     DRV_HANDLE rf215Handle;
     DRV_RF215_TRX_ID trxId;
     DRV_RF215_PIB_ATTRIBUTE pibAttr;
-    DRV_RF215_PIB_RESULT pibResult;    
+    DRV_RF215_PIB_RESULT pibResult;
     uint8_t pibSize, pibSizePhy;
 
     /* Protection for invalid length */
@@ -129,7 +133,7 @@ void _APP_RF_UsiPhyProtocolEventCb(uint8_t *pData, size_t usiLength)
             /* Extract PIB information */
             SRV_RSERIAL_ParsePIB(pData, &trxId, &pibAttr, &pibSize);
             pibSizePhy = DRV_RF215_GetPibSize(pibAttr);
-            
+
             if (pibSize >= pibSizePhy)
             {
                 if (trxId == RF215_TRX_ID_RF09)
@@ -139,8 +143,8 @@ void _APP_RF_UsiPhyProtocolEventCb(uint8_t *pData, size_t usiLength)
                 else
                 {
                     rf215Handle = app_rfData.rf215HandleRF24;
-                }                    
-                    
+                }
+
                 /* Get PIB from RF215 driver */
                 pibResult = DRV_RF215_GetPib(rf215Handle, pibAttr, rfDataPIBBuffer);
             }
@@ -149,9 +153,9 @@ void _APP_RF_UsiPhyProtocolEventCb(uint8_t *pData, size_t usiLength)
                 /* Invalid length */
                 pibResult = RF215_PIB_RESULT_INVALID_PARAM;
             }
-            
+
             /* Serialize PIB get response and send through USI */
-            pSerialData = SRV_RSERIAL_SerialGetPIB(trxId, pibAttr, pibSize,
+            pSerialData = SRV_RSERIAL_SerialGetPIB(trxId, pibAttr, pibSizePhy,
                     pibResult, rfDataPIBBuffer, &length);
             SRV_USI_Send_Message(app_rfData.srvUSIHandle,
                     SRV_USI_PROT_ID_PHY_RF215, pSerialData, length);
@@ -161,11 +165,11 @@ void _APP_RF_UsiPhyProtocolEventCb(uint8_t *pData, size_t usiLength)
         case SRV_RSERIAL_CMD_PHY_SET_CFG:
         {
             uint8_t *pPibValue;
-            
+
             /* Extract PIB information */
             pPibValue = SRV_RSERIAL_ParsePIB(pData, &trxId, &pibAttr, &pibSize);
             pibSizePhy = DRV_RF215_GetPibSize(pibAttr);
-            
+
             if (pibSize >= pibSizePhy)
             {
                 if (trxId == RF215_TRX_ID_RF09)
@@ -175,9 +179,9 @@ void _APP_RF_UsiPhyProtocolEventCb(uint8_t *pData, size_t usiLength)
                 else
                 {
                     rf215Handle = app_rfData.rf215HandleRF24;
-                }                    
-                    
-                /* Get PIB from RF215 driver */
+                }
+
+                /* Set PIB to RF215 driver */
                 pibResult = DRV_RF215_SetPib(rf215Handle, pibAttr, pPibValue);
             }
             else
@@ -185,9 +189,9 @@ void _APP_RF_UsiPhyProtocolEventCb(uint8_t *pData, size_t usiLength)
                 /* Invalid length */
                 pibResult = RF215_PIB_RESULT_INVALID_PARAM;
             }
-            
+
             /* Serialize PIB set response and send through USI */
-            pSerialData = SRV_RSERIAL_SerialSetPIB(trxId, pibAttr, pibSize,
+            pSerialData = SRV_RSERIAL_SerialSetPIB(trxId, pibAttr, pibSizePhy,
                     pibResult, &length);
             SRV_USI_Send_Message(app_rfData.srvUSIHandle,
                     SRV_USI_PROT_ID_PHY_RF215, pSerialData, length);
@@ -197,25 +201,13 @@ void _APP_RF_UsiPhyProtocolEventCb(uint8_t *pData, size_t usiLength)
         case SRV_RSERIAL_CMD_PHY_SEND_MSG:
         {
             bool txCancel;
-            DRV_RF215_PHY_CFG_OBJ* phyCfg;
+            DRV_RF215_PHY_CFG_OBJ phyCfg;
             DRV_RF215_TX_REQUEST_OBJ txReq;
             DRV_RF215_TX_HANDLE txHandle;
-            
+
             /* Parse TRX identifier from USI */
             trxId = SRV_RSERIAL_ParseTxMessageTrxId(pData);
-            
-            if (trxId == RF215_TRX_ID_RF09)
-            {
-                phyCfg = &app_rfData.rfPhyConfigRF09;
-            }
-            else
-            {
-                phyCfg = &app_rfData.rfPhyConfigRF24;
-            }
-            
-            /* Parse TX request data from USI */
-            txCancel = SRV_RSERIAL_ParseTxMessage(pData, phyCfg, &txReq, &txHandle);
-            
+
             if (trxId == RF215_TRX_ID_RF09)
             {
                 rf215Handle = app_rfData.rf215HandleRF09;
@@ -224,27 +216,29 @@ void _APP_RF_UsiPhyProtocolEventCb(uint8_t *pData, size_t usiLength)
             {
                 rf215Handle = app_rfData.rf215HandleRF24;
             }
-            
+
+            /* Get RF PHY configuration */
+            DRV_RF215_GetPib(rf215Handle, RF215_PIB_PHY_CONFIG, &phyCfg);
+
+            /* Parse TX request data from USI */
+            txCancel = SRV_RSERIAL_ParseTxMessage(pData, &phyCfg, &txReq, &txHandle);
+
             if (txCancel == false)
             {
                 DRV_RF215_TX_RESULT txResult;
-                
+
                 /* Send Message through RF */
                 txHandle = DRV_RF215_TxRequest(rf215Handle, &txReq, &txResult);
-                
-                if (txResult == RF215_TX_SUCCESS)
-                {
-                    SRV_RSERIAL_SetTxHandle(txHandle);
-                }
-                else
+                SRV_RSERIAL_SetTxHandle(txHandle);
+
+                if (txResult != RF215_TX_SUCCESS)
                 {
                     DRV_RF215_TX_CONFIRM_OBJ txCfm;
                     txCfm.txResult = txResult;
                     txCfm.ppduDurationUS = 0;
                     txCfm.timeIni = SYS_TIME_Counter64Get();
-                    
+
                     /* TX request error */
-                    SRV_RSERIAL_SetTxHandle(DRV_RF215_TX_HANDLE_INVALID);
                     _APP_RF_TxCfmCb(DRV_RF215_TX_HANDLE_INVALID, &txCfm,
                             (uintptr_t) trxId);
                 }
@@ -329,10 +323,6 @@ void APP_RF_Tasks ( void )
                             _APP_RF_RxIndCb, (uintptr_t) RF215_TRX_ID_RF09);
                     DRV_RF215_TxCfmCallbackRegister(app_rfData.rf215HandleRF09,
                             _APP_RF_TxCfmCb, (uintptr_t) RF215_TRX_ID_RF09);
-
-                    /* Get initial RF PHY configuration */
-                    DRV_RF215_GetPib(app_rfData.rf215HandleRF09, RF215_PIB_PHY_CONFIG,
-                            &app_rfData.rfPhyConfigRF09);
                 }
 
                 if (app_rfData.rf215HandleRF24 != DRV_HANDLE_INVALID)
@@ -342,10 +332,6 @@ void APP_RF_Tasks ( void )
                             _APP_RF_RxIndCb, (uintptr_t) RF215_TRX_ID_RF24);
                     DRV_RF215_TxCfmCallbackRegister(app_rfData.rf215HandleRF24,
                             _APP_RF_TxCfmCb, (uintptr_t) RF215_TRX_ID_RF24);
-
-                    /* Get initial RF PHY configuration */
-                    DRV_RF215_GetPib(app_rfData.rf215HandleRF24, RF215_PIB_PHY_CONFIG,
-                            &app_rfData.rfPhyConfigRF24);
                 }
 
                 if ((app_rfData.rf215HandleRF09 != DRV_HANDLE_INVALID) ||
@@ -353,7 +339,7 @@ void APP_RF_Tasks ( void )
                 {
                     /* Open USI Service */
                     app_rfData.srvUSIHandle = SRV_USI_Open(SRV_USI_INDEX_1);
-                    
+
                     if (app_rfData.srvUSIHandle != DRV_HANDLE_INVALID)
                     {
                         /* Set Application to next state */
@@ -383,7 +369,7 @@ void APP_RF_Tasks ( void )
         case APP_RF_STATE_CONFIG_USI:
         {
             SRV_USI_STATUS usiStatus = SRV_USI_Status(app_rfData.srvUSIHandle);
-            
+
             if (usiStatus == SRV_USI_STATUS_CONFIGURED)
             {
                 /* Register USI callback */

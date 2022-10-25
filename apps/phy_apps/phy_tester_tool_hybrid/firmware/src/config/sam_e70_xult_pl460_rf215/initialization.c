@@ -91,6 +91,7 @@ const DRV_RF215_INIT drvRf215InitData = {
     /* Interrupt source ID for SYS_TIME */
     .sysTimeIntSource = TC0_CH0_IRQn,
 
+    /* Interrupt source ID for PLC external interrupt */
     .plcExtIntSource = PIOD_IRQn,
 
     /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */

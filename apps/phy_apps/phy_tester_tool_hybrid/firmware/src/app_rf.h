@@ -49,9 +49,9 @@ extern "C" {
 // *****************************************************************************
 
 #define APP_RF_PIB_BUFFER_SIZE          sizeof(DRV_RF215_PHY_CFG_OBJ)
-    
+
 #define APP_RF_LED_BLINK_RATE_MS        500
-    
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Type Definitions
@@ -97,9 +97,6 @@ typedef struct
 {
     /* The application's current state */
     APP_RF_STATES state;
-
-    DRV_RF215_PHY_CFG_OBJ rfPhyConfigRF09;
-    DRV_RF215_PHY_CFG_OBJ rfPhyConfigRF24;
 
     DRV_HANDLE rf215HandleRF09;
     DRV_HANDLE rf215HandleRF24;
