@@ -111,16 +111,18 @@ static inline void _RF215_HAL_ExtIntEnable()
     }
 }
 
-static inline bool _RF215_HAL_DisableIntSources(bool* timeIntStatus)
+static inline bool _RF215_HAL_DisableIntSources(bool* timeIntStatus, bool* plcExtIntStatus)
 {
+    *plcExtIntStatus = SYS_INT_SourceDisable(rf215HalObj.plcExtIntSource);
     *timeIntStatus = SYS_INT_SourceDisable(rf215HalObj.sysTimeIntSource);
     return SYS_INT_SourceDisable(rf215HalObj.dmaIntSource);
 }
 
-static inline void _RF215_HAL_RestoreIntSources(bool dmaIntStatus, bool timeIntStatus)
+static inline void _RF215_HAL_RestoreIntSources(bool dmaIntStatus, bool timeIntStatus, bool plcExtIntStatus)
 {
-    SYS_INT_SourceRestore(rf215HalObj.sysTimeIntSource, timeIntStatus);
     SYS_INT_SourceRestore(rf215HalObj.dmaIntSource, dmaIntStatus);
+    SYS_INT_SourceRestore(rf215HalObj.sysTimeIntSource, timeIntStatus);
+    SYS_INT_SourceRestore(rf215HalObj.plcExtIntSource, plcExtIntStatus);
 }
 
 static void _RF215_HAL_SpiTransferStart (
@@ -133,7 +135,6 @@ static void _RF215_HAL_SpiTransferStart (
     size_t transferSize, txCleanCacheSize;
     uint16_t cmd;
     bool intStatus;
-    bool plcExtIntStatus;
     uint8_t* pTxData = halSpiTxData;
     RF215_HAL_OBJ* hObj = &rf215HalObj;
 
@@ -158,9 +159,6 @@ static void _RF215_HAL_SpiTransferStart (
         /* Only COMMAND SPI transmit data cache needs to be cleaned */
         txCleanCacheSize = RF215_SPI_CMD_SIZE;
     }
-
-    /* Disable PLC external interrupt to avoid SPI transfer from PLC driver */
-    plcExtIntStatus = SYS_INT_SourceDisable(rf215HalObj.plcExtIntSource);
 
     /* Wait if there is SPI transfer in progress */
     while(rf215HalObj.spiPlibIsBusy() == true);
@@ -190,8 +188,8 @@ static void _RF215_HAL_SpiTransferStart (
     hObj->sysTimeTransfer = SYS_TIME_Counter64Get();
     SYS_INT_Restore(intStatus);
 
-    /* Restore PLC external interrupt status */
-    SYS_INT_SourceRestore(rf215HalObj.plcExtIntSource, plcExtIntStatus);
+    /* Set DMA transfer in progress */
+    hObj->dmaTransferInProgress = true;
 
     if (mode == RF215_SPI_READ)
     {
@@ -209,12 +207,12 @@ static void _RF215_HAL_SpiTransfer (
     uintptr_t context
 )
 {
-    bool dmaIntStatus, timeIntStatus;
+    bool dmaIntStatus, timeIntStatus, plcExtIntStatus;
     RF215_SPI_TRANSFER_OBJ* transfer;
     RF215_SPI_TRANSFER_OBJ* transferPoolEdge;
 
     /* Critical region to avoid conflict in SPI transfer queue */
-    dmaIntStatus = _RF215_HAL_DisableIntSources(&timeIntStatus);
+    dmaIntStatus = _RF215_HAL_DisableIntSources(&timeIntStatus, &plcExtIntStatus);
     _RF215_HAL_ExtIntDisable();
 
     /* Look for a free transfer object in the pool */
@@ -258,18 +256,19 @@ static void _RF215_HAL_SpiTransfer (
     }
 
     /* Leave critical region */
-    _RF215_HAL_RestoreIntSources(dmaIntStatus, timeIntStatus);
+    _RF215_HAL_RestoreIntSources(dmaIntStatus, timeIntStatus, plcExtIntStatus);
 }
 
 static void _RF215_HAL_SpiDmaHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
 {
     uint64_t callbackTime;
-    bool timeIntStatus;
+    bool dmaIntStatus, timeIntStatus, plcExtIntStatus;
     uintptr_t callbackContext;
     void* callbackData;
     RF215_SPI_TRANSFER_OBJ* next;
     RF215_SPI_TRANSFER_CALLBACK callback;
     RF215_SPI_TRANSFER_OBJ* transfer = rf215HalObj.spiQueueFirst;
+    SYS_DMA_CHANNEL dmaChannel = (SYS_DMA_CHANNEL) ctxt;
 
     if (transfer == NULL)
     {
@@ -277,9 +276,21 @@ static void _RF215_HAL_SpiDmaHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
         return;
     }
 
+    /* Critical region to avoid conflicts */
+    dmaIntStatus = _RF215_HAL_DisableIntSources(&timeIntStatus, &plcExtIntStatus);
+    _RF215_HAL_ExtIntDisable();
+
+    if ((rf215HalObj.dmaTransferInProgress == false) || (rf215HalObj.spiPlibIsBusy() == true))
+    {
+        /* DMA transfer not in progress or still in progress (shared SPI) */
+        _RF215_HAL_ExtIntEnable();
+        _RF215_HAL_RestoreIntSources(dmaIntStatus, timeIntStatus, plcExtIntStatus);
+        return;
+    }
+
     if (ev == SYS_DMA_TRANSFER_ERROR)
     {
-        if (ctxt == DRV_RF215_SPI_TX_DMA_CH)
+        if (dmaChannel == DRV_RF215_SPI_TX_DMA_CH)
         {
             /* Set DMA error flag */
             rf215HalObj.dmaTxError = true;
@@ -289,74 +300,74 @@ static void _RF215_HAL_SpiDmaHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
             /* Restart SPI transfer */
             _RF215_HAL_SpiTransferStart(transfer->mode, transfer->regAddr, transfer->pData, transfer->size);
         }
-
-        return;
     }
-
-    /* SYS_DMA_TRANSFER_COMPLETE */
-    if (ctxt == DRV_RF215_SPI_TX_DMA_CH)
+    else /* SYS_DMA_TRANSFER_COMPLETE */
     {
-        /* Clear DMA error flag */
-        rf215HalObj.dmaTxError = false;
+        if (dmaChannel == DRV_RF215_SPI_TX_DMA_CH)
+        {
+            /* Clear DMA error flag */
+            rf215HalObj.dmaTxError = false;
+        }
+        else /* DRV_RF215_SPI_RX_DMA_CH */
+        {
+            if (rf215HalObj.dmaTxError == true)
+            {
+                /* Restart SPI transfer */
+                _RF215_HAL_SpiTransferStart(transfer->mode, transfer->regAddr, transfer->pData, transfer->size);
+            }
+            else
+            {
+                if (transfer->mode == RF215_SPI_READ)
+                {
+                    /* Copy SPI received data to buffer from upper layer */
+                    memcpy(transfer->pData, &halSpiRxData[RF215_SPI_CMD_SIZE], transfer->size);
+                }
+
+                /* Copy needed data to local variables */
+                callback = transfer->callback;
+                callbackContext = transfer->context;
+                callbackData = transfer->pData;
+                callbackTime = rf215HalObj.sysTimeTransfer;
+
+                /* The transfer object can now be freed */
+                transfer->inUse = false;
+                rf215HalObj.dmaTransferInProgress = false;
+
+                /* Check next transfer */
+                next = transfer->next;
+                if (next != NULL)
+                {
+                    /* Move queue start to next transfer */
+                    rf215HalObj.spiQueueFirst = next;
+                }
+                else
+                {
+                    /* No more SPI transfers in the queue */
+                    rf215HalObj.spiQueueFirst = NULL;
+                    rf215HalObj.spiQueueLast = NULL;
+                }
+
+                if (next != NULL)
+                {
+                    /* Start next SPI transfer */
+                    _RF215_HAL_SpiTransferStart(next->mode, next->regAddr, next->pData, next->size);
+                }
+
+                if (callback != NULL)
+                {
+                    /* Notify upper layer via callback */
+                    callback(callbackContext, callbackData, callbackTime);
+                }
+
+                /* External interrupt can now be enabled */
+                _RF215_HAL_ExtIntEnable();
+            }
+        }
     }
-    else /* DRV_RF215_SPI_RX_DMA_CH */
-    {
-        if (rf215HalObj.dmaTxError == true)
-        {
-            /* Restart SPI transfer */
-            _RF215_HAL_SpiTransferStart(transfer->mode, transfer->regAddr, transfer->pData, transfer->size);
-            return;
-        }
 
-        if (transfer->mode == RF215_SPI_READ)
-        {
-            /* Copy SPI received data to buffer from upper layer */
-            memcpy(transfer->pData, &halSpiRxData[RF215_SPI_CMD_SIZE], transfer->size);
-        }
-
-        /* Copy needed data to local variables */
-        callback = transfer->callback;
-        callbackContext = transfer->context;
-        callbackData = transfer->pData;
-        callbackTime = rf215HalObj.sysTimeTransfer;
-
-        /* Critical region to avoid conflict in SPI transfer queue
-         * External interrupt is already disabled */
-        timeIntStatus = SYS_INT_SourceDisable(rf215HalObj.sysTimeIntSource);
-
-        /* The transfer object can now be freed */
-        transfer->inUse = false;
-
-        /* Check next transfer */
-        next = transfer->next;
-        if (next != NULL)
-        {
-            /* Move queue start to next transfer */
-            rf215HalObj.spiQueueFirst = next;
-        }
-        else
-        {
-            /* No more SPI transfers in the queue */
-            rf215HalObj.spiQueueFirst = NULL;
-            rf215HalObj.spiQueueLast = NULL;
-        }
-
-        if (next != NULL)
-        {
-            /* Start next SPI transfer */
-            _RF215_HAL_SpiTransferStart(next->mode, next->regAddr, next->pData, next->size);
-        }
-
-        if (callback != NULL)
-        {
-            /* Notify upper layer via callback */
-            callback(callbackContext, callbackData, callbackTime);
-        }
-
-        /* Leave critical region. External interrupt can now be enabled */
-        _RF215_HAL_ExtIntEnable();
-        SYS_INT_SourceRestore(rf215HalObj.sysTimeIntSource, timeIntStatus);
-    }
+    /* Leave critical region */
+    _RF215_HAL_ExtIntEnable();
+    _RF215_HAL_RestoreIntSources(dmaIntStatus, timeIntStatus, plcExtIntStatus);
 }
 
 static void _RF215_HAL_ExtIntHandler(PIO_PIN pin, uintptr_t context)
@@ -410,10 +421,10 @@ void RF215_HAL_Initialize(const DRV_RF215_INIT * const init)
 
 void RF215_HAL_Deinitialize()
 {
-    bool dmaIntStatus, timeIntStatus;
+    bool dmaIntStatus, timeIntStatus, plcExtIntStatus;
 
     /* Critical region to avoid conflict in SPI transfer queue */
-    dmaIntStatus = _RF215_HAL_DisableIntSources(&timeIntStatus);
+    dmaIntStatus = _RF215_HAL_DisableIntSources(&timeIntStatus, &plcExtIntStatus);
     _RF215_HAL_ExtIntDisable();
 
     /* Push reset pin */
@@ -425,7 +436,7 @@ void RF215_HAL_Deinitialize()
     memset(halSpiTransferPool, 0, sizeof(halSpiTransferPool));
 
     /* Leave critical region. External interrupt disabled */
-    _RF215_HAL_RestoreIntSources(dmaIntStatus, timeIntStatus);
+    _RF215_HAL_RestoreIntSources(dmaIntStatus, timeIntStatus, plcExtIntStatus);
 }
 
 void RF215_HAL_Tasks()
@@ -436,10 +447,10 @@ void RF215_HAL_Tasks()
 void RF215_HAL_Reset()
 {
     SYS_TIME_HANDLE timeHandle;
-    bool dmaIntStatus, timeIntStatus;
+    bool dmaIntStatus, timeIntStatus, plcExtIntStatus;
 
     /* Critical region to avoid interrupts during reset */
-    dmaIntStatus = _RF215_HAL_DisableIntSources(&timeIntStatus);
+    dmaIntStatus = _RF215_HAL_DisableIntSources(&timeIntStatus, &plcExtIntStatus);
     if (rf215HalObj.firstReset == false)
     {
         _RF215_HAL_ExtIntDisable();
@@ -474,16 +485,15 @@ void RF215_HAL_Reset()
     /* Release reset pin and enable/restore interrupts */
     SYS_PORT_PinSet(DRV_RF215_RESET_PIN);
     _RF215_HAL_ExtIntEnable();
-    _RF215_HAL_RestoreIntSources(dmaIntStatus, timeIntStatus);
+    _RF215_HAL_RestoreIntSources(dmaIntStatus, timeIntStatus, plcExtIntStatus);
 }
 
 bool RF215_HAL_SpiLock()
 {
     /* Disable interrupts to avoid new SPI transfers */
     RF215_HAL_OBJ* hObj = &rf215HalObj;
-    hObj->dmaIntStatus = _RF215_HAL_DisableIntSources(&hObj->sysTimeIntStatus);
+    hObj->dmaIntStatus = _RF215_HAL_DisableIntSources(&hObj->sysTimeIntStatus, &hObj->plcExtIntStatus);
     _RF215_HAL_ExtIntDisable();
-    hObj->plcExtIntStatus = SYS_INT_SourceDisable(rf215HalObj.plcExtIntSource);
 
     if (hObj->spiQueueFirst == NULL)
     {
@@ -501,9 +511,8 @@ void RF215_HAL_SpiUnlock()
 {
     /* Restore interrupts */
     RF215_HAL_OBJ* hObj = &rf215HalObj;
-    SYS_INT_SourceRestore(hObj->plcExtIntSource, hObj->plcExtIntStatus);
     _RF215_HAL_ExtIntEnable();
-    _RF215_HAL_RestoreIntSources(hObj->dmaIntStatus, hObj->sysTimeIntStatus);
+    _RF215_HAL_RestoreIntSources(hObj->dmaIntStatus, hObj->sysTimeIntStatus, hObj->plcExtIntStatus);
 }
 
 void RF215_HAL_EnterCritical()
@@ -512,14 +521,19 @@ void RF215_HAL_EnterCritical()
      * External interrupt not disabled because it just makes one SPI transfer
      * and there is no other static variable update */
     RF215_HAL_OBJ* hObj = &rf215HalObj;
-    hObj->dmaIntStatus = _RF215_HAL_DisableIntSources(&hObj->sysTimeIntStatus);
+    hObj->dmaIntStatus = _RF215_HAL_DisableIntSources(&hObj->sysTimeIntStatus, &hObj->plcExtIntStatus);
 }
 
 void RF215_HAL_LeaveCritical()
 {
     /* Leave critical region: Restore interrupts */
     RF215_HAL_OBJ* hObj = &rf215HalObj;
-    _RF215_HAL_RestoreIntSources(hObj->dmaIntStatus, hObj->sysTimeIntStatus);
+    _RF215_HAL_RestoreIntSources(hObj->dmaIntStatus, hObj->sysTimeIntStatus, hObj->plcExtIntStatus);
+}
+
+void RF215_HAL_DisableTimeInt()
+{
+    SYS_INT_SourceDisable(rf215HalObj.sysTimeIntSource);
 }
 
 void RF215_HAL_SpiRead (

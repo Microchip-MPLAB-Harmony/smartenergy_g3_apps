@@ -1312,23 +1312,23 @@ static bool _RF215_PHY_BandOpModeToPhyCfg (
     return true;
 }
 
-static inline uint32_t _RF215_PHY_USq5ToSysTimeCount(uint32_t timeUSq5)
+static inline int32_t _RF215_PHY_USq5ToSysTimeCount(int32_t timeUSq5)
 {
     uint32_t sysTimeFreq = SYS_TIME_FrequencyGet();
-    return (uint32_t) DIV_ROUND((uint64_t) timeUSq5 * sysTimeFreq, 32000000);
+    return (int32_t) DIV_ROUND((int64_t) timeUSq5 * sysTimeFreq, 32000000);
 }
 
-static inline uint32_t _RF215_PHY_EventTrxCountDiff(void* pData)
+static inline int32_t _RF215_PHY_EventTrxCountDiff(void* pData)
 {
-    uint32_t trxCountDiff;
+    int32_t trxCountDiff;
     uint8_t* pCNT = (uint8_t *) pData;
 
     /* Read counter (reset at TX start or RX frame start event).
      * BBCn_CNT0 is least significant byte */
-    trxCountDiff = pCNT[0];
-    trxCountDiff += ((uint32_t) pCNT[1] << 8);
-    trxCountDiff += ((uint32_t) pCNT[2] << 16);
-    trxCountDiff += ((uint32_t) pCNT[3] << 24);
+    trxCountDiff = (int32_t) pCNT[0];
+    trxCountDiff += ((int32_t) pCNT[1] << 8);
+    trxCountDiff += ((int32_t) pCNT[2] << 16);
+    trxCountDiff += ((int32_t) pCNT[3] << 24);
 
     /* Compensate delay between SYS_TIME and TRX counter reads */
     trxCountDiff += RF215_SYNC_DELAY_US_Q5;
@@ -1914,7 +1914,7 @@ static uint32_t _RF215_TX_TotalDelay(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     txTotalDelayUSq5 += RF215_TX_PARAM_CFG_DELAY_US_Q5;
 
     /* Convert total delay to SYS_TIME count units */
-    return _RF215_PHY_USq5ToSysTimeCount(txTotalDelayUSq5);
+    return (uint32_t) _RF215_PHY_USq5ToSysTimeCount(txTotalDelayUSq5);
 }
 
 static void _RF215_TX_UpdStats(RF215_PHY_OBJ* phyObj, DRV_RF215_TX_RESULT result)
@@ -2057,7 +2057,7 @@ static void _RF215_TX_FrameEnd(uint8_t trxIdx)
 static void _RF215_TX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t time)
 {
     const RF215_FSK_SYM_RATE_CONST_OBJ* fskConst;
-    uint32_t trxCountDiff;
+    int32_t trxCountDiff;
     RF215_PHY_OBJ* pObj = (RF215_PHY_OBJ *) ctxt;
     uint8_t txdfe = pObj->phyRegs.RFn_TXDFE;
     uint8_t sr = (txdfe & RF215_RFn_TXDFE_SR_Msk) >> RF215_RFn_TXDFE_SR_Pos;
@@ -2092,7 +2092,7 @@ static void _RF215_TX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t time)
     }
 
     /* Compute SYS_TIME counter associated to TX event */
-    pObj->txBufObj->cfmObj.timeIni = time - _RF215_PHY_USq5ToSysTimeCount(trxCountDiff);
+    pObj->txBufObj->cfmObj.timeIni = time - (int64_t) _RF215_PHY_USq5ToSysTimeCount(trxCountDiff);
 }
 
 static void _RF215_TX_ReadCaptureTimeExpired(uintptr_t context)
@@ -2124,7 +2124,7 @@ static void _RF215_TX_ReadCaptureTimeExpired(uintptr_t context)
         /* TX has not started yet. Create new timer to postpone TX time read */
         timeReadDelayUSq5 += RF215_TX_TRXRDY_DELAY_US_Q5;
         timeReadDelayUSq5 += RF215_TX_IRQ_MARGIN_US_Q5;
-        timeReadDelay = _RF215_PHY_USq5ToSysTimeCount(timeReadDelayUSq5);
+        timeReadDelay = (uint32_t) _RF215_PHY_USq5ToSysTimeCount(timeReadDelayUSq5);
         timeHandle = SYS_TIME_TimerCreate(0, timeReadDelay,
             _RF215_TX_ReadCaptureTimeExpired, context, SYS_TIME_SINGLE);
 
@@ -2458,7 +2458,7 @@ static SYS_TIME_HANDLE _RF215_TX_TimeSchedule (
     SYS_TIME_HANDLE timeHandle = SYS_TIME_HANDLE_INVALID;
 
     /* Add margin for higher/same priority interrupts or critical regions */
-    txIntMargin = _RF215_PHY_USq5ToSysTimeCount(RF215_TX_TIME_IRQ_DELAY_US_Q5);
+    txIntMargin = (uint32_t) _RF215_PHY_USq5ToSysTimeCount(RF215_TX_TIME_IRQ_DELAY_US_Q5);
     time -= txIntMargin;
 
     /* Remaining time until the SYS_TIME interrupt is needed.
@@ -2542,7 +2542,7 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
     }
 
     /* Time when next command (TX/EDM_SINGLE) has to be sent */
-    txCommandDelay = _RF215_PHY_USq5ToSysTimeCount(pObj->txCmdDelayUSq5);
+    txCommandDelay = (uint32_t) _RF215_PHY_USq5ToSysTimeCount(pObj->txCmdDelayUSq5);
     txCommandTime = txTime - txCommandDelay;
     currentTime = SYS_TIME_Counter64Get();
 
@@ -2552,7 +2552,7 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
 
         /* Not ready to start and it is not too late.
          * Create new timer to start TX later. */
-        startDelay = _RF215_PHY_USq5ToSysTimeCount(startDelayUSq5);
+        startDelay = (uint32_t) _RF215_PHY_USq5ToSysTimeCount(startDelayUSq5);
         timeHandle = SYS_TIME_TimerCreate(0, startDelay,
                 _RF215_TX_StartTimeExpired, context, SYS_TIME_SINGLE);
 
@@ -2610,7 +2610,7 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
             }
 
             /* Create and start timer to read TX capture event time */
-            timeReadDelay = _RF215_PHY_USq5ToSysTimeCount(timeReadDelayUSq5);
+            timeReadDelay = (uint32_t) _RF215_PHY_USq5ToSysTimeCount(timeReadDelayUSq5);
             timeHandle = SYS_TIME_TimerCreate(0, timeReadDelay,
                 _RF215_TX_ReadCaptureTimeExpired, context, SYS_TIME_SINGLE);
             SYS_TIME_TimerStart(timeHandle);
@@ -2680,7 +2680,7 @@ static void _RF215_TX_PrepareTimeExpired(uintptr_t context)
              * Add required time for TX preparation.
              * Convert total delay to SYS_TIME count units. */
             txPrepDelayUSq5 = pObj->txCmdDelayUSq5 + _RF215_TX_PrepareDelayUSq5(txBufObj);
-            interruptTime = txTime - _RF215_PHY_USq5ToSysTimeCount(txPrepDelayUSq5);
+            interruptTime = txTime - (uint32_t) _RF215_PHY_USq5ToSysTimeCount(txPrepDelayUSq5);
 
             /* Schedule timer for TX configuration/preparation */
             timeHandle = _RF215_TX_TimeSchedule(interruptTime, false,
@@ -2693,7 +2693,7 @@ static void _RF215_TX_PrepareTimeExpired(uintptr_t context)
             _RF215_TX_Prepare(trxIdx);
 
             /* Delay between next command (TX/EDM_SINGLE) and TX start time */
-            interruptTime = txTime - _RF215_PHY_USq5ToSysTimeCount(pObj->txCmdDelayUSq5);
+            interruptTime = txTime - (uint32_t) _RF215_PHY_USq5ToSysTimeCount(pObj->txCmdDelayUSq5);
 
             /* Schedule timer for TX start */
             timeHandle = _RF215_TX_TimeSchedule(interruptTime, true,
@@ -2878,7 +2878,7 @@ static inline void _RF215_RX_BuffLvlInt(uint8_t trxIdx)
 
 static void _RF215_RX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t time)
 {
-    uint32_t trxCountDiff;
+    int32_t trxCountDiff;
     RF215_PHY_OBJ* pObj = (RF215_PHY_OBJ *) ctxt;
     uint8_t rxdfe = pObj->phyRegs.RFn_RXDFE;
     DRV_RF215_PHY_CFG_OBJ *phyCfg = &pObj->phyConfig;
@@ -2898,7 +2898,7 @@ static void _RF215_RX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t time)
     }
 
     /* Compute SYS_TIME counter associated to RX event */
-    pObj->rxInd.timeIni = time - _RF215_PHY_USq5ToSysTimeCount(trxCountDiff);
+    pObj->rxInd.timeIni = time - (int64_t) _RF215_PHY_USq5ToSysTimeCount(trxCountDiff);
     pObj->rxTimeValid = true;
 }
 
@@ -3405,6 +3405,9 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
             txBufObj->timeHandle = timeHandle;
         }
 
+        /* Disable again time interrupt (enabled by SYS_TIME) */
+        RF215_HAL_DisableTimeInt();
+
         /* Leave critical region */
         SYS_INT_Restore(intStatus);
     }
@@ -3444,7 +3447,10 @@ void RF215_PHY_TxCancel(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     if (txCancel == true)
     {
         RF215_PHY_SetTxCfm(txBufObj, RF215_TX_CANCELLED);
-        SYS_TIME_TimerDestroy(txBufObj->timeHandle);
+        // SYS_TIME_TimerDestroy(txBufObj->timeHandle);
+
+        /* Free TX buffer. TX confirm will not be notified */
+        txBufObj->inUse = false;
     }
 }
 

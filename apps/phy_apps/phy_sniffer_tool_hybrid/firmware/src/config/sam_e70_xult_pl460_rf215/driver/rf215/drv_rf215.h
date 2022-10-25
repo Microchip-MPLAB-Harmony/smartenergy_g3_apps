@@ -77,7 +77,8 @@
     A transmission handle value is returned by a call to the DRV_RF215_TxRequest
     function. This handle is associated with the transmission request and it is
     returned back to the client by the transmit confirm callback function
-    registered with the driver.
+    registered with the driver. It can also be used to abort the transmission by
+    DRV_RF215_TxCancel.
 
   Remarks:
     None
@@ -94,8 +95,8 @@ typedef uintptr_t DRV_RF215_TX_HANDLE;
   Description:
     This is the definition of an invalid transmission handle. An invalid
     transmission handle is returned by DRV_RF215_TxRequest function if the
-    request was not successful. It can happen due to invalid arguments, busy
-    channel detected, or lack of space in the queue.
+    request was not successful. It can happen due to invalid arguments, invalid
+    driver handle, or lack of space in the queue.
 
   Remarks:
     None
@@ -115,7 +116,7 @@ typedef uintptr_t DRV_RF215_TX_HANDLE;
     by the client.
 
   Remarks:
-    None.
+    The availability of each transceiver is enabled via MCC.
 */
 
 typedef enum
@@ -134,25 +135,35 @@ typedef enum
   Description:
     This data type defines the required function signature for the RF215 driver
     receive event handling callback function. A client uses
-    DRV_RF215_RxIndCallbackRegister to register a pointer whose function
-    signature (parameter and return value types) must match the signature
-    specified by this data type.
-
-    The parameters and return values are described here and a partial example
-    implementation is provided.
+    DRV_RF215_RxIndCallbackRegister to register a pointer to a function which
+    must match the signature (parameter and return value types) specified by
+    this data type.
 
   Parameters:
     indObj  - Pointer to the object containing the data associated to the
-              receive indication.
-
-    context - Value identifying the context of the application that registered
-              the callback function.
+              receive indication (see DRV_RF215_RX_INDICATION_OBJ).
+    context - Value identifying the context of the client that registered the
+              callback function.
 
   Returns:
     None.
 
   Example:
     <code>
+    static void APP_RxIndCb(DRV_RF215_RX_INDICATION_OBJ* indObj, uintptr_t ctxt)
+    {
+        // The context handle was set to an application specific object
+        // It is now retrievable easily in the event handler
+        MY_APP_OBJ myAppObj = (MY_APP_OBJ *) ctxt;
+
+        // Reception handling here.
+    }
+
+    DRV_HANDLE drvRf215Handle; // Returned from DRV_RF215_Open
+    MY_APP_OBJ myAppObj; // Application specific data object
+
+    DRV_RF215_RxIndCallbackRegister(drvRf215Handle, APP_RxIndCb,
+        (uintptr_t) myAppObj);
     </code>
 
   Remarks:
@@ -178,19 +189,14 @@ typedef void ( *DRV_RF215_RX_IND_CALLBACK ) (
   Description:
     This data type defines the required function signature for the RF215 driver
     transmit confirm event handling callback function. A client uses
-    DRV_RF215_TxCfmCallbackRegister to register a pointer whose function
-    signature (parameter and return value types) must match the signature
-    specified by this data type.
-
-    The parameters and return values are described here and a partial example
-    implementation is provided.
+    DRV_RF215_TxCfmCallbackRegister to register a pointer to a function which
+    must match the signature (parameter and return value types) specified by
+    this data type.
 
   Parameters:
     txHandle - Transmission handle returned from DRV_RF215_TxRequest.
-
     cfmObj   - Pointer to the object containing the data associated to the
-               transmit confirm.
-
+               transmit confirm (see DRV_RF215_TX_CONFIRM_OBJ).
     context  - Value identifying the context of the application that registered
                the callback function.
 
@@ -199,6 +205,24 @@ typedef void ( *DRV_RF215_RX_IND_CALLBACK ) (
 
   Example:
     <code>
+    static void _APP_RF_TxCfmCb (
+        DRV_RF215_TX_HANDLE txHandle,
+        DRV_RF215_TX_CONFIRM_OBJ *cfmObj,
+        uintptr_t ctxt
+    )
+    {
+        // The context handle was set to an application specific object
+        // It is now retrievable easily in the event handler
+        MY_APP_OBJ myAppObj = (MY_APP_OBJ *) ctxt;
+
+        // Transmission confirmation handling here.
+    }
+
+    DRV_HANDLE drvRf215Handle; // Returned from DRV_RF215_Open
+    MY_APP_OBJ myAppObj; // Application specific data object
+
+    DRV_RF215_TxCfmCallbackRegister(drvRf215Handle, _APP_RF_TxCfmCb,
+        (uintptr_t) myAppObj);
     </code>
 
   Remarks:
@@ -243,8 +267,7 @@ typedef void ( *DRV_RF215_TX_CFM_CALLBACK ) (
   Parameters:
     index - Identifier for the instance to be initialized. Only one instance
             (index 0) supported.
-
-    init  - Pointer to the initialization data structure containing any data
+    init  - Pointer to the initialization data structure containing the data
             necessary to initialize the driver.
 
   Returns:
@@ -253,11 +276,39 @@ typedef void ( *DRV_RF215_TX_CFM_CALLBACK ) (
 
   Example:
     <code>
+    SYS_MODULE_OBJ sysObjDrvRf215;
+
+    // RF215 Driver Initialization Data
+    const DRV_RF215_INIT drvRf215InitData = {
+        // SPI chip select register address used for SPI configuration
+        .spiCSRegAddress = (uint32_t *)&(SPI0_REGS->SPI_CSR[DRV_RF215_CSR_INDEX]),
+
+        // SPI Transmit Register
+        .spiTransmitAddress = (const void *)&(SPI0_REGS->SPI_TDR),
+
+        // SPI Receive Register
+        .spiReceiveAddress = (const void *)&(SPI0_REGS->SPI_RDR),
+
+        // Interrupt source ID for DMA
+        .dmaIntSource = XDMAC_IRQn,
+
+        // Interrupt source ID for SYS_TIME
+        .sysTimeIntSource = TC0_CH0_IRQn,
+
+        // Initial PHY frequency band and operating mode for Sub-GHz transceiver
+        .rf09PhyBandOpmIni = SUN_FSK_BAND_863_OPM1,
+
+        // Initial PHY frequency channel number for Sub-GHz transceiver
+        .rf09PhyChnNumIni = 0,
+
+    };
+
+    sysObjDrvRf215 = DRV_RF215_Initialize(DRV_RF215_INDEX_0, (SYS_MODULE_INIT *)&drvRf215InitData);
     </code>
 
   Remarks:
-    This routine must be called before any other RF215 Driver routine.
-    This routine should only be called once during system initialization.
+    This routine must be called before any other RF215 Driver routine and should
+    only be called once during system initialization.
 */
 
 SYS_MODULE_OBJ DRV_RF215_Initialize (
@@ -276,37 +327,36 @@ SYS_MODULE_OBJ DRV_RF215_Initialize (
     This routine provides the current status of the RF215 driver module.
 
   Precondition:
-    Function DRV_RF215_Initialize should have been called before calling this
-    function.
+    The DRV_RF215_Initialize routine must have been called to obtain a valid
+    system object.
 
   Parameters:
     object - Driver object handle, returned from the DRV_RF215_Initialize
-             routine
+             routine.
 
   Returns:
-    SYS_STATUS_READY         - Indicates that the RF215 driver module
-                               initialization has completed successfully
-    SYS_STATUS_BUSY          - Indicates that the RF215 driver module
-                               initialization has not yet completed
-    SYS_STATUS_ERROR         - Indicates that the RF215 driver module is in an
-                               error state
-    SYS_STATUS_UNINITIALIZED - Indicates that the RF215 driver module is not
-                               initialized
+    SYS_STATUS_READY         - The RF215 driver module initialization has
+                               completed successfully.
+    SYS_STATUS_BUSY          - The RF215 driver module initialization has not
+                               completed yet.
+    SYS_STATUS_ERROR         - The RF215 driver module is in an error state.
+    SYS_STATUS_UNINITIALIZED - The RF215 driver module is not initialized.
 
   Example:
     <code>
-    SYS_MODULE_OBJ object;  // Returned from DRV_RF215_Initialize
-    SYS_STATUS rfPhyStatus;
+    SYS_MODULE_OBJ sysObjDrvRf215; // Returned from DRV_RF215_Initialize
+    SYS_STATUS drvRf215Status;
 
-    rfPhyStatus = DRV_RF215_Status(object);
-    if (rfPhyStatus == SYS_STATUS_READY)
+    drvRf215Status = DRV_RF215_Status(sysObjDrvRf215);
+    if (drvRf215Status == SYS_STATUS_READY)
     {
         // This means now the driver can be opened using DRV_RF215_Open routine
     }
     </code>
 
   Remarks:
-    The RF215 driver can be opened only when its status is SYS_STATUS_READY.
+    The RF215 driver can be opened (DRV_RF215_Open) only when its status is
+    SYS_STATUS_READY.
 */
 
 SYS_STATUS DRV_RF215_Status( SYS_MODULE_OBJ object );
@@ -327,17 +377,19 @@ SYS_STATUS DRV_RF215_Status( SYS_MODULE_OBJ object );
     system object.
 
   Parameters:
-    object - Object handle for the driver instance (returned from
-             DRV_RF215_Initialize)
+    object - Driver object handle, returned from the DRV_RF215_Initialize
+             routine.
+
   Returns:
     None
+
   Example:
     <code>
-    // object returned from DRV_RF215_Initialize
+    SYS_MODULE_OBJ sysObjDrvRf215; // Returned from DRV_RF215_Initialize
 
     while (true)
     {
-        DRV_RF215_Tasks (object);
+        DRV_RF215_Tasks (sysObjDrvRf215);
 
         // Do other tasks
     }
@@ -345,7 +397,7 @@ SYS_STATUS DRV_RF215_Status( SYS_MODULE_OBJ object );
 
   Remarks:
     This function is normally not called directly by an application. It is
-    called by the system's Tasks routine (SYS_Tasks)
+    called by the system's tasks routine (SYS_Tasks).
 */
 
 void DRV_RF215_Tasks( SYS_MODULE_OBJ object );
@@ -367,13 +419,13 @@ void DRV_RF215_Tasks( SYS_MODULE_OBJ object );
     transceiver (Sub-GHz or 2.4GHz) used by the client.
 
   Precondition:
-    Function DRV_RF215_Initialize must have been called before calling this
+    Function DRV_RF215_Initialize must have been called and function
+    DRV_RF215_Status should have returned SYS_STATUS_READY before calling this
     function.
 
   Parameters:
     index - Identifier for the object instance to be opened. Only one instance
             (index 0) supported.
-
     trxID - Identifier of the RF215 transceiver (Sub-GHz or 2.4GHz) used by the
             client.
 
@@ -382,31 +434,33 @@ void DRV_RF215_Tasks( SYS_MODULE_OBJ object );
     identifying both the caller and the module instance).
 
     If an error occurs, the return value is DRV_HANDLE_INVALID. Error can occur
-    - if the number of client objects allocated via DRV_RF215_CLIENTS_NUMBER is
-      insufficient.
+    - if the number of clients allocated via MCC is insufficient.
     - if the specified instance index is not supported.
-    - if the specified RF215 transceiver is not supported or disabled in MCC
-      configuration.
+    - if the specified RF215 transceiver is not supported or disabled via MCC.
     - if the driver instance being opened is not ready to be opened (not
       initialized, initialization in progress or in error state because of wrong
       peripheral/hardware configuration).
-    - if the driver is not ready to be opened, typically when the initialize
-      routine has not completed execution.
 
   Example:
     <code>
-    DRV_HANDLE handle;
+    SYS_MODULE_OBJ sysObjDrvRf215; // Returned from DRV_RF215_Initialize
+    SYS_STATUS drvRf215Status;
+    DRV_HANDLE drvRf215Handle;
 
-    handle = DRV_RF215_Open(DRV_RF215_INDEX_0, RF215_TRX_ID_RF09);
-    if (handle != DRV_HANDLE_INVALID)
+    drvRf215Status = DRV_RF215_Status(sysObjDrvRf215);
+    if (drvRf215Status == SYS_STATUS_READY)
     {
-        // Driver opened successfully
+        // This means now the driver can be opened using DRV_RF215_Open routine
+        drvRf215Handle = DRV_RF215_Open(DRV_RF215_INDEX_0, RF215_TRX_ID_RF09);
+        if (drvRf215Handle != DRV_HANDLE_INVALID)
+        {
+            // Driver opened successfully
+        }
     }
     </code>
 
   Remarks:
-    - The handle returned is valid until the DRV_RF215_Close routine is called.
-    - This routine will never block waiting for hardware.
+    The handle returned is valid until the DRV_RF215_Close routine is called.
 */
 
 DRV_HANDLE DRV_RF215_Open (
@@ -416,7 +470,7 @@ DRV_HANDLE DRV_RF215_Open (
 
 // *****************************************************************************
 /* Function:
-    void DRV_RF215_Close( DRV_Handle drvHandle )
+    void DRV_RF215_Close( const DRV_HANDLE drvHandle )
 
   Summary:
     Closes an opened-instance of the RF215 driver.
@@ -438,17 +492,16 @@ DRV_HANDLE DRV_RF215_Open (
 
   Example:
     <code>
-    // 'drvHandle', returned from the DRV_RF215_Open
+    // 'drvHandle', returned from DRV_RF215_Open
 
     DRV_RF215_Close(drvHandle);
-
     </code>
 
   Remarks:
     None.
 */
 
-void DRV_RF215_Close( const DRV_HANDLE drvHandle);
+void DRV_RF215_Close( const DRV_HANDLE drvHandle );
 
 // *****************************************************************************
 /* Function:
@@ -466,9 +519,9 @@ void DRV_RF215_Close( const DRV_HANDLE drvHandle);
     This function allows a client to register a RF215 receive indication event
     handling function for the driver to call back when a new PPDU is received.
 
-    The callback should be registered immediately after opening the driver. The
-    callback once set, persists until the client closes the driver or sets
-    another callback (which could be a "NULL" pointer to indicate no callback).
+    The callback should be registered immediately after opening the driver.
+    Before this callback is set, any PPDU received by the transceiver will not
+    be notified.
 
   Precondition:
     DRV_RF215_Open must have been called to obtain a valid opened driver handle.
@@ -476,10 +529,8 @@ void DRV_RF215_Close( const DRV_HANDLE drvHandle);
   Parameters:
     drvHandle - A valid open-instance handle, returned from the driver's open
                 routine.
-
     callback  - Pointer to the callback function.
-
-    context   - The value of parameter will be passed back to the client
+    context   - The value of this parameter will be passed back to the client
                 unchanged, when the callback function is called.
 
   Returns:
@@ -487,10 +538,37 @@ void DRV_RF215_Close( const DRV_HANDLE drvHandle);
 
   Example:
     <code>
+    static void APP_RxIndCb(DRV_RF215_RX_INDICATION_OBJ* indObj, uintptr_t ctxt)
+    {
+        // The context handle was set to an application specific object
+        // It is now retrievable easily in the event handler
+        MY_APP_OBJ myAppObj = (MY_APP_OBJ *) ctxt;
+
+        // Reception handling here.
+    }
+
+    SYS_MODULE_OBJ sysObjDrvRf215; // Returned from DRV_RF215_Initialize
+    SYS_STATUS drvRf215Status;
+    DRV_HANDLE drvRf215Handle;
+    MY_APP_OBJ myAppObj; // Application specific data object
+
+    drvRf215Status = DRV_RF215_Status(sysObjDrvRf215);
+    if (drvRf215Status == SYS_STATUS_READY)
+    {
+        // This means now the driver can be opened using DRV_RF215_Open routine
+        drvRf215Handle = DRV_RF215_Open(DRV_RF215_INDEX_0, RF215_TRX_ID_RF09);
+        if (drvRf215Handle != DRV_HANDLE_INVALID)
+        {
+            // Driver opened successfully. Register callback
+            DRV_RF215_RxIndCallbackRegister(drvRf215Handle, APP_RxIndCb,
+                (uintptr_t) myAppObj);
+        }
+    }
     </code>
 
   Remarks:
-    None.
+    The callback once set, persists until the client closes the driver or sets
+    another callback (which could be a "NULL" pointer to indicate no callback).
 */
 
 void DRV_RF215_RxIndCallbackRegister (
@@ -516,9 +594,9 @@ void DRV_RF215_RxIndCallbackRegister (
     handling function for the driver to call back when a transmission request
     has finished, successfully or not.
 
-    The callback should be registered immediately after opening the driver. The
-    callback once set, persists until the client closes the driver or sets
-    another callback (which could be a "NULL" pointer to indicate no callback).
+    The callback should be registered immediately after opening the driver.
+    Before this callback is set, any transmission confirmation will not be
+    notified.
 
   Precondition:
     DRV_RF215_Open must have been called to obtain a valid opened driver handle.
@@ -526,10 +604,8 @@ void DRV_RF215_RxIndCallbackRegister (
   Parameters:
     drvHandle - A valid open-instance handle, returned from the driver's open
                 routine.
-
     callback  - Pointer to the callback function.
-
-    context   - The value of parameter will be passed back to the client
+    context   - The value of this parameter will be passed back to the client
                 unchanged, when the callback function is called.
 
   Returns:
@@ -537,10 +613,41 @@ void DRV_RF215_RxIndCallbackRegister (
 
   Example:
     <code>
+    static void _APP_RF_TxCfmCb (
+        DRV_RF215_TX_HANDLE txHandle,
+        DRV_RF215_TX_CONFIRM_OBJ *cfmObj,
+        uintptr_t ctxt
+    )
+    {
+        // The context handle was set to an application specific object
+        // It is now retrievable easily in the event handler
+        MY_APP_OBJ myAppObj = (MY_APP_OBJ *) ctxt;
+
+        // Transmission confirmation handling here.
+    }
+
+    SYS_MODULE_OBJ sysObjDrvRf215; // Returned from DRV_RF215_Initialize
+    SYS_STATUS drvRf215Status;
+    DRV_HANDLE drvRf215Handle;
+    MY_APP_OBJ myAppObj; // Application specific data object
+
+    drvRf215Status = DRV_RF215_Status(sysObjDrvRf215);
+    if (drvRf215Status == SYS_STATUS_READY)
+    {
+        // This means now the driver can be opened using DRV_RF215_Open routine
+        drvRf215Handle = DRV_RF215_Open(DRV_RF215_INDEX_0, RF215_TRX_ID_RF09);
+        if (drvRf215Handle != DRV_HANDLE_INVALID)
+        {
+            // Driver opened successfully. Register callback
+            DRV_RF215_TxCfmCallbackRegister(drvRf215Handle, _APP_RF_TxCfmCb,
+                (uintptr_t) myAppObj);
+        }
+    }
     </code>
 
   Remarks:
-    None.
+    The callback once set, persists until the client closes the driver or sets
+    another callback (which could be a "NULL" pointer to indicate no callback).
 */
 
 void DRV_RF215_TxCfmCallbackRegister (
@@ -576,22 +683,43 @@ void DRV_RF215_TxCfmCallbackRegister (
   Returns:
     If successful, the routine returns a valid scheduled-transmission handle (a
     number identifying the transmission request). Once the transmission finishes
-    (successfully or not), it is notified via TX confirm callback;
+    (successfully or not), it is notified via TX confirm callback.
 
-    If an error occurs, the return value is DRV_RF215_TX_HANDLE_INVALID. In this
-    case the error type will be reported via result parameter. Error can occur
-    - if the number of TX buffer objects allocated via
-      DRV_RF215_TX_BUFFERS_NUMBER is insufficient.
+    If an error occurs in the TX request, the return value is
+    DRV_RF215_TX_HANDLE_INVALID. In this case the error type will be reported
+    by the result parameter. Error can occur
+    - if the number of TX buffer objects allocated via MCC is insufficient.
     - if the specified driver handle is not valid.
     - if transmission request parameters are not valid.
 
   Example:
     <code>
+    DRV_HANDLE drvRf215Handle; // returned from DRV_RF215_Open
+    DRV_RF215_TX_REQUEST_OBJ txReqObj;
+    DRV_RF215_TX_RESULT txReqResult;
+    DRV_RF215_TX_HANDLE txReqHandle;
+    uint8_t psduTx[DRV_RF215_MAX_PSDU_LEN];
+
+    txReqObj.cancelByRx = false;
+    txReqObj.ccaMode = PHY_CCA_MODE_3;
+    txReqObj.modScheme = FSK_FEC_OFF;
+    txReqObj.txPwrAtt = 0;
+    txReqObj.psduLen = DRV_RF215_MAX_PSDU_LEN;
+    txReqObj.timeMode = TX_TIME_RELATIVE;
+    txReqObj.time = 0;
+    txReqObj.psdu = psduTx;
+
+    txReqHandle = DRV_RF215_TxRequest(drvRf215Handle, &txReqObj, &txReqResult);
+    if (txReqHandle != DRV_RF215_TX_HANDLE_INVALID)
+    {
+        // TX requested successfully. Result will be notified via TX confirm
+    }
     </code>
 
   Remarks:
-    The handle returned is valid until the TX confirm routine is called back.
-    This routine will never block waiting for hardware.
+    The handle returned is valid until the TX confirm routine is called back or
+    canceled by DRV_RF215_TxCancel function.
+    This is a non-blocking routine.
 */
 
 DRV_RF215_TX_HANDLE DRV_RF215_TxRequest (
@@ -605,10 +733,10 @@ DRV_RF215_TX_HANDLE DRV_RF215_TxRequest (
     void DRV_RF215_TxCancel(DRV_HANDLE drvHandle, DRV_RF215_TX_HANDLE txHandle)
 
   Summary:
-    Allows a client to cancel a previously programmed transmission.
+    Allows a client to cancel a previously requested transmission.
 
   Description:
-    This routine allows a client to cancel a previously programmed transmission.
+    This routine allows a client to cancel a previously requested transmission.
 
   Precondition:
     DRV_RF215_Open must have been called to obtain a valid opened driver handle.
@@ -624,10 +752,14 @@ DRV_RF215_TX_HANDLE DRV_RF215_TxRequest (
 
   Example:
     <code>
+    DRV_HANDLE drvRf215Handle; // returned from DRV_RF215_Open
+    DRV_RF215_TX_HANDLE txReqHandle; // returned from DRV_RF215_TxRequest
+
+    DRV_RF215_TxCancel(drvRf215Handle, txReqHandle);
     </code>
 
   Remarks:
-    None.
+    If transmission has already started it will be aborted before completion.
 */
 
 void DRV_RF215_TxCancel(DRV_HANDLE drvHandle, DRV_RF215_TX_HANDLE txHandle);
@@ -637,11 +769,11 @@ void DRV_RF215_TxCancel(DRV_HANDLE drvHandle, DRV_RF215_TX_HANDLE txHandle);
     uint8_t DRV_RF215_GetPibSize(DRV_RF215_PIB_ATTRIBUTE attr)
 
   Summary:
-    Get size of PIB attribute.
+    Gets size of PIB attribute.
 
   Description:
-    This routine allows to get the size in bytes of a PIB attribute of RF215
-    Driver.
+    This routine allows to get the size in bytes of a PIB (PHY Information Base)
+    attribute of the RF215 Driver.
 
   Precondition:
     None.
@@ -654,6 +786,9 @@ void DRV_RF215_TxCancel(DRV_HANDLE drvHandle, DRV_RF215_TX_HANDLE txHandle);
 
   Example:
     <code>
+    uint8_t pibSize;
+
+    pibSize = DRV_RF215_GetPibSize(RF215_PIB_PHY_BAND_OPERATING_MODE);
     </code>
 
   Remarks:
@@ -671,32 +806,43 @@ uint8_t DRV_RF215_GetPibSize(DRV_RF215_PIB_ATTRIBUTE attr);
     )
 
   Summary:
-    Get value of PIB attribute.
+    Gets value of PIB attribute.
 
   Description:
-    This routine allows a client to get the value of a PIB attribute of RF215
-    Driver.
+    This routine allows a client to get the value of a PIB (PHY Information
+    Base) attribute of the RF215 Driver.
 
   Precondition:
     DRV_RF215_Open must have been called to obtain a valid opened driver handle.
 
   Parameters:
     drvHandle - A valid open-instance handle, returned from the driver's open
-                routine. 
+                routine.
     attr      - A valid RF215 Driver PIB attribute
                 (see DRV_RF215_PIB_ATTRIBUTE).
     value     - Pointer to store PIB value. The allocated memory must be same or
-                equal of PIB size (see DRV_RF215_GetPibSize). 
+                equal of PIB size (see DRV_RF215_GetPibSize).
 
   Returns:
-    Result of PIB get.
+    Result of getting the PIB (see DRV_RF215_PIB_RESULT).
 
   Example:
     <code>
+    DRV_HANDLE drvRf215Handle; // returned from DRV_RF215_Open
+    DRV_RF215_PHY_BAND_OPM phyBandOpm;
+    DRV_RF215_PIB_RESULT pibResult;
+
+    pibResult = DRV_RF215_GetPib(drvRf215Handle,
+        RF215_PIB_PHY_BAND_OPERATING_MODE, &phyBandOpm);
+
+    if (pibResult == RF215_PIB_RESULT_SUCCESS)
+    {
+        // PIB get successful
+    }
     </code>
 
   Remarks:
-    None.
+    If dual-band is used, the PIB values are different for each transceiver.
 */
 
 DRV_RF215_PIB_RESULT DRV_RF215_GetPib (
@@ -714,32 +860,43 @@ DRV_RF215_PIB_RESULT DRV_RF215_GetPib (
     )
 
   Summary:
-    Set value of PIB attribute.
+    Sets value of PIB attribute.
 
   Description:
-    This routine allows a client to set the value of a PIB attribute of RF215
-    Driver.
+    This routine allows a client to set the value of a PIB (PHY Information
+    Base) attribute of RF215 Driver.
 
   Precondition:
     DRV_RF215_Open must have been called to obtain a valid opened driver handle.
 
   Parameters:
     drvHandle - A valid open-instance handle, returned from the driver's open
-                routine. 
+                routine.
     attr      - A valid RF215 Driver PIB attribute
                 (see DRV_RF215_PIB_ATTRIBUTE).
     value     - Pointer to PIB value to set. The allocated memory must be same
-                or equal of PIB size (see DRV_RF215_GetPibSize). 
+                or equal of PIB size (see DRV_RF215_GetPibSize).
 
   Returns:
-    Result of PIB set.
+    Result of setting the PIB (see DRV_RF215_PIB_RESULT).
 
   Example:
     <code>
+    DRV_HANDLE drvRf215Handle; // returned from DRV_RF215_Open
+    DRV_RF215_PHY_BAND_OPM phyBandOpm = SUN_FSK_BAND_863_OPM1;
+    DRV_RF215_PIB_RESULT pibResult;
+
+    pibResult = DRV_RF215_SetPib(drvRf215Handle,
+        RF215_PIB_PHY_BAND_OPERATING_MODE, &phyBandOpm);
+
+    if (pibResult == RF215_PIB_RESULT_SUCCESS)
+    {
+        // PIB set successful
+    }
     </code>
 
   Remarks:
-    None.
+    If dual-band is used, the PIB values are different for each transceiver.
 */
 
 DRV_RF215_PIB_RESULT DRV_RF215_SetPib (

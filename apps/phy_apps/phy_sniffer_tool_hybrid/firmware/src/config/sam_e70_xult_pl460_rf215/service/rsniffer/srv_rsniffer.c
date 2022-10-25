@@ -142,18 +142,32 @@ static uint8_t _SRV_RSNIFFER_ModType(DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj)
 
 static uint32_t _SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
 {
-    uint64_t sysTimeDiff;
+    int64_t sysTimeDiff;
     uint32_t timeUS = srvRsnifferPrevTimeUS;
 
     /* Difference between current and previous system time */
-    sysTimeDiff = sysTime - srvRsnifferPrevSysTime;
+    sysTimeDiff = (int64_t) sysTime - srvRsnifferPrevSysTime;
 
     /* Convert system time to microseconds and add to previous time */
     while (sysTimeDiff > 0x10000000)
     {
         timeUS += SYS_TIME_CountToUS(0x10000000);
+        sysTimeDiff -= 0x10000000;
     }
-    timeUS += SYS_TIME_CountToUS((uint32_t) sysTimeDiff);
+    while (sysTimeDiff < -0x10000000)
+    {
+        timeUS -= SYS_TIME_CountToUS(0x10000000);
+        sysTimeDiff += 0x10000000;
+    }
+
+    if (sysTimeDiff >= 0)
+    {
+        timeUS += SYS_TIME_CountToUS((uint32_t) sysTimeDiff);
+    }
+    else
+    {
+        timeUS -= SYS_TIME_CountToUS((uint32_t) (-sysTimeDiff));
+    }
 
     /* Store times for next computation */
     srvRsnifferPrevSysTime = sysTime;
@@ -164,7 +178,7 @@ static uint32_t _SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: RF PHY Serialization Interface Implementation
+// Section: RF PHY Sniffer Serialization Interface Implementation
 // *****************************************************************************
 // *****************************************************************************
 
@@ -172,7 +186,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
     DRV_RF215_RX_INDICATION_OBJ* pIndObj,
     DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
     uint16_t paySymbols,
-    size_t* msgLen
+    size_t* pMsgLen
 )
 {
     uint32_t timeIni, timeEnd;
@@ -224,7 +238,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
     /* Copy PSDU */
     memcpy(srvRsnifferRxMsg + RSNIFFER_MSG_HEADER_SIZE, pIndObj->psdu, psduLen);
 
-    *msgLen = psduLen + RSNIFFER_MSG_HEADER_SIZE;
+    *pMsgLen = (size_t) psduLen + RSNIFFER_MSG_HEADER_SIZE;
     return srvRsnifferRxMsg;
 }
 
@@ -237,6 +251,11 @@ void SRV_RSNIFFER_SetTxMessage (
     uint16_t psduLen;
     int16_t rssi;
     uint8_t txBufIndex;
+
+    if (txHandle == DRV_RF215_TX_HANDLE_INVALID)
+    {
+        return;
+    }
 
     /* Get buffer index from TX handle */
     txBufIndex = (uint8_t) (txHandle & 0xFF);
@@ -267,7 +286,7 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     DRV_RF215_TX_HANDLE txHandle,
     DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
     uint16_t paySymbols,
-    size_t* msgLen
+    size_t* pMsgLen
 )
 {
     uint8_t* pMsgDest;
@@ -278,7 +297,7 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     if (pCfmObj->txResult != RF215_TX_SUCCESS)
     {
         /* Error in transmission: No report */
-        *msgLen = 0;
+        *pMsgLen = 0;
         return NULL;
     }
 
@@ -316,6 +335,6 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     pMsgDest[18] = (uint8_t) (timeEnd);
 
     psduLen = (uint16_t) (pMsgDest[23] << 8) + pMsgDest[24];
-    *msgLen = psduLen + RSNIFFER_MSG_HEADER_SIZE;
+    *pMsgLen = (size_t) psduLen + RSNIFFER_MSG_HEADER_SIZE;
     return pMsgDest;
 }

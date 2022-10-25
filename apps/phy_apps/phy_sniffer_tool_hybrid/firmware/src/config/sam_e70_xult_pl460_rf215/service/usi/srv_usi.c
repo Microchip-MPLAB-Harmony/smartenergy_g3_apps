@@ -61,7 +61,7 @@
 static SRV_USI_OBJ gSrvUSIOBJ[SRV_USI_INSTANCES_NUMBER] = {0};
 
 /* This is the USI callback object for each USI instance. */
-static SRV_USI_CALLBACK gSrvUSICallbackOBJ[SRV_USI_INSTANCES_NUMBER][10] = {NULL};
+static SRV_USI_CALLBACK gSrvUSICallbackOBJ[SRV_USI_INSTANCES_NUMBER][11] = {NULL};
 
 // *****************************************************************************
 // *****************************************************************************
@@ -121,6 +121,10 @@ static SRV_USI_CALLBACK_INDEX _SRV_USI_GetCallbackIndexFromProtocol(SRV_USI_PROT
             callbackIndex = 9;
             break;
 
+        case SRV_USI_PROT_ID_PHY_RF215:
+            callbackIndex = 10;
+            break;
+
         case SRV_USI_PROT_ID_INVALID:
         default:
             callbackIndex = SRV_USI_CALLBACK_INDEX_INVALID;
@@ -149,6 +153,7 @@ static PCRC_CRC_TYPE _SRV_USI_GetCRCTypeFromProtocol(SRV_USI_PROTOCOL_ID protoco
         case SRV_USI_PROT_ID_SNIF_PRIME:
         case SRV_USI_PROT_ID_PHY_SERIAL_PRIME:
         case SRV_USI_PROT_ID_PHY:
+        case SRV_USI_PROT_ID_PHY_RF215:
         case SRV_USI_PROT_ID_SNIFF_G3:
         case SRV_USI_PROT_ID_MAC_G3:
         case SRV_USI_PROT_ID_ADP_G3:

@@ -74,13 +74,15 @@
 
   Description:
     This data type defines the list of available bands and operating modes for
-    the RF215 PHY.
+    the RF215 PHY. It is associated to the PIB
+    RF215_PIB_PHY_BAND_OPERATING_MODE.
 
   Remarks:
     This data type is just to simplify the PHY band and operating mode
     configuration, for the most common ones, defined in IEEE 802.15.4-2020 (see
     ieee_15_4_sun_fsk.h and ieee_15_4_sun_ofdm.h). But it is also possible to
-    apply a different PHY configuration, using the DRV_RF215_PHY_CFG_OBJ data type.
+    apply a different PHY configuration, using the DRV_RF215_PHY_CFG_OBJ data
+    type (PIB RF215_PIB_PHY_CONFIG).
 */
 
 typedef enum
@@ -193,12 +195,12 @@ typedef enum
   Description:
     This data type defines the list of available modulation indexes for the
     RF215 FSK PHY. The modulation index defines the maximum FSK frequency
-    deviation: fdev = (symRate * modIdx) / 2
+    deviation: fdev = (symRate * modIdx) / 2.
 
   Remarks:
     The interpretation of modulation index for 4-FSK is slightly different to
-    802.15.4 specification. 4-FSK & modIdx=0.33 (in 802.15.4) is equivalent to
-    4-FSK & modIdx=1.0 (in RF215).
+    802.15.4 specification. 4-FSK and modIdx=0.33 (in 802.15.4) is equivalent to
+    4-FSK and modIdx=1.0 (in RF215).
 
     For 4-FSK, the RF215 has the following restriction: modIdx >= 1.0.
 */
@@ -225,8 +227,8 @@ typedef enum
 
   Remarks:
     The interpretation of modulation index for 4-FSK is slightly different to
-    802.15.4 specification. 4-FSK & modIdx=0.33 (in 802.15.4) is equivalent to
-    4-FSK & modIdx=1.0 (in RF215).
+    802.15.4 specification. 4-FSK and modIdx=0.33 (in 802.15.4) is equivalent to
+    4-FSK and modIdx=1.0 (in RF215).
 
     For 4-FSK, the RF215 has the following restriction: modIdx >= 1.0.
 */
@@ -249,7 +251,7 @@ typedef enum
 
   Description:
     This data type defines the list of available bandwidth options for the RF215
-    OFDM PHY.
+    OFDM PHY, as defined in 802.15.4.
 
   Remarks:
     None.
@@ -257,16 +259,16 @@ typedef enum
 
 typedef enum
 {
-    /* Option 1: Nominal bandwidth 1094 kHz */
+    /* Option 1: Nominal bandwidth 1094 kHz, 96 data tones, 8 pilot tones */
     OFDM_BW_OPT_1 = 0,
 
-    /* Option 2: Nominal bandwidth 552 kHz */
+    /* Option 2: Nominal bandwidth 552 kHz, 48 data tones, 4 pilot tones */
     OFDM_BW_OPT_2 = 1,
 
-    /* Option 3: Nominal bandwidth 281 kHz */
+    /* Option 3: Nominal bandwidth 281 kHz, 24 data tones, 2 pilot tones */
     OFDM_BW_OPT_3 = 2,
 
-    /* Option 4: Nominal bandwidth 156 kHz */
+    /* Option 4: Nominal bandwidth 156 kHz, 12 data tones, 2 pilot tones */
     OFDM_BW_OPT_4 = 3,
 
 } DRV_RF215_OFDM_BW_OPT;
@@ -306,7 +308,7 @@ typedef enum
     This data type defines the list of available RF215 PHY types.
 
   Remarks:
-    None.
+    Each PHY type must be enabled via MCC.
 */
 
 typedef enum
@@ -326,8 +328,8 @@ typedef enum
     This data type defines the list of available modulation schemes, depending
     on the RF215 PHY type.
 
-    It is a dynamic PHY configuration, meaning that a RF215 device is capable of
-    receiving messages with any scheme associated to the configured PHY type
+    This is a dynamic PHY configuration, meaning that a RF215 device is capable
+    of receiving messages with any scheme associated to the configured PHY type
     (FSK or OFDM). That is why it is used as parameter in TX request and RX
     indication.
 
@@ -337,8 +339,8 @@ typedef enum
     For OFDM, the dynamic parameter is Modulation and Coding Scheme (MCS).
 
   Remarks:
-    OFDM MCS1 is not available in bandwidth option 4.
-    OFDM MCS0 is not available in bandwidth options 3 and 4.
+    OFDM MCS1 is not available in bandwidth option 4. OFDM MCS0 is not available
+    in bandwidth options 3 and 4.
 */
 
 typedef enum
@@ -383,7 +385,8 @@ typedef enum
 
   Description:
     This data type defines the list of available PHY CCA (Clear Channel
-    Assessment) modes in RF215 driver. It is used as parameter in TX request.
+    Assessment) modes in RF215 driver, as defined in 802.15.4. It is used as
+    parameter in TX request.
 
   Remarks:
     None.
@@ -424,7 +427,7 @@ typedef enum
 
 typedef enum
 {
-    /* Absolute time, referred to system 32-bit counter */
+    /* Absolute time, referred to system 64-bit counter */
     TX_TIME_ABSOLUTE = 0,
 
     /* Relative time, referred to current system time */
@@ -473,9 +476,11 @@ typedef enum
 
   Description:
     This data type defines the list of available PIB attributes in RF215 driver.
+    PIB values can be read by DRV_RF215_GetPib and written by DRV_RF215_SetPib.
+    DRV_RF215_GetPibSize can be used to know the size of each PIB.
 
   Remarks:
-    None.
+    If dual-band is used, the PIB values are different for each transceiver.
 */
 
 typedef enum
@@ -639,6 +644,11 @@ typedef enum
   Description:
     This data type defines the data required to configure the RF215 FSK PHY.
 
+    Field description:
+    - symRate: FSK symbol rate (see DRV_RF215_FSK_SYM_RATE)
+    - modIdx: FSK modulation index (see DRV_RF215_FSK_MOD_IDX)
+    - modOrd: FSK modulation order (see DRV_RF215_FSK_MOD_ORD)
+
   Remarks:
     None.
 */
@@ -659,6 +669,10 @@ typedef struct
 
   Description:
     This data type defines the data required to configure the RF215 OFDM PHY.
+
+    Field description:
+    - opt: OFDM bandwidth option (see DRV_RF215_OFDM_BW_OPT)
+    - itlv: OFDM interleaving mode (see DRV_RF215_OFDM_ITLV_MODE)
 
   Remarks:
     None.
@@ -681,8 +695,12 @@ typedef struct
     This data type defines the data required to configure the parameters
     associated to the corresponding RF215 PHY (FSK or OFDM).
 
-    It is a static PHY configuration, meaning that a RF215 device will only
+    This is a static PHY configuration, meaning that a RF215 device will only
     receive messages if the configuration is the same as in the transmitter.
+
+    Field description:
+    - fsk: FSK PHY configuration (see DRV_RF215_FSK_CFG_OBJ)
+    - ofdm: OFDM PHY configuration (see DRV_RF215_OFDM_CFG_OBJ)
 
   Remarks:
     None.
@@ -704,7 +722,7 @@ typedef union
   Description:
     This data type defines the data required to configure the RF215 PHY.
 
-    It is a static PHY configuration, meaning that a RF215 device will only
+    This is a static PHY configuration, meaning that a RF215 device will only
     receive messages if the configuration is the same as in the transmitter.
 
   Remarks:
@@ -752,7 +770,8 @@ typedef struct
     Defines the data reported in RF215 RX indication.
 
   Description:
-    This data type defines the data reported in the RF215 receive indication.
+    This data type defines the data reported in the RF215 receive indication
+    (DRV_RF215_RX_IND_CALLBACK).
 
   Remarks:
     None.
@@ -833,7 +852,7 @@ typedef struct
 
   Description:
     This data type defines the data reported in the RF215 transmit confirm
-    callback function.
+    callback function (DRV_RF215_TX_CFM_CALLBACK).
 
   Remarks:
     None.
@@ -859,8 +878,8 @@ typedef struct
     Defines the RF215 Driver firmware version data.
 
   Description:
-    This data type defines the RF215 Driver firmware version data
-    (RF215_PIB_FW_VERSION).
+    This data type defines the RF215 Driver firmware version data (PIB
+    RF215_PIB_FW_VERSION).
 
   Remarks:
     None.
@@ -893,10 +912,6 @@ typedef struct
   Returns:
     SPI transmitter busy (true) or free (false).
 
-  Example:
-    <code>
-    </code>
-
   Remarks:
     None.
 */
@@ -914,14 +929,10 @@ typedef bool ( *DRV_RF215_PLIB_SPI_IS_BUSY ) (void);
     to set the SPI chip select line.
 
   Parameters:
-    - chipSelect - Chip select line to be set.
+    chipSelect - Chip select line to be set.
 
   Returns:
     None.
-
-  Example:
-    <code>
-    </code>
 
   Remarks:
     None.
@@ -959,14 +970,14 @@ typedef struct
     /* Pointer to SPI PLIB chip select function */
     DRV_RF215_PLIB_SPI_SET_CS    spiPlibSetChipSelect;
 
-    /* Interrupt source ID for PLC external interrupt */
-    INT_SOURCE                   plcExtIntSource;
-
     /* Interrupt source ID for DMA */
     INT_SOURCE                   dmaIntSource;
 
     /* Interrupt source ID for SYS_TIME */
     INT_SOURCE                   sysTimeIntSource;
+
+    /* Interrupt source ID for PLC external interrupt */
+    INT_SOURCE                   plcExtIntSource;
 
     /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */
     DRV_RF215_PHY_BAND_OPM       rf09PhyBandOpmIni;

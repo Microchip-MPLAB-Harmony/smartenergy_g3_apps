@@ -85,13 +85,14 @@ const DRV_RF215_INIT drvRf215InitData = {
     /* Pointer to SPI PLIB chip select function */
     .spiPlibSetChipSelect = SPI0_ChipSelectSetup,
 
-    .plcExtIntSource = PIOD_IRQn,
-
     /* Interrupt source ID for DMA */
     .dmaIntSource = XDMAC_IRQn,
 
     /* Interrupt source ID for SYS_TIME */
     .sysTimeIntSource = TC0_CH0_IRQn,
+
+    /* Interrupt source ID for PLC external interrupt */
+    .plcExtIntSource = PIOD_IRQn,
 
     /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */
     .rf09PhyBandOpmIni = SUN_FSK_BAND_863_OPM1,

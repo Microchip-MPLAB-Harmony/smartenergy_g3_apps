@@ -4,7 +4,7 @@
 
 
 project: phy_tester_tool_hybrid
-creation_date: 2022-10-25T13:14:57.588+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2022-10-25T13:31:50.614+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mhc_mode: Standalone            # [IDE|Standalone|Headless]
 mhc_version: NA
@@ -18,5 +18,5 @@ modules:
     - {name: "usb", version: "v3.10.0"}
     - {name: "dev_packs", version: "v3.14.0"}
     - {name: "smartenergy", version: "unknown"}
-    - {name: "bsp", version: "v3.13.0"}
+    - {name: "bsp", version: "v3.14.0"}
 

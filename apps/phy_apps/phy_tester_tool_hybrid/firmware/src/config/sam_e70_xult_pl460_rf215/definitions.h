@@ -58,13 +58,13 @@
 #include "service/usi/srv_usi.h"
 #include "service/usi/srv_usi_usart.h"
 #include "service/usi/srv_usi_cdc.h"
+#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
-#include "system/time/sys_time.h"
+#include "bsp/bsp.h"
 #include "usb/usb_device_cdc.h"
 #include "usb/usb_cdc.h"
-#include "bsp/bsp.h"
 #include "service/rserial/srv_rserial.h"
 #include "peripheral/spi/spi_master/plib_spi0_master.h"
 #include "peripheral/usart/plib_usart1.h"
@@ -212,8 +212,8 @@ typedef struct
     SYS_MODULE_OBJ  usbDevObject0;
 
     SYS_MODULE_OBJ drvRf215;
-    SYS_MODULE_OBJ drvPlcPhy;
     SYS_MODULE_OBJ  sysTime;
+    SYS_MODULE_OBJ drvPlcPhy;
 	SYS_MODULE_OBJ  drvUSBHSV1Object;
 
     SYS_MODULE_OBJ srvUSI1;
