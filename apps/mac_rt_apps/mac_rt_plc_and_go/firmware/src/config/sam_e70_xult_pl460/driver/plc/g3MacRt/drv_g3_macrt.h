@@ -483,16 +483,19 @@ typedef void ( *DRV_G3_MACRT_SLEEP_IND_CALLBACK )( void );
     SYS_MODULE_OBJ   sysObjDrvMACRT;
 
     DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
-
         .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SPI0_TransferSetup,
         .dmaChannelTx = SYS_DMA_CHANNEL_1,
         .dmaChannelRx  = SYS_DMA_CHANNEL_0,
         .spiAddressTx =  (void *)&(SPI0_REGS->SPI_TDR),
         .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
+        .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[1]),
         .spiClockFrequency = DRV_PLC_SPI_CLK,
         .ldoPin = DRV_PLC_LDO_EN_PIN, 
         .resetPin = DRV_PLC_RESET_PIN,
         .extIntPin = DRV_PLC_EXT_INT_PIN,
+        .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
+        .stByPin = DRV_PLC_STBY_PIN,
+        .thMonPin = DRV_PLC_THMON_PIN,
     };
 
     DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
@@ -1270,6 +1273,7 @@ void DRV_G3_MACRT_ExceptionCallbackRegister(
     const DRV_HANDLE handle, 
     const DRV_G3_MACRT_EXCEPTION_CALLBACK callback
 );
+
 
 // *****************************************************************************
 /* Function:

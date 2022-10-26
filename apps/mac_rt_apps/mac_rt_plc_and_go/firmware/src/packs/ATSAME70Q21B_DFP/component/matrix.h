@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2022-03-15T11:02:07Z */
+/* file generated from device description version 2022-04-21T07:53:48Z */
 #ifndef _SAME70_MATRIX_COMPONENT_H_
 #define _SAME70_MATRIX_COMPONENT_H_
 
@@ -228,12 +228,9 @@
 #define CCFG_SMCNFCS_SMC_NFCS3_Pos            _UINT32_(3)                                          /* (CCFG_SMCNFCS) SMC NAND Flash Chip Select 3 Assignment Position */
 #define CCFG_SMCNFCS_SMC_NFCS3_Msk            (_UINT32_(0x1) << CCFG_SMCNFCS_SMC_NFCS3_Pos)        /* (CCFG_SMCNFCS) SMC NAND Flash Chip Select 3 Assignment Mask */
 #define CCFG_SMCNFCS_SMC_NFCS3(value)         (CCFG_SMCNFCS_SMC_NFCS3_Msk & (_UINT32_(value) << CCFG_SMCNFCS_SMC_NFCS3_Pos)) /* Assigment of value for SMC_NFCS3 in the CCFG_SMCNFCS register */
-#define CCFG_SMCNFCS_SDRAMEN_Pos              _UINT32_(4)                                          /* (CCFG_SMCNFCS) SDRAM Enable Position */
-#define CCFG_SMCNFCS_SDRAMEN_Msk              (_UINT32_(0x1) << CCFG_SMCNFCS_SDRAMEN_Pos)          /* (CCFG_SMCNFCS) SDRAM Enable Mask */
-#define CCFG_SMCNFCS_SDRAMEN(value)           (CCFG_SMCNFCS_SDRAMEN_Msk & (_UINT32_(value) << CCFG_SMCNFCS_SDRAMEN_Pos)) /* Assigment of value for SDRAMEN in the CCFG_SMCNFCS register */
-#define CCFG_SMCNFCS_Msk                      _UINT32_(0x0000001F)                                 /* (CCFG_SMCNFCS) Register Mask  */
+#define CCFG_SMCNFCS_Msk                      _UINT32_(0x0000000F)                                 /* (CCFG_SMCNFCS) Register Mask  */
 
-#define CCFG_SMCNFCS_SMC_NFCS_Pos             _UINT32_(0)                                          /* (CCFG_SMCNFCS Position) SMC NAND Flash Chip Select x Assignment */
+#define CCFG_SMCNFCS_SMC_NFCS_Pos             _UINT32_(0)                                          /* (CCFG_SMCNFCS Position) SMC NAND Flash Chip Select 3 Assignment */
 #define CCFG_SMCNFCS_SMC_NFCS_Msk             (_UINT32_(0xF) << CCFG_SMCNFCS_SMC_NFCS_Pos)         /* (CCFG_SMCNFCS Mask) SMC_NFCS */
 #define CCFG_SMCNFCS_SMC_NFCS(value)          (CCFG_SMCNFCS_SMC_NFCS_Msk & (_UINT32_(value) << CCFG_SMCNFCS_SMC_NFCS_Pos)) 
 

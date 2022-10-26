@@ -522,6 +522,7 @@ void APP_PLC_Tasks ( void )
             /* Restart PLC Driver */
             appPlc.state = APP_PLC_STATE_INIT;
             appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
+            SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
             break;
         }
 

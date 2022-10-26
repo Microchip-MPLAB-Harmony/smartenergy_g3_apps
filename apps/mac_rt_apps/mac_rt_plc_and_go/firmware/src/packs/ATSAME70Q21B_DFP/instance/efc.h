@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2022-03-15T11:02:07Z */
+/* file generated from device description version 2022-04-21T07:53:48Z */
 #ifndef _SAME70_EFC_INSTANCE_
 #define _SAME70_EFC_INSTANCE_
 

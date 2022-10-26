@@ -667,7 +667,7 @@ void DRV_G3_MACRT_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
         /* Time guard */
         gG3MacRtObj->plcHal->delay(50);
     }
-    
+
     /* PORT Interrupt Status Clear */
     ((pio_registers_t*)DRV_PLC_EXT_INT_PIO_PORT)->PIO_ISR;
 }
