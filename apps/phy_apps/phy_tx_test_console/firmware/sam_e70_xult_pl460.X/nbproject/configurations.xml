@@ -153,7 +153,6 @@
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rswdt.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rtc.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rtt.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/sdramc.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/smc.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/spi.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/ssc.h</itemPath>
@@ -200,7 +199,6 @@
             <itemPath>../src/packs/ATSAME70Q21B_DFP/instance/rswdt.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/instance/rtc.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/instance/rtt.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/instance/sdramc.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/instance/smc.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/instance/spi0.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/instance/spi1.h</itemPath>
@@ -382,6 +380,7 @@
       <itemPath>../src/app_plc.c</itemPath>
       <itemPath>../src/app_console.c</itemPath>
       <itemPath>../src/app_nvm.c</itemPath>
+      <itemPath>../src/config/sam_e70_xult_pl460/pin_configurations.csv</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -395,9 +394,9 @@
         <targetDevice>ATSAME70Q21B</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.00</languageToolchainVersion>
+        <languageToolchainVersion>4.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

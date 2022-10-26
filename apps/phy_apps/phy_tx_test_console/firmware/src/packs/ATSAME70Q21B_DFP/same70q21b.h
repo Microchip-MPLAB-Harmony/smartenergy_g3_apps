@@ -20,7 +20,7 @@
  *
  */
 
-/* File generated from device description version 2022-03-15T11:02:07Z */
+/* File generated from device description version 2022-04-21T07:53:48Z */
 #ifndef _SAME70Q21B_H_
 #define _SAME70Q21B_H_
 
@@ -144,7 +144,6 @@ typedef enum IRQn
   ISI_IRQn                  =  59, /* 59  Image Sensor Interface (ISI)        */
   PWM1_IRQn                 =  60, /* 60  Pulse Width Modulation Controller (PWM1) */
   FPU_IRQn                  =  61, /* 61  Floating Point Unit (FPU)           */
-  SDRAMC_IRQn               =  62, /* 62  SDRAM Controller (SDRAMC)           */
   RSWDT_IRQn                =  63, /* 63  Reinforced Safety Watchdog Timer (RSWDT) */
   CCW_IRQn                  =  64, /* 64  System Control Block (SCB)          */
   CCF_IRQn                  =  65, /* 65  System Control Block (SCB)          */
@@ -246,7 +245,7 @@ typedef struct _DeviceVectors
   void* pfnISI_Handler;                          /*  59 Image Sensor Interface (ISI) */
   void* pfnPWM1_Handler;                         /*  60 Pulse Width Modulation Controller (PWM1) */
   void* pfnFPU_Handler;                          /*  61 Floating Point Unit (FPU) */
-  void* pfnSDRAMC_Handler;                       /*  62 SDRAM Controller (SDRAMC) */
+  void* pvReserved62;
   void* pfnRSWDT_Handler;                        /*  63 Reinforced Safety Watchdog Timer (RSWDT) */
   void* pfnCCW_Handler;                          /*  64 System Control Block (SCB) */
   void* pfnCCF_Handler;                          /*  65 System Control Block (SCB) */
@@ -337,7 +336,6 @@ void XDMAC_Handler                 ( void );
 void ISI_Handler                   ( void );
 void PWM1_Handler                  ( void );
 void FPU_Handler                   ( void );
-void SDRAMC_Handler                ( void );
 void RSWDT_Handler                 ( void );
 void CCW_Handler                   ( void );
 void CCF_Handler                   ( void );
@@ -401,7 +399,6 @@ void GMAC_Q5_Handler               ( void );
 #include "component/rswdt.h"
 #include "component/rtc.h"
 #include "component/rtt.h"
-#include "component/sdramc.h"
 #include "component/smc.h"
 #include "component/spi.h"
 #include "component/ssc.h"
@@ -450,7 +447,6 @@ void GMAC_Q5_Handler               ( void );
 #include "instance/rswdt.h"
 #include "instance/rtc.h"
 #include "instance/rtt.h"
-#include "instance/sdramc.h"
 #include "instance/smc.h"
 #include "instance/spi0.h"
 #include "instance/spi1.h"
@@ -536,7 +532,6 @@ void GMAC_Q5_Handler               ( void );
 #define ID_XDMAC         ( 58) /* Extensible DMA Controller (XDMAC) */
 #define ID_ISI           ( 59) /* Image Sensor Interface (ISI) */
 #define ID_PWM1          ( 60) /* Pulse Width Modulation Controller (PWM1) */
-#define ID_SDRAMC        ( 62) /* SDRAM Controller (SDRAMC) */
 #define ID_RSWDT         ( 63) /* Reinforced Safety Watchdog Timer (RSWDT) */
 #define ID_I2SC0         ( 69) /* Inter-IC Sound Controller (I2SC0) */
 #define ID_I2SC1         ( 70) /* Inter-IC Sound Controller (I2SC1) */
@@ -577,7 +572,6 @@ void GMAC_Q5_Handler               ( void );
 #define RSWDT_REGS                       ((rswdt_registers_t*)0x400e1900)              /* RSWDT Registers Address      */
 #define RTC_REGS                         ((rtc_registers_t*)0x400e1860)                /* RTC Registers Address        */
 #define RTT_REGS                         ((rtt_registers_t*)0x400e1830)                /* RTT Registers Address        */
-#define SDRAMC_REGS                      ((sdramc_registers_t*)0x40084000)             /* SDRAMC Registers Address     */
 #define SMC_REGS                         ((smc_registers_t*)0x40080000)                /* SMC Registers Address        */
 #define SPI0_REGS                        ((spi_registers_t*)0x40008000)                /* SPI0 Registers Address       */
 #define SPI1_REGS                        ((spi_registers_t*)0x40058000)                /* SPI1 Registers Address       */
@@ -639,7 +633,6 @@ void GMAC_Q5_Handler               ( void );
 #define RSWDT_BASE_ADDRESS               _UINT32_(0x400e1900)                          /* RSWDT Base Address */
 #define RTC_BASE_ADDRESS                 _UINT32_(0x400e1860)                          /* RTC Base Address */
 #define RTT_BASE_ADDRESS                 _UINT32_(0x400e1830)                          /* RTT Base Address */
-#define SDRAMC_BASE_ADDRESS              _UINT32_(0x40084000)                          /* SDRAMC Base Address */
 #define SMC_BASE_ADDRESS                 _UINT32_(0x40080000)                          /* SMC Base Address */
 #define SPI0_BASE_ADDRESS                _UINT32_(0x40008000)                          /* SPI0 Base Address */
 #define SPI1_BASE_ADDRESS                _UINT32_(0x40058000)                          /* SPI1 Base Address */
@@ -691,7 +684,6 @@ void GMAC_Q5_Handler               ( void );
 #define EBI_CS1_SIZE                   _UINT32_(0x01000000)    /* 16384kB Memory segment type: other */
 #define EBI_CS2_SIZE                   _UINT32_(0x01000000)    /* 16384kB Memory segment type: other */
 #define EBI_CS3_SIZE                   _UINT32_(0x01000000)    /* 16384kB Memory segment type: other */
-#define SDRAM_CS_SIZE                  _UINT32_(0x10000000)    /* 262144kB Memory segment type: other */
 
 #define PERIPHERALS_ADDR               _UINT32_(0x40000000)    /* PERIPHERALS base address (type: io)*/
 #define SYSTEM_ADDR                    _UINT32_(0xe0000000)    /* SYSTEM base address (type: io)*/
@@ -706,7 +698,6 @@ void GMAC_Q5_Handler               ( void );
 #define EBI_CS1_ADDR                   _UINT32_(0x61000000)    /* EBI_CS1 base address (type: other)*/
 #define EBI_CS2_ADDR                   _UINT32_(0x62000000)    /* EBI_CS2 base address (type: other)*/
 #define EBI_CS3_ADDR                   _UINT32_(0x63000000)    /* EBI_CS3 base address (type: other)*/
-#define SDRAM_CS_ADDR                  _UINT32_(0x70000000)    /* SDRAM_CS base address (type: other)*/
 
 /* ************************************************************************** */
 /*   DEVICE SIGNATURES FOR SAME70Q21B                                         */
