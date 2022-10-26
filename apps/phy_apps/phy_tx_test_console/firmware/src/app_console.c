@@ -1060,7 +1060,7 @@ void APP_CONSOLE_Tasks ( void )
 void APP_CONSOLE_Print(const char *format, ...)
 {
     size_t len = 0;
-    uint32_t numRetries = 1000;
+    uint32_t numRetries = 10000;
     
     if (appConsole.state == APP_CONSOLE_STATE_INIT)
     {
@@ -1073,6 +1073,9 @@ void APP_CONSOLE_Print(const char *format, ...)
         {
             /* Maintain Console service */
             SYS_CONSOLE_Tasks(SYS_CONSOLE_INDEX_0);
+            
+            /* Refresh WDG */
+            WDT_Clear();
         }
         else
         {
