@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2022-03-15T11:02:07Z */
+/* file generated from device description version 2022-04-21T07:53:48Z */
 #ifndef _SAME70Q21B_GPIO_H_
 #define _SAME70Q21B_GPIO_H_
 
@@ -391,15 +391,6 @@
 #define PIN_PA25C_EBI_A23                          _UINT32_(25) /**< EBI signal: EBI_A23 on PA25 mux C */
 #define MUX_PA25C_EBI_A23                          _UINT32_(2)  /**< EBI signal line function value: EBI_A23 */
 #define PIO_PA25C_EBI_A23                          (_UINT32_(1) << 25) /**< EBI signal: EBI_A23 */
-#define PIN_PA20C_EBI_BA0                          _UINT32_(20) /**< EBI signal: EBI_BA0 on PA20 mux C */
-#define MUX_PA20C_EBI_BA0                          _UINT32_(2)  /**< EBI signal line function value: EBI_BA0 */
-#define PIO_PA20C_EBI_BA0                          (_UINT32_(1) << 20) /**< EBI signal: EBI_BA0 */
-#define PIN_PA0C_EBI_BA1                           _UINT32_(0)  /**< EBI signal: EBI_BA1 on PA0 mux C */
-#define MUX_PA0C_EBI_BA1                           _UINT32_(2)  /**< EBI signal line function value: EBI_BA1 */
-#define PIO_PA0C_EBI_BA1                           (_UINT32_(1) << 0) /**< EBI signal: EBI_BA1 */
-#define PIN_PD17C_EBI_CAS                          _UINT32_(113) /**< EBI signal: EBI_CAS on PD17 mux C */
-#define MUX_PD17C_EBI_CAS                          _UINT32_(2)  /**< EBI signal line function value: EBI_CAS */
-#define PIO_PD17C_EBI_CAS                          (_UINT32_(1) << 17) /**< EBI signal: EBI_CAS */
 #define PIN_PC0A_EBI_D0                            _UINT32_(64) /**< EBI signal: EBI_D0 on PC0 mux A */
 #define MUX_PC0A_EBI_D0                            _UINT32_(0)  /**< EBI signal line function value: EBI_D0 */
 #define PIO_PC0A_EBI_D0                            (_UINT32_(1) << 0) /**< EBI signal: EBI_D0 */
@@ -448,12 +439,6 @@
 #define PIN_PA16A_EBI_D15                          _UINT32_(16) /**< EBI signal: EBI_D15 on PA16 mux A */
 #define MUX_PA16A_EBI_D15                          _UINT32_(0)  /**< EBI signal line function value: EBI_D15 */
 #define PIO_PA16A_EBI_D15                          (_UINT32_(1) << 16) /**< EBI signal: EBI_D15 */
-#define PIN_PC18A_EBI_DQM0                         _UINT32_(82) /**< EBI signal: EBI_DQM0 on PC18 mux A */
-#define MUX_PC18A_EBI_DQM0                         _UINT32_(0)  /**< EBI signal line function value: EBI_DQM0 */
-#define PIO_PC18A_EBI_DQM0                         (_UINT32_(1) << 18) /**< EBI signal: EBI_DQM0 */
-#define PIN_PD15C_EBI_DQM1                         _UINT32_(111) /**< EBI signal: EBI_DQM1 on PD15 mux C */
-#define MUX_PD15C_EBI_DQM1                         _UINT32_(2)  /**< EBI signal line function value: EBI_DQM1 */
-#define PIO_PD15C_EBI_DQM1                         (_UINT32_(1) << 15) /**< EBI signal: EBI_DQM1 */
 #define PIN_PC16A_EBI_NANDALE                      _UINT32_(80) /**< EBI signal: EBI_NANDALE on PC16 mux A */
 #define MUX_PC16A_EBI_NANDALE                      _UINT32_(0)  /**< EBI signal line function value: EBI_NANDALE */
 #define PIO_PC16A_EBI_NANDALE                      (_UINT32_(1) << 16) /**< EBI signal: EBI_NANDALE */
@@ -505,66 +490,6 @@
 #define PIN_PD15C_EBI_NWR1                         _UINT32_(111) /**< EBI signal: EBI_NWR1 on PD15 mux C */
 #define MUX_PD15C_EBI_NWR1                         _UINT32_(2)  /**< EBI signal line function value: EBI_NWR1 */
 #define PIO_PD15C_EBI_NWR1                         (_UINT32_(1) << 15) /**< EBI signal: EBI_NWR1 */
-#define PIN_PD16C_EBI_RAS                          _UINT32_(112) /**< EBI signal: EBI_RAS on PD16 mux C */
-#define MUX_PD16C_EBI_RAS                          _UINT32_(2)  /**< EBI signal line function value: EBI_RAS */
-#define PIO_PD16C_EBI_RAS                          (_UINT32_(1) << 16) /**< EBI signal: EBI_RAS */
-#define PIN_PC13C_EBI_SDA10                        _UINT32_(77) /**< EBI signal: EBI_SDA10 on PC13 mux C */
-#define MUX_PC13C_EBI_SDA10                        _UINT32_(2)  /**< EBI signal line function value: EBI_SDA10 */
-#define PIO_PC13C_EBI_SDA10                        (_UINT32_(1) << 13) /**< EBI signal: EBI_SDA10 */
-#define PIN_PD13C_EBI_SDA10                        _UINT32_(109) /**< EBI signal: EBI_SDA10 on PD13 mux C */
-#define MUX_PD13C_EBI_SDA10                        _UINT32_(2)  /**< EBI signal line function value: EBI_SDA10 */
-#define PIO_PD13C_EBI_SDA10                        (_UINT32_(1) << 13) /**< EBI signal: EBI_SDA10 */
-#define PIN_PC20A_EBI_SDA0                         _UINT32_(84) /**< EBI signal: EBI_SDA0 on PC20 mux A */
-#define MUX_PC20A_EBI_SDA0                         _UINT32_(0)  /**< EBI signal line function value: EBI_SDA0 */
-#define PIO_PC20A_EBI_SDA0                         (_UINT32_(1) << 20) /**< EBI signal: EBI_SDA0 */
-#define PIN_PC21A_EBI_SDA1                         _UINT32_(85) /**< EBI signal: EBI_SDA1 on PC21 mux A */
-#define MUX_PC21A_EBI_SDA1                         _UINT32_(0)  /**< EBI signal line function value: EBI_SDA1 */
-#define PIO_PC21A_EBI_SDA1                         (_UINT32_(1) << 21) /**< EBI signal: EBI_SDA1 */
-#define PIN_PC31A_EBI_SDA11                        _UINT32_(95) /**< EBI signal: EBI_SDA11 on PC31 mux A */
-#define MUX_PC31A_EBI_SDA11                        _UINT32_(0)  /**< EBI signal line function value: EBI_SDA11 */
-#define PIO_PC31A_EBI_SDA11                        (_UINT32_(1) << 31) /**< EBI signal: EBI_SDA11 */
-#define PIN_PA18C_EBI_SDA12                        _UINT32_(18) /**< EBI signal: EBI_SDA12 on PA18 mux C */
-#define MUX_PA18C_EBI_SDA12                        _UINT32_(2)  /**< EBI signal line function value: EBI_SDA12 */
-#define PIO_PA18C_EBI_SDA12                        (_UINT32_(1) << 18) /**< EBI signal: EBI_SDA12 */
-#define PIN_PC22A_EBI_SDA2                         _UINT32_(86) /**< EBI signal: EBI_SDA2 on PC22 mux A */
-#define MUX_PC22A_EBI_SDA2                         _UINT32_(0)  /**< EBI signal line function value: EBI_SDA2 */
-#define PIO_PC22A_EBI_SDA2                         (_UINT32_(1) << 22) /**< EBI signal: EBI_SDA2 */
-#define PIN_PC23A_EBI_SDA3                         _UINT32_(87) /**< EBI signal: EBI_SDA3 on PC23 mux A */
-#define MUX_PC23A_EBI_SDA3                         _UINT32_(0)  /**< EBI signal line function value: EBI_SDA3 */
-#define PIO_PC23A_EBI_SDA3                         (_UINT32_(1) << 23) /**< EBI signal: EBI_SDA3 */
-#define PIN_PC24A_EBI_SDA4                         _UINT32_(88) /**< EBI signal: EBI_SDA4 on PC24 mux A */
-#define MUX_PC24A_EBI_SDA4                         _UINT32_(0)  /**< EBI signal line function value: EBI_SDA4 */
-#define PIO_PC24A_EBI_SDA4                         (_UINT32_(1) << 24) /**< EBI signal: EBI_SDA4 */
-#define PIN_PC25A_EBI_SDA5                         _UINT32_(89) /**< EBI signal: EBI_SDA5 on PC25 mux A */
-#define MUX_PC25A_EBI_SDA5                         _UINT32_(0)  /**< EBI signal line function value: EBI_SDA5 */
-#define PIO_PC25A_EBI_SDA5                         (_UINT32_(1) << 25) /**< EBI signal: EBI_SDA5 */
-#define PIN_PC26A_EBI_SDA6                         _UINT32_(90) /**< EBI signal: EBI_SDA6 on PC26 mux A */
-#define MUX_PC26A_EBI_SDA6                         _UINT32_(0)  /**< EBI signal line function value: EBI_SDA6 */
-#define PIO_PC26A_EBI_SDA6                         (_UINT32_(1) << 26) /**< EBI signal: EBI_SDA6 */
-#define PIN_PC27A_EBI_SDA7                         _UINT32_(91) /**< EBI signal: EBI_SDA7 on PC27 mux A */
-#define MUX_PC27A_EBI_SDA7                         _UINT32_(0)  /**< EBI signal line function value: EBI_SDA7 */
-#define PIO_PC27A_EBI_SDA7                         (_UINT32_(1) << 27) /**< EBI signal: EBI_SDA7 */
-#define PIN_PC28A_EBI_SDA8                         _UINT32_(92) /**< EBI signal: EBI_SDA8 on PC28 mux A */
-#define MUX_PC28A_EBI_SDA8                         _UINT32_(0)  /**< EBI signal line function value: EBI_SDA8 */
-#define PIO_PC28A_EBI_SDA8                         (_UINT32_(1) << 28) /**< EBI signal: EBI_SDA8 */
-#define PIN_PC29A_EBI_SDA9                         _UINT32_(93) /**< EBI signal: EBI_SDA9 on PC29 mux A */
-#define MUX_PC29A_EBI_SDA9                         _UINT32_(0)  /**< EBI signal line function value: EBI_SDA9 */
-#define PIO_PC29A_EBI_SDA9                         (_UINT32_(1) << 29) /**< EBI signal: EBI_SDA9 */
-#define PIN_PD23C_EBI_SDCK                         _UINT32_(119) /**< EBI signal: EBI_SDCK on PD23 mux C */
-#define MUX_PD23C_EBI_SDCK                         _UINT32_(2)  /**< EBI signal line function value: EBI_SDCK */
-#define PIO_PD23C_EBI_SDCK                         (_UINT32_(1) << 23) /**< EBI signal: EBI_SDCK */
-#define PIN_PD14C_EBI_SDCKE                        _UINT32_(110) /**< EBI signal: EBI_SDCKE on PD14 mux C */
-#define MUX_PD14C_EBI_SDCKE                        _UINT32_(2)  /**< EBI signal line function value: EBI_SDCKE */
-#define PIO_PD14C_EBI_SDCKE                        (_UINT32_(1) << 14) /**< EBI signal: EBI_SDCKE */
-#define PIN_PC15A_EBI_SDCS                         _UINT32_(79) /**< EBI signal: EBI_SDCS on PC15 mux A */
-#define MUX_PC15A_EBI_SDCS                         _UINT32_(0)  /**< EBI signal line function value: EBI_SDCS */
-#define PIO_PC15A_EBI_SDCS                         (_UINT32_(1) << 15) /**< EBI signal: EBI_SDCS */
-#define PIN_PD18A_EBI_SDCS                         _UINT32_(114) /**< EBI signal: EBI_SDCS on PD18 mux A */
-#define MUX_PD18A_EBI_SDCS                         _UINT32_(0)  /**< EBI signal line function value: EBI_SDCS */
-#define PIO_PD18A_EBI_SDCS                         (_UINT32_(1) << 18) /**< EBI signal: EBI_SDCS */
-#define PIN_PD29C_EBI_SDWE                         _UINT32_(125) /**< EBI signal: EBI_SDWE on PD29 mux C */
-#define MUX_PD29C_EBI_SDWE                         _UINT32_(2)  /**< EBI signal line function value: EBI_SDWE */
-#define PIO_PD29C_EBI_SDWE                         (_UINT32_(1) << 29) /**< EBI signal: EBI_SDWE */
 /* ========== PIO definition for EFC peripheral ========== */
 #define PIN_PB12X1_EFC_ERASE                       _UINT32_(44) /**< EFC signal: EFC_ERASE on PB12 mux X1 */
 #define PIO_PB12X1_EFC_ERASE                       (_UINT32_(1) << 12) /**< EFC signal: EFC_ERASE */

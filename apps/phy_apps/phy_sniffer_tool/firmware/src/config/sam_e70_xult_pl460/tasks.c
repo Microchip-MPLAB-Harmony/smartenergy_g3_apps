@@ -81,14 +81,13 @@ void SYS_Tasks ( void )
 
 
     /* Maintain Middleware & Other Libraries */
-    	/* USB Device layer tasks routine */ 
+        /* USB Device layer tasks routine */ 
     USB_DEVICE_Tasks(sysObj.usbDevObject0);
 
 	/* USB HS Driver Task Routine */ 
     DRV_USBHSV1_Tasks(sysObj.drvUSBHSV1Object);
 
-
-    /* Maintain USI Service instance 0 */ 
+    /* Maintain PLC USI Service */
     SRV_USI_Tasks(sysObj.srvUSI0);
 
 

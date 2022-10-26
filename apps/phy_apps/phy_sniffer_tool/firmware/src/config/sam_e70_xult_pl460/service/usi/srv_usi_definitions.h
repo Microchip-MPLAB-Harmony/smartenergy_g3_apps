@@ -130,6 +130,9 @@ typedef enum
     /* MicroPLC Physical Layer  */
     SRV_USI_PROT_ID_PHY_MICROPLC              = 0x27,
 
+    /* RF215 Physical Layer */
+    SRV_USI_PROT_ID_PHY_RF215                 = 0x28,
+
     /* PRIME API  */
     SRV_USI_PROT_ID_PRIME_API                 = 0x30,
 
