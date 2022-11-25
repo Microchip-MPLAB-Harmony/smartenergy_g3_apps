@@ -186,7 +186,7 @@ extern "C" {
 #define SIZEOF_LONG_LONG 8
 #define WOLFSSL_USER_IO
 #define NO_WRITEV
-#define MICROCHIP_TCPIP
+//#define MICROCHIP_TCPIP
 #define WOLFSSL_DTLS
 #define NO_PWDBASED
 #define NO_ERROR_STRINGS
