@@ -131,6 +131,7 @@ extern "C" {
 #define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA4
 #define DRV_PLC_STBY_PIN                      SYS_PORT_PIN_PA3
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PC17
+#define DRV_PLC_CSR_INDEX                     0
 
 #define DRV_PLC_SPI_CLK                      8000000
 
