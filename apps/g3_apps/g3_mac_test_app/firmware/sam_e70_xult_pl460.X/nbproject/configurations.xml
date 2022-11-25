@@ -108,11 +108,6 @@
                   <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_plc/mac_plc_mib.h</itemPath>
                   <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_plc/mac_plc_defs.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="mac_rf" displayName="mac_rf" projectFiles="true">
-                  <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_rf/mac_rf_mib.h</itemPath>
-                  <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_rf/mac_rf_defs.h</itemPath>
-                  <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_rf/mac_rf.h</itemPath>
-                </logicalFolder>
                 <logicalFolder name="mac_wrapper" displayName="mac_wrapper" projectFiles="true">
                   <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_wrapper/mac_wrapper_defs.h</itemPath>
                   <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_wrapper/mac_wrapper.h</itemPath>
@@ -819,7 +814,6 @@
       <compileType>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibFileItem>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_rf/g3_lib_rf_mac.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_plc/g3_lib_plc_mac.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
