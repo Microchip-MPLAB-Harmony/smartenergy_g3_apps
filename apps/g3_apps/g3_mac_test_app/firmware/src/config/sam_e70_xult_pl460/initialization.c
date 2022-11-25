@@ -71,7 +71,7 @@
 /* HAL Interface Initialization for PLC transceiver */
 DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
-     /* SPI Transfer Setup */
+    /* SPI Transfer Setup */
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SPI0_TransferSetup,
 
     /* DMA Channel for Transmit */
@@ -86,12 +86,9 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI Receive Register */
     .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
 
-    /* SPI MR register address. */
-    .spiMR  = (void *)&(SPI0_REGS->SPI_MR),
-
     /* SPI CSR register address. */
-    .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR),
-    
+    .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[DRV_PLC_CSR_INDEX]),
+
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
     
@@ -378,8 +375,8 @@ void SYS_Initialize ( void* data )
 
     /* Initialize G3 MAC RT Driver Instance */
     sysObj.drvG3MacRt = DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvG3MacRtInitData);
-    /* Register Callback function to handle G3 MAC RT interruption */
     PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvG3MacRt);
+
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
 
