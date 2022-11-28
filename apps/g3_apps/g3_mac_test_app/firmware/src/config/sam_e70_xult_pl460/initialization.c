@@ -177,6 +177,13 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 
 // </editor-fold>
 
+/* G3 MAC Wrapper Initialization Data */
+SYS_MODULE_INIT g3MacWraperInitData = {
+    /* Init data not used, set default field */
+    .value = 0,
+};
+
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -380,6 +387,10 @@ void SYS_Initialize ( void* data )
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
 
+    /* Initialize G3 MAC Wrapper Instance */
+    sysObj.g3MacWrapper = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0, &g3MacWraperInitData);
+
+
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
     sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
 
@@ -393,10 +404,10 @@ void SYS_Initialize ( void* data )
 	
 	
 
-    CRYPT_WCCB_Initialize();
 	/* Initialize USB Driver */ 
     sysObj.drvUSBHSV1Object = DRV_USBHSV1_Initialize(DRV_USBHSV1_INDEX_0, (SYS_MODULE_INIT *) &drvUSBInit);	
 
+    CRYPT_WCCB_Initialize();
 
     APP_MAC_TEST_Initialize();
 

@@ -51,11 +51,11 @@
 #include "crypto/crypto.h"
 #include "service/pcoup/srv_pcoup.h"
 #include "stack/g3/pal/plc/pal_plc.h"
-#include "usb/usb_chapter_9.h"
-#include "usb/usb_device.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt_definitions.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt_comm.h"
+#include "usb/usb_chapter_9.h"
+#include "usb/usb_device.h"
 #include "peripheral/efc/plib_efc.h"
 #include "peripheral/tc/plib_tc0.h"
 #include "system/time/sys_time.h"
@@ -76,8 +76,8 @@
 #include "peripheral/nvic/plib_nvic.h"
 #include "peripheral/xdmac/plib_xdmac.h"
 #include "peripheral/wdt/plib_wdt.h"
-#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
 #include "driver/usb/usbhsv1/drv_usbhsv1.h"
+#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
 #include "peripheral/afec/plib_afec1.h"
 #include "service/pvddmon/srv_pvddmon.h"
 #include "system/console/sys_console.h"
@@ -215,9 +215,9 @@ Remarks:
 typedef struct
 {
     SYS_MODULE_OBJ g3PalPlc;
-	SYS_MODULE_OBJ  usbDevObject0;
-
     SYS_MODULE_OBJ  drvG3MacRt;
+
+	SYS_MODULE_OBJ  usbDevObject0;
 
     SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  sysConsole0;
@@ -226,6 +226,7 @@ typedef struct
 
 	SYS_MODULE_OBJ  drvUSBHSV1Object;
 
+    SYS_MODULE_OBJ g3MacWrapper;
 
 } SYSTEM_OBJECTS;
 

@@ -171,27 +171,6 @@ extern "C" {
 #define USB_DEVICE_EP0_BUFFER_SIZE                          64
 
 
-/******************************************************************************/
-/*wolfSSL TLS Layer Configuration*/
-/******************************************************************************/
-
-#define WOLFSSL_ALT_NAMES
-#define WOLFSSL_DER_LOAD
-#define KEEP_OUR_CERT
-#define KEEP_PEER_CERT
-#define HAVE_CRL_IO
-#define HAVE_IO_TIMEOUT
-#define TFM_NO_ASM
-#define WOLFSSL_NO_ASM
-#define SIZEOF_LONG_LONG 8
-#define WOLFSSL_USER_IO
-#define NO_WRITEV
-//#define MICROCHIP_TCPIP
-#define WOLFSSL_DTLS
-#define NO_PWDBASED
-#define NO_ERROR_STRINGS
-#define NO_OLD_TLS
-
 /* Maximum instances of CDC function driver */
 #define USB_DEVICE_CDC_INSTANCES_NUMBER                     1
 
@@ -200,6 +179,23 @@ extern "C" {
    write. Applicable to all instances of the
    function driver */
 #define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3
+
+/*** USB Driver Configuration ***/
+
+/* Maximum USB driver instances */
+#define DRV_USBHSV1_INSTANCES_NUMBER                        1
+
+/* Interrupt mode enabled */
+#define DRV_USBHSV1_INTERRUPT_MODE                          true
+
+/* Enables Device Support */
+#define DRV_USBHSV1_DEVICE_SUPPORT                          true
+	
+/* Disable Host Support */
+#define DRV_USBHSV1_HOST_SUPPORT                            false
+
+/* Alignment for buffers that are submitted to USB Driver*/ 
+#define USB_ALIGN  CACHE_ALIGN
 
 
 /*** wolfCrypt Library Configuration ***/
@@ -215,6 +211,7 @@ extern "C" {
 #define NO_PWDBASED
 #define HAVE_MCAPI
 #define WOLF_CRYPTO_CB  // provide call-back support
+#define WOLFCRYPT_ONLY
 // ---------- FUNCTIONAL CONFIGURATION START ----------
 #define WOLFSSL_AES_SMALL_TABLES
 #define NO_MD4
@@ -252,23 +249,6 @@ extern "C" {
 #define NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY
 // ---------- FUNCTIONAL CONFIGURATION END ----------
-
-/*** USB Driver Configuration ***/
-
-/* Maximum USB driver instances */
-#define DRV_USBHSV1_INSTANCES_NUMBER                        1
-
-/* Interrupt mode enabled */
-#define DRV_USBHSV1_INTERRUPT_MODE                          true
-
-/* Enables Device Support */
-#define DRV_USBHSV1_DEVICE_SUPPORT                          true
-	
-/* Disable Host Support */
-#define DRV_USBHSV1_HOST_SUPPORT                            false
-
-/* Alignment for buffers that are submitted to USB Driver*/ 
-#define USB_ALIGN  CACHE_ALIGN
 
 
 
