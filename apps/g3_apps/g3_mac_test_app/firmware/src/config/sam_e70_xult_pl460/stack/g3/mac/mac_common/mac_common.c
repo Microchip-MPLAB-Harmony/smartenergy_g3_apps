@@ -54,7 +54,7 @@
 #include "mac_common.h"
 #include "../mac_plc/mac_plc_mib.h"
 
-static MAC_COMMON_MIB macMibCommon;
+MAC_COMMON_MIB macMibCommon;
 
 static const MAC_COMMON_MIB macMibCommonDefaults = {
     0xFFFF, // panId
