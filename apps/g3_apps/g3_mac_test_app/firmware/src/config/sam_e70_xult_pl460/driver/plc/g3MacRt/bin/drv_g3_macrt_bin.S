@@ -41,10 +41,8 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 
   .align 8
 g3_mac_rt_bin_start:
-  .incbin "./G3_MAC_RT_FCC.bin"
+  .incbin "./G3_MAC_RT_CENA.bin"
   .align 8
 g3_mac_rt_bin_end:
 g3_mac_rt_bin2_start:
-  .incbin "./G3_MAC_RT_CENA.bin"
-  .align 8
 g3_mac_rt_bin2_end:
