@@ -32,6 +32,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
+#include "definitions.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -61,10 +62,16 @@ extern "C" {
 typedef enum
 {
     /* Application's state machine's initial state. */
-    APP_MAC_TEST_STATE_INIT=0,
-    APP_MAC_TEST_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
-
+    APP_MAC_TEST_STATE_INIT = 0,
+    APP_MAC_TEST_STATE_INITIALIZE_MAC,
+    APP_MAC_TEST_STATE_WAIT_MAC_READY,
+    APP_MAC_TEST_STATE_SET_PARAMS,
+    APP_MAC_TEST_STATE_SCAN_REQUEST,
+    APP_MAC_TEST_STATE_WAIT_FOR_SCAN_CONFIRM,
+    APP_MAC_TEST_STATE_DATA_REQUEST,
+    APP_MAC_TEST_STATE_WAIT_FOR_DATA_CONFIRM,
+    APP_MAC_TEST_STATE_WAIT_FOR_DATA_INDICATION,
+    APP_MAC_TEST_STATE_IDLE,
 } APP_MAC_TEST_STATES;
 
 
@@ -86,7 +93,11 @@ typedef struct
     /* The application's current state */
     APP_MAC_TEST_STATES state;
 
-    /* TODO: Define any additional data used by the application. */
+    /* Handle to manage MAC Wrapper */
+    MAC_WRP_HANDLE macWrpHandle;
+
+    /* MAC Wrapper initialization data */
+    MAC_WRP_INIT macWrpInit;
 
 } APP_MAC_TEST_DATA;
 
