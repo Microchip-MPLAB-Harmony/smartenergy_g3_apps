@@ -1387,6 +1387,44 @@ typedef struct
 */
 void MAC_WRP_Init(MAC_WRP_HANDLE handle, MAC_WRP_INIT *init);
 
+// *****************************************************************************
+/* Function:
+    SYS_STATUS MAC_WRP_Status
+    (
+      void
+    )
+
+  Summary:
+    The MAC_WRP_Status primitive retrieves the Status of G3 MAC layer(s).
+
+  Description:
+    This primitive is intended to be called before using G3 MAC layer(s)
+    to ensure they are ready to be used.
+
+  Precondition:
+    MAC_WRP_Init routine must have been called before.
+
+  Parameters:
+    None
+
+  Returns:
+    Status of G3 MAC layer(s) as a SYS_STATUS code.
+
+  Example:
+    <code>
+    SYS_STATUS status;
+    status = MAC_WRP_Status();
+    if (status == SYS_STATUS_READY)
+    {
+        // MAC is ready to be used
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
+SYS_STATUS MAC_WRP_Status(void);
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

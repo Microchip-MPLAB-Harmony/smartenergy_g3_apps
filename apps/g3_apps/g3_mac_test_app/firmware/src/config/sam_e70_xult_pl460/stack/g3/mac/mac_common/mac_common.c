@@ -365,7 +365,7 @@ MAC_STATUS MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
 
 uint32_t MAC_COMMON_GetMsCounter(void)
 {
-    return SYS_TIME_CounterGet();
+    return SYS_TIME_CountToMS(SYS_TIME_CounterGet());
 }
 
 /*******************************************************************************

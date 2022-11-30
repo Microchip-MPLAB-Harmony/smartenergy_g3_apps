@@ -301,6 +301,11 @@ void MAC_WRP_Init(MAC_WRP_HANDLE handle, MAC_WRP_INIT *init)
     MAC_COMMON_Init();
 }
 
+SYS_STATUS MAC_WRP_Status(void)
+{
+    return MAC_PLC_Status();
+}
+
 void MAC_WRP_DataRequest(MAC_WRP_HANDLE handle, MAC_WRP_DATA_REQUEST_PARAMS *drParams)
 {
     MAC_WRP_DATA_CONFIRM_PARAMS dataConfirm;
