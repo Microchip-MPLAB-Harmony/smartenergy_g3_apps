@@ -460,32 +460,6 @@
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfmath.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dsa.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
-        <itemPath>../src/third_party/wolfssl/wolfssl/test.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/callbacks.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/version.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/sniffer.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/ssl.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/ocsp.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/internal.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/sniffer_error.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/error-ssl.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfio.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/crl.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="zlib" displayName="zlib" projectFiles="true">
-        <itemPath>../src/third_party/zlib/zlib.h</itemPath>
-        <itemPath>../src/third_party/zlib/crc32.h</itemPath>
-        <itemPath>../src/third_party/zlib/gzguts.h</itemPath>
-        <itemPath>../src/third_party/zlib/zconf.h</itemPath>
-        <itemPath>../src/third_party/zlib/inffast.h</itemPath>
-        <itemPath>../src/third_party/zlib/zutil.h</itemPath>
-        <itemPath>../src/third_party/zlib/trees.h</itemPath>
-        <itemPath>../src/third_party/zlib/deflate.h</itemPath>
-        <itemPath>../src/third_party/zlib/inflate.h</itemPath>
-        <itemPath>../src/third_party/zlib/inffixed.h</itemPath>
-        <itemPath>../src/third_party/zlib/inftrees.h</itemPath>
-      </logicalFolder>
       <itemPath>../src/app_mac_test.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -522,7 +496,6 @@
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
                   <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/bin/drv_g3_macrt_bin.S</itemPath>
                   <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/bin/G3_MAC_RT_CENA.bin</itemPath>
-                  <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/bin/G3_MAC_RT_FCC.bin</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/drv_g3_macrt.c</itemPath>
                 <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/drv_g3_macrt_local_comm.c</itemPath>
@@ -748,36 +721,6 @@
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/coding.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/falcon.c</itemPath>
       </logicalFolder>
-      <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
-        <itemPath>../src/third_party/wolfssl/src/x509_str.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/ocsp.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/ssl.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/tls13.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/wolfio.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/pk.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/crl.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/sniffer.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/internal.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/conf.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/tls.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/keys.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/dtls13.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/src/x509.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="zlib" displayName="zlib" projectFiles="true">
-        <itemPath>../src/third_party/zlib/uncompr.c</itemPath>
-        <itemPath>../src/third_party/zlib/infback.c</itemPath>
-        <itemPath>../src/third_party/zlib/crc32.c</itemPath>
-        <itemPath>../src/third_party/zlib/gzclose.c</itemPath>
-        <itemPath>../src/third_party/zlib/inffast.c</itemPath>
-        <itemPath>../src/third_party/zlib/zutil.c</itemPath>
-        <itemPath>../src/third_party/zlib/adler32.c</itemPath>
-        <itemPath>../src/third_party/zlib/deflate.c</itemPath>
-        <itemPath>../src/third_party/zlib/trees.c</itemPath>
-        <itemPath>../src/third_party/zlib/inflate.c</itemPath>
-        <itemPath>../src/third_party/zlib/inftrees.c</itemPath>
-        <itemPath>../src/third_party/zlib/compress.c</itemPath>
-      </logicalFolder>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/config/sam_e70_xult_pl460/pin_configurations.csv</itemPath>
       <itemPath>../src/app_mac_test.c</itemPath>
@@ -806,8 +749,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAME70_DFP" vendor="Microchip" version="4.8.125"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAME70_DFP" vendor="Microchip" version="4.8.125"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -982,6 +925,61 @@
         <property key="stack-smashing" value=""/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
+      <EdbgTool>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="arm.use_vtor" value="false"/>
+        <property key="arm.vtor_adr" value="exception_table"/>
+        <property key="communication.activationmode" value="nohv"/>
+        <property key="communication.interface" value="swd"/>
+        <property key="communication.speed" value="10.000"/>
+        <property key="debugoptions.debug-startup" value="Halt at main"/>
+        <property key="debugoptions.reset-behaviour" value="Main"/>
+        <property key="debugoptions.useswbreakpoints" value="true"/>
+        <property key="firmware.path"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="firmware.toolpack"
+                  value="Press to select which tool pack to use"/>
+        <property key="firmware.update.action" value="firmware.update.use.latest"/>
+        <property key="freeze.timers" value="false"/>
+        <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
+        <property key="memories.aux" value="false"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.configurationmemory2" value="true"/>
+        <property key="memories.dataflash" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.exclude.configurationmemory" value="true"/>
+        <property key="memories.flashdata" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0x400000-0x5fffff"/>
+        <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Work/Git/h3/smartenergy_g3_apps/apps/g3_apps/g3_mac_test_app/firmware/sam_e70_xult_pl460.X/debug/sam_e70_xult_pl460/sam_e70_xult_pl460_ptg"/>
+        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.preservedataflash" value="false"/>
+        <property key="programoptions.preservedataflash.ranges"
+                  value="${memories.dataflash.default}"/>
+        <property key="programoptions.preserveeeprom" value="false"/>
+        <property key="programoptions.preserveeeprom.ranges" value=""/>
+        <property key="programoptions.preserveprogram.ranges" value=""/>
+        <property key="programoptions.preserveprogramrange" value="false"/>
+        <property key="programoptions.preserveuserid" value="false"/>
+        <property key="programoptions.programuserotp" value="false"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
+        <property key="script.reset_by_pin" value="false"/>
+        <property key="script.reset_delay" value="0"/>
+        <property key="script.show_output" value="false"/>
+        <property key="toolpack.updateoptions"
+                  value="toolpack.updateoptions.uselatestoolpack"/>
+        <property key="toolpack.updateoptions.packversion"
+                  value="Press to select which tool pack to use"/>
+        <property key="voltagevalue" value=""/>
+      </EdbgTool>
       <PICkit3PlatformTool>
         <property key="AutoSelectMemRanges" value="auto"/>
         <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
@@ -1063,12 +1061,19 @@
         <property key="UART2" value="true"/>
         <property key="arm.use_vtor" value="false"/>
         <property key="arm.vtor_adr" value="exception_table"/>
+        <property key="communication.activationmode" value="nohv"/>
         <property key="communication.autoselectspeed" value="true"/>
         <property key="communication.interface" value="swd"/>
-        <property key="communication.speed" value="4"/>
+        <property key="communication.speed" value="10.000"/>
         <property key="debugoptions.debug-startup" value="Halt at main"/>
         <property key="debugoptions.reset-behaviour" value="Main"/>
-        <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="debugoptions.useswbreakpoints" value="true"/>
+        <property key="firmware.path"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="firmware.toolpack"
+                  value="Press to select which tool pack to use"/>
+        <property key="firmware.update.action" value="firmware.update.use.latest"/>
+        <property key="freeze.timers" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="jlink.override" value=""/>
         <property key="lastid" value=""/>
@@ -1079,24 +1084,27 @@
         <property key="memories.configurationmemory2" value="true"/>
         <property key="memories.dataflash" value="true"/>
         <property key="memories.eeprom" value="true"/>
+        <property key="memories.exclude.configurationmemory" value="true"/>
         <property key="memories.flashdata" value="true"/>
         <property key="memories.id" value="true"/>
         <property key="memories.instruction.ram" value="true"/>
         <property key="memories.instruction.ram.ranges"
-                  value="${memories.instruction.ram.ranges.default}"/>
+                  value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.end" value="0x1d003fff"/>
         <property key="memories.programmemory.ranges" value="0x400000-0x5fffff"/>
         <property key="memories.programmemory.start" value="0x1d000000"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Work/Git/h3/smartenergy_g3_apps/apps/g3_apps/g3_mac_test_app/firmware/sam_e70_xult_pl460.X/debug/sam_e70_xult_pl460/sam_e70_xult_pl460_ptg"/>
         <property key="programmertogo.imagename" value=""/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
-        <property key="programoptions.eraseb4program" value="false"/>
+        <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmspeed" value="2"/>
         <property key="programoptions.preservebootflash" value="false"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
-                  value="${programoptions.preservedataflash.ranges}"/>
+                  value="${memories.dataflash.default}"/>
         <property key="programoptions.preserveeeprom" value="false"/>
         <property key="programoptions.preserveeeprom.ranges" value=""/>
         <property key="programoptions.preserveprogram.ranges" value=""/>
@@ -1118,7 +1126,11 @@
         <property key="script.reset_by_pin" value="false"/>
         <property key="script.reset_delay" value="0"/>
         <property key="script.show_output" value="false"/>
-        <property key="voltagevalue" value="3.25"/>
+        <property key="toolpack.updateoptions"
+                  value="toolpack.updateoptions.uselatestoolpack"/>
+        <property key="toolpack.updateoptions.packversion"
+                  value="Press to select which tool pack to use"/>
+        <property key="voltagevalue" value=""/>
       </Tool>
       <j32>
         <property key="AutoSelectMemRanges" value="auto"/>
