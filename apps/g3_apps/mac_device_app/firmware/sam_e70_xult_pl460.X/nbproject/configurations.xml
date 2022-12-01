@@ -25,6 +25,18 @@
                 <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/drv_g3_macrt_local_comm.h</itemPath>
               </logicalFolder>
             </logicalFolder>
+            <logicalFolder name="rf215" displayName="rf215" projectFiles="true">
+              <logicalFolder name="hal" displayName="hal" projectFiles="true">
+                <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/hal/rf215_hal.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="phy" displayName="phy" projectFiles="true">
+                <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/phy/ieee_15_4_sun_fsk.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/phy/rf215_phy.h</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/drv_rf215.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/drv_rf215_definitions.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/drv_rf215_local.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="usb" displayName="usb" projectFiles="true">
               <logicalFolder name="usbhsv1" displayName="usbhsv1" projectFiles="true">
                 <logicalFolder name="src" displayName="src" projectFiles="true">
@@ -39,23 +51,12 @@
             <itemPath>../src/config/sam_e70_xult_pl460/driver/driver_common.h</itemPath>
             <itemPath>../src/config/sam_e70_xult_pl460/driver/driver.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="g3" displayName="g3" projectFiles="true">
-            <logicalFolder name="pal" displayName="pal" projectFiles="true">
-              <logicalFolder name="plc" displayName="plc" projectFiles="true">
-                <itemPath>../src/config/sam_e70_xult_pl460/g3/pal/plc/pal_plc.h</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-          </logicalFolder>
           <logicalFolder name="osal" displayName="osal" projectFiles="true">
             <itemPath>../src/config/sam_e70_xult_pl460/osal/osal_impl_basic.h</itemPath>
             <itemPath>../src/config/sam_e70_xult_pl460/osal/osal.h</itemPath>
             <itemPath>../src/config/sam_e70_xult_pl460/osal/osal_definitions.h</itemPath>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="afec" displayName="afec" projectFiles="true">
-              <itemPath>../src/config/sam_e70_xult_pl460/peripheral/afec/plib_afec_common.h</itemPath>
-              <itemPath>../src/config/sam_e70_xult_pl460/peripheral/afec/plib_afec1.h</itemPath>
-            </logicalFolder>
             <logicalFolder name="clk" displayName="clk" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_pl460/peripheral/clk/plib_clk.h</itemPath>
             </logicalFolder>
@@ -87,22 +88,28 @@
             <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_pl460/service/pcoup/srv_pcoup.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="pcrc" displayName="pcrc" projectFiles="true">
-              <itemPath>../src/config/sam_e70_xult_pl460/service/pcrc/srv_pcrc.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
-              <itemPath>../src/config/sam_e70_xult_pl460/service/pvddmon/srv_pvddmon.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="usi" displayName="usi" projectFiles="true">
-              <itemPath>../src/config/sam_e70_xult_pl460/service/usi/srv_usi.h</itemPath>
-              <itemPath>../src/config/sam_e70_xult_pl460/service/usi/srv_usi_local.h</itemPath>
-              <itemPath>../src/config/sam_e70_xult_pl460/service/usi/srv_usi_definitions.h</itemPath>
-              <itemPath>../src/config/sam_e70_xult_pl460/service/usi/srv_usi_cdc.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="stack" displayName="stack" projectFiles="true">
+            <logicalFolder name="g3" displayName="g3" projectFiles="true">
+              <logicalFolder name="pal" displayName="pal" projectFiles="true">
+                <logicalFolder name="plc" displayName="plc" projectFiles="true">
+                  <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/pal/plc/pal_plc.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="rf" displayName="rf" projectFiles="true">
+                  <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/pal/rf/pal_rf.h</itemPath>
+                </logicalFolder>
+              </logicalFolder>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_pl460/system/cache/sys_cache.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="console" displayName="console" projectFiles="true">
+              <itemPath>../src/config/sam_e70_xult_pl460/system/console/src/sys_console_usb_cdc.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460/system/console/src/sys_console_usb_cdc_definitions.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460/system/console/sys_console.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460/system/console/src/sys_console_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_pl460/system/debug/sys_debug.h</itemPath>
@@ -280,7 +287,8 @@
           </logicalFolder>
         </logicalFolder>
       </logicalFolder>
-      <itemPath>../src/app.h</itemPath>
+      <itemPath>../src/app_plc.h</itemPath>
+      <itemPath>../src/app_rf.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -317,6 +325,15 @@
                 <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/drv_g3_macrt_local_comm.c</itemPath>
               </logicalFolder>
             </logicalFolder>
+            <logicalFolder name="rf215" displayName="rf215" projectFiles="true">
+              <logicalFolder name="hal" displayName="hal" projectFiles="true">
+                <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/hal/rf215_hal.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="phy" displayName="phy" projectFiles="true">
+                <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/phy/rf215_phy.c</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/drv_rf215.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="usb" displayName="usb" projectFiles="true">
               <logicalFolder name="usbhsv1" displayName="usbhsv1" projectFiles="true">
                 <logicalFolder name="src" displayName="src" projectFiles="true">
@@ -326,17 +343,7 @@
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="g3" displayName="g3" projectFiles="true">
-            <logicalFolder name="pal" displayName="pal" projectFiles="true">
-              <logicalFolder name="plc" displayName="plc" projectFiles="true">
-                <itemPath>../src/config/sam_e70_xult_pl460/g3/pal/plc/pal_plc.c</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-          </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="afec" displayName="afec" projectFiles="true">
-              <itemPath>../src/config/sam_e70_xult_pl460/peripheral/afec/plib_afec1.c</itemPath>
-            </logicalFolder>
             <logicalFolder name="clk" displayName="clk" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_pl460/peripheral/clk/plib_clk.c</itemPath>
             </logicalFolder>
@@ -365,15 +372,17 @@
             <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_pl460/service/pcoup/srv_pcoup.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="pcrc" displayName="pcrc" projectFiles="true">
-              <itemPath>../src/config/sam_e70_xult_pl460/service/pcrc/srv_pcrc.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
-              <itemPath>../src/config/sam_e70_xult_pl460/service/pvddmon/srv_pvddmon.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="usi" displayName="usi" projectFiles="true">
-              <itemPath>../src/config/sam_e70_xult_pl460/service/usi/srv_usi.c</itemPath>
-              <itemPath>../src/config/sam_e70_xult_pl460/service/usi/srv_usi_cdc.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="stack" displayName="stack" projectFiles="true">
+            <logicalFolder name="g3" displayName="g3" projectFiles="true">
+              <logicalFolder name="pal" displayName="pal" projectFiles="true">
+                <logicalFolder name="plc" displayName="plc" projectFiles="true">
+                  <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/pal/plc/pal_plc.c</itemPath>
+                </logicalFolder>
+                <logicalFolder name="rf" displayName="rf" projectFiles="true">
+                  <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/pal/rf/pal_rf.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
@@ -382,6 +391,10 @@
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_pl460/system/cache/sys_cache.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="console" displayName="console" projectFiles="true">
+              <itemPath>../src/config/sam_e70_xult_pl460/system/console/src/sys_console_usb_cdc.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460/system/console/src/sys_console.c</itemPath>
             </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_pl460/system/dma/sys_dma.c</itemPath>
@@ -411,7 +424,8 @@
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/config/sam_e70_xult_pl460/pin_configurations.csv</itemPath>
-      <itemPath>../src/app.c</itemPath>
+      <itemPath>../src/app_plc.c</itemPath>
+      <itemPath>../src/app_rf.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

@@ -18,8 +18,8 @@
     are defined here for convenience.
 *******************************************************************************/
 
-#ifndef _APP_H
-#define _APP_H
+#ifndef _APP_PLC_H
+#define _APP_PLC_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -61,13 +61,14 @@ extern "C" {
 typedef enum
 {
     /* Application's state machine's initial state. */
-    APP_STATE_WAITING_PAL_INIT = 0,
-    APP_STATE_WAITING_PAL_READY,
-    APP_STATE_GET_PHY_VERSION,
-    APP_STATE_SET_PANID,
-    APP_STATE_GET_PANID,
-    APP_STATE_RESET_PAL,
-    APP_STATE_ERROR
+    APP_PLC_STATE_WAITING_INIT = 0,
+    APP_PLC_STATE_WAITING_READY,
+    APP_PLC_STATE_GET_PHY_VERSION,
+    APP_PLC_STATE_SET_PANID,
+    APP_PLC_STATE_GET_PANID,
+    APP_PLC_STATE_RESET,
+    APP_PLC_STATE_ERROR,
+    APP_PLC_STATE_RUNNING,
 
 } APP_STATES;
 
@@ -92,7 +93,7 @@ typedef struct
     
     APP_STATES prevState;
 
-    SYS_MODULE_OBJ palObj;
+    SYS_MODULE_OBJ palPlcObj;
 
     DRV_HANDLE palHandler;
     
@@ -102,11 +103,9 @@ typedef struct
     
     uint16_t panId;
     
-    SRV_USI_HANDLE usiHandler;
-    
     bool performPalReset;
-
-} APP_DATA;
+    
+} APP_PLC_DATA;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -124,7 +123,7 @@ typedef struct
 
 /*******************************************************************************
   Function:
-    void APP_Initialize ( void )
+    void APP_PLC_Initialize ( void )
 
   Summary:
      MPLAB Harmony application initialization routine.
@@ -146,19 +145,19 @@ typedef struct
 
   Example:
     <code>
-    APP_Initialize();
+    APP_PLC_Initialize();
     </code>
 
   Remarks:
     This routine must be called from the SYS_Initialize function.
 */
 
-void APP_Initialize ( void );
+void APP_PLC_Initialize ( void );
 
 
 /*******************************************************************************
   Function:
-    void APP_Tasks ( void )
+    void APP_PLC_Tasks ( void )
 
   Summary:
     MPLAB Harmony Demo application tasks function
@@ -179,14 +178,14 @@ void APP_Initialize ( void );
 
   Example:
     <code>
-    APP_Tasks();
+    APP_PLC_Tasks();
     </code>
 
   Remarks:
     This routine must be called from SYS_Tasks() routine.
  */
 
-void APP_Tasks( void );
+void APP_PLC_Tasks( void );
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -194,7 +193,7 @@ void APP_Tasks( void );
 #endif
 //DOM-IGNORE-END
 
-#endif /* _APP_H */
+#endif /* _APP_PLC_H */
 
 /*******************************************************************************
  End of File

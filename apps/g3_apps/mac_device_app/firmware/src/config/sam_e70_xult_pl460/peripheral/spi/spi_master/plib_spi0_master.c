@@ -61,6 +61,8 @@ void SPI0_Initialize( void )
     SPI0_REGS->SPI_CSR[1] = SPI_CSR_CPOL_IDLE_LOW | SPI_CSR_NCPHA_VALID_LEADING_EDGE | SPI_CSR_BITS_8_BIT | SPI_CSR_SCBR(18)| SPI_CSR_DLYBS(0) | SPI_CSR_DLYBCT(0) | SPI_CSR_CSAAT_Msk;
 
 
+    /* Set up clock Polarity, data phase, Communication Width, Baud Rate */
+    SPI0_REGS->SPI_CSR[3] = SPI_CSR_CPOL_IDLE_LOW | SPI_CSR_NCPHA_VALID_LEADING_EDGE | SPI_CSR_BITS_8_BIT | SPI_CSR_SCBR(13)| SPI_CSR_DLYBS(8) | SPI_CSR_DLYBCT(1) | SPI_CSR_CSAAT_Msk;
 
 
 
@@ -68,6 +70,35 @@ void SPI0_Initialize( void )
     SPI0_REGS->SPI_CR = SPI_CR_SPIEN_Msk;
 }
 
+static uint8_t SPI0_ChipSelectGet(void)
+{
+    uint8_t pcs = (uint8_t)((SPI0_REGS->SPI_MR  & SPI_MR_PCS_Msk) >> SPI_MR_PCS_Pos);
+    if (pcs == SPI_CHIP_SELECT_NPCS0)
+    {
+        return 0;
+    }
+    else if (pcs == SPI_CHIP_SELECT_NPCS1)
+    {
+        return 1;
+    }
+    else if (pcs == SPI_CHIP_SELECT_NPCS2)
+    {
+        return 2;
+    }
+    else if (pcs == SPI_CHIP_SELECT_NPCS3)
+    {
+        return 3;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+void SPI0_ChipSelectSetup(SPI_CHIP_SELECT chipSelect)
+{
+    SPI0_REGS->SPI_MR =  (SPI0_REGS->SPI_MR & ~SPI_MR_PCS_Msk) | SPI_MR_PCS(chipSelect);
+}
 
 bool SPI0_WriteRead( void* pTransmitData, size_t txSize, void* pReceiveData, size_t rxSize )
 {
@@ -90,7 +121,7 @@ bool SPI0_WriteRead( void* pTransmitData, size_t txSize, void* pReceiveData, siz
             rxSize = 0;
         }
 
-        dataBits = SPI0_REGS->SPI_CSR[1] & SPI_CSR_BITS_Msk;
+        dataBits = SPI0_REGS->SPI_CSR[SPI0_ChipSelectGet()] & SPI_CSR_BITS_Msk;
 
         /* Flush out any unread data in SPI read buffer from the previous transfer */
         receivedData = (SPI0_REGS->SPI_RDR & SPI_RDR_RD_Msk) >> SPI_RDR_RD_Pos;
@@ -210,7 +241,7 @@ bool SPI0_TransferSetup( SPI_TRANSFER_SETUP * setup, uint32_t spiSourceClock )
         scbr = 255;
     }
 
-    SPI0_REGS->SPI_CSR[1] = (SPI0_REGS->SPI_CSR[1] & ~(SPI_CSR_CPOL_Msk | SPI_CSR_NCPHA_Msk | SPI_CSR_BITS_Msk | SPI_CSR_SCBR_Msk)) |((uint32_t)setup->clockPolarity | (uint32_t)setup->clockPhase | (uint32_t)setup->dataBits | SPI_CSR_SCBR(scbr));
+    SPI0_REGS->SPI_CSR[SPI0_ChipSelectGet()] = (SPI0_REGS->SPI_CSR[SPI0_ChipSelectGet()] & ~(SPI_CSR_CPOL_Msk | SPI_CSR_NCPHA_Msk | SPI_CSR_BITS_Msk | SPI_CSR_SCBR_Msk)) |((uint32_t)setup->clockPolarity | (uint32_t)setup->clockPhase | (uint32_t)setup->dataBits | SPI_CSR_SCBR(scbr));
 
     return true;
 }

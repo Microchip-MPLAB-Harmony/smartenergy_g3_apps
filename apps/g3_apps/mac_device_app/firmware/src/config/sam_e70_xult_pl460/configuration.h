@@ -88,6 +88,22 @@ extern "C" {
 #define SYS_TIME_CPU_CLOCK_FREQUENCY                (300000000)
 #define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (900)
 
+#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			1
+#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			0
+#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		1
+#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		200
+
+#define SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE 	64
+
+#define SYS_CONSOLE_INDEX_0                       0
+
+/* RX buffer size has one additional element for the empty spot needed in circular buffer */
+#define SYS_CONSOLE_USB_CDC_RD_BUFFER_SIZE_IDX0    129
+
+/* TX buffer size has one additional element for the empty spot needed in circular buffer */
+#define SYS_CONSOLE_USB_CDC_WR_BUFFER_SIZE_IDX0    129
+
+
 
 
 // *****************************************************************************
@@ -97,7 +113,6 @@ extern "C" {
 // *****************************************************************************
 /* PAL PLC Configuration Options */
 #define PAL_PLC_PHY_INDEX                     0
-#define PAL_PLC_PHY_SNIFFER_USI_INSTANCE      SRV_USI_INDEX_0
 
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
@@ -108,6 +123,8 @@ extern "C" {
 #define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PC30
 #define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA4
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PC17
+#define DRV_PLC_CSR_INDEX                     1
+#define DRV_PLC_SPI_CHIP_SELECT               SPI_CHIP_SELECT_NPCS1
 
 #define DRV_PLC_SPI_CLK                      8000000
 
@@ -115,16 +132,27 @@ extern "C" {
 #define DRV_G3_MACRT_INDEX                   0
 #define DRV_G3_MACRT_INSTANCES_NUMBER        1
 #define DRV_G3_MACRT_HOST_DESC               "ATSAME70Q21B"
-/* USI Service Common Configuration Options */
-#define SRV_USI_INSTANCES_NUMBER              1
-#define SRV_USI_USART_CONNECTIONS             0
-#define SRV_USI_CDC_CONNECTIONS               1
-#define SRV_USI_MSG_POOL_SIZE                 5
-/* USI Service Instance 0 Configuration Options */
-#define SRV_USI_INDEX_0                       0
-#define SRV_USI0_RD_BUF_SIZE                  1024
-#define SRV_USI0_WR_BUF_SIZE                  1024
+/* RF215 Driver Configuration Options */
+#define DRV_RF215_INDEX_0                     0
+#define DRV_RF215_CLIENTS_NUMBER              1
+#define DRV_RF215_TX_BUFFERS_NUMBER           1
+#define DRV_RF215_CSR_INDEX                   3
+#define DRV_RF215_SPI_CHIP_SELECT             SPI_CHIP_SELECT_NPCS3
+#define DRV_RF215_SPI_TX_DMA_CH               SYS_DMA_CHANNEL_0
+#define DRV_RF215_SPI_RX_DMA_CH               SYS_DMA_CHANNEL_1
+#define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PA2
+#define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PC19
+#define DRV_RF215_LED_TX_PIN                  SYS_PORT_PIN_PD11
+#define DRV_RF215_LED_RX_PIN                  SYS_PORT_PIN_PA6
+#define DRV_RF215_NUM_TRX                     1
+#define DRV_RF215_FCS_LEN                     4
+#define DRV_RF215_MAX_PSDU_LEN                576
+#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000
+#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  70
+#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 660
 
+/* PAL RF Configuration Options */
+#define PAL_RF_PHY_INDEX                     0
 
 
 // *****************************************************************************

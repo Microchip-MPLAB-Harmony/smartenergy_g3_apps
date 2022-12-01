@@ -49,7 +49,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include "service/pcoup/srv_pcoup.h"
-#include "g3/pal/plc/pal_plc.h"
+#include "stack/g3/pal/plc/pal_plc.h"
 #include "peripheral/clk/plib_clk.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/nvic/plib_nvic.h"
@@ -59,26 +59,26 @@
 #include "driver/plc/g3MacRt/drv_g3_macrt_definitions.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt_comm.h"
+#include "driver/rf215/drv_rf215.h"
 #include "peripheral/efc/plib_efc.h"
 #include "peripheral/tc/plib_tc0.h"
-#include "service/usi/srv_usi.h"
-#include "service/usi/srv_usi_cdc.h"
-#include "service/pcrc/srv_pcrc.h"
 #include "system/time/sys_time.h"
 #include "driver/usb/usbhsv1/drv_usbhsv1.h"
-#include "bsp/bsp.h"
 #include "usb/usb_device_cdc.h"
 #include "usb/usb_cdc.h"
-#include "peripheral/afec/plib_afec1.h"
-#include "service/pvddmon/srv_pvddmon.h"
+#include "bsp/bsp.h"
+#include "stack/g3/pal/plc/pal_plc.h"
 #include "peripheral/spi/spi_master/plib_spi0_master.h"
+#include "system/console/sys_console.h"
+#include "system/console/src/sys_console_usb_cdc_definitions.h"
 #include "system/int/sys_int.h"
 #include "system/ports/sys_ports.h"
 #include "system/cache/sys_cache.h"
 #include "system/dma/sys_dma.h"
 #include "osal/osal.h"
 #include "system/debug/sys_debug.h"
-#include "app.h"
+#include "app_plc.h"
+#include "app_rf.h"
 
 
 
@@ -204,14 +204,17 @@ Remarks:
 typedef struct
 {
     SYS_MODULE_OBJ g3PalPlc;
-	SYS_MODULE_OBJ  usbDevObject0;
+    SYS_MODULE_OBJ  usbDevObject0;
 
     SYS_MODULE_OBJ  drvG3MacRt;
 
+    SYS_MODULE_OBJ drvRf215;
     SYS_MODULE_OBJ  sysTime;
 	SYS_MODULE_OBJ  drvUSBHSV1Object;
 
-    SYS_MODULE_OBJ srvUSI0;
+    SYS_MODULE_OBJ g3PalRf;
+    SYS_MODULE_OBJ  sysConsole0;
+
 
 } SYSTEM_OBJECTS;
 

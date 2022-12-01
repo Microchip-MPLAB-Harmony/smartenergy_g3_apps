@@ -50,7 +50,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "system/system.h"
-#include "service/usi/srv_usi.h"
+#include "service/pcoup/srv_pcoup.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt_comm.h"
 
 // *****************************************************************************
@@ -128,7 +128,6 @@ typedef void (*PAL_PLC_DataIndication)(uint8_t *pData, uint16_t length);
 typedef void (*PAL_PLC_CommStatusIndication)(uint8_t *pData);
 typedef void (*PAL_PLC_TxConfirm)(MAC_RT_STATUS status, bool updateTimestamp);
 typedef void (*PAL_PLC_RxParamsIndication)(MAC_RT_RX_PARAMETERS_OBJ *pParameters);
-typedef void (*PAL_PLC_MacSnifferIndication)(uint8_t *pData, uint16_t length);
 
 typedef struct
 {
@@ -136,7 +135,6 @@ typedef struct
     PAL_PLC_CommStatusIndication     palPlcCommStatusIndication;
     PAL_PLC_TxConfirm                palPlcTxConfirm;
     PAL_PLC_RxParamsIndication       palPlcRxParamsIndication;
-    PAL_PLC_MacSnifferIndication     palPlcMacSnifferIndication;
 } PAL_PLC_HANDLERS;
 
 typedef struct
@@ -167,12 +165,6 @@ typedef struct
                                 
 } PAL_PLC_OBJECT_BASE;
 
-typedef struct
-{
-    MAC_RT_PHY_SNIFFER_HEADER header;
-    uint8_t data[MAC_RT_PHY_DATA_MAX_SIZE];
-} PAL_PLC_PHY_SNIFFER;
-
 typedef struct  
 {
     DRV_HANDLE drvG3MacRtHandle;
@@ -198,14 +190,6 @@ typedef struct
     bool waitingTxCfm;
     
     bool restartMib;
-
-    bool pvddMonTxEnable;
-
-    uint8_t macSnifferData[MAC_RT_DATA_MAX_SIZE];
-
-    PAL_PLC_PHY_SNIFFER phySnifferData;
-    
-    SRV_USI_HANDLE usiHandler;
 
 } PAL_PLC_DATA;
 

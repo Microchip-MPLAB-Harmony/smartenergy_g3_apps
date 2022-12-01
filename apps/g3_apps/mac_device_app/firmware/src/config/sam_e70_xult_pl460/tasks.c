@@ -72,29 +72,34 @@
 void SYS_Tasks ( void )
 {
     /* Maintain system services */
-    
+    SYS_CONSOLE_Tasks(SYS_CONSOLE_INDEX_0);
+
+
 
     /* Maintain Device Drivers */
     
     /* Maintain G3 MAC RT Driver */
     DRV_G3_MACRT_Tasks(sysObj.drvG3MacRt);
 
+    /* Maintain RF215 Driver */
+    DRV_RF215_Tasks(sysObj.drvRf215);
+
 
     /* Maintain Middleware & Other Libraries */
-    	/* USB Device layer tasks routine */ 
+        /* USB Device layer tasks routine */ 
     USB_DEVICE_Tasks(sysObj.usbDevObject0);
 
 	/* USB HS Driver Task Routine */ 
     DRV_USBHSV1_Tasks(sysObj.drvUSBHSV1Object);
 
 
-    /* Maintain USI Service instance 0 */ 
-    SRV_USI_Tasks(sysObj.srvUSI0);
-
 
     /* Maintain the application's state machine. */
-        /* Call Application task APP. */
-    APP_Tasks();
+        /* Call Application task APP_PLC. */
+    APP_PLC_Tasks();
+
+    /* Call Application task APP_RF. */
+    APP_RF_Tasks();
 
 
 

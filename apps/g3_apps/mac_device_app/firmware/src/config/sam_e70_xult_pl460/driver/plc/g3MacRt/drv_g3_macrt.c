@@ -303,7 +303,6 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ hSysObj )
             DRV_G3_MACRT_Init(&gDrvG3MacRtObj);
             gDrvG3MacRtObj.status = SYS_STATUS_READY;
             gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_IDLE;
-            
             if (gDrvG3MacRtObj.initCallback)
             {
                 gDrvG3MacRtObj.initCallback(true);

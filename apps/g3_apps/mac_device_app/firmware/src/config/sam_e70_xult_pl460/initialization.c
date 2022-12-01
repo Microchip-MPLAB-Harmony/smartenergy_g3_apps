@@ -71,8 +71,14 @@
 /* HAL Interface Initialization for PLC transceiver */
 DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
-     /* SPI Transfer Setup */
+    /* SPI Transfer Setup */
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SPI0_TransferSetup,
+
+    /* SPI Is Busy */
+    .spiIsBusy = SPI0_IsTransmitterBusy,
+
+    /* SPI Set Chip Select */
+    .spiSetChipSelect = SPI0_ChipSelectSetup,
 
     /* DMA Channel for Transmit */
     .dmaChannelTx = SYS_DMA_CHANNEL_0,
@@ -86,12 +92,9 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI Receive Register */
     .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
 
-    /* SPI MR register address. */
-    .spiMR  = (void *)&(SPI0_REGS->SPI_MR),
-
     /* SPI CSR register address. */
-    .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR),
-    
+    .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[DRV_PLC_CSR_INDEX]),
+
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
     
@@ -110,6 +113,15 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* PLC External Interrupt Pin */
     .thMonPin = DRV_PLC_THMON_PIN,
     
+    /* Interrupt source ID for RF external interrupt */
+    .rfExtIntSource = PIOA_IRQn,
+
+    /* Interrupt source ID for DMA */
+    .dmaIntSource = XDMAC_IRQn,
+
+    /* Interrupt source ID for SYS_TIME */
+    .sysTimeIntSource = TC0_CH0_IRQn,
+
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -173,33 +185,41 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 };
 
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="SRV_USI Instance 0 Initialization Data">
+// <editor-fold defaultstate="collapsed" desc="DRV_RF215 Initialization Data">
 
-static uint8_t CACHE_ALIGN srvUSI0ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
-static uint8_t CACHE_ALIGN srvUSI0WriteBuffer[SRV_USI0_WR_BUF_SIZE] = {0};
+/* RF215 Driver Initialization Data */
+const DRV_RF215_INIT drvRf215InitData = {
+    /* SPI chip select register address used for SPI configuration */
+    .spiCSRegAddress = (uint32_t *)&(SPI0_REGS->SPI_CSR[DRV_RF215_CSR_INDEX]),
 
-static uint8_t CACHE_ALIGN srvUSI0CDCReadBuffer[128] = {0};
+    /* SPI Transmit Register */
+    .spiTransmitAddress = (const void *)&(SPI0_REGS->SPI_TDR),
 
-/* Declared in USI CDC service implementation (srv_usi_cdc.c) */
-extern const SRV_USI_DEV_DESC srvUSICDCDevDesc;
+    /* SPI Receive Register */
+    .spiReceiveAddress = (const void *)&(SPI0_REGS->SPI_RDR),
 
-const USI_CDC_INIT_DATA srvUsi0InitData = {
-    .cdcInstanceIndex = 0,
-    .usiReadBuffer = srvUSI0ReadBuffer,
-    .usiBufferSize = SRV_USI0_RD_BUF_SIZE,
-    .cdcReadBuffer = srvUSI0CDCReadBuffer,
-    .cdcBufferSize = 128
+    /* Pointer to SPI PLIB is busy function */
+    .spiPlibIsBusy = SPI0_IsTransmitterBusy,
+
+    /* Pointer to SPI PLIB chip select function */
+    .spiPlibSetChipSelect = SPI0_ChipSelectSetup,
+
+    /* Interrupt source ID for DMA */
+    .dmaIntSource = XDMAC_IRQn,
+
+    /* Interrupt source ID for SYS_TIME */
+    .sysTimeIntSource = TC0_CH0_IRQn,
+
+    /* Interrupt source ID for PLC external interrupt */
+    .plcExtIntSource = PIOD_IRQn,
+
+    /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */
+    .rf09PhyBandOpmIni = SUN_FSK_BAND_863_OPM1,
+
+    /* Initial PHY frequency channel number for Sub-GHz transceiver */
+    .rf09PhyChnNumIni = 0,
+
 };
-
-const SRV_USI_INIT srvUSI0Init =
-{
-    .deviceInitData = (const void*)&srvUsi0InitData,
-    .consDevDesc = &srvUSICDCDevDesc,
-    .deviceIndex = 0,
-    .pWrBuffer = srvUSI0WriteBuffer,
-    .wrBufferSize = SRV_USI0_WR_BUF_SIZE
-};
-
 
 // </editor-fold>
 
@@ -302,6 +322,41 @@ const SYS_TIME_INIT sysTimeInitData =
 };
 
 // </editor-fold>
+// <editor-fold defaultstate="collapsed" desc="SYS_CONSOLE Instance 0 Initialization Data">
+
+
+/* These buffers are passed to the USB CDC Function Driver */
+static uint8_t CACHE_ALIGN sysConsole0USBCdcRdBuffer[SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE];
+static uint8_t CACHE_ALIGN sysConsole0USBCdcWrBuffer[SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE];
+
+/* These are the USB CDC Ring Buffers. Data received from USB layer are copied to these ring buffer. */
+static uint8_t sysConsole0USBCdcRdRingBuffer[SYS_CONSOLE_USB_CDC_RD_BUFFER_SIZE_IDX0];
+static uint8_t sysConsole0USBCdcWrRingBuffer[SYS_CONSOLE_USB_CDC_WR_BUFFER_SIZE_IDX0];
+
+/* Declared in console device implementation (sys_console_usb_cdc.c) */
+extern const SYS_CONSOLE_DEV_DESC sysConsoleUSBCdcDevDesc;
+
+const SYS_CONSOLE_USB_CDC_INIT_DATA sysConsole0USBCdcInitData =
+{
+	.cdcInstanceIndex			= 0,
+	.cdcReadBuffer				= sysConsole0USBCdcRdBuffer,
+	.cdcWriteBuffer				= sysConsole0USBCdcWrBuffer,
+    .consoleReadBuffer 			= sysConsole0USBCdcRdRingBuffer,
+    .consoleWriteBuffer 		= sysConsole0USBCdcWrRingBuffer,
+    .consoleReadBufferSize 		= SYS_CONSOLE_USB_CDC_RD_BUFFER_SIZE_IDX0,
+    .consoleWriteBufferSize 	= SYS_CONSOLE_USB_CDC_WR_BUFFER_SIZE_IDX0,
+};
+
+const SYS_CONSOLE_INIT sysConsole0Init =
+{
+    .deviceInitData = (const void*)&sysConsole0USBCdcInitData,
+    .consDevDesc = &sysConsoleUSBCdcDevDesc,
+    .deviceIndex = 0,
+};
+
+
+// </editor-fold>
+
 
 
 
@@ -349,33 +404,31 @@ void SYS_Initialize ( void* data )
      
     
 	BSP_Initialize();
-    AFEC1_Initialize();
-
 	SPI0_Initialize();
 
 
     /* Initialize G3 MAC RT Driver Instance */
     sysObj.drvG3MacRt = DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvG3MacRtInitData);
-    /* Register Callback function to handle G3 MAC RT interruption */
     PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvG3MacRt);
-    /* Initialize PVDD Monitor Service */
-    SRV_PVDDMON_Initialize();
-    /* Initialize USI Service Instance 0 */
-    sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
+
+    /* Initialize RF215 Driver Instance */
+    sysObj.drvRf215 = DRV_RF215_Initialize(DRV_RF215_INDEX_0, (SYS_MODULE_INIT *)&drvRf215InitData);
 
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
+    sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
 
 
-	 /* Initialize the USB device layer */
+
+    /* Initialize the USB device layer */
     sysObj.usbDevObject0 = USB_DEVICE_Initialize (USB_DEVICE_INDEX_0 , ( SYS_MODULE_INIT* ) & usbDevInitData);
-	
-	
+
 
 	/* Initialize USB Driver */ 
     sysObj.drvUSBHSV1Object = DRV_USBHSV1_Initialize(DRV_USBHSV1_INDEX_0, (SYS_MODULE_INIT *) &drvUSBInit);	
 
 
-    APP_Initialize();
+    APP_PLC_Initialize();
+    APP_RF_Initialize();
 
 
     NVIC_Initialize();

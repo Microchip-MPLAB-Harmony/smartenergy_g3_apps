@@ -78,8 +78,6 @@ static DRV_PLC_PLIB_INTERFACE *sPlcPlib;
 // Section: File scope functions
 // *****************************************************************************
 // *****************************************************************************
-
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: DRV_PLC_HAL Common Interface Implementation
@@ -89,7 +87,8 @@ void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
 {
     sPlcPlib = plcPlib;   
     
-    /* Disable External Pin Interrupt */
+
+    /* Disable External Interrupt */
     PIO_PinInterruptDisable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
     /* Enable External Interrupt Source */
     SYS_INT_SourceEnable(DRV_PLC_EXT_INT_SRC);
@@ -97,8 +96,6 @@ void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
 
 void DRV_PLC_HAL_Setup(bool set16Bits)
 {
-    uint32_t spiPCS;
-    uint8_t chipSelect = 0;
     DRV_PLC_SPI_TRANSFER_SETUP spiPlibSetup;
 
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelTx));
@@ -127,15 +124,8 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
     SYS_DMA_AddressingModeSetup(sPlcPlib->dmaChannelTx, SYS_DMA_SOURCE_ADDRESSING_MODE_INCREMENTED, SYS_DMA_DESTINATION_ADDRESSING_MODE_FIXED);
     SYS_DMA_AddressingModeSetup(sPlcPlib->dmaChannelRx, SYS_DMA_SOURCE_ADDRESSING_MODE_FIXED, SYS_DMA_DESTINATION_ADDRESSING_MODE_INCREMENTED);
 
-    /* Configure Peripheral Deselection with DMA */
-    spiPCS = (*(sPlcPlib->spiMR) & SPI_MR_PCS_Msk) >> SPI_MR_PCS_Pos;
-    while(spiPCS & 0x01) {
-        chipSelect++;
-        spiPCS >>= 1;
-    }
     /* CS rises if there is no more data to transfer */
-    sPlcPlib->spiCSR[chipSelect] &= ~SPI_CSR_CSAAT_Msk;
-    sPlcPlib->spiCSR[chipSelect] &= ~SPI_CSR_CSNAAT_Msk;
+    *(sPlcPlib->spiCSR) &= ~(SPI_CSR_CSAAT_Msk | SPI_CSR_CSNAAT_Msk);
 
 }
 
@@ -208,6 +198,7 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
 {
     uint8_t *pTxData;  
     size_t size;
+    bool rfExtIntStatus, dmaIntStatus, sysTimeIntStatus;
 
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelTx));
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx));
@@ -248,9 +239,25 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
         DCACHE_INVALIDATE_BY_ADDR((uint32_t *)sRxSpiData, HAL_SPI_BUFFER_SIZE);
     }
 
-   
+    /* Disable interrupts to avoid SPI transfer from RF driver */
+    rfExtIntStatus = SYS_INT_SourceDisable(sPlcPlib->rfExtIntSource);
+    dmaIntStatus = SYS_INT_SourceDisable(sPlcPlib->dmaIntSource);
+    sysTimeIntStatus = SYS_INT_SourceDisable(sPlcPlib->sysTimeIntSource);
+
+    /* Wait if there is SPI transfer in progress */
+    while(sPlcPlib->spiIsBusy() == true);
+    while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx) == true);
+
+    /* Set chip select (shared SPI) */
+    sPlcPlib->spiSetChipSelect(DRV_PLC_SPI_CHIP_SELECT);
+
     SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelRx, (const void *)sPlcPlib->spiAddressRx, (const void *)sRxSpiData, size);
     SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelTx, (const void *)sTxSpiData, (const void *)sPlcPlib->spiAddressTx, size);
+
+    /* Restore interrupt status */
+    SYS_INT_SourceRestore(sPlcPlib->sysTimeIntSource, sysTimeIntStatus);
+    SYS_INT_SourceRestore(sPlcPlib->dmaIntSource, dmaIntStatus);
+    SYS_INT_SourceRestore(sPlcPlib->rfExtIntSource, rfExtIntStatus);
 
     if (pDataRd) {
         while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx));
@@ -265,6 +272,7 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
     uint8_t *pTxData;
     size_t cmdSize;
     size_t dataLength;
+    bool rfExtIntStatus, dmaIntStatus, sysTimeIntStatus;
 
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelTx));
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx));
@@ -305,7 +313,7 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
         *pTxData++ = 0;
         cmdSize++;
     }
-       
+
     if (DATA_CACHE_IS_ENABLED())
     {
         /* Invalidate cache lines having received buffer before using it
@@ -313,9 +321,30 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
         DCACHE_CLEAN_BY_ADDR((uint32_t *)sTxSpiData, HAL_SPI_BUFFER_SIZE);
         DCACHE_INVALIDATE_BY_ADDR((uint32_t *)sRxSpiData, HAL_SPI_BUFFER_SIZE);
     }
-   
+
+    /* Disable interrupts to avoid SPI transfer from RF driver */
+    rfExtIntStatus = SYS_INT_SourceDisable(sPlcPlib->rfExtIntSource);
+    dmaIntStatus = SYS_INT_SourceDisable(sPlcPlib->dmaIntSource);
+    sysTimeIntStatus = SYS_INT_SourceDisable(sPlcPlib->sysTimeIntSource);
+
+    /* Wait if there is SPI transfer in progress */
+    while(sPlcPlib->spiIsBusy() == true);
+    while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx) == true);
+
+    /* Set chip select (shared SPI) */
+    sPlcPlib->spiSetChipSelect(DRV_PLC_SPI_CHIP_SELECT);
+
+    /* Set 16-bit data width in DMA channels (shared SPI) */
+    SYS_DMA_DataWidthSetup(sPlcPlib->dmaChannelTx, SYS_DMA_WIDTH_16_BIT);
+    SYS_DMA_DataWidthSetup(sPlcPlib->dmaChannelRx, SYS_DMA_WIDTH_16_BIT);
+
     SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelRx, (const void *)sPlcPlib->spiAddressRx, (const void *)sRxSpiData, cmdSize >> 1);
     SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelTx, (const void *)sTxSpiData, (const void *)sPlcPlib->spiAddressTx, cmdSize >> 1);
+
+    /* Restore interrupt status */
+    SYS_INT_SourceRestore(sPlcPlib->sysTimeIntSource, sysTimeIntStatus);
+    SYS_INT_SourceRestore(sPlcPlib->dmaIntSource, dmaIntStatus);
+    SYS_INT_SourceRestore(sPlcPlib->rfExtIntSource, rfExtIntStatus);
 
     if (pCmd->cmd == DRV_PLC_HAL_CMD_RD) {
         while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelTx));
