@@ -191,6 +191,8 @@ typedef struct
     
     bool restartMib;
 
+    bool pvddMonTxEnable;
+
 } PAL_PLC_DATA;
 
 // *****************************************************************************

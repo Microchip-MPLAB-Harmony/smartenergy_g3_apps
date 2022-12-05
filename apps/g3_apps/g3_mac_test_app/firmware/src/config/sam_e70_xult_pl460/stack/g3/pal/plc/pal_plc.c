@@ -244,6 +244,28 @@ static void _palPlcSetInitialConfiguration ( void )
 // Section: local callbacks
 // *****************************************************************************
 // *****************************************************************************
+static void _palPlcPVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
+{
+    (void)context;
+    
+    if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
+    {
+        /* PLC Transmission is not permitted */
+        DRV_G3_MACRT_EnableTX(palPlcData.drvG3MacRtHandle, false);
+        palPlcData.pvddMonTxEnable = false;
+        /* Restart PVDD Monitor to check when VDD is within the comparison window */
+        SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
+    }
+    else
+    {
+        /* PLC Transmission is permitted again */
+        DRV_G3_MACRT_EnableTX(palPlcData.drvG3MacRtHandle, true);
+        palPlcData.pvddMonTxEnable = true;
+        /* Restart PVDD Monitor to check when VDD is out of the comparison window */
+        SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
+    }
+}
+
 static void _palPlcExceptionCb( DRV_G3_MACRT_EXCEPTION exceptionObj )
 {
     switch (exceptionObj) 
@@ -319,6 +341,10 @@ static void _palPlcInitCallback(bool initResult)
         /* Enable PLC Transmission */
         DRV_G3_MACRT_EnableTX(palPlcData.drvG3MacRtHandle, true);
 
+        /* Enable PLC PVDD Monitor Service */
+        SRV_PVDDMON_CallbackRegister(_palPlcPVDDMonitorCb, 0);
+        SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
+
         palPlcData.state = PAL_PLC_STATE_READY;
         palPlcData.status = SYS_STATUS_READY;
         
@@ -356,6 +382,9 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
     /* Clear exceptions statistics */
     palPlcData.statsErrorUnexpectedKey = 0;
     palPlcData.statsErrorReset = 0;
+
+    /* Set PVDD Monitor tracking data */
+    palPlcData.pvddMonTxEnable = true;
 
     palPlcData.waitingTxCfm = false;
     palPlcData.restartMib = true;
@@ -476,6 +505,12 @@ void PAL_PLC_TxRequest(PAL_PLC_HANDLE handle, uint8_t *pData,
     }
     
     if (palPlcData.state != PAL_PLC_STATE_READY)
+    {
+        cfmObj.status = MAC_RT_STATUS_DENIED;
+        cfmObj.updateTimestamp = false;
+    }
+
+    if (palPlcData.pvddMonTxEnable == false)
     {
         cfmObj.status = MAC_RT_STATUS_DENIED;
         cfmObj.updateTimestamp = false;

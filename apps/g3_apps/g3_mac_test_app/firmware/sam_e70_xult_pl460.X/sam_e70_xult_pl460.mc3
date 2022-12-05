@@ -558,7 +558,19 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;GraphSettings canvasHeight=&quot;638&quot; canvasWidth=&quot;786&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;MAC LAYER&quot;&gt;
+      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;g3MacCommon&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3MacPlc&quot; x=&quot;200&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;g3MacWrapper&quot; x=&quot;370&quot; y=&quot;80&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;g3PalPlc&quot; x=&quot;370&quot; y=&quot;221&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;g3_mac_config&quot; x=&quot;380&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvLogReport&quot; x=&quot;31&quot; y=&quot;100&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvRandom&quot; x=&quot;550&quot; y=&quot;80&quot;/&gt;
+      &lt;/ElementPositions&gt;
+    &lt;/ComponentGraph&gt;
+    &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E70_Xplained_Ultra&quot; x=&quot;16&quot; y=&quot;60&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;G3 STACK&quot; x=&quot;390&quot; y=&quot;100&quot;/&gt;
@@ -584,23 +596,11 @@
         &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;usb_device_cdc&quot; x=&quot;25&quot; y=&quot;317&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;638&quot; canvasWidth=&quot;786&quot; dnOrder=&quot;1&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;G3 STACK&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;G3 STACK&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;MAC LAYER&quot; x=&quot;220&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;srvSecurity&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;MAC LAYER&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;g3MacCommon&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3MacPlc&quot; x=&quot;200&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;g3MacWrapper&quot; x=&quot;370&quot; y=&quot;80&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;g3PalPlc&quot; x=&quot;370&quot; y=&quot;221&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;g3_mac_config&quot; x=&quot;380&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvLogReport&quot; x=&quot;31&quot; y=&quot;100&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvRandom&quot; x=&quot;550&quot; y=&quot;80&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
   &lt;/UserData&gt;
@@ -3699,6 +3699,17 @@
   &lt;g3PalPlc dnOrder=&quot;0&quot; id=&quot;G3_PAL_PLC_PHY_SNIFFER_EN&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/g3PalPlc&gt;
+&lt;/g3PalPlc&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalPlc" name="G3_PAL_PLC_PVDD_MONITOR"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalPlc&gt;
+  &lt;g3PalPlc dnOrder=&quot;0&quot; id=&quot;G3_PAL_PLC_PVDD_MONITOR&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/g3PalPlc&gt;
 &lt;/g3PalPlc&gt;
@@ -6966,7 +6977,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_common\mac_common.c</file>
-         <hash>df4ef8351dd6e8f03510426ccbde74e35abc9630ff6d94fc195f1538c544c4c7</hash>
+         <hash>5b3a41b9e885484ea6fe14859330c6869b52a40e8f4990e38163edf2a18c988f</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armclang.h</file>
@@ -7194,7 +7205,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_wrapper\mac_wrapper.c</file>
-         <hash>9735fb9ba6519970c94eb8df96c5f5198789593c29347021de7e9266fd58872a</hash>
+         <hash>49f87f322b7b81b365464d57c8243f3dcffcd0dbc153cfca4de18207d4fe0d87</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\pioe.h</file>
@@ -8646,11 +8657,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\pal\plc\pal_plc.c</file>
-         <hash>52471c81e1780c7e4adcef88abd3430f23bcdfb6ffd4a874204e747cc4bc4d96</hash>
+         <hash>1333b09eb96d4e83e9ca055013574a21bd28cdd1ddc3703eb933b485fcbdf3d4</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\pal\plc\pal_plc.h</file>
-         <hash>578ddf924d7d883e9d63bd3c526c60afd55c55800002216cc4ef2c13ca682693</hash>
+         <hash>f143cb0f603d218fb1120e9ca0d9f43d738b02179524ca8d9a72e6c3d40cd721</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_pukcl_definitions.h</file>
