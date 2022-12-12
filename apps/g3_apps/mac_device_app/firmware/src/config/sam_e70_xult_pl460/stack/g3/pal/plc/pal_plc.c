@@ -465,7 +465,7 @@ void PAL_PLC_TxRequest(PAL_PLC_HANDLE handle, uint8_t *pData,
     if (cfmObj.updateTimestamp)
     {
         palPlcData.waitingTxCfm = true;
-        DRV_G3_MACRT_TxRequest(handle, pData, length);
+        DRV_G3_MACRT_TxRequest(palPlcData.drvG3MacRtHandle, pData, length);
     }
     else
     {
