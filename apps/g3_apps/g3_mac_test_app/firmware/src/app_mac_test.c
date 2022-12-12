@@ -236,6 +236,9 @@ void APP_MAC_TEST_Initialize ( void )
 
 void APP_MAC_TEST_Tasks(void)
 {
+    /* Clear watchdog */
+    WDT_Clear();
+    
     /* Check the application's current state. */
     switch (app_mac_testData.state)
     {
