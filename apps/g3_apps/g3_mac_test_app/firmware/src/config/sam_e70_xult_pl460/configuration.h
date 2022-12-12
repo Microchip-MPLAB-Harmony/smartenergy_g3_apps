@@ -140,18 +140,6 @@ extern "C" {
 #define DRV_G3_MACRT_INSTANCES_NUMBER        1
 #define DRV_G3_MACRT_HOST_DESC               "ATSAME70Q21B"
 
-/* MAC COMMON Identification */
-#define G3_MAC_COMMON_INDEX_0            0
-#define G3_MAC_COMMON_INSTANCES_NUMBER   1
-
-/* MAC PLC Identification */
-#define G3_MAC_PLC_INDEX_0               0
-#define G3_MAC_PLC_INSTANCES_NUMBER      1
-
-/* MAC Wrapper Identification */
-#define G3_MAC_WRP_INDEX_0               0
-#define G3_MAC_WRP_INSTANCES_NUMBER      1
-
 
 // *****************************************************************************
 // *****************************************************************************
@@ -249,6 +237,19 @@ extern "C" {
 #define NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY
 // ---------- FUNCTIONAL CONFIGURATION END ----------
+
+
+/* MAC COMMON Identification */
+#define G3_MAC_COMMON_INDEX_0            0
+#define G3_MAC_COMMON_INSTANCES_NUMBER   1
+
+/* MAC PLC Identification */
+#define G3_MAC_PLC_INDEX_0               0
+#define G3_MAC_PLC_INSTANCES_NUMBER      1
+
+/* MAC Wrapper Identification */
+#define G3_MAC_WRP_INDEX_0               0
+#define G3_MAC_WRP_INSTANCES_NUMBER      1
 
 
 

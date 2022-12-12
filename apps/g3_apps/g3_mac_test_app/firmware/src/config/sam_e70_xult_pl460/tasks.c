@@ -81,9 +81,6 @@ void SYS_Tasks ( void )
     /* Maintain G3 MAC RT Driver */
     DRV_G3_MACRT_Tasks(sysObj.drvG3MacRt);
 
-    /* Maintain G3 MAC RT Driver */
-    MAC_WRP_Tasks(sysObj.g3MacWrapper);
-
 
     /* Maintain Middleware & Other Libraries */
     	/* USB Device layer tasks routine */ 
@@ -92,6 +89,9 @@ void SYS_Tasks ( void )
 	/* USB HS Driver Task Routine */ 
     DRV_USBHSV1_Tasks(sysObj.drvUSBHSV1Object);
 
+
+    /* Maintain G3 MAC */
+    MAC_WRP_Tasks(sysObj.g3MacWrapper);
 
 
     /* Maintain the application's state machine. */

@@ -1034,7 +1034,7 @@ typedef enum
 {
     /* RF device identifier. 16 bits */
     MAC_WRP_RF_PHY_PARAM_DEVICE_ID = 0x0000,
-    /* RF PHY layer firmware version number. 6 bytes (see "at86rf_fw_version_t") */
+    /* RF PHY layer firmware version number. 6 bytes (see "DRV_RF215_FW_VERSION") */
     MAC_WRP_RF_PHY_PARAM_FW_VERSION = 0x0001,
     /* RF device reset (write-only) */
     MAC_WRP_RF_PHY_PARAM_DEVICE_RESET = 0x0002,
@@ -1042,16 +1042,14 @@ typedef enum
     MAC_WRP_RF_PHY_PARAM_TRX_RESET = 0x0080,
     /* RF transceiver (RF09 or RF24) sleep (write-only) */
     MAC_WRP_RF_PHY_PARAM_TRX_SLEEP = 0x0081,
-    /* RF PHY configuration (see "at86rf_phy_cfg_t") */
+    /* RF PHY configuration (see "DRV_RF215_PHY_CFG_OBJ") */
     MAC_WRP_RF_PHY_PARAM_PHY_CONFIG = 0x0100,
-    /* RF PHY band and operating mode. 16 bits (see "at86rf_phy_band_opm_t") */
+    /* RF PHY band and operating mode. 16 bits (see "DRV_RF215_PHY_BAND_OPM") */
     MAC_WRP_RF_PHY_PARAM_PHY_BAND_OPERATING_MODE = 0x0101,
     /* RF channel number used for transmission and reception. 16 bits */
     MAC_WRP_RF_PHY_PARAM_PHY_CHANNEL_NUM = 0x0120,
     /* RF frequency in Hz used for transmission and reception. 32 bits (read-only) */
     MAC_WRP_RF_PHY_PARAM_PHY_CHANNEL_FREQ_HZ = 0x0121,
-    /* Configuration of Energy Detection for CCA. 3 bytes (see "at86rf_cca_ed_cfg_t") */
-    MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_CONFIG = 0x0140,
     /* Duration in us of Energy Detection for CCA. 16 bits */
     MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION = 0x0141,
     /* Threshold in dBm of for CCA with Energy Detection. 16 bits */

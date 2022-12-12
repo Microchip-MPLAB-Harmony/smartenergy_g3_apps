@@ -63,6 +63,16 @@
 // *****************************************************************************
 // *****************************************************************************
 
+typedef struct
+{
+    MAC_DATA_REQUEST_PARAMS dataReqParams;
+    MAC_WRP_MEDIA_TYPE_REQUEST dataReqMediaType;
+    bool used;
+} MAC_WRP_DATA_REQ_ENTRY;
+
+/* Data Request Queue size */
+#define MAC_WRP_DATA_REQ_QUEUE_SIZE   2
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: File Scope Variables
@@ -72,10 +82,57 @@
 // This is the module data object
 static MAC_WRP_DATA macWrpData;
 
+// Data Service Control
+static MAC_WRP_DATA_REQ_ENTRY dataReqQueue[MAC_WRP_DATA_REQ_QUEUE_SIZE];
+
 #define MAC_MAX_DEVICE_TABLE_ENTRIES_PLC    128
 
 static MAC_PLC_TABLES macPlcTables;
 MAC_DEVICE_TABLE_ENTRY macPlcDeviceTable[MAC_MAX_DEVICE_TABLE_ENTRIES_PLC];
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: local functions
+// *****************************************************************************
+// *****************************************************************************
+
+static MAC_WRP_DATA_REQ_ENTRY *_getFreeDataReqEntry(void)
+{
+    uint8_t index;
+    MAC_WRP_DATA_REQ_ENTRY *found = NULL;
+
+    for (index = 0; index < MAC_WRP_DATA_REQ_QUEUE_SIZE; index++)
+    {
+        if (dataReqQueue[index].used == false)
+        {
+            found = &dataReqQueue[index];
+            dataReqQueue[index].used = true;
+            SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "_getFreeDataReqEntry() Found free data request entry on index %u", index);
+            break;
+        }
+    }
+
+    return found;
+}
+
+static MAC_WRP_DATA_REQ_ENTRY *_getDataReqEntryByHandle(uint8_t handle)
+{
+    uint8_t index;
+    MAC_WRP_DATA_REQ_ENTRY *found = NULL;
+
+    for (index = 0; index < MAC_WRP_DATA_REQ_QUEUE_SIZE; index++)
+    {
+        if ((dataReqQueue[index].used == true) && 
+            (dataReqQueue[index].dataReqParams.msduHandle == handle))
+        {
+            found = &dataReqQueue[index];
+            SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "_getDataReqEntryByHandle() Found matching data request entry on index %u, Handle: 0x%02X", index, handle);
+            break;
+        }
+    }
+
+    return found;
+}
 
 static bool _macWrpIsSharedAttribute(MAC_WRP_PIB_ATTRIBUTE attribute)
 {
@@ -104,15 +161,31 @@ static bool _macWrpIsSharedAttribute(MAC_WRP_PIB_ATTRIBUTE attribute)
 
 static void _Callback_MacPlcDataConfirm(MAC_DATA_CONFIRM_PARAMS *dcParams)
 {
+    MAC_WRP_DATA_CONFIRM_PARAMS dataConfirmParams;
+    MAC_WRP_DATA_REQ_ENTRY *matchingDataReq;
+
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "_Callback_MacPlcDataConfirm() Handle: 0x%02X Status: %u", dcParams->msduHandle, (uint8_t)dcParams->status);
 
-    MAC_WRP_DATA_CONFIRM_PARAMS dataConfirmParams;
+    /* Get Data Request entry matching confirm */
+    matchingDataReq = _getDataReqEntryByHandle(dcParams->msduHandle);
 
+    /* Avoid unmached handling */
+    if (matchingDataReq == NULL)
+    {
+        SRV_LOG_REPORT_Message(SRV_LOG_REPORT_ERROR, "_Callback_MacPlcDataConfirm() Confirm does not match any previous request!!");
+        return;
+    }
+
+    /* Copy dcParams from Mac */
+    memcpy(&dataConfirmParams, dcParams, sizeof(MAC_DATA_CONFIRM_PARAMS));
+
+    /* Fill Media Type */
+    dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_PLC;
+
+    /* Release Data Req entry and send confirm to upper layer */
+    matchingDataReq->used = false;
     if (macWrpData.macWrpHandlers.dataConfirmCallback != NULL)
     {
-        /* Copy dcParams from Mac and fill Media Type */
-        memcpy(&dataConfirmParams, dcParams, sizeof(MAC_DATA_CONFIRM_PARAMS));
-        dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_PLC;
         macWrpData.macWrpHandlers.dataConfirmCallback(&dataConfirmParams);
     }
 }
@@ -123,11 +196,11 @@ static void _Callback_MacPlcDataIndication(MAC_DATA_INDICATION_PARAMS *diParams)
 
     MAC_WRP_DATA_INDICATION_PARAMS dataIndicationParams;
 
+     /* Copy diParams from Mac and fill Media Type */
+    memcpy(&dataIndicationParams, diParams, sizeof(MAC_DATA_INDICATION_PARAMS));
+    dataIndicationParams.mediaType = MAC_WRP_MEDIA_TYPE_IND_PLC;
     if (macWrpData.macWrpHandlers.dataIndicationCallback != NULL)
     {
-        /* Copy diParams from Mac and fill Media Type */
-        memcpy(&dataIndicationParams, diParams, sizeof(MAC_DATA_INDICATION_PARAMS));
-        dataIndicationParams.mediaType = MAC_WRP_MEDIA_TYPE_IND_PLC;
         macWrpData.macWrpHandlers.dataIndicationCallback(&dataIndicationParams);
     }
 }
@@ -148,12 +221,12 @@ static void _Callback_MacPlcBeaconNotify(MAC_BEACON_NOTIFY_INDICATION_PARAMS *bn
 
     MAC_WRP_BEACON_NOTIFY_INDICATION_PARAMS notifyIndicationParams;
 
-    /* Copy bnParams from Mac. Media Type will be filled later */
+    /* Copy bnParams from Mac and fill Media Type */
     memcpy(&notifyIndicationParams, bnParams, sizeof(MAC_BEACON_NOTIFY_INDICATION_PARAMS));
+    notifyIndicationParams.panDescriptor.mediaType = MAC_WRP_MEDIA_TYPE_IND_PLC;
 
     if (macWrpData.macWrpHandlers.beaconNotifyIndicationCallback != NULL)
     {
-        notifyIndicationParams.panDescriptor.mediaType = MAC_WRP_MEDIA_TYPE_IND_PLC;
         macWrpData.macWrpHandlers.beaconNotifyIndicationCallback(&notifyIndicationParams);
     }
 }
@@ -162,6 +235,10 @@ static void _Callback_MacPlcScanConfirm(MAC_SCAN_CONFIRM_PARAMS *scParams)
 {
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "_Callback_MacPlcScanConfirm: Status: %u", scParams->status);
 
+    /* Clear flag */
+    macWrpData.scanRequestInProgress = false;
+
+    /* Send confirm to upper layer */
     if (macWrpData.macWrpHandlers.scanConfirmCallback != NULL)
     {
         macWrpData.macWrpHandlers.scanConfirmCallback((MAC_WRP_SCAN_CONFIRM_PARAMS *)scParams);
@@ -184,12 +261,12 @@ static void _Callback_MacPlcCommStatusIndication(MAC_COMM_STATUS_INDICATION_PARA
 
     MAC_WRP_COMM_STATUS_INDICATION_PARAMS commStatusIndicationParams;
 
-    /* Copy csParams from Mac. Media Type will be filled later */
+    /* Copy csParams from Mac and fill Media Type */
     memcpy(&commStatusIndicationParams, csParams, sizeof(MAC_COMM_STATUS_INDICATION_PARAMS));
+    commStatusIndicationParams.mediaType = MAC_WRP_MEDIA_TYPE_IND_PLC;
 
     if (macWrpData.macWrpHandlers.commStatusIndicationCallback != NULL)
     {
-        commStatusIndicationParams.mediaType = MAC_WRP_MEDIA_TYPE_IND_PLC;
         macWrpData.macWrpHandlers.commStatusIndicationCallback(&commStatusIndicationParams);
     }
 }
@@ -212,30 +289,21 @@ static void _Callback_MacPlcMacSnifferIndication(MAC_SNIFFER_INDICATION_PARAMS *
 
 SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE_INIT * const init)
 {
-    bool initError = false;
-
     /* Validate the request */
     if (index >= G3_MAC_WRP_INSTANCES_NUMBER)
     {
         return SYS_MODULE_OBJ_INVALID;
     }
 
-    if (macWrpData.inUse == true)
-    {
-        return SYS_MODULE_OBJ_INVALID;
-    }
-
-    macWrpData.inUse = true;
     macWrpData.state = MAC_WRP_STATE_NOT_READY;
+    macWrpData.macWrpHandle = (MAC_WRP_HANDLE) 0;
+    macWrpData.scanRequestInProgress = false;
+    for (uint8_t index = 0; index < MAC_WRP_DATA_REQ_QUEUE_SIZE; index++)
+    {
+        dataReqQueue[index].used = false;
+    }
 
-    if (initError)
-    {
-        return SYS_MODULE_OBJ_INVALID;
-    }
-    else
-    {
-        return (SYS_MODULE_OBJ)0; 
-    }
+    return (SYS_MODULE_OBJ)0; 
 }
 
 MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index)
@@ -245,12 +313,12 @@ MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index)
     {
         return MAC_WRP_HANDLE_INVALID;
     }
-    else
+    else if (macWrpData.state != MAC_WRP_STATE_NOT_READY)
     {
-        macWrpData.state = MAC_WRP_STATE_IDLE;
-        macWrpData.macWrpHandle = (MAC_WRP_HANDLE)0;
-        return macWrpData.macWrpHandle;
+        return MAC_WRP_HANDLE_INVALID;
     }
+
+    return macWrpData.macWrpHandle;
 }
 
 void MAC_WRP_Tasks(SYS_MODULE_OBJ object)
@@ -260,7 +328,9 @@ void MAC_WRP_Tasks(SYS_MODULE_OBJ object)
         // Invalid object
         return;
     }
+
     MAC_PLC_Tasks();
+    MAC_COMMON_GetMsCounter(); // Just to avoid counter overflow
 }
 
 void MAC_WRP_Init(MAC_WRP_HANDLE handle, MAC_WRP_INIT *init)
@@ -275,7 +345,6 @@ void MAC_WRP_Init(MAC_WRP_HANDLE handle, MAC_WRP_INIT *init)
 
     /* Set init data */
     macWrpData.macWrpHandlers = init->macWrpHandlers;
-    macWrpData.plcBand = init->plcBand;
 
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "MAC_WRP_Init: Initializing PLC MAC...");
 
@@ -299,6 +368,8 @@ void MAC_WRP_Init(MAC_WRP_HANDLE handle, MAC_WRP_INIT *init)
     MAC_PLC_Init(&plcInitData);
 
     MAC_COMMON_Init();
+
+    macWrpData.state = MAC_WRP_STATE_IDLE;
 }
 
 SYS_STATUS MAC_WRP_Status(void)
@@ -309,6 +380,7 @@ SYS_STATUS MAC_WRP_Status(void)
 void MAC_WRP_DataRequest(MAC_WRP_HANDLE handle, MAC_WRP_DATA_REQUEST_PARAMS *drParams)
 {
     MAC_WRP_DATA_CONFIRM_PARAMS dataConfirm;
+    MAC_WRP_DATA_REQ_ENTRY *dataReqEntry;
 
     if (handle != macWrpData.macWrpHandle)
     {
@@ -319,18 +391,38 @@ void MAC_WRP_DataRequest(MAC_WRP_HANDLE handle, MAC_WRP_DATA_REQUEST_PARAMS *drP
             dataConfirm.msduHandle = drParams->msduHandle;
             dataConfirm.status = MAC_WRP_STATUS_INVALID_HANDLE;
             dataConfirm.timestamp = 0;
-            dataConfirm.mediaType = (MAC_WRP_MEDIA_TYPE_CONFIRM)drParams->mediaType;
+            dataConfirm.mediaType = (MAC_WRP_MEDIA_TYPE_CONFIRM) drParams->mediaType;
             macWrpData.macWrpHandlers.dataConfirmCallback(&dataConfirm);
         }
 
         return;
     }
 
-    MAC_DATA_REQUEST_PARAMS dataReq;
-    SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_INFO, drParams->msdu, drParams->msduLength, "MAC_WRP_DataRequest (Handle %02X): ", drParams->msduHandle);
-    // Copy data to Mac struct (media type is not copied as it is the last field of pParameters)
-    memcpy(&dataReq, drParams, sizeof(dataReq));
-    MAC_PLC_DataRequest(&dataReq);
+    SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_INFO, drParams->msdu, drParams->msduLength, "MAC_WRP_DataRequest (Handle: 0x%02X Media Type: %02X): ", drParams->msduHandle, drParams->mediaType);
+
+    /* Look for free Data Request Entry */
+    dataReqEntry = _getFreeDataReqEntry();
+
+    if (dataReqEntry == NULL)
+    {
+        /* Too many data requests */
+        /* Send confirm to upper layer and return */
+        dataConfirm.msduHandle = drParams->msduHandle;
+        dataConfirm.status = MAC_WRP_STATUS_QUEUE_FULL;
+        dataConfirm.timestamp = 0;
+        dataConfirm.mediaType = (MAC_WRP_MEDIA_TYPE_CONFIRM)drParams->mediaType;
+        if (macWrpData.macWrpHandlers.dataConfirmCallback != NULL)
+        {
+            macWrpData.macWrpHandlers.dataConfirmCallback(&dataConfirm);
+        }
+
+        return;
+    }
+
+    /* Accept request */
+    /* Copy data to Mac struct (media type is not copied as it is the last field of drParams) */
+    memcpy(&dataReqEntry->dataReqParams, drParams, sizeof(dataReqEntry->dataReqParams));
+    MAC_PLC_DataRequest(&dataReqEntry->dataReqParams);
 }
 
 MAC_WRP_STATUS MAC_WRP_GetRequestSync(MAC_WRP_HANDLE handle, MAC_WRP_PIB_ATTRIBUTE attribute, uint16_t index, MAC_WRP_PIB_VALUE *pibValue)
@@ -419,11 +511,12 @@ void MAC_WRP_ResetRequest(MAC_WRP_HANDLE handle, MAC_WRP_RESET_REQUEST_PARAMS *r
 
 void MAC_WRP_ScanRequest(MAC_WRP_HANDLE handle, MAC_WRP_SCAN_REQUEST_PARAMS *scanParams)
 {
+    MAC_WRP_SCAN_CONFIRM_PARAMS scanConfirm;
+
     if (handle != macWrpData.macWrpHandle)
     {
         /* Handle error */
         /* Send confirm to upper layer and return */
-        MAC_WRP_SCAN_CONFIRM_PARAMS scanConfirm;
         if (macWrpData.macWrpHandlers.scanConfirmCallback != NULL)
         {
             scanConfirm.status = MAC_WRP_STATUS_INVALID_HANDLE;
@@ -433,8 +526,23 @@ void MAC_WRP_ScanRequest(MAC_WRP_HANDLE handle, MAC_WRP_SCAN_REQUEST_PARAMS *sca
         return;
     }
 
+    if (macWrpData.scanRequestInProgress == true)
+    {
+        /* Scan request already in progress */
+        /* Send confirm to upper layer and return */
+        scanConfirm.status = MAC_WRP_STATUS_DENIED;
+        if (macWrpData.macWrpHandlers.scanConfirmCallback != NULL)
+        {
+            macWrpData.macWrpHandlers.scanConfirmCallback(&scanConfirm);
+        }
+
+        return;
+    }
+
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "MAC_WRP_ScanRequest: Duration: %u", scanParams->scanDuration);
 
+    // Set control variable
+    macWrpData.scanRequestInProgress = true;
     // Set PLC MAC on Scan state
     MAC_PLC_ScanRequest((MAC_SCAN_REQUEST_PARAMS *)scanParams);
 }

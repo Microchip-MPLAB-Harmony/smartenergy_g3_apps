@@ -558,8 +558,15 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;638&quot; canvasWidth=&quot;786&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;MAC LAYER&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;G3 STACK&quot;&gt;
+      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;MAC LAYER&quot; x=&quot;220&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;srvSecurity&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
+      &lt;/ElementPositions&gt;
+    &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;638&quot; canvasWidth=&quot;786&quot; dnOrder=&quot;1&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;MAC LAYER&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;g3MacCommon&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3MacPlc&quot; x=&quot;200&quot; y=&quot;20&quot;/&gt;
@@ -570,7 +577,7 @@
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvRandom&quot; x=&quot;550&quot; y=&quot;80&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E70_Xplained_Ultra&quot; x=&quot;16&quot; y=&quot;60&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;G3 STACK&quot; x=&quot;390&quot; y=&quot;100&quot;/&gt;
@@ -594,13 +601,6 @@
         &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;trng&quot; x=&quot;464&quot; y=&quot;150&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;usb_device&quot; x=&quot;30&quot; y=&quot;240&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;usb_device_cdc&quot; x=&quot;25&quot; y=&quot;317&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;G3 STACK&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;MAC LAYER&quot; x=&quot;220&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;srvSecurity&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
   &lt;/UserData&gt;
@@ -6909,7 +6909,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\tasks.c</file>
-         <hash>123bab00e73418214dd0954f34553c74208cfd4cccbc62d967de00a3cc2df72e</hash>
+         <hash>7c57524b07a157343df0f96cd97df6ebb10bfcc44c3e1522faa103c2066ccce1</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_ClearFlags_pb.h</file>
@@ -6977,7 +6977,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_common\mac_common.c</file>
-         <hash>5b3a41b9e885484ea6fe14859330c6869b52a40e8f4990e38163edf2a18c988f</hash>
+         <hash>7690bef56e44749c47941f180fae53e3ba513d5e3893cd0a41c27f6ae2fdc08b</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armclang.h</file>
@@ -7149,7 +7149,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\configuration.h</file>
-         <hash>67c7e2abe1406a5519895f67b24704609066abd8595067937f6d3251aed8c97c</hash>
+         <hash>b1885ba909cc0a37ec2e3a5e0dd4faed220b45015614b044e6e55e637d8e044f</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\usb\usb_cdc.h</file>
@@ -7205,7 +7205,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_wrapper\mac_wrapper.c</file>
-         <hash>49f87f322b7b81b365464d57c8243f3dcffcd0dbc153cfca4de18207d4fe0d87</hash>
+         <hash>6de99132c3c34c88e529c7f5b35659fe07a07e90bf98780e5e80d69affcb28a1</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\pioe.h</file>
@@ -7217,7 +7217,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_wrapper\mac_wrapper.h</file>
-         <hash>2c246fda75b61492b9c095f3c9d28474f91db9a1ce4f21a90a37afff66a03ed9</hash>
+         <hash>f8c99cacd9ac228b4789a2458ca22cc69d3c72869c23aad41884c7b925c1c05d</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\g3MacRt\drv_g3_macrt_comm.h</file>
@@ -7265,7 +7265,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\g3MacRt\drv_g3_macrt_local_comm.c</file>
-         <hash>6984e67c8c76422ef4d815311edef98a54da1d6d512c811a878ab263a1dcd641</hash>
+         <hash>994bf93a47ffb6e5eda8adcc05de3e8eed9d207debeace75db7cc366207fcf91</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\blake2s.c</file>
@@ -7573,7 +7573,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_plc\g3_lib_plc_mac.a</file>
-         <hash>d90b1cbcc498fbef4dd59a408502680eb9fd23c385c55e69ae88d821174c4104</hash>
+         <hash>0ebebf9dedad660e88d4cca7e35c55c24ff71adcbc1cd6dae4a9f296e5a44f49</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\pmc.h</file>
@@ -8029,7 +8029,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_wrapper\mac_wrapper_defs.h</file>
-         <hash>14dc11c8d37a6c4a7343eeca90ff5c049b37196132c045670b91377ea369673d</hash>
+         <hash>fd3ed550a538b31fa5a81699b3204757965af3c05b8081ec85675e1bd08e7dab</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_plc\mac_plc_mib.h</file>
@@ -8165,7 +8165,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\initialization.c</file>
-         <hash>785a7d75ba74af09f2c7df9337cf8740d00a817cb360976f66873b8d8a79ca84</hash>
+         <hash>2d19b50c6b4f7ffd07ee04374f1629278a8aa26c89bf899fa68fecad5a2bb00d</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\mcan.h</file>
@@ -8657,11 +8657,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\pal\plc\pal_plc.c</file>
-         <hash>1333b09eb96d4e83e9ca055013574a21bd28cdd1ddc3703eb933b485fcbdf3d4</hash>
+         <hash>72ef2879f967186a602bed714ac32c654f36ded3455cb4582d541508a09d58dc</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\pal\plc\pal_plc.h</file>
-         <hash>f143cb0f603d218fb1120e9ca0d9f43d738b02179524ca8d9a72e6c3d40cd721</hash>
+         <hash>010e8134625e5d479aee6af90d5a596b086d8d9b585fccdbfbf75a038e9b7a1c</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_pukcl_definitions.h</file>

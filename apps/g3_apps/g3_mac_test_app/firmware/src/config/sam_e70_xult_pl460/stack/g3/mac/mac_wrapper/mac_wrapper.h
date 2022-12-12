@@ -426,10 +426,8 @@ typedef enum
 {
     MAC_WRP_STATE_NOT_READY,
     MAC_WRP_STATE_IDLE,
-    MAC_WRP_STATE_TX,
-    MAC_WRP_STATE_WAITING_TX_CFM,
     MAC_WRP_STATE_ERROR,
-}MAC_WRP_STATE;
+} MAC_WRP_STATE;
 
 // *****************************************************************************
 /* MAC Wrapper Data Confirm Event Handler Function Pointer
@@ -1318,16 +1316,14 @@ typedef struct
 */
 typedef struct
 {
-    /* Flag to indicate this object is in use  */
-    bool inUse;
     /* State of the MAC Wrapper module */
     MAC_WRP_STATE state;
-    /* Mac Wrapper instance handle */
-    MAC_WRP_HANDLE macWrpHandle;
     /* Callbacks */
     MAC_WRP_HANDLERS macWrpHandlers;
-    /* PLC working band. Only used if PLC MAC is present */
-    MAC_WRP_BAND plcBand;
+    /* Mac Wrapper instance handle */
+    MAC_WRP_HANDLE macWrpHandle;
+    /* Flag to indicate scan request in progress */
+    bool scanRequestInProgress;
 } MAC_WRP_DATA;
 
 // *****************************************************************************
