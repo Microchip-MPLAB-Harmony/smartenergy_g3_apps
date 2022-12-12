@@ -53,7 +53,7 @@
     Application strings and buffers are be defined outside this structure.
 */
 
-APP_RF_DATA appRFData;
+APP_RF_DATA appRFData = {0};
 
 static char appRFMessage[] = "Hello RF world\r\n";
 
@@ -70,10 +70,9 @@ static void _rfDataIndication(uint8_t *pData, uint16_t length, PAL_RF_RX_PARAMET
 
 static void _rfTxConfirm(PAL_RF_PHY_STATUS status, uint32_t timeIni, uint32_t timeEnd)
 {
-    
     appRFData.txStatus = status;
-    appRFData.txTimeIni = timeIni;
-    appRFData.txTimeEnd = timeEnd;
+    appRFData.txTimeIniCount = timeIni;
+    appRFData.txTimeEndCount = timeEnd;
     
     appRFData.pendingTxCfm = false;
 }
@@ -104,20 +103,12 @@ static void _rfTxConfirm(PAL_RF_PHY_STATUS status, uint32_t timeIni, uint32_t ti
 
 void APP_RF_Initialize ( void )
 {
-    PAL_RF_INIT palRfInitData;
-    
-    palRfInitData.rfPhyHandlers.palRfDataIndication = _rfDataIndication;
-    palRfInitData.rfPhyHandlers.palRfTxConfirm = _rfTxConfirm;
-            
     /* Place the App state machine in its initial state. */
-    appRFData.state = APP_RF_STATE_WAITING_INIT;
+    appRFData.state = APP_RF_STATE_INIT;
     
     memset(appRFData.pibObj.pData, 0, sizeof(appRFData.pibObj.pData));
     
     appRFData.pendingTxCfm = false;
-
-    /* Initialize the PAL RF module */
-    appRFData.palRfObj = PAL_RF_Initialize( PAL_PLC_PHY_INDEX, (const SYS_MODULE_INIT *) &palRfInitData );
 }
 
 
@@ -132,39 +123,42 @@ void APP_RF_Initialize ( void )
 void APP_RF_Tasks ( void )
 {
     /* Check the application's current state. */
-    switch ( appRFData.state )
+    switch (appRFData.state)
     {
         /* Application's initial state. */
-        case APP_RF_STATE_WAITING_INIT:
+        case APP_RF_STATE_INIT:
         {
             /* Wait Console initialization */
             if (SYS_CONSOLE_Status(SYS_CONSOLE_INDEX_0) == SYS_STATUS_READY)
             {
-                if (PAL_RF_Status(appRFData.palHandler) == SYS_STATUS_READY)
-                {
-                    appRFData.consoleHandler = SYS_CONSOLE_HandleGet(SYS_CONSOLE_INDEX_0);
-                    SYS_CONSOLE_Message(appRFData.consoleHandler, "PAL RF opening...\r\n");
+                PAL_RF_INIT palRfInitData;
+
+                appRFData.consoleHandler = SYS_CONSOLE_HandleGet(SYS_CONSOLE_INDEX_0);
+                SYS_CONSOLE_Message(appRFData.consoleHandler, "PAL RF initializing...\r\n");
                     
-                    /* Open PAL PLC */
-                    appRFData.palHandler = PAL_RF_Open(PAL_RF_PHY_INDEX, DRV_IO_INTENT_READWRITE);
-                    if (appRFData.palHandler == DRV_HANDLE_INVALID)
-                    {
-                        appRFData.state = APP_RF_STATE_ERROR;
-                    }
-                    else
-                    {
-                        appRFData.state = APP_RF_STATE_GET_PHY_VERSION;
-                    }
-                }
+                palRfInitData.rfPhyHandlers.palRfDataIndication = _rfDataIndication;
+                palRfInitData.rfPhyHandlers.palRfTxConfirm = _rfTxConfirm;
+                /* Initialize the PAL RF module */
+                appRFData.palRfObj = PAL_RF_Initialize(PAL_RF_PHY_INDEX, (const SYS_MODULE_INIT *) &palRfInitData);
+                
+                appRFData.state = APP_RF_STATE_WAITING_READY;
             }
             break;
         }
         
         case APP_RF_STATE_WAITING_READY:
         {
-            if (PAL_RF_Status(appRFData.palRfObj) == SYS_STATUS_READY)
+            if (PAL_RF_Status(appRFData.palRfObj) == PAL_RF_STATUS_READY)
             {
-                appRFData.state = APP_RF_STATE_GET_PHY_VERSION;
+                appRFData.palHandler = PAL_RF_HandleGet(PAL_RF_PHY_INDEX);
+                if (appRFData.palHandler == PAL_RF_HANDLE_INVALID)
+                {
+                    appRFData.state = APP_RF_STATE_ERROR;
+                }
+                else
+                {
+                    appRFData.state = APP_RF_STATE_GET_PHY_VERSION;
+                }
             }
             break;
         }
@@ -213,6 +207,20 @@ void APP_RF_Tasks ( void )
             }
             else
             {
+                appRFData.state = APP_RF_STATE_DEINIT;
+            }
+            break;
+        }
+
+        case APP_RF_STATE_DEINIT:
+        {
+            if (appRFData.performRfPhyDeinit)
+            {
+                PAL_RF_Deinitialize(PAL_RF_PHY_INDEX);
+                appRFData.state = APP_RF_STATE_INIT;
+            }
+            else
+            {
                 appRFData.state = APP_RF_STATE_SEND_MESSAGE;
             }
             break;
@@ -226,14 +234,16 @@ void APP_RF_Tasks ( void )
 
             txParameters.csmaEnable = false;
             txParameters.txPowerAttenuation = 0;
-            txParameters.time = SYS_TIME_Counter64Get() + SYS_TIME_MSToCount(1000);
+            txParameters.timeCount = SYS_TIME_Counter64Get() + SYS_TIME_MSToCount(1000);
 
             appRFData.pendingTxCfm = true;
 
             PAL_RF_TxRequest(appRFData.palHandler, (uint8_t *)appRFMessage, sizeof(appRFMessage), &txParameters);
 
-            appRFData.state = APP_RF_STATE_WAITING_TXCFM;
-            
+            if (appRFData.pendingTxCfm)
+            {
+                appRFData.state = APP_RF_STATE_WAITING_TXCFM;
+            }
             break;
         }
         
@@ -241,8 +251,8 @@ void APP_RF_Tasks ( void )
         {
             if (!appRFData.pendingTxCfm)
             {
-                SYS_CONSOLE_Print(appRFData.consoleHandler, "PAL RF -> _rfTxConfirm(): timeIni = %u - timeEnd = %u - ",
-                        appRFData.txTimeIni, appRFData.txTimeEnd);
+                SYS_CONSOLE_Print(appRFData.consoleHandler, "PAL RF -> _rfTxConfirm(): timeIniCount = %u - timeEndCount = %u - ",
+                        appRFData.txTimeIniCount, appRFData.txTimeEndCount);
 
                 switch(appRFData.txStatus)
                 {
@@ -309,7 +319,7 @@ void APP_RF_Tasks ( void )
 
         case APP_RF_STATE_ERROR:
         {
-            if (PAL_PLC_Status(appRFData.palRfObj) == SYS_STATUS_READY)
+            if (PAL_PLC_Status(appRFData.palRfObj) == PAL_PLC_STATUS_READY)
             {
                 appRFData.state = appRFData.prevState;
             }

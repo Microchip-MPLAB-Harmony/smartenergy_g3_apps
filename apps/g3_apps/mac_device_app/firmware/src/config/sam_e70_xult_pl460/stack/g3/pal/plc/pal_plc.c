@@ -66,20 +66,7 @@ extern uint8_t g3_mac_rt_bin_end;
 extern uint8_t g3_mac_rt_bin2_start;
 extern uint8_t g3_mac_rt_bin2_end;
 
-static PAL_PLC_DATA palPlcData;
-
-const PAL_PLC_OBJECT_BASE PAL_PLC_OBJECT_BASE_Default =
-{
-    .PAL_PLC_Initialize = PAL_PLC_Initialize,
-    .PAL_PLC_Status = PAL_PLC_Status,
-    .PAL_PLC_Open = PAL_PLC_Open,
-    .PAL_PLC_Close = PAL_PLC_Close,
-    .PAL_PLC_TxRequest = PAL_PLC_TxRequest,
-    .PAL_PLC_Reset = PAL_PLC_Reset,
-    .PAL_PLC_GetPhyTime = PAL_PLC_GetPhyTime,
-    .PAL_PLC_GetMacRtPib = PAL_PLC_GetMacRtPib,
-    .PAL_PLC_SetMacRtPib = PAL_PLC_SetMacRtPib
-};
+static PAL_PLC_DATA palPlcData = {0};
 
 // *****************************************************************************
 // *****************************************************************************
@@ -258,8 +245,7 @@ static void _palPlcExceptionCb( DRV_G3_MACRT_EXCEPTION exceptionObj )
     
     /* Set restart Mib flag */
     palPlcData.restartMib = false;
-    palPlcData.status = SYS_STATUS_ERROR;
-    palPlcData.state = PAL_PLC_STATE_ERROR;
+    palPlcData.status = PAL_PLC_STATUS_ERROR;
 }
 
 static void _palPlcDataCfmCb( MAC_RT_TX_CFM_OBJ *cfmObj )
@@ -318,8 +304,7 @@ static void _palPlcInitCallback(bool initResult)
         /* Enable PLC Transmission */
         DRV_G3_MACRT_EnableTX(palPlcData.drvG3MacRtHandle, true);
 
-        palPlcData.state = PAL_PLC_STATE_READY;
-        palPlcData.status = SYS_STATUS_READY;
+        palPlcData.status = PAL_PLC_STATUS_READY;
         
         /* Check pending PLC transmissions */
         if (palPlcData.waitingTxCfm)
@@ -333,8 +318,7 @@ static void _palPlcInitCallback(bool initResult)
     } 
     else 
     {
-        palPlcData.state = PAL_PLC_STATE_ERROR;
-        palPlcData.status = SYS_STATUS_ERROR;
+        palPlcData.status = PAL_PLC_STATUS_ERROR;
     }
 }
 
@@ -348,53 +332,31 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
         const SYS_MODULE_INIT * const init)
 {
     PAL_PLC_INIT *palInit = (PAL_PLC_INIT *)init;
+    MAC_RT_BAND plcBandMain;
+    MAC_RT_BAND plcBandAux;
+    bool macRtInitFlag = false;
+    
+    /* Check Single instance */
+    if (index != PAL_PLC_PHY_INDEX)
+    {
+        return SYS_MODULE_OBJ_INVALID;
+    }
+    
+    /* Check previously initialized */
+    if (palPlcData.status != PAL_PLC_STATUS_UNINITIALIZED)
+    {
+        return SYS_MODULE_OBJ_INVALID;
+    }
         
     palPlcData.initHandlers = palInit->macRtHandlers;
     palPlcData.plcBand = palInit->macRtBand;
+    palPlcData.restartMib = palInit->initMIB;
     
     /* Clear exceptions statistics */
     palPlcData.statsErrorUnexpectedKey = 0;
     palPlcData.statsErrorReset = 0;
 
     palPlcData.waitingTxCfm = false;
-    palPlcData.restartMib = true;
-    
-    palPlcData.state = PAL_PLC_STATE_INIT;
-    palPlcData.status = SYS_STATUS_READY;
-    
-    return (SYS_MODULE_OBJ)0;    
-}
-
-SYS_STATUS PAL_PLC_Status(SYS_MODULE_OBJ object)
-{
-    if (object != 0)
-    {
-        return SYS_STATUS_ERROR;
-    }
-    
-    return palPlcData.status;
-}
- 
-PAL_PLC_HANDLE PAL_PLC_Open(const SYS_MODULE_INDEX drvIndex, 
-        const DRV_IO_INTENT intent)
-{
-    MAC_RT_BAND plcBandMain;
-    MAC_RT_BAND plcBandAux;
-    bool macRtInitFlag = false;
-    
-    /* Single instance */
-    if (drvIndex != PAL_PLC_PHY_INDEX)
-    {
-        return PAL_PLC_HANDLE_INVALID;
-    }
-    
-    /* Check PAL PLC state */
-    if (palPlcData.state != PAL_PLC_STATE_INIT)
-    {
-        return PAL_PLC_HANDLE_INVALID;
-    }
-    
-    DRV_G3_MACRT_InitCallbackRegister(DRV_G3_MACRT_INDEX, _palPlcInitCallback);
     
     /* Manage G3 PLC Band */
     plcBandMain = (MAC_RT_BAND)SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_MAIN_BRANCH);
@@ -421,44 +383,64 @@ PAL_PLC_HANDLE PAL_PLC_Open(const SYS_MODULE_INDEX drvIndex,
     }
     else
     {
-        return PAL_PLC_HANDLE_INVALID; 
+        return SYS_MODULE_OBJ_INVALID; 
     }
     
     if (macRtInitFlag)
     {
         /* Initialize PLC Driver Instance */
-        DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, 
-                (SYS_MODULE_INIT *)&drvG3MacRtInitData);
+        DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvG3MacRtInitData);
     }
+    
+    DRV_G3_MACRT_InitCallbackRegister(DRV_G3_MACRT_INDEX, _palPlcInitCallback);
     
     /* Open PLC driver */
     palPlcData.drvG3MacRtHandle = DRV_G3_MACRT_Open(DRV_G3_MACRT_INDEX, NULL);
 
     if (palPlcData.drvG3MacRtHandle != PAL_PLC_HANDLE_INVALID)
     {
-        palPlcData.state = PAL_PLC_STATE_OPENING;
-        palPlcData.status = SYS_STATUS_BUSY;
-        return palPlcData.drvG3MacRtHandle;
+        palPlcData.status = PAL_PLC_STATUS_BUSY;
+        return (SYS_MODULE_OBJ)PAL_PLC_PHY_INDEX;
     }
     else
     {
-        palPlcData.state = PAL_PLC_STATE_ERROR;
-        palPlcData.status = SYS_STATUS_ERROR;
-        return PAL_PLC_HANDLE_INVALID;
+        palPlcData.status = PAL_PLC_STATUS_ERROR;
+        return SYS_MODULE_OBJ_INVALID;
     }
 }
- 
-void PAL_PLC_Close(PAL_PLC_HANDLE handle)
+
+PAL_PLC_HANDLE PAL_PLC_HandleGet(const SYS_MODULE_INDEX index)
+{    
+    /* Check Single instance */
+    if (index != PAL_PLC_PHY_INDEX)
+    {
+        return PAL_PLC_HANDLE_INVALID;
+    }
+
+    return (PAL_PLC_HANDLE)&palPlcData;
+}
+
+PAL_PLC_STATUS PAL_PLC_Status(SYS_MODULE_OBJ object)
 {
-    if (handle != palPlcData.drvG3MacRtHandle)
+    if (object != (SYS_MODULE_OBJ)PAL_PLC_PHY_INDEX)
+    {
+        return PAL_PLC_STATUS_INVALID_OBJECT;
+    }
+    
+    return palPlcData.status;
+}
+ 
+void PAL_PLC_Deinitialize(SYS_MODULE_OBJ object)
+{
+    if (object != (SYS_MODULE_OBJ)PAL_PLC_PHY_INDEX)
     {
         return;
     }
     
-    palPlcData.state = PAL_PLC_STATE_INIT;
+    palPlcData.status = PAL_PLC_STATUS_UNINITIALIZED;
     
     DRV_G3_MACRT_InitCallbackRegister(DRV_G3_MACRT_INDEX, NULL);
-    DRV_G3_MACRT_Close(handle);
+    DRV_G3_MACRT_Close(palPlcData.drvG3MacRtHandle);
 }
  
 void PAL_PLC_TxRequest(PAL_PLC_HANDLE handle, uint8_t *pData, 
@@ -468,13 +450,13 @@ void PAL_PLC_TxRequest(PAL_PLC_HANDLE handle, uint8_t *pData,
     
     cfmObj.updateTimestamp = true;
     
-    if (handle != palPlcData.drvG3MacRtHandle)
+    if (handle != (PAL_PLC_HANDLE)&palPlcData)
     {
         cfmObj.status = MAC_RT_STATUS_DENIED;
         cfmObj.updateTimestamp = false;
     }
     
-    if (palPlcData.state != PAL_PLC_STATE_READY)
+    if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
         cfmObj.status = MAC_RT_STATUS_DENIED;
         cfmObj.updateTimestamp = false;
@@ -494,20 +476,29 @@ void PAL_PLC_TxRequest(PAL_PLC_HANDLE handle, uint8_t *pData,
  
 void PAL_PLC_Reset(PAL_PLC_HANDLE handle, bool resetMib)
 {
-    if (handle != palPlcData.drvG3MacRtHandle)
+    PAL_PLC_INIT palInit;
+    
+    if (handle != (PAL_PLC_HANDLE)&palPlcData)
     {
         return;
     }
     
-    palPlcData.restartMib = resetMib;
+    palInit.macRtHandlers = palPlcData.initHandlers;
+    palInit.macRtBand = palPlcData.plcBand;
+    palInit.initMIB = resetMib;
     
-    PAL_PLC_Close(handle);
-    PAL_PLC_Open(PAL_PLC_PHY_INDEX, 0);
+    PAL_PLC_Deinitialize(PAL_PLC_PHY_INDEX);
+    PAL_PLC_Initialize(PAL_PLC_PHY_INDEX, (const SYS_MODULE_INIT * const)&palInit);
 }
  
 uint32_t PAL_PLC_GetPhyTime(PAL_PLC_HANDLE handle)
 {
-    if (handle != palPlcData.drvG3MacRtHandle)
+    if (handle != (PAL_PLC_HANDLE)&palPlcData)
+    {
+        return 0;
+    }
+    
+    if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
         return 0;
     }
@@ -515,41 +506,41 @@ uint32_t PAL_PLC_GetPhyTime(PAL_PLC_HANDLE handle)
     return DRV_G3_MACRT_GetTimerReference(handle);
 }
 
-PAL_PLC_RESULT PAL_PLC_GetMacRtPib(PAL_PLC_HANDLE handle, MAC_RT_PIB_OBJ *pibObj)
+PAL_PLC_PIB_RESULT PAL_PLC_GetMacRtPib(PAL_PLC_HANDLE handle, MAC_RT_PIB_OBJ *pibObj)
 {
-    if (handle != palPlcData.drvG3MacRtHandle)
+    if (handle != (PAL_PLC_HANDLE)&palPlcData)
     {
-        return PAL_PLC_INVALID_PARAMETER;
+        return PAL_PLC_PIB_INVALID_PARAMETER;
     }
     
-    if (palPlcData.state != PAL_PLC_STATE_READY)
+    if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
         /* Ignore request */
-        return PAL_PLC_ERROR;
+        return PAL_PLC_PIB_DENIED;
     }
     
-    return (PAL_PLC_RESULT)DRV_G3_MACRT_PIBGet(palPlcData.drvG3MacRtHandle, pibObj);
+    return (PAL_PLC_PIB_RESULT)DRV_G3_MACRT_PIBGet(palPlcData.drvG3MacRtHandle, pibObj);
 }
 
-PAL_PLC_RESULT PAL_PLC_SetMacRtPib(PAL_PLC_HANDLE handle, MAC_RT_PIB_OBJ *pibObj)
+PAL_PLC_PIB_RESULT PAL_PLC_SetMacRtPib(PAL_PLC_HANDLE handle, MAC_RT_PIB_OBJ *pibObj)
 {
-    PAL_PLC_RESULT result; 
+    PAL_PLC_PIB_RESULT result; 
     
-    if (handle != palPlcData.drvG3MacRtHandle)
+    if (handle != (PAL_PLC_HANDLE)&palPlcData)
     {
-        return PAL_PLC_INVALID_PARAMETER;
+        return PAL_PLC_PIB_INVALID_PARAMETER;
     }
     
-    if (palPlcData.state != PAL_PLC_STATE_READY)
+    if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
         /* Ignore request */
-        return PAL_PLC_ERROR;
+        return PAL_PLC_PIB_DENIED;
     }
     
-    result = (PAL_PLC_RESULT)DRV_G3_MACRT_PIBSet(palPlcData.drvG3MacRtHandle, 
+    result = (PAL_PLC_PIB_RESULT)DRV_G3_MACRT_PIBSet(palPlcData.drvG3MacRtHandle, 
             pibObj);
     
-    if (result == PAL_PLC_SUCCESS)
+    if (result == PAL_PLC_PIB_SUCCESS)
     {
         /* Update Backup MIB info */
         _palPlcUpdateMibBackupInfo(pibObj->pib, pibObj->pData);

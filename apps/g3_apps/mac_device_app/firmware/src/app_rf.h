@@ -62,13 +62,14 @@ extern "C" {
 typedef enum
 {
     /* Application's state machine's initial state. */
-    APP_RF_STATE_WAITING_INIT = 0,
+    APP_RF_STATE_INIT = 0,
     APP_RF_STATE_WAITING_READY,
     APP_RF_STATE_GET_PHY_VERSION,
     APP_RF_STATE_GET_PHY_CONFIG,
     APP_RF_STATE_SEND_MESSAGE,
     APP_RF_STATE_WAITING_TXCFM,
     APP_RF_STATE_RESET,
+    APP_RF_STATE_DEINIT,
     APP_RF_STATE_ERROR,
     APP_RF_STATE_RUNNING,
 
@@ -111,13 +112,15 @@ typedef struct
     
     bool performRfPhyReset;
     
+    bool performRfPhyDeinit;
+    
     bool pendingTxCfm;
     
     PAL_RF_PHY_STATUS txStatus;
     
-    uint32_t txTimeIni;
+    uint32_t txTimeIniCount;
     
-    uint32_t txTimeEnd;
+    uint32_t txTimeEndCount;
 
 } APP_RF_DATA;
 

@@ -53,7 +53,7 @@
     Application strings and buffers are be defined outside this structure.
 */
 
-APP_PLC_DATA appPlcData;
+APP_PLC_DATA appPlcData = {0};
 
 // *****************************************************************************
 // *****************************************************************************
@@ -107,21 +107,17 @@ static void _plcRxParamsIndication(MAC_RT_RX_PARAMETERS_OBJ *pParameters)
 
 void APP_PLC_Initialize ( void )
 {
-    PAL_PLC_INIT palPlcInitData;
-    
     appPlcData.performPalReset = false;
     
-    palPlcInitData.macRtBand = G3_FCC;
-    palPlcInitData.macRtHandlers.palPlcDataIndication = _plcDataIndication;
-    palPlcInitData.macRtHandlers.palPlcCommStatusIndication = _plcCommStatusIndication;
-    palPlcInitData.macRtHandlers.palPlcTxConfirm = _plcTxConfirm;
-    palPlcInitData.macRtHandlers.palPlcRxParamsIndication = _plcRxParamsIndication;
+    appPlcData.palPlcInitData.macRtBand = G3_FCC;
+    appPlcData.palPlcInitData.macRtHandlers.palPlcDataIndication = _plcDataIndication;
+    appPlcData.palPlcInitData.macRtHandlers.palPlcCommStatusIndication = _plcCommStatusIndication;
+    appPlcData.palPlcInitData.macRtHandlers.palPlcTxConfirm = _plcTxConfirm;
+    appPlcData.palPlcInitData.macRtHandlers.palPlcRxParamsIndication = _plcRxParamsIndication;
+    appPlcData.palPlcInitData.initMIB = true;
     
     /* Place the App state machine in its initial state. */
-    appPlcData.state = APP_PLC_STATE_WAITING_INIT;
-
-    /* Initialize the PAL PLC module */
-    appPlcData.palPlcObj = PAL_PLC_Initialize( PAL_PLC_PHY_INDEX, (const SYS_MODULE_INIT *) &palPlcInitData );
+    appPlcData.state = APP_PLC_STATE_INIT;
     
 }
 
@@ -137,29 +133,30 @@ void APP_PLC_Initialize ( void )
 void APP_PLC_Tasks ( void )
 {
     /* Check the application's current state. */
-    switch ( appPlcData.state )
+    switch (appPlcData.state)
     {
         /* Application's initial state. */
-        case APP_PLC_STATE_WAITING_INIT:
+        case APP_PLC_STATE_INIT:
         {
-            /* Open PAL PLC */
-            appPlcData.palHandler = PAL_PLC_Open(PAL_PLC_PHY_INDEX, 0);
-            if (appPlcData.palHandler == DRV_HANDLE_INVALID)
-            {
-                appPlcData.state = APP_PLC_STATE_ERROR;
-            }
-            else
-            {
-                appPlcData.state = APP_PLC_STATE_WAITING_READY;
-            }
+            /* Initialize the PAL PLC module */
+            appPlcData.palPlcObj = PAL_PLC_Initialize(PAL_PLC_PHY_INDEX, (const SYS_MODULE_INIT *) &appPlcData.palPlcInitData);
+            appPlcData.state = APP_PLC_STATE_WAITING_READY;
             
             break;
         }
         case APP_PLC_STATE_WAITING_READY:
         {
-            if (PAL_PLC_Status(appPlcData.palPlcObj) == SYS_STATUS_READY)
+            if (PAL_PLC_Status(appPlcData.palPlcObj) == PAL_PLC_STATUS_READY)
             {
-                appPlcData.state = APP_PLC_STATE_GET_PHY_VERSION;
+                appPlcData.palHandler = PAL_PLC_HandleGet(PAL_PLC_PHY_INDEX);
+                if (appPlcData.palHandler == PAL_PLC_HANDLE_INVALID)
+                {
+                    appPlcData.state = APP_PLC_STATE_ERROR;
+                }
+                else
+                {
+                    appPlcData.state = APP_PLC_STATE_GET_PHY_VERSION;
+                }
             }
             break;
         }
@@ -170,7 +167,7 @@ void APP_PLC_Tasks ( void )
             appPlcData.pibObj.index = PHY_PIB_VERSION_NUM;
             appPlcData.pibObj.length = 4;
             
-            if (PAL_PLC_GetMacRtPib(appPlcData.palHandler, &appPlcData.pibObj) == PAL_PLC_SUCCESS)
+            if (PAL_PLC_GetMacRtPib(appPlcData.palHandler, &appPlcData.pibObj) == PAL_PLC_PIB_SUCCESS)
             {
                 appPlcData.phyVersion = *(uint32_t *)appPlcData.pibObj.pData;
                 appPlcData.state = APP_PLC_STATE_SET_PANID;
@@ -191,9 +188,8 @@ void APP_PLC_Tasks ( void )
             appPlcData.pibObj.pData[0] = 0x12;
             appPlcData.pibObj.pData[1] = 0x34;
             
-            if (PAL_PLC_SetMacRtPib(appPlcData.palHandler, &appPlcData.pibObj) == PAL_PLC_SUCCESS)
+            if (PAL_PLC_SetMacRtPib(appPlcData.palHandler, &appPlcData.pibObj) == PAL_PLC_PIB_SUCCESS)
             {
-                appPlcData.phyVersion = *(uint32_t *)appPlcData.pibObj.pData;
                 appPlcData.state = APP_PLC_STATE_GET_PANID;
             }
             else
@@ -210,7 +206,7 @@ void APP_PLC_Tasks ( void )
             appPlcData.pibObj.index = 0;
             appPlcData.pibObj.length = 2;
             
-            if (PAL_PLC_GetMacRtPib(appPlcData.palHandler, &appPlcData.pibObj) == PAL_PLC_SUCCESS)
+            if (PAL_PLC_GetMacRtPib(appPlcData.palHandler, &appPlcData.pibObj) == PAL_PLC_PIB_SUCCESS)
             {
                 appPlcData.panId = *(uint16_t *)appPlcData.pibObj.pData;
                 appPlcData.state = APP_PLC_STATE_RESET;
@@ -239,7 +235,7 @@ void APP_PLC_Tasks ( void )
 
         case APP_PLC_STATE_ERROR:
         {
-            if (PAL_PLC_Status(appPlcData.palPlcObj) == SYS_STATUS_READY)
+            if (PAL_PLC_Status(appPlcData.palPlcObj) == PAL_PLC_STATUS_READY)
             {
                 appPlcData.state = appPlcData.prevState;
             }

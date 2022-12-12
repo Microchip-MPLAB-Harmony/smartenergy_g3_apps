@@ -61,7 +61,7 @@ extern "C" {
 typedef enum
 {
     /* Application's state machine's initial state. */
-    APP_PLC_STATE_WAITING_INIT = 0,
+    APP_PLC_STATE_INIT = 0,
     APP_PLC_STATE_WAITING_READY,
     APP_PLC_STATE_GET_PHY_VERSION,
     APP_PLC_STATE_SET_PANID,
@@ -92,6 +92,8 @@ typedef struct
     APP_STATES state;
     
     APP_STATES prevState;
+    
+    PAL_PLC_INIT palPlcInitData;
 
     SYS_MODULE_OBJ palPlcObj;
 

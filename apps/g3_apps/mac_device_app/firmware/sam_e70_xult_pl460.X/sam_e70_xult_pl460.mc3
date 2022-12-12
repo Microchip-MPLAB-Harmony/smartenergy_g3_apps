@@ -246,11 +246,12 @@
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;ENABLE_SYS_COMMON&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; value=&quot;false&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/HarmonyCore&gt;
 &lt;/HarmonyCore&gt;
@@ -294,6 +295,22 @@
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/HarmonyCore&gt;
+&lt;/HarmonyCore&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="HarmonyCore" name="ENABLE_SYS_RESET"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
+  &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;ENABLE_SYS_RESET&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/HarmonyCore&gt;
 &lt;/HarmonyCore&gt;
@@ -345,25 +362,25 @@
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E70_Xplained_Ultra&quot; x=&quot;18&quot; y=&quot;63&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;656&quot; y=&quot;15&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;cmsis&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;21&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;dfp&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;drvG3MacRt&quot; x=&quot;329&quot; y=&quot;279&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvRf215&quot; x=&quot;347&quot; y=&quot;423&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;drvG3MacRt&quot; x=&quot;310&quot; y=&quot;279&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvRf215&quot; x=&quot;320&quot; y=&quot;426&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;drv_usbhs_v1&quot; x=&quot;309&quot; y=&quot;199&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;efc&quot; x=&quot;480&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;g3PalPlc&quot; x=&quot;508&quot; y=&quot;301&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;g3PalRf&quot; x=&quot;518&quot; y=&quot;445&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;g3PalPlc&quot; x=&quot;492&quot; y=&quot;301&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;g3PalRf&quot; x=&quot;491&quot; y=&quot;448&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;spi0&quot; x=&quot;11&quot; y=&quot;381&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;srv_pcoup&quot; x=&quot;19&quot; y=&quot;240&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;srv_spisplit&quot; x=&quot;146&quot; y=&quot;381&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sys_console&quot; x=&quot;659&quot; y=&quot;118&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sys_console&quot; x=&quot;668&quot; y=&quot;121&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;sys_time&quot; x=&quot;169&quot; y=&quot;103&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;tc0&quot; x=&quot;21&quot; y=&quot;125&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;usb_device&quot; x=&quot;326&quot; y=&quot;120&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;usb_device_cdc&quot; x=&quot;484&quot; y=&quot;137&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;usb_device_cdc&quot; x=&quot;486&quot; y=&quot;154&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;702&quot; canvasWidth=&quot;761&quot; dnOrder=&quot;1&quot;/&gt;
+    &lt;GraphSettings canvasHeight=&quot;517&quot; canvasWidth=&quot;839&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -2738,6 +2755,17 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="XC32_HEAP_SIZE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;XC32_HEAP_SIZE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1024&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="XDMAC_CC0_CSIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;XDMAC_CC0_CSIZE&quot;&gt;
@@ -3719,7 +3747,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalPlc&gt;
   &lt;g3PalPlc dnOrder=&quot;0&quot; id=&quot;G3_PAL_PLC_PVDD_MONITOR&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/g3PalPlc&gt;
 &lt;/g3PalPlc&gt;
@@ -3755,6 +3783,17 @@
   &lt;g3PalRf dnOrder=&quot;0&quot; id=&quot;G3_PAL_RF_DEVICE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;g3PalRf&quot; value=&quot;DRVRF215&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/g3PalRf&gt;
+&lt;/g3PalRf&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="G3_PAL_RF_PHY_SNIFFER_EN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalRf&gt;
+  &lt;g3PalRf dnOrder=&quot;0&quot; id=&quot;G3_PAL_RF_PHY_SNIFFER_EN&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/g3PalRf&gt;
 &lt;/g3PalRf&gt;
@@ -6359,6 +6398,17 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="usb_device" name="CONFIG_USB_DEVICE_DESCRIPTOR_IAD_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;usb_device&gt;
+  &lt;usb_device dnOrder=&quot;0&quot; id=&quot;CONFIG_USB_DEVICE_DESCRIPTOR_IAD_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;usb_device&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/usb_device&gt;
+&lt;/usb_device&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="usb_device" name="CONFIG_USB_DEVICE_ENDPOINTS_NUMBER"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;usb_device&gt;
   &lt;usb_device dnOrder=&quot;0&quot; id=&quot;CONFIG_USB_DEVICE_ENDPOINTS_NUMBER&quot;&gt;
@@ -6531,6 +6581,17 @@
   &lt;usb_device_cdc_0 dnOrder=&quot;0&quot; id=&quot;CONFIG_USB_DEVICE_FUNCTION_INT_ENDPOINT_NUMBER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;usb_device_cdc_0&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/usb_device_cdc_0&gt;
+&lt;/usb_device_cdc_0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="usb_device_cdc_0" name="CONFIG_USB_DEVICE_FUNCTION_USE_IAD"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;usb_device_cdc_0&gt;
+  &lt;usb_device_cdc_0 dnOrder=&quot;0&quot; id=&quot;CONFIG_USB_DEVICE_FUNCTION_USE_IAD&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;usb_device_cdc_0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/usb_device_cdc_0&gt;
 &lt;/usb_device_cdc_0&gt;
@@ -6816,7 +6877,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\rf215\drv_rf215_definitions.h</file>
-         <hash>031743f25c14684fa64add6c2cc4bc03cf4754dc7e4ec68e2a5f6f627b3c47da</hash>
+         <hash>356c910e8279db965b26aa8a08019cfcb88f9495c57cea692ecc6b69bfde6147</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\rf215\drv_rf215_local.h</file>
@@ -6844,7 +6905,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\configuration.h</file>
-         <hash>3a73401e201deded0165d7abc494e4d2784ee5d90da1d84a3302165499b04cd5</hash>
+         <hash>2453db1d265a9ffddd15dc6d5a4b9e85ba4605c1dc98829c26f641474ed485ad</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\usb\usbhsv1\src\drv_usbhsv1_variant_mapping.h</file>
@@ -7072,7 +7133,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\rf215\drv_rf215.h</file>
-         <hash>db6b196aa019cc4d92b8987948e5ab05493e0137fcbe558347665364f5d94b9e</hash>
+         <hash>169894850ce2be9031b4ab5f093e4d7c286cdf5ff64026d451f53a219b912c00</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\bsp\bsp.h</file>
@@ -7124,7 +7185,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\pal\rf\pal_rf.c</file>
-         <hash>a91bd550ad398fe1c6ab74fa7d60949e2280109990d3c98c9294fb1ab93cfed9</hash>
+         <hash>16122d327f51d9efc8013147a0e88ba56b7343a1d70e79bee49a549f060aa599</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\utmi.h</file>
@@ -7136,7 +7197,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\pal\rf\pal_rf.h</file>
-         <hash>7e5011f8fd1e92ac70607e3c8191fb09b44482c25c334419e36bb00cd3b942ef</hash>
+         <hash>0833ec12e4ecdeac16c8ce3c77abe79ccb483beeb72d7dd229ea143290e16b8f</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\same70q21b.h</file>
@@ -7208,7 +7269,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\rf215\phy\rf215_phy.c</file>
-         <hash>bdba19624e398f5be9d15968a5e53458f137c68cc15b443cf011e3800d68daf3</hash>
+         <hash>5e68db7cc0dbbd5512b8fdedab9b9fb31388c51db3f03ec9a7f044a4666bc3b8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\usb\drv_usb_external_dependencies.h</file>
@@ -7348,7 +7409,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\pal\plc\pal_plc.c</file>
-         <hash>1b3aef3563a82c8aba8653b727b1e10eb45cbb9a593ce45061a1b9afd82f41b6</hash>
+         <hash>1205060a7824d673f50efd2af62356180f828f482ddaef583d874a59799963ae</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\usb\drv_usb.h</file>
@@ -7360,7 +7421,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\pal\plc\pal_plc.h</file>
-         <hash>578ddf924d7d883e9d63bd3c526c60afd55c55800002216cc4ef2c13ca682693</hash>
+         <hash>428d12739b86b413242282318c6c741c3d933caa60fa824cf0e04764590113c4</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\supc.h</file>
