@@ -81,7 +81,7 @@ void SYS_Tasks ( void )
 
 
     /* Maintain Middleware & Other Libraries */
-        /* Maintain PLC USI Service */
+    
     SRV_USI_Tasks(sysObj.srvUSI0);
 
 

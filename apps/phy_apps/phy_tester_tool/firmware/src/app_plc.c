@@ -28,7 +28,7 @@
     Microchip Technology Inc.
 
   File Name:
-    app.c
+    app_plc.c
 
   Summary:
     This file contains the source code for the MPLAB Harmony application.
@@ -86,12 +86,12 @@ static CACHE_ALIGN uint8_t pSerialDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_SERIAL_D
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-void Timer1_Callback (uintptr_t context)
+static void APP_PLC_Timer1_Callback (uintptr_t context)
 {
     appData.tmr1Expired = true;
 }
 
-void Timer2_Callback (uintptr_t context)
+static void APP_PLC_Timer2_Callback (uintptr_t context)
 {
     appData.tmr2Expired = true;
 }
@@ -116,7 +116,7 @@ static void APP_PLC_SetCouplingConfiguration(void)
     DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
 }
 
-static void APP_PLCExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj,
+static void APP_PLC_ExceptionCallback(DRV_PLC_PHY_EXCEPTION exceptionObj,
         uintptr_t context)
 {
     /* Avoid warning */
@@ -143,7 +143,7 @@ static void APP_PLCExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj,
 	appData.plc_phy_exception = true;
 }
 
-static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
+static void APP_PLC_DataIndCallback(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
 {
     /* Avoid warning */
     (void)context;
@@ -155,7 +155,7 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
 
         /* Start Timer: LED blinking for each received message */
         USER_PLC_IND_LED_On();
-        appData.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0,
+        appData.tmr2Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer2_Callback, 0,
                 LED_BLINK_PLC_MSG_MS, SYS_TIME_SINGLE);
 
         /* Add received message */
@@ -166,7 +166,7 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
     }
 }
 
-static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t context)
+static void APP_PLC_DataCfmCallback(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t context)
 {
     size_t length;
 
@@ -183,7 +183,7 @@ static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t
 
 }
 
-static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
+static void APP_PLC_PVDDMonitorCallback( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     (void)context;
     
@@ -210,7 +210,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
+void APP_PLC_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
 {
     /* Message received from PLC Tool - USART */
     SRV_PSERIAL_COMMAND command;
@@ -281,7 +281,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                 cfmData.time = 0;
                 cfmData.rmsCalc = 0;
                 cfmData.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
-                APP_PLCDataCfmCb(&cfmData, 0);
+                APP_PLC_DataCfmCallback(&cfmData, 0);
             }
         }
         break;
@@ -310,7 +310,7 @@ void on_reset(void)
     See prototype in app.h.
  */
 
-void APP_Initialize(void)
+void APP_PLC_Initialize(void)
 {
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_IDLE;
@@ -350,9 +350,9 @@ void APP_Initialize(void)
   Remarks:
     See prototype in app.h.
  */
-void APP_Tasks(void)
+void APP_PLC_Tasks(void)
 {
-    WDT_Clear();
+    CLEAR_WATCHDOG();
     
     /* Signalling: LED Toggle */
     if (appData.tmr1Expired)
@@ -398,11 +398,11 @@ void APP_Tasks(void)
             {
                 /* Register PLC callback */
                 DRV_PLC_PHY_ExceptionCallbackRegister(appData.drvPl360Handle,
-                        APP_PLCExceptionCb, DRV_PLC_PHY_INDEX);
+                        APP_PLC_ExceptionCallback, DRV_PLC_PHY_INDEX);
                 DRV_PLC_PHY_DataIndCallbackRegister(appData.drvPl360Handle,
-                        APP_PLCDataIndCb, DRV_PLC_PHY_INDEX);
+                        APP_PLC_DataIndCallback, DRV_PLC_PHY_INDEX);
                 DRV_PLC_PHY_TxCfmCallbackRegister(appData.drvPl360Handle,
-                        APP_PLCDataCfmCb, DRV_PLC_PHY_INDEX);
+                        APP_PLC_DataCfmCallback, DRV_PLC_PHY_INDEX);
 
                 /* Open USI Service */
                 appData.srvUSIHandle = SRV_USI_Open(SRV_USI_INDEX_0);
@@ -427,13 +427,13 @@ void APP_Tasks(void)
             {
                 /* Register USI callback */
                 SRV_USI_CallbackRegister(appData.srvUSIHandle,
-                        SRV_USI_PROT_ID_PHY, APP_USIPhyProtocolEventHandler);
+                        SRV_USI_PROT_ID_PHY, APP_PLC_USIPhyProtocolEventHandler);
 
                 if (appData.tmr1Handle == SYS_TIME_HANDLE_INVALID)
                 {
                     /* Register Timer Callback */
                     appData.tmr1Handle = SYS_TIME_CallbackRegisterMS(
-                            Timer1_Callback, 0, LED_BLINK_RATE_MS,
+                            APP_PLC_Timer1_Callback, 0, LED_BLINK_RATE_MS,
                             SYS_TIME_PERIODIC);
                 }
                 else
@@ -452,8 +452,32 @@ void APP_Tasks(void)
             /* Set configuration fro PLC */
             APP_PLC_SetCouplingConfiguration();
             /* Enable PLC PVDD Monitor Service: ADC channel 0 */
-            SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
+            SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCallback, 0);
             SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
+            /* Set Application to next state */
+            appData.state = APP_STATE_CHECK_PVDDMON;
+            break;
+        }
+        
+        case APP_STATE_CHECK_PVDDMON:
+        {
+            /* Check PVDD Monitor */
+            if (SRV_PVDDMON_CheckWindow())
+            {
+                // PLC Transmission is permitted again
+                DRV_PLC_PHY_EnableTX(appData.drvPl360Handle, true);
+
+                // Set PVDD Monitor tracking data
+                appData.pvddMonTxEnable = true;
+            }
+            else
+            {
+                // PLC Transmission is not permitted
+                DRV_PLC_PHY_EnableTX(appData.drvPl360Handle, false);
+
+                // Set PVDD Monitor tracking data
+                appData.pvddMonTxEnable = false;
+            }
             /* Set Application to next state */
             appData.state = APP_STATE_READY;
             break;

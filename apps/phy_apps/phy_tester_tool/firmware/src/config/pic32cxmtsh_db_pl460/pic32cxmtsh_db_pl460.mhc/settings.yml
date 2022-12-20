@@ -1,0 +1,14 @@
+format_version: v1.0
+configName: pic32cxmtsh_db_pl460
+folderName: pic32cxmtsh_db_pl460
+frameworkPath: C:\0_CHRIS\Proyectos\03_MCHP_Harmony_3\BitBucket
+processor: PIC32CX2051MTSH128
+projectName: pic32cxmtsh_db_pl460
+settings:
+  PackageFilter: ''
+  FORCE_OPTIMIZATION: 'false'
+  GENERATE_BACKUP: 'true'
+  TRUSTZONE: 'false'
+  CMSISPath: dev_packs\arm\CMSIS\5.8.0
+  MERGE_STRATEGY: USER_ALL
+  DFPPath: dev_packs\Microchip\PIC32CX-MT_DFP\1.0.6\PIC32CX-MTSH\atdf\PIC32CX2051MTSH128.atdf

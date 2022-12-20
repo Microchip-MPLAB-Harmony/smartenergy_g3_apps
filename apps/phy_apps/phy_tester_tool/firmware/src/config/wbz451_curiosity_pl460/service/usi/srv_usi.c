@@ -61,7 +61,7 @@
 static SRV_USI_OBJ gSrvUSIOBJ[SRV_USI_INSTANCES_NUMBER] = {0};
 
 /* This is the USI callback object for each USI instance. */
-static SRV_USI_CALLBACK gSrvUSICallbackOBJ[SRV_USI_INSTANCES_NUMBER][10] = {NULL};
+static SRV_USI_CALLBACK gSrvUSICallbackOBJ[SRV_USI_INSTANCES_NUMBER][11] = {NULL};
 
 // *****************************************************************************
 // *****************************************************************************
@@ -121,6 +121,10 @@ static SRV_USI_CALLBACK_INDEX _SRV_USI_GetCallbackIndexFromProtocol(SRV_USI_PROT
             callbackIndex = 9;
             break;
 
+        case SRV_USI_PROT_ID_PHY_RF215:
+            callbackIndex = 10;
+            break;
+
         case SRV_USI_PROT_ID_INVALID:
         default:
             callbackIndex = SRV_USI_CALLBACK_INDEX_INVALID;
@@ -149,6 +153,7 @@ static PCRC_CRC_TYPE _SRV_USI_GetCRCTypeFromProtocol(SRV_USI_PROTOCOL_ID protoco
         case SRV_USI_PROT_ID_SNIF_PRIME:
         case SRV_USI_PROT_ID_PHY_SERIAL_PRIME:
         case SRV_USI_PROT_ID_PHY:
+        case SRV_USI_PROT_ID_PHY_RF215:
         case SRV_USI_PROT_ID_SNIFF_G3:
         case SRV_USI_PROT_ID_MAC_G3:
         case SRV_USI_PROT_ID_ADP_G3:
@@ -398,12 +403,11 @@ SYS_MODULE_OBJ SRV_USI_Initialize(
     
    if ((dObj->status == SRV_USI_STATUS_UNINITIALIZED) && usiInit)
     {
-        dObj->inUse                 = false;
         dObj->status                = SRV_USI_STATUS_NOT_CONFIGURED;
         dObj->devIndex              = usiInit->deviceIndex;
         dObj->devDesc               = usiInit->consDevDesc;
-	    dObj->pWrBuffer             = usiInit->pWrBuffer;
-	    dObj->wrBufferSize          = usiInit->wrBufferSize;
+        dObj->pWrBuffer             = usiInit->pWrBuffer;
+        dObj->wrBufferSize          = usiInit->wrBufferSize;
         dObj->callback              = &gSrvUSICallbackOBJ[index][0];
     
         dObj->devDesc->init(dObj->devIndex, usiInit->deviceInitData);
@@ -428,14 +432,22 @@ SRV_USI_HANDLE SRV_USI_Open(
         return SRV_USI_HANDLE_INVALID;
     }
 
-    if(dObj->status != SRV_USI_STATUS_NOT_CONFIGURED)
+    if(dObj->status == SRV_USI_STATUS_UNINITIALIZED)
     {
         return SRV_USI_HANDLE_INVALID;
     }
-    
-    /* Open USI device */
-    dObj->devDesc->open(dObj->devIndex);
+    else if(dObj->status == SRV_USI_STATUS_NOT_CONFIGURED)
+    {
+        /* Open USI device */
+        if (dObj->devDesc->open(dObj->devIndex) == DRV_HANDLE_INVALID)
+        {
+            return SRV_USI_HANDLE_INVALID;
+        }
+    }
 
+    /* Update USI status */
+    dObj->status = SRV_USI_STATUS_CONFIGURED;
+    
     return ((SRV_USI_HANDLE)dObj);
 }
 
@@ -451,16 +463,14 @@ void SRV_USI_Close( SRV_USI_HANDLE handle )
 
     dObj = (SRV_USI_OBJ*)handle;
 
-    if((dObj->status != SRV_USI_STATUS_CONFIGURED) || (dObj->inUse == false))
+    if(dObj->status != SRV_USI_STATUS_CONFIGURED)
     {
         return;
     }
-    
-    dObj->devDesc->close(dObj->devIndex);
-    
-    /* De-Allocate the service object */
-    dObj->inUse = false;
 
+    /* Close USI device */
+    dObj->devDesc->close(dObj->devIndex);
+    dObj->status = SRV_USI_STATUS_NOT_CONFIGURED;
 }
 
 SRV_USI_STATUS SRV_USI_Status( SRV_USI_HANDLE handle )
@@ -476,9 +486,7 @@ SRV_USI_STATUS SRV_USI_Status( SRV_USI_HANDLE handle )
     dObj = (SRV_USI_OBJ*)handle;
     
     /* Check USI device status */
-    dObj->status = dObj->devDesc->status(dObj->devIndex);
-
-    return dObj->status;
+    return dObj->devDesc->status(dObj->devIndex);
 }
 
 void SRV_USI_CallbackRegister ( const SRV_USI_HANDLE handle, 
@@ -514,9 +522,6 @@ void SRV_USI_CallbackRegister ( const SRV_USI_HANDLE handle,
     
     /* Register reception callback */
     dObj->devDesc->setReadCallback(dObj->devIndex, _SRV_USI_Callback_Handle, (uintptr_t)dObj);
-    
-    /* Set USI as used */ 
-    dObj->inUse = true;
 
 }
 
@@ -530,8 +535,8 @@ void SRV_USI_Tasks( const SYS_MODULE_INDEX index )
         return;
     }
 
-    /* Is the service instance already initialized? */
-    if(dObj->inUse == false)
+    /* Is the service instance already opened? */
+    if(dObj->status != SRV_USI_STATUS_CONFIGURED)
     {
         return;
     }

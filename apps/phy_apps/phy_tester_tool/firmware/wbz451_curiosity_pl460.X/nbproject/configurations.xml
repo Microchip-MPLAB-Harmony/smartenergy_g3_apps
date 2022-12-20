@@ -375,14 +375,14 @@
         <targetDevice>WBZ451</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>pkob4hybrid</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.10</languageToolchainVersion>
+        <languageToolchainVersion>4.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
+        <pack name="PIC32CX-BZ_DFP" vendor="Microchip" version="1.0.107"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
-        <pack name="PIC32CX-BZ_DFP" vendor="Microchip" version="1.1.114"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -636,8 +636,6 @@
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="1000000-2001ffff"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/0_CHRIS/Proyectos/03_MCHP_Harmony_3/BitBucket/smartenergy_g3_apps/apps/phy_apps/phy_tester_tool/firmware/phy_tester_tool_wbz451_curiosity_pl460.X/debug/wbz451_curiosity_pl460/phy_tester_tool_wbz451_curiosity_pl460_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>

@@ -235,9 +235,6 @@ typedef struct
 
 typedef struct
 {
-    /* Flag to indicate this object is in use */
-    bool                                     inUse;
-    
     /* State of this instance */
     SRV_USI_STATUS                           status;
 
@@ -520,11 +517,11 @@ void SRV_USI_Close( const SRV_USI_HANDLE handle );
     handle - A valid open-instance handle, returned from SRV_USI_Open
 
   Returns:
+    SRV_USI_STATUS_UNINITIALIZED - Indicates that the USI instance is not initialized.
+
     SRV_USI_STATUS_NOT_CONFIGURED - Indicates that the USI instance is not configured.
 
     SRV_USI_STATUS_CONFIGURED - Indicates that the USI instance is properly configured
-
-    SRV_USI_STATUS_BUSY - Indicates that the USI instance is busy
   
     SRV_USI_STATUS_ERROR - Indicates that there is an error with the handler
 

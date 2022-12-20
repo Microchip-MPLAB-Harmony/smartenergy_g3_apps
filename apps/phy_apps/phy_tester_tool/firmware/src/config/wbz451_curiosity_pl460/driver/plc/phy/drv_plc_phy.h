@@ -360,8 +360,7 @@ typedef void ( *DRV_PLC_PHY_EXCEPTION_CALLBACK )( DRV_PLC_PHY_EXCEPTION exceptio
         .dmaChannelRx  = SYS_DMA_CHANNEL_0,
         .spiAddressTx =  (void *)&(SPI0_REGS->SPI_TDR),
         .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
-        .spiMR  = (void *)&(SPI0_REGS->SPI_MR),
-        .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR),
+        .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[1]),
         .spiClockFrequency = DRV_PLC_SPI_CLK,
         .ldoPin = DRV_PLC_LDO_EN_PIN, 
         .resetPin = DRV_PLC_RESET_PIN,
@@ -858,7 +857,6 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
 // *****************************************************************************
 /* Function:
     void DRV_PLC_PHY_ExternalInterruptHandler( 
-        const PIO_PIN pin, 
         const uintptr_t context 
     );
 
@@ -876,7 +874,7 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
     None.
 
   Remarks:
-    See plib_pio.h for more details.
+    None.
 
   Example:
     <code>
@@ -884,13 +882,12 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
     // Initialize PLC Driver Instance
     sysObj.drvPLC = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
     // Register Callback function to handle PLC interruption
-    PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPLC);
+    EIC_CallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPLC);
 
     </code>
 
 */
 
-//void DRV_PLC_PHY_ExternalInterruptHandler( PIO_PIN pin, uintptr_t context );
 void DRV_PLC_PHY_ExternalInterruptHandler( uintptr_t context );
 
 // *************************************************************************

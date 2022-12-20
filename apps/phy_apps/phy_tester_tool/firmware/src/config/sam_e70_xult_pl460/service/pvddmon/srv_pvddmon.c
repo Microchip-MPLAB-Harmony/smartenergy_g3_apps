@@ -159,3 +159,23 @@ void SRV_PVDDMON_CallbackRegister (SRV_PVDDMON_CALLBACK callback, uintptr_t cont
     AFEC1_CallbackRegister(_AFEC1_PVDDMONCallback, context);
     AFEC1_CompareCallback = callback;
 }
+
+bool SRV_PVDDMON_CheckWindow(void)
+{
+    uint32_t adcValue;
+    
+    adcValue = AFEC1_ChannelResultGet(6);
+    while(adcValue == 0)
+    {
+        adcValue = AFEC1_ChannelResultGet(6);
+    }
+    
+    if ((adcValue <= SRV_PVDDMON_HIGH_TRESHOLD) && (adcValue >= SRV_PVDDMON_LOW_TRESHOLD))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

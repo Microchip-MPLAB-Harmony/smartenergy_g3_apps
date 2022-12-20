@@ -1,4 +1,4 @@
-<config configName="default" projectName="phy_tester_tool_wbz451_curiosity_pl460" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.11">
+<config configName="default" projectName="phy_tester_tool_wbz451_curiosity_pl460" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.14">
    <usedPackages class="java.util.ArrayList">
       <package packageName="bsp" version="3.13.0" contentType="HARMONY">
          <modules class="java.util.ArrayList"/>
@@ -268,8 +268,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;471&quot; canvasWidth=&quot;723&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_WBZ451_Curiosity&quot; x=&quot;20&quot; y=&quot;76&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;640&quot; y=&quot;20&quot;/&gt;
@@ -289,6 +288,7 @@
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;tc0&quot; x=&quot;56&quot; y=&quot;149&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;471&quot; canvasWidth=&quot;723&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -3073,17 +3073,6 @@
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_TX_ENABLE_PIN&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;14&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_TX_RX_DMA"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_TX_RX_DMA&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvPlcPhy&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
@@ -5978,7 +5967,7 @@
    <generatedFileHashHistoryMap class="java.util.HashMap">
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\initialization.c</file>
-         <hash>4755fc0a55fc1a2bd2c7b140c2227d2af21552a44a95f81130ffd05286032166</hash>
+         <hash>6ffd6a529b6a8d09585af26a6394b54407179c79decde4c5a2396d2ed65f2265</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\sercom0.h</file>
@@ -6006,7 +5995,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\definitions.h</file>
-         <hash>37b5dcda630fa918cd5f70bb5493fccbd30db2477010f3a5f2b2527300f9329e</hash>
+         <hash>eba803cfda12c1bcc8b611c3a8df753010499ade6ce9064ca378b44d712c51a9</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\eic.h</file>
@@ -6058,7 +6047,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\time\src\sys_time.c</file>
-         <hash>b722ac0c5d955d289bd906609ab6f302342166c5ba66f87b30cac17ac6bfdcd9</hash>
+         <hash>1146b57f815d373883ae1a6b3bc27eb038ec6943aedac2c3340f660bfd7fa4a6</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\hmatrixb.h</file>
@@ -6106,7 +6095,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\tasks.c</file>
-         <hash>d76295da47a3e181e3a7fd12e4b91f513aa87d9f968158855349b905325c48a1</hash>
+         <hash>4fff84bbe250a3ed3a254dc103a7f4398414523f70e405b6a3286376726a32c3</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\libc_syscalls.c</file>
@@ -6142,7 +6131,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\time\sys_time.h</file>
-         <hash>f21b100d8f0b8b79af9217315098d51df855d9015f05a7e25ad77414cd19b2c3</hash>
+         <hash>6357468f7670698b16bfb6439d9919ed38eba99d4f03277a8b43ac34586fa1b3</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\pcoup\srv_pcoup.c</file>
@@ -6214,7 +6203,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy_local.h</file>
-         <hash>1caf34e63fad903f509fbe75100804633e108fbd25a13d4a0cf0b7876aa7cb41</hash>
+         <hash>f946bd6dfb449c508e913b3eaa04a99383421a81ae52124e5d2cd2b45d102b75</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\mpu_armv7.h</file>
@@ -6274,7 +6263,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\usi\srv_usi.h</file>
-         <hash>bc88ae49a7de433c5a0329f25e52086e0f231a4f41fbeef354e096ec5e7c5af0</hash>
+         <hash>ea30cdd17f5e4db265176822285674ac31244c022e5a26cb24449abadc2479d6</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\pche.h</file>
@@ -6294,7 +6283,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>5d2101f093dc0e320aff9ac8b6d96960dbd18774d3a46e29441adaf4f7f1e593</hash>
+         <hash>40abab126821be71595044e30190628e77166c2c14b7033c74c55f4f7351d449</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\pps.h</file>
@@ -6306,11 +6295,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\usi\srv_usi.c</file>
-         <hash>3fb65e4b7ad3931b3ecc65d02d0d942fa2e6c8519109aead296a8f3e4079b5d7</hash>
+         <hash>9be61c8297901cfb374560a65593b3ad019e945629520deb13f07a34a4893d8c</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\time\sys_time_definitions.h</file>
-         <hash>8a02a9fe9638f0afd2e1b4c65f4d4265cd34d8814defa74f9af6d75f52cd317d</hash>
+         <hash>ac520c83cd3cd706c60fe23752500928abee2e0c8cfa29f67a729fb60885727d</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy_definitions.h</file>
@@ -6422,7 +6411,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\toolchain_specifics.h</file>
-         <hash>fb1c58b7fb94545ef6247f18ea3001b719e06ec29bf39bfd68fe3927f709eaa3</hash>
+         <hash>e4c208c7b31281ac70293de02c60f22e4053e7c83d7f009db1697d5677244b96</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\tc\plib_tc0.h</file>
@@ -6462,7 +6451,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\common\drv_plc_hal.h</file>
-         <hash>d43efa15484d35db94e6a3a948b5dca1aa452596458d7bd24f12a8abd6d72420</hash>
+         <hash>1b402abd9393dc76fa9882a317c64321902c432488a9c76a50caee6632864079</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\device_vectors.h</file>
@@ -6562,7 +6551,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\common\drv_plc_boot.c</file>
-         <hash>855ced84f264c6808c68757d5238caf697dd50164d267d6df2b862773a271003</hash>
+         <hash>a5965465d5042b71e61c14417731b9c14397a4aca0ff133502488d9f159ce984</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\eic.h</file>
@@ -6610,7 +6599,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\usi\srv_usi_definitions.h</file>
-         <hash>9fc5eea6b42cc6be538c04c2fcaa0620f34a30281061bfe7d00897b46bdb0f3d</hash>
+         <hash>569f2ed098917c8c333d3237966302fda8e6d20dcd3985b1c1bb23e3de339627</hash>
       </entry>
       <entry>
          <file>..\src\app_wbz451.c</file>
@@ -6618,7 +6607,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\time\src\sys_time_local.h</file>
-         <hash>d3ef06b59d9a89efe9e8eb54fcf3b75120d56156cc21f6847ca4f9e902eb7c9d</hash>
+         <hash>f2fcf9aac8d81072e70e05cdf0f366bca245a428229d4ed7cc5635c1a9c03fcb</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\dsu.h</file>
@@ -6650,7 +6639,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy.c</file>
-         <hash>6b055578588e23678553b215be5236621ac0d2f20bcfc4202ccc439862dee3fb</hash>
+         <hash>bd063ba80423a76a3d26b3a4a4ecff3e40e1f9a5dfd43c71dbc83c4fbc69d194</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\dmac.h</file>
@@ -6678,7 +6667,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy.h</file>
-         <hash>68e70cc76653f9047cf2eb61e5ec9270b72e8bf5f297430e5c600b838f3d40dc</hash>
+         <hash>d5fa649cc51c8d3558e82dbb912170913fceed3fdc998321cd46d9bd14210f70</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\rtc.h</file>

@@ -63,6 +63,8 @@ extern "C" {
 #define USER_PLC_IND_LED_On()         LED_EXT1_Pin4_On()
 #define USER_PLC_IND_LED_Off()        LED_EXT1_Pin4_Off()
 #define USER_PLC_IND_LED_Toggle()     LED_EXT1_Pin4_Toggle()
+    
+#define CLEAR_WATCHDOG()              WDT_Clear()
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

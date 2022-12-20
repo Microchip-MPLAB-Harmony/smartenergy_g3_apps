@@ -250,7 +250,7 @@ static void _DRV_PLC_BOOT_EnableBootCmd(void)
     sDrvPlcHalObj->reset();
     
     /* Configure 8 bits transfer */
-//    sDrvPlcHalObj->setup(false);
+    sDrvPlcHalObj->setup(false);
     
     /* Enable Write operation in bootloader */
     cmd_value[3] = (uint8_t)(DRV_PLC_BOOT_WRITE_KEY >> 24);
@@ -291,7 +291,7 @@ static void _DRV_PLC_BOOT_DisableBootCmd(void)
     sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_CMD_DIS_SPI_CLK_CTRL, 0, 0, NULL, NULL);
     
     /* Configure 16 bits transfer */
-//    sDrvPlcHalObj->setup(true);
+    sDrvPlcHalObj->setup(true);
     
     /* Wait to PLC startup (2ms) */
     sDrvPlcHalObj->delay(2000);
@@ -316,6 +316,18 @@ static bool _DRV_PLC_BOOT_CheckFirmware(void)
     }
     
     return false;
+}
+
+static void _DRV_PLC_BOOT_Restart(void)
+{  
+    sDrvPlcBootInfo.pendingLength = sDrvPlcBootInfo.binSize;
+    sDrvPlcBootInfo.pSrc = sDrvPlcBootInfo.binStartAddress;  
+    sDrvPlcBootInfo.pDst = DRV_PLC_BOOT_PROGRAM_ADDR;
+    sDrvPlcBootInfo.secNumPackets = 0;
+    
+    _DRV_PLC_BOOT_EnableBootCmd();
+    
+    sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_PROCESING;
 }
 
 // *****************************************************************************
@@ -385,7 +397,8 @@ void DRV_PLC_BOOT_Tasks( void )
         }
         else
         {
-            sDrvPlcHalObj->delay(200);
+            /* Restart Boot process */
+            _DRV_PLC_BOOT_Restart();
         }
     }
 }
@@ -395,30 +408,21 @@ void DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_MODE mode)
     if (mode == DRV_PLC_BOOT_RESTART_SOFT)
     {
         /* Configure 8 bits transfer */
-//        sDrvPlcHalObj->setup(false);
+        sDrvPlcHalObj->setup(false);
         
         /* Disable Bootloader */
         sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_CMD_DIS_SPI_CLK_CTRL, 0, 0, NULL, NULL);
 
         /* Configure 16 bits transfer */
-//        sDrvPlcHalObj->setup(true);
+        sDrvPlcHalObj->setup(true);
 
         /* Wait to PLC startup */
         sDrvPlcHalObj->delay(200);
     }
     else if (mode == DRV_PLC_BOOT_RESTART_HARD)
     {
-        /* Restore initial boot parameters */
-        sDrvPlcBootInfo.pendingLength = sDrvPlcBootInfo.binSize;
-        sDrvPlcBootInfo.pSrc = sDrvPlcBootInfo.binStartAddress;
-        sDrvPlcBootInfo.secNumPackets = 0;
-        
-        /* Enable Boot Command Mode */
-        _DRV_PLC_BOOT_EnableBootCmd();
-        
-        sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_PROCESING;
-        
-        _DRV_PLC_BOOT_FirmwareUploadTask();
+        /* Restart Boot process */
+        _DRV_PLC_BOOT_Restart();
     }
     else if (mode == DRV_PLC_BOOT_RESTART_SLEEP)
     {
