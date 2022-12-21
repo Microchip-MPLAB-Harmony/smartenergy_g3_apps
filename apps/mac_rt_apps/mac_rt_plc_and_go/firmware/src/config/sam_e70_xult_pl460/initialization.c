@@ -88,7 +88,7 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI CSR register address. */
     .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[DRV_PLC_CSR_INDEX]),
-
+    
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
     
@@ -364,6 +364,7 @@ void SYS_Initialize ( void* data )
 	SPI0_Initialize();
 
 
+    /* Initialize G3 MAC RT Driver Instance */
     sysObj.drvG3MacRt = DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvG3MacRtInitData);
     PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvG3MacRt);
 

@@ -293,6 +293,53 @@ void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode);
 */
 void SRV_PVDDMON_CallbackRegister (SRV_PVDDMON_CALLBACK callback, uintptr_t context);
 
+// *****************************************************************************
+/* Function:
+    bool SRV_PVDDMON_CheckWindow(void)
+
+  Summary:
+    Allows a client to check if the current ADC value is between correct threshold
+    levels to be able to transmit through PLC.
+
+  Description:
+    Allows a client to check if the current ADC value is between correct threshold
+    levels to be able to transmit through PLC. Threshold levels are obtained from
+    the MCC.
+
+  Precondition:
+    Function SRV_PVDDMON_Start must have been called before calling this function.
+
+  Parameters:
+    None.
+
+  Returns:
+    True if the current ADC level is correct. Otherwise, false.
+
+  Example:
+    <code>
+    if (SRV_PVDDMON_CheckWindow())
+    {
+        // PLC Transmission is permitted again
+        DRV_PLC_PHY_EnableTX(appData.drvPl360Handle, true);
+
+        // Set PVDD Monitor tracking data
+        appData.pvddMonTxEnable = true;
+    }
+    else
+    {
+        // PLC Transmission is not permitted
+        DRV_PLC_PHY_EnableTX(appData.drvPl360Handle, false);
+
+        // Set PVDD Monitor tracking data
+        appData.pvddMonTxEnable = false;
+    }
+    </code>
+
+  Remarks:
+    None
+*/
+bool SRV_PVDDMON_CheckWindow(void);
+
 #ifdef __cplusplus // Provide C++ Compatibility
  }
 #endif

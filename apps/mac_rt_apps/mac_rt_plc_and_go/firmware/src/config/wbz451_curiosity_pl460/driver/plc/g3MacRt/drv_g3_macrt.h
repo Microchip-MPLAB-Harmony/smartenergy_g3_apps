@@ -86,19 +86,65 @@
 
 typedef enum
 {
-    /* SPI has detected an unexpected status, reset is recommended */
+    /* SPI has detected an unexpected status */
     DRV_G3_MACRT_EXCEPTION_UNEXPECTED_KEY,
-
-    /* SPI critical error */
-    DRV_G3_MACRT_EXCEPTION_CRITICAL_ERROR,
-
-    /* Device has been reseted by Debugging tool */
-    DRV_G3_MACRT_EXCEPTION_DEBUG,
 
     /* Device has been reseted */
     DRV_G3_MACRT_EXCEPTION_RESET
 
 } DRV_G3_MACRT_EXCEPTION; 
+
+// *****************************************************************************
+/* G3 MAC RT Driver Transmission Confirm Event Handler Function Pointer
+
+   Summary
+    Pointer to a MAC RT Driver Transmission Confirm Event handler function
+
+   Description
+    This data type defines the required function signature for the MAC RT driver
+    transmission confirm event handling callback function. A client must register 
+    a pointer using the callback register function whose function signature 
+    (parameter and return value types) match the types specified by this function 
+    pointer in order to receive transfer related event calls back from the driver.
+
+    The parameters and return values are described here and a partial example
+    implementation is provided.
+
+  Parameters:
+    cfmObj -            Pointer to the object containing any data necessary to
+                        identify the result of the last transmission.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    void APP_MyTXCfmEventHandler( MAC_RT_TX_CFM_OBJ *cfmObj )
+    {
+        switch(cfmObj->status)
+        {
+            case MAC_RT_STATUS_SUCCESS:
+                // Transmission result: already in process
+                break;   
+            case MAC_RT_STATUS_CHANNEL_ACCESS_FAILURE:
+                // Transmission result: CSMA failure
+                break;   
+            case MAC_RT_STATUS_NO_ACK:
+                // Transmission result: ACK failure
+                break;
+        }
+    }
+    </code>
+
+  Remarks:
+    - If the status field is MAC_RT_STATUS_SUCCESS, it means that the data was
+      transferred successfully.
+
+    - Otherwise, it means that the data was not transferred successfully.
+
+*/
+
+typedef void ( *DRV_G3_MACRT_INIT_CALLBACK )( bool initResult );
 
 // *****************************************************************************
 /* G3 MAC RT Driver Transmission Confirm Event Handler Function Pointer
@@ -335,7 +381,7 @@ typedef void ( *DRV_G3_MACRT_COMM_STATUS_IND_CALLBACK )( uint8_t *pData );
 
   Example:
     <code>
-    void APP_MyMacRtPhySnifferHandler( uint8_t *pData, uint16_t length )
+    void APP_MyMacRtPhySnifferHandler( uint16_t length )
     {
         // Check length of the new PLC message
         if (length) {
@@ -347,7 +393,7 @@ typedef void ( *DRV_G3_MACRT_COMM_STATUS_IND_CALLBACK )( uint8_t *pData );
 
 */
 
-typedef void ( *DRV_G3_MACRT_PHY_SNIFFER_IND_CALLBACK )( uint8_t *pData, uint16_t length );
+typedef void ( *DRV_G3_MACRT_PHY_SNIFFER_IND_CALLBACK )( uint16_t length );
 
 // *****************************************************************************
 /* G3 MAC RT Driver Exceptions Event Handler Function Pointer
@@ -447,16 +493,19 @@ typedef void ( *DRV_G3_MACRT_EXCEPTION_CALLBACK )( DRV_G3_MACRT_EXCEPTION except
     SYS_MODULE_OBJ   sysObjDrvMACRT;
 
     DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
-
         .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SPI0_TransferSetup,
         .dmaChannelTx = SYS_DMA_CHANNEL_1,
         .dmaChannelRx  = SYS_DMA_CHANNEL_0,
         .spiAddressTx =  (void *)&(SPI0_REGS->SPI_TDR),
         .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
+        .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[1]),
         .spiClockFrequency = DRV_PLC_SPI_CLK,
         .ldoPin = DRV_PLC_LDO_EN_PIN, 
         .resetPin = DRV_PLC_RESET_PIN,
         .extIntPin = DRV_PLC_EXT_INT_PIN,
+        .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
+        .stByPin = DRV_PLC_STBY_PIN,
+        .thMonPin = DRV_PLC_THMON_PIN,
     };
 
     DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
@@ -793,6 +842,70 @@ uint32_t DRV_G3_MACRT_GetTimerReference(const DRV_HANDLE handle);
 
 // *****************************************************************************
 /* Function:
+    void DRV_G3_MACRT_InitCallbackRegister( 
+        const SYS_MODULE_INDEX index, 
+        const DRV_G3_MACRT_INIT_CALLBACK callback
+    );
+
+  Summary:
+    Allows a client to set a PLC initialization event handling function for the driver
+    to call back when the PLC bin file has been loaded into PLC transceiver.
+
+  Description:
+    This function allows a client to register a PLC initialization event handling 
+    function with the driver to call back when the loaded of the PLC bin file
+    has finished.
+
+    The callback once set, persists until the client closes the driver 
+    or sets another callback (which could be a "NULL" pointer to indicate no callback).
+
+  Precondition:
+    This routine should be called before calling DRV_G3_MACRT_Open() function.
+
+  Parameters:
+    index  - Identifier for the object instance to be opened.
+
+    callback - Pointer to the callback function.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+ 
+     // Event is received when the transmission is finished
+    void APP_PLC_Init_callback(bool initResult)
+    {
+        if (initResult == True) {
+          // This means the PLC bin file has been loaded successfully.
+        } else {
+          // Error handling here.
+        }
+    }
+      
+    // G3 MAC RT handler.
+    DRV_HANDLE handle;
+
+    // Client registers a PLC initialization callback with driver.
+    DRV_G3_MACRT_initCallbackRegister( DRV_G3_MACRT_INDEX_0, APP_PLC_Init_callback );
+
+    handle = DRV_G3_MACRT_Open(DRV_G3_MACRT_INDEX_0, NULL);
+    if (handle == DRV_HANDLE_INVALID)
+    {
+        // Unable to open the driver
+        // May be the driver is not initialized
+    }   
+    </code>
+
+*/
+
+void DRV_G3_MACRT_InitCallbackRegister( 
+    const SYS_MODULE_INDEX index, 
+    const DRV_G3_MACRT_INIT_CALLBACK callback
+);
+
+// *****************************************************************************
+/* Function:
     void DRV_G3_MACRT_DataCfmCallbackRegister( 
         const DRV_HANDLE handle, 
         const DRV_G3_MACRT_TX_CFM_CALLBACK callback
@@ -1011,7 +1124,7 @@ void DRV_G3_MACRT_RxParamsIndCallbackRegister(
     callback - Pointer to the callback function.
 	
 	pDataBuffer - Pointer to buffer where sniffer message is stored. Data buffer should be 
-	defined as MAC_RT_PHY_DATA_MAX_SIZE	to avoid memory overlaps.
+	defined as MAC_RT_DATA_MAX_SIZE	to avoid memory overlaps.
 
   Returns:
     None.
@@ -1354,7 +1467,6 @@ SYS_STATUS DRV_G3_MACRT_Status( const SYS_MODULE_INDEX index );
 
 void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object );
 
-
 //***************************************************************************
 /*
   Function:
@@ -1373,8 +1485,8 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object );
     specified PLC driver instance.
 
   Parameters:
-    - object -  Object handle for the specified driver instance (returned from
-                DRV_G3_MACRT_Initialize)
+    - handle - A valid open-instance handle, returned from the driver's open routine.
+
     - enable -  Set True to enable PLC tranmission. Set False to disable it.
   Returns:
     None.
@@ -1400,6 +1512,74 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object );
   */
 
 void DRV_G3_MACRT_EnableTX( const DRV_HANDLE handle, bool enable );
+
+//***************************************************************************
+/*
+  Function:
+    void DRV_G3_MACRT_SetCoordinator( const DRV_HANDLE handle )
+    
+  Summary:
+    Enables G3 coordinator capabilities.
+
+  Description:
+    This function allows a client to enable G3 coordinator capabilities.
+    
+  Precondition:
+    The DRV_G3_MACRT_Open routine must have been called for the
+    specified PLC driver instance.
+
+  Parameters:
+    - handle - A valid open-instance handle, returned from the driver's open routine.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    DRV_HANDLER      drvHandler;     // Returned from DRV_G3_MACRT_Open
+    
+    // Enable Coordinator capabilities
+    DRV_G3_MACRT_SetCoordinator(drvHandler);
+ 
+    </code>
+                   
+*/
+
+void DRV_G3_MACRT_SetCoordinator(const DRV_HANDLE handle);
+
+//***************************************************************************
+/*
+  Function:
+    void DRV_G3_MACRT_EnablePhySniffer( const DRV_HANDLE handle )
+    
+  Summary:
+    Enables G3 PHY Sniffer capabilities.
+
+  Description:
+    This function allows a client to enable G3 PHY Sniffer capabilities.
+    
+  Precondition:
+    The DRV_G3_MACRT_Open routine must have been called for the
+    specified PLC driver instance.
+
+  Parameters:
+    - handle - A valid open-instance handle, returned from the driver's open routine.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    DRV_HANDLER      drvHandler;     // Returned from DRV_G3_MACRT_Open
+    
+    // Enable G3 PHY Sniffer capabilities
+    DRV_G3_MACRT_EnablePhySniffer(drvHandler);
+ 
+    </code>
+                   
+*/
+
+void DRV_G3_MACRT_EnablePhySniffer(const DRV_HANDLE handle);
 
 #ifdef __cplusplus
 }

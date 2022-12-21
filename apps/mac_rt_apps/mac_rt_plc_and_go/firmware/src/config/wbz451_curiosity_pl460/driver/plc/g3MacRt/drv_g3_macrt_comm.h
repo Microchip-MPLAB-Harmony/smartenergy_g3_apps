@@ -65,12 +65,13 @@
 // Section: Macro Definitions
 // *****************************************************************************
 // *****************************************************************************
-/* G3 Bandplan */
-#define G3_CEN_A                        0
-#define G3_CEN_B                        1
-#define G3_FCC                          2
-#define G3_ARIB                         3
-#define G3_INVALID                      0xFF
+typedef enum {
+    G3_CEN_A = 0,
+    G3_CEN_B,
+    G3_FCC,
+    G3_ARIB,
+    G3_INVALID = 0xFF
+} MAC_RT_BAND;    
 
 /* Tone Map size for Cenelec(A,B) bandplan */
 #define TONE_MAP_SIZE_CENELEC           1
@@ -141,6 +142,7 @@ typedef enum {
     MAC_RT_PIB_POS_TABLE = 0x00000120,
     MAC_RT_PIB_POS_RECENT_ENTRY_THRESHOLD = 0x00000121,
     MAC_RT_PIB_POS_RECENT_ENTRIES = 0x00000122,
+    MAC_RT_PIB_PREAMBLE_LENGTH = 0x00000124,
     /* manufacturer specific */
     /* Extended address of this node. */
     MAC_RT_PIB_MANUF_EXTENDED_ADDRESS = 0x08000001,
@@ -701,6 +703,7 @@ typedef struct __attribute__((packed, aligned(1))) {
     uint8_t duplicateDetectionTtl;
     uint8_t tmrTtl;
     uint8_t beaconRandomizationWindowLength;
+    uint8_t preambleLength;
     bool broadcastMaxCwEnable;
     bool coordinator;
     bool promiscuousMode;
@@ -857,7 +860,7 @@ typedef struct {
 	uint16_t agcFactor;       
     /* Data length */
 	uint16_t dataLength;                       
-} MAC_RT_SNIFFER_HEADER;
+} MAC_RT_PHY_SNIFFER_HEADER;
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

@@ -50,6 +50,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#include "stdint.h"
 #include <string.h>
 #include "definitions.h"
 
@@ -193,17 +194,31 @@ static uint8_t APP_PLC_GetMacRTHeaderInfo ( uint8_t *pFrame )
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-void Timer1_Callback (uintptr_t context)
+static void Timer1_Callback (uintptr_t context)
 {
     appPlc.tmr1Expired = true;
 }
 
-void Timer2_Callback (uintptr_t context)
+static void Timer2_Callback (uintptr_t context)
 {
     appPlc.tmr2Expired = true;
 }
 
-static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
+static void APP_PLC_G3MACRTInitCallback(bool initResult)
+{
+    if (initResult == true)
+    {
+        /* Apply PLC initial configuration */
+        APP_PLC_SetInitialConfiguration();
+    }
+    else
+    {
+        /* Error in G3 MAC RT initialization process */
+        appPlc.state = APP_PLC_STATE_ERROR;
+    }
+}
+
+static void APP_PLC_PVDDMonitorCallback( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     (void)context;
     
@@ -225,7 +240,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     }
 }
 
-static void APP_PLC_SleepModeDisableCb( void )
+static void APP_PLC_SleepModeDisableCallback( void )
 {
     /* Apply PLC initial configuration */
     APP_PLC_SetInitialConfiguration();
@@ -234,7 +249,7 @@ static void APP_PLC_SleepModeDisableCb( void )
     appPlc.state = APP_PLC_STATE_WAITING;
 }
 
-static void APP_PLC_ExceptionCb( DRV_G3_MACRT_EXCEPTION exceptionObj )
+static void APP_PLC_ExceptionCallback( DRV_G3_MACRT_EXCEPTION exceptionObj )
 {
     /* Avoid warning */
     (void)exceptionObj;
@@ -245,7 +260,7 @@ static void APP_PLC_ExceptionCb( DRV_G3_MACRT_EXCEPTION exceptionObj )
     appPlc.state = APP_PLC_STATE_IDLE;
 }
 
-static void APP_PLC_DataCfmCb( MAC_RT_TX_CFM_OBJ *cfmObj )
+static void APP_PLC_DataCfmCallback( MAC_RT_TX_CFM_OBJ *cfmObj )
 {
     /* Update PLC TX Status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
@@ -254,7 +269,7 @@ static void APP_PLC_DataCfmCb( MAC_RT_TX_CFM_OBJ *cfmObj )
     appPlcTx.lastTxStatus = cfmObj->status;
 }
 
-static void APP_PLC_DataIndCb( uint8_t *pData, uint16_t length )
+static void APP_PLC_DataIndCallback( uint8_t *pData, uint16_t length )
 {
     uint8_t *pFrame;
     uint8_t headerLength;
@@ -318,7 +333,7 @@ static void APP_PLC_DataIndCb( uint8_t *pData, uint16_t length )
     APP_CONSOLE_Print(MENU_CMD_PROMPT);
 }
 
-static void APP_PLC_RxParamsIndCb( MAC_RT_RX_PARAMETERS_OBJ *pParameters )
+static void APP_PLC_RxParamsIndCallback( MAC_RT_RX_PARAMETERS_OBJ *pParameters )
 {
     appPlcTx.rxParams.highPriority = pParameters->highPriority;
     appPlcTx.rxParams.pduLinkQuality = pParameters->pduLinkQuality;
@@ -448,6 +463,9 @@ void APP_PLC_Tasks ( void )
                 PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvG3MacRt);
             }
             
+            /* Set G3 MAC RT initialization callback */
+            DRV_G3_MACRT_InitCallbackRegister(DRV_G3_MACRT_INDEX_0, APP_PLC_G3MACRTInitCallback);
+            
             /* Open PLC driver */
             appPlc.drvPl360Handle = DRV_G3_MACRT_Open(DRV_G3_MACRT_INDEX_0, NULL);
 
@@ -468,20 +486,17 @@ void APP_PLC_Tasks ( void )
             if (DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX_0) == SYS_STATUS_READY)
             {
                 /* Configure PLC callbacks */
-                DRV_G3_MACRT_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb);
-                DRV_G3_MACRT_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb);
-                DRV_G3_MACRT_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb);
-                DRV_G3_MACRT_RxParamsIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_RxParamsIndCb);
-                DRV_G3_MACRT_SleepIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_SleepModeDisableCb);
-                
-                /* Apply PLC initial configuration */
-                APP_PLC_SetInitialConfiguration();
+                DRV_G3_MACRT_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCallback);
+                DRV_G3_MACRT_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCallback);
+                DRV_G3_MACRT_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCallback);
+                DRV_G3_MACRT_RxParamsIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_RxParamsIndCallback);
+                DRV_G3_MACRT_SleepIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_SleepModeDisableCallback);
                 
                 /* Enable PLC Transmission */
-                DRV_G3_MACRT_EnableTX(appPlc.drvPl360Handle, true);
+                DRV_G3_MACRT_EnableTX(appPlc.drvPl360Handle, true);                        
                 
                 /* Enable PLC PVDD Monitor Service */
-                SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
+                SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCallback, 0);
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
             
                 /* Init Timer to handle blinking led */
@@ -585,7 +600,12 @@ bool APP_PLC_SetSleepMode ( bool enable )
         DRV_G3_MACRT_Sleep(appPlc.drvPl360Handle, enable);
         if (enable)
         {
+            appPlc.prevState = appPlc.state;
             appPlc.state = APP_PLC_STATE_SLEEP;
+        }
+        else
+        {
+            appPlc.state = appPlc.prevState;
         }
         
         return true;

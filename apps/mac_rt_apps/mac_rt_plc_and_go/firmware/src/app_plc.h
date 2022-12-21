@@ -170,6 +170,8 @@ typedef struct
     
     APP_PLC_STATES state;
     
+    APP_PLC_STATES prevState;
+    
     uint16_t maxPsduLen;
     
     APP_PLC_TX_STATE plcTxState;

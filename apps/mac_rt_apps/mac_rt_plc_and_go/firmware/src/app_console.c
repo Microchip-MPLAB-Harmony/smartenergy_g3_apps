@@ -486,7 +486,7 @@ void APP_CONSOLE_Initialize ( void )
 void APP_CONSOLE_Tasks ( void )
 {
     /* Refresh WDG */
-    WDT_Clear();
+    CLEAR_WATCHDOG();
     
     /* Read console port */
     APP_CONSOLE_ReadSerialChar();
@@ -871,12 +871,18 @@ void APP_CONSOLE_Tasks ( void )
 void APP_CONSOLE_Print(const char *format, ...)
 {
     size_t len = 0;
-    uint32_t numRetries = 1000;
+    uint32_t numRetries;
+
+    va_start( sArgs, format );
+    len = vsnprintf(appConsole.pTransmitChar, SERIAL_BUFFER_SIZE - 1, format, sArgs);
+    va_end( sArgs );
     
     if (appConsole.state == APP_CONSOLE_STATE_INIT)
     {
         return;
     }
+    
+    numRetries = 1000 * SYS_CONSOLE_WriteCountGet(SYS_CONSOLE_INDEX_0);
 
     while(SYS_CONSOLE_WriteCountGet(SYS_CONSOLE_INDEX_0))
     {
@@ -891,10 +897,6 @@ void APP_CONSOLE_Print(const char *format, ...)
         }
     }
 
-    va_start( sArgs, format );
-    len = vsnprintf(appConsole.pTransmitChar, SERIAL_BUFFER_SIZE - 1, format, sArgs);
-    va_end( sArgs );
-    
     if (len > SERIAL_BUFFER_SIZE - 1)
     {
         len = SERIAL_BUFFER_SIZE - 1;

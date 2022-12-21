@@ -175,7 +175,7 @@ typedef struct
 
     /* SPI Chip select pin */
     SYS_PORT_PIN                           spiCSPin;
-
+    
     /* SPI clock frequency */
     uint32_t                               spiClockFrequency;
 
@@ -190,7 +190,6 @@ typedef struct
 
     /* PLC Tx Enable pin */
     SYS_PORT_PIN                           txEnablePin;
-
 
 } DRV_PLC_PLIB_INTERFACE;
 
