@@ -222,7 +222,7 @@ void APP_Initialize ( void )
 void APP_Tasks ( void )
 {
     /* Update Watchdog */
-    WDT_Clear();
+    CLEAR_WATCHDOG();
     
     /* LED signaling */
     if (appData.tmr1Expired == true)
