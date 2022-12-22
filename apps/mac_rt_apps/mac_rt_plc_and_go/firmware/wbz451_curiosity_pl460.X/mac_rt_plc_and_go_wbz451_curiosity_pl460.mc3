@@ -314,8 +314,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;384&quot; canvasWidth=&quot;716&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_WBZ451_Curiosity&quot; x=&quot;11&quot; y=&quot;77&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;483&quot; y=&quot;58&quot;/&gt;
@@ -334,6 +333,7 @@
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;trng&quot; x=&quot;336&quot; y=&quot;83&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;384&quot; canvasWidth=&quot;716&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -5757,7 +5757,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\time\src\sys_time.c</file>
-         <hash>1146b57f815d373883ae1a6b3bc27eb038ec6943aedac2c3340f660bfd7fa4a6</hash>
+         <hash>b722ac0c5d955d289bd906609ab6f302342166c5ba66f87b30cac17ac6bfdcd9</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\hmatrixb.h</file>
@@ -5845,7 +5845,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\time\sys_time.h</file>
-         <hash>6357468f7670698b16bfb6439d9919ed38eba99d4f03277a8b43ac34586fa1b3</hash>
+         <hash>f21b100d8f0b8b79af9217315098d51df855d9015f05a7e25ad77414cd19b2c3</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\pcoup\srv_pcoup.c</file>
@@ -6021,7 +6021,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\time\sys_time_definitions.h</file>
-         <hash>ac520c83cd3cd706c60fe23752500928abee2e0c8cfa29f67a729fb60885727d</hash>
+         <hash>8a02a9fe9638f0afd2e1b4c65f4d4265cd34d8814defa74f9af6d75f52cd317d</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\dscon.h</file>
@@ -6313,7 +6313,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\time\src\sys_time_local.h</file>
-         <hash>f2fcf9aac8d81072e70e05cdf0f366bca245a428229d4ed7cc5635c1a9c03fcb</hash>
+         <hash>d3ef06b59d9a89efe9e8eb54fcf3b75120d56156cc21f6847ca4f9e902eb7c9d</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\dsu.h</file>
