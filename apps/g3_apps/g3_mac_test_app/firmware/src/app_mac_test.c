@@ -73,6 +73,9 @@ static uint8_t msdu[50] = {0x41, 0x60, 0x00, 0x00, 0x00, 0x00, 0x09, 0x3A, 0x01,
 static uint16_t msduLength = 50;
 static uint8_t msduHandle = 0;
 
+static SYS_TIME_HANDLE tmr;
+#define APP_INITIAL_DELAY_MS   2000
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
@@ -245,26 +248,21 @@ void APP_MAC_TEST_Tasks(void)
         /* Application's initial state. */
         case APP_MAC_TEST_STATE_INIT:
         {
-            bool appInitialized = true;
+            app_mac_testData.state = APP_MAC_TEST_STATE_INITIALIZE_MAC;
 
-            if (appInitialized)
-            {
-                app_mac_testData.state = APP_MAC_TEST_STATE_INITIALIZE_MAC;
+            /* Open MAC Wrapper instance */
+            app_mac_testData.macWrpHandle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
 
-                /* Open MAC Wrapper instance */
-                app_mac_testData.macWrpHandle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
-
-                /* Set MAC Wrapper Init data */
-                app_mac_testData.macWrpInit.plcBand = MAC_WRP_BAND_CENELEC_A;
-                app_mac_testData.macWrpInit.macWrpHandlers.dataConfirmCallback = APP_MAC_TEST_DataConfirm;
-                app_mac_testData.macWrpInit.macWrpHandlers.dataIndicationCallback = APP_MAC_TEST_DataIndication;
-                app_mac_testData.macWrpInit.macWrpHandlers.resetConfirmCallback = APP_MAC_TEST_ResetConfirm;
-                app_mac_testData.macWrpInit.macWrpHandlers.beaconNotifyIndicationCallback = APP_MAC_TEST_BeaconIndication;
-                app_mac_testData.macWrpInit.macWrpHandlers.scanConfirmCallback = APP_MAC_TEST_ScanConfirm;
-                app_mac_testData.macWrpInit.macWrpHandlers.startConfirmCallback = APP_MAC_TEST_StartConfirm;
-                app_mac_testData.macWrpInit.macWrpHandlers.commStatusIndicationCallback = APP_MAC_TEST_CommStatusIndication;
-                app_mac_testData.macWrpInit.macWrpHandlers.snifferIndicationCallback = NULL;
-            }
+            /* Set MAC Wrapper Init data */
+            app_mac_testData.macWrpInit.plcBand = MAC_WRP_BAND_CENELEC_A;
+            app_mac_testData.macWrpInit.macWrpHandlers.dataConfirmCallback = APP_MAC_TEST_DataConfirm;
+            app_mac_testData.macWrpInit.macWrpHandlers.dataIndicationCallback = APP_MAC_TEST_DataIndication;
+            app_mac_testData.macWrpInit.macWrpHandlers.resetConfirmCallback = APP_MAC_TEST_ResetConfirm;
+            app_mac_testData.macWrpInit.macWrpHandlers.beaconNotifyIndicationCallback = APP_MAC_TEST_BeaconIndication;
+            app_mac_testData.macWrpInit.macWrpHandlers.scanConfirmCallback = APP_MAC_TEST_ScanConfirm;
+            app_mac_testData.macWrpInit.macWrpHandlers.startConfirmCallback = APP_MAC_TEST_StartConfirm;
+            app_mac_testData.macWrpInit.macWrpHandlers.commStatusIndicationCallback = APP_MAC_TEST_CommStatusIndication;
+            app_mac_testData.macWrpInit.macWrpHandlers.snifferIndicationCallback = NULL;
             break;
         }
 
@@ -281,6 +279,17 @@ void APP_MAC_TEST_Tasks(void)
         {
             /* Check MAC Status */
             if (MAC_WRP_Status() == SYS_STATUS_READY) {
+                /* Set timer and go to next state */
+                SYS_TIME_DelayMS(APP_INITIAL_DELAY_MS, &tmr);
+                app_mac_testData.state = APP_MAC_TEST_STATE_INITIAL_DELAY;
+            }
+            break;
+        }
+
+        case APP_MAC_TEST_STATE_INITIAL_DELAY:
+        {
+            /* Check delay expired */
+            if (SYS_TIME_DelayIsComplete(tmr)) {
                 /* Go to next state */
                 app_mac_testData.state = APP_MAC_TEST_STATE_SET_PARAMS;
             }
