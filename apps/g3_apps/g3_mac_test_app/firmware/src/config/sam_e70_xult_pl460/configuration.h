@@ -106,7 +106,7 @@ extern "C" {
 
 #define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			1
 #define SYS_CONSOLE_UART_MAX_INSTANCES 	   			0
-#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		2
+#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		1
 #define SYS_CONSOLE_PRINT_BUFFER_SIZE        		256
 
 #define SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE 	64
@@ -132,6 +132,7 @@ extern "C" {
 #define DRV_PLC_STBY_PIN                      SYS_PORT_PIN_PA3
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PC17
 #define DRV_PLC_CSR_INDEX                     1
+#define DRV_PLC_SPI_CHIP_SELECT               SPI_CHIP_SELECT_NPCS1
 
 #define DRV_PLC_SPI_CLK                      8000000
 
@@ -139,6 +140,28 @@ extern "C" {
 #define DRV_G3_MACRT_INDEX                   0
 #define DRV_G3_MACRT_INSTANCES_NUMBER        1
 #define DRV_G3_MACRT_HOST_DESC               "ATSAME70Q21B"
+/* RF215 Driver Configuration Options */
+#define DRV_RF215_INDEX_0                     0
+#define DRV_RF215_CLIENTS_NUMBER              1
+#define DRV_RF215_TX_BUFFERS_NUMBER           1
+#define DRV_RF215_CSR_INDEX                   3
+#define DRV_RF215_SPI_CHIP_SELECT             SPI_CHIP_SELECT_NPCS3
+#define DRV_RF215_SPI_TX_DMA_CH               SYS_DMA_CHANNEL_0
+#define DRV_RF215_SPI_RX_DMA_CH               SYS_DMA_CHANNEL_1
+#define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PA2
+#define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PC19
+#define DRV_RF215_LED_TX_PIN                  SYS_PORT_PIN_PD11
+#define DRV_RF215_LED_RX_PIN                  SYS_PORT_PIN_PA6
+#define DRV_RF215_NUM_TRX                     1
+#define DRV_RF215_FCS_LEN                     4
+#define DRV_RF215_MAX_PSDU_LEN                576
+#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000
+#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  70
+#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 660
+
+/* PAL RF Configuration Options */
+#define PAL_RF_PHY_INDEX                     0
+
 
 
 // *****************************************************************************
@@ -167,23 +190,6 @@ extern "C" {
    write. Applicable to all instances of the
    function driver */
 #define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3
-
-/*** USB Driver Configuration ***/
-
-/* Maximum USB driver instances */
-#define DRV_USBHSV1_INSTANCES_NUMBER                        1
-
-/* Interrupt mode enabled */
-#define DRV_USBHSV1_INTERRUPT_MODE                          true
-
-/* Enables Device Support */
-#define DRV_USBHSV1_DEVICE_SUPPORT                          true
-	
-/* Disable Host Support */
-#define DRV_USBHSV1_HOST_SUPPORT                            false
-
-/* Alignment for buffers that are submitted to USB Driver*/ 
-#define USB_ALIGN  CACHE_ALIGN
 
 
 /*** wolfCrypt Library Configuration ***/
@@ -238,6 +244,23 @@ extern "C" {
 #define NO_WOLFSSL_MEMORY
 // ---------- FUNCTIONAL CONFIGURATION END ----------
 
+/*** USB Driver Configuration ***/
+
+/* Maximum USB driver instances */
+#define DRV_USBHSV1_INSTANCES_NUMBER                        1
+
+/* Interrupt mode enabled */
+#define DRV_USBHSV1_INTERRUPT_MODE                          true
+
+/* Enables Device Support */
+#define DRV_USBHSV1_DEVICE_SUPPORT                          true
+	
+/* Disable Host Support */
+#define DRV_USBHSV1_HOST_SUPPORT                            false
+
+/* Alignment for buffers that are submitted to USB Driver*/ 
+#define USB_ALIGN  CACHE_ALIGN
+
 
 /* MAC COMMON Identification */
 #define G3_MAC_COMMON_INDEX_0            0
@@ -246,6 +269,10 @@ extern "C" {
 /* MAC PLC Identification */
 #define G3_MAC_PLC_INDEX_0               0
 #define G3_MAC_PLC_INSTANCES_NUMBER      1
+
+/* MAC RF Identification */
+#define G3_MAC_RF_INDEX_0                0
+#define G3_MAC_RF_INSTANCES_NUMBER       1
 
 /* MAC Wrapper Identification */
 #define G3_MAC_WRP_INDEX_0               0

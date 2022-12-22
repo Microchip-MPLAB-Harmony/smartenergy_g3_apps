@@ -41,7 +41,7 @@
 49,PA15,,Available,In,,,,,,,
 51,PA14,,Available,In,,,,,,,
 52,PD25,,SPI0_NPCS1,n/a,n/a,No,Disabled,No,No,Disabled,Low
-53,PD26,,Available,In,,,,,,,
+53,PD26,GPIO_PD26,Available,In,,,,,,,
 54,PC6,,Available,In,,,,,,,
 55,PD24,,Available,In,,,,,,,
 56,PA24,,Available,In,,,,,,,
@@ -75,10 +75,10 @@
 90,PC10,,Available,In,,,,,,,
 91,PA3,PLC_STBY,GPIO,Out,Low,No,Disabled,No,No,Disabled,Low
 92,PD12,,Available,In,,,,,,,
-93,PA2,,Available,In,,,,,,,
+93,PA2,RF_INT,GPIO,In,n/a,No,Low Level,No,Yes,Disabled,Low
 94,PC11,,Available,In,,,,,,,
 97,PC14,,Available,In,,,,,,,
-98,PD11,,Available,In,,,,,,,
+98,PD11,RF_LED_TX,GPIO,Out,Low,No,Disabled,No,No,Disabled,Low
 99,PA1,,Available,In,,,,,,,
 100,PC16,,Available,In,,,,,,,
 101,PD10,,Available,In,,,,,,,
@@ -92,9 +92,9 @@
 111,PC18,,Available,In,,,,,,,
 112,PA28,,Available,In,,,,,,,
 113,PD8,,Available,In,,,,,,,
-114,PA6,,Available,In,,,,,,,
+114,PA6,RF_LED_RX,GPIO,In,n/a,No,Disabled,No,No,Disabled,Low
 116,PA30,,Available,In,,,,,,,
-117,PC19,,Available,In,,,,,,,
+117,PC19,RF_RST,GPIO,Out,Low,No,Disabled,No,No,Disabled,Low
 118,PA31,,Available,In,,,,,,,
 119,PD7,,Available,In,,,,,,,
 120,PC20,,Available,In,,,,,,,

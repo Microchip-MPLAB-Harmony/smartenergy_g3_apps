@@ -28,6 +28,18 @@
                 <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/drv_g3_macrt_definitions.h</itemPath>
               </logicalFolder>
             </logicalFolder>
+            <logicalFolder name="rf215" displayName="rf215" projectFiles="true">
+              <logicalFolder name="hal" displayName="hal" projectFiles="true">
+                <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/hal/rf215_hal.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="phy" displayName="phy" projectFiles="true">
+                <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/phy/rf215_phy.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/phy/ieee_15_4_sun_fsk.h</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/drv_rf215_definitions.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/drv_rf215_local.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/drv_rf215.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="usb" displayName="usb" projectFiles="true">
               <logicalFolder name="usbhsv1" displayName="usbhsv1" projectFiles="true">
                 <logicalFolder name="src" displayName="src" projectFiles="true">
@@ -108,6 +120,11 @@
                   <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_plc/mac_plc_mib.h</itemPath>
                   <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_plc/mac_plc_defs.h</itemPath>
                 </logicalFolder>
+                <logicalFolder name="mac_rf" displayName="mac_rf" projectFiles="true">
+                  <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_rf/mac_rf_mib.h</itemPath>
+                  <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_rf/mac_rf_defs.h</itemPath>
+                  <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_rf/mac_rf.h</itemPath>
+                </logicalFolder>
                 <logicalFolder name="mac_wrapper" displayName="mac_wrapper" projectFiles="true">
                   <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_wrapper/mac_wrapper_defs.h</itemPath>
                   <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_wrapper/mac_wrapper.h</itemPath>
@@ -116,6 +133,9 @@
               <logicalFolder name="pal" displayName="pal" projectFiles="true">
                 <logicalFolder name="plc" displayName="plc" projectFiles="true">
                   <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/pal/plc/pal_plc.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="rf" displayName="rf" projectFiles="true">
+                  <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/pal/rf/pal_rf.h</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
@@ -501,6 +521,15 @@
                 <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/drv_g3_macrt_local_comm.c</itemPath>
               </logicalFolder>
             </logicalFolder>
+            <logicalFolder name="rf215" displayName="rf215" projectFiles="true">
+              <logicalFolder name="hal" displayName="hal" projectFiles="true">
+                <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/hal/rf215_hal.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="phy" displayName="phy" projectFiles="true">
+                <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/phy/rf215_phy.c</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/sam_e70_xult_pl460/driver/rf215/drv_rf215.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="usb" displayName="usb" projectFiles="true">
               <logicalFolder name="usbhsv1" displayName="usbhsv1" projectFiles="true">
                 <logicalFolder name="src" displayName="src" projectFiles="true">
@@ -568,6 +597,9 @@
               <logicalFolder name="pal" displayName="pal" projectFiles="true">
                 <logicalFolder name="plc" displayName="plc" projectFiles="true">
                   <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/pal/plc/pal_plc.c</itemPath>
+                </logicalFolder>
+                <logicalFolder name="rf" displayName="rf" projectFiles="true">
+                  <itemPath>../src/config/sam_e70_xult_pl460/stack/g3/pal/rf/pal_rf.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
@@ -758,6 +790,7 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibFileItem>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_plc/g3_lib_plc_mac.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/sam_e70_xult_pl460/stack/g3/mac/mac_rf/g3_lib_rf_mac.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>

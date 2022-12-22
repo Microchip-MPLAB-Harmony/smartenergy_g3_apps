@@ -38,6 +38,10 @@
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
+         <string>drvRf215</string>
+         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
+      </entry>
+      <entry>
          <string>drv_usbhs_v1</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
@@ -54,11 +58,19 @@
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
+         <string>g3MacRf</string>
+         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
+      </entry>
+      <entry>
          <string>g3MacWrapper</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
          <string>g3PalPlc</string>
+         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
+      </entry>
+      <entry>
+         <string>g3PalRf</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
@@ -99,6 +111,10 @@
       </entry>
       <entry>
          <string>srv_pvddmon</string>
+         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
+      </entry>
+      <entry>
+         <string>srv_spisplit</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
@@ -558,26 +574,8 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;G3 STACK&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;MAC LAYER&quot; x=&quot;220&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;srvSecurity&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;638&quot; canvasWidth=&quot;786&quot; dnOrder=&quot;1&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;MAC LAYER&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;g3MacCommon&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3MacPlc&quot; x=&quot;200&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;g3MacWrapper&quot; x=&quot;370&quot; y=&quot;80&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;g3PalPlc&quot; x=&quot;370&quot; y=&quot;221&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;g3_mac_config&quot; x=&quot;380&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvLogReport&quot; x=&quot;31&quot; y=&quot;100&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvRandom&quot; x=&quot;550&quot; y=&quot;80&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;GraphSettings canvasHeight=&quot;798&quot; canvasWidth=&quot;786&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E70_Xplained_Ultra&quot; x=&quot;16&quot; y=&quot;60&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;G3 STACK&quot; x=&quot;390&quot; y=&quot;100&quot;/&gt;
@@ -587,20 +585,42 @@
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;core&quot; x=&quot;239&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;dfp&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;drvG3MacRt&quot; x=&quot;628&quot; y=&quot;375&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;drv_usbhs_v1&quot; x=&quot;24&quot; y=&quot;445&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;efc&quot; x=&quot;481&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;lib_crypto&quot; x=&quot;407&quot; y=&quot;520&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;207&quot; y=&quot;476&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;spi0&quot; x=&quot;464&quot; y=&quot;419&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;srv_pcoup&quot; x=&quot;635&quot; y=&quot;297&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;srv_pvddmon&quot; x=&quot;616&quot; y=&quot;219&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;sys_console&quot; x=&quot;230&quot; y=&quot;283&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;sys_debug&quot; x=&quot;410&quot; y=&quot;300&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;sys_time&quot; x=&quot;237&quot; y=&quot;110&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;tc0&quot; x=&quot;70&quot; y=&quot;131&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;trng&quot; x=&quot;464&quot; y=&quot;150&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;usb_device&quot; x=&quot;30&quot; y=&quot;240&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;usb_device_cdc&quot; x=&quot;25&quot; y=&quot;317&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;drvRf215&quot; x=&quot;430&quot; y=&quot;496&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;drv_usbhs_v1&quot; x=&quot;24&quot; y=&quot;445&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;efc&quot; x=&quot;481&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;g3PalPlc&quot; x=&quot;616&quot; y=&quot;635&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;g3PalRf&quot; x=&quot;569&quot; y=&quot;514&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;lib_crypto&quot; x=&quot;182&quot; y=&quot;557&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;19&quot; y=&quot;516&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;spi0&quot; x=&quot;226&quot; y=&quot;472&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;srv_pcoup&quot; x=&quot;635&quot; y=&quot;297&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;srv_pvddmon&quot; x=&quot;616&quot; y=&quot;219&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;srv_spisplit&quot; x=&quot;427&quot; y=&quot;402&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;sys_console&quot; x=&quot;230&quot; y=&quot;283&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;sys_debug&quot; x=&quot;396&quot; y=&quot;289&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;sys_time&quot; x=&quot;237&quot; y=&quot;110&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;22&quot; id=&quot;tc0&quot; x=&quot;70&quot; y=&quot;131&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;23&quot; id=&quot;trng&quot; x=&quot;464&quot; y=&quot;150&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;24&quot; id=&quot;usb_device&quot; x=&quot;30&quot; y=&quot;240&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;25&quot; id=&quot;usb_device_cdc&quot; x=&quot;25&quot; y=&quot;317&quot;/&gt;
+      &lt;/ElementPositions&gt;
+    &lt;/ComponentGraph&gt;
+    &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;MAC LAYER&quot;&gt;
+      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;g3MacCommon&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3MacPlc&quot; x=&quot;200&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;g3MacRf&quot; x=&quot;550&quot; y=&quot;160&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;g3MacWrapper&quot; x=&quot;370&quot; y=&quot;80&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;g3_mac_config&quot; x=&quot;380&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvLogReport&quot; x=&quot;31&quot; y=&quot;100&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvRandom&quot; x=&quot;550&quot; y=&quot;80&quot;/&gt;
+      &lt;/ElementPositions&gt;
+    &lt;/ComponentGraph&gt;
+    &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;G3 STACK&quot;&gt;
+      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;MAC LAYER&quot; x=&quot;220&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;srvSecurity&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
   &lt;/UserData&gt;
@@ -938,6 +958,39 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_-1_0_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_10_0_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_10_0_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_10_0_HANDLER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_10_0_HANDLER&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;PIOA_InterruptHandler&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_10_0_HANDLER_LOCK"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_10_0_HANDLER_LOCK&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -1362,6 +1415,94 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_114_DIR"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_114_DIR&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_114_FUNCTION_NAME"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_114_FUNCTION_NAME&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;RF_LED_RX&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_114_FUNCTION_TYPE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_114_FUNCTION_TYPE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_114_PERIPHERAL_FUNCTION"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_114_PERIPHERAL_FUNCTION&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_117_DIR"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_117_DIR&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;Out&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_117_FUNCTION_NAME"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_117_FUNCTION_NAME&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;RF_RST&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_117_FUNCTION_TYPE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_117_FUNCTION_TYPE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_117_PERIPHERAL_FUNCTION"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_117_PERIPHERAL_FUNCTION&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_141_DIR"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_141_DIR&quot;&gt;
@@ -1554,6 +1695,50 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_52_PERIPHERAL_FUNCTION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;B&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_53_DIR"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_53_DIR&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_53_FUNCTION_NAME"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_53_FUNCTION_NAME&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO_PD26&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_53_FUNCTION_TYPE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_53_FUNCTION_TYPE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_53_PERIPHERAL_FUNCTION"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_53_PERIPHERAL_FUNCTION&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -1857,6 +2042,116 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_93_FUNCTION_NAME"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_93_FUNCTION_NAME&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;RF_INT&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_93_FUNCTION_TYPE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_93_FUNCTION_TYPE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_93_PD"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_93_PD&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;True&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_93_PERIPHERAL_FUNCTION"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_93_PERIPHERAL_FUNCTION&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_93_PIO_INTERRUPT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_93_PIO_INTERRUPT&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;Low Level&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_98_DIR"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_98_DIR&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;Out&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_98_FUNCTION_NAME"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_98_FUNCTION_NAME&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;RF_LED_TX&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_98_FUNCTION_TYPE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_98_FUNCTION_TYPE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_98_LAT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_98_LAT&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_98_PERIPHERAL_FUNCTION"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_98_PERIPHERAL_FUNCTION&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOA_ABCDSR1_VALUE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIOA_ABCDSR1_VALUE&quot;&gt;
@@ -1879,11 +2174,77 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOA_AIMER_VALUE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIOA_AIMER_VALUE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;4&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOA_CLOCK_FREQUENCY"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIOA_CLOCK_FREQUENCY&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;150000000&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOA_INTERRUPT_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIOA_INTERRUPT_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOA_INTERRUPT_ENABLE_UPDATE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIOA_INTERRUPT_ENABLE_UPDATE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOA_INTERRUPT_HANDLER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIOA_INTERRUPT_HANDLER&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;PIOA_InterruptHandler&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOA_INTERRUPT_HANDLER_LOCK"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIOA_INTERRUPT_HANDLER_LOCK&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOA_LSR_VALUE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIOA_LSR_VALUE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;4&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -1912,11 +2273,33 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOA_PPDEN_VALUE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIOA_PPDEN_VALUE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;4&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOA_PUER_VALUE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIOA_PUER_VALUE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;2048&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOA_REHLSR_VALUE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIOA_REHLSR_VALUE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -2037,7 +2420,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIOC_OER_VALUE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1073741824&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1074266112&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -2165,6 +2548,17 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOD_OER_VALUE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIOD_OER_VALUE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;2048&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOD_PDR_VALUE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIOD_PDR_VALUE&quot;&gt;
@@ -2198,11 +2592,33 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOD_SODR_VALUE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIOD_SODR_VALUE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIOE_CLOCK_FREQUENCY"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIOE_CLOCK_FREQUENCY&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;150000000&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIO_A_INTERRUPT_USED"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIO_A_INTERRUPT_USED&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -3358,13 +3774,23 @@
       &lt;DirectDependency dnOrder=&quot;0&quot; id=&quot;drv_g3_macrt_SPI_dependency&quot;&gt;
         &lt;Attributes dnOrder=&quot;0&quot;&gt;
           &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;spi0&lt;/Value&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;srv_spisplit&lt;/Value&gt;
           &lt;/String&gt;
           &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;SPI0_SPI&lt;/Value&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;srv_spiplit_SPI_capability&lt;/Value&gt;
           &lt;/String&gt;
         &lt;/Attributes&gt;
       &lt;/DirectDependency&gt;
+      &lt;DirectCapability dnOrder=&quot;1&quot; id=&quot;libdrvG3MacRt&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;g3PalPlc&lt;/Value&gt;
+          &lt;/String&gt;
+          &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;g3PalPlc_G3MacRT_dependency&lt;/Value&gt;
+          &lt;/String&gt;
+        &lt;/Attributes&gt;
+      &lt;/DirectCapability&gt;
     &lt;/Attachments&gt;
   &lt;/drvG3MacRt&gt;
 &lt;/drvG3MacRt&gt;
@@ -3493,6 +3919,22 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvG3MacRt&gt;
   &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;DRV_PLC_PLIB&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvG3MacRt&quot; value=&quot;SRV_SPISPLIT&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvG3MacRt&gt;
+&lt;/drvG3MacRt&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvG3MacRt" name="DRV_PLC_PLIB_SPISPLIT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvG3MacRt&gt;
+  &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;DRV_PLC_PLIB_SPISPLIT&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvG3MacRt&quot; value=&quot;SPI0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drvG3MacRt&gt;
@@ -3537,6 +3979,17 @@
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvG3MacRt&gt;
+&lt;/drvG3MacRt&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvG3MacRt" name="DRV_PLC_SPI_NUM_CSR"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvG3MacRt&gt;
+  &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;DRV_PLC_SPI_NUM_CSR&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvG3MacRt&quot; value=&quot;4&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drvG3MacRt&gt;
 &lt;/drvG3MacRt&gt;
@@ -3613,6 +4066,309 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="!@#harmonyAttachmentState"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot;&gt;
+    &lt;Attachments dnOrder=&quot;0&quot;&gt;
+      &lt;DirectDependency dnOrder=&quot;0&quot; id=&quot;drv_rf215_SPI_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;srv_spisplit&lt;/Value&gt;
+          &lt;/String&gt;
+          &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;srv_spiplit_SPI_capability&lt;/Value&gt;
+          &lt;/String&gt;
+        &lt;/Attributes&gt;
+      &lt;/DirectDependency&gt;
+      &lt;DirectCapability dnOrder=&quot;1&quot; id=&quot;libdrvRf215&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;g3PalRf&lt;/Value&gt;
+          &lt;/String&gt;
+          &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;g3PalRf_DrvRfPhy_dependency&lt;/Value&gt;
+          &lt;/String&gt;
+        &lt;/Attributes&gt;
+      &lt;/DirectCapability&gt;
+    &lt;/Attachments&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="#&amp;__MCC_Group_Parrent_id"/>
+         <value>__ROOTVIEW</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_EXT_INT_PIN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_EXT_INT_PIN&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;2&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_FSK_EN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_FSK_EN&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_LED_RX_PIN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_LED_RX_PIN&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;6&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_LED_TX_PIN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_LED_TX_PIN&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;87&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_OFDM_EN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_OFDM_EN&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_PLIB"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_PLIB&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvRf215&quot; value=&quot;SRV_SPISPLIT&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_PLIB_SPISPLIT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_PLIB_SPISPLIT&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvRf215&quot; value=&quot;SPI0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_RESET_PIN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_RESET_PIN&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;63&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_RX_DMA_CHANNEL"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_RX_DMA_CHANNEL&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvRf215&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_SPI_NPCS"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_SPI_NPCS&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;3&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_SPI_NUM_CSR"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_SPI_NUM_CSR&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvRf215&quot; value=&quot;4&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_SPI_REGS"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_SPI_REGS&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvRf215&quot; value=&quot;SPI0_REGS&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_TRX09_PHY_CHANNEL"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_TRX09_PHY_CHANNEL&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;29&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_TRX09_PHY_OPM"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_TRX09_PHY_OPM&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;String dnOrder=&quot;0&quot; id=&quot;label&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;Default&amp;amp;#160;FSK&amp;amp;#160;Operating&amp;amp;#160;Mode&amp;amp;#160;&amp;amp;#160;&amp;amp;#160;&lt;/Value&gt;
+      &lt;/String&gt;
+    &lt;/Attributes&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_TRX09_PHY_TYPE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_TRX09_PHY_TYPE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvRf215&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_TRX24_PHY_OPM"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_TRX24_PHY_OPM&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;String dnOrder=&quot;0&quot; id=&quot;description&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;&amp;lt;html&amp;gt;Select&amp;amp;#160;the&amp;amp;#160;default&amp;amp;#160;FSK&amp;amp;#160;Operating&amp;amp;#160;Mode&amp;amp;#160;for&amp;amp;#160;RF215&amp;amp;#160;Sub-GHz&amp;amp;#160;Transceiver&amp;lt;br&amp;gt;(RF09)&amp;amp;#160;&amp;lt;/html&amp;gt;&lt;/Value&gt;
+      &lt;/String&gt;
+      &lt;String dnOrder=&quot;1&quot; id=&quot;label&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;Default&amp;amp;#160;FSK&amp;amp;#160;Operating&amp;amp;#160;Mode&amp;amp;#160;&amp;amp;#160;&amp;amp;#160;&lt;/Value&gt;
+      &lt;/String&gt;
+    &lt;/Attributes&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_TRX24_PHY_TYPE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_TRX24_PHY_TYPE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvRf215&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_TX_DMA_CHANNEL"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_TX_DMA_CHANNEL&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvRf215&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_USE_LED_RX"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_USE_LED_RX&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_USE_LED_TX"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
+  &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_USE_LED_TX&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvRf215&gt;
+&lt;/drvRf215&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drv_usbhs_v1" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drv_usbhs_v1&gt;
   &lt;drv_usbhs_v1 dnOrder=&quot;0&quot;/&gt;
@@ -3672,6 +4428,17 @@
          <value>MAC LAYER</value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3MacRf" name="!@#harmonyAttachmentState"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3MacRf&gt;
+  &lt;g3MacRf dnOrder=&quot;0&quot;/&gt;
+&lt;/g3MacRf&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3MacRf" name="#&amp;__MCC_Group_Parrent_id"/>
+         <value>MAC LAYER</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3MacWrapper" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3MacWrapper&gt;
   &lt;g3MacWrapper dnOrder=&quot;0&quot;/&gt;
@@ -3685,24 +4452,26 @@
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalPlc" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalPlc&gt;
-  &lt;g3PalPlc dnOrder=&quot;0&quot;/&gt;
+  &lt;g3PalPlc dnOrder=&quot;0&quot;&gt;
+    &lt;Attachments dnOrder=&quot;0&quot;&gt;
+      &lt;DirectDependency dnOrder=&quot;0&quot; id=&quot;g3PalPlc_G3MacRT_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;drvG3MacRt&lt;/Value&gt;
+          &lt;/String&gt;
+          &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;libdrvG3MacRt&lt;/Value&gt;
+          &lt;/String&gt;
+        &lt;/Attributes&gt;
+      &lt;/DirectDependency&gt;
+    &lt;/Attachments&gt;
+  &lt;/g3PalPlc&gt;
 &lt;/g3PalPlc&gt;
 </value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalPlc" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalPlc" name="G3_PAL_PLC_PHY_SNIFFER_EN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalPlc&gt;
-  &lt;g3PalPlc dnOrder=&quot;0&quot; id=&quot;G3_PAL_PLC_PHY_SNIFFER_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/g3PalPlc&gt;
-&lt;/g3PalPlc&gt;
-</value>
+         <value>__ROOTVIEW</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalPlc" name="G3_PAL_PLC_PVDD_MONITOR"/>
@@ -3716,6 +4485,41 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="!@#harmonyAttachmentState"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalRf&gt;
+  &lt;g3PalRf dnOrder=&quot;0&quot;&gt;
+    &lt;Attachments dnOrder=&quot;0&quot;&gt;
+      &lt;DirectDependency dnOrder=&quot;0&quot; id=&quot;g3PalRf_DrvRfPhy_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;drvRf215&lt;/Value&gt;
+          &lt;/String&gt;
+          &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;libdrvRf215&lt;/Value&gt;
+          &lt;/String&gt;
+        &lt;/Attributes&gt;
+      &lt;/DirectDependency&gt;
+    &lt;/Attachments&gt;
+  &lt;/g3PalRf&gt;
+&lt;/g3PalRf&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="#&amp;__MCC_Group_Parrent_id"/>
+         <value>__ROOTVIEW</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="G3_PAL_RF_DEVICE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalRf&gt;
+  &lt;g3PalRf dnOrder=&quot;0&quot; id=&quot;G3_PAL_RF_DEVICE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;g3PalRf&quot; value=&quot;DRVRF215&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/g3PalRf&gt;
+&lt;/g3PalRf&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_config" name="#&amp;__MCC_Group_Parrent_id"/>
          <value>G3 STACK</value>
       </entry>
@@ -3724,7 +4528,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_config&gt;
   &lt;g3_config dnOrder=&quot;0&quot; id=&quot;G3_MODE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;G3 PLC MAC Layer&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;G3 MAC Layer Hybrid PLC &amp;amp; RF&quot;/&gt;
     &lt;/Values&gt;
   &lt;/g3_config&gt;
 &lt;/g3_config&gt;
@@ -3739,7 +4543,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_mac_config&gt;
   &lt;g3_mac_config dnOrder=&quot;0&quot; id=&quot;G3_AVAILABLE_MACS&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;g3_mac_config&quot; value=&quot;Only PLC MAC Layer&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;g3_mac_config&quot; value=&quot;Both PLC &amp;amp; RF MAC Layers&quot;/&gt;
     &lt;/Values&gt;
   &lt;/g3_mac_config&gt;
 &lt;/g3_mac_config&gt;
@@ -3761,7 +4565,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_mac_config&gt;
   &lt;g3_mac_config dnOrder=&quot;0&quot; id=&quot;MAC_RF_PRESENT&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;g3_mac_config&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;g3_mac_config&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/g3_mac_config&gt;
 &lt;/g3_mac_config&gt;
@@ -3936,10 +4740,10 @@
       &lt;DirectCapability dnOrder=&quot;0&quot; id=&quot;SPI0_SPI&quot;&gt;
         &lt;Attributes dnOrder=&quot;0&quot;&gt;
           &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;drvG3MacRt&lt;/Value&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;srv_spisplit&lt;/Value&gt;
           &lt;/String&gt;
           &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;drv_g3_macrt_SPI_dependency&lt;/Value&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;srv_spiplit_SPI_dependency&lt;/Value&gt;
           &lt;/String&gt;
         &lt;/Attributes&gt;
       &lt;/DirectCapability&gt;
@@ -4029,11 +4833,59 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="spi0" name="SPI_CSR3_BAUD_RATE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;spi0&gt;
+  &lt;spi0 dnOrder=&quot;0&quot; id=&quot;SPI_CSR3_BAUD_RATE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;11500000&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/spi0&gt;
+&lt;/spi0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="spi0" name="SPI_CSR3_DLYBCT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;spi0&gt;
+  &lt;spi0 dnOrder=&quot;0&quot; id=&quot;SPI_CSR3_DLYBCT&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/spi0&gt;
+&lt;/spi0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="spi0" name="SPI_CSR3_DLYBS"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;spi0&gt;
+  &lt;spi0 dnOrder=&quot;0&quot; id=&quot;SPI_CSR3_DLYBS&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;8&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/spi0&gt;
+&lt;/spi0&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="spi0" name="SPI_CSR3_SCBR_VALUE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;spi0&gt;
   &lt;spi0 dnOrder=&quot;0&quot; id=&quot;SPI_CSR3_SCBR_VALUE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;spi0&quot; value=&quot;150&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;spi0&quot; value=&quot;13&quot;/&gt;
     &lt;/Values&gt;
   &lt;/spi0&gt;
 &lt;/spi0&gt;
@@ -4066,6 +4918,17 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="spi0" name="SPI_EN_NPCS1"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;spi0&gt;
   &lt;spi0 dnOrder=&quot;0&quot; id=&quot;SPI_EN_NPCS1&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/spi0&gt;
+&lt;/spi0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="spi0" name="SPI_EN_NPCS3"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;spi0&gt;
+  &lt;spi0 dnOrder=&quot;0&quot; id=&quot;SPI_EN_NPCS3&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
@@ -4109,6 +4972,9 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;spi0&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/spi0&gt;
 &lt;/spi0&gt;
 </value>
@@ -4131,7 +4997,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;spi0&gt;
   &lt;spi0 dnOrder=&quot;0&quot; id=&quot;SPI_NUM_CSR&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;spi0&quot; value=&quot;1&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;spi0&quot; value=&quot;2&quot;/&gt;
     &lt;/Values&gt;
   &lt;/spi0&gt;
 &lt;/spi0&gt;
@@ -5874,6 +6740,73 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_spisplit" name="!@#harmonyAttachmentState"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_spisplit&gt;
+  &lt;srv_spisplit dnOrder=&quot;0&quot;&gt;
+    &lt;Attachments dnOrder=&quot;0&quot;&gt;
+      &lt;DirectDependency dnOrder=&quot;0&quot; id=&quot;srv_spiplit_SPI_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;spi0&lt;/Value&gt;
+          &lt;/String&gt;
+          &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;SPI0_SPI&lt;/Value&gt;
+          &lt;/String&gt;
+        &lt;/Attributes&gt;
+      &lt;/DirectDependency&gt;
+    &lt;/Attachments&gt;
+  &lt;/srv_spisplit&gt;
+&lt;/srv_spisplit&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_spisplit" name="#&amp;__MCC_Group_Parrent_id"/>
+         <value>__ROOTVIEW</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_spisplit" name="SRV_SPISPLIT_PLIB"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_spisplit&gt;
+  &lt;srv_spisplit dnOrder=&quot;0&quot; id=&quot;SRV_SPISPLIT_PLIB&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_spisplit&quot; value=&quot;SPI0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/srv_spisplit&gt;
+&lt;/srv_spisplit&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_spisplit" name="SRV_SPISPLIT_RX_DMA_CHANNEL"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_spisplit&gt;
+  &lt;srv_spisplit dnOrder=&quot;0&quot; id=&quot;SRV_SPISPLIT_RX_DMA_CHANNEL&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_spisplit&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/srv_spisplit&gt;
+&lt;/srv_spisplit&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_spisplit" name="SRV_SPISPLIT_TX_DMA_CHANNEL"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_spisplit&gt;
+  &lt;srv_spisplit dnOrder=&quot;0&quot; id=&quot;SRV_SPISPLIT_TX_DMA_CHANNEL&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_spisplit&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/srv_spisplit&gt;
+&lt;/srv_spisplit&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_console" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_console&gt;
   &lt;sys_console dnOrder=&quot;0&quot;/&gt;
@@ -6909,7 +7842,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\tasks.c</file>
-         <hash>7c57524b07a157343df0f96cd97df6ebb10bfcc44c3e1522faa103c2066ccce1</hash>
+         <hash>fed78785dcdbefea8d8dc930305048208e91c161a10929a67ba4080d4a14a05b</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_ClearFlags_pb.h</file>
@@ -7004,12 +7937,12 @@
          <hash>cd9040eddfb7b118d88dd4f8a22a610e0ff20f71735dc78901e6dd0899f9c304</hash>
       </entry>
       <entry>
-         <file>..\src\config\sam_e70_xult_pl460\usb\usb_host.h</file>
-         <hash>4ec16dee42ae6b1bad8a7199b44750ccf0c5fa3aee5e44766e7b6dffc9979e83</hash>
-      </entry>
-      <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\pwdbased.c</file>
          <hash>db9afbacc77f588261de2f270839492dab435338836029e4b7f81d82ec2bb056</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_e70_xult_pl460\usb\usb_host.h</file>
+         <hash>4ec16dee42ae6b1bad8a7199b44750ccf0c5fa3aee5e44766e7b6dffc9979e83</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\gpbr.h</file>
@@ -7124,6 +8057,10 @@
          <hash>ce61cc6f5b37ecf9d328ce70d97bbd2bc3b14dc99a72d18d755507b32ff7984e</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_rf\mac_rf_mib.h</file>
+         <hash>87014907f4d49f6ebda549e40c49186dd78d78d363de015658e284388421c5a5</hash>
+      </entry>
+      <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\matrix.h</file>
          <hash>a39120b6cfef80d9c6142d66ae45711afbaeaa4b6a29de30570680afc2b47692</hash>
       </entry>
@@ -7149,7 +8086,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\configuration.h</file>
-         <hash>b1885ba909cc0a37ec2e3a5e0dd4faed220b45015614b044e6e55e637d8e044f</hash>
+         <hash>39db914fc2b773a73bb2193bd1ed3ee67b5b7364ab0bf4cfb2e0efe533d0b923</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\usb\usb_cdc.h</file>
@@ -7205,7 +8142,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_wrapper\mac_wrapper.c</file>
-         <hash>6de99132c3c34c88e529c7f5b35659fe07a07e90bf98780e5e80d69affcb28a1</hash>
+         <hash>d9d15ab0af50ef66bd5d5aae93d5c2d952ff3995a30a0aa40e86be6011332e0e</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\pioe.h</file>
@@ -7220,20 +8157,28 @@
          <hash>f8c99cacd9ac228b4789a2458ca22cc69d3c72869c23aad41884c7b925c1c05d</hash>
       </entry>
       <entry>
-         <file>..\src\config\sam_e70_xult_pl460\driver\plc\g3MacRt\drv_g3_macrt_comm.h</file>
-         <hash>3075b6d1eb24605d954cc5f4eec221828ccb855e22f64197b1ef30f5488e5ee8</hash>
+         <file>..\src\config\sam_e70_xult_pl460\driver\rf215\hal\rf215_hal.c</file>
+         <hash>ca7020278d6b8cf1cc1e8d573a1c964bbe23e1e3aa9da62ffd9c11e62ee37e08</hash>
       </entry>
       <entry>
-         <file>..\src\config\sam_e70_xult_pl460\usb\usb_hub.h</file>
-         <hash>f07eb653a11355424adb96ff0fec6796f6b95c8924ac93fb9207f888d130bc7d</hash>
+         <file>..\src\config\sam_e70_xult_pl460\driver\plc\g3MacRt\drv_g3_macrt_comm.h</file>
+         <hash>3075b6d1eb24605d954cc5f4eec221828ccb855e22f64197b1ef30f5488e5ee8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\config.h</file>
          <hash>97d048aca9fc536435fb697f0f2a72f52d90d14b9f2ac52dc55b627c4850848e</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_e70_xult_pl460\usb\usb_hub.h</file>
+         <hash>f07eb653a11355424adb96ff0fec6796f6b95c8924ac93fb9207f888d130bc7d</hash>
+      </entry>
+      <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\fe_low_mem.c</file>
          <hash>e1a27fe52f0137e86de726bae8e4aca35519ebf81ea8612f5683e5b287ef1e01</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_e70_xult_pl460\driver\rf215\hal\rf215_hal.h</file>
+         <hash>2fb415ad1f0ac76c1a93a92a221456a58ed1fc11d97dbbe0d9b4b77c0e9c1a4b</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\blake2b.c</file>
@@ -7317,7 +8262,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\common\drv_plc_hal.c</file>
-         <hash>30518f91534159768f57a02363dbbba829a0d2a2e936950cf4c4e9b303105f05</hash>
+         <hash>d85fd2a82fb34f8b9031ce172da77deae0d970b2bbf5d71217f591be1f09d016</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_e70_xult_pl460\driver\rf215\drv_rf215.c</file>
+         <hash>737093656525cd1a4deba12445ab847cf6022c5cd48a47243a628bba93427b00</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_rsa_pukcl.h</file>
@@ -7337,7 +8286,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\common\drv_plc_hal.h</file>
-         <hash>44500f6519eb2261094551dbf4f43c2ffef0e4b45ed88bc18c5173024325f10f</hash>
+         <hash>2111e3c95829e7f7ad190dd9070be6634c116ca474a9c1e2862697b2f53136a1</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\signature.h</file>
@@ -7352,12 +8301,16 @@
          <hash>a5578d8781434ae7b40d7f64ab3ac8c3316dfa4bb0d36b412b1c5b472e89d5db</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_e70_xult_pl460\driver\rf215\drv_rf215.h</file>
+         <hash>169894850ce2be9031b4ab5f093e4d7c286cdf5ff64026d451f53a219b912c00</hash>
+      </entry>
+      <entry>
          <file>..\src\config\sam_e70_xult_pl460\bsp\bsp.h</file>
          <hash>69ce23c92ed68e3bffdb2cf7409cee04c5a579ea1844d976fa3bf660895813c2</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\definitions.h</file>
-         <hash>fb13861df19af460a0807bbbc8b8b16bbf2e63e600381e1932c5711c2b4e4302</hash>
+         <hash>a8ecb1b7bdfc880d91c5ee8486affdcfce6458a269aafec781c89b23d88355b8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\bsp\bsp.c</file>
@@ -7456,6 +8409,10 @@
          <hash>dc39e816af77cc533b8ce25fed0dda4674f645aacff4d61a9a501a02d553a7f6</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_e70_xult_pl460\driver\rf215\phy\ieee_15_4_sun_fsk.h</file>
+         <hash>2b67b1b84d7743be2c374952210de772ea4355e8df0e7f95ac2240dd1949d4a2</hash>
+      </entry>
+      <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\icm.h</file>
          <hash>8b1a3d8bade42dcdc95a167508b7d2fa2da304cd1dbaf8c9ee99f5beea372d83</hash>
       </entry>
@@ -7474,6 +8431,10 @@
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\tc\plib_tc_common.h</file>
          <hash>18de4e464f8009ae88ff57f51eade38db795cae08b4a09570ef487e4e980d086</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_e70_xult_pl460\driver\rf215\phy\rf215_phy.c</file>
+         <hash>5e68db7cc0dbbd5512b8fdedab9b9fb31388c51db3f03ec9a7f044a4666bc3b8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\usb\usb_device_cdc.h</file>
@@ -7528,6 +8489,10 @@
          <hash>4b5b52086222749ebc0bbf5a56eb8525ac62be954880d9e231779dd0d8533c5e</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_e70_xult_pl460\driver\rf215\phy\rf215_phy.h</file>
+         <hash>20ce78526d5f57f6e129871f29af49db10d0d0d3cc7edd7c3ff08ad773a0efa3</hash>
+      </entry>
+      <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\aes.h</file>
          <hash>5d658009d2688e2cd73be3048b5c4b425d2c40c840b40ef31ee9c82960f7bb45</hash>
       </entry>
@@ -7573,7 +8538,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_plc\g3_lib_plc_mac.a</file>
-         <hash>0ebebf9dedad660e88d4cca7e35c55c24ff71adcbc1cd6dae4a9f296e5a44f49</hash>
+         <hash>38924cf8b5cf60ab5ab1e3de8679bd1881a66722bec72ef8ac9ec7e3de25072b</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\pmc.h</file>
@@ -7641,7 +8606,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\nvic\plib_nvic.c</file>
-         <hash>e26fe7a8ea57154b90ae02a71e38678e61f2acfead4b54e7acc1933849d5aa34</hash>
+         <hash>6326b18ce0f8ed280cd0d38bf14d5b89f0a2eae40a5f8e984047374b73307cbe</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\usb\drv_usb.h</file>
@@ -7713,7 +8678,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_plc\mac_plc.h</file>
-         <hash>07d91fc0ac6565df035b7d2bb450506fbc2ce289df1cd129ea3faf57946d71e6</hash>
+         <hash>c55b4d305db8e9e871c57bce7908cc53cd1d398b54f6f6a2a1a74e7747b3f0f5</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\g3MacRt\drv_g3_macrt.h</file>
@@ -7721,7 +8686,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\spi\spi_master\plib_spi0_master.c</file>
-         <hash>983761d912d27646ee2ba8dc39e5a41e84701e7c3075635ec7143437523b7b82</hash>
+         <hash>dcf2c8387f7b3e952f9fd705f3de4830590964208d603953e8f1610329abeb57</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_Fill_pb.h</file>
@@ -7773,7 +8738,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\spi\spi_master\plib_spi0_master.h</file>
-         <hash>d575d160a9664bb536a7c5727a5859582f4daae1e811dc718689840794853cb9</hash>
+         <hash>d16eb5ce19cabd0cdb8562aed8e13bfad1d43a1c5ddbb765ebfe79cf95ac57ab</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_RedMod_pb.h</file>
@@ -7836,6 +8801,10 @@
          <hash>2b75f8e370e5cb2c54f70da7351ee149f0d5a7673e700f39b373099716b31b55</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_rf\mac_rf_defs.h</file>
+         <hash>f57ee0b4945f2e6f9eb3be80d958be3c641ceb4d2136365186d697439034bb06</hash>
+      </entry>
+      <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\arc4.h</file>
          <hash>f377144a413e1b0c26d92dee3513c0f6e16c2a786d58e9e0fb11b5fa56560060</hash>
       </entry>
@@ -7857,7 +8826,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\pio\plib_pio.c</file>
-         <hash>3ccd97fc219c4674f25c5e1d03a41b21b0981be7283b8f4e10261f0f53474bfb</hash>
+         <hash>9a8f0b0fd415f85aaa32c4152ca904b11e8290d8ea016d42f55784c824ebf87d</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\fe_operations.h</file>
@@ -7865,7 +8834,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\pio\plib_pio.h</file>
-         <hash>514e1872b64fba0faf9b20629d7e91fae4d23d8ce1277fe29ecb54c5793d31a3</hash>
+         <hash>c32fa385696b5c0685df1629fd877e631e2d651fc9f70d38224b981069cd055a</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\error-crypt.h</file>
@@ -8029,7 +8998,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_wrapper\mac_wrapper_defs.h</file>
-         <hash>fd3ed550a538b31fa5a81699b3204757965af3c05b8081ec85675e1bd08e7dab</hash>
+         <hash>7ad7e096e40d74bbfb4caccbcb7796a05182043e02881f2dae69a3724d606b11</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_plc\mac_plc_mib.h</file>
@@ -8057,7 +9026,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\interrupts.c</file>
-         <hash>f983ab4cbb24b8116dcefaaadcc1fa42f553187af75008e494d8ccf29ff7a112</hash>
+         <hash>9648e91bcfb086c258ea3ec0aabb6b780cb363544218906271e64174b6069213</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\memory.h</file>
@@ -8069,7 +9038,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\interrupts.h</file>
-         <hash>ef5b37cbb139d1ad71a1238191d96cc00c158c29161f02f419a85d706058615a</hash>
+         <hash>cbc72b748737d2c4ae4cfcc25f0b7561392ca83a3d0383ac555885e5dd841ef6</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\usb\src\usb_device_local.h</file>
@@ -8114,6 +9083,14 @@
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\rsa.c</file>
          <hash>a2f55de914c87b091b398be896ed509d608fc533a5952b91e27d763a630ce0bb</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_e70_xult_pl460\driver\rf215\drv_rf215_definitions.h</file>
+         <hash>356c910e8279db965b26aa8a08019cfcb88f9495c57cea692ecc6b69bfde6147</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_e70_xult_pl460\driver\rf215\drv_rf215_local.h</file>
+         <hash>7e327e9ab5407d5279a902a322e97054f5be70d67526dd20e5a3d961c6cb3a8e</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\uart0.h</file>
@@ -8165,7 +9142,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\initialization.c</file>
-         <hash>2d19b50c6b4f7ffd07ee04374f1629278a8aa26c89bf899fa68fecad5a2bb00d</hash>
+         <hash>f29c98eb0224da42ec84dcee14fcc23800c364926bf44751467d290edde0bed9</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\mcan.h</file>
@@ -8233,7 +9210,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\pin_configurations.csv</file>
-         <hash>d9242c692ddbe1c8a52ec2ab95a794b84448bae859ed9b98a5e7666bc4781b08</hash>
+         <hash>93d0240935e95189f4d0ec581118e461dbb91e9774dc44719181634408e0b98c</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_sha_sam6156.h</file>
@@ -8412,12 +9389,16 @@
          <hash>46692be94e8ea198c1eae3eda1c21ff9371e94078e2011831412b838d8e7fad5</hash>
       </entry>
       <entry>
+         <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\chacha20_poly1305.c</file>
+         <hash>5ff8537551acd84fc6ea69f04ba6fec8fa18367cdfb12254fb775f5623c4831a</hash>
+      </entry>
+      <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\usb\usbhsv1\src\drv_usbhsv1_local.h</file>
          <hash>d962c20a916fd31e2541bb317483908f4b6d7664461f2b1d1e6153025dfc3bfd</hash>
       </entry>
       <entry>
-         <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\chacha20_poly1305.c</file>
-         <hash>5ff8537551acd84fc6ea69f04ba6fec8fa18367cdfb12254fb775f5623c4831a</hash>
+         <file>..\src\config\sam_e70_xult_pl460\stack\g3\pal\rf\pal_rf.c</file>
+         <hash>6bc76d794a29f7b44f6cdfc0454f95b48aced69fac369bffa57d413cdec961ce</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\utmi.h</file>
@@ -8446,6 +9427,10 @@
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\port\pic32\crypt_sha1_sam11105.c</file>
          <hash>bf745c14ab397ea3b5998d9edcbe228365ea0a02544922cf777ea849a429c969</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_e70_xult_pl460\stack\g3\pal\rf\pal_rf.h</file>
+         <hash>c1e93c8f169bdd984a4c6d3c3002928901b37bbe7b609db77f15f08304ce0a75</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\sp_x86_64.c</file>
@@ -8548,6 +9533,10 @@
          <hash>5aca5b94689a1d980f53b421dc6d87d32b4f82ee830efd5bb30a9796fefe8c3a</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_rf\g3_lib_rf_mac.a</file>
+         <hash>b60ad7d51e3d2b2e4c7ccfc4ec961d2edd500ba47dcd59b3c82b5c3ca2ddbacf</hash>
+      </entry>
+      <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\driver_common.h</file>
          <hash>5217965f6720b4fdf717e99ce9df4f2c9fbd82bbbc9655847166d1eefa806fee</hash>
       </entry>
@@ -8648,6 +9637,10 @@
          <hash>e64db8df7309625b10e2c9686d0bb01b6824769ea9691033b6086e9d988507b5</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_e70_xult_pl460\stack\g3\mac\mac_rf\mac_rf.h</file>
+         <hash>f750cc411fa32b10de57e12594c24d2ec922b2ab8a1bb5310660e304be37bcf6</hash>
+      </entry>
+      <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\g3MacRt\drv_g3_macrt_local.h</file>
          <hash>cd9c307333200518534ed61ff6fc2dee4cc9c9875efe0759308db2b3390f2bbd</hash>
       </entry>
@@ -8661,7 +9654,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\stack\g3\pal\plc\pal_plc.h</file>
-         <hash>010e8134625e5d479aee6af90d5a596b086d8d9b585fccdbfbf75a038e9b7a1c</hash>
+         <hash>aea796b12662d9392cf3c50e85e247af5b397b561e86e47e4425ff6d69e5d2f9</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_pukcl_definitions.h</file>

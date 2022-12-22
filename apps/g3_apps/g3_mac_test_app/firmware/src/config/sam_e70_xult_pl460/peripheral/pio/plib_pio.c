@@ -48,10 +48,10 @@
 #define PIO_MAX_NUM_OF_CHANNELS     5U
 
 /* Array to store callback objects of each configured interrupt */
-static PIO_PIN_CALLBACK_OBJ portPinCbObj[0 + 0 + 0 + 1 + 0];
+static PIO_PIN_CALLBACK_OBJ portPinCbObj[1 + 0 + 0 + 1 + 0];
 
 /* Array to store number of interrupts in each PORT Channel + previous interrupt count */
-static uint8_t portNumCb[PIO_MAX_NUM_OF_CHANNELS + 1] = {0U, 0U, 0U, 0U, 1U, 1U};
+static uint8_t portNumCb[PIO_MAX_NUM_OF_CHANNELS + 1] = {0U, 1U, 1U, 1U, 2U, 2U};
  void PIO_Interrupt_Handler ( PIO_PORT port );
 
 /******************************************************************************
@@ -75,7 +75,8 @@ void PIO_Initialize ( void )
     ((pio_registers_t*)PIO_PORT_A)->PIO_PUDR = ~0x800U;
     ((pio_registers_t*)PIO_PORT_A)->PIO_PUER = 0x800;
     /* PORTA Pull Down Enable/Disable as per MHC selection */
-    ((pio_registers_t*)PIO_PORT_A)->PIO_PPDDR = 0xFFFFFFFFU;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_PPDDR = ~0x4U;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_PPDER = 0x4;
     /* PORTA Output Write Enable */
     ((pio_registers_t*)PIO_PORT_A)->PIO_OWER = PIO_OWER_Msk;
     /* PORTA Output Direction Enable */
@@ -83,6 +84,15 @@ void PIO_Initialize ( void )
     ((pio_registers_t*)PIO_PORT_A)->PIO_ODR = ~0x80039U;
     /* Initialize PORTA pin state */
     ((pio_registers_t*)PIO_PORT_A)->PIO_ODSR = 0x20;
+    /* PORTA Additional interrupt mode Enable */
+    ((pio_registers_t*)PIO_PORT_A)->PIO_AIMER = 0x4;
+    /* PORTA Level type interrupt Enable */
+    ((pio_registers_t*)PIO_PORT_A)->PIO_LSR = 0x4;
+    /* PORTA Interrupt Status Clear */
+    ((pio_registers_t*)PIO_PORT_A)->PIO_ISR;
+    /* PORTA system level interrupt will be enabled by NVIC Manager */
+    /* PORTA module level Interrupt for every pin has to be enabled by user
+       by calling PIO_PinInterruptEnable() API dynamically as and when needed*/
     /* PORTA drive control */
     ((pio_registers_t*)PIO_PORT_A)->PIO_DRIVER = 0x0;
 
@@ -114,8 +124,8 @@ void PIO_Initialize ( void )
     /* PORTC Output Write Enable */
     ((pio_registers_t*)PIO_PORT_C)->PIO_OWER = PIO_OWER_Msk;
     /* PORTC Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_C)->PIO_OER = 0x40000000;
-    ((pio_registers_t*)PIO_PORT_C)->PIO_ODR = ~0x40000000U;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_OER = 0x40080000;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_ODR = ~0x40080000U;
     /* Initialize PORTC pin state */
     ((pio_registers_t*)PIO_PORT_C)->PIO_ODSR = 0x0;
     /* PORTC drive control */
@@ -137,8 +147,8 @@ void PIO_Initialize ( void )
     /* PORTD Output Write Enable */
     ((pio_registers_t*)PIO_PORT_D)->PIO_OWER = PIO_OWER_Msk;
     /* PORTD Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_D)->PIO_OER = 0x0;
-    ((pio_registers_t*)PIO_PORT_D)->PIO_ODR = ~0x0U;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_OER = 0x800;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_ODR = ~0x800U;
     /* Initialize PORTD pin state */
     ((pio_registers_t*)PIO_PORT_D)->PIO_ODSR = 0x0;
     /* PORTD Additional interrupt mode Enable */
@@ -172,9 +182,11 @@ void PIO_Initialize ( void )
 
     uint32_t i;
     /* Initialize Interrupt Pin data structures */
-    portPinCbObj[0 + 0].pin = PIO_PIN_PD28;
+    portPinCbObj[1 + 0].pin = PIO_PIN_PD28;
     
-    for(i=0U; i<1U; i++)
+    portPinCbObj[0].pin = PIO_PIN_PA2;
+    
+    for(i=0U; i<2U; i++)
     {
         portPinCbObj[i].callback = NULL;
     }
@@ -436,6 +448,25 @@ void PIO_Interrupt_Handler ( PIO_PORT port )
 // Section: Interrupt Service Routine (ISR) Implementation(s)
 // *****************************************************************************
 // *****************************************************************************
+// *****************************************************************************
+/* Function:
+    void PIOA_InterruptHandler (void)
+
+  Summary:
+    Interrupt handler for PORTA.
+
+  Description:
+    This function defines the Interrupt service routine for PORTA.
+    This is the function which by default gets into Interrupt Vector Table.
+
+  Remarks:
+    User should not call this function.
+*/
+void PIOA_InterruptHandler(void)
+{
+    /* Local PIO Interrupt Handler */
+    PIO_Interrupt_Handler(PIO_PORT_A);
+}
 
 
 // *****************************************************************************

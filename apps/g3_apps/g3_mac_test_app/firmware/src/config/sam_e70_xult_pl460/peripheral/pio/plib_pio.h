@@ -100,6 +100,26 @@
 #define PLC_STBY_Get()               ((PIOA_REGS->PIO_PDSR >> 3) & 0x1)
 #define PLC_STBY_PIN                  PIO_PIN_PA3
 
+/*** Macros for RF_INT pin ***/
+#define RF_INT_Set()               (PIOA_REGS->PIO_SODR = (1<<2))
+#define RF_INT_Clear()             (PIOA_REGS->PIO_CODR = (1<<2))
+#define RF_INT_Toggle()            (PIOA_REGS->PIO_ODSR ^= (1<<2))
+#define RF_INT_OutputEnable()      (PIOA_REGS->PIO_OER = (1<<2))
+#define RF_INT_InputEnable()       (PIOA_REGS->PIO_ODR = (1<<2))
+#define RF_INT_Get()               ((PIOA_REGS->PIO_PDSR >> 2) & 0x1)
+#define RF_INT_PIN                  PIO_PIN_PA2
+#define RF_INT_InterruptEnable()   (PIOA_REGS->PIO_IER = (1<<2))
+#define RF_INT_InterruptDisable()  (PIOA_REGS->PIO_IDR = (1<<2))
+
+/*** Macros for RF_LED_TX pin ***/
+#define RF_LED_TX_Set()               (PIOD_REGS->PIO_SODR = (1<<11))
+#define RF_LED_TX_Clear()             (PIOD_REGS->PIO_CODR = (1<<11))
+#define RF_LED_TX_Toggle()            (PIOD_REGS->PIO_ODSR ^= (1<<11))
+#define RF_LED_TX_OutputEnable()      (PIOD_REGS->PIO_OER = (1<<11))
+#define RF_LED_TX_InputEnable()       (PIOD_REGS->PIO_ODR = (1<<11))
+#define RF_LED_TX_Get()               ((PIOD_REGS->PIO_PDSR >> 11) & 0x1)
+#define RF_LED_TX_PIN                  PIO_PIN_PD11
+
 /*** Macros for PLC_RST pin ***/
 #define PLC_RST_Set()               (PIOA_REGS->PIO_SODR = (1<<0))
 #define PLC_RST_Clear()             (PIOA_REGS->PIO_CODR = (1<<0))
@@ -117,6 +137,24 @@
 #define PLC_THMON_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<17))
 #define PLC_THMON_Get()               ((PIOC_REGS->PIO_PDSR >> 17) & 0x1)
 #define PLC_THMON_PIN                  PIO_PIN_PC17
+
+/*** Macros for RF_LED_RX pin ***/
+#define RF_LED_RX_Set()               (PIOA_REGS->PIO_SODR = (1<<6))
+#define RF_LED_RX_Clear()             (PIOA_REGS->PIO_CODR = (1<<6))
+#define RF_LED_RX_Toggle()            (PIOA_REGS->PIO_ODSR ^= (1<<6))
+#define RF_LED_RX_OutputEnable()      (PIOA_REGS->PIO_OER = (1<<6))
+#define RF_LED_RX_InputEnable()       (PIOA_REGS->PIO_ODR = (1<<6))
+#define RF_LED_RX_Get()               ((PIOA_REGS->PIO_PDSR >> 6) & 0x1)
+#define RF_LED_RX_PIN                  PIO_PIN_PA6
+
+/*** Macros for RF_RST pin ***/
+#define RF_RST_Set()               (PIOC_REGS->PIO_SODR = (1<<19))
+#define RF_RST_Clear()             (PIOC_REGS->PIO_CODR = (1<<19))
+#define RF_RST_Toggle()            (PIOC_REGS->PIO_ODSR ^= (1<<19))
+#define RF_RST_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<19))
+#define RF_RST_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<19))
+#define RF_RST_Get()               ((PIOC_REGS->PIO_PDSR >> 19) & 0x1)
+#define RF_RST_PIN                  PIO_PIN_PC19
 
 /*** Macros for USB_VBUS_SENSE pin ***/
 #define USB_VBUS_SENSE_Set()               (PIOB_REGS->PIO_SODR = (1<<8))

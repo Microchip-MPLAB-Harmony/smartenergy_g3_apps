@@ -1,18 +1,18 @@
 /*******************************************************************************
-  G3 MAC PLC Header File
+  G3 MAC RF Header File
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    mac_plc.h
+    mac_rf.h
 
   Summary:
-    G3 MAC PLC API Header File
+    G3 MAC RF API Header File
 
   Description:
     This file contains definitions of the primitives and related types
-    to be used by MAC Wrapper when accessing G3 MAC PLC layer.
+    to be used by MAC Wrapper when accessing G3 MAC RF layer.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
@@ -40,17 +40,11 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _MAC_PLC_H
-#define _MAC_PLC_H
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: File includes
-// *****************************************************************************
-// *****************************************************************************
+#ifndef _MAC_RF_H
+#define _MAC_RF_H
 
 #include "../mac_common/mac_common.h"
-#include "mac_plc_mib.h"
+#include "mac_rf_mib.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -67,33 +61,13 @@
 // *****************************************************************************
 
 // *****************************************************************************
-/* MAC PLC Bands definition
+/* MAC RF Callback Handlers Structure
 
    Summary:
-    Identifies the possible PLC band values.
+    Set of Event Handler function pointers to receive events from MAC RF.
 
    Description:
-    This enumeration identifies the possible PLC band values.
-
-   Remarks:
-    None.
-*/
-typedef enum
-{
-    MAC_PLC_BAND_CENELEC_A = 0,
-    MAC_PLC_BAND_CENELEC_B = 1,
-    MAC_PLC_BAND_FCC = 2,
-    MAC_PLC_BAND_ARIB = 3,
-} MAC_PLC_BAND;
-
-// *****************************************************************************
-/* MAC PLC Callback Handlers Structure
-
-   Summary:
-    Set of Event Handler function pointers to receive events from MAC PLC.
-
-   Description:
-    Defines the set of callback functions that MAC PLC uses to generate
+    Defines the set of callback functions that MAC RF uses to generate
     events to upper layer.
 
    Remarks:
@@ -103,26 +77,25 @@ typedef enum
 typedef struct
 {
     /* Callbacks */
-    MAC_DataConfirm macPlcDataConfirm;
-    MAC_DataIndication macPlcDataIndication;
-    MAC_ResetConfirm macPlcResetConfirm;
-    MAC_BeaconNotifyIndication macPlcBeaconNotifyIndication;
-    MAC_ScanConfirm macPlcScanConfirm;
-    MAC_StartConfirm macPlcStartConfirm;
-    MAC_CommStatusIndication macPlcCommStatusIndication;
-    MAC_SnifferIndication macPlcMacSnifferIndication;
-} MAC_PLC_HANDLERS;
+    MAC_DataConfirm macRfDataConfirm;
+    MAC_DataIndication macRfDataIndication;
+    MAC_ResetConfirm macRfResetConfirm;
+    MAC_BeaconNotifyIndication macRfBeaconNotifyIndication;
+    MAC_ScanConfirm macRfScanConfirm;
+    MAC_StartConfirm macRfStartConfirm;
+    MAC_CommStatusIndication macRfCommStatusIndication;
+    MAC_SnifferIndication macRfMacSnifferIndication;
+} MAC_RF_HANDLERS;
 
 // *****************************************************************************
-/* MAC PLC Init Structure
+/* MAC RF Init Structure
 
    Summary:
-    Initialization Data for MAC PLC to be provided on Initialize routine.
+    Initialization Data for MAC RF to be provided on Init routine.
 
    Description:
-    Defines the set of callback functions that MAC PLC uses to generate
-    events to upper layer, a pointer to the MAC Tables structure
-    and the PLC band to use.
+    Defines the set of callback functions that MAC RF uses to generate
+    events to upper layer and a pointer to the MAC Tables structure.
 
    Remarks:
     In case an event is to be ignored, setting its corresponding callback
@@ -131,20 +104,18 @@ typedef struct
 typedef struct
 {
     /* Callbacks */
-    MAC_PLC_HANDLERS macPlcHandlers;
+    MAC_RF_HANDLERS macRfHandlers;
     /* Pointer to MAC Tables */
-    MAC_PLC_TABLES *macPlcTables;
-    /* PLC working band */
-    MAC_PLC_BAND plcBand;
-    /* PLC PAL index from configuration */
-    uint8_t palPlcIndex;
-} MAC_PLC_INIT;
+    MAC_RF_TABLES *macRfTables;
+    /* RF PAL index from configuration */
+    uint8_t palRfIndex;
+} MAC_RF_INIT;
 
 // *****************************************************************************
-/* MAC PLC State Machine Definition
+/* MAC RF State Machine Definition
 
   Summary:
-    Defines the states of the MAC PLC State Machine.
+    Defines the states of the MAC RF State Machine.
 
   Description:
     None.
@@ -154,14 +125,14 @@ typedef struct
 */
 typedef enum
 {
-    MAC_PLC_STATE_IDLE,
-    MAC_PLC_STATE_TX,
-    MAC_PLC_STATE_WAITING_TX_CFM,
-    MAC_PLC_STATE_ERROR,
-}MAC_PLC_STATE;
+    MAC_RF_STATE_IDLE,
+    MAC_RF_STATE_TX,
+    MAC_RF_STATE_WAITING_TX_CFM,
+    MAC_RF_STATE_ERROR,
+}MAC_RF_STATE;
 
 // *****************************************************************************
-/* MAC PLC Data Structure
+/* MAC RF Data Structure
 
    Summary:
     Object used to keep any data required for an instance of the module.
@@ -177,37 +148,35 @@ typedef struct
 {
     /* Flag to indicate this object is in use  */
     bool inUse;
-    /* State of the MAC PLC module */
-    MAC_PLC_STATE state;
+    /* State of the MAC RF module */
+    MAC_RF_STATE state;
     /* Callbacks */
-    MAC_PLC_HANDLERS macPlcHandlers;
+    MAC_RF_HANDLERS macRfHandlers;
     /* Pointer to MAC Tables */
-    MAC_PLC_TABLES *macPlcTables;
-    /* PLC working band */
-    MAC_PLC_BAND plcBand;
-} MAC_PLC_DATA;
+    MAC_RF_TABLES *macRfTables;
+} MAC_RF_DATA;
 
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: MAC PLC Interface Routines
+// Section: MAC RF Interface Routines
 // *****************************************************************************
 // *****************************************************************************
 
 // *****************************************************************************
 /* Function:
-    void MAC_PLC_Init
+    void MAC_RF_Init
     (
-      MAC_PLC_INIT *init
+      MAC_RF_INIT *init
     )
 
   Summary:
-    Initializes the MAC PLC module.
+    Initializes the MAC RF module.
 
   Description:
-    This routine initializes the MAC PLC.
+    This routine initializes the MAC RF.
     Callback handlers for event notification are set in this function.
-    A Pointer to MAC PLC Tables is also set here so MAC library can use them.
+    A Pointer to MAC RF Tables is also set here so MAC library can use them.
 
   Precondition:
     None.
@@ -217,53 +186,53 @@ typedef struct
             initialize the module.
 
   Returns:
-    None.
+    If successful, returns a valid module instance object.
+    Otherwise, returns SYS_MODULE_OBJ_INVALID.
 
   Example:
     <code>
-    // The following code snippet shows an example MAC PLC initialization.
+    // The following code snippet shows an example MAC Wrapper initialization.
 
-    MAC_PLC_INIT macPlcInit = {
-        .macPlcHandlers.macPlcDataConfirm = appDataConfirm,
-        .macPlcHandlers.macPlcDataIndication = appDataIndication,
-        .macPlcHandlers.macPlcResetConfirm = appResetConfirm,
-        .macPlcHandlers.macPlcBeaconNotifyIndication = appBeaconIndication,
-        .macPlcHandlers.macPlcScanConfirm = appScanConfirm,
-        .macPlcHandlers.macPlcStartConfirm = NULL, // Start primitive not used
-        .macPlcHandlers.macPlcCommStatusIndication = appCommStatus,
-        .macPlcHandlers.macPlcMacSnifferIndication = NULL, // MAC Sniffer not used
-        .macPlcTables = &tables, // Variable containing the MAC PLC Tables
-        .plcBand = MAC_PLC_BAND_CENELEC_A,
-        .palPlcIndex = 0,
+    MAC_RF_INIT macRfInit = {
+        .macRfHandlers.macRfDataConfirm = appDataConfirm,
+        .macRfHandlers.macRfDataIndication = appDataIndication,
+        .macRfHandlers.macRfResetConfirm = appResetConfirm,
+        .macRfHandlers.macRfBeaconNotifyIndication = appBeaconIndication,
+        .macRfHandlers.macRfScanConfirm = appScanConfirm,
+        .macRfHandlers.macRfStartConfirm = NULL, // Start primitive not used
+        .macRfHandlers.macRfCommStatusIndication = appCommStatus,
+        .macRfHandlers.macRfMacSnifferIndication = NULL, // MAC Sniffer not used
+        .macRfTables = &tables, // Variable containing the MAC RF Tables
+        .palRfIndex = 0,
     };
 
-    MAC_PLC_Init(&macPlcInit);
+    MAC_RF_Init(&macRfInit);
     </code>
 
   Remarks:
-    This routine must be called before any other MAC PLC routine is called.
+    This routine must be called before any other MAC RF routine is called.
 */
-void MAC_PLC_Init(MAC_PLC_INIT *init);
+void MAC_RF_Init(MAC_RF_INIT *init);
 
 // *****************************************************************************
 /* Function:
-    void MAC_PLC_Tasks
+    void MAC_RF_Tasks
     (
       void
     )
 
   Summary:
-    Maintains MAC PLC State Machine.
+    Maintains MAC RF State Machine.
 
   Description:
-    MAC PLC State Machine controls MAC layer duties, such as transmitting and
-    receiving frames, managing PLC medium access or ensure link reliability.
+    MAC RF State Machine controls MAC layer duties, such as transmitting and
+    receiving frames, managing RF medium access or ensure link reliability.
 
   Precondition:
-    MAC_PLC_Init routine must have been called before.
+    MAC_RF_Init routine must have been called before.
 
   Parameters:
-    None.
+    object - Identifier for the object instance
 
   Returns:
     None.
@@ -271,12 +240,12 @@ void MAC_PLC_Init(MAC_PLC_INIT *init);
   Example:
     <code>
     // ...
-    MAC_PLC_Init(&macPlcInit);
+    MAC_RF_Init(&macRfInit);
     // ...
 
     while (true)
     {
-        MAC_PLC_Tasks();
+        MAC_RF_Tasks();
     
         // Do other tasks
     }
@@ -285,35 +254,35 @@ void MAC_PLC_Init(MAC_PLC_INIT *init);
   Remarks:
     None.
 */
-void MAC_PLC_Tasks(void);
+void MAC_RF_Tasks(void);
 
 // *****************************************************************************
 /* Function:
-    SYS_STATUS MAC_PLC_Status
+    SYS_STATUS MAC_RF_Status
     (
       void
     )
 
   Summary:
-    The MAC_PLC_Status primitive retrieves the Status of PLC MAC.
+    The MAC_RF_Status primitive retrieves the Status of RF MAC.
 
   Description:
-    This primitive is intended to be called before using PLC MAC layer
+    This primitive is intended to be called before using RF MAC layer
     to ensure it is ready to be used.
 
   Precondition:
-    MAC_PLC_Init routine must have been called before.
+    MAC_RF_Init routine must have been called before.
 
   Parameters:
     None
 
   Returns:
-    Status of PLC MAC layer as a SYS_STATUS code.
+    Status of RF MAC layer as a SYS_STATUS code.
 
   Example:
     <code>
     SYS_STATUS status;
-    status = MAC_PLC_Status();
+    status = MAC_RF_Status();
     if (status == SYS_STATUS_READY)
     {
         // MAC is ready to be used
@@ -323,17 +292,17 @@ void MAC_PLC_Tasks(void);
   Remarks:
     None.
 */
-SYS_STATUS MAC_PLC_Status(void);
+SYS_STATUS MAC_RF_Status(void);
 
 // *****************************************************************************
 /* Function:
-    void MAC_PLC_DataRequest
+    void MAC_RF_DataRequest
     (
       MAC_DATA_REQUEST_PARAMS *drParams
     )
 
   Summary:
-    The MAC_PLC_DataRequest primitive requests the transfer of a PDU
+    The MAC_RF_DataRequest primitive requests the transfer of a PDU
     to another device or multiple devices.
 
   Description:
@@ -341,7 +310,7 @@ SYS_STATUS MAC_PLC_Status(void);
     Network. Result is provided in the corresponding Confirm callback.
 
   Precondition:
-    MAC_PLC_Init routine must have been called before.
+    MAC_RF_Init routine must have been called before.
 
   Parameters:
     drParams - Pointer to structure containing required parameters for request
@@ -369,26 +338,26 @@ SYS_STATUS MAC_PLC_Status(void);
         .qualityOfService = MAC_QUALITY_OF_SERVICE_NORMAL_PRIORITY,
     };
 
-    MAC_PLC_DataRequest(&params);
+    MAC_RF_DataRequest(&params);
     // Wait for Data Confirm
     </code>
 
   Remarks:
     None.
 */
-void MAC_PLC_DataRequest(MAC_DATA_REQUEST_PARAMS *drParams);
+void MAC_RF_DataRequest(MAC_DATA_REQUEST_PARAMS *drParams);
 
 // *****************************************************************************
 /* Function:
-    MAC_STATUS MAC_PLC_GetRequestSync
+    MAC_STATUS MAC_RF_GetRequestSync
     (
-      MAC_PLC_PIB_ATTRIBUTE attribute,
+      MAC_RF_PIB_ATTRIBUTE attribute,
       uint16_t index,
       MAC_PIB_VALUE *pibValue
     )
 
   Summary:
-    The MAC_PLC_GetRequestSync primitive gets the value of an attribute in the
+    The MAC_RF_GetRequestSync primitive gets the value of an attribute in the
     MAC layer Parameter Information Base (PIB).
 
   Description:
@@ -397,7 +366,7 @@ void MAC_PLC_DataRequest(MAC_DATA_REQUEST_PARAMS *drParams);
     in the pibValue parameter.
 
   Precondition:
-    MAC_PLC_Init routine must have been called before.
+    MAC_RF_Init routine must have been called before.
 
   Parameters:
     attribute - Identifier of the Attribute to retrieve value
@@ -414,7 +383,7 @@ void MAC_PLC_DataRequest(MAC_DATA_REQUEST_PARAMS *drParams);
     <code>
     MAC_STATUS status;
     MAC_PIB_VALUE value;
-    status = MAC_PLC_GetRequestSync(MAC_PIB_MAX_FRAME_RETRIES, 0, &value);
+    status = MAC_RF_GetRequestSync(MAC_PIB_MAX_FRAME_RETRIES_RF, 0, &value);
     if (status == MAC_STATUS_SUCCESS)
     {
         // Get value from 'value' parameter
@@ -424,20 +393,20 @@ void MAC_PLC_DataRequest(MAC_DATA_REQUEST_PARAMS *drParams);
   Remarks:
     None.
 */
-MAC_STATUS MAC_PLC_GetRequestSync(MAC_PLC_PIB_ATTRIBUTE attribute,
+MAC_STATUS MAC_RF_GetRequestSync(MAC_RF_PIB_ATTRIBUTE attribute,
     uint16_t index, MAC_PIB_VALUE *pibValue);
 
 // *****************************************************************************
 /* Function:
-    MAC_STATUS MAC_PLC_SetRequestSync
+    MAC_STATUS MAC_RF_SetRequestSync
     (
-      MAC_PLC_PIB_ATTRIBUTE attribute,
+      MAC_RF_PIB_ATTRIBUTE attribute,
       uint16_t index,
       const MAC_PIB_VALUE *pibValue
     )
 
   Summary:
-    The MAC_PLC_SetRequestSync primitive sets the value of an attribute in the
+    The MAC_RF_SetRequestSync primitive sets the value of an attribute in the
     MAC layer Parameter Information Base (PIB).
 
   Description:
@@ -446,7 +415,7 @@ MAC_STATUS MAC_PLC_GetRequestSync(MAC_PLC_PIB_ATTRIBUTE attribute,
     function call return, in the return status code.
 
   Precondition:
-    MAC_PLC_Init routine must have been called before.
+    MAC_RF_Init routine must have been called before.
 
   Parameters:
     attribute - Identifier of the Attribute to provide value
@@ -467,7 +436,7 @@ MAC_STATUS MAC_PLC_GetRequestSync(MAC_PLC_PIB_ATTRIBUTE attribute,
         .value = 6
     };
 
-    status = MAC_PLC_SetRequestSync(MAC_PIB_MAX_FRAME_RETRIES, 0, &value);
+    status = MAC_RF_SetRequestSync(MAC_PIB_MAX_FRAME_RETRIES_RF, 0, &value);
     if (status == MAC_STATUS_SUCCESS)
     {
         // PIB correctly set
@@ -477,25 +446,25 @@ MAC_STATUS MAC_PLC_GetRequestSync(MAC_PLC_PIB_ATTRIBUTE attribute,
   Remarks:
     None.
 */
-MAC_STATUS MAC_PLC_SetRequestSync(MAC_PLC_PIB_ATTRIBUTE attribute,
+MAC_STATUS MAC_RF_SetRequestSync(MAC_RF_PIB_ATTRIBUTE attribute,
     uint16_t index, const MAC_PIB_VALUE *pibValue);
 
 // *****************************************************************************
 /* Function:
-    void MAC_PLC_ResetRequest
+    void MAC_RF_ResetRequest
     (
       MAC_RESET_REQUEST_PARAMS *rstParams
     )
 
   Summary:
-    The MAC_PLC_ResetRequest primitive resets the MAC PLC module.
+    The MAC_RF_ResetRequest primitive resets the MAC RF module.
 
   Description:
-    Reset operation initializes MAC PLC State Machine and PIB to their
+    Reset operation initializes MAC RF State Machine and PIB to their
     default values. Result is provided in the corresponding Confirm callback.
 
   Precondition:
-    MAC_PLC_Init routine must have been called before.
+    MAC_RF_Init routine must have been called before.
 
   Parameters:
     rstParams - Pointer to structure containing required parameters for request
@@ -509,7 +478,7 @@ MAC_STATUS MAC_PLC_SetRequestSync(MAC_PLC_PIB_ATTRIBUTE attribute,
         .setDefaultPib = true
     };
 
-    MAC_PLC_ResetRequest(&params);
+    MAC_RF_ResetRequest(&params);
 
     // Wait for Reset Confirm
     </code>
@@ -517,17 +486,17 @@ MAC_STATUS MAC_PLC_SetRequestSync(MAC_PLC_PIB_ATTRIBUTE attribute,
   Remarks:
     None.
 */
-void MAC_PLC_ResetRequest(MAC_RESET_REQUEST_PARAMS *rstParams);
+void MAC_RF_ResetRequest(MAC_RESET_REQUEST_PARAMS *rstParams);
 
 // *****************************************************************************
 /* Function:
-    void MAC_PLC_ScanRequest
+    void MAC_RF_ScanRequest
     (
       MAC_SCAN_REQUEST_PARAMS *scanParams
     )
 
   Summary:
-    The MAC_PLC_ScanRequest primitive sets MAC layer in Network Scan mode.
+    The MAC_RF_ScanRequest primitive sets MAC layer in Network Scan mode.
 
   Description:
     Scan operation asks MAC layer to send a Beacon Request frame and wait
@@ -537,7 +506,7 @@ void MAC_PLC_ResetRequest(MAC_RESET_REQUEST_PARAMS *rstParams);
     Result is provided in the corresponding Confirm callback.
 
   Precondition:
-    MAC_PLC_Init routine must have been called before.
+    MAC_RF_Init routine must have been called before.
 
   Parameters:
     scanParams - Pointer to structure containing required parameters for request
@@ -551,7 +520,7 @@ void MAC_PLC_ResetRequest(MAC_RESET_REQUEST_PARAMS *rstParams);
         .scanDuration = 15
     };
 
-    MAC_PLC_ScanRequest(&params);
+    MAC_RF_ScanRequest(&params);
 
     // Wait for Scan Confirm
     </code>
@@ -559,17 +528,17 @@ void MAC_PLC_ResetRequest(MAC_RESET_REQUEST_PARAMS *rstParams);
   Remarks:
     None.
 */
-void MAC_PLC_ScanRequest(MAC_SCAN_REQUEST_PARAMS *scanParams);
+void MAC_RF_ScanRequest(MAC_SCAN_REQUEST_PARAMS *scanParams);
 
 // *****************************************************************************
 /* Function:
-    void MAC_PLC_StartRequest
+    void MAC_RF_StartRequest
     (
       MAC_START_REQUEST_PARAMS *startParams
     )
 
   Summary:
-    The MAC_PLC_StartRequest primitive starts a G3 Network and sets the device
+    The MAC_RF_StartRequest primitive starts a G3 Network and sets the device
     as the PAN Coordinator.
 
   Description:
@@ -578,7 +547,7 @@ void MAC_PLC_ScanRequest(MAC_SCAN_REQUEST_PARAMS *scanParams);
     Result is provided in the corresponding Confirm callback.
 
   Precondition:
-    MAC_PLC_Init routine must have been called before.
+    MAC_RF_Init routine must have been called before.
 
   Parameters:
     startParams - Pointer to structure containing required parameters for request
@@ -592,16 +561,15 @@ void MAC_PLC_ScanRequest(MAC_SCAN_REQUEST_PARAMS *scanParams);
         .panId = 0x1234
     };
 
-    MAC_PLC_StartRequest(&params);
+    MAC_RF_StartRequest(&params);
 
     // Wait for Start Confirm
     </code>
 
   Remarks:
-    This primitive is only used by the PAN Coordinator node,
-    which is the one in charge of Starting the PAN.
+    None.
 */
-void MAC_PLC_StartRequest(MAC_START_REQUEST_PARAMS *startParams);
+void MAC_RF_StartRequest(MAC_START_REQUEST_PARAMS *srParams);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -609,7 +577,7 @@ void MAC_PLC_StartRequest(MAC_START_REQUEST_PARAMS *startParams);
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _MAC_PLC_H
+#endif // #ifndef _MAC_RF_H
 
 /*******************************************************************************
  End of File

@@ -52,6 +52,7 @@
 #include <stdbool.h>
 #include "system/ports/sys_ports.h"
 #include "system/dma/sys_dma.h"
+#include "system/int/sys_int.h"
 #include "peripheral/spi/spi_master/plib_spi_master_common.h"
 
 // DOM-IGNORE-BEGIN
@@ -102,6 +103,8 @@
 // *****************************************************************************
 
 typedef bool (* DRV_PLC_SPI_PLIB_TRANSFER_SETUP)(uintptr_t, uint32_t);
+typedef bool (* DRV_PLC_SPI_ISBUSY)( void );
+typedef void (* DRV_PLC_SPI_SET_CS)( SPI_CHIP_SELECT chipSelect );
 
 typedef enum
 {
@@ -168,6 +171,12 @@ typedef struct
     /* PLC SPI PLIB Transfer Setup */
     DRV_PLC_SPI_PLIB_TRANSFER_SETUP        spiPlibTransferSetup;
 
+    /* SPI Is Busy */
+    DRV_PLC_SPI_ISBUSY                     spiIsBusy;
+
+    /* SPI Set Chip Select */
+    DRV_PLC_SPI_SET_CS                     spiSetChipSelect;
+
     /* SPI transmit DMA channel. */
     SYS_DMA_CHANNEL                        dmaChannelTx;
 
@@ -203,6 +212,15 @@ typedef struct
 
     /* PLC Thermal Monitor pin */
     SYS_PORT_PIN                           thMonPin;
+
+    /* Interrupt source ID for RF external interrupt */
+    INT_SOURCE                             rfExtIntSource;
+
+    /* Interrupt source ID for DMA */
+    INT_SOURCE                             dmaIntSource;
+
+    /* Interrupt source ID for SYS_TIME */
+    INT_SOURCE                             sysTimeIntSource;
 
 } DRV_PLC_PLIB_INTERFACE;
 

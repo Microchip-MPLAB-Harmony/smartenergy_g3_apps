@@ -460,7 +460,7 @@ typedef struct
    Remarks:
     None.
 */
-typedef struct
+typedef struct __attribute__((packed, aligned(1)))
 {
     MAC_WRP_FRAME_CONTROL frameControl;
     uint8_t sequenceNumber;
@@ -1154,8 +1154,6 @@ typedef struct
     uint8_t txCoef[6];
 } MAC_WRP_TX_COEF;
 
-#pragma pack(push,1)
-
 // *****************************************************************************
 /* MAC Wrapper PLC Neighbour Table Entry definition
 
@@ -1169,9 +1167,8 @@ typedef struct
    Remarks:
     None.
 */
-typedef struct
+typedef struct __attribute__((packed))
 {
-    uint16_t tmrValidTime;
     MAC_WRP_SHORT_ADDRESS shortAddress;
     MAC_WRP_TONE_MAP toneMap;
     uint8_t modulationType : 3;
@@ -1181,6 +1178,7 @@ typedef struct
     uint8_t modulationScheme : 1;
     uint8_t phaseDifferential : 3;
     uint8_t lqi;
+    uint16_t tmrValidTime;
 } MAC_WRP_NEIGHBOUR_ENTRY;
 
 // *****************************************************************************
@@ -1196,11 +1194,11 @@ typedef struct
    Remarks:
     None.
 */
-typedef struct
+typedef struct __attribute__((packed))
 {
-    uint16_t posValidTime;
     MAC_WRP_SHORT_ADDRESS shortAddress;
     uint8_t lqi;
+    uint16_t posValidTime;
 } MAC_WRP_POS_ENTRY;
 
 // *****************************************************************************
@@ -1216,18 +1214,16 @@ typedef struct
    Remarks:
     None.
 */
-typedef struct
+typedef struct __attribute__((packed))
 {
-    uint16_t posValidTime;
     MAC_WRP_SHORT_ADDRESS shortAddress;
     uint8_t forwardLqi;
     uint8_t reverseLqi;
     uint8_t dutyCycle;
     uint8_t forwardTxPowerOffset;
     uint8_t reverseTxPowerOffset;
+    uint16_t posValidTime;
 } MAC_WRP_POS_ENTRY_RF;
-
-#pragma pack(pop)
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

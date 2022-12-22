@@ -56,13 +56,14 @@
 #include "driver/plc/g3MacRt/drv_g3_macrt_comm.h"
 #include "usb/usb_chapter_9.h"
 #include "usb/usb_device.h"
+#include "driver/rf215/drv_rf215.h"
 #include "peripheral/efc/plib_efc.h"
 #include "peripheral/tc/plib_tc0.h"
 #include "system/time/sys_time.h"
 #include "service/log_report/srv_log_report.h"
+#include "bsp/bsp.h"
 #include "usb/usb_device_cdc.h"
 #include "usb/usb_cdc.h"
-#include "bsp/bsp.h"
 #include "peripheral/trng/plib_trng.h"
 #include "peripheral/spi/spi_master/plib_spi0_master.h"
 #include "system/int/sys_int.h"
@@ -76,9 +77,10 @@
 #include "peripheral/nvic/plib_nvic.h"
 #include "peripheral/xdmac/plib_xdmac.h"
 #include "peripheral/wdt/plib_wdt.h"
-#include "driver/usb/usbhsv1/drv_usbhsv1.h"
 #include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
+#include "driver/usb/usbhsv1/drv_usbhsv1.h"
 #include "peripheral/afec/plib_afec1.h"
+#include "stack/g3/pal/plc/pal_plc.h"
 #include "service/pvddmon/srv_pvddmon.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_usb_cdc_definitions.h"
@@ -87,6 +89,9 @@
 #include "stack/g3/mac/mac_plc/mac_plc.h"
 #include "stack/g3/mac/mac_plc/mac_plc_defs.h"
 #include "stack/g3/mac/mac_plc/mac_plc_mib.h"
+#include "stack/g3/mac/mac_rf/mac_rf.h"
+#include "stack/g3/mac/mac_rf/mac_rf_defs.h"
+#include "stack/g3/mac/mac_rf/mac_rf_mib.h"
 #include "stack/g3/mac/mac_wrapper/mac_wrapper.h"
 #include "stack/g3/mac/mac_wrapper/mac_wrapper_defs.h"
 #include "app_mac_test.h"
@@ -219,6 +224,7 @@ typedef struct
 
 	SYS_MODULE_OBJ  usbDevObject0;
 
+    SYS_MODULE_OBJ drvRf215;
     SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  sysConsole0;
 
@@ -226,6 +232,7 @@ typedef struct
 
 	SYS_MODULE_OBJ  drvUSBHSV1Object;
 
+    SYS_MODULE_OBJ g3PalRf;
     SYS_MODULE_OBJ g3MacWrapper;
 
 } SYSTEM_OBJECTS;

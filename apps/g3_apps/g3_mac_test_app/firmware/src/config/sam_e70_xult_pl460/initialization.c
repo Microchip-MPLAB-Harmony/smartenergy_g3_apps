@@ -74,6 +74,12 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI Transfer Setup */
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SPI0_TransferSetup,
 
+    /* SPI Is Busy */
+    .spiIsBusy = SPI0_IsTransmitterBusy,
+
+    /* SPI Set Chip Select */
+    .spiSetChipSelect = SPI0_ChipSelectSetup,
+
     /* DMA Channel for Transmit */
     .dmaChannelTx = SYS_DMA_CHANNEL_0,
 
@@ -110,6 +116,15 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* PLC External Interrupt Pin */
     .thMonPin = DRV_PLC_THMON_PIN,
     
+    /* Interrupt source ID for RF external interrupt */
+    .rfExtIntSource = PIOA_IRQn,
+
+    /* Interrupt source ID for DMA */
+    .dmaIntSource = XDMAC_IRQn,
+
+    /* Interrupt source ID for SYS_TIME */
+    .sysTimeIntSource = TC0_CH0_IRQn,
+
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -173,6 +188,43 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
     
+};
+
+// </editor-fold>
+// <editor-fold defaultstate="collapsed" desc="DRV_RF215 Initialization Data">
+
+/* RF215 Driver Initialization Data */
+const DRV_RF215_INIT drvRf215InitData = {
+    /* SPI chip select register address used for SPI configuration */
+    .spiCSRegAddress = (uint32_t *)&(SPI0_REGS->SPI_CSR[DRV_RF215_CSR_INDEX]),
+
+    /* SPI Transmit Register */
+    .spiTransmitAddress = (const void *)&(SPI0_REGS->SPI_TDR),
+
+    /* SPI Receive Register */
+    .spiReceiveAddress = (const void *)&(SPI0_REGS->SPI_RDR),
+
+    /* Pointer to SPI PLIB is busy function */
+    .spiPlibIsBusy = SPI0_IsTransmitterBusy,
+
+    /* Pointer to SPI PLIB chip select function */
+    .spiPlibSetChipSelect = SPI0_ChipSelectSetup,
+
+    /* Interrupt source ID for DMA */
+    .dmaIntSource = XDMAC_IRQn,
+
+    /* Interrupt source ID for SYS_TIME */
+    .sysTimeIntSource = TC0_CH0_IRQn,
+
+    /* Interrupt source ID for PLC external interrupt */
+    .plcExtIntSource = PIOD_IRQn,
+
+    /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */
+    .rf09PhyBandOpmIni = SUN_FSK_BAND_863_OPM1,
+
+    /* Initial PHY frequency channel number for Sub-GHz transceiver */
+    .rf09PhyChnNumIni = 29,
+
 };
 
 // </editor-fold>
@@ -386,6 +438,8 @@ void SYS_Initialize ( void* data )
     sysObj.drvG3MacRt = DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvG3MacRtInitData);
     PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvG3MacRt);
 
+    /* Initialize RF215 Driver Instance */
+    sysObj.drvRf215 = DRV_RF215_Initialize(DRV_RF215_INDEX_0, (SYS_MODULE_INIT *)&drvRf215InitData);
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
 
@@ -402,10 +456,10 @@ void SYS_Initialize ( void* data )
 	
 	
 
+    CRYPT_WCCB_Initialize();
 	/* Initialize USB Driver */ 
     sysObj.drvUSBHSV1Object = DRV_USBHSV1_Initialize(DRV_USBHSV1_INDEX_0, (SYS_MODULE_INIT *) &drvUSBInit);	
 
-    CRYPT_WCCB_Initialize();
 
     /* Initialize G3 MAC Wrapper Instance */
     sysObj.g3MacWrapper = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0, &g3MacWraperInitData);
