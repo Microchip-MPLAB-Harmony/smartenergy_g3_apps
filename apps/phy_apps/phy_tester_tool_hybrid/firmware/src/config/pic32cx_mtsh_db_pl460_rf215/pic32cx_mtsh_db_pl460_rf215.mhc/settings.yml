@@ -1,0 +1,14 @@
+format_version: v1.0
+configName: pic32cx_mtsh_db_pl460_rf215
+folderName: pic32cx_mtsh_db_pl460_rf215
+frameworkPath: C:\WORK\GIT\mh3
+processor: PIC32CX2051MTSH128
+projectName: pic32cx_mtsh_db_pl460_rf215
+settings:
+  PackageFilter: ''
+  FORCE_OPTIMIZATION: 'false'
+  GENERATE_BACKUP: 'true'
+  TRUSTZONE: 'false'
+  CMSISPath: dev_packs\arm\CMSIS\5.8.0
+  MERGE_STRATEGY: USER_ALL
+  DFPPath: dev_packs\Microchip\PIC32CX-MT_DFP\1.0.6\PIC32CX-MTSH\atdf\PIC32CX2051MTSH128.atdf
