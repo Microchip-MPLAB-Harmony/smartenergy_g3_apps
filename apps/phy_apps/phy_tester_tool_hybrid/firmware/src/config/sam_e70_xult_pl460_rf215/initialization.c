@@ -137,7 +137,7 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI CSR register address. */
     .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[DRV_PLC_CSR_INDEX]),
-
+    
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
     
@@ -459,12 +459,15 @@ void SYS_Initialize ( void* data )
 
     /* Initialize RF215 Driver Instance */
     sysObj.drvRf215 = DRV_RF215_Initialize(DRV_RF215_INDEX_0, (SYS_MODULE_INIT *)&drvRf215InitData);
+    /* Initialize PLC Phy Driver Instance */
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
     PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
 
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
+    /* Initialize USI Service Instance 1 */
     sysObj.srvUSI1 = SRV_USI_Initialize(SRV_USI_INDEX_1, (SYS_MODULE_INIT *)&srvUSI1Init);
+    /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);

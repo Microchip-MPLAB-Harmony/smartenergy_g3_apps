@@ -127,6 +127,56 @@ typedef enum
 } DRV_RF215_TRX_ID;
 
 // *****************************************************************************
+/* RF215 Driver Ready Status Callback
+
+  Summary:
+    Pointer to a RF215 driver ready status callback function.
+
+  Description:
+    This data type defines the required function signature for the RF215 driver
+    ready status event handling callback function. A client uses
+    DRV_RF215_ReadyStatusCallbackRegister to register a pointer to a function
+    which must match the signature (parameter and return value types) specified
+    by this data type.
+
+  Parameters:
+    context - Value identifying the context of the client that registered the
+              callback function.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    static void APP_ReadyNotCb(uintptr_t ctxt)
+    {
+        DRV_HANDLE drvRf215Handle;
+
+        // The context handle was set to an application specific object
+        // It is now retrievable easily in the event handler
+        MY_APP_OBJ myAppObj = (MY_APP_OBJ *) ctxt;
+
+        // Driver ready to be opened.
+        drvRf215Handle = DRV_RF215_Open(DRV_RF215_INDEX_0, RF215_TRX_ID_RF09);
+    }
+
+    MY_APP_OBJ myAppObj; // Application specific data object
+
+    DRV_RF215_ReadyStatusCallbackRegister(APP_ReadyNotCb, (uintptr_t) myAppObj);
+    </code>
+
+  Remarks:
+    The context parameter contains a handle to the client context, provided at
+    the time the callback function was registered using
+    DRV_RF215_ReadyStatusCallbackRegister. This context value is passed back to the
+    client as parameter. It can be any value necessary to identify the client
+    context or instance (such as a pointer to the client's data) of the client
+    that registered the callback.
+*/
+
+typedef void ( *DRV_RF215_READY_STATUS_CALLBACK ) (uintptr_t context);
+
+// *****************************************************************************
 /* RF215 Driver RX Indication Callback
 
   Summary:
@@ -401,6 +451,65 @@ SYS_STATUS DRV_RF215_Status( SYS_MODULE_OBJ object );
 */
 
 void DRV_RF215_Tasks( SYS_MODULE_OBJ object );
+
+// *****************************************************************************
+/* Function:
+    void DRV_RF215_ReadyStatusCallbackRegister (
+        const SYS_MODULE_INDEX index,
+        const DRV_RF215_READY_STATUS_CALLBACK callback,
+        uintptr_t context
+    )
+
+  Summary:
+    Allows a client to set an event handling function for the driver to call
+    back when it is ready to be opened.
+
+  Description:
+    This function allows a client to register a RF215 ready notification event
+    handling function for the driver to call back when the driver is ready to be
+    opened.
+
+  Precondition:
+    DRV_RF215_Initialize must have been called before.
+
+  Parameters:
+    index     - Identifier for the object instance to be opened. Only one
+                instance (index 0) supported.
+    callback  - Pointer to the callback function.
+    context   - The value of this parameter will be passed back to the client
+                unchanged, when the callback function is called.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    static void APP_ReadyNotCb(uintptr_t ctxt)
+    {
+        DRV_HANDLE drvRf215Handle;
+
+        // The context handle was set to an application specific object
+        // It is now retrievable easily in the event handler
+        MY_APP_OBJ myAppObj = (MY_APP_OBJ *) ctxt;
+
+        // Driver ready to be opened.
+        drvRf215Handle = DRV_RF215_Open(DRV_RF215_INDEX_0, RF215_TRX_ID_RF09);
+    }
+
+    MY_APP_OBJ myAppObj; // Application specific data object
+
+    DRV_RF215_ReadyStatusCallbackRegister(APP_ReadyNotCb, (uintptr_t) myAppObj);
+    </code>
+
+  Remarks:
+    None.
+*/
+
+void DRV_RF215_ReadyStatusCallbackRegister (
+    const SYS_MODULE_INDEX index,
+    const DRV_RF215_READY_STATUS_CALLBACK callback,
+    uintptr_t context
+);
 
 // *****************************************************************************
 /* Function:
@@ -706,7 +815,7 @@ void DRV_RF215_TxCfmCallbackRegister (
     txReqObj.txPwrAtt = 0;
     txReqObj.psduLen = DRV_RF215_MAX_PSDU_LEN;
     txReqObj.timeMode = TX_TIME_RELATIVE;
-    txReqObj.time = 0;
+    txReqObj.timeCount = 0;
     txReqObj.psdu = psduTx;
 
     txReqHandle = DRV_RF215_TxRequest(drvRf215Handle, &txReqObj, &txReqResult);

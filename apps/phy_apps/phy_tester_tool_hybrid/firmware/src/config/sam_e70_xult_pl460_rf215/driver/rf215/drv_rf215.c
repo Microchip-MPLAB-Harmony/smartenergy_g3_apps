@@ -368,6 +368,27 @@ SYS_MODULE_OBJ DRV_RF215_Initialize (
     /* Set busy status. Initialization will continue from interrupt */
     drvRf215Obj.sysStatus = SYS_STATUS_BUSY;
 
+    /* Zero initialization */
+    drvRf215Obj.readyStatusCallback = NULL;
+    drvRf215Obj.irqsEmptyCount = 0;
+    drvRf215Obj.irqsErr = false;
+    drvRf215Obj.partNumErr = false;
+    drvRf215Obj.timeoutErr = false;
+    drvRf215Obj.rfChipResetFlag = false;
+    drvRf215Obj.readyStatusNotified = false;
+    for (uint8_t idx = 0; idx < DRV_RF215_CLIENTS_NUMBER; idx++)
+    {
+        DRV_RF215_CLIENT_OBJ* clientObj = &drvRf215ClientPool[idx];
+        clientObj->rxIndCallback = NULL;
+        clientObj->txCfmCallback = NULL;
+        clientObj->inUse = false;
+    }
+
+    for (uint8_t idx = 0; idx < DRV_RF215_TX_BUFFERS_NUMBER; idx++)
+    {
+        drvRf215TxBufPool[idx].inUse = false;
+    }
+
     return (SYS_MODULE_OBJ) index;
 }
 
@@ -432,6 +453,13 @@ void DRV_RF215_Tasks( SYS_MODULE_OBJ object )
         {
             uint8_t bufIdx;
 
+            /* Ready status notification */
+            if ((dObj->readyStatusCallback != NULL) && (dObj->readyStatusNotified == false))
+            {
+                dObj->readyStatusCallback(dObj->readyStatusContext);
+                dObj->readyStatusNotified = true;
+            }
+
             /* Hardware Abstraction Layer tasks */
             RF215_HAL_Tasks();
 
@@ -480,6 +508,23 @@ void DRV_RF215_Tasks( SYS_MODULE_OBJ object )
             break;
         }
     }
+}
+
+void DRV_RF215_ReadyStatusCallbackRegister (
+    const SYS_MODULE_INDEX index,
+    const DRV_RF215_READY_STATUS_CALLBACK callback,
+    uintptr_t context
+)
+{
+    /* Validate the instance index */
+    if (index != DRV_RF215_INDEX_0)
+    {
+        return;
+    }
+
+    /* Register ready status callback */
+    drvRf215Obj.readyStatusCallback = callback;
+    drvRf215Obj.readyStatusContext = context;
 }
 
 DRV_HANDLE DRV_RF215_Open (
@@ -763,7 +808,7 @@ DRV_RF215_PIB_RESULT DRV_RF215_GetPib (
             break;
 
         case RF215_PIB_FW_VERSION:
-            *((DRV_RF215_FW_VERSION *) value) = rf215FwVersion;
+            memcpy(value, &rf215FwVersion, sizeof(rf215FwVersion));
             break;
 
         default:

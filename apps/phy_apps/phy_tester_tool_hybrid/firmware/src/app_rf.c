@@ -235,8 +235,8 @@ void _APP_RF_UsiPhyProtocolEventCb(uint8_t *pData, size_t usiLength)
                 {
                     DRV_RF215_TX_CONFIRM_OBJ txCfm;
                     txCfm.txResult = txResult;
-                    txCfm.ppduDurationUS = 0;
-                    txCfm.timeIni = SYS_TIME_Counter64Get();
+                    txCfm.ppduDurationCount = 0;
+                    txCfm.timeIniCount = SYS_TIME_Counter64Get();
 
                     /* TX request error */
                     _APP_RF_TxCfmCb(DRV_RF215_TX_HANDLE_INVALID, &txCfm,
@@ -293,7 +293,7 @@ void APP_RF_Initialize ( void )
 
 void APP_RF_Tasks ( void )
 {
-    WDT_Clear();
+    CLEAR_WATCHDOG();
 
     /* Signaling: LED Toggle */
     if (app_rfData.tmr1Expired)
@@ -338,7 +338,7 @@ void APP_RF_Tasks ( void )
                         (app_rfData.rf215HandleRF24 != DRV_HANDLE_INVALID))
                 {
                     /* Open USI Service */
-                    app_rfData.srvUSIHandle = SRV_USI_Open(SRV_USI_INDEX_1);
+                    app_rfData.srvUSIHandle = SRV_USI_Open(USER_RF_USI_INSTANCE_INDEX);
 
                     if (app_rfData.srvUSIHandle != DRV_HANDLE_INVALID)
                     {

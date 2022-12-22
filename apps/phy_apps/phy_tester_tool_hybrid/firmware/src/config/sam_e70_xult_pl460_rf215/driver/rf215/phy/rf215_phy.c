@@ -549,14 +549,14 @@ static inline uint8_t _RF215_FSK_SymbolsPerOctet (
     return symbols;
 }
 
-static inline uint32_t _RF215_FSK_PpduDurationUS (
+static inline uint32_t _RF215_FSK_PpduDuration (
     DRV_RF215_FSK_CFG_OBJ* fskCfg,
     DRV_RF215_PHY_MOD_SCHEME modScheme,
     uint16_t psduLen,
     uint16_t* pSymbolsPayload
 )
 {
-    uint32_t symbolsAux;
+    uint32_t symbolsAux, durationUS;
     uint16_t symbolsTotal, symbolsPayload;
     uint8_t symbolsOctet;
     uint8_t tailPadOctets = 0;
@@ -588,7 +588,8 @@ static inline uint32_t _RF215_FSK_PpduDurationUS (
     symbolsTotal = (10 << 3) + (symbolsOctet << 1) + symbolsPayload;
     symbolsAux = (uint32_t) symbolsTotal * 1000;
     *pSymbolsPayload = symbolsPayload;
-    return DIV_ROUND(symbolsAux, fskSymRateConst[fskCfg->symRate].kHz);
+    durationUS = DIV_ROUND(symbolsAux, fskSymRateConst[fskCfg->symRate].kHz);
+    return SYS_TIME_USToCount(durationUS);
 }
 
 static inline DRV_RF215_PHY_MOD_SCHEME _RF215_FSK_ReadPHR(uint8_t phr)
@@ -757,14 +758,14 @@ static inline void _RF215_OFDM_Regs (
     phyRegs->BBCn_OFDMSW = ofdmsw;
 }
 
-static inline uint32_t _RF215_OFDM_PpduDurationUS (
+static inline uint32_t _RF215_OFDM_PpduDuration (
     DRV_RF215_OFDM_CFG_OBJ* ofdmCfg,
     DRV_RF215_PHY_MOD_SCHEME modScheme,
     uint16_t psduLen,
     uint16_t* pSymbolsPayload
 )
 {
-    uint32_t bitsPayTotal;
+    uint32_t bitsPayTotal, durationUS;
     uint16_t symbolsTotal;
     uint16_t symbolsPay;
     uint16_t bitsSymb;
@@ -806,7 +807,8 @@ static inline uint32_t _RF215_OFDM_PpduDurationUS (
      * PHR: Number of symbols depending on option and phyOfdmInterleaving */
     symbolsTotal = 6 + optConst->phrSymbols[ofdmCfg->itlv] + symbolsPay;
     *pSymbolsPayload = symbolsPay;
-    return (uint32_t) symbolsTotal * 120;
+    durationUS = (uint32_t) symbolsTotal * 120;
+    return SYS_TIME_USToCount(durationUS);
 }
 
 static inline DRV_RF215_PHY_MOD_SCHEME _RF215_OFDM_ReadPHR (
@@ -891,17 +893,6 @@ static void _RF215_BBC_WriteRegs(uint8_t trxIdx, RF215_PHY_REGS_OBJ* phyRegsNew)
         RF215_HAL_SpiWriteUpdate(RF215_BBCn_OFDMPHRRX(trxIdx),
                 &phyRegsNew->BBCn_OFDMPHRRX, &pObj->phyRegs.BBCn_OFDMPHRRX, 3);
     }
-}
-
-static inline void _RF215_BBC_ReadCounter (
-    uint8_t trxIdx,
-    RF215_SPI_TRANSFER_CALLBACK readCallback
-)
-{
-    /* Read BBCn_CNT0..3 (4 bytes). BBCn_CNT0 is least significant byte */
-    RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
-    RF215_HAL_SpiRead(RF215_BBCn_CNT0(trxIdx), &pObj->phyRegs.BBCn_CNT0, 4,
-                readCallback, (uintptr_t) pObj);
 }
 
 static inline void _RF215_BBC_SetPhyControl(uint8_t trxIdx, uint8_t pc)
@@ -1619,7 +1610,7 @@ static bool _RF215_PHY_CheckPhyCfg(DRV_RF215_PHY_CFG_OBJ* phyConfig)
     }
 }
 
-static uint32_t _RF215_PHY_PpduDurationUS (
+static uint32_t _RF215_PHY_PpduDuration (
     DRV_RF215_PHY_CFG_OBJ* phyConfig,
     DRV_RF215_PHY_MOD_SCHEME modScheme,
     uint16_t psduLen,
@@ -1628,12 +1619,12 @@ static uint32_t _RF215_PHY_PpduDurationUS (
 {
     if (phyConfig->phyType == PHY_TYPE_FSK)
     {
-        return _RF215_FSK_PpduDurationUS(&phyConfig->phyTypeCfg.fsk, modScheme,
+        return _RF215_FSK_PpduDuration(&phyConfig->phyTypeCfg.fsk, modScheme,
                 psduLen, pSymbolsPayload);
     }
     else /* PHY_TYPE_OFDM */
     {
-        return _RF215_OFDM_PpduDurationUS(&phyConfig->phyTypeCfg.ofdm, modScheme,
+        return _RF215_OFDM_PpduDuration(&phyConfig->phyTypeCfg.ofdm, modScheme,
                 psduLen, pSymbolsPayload);
     }
 }
@@ -2463,8 +2454,8 @@ static uint32_t _RF215_TX_PrepareDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     uint8_t spiBytes = 6;
 
     /* Common: 6 SPI bytes (TXPREP command, BBCn_AMCS) +
-     * TRXRDY interrupt delay + IRQ margin + 1000 execution cycles. */
-    txPrepDelayUSq5 += RF215_TX_IRQ_MARGIN_US_Q5 + EX_CYCL_TO_USQ5(1000);
+     * TRXRDY interrupt delay + IRQ margin + 5000 execution cycles. */
+    txPrepDelayUSq5 += RF215_TX_IRQ_MARGIN_US_Q5 + EX_CYCL_TO_USQ5(5000);
 
     if ((ccaMode == PHY_CCA_MODE_1) || (ccaMode == PHY_CCA_MODE_3))
     {
@@ -2472,9 +2463,9 @@ static uint32_t _RF215_TX_PrepareDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
         spiBytes += 9;
     }
 
-    /* 4 SPI bytes (PSDU length) + 1000 execution cycles */
+    /* 4 SPI bytes (PSDU length) + 5000 execution cycles */
     spiBytes += 4;
-    txPrepDelayUSq5 += EX_CYCL_TO_USQ5(1000);
+    txPrepDelayUSq5 += EX_CYCL_TO_USQ5(5000);
 
     /* Add duration of SPI bytes */
     txPrepDelayUSq5 += (uint32_t) spiBytes * RF215_SPI_BYTE_DURATION_US_Q5;
@@ -2631,7 +2622,7 @@ static void _RF215_TX_FrameEnd(uint8_t trxIdx)
             _RF215_TX_ReadPS, (uintptr_t) trxIdx);
 
     /* Compute duration of the transmitted PPDU */
-    txBufObj->cfmObj.ppduDurationUS = _RF215_PHY_PpduDurationUS(&pObj->phyConfig,
+    txBufObj->cfmObj.ppduDurationCount = _RF215_PHY_PpduDuration(&pObj->phyConfig,
             txBufObj->reqObj.modScheme, txBufObj->reqObj.psduLen,
             &pObj->txPaySymbols);
 }
@@ -2677,7 +2668,7 @@ static void _RF215_TX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t time)
     }
 
     /* Compute SYS_TIME counter associated to TX event */
-    pObj->txBufObj->cfmObj.timeIni = time - (int64_t) _RF215_PHY_USq5ToSysTimeCount(trxCountDiff);
+    pObj->txBufObj->cfmObj.timeIniCount = time - (int64_t) _RF215_PHY_USq5ToSysTimeCount(trxCountDiff);
 }
 
 static void _RF215_TX_ReadCaptureTimeExpired(uintptr_t context)
@@ -2724,8 +2715,10 @@ static void _RF215_TX_ReadCaptureTimeExpired(uintptr_t context)
     if (readTime == true)
     {
         /* Read counter (reset at TX start event).
-         * The TX start event occurs tx_bb_delay after TX command. */
-        _RF215_BBC_ReadCounter(trxIdx, _RF215_TX_ReadCNT);
+         * The TX start event occurs tx_bb_delay after TX command.
+         * Read BBCn_CNT0..3 (4 bytes). BBCn_CNT0 is least significant byte. */
+        RF215_HAL_SpiRead(RF215_BBCn_CNT0(trxIdx), &pObj->phyRegs.BBCn_CNT0, 4,
+                    _RF215_TX_ReadCNT, (uintptr_t) pObj);
     }
 
     RF215_HAL_LeaveCritical();
@@ -3119,7 +3112,7 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     DRV_RF215_TX_BUFFER_OBJ* txBufObj = pObj->txBufObj;
     uint32_t startDelayUSq5 = 0;
-    uint64_t txTime = txBufObj->reqObj.time;
+    uint64_t txTime = txBufObj->reqObj.timeCount;
     SYS_TIME_HANDLE timeHandle = SYS_TIME_HANDLE_INVALID;
 
     /* Check if TX buffer is still in use */
@@ -3143,7 +3136,7 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
         /* SPI is not free. Add estimated delay for SPI queue to be empty. */
         size_t spiQueueSize = RF215_HAL_GetSpiQueueSize();
         startDelayUSq5 += (uint32_t) spiQueueSize * RF215_SPI_BYTE_DURATION_US_Q5;
-        startDelayUSq5 += EX_CYCL_TO_USQ5(1000);
+        startDelayUSq5 += EX_CYCL_TO_USQ5(2000);
     }
 
     if (pObj->trxRdy == false)
@@ -3279,7 +3272,7 @@ static void _RF215_TX_PrepareTimeExpired(uintptr_t context)
     if (result == RF215_TX_SUCCESS)
     {
         uint64_t interruptTime;
-        uint64_t txTime = txBufObj->reqObj.time;
+        uint64_t txTime = txBufObj->reqObj.timeCount;
         SYS_TIME_HANDLE timeHandle = SYS_TIME_HANDLE_INVALID;
 
         /* Schedule a new time interrupt (if TX parameters not configured) */
@@ -3516,7 +3509,7 @@ static void _RF215_RX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t time)
     }
 
     /* Compute SYS_TIME counter associated to RX event */
-    pObj->rxInd.timeIni = time - (int64_t) _RF215_PHY_USq5ToSysTimeCount(trxCountDiff);
+    pObj->rxInd.timeIniCount = time - (int64_t) _RF215_PHY_USq5ToSysTimeCount(trxCountDiff);
     pObj->rxTimeValid = true;
 }
 
@@ -3581,8 +3574,11 @@ static void _RF215_RX_ReadPHR(uintptr_t context, void* pData, uint64_t time)
         }
 
         /* Read counter (reset at RX frame start event).
-         * The RX frame start event complies to the interrupt RXFS. */
-        _RF215_BBC_ReadCounter(trxIdx, _RF215_RX_ReadCNT);
+         * The RX frame start event complies to the interrupt RXFS.
+         * Read BBCn_CNT0..3 (4 bytes). BBCn_CNT0 is least significant byte.
+         * Read from tasks to avoid issues with SYS_TIME_Counter64Get(). */
+        RF215_HAL_SpiReadFromTasks(RF215_BBCn_CNT0(trxIdx), &pObj->phyRegs.BBCn_CNT0,
+                    4, _RF215_RX_ReadCNT, (uintptr_t) pObj);
 
         /* Check pending RX indication */
         if (pObj->rxIndPending == true)
@@ -3596,7 +3592,7 @@ static void _RF215_RX_ReadPHR(uintptr_t context, void* pData, uint64_t time)
         pObj->rxBufferOffset = 0;
         pObj->rxInd.psduLen = psduLen;
         pObj->rxInd.modScheme = modScheme;
-        pObj->rxInd.ppduDurationUS = _RF215_PHY_PpduDurationUS(&pObj->phyConfig,
+        pObj->rxInd.ppduDurationCount = _RF215_PHY_PpduDuration(&pObj->phyConfig,
             modScheme, psduLen, &pObj->rxPaySymbols);
 
         /* Process RXFE/AGCR interrupt if it is pending */
@@ -3693,6 +3689,28 @@ bool RF215_PHY_Initialize (
     pObj->phyConfig = phyConfig;
     pObj->trxState = RF215_RFn_STATE_RF_TRXOFF;
     pObj->rxInd.psdu = rf215PhyRxPsdu;
+
+    /* Zero initialization */
+    memset(&pObj->phyStatistics, 0, sizeof(pObj->phyStatistics));
+    pObj->phyState = PHY_STATE_RESET;
+    pObj->rxAbortState = PHY_STATE_RESET;
+    pObj->txPendingState = PHY_STATE_RESET;
+    pObj->rxPaySymbols = 0;
+    pObj->txPaySymbols = 0;
+    pObj->rxFlagsPending = 0;
+    pObj->trxRdy = false;
+    pObj->rxIndPending = false;
+    pObj->txfePending = false;
+    pObj->ledRxStatus = false;
+    pObj->txStarted = false;
+    pObj->txAutoInProgress = false;
+    pObj->rxTimeValid = false;
+    pObj->trxResetPending = false;
+    pObj->trxSleepPending = false;
+    pObj->phyCfgPending = false;
+    pObj->txCancelPending = false;
+    pObj->txRequestPending = false;
+    pObj->resetInProgress = false;
 
     if (_RF215_PHY_CheckPhyCfg(&phyConfig) == false)
     {
@@ -3996,7 +4014,7 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
         uint32_t txTotalDelay;
         SYS_TIME_HANDLE timeHandle;
         bool intStatus;
-        uint64_t txTime = txBufObj->reqObj.time;
+        uint64_t txTime = txBufObj->reqObj.timeCount;
 
         if (pObj->resetInProgress == true)
         {
@@ -4019,11 +4037,11 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 
             /* Relative time mode */
             txTime += SYS_TIME_Counter64Get();
-            txBufObj->reqObj.time = txTime;
+            txBufObj->reqObj.timeCount = txTime;
         }
 
         /* Update TX initial time in confirm object */
-        txBufObj->cfmObj.timeIni = txTime;
+        txBufObj->cfmObj.timeIniCount = txTime;
 
         /* Time when we need the scheduled interrupt */
         interruptTime = txTime - txTotalDelay;
@@ -4105,7 +4123,7 @@ void RF215_PHY_SetTxCfm (
     /* Set 0 duration if not successful transmission */
     if ((result != RF215_TX_SUCCESS) && (result != RF215_TX_ERROR_UNDERRUN))
     {
-        txBufObj->cfmObj.ppduDurationUS = 0;
+        txBufObj->cfmObj.ppduDurationCount = 0;
     }
 
     /* Set pending TX confirm and update statistics */
@@ -4136,7 +4154,7 @@ DRV_RF215_PIB_RESULT RF215_PHY_GetPib (
             break;
 
         case RF215_PIB_PHY_CONFIG:
-            *((DRV_RF215_PHY_CFG_OBJ *) value) = pObj->phyConfig;
+            memcpy((uint8_t *)value, (uint8_t *)&pObj->phyConfig, sizeof(DRV_RF215_PHY_CFG_OBJ));
             break;
 
         case RF215_PIB_PHY_BAND_OPERATING_MODE:

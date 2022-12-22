@@ -135,14 +135,14 @@
  * 50 us + 10000 execution cycles. */
 #define RF215_TX_IRQ_MARGIN_US_Q5       ((50 << 5) + EX_CYCL_TO_USQ5(10000))
 
-/* Delay of TRXRDY interrupt handling. 2500 execution cycles + 6 SPI bytes */
-#define RF215_TX_TRXRDY_DELAY_US_Q5     (EX_CYCL_TO_USQ5(2500) + \
+/* Delay of TRXRDY interrupt handling. 7500 execution cycles + 6 SPI bytes */
+#define RF215_TX_TRXRDY_DELAY_US_Q5     (EX_CYCL_TO_USQ5(7500) + \
     (RF215_SPI_BYTE_DURATION_US_Q5 * 6))
 
 /* Delay of TX parameter configuration (_RF215_TX_ParamCfg).
- * 1000 cycles + 9 SPI bytes + TRXOFF->TXPREP transition + TRXRDY delay +
+ * 2000 cycles + 9 SPI bytes + TRXOFF->TXPREP transition + TRXRDY delay +
  * + IRQ margin */
-#define RF215_TX_PARAM_CFG_DELAY_US_Q5  (EX_CYCL_TO_USQ5(1000) + \
+#define RF215_TX_PARAM_CFG_DELAY_US_Q5  (EX_CYCL_TO_USQ5(2000) + \
     (RF215_SPI_BYTE_DURATION_US_Q5 * 9) + RF215_TRXOFF_TXPREP_TIME_US_Q5 + \
     RF215_TX_TRXRDY_DELAY_US_Q5 + RF215_TX_IRQ_MARGIN_US_Q5)
 

@@ -62,7 +62,7 @@
 
 /* Reset pin pulse width.
  * From RF215 datasheet (Table 10-3): Min tRST = 625 ns */
-#define RF215_RST_PULSE_US            4
+#define RF215_RST_PULSE_US            7
 
 /* SPI DMA buffer size */
 #define RF215_SPI_BUF_SIZE            (RF215_SPI_CMD_SIZE + DRV_RF215_MAX_PSDU_LEN)
@@ -161,11 +161,11 @@ static void _RF215_HAL_SpiTransferStart (
     }
 
     /* Wait if there is SPI transfer in progress */
-    while(rf215HalObj.spiPlibIsBusy() == true);
+    while(hObj->spiPlibIsBusy() == true);
     while(SYS_DMA_ChannelIsBusy(DRV_RF215_SPI_RX_DMA_CH) == true);
 
     /* Set chip select (shared SPI) */
-    rf215HalObj.spiPlibSetChipSelect(DRV_RF215_SPI_CHIP_SELECT);
+    hObj->spiPlibSetChipSelect(DRV_RF215_SPI_CHIP_SELECT);
 
     /* Set 8-bit data width in DMA channels (shared SPI) */
     SYS_DMA_DataWidthSetup(DRV_RF215_SPI_TX_DMA_CH, SYS_DMA_WIDTH_8_BIT);
@@ -203,6 +203,7 @@ static void _RF215_HAL_SpiTransfer (
     uint16_t regAddr,
     void* pData,
     size_t size,
+    bool fromTasks,
     RF215_SPI_TRANSFER_CALLBACK callback,
     uintptr_t context
 )
@@ -230,6 +231,7 @@ static void _RF215_HAL_SpiTransfer (
             transfer->mode = mode;
             transfer->regAddr = regAddr;
             transfer->inUse = true;
+            transfer->fromTasks = fromTasks;
 
             if (rf215HalObj.spiQueueFirst == NULL)
             {
@@ -252,23 +254,87 @@ static void _RF215_HAL_SpiTransfer (
     if (rf215HalObj.spiQueueFirst == transfer)
     {
         /* This transfer is the first in the queue so it can be started */
-        _RF215_HAL_SpiTransferStart(mode, regAddr, pData, size);
+        if (fromTasks == false)
+        {
+            _RF215_HAL_SpiTransferStart(mode, regAddr, pData, size);
+        }
+        else
+        {
+            rf215HalObj.spiTransferFromTasks = true;
+        }
     }
 
     /* Leave critical region */
     _RF215_HAL_RestoreIntSources(dmaIntStatus, timeIntStatus, plcExtIntStatus);
 }
 
-static void _RF215_HAL_SpiDmaHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
+static void _RF215_HAL_SpiTransferFinished(RF215_SPI_TRANSFER_OBJ* transfer)
 {
     uint64_t callbackTime;
-    bool dmaIntStatus, timeIntStatus, plcExtIntStatus;
     uintptr_t callbackContext;
     void* callbackData;
     RF215_SPI_TRANSFER_OBJ* next;
     RF215_SPI_TRANSFER_CALLBACK callback;
+
+    if (transfer->mode == RF215_SPI_READ)
+    {
+        /* Copy SPI received data to buffer from upper layer */
+        memcpy(transfer->pData, &halSpiRxData[RF215_SPI_CMD_SIZE], transfer->size);
+    }
+
+    /* Copy needed data to local variables */
+    callback = transfer->callback;
+    callbackContext = transfer->context;
+    callbackData = transfer->pData;
+    callbackTime = rf215HalObj.sysTimeTransfer;
+
+    /* The transfer object can now be freed */
+    transfer->inUse = false;
+    rf215HalObj.dmaTransferInProgress = false;
+
+    /* Check next transfer */
+    next = transfer->next;
+    if (next != NULL)
+    {
+        /* Move queue start to next transfer */
+        rf215HalObj.spiQueueFirst = next;
+    }
+    else
+    {
+        /* No more SPI transfers in the queue */
+        rf215HalObj.spiQueueFirst = NULL;
+        rf215HalObj.spiQueueLast = NULL;
+    }
+
+    if (next != NULL)
+    {
+        /* Start next SPI transfer */
+        if (next->fromTasks == false)
+        {
+            _RF215_HAL_SpiTransferStart(next->mode, next->regAddr, next->pData, next->size);
+        }
+        else
+        {
+            rf215HalObj.spiTransferFromTasks = true;
+        }
+    }
+
+    if (callback != NULL)
+    {
+        /* Notify upper layer via callback */
+        callback(callbackContext, callbackData, callbackTime);
+    }
+
+    /* External interrupt can now be enabled */
+    _RF215_HAL_ExtIntEnable();
+}
+
+static void _RF215_HAL_SpiDmaHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
+{
+    bool dmaIntStatus, timeIntStatus, plcExtIntStatus;
     RF215_SPI_TRANSFER_OBJ* transfer = rf215HalObj.spiQueueFirst;
     SYS_DMA_CHANNEL dmaChannel = (SYS_DMA_CHANNEL) ctxt;
+    bool restartTransfer = false;
 
     if (transfer == NULL)
     {
@@ -298,7 +364,7 @@ static void _RF215_HAL_SpiDmaHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
         else /* DRV_RF215_SPI_RX_DMA_CH */
         {
             /* Restart SPI transfer */
-            _RF215_HAL_SpiTransferStart(transfer->mode, transfer->regAddr, transfer->pData, transfer->size);
+            restartTransfer = true;
         }
     }
     else /* SYS_DMA_TRANSFER_COMPLETE */
@@ -313,55 +379,25 @@ static void _RF215_HAL_SpiDmaHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
             if (rf215HalObj.dmaTxError == true)
             {
                 /* Restart SPI transfer */
-                _RF215_HAL_SpiTransferStart(transfer->mode, transfer->regAddr, transfer->pData, transfer->size);
+                restartTransfer = true;
             }
             else
             {
-                if (transfer->mode == RF215_SPI_READ)
-                {
-                    /* Copy SPI received data to buffer from upper layer */
-                    memcpy(transfer->pData, &halSpiRxData[RF215_SPI_CMD_SIZE], transfer->size);
-                }
-
-                /* Copy needed data to local variables */
-                callback = transfer->callback;
-                callbackContext = transfer->context;
-                callbackData = transfer->pData;
-                callbackTime = rf215HalObj.sysTimeTransfer;
-
-                /* The transfer object can now be freed */
-                transfer->inUse = false;
-                rf215HalObj.dmaTransferInProgress = false;
-
-                /* Check next transfer */
-                next = transfer->next;
-                if (next != NULL)
-                {
-                    /* Move queue start to next transfer */
-                    rf215HalObj.spiQueueFirst = next;
-                }
-                else
-                {
-                    /* No more SPI transfers in the queue */
-                    rf215HalObj.spiQueueFirst = NULL;
-                    rf215HalObj.spiQueueLast = NULL;
-                }
-
-                if (next != NULL)
-                {
-                    /* Start next SPI transfer */
-                    _RF215_HAL_SpiTransferStart(next->mode, next->regAddr, next->pData, next->size);
-                }
-
-                if (callback != NULL)
-                {
-                    /* Notify upper layer via callback */
-                    callback(callbackContext, callbackData, callbackTime);
-                }
-
-                /* External interrupt can now be enabled */
-                _RF215_HAL_ExtIntEnable();
+                /* SPI transfer finished successfully */
+                _RF215_HAL_SpiTransferFinished(transfer);
             }
+        }
+    }
+
+    if (restartTransfer == true)
+    {
+        if (transfer->fromTasks == false)
+        {
+            _RF215_HAL_SpiTransferStart(transfer->mode, transfer->regAddr, transfer->pData, transfer->size);
+        }
+        else
+        {
+            rf215HalObj.spiTransferFromTasks = true;
         }
     }
 
@@ -416,8 +452,19 @@ void RF215_HAL_Initialize(const DRV_RF215_INIT * const init)
     /* Pin interrupt is disabled at initialization */
     rf215HalObj.extIntDisableCount = 1;
     rf215HalObj.firstReset = true;
+
+    /* Zero initialization */
+    rf215HalObj.spiQueueFirst = NULL;
+    rf215HalObj.spiQueueLast = NULL;
+    rf215HalObj.spiTransferFromTasks = false;
+    rf215HalObj.dmaTxError = false;
+    rf215HalObj.dmaTransferInProgress = false;
     rf215HalObj.ledRxOnCount = 0;
     rf215HalObj.ledTxOnCount = 0;
+    for (uint8_t idx = 0; idx < RF215_SPI_TRANSFER_POOL_SIZE; idx++)
+    {
+        halSpiTransferPool[idx].inUse = false;
+    }
 }
 
 void RF215_HAL_Deinitialize()
@@ -434,7 +481,10 @@ void RF215_HAL_Deinitialize()
     /* Clear SPI transfer pool */
     rf215HalObj.spiQueueFirst = NULL;
     rf215HalObj.spiQueueLast = NULL;
-    memset(halSpiTransferPool, 0, sizeof(halSpiTransferPool));
+    for (uint8_t idx = 0; idx < RF215_SPI_TRANSFER_POOL_SIZE; idx++)
+    {
+        halSpiTransferPool[idx].inUse = false;
+    }
 
     /* Leave critical region. External interrupt disabled */
     _RF215_HAL_RestoreIntSources(dmaIntStatus, timeIntStatus, plcExtIntStatus);
@@ -442,7 +492,26 @@ void RF215_HAL_Deinitialize()
 
 void RF215_HAL_Tasks()
 {
+    if (rf215HalObj.spiTransferFromTasks == true)
+    {
+        RF215_SPI_TRANSFER_OBJ* transfer = rf215HalObj.spiQueueFirst;
 
+        if (transfer != NULL)
+        {
+            bool dmaIntStatus, timeIntStatus, plcExtIntStatus;
+
+            /* Critical region to avoid new SPI transfers */
+            dmaIntStatus = _RF215_HAL_DisableIntSources(&timeIntStatus, &plcExtIntStatus);
+
+            /* Start SPI transfer from tasks */
+            _RF215_HAL_SpiTransferStart(transfer->mode, transfer->regAddr, transfer->pData, transfer->size);
+
+            /* Leave critical region */
+            _RF215_HAL_RestoreIntSources(dmaIntStatus, timeIntStatus, plcExtIntStatus);
+        }
+
+        rf215HalObj.spiTransferFromTasks = false;
+    }
 }
 
 void RF215_HAL_Reset()
@@ -470,8 +539,12 @@ void RF215_HAL_Reset()
     /* Clear SPI transfer pool. Pending SPI transfers aborted */
     rf215HalObj.spiQueueFirst = NULL;
     rf215HalObj.spiQueueLast = NULL;
+    rf215HalObj.spiTransferFromTasks = false;
     rf215HalObj.firstReset = false;
-    memset(halSpiTransferPool, 0, sizeof(halSpiTransferPool));
+    for (uint8_t idx = 0; idx < RF215_SPI_TRANSFER_POOL_SIZE; idx++)
+    {
+        halSpiTransferPool[idx].inUse = false;
+    }
 
     /* Perform reset pulse delay (SYS_TIME interrupt has to be enabled) */
     SYS_INT_SourceEnable(rf215HalObj.sysTimeIntSource);
@@ -545,7 +618,18 @@ void RF215_HAL_SpiRead (
     uintptr_t context
 )
 {
-    _RF215_HAL_SpiTransfer(RF215_SPI_READ, addr, pData, size, cb, context);
+    _RF215_HAL_SpiTransfer(RF215_SPI_READ, addr, pData, size, false, cb, context);
+}
+
+void RF215_HAL_SpiReadFromTasks (
+    uint16_t addr,
+    void* pData,
+    size_t size,
+    RF215_SPI_TRANSFER_CALLBACK cb,
+    uintptr_t context
+)
+{
+    _RF215_HAL_SpiTransfer(RF215_SPI_READ, addr, pData, size, true, cb, context);
 }
 
 void RF215_HAL_SpiWrite (
@@ -554,7 +638,7 @@ void RF215_HAL_SpiWrite (
     size_t size
 )
 {
-    _RF215_HAL_SpiTransfer(RF215_SPI_WRITE, addr, pData, size, NULL, 0);
+    _RF215_HAL_SpiTransfer(RF215_SPI_WRITE, addr, pData, size, false, NULL, 0);
 }
 
 void RF215_HAL_SpiWriteUpdate (

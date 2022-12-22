@@ -288,6 +288,7 @@ typedef struct
     uint8_t                    secSN[16]; 
     DRV_PLC_BOOT_DATA_CALLBACK bootDataCallback;
     uintptr_t                  contextBoot;
+    uint8_t                    validationCounter;
 } DRV_PLC_BOOT_INFO;
 
 // *****************************************************************************

@@ -302,7 +302,7 @@ void APP_PLC_Initialize ( void )
 
 void APP_PLC_Tasks ( void )
 {
-    WDT_Clear();
+    CLEAR_WATCHDOG();
 
     /* Signaling: LED Toggle */
     if (app_plcData.tmr1Expired)
@@ -361,9 +361,27 @@ void APP_PLC_Tasks ( void )
                 /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(_APP_PLC_PVDDMonitorCb, 0);
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
+                
+                /* Check PVDD Monitor */
+                if (SRV_PVDDMON_CheckWindow())
+                {
+                    // PLC Transmission is permitted again
+                    DRV_PLC_PHY_EnableTX(app_plcData.drvPl360Handle, true);
+
+                    // Set PVDD Monitor tracking data
+                    app_plcData.pvddMonTxEnable = true;
+                }
+                else
+                {
+                    // PLC Transmission is not permitted
+                    DRV_PLC_PHY_EnableTX(app_plcData.drvPl360Handle, false);
+
+                    // Set PVDD Monitor tracking data
+                    app_plcData.pvddMonTxEnable = false;
+                }
 
                 /* Open USI Service */
-                app_plcData.srvUSIHandle = SRV_USI_Open(SRV_USI_INDEX_0);
+                app_plcData.srvUSIHandle = SRV_USI_Open(USER_PLC_USI_INSTANCE_INDEX);
 
                 if (app_plcData.srvUSIHandle != DRV_HANDLE_INVALID)
                 {

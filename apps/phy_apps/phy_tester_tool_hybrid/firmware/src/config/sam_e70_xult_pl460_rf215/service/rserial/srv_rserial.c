@@ -80,8 +80,8 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 
-static uint64_t srvRserialPrevSysTime;
-static uint32_t srvRserialPrevTimeUS;
+static uint64_t srvRserialPrevSysTime = 0;
+static uint32_t srvRserialPrevTimeUS = 0;
 static SRV_RSERIAL_TX_HANDLE srvRserialTxHandles[DRV_RF215_TX_BUFFERS_NUMBER];
 static uint8_t srvRserialBuffer[RSERIAL_RX_MSG_MAX_SIZE];
 static uint8_t srvRserialLastTxId;
@@ -114,32 +114,18 @@ static void _SRV_RSERIAL_memcpyRev(uint8_t *pDataDst, uint8_t *pDataSrc, size_t 
 
 static uint32_t _SRV_RSERIAL_SysTimeToUS(uint64_t sysTime)
 {
-    int64_t sysTimeDiff;
+    uint64_t sysTimeDiff;
+    uint32_t sysTimeDiffNumHigh, sysTimeDiffRemaining;
     uint32_t timeUS = srvRserialPrevTimeUS;
 
     /* Difference between current and previous system time */
-    sysTimeDiff = (int64_t) sysTime - srvRserialPrevSysTime;
+    sysTimeDiff = sysTime - srvRserialPrevSysTime;
+    sysTimeDiffNumHigh = (uint32_t) (sysTimeDiff / 0x10000000);
+    sysTimeDiffRemaining = (uint32_t) (sysTimeDiff % 0x10000000);
 
     /* Convert system time to microseconds and add to previous time */
-    while (sysTimeDiff > 0x10000000)
-    {
-        timeUS += SYS_TIME_CountToUS(0x10000000);
-        sysTimeDiff -= 0x10000000;
-    }
-    while (sysTimeDiff < -0x10000000)
-    {
-        timeUS -= SYS_TIME_CountToUS(0x10000000);
-        sysTimeDiff += 0x10000000;
-    }
-
-    if (sysTimeDiff >= 0)
-    {
-        timeUS += SYS_TIME_CountToUS((uint32_t) sysTimeDiff);
-    }
-    else
-    {
-        timeUS -= SYS_TIME_CountToUS((uint32_t) (-sysTimeDiff));
-    }
+    timeUS += (SYS_TIME_CountToUS(0x10000000) * sysTimeDiffNumHigh);
+    timeUS += SYS_TIME_CountToUS(sysTimeDiffRemaining);
 
     /* Store times for next computation */
     srvRserialPrevSysTime = sysTime;
@@ -298,32 +284,31 @@ bool SRV_RSERIAL_ParseTxMessage (
         case 0:
             /* Absolute */
         {
+            uint32_t timeDiffNumHigh, timeDiffRemaining;
             uint64_t sysTime = srvRserialPrevSysTime;
             uint32_t timeDiffUS = txTimeUS - srvRserialPrevTimeUS;
 
             /* Convert microseconds to system time and add to previous time */
-            while (timeDiffUS > 0x10000000)
-            {
-                sysTime += SYS_TIME_USToCount(0x10000000);
-                timeDiffUS -= 0x10000000;
-            }
-            sysTime += SYS_TIME_USToCount((uint32_t) timeDiffUS);
+            timeDiffNumHigh = timeDiffUS / 0x10000000;
+            timeDiffRemaining = timeDiffUS % 0x10000000;
+            sysTime += (SYS_TIME_USToCount(0x10000000) * timeDiffNumHigh);
+            sysTime += SYS_TIME_USToCount(timeDiffRemaining);
 
             pDataDst->timeMode = TX_TIME_ABSOLUTE;
-            pDataDst->time = sysTime;
+            pDataDst->timeCount = sysTime;
             break;
         }
 
         case 1:
             /* Relative */
             pDataDst->timeMode = TX_TIME_RELATIVE;
-            pDataDst->time = SYS_TIME_USToCount(txTimeUS);
+            pDataDst->timeCount = SYS_TIME_USToCount(txTimeUS);
             break;
 
         case 2:
             /* Instantaneous */
             pDataDst->timeMode = TX_TIME_RELATIVE;
-            pDataDst->time = 0;
+            pDataDst->timeCount = 0;
             break;
 
         case 3:
@@ -384,12 +369,12 @@ uint8_t* SRV_RSERIAL_SerialRxMessage (
     *pData++ = (uint8_t) trxId;
 
     /* Insert RX indication parameters */
-    timeIniUS = _SRV_RSERIAL_SysTimeToUS(pIndObj->timeIni);
+    timeIniUS = _SRV_RSERIAL_SysTimeToUS(pIndObj->timeIniCount);
     *pData++ = (uint8_t) (timeIniUS >> 24);
     *pData++ = (uint8_t) (timeIniUS >> 16);
     *pData++ = (uint8_t) (timeIniUS >> 8);
     *pData++ = (uint8_t) (timeIniUS);
-    ppduDurationUS = pIndObj->ppduDurationUS;
+    ppduDurationUS = SYS_TIME_CountToUS(pIndObj->ppduDurationCount);
     *pData++ = (uint8_t) (ppduDurationUS >> 24);
     *pData++ = (uint8_t) (ppduDurationUS >> 16);
     *pData++ = (uint8_t) (ppduDurationUS >> 8);
@@ -436,12 +421,12 @@ uint8_t* SRV_RSERIAL_SerialCfmMessage (
     *pData++ = (uint8_t) trxId;
 
     /* Insert TX confirm parameters */
-    timeIniUS = _SRV_RSERIAL_SysTimeToUS(pCfmObj->timeIni);
+    timeIniUS = _SRV_RSERIAL_SysTimeToUS(pCfmObj->timeIniCount);
     *pData++ = (uint8_t) (timeIniUS >> 24);
     *pData++ = (uint8_t) (timeIniUS >> 16);
     *pData++ = (uint8_t) (timeIniUS >> 8);
     *pData++ = (uint8_t) (timeIniUS);
-    ppduDurationUS = pCfmObj->ppduDurationUS;
+    ppduDurationUS = SYS_TIME_CountToUS(pCfmObj->ppduDurationCount);
     *pData++ = (uint8_t) (ppduDurationUS >> 24);
     *pData++ = (uint8_t) (ppduDurationUS >> 16);
     *pData++ = (uint8_t) (ppduDurationUS >> 8);

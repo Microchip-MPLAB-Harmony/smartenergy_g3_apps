@@ -78,6 +78,10 @@ typedef struct
     /* The status of the driver */
     SYS_STATUS                      sysStatus;
 
+    /* Ready status callback */
+    DRV_RF215_READY_STATUS_CALLBACK readyStatusCallback;
+    uintptr_t                       readyStatusContext;
+
     /* Time handle for timeout */
     SYS_TIME_HANDLE                 timeoutHandle;
 
@@ -111,6 +115,9 @@ typedef struct
 
     /* RF215 Chip Reset flag */
     bool                            rfChipResetFlag;
+
+    /* Ready status notified flag */
+    bool                            readyStatusNotified;
 
 } DRV_RF215_OBJ;
 
