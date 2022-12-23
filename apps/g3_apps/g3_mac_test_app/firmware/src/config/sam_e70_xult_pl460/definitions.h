@@ -51,19 +51,19 @@
 #include "crypto/crypto.h"
 #include "service/pcoup/srv_pcoup.h"
 #include "stack/g3/pal/plc/pal_plc.h"
+#include "usb/usb_chapter_9.h"
+#include "usb/usb_device.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt_definitions.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt_comm.h"
-#include "usb/usb_chapter_9.h"
-#include "usb/usb_device.h"
 #include "driver/rf215/drv_rf215.h"
 #include "peripheral/efc/plib_efc.h"
 #include "peripheral/tc/plib_tc0.h"
 #include "system/time/sys_time.h"
 #include "service/log_report/srv_log_report.h"
-#include "bsp/bsp.h"
 #include "usb/usb_device_cdc.h"
 #include "usb/usb_cdc.h"
+#include "bsp/bsp.h"
 #include "peripheral/trng/plib_trng.h"
 #include "peripheral/spi/spi_master/plib_spi0_master.h"
 #include "system/int/sys_int.h"
@@ -220,9 +220,9 @@ Remarks:
 typedef struct
 {
     SYS_MODULE_OBJ g3PalPlc;
-    SYS_MODULE_OBJ  drvG3MacRt;
-
 	SYS_MODULE_OBJ  usbDevObject0;
+
+    SYS_MODULE_OBJ  drvG3MacRt;
 
     SYS_MODULE_OBJ drvRf215;
     SYS_MODULE_OBJ  sysTime;
