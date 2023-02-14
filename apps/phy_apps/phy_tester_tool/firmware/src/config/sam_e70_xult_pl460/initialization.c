@@ -88,7 +88,7 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI CSR register address. */
     .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[DRV_PLC_CSR_INDEX]),
-
+    
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
     
@@ -384,7 +384,7 @@ void SYS_Initialize ( void* data )
     sysObj.drvUSBHSV1Object = DRV_USBHSV1_Initialize(DRV_USBHSV1_INDEX_0, (SYS_MODULE_INIT *) &drvUSBInit);	
 
 
-    APP_PLC_Initialize();
+    APP_Initialize();
 
 
     NVIC_Initialize();

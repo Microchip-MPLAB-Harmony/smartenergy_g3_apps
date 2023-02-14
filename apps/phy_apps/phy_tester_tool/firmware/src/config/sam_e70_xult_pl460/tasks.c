@@ -92,8 +92,8 @@ void SYS_Tasks ( void )
 
 
     /* Maintain the application's state machine. */
-        /* Call Application task APP_PLC. */
-    APP_PLC_Tasks();
+        /* Call Application task APP. */
+    APP_Tasks();
 
 
 
