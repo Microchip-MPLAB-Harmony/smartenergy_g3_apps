@@ -85,17 +85,18 @@ static CACHE_ALIGN uint8_t pSerialDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_SERIAL_D
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-void Timer1_Callback (uintptr_t context)
+
+static void APP_Timer1_Callback (uintptr_t context)
 {
     appData.tmr1Expired = true;
 }
 
-void Timer2_Callback (uintptr_t context)
+static void APP_Timer2_Callback (uintptr_t context)
 {
     appData.tmr2Expired = true;
 }
 
-static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
+static void APP_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
 {
     /* Avoid warning */
     (void)context;
@@ -106,7 +107,8 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
 
         /* Start Timer: LED blinking for each received message */
         USER_PLC_IND_LED_On();
-        appData.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0,
+        SYS_TIME_TimerDestroy(appData.tmr2Handle);
+        appData.tmr2Handle = SYS_TIME_CallbackRegisterMS(APP_Timer2_Callback, 0,
                 LED_BLINK_PLC_MSG_MS, SYS_TIME_SINGLE);
 
         /* Report RX Symbols */
@@ -124,11 +126,6 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
     }
 }
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Callback Functions
-// *****************************************************************************
-// *****************************************************************************
 void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
 {
     /* Message received from PLC Tool - USART */
@@ -206,7 +203,7 @@ void APP_Initialize(void)
 void APP_Tasks(void)
 {
     /* Update Watchdog */
-    WDT_Clear();
+    CLEAR_WATCHDOG();
     
     /* Signalling */
     if (appData.tmr1Expired)
@@ -251,7 +248,7 @@ void APP_Tasks(void)
             {
                 /* Register PLC callback */
                 DRV_PLC_PHY_DataIndCallbackRegister(appData.drvPl360Handle,
-                        APP_PLCDataIndCb, DRV_PLC_PHY_INDEX);
+                        APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX);
 
                 /* Open USI Service */
                 appData.srvUSIHandle = SRV_USI_Open(SRV_USI_INDEX_0);
@@ -282,7 +279,7 @@ void APP_Tasks(void)
                 {
                     /* Register Timer Callback */
                     appData.tmr1Handle = SYS_TIME_CallbackRegisterMS(
-                            Timer1_Callback, 0, LED_BLINK_RATE_MS,
+                            APP_Timer1_Callback, 0, LED_BLINK_RATE_MS,
                             SYS_TIME_PERIODIC);
                 }
                 else

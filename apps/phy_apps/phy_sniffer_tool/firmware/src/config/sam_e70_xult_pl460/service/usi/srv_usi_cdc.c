@@ -479,11 +479,6 @@ void USI_CDC_RegisterCallback(uint32_t index, USI_CDC_CALLBACK cbFunc,
         return;
     }
     
-    if (dObj->usiStatus != SRV_USI_STATUS_CONFIGURED)
-    {
-        return;
-    }
-    
     /* Set callback function */
     dObj->cbFunc = cbFunc;
     
