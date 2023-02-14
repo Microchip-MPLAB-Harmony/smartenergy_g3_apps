@@ -225,7 +225,7 @@ static void _DRV_PLC_PHY_COMM_RxEvent(DRV_PLC_PHY_RECEPTION_OBJ *pRxObj)
     pRxObj->payloadNoisedSymbols = (uint16_t)*pSrc++;
     pRxObj->payloadNoisedSymbols += (uint16_t)*pSrc++ << 8;
     pRxObj->payloadSnrWorstCarrier = *pSrc++;
-    pRxObj->payloadSnrWorstSymbol  = *pSrc++;
+    pRxObj->payloadSnrWorstSymbol = *pSrc++;
     pRxObj->payloadSnrImpulsive = *pSrc++;
     pRxObj->payloadSnrBand = *pSrc++;
     pRxObj->payloadSnrBackground = *pSrc++;
@@ -274,7 +274,7 @@ static bool _DRV_PLC_PHY_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
         }
 
         /* Check if there is any tx_cfm pending to be reported */
-        if (gPlcPhyObj->state == DRV_PLC_PHY_STATE_WAITING_TX_CFM)
+        if (gPlcPhyObj->state[0] == DRV_PLC_PHY_STATE_WAITING_TX_CFM)
         {
             gPlcPhyObj->evResetTxCfm = true;
         }
@@ -451,7 +451,7 @@ void DRV_PLC_PHY_Task(void)
         if (gPlcPhyObj->evResetTxCfm)
         {
             gPlcPhyObj->evResetTxCfm = false;
-            gPlcPhyObj->state = DRV_PLC_PHY_STATE_IDLE;
+            gPlcPhyObj->state[0] = DRV_PLC_PHY_STATE_IDLE;
             
             cfmObj.rmsCalc = 0;
             cfmObj.time = 0;
@@ -521,7 +521,8 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
         return;
     }
 
-    if((handle != DRV_HANDLE_INVALID) && (handle == 0) && (gPlcPhyObj->state == DRV_PLC_PHY_STATE_IDLE))
+    if((handle != DRV_HANDLE_INVALID) && (handle == 0) &&
+            ((gPlcPhyObj->state[0] == DRV_PLC_PHY_STATE_IDLE) || ((transmitObj->mode & TX_MODE_CANCEL) != 0)))
     {
         size_t size_params;
         
@@ -529,8 +530,11 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
         
         if (size_params)
         {
-            /* Update PLC state: transmitting */
-            gPlcPhyObj->state = DRV_PLC_PHY_STATE_TX;
+            if ((transmitObj->mode & TX_MODE_CANCEL) == 0)
+            {
+                /* Update PLC state: transmitting */
+                gPlcPhyObj->state[0] = DRV_PLC_PHY_STATE_TX;
+            }
             
             /* Send TX parameters */
             _DRV_PLC_PHY_COMM_SpiWriteCmd(TX_PAR_ID, sDataTxPar, size_params);
@@ -539,13 +543,13 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
             gPlcPhyObj->plcHal->delay(200);
             
             /* Send TX data */
-            if (gPlcPhyObj->state == DRV_PLC_PHY_STATE_TX)
+            if (gPlcPhyObj->state[0] == DRV_PLC_PHY_STATE_TX)
             {
                 /* Send TX data content */
                 _DRV_PLC_PHY_COMM_SpiWriteCmd(TX_DAT_ID, transmitObj->pTransmitData, transmitObj->dataLength);
             
                 /* Update PLC state: waiting confirmation */
-                gPlcPhyObj->state = DRV_PLC_PHY_STATE_WAITING_TX_CFM;
+                gPlcPhyObj->state[0] = DRV_PLC_PHY_STATE_WAITING_TX_CFM;
             }
         }
         else
@@ -788,7 +792,7 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
             /* update event flag */
             gPlcPhyObj->evTxCfm[0] = true;
             /* Update PLC state: idle */
-            gPlcPhyObj->state = DRV_PLC_PHY_STATE_IDLE;
+            gPlcPhyObj->state[0] = DRV_PLC_PHY_STATE_IDLE;
         }
         
         /* Check received new parameters event (First event in RX) */

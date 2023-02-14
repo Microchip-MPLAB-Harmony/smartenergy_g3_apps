@@ -92,6 +92,12 @@ static CACHE_ALIGN uint8_t appPlcPibDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_PI
 static CACHE_ALIGN uint8_t appPlcTxDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_BUFFER_SIZE)];
 static CACHE_ALIGN uint8_t appPlcStaticNotching[CACHE_ALIGNED_SIZE_GET(NUM_CARRIERS_CENELEC_A)] = APP_PLC_TONE_MASK_STATIC_NOTCHING_EXAMPLE;
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Local Functions
+// *****************************************************************************
+// *****************************************************************************
+
 static void APP_PLC_SetInitialConfiguration ( void )
 {
     DRV_PLC_PHY_PIB_OBJ pibObj;
@@ -187,12 +193,13 @@ static void APP_PLC_SetInitialConfiguration ( void )
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-void Timer1_Callback (uintptr_t context)
+
+void APP_PLC_Timer1_Callback (uintptr_t context)
 {
     appPlc.tmr1Expired = true;
 }
 
-void Timer2_Callback (uintptr_t context)
+void APP_PLC_Timer2_Callback (uintptr_t context)
 {
     appPlc.tmr2Expired = true;
 }
@@ -276,7 +283,8 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
         {
             /* Init Timer to handle PLC Reception led */
             USER_PLC_IND_LED_On();
-            appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
+            SYS_TIME_TimerDestroy(appPlc.tmr2Handle);
+            appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
                 
             APP_CONSOLE_Print("\rRx (");
             /* Show Modulation of received frame */
@@ -322,7 +330,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
             APP_CONSOLE_Print("RSSI %udBuV, ", indObj->rssi);
             /* Show LQI (Link Quality Indicator). It is in quarters of dB and 10-dB offset: SNR(dB) = (LQI - 40) / 4 */
             APP_CONSOLE_Print("LQI %ddB): ", div_round((int16_t)indObj->lqi - 40, 4));
-            APP_CONSOLE_Print("%.*s", us_len, indObj->pReceivedData + 2);
+            APP_CONSOLE_Print("%.*s", us_len - 2, indObj->pReceivedData + 2);
         }
     }
     else
@@ -496,12 +504,15 @@ void APP_PLC_Tasks ( void )
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
                 
+                /* Disable TX Enable at the beginning */
+                DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, false);
+                appPlc.pvddMonTxEnable = false;
                 /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
-                SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
+                SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_IN);
             
                 /* Init Timer to handle blinking led */
-                appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
+                appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
                 
                 /* Set PLC state */
                 appPlc.state = APP_PLC_STATE_WAITING;
@@ -559,6 +570,8 @@ void APP_PLC_Tasks ( void )
  */
 bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
 {
+    uint16_t totalLength;
+    
     if (appPlc.state == APP_PLC_STATE_WAITING)
     {
         if (appPlc.pvddMonTxEnable)
@@ -568,13 +581,14 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
                 /* Fill 2 first bytes with data length */
                 /* Physical Layer may add padding bytes in order to complete symbols with data */
                 /* It is needed to include real data length in the message because otherwise at reception is not possible to know if there is padding or not */
-                appPlcTx.pDataTx[0] = length >> 8;
-                appPlcTx.pDataTx[1] = length & 0xFF;
+                totalLength = length + 2;
+                appPlcTx.pDataTx[0] = totalLength >> 8;
+                appPlcTx.pDataTx[1] = totalLength & 0xFF;
 
                 /* Set data length in Tx Parameters structure */
                 /* It should be equal or less than Maximum Data Length (see _get_max_psdu_len) */
                 /* Otherwise DRV_PLC_PHY_TX_RESULT_INV_LENGTH will be reported in Tx Confirm */
-                appPlcTx.pl360Tx.dataLength = length + 2;
+                appPlcTx.pl360Tx.dataLength = totalLength;
                 memcpy(appPlcTx.pDataTx + 2, pData, length);
 
                 appPlc.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CFM;

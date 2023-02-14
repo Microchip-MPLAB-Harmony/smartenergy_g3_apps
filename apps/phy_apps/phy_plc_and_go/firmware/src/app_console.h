@@ -150,11 +150,6 @@ extern APP_CONSOLE_DATA appConsole;
 
 #define MENU_CMD_PROMPT     "\r\n>>> "
 
-#define MENU_OPTIONS "\n\r-- Configuration Menu --------------\r\n"	\
-    "Select parameter to configure:\r\n"	\
-	"\t0: Tx Modulation\n\r" \
-	"\t1: Tx/Rx Coupling Band\n\r"
-
 /*******************************************************************************
   Function:
     void APP_CONSOLE_Initialize ( void )
