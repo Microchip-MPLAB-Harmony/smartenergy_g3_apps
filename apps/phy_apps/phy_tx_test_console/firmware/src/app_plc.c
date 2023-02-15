@@ -236,7 +236,7 @@ void APP_PLC_Initialize ( void )
     appPlcTx.pl360Tx.pTransmitData = appPlcTxDataBuffer;
     
     /* Set PLC Multiband flag */
-    if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == SYS_STATUS_UNINITIALIZED) {
+    if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == NULL) {
         appPlc.plcMultiband = false;
     } else {
         appPlc.plcMultiband = true;

@@ -368,7 +368,7 @@ void APP_PLC_WBZ451_Tasks ( void )
             appPlc.staticNotchingEnable = APP_PLC_STATIC_NOTCHING_ENABLE;
 
             /* Set PLC Multi-band / Coupling Branch flag */
-            if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == SYS_STATUS_UNINITIALIZED) {
+            if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == NULL) {
                 /* Auxiliary branch is not configured. Single branch */
                 appPlc.plcMultiband = false;
                 appPlc.bin2InUse = false;

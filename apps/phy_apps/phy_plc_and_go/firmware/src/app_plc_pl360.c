@@ -380,7 +380,7 @@ void APP_PLC_PL360_Tasks ( void )
             memset(appPlcTx.pl360Tx.preemphasis, 0, sizeof(appPlcTx.pl360Tx.preemphasis));
             
             /* Set PLC Multiband / Couling Branch flag */
-            if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == SYS_STATUS_UNINITIALIZED) {
+            if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == NULL) {
                 /* Auxiliary branch is not configured. Single branch */
                 appPlc.plcMultiband = false;
                 appPlcTx.bin2InUse = false;
