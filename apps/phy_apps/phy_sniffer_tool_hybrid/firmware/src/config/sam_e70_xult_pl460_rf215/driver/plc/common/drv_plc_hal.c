@@ -156,6 +156,9 @@ void DRV_PLC_HAL_Reset(void)
 void DRV_PLC_HAL_SetStandBy(bool enable)
 {
     if (enable) {
+        /* Enable Reset pin */
+        SYS_PORT_PinClear(sPlcPlib->resetPin);
+
         /* Enable Stby Pin */
         SYS_PORT_PinSet(sPlcPlib->stByPin);
     } else {

@@ -124,6 +124,7 @@ typedef struct _RF215_SPI_TRANSFER_OBJ
     RF215_SPI_TRANSFER_MODE         mode;
     uint16_t                        regAddr;
     bool                            inUse;
+    bool                            fromTasks;
 } RF215_SPI_TRANSFER_OBJ;
 
 // *****************************************************************************
@@ -181,9 +182,13 @@ typedef struct
     /* First reset flag */
     bool                            firstReset;
 
+    /* SPI transfer from tasks flag */
+    bool                            spiTransferFromTasks;
+
     /* External interrupt disable counter */
     uint8_t                         extIntDisableCount;
 
+    /* DMA transfer in progress flag */
     bool                            dmaTransferInProgress;
 
     /* LED RX counter ON */
@@ -216,6 +221,14 @@ void RF215_HAL_LeaveCritical();
 void RF215_HAL_DisableTimeInt();
 
 void RF215_HAL_SpiRead (
+    uint16_t addr,
+    void* pData,
+    size_t size,
+    RF215_SPI_TRANSFER_CALLBACK cb,
+    uintptr_t context
+);
+
+void RF215_HAL_SpiReadFromTasks (
     uint16_t addr,
     void* pData,
     size_t size,

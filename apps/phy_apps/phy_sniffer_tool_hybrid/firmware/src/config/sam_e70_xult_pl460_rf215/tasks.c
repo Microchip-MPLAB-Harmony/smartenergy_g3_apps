@@ -90,7 +90,7 @@ void SYS_Tasks ( void )
 	/* USB HS Driver Task Routine */ 
     DRV_USBHSV1_Tasks(sysObj.drvUSBHSV1Object);
 
-    /* Maintain PLC USI Service */
+
     SRV_USI_Tasks(sysObj.srvUSI0);
 
 

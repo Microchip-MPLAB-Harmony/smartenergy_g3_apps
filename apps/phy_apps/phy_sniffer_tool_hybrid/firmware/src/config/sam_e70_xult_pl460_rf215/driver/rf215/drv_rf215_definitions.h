@@ -604,6 +604,9 @@ typedef enum
     /* Reset PHY Statistics (write-only) */
     RF215_PIB_PHY_STATS_RESET           = 0x01C0,
 
+    /* Continuous LO Carrier Tx Mode. 8 bits */
+    RF215_PIB_PHY_TX_CONTINUOUS         = 0x01C1,
+
     /* Back-off period unit in us (aUnitBackoffPeriod in IEEE 802.15.4) used for
      * CSMA-CA . 16 bits (read-only) */
     RF215_PIB_MAC_UNIT_BACKOFF_PERIOD   = 0x0200,
@@ -779,14 +782,14 @@ typedef struct
 
 typedef struct
 {
-    /* RX time (PPDU start), referred to system 64-bit counter */
-    uint64_t                     timeIni;
+    /* RX time (PPDU start), referred to system 64-bit time counter */
+    uint64_t                     timeIniCount;
 
     /* Pointer to received PSDU data */
     uint8_t*                     psdu;
 
-    /* PPDU duration in us */
-    uint32_t                     ppduDurationUS;
+    /* PPDU duration in system time counter units */
+    uint32_t                     ppduDurationCount;
 
     /* PSDU length in bytes (including FCS) */
     uint16_t                     psduLen;
@@ -818,13 +821,13 @@ typedef struct
 
 typedef struct
 {
-    /* TX time (PPDU start), referred to system time (absolute/relative) */
-    uint64_t                     time;
+    /* TX time (PPDU start), referred to system 64-bit time counter */
+    uint64_t                     timeCount;
 
     /* Pointer to PSDU data to be transmitted */
     uint8_t*                     psdu;
 
-    /* TX time mode */
+    /* TX time mode (absolute/relative) */
     DRV_RF215_TX_TIME_MODE       timeMode;
 
     /* Modulation scheme for the specific PHY type (FSK or OFDM) */
@@ -860,11 +863,11 @@ typedef struct
 
 typedef struct
 {
-    /* TX time (PPDU start), referred to system 64-bit counter */
-    uint64_t                     timeIni;
+    /* TX time (PPDU start), referred to system 64-bit time counter */
+    uint64_t                     timeIniCount;
 
-    /* PPDU duration in us */
-    uint32_t                     ppduDurationUS;
+    /* PPDU duration in system time counter units */
+    uint32_t                     ppduDurationCount;
 
     /* Transmission result */
     DRV_RF215_TX_RESULT          txResult;
@@ -956,34 +959,34 @@ typedef void ( *DRV_RF215_PLIB_SPI_SET_CS ) (SPI_CHIP_SELECT chipSelect);
 typedef struct
 {
     /* SPI chip select register address used for SPI configuration */
-    uint32_t*                    spiCSRegAddress;
+    uint32_t*                       spiCSRegAddress;
 
     /* SPI transmit register address used for DMA operation */
-    const void*                  spiTransmitAddress;
+    const void*                     spiTransmitAddress;
 
     /* SPI receive register address used for DMA operation */
-    const void*                  spiReceiveAddress;
+    const void*                     spiReceiveAddress;
 
     /* Pointer to SPI PLIB is busy function */
-    DRV_RF215_PLIB_SPI_IS_BUSY   spiPlibIsBusy;
+    DRV_RF215_PLIB_SPI_IS_BUSY      spiPlibIsBusy;
 
     /* Pointer to SPI PLIB chip select function */
-    DRV_RF215_PLIB_SPI_SET_CS    spiPlibSetChipSelect;
+    DRV_RF215_PLIB_SPI_SET_CS       spiPlibSetChipSelect;
 
     /* Interrupt source ID for DMA */
-    INT_SOURCE                   dmaIntSource;
+    INT_SOURCE                      dmaIntSource;
 
     /* Interrupt source ID for SYS_TIME */
-    INT_SOURCE                   sysTimeIntSource;
+    INT_SOURCE                      sysTimeIntSource;
 
     /* Interrupt source ID for PLC external interrupt */
-    INT_SOURCE                   plcExtIntSource;
+    INT_SOURCE                      plcExtIntSource;
 
     /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */
-    DRV_RF215_PHY_BAND_OPM       rf09PhyBandOpmIni;
+    DRV_RF215_PHY_BAND_OPM          rf09PhyBandOpmIni;
 
     /* Initial PHY frequency channel number for Sub-GHz transceiver */
-    uint16_t                     rf09PhyChnNumIni;
+    uint16_t                        rf09PhyChnNumIni;
 
 } DRV_RF215_INIT;
 

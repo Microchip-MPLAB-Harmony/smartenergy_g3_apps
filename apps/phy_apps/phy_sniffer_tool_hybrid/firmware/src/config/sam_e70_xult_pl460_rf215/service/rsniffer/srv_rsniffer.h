@@ -178,7 +178,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
     txReqObj.txPwrAtt = 0;
     txReqObj.psduLen = DRV_RF215_MAX_PSDU_LEN;
     txReqObj.timeMode = TX_TIME_RELATIVE;
-    txReqObj.time = 0;
+    txReqObj.timeCount = 0;
     txReqObj.psdu = psduTx;
 
     txReqHandle = DRV_RF215_TxRequest(drvRf215Handle, &txReqObj, &txReqResult);

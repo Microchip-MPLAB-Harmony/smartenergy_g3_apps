@@ -3,7 +3,7 @@ configName: sam_e70_xult_pl460_rf215
 folderName: sam_e70_xult_pl460_rf215
 frameworkPath: C:\WORK\GIT\mh3
 processor: ATSAME70Q21B
-projectName: phy_sniffer_tool_hybrid_g3_sam_e70_xult
+projectName: g3_phy_sniffer_tool_hybrid_sam_e70_xult
 settings:
   PackageFilter: ''
   FORCE_OPTIMIZATION: 'false'

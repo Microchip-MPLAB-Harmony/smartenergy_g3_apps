@@ -112,8 +112,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
-static uint64_t srvRsnifferPrevSysTime;
-static uint32_t srvRsnifferPrevTimeUS;
+static uint64_t srvRsnifferPrevSysTime = 0;
+static uint32_t srvRsnifferPrevTimeUS = 0;
 static uint8_t srvRsnifferRxMsg[RSNIFFER_MSG_MAX_SIZE];
 static uint8_t srvRsnifferTxMsg[DRV_RF215_TX_BUFFERS_NUMBER][RSNIFFER_MSG_MAX_SIZE];
 
@@ -142,32 +142,18 @@ static uint8_t _SRV_RSNIFFER_ModType(DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj)
 
 static uint32_t _SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
 {
-    int64_t sysTimeDiff;
+    uint64_t sysTimeDiff;
+    uint32_t sysTimeDiffNumHigh, sysTimeDiffRemaining;
     uint32_t timeUS = srvRsnifferPrevTimeUS;
 
     /* Difference between current and previous system time */
-    sysTimeDiff = (int64_t) sysTime - srvRsnifferPrevSysTime;
+    sysTimeDiff = sysTime - srvRsnifferPrevSysTime;
+    sysTimeDiffNumHigh = (uint32_t) (sysTimeDiff / 0x10000000);
+    sysTimeDiffRemaining = (uint32_t) (sysTimeDiff % 0x10000000);
 
     /* Convert system time to microseconds and add to previous time */
-    while (sysTimeDiff > 0x10000000)
-    {
-        timeUS += SYS_TIME_CountToUS(0x10000000);
-        sysTimeDiff -= 0x10000000;
-    }
-    while (sysTimeDiff < -0x10000000)
-    {
-        timeUS -= SYS_TIME_CountToUS(0x10000000);
-        sysTimeDiff += 0x10000000;
-    }
-
-    if (sysTimeDiff >= 0)
-    {
-        timeUS += SYS_TIME_CountToUS((uint32_t) sysTimeDiff);
-    }
-    else
-    {
-        timeUS -= SYS_TIME_CountToUS((uint32_t) (-sysTimeDiff));
-    }
+    timeUS += (SYS_TIME_CountToUS(0x10000000) * sysTimeDiffNumHigh);
+    timeUS += SYS_TIME_CountToUS(sysTimeDiffRemaining);
 
     /* Store times for next computation */
     srvRsnifferPrevSysTime = sysTime;
@@ -214,12 +200,12 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
     srvRsnifferRxMsg[8] = (uint8_t) (paySymbols);
 
     /* Initial and end time of RX frame */
-    timeIni = _SRV_RSNIFFER_SysTimeToUS(pIndObj->timeIni);
+    timeIni = _SRV_RSNIFFER_SysTimeToUS(pIndObj->timeIniCount);
     srvRsnifferRxMsg[11] = (uint8_t) (timeIni >> 24);
     srvRsnifferRxMsg[12] = (uint8_t) (timeIni >> 16);
     srvRsnifferRxMsg[13] = (uint8_t) (timeIni >> 8);
     srvRsnifferRxMsg[14] = (uint8_t) (timeIni);
-    timeEnd = timeIni + pIndObj->ppduDurationUS;
+    timeEnd = timeIni + SYS_TIME_USToCount(pIndObj->ppduDurationCount);
     srvRsnifferRxMsg[15] = (uint8_t) (timeEnd >> 24);
     srvRsnifferRxMsg[16] = (uint8_t) (timeEnd >> 16);
     srvRsnifferRxMsg[17] = (uint8_t) (timeEnd >> 8);
@@ -323,12 +309,12 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     pMsgDest[8] = (uint8_t) (paySymbols);
 
     /* Initial and end time of RX frame */
-    timeIni = _SRV_RSNIFFER_SysTimeToUS(pCfmObj->timeIni);
+    timeIni = _SRV_RSNIFFER_SysTimeToUS(pCfmObj->timeIniCount);
     pMsgDest[11] = (uint8_t) (timeIni >> 24);
     pMsgDest[12] = (uint8_t) (timeIni >> 16);
     pMsgDest[13] = (uint8_t) (timeIni >> 8);
     pMsgDest[14] = (uint8_t) (timeIni);
-    timeEnd = timeIni + pCfmObj->ppduDurationUS;
+    timeEnd = timeIni + SYS_TIME_USToCount(pCfmObj->ppduDurationCount);
     pMsgDest[15] = (uint8_t) (timeEnd >> 24);
     pMsgDest[16] = (uint8_t) (timeEnd >> 16);
     pMsgDest[17] = (uint8_t) (timeEnd >> 8);
