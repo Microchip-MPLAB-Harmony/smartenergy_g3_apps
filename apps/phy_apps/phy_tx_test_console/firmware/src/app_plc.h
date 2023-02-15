@@ -170,8 +170,6 @@ typedef struct
     
     DRV_PLC_PHY_TRANSMISSION_OBJ pl360Tx;
     
-	uint32_t txEndTime;
-    
 	uint8_t txAuto;
     
 	uint8_t txImpedance;

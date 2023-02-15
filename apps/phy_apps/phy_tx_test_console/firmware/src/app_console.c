@@ -619,7 +619,7 @@ void APP_CONSOLE_Initialize ( void )
 void APP_CONSOLE_Tasks ( void )
 {
     /* Refresh WDG */
-    WDT_Clear();
+    CLEAR_WATCHDOG();
     
     /* Read console port */
     APP_CONSOLE_ReadSerialChar();
@@ -1075,7 +1075,7 @@ void APP_CONSOLE_Print(const char *format, ...)
             SYS_CONSOLE_Tasks(SYS_CONSOLE_INDEX_0);
             
             /* Refresh WDG */
-            WDT_Clear();
+            CLEAR_WATCHDOG();
         }
         else
         {

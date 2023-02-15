@@ -840,6 +840,9 @@ void APP_CONSOLE_Print(const char *format, ...)
         {
             /* Maintain Console service */
             SYS_CONSOLE_Tasks(SYS_CONSOLE_INDEX_0);
+
+            /* Refresh WDG */
+            CLEAR_WATCHDOG();
         }
         else
         {

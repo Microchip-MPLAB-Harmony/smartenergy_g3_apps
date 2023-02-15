@@ -95,12 +95,12 @@ static CACHE_ALIGN uint8_t appPlcTxDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_BUF
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-void Timer1_Callback (uintptr_t context)
+void APP_PLC_Timer1_Callback (uintptr_t context)
 {
     appPlc.tmr1Expired = true;
 }
 
-void Timer2_Callback (uintptr_t context)
+void APP_PLC_Timer2_Callback (uintptr_t context)
 {
     appPlc.tmr2Expired = true;
 }
@@ -182,9 +182,10 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
     
     if (indObj->dataLength)
     {
+        /* Turn on indication LED and start timer to turn it off */
+        SYS_TIME_TimerDestroy(appPlc.tmr2Handle);
         USER_PLC_IND_LED_On();
-        /* Start signal timer */
-        appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
+        appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
     }
 }
 
@@ -298,7 +299,7 @@ void APP_PLC_Tasks ( void )
                 if (appPlc.tmr1Handle == SYS_TIME_HANDLE_INVALID)
                 {
                     /* Init Timer to handle blinking led */
-                    appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_RESET_BLINK_RATE_MS, SYS_TIME_PERIODIC);
+                    appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer1_Callback, 0, LED_RESET_BLINK_RATE_MS, SYS_TIME_PERIODIC);
                 }
             }
             else
@@ -406,14 +407,14 @@ void APP_PLC_Tasks ( void )
         case APP_PLC_STATE_INIT:
         {
             SYS_STATUS drvPlcStatus = DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX);
-			
+
             /* Set Coupling branch by default */
             appPlcTx.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
             
             /* Select PLC Binary file for multi-band solution */
-            if (appPlc.plcMultiband && (drvPlcStatus == SYS_STATUS_UNINITIALIZED))
+            if (appPlc.plcMultiband == true)
             {
-                if (appPlcTx.bin2InUse)
+                if (appPlcTx.bin2InUse == true)
                 {
                     drvPlcPhyInitData.binStartAddress = (uint32_t)&plc_phy_bin2_start;
                     drvPlcPhyInitData.binEndAddress = (uint32_t)&plc_phy_bin2_end;
@@ -426,10 +427,13 @@ void APP_PLC_Tasks ( void )
                     drvPlcPhyInitData.binEndAddress = (uint32_t)&plc_phy_bin_end;
                 }
 
-                /* Initialize PLC Driver Instance */
-                sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
-                /* Register Callback function to handle PLC interruption */
-                PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+                if (drvPlcStatus == SYS_STATUS_UNINITIALIZED)
+                {
+                    /* Initialize PLC Driver Instance */
+                    sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
+                    /* Register Callback function to handle PLC interruption */
+                    PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+                }
             }
             
             /* Open PLC driver */
@@ -437,6 +441,20 @@ void APP_PLC_Tasks ( void )
 
             if (appPlc.drvPl360Handle != DRV_HANDLE_INVALID)
             {
+                if ((appPlc.plcMultiband == true) && (appPlcTx.bin2InUse == true) && (drvPlcStatus == SYS_STATUS_BUSY))
+                {
+                    /* Close PLC Driver */
+                    DRV_PLC_PHY_Close(appPlc.drvPl360Handle);
+
+                    /* Initialize PLC Driver Instance */
+                    sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
+                    /* Register Callback function to handle PLC interruption */
+                    PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+
+                    /* Open PLC driver again */
+                    appPlc.drvPl360Handle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
+                }
+
                 appPlc.state = APP_PLC_STATE_OPEN;
             }
             else
@@ -462,12 +480,15 @@ void APP_PLC_Tasks ( void )
                 /* Apply PLC coupling configuration */
                 SRV_PCOUP_Set_Config(appPlc.drvPl360Handle, appPlcTx.couplingBranch);
                 
-                /* Enable PLC PVDD Monitor Service: ADC channel 0 */
+                /* Disable TX Enable at the beginning */
+                DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, false);
+                appPlc.pvddMonTxEnable = false;
+                /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
-                SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
+                SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_IN);
                 
                 /* Init Timer to handle blinking led */
-                appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
+                appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
                 
                 /* Get PLC PHY version */
                 pibObj.id = PLC_ID_VERSION_NUM;

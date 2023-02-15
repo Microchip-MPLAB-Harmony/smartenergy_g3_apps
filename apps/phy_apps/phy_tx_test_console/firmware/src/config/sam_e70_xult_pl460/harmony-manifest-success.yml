@@ -4,7 +4,7 @@
 
 
 project: phy_tx_test_console
-creation_date: 2022-10-26T08:45:58.701+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2023-02-15T11:25:34.665+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mhc_mode: Standalone            # [IDE|Standalone|Headless]
 mhc_version: NA
@@ -13,9 +13,9 @@ plugin_version: NA        # if MPLAB X plugin only
 compiler: xc32
 
 modules:
-    - {name: "csp", version: "v3.14.0"}
-    - {name: "core", version: "v3.11.1"}
-    - {name: "dev_packs", version: "v3.14.0"}
+    - {name: "csp", version: "v3.15.0"}
+    - {name: "core", version: "v3.12.0-E1"}
+    - {name: "dev_packs", version: "v3.15.0"}
     - {name: "smartenergy", version: "unknown"}
-    - {name: "bsp", version: "v3.14.0"}
+    - {name: "bsp", version: "v3.15.0"}
 

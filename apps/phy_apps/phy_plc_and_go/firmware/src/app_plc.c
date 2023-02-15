@@ -281,9 +281,9 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
         }
         else
         {
-            /* Init Timer to handle PLC Reception led */
-            USER_PLC_IND_LED_On();
+            /* Turn on indication LED and start timer to turn it off */
             SYS_TIME_TimerDestroy(appPlc.tmr2Handle);
+            USER_PLC_IND_LED_On();
             appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
                 
             APP_CONSOLE_Print("\rRx (");
