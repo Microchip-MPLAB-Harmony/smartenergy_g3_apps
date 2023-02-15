@@ -40,17 +40,6 @@
 *******************************************************************************/
 
 #include "plib_spi0_master.h"
-#include "interrupts.h"
-
-#define SPI_TDR_8BIT_REG      (*(volatile uint8_t* const)((SPI0_BASE_ADDRESS + SPI_TDR_REG_OFST)))
-
-#define SPI_TDR_9BIT_REG      (*(volatile uint16_t* const)((SPI0_BASE_ADDRESS + SPI_TDR_REG_OFST)))
-
-
-
-#define SPI_RDR_8BIT_REG      (*(volatile uint8_t* const)((SPI0_BASE_ADDRESS + SPI_RDR_REG_OFST)))
-
-#define SPI_RDR_9BIT_REG      (*(volatile uint16_t* const)((SPI0_BASE_ADDRESS + SPI_RDR_REG_OFST)))
 
 // *****************************************************************************
 // *****************************************************************************
@@ -90,7 +79,7 @@ bool SPI0_WriteRead( void* pTransmitData, size_t txSize, void* pReceiveData, siz
     bool isSuccess = false;
 
     /* Verify the request */
-    if (((txSize > 0U) && (pTransmitData != NULL)) || ((rxSize > 0U) && (pReceiveData != NULL)))
+    if (((txSize > 0) && (pTransmitData != NULL)) || ((rxSize > 0) && (pReceiveData != NULL)))
     {
         if (pTransmitData == NULL)
         {
@@ -118,27 +107,22 @@ bool SPI0_WriteRead( void* pTransmitData, size_t txSize, void* pReceiveData, siz
         }
 
         /* Make sure TDR is empty */
-        while((bool)((SPI0_REGS->SPI_SR & SPI_SR_TDRE_Msk) >> SPI_SR_TDRE_Pos) == false)
-		{
-				/* Do Nothing */
-		}
+        while((bool)((SPI0_REGS->SPI_SR & SPI_SR_TDRE_Msk) >> SPI_SR_TDRE_Pos) == false);
 
-        while ((txCount != txSize) || (dummySize != 0U))
+        while ((txCount != txSize) || (dummySize != 0))
         {
             if (txCount != txSize)
             {
                 if(dataBits == SPI_CSR_BITS_8_BIT)
                 {
-                    SPI0_REGS->SPI_TDR = ((uint8_t*)pTransmitData)[txCount];
-					txCount++;
+                    SPI0_REGS->SPI_TDR = ((uint8_t*)pTransmitData)[txCount++];
                 }
                 else
                 {
-                    SPI0_REGS->SPI_TDR = ((uint16_t*)pTransmitData)[txCount];
-					txCount++;
+                    SPI0_REGS->SPI_TDR = ((uint16_t*)pTransmitData)[txCount++];
                 }
             }
-            else if (dummySize > 0U)
+            else if (dummySize > 0)
             {
                 if(dataBits == SPI_CSR_BITS_8_BIT)
                 {
@@ -150,19 +134,11 @@ bool SPI0_WriteRead( void* pTransmitData, size_t txSize, void* pReceiveData, siz
                 }
                 dummySize--;
             }
-			else
-			{
-				/* Do Nothing */
-				
-			}
 
-            if (rxSize == 0U)
+            if (rxSize == 0)
             {
                 /* For transmit only request, wait for TDR to become empty */
-                while((bool)((SPI0_REGS->SPI_SR & SPI_SR_TDRE_Msk) >> SPI_SR_TDRE_Pos) == false)
-				{
-				       /* Do Nothing */
-		        }
+                while((bool)((SPI0_REGS->SPI_SR & SPI_SR_TDRE_Msk) >> SPI_SR_TDRE_Pos) == false);
             }
             else
             {
@@ -177,23 +153,18 @@ bool SPI0_WriteRead( void* pTransmitData, size_t txSize, void* pReceiveData, siz
                 {
                     if(dataBits == SPI_CSR_BITS_8_BIT)
                     {
-                        ((uint8_t*)pReceiveData)[rxCount] = (uint8_t)receivedData;
-						rxCount++;
+                        ((uint8_t*)pReceiveData)[rxCount++] = receivedData;
                     }
                     else
                     {
-                        ((uint16_t*)pReceiveData)[rxCount] = (uint16_t)receivedData;
-						rxCount++;
+                        ((uint16_t*)pReceiveData)[rxCount++] = receivedData;
                     }
                 }
             }
         }
 
         /* Make sure no data is pending in the shift register */
-        while ((bool)((SPI0_REGS->SPI_SR & SPI_SR_TXEMPTY_Msk) >> SPI_SR_TXEMPTY_Pos) == false)
-		{
-				/* Do Nothing */
-		}
+        while ((bool)((SPI0_REGS->SPI_SR & SPI_SR_TXEMPTY_Msk) >> SPI_SR_TXEMPTY_Pos) == false);
 
         /* Set Last transfer to deassert NPCS after the last byte written in TDR has been transferred. */
         SPI0_REGS->SPI_CR = SPI_CR_LASTXFER_Msk;
@@ -217,12 +188,12 @@ bool SPI0_TransferSetup( SPI_TRANSFER_SETUP * setup, uint32_t spiSourceClock )
 {
     uint32_t scbr;
 
-    if ((setup == NULL) || (setup->clockFrequency == 0U))
+    if ((setup == NULL) || (setup->clockFrequency == 0))
     {
         return false;
     }
 
-    if(spiSourceClock == 0U)
+    if(spiSourceClock == 0)
     {
         // Fetch Master Clock Frequency directly
         spiSourceClock = 150000000;
@@ -230,18 +201,14 @@ bool SPI0_TransferSetup( SPI_TRANSFER_SETUP * setup, uint32_t spiSourceClock )
 
     scbr = spiSourceClock/setup->clockFrequency;
 
-    if(scbr == 0U)
+    if(scbr == 0)
     {
-        scbr = 1U;
+        scbr = 1;
     }
-    else if(scbr > 255U)
+    else if(scbr > 255)
     {
-        scbr = 255U;
+        scbr = 255;
     }
-	else
-	{
-		/* Do Nothing */
-	}
 
     SPI0_REGS->SPI_CSR[1] = (SPI0_REGS->SPI_CSR[1] & ~(SPI_CSR_CPOL_Msk | SPI_CSR_NCPHA_Msk | SPI_CSR_BITS_Msk | SPI_CSR_SCBR_Msk)) |((uint32_t)setup->clockPolarity | (uint32_t)setup->clockPhase | (uint32_t)setup->dataBits | SPI_CSR_SCBR(scbr));
 
@@ -250,6 +217,6 @@ bool SPI0_TransferSetup( SPI_TRANSFER_SETUP * setup, uint32_t spiSourceClock )
 
 bool SPI0_IsTransmitterBusy( void )
 {
-    return ((SPI0_REGS->SPI_SR & SPI_SR_TXEMPTY_Msk) == 0U)? true : false;
+    return ((SPI0_REGS->SPI_SR & SPI_SR_TXEMPTY_Msk) == 0)? true : false;
 }
 

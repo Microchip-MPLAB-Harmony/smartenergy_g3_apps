@@ -194,12 +194,12 @@ static uint8_t APP_PLC_GetMacRTHeaderInfo ( uint8_t *pFrame )
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-static void Timer1_Callback (uintptr_t context)
+static void APP_PLC_Timer1_Callback (uintptr_t context)
 {
     appPlc.tmr1Expired = true;
 }
 
-static void Timer2_Callback (uintptr_t context)
+static void APP_PLC_Timer2_Callback (uintptr_t context)
 {
     appPlc.tmr2Expired = true;
 }
@@ -274,9 +274,10 @@ static void APP_PLC_DataIndCallback( uint8_t *pData, uint16_t length )
     uint8_t *pFrame;
     uint8_t headerLength;
     
-    /* Init Timer to handle PLC Reception led */
+    /* Turn on indication LED and start timer to turn it off */
+    SYS_TIME_TimerDestroy(appPlc.tmr2Handle);
     USER_PLC_IND_LED_On();
-    appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
+    appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
 
     APP_CONSOLE_Print("\rRx (");
     /* Show Modulation of received frame */
@@ -500,7 +501,7 @@ void APP_PLC_Tasks ( void )
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
             
                 /* Init Timer to handle blinking led */
-                appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
+                appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
                 
                 /* Set PLC state */
                 appPlc.state = APP_PLC_STATE_WAITING;

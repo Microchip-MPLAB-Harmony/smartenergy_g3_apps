@@ -1,5 +1,5 @@
 /*******************************************************************************
-  Interface definition of TRNG PLIB.
+  Interface definition of PLC PVDD Monitor service.
 
   Company:
     Microchip Technology Inc.
@@ -8,15 +8,14 @@
     srv_pvddmon.h
 
   Summary:
-    Interface definition of the True Random Number Generator Plib (TRNG).
+    Interface definition of the PLC PVDD Monitor service.
 
   Description:
-    This file defines the interface for the TRNG Plib.
-    It allows user to generate true random numbers.
+    This file defines the interface for the PLC PVDD Monitor service.
 *******************************************************************************/
 
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
