@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>phy_tester_tool_hybrid_g3_sam_e70_xult</name>
+            <name>g3_phy_tester_tool_hybrid_sam_e70_xult</name>
             <creation-uuid>a8157b95-10e3-4397-912a-1c3edd02c6eb</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>

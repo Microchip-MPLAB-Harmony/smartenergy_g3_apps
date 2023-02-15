@@ -382,6 +382,9 @@ static RF215_PHY_OBJ rf215PhyObj[DRV_RF215_NUM_TRX] = {0};
 static DRV_RF215_RX_INDICATION_OBJ rf215PhyRxInd;
 static uint8_t rf215PhyRxPsdu[DRV_RF215_MAX_PSDU_LEN];
 
+/* RF_IQIFC1 register */
+static uint8_t rf215PhyRegRF_IQIFC1;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: File Scope Function Declarations
@@ -389,6 +392,11 @@ static uint8_t rf215PhyRxPsdu[DRV_RF215_MAX_PSDU_LEN];
 // *****************************************************************************
 
 static void _RF215_TX_PrepareTimeExpired(uintptr_t context);
+static DRV_RF215_PIB_RESULT _RF215_PHY_SetPhyConfig (
+    uint8_t trxIdx,
+    DRV_RF215_PHY_CFG_OBJ* phyCfgNew,
+    uint16_t chnNumNew
+);
 
 // *****************************************************************************
 // *****************************************************************************
@@ -2009,6 +2017,17 @@ static void _RF215_TRX_RxListen(uint8_t trxIdx)
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     bool rxCmd = false;
 
+    if (pObj->trxState != RF215_RFn_STATE_RF_RESET)
+    {
+        /* Update PHY state */
+        pObj->phyState = PHY_STATE_RX_LISTEN;
+    }
+
+    if (pObj->phyCfgPending == true)
+    {
+        /* Pending PHY configuration */
+        _RF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending);
+    }
     switch (pObj->trxState)
     {
         case RF215_RFn_STATE_RF_RESET:
@@ -2045,9 +2064,6 @@ static void _RF215_TRX_RxListen(uint8_t trxIdx)
     {
         _RF215_TRX_CommandRx(trxIdx);
     }
-
-    /* Update PHY state */
-    pObj->phyState = PHY_STATE_RX_LISTEN;
 }
 
 static bool _RF215_TRX_SwitchTrxOff(uint8_t trxIdx)
@@ -2134,13 +2150,155 @@ static bool _RF215_TRX_SwitchTxPrep(uint8_t trxIdx)
     return pObj->trxRdy;
 }
 
+static void _RF215_TRX_EnableTxContinuousMode(uint8_t trxIdx)
+{
+    RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
+    
+    /* Swith to TRXOFF state before to configure continuous transmission */
+    if ((pObj->txAutoInProgress == false) && (_RF215_TRX_SwitchTrxOff(trxIdx) == true))
+    {
+        uint8_t pac;
+        RF215_PHY_REGS_OBJ* phyRegs = &pObj->phyRegs;
+        RF215_PHY_OBJ* pObjOther = &rf215PhyObj[RF215_TRX_RF24_IDX];
+        uint8_t trxIdxOther = RF215_TRX_RF24_IDX;
+        RF215_PHY_STATE phyStateOther;
+
+        if (trxIdx == RF215_TRX_RF24_IDX)
+        {
+            pObjOther = &rf215PhyObj[RF215_TRX_RF09_IDX];
+            trxIdxOther = RF215_TRX_RF09_IDX;
+        }
+
+        /* Set other TRX to idle state (TRXOFF) */
+        phyStateOther = pObjOther->phyState;
+        if ((phyStateOther != PHY_STATE_TX_CONTINUOUS) && (phyStateOther != PHY_STATE_SLEPT))
+        {
+            if ((pObjOther->txAutoInProgress == true) || (_RF215_TRX_SwitchTrxOff(trxIdxOther) == false))
+            {
+                pObjOther->idlePending = true;
+                pObj->txContinuousPending = true;
+                return;
+            }
+
+            pObjOther->idlePending = false;
+            pObjOther->phyState = PHY_STATE_IDLE;
+        }
+
+        /* Disable baseband by Chip Mode (RF_IQIFC1) to generate LO carrier.
+         * Chip Mode must be set to 1 (both TRX disabled) */
+        if ((rf215PhyRegRF_IQIFC1 & RF215_RF_IQIFC1_CHPM_Msk) == RF215_RF_IQIFC1_CHPM_BBRF)
+        {
+            /* Write RF_IQIFC1 register */
+            rf215PhyRegRF_IQIFC1 = RF215_RF_IQIFC1_SKEWDRV_3_906ns | RF215_RF_IQIFC1_CHPM_RF;
+            RF215_HAL_SpiWrite(RF215_RF_IQIFC1, &rf215PhyRegRF_IQIFC1, 1);
+        }
+
+        /* Transmitter Power Amplifier Control (RFn_PAC)
+         * PAC.PACUR: Power Amplifier Current Control. No power amplifier
+         * current reduction to achieve maximum output power.
+         * PAC.TXPWR: Maximum Transmitter Output Power. */
+        pac = RF215_RFn_PAC_PACUR_0mA | RF215_RFn_PAC_TXPWR_MAX;
+
+        /* Check if TX power changes */
+        if (phyRegs->RFn_PAC != pac)
+        {
+            phyRegs->RFn_PAC = pac;
+            RF215_HAL_SpiWrite(RF215_RFn_PAC(trxIdx), &phyRegs->RFn_PAC, 1);
+        }
+
+        /* Switch TRX to TXPREP state before sending TX command */
+        pObj->txContinuousPending = false;
+        _RF215_TRX_CommandTxPrep(trxIdx);
+
+        /* Overwrite DAC values to transmit continuous carrier at channel
+         * center */
+        phyRegs->RFn_TXDACI = RF215_RFn_TXDACI_ENTXDACID | RF215_RFn_TXDACI_TXDACID(0x7E);
+        phyRegs->RFn_TXDACQ = RF215_RFn_TXDACQ_ENTXDACQD | RF215_RFn_TXDACQ_TXDACQD(0x3F);
+        RF215_HAL_SpiWrite(RF215_RFn_TXDACI(trxIdx), &phyRegs->RFn_TXDACI, 2);
+
+        /* Send TX command */
+        _RF215_TRX_CommandTx(trxIdx);
+
+        /* Update PHY state */
+        pObj->phyState = PHY_STATE_TX_CONTINUOUS;
+
+        if (pObjOther->txContinuousPending == true)
+        {
+            _RF215_TRX_EnableTxContinuousMode(trxIdxOther);
+        }
+    }
+    else
+    {
+        /* Transition to TXPREP or TX automatic procedure in progress. We need
+         * to wait for TRXRDY or automatic procedure end to send TRXOFF command
+         * and make sure TRXOFF is reached. */
+        pObj->txContinuousPending = true;
+    }
+}
+
+static void _RF215_TRX_DisableTxContinuousMode(uint8_t trxIdx)
+{
+    RF215_PHY_OBJ* pObjOther = &rf215PhyObj[RF215_TRX_RF24_IDX];
+    uint8_t trxIdxOther = RF215_TRX_RF24_IDX;
+    RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
+
+    /* Stop TX continuous mode with TXPREP command */
+    _RF215_TRX_CommandTxPrep(trxIdx);
+
+    /* Restore DAC overwrite values */
+    pObj->phyRegs.RFn_TXDACI = 0;
+    pObj->phyRegs.RFn_TXDACQ = 0;
+    RF215_HAL_SpiWrite(RF215_RFn_TXDACI(trxIdx), &pObj->phyRegs.RFn_TXDACI, 2);
+
+    if (trxIdx == RF215_TRX_RF24_IDX)
+    {
+        pObjOther = &rf215PhyObj[RF215_TRX_RF09_IDX];
+        trxIdxOther = RF215_TRX_RF09_IDX;
+    }
+
+    if (pObjOther->phyState == PHY_STATE_TX_CONTINUOUS)
+    {
+        /* The another TRX is in continuous TX mode */
+        _RF215_TRX_CommandTrxOff(trxIdx);
+        pObj->phyState = PHY_STATE_IDLE;
+    }
+    else
+    {
+        /* Enable baseband by Chip Mode (RF_IQIFC1) */
+        rf215PhyRegRF_IQIFC1 = RF215_RF_IQIFC1_SKEWDRV_3_906ns | RF215_RF_IQIFC1_CHPM_BBRF;
+        RF215_HAL_SpiWrite(RF215_RF_IQIFC1, &rf215PhyRegRF_IQIFC1, 1);
+
+        /* Start listening again on both TRX */
+        _RF215_TRX_RxListen(trxIdx);
+        _RF215_TRX_RxListen(trxIdxOther);
+
+        /* Turn off TX LED */
+        RF215_HAL_LedTx(false);
+    }
+}
+
 static void _RF215_TRX_Reset(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
-    _RF215_TRX_CommandReset(trxIdx);
-    pObj->trxResetPending = false;
-    pObj->resetInProgress = true;
+    if (pObj->txAutoInProgress == true)
+    {
+        /* Wait TX automatic procedure to finish */
+        pObj->trxResetPending = true;
+    }
+    else
+    {
+        if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
+        {
+            /* Disable first TX continuous mode */
+            _RF215_TRX_DisableTxContinuousMode(trxIdx);
+        }
+
+        /* Send RESET command */
+        _RF215_TRX_CommandReset(trxIdx);
+        pObj->trxResetPending = false;
+        pObj->resetInProgress = true;
+    }    
 }
 
 static void _RF215_TRX_Sleep(uint8_t trxIdx)
@@ -2148,15 +2306,23 @@ static void _RF215_TRX_Sleep(uint8_t trxIdx)
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
     /* Swith to TRXOFF state before sending SLEEP command */
-    if (_RF215_TRX_SwitchTrxOff(trxIdx) == true)
+    if ((pObj->txAutoInProgress == false) && (_RF215_TRX_SwitchTrxOff(trxIdx) == true))
     {
+        if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
+        {
+            /* Disable first TX continuous mode */
+            _RF215_TRX_DisableTxContinuousMode(trxIdx);
+        }
+        
+        /* Send SLEEP command */
         _RF215_TRX_CommandSleep(trxIdx);
         pObj->trxSleepPending = false;
     }
     else
     {
-        /* Transition to TXPREP in progress. We need to wait for TRXRDY to send
-         * TRXOFF command and make sure TRXOFF is reached. */
+        /* Transition to TXPREP or TX automatic procedure in progress. We need
+         * to wait for TRXRDY or automatic procedure end to send TRXOFF command
+         * and make sure TRXOFF is reached. */
         pObj->trxSleepPending = true;
     }
 }
@@ -2175,7 +2341,7 @@ static inline void _RF215_TRX_ResetEvent(uint8_t trxIdx)
         _RF215_TRX_CommandSleep(trxIdx);
         return;
     }
-    else if (phyState != PHY_STATE_RESET)
+    else if ((phyState != PHY_STATE_RESET) && (phyState != PHY_STATE_TX_CONTINUOUS) && (phyState != PHY_STATE_IDLE))
     {
         /* Unexpected reset. Abort TX/RX in progress */
         _RF215_PHY_CheckAborts(trxIdx, true);
@@ -2254,10 +2420,19 @@ static inline void _RF215_TRX_ResetEvent(uint8_t trxIdx)
      * Counter reset at TX/RX event */
     RF215_HAL_SpiWrite(RF215_BBCn_CNTC(trxIdx), &constRegs->BBCn_CNTC, 1);
 
-    /* Start listening */
-    _RF215_TRX_RxListen(trxIdx);
-    pObj->resetInProgress = false;
+    pObj->trxState = RF215_RFn_STATE_RF_TRXOFF;
+    if (phyState == PHY_STATE_TX_CONTINUOUS)
+    {
+        /* Restore continuous TX mode */
+        _RF215_TRX_EnableTxContinuousMode(trxIdx);
+    }
+    else if (phyState != PHY_STATE_IDLE)
+    {
+        /* Start listening */
+        _RF215_TRX_RxListen(trxIdx);
+    }
 
+    pObj->resetInProgress = false;
     if (pObj->txRequestPending == true)
     {
         /* Pending TX request because of TRX reset in progress */
@@ -2287,7 +2462,7 @@ static DRV_RF215_PIB_RESULT _RF215_PHY_SetPhyConfig (
 
     /* Check if PHY configuration changes */
     if ((memcmp(phyCfgNew, phyCfg, sizeof (DRV_RF215_PHY_CFG_OBJ)) == 0) &&
-            chnNumNew == pObj->channelNum)
+            (chnNumNew == pObj->channelNum))
     {
         return RF215_PIB_RESULT_SUCCESS;
     }
@@ -2308,7 +2483,7 @@ static DRV_RF215_PIB_RESULT _RF215_PHY_SetPhyConfig (
     }
 
     /* Check that TX automatic procedure is not in progress */
-    if (pObj->txAutoInProgress == false)
+    if (pObj->phyState == PHY_STATE_RX_LISTEN)
     {
         if ((phyCfgNew->phyType == phyCfg->phyType) &&
             (memcmp(&phyCfgNew->phyTypeCfg, &phyCfg->phyTypeCfg, sizeof(DRV_RF215_PHY_TYPE_CFG_OBJ)) == 0) &&
@@ -2327,12 +2502,11 @@ static DRV_RF215_PIB_RESULT _RF215_PHY_SetPhyConfig (
 
     if (trxStateReached == false)
     {
-        /* Transition to TXPREP or TX automatic procedure in progress. We need
-         * to wait for TRXRDY or TX automatic procedure end to make sure
-         * TRXOFF/TXPREP state is reached. */
+        /* Transition to TXPREP or TX/RX in progress. We need to wait for TRXRDY
+         * or TX/RX to finish. */
         pObj->phyCfgPending = true;
         pObj->phyConfigPending = *phyCfgNew;
-        pObj->channelNumPending = chnNumNew;
+        pObj->channelNumPhyCfgPending = chnNumNew;
         return RF215_PIB_RESULT_SUCCESS;
     }
 
@@ -2349,6 +2523,7 @@ static DRV_RF215_PIB_RESULT _RF215_PHY_SetPhyConfig (
     *phyCfg = *phyCfgNew;
     pObj->channelNum = chnNumNew;
     pObj->pllParams = pllParamsNew;
+    pObj->phyCfgPending = false;
 
     /* Obtain new register values depending on PHY configuration */
     _RF215_PLL_Regs(pObj, pllConst, &regsNew);
@@ -2551,15 +2726,9 @@ static void _RF215_TX_ReadPS(uintptr_t context, void* pData, uint64_t time)
 
     /* Set pending TX confirm */
     RF215_PHY_SetTxCfm(pObj->txBufObj, result);
-
-    /* Check pending PHY configuration */
     pObj->txCancelPending = false;
-    if (pObj->phyCfgPending == true)
-    {
-        _RF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPending);
-    }
 
-    /* Check pending TRX sleep or reset */
+    /* Check pending TRX sleep, reset or continuous mode */
     if (pObj->trxSleepPending == true)
     {
         _RF215_TRX_Sleep(trxIdx);
@@ -2568,6 +2737,21 @@ static void _RF215_TX_ReadPS(uintptr_t context, void* pData, uint64_t time)
     else if (pObj->trxResetPending == true)
     {
         _RF215_TRX_Reset(trxIdx);
+    }
+    else if (pObj->txContinuousPending == true)
+    {
+        _RF215_TRX_EnableTxContinuousMode(trxIdx);
+    }
+    else if (pObj->idlePending == true)
+    {
+        uint8_t trxIdxOther = RF215_TRX_RF24_IDX;
+        if (trxIdx == RF215_TRX_RF24_IDX)
+        {
+            trxIdxOther = RF215_TRX_RF09_IDX;
+        }
+        
+        /* Set continuous TX mode on the another TRX */
+        _RF215_TRX_EnableTxContinuousMode(trxIdxOther);
     }
 }
 
@@ -2593,6 +2777,12 @@ static void _RF215_TX_FrameEnd(uint8_t trxIdx)
             pObj->trxState = RF215_RFn_STATE_RF_RX;
             pObj->phyState = PHY_STATE_RX_LISTEN;
             pObj->txAutoInProgress = false;
+
+            if (pObj->phyCfgPending == true)
+            {
+                /* Pending PHY configuration */
+                _RF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending);
+            }
         }
 
         /* Turn off TX LED */
@@ -2757,24 +2947,8 @@ static void _RF215_TX_ReadAMCS(uintptr_t context, void* pData, uint64_t time)
             /* Check pending TX cancel */
             if (pObj->txCancelPending == true)
             {
+                pObj->txCancelPending = false;
                 RF215_PHY_TxCancel(pObj->txBufObj);
-            }
-
-            /* Check pending PHY configuration */
-            if (pObj->phyCfgPending == true)
-            {
-                _RF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPending);
-            }
-
-            /* Check pending TRX sleep or reset */
-            if (pObj->trxSleepPending == true)
-            {
-                _RF215_TRX_Sleep(trxIdx);
-                pObj->trxResetPending = false;
-            }
-            else if (pObj->trxResetPending == true)
-            {
-                _RF215_TRX_Reset(trxIdx);
             }
         }
     }
@@ -2786,24 +2960,33 @@ static void _RF215_TX_ReadAMCS(uintptr_t context, void* pData, uint64_t time)
 
         /* Report busy channel error in TX confirm */
         RF215_PHY_SetTxCfm(pObj->txBufObj, RF215_TX_BUSY_CHN);
-
-        /* Check pending PHY configuration */
         pObj->txCancelPending = false;
-        if (pObj->phyCfgPending == true)
+    }
+
+    /* Check pending TRX sleep, reset or continuous mode */
+    if (pObj->trxSleepPending == true)
+    {
+        _RF215_TRX_Sleep(trxIdx);
+        pObj->trxResetPending = false;
+    }
+    else if (pObj->trxResetPending == true)
+    {
+        _RF215_TRX_Reset(trxIdx);
+    }
+    else if (pObj->txContinuousPending == true)
+    {
+        _RF215_TRX_EnableTxContinuousMode(trxIdx);
+    }
+    else if (pObj->idlePending == true)
+    {
+        uint8_t trxIdxOther = RF215_TRX_RF24_IDX;
+        if (trxIdx == RF215_TRX_RF24_IDX)
         {
-            _RF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPending);
+            trxIdxOther = RF215_TRX_RF09_IDX;
         }
 
-        /* Check pending TRX sleep or reset */
-        if (pObj->trxSleepPending == true)
-        {
-            _RF215_TRX_Sleep(trxIdx);
-            pObj->trxResetPending = false;
-        }
-        else if (pObj->trxResetPending == true)
-        {
-            _RF215_TRX_Reset(trxIdx);
-        }
+        /* Set continuous TX mode on the another TRX */
+        _RF215_TRX_EnableTxContinuousMode(trxIdxOther);
     }
 }
 
@@ -2961,6 +3144,11 @@ static DRV_RF215_TX_RESULT _RF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
                 return RF215_TX_BUSY_RX;
             }
             break;
+
+        case PHY_STATE_TX_CONTINUOUS:
+        case PHY_STATE_IDLE:
+            /* Continuous TX in progress: Busy TX error */
+            return RF215_TX_BUSY_TX;
 
         default:
             break;
@@ -3415,6 +3603,7 @@ static void _RF215_RX_AgcRelease(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     RF215_PHY_STATE phyState = pObj->phyState;
+    bool listen = false;
 
     /* Check current PHY state */
     if (phyState == PHY_STATE_RX_HEADER)
@@ -3422,16 +3611,26 @@ static void _RF215_RX_AgcRelease(uint8_t trxIdx)
         /* AGC released before RXFS interrupt. RF215 continues listening */
         pObj->phyStatistics.rxErrFalsePositive++;
         pObj->phyStatistics.rxErrTotal++;
-        pObj->phyState = PHY_STATE_RX_LISTEN;
+        listen = true;
     }
     else if (phyState == PHY_STATE_RX_PAYLOAD)
     {
         /* Get Frame Buffer Level: Read 2 registers (BBCn_FBLL, BBCn_FBLH) */
         RF215_HAL_SpiRead(RF215_BBCn_FBLL(trxIdx), &pObj->phyRegs.BBCn_FBLL, 2,
                 _RF215_RX_AgcReleaseReadFBL, (uintptr_t) trxIdx);
+        listen = true;
+    }
 
+    if (listen == true)
+    {
         /* RF215 continues listening */
         pObj->phyState = PHY_STATE_RX_LISTEN;
+
+        /* Check pending PHY configuration */
+        if (pObj->phyCfgPending == true)
+        {
+            _RF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending);
+        }
     }
 }
 
@@ -3707,6 +3906,8 @@ bool RF215_PHY_Initialize (
     pObj->rxTimeValid = false;
     pObj->trxResetPending = false;
     pObj->trxSleepPending = false;
+    pObj->txContinuousPending = false;
+    pObj->idlePending = false;
     pObj->phyCfgPending = false;
     pObj->txCancelPending = false;
     pObj->txRequestPending = false;
@@ -3911,7 +4112,7 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
     if (trxrdy != 0)
     {
         DRV_RF215_TX_BUFFER_OBJ* txBufObj = pObj->txBufObj;
-        RF215_PHY_STATE pendState = pObj->txPendingState;
+        RF215_PHY_STATE pendState;
 
         /* Clear pending TX state */
         pObj->txPendingState = PHY_STATE_RESET;
@@ -3922,13 +4123,28 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
             _RF215_TRX_Sleep(trxIdx);
             return;
         }
+        else if (pObj->txContinuousPending == true)
+        {
+            _RF215_TRX_EnableTxContinuousMode(trxIdx);
+        }
+        else if (pObj->idlePending == true)
+        {
+            uint8_t trxIdxOther = RF215_TRX_RF24_IDX;
+            if (trxIdx == RF215_TRX_RF24_IDX)
+            {
+                trxIdxOther = RF215_TRX_RF09_IDX;
+            }
+
+            /* Set continuous TX mode on the another TRX */
+            _RF215_TRX_EnableTxContinuousMode(trxIdxOther);
+        }
         else if (pObj->phyCfgPending == true)
         {
-            _RF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPending);
-            return;
+            _RF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending);
         }
 
         /* Check if there is pending TX configuration */
+        pendState = pObj->txPendingState;
         if ((pObj->txStarted == true) && (pObj->phyState < PHY_STATE_TX_CONFIG) &&
                 (pendState >= PHY_STATE_TX_CONFIG))
         {
@@ -4273,6 +4489,10 @@ DRV_RF215_PIB_RESULT RF215_PHY_GetPib (
             *((uint32_t *) value) = pObj->phyStatistics.rxIndNotHandled;
             break;
 
+        case RF215_PIB_PHY_TX_CONTINUOUS:
+            *((bool *) value) = (pObj->phyState == PHY_STATE_TX_CONTINUOUS);
+            break;
+
         case RF215_PIB_MAC_UNIT_BACKOFF_PERIOD:
             *((uint16_t *) value) = pObj->turnaroundTimeUS + pObj->phyConfig.ccaEdDurationUS;
             break;
@@ -4299,41 +4519,39 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
     switch (attr)
     {
         case RF215_PIB_TRX_RESET:
-            if (pObj->txAutoInProgress == true)
-            {
-                /* Wait TX automatic procedure to finish */
-                pObj->trxResetPending = true;
-            }
-            else
-            {
-                /* Send RESET command */
-                _RF215_TRX_Reset(trxIndex);
-            }
-
+            /* Send RESET command */
+            _RF215_TRX_Reset(trxIndex);
             break;
 
         case RF215_PIB_TRX_SLEEP:
-            if (*((bool *) value) != (pObj->phyState == PHY_STATE_SLEPT))
+            if (*((bool *) value) == true)
             {
-                if (*((bool *) value) == true)
+                if (pObj->phyState != PHY_STATE_SLEPT)
                 {
                     /* Sleep */
-                    if (pObj->txAutoInProgress == true)
-                    {
-                        /* Wait automatic procedure to finish */
-                        pObj->trxSleepPending = true;
-                    }
-                    else
-                    {
-                        /* Send SLEEP command */
-                        _RF215_TRX_Sleep(trxIndex);
-                    }
+                    _RF215_TRX_Sleep(trxIndex);
                 }
-                else
+            }
+            else
+            {
+                if (pObj->trxSleepPending == true)
+                {
+                    pObj->trxSleepPending = false;
+                }
+                else if (pObj->phyState == PHY_STATE_SLEPT)
                 {
                     /* Wake-up */
                     _RF215_TRX_SwitchTrxOff(trxIndex);
-                    pObj->phyState = PHY_STATE_RESET;
+                    if ((rf215PhyRegRF_IQIFC1 & RF215_RF_IQIFC1_CHPM_Msk) == RF215_RF_IQIFC1_CHPM_BBRF)
+                    {
+                        /* Normal case */
+                        pObj->phyState = PHY_STATE_RESET;
+                    }
+                    else
+                    {
+                        /* The another TRX is in TX continuous mode */
+                        pObj->phyState = PHY_STATE_IDLE;
+                    }
                 }
             }
             break;
@@ -4388,6 +4606,29 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
             memset(&pObj->phyStatistics, 0, sizeof(RF215_PHY_STATISTICS_OBJ));
             break;
 
+        case RF215_PIB_PHY_TX_CONTINUOUS:
+            if (*((bool *) value) == true)
+            {
+                if (pObj->phyState != PHY_STATE_TX_CONTINUOUS)
+                {
+                    /* Set continuous TX mode */
+                    _RF215_TRX_EnableTxContinuousMode(trxIndex);
+                }
+            }
+            else
+            {
+                if (pObj->txContinuousPending == true)
+                {
+                    pObj->txContinuousPending = false;
+                }
+                else if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
+                {
+                    /* Stop continuous TX mode */
+                    _RF215_TRX_DisableTxContinuousMode(trxIndex);
+                }
+            }
+            break;
+
         default:
             result = RF215_PIB_RESULT_INVALID_ATTR;
     }
@@ -4399,6 +4640,26 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
 
 void RF215_PHY_Reset(uint8_t trxIndex)
 {
-    rf215PhyObj[trxIndex].resetInProgress = true;
+    RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIndex];
+    
+    /* Critical region to avoid conflicts in PHY object data */
+    RF215_HAL_EnterCritical();
+
+    if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
+    {
+        /* Disable first TX continuous mode */
+        _RF215_TRX_DisableTxContinuousMode(trxIndex);
+    }
+
+    pObj->trxResetPending = false;
+    pObj->resetInProgress = true;
+    
+    /* Leave critical region */
+    RF215_HAL_LeaveCritical();
+}
+
+void RF215_PHY_DeviceReset()
+{
+    rf215PhyRegRF_IQIFC1 = RF215_RF_IQIFC1_Rst;
 }
 

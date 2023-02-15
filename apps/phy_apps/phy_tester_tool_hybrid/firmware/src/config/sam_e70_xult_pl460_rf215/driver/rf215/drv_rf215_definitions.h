@@ -604,6 +604,9 @@ typedef enum
     /* Reset PHY Statistics (write-only) */
     RF215_PIB_PHY_STATS_RESET           = 0x01C0,
 
+    /* Continuous LO Carrier Tx Mode. 8 bits */
+    RF215_PIB_PHY_TX_CONTINUOUS         = 0x01C1,
+
     /* Back-off period unit in us (aUnitBackoffPeriod in IEEE 802.15.4) used for
      * CSMA-CA . 16 bits (read-only) */
     RF215_PIB_MAC_UNIT_BACKOFF_PERIOD   = 0x0200,

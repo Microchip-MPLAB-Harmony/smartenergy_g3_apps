@@ -101,9 +101,9 @@ static void _APP_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
     /* Avoid warning */
     (void) context;
 
-    /* Start Timer: LED blinking for each received message */
-    USER_PLC_IND_LED_On();
+    /* Turn on indication LED and start timer to turn it off */
     SYS_TIME_TimerDestroy(app_plcData.tmr2Handle);
+    USER_PLC_IND_LED_On();
     app_plcData.tmr2Handle = SYS_TIME_CallbackRegisterMS(_APP_PLC_TimeExpired,
             (uintptr_t) &app_plcData.tmr2Expired, APP_PLC_LED_BLINK_PLC_MSG_MS, SYS_TIME_SINGLE);
 

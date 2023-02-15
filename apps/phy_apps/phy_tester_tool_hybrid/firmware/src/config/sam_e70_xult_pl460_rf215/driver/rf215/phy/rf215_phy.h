@@ -300,15 +300,17 @@
 
 typedef enum
 {
-    PHY_STATE_RESET      = 0,
-    PHY_STATE_SLEPT      = 1,
-    PHY_STATE_RX_LISTEN  = 2,
-    PHY_STATE_RX_HEADER  = 3,
-    PHY_STATE_RX_PAYLOAD = 4,
-    PHY_STATE_TX_CONFIG  = 5,
-    PHY_STATE_TX_TXPREP  = 6,
-    PHY_STATE_TX_CCA_ED  = 7,
-    PHY_STATE_TX         = 8,
+    PHY_STATE_RESET         = 0,
+    PHY_STATE_SLEPT         = 1,
+    PHY_STATE_RX_LISTEN     = 2,
+    PHY_STATE_RX_HEADER     = 3,
+    PHY_STATE_RX_PAYLOAD    = 4,
+    PHY_STATE_TX_CONFIG     = 5,
+    PHY_STATE_TX_TXPREP     = 6,
+    PHY_STATE_TX_CCA_ED     = 7,
+    PHY_STATE_TX            = 8,
+    PHY_STATE_TX_CONTINUOUS = 9,
+    PHY_STATE_IDLE          = 10,
 
 } RF215_PHY_STATE;
 
@@ -528,6 +530,10 @@ typedef struct
     uint8_t                         RFn_TXDFE;
     uint8_t                         RFn_PAC;
 
+    /* DAC overwrite values */
+    uint8_t                         RFn_TXDACI;
+    uint8_t                         RFn_TXDACQ;
+
     /* BBC configuration registers */
     uint8_t                         BBCn_IRQM;
     uint8_t                         BBCn_PC;
@@ -667,10 +673,10 @@ typedef struct
     uint16_t                        turnaroundTimeUS;
 
     /* Frequency channel number in use */
-    uint16_t                        channelNum;
+    volatile uint16_t               channelNum;
 
-    /* Frequency channel number pending to be set */
-    uint16_t                        channelNumPending;
+    /* Frequency channel number pending to be set (PHY config) */
+    uint16_t                        channelNumPhyCfgPending;
 
     /* RX buffer offset (number of bytes already read in FBLI interrupt) */
     uint16_t                        rxBufferOffset;
@@ -682,7 +688,7 @@ typedef struct
     uint16_t                        txPaySymbols;
 
     /* Current RF215 TRX state */
-    uint8_t                         trxState;
+    volatile uint8_t                trxState;
 
     /* RXFE/AGCR interrupt flags pending to be processed */
     uint8_t                         rxFlagsPending;
@@ -713,6 +719,12 @@ typedef struct
 
     /* Flag to indicate that TRX sleep is pending */
     bool                            trxSleepPending;
+
+    /* Flag to indicate that TX continuous is pending */
+    bool                            txContinuousPending;
+    
+    /* Flag to indicate that idle state is pending */
+    bool                            idlePending;
 
     /* Flag to indicate that PHY configuration is pending */
     bool                            phyCfgPending;
@@ -759,6 +771,13 @@ void RF215_PHY_SetTxCfm (
     DRV_RF215_TX_RESULT result
 );
 
+void RF215_PHY_SetChannelRequest (
+    uint8_t trxIndex,
+    uint64_t timeCount,
+    uint16_t channelNum,
+    DRV_RF215_TX_TIME_MODE timeMode
+);
+
 DRV_RF215_PIB_RESULT RF215_PHY_GetPib (
     uint8_t trxIndex,
     DRV_RF215_PIB_ATTRIBUTE attr,
@@ -772,6 +791,8 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
 );
 
 void RF215_PHY_Reset(uint8_t trxIndex);
+
+void RF215_PHY_DeviceReset();
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

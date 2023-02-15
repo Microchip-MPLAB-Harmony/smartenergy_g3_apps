@@ -59,12 +59,14 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define   USART_ERROR_NONE  0U
-#define   USART_ERROR_OVERRUN  US_CSR_USART_OVRE_Msk
-#define   USART_ERROR_PARITY   US_CSR_USART_PARE_Msk
-#define   USART_ERROR_FRAMING  US_CSR_USART_FRAME_Msk
-typedef uint32_t USART_ERROR;
+typedef enum
+{
+    USART_ERROR_NONE = 0,
+    USART_ERROR_OVERRUN = US_CSR_USART_OVRE_Msk,
+    USART_ERROR_PARITY = US_CSR_USART_PARE_Msk,
+    USART_ERROR_FRAMING = US_CSR_USART_FRAME_Msk
 
+} USART_ERROR;
 
 typedef enum
 {
@@ -124,14 +126,14 @@ typedef void (* USART_CALLBACK)( uintptr_t context );
 
 typedef struct
 {
-    void *                  txBuffer;
+    uint8_t *               txBuffer;
     size_t                  txSize;
     volatile size_t         txProcessedSize;
     USART_CALLBACK          txCallback;
     uintptr_t               txContext;
     bool                    txBusyStatus;
 
-    void *                  rxBuffer;
+    uint8_t *               rxBuffer;
     size_t                  rxSize;
     volatile size_t         rxProcessedSize;
     USART_CALLBACK          rxCallback;
