@@ -96,7 +96,7 @@ static void APP_Timer2_Callback (uintptr_t context)
     appData.tmr2Expired = true;
 }
 
-static void APP_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
+static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
 {
     /* Avoid warning */
     (void)context;
@@ -248,7 +248,7 @@ void APP_Tasks(void)
             {
                 /* Register PLC callback */
                 DRV_PLC_PHY_DataIndCallbackRegister(appData.drvPl360Handle,
-                        APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX);
+                        APP_PLCDataIndCb, DRV_PLC_PHY_INDEX);
 
                 /* Open USI Service */
                 appData.srvUSIHandle = SRV_USI_Open(SRV_USI_INDEX_0);

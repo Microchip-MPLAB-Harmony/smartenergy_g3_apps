@@ -123,7 +123,7 @@ static void APP_Timer2_Callback (uintptr_t context)
     appData.tmr2Expired = true;
 }
 
-static void APP_PLC_ExceptionCallback(DRV_PLC_PHY_EXCEPTION exceptionObj,
+static void APP_PLCExceptionCallback(DRV_PLC_PHY_EXCEPTION exceptionObj,
         uintptr_t context)
 {
     /* Avoid warning */
@@ -150,7 +150,7 @@ static void APP_PLC_ExceptionCallback(DRV_PLC_PHY_EXCEPTION exceptionObj,
 	appData.plc_phy_exception = true;
 }
 
-static void APP_PLC_DataIndCallback(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
+static void APP_PLCDataIndCallback(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
 {
     /* Avoid warning */
     (void)context;
@@ -174,7 +174,7 @@ static void APP_PLC_DataIndCallback(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t
     }
 }
 
-static void APP_PLC_DataCfmCallback(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t context)
+static void APP_PLCDataCfmCallback(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t context)
 {
     size_t length;
 
@@ -191,7 +191,7 @@ static void APP_PLC_DataCfmCallback(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, ui
 
 }
 
-static void APP_PLC_PVDDMonitorCallback( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
+static void APP_PLCPVDDMonitorCallback( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     (void)context;
     
@@ -284,7 +284,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                 cfmData.time = 0;
                 cfmData.rmsCalc = 0;
                 cfmData.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
-                APP_PLC_DataCfmCallback(&cfmData, 0);
+                APP_PLCDataCfmCallback(&cfmData, 0);
             }
         }
         break;
@@ -402,11 +402,11 @@ void APP_Tasks(void)
             {
                 /* Register PLC callback */
                 DRV_PLC_PHY_ExceptionCallbackRegister(appData.drvPl360Handle,
-                        APP_PLC_ExceptionCallback, DRV_PLC_PHY_INDEX);
+                        APP_PLCExceptionCallback, DRV_PLC_PHY_INDEX);
                 DRV_PLC_PHY_DataIndCallbackRegister(appData.drvPl360Handle,
-                        APP_PLC_DataIndCallback, DRV_PLC_PHY_INDEX);
+                        APP_PLCDataIndCallback, DRV_PLC_PHY_INDEX);
                 DRV_PLC_PHY_TxCfmCallbackRegister(appData.drvPl360Handle,
-                        APP_PLC_DataCfmCallback, DRV_PLC_PHY_INDEX);
+                        APP_PLCDataCfmCallback, DRV_PLC_PHY_INDEX);
 
                 /* Open USI Service */
                 appData.srvUSIHandle = SRV_USI_Open(SRV_USI_INDEX_0);
@@ -459,7 +459,7 @@ void APP_Tasks(void)
             DRV_PLC_PHY_EnableTX(appData.drvPl360Handle, false);
             appData.pvddMonTxEnable = false;
             /* Enable PLC PVDD Monitor Service */            
-            SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCallback, 0);
+            SRV_PVDDMON_CallbackRegister(APP_PLCPVDDMonitorCallback, 0);
             SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_IN);
             /* Set Application to next state */
             appData.state = APP_STATE_READY;
