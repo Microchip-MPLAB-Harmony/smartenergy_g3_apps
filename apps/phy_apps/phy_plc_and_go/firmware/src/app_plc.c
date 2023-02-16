@@ -330,7 +330,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
             APP_CONSOLE_Print("RSSI %udBuV, ", indObj->rssi);
             /* Show LQI (Link Quality Indicator). It is in quarters of dB and 10-dB offset: SNR(dB) = (LQI - 40) / 4 */
             APP_CONSOLE_Print("LQI %ddB): ", div_round((int16_t)indObj->lqi - 40, 4));
-            APP_CONSOLE_Print("%.*s", us_len - 2, indObj->pReceivedData + 2);
+            APP_CONSOLE_Print("%.*s", us_len, indObj->pReceivedData + 2);
         }
     }
     else
@@ -570,8 +570,6 @@ void APP_PLC_Tasks ( void )
  */
 bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
 {
-    uint16_t totalLength;
-    
     if (appPlc.state == APP_PLC_STATE_WAITING)
     {
         if (appPlc.pvddMonTxEnable)
@@ -581,14 +579,13 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
                 /* Fill 2 first bytes with data length */
                 /* Physical Layer may add padding bytes in order to complete symbols with data */
                 /* It is needed to include real data length in the message because otherwise at reception is not possible to know if there is padding or not */
-                totalLength = length + 2;
-                appPlcTx.pDataTx[0] = totalLength >> 8;
-                appPlcTx.pDataTx[1] = totalLength & 0xFF;
+                appPlcTx.pDataTx[0] = length >> 8;
+                appPlcTx.pDataTx[1] = length & 0xFF;
 
                 /* Set data length in Tx Parameters structure */
                 /* It should be equal or less than Maximum Data Length (see _get_max_psdu_len) */
                 /* Otherwise DRV_PLC_PHY_TX_RESULT_INV_LENGTH will be reported in Tx Confirm */
-                appPlcTx.pl360Tx.dataLength = totalLength;
+                appPlcTx.pl360Tx.dataLength = length + 2;
                 memcpy(appPlcTx.pDataTx + 2, pData, length);
 
                 appPlc.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CFM;

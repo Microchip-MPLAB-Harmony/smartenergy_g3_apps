@@ -82,7 +82,6 @@ static va_list sArgs = {0};
 */
 
 APP_CONSOLE_DATA appConsole;
-extern APP_PLC_DATA_TX appPlcTx;
 
 static CACHE_ALIGN char pTransmitBuffer[CACHE_ALIGNED_SIZE_GET(SERIAL_BUFFER_SIZE)];
 static CACHE_ALIGN char pReceivedBuffer[CACHE_ALIGNED_SIZE_GET(SERIAL_BUFFER_SIZE)];
@@ -592,7 +591,7 @@ void APP_CONSOLE_Tasks ( void )
             APP_CONSOLE_Print(MENU_CMD_PROMPT);
 
             /* Waiting Console command */
-            APP_CONSOLE_ReadRestart(appPlcTx.maxPsduLen - 2);
+            APP_CONSOLE_ReadRestart(SERIAL_BUFFER_SIZE);
             appConsole.state = APP_CONSOLE_STATE_CONSOLE;
             break;
         }
