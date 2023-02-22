@@ -4037,7 +4037,8 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;GraphSettings canvasHeight=&quot;485&quot; canvasWidth=&quot;666&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_PIC32CXMTG_Evaluation_Kit&quot; x=&quot;0&quot; y=&quot;33&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;0&quot; y=&quot;72&quot;/&gt;
@@ -4052,13 +4053,12 @@
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;sefc1&quot; x=&quot;432&quot; y=&quot;9&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;srv_pcoup&quot; x=&quot;0&quot; y=&quot;298&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;srv_pvddmon&quot; x=&quot;483&quot; y=&quot;359&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;sys_console&quot; x=&quot;493&quot; y=&quot;189&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;sys_console&quot; x=&quot;485&quot; y=&quot;189&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sys_time&quot; x=&quot;159&quot; y=&quot;161&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;tc0&quot; x=&quot;0&quot; y=&quot;207&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;trng&quot; x=&quot;302&quot; y=&quot;96&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;485&quot; canvasWidth=&quot;666&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -18946,7 +18946,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_console&gt;
   &lt;sys_console dnOrder=&quot;0&quot; id=&quot;SYS_CONSOLE_UART_CONNECTION_COUNTER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;sys_console&quot; value=&quot;3&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;sys_console&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
   &lt;/sys_console&gt;
 &lt;/sys_console&gt;
@@ -19149,45 +19149,6 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_console_0&gt;
   &lt;sys_console_0 dnOrder=&quot;0&quot; id=&quot;SYS_CONSOLE_TX_BUFFER_SIZE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/sys_console_0&gt;
-&lt;/sys_console_0&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_console_0" name="SYS_CONSOLE_UART_DEFINITIONS_HEADER"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_console_0&gt;
-  &lt;sys_console_0 dnOrder=&quot;0&quot; id=&quot;SYS_CONSOLE_UART_DEFINITIONS_HEADER&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/sys_console_0&gt;
-&lt;/sys_console_0&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_console_0" name="SYS_CONSOLE_UART_HEADER"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_console_0&gt;
-  &lt;sys_console_0 dnOrder=&quot;0&quot; id=&quot;SYS_CONSOLE_UART_HEADER&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/sys_console_0&gt;
-&lt;/sys_console_0&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_console_0" name="SYS_CONSOLE_UART_SOURCE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_console_0&gt;
-  &lt;sys_console_0 dnOrder=&quot;0&quot; id=&quot;SYS_CONSOLE_UART_SOURCE&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
   &lt;/sys_console_0&gt;
 &lt;/sys_console_0&gt;
 </value>
@@ -20827,7 +20788,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\g3MacRt\drv_g3_macrt.c</file>
-         <hash>7f4ed0ed092aaeb30bad83dee47b00d3beed1036cdb2fe14b5b678102ddaae3e</hash>
+         <hash>c1c3a840ccf374ae4034dd150d6fe27c494f06c5c3dab998099ce8e0e4858303</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\peripheral\tc\plib_tc0.c</file>
@@ -20863,7 +20824,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\g3MacRt\drv_g3_macrt.h</file>
-         <hash>1f5a0c732b7356ef67f2a21638d77bdf712d4abbf4601172b436794dc0b4f2b5</hash>
+         <hash>eeedb2ff2a91a38e60b59a8a17c4af7c177d51d498c94dfdf9775a8df514a957</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\peripheral\sefc\plib_sefc0.h</file>
@@ -21043,7 +21004,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\g3MacRt\bin\G3_MAC_RT_FCC.bin</file>
-         <hash>0d70ad82d7c27f671db42dd296ee5156d79d8cb9b1ea3edc9bfef6190bb6f30d</hash>
+         <hash>369e281f3f1bb03eebb0b74edd644a39a7cb85b8c52d2db1e222a55cf02d838e</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\tc3.h</file>
@@ -21135,11 +21096,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_hal.c</file>
-         <hash>3b3ca50b48d1b84088510b689e961dbb9e34a3098e645a48f63a450ea899aba6</hash>
+         <hash>cb304db0f63a170bbae459a9afad1f48c1ecef169703cf359ca4148ff04cd3f1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\g3MacRt\drv_g3_macrt_local_comm.c</file>
-         <hash>c3838c014f00d03da5c90222db1d954bfb185d57a6c7c9e0c51ed7ea01759f82</hash>
+         <hash>27195f8fc01ea1fb13a9ab4907b3d89ce15443e8cf12b32f82aaac27287962bf</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\driver.h</file>
@@ -21151,7 +21112,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_hal.h</file>
-         <hash>26023448a16387187cace9e308fd5ba27a22324f5096ceede19ba7bba554681e</hash>
+         <hash>cfd58b36c2a9775f255ec8e055e7c8408af73e3786b7f2029f6aa6649d2df590</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cachel1_armv7.h</file>
@@ -21191,7 +21152,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_boot.h</file>
-         <hash>778be73f7ff51791e43a065645bf64a13e3e03113d37ff64f9579c788c381eb2</hash>
+         <hash>f8ce8c632026235f86b98194fcbb4c4d8fb4479c86c892ffbe46fab38cd9df62</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\aes.h</file>
@@ -21207,7 +21168,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\initialization.c</file>
-         <hash>19ac36f553546db55f0a33e40f0c128a16ab3c98c9ffd1470620f244ecb02f3e</hash>
+         <hash>f83b9137c488998946a0a18b91b5699cce29dc8ac09c2d86b27d231d9730bd55</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\aesb.h</file>
@@ -21219,7 +21180,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\configuration.h</file>
-         <hash>047de2055bcf8e7ed3d92f91eacbc4202d2d9eaf043541dcfdc3ad9711d3ebb6</hash>
+         <hash>1733f090846b4e1722bbecc63e0f6bfbe0aec4e5b61f97b55f9dca6e3766c815</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\system\console\src\sys_console_uart.h</file>
@@ -21279,7 +21240,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\g3MacRt\drv_g3_macrt_local.h</file>
-         <hash>cd9c307333200518534ed61ff6fc2dee4cc9c9875efe0759308db2b3390f2bbd</hash>
+         <hash>cd92700d46d8a30971c2cb773de8d7bdca673a753ce26078367e399912147edc</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\pio\pic32cx2051mtg128.h</file>
@@ -21351,7 +21312,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\definitions.h</file>
-         <hash>f2f917800a71cd98e15cfa00b3edda966ebccb136bd017758910980b9fc03aa3</hash>
+         <hash>b9c5ff542c6ae2168b07fb56994baff569f8e374ce4eabb6a83f4ffae89c3b40</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\core_cm4.h</file>
@@ -21507,7 +21468,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\g3MacRt\bin\G3_MAC_RT_CENA.bin</file>
-         <hash>c2805d5f5f43b4907952c3eba82d30530c92a18c1c6b13a961a582e7299757fe</hash>
+         <hash>b805645fded6235db0b8058cabcedf3426099d6d19aa26a07bb843967eedd0e7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\system\system_module.h</file>
@@ -21515,7 +21476,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_boot.c</file>
-         <hash>b0e837b33818c114ef668093de713d00eab5268f2ed9fe32494346c4b94ce180</hash>
+         <hash>3a07cdf4f366182e3f0a16faf60a939c6dc88fde00bdd23b96d3764739985295</hash>
       </entry>
       <entry>
          <file>..\src\app_console.c</file>

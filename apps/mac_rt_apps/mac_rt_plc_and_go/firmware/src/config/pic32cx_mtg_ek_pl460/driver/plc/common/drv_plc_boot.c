@@ -292,9 +292,6 @@ static void _DRV_PLC_BOOT_DisableBootCmd(void)
     
     /* Configure 16 bits transfer */
     sDrvPlcHalObj->setup(true);
-    
-    /* Wait to PLC startup (2ms) */
-    sDrvPlcHalObj->delay(2000);
 }
 
 static bool _DRV_PLC_BOOT_CheckFirmware(void)
@@ -384,9 +381,28 @@ void DRV_PLC_BOOT_Tasks( void )
     }
     else if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_SWITCHING)
     {
+        uint32_t counter = 0;
+        
+        sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_STARTINGUP;
+        
         _DRV_PLC_BOOT_DisableBootCmd();
-        sDrvPlcBootInfo.validationCounter = 50;
-        sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_VALIDATING;
+        while(sDrvPlcHalObj->getPinLevel(sDrvPlcHalObj->plcPlib->extIntPin) == 0)
+        {
+            counter++;
+            if (counter > 0x1FF)
+            {
+                sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_ERROR;
+                break;
+            }
+        }
+    }
+    else if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_STARTINGUP)
+    {
+        if (sDrvPlcHalObj->getPinLevel(sDrvPlcHalObj->plcPlib->extIntPin) == 0)
+        {
+            sDrvPlcBootInfo.validationCounter = 50;
+            sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_VALIDATING;
+        }
     }
     else if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_VALIDATING)
     {

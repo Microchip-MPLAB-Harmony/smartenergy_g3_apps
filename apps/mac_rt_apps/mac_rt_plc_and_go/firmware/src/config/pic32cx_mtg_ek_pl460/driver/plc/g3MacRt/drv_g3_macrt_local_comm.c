@@ -134,8 +134,7 @@ static void _DRV_G3_MACRT_COMM_SpiWriteCmd(DRV_G3_MACRT_MEM_ID id, uint8_t *pDat
             gG3MacRtObj->evResetTxCfm = true;
         }
         
-        /* Update Driver Status */
-        gG3MacRtObj->status = SYS_STATUS_BUSY;
+        gG3MacRtObj->state = DRV_G3_MACRT_STATE_ERROR_COMM;
     }
     else
     {
@@ -169,8 +168,7 @@ static void _DRV_G3_MACRT_COMM_SpiReadCmd(DRV_G3_MACRT_MEM_ID id, uint8_t *pData
             gG3MacRtObj->evResetTxCfm = true;
         }
         
-        /* Update Driver Status */
-        gG3MacRtObj->status = SYS_STATUS_BUSY;
+        gG3MacRtObj->state = DRV_G3_MACRT_STATE_ERROR_COMM;
     }
     
     /* Enable external interrupt from PLC */
@@ -201,8 +199,7 @@ static void _DRV_G3_MACRT_COMM_GetEventsInfo(DRV_G3_MACRT_EVENTS_OBJ *eventsObj)
             gG3MacRtObj->evResetTxCfm = true;
         }
         
-        /* Update Driver Status */
-        gG3MacRtObj->status = SYS_STATUS_BUSY;
+        gG3MacRtObj->state = DRV_G3_MACRT_STATE_ERROR_COMM;
     } 
     
     /* Extract Events information */
@@ -282,7 +279,7 @@ void DRV_G3_MACRT_Task(void)
         }
         
         /* Update MAC RT state */
-        gG3MacRtObj->state = DRV_G3_MACRT_STATE_IDLE;
+        gG3MacRtObj->state = DRV_G3_MACRT_STATE_READY;
         /* Reset event flag */
         gG3MacRtObj->evTxCfm = false;
     }
@@ -351,14 +348,14 @@ void DRV_G3_MACRT_Task(void)
 void DRV_G3_MACRT_TxRequest(const DRV_HANDLE handle, uint8_t *pData, uint16_t length)
 {    
     if((handle != DRV_HANDLE_INVALID) && (handle == 0) && 
-       (gG3MacRtObj->state == DRV_G3_MACRT_STATE_IDLE))
+       (gG3MacRtObj->state == DRV_G3_MACRT_STATE_READY))
     {
         /* Check Length */
 		if ((length > 0) && (length <= (DRV_G3_MACRT_DATA_MAX_SIZE))) {
             uint8_t *pTxData;
             
 			/* Update PLC state: transmitting */
-            gG3MacRtObj->state = DRV_G3_MACRT_STATE_TX;
+            gG3MacRtObj->state = DRV_G3_MACRT_STATE_WAITING_TX_CFM;
 
             /* Build and Send TX data */
             pTxData = gG3TxData;

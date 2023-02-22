@@ -440,10 +440,10 @@ void APP_PLC_Tasks ( void )
 
         case APP_PLC_STATE_INIT:
         {
-            SYS_STATUS drvG3MacRtStatus = DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX);
+            DRV_G3_MACRT_STATE drvG3MacRtStatus = DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX);
             
             /* Select PLC Binary file for multi-band solution */
-            if (appPlc.plcMultiband && (drvG3MacRtStatus == SYS_STATUS_UNINITIALIZED))
+            if (appPlc.plcMultiband && (drvG3MacRtStatus == DRV_G3_MACRT_STATE_UNINITIALIZED))
             {
                 if (appPlc.bin2InUse)
                 {
@@ -484,7 +484,7 @@ void APP_PLC_Tasks ( void )
         case APP_PLC_STATE_OPEN:
         {
             /* Check PLC transceiver */
-            if (DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX_0) == SYS_STATUS_READY)
+            if (DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX_0) == DRV_G3_MACRT_STATE_READY)
             {
                 /* Configure PLC callbacks */
                 DRV_G3_MACRT_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCallback);
