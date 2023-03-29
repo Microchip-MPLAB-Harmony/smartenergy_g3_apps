@@ -32,6 +32,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
+#include "stack/g3/adaptation/adp.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -40,6 +41,28 @@ extern "C" {
 
 #endif
 // DOM-IGNORE-END
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Macro Definitions
+// *****************************************************************************
+// *****************************************************************************
+
+/* Period to blink LED in milliseconds */
+#define APP_LED_BLINK_PERIOD_MS 500
+
+/* Key to detect valid non-volatile data in GPBR */
+#define APP_NON_VOLATILE_DATA_KEY_GPBR 0xAA
+
+/* Key to detect valid non-volatile data in User Signature */
+#define APP_NON_VOLATILE_DATA_KEY_USER_SIGNATURE 0xAAAAAAAA
+
+/* Size of non-volatile data in User Signature (in 32-bits words) */
+#define APP_NON_VOLATILE_DATA_USER_SIGNATURE_SIZE (((sizeof(ADP_NON_VOLATILE_DATA_IND_PARAMS) + 3) / 4) + 1)
+
+#define APP_STRING_HEADER "\r\n-- MCHP G3 Modem application --\r\n" \
+	"-- Compiled: "__DATE__" "__TIME__" --\r\n" \
+	"-- HOST version: "DRV_G3_MACRT_HOST_DESC" --\r\n"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -63,7 +86,6 @@ typedef enum
     /* Application's state machine's initial state. */
     APP_STATE_INIT=0,
     APP_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
 
 } APP_STATES;
 
@@ -83,10 +105,20 @@ typedef enum
 
 typedef struct
 {
+    /* Current non-volatile data */
+    ADP_NON_VOLATILE_DATA_IND_PARAMS nonVolatileData;
+
+    /* Device's extended address (EUI64). It must be unique for each device. */
+    ADP_EXTENDED_ADDRESS eui64;
+
     /* The application's current state */
     APP_STATES state;
 
-    /* TODO: Define any additional data used by the application. */
+    /* Flag to indicate if non-volatile data is valid */
+    bool validNonVolatileData;
+
+    /* Flag to indicate if LED blinking time has expired */
+    bool timerLedExpired;
 
 } APP_DATA;
 
