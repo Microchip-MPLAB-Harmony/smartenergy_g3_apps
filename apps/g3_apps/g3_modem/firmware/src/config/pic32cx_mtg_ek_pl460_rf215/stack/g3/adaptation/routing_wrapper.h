@@ -87,7 +87,7 @@
   Example:
     <code>
     MAC_WRP_HANDLE macWrpHandle;
-    macWrpHandle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
+    macWrpHandle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
     ROUTING_WRP_Reset(macWrpHandle);
     </code>
 

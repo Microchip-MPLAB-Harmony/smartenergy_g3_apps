@@ -684,11 +684,6 @@ static void _StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
                 serialRspLen += 2;
                 break;
 
-            case ADP_IB_MANUF_EXTENDED_ADDRESS:
-                memcpy(adpSerialRspBuffer, pGetCfm->attributeValue, 8);
-                serialRspLen += 8;
-                break;            
-
             case ADP_IB_SNIFFER_MODE:
                 /* TODO */
                 break;
@@ -799,38 +794,45 @@ static void _StringifyLbpCoordLeaveIndication(uint16_t networkAddress)
 
 static ADP_SERIAL_STATUS _ParseInitialize(uint8_t* pData)
 {
-    ADP_NOTIFICATIONS adpNotifications;
+    ADP_DATA_NOTIFICATIONS adpDataNotifications;
+    ADP_MANAGEMENT_NOTIFICATIONS adpMngNotifications;
     LBP_NOTIFICATIONS_DEV lbpDevNotifications;
     LBP_NOTIFICATIONS_COORD lbpCoordNotifications;
-    MAC_WRP_BAND band;
+    MAC_WRP_BAND band;    
 
     /* Parse initialize message */
     band = (MAC_WRP_BAND) pData[0];
     adpSerialAribBand = (bool) (band == ADP_BAND_ARIB);
     adpSerialCoord = (bool) (pData[1] != 0);
 
-    /* Initialize ADP */
-    adpNotifications.dataConfirm = _StringifyDataConfirm;
-    adpNotifications.dataIndication = _StringifyDataIndication;
-    adpNotifications.discoveryConfirm = _StringifyDiscoveryConfirm;
-    adpNotifications.discoveryIndication = _StringifyDiscoveryIndication;
-    adpNotifications.networkStartConfirm = _StringifyNetworkStartConfirm;
-    adpNotifications.resetConfirm = _StringifyResetConfirm;
-    adpNotifications.setConfirm = _StringifySetConfirm;
-    adpNotifications.getConfirm = _StringifyGetConfirm;
-    adpNotifications.macSetConfirm = NULL;
-    adpNotifications.getConfirm = _StringifyGetConfirm;
-    adpNotifications.macGetConfirm = NULL;
-    adpNotifications.routeDiscoveryConfirm = _StringifyRouteDiscoveryConfirm;
-    adpNotifications.pathDiscoveryConfirm = _StringifyPathDiscoveryConfirm;
-    adpNotifications.networkStatusIndication = _StringifyNetworkStatusIndication;
-    adpNotifications.bufferIndication = _StringifyBufferIndication;
-    adpNotifications.preqIndication = _StringifyPreqIndication;
-    adpNotifications.nonVolatileDataIndication = _StoreNonVolatileDataIndication;
-    adpNotifications.routeNotFoundIndication = _StringifyRouteNotFoundIndication;
+    /* Open ADP */
+    ADP_Open(band);
 
-    ADP_Init(&adpNotifications, band);
+    /* Set ADP Data callbacks */
+    adpDataNotifications.dataConfirm = _StringifyDataConfirm;
+    adpDataNotifications.dataIndication = _StringifyDataIndication;
+    adpDataNotifications.bufferIndication = _StringifyBufferIndication;
+    ADP_SetDataNotifications(&adpDataNotifications);
 
+    /* Set ADP Management callbacks */
+    adpMngNotifications.discoveryConfirm = _StringifyDiscoveryConfirm;
+    adpMngNotifications.discoveryIndication = _StringifyDiscoveryIndication;
+    adpMngNotifications.networkStartConfirm = _StringifyNetworkStartConfirm;
+    adpMngNotifications.resetConfirm = _StringifyResetConfirm;
+    adpMngNotifications.setConfirm = _StringifySetConfirm;
+    adpMngNotifications.getConfirm = _StringifyGetConfirm;
+    adpMngNotifications.macSetConfirm = NULL;
+    adpMngNotifications.getConfirm = _StringifyGetConfirm;
+    adpMngNotifications.macGetConfirm = NULL;
+    adpMngNotifications.routeDiscoveryConfirm = _StringifyRouteDiscoveryConfirm;
+    adpMngNotifications.pathDiscoveryConfirm = _StringifyPathDiscoveryConfirm;
+    adpMngNotifications.networkStatusIndication = _StringifyNetworkStatusIndication;
+    adpMngNotifications.preqIndication = _StringifyPreqIndication;
+    adpMngNotifications.nonVolatileDataIndication = _StoreNonVolatileDataIndication;
+    adpMngNotifications.routeNotFoundIndication = _StringifyRouteNotFoundIndication;
+    ADP_SetManagementNotifications(&adpMngNotifications);
+
+    /* Initialize LBP in device or coordinator mode */
     if (adpSerialCoord == true)
     {
         LBP_InitCoord(adpSerialAribBand);
@@ -1216,10 +1218,6 @@ static ADP_SERIAL_STATUS _ParseAdpSetRequest(uint8_t* pData)
         case ADP_IB_MANUF_HYBRID_PROFILE:
         case ADP_IB_MANUF_LAST_PHASEDIFF:
             /* G3_READ_ONLY */
-            break;
-
-        case ADP_IB_MANUF_EXTENDED_ADDRESS:
-            memcpy(attributeValue, pData, 8);
             break;
 
         case ADP_IB_SNIFFER_MODE:
@@ -1714,10 +1712,7 @@ static void _Callback_UsiAdpProtocol(uint8_t* pData, size_t length)
 // *****************************************************************************
 // *****************************************************************************
 
-SYS_MODULE_OBJ ADP_SERIAL_Initialize (
-    const SYS_MODULE_INDEX index,
-    const SYS_MODULE_INIT * const init
-)
+SYS_MODULE_OBJ ADP_SERIAL_Initialize(const SYS_MODULE_INDEX index)
 {
     /* Validate the request */
     if (index >= G3_ADP_SERIAL_INSTANCES_NUMBER)
@@ -1767,7 +1762,7 @@ void ADP_SERIAL_Tasks(SYS_MODULE_OBJ object)
             adpSerialNotifications.setEUI64NonVolatileData(&eui64, &nonVolatileData);
 
             /* Set Extended Address (EUI64) */
-            ADP_SetRequestSync(ADP_IB_MANUF_EXTENDED_ADDRESS, 0, 8, eui64.value, &setConfirm);
+            ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_EXTENDED_ADDRESS, 0, 8, eui64.value, &setConfirm);
 
             /* Set non-volatile data */
             ADP_MacSetRequestSync(MAC_WRP_PIB_FRAME_COUNTER, 0, 4, &nonVolatileData.frameCounter, &setConfirm);
@@ -1789,5 +1784,8 @@ void ADP_SERIAL_Tasks(SYS_MODULE_OBJ object)
 
 void ADP_SERIAL_SetNotifications(ADP_SERIAL_NOTIFICATIONS* pNotifications)
 {
-    adpSerialNotifications = *pNotifications;
+    if (pNotifications != NULL)
+    {
+        adpSerialNotifications = *pNotifications;
+    }
 }

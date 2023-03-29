@@ -180,10 +180,7 @@ typedef struct
     ADP_DATA_SEND_PARAMS sendParameters;
     
     /* 1280 + 1 extra byte needed for 6LowPAN IPv6 header (compressed or not) */
-    uint8_t data[1281]; 
-
-    /* Fragmentation time handle */
-    SYS_TIME_HANDLE fragTimeHandle;
+    uint8_t data[1281];
 
 } ADP_DATA_PARAMS_BUFFER_1280;
 
@@ -248,11 +245,8 @@ typedef struct
 */
 typedef struct _ADP_PROCESS_QUEUE_ENTRY
 {
-    /* Pointer to the previous object of the queue */
-    struct _ADP_PROCESS_QUEUE_ENTRY* prev;                
-      
     /* Pointer to the next object of the queue */
-    struct _ADP_PROCESS_QUEUE_ENTRY* next;   
+    struct _ADP_PROCESS_QUEUE_ENTRY* next;
 
     /* Pointer to data send parameters */
     ADP_DATA_SEND_PARAMS* pSendParameters;
@@ -277,6 +271,9 @@ typedef struct _ADP_PROCESS_QUEUE_ENTRY
 
     /* Delayed flag */
     bool delayed;
+
+    /* Fragmentation time expired flag */
+    bool fragTimeExpired;
 
 } ADP_PROCESS_QUEUE_ENTRY;
 

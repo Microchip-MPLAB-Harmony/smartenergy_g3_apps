@@ -51,7 +51,6 @@
 
 #include "mac_wrapper_defs.h"
 #include "system/system.h"
-#include "service/usi/srv_usi.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -736,6 +735,32 @@ typedef void (*MAC_WRP_StartConfirm)(MAC_WRP_START_CONFIRM_PARAMS *scParams);
 */
 typedef void (*MAC_WRP_CommStatusIndication)(MAC_WRP_COMM_STATUS_INDICATION_PARAMS *csParams);
 
+// *****************************************************************************
+/* MAC Wrapper Callback Handlers Structure
+
+   Summary:
+    Set of Event Handler function pointers to receive events from MAC Wrapper.
+
+   Description:
+    Defines the set of callback functions that MAC Wrapper uses to generate
+    events to upper layer.
+
+   Remarks:
+    In case an event is to be ignored, setting its corresponding callback
+    function to NULL will lead to the event not being generated.
+*/
+typedef struct
+{
+    /* Callbacks */
+    MAC_WRP_DataConfirm dataConfirmCallback;
+    MAC_WRP_DataIndication dataIndicationCallback;
+    MAC_WRP_ResetConfirm resetConfirmCallback;
+    MAC_WRP_BeaconNotifyIndication beaconNotifyIndicationCallback;
+    MAC_WRP_ScanConfirm scanConfirmCallback;
+    MAC_WRP_StartConfirm startConfirmCallback;
+    MAC_WRP_CommStatusIndication commStatusIndicationCallback;
+    MAC_WRP_SnifferIndication snifferIndicationCallback;
+} MAC_WRP_HANDLERS;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -745,11 +770,7 @@ typedef void (*MAC_WRP_CommStatusIndication)(MAC_WRP_COMM_STATUS_INDICATION_PARA
 
 // *****************************************************************************
 /* Function:
-    SYS_MODULE_OBJ MAC_WRP_Initialize
-    (
-      const SYS_MODULE_INDEX index,
-      const SYS_MODULE_INIT * const init
-    )
+    SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index)
 
   Summary:
     Initializes the MAC Wrapper module for the specified Index.
@@ -764,23 +785,15 @@ typedef void (*MAC_WRP_CommStatusIndication)(MAC_WRP_COMM_STATUS_INDICATION_PARA
   Parameters:
     index - Identifier for the instance to be initialized (single instance allowed)
 
-    init  - Pointer to the init data structure containing any data necessary to
-            initialize the module.
-
   Returns:
     If successful, returns a valid module instance object.
     Otherwise, returns SYS_MODULE_OBJ_INVALID.
 
   Example:
     <code>
-    // The following code snippet shows an example MAC Wrapper initialization.
-
-    SYS_MODULE_INIT initData;
     SYS_MODULE_OBJ sysObjMacWrp;
 
-    // Populate initData if needed
-
-    sysObjMacWrp = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0, &initData);
+    sysObjMacWrp = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0);
     if (sysObjMacWrp == SYS_MODULE_OBJ_INVALID)
     {
         // Handle error
@@ -790,14 +803,11 @@ typedef void (*MAC_WRP_CommStatusIndication)(MAC_WRP_COMM_STATUS_INDICATION_PARA
   Remarks:
     This routine must be called before any other MAC Wrapper routine is called.
 */
-SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE_INIT * const init);
+SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index);
 
 // *****************************************************************************
 /* Function:
-    MAC_WRP_HANDLE MAC_WRP_Open
-    (
-      SYS_MODULE_INDEX index
-    )
+    MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand)
 
   Summary:
     Opens the specified MAC Wrapper instance and returns a handle to it.
@@ -811,7 +821,9 @@ SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE
     MAC_WRP_Initialize routine must have been called before.
 
   Parameters:
-    index - Index for the instance to be opened
+    index   - Index for the instance to be opened
+
+    plcBand - Working band for PLC (should be inline with the hardware)
 
   Returns:
     If successful, the routine returns a valid open-instance handle (a number
@@ -820,15 +832,12 @@ SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE
 
   Example:
     <code>
-    SYS_MODULE_INIT initData;
     MAC_WRP_HANDLE handle;
     SYS_MODULE_OBJ sysObjMacWrp;
     
-    // Populate initData if needed
+    sysObjMacWrp = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0);
 
-    sysObjMacWrp = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0, &initData);
-
-    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
+    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
     if (handle == MAC_WRP_HANDLE_INVALID)
     {
         // Handle error
@@ -836,9 +845,55 @@ SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE
     </code>
 
   Remarks:
+    This routine must be called before any other MAC Wrapper API function,
+    except MAC_WRP_Initialize.
+*/
+MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand);
+
+// *****************************************************************************
+/* Function:
+    void MAC_WRP_SetCallbacks(MAC_WRP_HANDLE handle, MAC_WRP_HANDLERS* handlers)
+
+  Summary:
+    Sets the MAC Wrapper module callback handlers for a given instance.
+
+  Description:
+    This routine sets the MAC Wrapper callback handlers for a given instance.
+
+  Precondition:
+    A valid MAC Wrapper Handle has to be obtained before.
+
+  Parameters:
+    handle   - A valid handle which identifies the Mac Wrapper instance.
+
+    handlers - Pointer to the callback handlers to set.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    MAC_WRP_HANDLE handle;
+    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
+
+    MAC_WRP_HANDLERS macWrpHandlers = {
+        dataConfirmCallback = appDataConfirm,
+        dataIndicationCallback = appDataIndication,
+        resetConfirmCallback = appResetConfirm,
+        beaconNotifyIndicationCallback = appBeaconIndication,
+        scanConfirmCallback = appScanConfirm,
+        startConfirmCallback = NULL, // Start primitive not used
+        commStatusIndicationCallback = appCommStatus,
+        snifferIndicationCallback = NULL, // MAC Sniffer not used
+    };
+
+    MAC_WRP_SetCallbacks(handle, &macWrpHandlers);
+    </code>
+
+  Remarks:
     None.
 */
-MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index);
+void MAC_WRP_SetCallbacks(MAC_WRP_HANDLE handle, MAC_WRP_HANDLERS* handlers);
 
 // *****************************************************************************
 /* Function:
@@ -868,7 +923,7 @@ MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index);
     <code>
     // ...
     SYS_MODULE_OBJ sysObjMacWrp;
-    sysObjMacWrp = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0, &initData);
+    sysObjMacWrp = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0);
     // ...
 
     while (true)
@@ -915,7 +970,7 @@ void MAC_WRP_Tasks(SYS_MODULE_OBJ object);
     <code>
     // ...
     MAC_WRP_HANDLE handle;
-    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
+    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
     // ...
 
     MAC_WRP_DATA_REQUEST_PARAMS params = {
@@ -979,7 +1034,7 @@ void MAC_WRP_DataRequest(MAC_WRP_HANDLE handle, MAC_WRP_DATA_REQUEST_PARAMS *drP
     <code>
     // ...
     MAC_WRP_HANDLE handle;
-    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
+    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
     // ...
 
     MAC_WRP_STATUS status;
@@ -1036,7 +1091,7 @@ MAC_WRP_STATUS MAC_WRP_GetRequestSync(MAC_WRP_HANDLE handle,
     <code>
     // ...
     MAC_WRP_HANDLE handle;
-    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
+    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
     // ...
 
     MAC_WRP_STATUS status;
@@ -1088,7 +1143,7 @@ MAC_WRP_STATUS MAC_WRP_SetRequestSync(MAC_WRP_HANDLE handle,
     <code>
     // ...
     MAC_WRP_HANDLE handle;
-    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
+    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
     // ...
 
     MAC_WRP_RESET_REQUEST_PARAMS params = {
@@ -1138,7 +1193,7 @@ void MAC_WRP_ResetRequest(MAC_WRP_HANDLE handle, MAC_WRP_RESET_REQUEST_PARAMS *r
     <code>
     // ...
     MAC_WRP_HANDLE handle;
-    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
+    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
     // ...
 
     MAC_WRP_SCAN_REQUEST_PARAMS params = {
@@ -1187,7 +1242,7 @@ void MAC_WRP_ScanRequest(MAC_WRP_HANDLE handle, MAC_WRP_SCAN_REQUEST_PARAMS *sca
     <code>
     // ...
     MAC_WRP_HANDLE handle;
-    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
+    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
     // ...
 
     MAC_WRP_START_REQUEST_PARAMS params = {
@@ -1232,7 +1287,7 @@ void MAC_WRP_StartRequest(MAC_WRP_HANDLE handle, MAC_WRP_START_REQUEST_PARAMS *s
     <code>
     // ...
     MAC_WRP_HANDLE handle;
-    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
+    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
     // ...
 
     MAC_WRP_AVAILABLE_MAC_LAYERS availableLayers;
@@ -1255,151 +1310,6 @@ void MAC_WRP_StartRequest(MAC_WRP_HANDLE handle, MAC_WRP_START_REQUEST_PARAMS *s
 MAC_WRP_AVAILABLE_MAC_LAYERS MAC_WRP_GetAvailableMacLayers(MAC_WRP_HANDLE handle);
 
 // *****************************************************************************
-/* MAC Wrapper Callback Handlers Structure
-
-   Summary:
-    Set of Event Handler function pointers to receive events from MAC Wrapper.
-
-   Description:
-    Defines the set of callback functions that MAC Wrapper uses to generate
-    events to upper layer.
-
-   Remarks:
-    In case an event is to be ignored, setting its corresponding callback
-    function to NULL will lead to the event not being generated.
-*/
-typedef struct
-{
-    /* Callbacks */
-    MAC_WRP_DataConfirm dataConfirmCallback;
-    MAC_WRP_DataIndication dataIndicationCallback;
-    MAC_WRP_ResetConfirm resetConfirmCallback;
-    MAC_WRP_BeaconNotifyIndication beaconNotifyIndicationCallback;
-    MAC_WRP_ScanConfirm scanConfirmCallback;
-    MAC_WRP_StartConfirm startConfirmCallback;
-    MAC_WRP_CommStatusIndication commStatusIndicationCallback;
-    MAC_WRP_SnifferIndication snifferIndicationCallback;
-} MAC_WRP_HANDLERS;
-
-// *****************************************************************************
-/* MAC Wrapper Init Structure
-
-   Summary:
-    Initialization Data for MAC Wrapper to be provided on Init routine.
-
-   Description:
-    Defines the set of callback functions that MAC Wrapper uses to generate
-    events to upper layer and, in case of PLC MAC being present, the PLC
-    band to use.
-
-   Remarks:
-    None.
-*/
-typedef struct
-{
-    /* Callbacks */
-    MAC_WRP_HANDLERS macWrpHandlers;
-    /* PLC working band. Only used if PLC MAC is present */
-    MAC_WRP_BAND plcBand;
-} MAC_WRP_INIT;
-
-// *****************************************************************************
-/* MAC Wrapper Data Structure
-
-   Summary:
-    Object used to keep any data required for an instance of the module.
-
-   Description:
-    Contains status of module state machine, runtime variables
-    and callback definitions.
-
-   Remarks:
-    None.
-*/
-typedef struct
-{
-    /* State of the MAC Wrapper module */
-    MAC_WRP_STATE state;
-    /* Callbacks */
-    MAC_WRP_HANDLERS macWrpHandlers;
-    /* Mac Wrapper instance handle */
-    MAC_WRP_HANDLE macWrpHandle;
-    /* PIB serialization debug set length */
-    uint16_t debugSetLength;
-    /* Mac Serialization handle */
-    MAC_WRP_HANDLE macSerialHandle;
-    /* USI handle for MAC serialization */
-    SRV_USI_HANDLE usiHandle;
-    /* Flag to indicate initialize through serial interface */
-    bool serialInitialize;
-    /* Flag to indicate reset request through serial interface */
-    bool serialResetRequest;
-    /* Flag to indicate start request through serial interface */
-    bool serialStartRequest;
-    /* Flag to indicate scan request through serial interface */
-    bool serialScanRequest;
-    /* Flag to indicate scan request in progress */
-    bool scanRequestInProgress;
-} MAC_WRP_DATA;
-
-// *****************************************************************************
-/* Function:
-    void MAC_WRP_Init
-    (
-      MAC_WRP_HANDLE handle, 
-      MAC_WRP_INIT *init
-    )
-
-  Summary:
-    Initializes the MAC Wrapper module data for a given instance.
-
-  Description:
-    This routine initializes the MAC Wrapper data structures for a given instance.
-    Callback handlers for event notification are set in this function.
-    In case MAC PLC layer is present, PLC band is specified here, otherwise
-    this parameter is not present in the init structure.
-
-  Precondition:
-    None.
-
-  Parameters:
-    handle - A valid handle which identifies the Mac Wrapper instance
-
-    init  - Pointer to the init data structure containing any data necessary to
-            initialize the module.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    // The following code snippet shows an example MAC Wrapper initialization.
-    // ...
-    MAC_WRP_HANDLE handle;
-    handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
-    // ...
-
-    MAC_WRP_INIT macWrpInit = {
-        .macWrpHandlers.dataConfirmCallback = appDataConfirm,
-        .macWrpHandlers.dataIndicationCallback = appDataIndication,
-        .macWrpHandlers.resetConfirmCallback = appResetConfirm,
-        .macWrpHandlers.beaconNotifyIndicationCallback = appBeaconIndication,
-        .macWrpHandlers.scanConfirmCallback = appScanConfirm,
-        .macWrpHandlers.startConfirmCallback = NULL, // Start primitive not used
-        .macWrpHandlers.commStatusIndicationCallback = appCommStatus,
-        .macWrpHandlers.snifferIndicationCallback = NULL, // MAC Sniffer not used
-        .plcBand = MAC_WRP_BAND_CENELEC_A,
-    };
-
-    MAC_WRP_Init(handle, &macWrpInit);
-    </code>
-
-  Remarks:
-    This routine must be called before any other MAC Wrapper API function.
-*/
-void MAC_WRP_Init(MAC_WRP_HANDLE handle, MAC_WRP_INIT *init);
-
-// *****************************************************************************
 /* Function:
     SYS_STATUS MAC_WRP_Status
     (
@@ -1414,7 +1324,7 @@ void MAC_WRP_Init(MAC_WRP_HANDLE handle, MAC_WRP_INIT *init);
     to ensure they are ready to be used.
 
   Precondition:
-    MAC_WRP_Init routine must have been called before.
+    MAC_WRP_Open routine must have been called before.
 
   Parameters:
     None

@@ -57,12 +57,39 @@
 #include "../mac_plc/mac_plc.h"
 #include "../mac_rf/mac_rf.h"
 #include "service/log_report/srv_log_report.h"
+#include "service/usi/srv_usi.h"
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
+
+typedef struct
+{
+    /* State of the MAC Wrapper module */
+    MAC_WRP_STATE state;
+    /* Callbacks */
+    MAC_WRP_HANDLERS macWrpHandlers;
+    /* Mac Wrapper instance handle */
+    MAC_WRP_HANDLE macWrpHandle;
+    /* PIB serialization debug set length */
+    uint16_t debugSetLength;
+    /* Mac Serialization handle */
+    MAC_WRP_HANDLE macSerialHandle;
+    /* USI handle for MAC serialization */
+    SRV_USI_HANDLE usiHandle;
+    /* Flag to indicate initialize through serial interface */
+    bool serialInitialize;
+    /* Flag to indicate reset request through serial interface */
+    bool serialResetRequest;
+    /* Flag to indicate start request through serial interface */
+    bool serialStartRequest;
+    /* Flag to indicate scan request through serial interface */
+    bool serialScanRequest;
+    /* Flag to indicate scan request in progress */
+    bool scanRequestInProgress;
+} MAC_WRP_DATA;
 
 /* Buffer size to store data to be sent as Mac Data Request */
 #define HYAL_BACKUP_BUF_SIZE   400
@@ -717,21 +744,13 @@ static MAC_WRP_SERIAL_STATUS _Serial_ParseInitialize(uint8_t* pData)
 {
     if (macWrpData.state == MAC_WRP_STATE_NOT_READY)
     {
-        MAC_WRP_INIT macWrpInit;
+        MAC_WRP_BAND plcBand;
 
         /* Parse initialize message */
-        macWrpInit.plcBand = *pData;
+        plcBand = *pData;
 
-        /* Initialize MAC Wrapper if it has not been initialized yet */
-        macWrpInit.macWrpHandlers.beaconNotifyIndicationCallback = NULL;
-        macWrpInit.macWrpHandlers.commStatusIndicationCallback = NULL;
-        macWrpInit.macWrpHandlers.dataConfirmCallback = NULL;
-        macWrpInit.macWrpHandlers.dataIndicationCallback = NULL;
-        macWrpInit.macWrpHandlers.resetConfirmCallback = NULL;
-        macWrpInit.macWrpHandlers.scanConfirmCallback = NULL;
-        macWrpInit.macWrpHandlers.snifferIndicationCallback = NULL;
-        macWrpInit.macWrpHandlers.startConfirmCallback = NULL;
-        MAC_WRP_Init(macWrpData.macSerialHandle, &macWrpInit);
+        /* Open MAC Wrapper if it has not been opened yet */
+        MAC_WRP_Open(G3_MAC_WRP_INDEX_0, plcBand);
 
         macWrpData.serialInitialize = true;
     }
@@ -1670,7 +1689,7 @@ static void _Callback_MacRfMacSnifferIndication(MAC_SNIFFER_INDICATION_PARAMS *s
 // *****************************************************************************
 // *****************************************************************************
 
-SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE_INIT * const init)
+SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index)
 {
     /* Validate the request */
     if (index >= G3_MAC_WRP_INSTANCES_NUMBER)
@@ -1687,6 +1706,7 @@ SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE
     macWrpData.serialResetRequest = false;
     macWrpData.serialStartRequest = false;
     macWrpData.scanRequestInProgress = false;
+    memset(&macWrpData.macWrpHandlers, 0, sizeof(MAC_WRP_HANDLERS));
     for (uint8_t index = 0; index < MAC_WRP_DATA_REQ_QUEUE_SIZE; index++)
     {
         dataReqQueue[index].used = false;
@@ -1695,61 +1715,21 @@ SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE
     return (SYS_MODULE_OBJ)0; 
 }
 
-MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index)
+MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand)
 {
-    // Single instance allowed
+    MAC_PLC_INIT plcInitData;
+    MAC_RF_INIT rfInitData;
+
+    /* Single instance allowed */
     if (index >= G3_MAC_WRP_INSTANCES_NUMBER)
     {
         return MAC_WRP_HANDLE_INVALID;
     }
 
-    return macWrpData.macWrpHandle;
-}
-
-void MAC_WRP_Tasks(SYS_MODULE_OBJ object)
-{
-    if (object != (SYS_MODULE_OBJ)0)
-    {
-        // Invalid object
-        return;
-    }
-
-    if (macWrpData.usiHandle == SRV_USI_HANDLE_INVALID)
-    {
-        /* Open USI instance for MAC serialization and register callback */
-        macWrpData.usiHandle = SRV_USI_Open(G3_MAC_WRP_SERIAL_USI_INDEX);
-        SRV_USI_CallbackRegister(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, _Callback_UsiMacProtocol);
-    }
-
-    if ((macWrpData.serialInitialize == true) && (MAC_WRP_Status() == SYS_STATUS_READY))
-    {
-        /* Send MAC initialization confirm */
-        macWrpData.serialInitialize = false;
-        _Serial_StringifyMsgStatus(MAC_WRP_SERIAL_STATUS_SUCCESS, MAC_WRP_SERIAL_MSG_MAC_INITIALIZE);
-    }
-
-    MAC_PLC_Tasks();
-    MAC_RF_Tasks();
-}
-
-void MAC_WRP_Init(MAC_WRP_HANDLE handle, MAC_WRP_INIT *init)
-{
-    MAC_PLC_INIT plcInitData;
-    MAC_RF_INIT rfInitData;
-
-    /* Validate the request */
-    if ((handle != macWrpData.macWrpHandle) && (handle != macWrpData.macSerialHandle))
-    {
-        return;
-    }
-
-    /* Set init data */
-    macWrpData.macWrpHandlers = init->macWrpHandlers;
-
-    // Set default HyAL variables
+    /* Set default HyAL variables */
     hyalData = hyalDataDefaults;
 
-    SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "MAC_WRP_Init: Initializing PLC MAC...");
+    SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "MAC_WRP_Open: Initializing PLC MAC...");
 
     plcInitData.macPlcHandlers.macPlcDataConfirm = _Callback_MacPlcDataConfirm;
     plcInitData.macPlcHandlers.macPlcDataIndication = _Callback_MacPlcDataIndication;
@@ -1766,13 +1746,13 @@ void MAC_WRP_Init(MAC_WRP_HANDLE handle, MAC_WRP_INIT *init)
     macPlcTables.macPlcDeviceTable = macPlcDeviceTable;
 
     plcInitData.macPlcTables = &macPlcTables;
-    plcInitData.plcBand = (MAC_PLC_BAND)init->plcBand;
-    // Get PAL index from configuration header
+    plcInitData.plcBand = (MAC_PLC_BAND) plcBand;
+    /* Get PAL index from configuration header */
     plcInitData.palPlcIndex = PAL_PLC_PHY_INDEX;
 
     MAC_PLC_Init(&plcInitData);
 
-    SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "MAC_WRP_Init: Initializing RF MAC...");
+    SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "MAC_WRP_Open: Initializing RF MAC...");
 
     rfInitData.macRfHandlers.macRfDataConfirm = _Callback_MacRfDataConfirm;
     rfInitData.macRfHandlers.macRfDataIndication = _Callback_MacRfDataIndication;
@@ -1795,7 +1775,7 @@ void MAC_WRP_Init(MAC_WRP_HANDLE handle, MAC_WRP_INIT *init)
     macRfTables.macRfDsnTable = macRfDsnTable;
 
     rfInitData.macRfTables = &macRfTables;
-    // Get PAL index from configuration header
+    /* Get PAL index from configuration header */
     rfInitData.palRfIndex = PAL_RF_PHY_INDEX;
 
     MAC_RF_Init(&rfInitData);
@@ -1803,6 +1783,42 @@ void MAC_WRP_Init(MAC_WRP_HANDLE handle, MAC_WRP_INIT *init)
     MAC_COMMON_Init();
 
     macWrpData.state = MAC_WRP_STATE_IDLE;
+
+    return macWrpData.macWrpHandle;
+}
+
+void MAC_WRP_SetCallbacks(MAC_WRP_HANDLE handle, MAC_WRP_HANDLERS* handlers)
+{
+    if ((handle == macWrpData.macWrpHandle) && (handlers != NULL))
+    {
+        macWrpData.macWrpHandlers = *handlers;
+    }
+}
+
+void MAC_WRP_Tasks(SYS_MODULE_OBJ object)
+{
+    if (object != (SYS_MODULE_OBJ) 0)
+    {
+        /* Invalid object */
+        return;
+    }
+
+    if (macWrpData.usiHandle == SRV_USI_HANDLE_INVALID)
+    {
+        /* Open USI instance for MAC serialization and register callback */
+        macWrpData.usiHandle = SRV_USI_Open(G3_MAC_WRP_SERIAL_USI_INDEX);
+        SRV_USI_CallbackRegister(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, _Callback_UsiMacProtocol);
+    }
+
+    if ((macWrpData.serialInitialize == true) && (MAC_WRP_Status() == SYS_STATUS_READY))
+    {
+        /* Send MAC initialization confirm */
+        macWrpData.serialInitialize = false;
+        _Serial_StringifyMsgStatus(MAC_WRP_SERIAL_STATUS_SUCCESS, MAC_WRP_SERIAL_MSG_MAC_INITIALIZE);
+    }
+
+    MAC_PLC_Tasks();
+    MAC_RF_Tasks();
 }
 
 SYS_STATUS MAC_WRP_Status(void)

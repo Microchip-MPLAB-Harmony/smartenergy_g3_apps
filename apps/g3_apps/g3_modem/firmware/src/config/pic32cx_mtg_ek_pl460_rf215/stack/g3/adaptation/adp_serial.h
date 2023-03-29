@@ -141,10 +141,7 @@ typedef struct
 
 // *****************************************************************************
 /* Function:
-    SYS_MODULE_OBJ ADP_SERIAL_Initialize (
-        const SYS_MODULE_INDEX index,
-        const SYS_MODULE_INIT * const init
-    );
+    SYS_MODULE_OBJ ADP_SERIAL_Initialize(const SYS_MODULE_INDEX index);
 
   Summary:
     Initializes the ADP Serialization module for the specified index.
@@ -160,19 +157,15 @@ typedef struct
     index - Identifier for the instance to be initialized (single instance
             allowed)
 
-    init  - Pointer to the init data structure containing any data necessary to
-            initialize the module.
-
   Returns:
     If successful, returns a valid module instance object.
     Otherwise, returns SYS_MODULE_OBJ_INVALID.
 
   Example:
     <code>
-    SYS_MODULE_INIT initData;
     SYS_MODULE_OBJ sysObjAdpSerial;
 
-    sysObjAdpSerial = ADP_SERIAL_Initialize(G3_ADP_SERIAL_INDEX_0, &initData);
+    sysObjAdpSerial = ADP_SERIAL_Initialize(G3_ADP_SERIAL_INDEX_0);
     if (sysObjAdpSerial == SYS_MODULE_OBJ_INVALID)
     {
         // Handle error
@@ -183,10 +176,7 @@ typedef struct
     This routine must be called before any other ADP Serialization routine is
     called.
 */
-SYS_MODULE_OBJ ADP_SERIAL_Initialize (
-    const SYS_MODULE_INDEX index,
-    const SYS_MODULE_INIT * const init
-);
+SYS_MODULE_OBJ ADP_SERIAL_Initialize(const SYS_MODULE_INDEX index);
 
 // *****************************************************************************
 /* Function:

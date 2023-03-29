@@ -274,9 +274,9 @@ typedef enum
     // Best LQI found in neighbour table. 8 bits.
     MAC_PIB_MANUF_BEST_LQI = 0x0800002A,
     // PLC Interface availability. 8 bits (bool).
-    MAC_PIB_MANUF_PLC_IFACE_AVAILABLE = 0x0800002B,
+    MAC_PIB_MANUF_PLC_IFACE_AVAILABLE = 0x0800002C,
     // Last PLC frame duration in ms. 16 bits.
-    MAC_PIB_MANUF_LAST_FRAME_DURATION_PLC = 0x0800002C,
+    MAC_PIB_MANUF_LAST_FRAME_DURATION_PLC = 0x0800002D,
     // Gets or sets a parameter in Phy layer. Index will be used to contain PHY parameter ID.
     // Check 'enum EPhyParam' in MacRtMib.h for available Phy parameter IDs
     MAC_PIB_MANUF_PHY_PARAM = 0x08000020

@@ -94,7 +94,7 @@
     routingTables.adpRoutingSetSize = G3_ADP_ROUTING_SET_SIZE;
     routingTables.adpDestinationAddressSetSize = G3_ADP_DESTINATION_ADDR_SET_SIZE;
     
-    macWrpHandle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0);
+    macWrpHandle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
     ...
 
     LOADNG_Reset(&routingTables, macWrpHandle);

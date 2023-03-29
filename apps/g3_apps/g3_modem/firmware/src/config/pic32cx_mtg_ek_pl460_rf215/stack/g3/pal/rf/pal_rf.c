@@ -276,7 +276,7 @@ PAL_RF_TX_HANDLE PAL_RF_TxRequest(PAL_RF_HANDLE handle, uint8_t *pData,
     }
     
     rfPhyTxReqHandle = DRV_RF215_TxRequest(palRfData.drvRfPhyHandle, &txReqObj, &txResult);
-    
+
     if (rfPhyTxReqHandle == DRV_RF215_TX_HANDLE_INVALID)
     {
         DRV_RF215_TX_CONFIRM_OBJ cfmObj;

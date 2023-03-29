@@ -64,6 +64,7 @@ void MemoryManagement_Handler (void);
 void BusFault_Handler (void);
 void UsageFault_Handler (void);
 void DebugMonitor_Handler (void);
+void SUPC_InterruptHandler (void);
 void FLEXCOM0_InterruptHandler (void);
 void FLEXCOM3_InterruptHandler (void);
 void FLEXCOM5_InterruptHandler (void);

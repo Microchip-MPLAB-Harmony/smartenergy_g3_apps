@@ -383,7 +383,6 @@ typedef enum
     /* Manufacturer */
     ADP_IB_MANUF_REASSEMBY_TIMER = 0x080000C0, /* 16 bits */
     ADP_IB_MANUF_IPV6_HEADER_COMPRESSION = 0x080000C1, /* 8 bits (bool) */
-    ADP_IB_MANUF_EXTENDED_ADDRESS = 0x080000C2, /* 8 Byte array */
     ADP_IB_MANUF_PAN_ID = 0x080000C3, /* 16 bits */
     ADP_IB_MANUF_BROADCAST_SEQUENCE_NUMBER = 0x080000C4, /* 8 bits */
     ADP_IB_MANUF_DATAGRAM_TAG = 0x080000C6, /* 16 bits */
@@ -420,7 +419,7 @@ typedef enum
 } ADP_PIB_ATTRIBUTE;
 
 // *****************************************************************************
-/* ADP Status Definition
+/* ADP Result Definition
 
    Summary:
     Identifies the list of errors returned by the ADP.
@@ -488,6 +487,29 @@ typedef enum
 
     /* Error internal */
     G3_ERROR_INTERNAL = 0xFF
+
+} ADP_RESULT;
+
+// *****************************************************************************
+/* ADP Status Definition
+
+   Summary:
+    Identifies the current status/state of the ADP.
+
+   Description:
+    This enumeration identifies the current status/state of the ADP.
+
+   Remarks:
+    None.
+*/
+typedef enum
+{
+    /* Success */
+    ADP_STATUS_UNINITIALIZED = SYS_STATUS_UNINITIALIZED,
+    ADP_STATUS_BUSY = SYS_STATUS_BUSY,
+    ADP_STATUS_READY = SYS_STATUS_READY,
+    ADP_STATUS_LBP_CONNECTED = SYS_STATUS_READY_EXTENDED + 1,
+    ADP_STATUS_ERROR = SYS_STATUS_ERROR,
 
 } ADP_STATUS;
 

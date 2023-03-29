@@ -59,7 +59,29 @@ typedef struct
 
 static void WDT0_Initialize(void)
 {
+    /* Configure Period  */
+    DWDT_REGS->DWDT_WDT0_WL = DWDT_WDT0_WL_PERIOD(1000U);
 
+    /* Configure prescaler  */
+    DWDT_REGS->DWDT_WDT0_IL = DWDT_WDT0_IL_PRESC_RATIO128;
+
+    /* Configure WDT0 modes */
+    DWDT_REGS->DWDT_WDT0_MR = DWDT_WDT0_MR_PERIODRST_Msk;
+
+    /* Disable all interrupts */
+    DWDT_REGS->DWDT_WDT0_IDR = DWDT_WDT0_IDR_Msk;
+}
+
+
+void DWDT_WDT0_Clear(void)
+{
+    /* Restart WDT0 */
+    DWDT_REGS->DWDT_WDT0_CR = DWDT_WDT0_CR_KEY_PASSWD | DWDT_WDT0_CR_WDRSTT_Msk;
+}
+
+
+void DWDT_WDT0_Disable(void)
+{
     /* Disable WDT0 */
     DWDT_REGS->DWDT_WDT0_MR |= DWDT_WDT0_MR_WDDIS_Msk;
 }

@@ -253,7 +253,7 @@ void ROUTING_WRP_RemoveBlacklistOnMedium(uint16_t addr, uint8_t mediaType)
     LOADNG_RemoveBlacklistOnMedium(addr, mediaType);
 }
 
-bool Routing_IsRouterTo(uint16_t addr)
+bool ROUTING_WRP_IsRouterTo(uint16_t addr)
 {
     return LOADNG_IsRouterTo(addr);
 }

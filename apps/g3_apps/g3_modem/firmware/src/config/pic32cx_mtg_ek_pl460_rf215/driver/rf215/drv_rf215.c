@@ -204,6 +204,7 @@ static void _DRV_RF215_ReadIRQS(uintptr_t context, void* pData, uint64_t time)
         if (((rf09IRQS & rf24IRQS) != RF215_RFn_IRQ_WAKEUP) || (bbc0IRQS != 0))
 
         {
+            RF215_HAL_Deinitialize();
             dObj->irqsErr = true;
             return;
         }

@@ -69,7 +69,7 @@
 
 #define MAC_PIB_CHANNEL_NUMBER_RF_MAX_VALUE                  7279
 
-#define MAC_PIB_FREQUENCY_BAND_RF_MAX_VALUE                  9
+#define MAC_PIB_FREQUENCY_BAND_RF_MAX_VALUE                  23
 
 #define MAC_PIB_TRANSMIT_ATTEN_RF_MAX_VALUE                  64
 

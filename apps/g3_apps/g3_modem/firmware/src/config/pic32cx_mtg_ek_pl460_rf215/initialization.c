@@ -250,15 +250,6 @@ SYSTEM_OBJECTS sysObj;
 // Section: Library/Stack Initialization Data
 // *****************************************************************************
 // *****************************************************************************
-// <editor-fold defaultstate="collapsed" desc="G3 MAC Wrapper Initialization Data">
-
-/* G3 MAC Wrapper Initialization Data */
-SYS_MODULE_INIT g3MacWraperInitData = {
-    /* Init data not used, set default field */
-    .value = 0,
-};
-
-// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="G3 ADP Initialization Data">
 /* G3 ADP Buffers and Queues */
 ADP_DATA_PARAMS_BUFFER_1280 g3Adp1280Buffers[G3_ADP_NUM_BUFFERS_1280];
@@ -302,16 +293,6 @@ ADP_INIT g3AdpInitData = {
 
 // </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="ADP Serialization Initialization Data">
-
-/* G3 ADP Serialization Initialization Data */
-SYS_MODULE_INIT g3AdpSerialInitData = {
-    /* Init data not used, set default field */
-    .value = 0,
-};
-
-// </editor-fold>
-
 
 
 // *****************************************************************************
@@ -346,10 +327,10 @@ extern const SYS_CONSOLE_DEV_DESC sysConsoleUARTDevDesc;
 
 const SYS_CONSOLE_UART_PLIB_INTERFACE sysConsole0UARTPlibAPI =
 {
-    .read = (SYS_CONSOLE_UART_PLIB_READ)FLEXCOM7_USART_Read,
+    .read_t = (SYS_CONSOLE_UART_PLIB_READ)FLEXCOM7_USART_Read,
 	.readCountGet = (SYS_CONSOLE_UART_PLIB_READ_COUNT_GET)FLEXCOM7_USART_ReadCountGet,
 	.readFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_READ_FREE_BUFFFER_COUNT_GET)FLEXCOM7_USART_ReadFreeBufferCountGet,
-    .write = (SYS_CONSOLE_UART_PLIB_WRITE)FLEXCOM7_USART_Write,
+    .write_t = (SYS_CONSOLE_UART_PLIB_WRITE)FLEXCOM7_USART_Write,
 	.writeCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_COUNT_GET)FLEXCOM7_USART_WriteCountGet,
 	.writeFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_FREE_BUFFER_COUNT_GET)FLEXCOM7_USART_WriteFreeBufferCountGet,
 };
@@ -456,13 +437,13 @@ void SYS_Initialize ( void* data )
     CRYPT_WCCB_Initialize();
 
     /* Initialize G3 MAC Wrapper Instance */
-    sysObj.g3MacWrapper = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0, &g3MacWraperInitData);
+    sysObj.g3MacWrapper = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0);
 
     /* Initialize G3 ADP Instance */
     sysObj.g3Adp = ADP_Initialize(G3_ADP_INDEX_0, (SYS_MODULE_INIT *)&g3AdpInitData);
 
     /* Initialize G3 ADP Serialization Instance */
-    sysObj.g3AdpSerial = ADP_SERIAL_Initialize(G3_ADP_SERIAL_INDEX_0, &g3AdpSerialInitData);
+    sysObj.g3AdpSerial = ADP_SERIAL_Initialize(G3_ADP_SERIAL_INDEX_0);
 
 
     APP_Initialize();

@@ -257,13 +257,7 @@ typedef struct
    Remarks:
     None.
 */
-typedef struct _ROUTING_DISCOVER_ROUTE_ENTRY {
-    /* Pointer to the previous object of the queue */
-    struct _ROUTING_DISCOVER_ROUTE_ENTRY* prev;
-
-    /* Pointer to the next object of the queue */
-    struct _ROUTING_DISCOVER_ROUTE_ENTRY* next;
-      
+typedef struct {
     /* Callback called when the discovery is finished */
     ROUTING_WRP_DISCOVER_ROUTE_CALLBACK callback;
 
@@ -288,6 +282,9 @@ typedef struct _ROUTING_DISCOVER_ROUTE_ENTRY {
     /* Current try number */
     uint8_t tryCount;
 
+    /* Discover route timeout flag */
+    bool timeoutExpired;
+
 } ROUTING_DISCOVER_ROUTE_ENTRY;
 
 // *****************************************************************************
@@ -304,17 +301,11 @@ typedef struct _ROUTING_DISCOVER_ROUTE_ENTRY {
     None.
 */
 typedef struct _ROUTING_RREP_GENERATION_ENTRY {
-    /* Pointer to the previous object of the queue */
-    struct _ROUTING_RREP_GENERATION_ENTRY *prev;
-
-    /* Pointer to the next object of the queue */
-    struct _ROUTING_RREP_GENERATION_ENTRY *next;
-
     /* Timer to control the RREP sending */
     SYS_TIME_HANDLE timeHandle;
 
-    /* User data recovered by timer expiration */
-    uintptr_t timerUserData;
+    /* Pointer to RREP generation entry used when timer expires */
+    struct _ROUTING_RREP_GENERATION_ENTRY* timerRrepGenEntry;
 
     /* RREQ originator (and final destination of RREP) */
     uint16_t origAddr;
@@ -335,6 +326,9 @@ typedef struct _ROUTING_RREP_GENERATION_ENTRY {
      * were not sent due to channel saturation */
     uint8_t waitingForAck;
 
+    /* RREP generation time expired flag */
+    bool timeExpired;
+
 } ROUTING_RREP_GENERATION_ENTRY;
 
 // *****************************************************************************
@@ -350,13 +344,7 @@ typedef struct _ROUTING_RREP_GENERATION_ENTRY {
    Remarks:
     None.
 */
-typedef struct _ROUTING_RREQ_FORWARDING_ENTRY {
-    /* Pointer to the previous object of the queue */
-    struct _ROUTING_RREQ_FORWARDING_ENTRY *prev;
-
-    /* Pointer to the next object of the queue */
-    struct _ROUTING_RREQ_FORWARDING_ENTRY *next;
-
+typedef struct {
     /* Timer to control the RREQ sending on PLC */
     SYS_TIME_HANDLE timeHandlePLC;
 
@@ -399,6 +387,12 @@ typedef struct _ROUTING_RREQ_FORWARDING_ENTRY {
     /* RF Cluster Counter */
     uint8_t clusterCounterRF;
 
+    /* RREQ forwarding time expired for PLC */
+    bool timeExpiredPLC;
+
+    /* RREQ forwarding time expired for RF */
+    bool timeExpiredRF;
+
 } ROUTING_RREQ_FORWARDING_ENTRY;
 
 // *****************************************************************************
@@ -422,11 +416,8 @@ typedef struct _ROUTING_RREQ_TABLE_ENTRY
     /* Pointer to the next object of the queue */
     struct _ROUTING_RREQ_TABLE_ENTRY *next;
 
-    /* Pointer to the used data */
-    void *userData;   
-    
-    /* Information about data type (optional information if needed) */
-    uint8_t dataType;
+    /* Pointer to discover route entry */
+    ROUTING_DISCOVER_ROUTE_ENTRY *pDiscoverRoute;
 
 } ROUTING_PENDING_RREQ_ENTRY;
 

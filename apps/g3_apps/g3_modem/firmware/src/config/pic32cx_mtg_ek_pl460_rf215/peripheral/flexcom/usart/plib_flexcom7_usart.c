@@ -51,39 +51,44 @@
 #include "plib_flexcom7_usart.h"
 #include "interrupts.h"
 
-#define FLEXCOM7_USART_READ_BUFFER_SIZE             128
-#define FLEXCOM7_USART_READ_BUFFER_SIZE_9BIT        (128 >> 1)
+#define FLEXCOM_USART_RHR_8BIT_REG      (*(volatile uint8_t* const)((FLEXCOM7_BASE_ADDRESS + FLEX_US_RHR_REG_OFST)))
+#define FLEXCOM_USART_RHR_9BIT_REG      (*(volatile uint16_t* const)((FLEXCOM7_BASE_ADDRESS + FLEX_US_RHR_REG_OFST)))
 
-#define FLEXCOM7_USART_HW_RX_FIFO_THRES                 4
-#define FLEXCOM7_USART_HW_TX_FIFO_THRES                 4
+#define FLEXCOM_USART_THR_8BIT_REG      (*(volatile uint8_t* const)((FLEXCOM7_BASE_ADDRESS + FLEX_US_THR_REG_OFST)))
+#define FLEXCOM_USART_THR_9BIT_REG      (*(volatile uint16_t* const)((FLEXCOM7_BASE_ADDRESS + FLEX_US_THR_REG_OFST)))
+
+#define FLEXCOM7_USART_HW_RX_FIFO_THRES                 4U
+#define FLEXCOM7_USART_HW_TX_FIFO_THRES                 4U
 
 /* Disable Read, Overrun, Parity and Framing error interrupts */
 #define FLEXCOM7_USART_RX_INT_DISABLE()      do { \
 FLEXCOM7_REGS->FLEX_US_IDR = (FLEX_US_IDR_FRAME_Msk | FLEX_US_IDR_PARE_Msk | FLEX_US_IDR_OVRE_Msk); \
 FLEXCOM7_REGS->FLEX_US_FIDR = FLEX_US_FIDR_RXFTHF_Msk; \
-}while(0)
+}while(false)
 
 /* Enable Read, Overrun, Parity and Framing error interrupts */
 #define FLEXCOM7_USART_RX_INT_ENABLE()       do { \
 FLEXCOM7_REGS->FLEX_US_IER = (FLEX_US_IER_FRAME_Msk | FLEX_US_IER_PARE_Msk | FLEX_US_IER_OVRE_Msk); \
 FLEXCOM7_REGS->FLEX_US_FIER = FLEX_US_FIER_RXFTHF_Msk; \
-}while(0)
+}while(false)
 
 #define FLEXCOM7_USART_TX_INT_DISABLE()      do { \
 FLEXCOM7_REGS->FLEX_US_IDR = FLEX_US_IDR_TXRDY_Msk; \
 FLEXCOM7_REGS->FLEX_US_FIDR = (FLEX_US_FIDR_TXFTHF_Msk); \
-}while(0)
+}while(false)
 
 #define FLEXCOM7_USART_TX_INT_ENABLE()       do { \
 FLEXCOM7_REGS->FLEX_US_IER = FLEX_US_IER_TXRDY_Msk; \
 FLEXCOM7_REGS->FLEX_US_FIER = (FLEX_US_FIER_TXFTHF_Msk); \
-}while(0)
+}while(false)
+
+#define FLEXCOM7_USART_READ_BUFFER_SIZE             128U
+#define FLEXCOM7_USART_9BIT_READ_BUFFER_SIZE        (128U >> 1U)
+
+#define FLEXCOM7_USART_WRITE_BUFFER_SIZE            512U
+#define FLEXCOM7_USART_9BIT_WRITE_BUFFER_SIZE       (512U >> 1U)
 
 static uint8_t FLEXCOM7_USART_ReadBuffer[FLEXCOM7_USART_READ_BUFFER_SIZE];
-
-#define FLEXCOM7_USART_WRITE_BUFFER_SIZE            512
-#define FLEXCOM7_USART_WRITE_BUFFER_SIZE_9BIT       (512 >> 1)
-
 static uint8_t FLEXCOM7_USART_WriteBuffer[FLEXCOM7_USART_WRITE_BUFFER_SIZE];
 
 // *****************************************************************************
@@ -92,7 +97,7 @@ static uint8_t FLEXCOM7_USART_WriteBuffer[FLEXCOM7_USART_WRITE_BUFFER_SIZE];
 // *****************************************************************************
 // *****************************************************************************
 
-FLEXCOM_USART_RING_BUFFER_OBJECT flexcom7UsartObj;
+static FLEXCOM_USART_RING_BUFFER_OBJECT flexcom7UsartObj;
 
 void FLEXCOM7_USART_Initialize( void )
 {
@@ -112,7 +117,7 @@ void FLEXCOM7_USART_Initialize( void )
     FLEXCOM7_REGS->FLEX_US_CR = (FLEX_US_CR_TXEN_Msk | FLEX_US_CR_RXEN_Msk);
 
     /* Configure FLEXCOM7 USART mode */
-    FLEXCOM7_REGS->FLEX_US_MR = ( FLEX_US_MR_USART_MODE_NORMAL | FLEX_US_MR_USCLKS_MCK | FLEX_US_MR_CHRL_8_BIT | FLEX_US_MR_PAR_NO | FLEX_US_MR_NBSTOP_1_BIT | (0 << FLEX_US_MR_OVER_Pos));
+    FLEXCOM7_REGS->FLEX_US_MR = ( FLEX_US_MR_USART_MODE_NORMAL | FLEX_US_MR_USCLKS_MCK | FLEX_US_MR_CHRL_8_BIT | FLEX_US_MR_PAR_NO | FLEX_US_MR_NBSTOP_1_BIT | (0UL << FLEX_US_MR_OVER_Pos));
 
     /* Configure FLEXCOM7 USART Baud Rate */
     FLEXCOM7_REGS->FLEX_US_BRGR = FLEX_US_BRGR_CD(6) | FLEX_US_BRGR_FP(6);
@@ -134,10 +139,10 @@ void FLEXCOM7_USART_Initialize( void )
     flexcom7UsartObj.errorStatus = FLEXCOM_USART_ERROR_NONE;
     flexcom7UsartObj.isInterruptActive = false;
 
-    if (FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk)
+    if ((FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
     {
-        flexcom7UsartObj.rdBufferSize = FLEXCOM7_USART_READ_BUFFER_SIZE_9BIT;
-        flexcom7UsartObj.wrBufferSize = FLEXCOM7_USART_WRITE_BUFFER_SIZE_9BIT;
+        flexcom7UsartObj.rdBufferSize = FLEXCOM7_USART_9BIT_READ_BUFFER_SIZE;
+        flexcom7UsartObj.wrBufferSize = FLEXCOM7_USART_9BIT_WRITE_BUFFER_SIZE;
     }
     else
     {
@@ -150,28 +155,21 @@ void FLEXCOM7_USART_Initialize( void )
 
 void static FLEXCOM7_USART_ErrorClear( void )
 {
-    uint16_t dummyData = 0u;
-
     /* Clear the error flags */
     FLEXCOM7_REGS->FLEX_US_CR = FLEX_US_CR_RSTSTA_Msk;
 
     /* Flush existing error bytes from the RX FIFO */
-    while( FLEX_US_CSR_RXRDY_Msk == (FLEXCOM7_REGS->FLEX_US_CSR& FLEX_US_CSR_RXRDY_Msk) )
+    while((FLEXCOM7_REGS->FLEX_US_CSR & FLEX_US_CSR_RXRDY_Msk) != 0U)
     {
-        if (FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk)
+        if ((FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
         {
-            dummyData = *((uint16_t*)&FLEXCOM7_REGS->FLEX_US_RHR) & FLEX_US_RHR_RXCHR_Msk;
+            (void)(FLEXCOM_USART_RHR_9BIT_REG);
         }
         else
         {
-            dummyData = *((uint8_t*)&FLEXCOM7_REGS->FLEX_US_RHR);
+            (void)(FLEXCOM_USART_RHR_8BIT_REG);
         }
     }
-
-    /* Ignore the warning */
-    (void)dummyData;
-
-    return;
 }
 
 FLEXCOM_USART_ERROR FLEXCOM7_USART_ErrorGet( void )
@@ -188,13 +186,13 @@ static void FLEXCOM7_USART_BaudCalculate(uint32_t srcClkFreq, uint32_t reqBaud, 
 {
     uint32_t actualBaud = 0;
 
-    *cd = srcClkFreq / (reqBaud * 8 * (2 - overSamp));
+    *cd = srcClkFreq / (reqBaud * 8U * (2U - (uint32_t)overSamp));
 
-    if (*cd > 0)
+    if (*cd > 0U)
     {
-        *fp = ((srcClkFreq / (reqBaud * (2 - overSamp))) - ((*cd) * 8));
-        actualBaud = (srcClkFreq / (((*cd) * 8) + (*fp))) / (2 - overSamp);
-        *baudError = ((100 * actualBaud)/reqBaud) - 100;
+        *fp = ((srcClkFreq / (reqBaud * (2U - (uint32_t)overSamp))) - ((*cd) * 8U));
+        actualBaud = (srcClkFreq / (((*cd) * 8U) + (*fp))) / (2U - overSamp);
+        *baudError = ((100U * actualBaud)/reqBaud) - 100U;
     }
 }
 
@@ -206,13 +204,13 @@ bool FLEXCOM7_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP *setup, uint32_t src
     uint32_t cd0, fp0, cd1, fp1, baudError0, baudError1;
     bool status = false;
 
-    cd0 = fp0 = cd1 = fp1 = baudError0 = baudError1 = 0;
+    cd0 = fp0 = cd1 = fp1 = baudError0 = baudError1 = 0U;
 
     if (setup != NULL)
     {
         baud = setup->baudRate;
 
-        if(srcClkFreq == 0)
+        if(srcClkFreq == 0U)
         {
             srcClkFreq = FLEXCOM7_USART_FrequencyGet();
         }
@@ -222,30 +220,30 @@ bool FLEXCOM7_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP *setup, uint32_t src
         FLEXCOM7_USART_BaudCalculate(srcClkFreq, baud, 0, &cd0, &fp0, &baudError0);
         FLEXCOM7_USART_BaudCalculate(srcClkFreq, baud, 1, &cd1, &fp1, &baudError1);
 
-        if ( !(cd0 > 0 && cd0 <= 65535) && !(cd1 > 0 && cd1 <= 65535) )
+        if ( (!(cd0 > 0U && cd0 <= 65535U)) && (!(cd1 > 0U && cd1 <= 65535U)) )
         {
             /* Requested baud cannot be generated with current clock settings */
             return status;
         }
 
-        if ( (cd0 > 0 && cd0 <= 65535) && (cd1 > 0 && cd1 <= 65535) )
+        if ( ((cd0 > 0U) && (cd0 <= 65535U)) && ((cd1 > 0U) && (cd1 <= 65535U)) )
         {
             /* Requested baud can be generated with both 8x and 16x oversampling. Select the one with less % error. */
             if (baudError1 < baudError0)
             {
                 cd0 = cd1;
                 fp0 = fp1;
-                overSampVal = (1 << FLEX_US_MR_OVER_Pos) & FLEX_US_MR_OVER_Msk;
+                overSampVal = (1UL << FLEX_US_MR_OVER_Pos) & FLEX_US_MR_OVER_Msk;
             }
         }
         else
         {
             /* Requested baud can be generated with either with 8x oversampling or with 16x oversampling. Select valid one. */
-            if (cd1 > 0 && cd1 <= 65535)
+            if ((cd1 > 0U) && (cd1 <= 65535U))
             {
                 cd0 = cd1;
                 fp0 = fp1;
-                overSampVal = (1 << FLEX_US_MR_OVER_Pos) & FLEX_US_MR_OVER_Msk;
+                overSampVal = (1UL << FLEX_US_MR_OVER_Pos) & FLEX_US_MR_OVER_Msk;
             }
         }
 
@@ -257,10 +255,10 @@ bool FLEXCOM7_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP *setup, uint32_t src
         /* Configure FLEXCOM7 USART Baud Rate */
         FLEXCOM7_REGS->FLEX_US_BRGR = FLEX_US_BRGR_CD(cd0) | FLEX_US_BRGR_FP(fp0);
 
-        if (FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk)
+        if ((FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
         {
-            flexcom7UsartObj.rdBufferSize = FLEXCOM7_USART_READ_BUFFER_SIZE_9BIT;
-            flexcom7UsartObj.wrBufferSize = FLEXCOM7_USART_WRITE_BUFFER_SIZE_9BIT;
+            flexcom7UsartObj.rdBufferSize = FLEXCOM7_USART_9BIT_READ_BUFFER_SIZE;
+            flexcom7UsartObj.wrBufferSize = FLEXCOM7_USART_9BIT_WRITE_BUFFER_SIZE;
         }
         else
         {
@@ -275,33 +273,34 @@ bool FLEXCOM7_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP *setup, uint32_t src
 }
 
 /* This routine is only called from ISR. Hence do not disable/enable USART interrupts. */
-static bool FLEXCOM7_USART_TxPullByte(uint16_t* pWrByte)
+static bool FLEXCOM7_USART_TxPullByte(void* pWrData)
 {
     bool isSuccess = false;
     uint32_t wrOutIndex = flexcom7UsartObj.wrOutIndex;
     uint32_t wrInIndex = flexcom7UsartObj.wrInIndex;
-
+    uint8_t* pWrByte = (uint8_t*)pWrData;
     if (wrOutIndex != wrInIndex)
     {
-        if (FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk)
+        if ((FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
         {
-            *pWrByte = ((uint16_t*)&FLEXCOM7_USART_WriteBuffer)[wrOutIndex++];
+            uint32_t wrOutIdx = wrOutIndex << 1U;
+            pWrByte[0] = FLEXCOM7_USART_WriteBuffer[wrOutIdx];
+            pWrByte[1] = FLEXCOM7_USART_WriteBuffer[wrOutIdx + 1U];
         }
         else
         {
-            *pWrByte = FLEXCOM7_USART_WriteBuffer[wrOutIndex++];
+            *pWrByte = FLEXCOM7_USART_WriteBuffer[wrOutIndex];
         }
+        wrOutIndex++;
 
         if (wrOutIndex >= flexcom7UsartObj.wrBufferSize)
         {
-            wrOutIndex = 0;
+            wrOutIndex = 0U;
         }
 
         flexcom7UsartObj.wrOutIndex = wrOutIndex;
-
         isSuccess = true;
     }
-
     return isSuccess;
 }
 
@@ -316,17 +315,18 @@ static inline bool FLEXCOM7_USART_TxPushByte(uint16_t wrByte)
     wrOutIndex = flexcom7UsartObj.wrOutIndex;
     wrInIndex = flexcom7UsartObj.wrInIndex;
 
-    tempInIndex = wrInIndex + 1;
-
+    tempInIndex = wrInIndex + 1U;
     if (tempInIndex >= flexcom7UsartObj.wrBufferSize)
     {
-        tempInIndex = 0;
+        tempInIndex = 0U;
     }
     if (tempInIndex != wrOutIndex)
     {
-        if (FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk)
+        if ((FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
         {
-            ((uint16_t*)&FLEXCOM7_USART_WriteBuffer)[wrInIndex] = wrByte;
+            uint32_t wrInIdx = wrInIndex << 1U;
+            FLEXCOM7_USART_WriteBuffer[wrInIdx] = (uint8_t)wrByte;
+            FLEXCOM7_USART_WriteBuffer[wrInIdx + 1U] = (uint8_t)(wrByte >> 8U);
         }
         else
         {
@@ -340,12 +340,11 @@ static inline bool FLEXCOM7_USART_TxPushByte(uint16_t wrByte)
     {
         /* Queue is full. Report Error. */
     }
-
     return isSuccess;
 }
 
 /* This routine is only called from ISR. Hence do not disable/enable USART interrupts. */
-static void FLEXCOM7_USART_WriteNotificationSend(void)
+static void FLEXCOM7_USART_SendWriteNotification(void)
 {
     uint32_t nFreeWrBufferCount;
 
@@ -409,9 +408,12 @@ size_t FLEXCOM7_USART_Write(uint8_t* pWrBuffer, const size_t size )
 
     while (nBytesWritten < size)
     {
-        if (FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk)
+        if ((FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
         {
-            if (FLEXCOM7_USART_TxPushByte(((uint16_t*)pWrBuffer)[nBytesWritten]) == true)
+            uint16_t halfWordData = (uint16_t)(pWrBuffer[(2U * nBytesWritten) + 1U]);
+            halfWordData <<= 8U;
+            halfWordData |= (uint16_t)pWrBuffer[2U * nBytesWritten];
+            if (FLEXCOM7_USART_TxPushByte(halfWordData) == true)
             {
                 nBytesWritten++;
             }
@@ -436,7 +438,7 @@ size_t FLEXCOM7_USART_Write(uint8_t* pWrBuffer, const size_t size )
     }
 
     /* Check if any data is pending for transmission */
-    if (FLEXCOM7_USART_WritePendingBytesGet() > 0)
+    if (FLEXCOM7_USART_WritePendingBytesGet() > 0U)
     {
         /* Enable TX interrupt as data is pending for transmission */
         FLEXCOM7_USART_TX_INT_ENABLE();
@@ -447,19 +449,19 @@ size_t FLEXCOM7_USART_Write(uint8_t* pWrBuffer, const size_t size )
 
 size_t FLEXCOM7_USART_WriteFreeBufferCountGet(void)
 {
-    return (flexcom7UsartObj.wrBufferSize - 1) - FLEXCOM7_USART_WriteCountGet();
+    return (flexcom7UsartObj.wrBufferSize - 1U) - FLEXCOM7_USART_WriteCountGet();
 }
 
 size_t FLEXCOM7_USART_WriteBufferSizeGet(void)
 {
-    return (flexcom7UsartObj.wrBufferSize - 1);
+    return (flexcom7UsartObj.wrBufferSize - 1U);
 }
 
 bool FLEXCOM7_USART_TransmitComplete(void)
 {
     bool status = false;
 
-    if (FLEXCOM7_REGS->FLEX_US_CSR & FLEX_US_CSR_TXEMPTY_Msk)
+    if ((FLEXCOM7_REGS->FLEX_US_CSR & FLEX_US_CSR_TXEMPTY_Msk) != 0U)
     {
         status = true;
     }
@@ -480,7 +482,7 @@ bool FLEXCOM7_USART_WriteNotificationEnable(bool isEnabled, bool isPersistent)
 
 void FLEXCOM7_USART_WriteThresholdSet(uint32_t nBytesThreshold)
 {
-    if (nBytesThreshold > 0)
+    if (nBytesThreshold > 0U)
     {
         flexcom7UsartObj.wrThreshold = nBytesThreshold;
     }
@@ -499,11 +501,11 @@ static inline bool FLEXCOM7_USART_RxPushByte(uint16_t rdByte)
     uint32_t tempInIndex;
     bool isSuccess = false;
 
-    tempInIndex = flexcom7UsartObj.rdInIndex + 1;
+    tempInIndex = flexcom7UsartObj.rdInIndex + 1U;
 
     if (tempInIndex >= flexcom7UsartObj.rdBufferSize)
     {
-        tempInIndex = 0;
+        tempInIndex = 0U;
     }
 
     if (tempInIndex == flexcom7UsartObj.rdOutIndex)
@@ -514,11 +516,11 @@ static inline bool FLEXCOM7_USART_RxPushByte(uint16_t rdByte)
             flexcom7UsartObj.rdCallback(FLEXCOM_USART_EVENT_READ_BUFFER_FULL, flexcom7UsartObj.rdContext);
 
             /* Read the indices again in case application has freed up space in RX ring buffer */
-            tempInIndex = flexcom7UsartObj.rdInIndex + 1;
+            tempInIndex = flexcom7UsartObj.rdInIndex + 1U;
 
             if (tempInIndex >= flexcom7UsartObj.rdBufferSize)
             {
-                tempInIndex = 0;
+                tempInIndex = 0U;
             }
         }
     }
@@ -526,9 +528,11 @@ static inline bool FLEXCOM7_USART_RxPushByte(uint16_t rdByte)
     /* Attempt to push the data into the ring buffer */
     if (tempInIndex != flexcom7UsartObj.rdOutIndex)
     {
-        if (FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk)
+        if ((FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
         {
-            ((uint16_t*)&FLEXCOM7_USART_ReadBuffer)[flexcom7UsartObj.rdInIndex] = rdByte;
+            uint32_t rdInIdx = flexcom7UsartObj.rdInIndex << 1U;
+            FLEXCOM7_USART_ReadBuffer[rdInIdx] = (uint8_t)rdByte;
+            FLEXCOM7_USART_ReadBuffer[rdInIdx + 1U] = (uint8_t)(rdByte >> 8U);
         }
         else
         {
@@ -547,7 +551,7 @@ static inline bool FLEXCOM7_USART_RxPushByte(uint16_t rdByte)
 }
 
 /* This routine is only called from ISR. Hence do not disable/enable USART interrupts. */
-static void FLEXCOM7_USART_ReadNotificationSend(void)
+static void FLEXCOM7_USART_SendReadNotification(void)
 {
     uint32_t nUnreadBytesAvailable;
 
@@ -581,12 +585,13 @@ size_t FLEXCOM7_USART_Read(uint8_t* pRdBuffer, const size_t size)
     uint32_t rdOutIndex = 0;
     uint32_t rdInIndex = 0;
 
-    if ((flexcom7UsartObj.isInterruptActive == false) && (FLEXCOM7_REGS->FLEX_US_CSR & FLEX_US_CSR_RXRDY_Msk))
+    if ((flexcom7UsartObj.isInterruptActive == false) && ((FLEXCOM7_REGS->FLEX_US_CSR & FLEX_US_CSR_RXRDY_Msk) != 0U))
     {
         FLEXCOM7_REGS->FLEX_US_IER = FLEX_US_IER_RXRDY_Msk;
-
-        while (FLEXCOM7_REGS->FLEX_US_CSR & FLEX_US_CSR_RXRDY_Msk);
-
+        while ((FLEXCOM7_REGS->FLEX_US_CSR & FLEX_US_CSR_RXRDY_Msk) != 0U)
+        {
+            /* Wait for RXRDY flag */
+        }
         FLEXCOM7_REGS->FLEX_US_IDR = FLEX_US_IDR_RXRDY_Msk;
     }
 
@@ -598,18 +603,24 @@ size_t FLEXCOM7_USART_Read(uint8_t* pRdBuffer, const size_t size)
     {
         if (rdOutIndex != rdInIndex)
         {
-            if (FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk)
+            if ((FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
             {
-                ((uint16_t*)pRdBuffer)[nBytesRead++] = ((uint16_t*)&FLEXCOM7_USART_ReadBuffer)[rdOutIndex++];
+                uint32_t rdOutIdx = rdOutIndex << 1U;
+                uint32_t nBytesReadIdx = nBytesRead << 1U;
+                pRdBuffer[nBytesReadIdx] = FLEXCOM7_USART_ReadBuffer[rdOutIdx];
+                pRdBuffer[nBytesReadIdx + 1U] = FLEXCOM7_USART_ReadBuffer[rdOutIdx + 1U];
+                nBytesRead++;
+                rdOutIndex++;
             }
             else
             {
-                pRdBuffer[nBytesRead++] = FLEXCOM7_USART_ReadBuffer[rdOutIndex++];
+                pRdBuffer[nBytesRead++] = FLEXCOM7_USART_ReadBuffer[rdOutIndex];
+                rdOutIndex++;
             }
 
             if (rdOutIndex >= flexcom7UsartObj.rdBufferSize)
             {
-                rdOutIndex = 0;
+                rdOutIndex = 0U;
             }
         }
         else
@@ -630,11 +641,14 @@ size_t FLEXCOM7_USART_ReadCountGet(void)
     uint32_t rdOutIndex;
     uint32_t rdInIndex;
 
-    if ((flexcom7UsartObj.isInterruptActive == false) && (FLEXCOM7_REGS->FLEX_US_CSR & FLEX_US_CSR_RXRDY_Msk))
+    if ((flexcom7UsartObj.isInterruptActive == false) && ((FLEXCOM7_REGS->FLEX_US_CSR & FLEX_US_CSR_RXRDY_Msk) != 0U))
     {
         FLEXCOM7_REGS->FLEX_US_IER = FLEX_US_IER_RXRDY_Msk;
 
-        while (FLEXCOM7_REGS->FLEX_US_CSR & FLEX_US_CSR_RXRDY_Msk);
+        while ((FLEXCOM7_REGS->FLEX_US_CSR & FLEX_US_CSR_RXRDY_Msk) != 0U)
+        {
+            /* Wait for RXRDY flag */
+        }
 
         FLEXCOM7_REGS->FLEX_US_IDR = FLEX_US_IDR_RXRDY_Msk;
     }
@@ -657,12 +671,12 @@ size_t FLEXCOM7_USART_ReadCountGet(void)
 
 size_t FLEXCOM7_USART_ReadFreeBufferCountGet(void)
 {
-    return (flexcom7UsartObj.rdBufferSize - 1) - FLEXCOM7_USART_ReadCountGet();
+    return (flexcom7UsartObj.rdBufferSize - 1U) - FLEXCOM7_USART_ReadCountGet();
 }
 
 size_t FLEXCOM7_USART_ReadBufferSizeGet(void)
 {
-    return (flexcom7UsartObj.rdBufferSize - 1);
+    return (flexcom7UsartObj.rdBufferSize - 1U);
 }
 
 static void FLEXCOM7_USART_UpdateRXFIFOThreshold(void)
@@ -712,7 +726,7 @@ bool FLEXCOM7_USART_ReadNotificationEnable(bool isEnabled, bool isPersistent)
 
 void FLEXCOM7_USART_ReadThresholdSet(uint32_t nBytesThreshold)
 {
-    if (nBytesThreshold > 0)
+    if (nBytesThreshold > 0U)
     {
         flexcom7UsartObj.rdThreshold = nBytesThreshold;
 
@@ -734,18 +748,18 @@ void static FLEXCOM7_USART_ISR_RX_Handler( void )
     /* Keep reading until there is a character availabe in the RX FIFO */
     while(FLEX_US_CSR_RXRDY_Msk == (FLEXCOM7_REGS->FLEX_US_CSR & FLEX_US_CSR_RXRDY_Msk))
     {
-        if (FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk)
+        if ((FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
         {
-            rdData = *((uint16_t*)&FLEXCOM7_REGS->FLEX_US_RHR) & FLEX_US_RHR_RXCHR_Msk;
+            rdData = FLEXCOM_USART_RHR_9BIT_REG & (uint16_t)FLEX_US_RHR_RXCHR_Msk;
         }
         else
         {
-            rdData = *((uint8_t*)&FLEXCOM7_REGS->FLEX_US_RHR);
+            rdData = (uint8_t)FLEXCOM_USART_RHR_8BIT_REG;
         }
 
         if (FLEXCOM7_USART_RxPushByte( rdData ) == true)
         {
-            FLEXCOM7_USART_ReadNotificationSend();
+            FLEXCOM7_USART_SendReadNotification();
         }
         else
         {
@@ -766,17 +780,17 @@ void static FLEXCOM7_USART_ISR_TX_Handler( void )
     {
         if (FLEXCOM7_USART_TxPullByte(&wrByte) == true)
         {
-            if (FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk)
+            if ((FLEXCOM7_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
             {
-                *((uint16_t*)&FLEXCOM7_REGS->FLEX_US_THR) = wrByte & FLEX_US_THR_TXCHR_Msk;
+                FLEXCOM_USART_THR_9BIT_REG = wrByte & (uint16_t)FLEX_US_THR_TXCHR_Msk;
             }
             else
             {
-                *((uint8_t*)&FLEXCOM7_REGS->FLEX_US_THR) = (uint8_t)wrByte;
+                FLEXCOM_USART_THR_8BIT_REG = (uint8_t)wrByte;
             }
 
             /* Send notification */
-            FLEXCOM7_USART_WriteNotificationSend();
+            FLEXCOM7_USART_SendWriteNotification();
         }
         else
         {
@@ -804,7 +818,7 @@ void FLEXCOM7_InterruptHandler( void )
 
     flexcom7UsartObj.isInterruptActive = true;
 
-    if(errorStatus != 0)
+    if(errorStatus != 0U)
     {
         /* Save the error so that it can be reported when application calls the FLEXCOM7_USART_ErrorGet() API */
         flexcom7UsartObj.errorStatus = (FLEXCOM_USART_ERROR)errorStatus;

@@ -112,6 +112,12 @@ extern "C" {
 #endif
 // DOM-IGNORE-END
 
+/* Device Information */
+#define DEVICE_NAME			 "PIC32CX2051MTG128"
+#define DEVICE_ARCH			 "CORTEX-M4"
+#define DEVICE_FAMILY		 "PIC32CX_MT"
+#define DEVICE_SERIES		 "PIC32CXMTG"
+
 /* CPU clock frequency */
 #define CPU_CLOCK_FREQUENCY 200000000
 

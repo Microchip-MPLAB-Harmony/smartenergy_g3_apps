@@ -132,6 +132,14 @@ typedef enum
 
 } WAITMODE_FLASH_STATE;
 
+typedef void (*SUPC_CALLBACK)(uint32_t supc_status, uintptr_t context);
+
+typedef struct
+{
+    SUPC_CALLBACK callback;
+    uintptr_t     context;
+} SUPC_OBJECT;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Interface Routines
@@ -145,6 +153,8 @@ void SUPC_SleepModeEnter(void);
 void SUPC_WaitModeEnter(WAITMODE_FLASH_STATE flash_lpm, WAITMODE_WKUP_SOURCE source);
 
 void SUPC_BackupModeEnter(void);
+
+void SUPC_CallbackRegister(SUPC_CALLBACK callback, uintptr_t context);
 
 uint32_t SUPC_GPBRRead(GPBR_REGS_INDEX reg);
 
