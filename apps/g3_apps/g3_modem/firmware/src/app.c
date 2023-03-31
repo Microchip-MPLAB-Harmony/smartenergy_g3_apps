@@ -27,11 +27,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#include "app.h"
-#include "stack/g3/adaptation/adp_serial.h"
-#include "peripheral/rstc/plib_rstc.h"
-#include "peripheral/supc/plib_supc.h"
-#include "system/debug/sys_debug.h"
+#include <string.h>
+#include "definitions.h"
 #include "user.h"
 
 // *****************************************************************************
@@ -114,7 +111,8 @@ static void _SUPC_PowerDownCallback(uint32_t supc_status, uintptr_t context)
             /* Write non-volatile data in User Signature. Put key in first 32
              * bits. */
             userSignatureData[0] = APP_NON_VOLATILE_DATA_KEY_USER_SIGNATURE;
-            memcpy(&userSignatureData[1], context, sizeof(ADP_NON_VOLATILE_DATA_IND_PARAMS));
+            memcpy(&userSignatureData[1], (const void*) context,
+                    sizeof(ADP_NON_VOLATILE_DATA_IND_PARAMS));
             SEFC0_UserSignatureWrite(userSignatureData,
                 APP_NON_VOLATILE_DATA_USER_SIGNATURE_SIZE, BLOCK_0, PAGE_0);
         }

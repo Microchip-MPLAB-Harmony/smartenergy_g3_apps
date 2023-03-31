@@ -50,7 +50,6 @@
 // *****************************************************************************
 #include "adp_shared_types.h"
 #include "adp_api_types.h"
-#include "stack/g3/mac/mac_wrapper/mac_wrapper_defs.h"
 #include "system/system.h"
 
 // DOM-IGNORE-BEGIN
@@ -1366,7 +1365,7 @@ void ADP_Tasks(SYS_MODULE_OBJ object);
 
 // *****************************************************************************
 /* Function:
-    void ADP_Open(MAC_WRP_BAND band)
+    void ADP_Open(ADP_PLC_BAND band)
 
   Summary:
     Opens the ADP module and starts the process that makes it ready for clients
@@ -1392,7 +1391,7 @@ void ADP_Tasks(SYS_MODULE_OBJ object);
 
   Example:
     <code>
-    ADP_Open(MAC_WRP_BAND_CENELEC_A);
+    ADP_Open(ADP_BAND_CENELEC_A);
     </code>
 
   Remarks:
@@ -1401,7 +1400,7 @@ void ADP_Tasks(SYS_MODULE_OBJ object);
     After calling this function, ADP_Status must be used to check if it is ready
     before calling any other ADP API function.
 */
-void ADP_Open(MAC_WRP_BAND band);
+void ADP_Open(ADP_PLC_BAND band);
 
 // *****************************************************************************
 /* Function:
@@ -1588,6 +1587,54 @@ void ADP_SetManagementNotifications(ADP_MANAGEMENT_NOTIFICATIONS* pNotifications
     None.
 */
 void ADP_SetNotificationsToLbp(ADP_NOTIFICATIONS_TO_LBP* pNotifications);
+
+// *****************************************************************************
+/* Function:
+    ADP_AVAILABLE_MAC_LAYERS ADP_GetAvailableMacLayers
+    (
+      void
+    )
+
+  Summary:
+    The ADP_GetAvailableMacLayers primitive gets the available MAC layer(s).
+
+  Description:
+    G3 projects may include PLC MAC, RF MAC, or both. This funtion allows upper
+    layers to get which MAC layer(s) is/are available at runtime.
+
+  Precondition:
+    ADP_Initialize and ADP_Open must have been called before.
+
+  Parameters:
+    None
+
+  Returns:
+    Mac layer availability as an ADP_AVAILABLE_MAC_LAYERS enumerated value.
+
+  Example:
+    <code>
+    // ...
+    ADP_Open(ADP_BAND_CENELEC_A);
+    // ...
+
+    ADP_AVAILABLE_MAC_LAYERS availableLayers;
+    availableLayers = ADP_GetAvailableMacLayers();
+
+    if (availableLayers == ADP_AVAILABLE_MAC_PLC) {
+      // Only PLC MAC available
+    }
+    else if (availableLayers == ADP_AVAILABLE_MAC_RF) {
+      // Only RF MAC available
+    }
+    else {
+      // Both MAC layers available
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
+ADP_AVAILABLE_MAC_LAYERS ADP_GetAvailableMacLayers(void);
 
 // *****************************************************************************
 /* Function:

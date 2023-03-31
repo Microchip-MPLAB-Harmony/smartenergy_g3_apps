@@ -50,6 +50,7 @@
 // *****************************************************************************
 #include <stdint.h>
 #include <stdbool.h>
+#include "system/system.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -172,6 +173,48 @@ typedef struct
     uint8_t addrSize;
 
 } ADP_ADDRESS;
+
+// *****************************************************************************
+/* ADP PLC Bands Definition
+
+   Summary:
+    Identifies the possible PLC bands.
+
+   Description:
+    This enumeration identifies the list of Bands that can be used in PLC
+    lower layers, it is set upon ADP_Open and propagated to lower layers.
+
+   Remarks:
+    None.
+*/
+typedef enum {
+    ADP_BAND_CENELEC_A = 0,
+    ADP_BAND_CENELEC_B = 1,
+    ADP_BAND_FCC = 2,
+    ADP_BAND_ARIB = 3
+
+} ADP_PLC_BAND;
+
+// *****************************************************************************
+/* ADP Available MAC layers
+
+   Summary:
+    Defines the possible values for MAC layers availability.
+
+   Description:
+    This enumeration identifies the availability of MAC layers, so upper layers
+    may know in advance which MAC layer(s) are available below.
+
+   Remarks:
+    None.
+*/
+typedef enum
+{
+    ADP_AVAILABLE_MAC_PLC = 0x00,
+    ADP_AVAILABLE_MAC_RF = 0x01,
+    ADP_AVAILABLE_MAC_BOTH = 0x02
+
+} ADP_AVAILABLE_MAC_LAYERS;
 
 // *****************************************************************************
 /* ADP PAN Descriptior Definition

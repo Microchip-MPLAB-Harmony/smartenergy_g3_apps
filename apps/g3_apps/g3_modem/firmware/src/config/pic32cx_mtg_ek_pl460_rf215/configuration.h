@@ -199,6 +199,7 @@ extern "C" {
 #define WOLFSSL_AES_OFB
 #define HAVE_AESGCM
 #define HAVE_AESCCM
+#define WOLFSSL_CMAC
 #define NO_RC4
 #define NO_HC128
 #define NO_RABBIT

@@ -270,7 +270,7 @@ static void _StringifyRouteNotFoundIndication(ADP_ROUTE_NOT_FOUND_IND_PARAMS* pR
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pRouteNotFoundInd->compressedHeader);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pRouteNotFoundInd->nsduLength >> 8);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pRouteNotFoundInd->nsduLength;
-    memcpy(&adpSerialRspBuffer[serialRspLen], pRouteNotFoundInd->nsdu, pRouteNotFoundInd->nsduLength);
+    memcpy(&adpSerialRspBuffer[serialRspLen], pRouteNotFoundInd->pNsdu, pRouteNotFoundInd->nsduLength);
     serialRspLen += pRouteNotFoundInd->nsduLength;
 
     /* Send through USI */
@@ -284,7 +284,7 @@ static void _StringifyDataConfirm(ADP_DATA_CFM_PARAMS* pDataCfm)
     /* Fill serial response buffer */
     adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_DATA_CONFIRM;
     adpSerialRspBuffer[serialRspLen++] = pDataCfm->status;
-    adpSerialRspBuffer[serialRspLen++] = pDataCfm->nsduHandle;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) pDataCfm->nsduHandle;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
@@ -299,7 +299,7 @@ static void _StringifyDataIndication(ADP_DATA_IND_PARAMS* pDataInd)
     adpSerialRspBuffer[serialRspLen++] = pDataInd->linkQualityIndicator;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pDataInd->nsduLength >> 8);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pDataInd->nsduLength;
-    memcpy(&adpSerialRspBuffer[serialRspLen], pDataInd->m_pNsdu, pDataInd->nsduLength);
+    memcpy(&adpSerialRspBuffer[serialRspLen], pDataInd->pNsdu, pDataInd->nsduLength);
     serialRspLen += pDataInd->nsduLength;
 
     /* Send through USI */
@@ -451,7 +451,7 @@ static void _StringifySetConfirm(ADP_SET_CFM_PARAMS* pSetCfm)
 
     /* Fill serial response buffer */
     adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_SET_CONFIRM;
-    adpSerialRspBuffer[serialRspLen++] = status;
+    adpSerialRspBuffer[serialRspLen++] = pSetCfm->status;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pSetCfm->attributeId >> 24);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pSetCfm->attributeId >> 16);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pSetCfm->attributeId >> 8);
@@ -798,10 +798,10 @@ static ADP_SERIAL_STATUS _ParseInitialize(uint8_t* pData)
     ADP_MANAGEMENT_NOTIFICATIONS adpMngNotifications;
     LBP_NOTIFICATIONS_DEV lbpDevNotifications;
     LBP_NOTIFICATIONS_COORD lbpCoordNotifications;
-    MAC_WRP_BAND band;    
+    ADP_PLC_BAND band;
 
     /* Parse initialize message */
-    band = (MAC_WRP_BAND) pData[0];
+    band = (ADP_PLC_BAND) pData[0];
     adpSerialAribBand = (bool) (band == ADP_BAND_ARIB);
     adpSerialCoord = (bool) (pData[1] != 0);
 
@@ -857,18 +857,19 @@ static ADP_SERIAL_STATUS _ParseInitialize(uint8_t* pData)
 static ADP_SERIAL_STATUS _ParseDataRequest(uint8_t* pData)
 {
     const uint8_t *nsdu;
+    uintptr_t nsduHandle;
     uint16_t nsduLength;
-    uint8_t nsduHandle, qualityOfService;
+    uint8_t qualityOfService;
     bool discoverRoute;
 
-    if (ADP_Status() != SYS_STATUS_READY)
+    if (ADP_Status() < ADP_STATUS_READY)
     {
         /* ADP not initialized */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
     }
 
     /* Parse data request message */
-    nsduHandle = *pData++;
+    nsduHandle = (uintptr_t) *pData++;
     discoverRoute = (bool) *pData++;
     qualityOfService = *pData++;
     nsduLength = ((uint16_t) *pData++) << 8;
@@ -884,11 +885,12 @@ static ADP_SERIAL_STATUS _ParseDataRequest(uint8_t* pData)
 static ADP_SERIAL_STATUS _ParseNoIPDataRequest(uint8_t* pData)
 {
     const uint8_t *nsdu;
+    uintptr_t nsduHandle;
     uint16_t dstAddr, nsduLength;
-    uint8_t nsduHandle, qualityOfService;
+    uint8_t qualityOfService;
     bool discoverRoute;    
 
-    if (ADP_Status() != SYS_STATUS_READY)
+    if (ADP_Status() < ADP_STATUS_READY)
     {
         /* ADP not initialized */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -897,7 +899,7 @@ static ADP_SERIAL_STATUS _ParseNoIPDataRequest(uint8_t* pData)
     /* Parse no IP data request message */
     dstAddr = ((uint16_t) *pData++) << 8;
     dstAddr += (uint16_t) *pData++;
-    nsduHandle = *pData++;
+    nsduHandle = (uintptr_t) *pData++;
     discoverRoute = (bool) *pData++;
     qualityOfService = *pData++;
     nsduLength = ((uint16_t) *pData++) << 8;
@@ -912,7 +914,7 @@ static ADP_SERIAL_STATUS _ParseNoIPDataRequest(uint8_t* pData)
 
 static ADP_SERIAL_STATUS _ParseDiscoveryRequest(uint8_t* pData)
 {
-    if (ADP_Status() != SYS_STATUS_READY)
+    if (ADP_Status() < ADP_STATUS_READY)
     {
         /* ADP not initialized */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -928,7 +930,7 @@ static ADP_SERIAL_STATUS _ParseNetworkStartRequest(uint8_t* pData)
 {
     uint16_t panId;
 
-    if ((ADP_Status() != SYS_STATUS_READY) || (adpSerialCoord == false))
+    if ((ADP_Status() < ADP_STATUS_READY) || (adpSerialCoord == false))
     {
         /* ADP not initialized or LBP initialized as device */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -949,7 +951,7 @@ static ADP_SERIAL_STATUS _ParseNetworkJoinRequest(uint8_t* pData)
     uint16_t panId, lbaAddress;
     uint8_t mediaType;
 
-    if ((ADP_Status() != SYS_STATUS_READY) || (adpSerialCoord == true))
+    if ((ADP_Status() < ADP_STATUS_READY) || (adpSerialCoord == true))
     {
         /* ADP not initialized or LBP initialized as coordinator */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -970,7 +972,7 @@ static ADP_SERIAL_STATUS _ParseNetworkJoinRequest(uint8_t* pData)
 
 static ADP_SERIAL_STATUS _ParseNetworkLeaveRequest(uint8_t* pData)
 {
-    if ((ADP_Status() != SYS_STATUS_READY) || (adpSerialCoord == true))
+    if ((ADP_Status() < ADP_STATUS_READY) || (adpSerialCoord == true))
     {
         /* ADP not initialized or LBP initialized as coordinator */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -984,7 +986,7 @@ static ADP_SERIAL_STATUS _ParseNetworkLeaveRequest(uint8_t* pData)
 
 static ADP_SERIAL_STATUS _ParseResetRequest(uint8_t* pData)
 {
-    if (ADP_Status() != SYS_STATUS_READY)
+    if (ADP_Status() < ADP_STATUS_READY)
     {
         /* ADP not initialized */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -1004,7 +1006,7 @@ static ADP_SERIAL_STATUS _ParseAdpSetRequest(uint8_t* pData)
     uint8_t prefixLenghBytes, attributeLength, contextLength;
     uint8_t attributeLengthCnt = 0;
 
-    if (ADP_Status() != SYS_STATUS_READY)
+    if (ADP_Status() < ADP_STATUS_READY)
     {
         /* ADP not initialized */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -1111,6 +1113,7 @@ static ADP_SERIAL_STATUS _ParseAdpSetRequest(uint8_t* pData)
         case ADP_IB_MANUF_BLACKLIST_TABLE_COUNT:
         case ADP_IB_MANUF_PAN_ID:
         case ADP_IB_MANUF_SHORT_ADDRESS:
+        case ADP_IB_GROUP_TABLE:
             _memcpyFromUsiEndianessUint16(attributeValue, pData);
             break;
 
@@ -1188,11 +1191,6 @@ static ADP_SERIAL_STATUS _ParseAdpSetRequest(uint8_t* pData)
             }
             break;
 
-        case ADP_IB_GROUP_TABLE:
-            /* groupAddress */
-            _memcpyFromUsiEndianessUint16(attributeValue, pData);
-            break;
-
         case ADP_IB_BLACKLIST_TABLE:
             /* addr */
             _memcpyFromUsiEndianessUint16(attributeValue, pData);
@@ -1239,7 +1237,7 @@ static ADP_SERIAL_STATUS _ParseAdpGetRequest(uint8_t* pData)
     uint32_t attributeId;
     uint16_t attributeIndex;
     
-    if (ADP_Status() != SYS_STATUS_READY)
+    if (ADP_Status() < ADP_STATUS_READY)
     {
         /* ADP not initialized */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -1259,7 +1257,7 @@ static ADP_SERIAL_STATUS _ParseRouteDiscoveryRequest(uint8_t* pData)
     uint16_t dstAddr;
     uint8_t maxHops;
 
-    if (ADP_Status() != SYS_STATUS_READY)
+    if (ADP_Status() < ADP_STATUS_READY)
     {
         /* ADP not initialized */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -1285,7 +1283,7 @@ static ADP_SERIAL_STATUS _ParseMacSetRequest(uint8_t* pData)
     uint16_t attributeIndex;    
     uint8_t serialRspLen = 0;
 
-    if (ADP_Status() != SYS_STATUS_READY)
+    if (ADP_Status() < ADP_STATUS_READY)
     {
         /* ADP not initialized */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -1311,7 +1309,7 @@ static ADP_SERIAL_STATUS _ParseMacSetRequest(uint8_t* pData)
 
 static ADP_SERIAL_STATUS _ParseMacGetRequest(uint8_t* pData)
 {
-    ADP_GET_CFM_PARAMS getConfirm;
+    ADP_MAC_GET_CFM_PARAMS getConfirm;
     MAC_WRP_PIB_ATTRIBUTE macAttribute;
     MAC_WRP_STATUS getStatus;
     uint8_t* pibValue;
@@ -1320,7 +1318,7 @@ static ADP_SERIAL_STATUS _ParseMacGetRequest(uint8_t* pData)
     uint8_t pibLength;
     uint8_t serialRspLen = 0;
 
-    if (ADP_Status() != SYS_STATUS_READY)
+    if (ADP_Status() < ADP_STATUS_READY)
     {
         /* ADP not initialized */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -1338,7 +1336,7 @@ static ADP_SERIAL_STATUS _ParseMacGetRequest(uint8_t* pData)
     macAttribute = (MAC_WRP_PIB_ATTRIBUTE) attributeId;
     pibValue = getConfirm.attributeValue;
     pibLength = getConfirm.attributeLength;
-    serialRspLen += MAC_WRP_SerialStringifyGetConfirm(&serialRspBuffer[serialRspLen],
+    serialRspLen += MAC_WRP_SerialStringifyGetConfirm(&adpSerialRspBuffer[serialRspLen],
             getStatus, macAttribute, attributeIndex, pibValue, pibLength);
 
     /* Send get confirm through USI */
@@ -1352,7 +1350,7 @@ static ADP_SERIAL_STATUS _ParsePathDiscoveryRequest(uint8_t* pData)
     uint16_t dstAddr;
     uint8_t metricType;
 
-    if (ADP_Status() != SYS_STATUS_READY)
+    if (ADP_Status() < ADP_STATUS_READY)
     {
         /* ADP not initialized */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -1374,11 +1372,11 @@ static ADP_SERIAL_STATUS _ParseLbpSetRequest(uint8_t* pData)
     LBP_SET_PARAM_CONFIRM setConfirm;
     uint32_t attributeId;
     uint16_t attributeIndex;
+    uint8_t attributeValue[LBP_NETWORK_ACCESS_ID_SIZE_P_ARIB];
     uint8_t attributeLength;
-    uint8_t attributeLengthCnt = 0;
     uint8_t serialRspLen = 0;
 
-    if (ADP_Status() != SYS_STATUS_READY)
+    if (ADP_Status() < ADP_STATUS_READY)
     {
         /* ADP not initialized */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -1402,36 +1400,12 @@ static ADP_SERIAL_STATUS _ParseLbpSetRequest(uint8_t* pData)
 
         /* Tables and lists */
         case LBP_IB_IDS:
-            if (adpSerialAribBand == true)
-            {
-                attributeLengthCnt = LBP_NETWORK_ACCESS_ID_SIZE_S_ARIB;
-            }
-            else
-            {
-                attributeLengthCnt = LBP_NETWORK_ACCESS_ID_SIZE_S_CENELEC_FCC;
-            }
-
-            memcpy(attributeValue, pData, attributeLengthCnt);
-            break;
-
         case LBP_IB_IDP:
-            if (adpSerialAribBand == true)
-            {
-                attributeLengthCnt = LBP_NETWORK_ACCESS_ID_SIZE_P_ARIB;
-            }
-            else
-            {
-                attributeLengthCnt = LBP_NETWORK_ACCESS_ID_SIZE_P_CENELEC_FCC;
-            }
-
-            memcpy(attributeValue, pData, attributeLengthCnt);
-            break;
-
         case LBP_IB_PSK:
         case LBP_IB_GMK:
         case LBP_IB_REKEY_GMK:
         case LBP_IB_RANDP:
-            memcpy(attributeValue, pData, 16);
+            memcpy(attributeValue, pData, attributeLength);
             break;
 
         default:
@@ -1441,11 +1415,11 @@ static ADP_SERIAL_STATUS _ParseLbpSetRequest(uint8_t* pData)
     /* Set LBP paramter */
     if (adpSerialCoord == true)
     {
-        LBP_SetParamCoord(attributeId, attributeIndex, attributeLengthCnt, attributeValue, &setConfirm);
+        LBP_SetParamCoord(attributeId, attributeIndex, attributeLength, attributeValue, &setConfirm);
     }
     else
     {
-        LBP_SetParamDev(attributeId, attributeIndex, attributeLengthCnt, attributeValue, &setConfirm);
+        LBP_SetParamDev(attributeId, attributeIndex, attributeLength, attributeValue, &setConfirm);
     }
 
     /* Fill serial response buffer */
@@ -1470,7 +1444,7 @@ static ADP_SERIAL_STATUS _ParseLbpDevForceRegister(uint8_t* pData)
     ADP_GROUP_MASTER_KEY* pGMK;
     uint16_t shortAddress, panId;
 
-    if ((ADP_Status() != SYS_STATUS_READY) || (adpSerialCoord == true))
+    if ((ADP_Status() < ADP_STATUS_READY) || (adpSerialCoord == true))
     {
         /* ADP not initialized or initialized as coordinator */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -1496,7 +1470,7 @@ static ADP_SERIAL_STATUS _ParseLbpCoordKickDevice(uint8_t* pData)
     ADP_EXTENDED_ADDRESS* pEUI64Address;
     uint16_t shortAddress;
 
-    if ((ADP_Status() != SYS_STATUS_READY) || (adpSerialCoord == false))
+    if ((ADP_Status() < ADP_STATUS_READY) || (adpSerialCoord == false))
     {
         /* ADP not initialized or initialized as device */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -1519,7 +1493,7 @@ static ADP_SERIAL_STATUS _ParseLbpCoordRekey(uint8_t* pData)
     uint16_t shortAddress;
     bool distribute;
 
-    if ((ADP_Status() != SYS_STATUS_READY) || (adpSerialCoord == false))
+    if ((ADP_Status() < ADP_STATUS_READY) || (adpSerialCoord == false))
     {
         /* ADP not initialized or initialized as device */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -1542,7 +1516,7 @@ static ADP_SERIAL_STATUS _ParseLbpCoordSetRekeyPhase(uint8_t* pData)
 {
     bool rekeyStart;
 
-    if ((ADP_Status() != SYS_STATUS_READY) || (adpSerialCoord == false))
+    if ((ADP_Status() < ADP_STATUS_READY) || (adpSerialCoord == false))
     {
         /* ADP not initialized or initialized as device */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
@@ -1559,31 +1533,31 @@ static ADP_SERIAL_STATUS _ParseLbpCoordSetRekeyPhase(uint8_t* pData)
 
 static ADP_SERIAL_STATUS _ParseLbpCoordActivateNewKey(uint8_t* pData)
 {
-    if ((ADP_Status() != SYS_STATUS_READY) || (adpSerialCoord == false))
+    if ((ADP_Status() < ADP_STATUS_READY) || (adpSerialCoord == false))
     {
         /* ADP not initialized or initialized as device */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
     }
 
     /* Send activate new key to LBP coordinator */
-    LBP_activate_new_key();
+    LBP_ActivateNewKey();
 
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
 static ADP_SERIAL_STATUS _ParseLbpCoordShortAddressAssign(uint8_t* pData)
 {
-    ADP_EXTENDED_ADDRESS* pEUI64Address;
+    uint8_t* pEUI64Address;
     uint16_t assignedAddress;
 
-    if ((ADP_Status() != SYS_STATUS_READY) || (adpSerialCoord == false))
+    if ((ADP_Status() < ADP_STATUS_READY) || (adpSerialCoord == false))
     {
         /* ADP not initialized or initialized as device */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
     }
 
     /* Parse LBP coordinator short address assign message */
-    pEUI64Address = (ADP_EXTENDED_ADDRESS*) pData;
+    pEUI64Address = pData;
     pData += 8;
     assignedAddress = ((uint16_t) *pData++) << 8;
     assignedAddress += (uint16_t) *pData;
@@ -1731,7 +1705,7 @@ SYS_MODULE_OBJ ADP_SERIAL_Initialize(const SYS_MODULE_INDEX index)
 
 void ADP_SERIAL_Tasks(SYS_MODULE_OBJ object)
 {
-    SYS_STATUS adpStatus;
+    ADP_STATUS adpStatus;
 
     if (object != (SYS_MODULE_OBJ) G3_ADP_SERIAL_INDEX_0)
     {
@@ -1749,7 +1723,7 @@ void ADP_SERIAL_Tasks(SYS_MODULE_OBJ object)
     /* Check ADP status */
     adpStatus = ADP_Status();
 
-    if ((adpSerialInitializing == true) && (adpStatus == SYS_STATUS_READY))
+    if ((adpSerialInitializing == true) && (adpStatus >= ADP_STATUS_READY))
     {
         adpSerialInitializing = false;
         if (adpSerialNotifications.setEUI64NonVolatileData != NULL)
@@ -1765,20 +1739,32 @@ void ADP_SERIAL_Tasks(SYS_MODULE_OBJ object)
             ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_EXTENDED_ADDRESS, 0, 8, eui64.value, &setConfirm);
 
             /* Set non-volatile data */
-            ADP_MacSetRequestSync(MAC_WRP_PIB_FRAME_COUNTER, 0, 4, &nonVolatileData.frameCounter, &setConfirm);
-            ADP_MacSetRequestSync(MAC_WRP_PIB_FRAME_COUNTER_RF, 0, 4, &nonVolatileData.frameCounterRF, &setConfirm);
-            ADP_SetRequestSync(ADP_IB_MANUF_DISCOVER_SEQUENCE_NUMBER, 0, 2, &nonVolatileData.discoverSeqNumber, &setConfirm);
-            ADP_SetRequestSync(ADP_IB_MANUF_BROADCAST_SEQUENCE_NUMBER, 0, 1, &nonVolatileData.broadcastSeqNumber, &setConfirm);
+            ADP_MacSetRequestSync(MAC_WRP_PIB_FRAME_COUNTER, 0, 4,
+                (const uint8_t*) &nonVolatileData.frameCounter, &setConfirm);
+            ADP_MacSetRequestSync(MAC_WRP_PIB_FRAME_COUNTER_RF, 0, 4,
+                (const uint8_t*) &nonVolatileData.frameCounterRF, &setConfirm);
+            ADP_SetRequestSync(ADP_IB_MANUF_DISCOVER_SEQUENCE_NUMBER, 0, 2,
+                (const uint8_t*) &nonVolatileData.discoverSeqNumber, &setConfirm);
+            ADP_SetRequestSync(ADP_IB_MANUF_BROADCAST_SEQUENCE_NUMBER, 0, 1,
+                (const uint8_t*) &nonVolatileData.broadcastSeqNumber, &setConfirm);
         }
 
         /* Send ADP initiazation confirm */
         _StringifyMsgStatus(ADP_SERIAL_STATUS_SUCCESS, ADP_SERIAL_MSG_ADP_INITIALIZE);
     }
 
-    if ((adpStatus == SYS_STATUS_READY) && (adpSerialCoord == true))
+    if (adpStatus >= ADP_STATUS_READY)
     {
-        /* LBP coordinator tasks */
-        LBP_UpdateBootstrapSlots();
+        if (adpSerialCoord == true)
+        {
+            /* LBP coordinator tasks */
+            LBP_UpdateLbpSlots();
+        }
+        else
+        {
+            /* LBP device tasks */
+            LBP_TasksDev();
+        }
     }
 }
 

@@ -70,11 +70,21 @@ CRYPT_AES_CTX sAesCtx;
 // *****************************************************************************
 // *****************************************************************************
 
+void AES_Wrapper_ContextInit(void)
+{
+    memset(&sAesCtx, 0, sizeof(sAesCtx));
+}
+
+void AES_Wrapper_ContextFree(void)
+{
+    memset(&sAesCtx, 0, sizeof(sAesCtx));
+}
+
 void AES_Wrapper_Encrypt(const unsigned char *in, unsigned char *out)
 {
     /* Set the AES key */
     CRYPT_AES_KeySet(&sAesCtx, sKey, sKeyLen, NULL, CRYPT_AES_ENCRYPTION);
-	
+
     /* Trigger the AES */
     CRYPT_AES_DIRECT_Encrypt(&sAesCtx, out, in);
 }

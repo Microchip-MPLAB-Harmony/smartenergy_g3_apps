@@ -53,7 +53,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
-static const SYS_CONSOLE_DEV_DESC sysConsoleUARTDevDesc =
+const SYS_CONSOLE_DEV_DESC sysConsoleUARTDevDesc =
 {
     .consoleDevice              = SYS_CONSOLE_DEV_USART,
     .intent                     = DRV_IO_INTENT_READWRITE,

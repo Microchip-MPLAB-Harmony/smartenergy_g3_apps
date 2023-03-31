@@ -65,6 +65,7 @@
 #include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
 #include "system/time/sys_time.h"
 #include "service/log_report/srv_log_report.h"
+#include "peripheral/trng/plib_trng.h"
 #include "system/int/sys_int.h"
 #include "system/ports/sys_ports.h"
 #include "system/cache/sys_cache.h"
@@ -100,6 +101,8 @@
 #include "stack/g3/adaptation/adp_api_types.h"
 #include "stack/g3/adaptation/adp_shared_types.h"
 #include "stack/g3/adaptation/adp_serial.h"
+#include "stack/g3/adaptation/lbp_defs.h"
+#include "stack/g3/adaptation/lbp_dev.h"
 #include "app.h"
 
 

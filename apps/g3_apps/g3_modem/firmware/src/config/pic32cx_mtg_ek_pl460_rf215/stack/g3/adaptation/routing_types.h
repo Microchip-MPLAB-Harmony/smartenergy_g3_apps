@@ -51,6 +51,7 @@
 // *****************************************************************************
 #include "adp.h"
 #include "system/time/sys_time.h"
+#include "stack/g3/mac/mac_wrapper/mac_wrapper_defs.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
