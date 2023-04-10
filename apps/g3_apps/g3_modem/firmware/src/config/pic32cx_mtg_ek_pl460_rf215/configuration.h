@@ -81,7 +81,7 @@ extern "C" {
 // *****************************************************************************
 /* TIME System Service Configuration Options */
 #define SYS_TIME_INDEX_0                            (0)
-#define SYS_TIME_MAX_TIMERS                         (5)
+#define SYS_TIME_MAX_TIMERS                         (25)
 #define SYS_TIME_HW_COUNTER_WIDTH                   (32)
 #define SYS_TIME_HW_COUNTER_PERIOD                  (4294967295U)
 #define SYS_TIME_HW_COUNTER_HALF_PERIOD             (SYS_TIME_HW_COUNTER_PERIOD>>1)
@@ -93,17 +93,10 @@ extern "C" {
 
 
 
-
-#define SYS_DEBUG_ENABLE
-#define SYS_DEBUG_GLOBAL_ERROR_LEVEL       SYS_ERROR_DEBUG
-#define SYS_DEBUG_BUFFER_DMA_READY
-#define SYS_DEBUG_USE_CONSOLE
-
-
 #define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
 #define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(1U)
 #define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(0U)
-#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(512U)
+#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(200U)
 
 
 

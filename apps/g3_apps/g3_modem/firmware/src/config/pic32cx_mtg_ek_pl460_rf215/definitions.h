@@ -241,8 +241,6 @@ typedef struct
     SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  sysConsole0;
 
-    SYS_MODULE_OBJ  sysDebug;
-
     SYS_MODULE_OBJ g3PalRf;
     SYS_MODULE_OBJ srvUSI0;
     SYS_MODULE_OBJ g3MacWrapper;

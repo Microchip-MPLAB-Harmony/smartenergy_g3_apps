@@ -77,7 +77,7 @@ eax_ctx sEaxCtx;
 
 int CIPHER_Wrapper_CmacStart(const unsigned char *key, unsigned int keyLen)
 {
-    return wc_InitCmac(&sCmacCtx, key, keyLen, AES_ENCRYPTION, NULL);
+    return wc_InitCmac(&sCmacCtx, key, keyLen, WC_CMAC_AES, NULL);
 }
 
 int CIPHER_Wrapper_CmacUpdate(const unsigned char *input, unsigned int ilen)

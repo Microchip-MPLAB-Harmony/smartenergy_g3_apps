@@ -615,7 +615,7 @@ static void _StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
 
             case ADP_IB_CONTEXT_INFORMATION_TABLE:
                 /* validTime */
-                _memcpyToUsiEndianessUint16(adpSerialRspBuffer, pGetCfm->attributeValue);
+                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
                 serialRspLen += 2;
                 /* validForCompression */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[2];
@@ -629,7 +629,7 @@ static void _StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
 
             case ADP_IB_BROADCAST_LOG_TABLE:
                 /* srcAddr */
-                _memcpyToUsiEndianessUint16(adpSerialRspBuffer, pGetCfm->attributeValue);
+                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
                 serialRspLen += 2;
                 /* sequenceNumber */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[2];
@@ -641,7 +641,7 @@ static void _StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
             case ADP_IB_ROUTING_TABLE:
             case ADP_IB_MANUF_ROUTING_TABLE_ELEMENT:
                 /* dstAddr */
-                _memcpyToUsiEndianessUint16(adpSerialRspBuffer, pGetCfm->attributeValue);
+                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
                 serialRspLen += 2;
                 /* nextHopAddr */
                 _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[2]);
@@ -660,7 +660,7 @@ static void _StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
 
             case ADP_IB_GROUP_TABLE:
                 /* groupAddress */
-                _memcpyToUsiEndianessUint16(adpSerialRspBuffer, pGetCfm->attributeValue);
+                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
                 serialRspLen += 2;
                 /* valid */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[2];
@@ -669,13 +669,13 @@ static void _StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
             case ADP_IB_SOFT_VERSION:
             case ADP_IB_MANUF_ADP_INTERNAL_VERSION:
                 /* Version */
-                memcpy(adpSerialRspBuffer, pGetCfm->attributeValue, 6);
+                memcpy(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue, 6);
                 serialRspLen += 6;
                 break;
 
             case ADP_IB_BLACKLIST_TABLE:
                 /* addr */
-                _memcpyToUsiEndianessUint16(adpSerialRspBuffer, pGetCfm->attributeValue);
+                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
                 serialRspLen += 2;
                 /* mediaType */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[2];
@@ -794,8 +794,6 @@ static void _StringifyLbpCoordLeaveIndication(uint16_t networkAddress)
 
 static ADP_SERIAL_STATUS _ParseInitialize(uint8_t* pData)
 {
-    ADP_DATA_NOTIFICATIONS adpDataNotifications;
-    ADP_MANAGEMENT_NOTIFICATIONS adpMngNotifications;
     LBP_NOTIFICATIONS_DEV lbpDevNotifications;
     LBP_NOTIFICATIONS_COORD lbpCoordNotifications;
     ADP_PLC_BAND band;
@@ -807,30 +805,6 @@ static ADP_SERIAL_STATUS _ParseInitialize(uint8_t* pData)
 
     /* Open ADP */
     ADP_Open(band);
-
-    /* Set ADP Data callbacks */
-    adpDataNotifications.dataConfirm = _StringifyDataConfirm;
-    adpDataNotifications.dataIndication = _StringifyDataIndication;
-    adpDataNotifications.bufferIndication = _StringifyBufferIndication;
-    ADP_SetDataNotifications(&adpDataNotifications);
-
-    /* Set ADP Management callbacks */
-    adpMngNotifications.discoveryConfirm = _StringifyDiscoveryConfirm;
-    adpMngNotifications.discoveryIndication = _StringifyDiscoveryIndication;
-    adpMngNotifications.networkStartConfirm = _StringifyNetworkStartConfirm;
-    adpMngNotifications.resetConfirm = _StringifyResetConfirm;
-    adpMngNotifications.setConfirm = _StringifySetConfirm;
-    adpMngNotifications.getConfirm = _StringifyGetConfirm;
-    adpMngNotifications.macSetConfirm = NULL;
-    adpMngNotifications.getConfirm = _StringifyGetConfirm;
-    adpMngNotifications.macGetConfirm = NULL;
-    adpMngNotifications.routeDiscoveryConfirm = _StringifyRouteDiscoveryConfirm;
-    adpMngNotifications.pathDiscoveryConfirm = _StringifyPathDiscoveryConfirm;
-    adpMngNotifications.networkStatusIndication = _StringifyNetworkStatusIndication;
-    adpMngNotifications.preqIndication = _StringifyPreqIndication;
-    adpMngNotifications.nonVolatileDataIndication = _StoreNonVolatileDataIndication;
-    adpMngNotifications.routeNotFoundIndication = _StringifyRouteNotFoundIndication;
-    ADP_SetManagementNotifications(&adpMngNotifications);
 
     /* Initialize LBP in device or coordinator mode */
     if (adpSerialCoord == true)
@@ -961,7 +935,7 @@ static ADP_SERIAL_STATUS _ParseNetworkJoinRequest(uint8_t* pData)
     panId = ((uint16_t) *pData++) << 8;
     panId += (uint16_t) *pData++;
     lbaAddress = ((uint16_t) *pData++) << 8;
-    lbaAddress += (uint16_t) *pData;
+    lbaAddress += (uint16_t) *pData++;
     mediaType = *pData;
 
     /* Send network join request to LBP device */
@@ -1613,11 +1587,11 @@ static void _Callback_UsiAdpProtocol(uint8_t* pData, size_t length)
             break;
 
         case ADP_SERIAL_MSG_ADP_SET_REQUEST:
-            _ParseAdpSetRequest(pData);
+            status = _ParseAdpSetRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_GET_REQUEST:
-            _ParseAdpGetRequest(pData);
+            status = _ParseAdpGetRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_ROUTE_DISCOVERY_REQUEST:
@@ -1688,6 +1662,9 @@ static void _Callback_UsiAdpProtocol(uint8_t* pData, size_t length)
 
 SYS_MODULE_OBJ ADP_SERIAL_Initialize(const SYS_MODULE_INDEX index)
 {
+    ADP_DATA_NOTIFICATIONS adpDataNotifications;
+    ADP_MANAGEMENT_NOTIFICATIONS adpMngNotifications;
+
     /* Validate the request */
     if (index >= G3_ADP_SERIAL_INSTANCES_NUMBER)
     {
@@ -1699,6 +1676,30 @@ SYS_MODULE_OBJ ADP_SERIAL_Initialize(const SYS_MODULE_INDEX index)
     adpSerialInitializing = false;
     adpSerialNotifications.setEUI64NonVolatileData = NULL;
     adpSerialNotifications.nonVolatileDataIndication = NULL;
+
+    /* Set ADP Data callbacks */
+    adpDataNotifications.dataConfirm = _StringifyDataConfirm;
+    adpDataNotifications.dataIndication = _StringifyDataIndication;
+    adpDataNotifications.bufferIndication = _StringifyBufferIndication;
+    ADP_SetDataNotifications(&adpDataNotifications);
+
+    /* Set ADP Management callbacks */
+    adpMngNotifications.discoveryConfirm = _StringifyDiscoveryConfirm;
+    adpMngNotifications.discoveryIndication = _StringifyDiscoveryIndication;
+    adpMngNotifications.networkStartConfirm = _StringifyNetworkStartConfirm;
+    adpMngNotifications.resetConfirm = _StringifyResetConfirm;
+    adpMngNotifications.setConfirm = _StringifySetConfirm;
+    adpMngNotifications.getConfirm = _StringifyGetConfirm;
+    adpMngNotifications.macSetConfirm = NULL;
+    adpMngNotifications.getConfirm = _StringifyGetConfirm;
+    adpMngNotifications.macGetConfirm = NULL;
+    adpMngNotifications.routeDiscoveryConfirm = _StringifyRouteDiscoveryConfirm;
+    adpMngNotifications.pathDiscoveryConfirm = _StringifyPathDiscoveryConfirm;
+    adpMngNotifications.networkStatusIndication = _StringifyNetworkStatusIndication;
+    adpMngNotifications.preqIndication = _StringifyPreqIndication;
+    adpMngNotifications.nonVolatileDataIndication = _StoreNonVolatileDataIndication;
+    adpMngNotifications.routeNotFoundIndication = _StringifyRouteNotFoundIndication;
+    ADP_SetManagementNotifications(&adpMngNotifications);
 
     return (SYS_MODULE_OBJ) G3_ADP_SERIAL_INDEX_0; 
 }

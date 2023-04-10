@@ -199,7 +199,6 @@
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/debug/sys_debug.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/debug/src/sys_debug_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/int/sys_int.h</itemPath>
@@ -218,15 +217,15 @@
             <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/system_common.h</itemPath>
             <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/system_module.h</itemPath>
           </logicalFolder>
-          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/configuration.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/device_cache.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/interrupts.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/device_vectors.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/config.h</itemPath>
-          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/user.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/toolchain_specifics.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/definitions.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/device.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/configuration.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/user.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">
@@ -652,9 +651,6 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console.c</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_uart.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="debug" displayName="debug" projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/debug/src/sys_debug.c</itemPath>
-            </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
@@ -666,8 +662,8 @@
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/interrupts.c</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/libc_syscalls.c</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/startup_xc32.c</itemPath>
-          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/tasks.c</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/initialization.c</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/tasks.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
@@ -767,9 +763,9 @@
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/hc128.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rabbit.c</itemPath>
       </logicalFolder>
-      <itemPath>../src/app.c</itemPath>
       <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/pin_configurations.csv</itemPath>
       <itemPath>../src/main.c</itemPath>
+      <itemPath>../src/app.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -792,8 +788,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.1.115"/>
         <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
+        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.1.115"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -829,7 +825,6 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -841,7 +836,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value=""/>
+        <property key="optimization-level" value="-O2"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -860,7 +855,6 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
-        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -889,7 +883,6 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -929,7 +922,6 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -958,7 +950,6 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
-        <property key="appendMe" value=""/>
         <property key="common-include-directories" value=""/>
         <property key="gp-relative-option" value=""/>
         <property key="legacy-libc" value="false"/>
