@@ -53,15 +53,17 @@
 // *****************************************************************************
 // *****************************************************************************
 
+extern const SYS_CONSOLE_DEV_DESC sysConsoleUARTDevDesc;
+
 const SYS_CONSOLE_DEV_DESC sysConsoleUARTDevDesc =
 {
     .consoleDevice              = SYS_CONSOLE_DEV_USART,
     .intent                     = DRV_IO_INTENT_READWRITE,
     .init                       = Console_UART_Initialize,
-    .read_t                       = Console_UART_Read,
+    .read_t                     = Console_UART_Read,
     .readFreeBufferCountGet     = Console_UART_ReadFreeBufferCountGet,
     .readCountGet               = Console_UART_ReadCountGet,
-    .write_t                      = Console_UART_Write,
+    .write_t                    = Console_UART_Write,
     .writeFreeBufferCountGet    = Console_UART_WriteFreeBufferCountGet,
     .writeCountGet              = Console_UART_WriteCountGet,
     .task                       = Console_UART_Tasks,

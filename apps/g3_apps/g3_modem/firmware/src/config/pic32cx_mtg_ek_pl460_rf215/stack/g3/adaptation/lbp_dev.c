@@ -631,6 +631,9 @@ static void _joinConfirm(uint8_t status)
             }
             ROUTING_WRP_AddRoute(_getCoordShortAddress(), lbpContext.lbaAddress, mediaType, &tableFull);
         }
+
+        /* Set LBP Status on ADP */
+        ADP_SetLBPStatusConnection(true);
     }
     else
     {
@@ -700,7 +703,10 @@ static void _leaveCallback(uint8_t status)
     lbpContext.panId = 0xFFFF;
     _setShortAddress(0xFFFF);
     _setPanId(0xFFFF);
-    
+
+    /* Set LBP Status on ADP */
+    ADP_SetLBPStatusConnection(false);
+
     if (lbpContext.lbpNotifications.adpNetworkLeaveConfirm) {
         lbpContext.lbpNotifications.adpNetworkLeaveConfirm(status);
     }
@@ -1187,6 +1193,9 @@ static void _ForceJoined(uint16_t shortAddress, uint16_t panId, ADP_EXTENDED_ADD
     lbpContext.panId = panId;
     memcpy(&lbpContext.EUI64Address, pEUI64Address, sizeof(ADP_EXTENDED_ADDRESS));
     _setBootState(LBP_STATE_BOOT_JOINED);
+    /* Set LBP Status on ADP */
+    ADP_SetLBPStatusConnection(true);
+    /* Invoke Join Confirm callback */
     if (lbpContext.lbpNotifications.adpNetworkJoinConfirm)
     {
         joinConfirm.status = G3_SUCCESS;
@@ -1451,6 +1460,9 @@ void LBP_TasksDev(void)
         lbpContext.panId = 0xFFFF;
         _setShortAddress(0xFFFF);
         _setPanId(0xFFFF);
+
+        /* Set LBP Status on ADP */
+        ADP_SetLBPStatusConnection(false);
 
         if (lbpContext.lbpNotifications.adpNetworkLeaveIndication != NULL)
         {

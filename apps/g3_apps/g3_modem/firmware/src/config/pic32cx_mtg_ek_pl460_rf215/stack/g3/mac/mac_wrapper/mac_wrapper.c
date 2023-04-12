@@ -1728,6 +1728,7 @@ MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand)
 
     /* Set default HyAL variables */
     hyalData = hyalDataDefaults;
+    memset(hyALDuplicatesTable, 0, sizeof(hyALDuplicatesTable));
 
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "MAC_WRP_Open: Initializing PLC MAC...\r\n");
 

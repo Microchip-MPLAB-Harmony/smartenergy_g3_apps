@@ -3982,9 +3982,6 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
 void RF215_PHY_Reset(uint8_t trxIndex)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIndex];
-    
-    /* Critical region to avoid conflicts in PHY object data */
-    RF215_HAL_EnterCritical();
 
     if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
     {
@@ -3994,9 +3991,6 @@ void RF215_PHY_Reset(uint8_t trxIndex)
 
     pObj->trxResetPending = false;
     pObj->resetInProgress = true;
-    
-    /* Leave critical region */
-    RF215_HAL_LeaveCritical();
 }
 
 void RF215_PHY_DeviceReset()

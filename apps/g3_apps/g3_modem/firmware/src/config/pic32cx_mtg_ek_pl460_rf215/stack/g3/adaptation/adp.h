@@ -1449,10 +1449,10 @@ ADP_STATUS ADP_Status(void);
     availability of the G3 Network.
 
   Precondition:
-    lbpConnected           - Flag to update the status of the G3 Network connection
+    None
 
   Parameters:
-    None
+    lbpConnected - Flag to update the status of the G3 Network connection
 
   Returns:
     None.
