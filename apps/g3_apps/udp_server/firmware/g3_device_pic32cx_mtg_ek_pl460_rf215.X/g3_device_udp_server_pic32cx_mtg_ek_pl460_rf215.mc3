@@ -4251,7 +4251,7 @@
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_PIC32CXMTG_Evaluation_Kit&quot; x=&quot;0&quot; y=&quot;39&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;G3 STACK&quot; x=&quot;482&quot; y=&quot;218&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;Group0&quot; x=&quot;597&quot; y=&quot;220&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;Group0&quot; x=&quot;578&quot; y=&quot;220&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;HarmonyCore&quot; x=&quot;310&quot; y=&quot;9&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;cmsis&quot; x=&quot;185&quot; y=&quot;12&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;core&quot; x=&quot;228&quot; y=&quot;38&quot;/&gt;
@@ -4261,7 +4261,7 @@
         &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;0&quot; y=&quot;331&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;sefc0&quot; x=&quot;0&quot; y=&quot;72&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;sefc1&quot; x=&quot;141&quot; y=&quot;73&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;sys_console&quot; x=&quot;159&quot; y=&quot;159&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;sys_console&quot; x=&quot;154&quot; y=&quot;159&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;sys_debug&quot; x=&quot;317&quot; y=&quot;197&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sys_time&quot; x=&quot;490&quot; y=&quot;56&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;tc0&quot; x=&quot;336&quot; y=&quot;102&quot;/&gt;
@@ -7118,6 +7118,17 @@
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;/&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="XC32_HEAP_SIZE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;XC32_HEAP_SIZE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;15360&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -25703,7 +25714,6 @@
   &lt;tcpipNetConfig_0 dnOrder=&quot;0&quot; id=&quot;TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tcpipNetConfig_0&quot; value=&quot;MCHPBOARD_PLC&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;MCHPBOARD_PLC&quot;/&gt;
     &lt;/Values&gt;
   &lt;/tcpipNetConfig_0&gt;
 &lt;/tcpipNetConfig_0&gt;
@@ -27461,7 +27471,7 @@
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\system\console\src\sys_console.c</file>
-         <hash>4cad46ee0e6936c54c4e09d4813944ff8c733fd9ab4927e75ebb6f6f6473c55a</hash>
+         <hash>a3d057fb2e744d889bc59137b34d1b5ee2350cf7a7fcb75c95dcdfcd21816a86</hash>
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\stack\g3\adaptation\adp.h</file>
@@ -27685,7 +27695,7 @@
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>7e2ddde9d995b7e0e5f41ad56e6d99839a86f55453be32595360587e3627c32f</hash>
+         <hash>0923b0297ef81d6bd08650c5a9ecfcfaabc4b9042cc2c51b7ba13d29a0ee74a0</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\types.h</file>
@@ -27749,7 +27759,7 @@
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\tcpip_manager.c</file>
-         <hash>b26bed23c68d9637e4019122a036848587751e01433e1a63cb78b1ca895f9a45</hash>
+         <hash>80bc8ca229f2a33c860dd5ba209857cd48ca8b17803097e9f2d121877ca72ecc</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\camellia.h</file>
@@ -28189,7 +28199,7 @@
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\osal\osal_impl_basic.h</file>
-         <hash>0c388837ef1d4e207a028ed31bfe07f1aac7ea8b0505caff58f737667ccbeaee</hash>
+         <hash>2a53fdc35737b2e0f86289148bbe1db9a345c3203cc1a81e8f58dd03c43e95a5</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\sefc0.h</file>
@@ -28621,7 +28631,7 @@
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\configuration.h</file>
-         <hash>cf105260014afb849af5ea4734362466ddef21f8b018b20d2250d549c65c50da</hash>
+         <hash>4092f7de6109d60492f19d8481b2ba00463d74b4f149d6285023761fc0aee524</hash>
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\ndp_manager.h</file>
@@ -28705,7 +28715,7 @@
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\system\time\src\sys_time.c</file>
-         <hash>a5a69e41bd5c5ad786a1516f7f92e6d1f1ebcd1c8f9136338e3cb17692d17ac4</hash>
+         <hash>1c7e29933f09607c643ed42ddea75b66a804c96187c241018e8a66abddec485f</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\flexcom2.h</file>
@@ -28857,7 +28867,7 @@
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\system\console\sys_console.h</file>
-         <hash>7591f59a241e2f36662d583f4c598860a3cb5257716e7add07a8f72173c26e29</hash>
+         <hash>a13aef7ccc74b32ad97819f2c94d61055edc48c53a9b5439db19c7b1a91f6a19</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\memory.h</file>
@@ -29065,7 +29075,7 @@
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\system\system_module.h</file>
-         <hash>981fac23277aa77f682e7a9a28d436f892006cd5b4c7f23f50941b6d9a30e740</hash>
+         <hash>96c74368801b0a7aaa25aec3ec2cb0d483250385f103ffc1ff64089b4ca2c6d9</hash>
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\tcpip_private.h</file>
@@ -29145,7 +29155,7 @@
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\system\system_common.h</file>
-         <hash>0dbf2f60b29c97426e70187bc59c652ab5a355f51cfbe3f195ff1c8c6c0b1602</hash>
+         <hash>c9f34bd226f8efab12f5766e77f8355996cd0430b50e0f6ee30258664c494984</hash>
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\peripheral\sefc\plib_sefc1.c</file>
@@ -29761,7 +29771,7 @@
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\osal\osal.h</file>
-         <hash>2543a8e1295e991f96a0f5b15ee70d531fd62bddf955a337d8d7e0f8d12b5be2</hash>
+         <hash>ae56ea6d1b062784e23da01a75d060cdf1495d1a2245da601df5fd23fc33e0ab</hash>
       </entry>
       <entry>
          <file>..\src\config\g3_device_pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\dhcps_private.h</file>
