@@ -207,6 +207,7 @@ static void _APP_ICMP_NextPing(void)
     else if (app_icmpData.packetSize == APP_ICMP_PACKET_SIZE_3)
     {
         /* Next device */
+        app_icmpData.packetSize = APP_ICMP_PACKET_SIZE_1;
         app_icmpData.deviceIndex++;
         if (app_icmpData.deviceIndex == app_icmpData.numDevicesJoined)
         {
