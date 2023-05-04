@@ -91,35 +91,35 @@ static bool _SRV_QUEUE_Check_Queue_Consistent(SRV_QUEUE *queue)
             break;
         }
 
-    /* Check last element */
-    if (index == (numElements - 1)) 
-    {
-        if (element != queue->tail) 
+        /* Check last element */
+        if (index == (numElements - 1)) 
         {
-            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, QUEUE_LAST_NOT_TAIL, 
-                "Queue not consistent: Last element different from tail\r\n");
-            isConsistent = false;
-            break;
-        }
+            if (element != queue->tail) 
+            {
+                SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, QUEUE_LAST_NOT_TAIL, 
+                    "Queue not consistent: Last element different from tail\r\n");
+                isConsistent = false;
+                break;
+            }
 
-        if (element->next != NULL) 
+            if (element->next != NULL) 
+            {
+                SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, QUEUE_TOO_BIG, 
+                    "Queue not consistent: There are more elements than size\r\n");
+                isConsistent = false;
+                break;
+            }
+        } 
+        else 
         {
-            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, QUEUE_TOO_BIG, 
-                "Queue not consistent: There are more elements than size\r\n");
-            isConsistent = false;
-            break;
+            if (element->next->prev != element) 
+            {
+                SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, QUEUE_WRONG_CHAIN, 
+                    "Queue not consistent: Wrongly chained queue\r\n");
+                isConsistent = false;
+                break;
+            }
         }
-    } 
-    else 
-    {
-        if (element->next->prev != element) 
-        {
-            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, QUEUE_WRONG_CHAIN, 
-                "Queue not consistent: Wrongly chained queue\r\n");
-            isConsistent = false;
-            break;
-        }
-    }
 
         element = element->next;
     }
@@ -254,15 +254,6 @@ void SRV_QUEUE_Append(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element)
 {
     SRV_QUEUE_ELEMENT *currentElement;
     uint16_t queueCounter;
-
-    /* Check if element is already in the queue (size > 1) */
-    if ((element->next != NULL) || (element->prev != NULL)) 
-    {
-        /* Do nothing - element is already in queue */
-        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, QUEUE_APPEND_AGAIN, 
-            "Trying to append an element already in the queue");
-        return;
-    }
 
     /* Check if element is already in the queue (size = 1) */
     if ((queue->size == 1) && (queue->head == element)) 

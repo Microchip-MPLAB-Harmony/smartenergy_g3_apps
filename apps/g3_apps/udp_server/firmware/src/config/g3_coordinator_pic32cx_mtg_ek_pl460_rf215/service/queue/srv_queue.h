@@ -193,7 +193,7 @@ typedef struct
     None.
 
   Parameters:
-    queue          - Queue to be initialized.
+    queue          - Pointer to the queue to be initialized.
     capacity       - Maximum number of elements in the queue.
     type           - Queue type (single or priority queue).
 
@@ -229,7 +229,7 @@ void SRV_QUEUE_Init(SRV_QUEUE *queue, uint16_t capacity, SRV_QUEUE_TYPE type);
     function SRV_QUEUE_Init.
 
   Parameters:
-    queue          - Queue where to append the element.
+    queue          - Pointer to the queue where to append the element.
     element        - Pointer to the element to be appended.
 
   Returns:
@@ -238,18 +238,19 @@ void SRV_QUEUE_Init(SRV_QUEUE *queue, uint16_t capacity, SRV_QUEUE_TYPE type);
   Example:
     <code>
     #define NUM_MAX_NODES    750
-    typedef struct node_info
+    typedef struct _node_info_tag
     {
-        struct node_info *prev;
-        struct node_info *next;
+        struct _node_info_tag *prev;
+        struct _node_info_tag *next;
         uint8_t macAddress[8]
-    } node_info_t;
+    } NODE_INFO;
+
     static SRV_QUEUE nodeQueue;
-    node_info_t nodeInfo;
+    static NODE_INFO nodeInfo;
 
     SRV_QUEUE_Init(&nodeQueue, NUM_MAX_NODES, SRV_QUEUE_TYPE_SINGLE);
-    memset(nodeinfo.macAddress, 0xFF, 8);
-    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)nodeInfo);
+    memset(nodeInfo.macAddress, 0xFF, 8);
+    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo);
     </code>
 
   Remarks:
@@ -273,8 +274,8 @@ void SRV_QUEUE_Append(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
     function SRV_QUEUE_Init.
 
   Parameters:
-    queue          - Queue where to append the element.
-    priority       - Priority to be appended.
+    queue          - Pointer to the queue where to append the element.
+    priority       - Priority of the element to be appended.
     element        - Pointer to the element to be appended.
 
   Returns:
@@ -285,17 +286,16 @@ void SRV_QUEUE_Append(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
     #define NUM_MAX_NODES    750
     typedef struct node_info
     {
-        struct node_info *prev;
-        struct node_info *next;
-        uinbt32_t priority;
+        SRV_QUEUE_ELEMENT queueElement;
         uint8_t macAddress[8]
-    } node_info_t;
+    } NODE_INFO;
+
     static SRV_QUEUE nodeQueue;
-    node_info_t nodeInfo;
+    static NODE_INFO nodeInfo;
 
     SRV_QUEUE_Init(&nodeQueue, NUM_MAX_NODES, SRV_QUEUE_TYPE_PRIORITY);
-    memset(nodeinfo.macAddress, 0xFF, 8);
-    SRV_QUEUE_Append_With_Priority(&nodeQueue, 3, (SRV_QUEUE_ELEMENT *)nodeInfo);
+    memset(nodeInfo.macAddress, 0xFF, 8);
+    SRV_QUEUE_Append_With_Priority(&nodeQueue, 3, &nodeInfo.queueElement);
     </code>
 
   Remarks:
@@ -321,7 +321,7 @@ void SRV_QUEUE_Append_With_Priority(SRV_QUEUE *queue, uint32_t priority,
     function SRV_QUEUE_Init.
 
   Parameters:
-    queue          - Queue where to insert the element.
+    queue          - Pointer to the queue where to insert the element.
     currentElement - Pointer to an element in the queue.
     element        - Pointer to the element to be inserted.
 
@@ -331,22 +331,23 @@ void SRV_QUEUE_Append_With_Priority(SRV_QUEUE *queue, uint32_t priority,
   Example:
     <code>
     #define NUM_MAX_NODES    750
-    typedef struct node_info
+    typedef struct _node_info_tag
     {
-        struct node_info *prev;
-        struct node_info *next;
+        struct _node_info_tag *prev;
+        struct _node_info_tag *next;
         uint8_t macAddress[8]
-    } node_info_t;
+    } NODE_INFO;
+
     static SRV_QUEUE nodeQueue;
-    node_info_t nodeInfo1;
-    node_info_t nodeInfo2;
+    static NODE_INFO nodeInfo1;
+    static NODE_INFO nodeInfo2;
 
     SRV_QUEUE_Init(&nodeQueue, NUM_MAX_NODES, SRV_QUEUE_TYPE_SINGLE);
-    memset(nodeinfo1.macAddress, 0xFF, 8);
-    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)nodeInfo1);
-    memset(nodeinfo2.macAddress, 0xEE, 8);
-    SRV_QUEUE_Insert_Before(&nodeQueue, (SRV_QUEUE_ELEMENT *)nodeInfo1, 
-                            (SRV_QUEUE_ELEMENT *)nodeInfo2);
+    memset(nodeInfo1.macAddress, 0xFF, 8);
+    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1);
+    memset(nodeInfo2.macAddress, 0xEE, 8);
+    SRV_QUEUE_Insert_Before(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1, 
+                            (SRV_QUEUE_ELEMENT *)&nodeInfo2);
     </code>
 
   Remarks:
@@ -373,7 +374,7 @@ void SRV_QUEUE_Insert_Before(SRV_QUEUE *queue,
     function SRV_QUEUE_Init.
 
   Parameters:
-    queue          - Queue where to insert the element.
+    queue          - Pointer to the queue where to insert the element.
     currentElement - Pointer to an element in the queue.
     element        - Pointer to the element to be inserted.
 
@@ -383,22 +384,23 @@ void SRV_QUEUE_Insert_Before(SRV_QUEUE *queue,
   Example:
     <code>
     #define NUM_MAX_NODES    750
-    typedef struct node_info
+    typedef struct _node_info_tag
     {
-        struct node_info *prev;
-        struct node_info *next;
+        struct _node_info_tag *prev;
+        struct _node_info_tag *next;
         uint8_t macAddress[8]
-    } node_info_t;
+    } NODE_INFO;
+
     static SRV_QUEUE nodeQueue;
-    node_info_t nodeInfo1;
-    node_info_t nodeInfo2;
+    static NODE_INFO nodeInfo1;
+    static NODE_INFO nodeInfo2;
 
     SRV_QUEUE_Init(&nodeQueue, NUM_MAX_NODES, SRV_QUEUE_TYPE_SINGLE);
-    memset(nodeinfo1.macAddress, 0xFF, 8);
-    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)nodeInfo1);
-    memset(nodeinfo2.macAddress, 0xEE, 8);
-    SRV_QUEUE_Insert_After(&nodeQueue, (SRV_QUEUE_ELEMENT *)nodeInfo1, 
-                           (SRV_QUEUE_ELEMENT *)nodeInfo2);
+    memset(nodeInfo1.macAddress, 0xFF, 8);
+    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1);
+    memset(nodeInfo2.macAddress, 0xEE, 8);
+    SRV_QUEUE_Insert_After(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1, 
+                           (SRV_QUEUE_ELEMENT *)&nodeInfo2);
     </code>
 
   Remarks:
@@ -425,9 +427,10 @@ void SRV_QUEUE_Insert_After(SRV_QUEUE *queue,
     function SRV_QUEUE_Init.
 
   Parameters:
-    queue          - Queue from which the element must be read or removed.
-    access         - Access mode (read or remove).
-    position       - Position in the queue (head or tail).
+    queue      - Pointer to the queue from which the element must be read or
+                 removed.
+    accessMode - Access mode (read or remove).
+    position   - Position in the queue to read or remove (head or tail).
 
   Returns:
     In case of remove, the element will be removed from queue and returned. 
@@ -438,19 +441,20 @@ void SRV_QUEUE_Insert_After(SRV_QUEUE *queue,
   Example:
     <code>
     #define NUM_MAX_NODES    750
-    typedef struct node_info
+    typedef struct _node_info_tag
     {
-        struct node_info *prev;
-        struct node_info *next;
+        struct _node_info_tag *prev;
+        struct _node_info_tag *next;
         uint8_t macAddress[8]
-    } node_info_t;
+    } NODE_INFO;
+
     static SRV_QUEUE nodeQueue;
-    node_info_t nodeInfo;
-    node_info_t *removedNode;
+    static NODE_INFO nodeInfo;
+    NODE_INFO *removedNode;
 
     SRV_QUEUE_Init(&nodeQueue, NUM_MAX_NODES, SRV_QUEUE_TYPE_SINGLE);
-    memset(nodeinfo1.macAddress, 0xFF, 8);
-    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)nodeInfo);
+    memset(nodeInfo.macAddress, 0xFF, 8);
+    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo);
     removedNode = SRV_QUEUE_Read_Or_Remove(&nodeQueue, SRV_QUEUE_MODE_REMOVE, 
                                            SRV_QUEUE_POSITION_HEAD);
     </code>
@@ -478,8 +482,8 @@ SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Or_Remove(SRV_QUEUE *queue,
     function SRV_QUEUE_Init.
 
   Parameters:
-    queue          - Queue from which the element must be read.
-    elementIndex   - Position of the element in the queue.
+    queue        - Pointer to the queue from which the element must be read.
+    elementIndex - Position of the element in the queue.
 
   Returns:
     Pointer to the queue element.
@@ -488,23 +492,24 @@ SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Or_Remove(SRV_QUEUE *queue,
   Example:
     <code>
     #define NUM_MAX_NODES    750
-    typedef struct node_info
+    typedef struct _node_info_tag
     {
-        struct node_info *prev;
-        struct node_info *next;
+        struct _node_info_tag *prev;
+        struct _node_info_tag *next;
         uint8_t macAddress[8]
-    } node_info_t;
+    } NODE_INFO;
+
     static SRV_QUEUE nodeQueue;
-    node_info_t nodeInfo1;
-    node_info_t nodeInfo2;
-    node_info_t *nodeInfo3;
+    static NODE_INFO nodeInfo1;
+    static NODE_INFO nodeInfo2;
+    NODE_INFO *nodeInfo3;
 
     SRV_QUEUE_Init(&nodeQueue, NUM_MAX_NODES, SRV_QUEUE_TYPE_SINGLE);
-    memset(nodeinfo1.macAddress, 0xFF, 8);
-    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)nodeInfo1);
-    memset(nodeinfo2.macAddress, 0xEE, 8);
-    SRV_QUEUE_Insert_After(&nodeQueue, (SRV_QUEUE_ELEMENT *)nodeInfo1, 
-                           (SRV_QUEUE_ELEMENT *)nodeInfo2);
+    memset(nodeInfo1.macAddress, 0xFF, 8);
+    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1);
+    memset(nodeInfo2.macAddress, 0xEE, 8);
+    SRV_QUEUE_Insert_After(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1, 
+                           (SRV_QUEUE_ELEMENT *)&nodeInfo2);
     nodeInfo3 = SRV_QUEUE_Read_Element(&nodeQueue, 2);
     </code>
 
@@ -529,8 +534,8 @@ SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Element(SRV_QUEUE *queue,
     function SRV_QUEUE_Init.
 
   Parameters:
-    queue          - Queue from which the element must be removed.
-    element        - Element to be removed.
+    queue   - Pointer to the queue from which the element must be removed.
+    element - Element to be removed.
 
   Returns:
     None.
@@ -538,19 +543,20 @@ SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Element(SRV_QUEUE *queue,
   Example:
     <code>
     #define NUM_MAX_NODES    750
-    typedef struct node_info
+    typedef struct _node_info_tag
     {
-        struct node_info *prev;
-        struct node_info *next;
+        struct _node_info_tag *prev;
+        struct _node_info_tag *next;
         uint8_t macAddress[8]
-    } node_info_t;
+    } NODE_INFO;
+
     static SRV_QUEUE nodeQueue;
-    node_info_t nodeInfo;
+    static NODE_INFO nodeInfo;
 
     SRV_QUEUE_Init(&nodeQueue, NUM_MAX_NODES, SRV_QUEUE_TYPE_SINGLE);
-    memset(nodeinfo.macAddress, 0xFF, 8);
-    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)nodeInfo);
-    SRV_QUEUE_Remove_Element(&nodeQueue, (SRV_QUEUE_ELEMENT *)nodeInfo);
+    memset(nodeInfo.macAddress, 0xFF, 8);
+    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo);
+    SRV_QUEUE_Remove_Element(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo);
     </code>
 
   Remarks:
@@ -573,7 +579,7 @@ void SRV_QUEUE_Remove_Element(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
     function SRV_QUEUE_Init.
 
   Parameters:
-    queue          - Queue to be flushed.
+    queue          - Pointer to the queue to be flushed.
 
   Returns:
     None.
@@ -581,19 +587,21 @@ void SRV_QUEUE_Remove_Element(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
   Example:
     <code>
     #define NUM_MAX_NODES    750
-    typedef struct node_info
+    typedef struct _node_info_tag
     {
-        struct node_info *prev;
-        struct node_info *next;
+        struct _node_info_tag *prev;
+        struct _node_info_tag *next;
         uint8_t macAddress[8]
-    } node_info_t;
+    } NODE_INFO;
+
     static SRV_QUEUE nodeQueue;
-    node_info_t nodeInfo;
+    static node_info_t nodeInfo;
 
     SRV_QUEUE_Init(&nodeQueue, NUM_MAX_NODES, SRV_QUEUE_TYPE_SINGLE);
-    memset(nodeinfo.macAddress, 0xFF, 8);
-    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)nodeInfo);
+    memset(nodeInfo.macAddress, 0xFF, 8);
+    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo);
     SRV_QUEUE_Flush(&nodeQueue);
+    </code>
 
   Remarks:
     None.
@@ -615,7 +623,7 @@ void SRV_QUEUE_Flush(SRV_QUEUE *queue);
     function SRV_QUEUE_Init.
 
   Parameters:
-    queue          - Queue.
+    queue          - Pointer to the queue.
     capacity       - New capacity of the queue.
 
   Returns:
@@ -624,19 +632,21 @@ void SRV_QUEUE_Flush(SRV_QUEUE *queue);
   Example:
     <code>
     #define NUM_MAX_NODES    750
-    typedef struct node_info
+    typedef struct _node_info_tag
     {
-        struct node_info *prev;
-        struct node_info *next;
+        struct _node_info_tag *prev;
+        struct _node_info_tag *next;
         uint8_t macAddress[8]
-    } node_info_t;
+    } NODE_INFO;
+
     static SRV_QUEUE nodeQueue;
-    node_info_t nodeInfo;
+    static node_info_t nodeInfo;
 
     SRV_QUEUE_Init(&nodeQueue, NUM_MAX_NODES, SRV_QUEUE_TYPE_SINGLE);
-    memset(nodeinfo.macAddress, 0xFF, 8);
-    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)nodeInfo);
+    memset(nodeInfo.macAddress, 0xFF, 8);
+    SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo);
     SRV_QUEUE_Set_Capacity(&nodeQueue, (NUM_MAX_NODES + 10));
+    </code>
 
   Remarks:
     None.
