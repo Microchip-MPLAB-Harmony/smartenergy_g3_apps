@@ -131,6 +131,9 @@ static void _APP_ICMP_SendPing(void)
     app_icmpData.icmpResult = TCPIP_ICMPV6_EchoRequestSend(app_icmpData.netHandle, &app_icmpData.targetAddress,
             app_icmpData.sequenceNumber, 0, app_icmpData.packetSize);
 
+    /* Force neighbor reachable status in NDP */
+    TCPIP_NDP_NborReachConfirm(app_icmpData.netHandle, &app_icmpData.targetAddress);
+
     TCPIP_Helper_IPv6AddressToString(&app_icmpData.targetAddress, targetAddressString, sizeof(targetAddressString) - 1);
     SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_ICMP: Ping %s (Short Address: 0x%04X, EUI64: 0x%02X%02X%02X%02X%02X%02X%02X%02X)."
             " Packet size: %hu\r\n", targetAddressString, shortAddress, eui64[0], eui64[1], eui64[2], eui64[3],

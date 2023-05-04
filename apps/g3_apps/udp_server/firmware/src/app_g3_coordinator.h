@@ -99,6 +99,9 @@ extern "C" {
 /* Maximum Hops for Conformance: 8 */
 #define APP_G3_MAX_HOPS_CONFORMANCE 8
 
+/* Retransmit all broadcast messages: True */
+#define APP_G3_BROADCAST_ROUTE_ALL 1
+
 /* Duty Cycle Limit RF: 360 (10% out of 3600) */
 #define APP_G3_COORDINATOR_DUTY_CYCLE_LIMIT_RF 360
 /* Duty Cycle Limit RF: 3600 (100% out of 3600) */
@@ -325,6 +328,9 @@ typedef struct
 
     /* ADP_IB_MAX_HOPS for Conformance */
     const uint8_t maxHopsConformance;
+
+    /* ADP_IB_MANUF_BROADCAST_ROUTE_ALL */
+    const uint8_t broadcastRouteAll;
 
     /* MAC_WRP_PIB_TMR_TTL for Conformance */
     const uint8_t tmrTTLconformance;

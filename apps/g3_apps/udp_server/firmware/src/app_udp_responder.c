@@ -212,6 +212,7 @@ void APP_UDP_RESPONDER_Tasks ( void )
         case APP_UDP_RESPONDER_STATE_SERVING_CONNECTION:
         {
             uint16_t rxPayloadSize;
+            uint8_t payloadFragment[32];
             uint8_t udpProtocol;
 
             if (TCPIP_UDP_IsConnected(app_udp_responderData.socket) == false)
@@ -257,7 +258,6 @@ void APP_UDP_RESPONDER_Tasks ( void )
                      *      - 0x02 (UDP reply): this message is dropped upon
                      *      reception. */
                     uint16_t responseSize, availableTxSize, chunkSize;
-                    uint8_t payloadFragment[32];
 
                     /* Put the first byte (2: UDP reply) */
                     TCPIP_UDP_Put(app_udp_responderData.socket, 2);
@@ -311,7 +311,6 @@ void APP_UDP_RESPONDER_Tasks ( void )
                     UDP_SOCKET_INFO socketInfo;
                     IPV6_PACKET * pkt;
                     uint16_t identifier, sequenceNumber, icmpPayloadSize, availableTxSize, chunkSize;
-                    uint8_t payloadFragment[32];
 
                     /* Check payload length */
                     if (rxPayloadSize < 5)

@@ -82,6 +82,9 @@ extern "C" {
 /* Maximum Hops for Conformance: 8 */
 #define APP_G3_MAX_HOPS_CONFORMANCE 8
 
+/* Retransmit all broadcast messages: True */
+#define APP_G3_BROADCAST_ROUTE_ALL 1
+
 /* Default Route to Coordinator Enabled: True */
 #define APP_G3_DEVICE_DEFAULT_COORD_ROUTE_ENABLED 1
 
@@ -341,6 +344,9 @@ typedef struct
 
     /* ADP_IB_DEFAULT_COORD_ROUTE_ENABLED */
     const uint8_t defaultCoordRouteEnabled;
+
+    /* ADP_IB_MANUF_BROADCAST_ROUTE_ALL */
+    const uint8_t broadcastRouteAll;
 
     /* MAC_WRP_PIB_TMR_TTL for Conformance */
     const uint8_t tmrTTLconformance;

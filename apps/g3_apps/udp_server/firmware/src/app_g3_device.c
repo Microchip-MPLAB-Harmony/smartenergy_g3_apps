@@ -71,6 +71,7 @@ static const APP_G3_DEVICE_CONSTANTS app_g3_deviceConst = {
     .maxHops = APP_G3_MAX_HOPS,
     .dutyCycleLimitRF = APP_G3_DEVICE_DUTY_CYCLE_LIMIT_RF,
     .defaultCoordRouteEnabled = APP_G3_DEVICE_DEFAULT_COORD_ROUTE_ENABLED,
+    .broadcastRouteAll = APP_G3_BROADCAST_ROUTE_ALL,
 
     /* G3 Conformance parameters */
     .blacklistTableEntryTTLconformance = APP_G3_BLACKLIST_TABLE_ENTRY_TTL_CONFORMANCE,
@@ -183,6 +184,7 @@ static void _LBP_ADP_NetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS* pNetwor
         ADP_GET_CFM_PARAMS getConfirm;
         ADP_SET_CFM_PARAMS setConfirm;
         IPV6_ADDR networkPrefix;
+        uint16_t multicastGroup;
         uint8_t prefixData[27];
 
         /* Successful join */
@@ -199,6 +201,13 @@ static void _LBP_ADP_NetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS* pNetwor
             ADP_SetRequestSync(ADP_IB_CONTEXT_INFORMATION_TABLE, 0, getConfirm.attributeLength,
                 (const uint8_t*) getConfirm.attributeValue, &setConfirm);
         }
+
+        /* Add short address to multi-cast group table in order to receive NDP
+         * Neighbor Solicitation messages */
+        multicastGroup = (uint8_t) pNetworkJoinCfm->networkAddress;
+        multicastGroup |= (uint8_t) ((pNetworkJoinCfm->networkAddress >> 8) & 0x1F);
+        multicastGroup |= 0x8000;
+        ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 0, 2, (const uint8_t*) &multicastGroup, &setConfirm);
 
         /* Start a route request to coordinator */
         ADP_GetRequestSync(ADP_IB_COORD_SHORT_ADDRESS, 0, &getConfirm);
@@ -327,11 +336,11 @@ static void _APP_G3_SetConformanceParameters(void)
             (const uint8_t*) &app_g3_deviceConst.blacklistTableEntryTTLconformance,
             &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 0, 2,
+    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 1, 2,
             (const uint8_t*) &app_g3_deviceConst.gropTable0Conformance,
             &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 1, 2,
+    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 2, 2,
             (const uint8_t*) &app_g3_deviceConst.gropTable1Conformance,
             &setConfirm);
 
@@ -412,6 +421,9 @@ static void _APP_G3_DEVICE_InitializeParameters(void)
 
     ADP_SetRequestSync(ADP_IB_DEFAULT_COORD_ROUTE_ENABLED, 0, 1,
             &app_g3_deviceConst.defaultCoordRouteEnabled, &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_MANUF_BROADCAST_ROUTE_ALL, 0, 1,
+            &app_g3_deviceConst.broadcastRouteAll, &setConfirm);
 
     /* Set user-specific MAC parameters */
     ADP_MacSetRequestSync(MAC_WRP_PIB_DUTY_CYCLE_LIMIT_RF, 0, 2,

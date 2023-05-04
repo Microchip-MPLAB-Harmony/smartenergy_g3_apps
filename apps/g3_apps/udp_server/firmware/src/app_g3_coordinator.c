@@ -79,6 +79,7 @@ static const APP_G3_COORDINATOR_CONSTANTS app_g3_coordinatorConst = {
     .routingTableEntryTTL = APP_G3_ROUTING_TABLE_ENTRY_TTL,
     .maxJoinWaitTime = APP_G3_MAX_JOIN_WAIT_TIME,
     .maxHops = APP_G3_MAX_HOPS,
+    .broadcastRouteAll = APP_G3_BROADCAST_ROUTE_ALL,
     .dutyCycleLimitRF = APP_G3_COORDINATOR_DUTY_CYCLE_LIMIT_RF,
 
     /* G3 Conformance parameters */
@@ -363,11 +364,11 @@ static void _APP_G3_SetConformanceParameters(void)
             (const uint8_t*) &app_g3_coordinatorConst.blacklistTableEntryTTLconformance,
             &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 0, 2,
+    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 1, 2,
             (const uint8_t*) &app_g3_coordinatorConst.gropTable0Conformance,
             &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 1, 2,
+    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 2, 2,
             (const uint8_t*) &app_g3_coordinatorConst.gropTable1Conformance,
             &setConfirm);
 
@@ -434,6 +435,7 @@ static void _APP_G3_COORDINATOR_InitializeParameters(void)
 {
     ADP_SET_CFM_PARAMS setConfirm;
     LBP_SET_PARAM_CONFIRM lbpSetConfirm;
+    uint16_t multicastGroup;
     uint8_t contextInfo0[sizeof(app_g3_coordinatorConst.contextInfoTable0)];
 
     /* Set extended address (EUI64). It must be unique for each device. */
@@ -454,6 +456,16 @@ static void _APP_G3_COORDINATOR_InitializeParameters(void)
 
     ADP_SetRequestSync(ADP_IB_CONTEXT_INFORMATION_TABLE, 1, 10,
             app_g3_coordinatorConst.contextInfoTable1, &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_MANUF_BROADCAST_ROUTE_ALL, 0, 1,
+            &app_g3_coordinatorConst.broadcastRouteAll, &setConfirm);
+
+    /* Add short address to multi-cast group table in order to receive NDP
+     * Neighbor Solicitation messages */
+    multicastGroup = (uint8_t) app_g3_coordinatorConst.shortAddress;
+    multicastGroup |= (uint8_t) ((app_g3_coordinatorConst.shortAddress >> 8) & 0x1F);
+    multicastGroup |= 0x8000;
+    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 0, 2, (const uint8_t*) &multicastGroup, &setConfirm);
 
     /* Set user-specific MAC parameters */
     ADP_MacSetRequestSync(MAC_WRP_PIB_DUTY_CYCLE_LIMIT_RF, 0, 2,
