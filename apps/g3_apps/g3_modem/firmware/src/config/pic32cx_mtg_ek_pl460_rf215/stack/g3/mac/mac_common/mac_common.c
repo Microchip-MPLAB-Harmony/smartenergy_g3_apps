@@ -49,8 +49,13 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
+#include "system/time/sys_time.h"
 #include "mac_common.h"
 #include "../mac_plc/mac_plc_mib.h"
+
+/* Time control variables */
+static uint64_t previousCounter64 = 0;
+static uint32_t currentMsCounter = 0;
 
 MAC_COMMON_MIB macMibCommon;
 
@@ -384,6 +389,30 @@ MAC_STATUS MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
         }
     }
     return status;
+}
+
+uint32_t MAC_COMMON_GetMsCounter(void)
+{
+    uint64_t diffCounter64, currentCounter64;
+    uint32_t elapsedMs;
+
+    /* Get current timer counter */
+    currentCounter64 = SYS_TIME_Counter64Get();
+    /* Diff with previous */
+    diffCounter64 = currentCounter64 - previousCounter64;
+    /* Diff in Ms */
+    elapsedMs = SYS_TIME_CountToMS((uint32_t)diffCounter64);
+    /* Update Ms counter */
+    currentMsCounter += elapsedMs;
+    /* Update previous counter for next computation */
+    previousCounter64 += SYS_TIME_MSToCount(elapsedMs);
+
+    return currentMsCounter;
+}
+
+bool MAC_COMMON_TimeIsPast(int32_t timeValue)
+{
+    return (((int32_t)(MAC_COMMON_GetMsCounter()) - timeValue) > 0);
 }
 
 /*******************************************************************************

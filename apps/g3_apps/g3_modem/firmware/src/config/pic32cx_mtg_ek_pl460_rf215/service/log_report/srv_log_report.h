@@ -44,15 +44,6 @@
 #ifndef _SRV_LOG_REPORT_H
 #define _SRV_LOG_REPORT_H
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Included Files
-// *****************************************************************************
-// *****************************************************************************
-
-#include <stdint.h>
-#include "system/debug/sys_debug.h"
-
 #ifdef __cplusplus // Provide C++ Compatibility
  extern "C" {
 #endif
@@ -81,21 +72,22 @@
 typedef enum
 {
     /* Errors that have the potential to cause a system crash. */
-    SRV_LOG_REPORT_FATAL = SYS_ERROR_FATAL,
+    SRV_LOG_REPORT_FATAL = 0,
     
     /* Errors that have the potential to cause incorrect behavior. */
-    SRV_LOG_REPORT_ERROR = SYS_ERROR_ERROR,
+    SRV_LOG_REPORT_ERROR = 1,
 
     /* Warnings about potentially unexpected behavior or side effects. */
-    SRV_LOG_REPORT_WARNING = SYS_ERROR_WARNING,
+    SRV_LOG_REPORT_WARNING = 2,
 
     /* Information helpful to understanding potential errors and warnings. */
-    SRV_LOG_REPORT_INFO = SYS_ERROR_INFO,
+    SRV_LOG_REPORT_INFO = 3,
 
     /* Verbose information helpful during debugging and testing. */
-    SRV_LOG_REPORT_DEBUG = SYS_ERROR_DEBUG
+    SRV_LOG_REPORT_DEBUG = 4
 
 } SRV_LOG_REPORT_LEVEL;
+
 
 // *****************************************************************************
 /* Error/warning code enumeration
@@ -142,116 +134,9 @@ typedef enum
 
 } SRV_LOG_REPORT_CODE;
 
-//******************************************************************************
-/* Function:
-    void SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_LEVEL logLevel, 
-                                          SRV_LOG_REPORT_CODE code, 
-                                          const char *info, ...)
-  Summary:
-    Reports an error/warning code with related information.
-
-  Description:
-    This function reports an error/warning code with related information.
-
-  Precondition:
-    The SYS_DEBUG initialization routines should be called before calling
-    this routine (in "SYS_Initialize").
-    
-  Parameters:
-    logLevel       - Log priority level 
-    code           - Code of the reported error/warning
-    info           - Formatted description of the reported error/warning
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_WARNING, 100, 
-                                     "Wrong input\r\n");
-    </code>
-
-  Remarks:
-    The function does not add a newline after printing the information.
-*/
-
-void SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_LEVEL logLevel, 
-                                      SRV_LOG_REPORT_CODE code, 
-                                      const char *info, ...);
-
-//******************************************************************************
-/* Function:
-    void SRV_LOG_REPORT_Message(SRV_LOG_REPORT_LEVEL logLevel, 
-                                const char *info, ...)
-  Summary:
-    Reports log information.
-
-  Description:
-    This function reports log information.
-
-  Precondition:
-    The SYS_DEBUG initialization routines should be called before calling
-    this routine (in "SYS_Initialize").
-    
-  Parameters:
-    logLevel       - Log priority level 
-    info           - Formatted description of the information
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "No address\r\n");
-    </code>
-
-  Remarks:
-    The function does not add a newline after printing the information.
-*/
-
-void SRV_LOG_REPORT_Message(SRV_LOG_REPORT_LEVEL logLevel, 
-                            const char *info, ...);
-                                      
-//******************************************************************************
-/* Function:
-    void SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_LEVEL logLevel, 
-                               const uint8_t *buffer, uint32_t bufferLength, 
-                               const char *info, ...)
-
-  Summary:
-    Reports log information with a buffer.
-
-  Description:
-    This function reports log information with a buffer.
-
-  Precondition:
-    The SYS_DEBUG initialization routines should be called before calling
-    this routine (in "SYS_Initialize").
-    
-  Parameters:
-    logLevel          - Log priority level 
-    buffer            - Buffer to be reported
-    bufferLength      - Length of the buffer
-    info              - Formatted description of the information
-    
-  Returns:
-    None.
-
-  Example:
-    <code>
-    uint8_t macAddress[6] = {0xAA, 0xBB, 0xCC, 0xDD, 0x00, 0x01};
-    uint8_t maxNumberNodes = 100;
-  
-    SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_INFO, macAddress, 6, "MAC Address: ");
-    </code>
-
-  Remarks:
-    The function automatically adds a newline after printing the buffer.
-*/
-
-void SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_LEVEL logLevel, 
-                           const uint8_t *buffer, uint32_t bufferLength, 
-                           const char *info, ...);
+#define SRV_LOG_REPORT_Message_With_Code(logLevel, code, info, ...)
+#define SRV_LOG_REPORT_Message(logLevel, info, ...)
+#define SRV_LOG_REPORT_Buffer(logLevel, buffer, bufferLength, info, ...)
 
 #ifdef __cplusplus // Provide C++ Compatibility
  }

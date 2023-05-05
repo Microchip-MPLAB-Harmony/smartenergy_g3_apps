@@ -49,6 +49,36 @@
 
 //******************************************************************************
 /* Function:
+    uint8_t SRV_RANDOM_Get8bits(void)
+
+  Summary:
+    Returns a random value of 8 bits.
+
+  Description:
+    This function returns a random value of 8 bits.
+
+  Precondition:
+    None.
+    
+  Parameters:
+    None.
+
+  Returns:
+    8-bit random value.
+
+  Example:
+    <code>
+    uint8_t rndNum = SRV_RANDOM_Get8bits();
+    </code>
+
+  Remarks:
+    None.
+*/
+
+uint8_t SRV_RANDOM_Get8bits(void);
+
+//******************************************************************************
+/* Function:
     uint16_t SRV_RANDOM_Get16bits(void)
 
   Summary:

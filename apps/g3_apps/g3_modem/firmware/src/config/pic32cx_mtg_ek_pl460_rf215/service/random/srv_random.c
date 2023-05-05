@@ -57,9 +57,22 @@
 // *****************************************************************************
 // *****************************************************************************
 
+uint8_t SRV_RANDOM_Get8bits(void)
+{
+  uint8_t retValue;
+
+  retValue = (uint8_t)TRNG_ReadData();
+
+  return retValue;
+}
+
 uint16_t SRV_RANDOM_Get16bits(void)
 {
-  return ((uint16_t)TRNG_ReadData());
+  uint16_t retValue;
+
+  retValue = (uint16_t)TRNG_ReadData();
+
+  return retValue;
 }
 
 uint16_t  SRV_RANDOM_Get16bitsInRange(uint16_t min, uint16_t max)
@@ -77,7 +90,11 @@ uint16_t  SRV_RANDOM_Get16bitsInRange(uint16_t min, uint16_t max)
 
 uint32_t SRV_RANDOM_Get32bits(void)
 {
-  return (TRNG_ReadData());
+  uint32_t retValue;
+
+  retValue = TRNG_ReadData();
+
+  return retValue;
 }
 
 uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t min, uint32_t max)
@@ -95,14 +112,16 @@ uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t min, uint32_t max)
 
 void SRV_RANDOM_Get128bits(uint8_t *rndValue)
 {
-  uint16_t rndNum = 0;
-  uint8_t n = 0;
+  uint32_t randNum;
+  uint8_t n;
 
-  for (; n < 16; n += 2) 
+  for (n = 0; n < 4; n ++)
   {
-    rndNum = SRV_RANDOM_Get16bitsInRange(0x0000, 0xFFFF);
+    randNum = TRNG_ReadData();
 
-    rndValue[n] = (uint8_t)((rndNum >> 8) & 0x00FF);
-    rndValue[n + 1] = (uint8_t)(rndNum & 0x00FF);
+    *rndValue++ = (uint8_t)(randNum >> 24);
+    *rndValue++ = (uint8_t)(randNum >> 16);
+    *rndValue++ = (uint8_t)(randNum >> 8);
+    *rndValue++ = (uint8_t)(randNum);
   }
 }

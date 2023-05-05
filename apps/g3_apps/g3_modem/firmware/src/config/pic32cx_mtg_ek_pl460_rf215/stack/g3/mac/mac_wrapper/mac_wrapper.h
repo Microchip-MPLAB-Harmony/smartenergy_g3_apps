@@ -1588,6 +1588,92 @@ uint8_t MAC_WRP_SerialStringifySetConfirm (
     uint16_t index
 );
 
+// *****************************************************************************
+/* Function:
+    uint32_t MAC_WRP_GetMsCounter
+    (
+      void
+    )
+
+  Summary:
+    The MAC_WRP_GetMsCounter primitive gets the value of a counter 
+    that is incremented every millisecond.
+
+  Description:
+    This primitive makes use of SYS_TIME service to get the value of the 
+    millisecond counter in order to be able to set timeouts and perform delays.
+    This function returns the current value of such counter.
+
+  Precondition:
+    SYS_TIME_Initialize primitive has to be called before.
+
+  Parameters:
+    None.
+
+  Returns:
+    Value of milliseconds counter.
+
+  Example:
+    <code>
+    previousCounter = MAC_WRP_GetMsCounter();
+
+    // Perform other actions
+    // ...
+
+    newCounter = MAC_WRP_GetMsCounter();
+
+    if ((newCounter - previousCounter) > TIMEOUT_MS)
+    {
+        // Timeout elapsed
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
+uint32_t MAC_WRP_GetMsCounter(void);
+
+// *****************************************************************************
+/* Function:
+    bool MAC_WRP_TimeIsPast
+    (
+      int32_t timeValue
+    )
+
+  Summary:
+    Indicates whether the given time value is in the past.
+
+  Description:
+    This primitive indicates whether the given time value is in the past.
+
+  Precondition:
+    SYS_TIME_Initialize primitive has to be called before.
+
+  Parameters:
+    timeValue      - Time value in milliseconds
+
+  Returns:
+    True if the time value is in the past. 
+    False if the time value is not in the past.
+
+  Example:
+    <code>
+    int32_t validityTime = 5000;
+
+    // Perform other actions
+    // ...
+
+    if (MAC_WRP_TimeIsPast(validityTime))
+    {
+        // Validity ended
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
+bool MAC_WRP_TimeIsPast(int32_t timeValue);
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

@@ -1680,7 +1680,6 @@ SYS_MODULE_OBJ ADP_SERIAL_Initialize(const SYS_MODULE_INDEX index)
     /* Set ADP Data callbacks */
     adpDataNotifications.dataConfirm = _StringifyDataConfirm;
     adpDataNotifications.dataIndication = _StringifyDataIndication;
-    adpDataNotifications.bufferIndication = _StringifyBufferIndication;
     ADP_SetDataNotifications(&adpDataNotifications);
 
     /* Set ADP Management callbacks */
@@ -1699,6 +1698,7 @@ SYS_MODULE_OBJ ADP_SERIAL_Initialize(const SYS_MODULE_INDEX index)
     adpMngNotifications.preqIndication = _StringifyPreqIndication;
     adpMngNotifications.nonVolatileDataIndication = _StoreNonVolatileDataIndication;
     adpMngNotifications.routeNotFoundIndication = _StringifyRouteNotFoundIndication;
+    adpMngNotifications.bufferIndication = _StringifyBufferIndication;
     ADP_SetManagementNotifications(&adpMngNotifications);
 
     return (SYS_MODULE_OBJ) G3_ADP_SERIAL_INDEX_0; 

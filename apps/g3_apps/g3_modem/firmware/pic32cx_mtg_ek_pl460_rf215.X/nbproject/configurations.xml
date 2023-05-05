@@ -128,11 +128,6 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/security/aes_wrapper.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/security/brg_endian.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="time_management"
-                           displayName="time_management"
-                           projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/time_management/srv_time_management.h</itemPath>
-            </logicalFolder>
             <logicalFolder name="usi" displayName="usi" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/usi/srv_usi_usart.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/usi/srv_usi.h</itemPath>
@@ -579,9 +574,6 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="service" displayName="service" projectFiles="true">
-            <logicalFolder name="log_report" displayName="log_report" projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/log_report/srv_log_report.c</itemPath>
-            </logicalFolder>
             <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/pcoup/srv_pcoup.c</itemPath>
             </logicalFolder>
@@ -601,11 +593,6 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/security/cipher_wrapper.c</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/security/eax.c</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/security/aes_wrapper.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="time_management"
-                           displayName="time_management"
-                           projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/time_management/srv_time_management.c</itemPath>
             </logicalFolder>
             <logicalFolder name="usi" displayName="usi" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/usi/srv_usi_usart.c</itemPath>
@@ -784,7 +771,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>jlink</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.21</languageToolchainVersion>
+        <languageToolchainVersion>4.00</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -825,6 +812,7 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -855,6 +843,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -883,6 +872,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -922,6 +912,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -950,6 +941,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="common-include-directories" value=""/>
         <property key="gp-relative-option" value=""/>
         <property key="legacy-libc" value="false"/>

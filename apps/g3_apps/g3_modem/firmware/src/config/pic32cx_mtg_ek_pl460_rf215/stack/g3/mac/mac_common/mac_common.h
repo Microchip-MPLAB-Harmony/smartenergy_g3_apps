@@ -303,6 +303,92 @@ MAC_STATUS MAC_COMMON_GetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
 */
 MAC_STATUS MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_t index, const MAC_PIB_VALUE *pibValue);
 
+// *****************************************************************************
+/* Function:
+    uint32_t MAC_COMMON_GetMsCounter
+    (
+      void
+    )
+
+  Summary:
+    The MAC_COMMON_GetMsCounter primitive gets the value of a counter 
+    that is incremented every millisecond.
+
+  Description:
+    This primitive makes use of SYS_TIME service to get the value of the 
+    millisecond counter in order to be able to set timeouts and perform delays.
+    This function returns the current value of such counter.
+
+  Precondition:
+    SYS_TIME_Initialize primitive has to be called before.
+
+  Parameters:
+    None.
+
+  Returns:
+    Value of milliseconds counter.
+
+  Example:
+    <code>
+    previousCounter = MAC_COMMON_GetMsCounter();
+
+    // Perform other actions
+    // ...
+
+    newCounter = MAC_COMMON_GetMsCounter();
+
+    if ((newCounter - previousCounter) > TIMEOUT_MS)
+    {
+        // Timeout elapsed
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
+uint32_t MAC_COMMON_GetMsCounter(void);
+
+// *****************************************************************************
+/* Function:
+    bool MAC_COMMON_TimeIsPast
+    (
+      int32_t timeValue
+    )
+
+  Summary:
+    Indicates whether the given time value is in the past.
+
+  Description:
+    This primitive indicates whether the given time value is in the past.
+
+  Precondition:
+    SYS_TIME_Initialize primitive has to be called before.
+
+  Parameters:
+    timeValue      - Time value in milliseconds
+
+  Returns:
+    True if the time value is in the past. 
+    False if the time value is not in the past.
+
+  Example:
+    <code>
+    int32_t validityTime = 5000;
+
+    // Perform other actions
+    // ...
+
+    if (MAC_COMMON_TimeIsPast(validityTime))
+    {
+        // Validity ended
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
+bool MAC_COMMON_TimeIsPast(int32_t timeValue);
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

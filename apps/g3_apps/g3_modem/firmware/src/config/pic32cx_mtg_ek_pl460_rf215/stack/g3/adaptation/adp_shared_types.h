@@ -146,7 +146,7 @@ typedef struct
     uint16_t datagramTag;
     uint16_t datagramSize;
     bool discoverRoute;
-    uint8_t handle;
+    uintptr_t handle;
     uint8_t maxHops;
     uint8_t dataType;
     uint8_t originalDataType;

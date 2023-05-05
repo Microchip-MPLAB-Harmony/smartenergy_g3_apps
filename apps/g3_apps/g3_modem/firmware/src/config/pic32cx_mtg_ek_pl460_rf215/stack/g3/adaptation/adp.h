@@ -1165,7 +1165,6 @@ typedef struct
 {
     ADP_DATA_CFM_CALLBACK              dataConfirm;
     ADP_DATA_IND_CALLBACK              dataIndication;
-    ADP_BUFFER_IND_CALLBACK            bufferIndication;
 } ADP_DATA_NOTIFICATIONS;
 
 // *****************************************************************************
@@ -1199,6 +1198,7 @@ typedef struct
     ADP_PREQ_IND_CALLBACK              preqIndication;
     ADP_NON_VOLATILE_DATA_IND_CALLBACK nonVolatileDataIndication;
     ADP_ROUTE_NOT_FOUND_IND_CALLBACK   routeNotFoundIndication;
+    ADP_BUFFER_IND_CALLBACK            bufferIndication;
 } ADP_MANAGEMENT_NOTIFICATIONS;
 
 // *****************************************************************************
@@ -1492,8 +1492,7 @@ void ADP_SetLBPStatusConnection(bool lbpConnected);
     <code>
     ADP_DATA_NOTIFICATIONS adpNotifications = {
         .dataConfirm = appDataConfirm,
-        .dataIndication = appDataIndication,
-        .bufferIndication = appBufferIndication,
+        .dataIndication = appDataIndication
     };
 
     ADP_SetDataNotifications(&adpNotifications);
@@ -1541,7 +1540,8 @@ void ADP_SetDataNotifications(ADP_DATA_NOTIFICATIONS* pNotifications);
         .networkStatusIndication = appNetworkStatusIndication,
         .preqIndication = NULL, // not used
         .nonVolatileDataIndication = appNonVolatileDataIndication,
-        .routeNotFoundIndication = appRouteNotFoundIndication
+        .routeNotFoundIndication = appRouteNotFoundIndication,
+        .bufferIndication = appBufferIndication
     };
 
     ADP_SetManagementNotifications(&adpNotifications);

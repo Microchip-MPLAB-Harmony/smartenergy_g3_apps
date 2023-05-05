@@ -58,7 +58,6 @@
 #include "lbp_defs.h"
 #include "service/log_report/srv_log_report.h"
 #include "service/random/srv_random.h"
-#include "service/time_management/srv_time_management.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -188,7 +187,7 @@ static void _logShowSlotStatus(LBP_SLOT *pSlot)
             pSlot->lbdAddress.value[4], pSlot->lbdAddress.value[5],
             pSlot->lbdAddress.value[6], pSlot->lbdAddress.value[7],
             pSlot->slotState, pSlot->txHandle, pSlot->pendingConfirms,
-            pSlot->timeout, SRV_TIME_MANAGEMENT_GetMsCounter());
+            pSlot->timeout, MAC_WRP_GetMsCounter());
 
     (void)(pSlot);
 }
@@ -269,17 +268,13 @@ static void _processJoining0(ADP_EXTENDED_ADDRESS *pLBPEUI64Address, LBP_SLOT *p
 {
     uint8_t *pMemoryBuffer = &pSlot->lbpData[0];
     uint16_t memoryBufferLength = sizeof(pSlot->lbpData);
-    uint8_t i;
 
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Process Joining 0.\r\n");
 
     EAP_PSK_Initialize(&sEapPskKey, &pSlot->pskContext);
 
     /* Initialize RandS */
-    for (i = 0; i < sizeof(pSlot->randS.value); i++)
-    {
-        pSlot->randS.value[i] = SRV_RANDOM_Get32bits() & 0xFF;
-    }
+    SRV_RANDOM_Get128bits(pSlot->randS.value);
 
     pSlot->lbpDataLength = EAP_PSK_EncodeMessage1(
             sEAPIdentifier,
@@ -545,7 +540,7 @@ void LBP_Rekey(uint16_t shortAddress, ADP_EXTENDED_ADDRESS *pEUI64Address, bool 
             pSlot->pendingTxHandle = pSlot->txHandle;
         }
 
-        pSlot->timeout = SRV_TIME_MANAGEMENT_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
+        pSlot->timeout = MAC_WRP_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
         pSlot->txHandle = _getNextNsduHandle();
         pSlot->txAttempts = 0;
         pSlot->pendingConfirms++;
@@ -594,7 +589,7 @@ void LBP_UpdateLbpSlots(void)
     {
         if (sLbpSlot[idx].slotState != LBP_STATE_WAITING_JOINNING)
         {
-            if (SRV_TIME_MANAGEMENT_TimeIsPast((int32_t)(sLbpSlot[idx].timeout)))
+            if (MAC_WRP_TimeIsPast((int32_t)(sLbpSlot[idx].timeout)))
             {
                 if (sLbpSlot[idx].pendingConfirms == 0)
                 {
@@ -635,7 +630,7 @@ void LBP_UpdateLbpSlots(void)
                             }
 
                             sLbpSlot[idx].txHandle = _getNextNsduHandle();
-                            sLbpSlot[idx].timeout = SRV_TIME_MANAGEMENT_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
+                            sLbpSlot[idx].timeout = MAC_WRP_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
                             sLbpSlot[idx].pendingConfirms++;
 
                             SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Timeout detected. Re-sending MSG for slot: %d Attempt: %d \r\n",
@@ -778,7 +773,7 @@ static void AdpLbpConfirmCoord(ADP_LBP_CFM_PARAMS *pLbpConfirm)
     }
     else
     {
-        pCurrentSlot->timeout = SRV_TIME_MANAGEMENT_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
+        pCurrentSlot->timeout = MAC_WRP_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
     }
 
     if (pLbpConfirm->status == G3_SUCCESS && isAcceptedConfirm)
@@ -1025,7 +1020,7 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
             }
 
             pSlot->txHandle = _getNextNsduHandle();
-            pSlot->timeout = SRV_TIME_MANAGEMENT_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
+            pSlot->timeout = MAC_WRP_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
             pSlot->txAttempts = 0;
             pSlot->pendingConfirms++;
 
@@ -1261,7 +1256,7 @@ void LBP_ShortAddressAssign(uint8_t *pExtAddress, uint16_t assignedAddress)
             }
 
             pSlot->txHandle = _getNextNsduHandle();
-            pSlot->timeout = SRV_TIME_MANAGEMENT_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
+            pSlot->timeout = MAC_WRP_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
             pSlot->txAttempts = 0;
             pSlot->pendingConfirms++;
 

@@ -60,7 +60,6 @@
 #include "system/time/sys_time.h"
 #include "service/log_report/srv_log_report.h"
 #include "service/random/srv_random.h"
-#include "service/time_management/srv_time_management.h"
 
 /* ***************************************************************************** */
 /* ***************************************************************************** */
