@@ -1,0 +1,14 @@
+format_version: v1.0
+configName: pic32cx_mtg_ek_pl460_rf215
+folderName: pic32cx_mtg_ek_pl460_rf215
+frameworkPath: C:\WORK\GIT\mh3
+processor: PIC32CX2051MTG128
+projectName: pic32cx_mtg_ek_pl460_rf215
+settings:
+  PackageFilter: ''
+  FORCE_OPTIMIZATION: 'false'
+  GENERATE_BACKUP: 'true'
+  TRUSTZONE: 'false'
+  CMSISPath: dev_packs\arm\CMSIS\5.8.0
+  MERGE_STRATEGY: USER_ALL
+  DFPPath: dev_packs\Microchip\PIC32CX-MT_DFP\1.1.115\PIC32CX-MTG\atdf\PIC32CX2051MTG128.atdf
