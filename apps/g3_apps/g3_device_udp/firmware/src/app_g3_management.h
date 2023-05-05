@@ -50,8 +50,8 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-/* If APP_G3_MANAGEMENT_CONFORMANCE_TEST macro is defined, ADP parameters are configured
- * according to Conformance test */
+/* If APP_G3_MANAGEMENT_CONFORMANCE_TEST macro is defined, ADP parameters are
+ * configured according to Conformance test */
 //#define APP_G3_MANAGEMENT_CONFORMANCE_TEST
 
 /* PSK / Network authentication Key (16 bytes) */
@@ -241,6 +241,12 @@ typedef struct
 
     /* Lower bound of back-off window for network discovery or join */
     uint32_t backoffWindowLow;
+
+    /* Device short address assigned in network join */
+    uint16_t shortAddress;
+
+    /* PAN identifier of the network which the device is connected to */
+    uint16_t panId;
 
     /* The application's current state */
     APP_G3_MANAGEMENT_STATES state;
@@ -448,6 +454,96 @@ void APP_G3_MANAGEMENT_Tasks( void );
 // Section: Application Interface Functions
 // *****************************************************************************
 // *****************************************************************************
+
+/*******************************************************************************
+  Function:
+    uint16_t APP_G3_MANAGEMENT_GetPanId(void)
+
+  Summary:
+    Gets PAN identifier.
+
+  Description:
+    This function gets the PAN identifier of the network.
+
+  Precondition:
+    APP_G3_MANAGEMENT_Initialize should be called before calling this routine.
+
+  Parameters:
+    None.
+
+  Returns:
+    PAN identifier.
+
+  Example:
+    <code>
+    uint16_t panId = APP_G3_MANAGEMENT_GetPanId();
+    </code>
+
+  Remarks:
+    None.
+*/
+
+uint16_t APP_G3_MANAGEMENT_GetPanId(void);
+
+/*******************************************************************************
+  Function:
+    uint16_t APP_G3_MANAGEMENT_GetShortAddress(void)
+
+  Summary:
+    Gets short address.
+
+  Description:
+    This function gets the short address assigned to the device in network join.
+
+  Precondition:
+    APP_G3_MANAGEMENT_Initialize should be called before calling this routine.
+
+  Parameters:
+    None.
+
+  Returns:
+    Short address.
+
+  Example:
+    <code>
+    uint16_t shortAddress = APP_G3_MANAGEMENT_GetShortAddress();
+    </code>
+
+  Remarks:
+    None.
+*/
+
+uint16_t APP_G3_MANAGEMENT_GetShortAddress(void);
+
+/*******************************************************************************
+  Function:
+    uint8_t* APP_G3_MANAGEMENT_GetExtendedAddress(void)
+
+  Summary:
+    Gets extended address.
+
+  Description:
+    This function gets the extended address of the device.
+
+  Precondition:
+    APP_G3_MANAGEMENT_Initialize should be called before calling this routine.
+
+  Parameters:
+    None.
+
+  Returns:
+    Pointer to extended address (8 bytes).
+
+  Example:
+    <code>
+    uint8_t* extendedAddress = APP_G3_MANAGEMENT_GetExtendedAddress();
+    </code>
+
+  Remarks:
+    None.
+*/
+
+uint8_t* APP_G3_MANAGEMENT_GetExtendedAddress(void);
 
 /*******************************************************************************
   Function:

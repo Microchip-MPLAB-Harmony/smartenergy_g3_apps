@@ -211,8 +211,10 @@ static void _LBP_ADP_NetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS* pNetwor
             ADP_RouteDiscoveryRequest(coordShortAddress, maxHops);
         }
 
-        /* Notify to TCP/IP application: Configure IPv6 addresses */
-        APP_TCPIP_SetIPv6Addresses(shortAddress, panId, app_g3_managementData.eui64.value);
+        /* Notify UDP responder application to configure IPv6 addresses */
+        app_g3_managementData.shortAddress = shortAddress;
+        app_g3_managementData.panId = panId;
+        APP_UDP_RESPONDER_NetworkJoined();
 
         /* Configure Network Prefix in ADP */
         TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_NETWORK_PREFIX_G3, &networkPrefix);
@@ -257,9 +259,9 @@ static void _LBP_ADP_NetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS* pNetwor
 static void _LBP_ADP_NetworkLeaveIndication(void)
 {
     /* The device left the network. ADP is reseted internally. Go to first
-     * state. */
+     * state. Notify UDP responder application to remove IPv6 addresses */
     app_g3_managementData.state = APP_G3_MANAGEMENT_STATE_WAIT_ADP_READY;
-    APP_TCPIP_RemoveIPv6Addresses();
+    APP_UDP_RESPONDER_NetworkDisconnected();
 
     SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_G3_MANAGEMENT: Kicked from network\r\n");
 }
@@ -355,7 +357,6 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
 static void _APP_G3_MANAGEMENT_InitializeParameters(void)
 {
     ADP_SET_CFM_PARAMS setConfirm;
-    LBP_SET_PARAM_CONFIRM lbpSetConfirm;
 
     /* Set extended address (EUI64). It must be unique for each device. */
     ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_EXTENDED_ADDRESS, 0, 8,
@@ -387,14 +388,12 @@ static void _APP_G3_MANAGEMENT_InitializeParameters(void)
         /* Set user-specific ADP parameters that are set to different values in
          * Conformance Test */
         ADP_SetRequestSync(ADP_IB_ROUTING_TABLE_ENTRY_TTL, 0, 2,
-            (const uint8_t*) &app_g3_managementConst.routingTableEntryTTL,
-            &setConfirm);
+                (const uint8_t*) &app_g3_managementConst.routingTableEntryTTL, &setConfirm);
 
         ADP_SetRequestSync(ADP_IB_MAX_JOIN_WAIT_TIME, 0, 2,
             (const uint8_t*) &app_g3_managementConst.maxJoinWaitTime, &setConfirm);
 
-        ADP_SetRequestSync(ADP_IB_MAX_HOPS, 0, 1,
-            &app_g3_managementConst.maxHops, &setConfirm);
+        ADP_SetRequestSync(ADP_IB_MAX_HOPS, 0, 1, &app_g3_managementConst.maxHops, &setConfirm);
     }
 
     if (app_g3_managementData.writeNonVolatileData == true)
@@ -405,25 +404,22 @@ static void _APP_G3_MANAGEMENT_InitializeParameters(void)
         {
             /* Set ADP/MAC non-volatile data parameters */
             ADP_MacSetRequestSync(MAC_WRP_PIB_FRAME_COUNTER, 0, 4,
-                (const uint8_t*) &pNonVolatileData->frameCounter, &setConfirm);
+                    (const uint8_t*) &pNonVolatileData->frameCounter, &setConfirm);
 
             ADP_MacSetRequestSync(MAC_WRP_PIB_FRAME_COUNTER_RF, 0, 4,
-                (const uint8_t*) &pNonVolatileData->frameCounterRF, &setConfirm);
+                    (const uint8_t*) &pNonVolatileData->frameCounterRF, &setConfirm);
 
             ADP_SetRequestSync(ADP_IB_MANUF_DISCOVER_SEQUENCE_NUMBER, 0, 2,
-                (const uint8_t*) &pNonVolatileData->discoverSeqNumber, &setConfirm);
+                    (const uint8_t*) &pNonVolatileData->discoverSeqNumber, &setConfirm);
 
             ADP_SetRequestSync(ADP_IB_MANUF_BROADCAST_SEQUENCE_NUMBER, 0, 1,
-                (const uint8_t*) &pNonVolatileData->broadcastSeqNumber, &setConfirm);
+                    (const uint8_t*) &pNonVolatileData->broadcastSeqNumber, &setConfirm);
         }
 
         /* Not needed to set ADP/MAC non-volatile data parameters anymore
          * because they are internally restored when ADP reset is performed */
         app_g3_managementData.writeNonVolatileData = false;
     }
-
-    /* Set PSK Key */
-    LBP_SetParamDev(LBP_IB_PSK, 0, 16, (const uint8_t*) &app_g3_managementConst.psk, &lbpSetConfirm);
 }
 
 static bool _APP_G3_MANAGEMENT_CheckBeaconLOADngLBPframes(void)
@@ -550,7 +546,8 @@ void APP_G3_MANAGEMENT_Tasks ( void )
         USER_BLINK_LED_Toggle();
     }
 
-    if (app_g3_managementData.state > APP_G3_MANAGEMENT_STATE_WAIT_ADP_READY)
+    if ((app_g3_managementData.state > APP_G3_MANAGEMENT_STATE_WAIT_ADP_READY) &&
+            app_g3_managementData.state != APP_G3_MANAGEMENT_STATE_ERROR)
     {
         /* LBP Device tasks */
         LBP_TasksDev();
@@ -588,17 +585,20 @@ void APP_G3_MANAGEMENT_Tasks ( void )
             if (adpStatus >= ADP_STATUS_READY)
             {
                 LBP_NOTIFICATIONS_DEV lbpDevNotifications;
+                LBP_SET_PARAM_CONFIRM lbpSetConfirm;
 
                 /* ADP is ready. We can set ADP/MAC parameters. */
                 _APP_G3_MANAGEMENT_InitializeParameters();
 
-                /* Initialize LoWPAN Bootstrapping Protocol (LBP) in Device mode
-                 * and set call-backs */
+                /* Initialize LoWPAN Bootstrapping Protocol (LBP) in Device,
+                 * mode set call-backs and set PSK key */
                 LBP_InitDev();
                 lbpDevNotifications.adpNetworkJoinConfirm = _LBP_ADP_NetworkJoinConfirm;
                 lbpDevNotifications.adpNetworkLeaveConfirm = NULL;
                 lbpDevNotifications.adpNetworkLeaveIndication = _LBP_ADP_NetworkLeaveIndication;
                 LBP_SetNotificationsDev(&lbpDevNotifications);
+                LBP_SetParamDev(LBP_IB_PSK, 0, 16,
+                        (const uint8_t*) &app_g3_managementConst.psk, &lbpSetConfirm);
 
                 if (app_g3_managementData.timerLedHandle == SYS_TIME_HANDLE_INVALID)
                 {
@@ -793,7 +793,10 @@ void APP_G3_MANAGEMENT_Tasks ( void )
 
         /* Error state */
         case APP_G3_MANAGEMENT_STATE_ERROR:
+        {
+            /* TODO: Handle error in application's state machine. */
             break;
+        }
 
         /* The default state should never be executed. */
         default:
@@ -808,6 +811,21 @@ void APP_G3_MANAGEMENT_Tasks ( void )
 // Section: Application Interface Functions
 // *****************************************************************************
 // *****************************************************************************
+
+uint16_t APP_G3_MANAGEMENT_GetPanId(void)
+{
+    return app_g3_managementData.panId;
+}
+
+uint16_t APP_G3_MANAGEMENT_GetShortAddress(void)
+{
+    return app_g3_managementData.shortAddress;
+}
+
+uint8_t* APP_G3_MANAGEMENT_GetExtendedAddress(void)
+{
+    return app_g3_managementData.eui64.value;
+}
 
 void APP_G3_MANAGEMENT_SetConformanceConfig ( void )
 {
