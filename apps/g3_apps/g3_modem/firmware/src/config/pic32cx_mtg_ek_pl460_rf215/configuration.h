@@ -86,18 +86,7 @@ extern "C" {
 #define SYS_TIME_HW_COUNTER_PERIOD                  (4294967295U)
 #define SYS_TIME_HW_COUNTER_HALF_PERIOD             (SYS_TIME_HW_COUNTER_PERIOD>>1)
 #define SYS_TIME_CPU_CLOCK_FREQUENCY                (200000000)
-#define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (232)
-
-#define SYS_CONSOLE_INDEX_0                       0
-
-
-
-
-#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
-#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(1U)
-#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(0U)
-#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(200U)
-
+#define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (188)
 
 
 
@@ -163,6 +152,52 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
+/* MAC COMMON Identification */
+#define G3_MAC_COMMON_INDEX_0            0
+#define G3_MAC_COMMON_INSTANCES_NUMBER   1
+
+/* MAC PLC Identification */
+#define G3_MAC_PLC_INDEX_0               0
+#define G3_MAC_PLC_INSTANCES_NUMBER      1
+
+/* MAC RF Identification */
+#define G3_MAC_RF_INDEX_0                0
+#define G3_MAC_RF_INSTANCES_NUMBER       1
+
+/* MAC Wrapper Identification */
+#define G3_MAC_WRP_INDEX_0               0
+#define G3_MAC_WRP_INSTANCES_NUMBER      1
+
+#define G3_MAC_WRP_SERIAL_USI_INDEX      0
+
+/* Adaptation Layer Identification */
+#define G3_ADP_INDEX_0                   0
+#define G3_ADP_INSTANCES_NUMBER          1
+
+/* Number of buffers for Adaptation Layer */
+#define G3_ADP_NUM_BUFFERS_1280          1
+#define G3_ADP_NUM_BUFFERS_400           3
+#define G3_ADP_NUM_BUFFERS_100           3
+#define G3_ADP_PROCESS_QUEUE_SIZE        (G3_ADP_NUM_BUFFERS_1280 + G3_ADP_NUM_BUFFERS_400 + G3_ADP_NUM_BUFFERS_100)
+#define G3_ADP_FRAG_TRANSFER_TABLE_SIZE  1
+
+#define G3_ADP_ROUTING_TABLE_SIZE        150
+#define G3_ADP_BLACKLIST_TABLE_SIZE      20
+#define G3_ADP_ROUTING_SET_SIZE          30
+#define G3_ADP_DESTINATION_ADDR_SET_SIZE 1
+
+/* Table sizes for Routing (LOADNG) */
+#define LOADNG_PENDING_RREQ_TABLE_SIZE   6
+#define LOADNG_RREP_GEN_TABLE_SIZE       3
+#define LOADNG_RREQ_FORWARD_TABLE_SIZE   5
+#define LOADNG_DISCOVER_ROUTE_TABLE_SIZE 3
+
+/* ADP Serialization Identification */
+#define G3_ADP_SERIAL_INDEX_0            0
+#define G3_ADP_SERIAL_INSTANCES_NUMBER   1
+#define G3_ADP_SERIAL_USI_INDEX          0
+
+
 /*** wolfCrypt Library Configuration ***/
 #define MICROCHIP_PIC32
 #define MICROCHIP_MPLAB_HARMONY
@@ -209,50 +244,6 @@ extern "C" {
 #define NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY
 // ---------- FUNCTIONAL CONFIGURATION END ----------
-
-
-/* MAC COMMON Identification */
-#define G3_MAC_COMMON_INDEX_0            0
-#define G3_MAC_COMMON_INSTANCES_NUMBER   1
-
-/* MAC PLC Identification */
-#define G3_MAC_PLC_INDEX_0               0
-#define G3_MAC_PLC_INSTANCES_NUMBER      1
-
-/* MAC RF Identification */
-#define G3_MAC_RF_INDEX_0                0
-#define G3_MAC_RF_INSTANCES_NUMBER       1
-
-/* MAC Wrapper Identification */
-#define G3_MAC_WRP_INDEX_0               0
-#define G3_MAC_WRP_INSTANCES_NUMBER      1
-#define G3_MAC_WRP_SERIAL_USI_INDEX      0
-
-/* Adaptation Layer Identification */
-#define G3_ADP_INDEX_0                   0
-#define G3_ADP_INSTANCES_NUMBER          1
-
-/* Number of buffers for Adaptation Layer */
-#define G3_ADP_NUM_BUFFERS_1280          1
-#define G3_ADP_NUM_BUFFERS_400           3
-#define G3_ADP_NUM_BUFFERS_100           3
-#define G3_ADP_PROCESS_QUEUE_SIZE        (G3_ADP_NUM_BUFFERS_1280 + G3_ADP_NUM_BUFFERS_400 + G3_ADP_NUM_BUFFERS_100)
-#define G3_ADP_FRAG_TRANSFER_TABLE_SIZE  1
-#define G3_ADP_ROUTING_TABLE_SIZE        150
-#define G3_ADP_BLACKLIST_TABLE_SIZE      20
-#define G3_ADP_ROUTING_SET_SIZE          30
-#define G3_ADP_DESTINATION_ADDR_SET_SIZE 1
-
-/* Table sizes for Routing (LOADNG) */
-#define LOADNG_PENDING_RREQ_TABLE_SIZE   6
-#define LOADNG_RREP_GEN_TABLE_SIZE       3
-#define LOADNG_RREQ_FORWARD_TABLE_SIZE   5
-#define LOADNG_DISCOVER_ROUTE_TABLE_SIZE 3
-
-/* ADP Serialization Identification */
-#define G3_ADP_SERIAL_INDEX_0            0
-#define G3_ADP_SERIAL_INSTANCES_NUMBER   1
-#define G3_ADP_SERIAL_USI_INDEX          0
 
 
 

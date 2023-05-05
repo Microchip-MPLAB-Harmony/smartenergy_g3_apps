@@ -73,7 +73,6 @@
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/plib_flexcom_usart_local.h</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/plib_flexcom0_usart.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/plib_flexcom7_usart.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
@@ -185,12 +184,6 @@
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/cache/sys_cache.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="console" displayName="console" projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_uart_definitions.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_local.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/sys_console.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_uart.h</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/debug/sys_debug.h</itemPath>
@@ -547,7 +540,6 @@
               </logicalFolder>
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/plib_flexcom0_usart.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/plib_flexcom7_usart.c</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
@@ -633,10 +625,6 @@
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/cache/sys_cache.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="console" displayName="console" projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console.c</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_uart.c</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/int/src/sys_int.c</itemPath>

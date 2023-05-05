@@ -81,8 +81,6 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI Write/Read */
     .spiWriteRead = FLEXCOM5_SPI_WriteRead,
 
-    /* SPI CSR register address. */
-    .spiCSR  = (void *)&(FLEXCOM5_REGS->FLEX_SPI_CSR[DRV_PLC_CSR_INDEX]),
     
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
@@ -172,9 +170,6 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 
 /* RF215 Driver Initialization Data */
 const DRV_RF215_INIT drvRf215InitData = {
-    /* SPI chip select register address used for SPI configuration */
-    .spiCSRegAddress = (uint32_t *)&(FLEXCOM3_REGS->FLEX_SPI_CSR[DRV_RF215_CSR_INDEX]),
-
     /* Pointer to SPI PLIB is busy function */
     .spiPlibIsBusy = FLEXCOM3_SPI_IsTransmitterBusy,
 
@@ -319,38 +314,6 @@ const SYS_TIME_INIT sysTimeInitData =
 };
 
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="SYS_CONSOLE Instance 0 Initialization Data">
-
-
-/* Declared in console device implementation (sys_console_uart.c) */
-extern const SYS_CONSOLE_DEV_DESC sysConsoleUARTDevDesc;
-
-const SYS_CONSOLE_UART_PLIB_INTERFACE sysConsole0UARTPlibAPI =
-{
-    .read_t = (SYS_CONSOLE_UART_PLIB_READ)FLEXCOM7_USART_Read,
-	.readCountGet = (SYS_CONSOLE_UART_PLIB_READ_COUNT_GET)FLEXCOM7_USART_ReadCountGet,
-	.readFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_READ_FREE_BUFFFER_COUNT_GET)FLEXCOM7_USART_ReadFreeBufferCountGet,
-    .write_t = (SYS_CONSOLE_UART_PLIB_WRITE)FLEXCOM7_USART_Write,
-	.writeCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_COUNT_GET)FLEXCOM7_USART_WriteCountGet,
-	.writeFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_FREE_BUFFER_COUNT_GET)FLEXCOM7_USART_WriteFreeBufferCountGet,
-};
-
-const SYS_CONSOLE_UART_INIT_DATA sysConsole0UARTInitData =
-{
-    .uartPLIB = &sysConsole0UARTPlibAPI,    
-};
-
-const SYS_CONSOLE_INIT sysConsole0Init =
-{
-    .deviceInitData = (const void*)&sysConsole0UARTInitData,
-    .consDevDesc = &sysConsoleUARTDevDesc,
-    .deviceIndex = 0,
-};
-
-
-
-// </editor-fold>
-
 
 
 
@@ -392,11 +355,9 @@ void SYS_Initialize ( void* data )
 
 
 
-    FLEXCOM7_USART_Initialize();
-
-    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
+    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  
@@ -419,10 +380,7 @@ void SYS_Initialize ( void* data )
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
-    sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
 
-
-    CRYPT_WCCB_Initialize();
 
     /* Initialize G3 MAC Wrapper Instance */
     sysObj.g3MacWrapper = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0);
@@ -433,6 +391,7 @@ void SYS_Initialize ( void* data )
     /* Initialize G3 ADP Serialization Instance */
     sysObj.g3AdpSerial = ADP_SERIAL_Initialize(G3_ADP_SERIAL_INDEX_0);
 
+    CRYPT_WCCB_Initialize();
 
     APP_Initialize();
 

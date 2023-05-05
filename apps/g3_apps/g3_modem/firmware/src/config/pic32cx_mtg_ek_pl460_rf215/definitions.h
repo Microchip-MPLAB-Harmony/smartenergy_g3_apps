@@ -51,13 +51,29 @@
 #include "crypto/crypto.h"
 #include "service/pcoup/srv_pcoup.h"
 #include "stack/g3/pal/plc/pal_plc.h"
-#include "peripheral/flexcom/usart/plib_flexcom7_usart.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt_definitions.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt_comm.h"
-#include "peripheral/adc/plib_adc.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom3_spi_master.h"
+#include "peripheral/adc/plib_adc.h"
 #include "driver/rf215/drv_rf215.h"
+#include "stack/g3/mac/mac_common/mac_common.h"
+#include "stack/g3/mac/mac_common/mac_common_defs.h"
+#include "stack/g3/mac/mac_plc/mac_plc.h"
+#include "stack/g3/mac/mac_plc/mac_plc_defs.h"
+#include "stack/g3/mac/mac_plc/mac_plc_mib.h"
+#include "stack/g3/mac/mac_rf/mac_rf.h"
+#include "stack/g3/mac/mac_rf/mac_rf_defs.h"
+#include "stack/g3/mac/mac_rf/mac_rf_mib.h"
+#include "stack/g3/mac/mac_wrapper/mac_wrapper.h"
+#include "stack/g3/mac/mac_wrapper/mac_wrapper_defs.h"
+#include "stack/g3/adaptation/adp.h"
+#include "stack/g3/adaptation/adp_api_types.h"
+#include "stack/g3/adaptation/adp_shared_types.h"
+#include "stack/g3/adaptation/adp_serial.h"
+#include "stack/g3/adaptation/lbp_defs.h"
+#include "stack/g3/adaptation/lbp_dev.h"
+#include "stack/g3/adaptation/lbp_coord.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h"
 #include "peripheral/tc/plib_tc0.h"
 #include "service/usi/srv_usi.h"
@@ -85,24 +101,6 @@
 #include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
 #include "stack/g3/pal/plc/pal_plc.h"
 #include "service/pvddmon/srv_pvddmon.h"
-#include "system/console/sys_console.h"
-#include "system/console/src/sys_console_uart_definitions.h"
-#include "stack/g3/mac/mac_common/mac_common.h"
-#include "stack/g3/mac/mac_common/mac_common_defs.h"
-#include "stack/g3/mac/mac_plc/mac_plc.h"
-#include "stack/g3/mac/mac_plc/mac_plc_defs.h"
-#include "stack/g3/mac/mac_plc/mac_plc_mib.h"
-#include "stack/g3/mac/mac_rf/mac_rf.h"
-#include "stack/g3/mac/mac_rf/mac_rf_defs.h"
-#include "stack/g3/mac/mac_rf/mac_rf_mib.h"
-#include "stack/g3/mac/mac_wrapper/mac_wrapper.h"
-#include "stack/g3/mac/mac_wrapper/mac_wrapper_defs.h"
-#include "stack/g3/adaptation/adp.h"
-#include "stack/g3/adaptation/adp_api_types.h"
-#include "stack/g3/adaptation/adp_shared_types.h"
-#include "stack/g3/adaptation/adp_serial.h"
-#include "stack/g3/adaptation/lbp_defs.h"
-#include "stack/g3/adaptation/lbp_dev.h"
 #include "app.h"
 
 
@@ -238,15 +236,13 @@ typedef struct
     SYS_MODULE_OBJ  drvG3MacRt;
 
     SYS_MODULE_OBJ drvRf215;
-    SYS_MODULE_OBJ  sysTime;
-    SYS_MODULE_OBJ  sysConsole0;
-
-    SYS_MODULE_OBJ g3PalRf;
-    SYS_MODULE_OBJ srvUSI0;
     SYS_MODULE_OBJ g3MacWrapper;
     SYS_MODULE_OBJ g3Adp;
     SYS_MODULE_OBJ g3AdpSerial;
 
+    SYS_MODULE_OBJ  sysTime;
+    SYS_MODULE_OBJ g3PalRf;
+    SYS_MODULE_OBJ srvUSI0;
 
 } SYSTEM_OBJECTS;
 

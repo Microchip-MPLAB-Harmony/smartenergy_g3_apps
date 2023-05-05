@@ -68,7 +68,6 @@ void SUPC_InterruptHandler (void);
 void FLEXCOM0_InterruptHandler (void);
 void FLEXCOM3_InterruptHandler (void);
 void FLEXCOM5_InterruptHandler (void);
-void FLEXCOM7_InterruptHandler (void);
 void PIOA_InterruptHandler (void);
 void PIOC_InterruptHandler (void);
 void ADC_InterruptHandler (void);
