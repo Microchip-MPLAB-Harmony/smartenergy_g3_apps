@@ -52,7 +52,10 @@
 
 APP_CYCLES_DATA app_cyclesData;
 
-APP_CYCLES_STATISTICS_ENTRY app_cyclesStatistics[APP_EAP_SERVER_MAX_DEVICES];
+static APP_CYCLES_STATISTICS_ENTRY app_cyclesStatistics[APP_EAP_SERVER_MAX_DEVICES];
+
+static const uint8_t app_cyclesPayload[16] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, \
+        0x66, 0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};
 
 // *****************************************************************************
 // *****************************************************************************
@@ -64,76 +67,60 @@ static void _APP_CYCLES_NextPacket(void);
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Application Callback Functions
-// *****************************************************************************
-// *****************************************************************************
-
-static void _APP_CYCLES_Callback (
-    TCPIP_NET_HANDLE hNetIf,
-    uint8_t type,
-    const IPV6_ADDR * localIP,
-    const IPV6_ADDR * remoteIP,
-    void * header)
-{
-    if ((type == ICMPV6_INFO_ECHO_REPLY) && (memcmp(remoteIP, &app_cyclesData.targetAddress, sizeof(IPV6_ADDR)) == 0))
-    {
-        uint64_t elapsedTimeCount;
-        uint64_t currentTimeCount = SYS_TIME_Counter64Get();
-
-        /* Echo reply received successfully */
-        SYS_TIME_TimerDestroy(app_cyclesData.timeHandle);
-
-        /* Update statistics */
-        app_cyclesData.numEchoReplies++;
-        elapsedTimeCount = currentTimeCount - app_cyclesData.timeCountEchoRequest;
-        if (app_cyclesData.pStatsEntry != NULL)
-        {
-            app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
-            app_cyclesData.pStatsEntry->numEchoReplies++;
-        }
-
-        SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: ICMPv6 echo reply received (%u ms)\r\n",
-                SYS_TIME_CountToMS(elapsedTimeCount));
-
-        /* Next ICMPv6 echo request */
-        _APP_CYCLES_NextPacket();
-    }
-}
-
-// *****************************************************************************
-// *****************************************************************************
 // Section: Application Local Functions
 // *****************************************************************************
 // *****************************************************************************
 
 static void _APP_CYCLES_SendPacket(void)
 {
-    /* Send ICMP */
-    app_cyclesData.timeCountEchoRequest = SYS_TIME_Counter64Get();
-    app_cyclesData.icmpResult = TCPIP_ICMPV6_EchoRequestSend(app_cyclesData.netHandle, &app_cyclesData.targetAddress,
-            app_cyclesData.sequenceNumber, 0, app_cyclesData.packetSize);
+    uint16_t availableTxBytes, chunkSize, payloadSize;
+
+    /* Get the number of bytes that can be written to the socket */
+    availableTxBytes = TCPIP_UDP_PutIsReady(app_cyclesData.socket);
+    if (availableTxBytes < app_cyclesData.packetSize)
+    {
+        SYS_DEBUG_MESSAGE(SYS_ERROR_ERROR, "APP_CYCLES: Not enough bytes available in UDP socket\r\n");
+        _APP_CYCLES_NextPacket();
+        return;
+    }
+
+    /* Put the first byte: 0x01 (UDP request) */
+    TCPIP_UDP_Put(app_cyclesData.socket, 1);
+
+    /* Write the remaining UDP payload bytes. Implemented in a loop, processing
+     * up to 16 bytes at a time. This limits memory usage while maximizing
+     * performance. */
+    chunkSize = 16;
+    payloadSize = app_cyclesData.packetSize - 1;
+    for (uint16_t written = 0; written < payloadSize; written += chunkSize)
+    {
+        if (written + chunkSize > payloadSize)
+        {
+            /* Treat the last chunk */
+            chunkSize = payloadSize - written;
+        }
+
+        TCPIP_UDP_ArrayPut(app_cyclesData.socket, app_cyclesPayload, chunkSize);
+    }
+
+    /* Send the UDP request */
+    app_cyclesData.timeCountUdpRequest = SYS_TIME_Counter64Get();
+    TCPIP_UDP_Flush(app_cyclesData.socket);
 
     /* Force neighbor reachable status in NDP */
     TCPIP_NDP_NborReachConfirm(app_cyclesData.netHandle, &app_cyclesData.targetAddress);
 
-    SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: Ping packet size %hu\r\n", app_cyclesData.packetSize);
+    SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: UDP packet size %hu\r\n", app_cyclesData.packetSize);
 
-    if (app_cyclesData.icmpResult == true)
-    {
-        /* Create timer for timeout to detect echo reply not received */
-        app_cyclesData.timeExpired = false;
-        app_cyclesData.timeHandle = SYS_TIME_CallbackRegisterMS(APP_SYS_TIME_CallbackSetFlag,
-                (uintptr_t) &app_cyclesData.timeExpired, APP_CYCLES_TIMEOUT_MS,
-                SYS_TIME_SINGLE);
+    /* Create timer for timeout to detect UDP reply not received */
+    app_cyclesData.timeExpired = false;
+    app_cyclesData.timeHandle = SYS_TIME_CallbackRegisterMS(APP_SYS_TIME_CallbackSetFlag,
+            (uintptr_t) &app_cyclesData.timeExpired, APP_CYCLES_TIMEOUT_MS,
+            SYS_TIME_SINGLE);
 
-        /* Update statistics */
-        app_cyclesData.numEchoRequests++;
-        app_cyclesData.pStatsEntry->numEchoRequests++;
-    }
-    else
-    {
-        SYS_DEBUG_MESSAGE(SYS_ERROR_ERROR, "APP_CYCLES: Error in TCPIP_ICMPV6_EchoRequestSend\r\n");
-    }
+    /* Update statistics */
+    app_cyclesData.numUdpRequests++;
+    app_cyclesData.pStatsEntry->numUdpRequests++;
 }
 
 static void _APP_CYCLES_StartDeviceCycle(void)
@@ -153,6 +140,16 @@ static void _APP_CYCLES_StartDeviceCycle(void)
     app_cyclesData.targetAddress.v[14] = (uint8_t) (shortAddress >> 8);
     app_cyclesData.targetAddress.v[15] = (uint8_t) shortAddress;
     TCPIP_Helper_IPv6AddressToString(&app_cyclesData.targetAddress, targetAddressString, sizeof(targetAddressString) - 1);
+
+    /* Close socket if already opened */
+    if (app_cyclesData.socket != INVALID_SOCKET)
+    {
+        TCPIP_UDP_Close(app_cyclesData.socket);
+    }
+
+    /* Open UDP client socket */
+    app_cyclesData.socket = TCPIP_UDP_ClientOpen(IP_ADDRESS_TYPE_IPV6,
+            APP_UDP_RESPONDER_SOCKET_PORT_CONFORMANCE, (IP_MULTI_ADDRESS*) &app_cyclesData.targetAddress);
 
     SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: Starting cycle for %s (Short Address: 0x%04X,"
             " EUI64: 0x%02X%02X%02X%02X%02X%02X%02X%02X)\r\n", targetAddressString, shortAddress,
@@ -230,23 +227,22 @@ static void _APP_CYCLES_NextPacket(void)
             {
                 if (app_cyclesStatistics[i].shortAddress != 0xFFFF)
                 {
-                    numErrors = app_cyclesStatistics[i].numEchoRequests - app_cyclesStatistics[i].numEchoReplies;
-                    successRate = (app_cyclesStatistics[i].numEchoReplies * 100) / app_cyclesStatistics[i].numEchoRequests;
+                    numErrors = app_cyclesStatistics[i].numUdpRequests - app_cyclesStatistics[i].numUdpReplies;
+                    successRate = (app_cyclesStatistics[i].numUdpReplies * 100) / app_cyclesStatistics[i].numUdpRequests;
                     SYS_DEBUG_PRINT(SYS_ERROR_INFO, "Short address 0x%04X: Sent %u, Success %u (%hhu %%), Errors %u,"
                             " Average duration %u\r\n", app_cyclesStatistics[i].shortAddress,
-                            app_cyclesStatistics[i].numEchoRequests, app_cyclesStatistics[i].numEchoReplies,
+                            app_cyclesStatistics[i].numUdpRequests, app_cyclesStatistics[i].numUdpReplies,
                             successRate, numErrors,
                             SYS_TIME_CountToMS(app_cyclesStatistics[i].timeCountTotal / (app_cyclesData.cycleIndex + 1)));
                 }
             }
 
-            numErrors = app_cyclesData.numEchoRequests - app_cyclesData.numEchoReplies;
-            successRate = (app_cyclesData.numEchoReplies * 100) / app_cyclesData.numEchoRequests;
+            numErrors = app_cyclesData.numUdpRequests - app_cyclesData.numUdpReplies;
+            successRate = (app_cyclesData.numUdpReplies * 100) / app_cyclesData.numUdpRequests;
             SYS_DEBUG_PRINT(SYS_ERROR_INFO, "TOTAL: Sent %u, Success %u (%hhu %%), Errors %u\r\n",
-                    app_cyclesData.numEchoRequests, app_cyclesData.numEchoReplies, successRate, numErrors);
+                    app_cyclesData.numUdpRequests, app_cyclesData.numUdpReplies, successRate, numErrors);
 
             /* Start again with first device */
-            app_cyclesData.sequenceNumber++;
             app_cyclesData.cycleIndex++;
             _APP_CYCLES_StartCycle();
         }
@@ -277,18 +273,17 @@ void APP_CYCLES_Initialize ( void )
     app_cyclesData.state = APP_CYCLES_STATE_WAIT_TCPIP_READY;
 
     /* Initialize application variables */
-    app_cyclesData.pStatsEntry = NULL;
-    app_cyclesData.numEchoRequests = 0;
-    app_cyclesData.numEchoReplies = 0;
+    app_cyclesData.socket = INVALID_SOCKET;
+    app_cyclesData.numUdpRequests = 0;
+    app_cyclesData.numUdpReplies = 0;
     app_cyclesData.cycleIndex = 0;
     app_cyclesData.numDevicesJoined = 0;
-    app_cyclesData.sequenceNumber = 0;
     app_cyclesData.timeExpired = false;
     for (uint16_t i = 0; i < APP_EAP_SERVER_MAX_DEVICES; i++)
     {
         app_cyclesStatistics[i].timeCountTotal = 0;
-        app_cyclesStatistics[i].numEchoRequests = 0;
-        app_cyclesStatistics[i].numEchoReplies = 0;
+        app_cyclesStatistics[i].numUdpRequests = 0;
+        app_cyclesStatistics[i].numUdpReplies = 0;
         app_cyclesStatistics[i].shortAddress = 0xFFFF;
     }
 }
@@ -318,42 +313,9 @@ void APP_CYCLES_Tasks ( void )
             }
             else if(tcpipStat == SYS_STATUS_READY)
             {
-                IPV6_ADDR ipv6Addr;
-                uint8_t* eui64;
-                uint16_t panId;
-
-                /* TCP/IP stack ready. Register ICMPv6 callback */
-                TCPIP_ICMPV6_CallbackRegister(_APP_CYCLES_Callback);
+                /* TCP/IP stack ready */
                 app_cyclesData.netHandle = TCPIP_STACK_NetHandleGet("G3ADPMAC");
                 app_cyclesData.state = APP_CYCLES_STATE_WAIT_FIRST_JOIN;
-
-                /* Configure link-local address, based on PAN ID and Short
-                 * Address */
-                TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_LINK_LOCAL_ADDRESS_G3, &ipv6Addr);
-                panId = APP_G3_MANAGEMENT_GetPanId();
-                ipv6Addr.v[8] = (uint8_t) (panId >> 8);
-                ipv6Addr.v[9] = (uint8_t) panId;
-                ipv6Addr.v[14] = (uint8_t) (APP_G3_MANAGEMENT_SHORT_ADDRESS >> 8);
-                ipv6Addr.v[15] = (uint8_t) APP_G3_MANAGEMENT_SHORT_ADDRESS;
-                TCPIP_IPV6_UnicastAddressAdd(app_cyclesData.netHandle,
-                        &ipv6Addr, 0, false);
-
-                /* Configure Unique Local Link (ULA) address, based on PAN ID
-                 * and EUI64 */
-                TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_NETWORK_PREFIX_G3, &ipv6Addr);
-                eui64 = APP_G3_MANAGEMENT_GetExtendedAddress();
-                ipv6Addr.v[6] = (uint8_t) (panId >> 8);
-                ipv6Addr.v[7] = (uint8_t) panId;
-                ipv6Addr.v[8] = eui64[7];
-                ipv6Addr.v[9] = eui64[6];
-                ipv6Addr.v[10] = eui64[5];
-                ipv6Addr.v[11] = eui64[4];
-                ipv6Addr.v[12] = eui64[3];
-                ipv6Addr.v[13] = eui64[2];
-                ipv6Addr.v[14] = eui64[1];
-                ipv6Addr.v[15] = eui64[0];
-                TCPIP_IPV6_UnicastAddressAdd(app_cyclesData.netHandle,
-                        &ipv6Addr, APP_TCPIP_IPV6_NETWORK_PREFIX_G3_LEN, false);
             }
 
             break;
@@ -378,7 +340,7 @@ void APP_CYCLES_Tasks ( void )
             break;
         }
 
-        /* State to wait for first ICMPv6 cycle */
+        /* State to wait for first UDP cycle */
         case APP_CYCLES_STATE_WAIT_FIRST_CYCLE:
         {
             if (app_cyclesData.timeExpired == false)
@@ -407,29 +369,104 @@ void APP_CYCLES_Tasks ( void )
             break;
         }
 
-        /* Cycling state: Sending ICMPv6 echo requests to registered devices */
+        /* Cycling state: Sending UDP requests to registered devices */
         case APP_CYCLES_STATE_CYCLING:
         {
-            if (app_cyclesData.icmpResult == false)
-            {
-                /* Error sending ICMPv6 echo request. Try again */
-                _APP_CYCLES_SendPacket();
-            }
-            else if (app_cyclesData.timeExpired == true)
-            {
-                /* ICMPv6 echo reply not received */
-                uint64_t elapsedTimeCount = SYS_TIME_Counter64Get() - app_cyclesData.timeCountEchoRequest;
-                if (app_cyclesData.pStatsEntry != NULL)
-                {
-                    app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
-                }
+            uint64_t currentTimeCount, elapsedTimeCount;
+            uint16_t rxPayloadSize;
+            uint8_t udpProtocol;
+            bool payloadOk = true;
 
-                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_CYCLES: ICMPv6 echo reply not received (timeout %u ms)\r\n",
+            if (app_cyclesData.timeExpired == true)
+            {
+                /* UDP reply not received */
+                currentTimeCount = SYS_TIME_Counter64Get();
+                elapsedTimeCount = currentTimeCount - app_cyclesData.timeCountUdpRequest;
+                app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
+
+                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_CYCLES: UDP reply not received (timeout %u ms)\r\n",
                         SYS_TIME_CountToMS(elapsedTimeCount));
 
-                /* Next ICMPv6 echo request */
+                /* Next UDP request */
                 _APP_CYCLES_NextPacket();
+                break;
             }
+
+            /* Get number of bytes received */
+            rxPayloadSize = TCPIP_UDP_GetIsReady(app_cyclesData.socket);
+
+            if (rxPayloadSize == 0)
+            {
+                /* No data received */
+                break;
+            }
+
+            /* UDP frame received. Compute round-trip time. */
+            elapsedTimeCount = SYS_TIME_Counter64Get() - app_cyclesData.timeCountUdpRequest;
+            app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
+            SYS_TIME_TimerDestroy(app_cyclesData.timeHandle);
+
+            /* Read first received byte (protocol) */
+            TCPIP_UDP_Get(app_cyclesData.socket, &udpProtocol);
+
+            if (rxPayloadSize != app_cyclesData.packetSize)
+            {
+                /* Wrong UDP packet size */
+                payloadOk = false;
+            }
+            else if (udpProtocol == 2)
+            {
+                uint16_t chunkSize, contentSize;
+                uint8_t payloadFragment[16];
+
+                /* Check the remaining UDP payload bytes. Implemented in a loop,
+                 * processing up to 16 bytes at a time. This limits memory usage
+                 * while maximizing performance. */
+                chunkSize = 16;
+                contentSize = rxPayloadSize - 1;
+                for (uint16_t written = 0; written < contentSize; written += chunkSize)
+                {
+                    if (written + chunkSize > contentSize)
+                    {
+                        /* Treat the last chunk */
+                        chunkSize = contentSize - written;
+                    }
+
+                    TCPIP_UDP_ArrayGet(app_cyclesData.socket, payloadFragment, chunkSize);
+                    if (memcmp(payloadFragment, app_cyclesPayload, 16) != 0)
+                    {
+                        /* Wrong UDP reply content */
+                        payloadOk = false;
+                        break;
+                    }
+               }
+            }
+            else
+            {
+                /* Wrong UDP protocol, it must be 0x02 (UDP reply) */
+                payloadOk = false;
+            }
+
+            if (payloadOk == true)
+            {
+                /* Update statistics */
+                app_cyclesData.numUdpReplies++;
+                app_cyclesData.pStatsEntry->numUdpReplies++;
+
+                SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: UDP reply received (%u ms)\r\n",
+                        SYS_TIME_CountToMS(elapsedTimeCount));
+            }
+            else
+            {
+                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_CYCLES: Wrong UDP reply received (%u ms)\r\n",
+                        SYS_TIME_CountToMS(elapsedTimeCount));
+            }
+
+            /* Received UDP frame processed, we can discard it */
+            TCPIP_UDP_Discard(app_cyclesData.socket);
+
+            /* Next UDP request */
+            _APP_CYCLES_NextPacket();
 
             break;
         }

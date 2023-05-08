@@ -52,7 +52,7 @@
 
 APP_CYCLES_DATA app_cyclesData;
 
-APP_CYCLES_STATISTICS_ENTRY app_cyclesStatistics[APP_EAP_SERVER_MAX_DEVICES];
+static APP_CYCLES_STATISTICS_ENTRY app_cyclesStatistics[APP_EAP_SERVER_MAX_DEVICES];
 
 // *****************************************************************************
 // *****************************************************************************
@@ -86,11 +86,8 @@ static void _APP_CYCLES_Callback (
         /* Update statistics */
         app_cyclesData.numEchoReplies++;
         elapsedTimeCount = currentTimeCount - app_cyclesData.timeCountEchoRequest;
-        if (app_cyclesData.pStatsEntry != NULL)
-        {
-            app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
-            app_cyclesData.pStatsEntry->numEchoReplies++;
-        }
+        app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
+        app_cyclesData.pStatsEntry->numEchoReplies++;
 
         SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: ICMPv6 echo reply received (%u ms)\r\n",
                 SYS_TIME_CountToMS(elapsedTimeCount));
@@ -108,7 +105,7 @@ static void _APP_CYCLES_Callback (
 
 static void _APP_CYCLES_SendPacket(void)
 {
-    /* Send ICMP */
+    /* Send ICMPv6 echo request */
     app_cyclesData.timeCountEchoRequest = SYS_TIME_Counter64Get();
     app_cyclesData.icmpResult = TCPIP_ICMPV6_EchoRequestSend(app_cyclesData.netHandle, &app_cyclesData.targetAddress,
             app_cyclesData.sequenceNumber, 0, app_cyclesData.packetSize);
@@ -277,7 +274,6 @@ void APP_CYCLES_Initialize ( void )
     app_cyclesData.state = APP_CYCLES_STATE_WAIT_TCPIP_READY;
 
     /* Initialize application variables */
-    app_cyclesData.pStatsEntry = NULL;
     app_cyclesData.numEchoRequests = 0;
     app_cyclesData.numEchoReplies = 0;
     app_cyclesData.cycleIndex = 0;
@@ -419,10 +415,7 @@ void APP_CYCLES_Tasks ( void )
             {
                 /* ICMPv6 echo reply not received */
                 uint64_t elapsedTimeCount = SYS_TIME_Counter64Get() - app_cyclesData.timeCountEchoRequest;
-                if (app_cyclesData.pStatsEntry != NULL)
-                {
-                    app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
-                }
+                app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
 
                 SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_CYCLES: ICMPv6 echo reply not received (timeout %u ms)\r\n",
                         SYS_TIME_CountToMS(elapsedTimeCount));

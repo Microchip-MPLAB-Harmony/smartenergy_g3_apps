@@ -222,7 +222,7 @@ extern "C" {
 
 /*** TCPIP Heap Configuration ***/
 #define TCPIP_STACK_USE_INTERNAL_HEAP
-#define TCPIP_STACK_DRAM_SIZE                       10240
+#define TCPIP_STACK_DRAM_SIZE                       16384
 #define TCPIP_STACK_DRAM_RUN_LIMIT                  2048
 
 #define TCPIP_STACK_MALLOC_FUNC                     malloc
@@ -278,7 +278,7 @@ extern "C" {
 
 
 /*** UDP Configuration ***/
-#define TCPIP_UDP_MAX_SOCKETS		                	1
+#define TCPIP_UDP_MAX_SOCKETS		                	2
 #define TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE		    	1200
 #define TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT    	 	3
 #define TCPIP_UDP_SOCKET_DEFAULT_RX_QUEUE_LIMIT			3
