@@ -554,6 +554,7 @@ void APP_G3_MANAGEMENT_SetConformanceConfig ( void )
     }
 
     APP_UDP_RESPONDER_SetConformanceConfig();
+    APP_CYCLES_SetConformanceConfig();
 }
 
 uint8_t APP_G3_MANAGEMENT_SetConformanceTrickleConfig(uint8_t trickleActivation)

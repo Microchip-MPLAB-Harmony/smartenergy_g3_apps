@@ -222,7 +222,7 @@ void APP_UDP_RESPONDER_Tasks( void );
     void APP_UDP_RESPONDER_SetConformanceConfig ( void )
 
   Summary:
-     Configures TCP/IP stack for Conformance Test.
+    Configures TCP/IP stack for Conformance Test.
 
   Description:
     This function configures TCP/IP stack parameters for Conformance Test.

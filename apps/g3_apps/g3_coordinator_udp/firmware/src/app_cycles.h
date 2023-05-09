@@ -91,6 +91,9 @@ typedef enum
     /* Cycling state: Sending UDP requests to registered devices */
     APP_CYCLES_STATE_CYCLING,
 
+    /* Conformance state: Cycling disabled */
+    APP_CYCLES_STATE_CONFORMANCE,
+
     /* Error state */
     APP_CYCLES_STATE_ERROR,
 
@@ -301,6 +304,37 @@ void APP_CYCLES_Tasks( void );
 */
 
 void APP_CYCLES_AdpBufferIndication(bool bufferReady);
+
+/*******************************************************************************
+  Function:
+    void APP_CYCLES_SetConformanceConfig ( void )
+
+  Summary:
+    Disables cycling operation.
+
+  Description:
+    This function configures cycles application for Conformance Test. Cycling
+    operation is disabled.
+
+  Precondition:
+    APP_CYCLES_Initialize should be called before calling this routine.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    APP_CYCLES_SetConformanceConfig();
+    </code>
+
+  Remarks:
+    None.
+*/
+
+void APP_CYCLES_SetConformanceConfig ( void );
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

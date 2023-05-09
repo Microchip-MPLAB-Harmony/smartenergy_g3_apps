@@ -471,6 +471,13 @@ void APP_CYCLES_Tasks ( void )
             break;
         }
 
+        /* Conformance state: Cycling disabled */
+        case APP_CYCLES_STATE_CONFORMANCE:
+        {
+            /* Nothing to do */
+            break;
+        }
+
         /* Error state */
         case APP_CYCLES_STATE_ERROR:
         {
@@ -495,6 +502,16 @@ void APP_CYCLES_Tasks ( void )
 void APP_CYCLES_AdpBufferIndication(bool bufferReady)
 {
     /* TODO */
+}
+
+void APP_CYCLES_SetConformanceConfig ( void )
+{
+    /* Disable cycling operation and close socket if already opened */
+    app_cyclesData.state = APP_CYCLES_STATE_CONFORMANCE;
+    if (app_cyclesData.socket != INVALID_SOCKET)
+    {
+        TCPIP_UDP_Close(app_cyclesData.socket);
+    }
 }
 
 /*******************************************************************************
