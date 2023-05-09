@@ -68,7 +68,7 @@ static void _APP_CYCLES_NextPacket(void);
 // *****************************************************************************
 // *****************************************************************************
 
-static void _APP_CYCLES_Callback (
+static void _APP_CYCLES_IcmpCallback (
     TCPIP_NET_HANDLE hNetIf,
     uint8_t type,
     const IPV6_ADDR * localIP,
@@ -319,7 +319,7 @@ void APP_CYCLES_Tasks ( void )
                 uint16_t panId;
 
                 /* TCP/IP stack ready. Register ICMPv6 callback */
-                TCPIP_ICMPV6_CallbackRegister(_APP_CYCLES_Callback);
+                TCPIP_ICMPV6_CallbackRegister(_APP_CYCLES_IcmpCallback);
                 app_cyclesData.netHandle = TCPIP_STACK_NetHandleGet("G3ADPMAC");
                 app_cyclesData.state = APP_CYCLES_STATE_WAIT_FIRST_JOIN;
 
