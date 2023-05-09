@@ -2,10 +2,6 @@
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
-         <string>ADAPTATION LAYER</string>
-         <string>class com.microchip.mcc.harmony.HarmonyGroupModule</string>
-      </entry>
-      <entry>
          <string>BASIC CONFIGURATION</string>
          <string>class com.microchip.mcc.harmony.HarmonyGroupModule</string>
       </entry>
@@ -24,10 +20,6 @@
       <entry>
          <string>HarmonyCore</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
-      </entry>
-      <entry>
-         <string>MAC LAYER</string>
-         <string>class com.microchip.mcc.harmony.HarmonyGroupModule</string>
       </entry>
       <entry>
          <string>NETWORK LAYER</string>
@@ -78,30 +70,6 @@
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
-         <string>g3ADP</string>
-         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
-      </entry>
-      <entry>
-         <string>g3LOADng</string>
-         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
-      </entry>
-      <entry>
-         <string>g3MacCommon</string>
-         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
-      </entry>
-      <entry>
-         <string>g3MacPlc</string>
-         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
-      </entry>
-      <entry>
-         <string>g3MacRf</string>
-         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
-      </entry>
-      <entry>
-         <string>g3MacWrapper</string>
-         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
-      </entry>
-      <entry>
          <string>g3PalPlc</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
@@ -110,15 +78,7 @@
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
-         <string>g3_adapt_config</string>
-         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
-      </entry>
-      <entry>
          <string>g3_config</string>
-         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
-      </entry>
-      <entry>
-         <string>g3_mac_config</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
@@ -214,14 +174,6 @@
       <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.3.1"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="ADAPTATION LAYER" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>G3 STACK</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="ADAPTATION LAYER" name="harmonyGroupDysplayName"/>
-         <value>ADAPTATION LAYER</value>
-      </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="BASIC CONFIGURATION" name="#&amp;__MCC_Group_Parrent_id"/>
          <value>TCP/IP STACK</value>
@@ -3724,14 +3676,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MAC LAYER" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>G3 STACK</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MAC LAYER" name="harmonyGroupDysplayName"/>
-         <value>MAC LAYER</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="NETWORK LAYER" name="#&amp;__MCC_Group_Parrent_id"/>
          <value>TCP/IP STACK</value>
       </entry>
@@ -3778,7 +3722,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="adc" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
+         <value>__ROOTVIEW</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="adc" name="ADC_0_CHER"/>
@@ -4307,14 +4251,8 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;622&quot; canvasWidth=&quot;607&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;ADAPTATION LAYER&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;g3ADP&quot; x=&quot;0&quot; y=&quot;94&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3LOADng&quot; x=&quot;187&quot; y=&quot;95&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;g3_adapt_config&quot; x=&quot;0&quot; y=&quot;20&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;596&quot; canvasWidth=&quot;472&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;ADAPTATION LAYER&quot;/&gt;
     &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;BASIC CONFIGURATION&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipStack&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
@@ -4328,33 +4266,16 @@
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;4&quot; id=&quot;G3 STACK&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;ADAPTATION LAYER&quot; x=&quot;220&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;MAC LAYER&quot; x=&quot;400&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;g3_config&quot; x=&quot;0&quot; y=&quot;22&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;srvLogReport&quot; x=&quot;4&quot; y=&quot;267&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srvQueue&quot; x=&quot;221&quot; y=&quot;85&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvRandom&quot; x=&quot;12&quot; y=&quot;126&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvSecurity&quot; x=&quot;221&quot; y=&quot;186&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;g3PalPlc&quot; x=&quot;134&quot; y=&quot;13&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3PalRf&quot; x=&quot;309&quot; y=&quot;14&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;g3_config&quot; x=&quot;0&quot; y=&quot;10&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;srvLogReport&quot; x=&quot;277&quot; y=&quot;229&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srvQueue&quot; x=&quot;133&quot; y=&quot;228&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvRandom&quot; x=&quot;134&quot; y=&quot;132&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvSecurity&quot; x=&quot;277&quot; y=&quot;132&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;5&quot; id=&quot;MAC LAYER&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;adc&quot; x=&quot;432&quot; y=&quot;397&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;drvG3MacRt&quot; x=&quot;139&quot; y=&quot;220&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;drvRf215&quot; x=&quot;145&quot; y=&quot;361&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;flexcom3&quot; x=&quot;1&quot; y=&quot;405&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;flexcom5&quot; x=&quot;0&quot; y=&quot;264&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;g3MacCommon&quot; x=&quot;0&quot; y=&quot;65&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;g3MacPlc&quot; x=&quot;374&quot; y=&quot;15&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;g3MacRf&quot; x=&quot;551&quot; y=&quot;18&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;g3MacWrapper&quot; x=&quot;216&quot; y=&quot;14&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;g3PalPlc&quot; x=&quot;310&quot; y=&quot;242&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;g3PalRf&quot; x=&quot;287&quot; y=&quot;383&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;g3_mac_config&quot; x=&quot;0&quot; y=&quot;14&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;srv_pcoup&quot; x=&quot;0&quot; y=&quot;178&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;srv_pvddmon&quot; x=&quot;584&quot; y=&quot;397&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
+    &lt;ComponentGraph dnOrder=&quot;5&quot; id=&quot;MAC LAYER&quot;/&gt;
     &lt;ComponentGraph dnOrder=&quot;6&quot; id=&quot;NETWORK LAYER&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipIPv6&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
@@ -4369,26 +4290,32 @@
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;NETWORK LAYER&quot; x=&quot;380&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;8&quot; id=&quot;TRANSPORT LAYER&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;9&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;8&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_PIC32CXMTG_Evaluation_Kit&quot; x=&quot;0&quot; y=&quot;39&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;G3 STACK&quot; x=&quot;482&quot; y=&quot;218&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;HarmonyCore&quot; x=&quot;310&quot; y=&quot;9&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;TCP/IP STACK&quot; x=&quot;464&quot; y=&quot;339&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;cmsis&quot; x=&quot;185&quot; y=&quot;12&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;core&quot; x=&quot;228&quot; y=&quot;38&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;dfp&quot; x=&quot;0&quot; y=&quot;11&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;flexcom0&quot; x=&quot;5&quot; y=&quot;223&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;lib_crypto&quot; x=&quot;178&quot; y=&quot;375&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;0&quot; y=&quot;331&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;sefc0&quot; x=&quot;0&quot; y=&quot;72&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;sefc1&quot; x=&quot;141&quot; y=&quot;73&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;sys_console&quot; x=&quot;160&quot; y=&quot;159&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;sys_debug&quot; x=&quot;317&quot; y=&quot;197&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sys_time&quot; x=&quot;490&quot; y=&quot;56&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;tc0&quot; x=&quot;336&quot; y=&quot;102&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;trng&quot; x=&quot;488&quot; y=&quot;12&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_PIC32CXMTG_Evaluation_Kit&quot; x=&quot;0&quot; y=&quot;28&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;G3 STACK&quot; x=&quot;469&quot; y=&quot;167&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;HarmonyCore&quot; x=&quot;296&quot; y=&quot;5&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;TCP/IP STACK&quot; x=&quot;329&quot; y=&quot;283&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;adc&quot; x=&quot;0&quot; y=&quot;301&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;cmsis&quot; x=&quot;179&quot; y=&quot;5&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;core&quot; x=&quot;222&quot; y=&quot;28&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;dfp&quot; x=&quot;0&quot; y=&quot;5&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;drvG3MacRt&quot; x=&quot;469&quot; y=&quot;295&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;drvRf215&quot; x=&quot;132&quot; y=&quot;368&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;flexcom0&quot; x=&quot;0&quot; y=&quot;193&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;flexcom3&quot; x=&quot;0&quot; y=&quot;436&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;flexcom5&quot; x=&quot;328&quot; y=&quot;363&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;lib_crypto&quot; x=&quot;441&quot; y=&quot;478&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;279&quot; y=&quot;434&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;sefc0&quot; x=&quot;0&quot; y=&quot;56&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;sefc1&quot; x=&quot;144&quot; y=&quot;57&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;srv_pcoup&quot; x=&quot;467&quot; y=&quot;220&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;srv_pvddmon&quot; x=&quot;137&quot; y=&quot;301&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;sys_console&quot; x=&quot;147&quot; y=&quot;129&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;sys_debug&quot; x=&quot;294&quot; y=&quot;167&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;sys_time&quot; x=&quot;467&quot; y=&quot;51&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;22&quot; id=&quot;tc0&quot; x=&quot;295&quot; y=&quot;97&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;23&quot; id=&quot;trng&quot; x=&quot;467&quot; y=&quot;7&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
   &lt;/UserData&gt;
@@ -7302,7 +7229,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvG3MacRt" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
+         <value>__ROOTVIEW</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvG3MacRt" name="DRV_PLC_BAND_IN_USE"/>
@@ -7724,7 +7651,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
+         <value>__ROOTVIEW</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_CCA_CONTENTION_WINDOW"/>
@@ -9342,7 +9269,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom3" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
+         <value>__ROOTVIEW</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom3" name="BAUD_RATE"/>
@@ -10622,7 +10549,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom5" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
+         <value>__ROOTVIEW</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom5" name="BAUD_RATE"/>
@@ -11854,72 +11781,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3ADP" name="!@#harmonyAttachmentState"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3ADP&gt;
-  &lt;g3ADP dnOrder=&quot;0&quot;/&gt;
-&lt;/g3ADP&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3ADP" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>ADAPTATION LAYER</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3LOADng" name="!@#harmonyAttachmentState"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3LOADng&gt;
-  &lt;g3LOADng dnOrder=&quot;0&quot;/&gt;
-&lt;/g3LOADng&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3LOADng" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>ADAPTATION LAYER</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3MacCommon" name="!@#harmonyAttachmentState"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3MacCommon&gt;
-  &lt;g3MacCommon dnOrder=&quot;0&quot;/&gt;
-&lt;/g3MacCommon&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3MacCommon" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3MacPlc" name="!@#harmonyAttachmentState"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3MacPlc&gt;
-  &lt;g3MacPlc dnOrder=&quot;0&quot;/&gt;
-&lt;/g3MacPlc&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3MacPlc" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3MacRf" name="!@#harmonyAttachmentState"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3MacRf&gt;
-  &lt;g3MacRf dnOrder=&quot;0&quot;/&gt;
-&lt;/g3MacRf&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3MacRf" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3MacWrapper" name="!@#harmonyAttachmentState"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3MacWrapper&gt;
-  &lt;g3MacWrapper dnOrder=&quot;0&quot;/&gt;
-&lt;/g3MacWrapper&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3MacWrapper" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalPlc" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalPlc&gt;
   &lt;g3PalPlc dnOrder=&quot;0&quot;&gt;
@@ -11941,7 +11802,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalPlc" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
+         <value>G3 STACK</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalPlc" name="G3_PAL_PLC_DUMMY"/>
@@ -12012,18 +11873,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="G3_PAL_RF_DEVICE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalRf&gt;
-  &lt;g3PalRf dnOrder=&quot;0&quot; id=&quot;G3_PAL_RF_DEVICE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;g3PalRf&quot; value=&quot;DRVRF215&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/g3PalRf&gt;
-&lt;/g3PalRf&gt;
-</value>
+         <value>G3 STACK</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="G3_PAL_RF_DUMMY"/>
@@ -12050,173 +11900,6 @@
     &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/g3PalRf&gt;
 &lt;/g3PalRf&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>ADAPTATION LAYER</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="ADP_BLACKLIST_TABLE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;ADP_BLACKLIST_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="ADP_COUNT_BUFFERS_100"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;ADP_COUNT_BUFFERS_100&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="ADP_COUNT_BUFFERS_1280"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;ADP_COUNT_BUFFERS_1280&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="ADP_COUNT_BUFFERS_400"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;ADP_COUNT_BUFFERS_400&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="ADP_DESTINATION_ADDRESS_SET_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;ADP_DESTINATION_ADDRESS_SET_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="ADP_FRAGMENTED_TRANSFER_TABLE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;ADP_FRAGMENTED_TRANSFER_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="ADP_ROUTING_SET_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;ADP_ROUTING_SET_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="ADP_ROUTING_TABLE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;ADP_ROUTING_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="ADP_SERIALIZATION_EN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;ADP_SERIALIZATION_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="ADP_SERIALIZATION_USI_INSTANCE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;ADP_SERIALIZATION_USI_INSTANCE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="G3_ADP_SERIAL_HEADER"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;G3_ADP_SERIAL_HEADER&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="G3_ADP_SERIAL_SOURCE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;G3_ADP_SERIAL_SOURCE&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="LOADNG_DISCOVER_ROUTE_TABLE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;LOADNG_DISCOVER_ROUTE_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="LOADNG_ENABLE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;LOADNG_ENABLE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="LOADNG_PENDING_RREQ_TABLE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;LOADNG_PENDING_RREQ_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="LOADNG_RREP_GENERATION_TABLE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;LOADNG_RREP_GENERATION_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_adapt_config" name="LOADNG_RREQ_FORWARDING_TABLE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_adapt_config&gt;
-  &lt;g3_adapt_config dnOrder=&quot;0&quot; id=&quot;LOADNG_RREQ_FORWARDING_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_adapt_config&gt;
-&lt;/g3_adapt_config&gt;
 </value>
       </entry>
       <entry>
@@ -12317,99 +12000,6 @@
     &lt;/Attributes&gt;
   &lt;/g3_config&gt;
 &lt;/g3_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_mac_config" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_mac_config" name="G3_AVAILABLE_MACS"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_mac_config&gt;
-  &lt;g3_mac_config dnOrder=&quot;0&quot; id=&quot;G3_AVAILABLE_MACS&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;g3_mac_config&quot; value=&quot;Both PLC &amp;amp; RF MAC Layers&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/g3_mac_config&gt;
-&lt;/g3_mac_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_mac_config" name="MAC_PLC_DEVICE_TABLE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_mac_config&gt;
-  &lt;g3_mac_config dnOrder=&quot;0&quot; id=&quot;MAC_PLC_DEVICE_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_mac_config&gt;
-&lt;/g3_mac_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_mac_config" name="MAC_PLC_PRESENT"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_mac_config&gt;
-  &lt;g3_mac_config dnOrder=&quot;0&quot; id=&quot;MAC_PLC_PRESENT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;g3_mac_config&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/g3_mac_config&gt;
-&lt;/g3_mac_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_mac_config" name="MAC_RF_DEVICE_TABLE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_mac_config&gt;
-  &lt;g3_mac_config dnOrder=&quot;0&quot; id=&quot;MAC_RF_DEVICE_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_mac_config&gt;
-&lt;/g3_mac_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_mac_config" name="MAC_RF_DSN_TABLE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_mac_config&gt;
-  &lt;g3_mac_config dnOrder=&quot;0&quot; id=&quot;MAC_RF_DSN_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_mac_config&gt;
-&lt;/g3_mac_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_mac_config" name="MAC_RF_POS_TABLE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_mac_config&gt;
-  &lt;g3_mac_config dnOrder=&quot;0&quot; id=&quot;MAC_RF_POS_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_mac_config&gt;
-&lt;/g3_mac_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_mac_config" name="MAC_RF_PRESENT"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_mac_config&gt;
-  &lt;g3_mac_config dnOrder=&quot;0&quot; id=&quot;MAC_RF_PRESENT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;g3_mac_config&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/g3_mac_config&gt;
-&lt;/g3_mac_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_mac_config" name="MAC_SERIALIZATION_EN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_mac_config&gt;
-  &lt;g3_mac_config dnOrder=&quot;0&quot; id=&quot;MAC_SERIALIZATION_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/g3_mac_config&gt;
-&lt;/g3_mac_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_mac_config" name="MAC_SERIALIZATION_USI_INSTANCE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_mac_config&gt;
-  &lt;g3_mac_config dnOrder=&quot;0&quot; id=&quot;MAC_SERIALIZATION_USI_INSTANCE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/g3_mac_config&gt;
-&lt;/g3_mac_config&gt;
 </value>
       </entry>
       <entry>
@@ -13450,7 +13040,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
+         <value>__ROOTVIEW</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_DACC_2CHN_0"/>
@@ -23301,7 +22891,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pvddmon" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>MAC LAYER</value>
+         <value>__ROOTVIEW</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pvddmon" name="PLC_ADC_ID"/>
@@ -27796,7 +27386,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>13ce924d4f051b0bd2c8ed9ab274ee289817f23c2c4d43114e88f99c0289a497</hash>
+         <hash>a94f6a704a601e02922242d8b1379605b88b9e071319093104a3a8771a1990dd</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\sha3.c</file>
@@ -28083,12 +27673,12 @@
          <hash>451e0878e9fcf6cf9fab046c1452ea662757988346c7f39e6bc98478ca25f995</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\debug\sys_debug.h</file>
-         <hash>bc6fa321b0be542d074e4564065b7fd69f52556486ac3d892d315b51c434f9ec</hash>
-      </entry>
-      <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\zero_conf_link_local.h</file>
          <hash>5c3dbdef6f4d2322880212e860fa9922a255519bbe438ab391b39f3e9160b6e6</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\debug\sys_debug.h</file>
+         <hash>bc6fa321b0be542d074e4564065b7fd69f52556486ac3d892d315b51c434f9ec</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\mcspi.h</file>
@@ -28127,16 +27717,16 @@
          <hash>a1622288d3f168c33625922e705d51e1fd3f2d6502b80183bc783a1292e4a720</hash>
       </entry>
       <entry>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_wrapper\mac_wrapper_defs.h</file>
+         <hash>409f2eb751bc4ae5ed63addd0e9cb0a2801deea57d4e6e612c06835e7018cfd7</hash>
+      </entry>
+      <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\flexcom.h</file>
          <hash>178a7099daa8b1d72d719345a91af736248c531a5c0034d83d37a787be6ebe73</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\wolfmath.c</file>
          <hash>ab5922fd30ede6954156b1e398a5ce122390392dc73009113a0cd5bcb1d0a629</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_wrapper\mac_wrapper_defs.h</file>
-         <hash>409f2eb751bc4ae5ed63addd0e9cb0a2801deea57d4e6e612c06835e7018cfd7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\drv_rf215.c</file>
@@ -28231,12 +27821,12 @@
          <hash>b4f68e2902187af771df633447d4fbd7691d0ca228728a544b2dd9355e40698b</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\driver_common.h</file>
-         <hash>5217965f6720b4fdf717e99ce9df4f2c9fbd82bbbc9655847166d1eefa806fee</hash>
-      </entry>
-      <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\net_pres\pres\net_pres.h</file>
          <hash>2068e1cda868ce749b84eae9b184322a87d0d5d32d9a4cae716dd7131880d226</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\driver_common.h</file>
+         <hash>5217965f6720b4fdf717e99ce9df4f2c9fbd82bbbc9655847166d1eefa806fee</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\adaptation\lbp_coord.h</file>
@@ -28275,12 +27865,12 @@
          <hash>f05933f7a9331b2263c6d9d743dded59c7620addfd89263aaac23a1ed510fc09</hash>
       </entry>
       <entry>
-         <file>..\src\packs\PIC32CX2051MTG128_DFP\component\sha.h</file>
-         <hash>4bfa1c0e1d7878a6a608f0d771fd8e79a543591e89f7719e5df4d8e84c8ec0b5</hash>
-      </entry>
-      <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\adaptation\loadng.h</file>
          <hash>5f3f572555e839efe41d932f60762bed53c500cf62fcd429be372385ada4a901</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\PIC32CX2051MTG128_DFP\component\sha.h</file>
+         <hash>4bfa1c0e1d7878a6a608f0d771fd8e79a543591e89f7719e5df4d8e84c8ec0b5</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\sp_c64.c</file>
@@ -28415,12 +28005,12 @@
          <hash>d96139f5cd065f2755d0a7db815b9a55ab74709a06251561d3c8599a1868b113</hash>
       </entry>
       <entry>
-         <file>..\src\app_g3_management.h</file>
-         <hash>96ed50271891cd10b43d1bf4e72e3689b5d61ffe3b3390842edfaea232154c1b</hash>
-      </entry>
-      <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_wrapper\mac_wrapper.h</file>
          <hash>802d8ea6f628e586d5c92ad68d750ff64e3c49cc2507f1c3d64c1bdbe5d5e697</hash>
+      </entry>
+      <entry>
+         <file>..\src\app_g3_management.h</file>
+         <hash>96ed50271891cd10b43d1bf4e72e3689b5d61ffe3b3390842edfaea232154c1b</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\pdc.h</file>
@@ -28467,12 +28057,12 @@
          <hash>b4a821c065fd5e3e1ca5d3a7befb68d2d66457175a3eb7f243221d2024991137</hash>
       </entry>
       <entry>
-         <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\ed448.h</file>
-         <hash>3e25e84521dd9a0bb29c83486cdc74c55e9659a51c55714610608eff6418a5f4</hash>
-      </entry>
-      <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_common\mac_common.c</file>
          <hash>a8cd922f322e464e4fbfd84287ec2846069753c4f4a54d4592c8ba019a8ea082</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\ed448.h</file>
+         <hash>3e25e84521dd9a0bb29c83486cdc74c55e9659a51c55714610608eff6418a5f4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\tcpip_reboot.h</file>
@@ -28640,7 +28230,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\tasks.c</file>
-         <hash>0ffc7eef7d96b84f2e8fde422153b59c5a071577a0275c44634a556c2c3cae10</hash>
+         <hash>a5f4dbdd559d21e27dfe618ecfbc88e17c08f54bb78c4289c2a2b318c1915bd4</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_Comp_pb.h</file>
@@ -28968,7 +28558,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>5fc3eaca2edb88c9fea20f2a29ec30062bd15d4636b4748c48380c42cda93dcb</hash>
+         <hash>0f475c5bacbdbb4696756b0baff405a4db1dcf5b18e2be6c5136eb94ec115a37</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_pukcl_functions.h</file>
@@ -29248,7 +28838,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\configuration.h</file>
-         <hash>6048c26a7598dbe929dfd2e49f21dabc45f76fe37909e528f844988ad31b01f6</hash>
+         <hash>2a4ba89dc675c78c7480cb5ba430f01453c9bc4a00cdfb051ab2fb378b26584f</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\md2.c</file>
@@ -29507,12 +29097,12 @@
          <hash>c79e144ee87b9471f0e4f556771cd7d57e88c88e00c26c836803022b4730ee9a</hash>
       </entry>
       <entry>
-         <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_GF2NEcDsa_pb.h</file>
-         <hash>3d1760cd2ab1f80d5e6f6e83686980d18c183436e5aff2cb090fd0270c8399ec</hash>
-      </entry>
-      <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_common\mac_common_defs.h</file>
          <hash>46a4534e0e7343df5b4674c0bd36524e8dc731f99710a4e74916872e3f8d56c3</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_GF2NEcDsa_pb.h</file>
+         <hash>3d1760cd2ab1f80d5e6f6e83686980d18c183436e5aff2cb090fd0270c8399ec</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\cache\sys_cache.h</file>
@@ -29523,12 +29113,12 @@
          <hash>42c9d6313940b6321817efc4bc8c2100de0067eec9eca76b298ef0867567e7aa</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\cache\sys_cache.c</file>
-         <hash>26a622ca9ceb6d2339fb4a6c917a739f8b23c62b8b69eff439831e7fd36914c5</hash>
-      </entry>
-      <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\zero_conf_link_local_private.h</file>
          <hash>97a8314772e1e03b6d84938b06d898826b0363beba0aeb1a668ea2db5a952cb1</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\cache\sys_cache.c</file>
+         <hash>26a622ca9ceb6d2339fb4a6c917a739f8b23c62b8b69eff439831e7fd36914c5</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_Headers_pb.h</file>
@@ -29663,12 +29253,12 @@
          <hash>efe1b56437b883ee33567e43994f6f78f3586154b2cf4bc1e0c72ed9192c5324</hash>
       </entry>
       <entry>
-         <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\flexcom1.h</file>
-         <hash>37a7ba6e53200dbadab03c50cb679656974c596777d5ac0af9e4c11f4cfdda38</hash>
-      </entry>
-      <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_plc\mac_plc_defs.h</file>
          <hash>bf8d9f20f69e3928a78f46ba0ac775531314351bb8843a77d990857f78a7844f</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\flexcom1.h</file>
+         <hash>37a7ba6e53200dbadab03c50cb679656974c596777d5ac0af9e4c11f4cfdda38</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\flexcom\spi\master\plib_flexcom5_spi_master.c</file>
@@ -29711,16 +29301,16 @@
          <hash>842d20a6f4d74b3395fb2e29dc2d3f1260739199669ca08b4be562f1ac8e787a</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\int\sys_int_mapping.h</file>
-         <hash>5abf8528dabc1b17378f5d137870597037214fddf33880fa40e9263352da3008</hash>
-      </entry>
-      <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\dhcp_private.h</file>
          <hash>997a7e5b5999cca958f7e88067e3dfe41548d8c2bbd8038830d96af68deac689</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\sys_random_h2_adapter.h</file>
          <hash>7a517a17efdaed2f4b05d64859e80b55968041ab805b73c34de17bead03727c1</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\int\sys_int_mapping.h</file>
+         <hash>5abf8528dabc1b17378f5d137870597037214fddf33880fa40e9263352da3008</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\tcpip_ethernet.h</file>
@@ -29936,7 +29526,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\adaptation\g3_lib_adp.a</file>
-         <hash>5f6b5aa7753445561e3b64a70d6d2dd86c63a0efb4347acb5814592e157ee8c3</hash>
+         <hash>54a0e64d9744494afc19f2059c01cb2f72133513d4daf52570b0bc0ae04af788</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\berkeley_manager.h</file>

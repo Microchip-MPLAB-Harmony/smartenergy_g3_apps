@@ -212,6 +212,49 @@ SYSTEM_OBJECTS sysObj;
 // Section: Library/Stack Initialization Data
 // *****************************************************************************
 // *****************************************************************************
+// <editor-fold defaultstate="collapsed" desc="G3 ADP Initialization Data">
+/* G3 ADP Buffers and Queues */
+ADP_DATA_PARAMS_BUFFER_1280 g3Adp1280Buffers[G3_ADP_NUM_BUFFERS_1280];
+ADP_DATA_PARAMS_BUFFER_400 g3Adp400Buffers[G3_ADP_NUM_BUFFERS_400];
+ADP_DATA_PARAMS_BUFFER_100 g3Adp100Buffers[G3_ADP_NUM_BUFFERS_100];
+ADP_PROCESS_QUEUE_ENTRY g3AdpProcessQueueEntries[G3_ADP_PROCESS_QUEUE_SIZE];
+ADP_LOWPAN_FRAGMENTED_DATA g3AdpFragmentedTransferTable[G3_ADP_FRAG_TRANSFER_TABLE_SIZE];
+
+/* G3 ADP Initialization Data */
+ADP_INIT g3AdpInitData = {
+    /* Pointer to start of 1280-byte buffers */
+    .pBuffers1280 = &g3Adp1280Buffers,
+
+    /* Pointer to start of 400-byte buffers */
+    .pBuffers400 = &g3Adp400Buffers,
+
+    /* Pointer to start of 100-byte buffers */
+    .pBuffers100 = &g3Adp100Buffers,
+
+    /* Pointer to start of process queue entries */
+    .pProcessQueueEntries = &g3AdpProcessQueueEntries,
+
+    /* Pointer to start of fragmented transfer entries */
+    .pFragmentedTransferEntries = &g3AdpFragmentedTransferTable,
+
+    /* Number of 1280-byte buffers */
+    .numBuffers1280 = G3_ADP_NUM_BUFFERS_1280,
+
+    /* Number of 400-byte buffers */
+    .numBuffers400 = G3_ADP_NUM_BUFFERS_400,
+
+    /* Number of 100-byte buffers */
+    .numBuffers100 = G3_ADP_NUM_BUFFERS_100,
+
+    /* Number of process queue entries */
+    .numProcessQueueEntries = G3_ADP_PROCESS_QUEUE_SIZE,
+
+    /* Number of fragmented transfer entries */
+    .numFragmentedTransferEntries = G3_ADP_FRAG_TRANSFER_TABLE_SIZE
+};
+
+// </editor-fold>
+
 
 // <editor-fold defaultstate="collapsed" desc="TCP/IP Stack Initialization Data">
 // *****************************************************************************
@@ -346,49 +389,6 @@ SYS_MODULE_OBJ TCPIP_STACK_Init(void)
 
     return TCPIP_STACK_Initialize(0, &tcpipInit.moduleInit);
 }
-// </editor-fold>
-
-// <editor-fold defaultstate="collapsed" desc="G3 ADP Initialization Data">
-/* G3 ADP Buffers and Queues */
-ADP_DATA_PARAMS_BUFFER_1280 g3Adp1280Buffers[G3_ADP_NUM_BUFFERS_1280];
-ADP_DATA_PARAMS_BUFFER_400 g3Adp400Buffers[G3_ADP_NUM_BUFFERS_400];
-ADP_DATA_PARAMS_BUFFER_100 g3Adp100Buffers[G3_ADP_NUM_BUFFERS_100];
-ADP_PROCESS_QUEUE_ENTRY g3AdpProcessQueueEntries[G3_ADP_PROCESS_QUEUE_SIZE];
-ADP_LOWPAN_FRAGMENTED_DATA g3AdpFragmentedTransferTable[G3_ADP_FRAG_TRANSFER_TABLE_SIZE];
-
-/* G3 ADP Initialization Data */
-ADP_INIT g3AdpInitData = {
-    /* Pointer to start of 1280-byte buffers */
-    .pBuffers1280 = &g3Adp1280Buffers,
-
-    /* Pointer to start of 400-byte buffers */
-    .pBuffers400 = &g3Adp400Buffers,
-
-    /* Pointer to start of 100-byte buffers */
-    .pBuffers100 = &g3Adp100Buffers,
-
-    /* Pointer to start of process queue entries */
-    .pProcessQueueEntries = &g3AdpProcessQueueEntries,
-
-    /* Pointer to start of fragmented transfer entries */
-    .pFragmentedTransferEntries = &g3AdpFragmentedTransferTable,
-
-    /* Number of 1280-byte buffers */
-    .numBuffers1280 = G3_ADP_NUM_BUFFERS_1280,
-
-    /* Number of 400-byte buffers */
-    .numBuffers400 = G3_ADP_NUM_BUFFERS_400,
-
-    /* Number of 100-byte buffers */
-    .numBuffers100 = G3_ADP_NUM_BUFFERS_100,
-
-    /* Number of process queue entries */
-    .numProcessQueueEntries = G3_ADP_PROCESS_QUEUE_SIZE,
-
-    /* Number of fragmented transfer entries */
-    .numFragmentedTransferEntries = G3_ADP_FRAG_TRANSFER_TABLE_SIZE
-};
-
 // </editor-fold>
 
 
@@ -542,19 +542,19 @@ void SYS_Initialize ( void* data )
     /* MISRAC 2012 deviation block end */
 
 
-   /* TCPIP Stack Initialization */
-   sysObj.tcpip = TCPIP_STACK_Init();
-   SYS_ASSERT(sysObj.tcpip != SYS_MODULE_OBJ_INVALID, "TCPIP_STACK_Init Failed" );
-
-
-    CRYPT_WCCB_Initialize();
-
     /* Initialize G3 MAC Wrapper Instance */
     sysObj.g3MacWrapper = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0);
 
     /* Initialize G3 ADP Instance */
     sysObj.g3Adp = ADP_Initialize(G3_ADP_INDEX_0, (SYS_MODULE_INIT *)&g3AdpInitData);
 
+
+   /* TCPIP Stack Initialization */
+   sysObj.tcpip = TCPIP_STACK_Init();
+   SYS_ASSERT(sysObj.tcpip != SYS_MODULE_OBJ_INVALID, "TCPIP_STACK_Init Failed" );
+
+
+    CRYPT_WCCB_Initialize();
 
     APP_G3_MANAGEMENT_Initialize();
     APP_UDP_RESPONDER_Initialize();

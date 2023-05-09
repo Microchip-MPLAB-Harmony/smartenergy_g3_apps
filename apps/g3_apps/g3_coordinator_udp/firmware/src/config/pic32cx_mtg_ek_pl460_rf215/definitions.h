@@ -58,34 +58,6 @@
 #include "peripheral/adc/plib_adc.h"
 #include "driver/rf215/drv_rf215.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h"
-#include "peripheral/tc/plib_tc0.h"
-#include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
-#include "system/time/sys_time.h"
-#include "service/log_report/srv_log_report.h"
-#include "peripheral/trng/plib_trng.h"
-#include "system/int/sys_int.h"
-#include "system/ports/sys_ports.h"
-#include "system/cache/sys_cache.h"
-#include "osal/osal.h"
-#include "system/debug/sys_debug.h"
-#include "library/tcpip/tcpip.h"
-#include "system/sys_time_h2_adapter.h"
-#include "system/sys_random_h2_adapter.h"
-#include "bsp/bsp.h"
-#include "peripheral/dwdt/plib_dwdt.h"
-#include "peripheral/clk/plib_clk.h"
-#include "peripheral/rstc/plib_rstc.h"
-#include "peripheral/nvic/plib_nvic.h"
-#include "peripheral/cmcc/plib_cmcc.h"
-#include "peripheral/pio/plib_pio.h"
-#include "peripheral/supc/plib_supc.h"
-#include "peripheral/sefc/plib_sefc0.h"
-#include "peripheral/sefc/plib_sefc1.h"
-#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
-#include "stack/g3/pal/plc/pal_plc.h"
-#include "service/pvddmon/srv_pvddmon.h"
-#include "system/console/sys_console.h"
-#include "system/console/src/sys_console_uart_definitions.h"
 #include "stack/g3/mac/mac_common/mac_common.h"
 #include "stack/g3/mac/mac_common/mac_common_defs.h"
 #include "stack/g3/mac/mac_plc/mac_plc.h"
@@ -101,6 +73,34 @@
 #include "stack/g3/adaptation/adp_shared_types.h"
 #include "stack/g3/adaptation/lbp_defs.h"
 #include "stack/g3/adaptation/lbp_coord.h"
+#include "peripheral/tc/plib_tc0.h"
+#include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
+#include "system/time/sys_time.h"
+#include "service/log_report/srv_log_report.h"
+#include "peripheral/trng/plib_trng.h"
+#include "library/tcpip/tcpip.h"
+#include "system/sys_time_h2_adapter.h"
+#include "system/sys_random_h2_adapter.h"
+#include "system/int/sys_int.h"
+#include "system/ports/sys_ports.h"
+#include "system/cache/sys_cache.h"
+#include "osal/osal.h"
+#include "system/debug/sys_debug.h"
+#include "peripheral/dwdt/plib_dwdt.h"
+#include "peripheral/clk/plib_clk.h"
+#include "peripheral/rstc/plib_rstc.h"
+#include "peripheral/nvic/plib_nvic.h"
+#include "peripheral/cmcc/plib_cmcc.h"
+#include "peripheral/pio/plib_pio.h"
+#include "peripheral/supc/plib_supc.h"
+#include "bsp/bsp.h"
+#include "peripheral/sefc/plib_sefc0.h"
+#include "peripheral/sefc/plib_sefc1.h"
+#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
+#include "stack/g3/pal/plc/pal_plc.h"
+#include "service/pvddmon/srv_pvddmon.h"
+#include "system/console/sys_console.h"
+#include "system/console/src/sys_console_uart_definitions.h"
 #include "stack/g3/net/macg3adp/drv_mac_g3adp.h"
 #include "app_g3_management.h"
 #include "app_udp_responder.h"
@@ -241,6 +241,9 @@ typedef struct
     SYS_MODULE_OBJ  drvG3MacRt;
 
     SYS_MODULE_OBJ drvRf215;
+    SYS_MODULE_OBJ g3MacWrapper;
+    SYS_MODULE_OBJ g3Adp;
+
     SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  sysConsole0;
 
@@ -249,9 +252,6 @@ typedef struct
     SYS_MODULE_OBJ  sysDebug;
 
     SYS_MODULE_OBJ g3PalRf;
-    SYS_MODULE_OBJ g3MacWrapper;
-    SYS_MODULE_OBJ g3Adp;
-
 
 } SYSTEM_OBJECTS;
 

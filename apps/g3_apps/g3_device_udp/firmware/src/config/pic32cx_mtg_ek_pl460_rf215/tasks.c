@@ -86,15 +86,15 @@ void SYS_Tasks ( void )
 
     /* Maintain Middleware & Other Libraries */
     
-   TCPIP_STACK_Task(sysObj.tcpip);
-
-
-
     /* Maintain G3 MAC */
     MAC_WRP_Tasks(sysObj.g3MacWrapper);
 
     /* Maintain G3 ADP */
     ADP_Tasks(sysObj.g3Adp);
+
+
+   TCPIP_STACK_Task(sysObj.tcpip);
+
 
 
 
