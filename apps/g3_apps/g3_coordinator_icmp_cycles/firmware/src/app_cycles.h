@@ -279,7 +279,7 @@ void APP_CYCLES_Tasks( void );
 
 /*******************************************************************************
   Function:
-    void APP_CYCLES_AdpBufferIndication(bool bufferReady)
+    void APP_CYCLES_AdpBufferIndication(ADP_BUFFER_IND_PARAMS* bufferInd)
 
   Summary:
     Indicates to the cycles application an ADP Buffer Indication event.
@@ -292,17 +292,16 @@ void APP_CYCLES_Tasks( void );
     APP_CYCLES_Initialize should be called before calling this routine.
 
   Parameters:
-    bufferReady - true: modem is ready to receive more data frame
-                  false: modem is not ready, stop sending data frame
+    bufferInd - Pointer to bitmap providing availability of Tx buffers
 
   Returns:
     None.
 
   Example:
     <code>
-    static void _ADP_BufferIndication(bool bufferReady)
+    static void _ADP_BufferIndication(ADP_BUFFER_IND_PARAMS* bufferInd)
     {
-        APP_CYCLES_AdpBufferIndication(bufferReady);
+        APP_CYCLES_AdpBufferIndication(bufferInd);
     }
     </code>
 
@@ -310,7 +309,7 @@ void APP_CYCLES_Tasks( void );
     None.
 */
 
-void APP_CYCLES_AdpBufferIndication(bool bufferReady);
+void APP_CYCLES_AdpBufferIndication(ADP_BUFFER_IND_PARAMS* bufferInd);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

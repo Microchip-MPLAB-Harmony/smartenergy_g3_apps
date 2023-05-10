@@ -162,10 +162,10 @@ static void _ADP_NonVolatileDataIndication(ADP_NON_VOLATILE_DATA_IND_PARAMS* pNo
     APP_STORAGE_UpdateNonVolatileData(pNonVolatileData);
 }
 
-static void _ADP_BufferIndication(bool bufferReady)
+static void _ADP_BufferIndication(ADP_BUFFER_IND_PARAMS* bufferInd)
 {
     /* Notify cycles application */
-    APP_CYCLES_AdpBufferIndication(bufferReady);
+    APP_CYCLES_AdpBufferIndication(bufferInd);
 }
 
 void APP_SYS_TIME_CallbackSetFlag(uintptr_t context)

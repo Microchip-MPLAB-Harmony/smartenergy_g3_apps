@@ -448,7 +448,7 @@ void APP_CYCLES_Tasks ( void )
 // *****************************************************************************
 // *****************************************************************************
 
-void APP_CYCLES_AdpBufferIndication(bool bufferReady)
+void APP_CYCLES_AdpBufferIndication(ADP_BUFFER_IND_PARAMS* bufferInd)
 {
     /* TODO */
 }

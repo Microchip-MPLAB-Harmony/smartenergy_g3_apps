@@ -217,13 +217,13 @@ static void _StringifyMsgStatus(ADP_SERIAL_STATUS status, ADP_SERIAL_MSG_ID comm
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyBufferIndication(bool bufferReady)
+static void _StringifyBufferIndication(ADP_BUFFER_IND_PARAMS* bufferInd)
 {
     uint8_t serialRspLen = 0;
 
     /* Fill serial response buffer */
     adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_BUFFER_INDICATION;
-    adpSerialRspBuffer[serialRspLen++] = (uint8_t) (bufferReady);
+    adpSerialRspBuffer[serialRspLen++] = bufferInd->bufferIndicationBitmap;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);

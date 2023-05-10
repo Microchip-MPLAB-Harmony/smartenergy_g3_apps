@@ -926,6 +926,45 @@ typedef struct
 typedef void (*ADP_NETWORK_STATUS_IND_CALLBACK)(ADP_NETWORK_STATUS_IND_PARAMS* pNetworkStatusInd);
 
 // *****************************************************************************
+/* ADP Network Status Indication Parameters
+
+   Summary:
+    Defines the parameters for the ADP Network Status Indication event handler
+    function.
+
+   Description:
+    The structure contains the fields reported by the ADP Network Status
+    Indication event handler function.
+
+   Remarks:
+    None.
+*/
+typedef union
+{
+    struct
+    {
+        /* Large buffers availability */
+        /* '1' if buffers available, '0' otherwise */
+        uint8_t largeBuffersAvailable : 1;
+        
+        /* Medium buffers availability */
+        /* '1' if buffers available, '0' otherwise */
+        uint8_t mediumBuffersAvailable : 1;
+        
+        /* Small buffers availability */
+        /* '1' if buffers available, '0' otherwise */
+        uint8_t smallBuffersAvailable : 1;
+
+        /* Reserved */
+        uint8_t :5;
+    };
+    
+    /* Bitmap containig all previous information */
+    uint8_t bufferIndicationBitmap;
+
+} ADP_BUFFER_IND_PARAMS;
+
+// *****************************************************************************
 /* ADP Buffer Indication Event Handler Function Pointer
 
   Summary:
@@ -943,24 +982,34 @@ typedef void (*ADP_NETWORK_STATUS_IND_CALLBACK)(ADP_NETWORK_STATUS_IND_PARAMS* p
     Indication events back from module.
 
   Parameters:
-    bufferReady - true: modem is ready to receive more data frame
-                  false: modem is not ready, stop sending data frame
+    bufferInd - Pointer to bitmap providing availability of Tx buffers
 
   Example:
     <code>
-    App_BufferIndication(bool bufferReady)
+    App_BufferIndication(ADP_BUFFER_IND_PARAMS* bufferInd)
     {
-        if (bufferReady == true)
+        if (bufferInd->largeBuffersAvailable == 1)
         {
-            // Modem is ready to receive more data frame
+            // Large buffer(s) available for Tx
+        }
+        
+        if (bufferInd->mediumBuffersAvailable == 1)
+        {
+            // Medium buffer(s) available for Tx
+        }
+        
+        if (bufferInd->smallBuffersAvailable == 1)
+        {
+            // Small buffer(s) available for Tx
         }
     }
     </code>
 
   Remarks:
-    None.
+    This function is invoked whenever the availability status of
+    any kind of buffer changes.
 */
-typedef void (*ADP_BUFFER_IND_CALLBACK)(bool bufferReady);
+typedef void (*ADP_BUFFER_IND_CALLBACK)(ADP_BUFFER_IND_PARAMS* bufferInd);
 
 // *****************************************************************************
 /* ADP PREQ Indication Event Handler Function Pointer
