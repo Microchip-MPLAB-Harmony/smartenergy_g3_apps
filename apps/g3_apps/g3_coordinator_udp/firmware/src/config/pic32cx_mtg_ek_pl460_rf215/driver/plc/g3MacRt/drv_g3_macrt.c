@@ -281,7 +281,7 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ hSysObj )
     {
         return;
     }
-    
+
     if ((gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_READY) ||
         (gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_WAITING_TX_CFM))
     {

@@ -67,8 +67,6 @@ static OSAL_MUTEX_DECLARE(consolePrintBufferMutex);
 
 #define SYS_CONSOLE_GET_INSTANCE(index)    ((index) >= (SYS_CONSOLE_DEVICE_MAX_INSTANCES))? (NULL) : (&consoleDeviceInstance[index])
 
-/* MISRA C-2012 Rule 10.4 False positive:2 Deviation record ID -  H3_MISRAC_2012_R_10_4_DR_1 */
-
 /* MISRA C-2012 Rule 11.3 deviated:1 Deviation record ID -  H3_MISRAC_2012_R_11_3_DR_1 */
 
 SYS_MODULE_OBJ SYS_CONSOLE_Initialize(
@@ -81,7 +79,7 @@ SYS_MODULE_OBJ SYS_CONSOLE_Initialize(
 
     if (isConsoleMutexCreated == false)
     {
-        if(OSAL_MUTEX_Create(&(consolePrintBufferMutex)) != OSAL_RESULT_TRUE)
+        if(OSAL_MUTEX_Create(&(consolePrintBufferMutex)) != OSAL_RESULT_SUCCESS)
         {
             return SYS_MODULE_OBJ_INVALID;
         }
@@ -321,7 +319,7 @@ ssize_t SYS_CONSOLE_WriteCountGet(const SYS_CONSOLE_HANDLE handle)
     }
 }
 
-/* MISRA C-2012 Rule 17.1, 21.6 deviated below. Deviation record ID -  
+/* MISRA C-2012 Rule 17.1, 21.6 deviated below. Deviation record ID -
    H3_MISRAC_2012_R_17_1_DR_1 & H3_MISRAC_2012_R_21_6_DR_1*/
 
 void SYS_CONSOLE_Print(const SYS_CONSOLE_HANDLE handle, const char *format, ...)
@@ -341,7 +339,7 @@ void SYS_CONSOLE_Print(const SYS_CONSOLE_HANDLE handle, const char *format, ...)
     }
 
     /* Must protect the common print buffer from multiple threads */
-    if(OSAL_MUTEX_Lock(&consolePrintBufferMutex, OSAL_WAIT_FOREVER) == OSAL_RESULT_FALSE)
+    if(OSAL_MUTEX_Lock(&consolePrintBufferMutex, OSAL_WAIT_FOREVER) == OSAL_RESULT_FAIL)
     {
         return;
     }
@@ -363,7 +361,6 @@ void SYS_CONSOLE_Print(const SYS_CONSOLE_HANDLE handle, const char *format, ...)
     /* Release mutex */
     (void) OSAL_MUTEX_Unlock(&consolePrintBufferMutex);
 }
-/* MISRAC 2012 deviation block end */
 
 /* MISRAC 2012 deviation block end */
 

@@ -126,8 +126,7 @@ extern "C" {
 #define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA1
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PB15
 #define DRV_PLC_CSR_INDEX                     0
-
-#define DRV_PLC_SPI_CLK                      8000000
+#define DRV_PLC_SPI_CLK                       8000000
 
 /* PLC MAC RT Driver Identification */
 #define DRV_G3_MACRT_INDEX                   0
@@ -160,6 +159,9 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
+/* G3 stack task rate in milliseconds */
+#define G3_STACK_TASK_RATE_MS            5
+
 /* MAC COMMON Identification */
 #define G3_MAC_COMMON_INDEX_0            0
 #define G3_MAC_COMMON_INSTANCES_NUMBER   1
@@ -186,6 +188,7 @@ extern "C" {
 #define G3_ADP_NUM_BUFFERS_100           3
 #define G3_ADP_PROCESS_QUEUE_SIZE        (G3_ADP_NUM_BUFFERS_1280 + G3_ADP_NUM_BUFFERS_400 + G3_ADP_NUM_BUFFERS_100)
 #define G3_ADP_FRAG_TRANSFER_TABLE_SIZE  1
+#define G3_ADP_FRAGMENT_SIZE             400
 
 #define G3_ADP_ROUTING_TABLE_SIZE        150
 #define G3_ADP_BLACKLIST_TABLE_SIZE      20
