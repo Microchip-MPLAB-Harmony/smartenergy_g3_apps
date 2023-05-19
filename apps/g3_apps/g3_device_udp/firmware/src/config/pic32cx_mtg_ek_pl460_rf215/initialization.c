@@ -237,6 +237,9 @@ ADP_INIT g3AdpInitData = {
     /* Pointer to start of fragmented transfer entries */
     .pFragmentedTransferEntries = &g3AdpFragmentedTransferTable,
 
+    /* ADP fragmentation size */
+    .fragmentSize = G3_ADP_FRAGMENT_SIZE,
+
     /* Number of 1280-byte buffers */
     .numBuffers1280 = G3_ADP_NUM_BUFFERS_1280,
 
@@ -250,7 +253,11 @@ ADP_INIT g3AdpInitData = {
     .numProcessQueueEntries = G3_ADP_PROCESS_QUEUE_SIZE,
 
     /* Number of fragmented transfer entries */
-    .numFragmentedTransferEntries = G3_ADP_FRAG_TRANSFER_TABLE_SIZE
+    .numFragmentedTransferEntries = G3_ADP_FRAG_TRANSFER_TABLE_SIZE,
+
+    /* ADP task rate in milliseconds */
+    .taskRateMs = G3_STACK_TASK_RATE_MS
+
 };
 
 // </editor-fold>
@@ -400,8 +407,6 @@ SYS_MODULE_OBJ TCPIP_STACK_Init(void)
 // *****************************************************************************
 // <editor-fold defaultstate="collapsed" desc="SYS_TIME Initialization Data">
 
-/* MISRA C-2012 Rule 11.1 deviated:2 Deviation record ID -  H3_MISRAC_2012_R_11_1_DR_1 */
-
 static const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
     .timerCallbackSet = (SYS_TIME_PLIB_CALLBACK_REGISTER)TC0_CH0_TimerCallbackRegister,
     .timerStart = (SYS_TIME_PLIB_START)TC0_CH0_TimerStart,
@@ -418,27 +423,23 @@ static const SYS_TIME_INIT sysTimeInitData =
     .hwTimerIntNum = TC0_CH0_IRQn,
 };
 
-/* MISRAC 2012 deviation block end */
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SYS_CONSOLE Instance 0 Initialization Data">
 
 
-/* Declared in console device implementation (sys_console_uart.c) */
-extern const SYS_CONSOLE_DEV_DESC sysConsoleUARTDevDesc;
-
 static const SYS_CONSOLE_UART_PLIB_INTERFACE sysConsole0UARTPlibAPI =
 {
     .read_t = (SYS_CONSOLE_UART_PLIB_READ)FLEXCOM0_USART_Read,
-	.readCountGet = (SYS_CONSOLE_UART_PLIB_READ_COUNT_GET)FLEXCOM0_USART_ReadCountGet,
-	.readFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_READ_FREE_BUFFFER_COUNT_GET)FLEXCOM0_USART_ReadFreeBufferCountGet,
+    .readCountGet = (SYS_CONSOLE_UART_PLIB_READ_COUNT_GET)FLEXCOM0_USART_ReadCountGet,
+    .readFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_READ_FREE_BUFFFER_COUNT_GET)FLEXCOM0_USART_ReadFreeBufferCountGet,
     .write_t = (SYS_CONSOLE_UART_PLIB_WRITE)FLEXCOM0_USART_Write,
-	.writeCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_COUNT_GET)FLEXCOM0_USART_WriteCountGet,
-	.writeFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_FREE_BUFFER_COUNT_GET)FLEXCOM0_USART_WriteFreeBufferCountGet,
+    .writeCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_COUNT_GET)FLEXCOM0_USART_WriteCountGet,
+    .writeFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_FREE_BUFFER_COUNT_GET)FLEXCOM0_USART_WriteFreeBufferCountGet,
 };
 
 static const SYS_CONSOLE_UART_INIT_DATA sysConsole0UARTInitData =
 {
-    .uartPLIB = &sysConsole0UARTPlibAPI,    
+    .uartPLIB = &sysConsole0UARTPlibAPI,
 };
 
 static const SYS_CONSOLE_INIT sysConsole0Init =
@@ -502,9 +503,9 @@ void SYS_Initialize ( void* data )
 
 
 
-    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
+    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  
