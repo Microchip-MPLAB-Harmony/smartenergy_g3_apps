@@ -11,8 +11,8 @@
     IEEE 802.15.4 (2020) SUN FSK Header File
 
   Description:
-    This file provides the definition of IEEE 802.15.4 (2020) SUN FSK modes for
-    RF215.
+    This file provides the definition of IEEE 802.15.4 (2020 + 2022-aa
+	amendment) SUN FSK modes for RF215.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
@@ -1268,6 +1268,120 @@
 		.ccaEdThresholdDBm = SUN_FSK_200kHz_CCA_THRESHOLD + 3, \
 	}
 
+/* Operating mode #5 */
+#define SUN_FSK_BAND_920_928_OPM5               (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_FSK, \
+		.phyTypeCfg.fsk = { \
+			.symRate = FSK_SYM_RATE_200kHz, \
+			.modIdx = FSK_MOD_IDX_1_0, \
+			.modOrd = FSK_MOD_ORD_4FSK \
+		}, \
+		.chnF0Hz = 920900000, \
+		.chnSpaHz = 400000, \
+		.chnNumMin = 0, \
+		.chnNumMax = 17, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_FSK_50kHz_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_FSK_200kHz_CCA_THRESHOLD + 3, \
+	}
+
+/* Operating mode #6 */
+#define SUN_FSK_BAND_920_928_OPM6               (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_FSK, \
+		.phyTypeCfg.fsk = { \
+			.symRate = FSK_SYM_RATE_150kHz, \
+			.modIdx = FSK_MOD_IDX_0_5, \
+			.modOrd = FSK_MOD_ORD_2FSK \
+		}, \
+		.chnF0Hz = 920900000, \
+		.chnSpaHz = 400000, \
+		.chnNumMin = 0, \
+		.chnNumMax = 17, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_FSK_50kHz_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_FSK_150kHz_CCA_THRESHOLD + 3, \
+	}
+
+/* Operating mode #7 */
+#define SUN_FSK_BAND_920_928_OPM7               (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_FSK, \
+		.phyTypeCfg.fsk = { \
+			.symRate = FSK_SYM_RATE_300kHz, \
+			.modIdx = FSK_MOD_IDX_0_5, \
+			.modOrd = FSK_MOD_ORD_2FSK \
+		}, \
+		.chnF0Hz = 920900000, \
+		.chnSpaHz = 400000, \
+		.chnNumMin = 0, \
+		.chnNumMax = 17, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_FSK_50kHz_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_FSK_300kHz_CCA_THRESHOLD + 3, \
+	}
+
+/* Operating mode #8 */
+#define SUN_FSK_BAND_920_928_OPM8               (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_FSK, \
+		.phyTypeCfg.fsk = { \
+			.symRate = FSK_SYM_RATE_300kHz, \
+			.modIdx = FSK_MOD_IDX_0_5, \
+			.modOrd = FSK_MOD_ORD_2FSK \
+		}, \
+		.chnF0Hz = 920800000, \
+		.chnSpaHz = 600000, \
+		.chnNumMin = 0, \
+		.chnNumMax = 11, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_FSK_50kHz_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_FSK_300kHz_CCA_THRESHOLD + 3, \
+	}
+
+/* Operating mode #9 */
+#define SUN_FSK_BAND_920_928_OPM9               (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_FSK, \
+		.phyTypeCfg.fsk = { \
+			.symRate = FSK_SYM_RATE_400kHz, \
+			.modIdx = FSK_MOD_IDX_0_5, \
+			.modOrd = FSK_MOD_ORD_2FSK \
+		}, \
+		.chnF0Hz = 921000000, \
+		.chnSpaHz = 1000000, \
+		.chnNumMin = 0, \
+		.chnNumMax = 6, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_FSK_50kHz_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_FSK_400kHz_CCA_THRESHOLD + 3, \
+	}
+
+/* Operating mode #12 */
+#define SUN_FSK_BAND_920_928_OPM12               (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_FSK, \
+		.phyTypeCfg.fsk = { \
+			.symRate = FSK_SYM_RATE_400kHz, \
+			.modIdx = FSK_MOD_IDX_1_0, \
+			.modOrd = FSK_MOD_ORD_4FSK \
+		}, \
+		.chnF0Hz = 921000000, \
+		.chnSpaHz = 1000000, \
+		.chnNumMin = 0, \
+		.chnNumMax = 6, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_FSK_50kHz_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_FSK_400kHz_CCA_THRESHOLD + 3, \
+	}
+
 /*********************** Frequency band 920.5-924.5MHz ************************/
 
 /* Operating mode #1 */
@@ -1418,6 +1532,103 @@
 		.chnSpaHz = 400000, \
 		.chnNumMin = 45, \
 		.chnNumMax = 56, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_FSK_50kHz_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_FSK_300kHz_CCA_THRESHOLD, \
+	}
+
+/************************* Frequency band 920-923 MHz *************************/
+
+/* Operating mode #1 */
+#define SUN_FSK_BAND_920_923_OPM1               (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_FSK, \
+		.phyTypeCfg.fsk = { \
+			.symRate = FSK_SYM_RATE_50kHz,	\
+			.modIdx = FSK_MOD_IDX_1_0, \
+			.modOrd = FSK_MOD_ORD_2FSK \
+		}, \
+		.chnF0Hz = 902200000, \
+		.chnSpaHz = 200000, \
+		.chnNumMin = 90, \
+		.chnNumMax = 103, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_FSK_50kHz_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_FSK_50kHz_CCA_THRESHOLD, \
+	}
+
+/* Operating mode #2 */
+#define SUN_FSK_BAND_920_923_OPM2               (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_FSK, \
+		.phyTypeCfg.fsk = { \
+			.symRate = FSK_SYM_RATE_100kHz, \
+			.modIdx = FSK_MOD_IDX_0_5, \
+			.modOrd = FSK_MOD_ORD_2FSK \
+		}, \
+		.chnF0Hz = 902200000, \
+		.chnSpaHz = 200000, \
+		.chnNumMin = 90, \
+		.chnNumMax = 103, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_FSK_50kHz_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_FSK_100kHz_CCA_THRESHOLD, \
+	}
+
+/* Operating mode #3 */
+#define SUN_FSK_BAND_920_923_OPM3               (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_FSK, \
+		.phyTypeCfg.fsk = { \
+			.symRate = FSK_SYM_RATE_150kHz, \
+			.modIdx = FSK_MOD_IDX_0_5, \
+			.modOrd = FSK_MOD_ORD_2FSK \
+		}, \
+		.chnF0Hz = 902200000, \
+		.chnSpaHz = 200000, \
+		.chnNumMin = 90, \
+		.chnNumMax = 103, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_FSK_50kHz_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_FSK_150kHz_CCA_THRESHOLD, \
+	}
+
+/* Operating mode #4 */
+#define SUN_FSK_BAND_920_923_OPM4               (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_FSK, \
+		.phyTypeCfg.fsk = { \
+			.symRate = FSK_SYM_RATE_200kHz, \
+			.modIdx = FSK_MOD_IDX_0_5, \
+			.modOrd = FSK_MOD_ORD_2FSK \
+		}, \
+		.chnF0Hz = 902400000, \
+		.chnSpaHz = 400000, \
+		.chnNumMin = 45, \
+		.chnNumMax = 51, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_FSK_50kHz_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_FSK_200kHz_CCA_THRESHOLD, \
+	}
+
+/* Operating mode #5 */
+#define SUN_FSK_BAND_920_923_OPM5               (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_FSK, \
+		.phyTypeCfg.fsk = { \
+			.symRate = FSK_SYM_RATE_300kHz, \
+			.modIdx = FSK_MOD_IDX_0_5, \
+			.modOrd = FSK_MOD_ORD_2FSK \
+		}, \
+		.chnF0Hz = 902400000, \
+		.chnSpaHz = 400000, \
+		.chnNumMin = 45, \
+		.chnNumMax = 51, \
 		.chnNumMin2 = 0xFFFF, \
 		.chnNumMax2 = 0, \
 		.ccaEdDurationUS = SUN_FSK_50kHz_CCA_ED_DURATION, \

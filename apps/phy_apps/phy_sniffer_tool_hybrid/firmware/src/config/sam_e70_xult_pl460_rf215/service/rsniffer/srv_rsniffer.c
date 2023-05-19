@@ -205,7 +205,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
     srvRsnifferRxMsg[12] = (uint8_t) (timeIni >> 16);
     srvRsnifferRxMsg[13] = (uint8_t) (timeIni >> 8);
     srvRsnifferRxMsg[14] = (uint8_t) (timeIni);
-    timeEnd = timeIni + SYS_TIME_USToCount(pIndObj->ppduDurationCount);
+    timeEnd = timeIni + SYS_TIME_CountToUS(pIndObj->ppduDurationCount);
     srvRsnifferRxMsg[15] = (uint8_t) (timeEnd >> 24);
     srvRsnifferRxMsg[16] = (uint8_t) (timeEnd >> 16);
     srvRsnifferRxMsg[17] = (uint8_t) (timeEnd >> 8);
@@ -314,7 +314,7 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     pMsgDest[12] = (uint8_t) (timeIni >> 16);
     pMsgDest[13] = (uint8_t) (timeIni >> 8);
     pMsgDest[14] = (uint8_t) (timeIni);
-    timeEnd = timeIni + SYS_TIME_USToCount(pCfmObj->ppduDurationCount);
+    timeEnd = timeIni + SYS_TIME_CountToUS(pCfmObj->ppduDurationCount);
     pMsgDest[15] = (uint8_t) (timeEnd >> 24);
     pMsgDest[16] = (uint8_t) (timeEnd >> 16);
     pMsgDest[17] = (uint8_t) (timeEnd >> 8);

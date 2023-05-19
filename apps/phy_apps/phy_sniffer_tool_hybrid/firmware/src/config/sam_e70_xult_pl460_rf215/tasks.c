@@ -52,6 +52,7 @@
 
 #include "configuration.h"
 #include "definitions.h"
+#include "sys_tasks.h"
 
 
 
@@ -79,8 +80,10 @@ void SYS_Tasks ( void )
     /* Maintain RF215 Driver */
     DRV_RF215_Tasks(sysObj.drvRf215);
 
+
     /* Maintain PLC PHY Driver */
     DRV_PLC_PHY_Tasks(sysObj.drvPlcPhy);
+
 
 
     /* Maintain Middleware & Other Libraries */
@@ -92,6 +95,7 @@ void SYS_Tasks ( void )
 
 
     SRV_USI_Tasks(sysObj.srvUSI0);
+
 
 
     /* Maintain the application's state machine. */

@@ -158,6 +158,7 @@
           <itemPath>../src/config/sam_e70_xult_pl460_rf215/device_cache.h</itemPath>
           <itemPath>../src/config/sam_e70_xult_pl460_rf215/interrupts.h</itemPath>
           <itemPath>../src/config/sam_e70_xult_pl460_rf215/user.h</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/sys_tasks.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">
@@ -436,7 +437,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.20</languageToolchainVersion>
+        <languageToolchainVersion>4.21</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

@@ -335,9 +335,6 @@ typedef void ( *DRV_RF215_TX_CFM_CALLBACK ) (
 
     // RF215 Driver Initialization Data
     const DRV_RF215_INIT drvRf215InitData = {
-        // SPI chip select register address used for SPI configuration
-        .spiCSRegAddress = (uint32_t *)&(SPI0_REGS->SPI_CSR[DRV_RF215_CSR_INDEX]),
-
         // SPI Transmit Register
         .spiTransmitAddress = (const void *)&(SPI0_REGS->SPI_TDR),
 
