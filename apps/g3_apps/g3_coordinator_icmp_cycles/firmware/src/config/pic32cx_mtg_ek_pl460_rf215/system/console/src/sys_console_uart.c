@@ -53,8 +53,6 @@
 // *****************************************************************************
 // *****************************************************************************
 
-extern const SYS_CONSOLE_DEV_DESC sysConsoleUARTDevDesc;
-
 const SYS_CONSOLE_DEV_DESC sysConsoleUARTDevDesc =
 {
     .consoleDevice              = SYS_CONSOLE_DEV_USART,
@@ -75,11 +73,9 @@ static CONSOLE_UART_DATA gConsoleUartData[SYS_CONSOLE_UART_MAX_INSTANCES];
 
 #define CONSOLE_UART_GET_INSTANCE(index)    ((index) >= (SYS_CONSOLE_UART_MAX_INSTANCES))? (NULL) : (&gConsoleUartData[index])
 
-/* MISRA C-2012 Rule 10.4 False positive:7 Deviation record ID -  H3_MISRAC_2012_R_10_4_DR_1 */
-
 static bool Console_UART_ResourceLock(CONSOLE_UART_DATA* pConsoleUartData)
 {
-    if(OSAL_MUTEX_Lock(&(pConsoleUartData->mutexTransferObjects), OSAL_WAIT_FOREVER) == OSAL_RESULT_FALSE)
+    if(OSAL_MUTEX_Lock(&(pConsoleUartData->mutexTransferObjects), OSAL_WAIT_FOREVER) == OSAL_RESULT_FAIL)
     {
         return false;
     }
@@ -105,7 +101,7 @@ void Console_UART_Initialize(uint32_t index, const void* initData)
         return;
     }
 
-    if(OSAL_MUTEX_Create(&(pConsoleUartData->mutexTransferObjects)) != OSAL_RESULT_TRUE)
+    if(OSAL_MUTEX_Create(&(pConsoleUartData->mutexTransferObjects)) != OSAL_RESULT_SUCCESS)
     {
         return;
     }
@@ -115,7 +111,6 @@ void Console_UART_Initialize(uint32_t index, const void* initData)
 
     pConsoleUartData->status = SYS_CONSOLE_STATUS_CONFIGURED;
 }
-/* MISRAC 2012 deviation block end */
 
 /* Read out the data from the RX Ring Buffer */
 ssize_t Console_UART_Read(uint32_t index, void* pRdBuffer, size_t count)

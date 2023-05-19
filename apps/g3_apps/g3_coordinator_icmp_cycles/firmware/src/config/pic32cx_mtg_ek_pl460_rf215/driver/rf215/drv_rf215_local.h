@@ -75,9 +75,6 @@
 
 typedef struct
 {
-    /* The status of the driver */
-    SYS_STATUS                      sysStatus;
-
     /* Ready status callback */
     DRV_RF215_READY_STATUS_CALLBACK readyStatusCallback;
     uintptr_t                       readyStatusContext;
@@ -87,6 +84,9 @@ typedef struct
 
     /* Token counter for handle generation */
     uint16_t                        tokenCount;
+
+    /* The status of the driver */
+    SYS_STATUS                      sysStatus;
 
     /* RF215 IRQ status registers (external interrupt flags) */
     uint8_t                         RF09_IRQS;

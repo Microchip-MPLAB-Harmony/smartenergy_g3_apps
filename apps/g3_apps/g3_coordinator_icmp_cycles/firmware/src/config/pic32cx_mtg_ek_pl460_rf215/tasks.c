@@ -52,6 +52,7 @@
 
 #include "configuration.h"
 #include "definitions.h"
+#include "sys_tasks.h"
 
 
 
@@ -80,8 +81,10 @@ void SYS_Tasks ( void )
     /* Maintain G3 MAC RT Driver */
     DRV_G3_MACRT_Tasks(sysObj.drvG3MacRt);
 
+
     /* Maintain RF215 Driver */
     DRV_RF215_Tasks(sysObj.drvRf215);
+
 
 
     /* Maintain Middleware & Other Libraries */

@@ -157,7 +157,7 @@
     System Console Status.
 
   Description:
-    This enumeration lists the current status/state of a system console module 
+    This enumeration lists the current status/state of a system console module
 
   Remarks:
     None.
@@ -370,6 +370,8 @@ typedef struct
 // *****************************************************************************
 
 
+extern const SYS_CONSOLE_DEV_DESC sysConsoleUARTDevDesc;
+
 // *****************************************************************************
 /* Function:
     SYS_MODULE_OBJ SYS_CONSOLE_Initialize(
@@ -404,7 +406,7 @@ typedef struct
   Example:
     <code>
     SYS_MODULE_OBJ  objectHandle;
-   
+
     const SYS_CONSOLE_INIT sysConsole0Init =
     {
         .deviceInitData = (void*)&sysConsole0UARTInitData,
@@ -415,7 +417,7 @@ typedef struct
     objectHandle = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
     if (objectHandle == SYS_MODULE_OBJ_INVALID)
     {
-        
+
     }
     </code>
 
@@ -450,12 +452,12 @@ SYS_MODULE_OBJ SYS_CONSOLE_Initialize(
 
   Example:
     <code>
-    SYS_MODULE_OBJ object;     
+    SYS_MODULE_OBJ object;
 
     while (true)
     {
         SYS_CONSOLE_Tasks (object);
-        
+
     }
     </code>
 
@@ -502,13 +504,13 @@ void SYS_CONSOLE_Tasks ( SYS_MODULE_OBJ object );
 
   Example:
     <code>
-   
+
     SYS_STATUS          consStatus;
 
     consStatus = SYS_CONSOLE_Status (object);
     if (consStatus == SYS_STATUS_READY)
     {
-       
+
     }
     </code>
 
@@ -580,7 +582,7 @@ SYS_CONSOLE_HANDLE SYS_CONSOLE_HandleGet( const SYS_MODULE_INDEX index);
     <code>
     SYS_CONSOLE_HANDLE myConsoleHandle;
     SYS_CONSOLE_DEVICE myConsoleDevType
-   
+
     myConsoleDevType = SYS_CONSOLE_DeviceGet(myConsoleHandle);
     </code>
 
@@ -628,14 +630,14 @@ SYS_CONSOLE_DEVICE SYS_CONSOLE_DeviceGet( const SYS_CONSOLE_HANDLE handle);
 
   Example:
     <code>
-    ssize_t nr;     
+    ssize_t nr;
     char myBuffer[MY_BUFFER_SIZE];
     SYS_CONSOLE_HANDLE myConsoleHandle;
-   
+
     nr = SYS_CONSOLE_Read( myConsoleHandle, myBuffer, MY_BUFFER_SIZE );
     if (nr == -1)
     {
-        
+
     }
     </code>
 
@@ -679,15 +681,15 @@ ssize_t SYS_CONSOLE_Read( const SYS_CONSOLE_HANDLE handle, void* buf, size_t cou
     ssize_t nr;
     char myBuffer[] = "message";
     SYS_CONSOLE_HANDLE myConsoleHandle;
-  
+
     nr = SYS_CONSOLE_Write( myConsoleHandle, myBuffer, strlen(myBuffer) );
     if (nr == -1)
     {
-       
+
     }
     if (nr != strlen(myBuffer))
     {
-       
+
     }
     </code>
 
@@ -723,12 +725,12 @@ ssize_t SYS_CONSOLE_Write( const SYS_CONSOLE_HANDLE handle, const void* buf, siz
   Example:
     <code>
     SYS_CONSOLE_HANDLE myConsoleHandle;
-    bool status;   
+    bool status;
 
     status = SYS_CONSOLE_Flush(myConsoleHandle);
     if (status == false)
     {
-        
+
     }
     </code>
 
@@ -765,11 +767,11 @@ bool SYS_CONSOLE_Flush(const SYS_CONSOLE_HANDLE handle);
     <code>
     ssize_t nr;
     SYS_CONSOLE_HANDLE myConsoleHandle;
-   
+
     nr = SYS_CONSOLE_ReadFreeBufferCountGet(myConsoleHandle);
     if (nr == -1)
     {
-        
+
     }
     </code>
 
@@ -806,13 +808,13 @@ ssize_t SYS_CONSOLE_ReadFreeBufferCountGet(const SYS_CONSOLE_HANDLE handle);
     ssize_t nBytesRead;
     char myBuffer[100];
     SYS_CONSOLE_HANDLE myConsoleHandle;
-   
+
     nUnreadBytes = SYS_CONSOLE_ReadCountGet(myConsoleHandle);
 
     if (nUnreadBytes == -1)
     {
-        
-    }  
+
+    }
     SYS_CONSOLE_Read( myConsoleHandle, 0, myBuffer, nUnreadBytes );
     </code>
 
@@ -851,11 +853,11 @@ ssize_t SYS_CONSOLE_ReadCountGet(const SYS_CONSOLE_HANDLE handle);
     ssize_t nFreeSpace;
     char myBuffer[100];
     SYS_CONSOLE_HANDLE myConsoleHandle;
-  
+
     nFreeSpace = SYS_CONSOLE_WriteFreeBufferCountGet(myConsoleHandle);
 
     if ((nFreeSpace >= sizeof(myBuffer)) && (nFreeSpace!= -1))
-    {       
+    {
         SYS_CONSOLE_Write( myConsoleHandle, myBuffer, sizeof(myBuffer) );
     }
     </code>
@@ -896,11 +898,11 @@ ssize_t SYS_CONSOLE_WriteFreeBufferCountGet(const SYS_CONSOLE_HANDLE handle);
 
     if (nTxBytesPending == -1)
     {
-       
+
     }
     if (nTxBytesPending == 0)
     {
-       
+
     }
     </code>
 
