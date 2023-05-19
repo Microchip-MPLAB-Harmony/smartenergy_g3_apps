@@ -1006,6 +1006,80 @@
 		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
 	}
 
+/************************* Frequency band 920-923 MHz *************************/
+
+/* OFDM Bandwidth Option 4 */
+#define SUN_OFDM_BAND_920_923_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_OFDM, \
+		.phyTypeCfg.ofdm = { \
+			.opt = OFDM_BW_OPT_4, \
+			.itlv = OFDM_INTERLEAVING_1 \
+		}, \
+		.chnF0Hz = 902200000, \
+		.chnSpaHz = 200000, \
+		.chnNumMin = 90, \
+		.chnNumMax = 103, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+	}
+
+/* OFDM Bandwidth Option 3 */
+#define SUN_OFDM_BAND_920_923_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_OFDM, \
+		.phyTypeCfg.ofdm = { \
+			.opt = OFDM_BW_OPT_3, \
+			.itlv = OFDM_INTERLEAVING_1 \
+		}, \
+		.chnF0Hz = 902400000, \
+		.chnSpaHz = 400000, \
+		.chnNumMin = 45, \
+		.chnNumMax = 51, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+	}
+
+/* OFDM Bandwidth Option 2 */
+#define SUN_OFDM_BAND_920_923_OPT2              (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_OFDM, \
+		.phyTypeCfg.ofdm = { \
+			.opt = OFDM_BW_OPT_2, \
+			.itlv = OFDM_INTERLEAVING_1 \
+		}, \
+		.chnF0Hz = 902800000, \
+		.chnSpaHz = 800000, \
+		.chnNumMin = 22, \
+		.chnNumMax = 24, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+	}
+
+/* OFDM Bandwidth Option 1 */
+#define SUN_OFDM_BAND_920_923_OPT1              (DRV_RF215_PHY_CFG_OBJ) \
+	{ \
+		.phyType = PHY_TYPE_OFDM, \
+		.phyTypeCfg.ofdm = { \
+			.opt = OFDM_BW_OPT_1, \
+			.itlv = OFDM_INTERLEAVING_1 \
+		}, \
+		.chnF0Hz = 903200000, \
+		.chnSpaHz = 1200000, \
+		.chnNumMin = 15, \
+		.chnNumMax = 16, \
+		.chnNumMin2 = 0xFFFF, \
+		.chnNumMax2 = 0, \
+		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+	}
+
 /************************* Frequency band 2400-2483.5 MHz *********************/
 
 /* OFDM Bandwidth Option 4 */

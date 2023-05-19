@@ -48,10 +48,10 @@
 #define PIO_MAX_NUM_OF_CHANNELS     5U
 
 /* Array to store callback objects of each configured interrupt */
-static PIO_PIN_CALLBACK_OBJ portPinCbObj[1 + 0 + 0 + 1 + 0];
+volatile static PIO_PIN_CALLBACK_OBJ portPinCbObj[1 + 0 + 0 + 1 + 0];
 
 /* Array to store number of interrupts in each PORT Channel + previous interrupt count */
-static uint8_t portNumCb[PIO_MAX_NUM_OF_CHANNELS + 1] = {0U, 1U, 1U, 1U, 2U, 2U};
+volatile static uint8_t portNumCb[PIO_MAX_NUM_OF_CHANNELS + 1] = {0U, 1U, 1U, 1U, 2U, 2U};
  void PIO_Interrupt_Handler ( PIO_PORT port );
 
 /******************************************************************************
@@ -68,48 +68,48 @@ void PIO_Initialize ( void )
 {
     MATRIX_REGS->CCFG_SYSIO = 0x0;
     /* Selected System IO pins are configured as GPIO */
-    MATRIX_REGS->CCFG_SYSIO |= 0x10;
+    MATRIX_REGS->CCFG_SYSIO |= 0x10UL;
 
     /************************ PIO A Initialization ************************/
     /* PORTA PIO Disable and Peripheral Enable*/
-    ((pio_registers_t*)PIO_PORT_A)->PIO_PDR = 0x200000;
-    ((pio_registers_t*)PIO_PORT_A)->PIO_PER = ~0x200000;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_PDR = 0x200000U;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_PER = ~0x200000U;
     ((pio_registers_t*)PIO_PORT_A)->PIO_MDDR = 0xFFFFFFFFU;
     /* PORTA Pull Up Enable/Disable as per MHC selection */
     ((pio_registers_t*)PIO_PORT_A)->PIO_PUDR = ~0x804U;
-    ((pio_registers_t*)PIO_PORT_A)->PIO_PUER = 0x804;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_PUER = 0x804U;
     /* PORTA Pull Down Enable/Disable as per MHC selection */
     ((pio_registers_t*)PIO_PORT_A)->PIO_PPDDR = 0xFFFFFFFFU;
     /* PORTA Output Write Enable */
     ((pio_registers_t*)PIO_PORT_A)->PIO_OWER = PIO_OWER_Msk;
     /* PORTA Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_A)->PIO_OER = 0x80079;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_OER = 0x80079U;
     ((pio_registers_t*)PIO_PORT_A)->PIO_ODR = ~0x80079U;
     /* Initialize PORTA pin state */
-    ((pio_registers_t*)PIO_PORT_A)->PIO_ODSR = 0x30;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_ODSR = 0x30U;
     /* PORTA Additional interrupt mode Enable */
-    ((pio_registers_t*)PIO_PORT_A)->PIO_AIMER = 0x4;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_AIMER = 0x4U;
     /* PORTA Level type interrupt Enable */
-    ((pio_registers_t*)PIO_PORT_A)->PIO_LSR = 0x4;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_LSR = 0x4U;
     /* PORTA Rising Edge or High Level Interrupt Enable */
-    ((pio_registers_t*)PIO_PORT_A)->PIO_REHLSR = 0x4;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_REHLSR = 0x4U;
     /* PORTA Interrupt Status Clear */
     ((pio_registers_t*)PIO_PORT_A)->PIO_ISR;
     /* PORTA system level interrupt will be enabled by NVIC Manager */
     /* PORTA module level Interrupt for every pin has to be enabled by user
        by calling PIO_PinInterruptEnable() API dynamically as and when needed*/
     /* PORTA Glitch/Debounce Filter Enable */
-    ((pio_registers_t*)PIO_PORT_A)->PIO_IFER = 0x4;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_IFER = 0x4U;
     /* PORTA drive control */
-    ((pio_registers_t*)PIO_PORT_A)->PIO_DRIVER = 0x0;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_DRIVER = 0x0U;
 
     /************************ PIO B Initialization ************************/
     /* PORTB Peripheral Function Selection */
-    ((pio_registers_t*)PIO_PORT_B)->PIO_ABCDSR[0]= 0x10;
-    ((pio_registers_t*)PIO_PORT_B)->PIO_ABCDSR[1]= 0x10;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_ABCDSR[0]= 0x10U;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_ABCDSR[1]= 0x10U;
     /* PORTB PIO Disable and Peripheral Enable*/
-    ((pio_registers_t*)PIO_PORT_B)->PIO_PDR = 0x10;
-    ((pio_registers_t*)PIO_PORT_B)->PIO_PER = ~0x10;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_PDR = 0x10U;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_PER = ~0x10U;
     ((pio_registers_t*)PIO_PORT_B)->PIO_MDDR = 0xFFFFFFFFU;
     /* PORTB Pull Up Enable/Disable as per MHC selection */
     ((pio_registers_t*)PIO_PORT_B)->PIO_PUDR = 0xFFFFFFFFU;
@@ -118,12 +118,12 @@ void PIO_Initialize ( void )
     /* PORTB Output Write Enable */
     ((pio_registers_t*)PIO_PORT_B)->PIO_OWER = PIO_OWER_Msk;
     /* PORTB Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_B)->PIO_OER = 0x8;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_OER = 0x8U;
     ((pio_registers_t*)PIO_PORT_B)->PIO_ODR = ~0x8U;
     /* Initialize PORTB pin state */
-    ((pio_registers_t*)PIO_PORT_B)->PIO_ODSR = 0x0;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_ODSR = 0x0U;
     /* PORTB drive control */
-    ((pio_registers_t*)PIO_PORT_B)->PIO_DRIVER = 0x0;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_DRIVER = 0x0U;
 
     /************************ PIO C Initialization ************************/
     ((pio_registers_t*)PIO_PORT_C)->PIO_PER = 0xFFFFFFFFU;
@@ -135,46 +135,46 @@ void PIO_Initialize ( void )
     /* PORTC Output Write Enable */
     ((pio_registers_t*)PIO_PORT_C)->PIO_OWER = PIO_OWER_Msk;
     /* PORTC Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_C)->PIO_OER = 0x40080000;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_OER = 0x40080000U;
     ((pio_registers_t*)PIO_PORT_C)->PIO_ODR = ~0x40080000U;
     /* Initialize PORTC pin state */
-    ((pio_registers_t*)PIO_PORT_C)->PIO_ODSR = 0x0;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_ODSR = 0x0U;
     /* PORTC drive control */
-    ((pio_registers_t*)PIO_PORT_C)->PIO_DRIVER = 0x0;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_DRIVER = 0x0U;
 
     /************************ PIO D Initialization ************************/
     /* PORTD Peripheral Function Selection */
-    ((pio_registers_t*)PIO_PORT_D)->PIO_ABCDSR[0]= 0xa700000;
-    ((pio_registers_t*)PIO_PORT_D)->PIO_ABCDSR[1]= 0x0;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_ABCDSR[0]= 0xa700000U;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_ABCDSR[1]= 0x0U;
     /* PORTD PIO Disable and Peripheral Enable*/
-    ((pio_registers_t*)PIO_PORT_D)->PIO_PDR = 0xa700000;
-    ((pio_registers_t*)PIO_PORT_D)->PIO_PER = ~0xa700000;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_PDR = 0xa700000U;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_PER = ~0xa700000U;
     ((pio_registers_t*)PIO_PORT_D)->PIO_MDDR = 0xFFFFFFFFU;
     /* PORTD Pull Up Enable/Disable as per MHC selection */
     ((pio_registers_t*)PIO_PORT_D)->PIO_PUDR = 0xFFFFFFFFU;
     /* PORTD Pull Down Enable/Disable as per MHC selection */
     ((pio_registers_t*)PIO_PORT_D)->PIO_PPDDR = ~0x10000000U;
-    ((pio_registers_t*)PIO_PORT_D)->PIO_PPDER = 0x10000000;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_PPDER = 0x10000000U;
     /* PORTD Output Write Enable */
     ((pio_registers_t*)PIO_PORT_D)->PIO_OWER = PIO_OWER_Msk;
     /* PORTD Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_D)->PIO_OER = 0x800;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_OER = 0x800U;
     ((pio_registers_t*)PIO_PORT_D)->PIO_ODR = ~0x800U;
     /* Initialize PORTD pin state */
-    ((pio_registers_t*)PIO_PORT_D)->PIO_ODSR = 0x0;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_ODSR = 0x0U;
     /* PORTD Additional interrupt mode Enable */
-    ((pio_registers_t*)PIO_PORT_D)->PIO_AIMER = 0x10000000;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_AIMER = 0x10000000U;
     /* PORTD Level type interrupt Enable */
-    ((pio_registers_t*)PIO_PORT_D)->PIO_LSR = 0x10000000;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_LSR = 0x10000000U;
     /* PORTD Interrupt Status Clear */
     ((pio_registers_t*)PIO_PORT_D)->PIO_ISR;
     /* PORTD system level interrupt will be enabled by NVIC Manager */
     /* PORTD module level Interrupt for every pin has to be enabled by user
        by calling PIO_PinInterruptEnable() API dynamically as and when needed*/
     /* PORTD Glitch/Debounce Filter Enable */
-    ((pio_registers_t*)PIO_PORT_D)->PIO_IFER = 0x10000000;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_IFER = 0x10000000U;
     /* PORTD drive control */
-    ((pio_registers_t*)PIO_PORT_D)->PIO_DRIVER = 0x0;
+    ((pio_registers_t*)PIO_PORT_D)->PIO_DRIVER = 0x0U;
 
     /************************ PIO E Initialization ************************/
     ((pio_registers_t*)PIO_PORT_E)->PIO_PER = 0xFFFFFFFFU;
@@ -186,12 +186,12 @@ void PIO_Initialize ( void )
     /* PORTE Output Write Enable */
     ((pio_registers_t*)PIO_PORT_E)->PIO_OWER = PIO_OWER_Msk;
     /* PORTE Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_E)->PIO_OER = 0x0;
+    ((pio_registers_t*)PIO_PORT_E)->PIO_OER = 0x0U;
     ((pio_registers_t*)PIO_PORT_E)->PIO_ODR = ~0x0U;
     /* Initialize PORTE pin state */
-    ((pio_registers_t*)PIO_PORT_E)->PIO_ODSR = 0x0;
+    ((pio_registers_t*)PIO_PORT_E)->PIO_ODSR = 0x0U;
     /* PORTE drive control */
-    ((pio_registers_t*)PIO_PORT_E)->PIO_DRIVER = 0x0;
+    ((pio_registers_t*)PIO_PORT_E)->PIO_DRIVER = 0x0U;
 
     uint32_t i;
     /* Initialize Interrupt Pin data structures */
@@ -433,12 +433,14 @@ bool PIO_PinInterruptCallbackRegister(
     This function defines the Interrupt handler for a selected port.
 
   Remarks:
-	It is an internal function used by the library, user should not call it.
+    It is an internal function used by the library, user should not call it.
 */
-void PIO_Interrupt_Handler ( PIO_PORT port )
+void __attribute__((used)) PIO_Interrupt_Handler ( PIO_PORT port )
 {
     uint32_t status;
     uint32_t i, portIndex;
+    PIO_PIN pin;
+    uintptr_t context;
 
     status  = ((pio_registers_t*)port)->PIO_ISR;
     status &= ((pio_registers_t*)port)->PIO_IMR;
@@ -449,9 +451,12 @@ void PIO_Interrupt_Handler ( PIO_PORT port )
     /* Check pending events and call callback if registered */
     for(i = portNumCb[portIndex]; i < portNumCb[portIndex +1U]; i++)
     {
-        if(((status & (1UL << (portPinCbObj[i].pin & 0x1FU))) != 0U) && (portPinCbObj[i].callback != NULL))
+        pin = portPinCbObj[i].pin;
+
+        if((portPinCbObj[i].callback != NULL) && ((status & (1UL << (pin & 0x1FU))) != 0U))
         {
-            portPinCbObj[i].callback (portPinCbObj[i].pin, portPinCbObj[i].context);
+            context = portPinCbObj[i].context;
+            portPinCbObj[i].callback (pin, context);
         }
     }
 
@@ -475,7 +480,7 @@ void PIO_Interrupt_Handler ( PIO_PORT port )
   Remarks:
     User should not call this function.
 */
-void PIOA_InterruptHandler(void)
+void __attribute__((used)) PIOA_InterruptHandler(void)
 {
     /* Local PIO Interrupt Handler */
     PIO_Interrupt_Handler(PIO_PORT_A);
@@ -496,7 +501,7 @@ void PIOA_InterruptHandler(void)
   Remarks:
     User should not call this function.
 */
-void PIOD_InterruptHandler(void)
+void __attribute__((used)) PIOD_InterruptHandler(void)
 {
     /* Local PIO Interrupt Handler */
     PIO_Interrupt_Handler(PIO_PORT_D);

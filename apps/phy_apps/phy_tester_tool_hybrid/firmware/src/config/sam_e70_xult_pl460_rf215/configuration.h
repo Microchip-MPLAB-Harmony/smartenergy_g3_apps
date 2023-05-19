@@ -131,13 +131,12 @@ extern "C" {
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PC17
 #define DRV_PLC_CSR_INDEX                     1
 #define DRV_PLC_SPI_CHIP_SELECT               SPI_CHIP_SELECT_NPCS1
-
 #define DRV_PLC_SPI_CLK                       8000000
+
+/* PLC Driver Identification */
 #define DRV_PLC_PHY_INSTANCES_NUMBER          1
 #define DRV_PLC_PHY_INDEX                     0
 #define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1
-
-/* PLC Driver Identification */
 #define DRV_PLC_PHY_PROFILE                   2
 #define DRV_PLC_PHY_NUM_CARRIERS              NUM_CARRIERS_FCC
 #define DRV_PLC_PHY_HOST_PRODUCT              0x3601

@@ -96,9 +96,9 @@ const RF215_REG_VALUES_OBJ rf215RegValues = {
 static const DRV_RF215_FW_VERSION rf215FwVersion = {
     .major = 2,
     .minor = 0,
-    .revision = 0,
-    .day = 18,
-    .month = 1,
+    .revision = 1,
+    .day = 22,
+    .month = 2,
     .year = 23
 };
 
@@ -166,6 +166,7 @@ static void _DRV_RF215_ReadPNVN(uintptr_t context, void* pData, uint64_t time)
 
     if ((pPN[0] != RF215_RF_PN_AT86RF215) || (pPN[1] != RF215_RF_VN_V3))
     {
+        /* Wrong part number read */
         dObj->partNumErr = true;
         return;
     }
@@ -204,6 +205,7 @@ static void _DRV_RF215_ReadIRQS(uintptr_t context, void* pData, uint64_t time)
          * should be indicated */
         if (((rf09IRQS & rf24IRQS) != RF215_RFn_IRQ_WAKEUP) || ((bbc0IRQS | bbc1IRQS) != 0))
         {
+            RF215_HAL_Deinitialize();
             dObj->irqsErr = true;
             return;
         }
@@ -362,8 +364,6 @@ SYS_MODULE_OBJ DRV_RF215_Initialize (
 
     /* Reset RF device in the first task */
     drvRf215Obj.rfChipResetPending = true;
-
-    /* Initialize the driver object */
     drvRf215Obj.timeoutHandle = SYS_TIME_HANDLE_INVALID;
 
     /* Set busy status. Initialization will continue from interrupt */
@@ -536,6 +536,7 @@ void DRV_RF215_ReadyStatusCallbackRegister (
     /* Register ready status callback */
     drvRf215Obj.readyStatusCallback = callback;
     drvRf215Obj.readyStatusContext = context;
+    drvRf215Obj.readyStatusNotified = false;
 }
 
 DRV_HANDLE DRV_RF215_Open (
@@ -877,9 +878,15 @@ DRV_RF215_PIB_RESULT DRV_RF215_SetPib (
             return RF215_PIB_RESULT_READ_ONLY;
 
         case RF215_PIB_DEVICE_RESET:
+            /* Critical region to avoid conflicts in PHY object data */
+            RF215_HAL_EnterCritical();
+
             RF215_HAL_Reset();
             RF215_PHY_Reset(RF215_TRX_RF09_IDX);
             RF215_PHY_Reset(RF215_TRX_RF24_IDX);
+
+            /* Leave critical region */
+            RF215_HAL_LeaveCritical();
             break;
 
         default:

@@ -221,8 +221,6 @@ void RF215_HAL_EnterCritical();
 
 void RF215_HAL_LeaveCritical();
 
-void RF215_HAL_DisableTimeInt();
-
 void RF215_HAL_SpiRead (
     uint16_t addr,
     void* pData,

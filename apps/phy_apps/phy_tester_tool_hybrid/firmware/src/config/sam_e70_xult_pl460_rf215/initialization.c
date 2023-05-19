@@ -70,9 +70,6 @@
 
 /* RF215 Driver Initialization Data */
 const DRV_RF215_INIT drvRf215InitData = {
-    /* SPI chip select register address used for SPI configuration */
-    .spiCSRegAddress = (uint32_t *)&(SPI0_REGS->SPI_CSR[DRV_RF215_CSR_INDEX]),
-
     /* SPI Transmit Register */
     .spiTransmitAddress = (const void *)&(SPI0_REGS->SPI_TDR),
 
@@ -98,7 +95,7 @@ const DRV_RF215_INIT drvRf215InitData = {
     .rf09PhyBandOpmIni = SUN_FSK_BAND_863_OPM1,
 
     /* Initial PHY frequency channel number for Sub-GHz transceiver */
-    .rf09PhyChnNumIni = 0,
+    .rf09PhyChnNumIni = 29,
 
     /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */
     .rf24PhyBandOpmIni = SUN_FSK_BAND_2450_OPM1,
@@ -135,8 +132,6 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI Receive Register */
     .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
 
-    /* SPI CSR register address. */
-    .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[DRV_PLC_CSR_INDEX]),
     
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
@@ -196,6 +191,9 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
     
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
+    
+    /* PLC HAL Enable/Disable external interrupt */
+    .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
 
     /* PLC HAL delay function */
     .delay = (DRV_PLC_HAL_DELAY)DRV_PLC_HAL_Delay,
@@ -385,7 +383,7 @@ const DRV_USBHSV1_INIT drvUSBInit =
 // *****************************************************************************
 // <editor-fold defaultstate="collapsed" desc="SYS_TIME Initialization Data">
 
-const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
+static const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
     .timerCallbackSet = (SYS_TIME_PLIB_CALLBACK_REGISTER)TC0_CH0_TimerCallbackRegister,
     .timerStart = (SYS_TIME_PLIB_START)TC0_CH0_TimerStart,
     .timerStop = (SYS_TIME_PLIB_STOP)TC0_CH0_TimerStop ,
@@ -395,7 +393,7 @@ const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
     .timerCounterGet = (SYS_TIME_PLIB_COUNTER_GET)TC0_CH0_TimerCounterGet,
 };
 
-const SYS_TIME_INIT sysTimeInitData =
+static const SYS_TIME_INIT sysTimeInitData =
 {
     .timePlib = &sysTimePlibAPI,
     .hwTimerIntNum = TC0_CH0_IRQn,
@@ -434,6 +432,8 @@ void SYS_Initialize ( void* data )
     CLOCK_Initialize();
 	PIO_Initialize();
 
+    XDMAC_Initialize();
+
 
 
   
@@ -446,8 +446,6 @@ void SYS_Initialize ( void* data )
 	SPI0_Initialize();
 
     USART1_Initialize();
-
-    XDMAC_Initialize();
 
 	RSWDT_REGS->RSWDT_MR = RSWDT_MR_WDDIS_Msk;	// Disable RSWDT 
 
@@ -470,7 +468,12 @@ void SYS_Initialize ( void* data )
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+    H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
+        
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
+    
+    /* MISRAC 2012 deviation block end */
 
 
     /* Initialize the USB device layer */
