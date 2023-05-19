@@ -48,22 +48,31 @@
 #include "plib_flexcom3_spi_master.h"
 #include "interrupts.h"
 
+#define FLEXCOM_SPI_TDR_8BIT_REG      (*(volatile uint8_t* const)((FLEXCOM3_BASE_ADDRESS + FLEX_SPI_TDR_REG_OFST)))
+
+#define FLEXCOM_SPI_TDR_9BIT_REG      (*(volatile uint16_t* const)((FLEXCOM3_BASE_ADDRESS + FLEX_SPI_TDR_REG_OFST)))
+
+
+
+#define FLEXCOM_SPI_RDR_8BIT_REG      (*(volatile uint8_t* const)((FLEXCOM3_BASE_ADDRESS + FLEX_SPI_RDR_REG_OFST)))
+
+#define FLEXCOM_SPI_RDR_9BIT_REG      (*(volatile uint16_t* const)((FLEXCOM3_BASE_ADDRESS + FLEX_SPI_RDR_REG_OFST)))
 // *****************************************************************************
 // *****************************************************************************
 // Section: FLEXCOM3 SPI Implementation
 // *****************************************************************************
 // *****************************************************************************
 /* Global object to save FLEXCOM SPI Exchange related data */
-static FLEXCOM_SPI_OBJECT flexcom3SpiObj;
+volatile static FLEXCOM_SPI_OBJECT flexcom3SpiObj;
 
-static uint8_t dummyDataBuffer[512];
+volatile static uint8_t dummyDataBuffer[512];
 
-static void setupDMA( void* pTransmitData, void* pReceiveData, size_t size )
+static void setupDMA( volatile void* pTransmitData, volatile void* pReceiveData, size_t size )
 {
     /* Always set up the rx channel first */
-    FLEXCOM3_REGS->FLEX_RPR = (uint32_t) pReceiveData;
+    FLEXCOM3_REGS->FLEX_RPR = (volatile uint32_t) (volatile uint32_t*)pReceiveData;
     FLEXCOM3_REGS->FLEX_RCR = (uint32_t) size;
-    FLEXCOM3_REGS->FLEX_TPR = (uint32_t) pTransmitData;
+    FLEXCOM3_REGS->FLEX_TPR = (volatile uint32_t) (volatile uint32_t*)pTransmitData;
     FLEXCOM3_REGS->FLEX_TCR = (uint32_t) size;
     FLEXCOM3_REGS->FLEX_PTCR = FLEX_PTCR_RXTEN_Msk | FLEX_PTCR_TXTEN_Msk;
     FLEXCOM3_REGS->FLEX_SPI_IER = FLEX_SPI_IER_ENDRX_Msk;
@@ -83,7 +92,7 @@ void FLEXCOM3_SPI_Initialize ( void )
     FLEXCOM3_REGS->FLEX_SPI_MR = FLEX_SPI_MR_MSTR_Msk | FLEX_SPI_MR_BRSRCCLK_PERIPH_CLK | FLEX_SPI_MR_DLYBCS(0U) | FLEX_SPI_MR_PCS((uint32_t)FLEXCOM_SPI_CHIP_SELECT_NPCS0) | FLEX_SPI_MR_MODFDIS_Msk;
 
     /* Set up clock Polarity, data phase, Communication Width, Baud Rate */
-    FLEXCOM3_REGS->FLEX_SPI_CSR[0]= FLEX_SPI_CSR_CPOL(0U) | FLEX_SPI_CSR_NCPHA(1U) | FLEX_SPI_CSR_BITS_8_BIT | FLEX_SPI_CSR_SCBR(7U) | FLEX_SPI_CSR_DLYBS(5U) | FLEX_SPI_CSR_DLYBCT(1U) | FLEX_SPI_CSR_CSAAT_Msk;
+    FLEXCOM3_REGS->FLEX_SPI_CSR[0]= FLEX_SPI_CSR_CPOL(0U) | FLEX_SPI_CSR_NCPHA(1U) | FLEX_SPI_CSR_BITS_8_BIT | FLEX_SPI_CSR_SCBR(7U) | FLEX_SPI_CSR_DLYBS(5U) | FLEX_SPI_CSR_DLYBCT(1U) ;
 
 
 
@@ -104,59 +113,62 @@ bool FLEXCOM3_SPI_WriteRead (void* pTransmitData, size_t txSize, void* pReceiveD
     bool isRequestAccepted = false;
     uint32_t size = 0;
 
-    /* Verify the request */
-    if((((txSize > 0) && (pTransmitData != NULL)) || ((rxSize > 0) && (pReceiveData != NULL))) && (flexcom3SpiObj.transferIsBusy == false))
+    if (flexcom3SpiObj.transferIsBusy == false)
     {
-        isRequestAccepted = true;
-
-        flexcom3SpiObj.transferIsBusy = true;
-
-        flexcom3SpiObj.txBuffer = pTransmitData;
-        flexcom3SpiObj.rxBuffer = pReceiveData;
-        flexcom3SpiObj.txCount = txSize;
-        flexcom3SpiObj.rxCount = rxSize;
-
-        if ((txSize > 0) && (rxSize > 0))
+        /* Verify the request */
+        if(((txSize > 0U) && (pTransmitData != NULL)) || ((rxSize > 0U) && (pReceiveData != NULL)))
         {
-            /* Find the lower value among txSize and rxSize */
-            (txSize >= rxSize) ? (size = rxSize) : (size = txSize);
+            isRequestAccepted = true;
 
-            /* Calculate the remaining tx/rx bytes and total bytes transferred */
-            flexcom3SpiObj.rxCount -= size;
-            flexcom3SpiObj.txCount -= size;
-            flexcom3SpiObj.nBytesTransferred = size;
+            flexcom3SpiObj.transferIsBusy = true;
 
-            setupDMA(pTransmitData, pReceiveData, size);
-        }
-        else
-        {
-            if (rxSize > 0)
+            flexcom3SpiObj.txBuffer = pTransmitData;
+            flexcom3SpiObj.rxBuffer = pReceiveData;
+            flexcom3SpiObj.txCount = txSize;
+            flexcom3SpiObj.rxCount = rxSize;
+
+            if ((txSize > 0U) && (rxSize > 0U))
             {
-                /* txSize is 0. Need to use the dummy data buffer for transmission.
-                 * Find out the max data that can be received, given the limited size of the dummy data buffer.
-                 */
-                (rxSize > sizeof(dummyDataBuffer)) ?
-                    (size = sizeof(dummyDataBuffer)): (size = rxSize);
+                /* Find the lower value among txSize and rxSize */
+                (txSize >= rxSize) ? (size = rxSize) : (size = txSize);
 
-                /* Calculate the remaining rx bytes and total bytes transferred */
+                /* Calculate the remaining tx/rx bytes and total bytes transferred */
                 flexcom3SpiObj.rxCount -= size;
-                flexcom3SpiObj.nBytesTransferred = size;
-
-                setupDMA(dummyDataBuffer, pReceiveData, size);
-            }
-            else
-            {
-                /* rxSize is 0. Need to use the dummy data buffer for reception.
-                 * Find out the max data that can be transmitted, given the limited size of the dummy data buffer.
-                 */
-                (txSize > sizeof(dummyDataBuffer)) ?
-                    (size = sizeof(dummyDataBuffer)): (size = txSize);
-
-                /* Calculate the remaining tx bytes and total bytes transferred */
                 flexcom3SpiObj.txCount -= size;
                 flexcom3SpiObj.nBytesTransferred = size;
 
-                setupDMA(pTransmitData, dummyDataBuffer, size);
+                setupDMA(pTransmitData, pReceiveData, size);
+            }
+            else
+            {
+                if (rxSize > 0)
+                {
+                    /* txSize is 0. Need to use the dummy data buffer for transmission.
+                     * Find out the max data that can be received, given the limited size of the dummy data buffer.
+                     */
+                    (rxSize > sizeof(dummyDataBuffer)) ?
+                        (size = sizeof(dummyDataBuffer)): (size = rxSize);
+
+                    /* Calculate the remaining rx bytes and total bytes transferred */
+                    flexcom3SpiObj.rxCount -= size;
+                    flexcom3SpiObj.nBytesTransferred = size;
+
+                    setupDMA(dummyDataBuffer, pReceiveData, size);
+                }
+                else
+                {
+                    /* rxSize is 0. Need to use the dummy data buffer for reception.
+                     * Find out the max data that can be transmitted, given the limited size of the dummy data buffer.
+                     */
+                    (txSize > sizeof(dummyDataBuffer)) ?
+                        (size = sizeof(dummyDataBuffer)): (size = txSize);
+
+                    /* Calculate the remaining tx bytes and total bytes transferred */
+                    flexcom3SpiObj.txCount -= size;
+                    flexcom3SpiObj.nBytesTransferred = size;
+
+                    setupDMA(pTransmitData, dummyDataBuffer, size);
+                }
             }
         }
     }
@@ -221,13 +233,16 @@ void FLEXCOM3_SPI_CallbackRegister (FLEXCOM_SPI_CALLBACK callback, uintptr_t con
 
 bool FLEXCOM3_SPI_IsBusy(void)
 {
-    return ((flexcom3SpiObj.transferIsBusy) || ((FLEXCOM3_REGS->FLEX_SPI_SR & FLEX_SPI_SR_TXEMPTY_Msk) == 0U));
+    bool transferIsBusy = flexcom3SpiObj.transferIsBusy;
+
+    return (((FLEXCOM3_REGS->FLEX_SPI_SR & FLEX_SPI_SR_TXEMPTY_Msk) == 0U) || (transferIsBusy));
 }
 
-void FLEXCOM3_InterruptHandler(void)
+void __attribute__((used)) FLEXCOM3_InterruptHandler(void)
 {
     uint32_t size;
     uint32_t index;
+    uintptr_t context = flexcom3SpiObj.context;
 
     /* save the status in global object before it gets cleared */
     flexcom3SpiObj.status = FLEXCOM3_REGS->FLEX_SPI_SR;
@@ -248,7 +263,7 @@ void FLEXCOM3_InterruptHandler(void)
         flexcom3SpiObj.rxCount -= size;
         flexcom3SpiObj.nBytesTransferred += size;
 
-        setupDMA(dummyDataBuffer,(void *)&((uint8_t*)flexcom3SpiObj.rxBuffer)[index],size);
+        setupDMA(dummyDataBuffer,&((uint8_t*)flexcom3SpiObj.rxBuffer)[index],size);
     }
     else if(flexcom3SpiObj.txCount > 0)
     {
@@ -264,7 +279,7 @@ void FLEXCOM3_InterruptHandler(void)
         flexcom3SpiObj.txCount -= size;
         flexcom3SpiObj.nBytesTransferred += size;
 
-        setupDMA((void *)&((uint8_t*)flexcom3SpiObj.txBuffer)[index], dummyDataBuffer, size);
+        setupDMA(&((uint8_t*)flexcom3SpiObj.txBuffer)[index], dummyDataBuffer, size);
     }
     else
     {
@@ -274,11 +289,11 @@ void FLEXCOM3_InterruptHandler(void)
         FLEXCOM3_REGS->FLEX_SPI_CR = FLEX_SPI_CR_LASTXFER_Msk;
 
         FLEXCOM3_REGS->FLEX_PTCR = FLEX_PTCR_RXTDIS_Msk | FLEX_PTCR_TXTDIS_Msk;
-        FLEXCOM3_REGS->FLEX_SPI_IDR = FLEX_SPI_IDR_ENDRX_Msk; 
+        FLEXCOM3_REGS->FLEX_SPI_IDR = FLEX_SPI_IDR_ENDRX_Msk;
 
         if( flexcom3SpiObj.callback != NULL )
         {
-            flexcom3SpiObj.callback(flexcom3SpiObj.context);
+            flexcom3SpiObj.callback(context);
         }
     }
 }

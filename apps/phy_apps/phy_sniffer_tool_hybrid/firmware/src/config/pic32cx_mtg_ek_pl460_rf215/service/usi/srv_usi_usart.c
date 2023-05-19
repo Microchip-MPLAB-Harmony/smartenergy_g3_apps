@@ -54,6 +54,7 @@
 #include "stddef.h"
 #include "configuration.h"
 #include "driver/driver_common.h"
+#include "system/int/sys_int.h"
 #include "srv_usi_local.h"
 #include "srv_usi_usart.h"
 #include "srv_usi_definitions.h"
@@ -70,6 +71,7 @@ const SRV_USI_DEV_DESC srvUSIUSARTDevDesc =
     .open                       = USI_USART_Open,
     .setReadCallback            = USI_USART_RegisterCallback,
     .write                      = USI_USART_Write,
+    .writeIsBusy                = USI_USART_WriteIsBusy,
     .task                       = USI_USART_Tasks,
     .close                      = USI_USART_Close,
     .status                     = USI_USART_Status,
@@ -200,11 +202,13 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
 {
     USI_USART_OBJ* dObj;
     USI_USART_MSG* pMsg;
-    bool next;
+    bool store;
+    uint8_t charStore;
     
     dObj = (USI_USART_OBJ*)context;
     pMsg = dObj->pRcvMsg;
-    next = false;
+    store = false;
+    charStore = 0;
     
     switch(dObj->devStatus)
     {
@@ -271,7 +275,8 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
             else
             {
                 /* Store character */
-                next = true;
+                store = true;
+                charStore = dObj->rcvChar;
             }
       
             break;
@@ -280,13 +285,15 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
             if (dObj->rcvChar == USI_ESC_KEY_5E)
             {
                 /* Store character after escape it */
-                *pMsg->pDataRd++ = USI_ESC_KEY_7E;
+                store = true;
+                charStore = USI_ESC_KEY_7E;
                 dObj->devStatus = USI_USART_RCV;
             }  
             else if (dObj->rcvChar == USI_ESC_KEY_5D)
             {
                 /* Store character after escape it */
-                *pMsg->pDataRd++ = USI_ESC_KEY_7D;
+                store = true;
+                charStore = USI_ESC_KEY_7D;
                 dObj->devStatus = USI_USART_RCV;
             }
             else
@@ -301,10 +308,10 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
     }    
     
     /* Update pointers */
-    if (next)
+    if (store)
     {
         dObj->byteCount++;
-        if (dObj->byteCount == dObj->rdBufferSize)
+        if (dObj->byteCount > dObj->rdBufferSize)
         {
             /* ERROR: Overflow */
             _USI_USART_ABORT_MSG_IN_QUEUE(dObj);
@@ -313,7 +320,7 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
         }
         else
         {
-            *pMsg->pDataRd++ = dObj->rcvChar;
+            *pMsg->pDataRd++ = charStore;
         }        
     }
     
@@ -336,12 +343,7 @@ DRV_HANDLE USI_USART_Initialize(uint32_t index, const void* initData)
     {
         return DRV_HANDLE_INVALID;
     }
-    
-    if (index >= SRV_USI_USART_CONNECTIONS)
-    {
-        return DRV_HANDLE_INVALID;
-    }
-    
+
     dObj->plib = (SRV_USI_USART_INTERFACE*)dObjInit->plib;
     dObj->pRdBuffer = dObjInit->pRdBuffer;
     dObj->rdBufferSize = dObjInit->rdBufferSize;
@@ -364,11 +366,6 @@ DRV_HANDLE USI_USART_Open(uint32_t index)
     {
         return DRV_HANDLE_INVALID;
     }
-    
-    if (index >= SRV_USI_USART_CONNECTIONS)
-    {
-        return DRV_HANDLE_INVALID;
-    }
 
     dObj->usiStatus = SRV_USI_STATUS_CONFIGURED;
 
@@ -384,12 +381,7 @@ size_t USI_USART_Write(uint32_t index, void* pData, size_t length)
     {
         return 0;
     }
-    
-    if (index >= SRV_USI_USART_CONNECTIONS)
-    {
-        return 0;
-    }
-    
+
     if (length == 0)
     {
         return 0;
@@ -398,14 +390,29 @@ size_t USI_USART_Write(uint32_t index, void* pData, size_t length)
     if (dObj->usiStatus != SRV_USI_STATUS_CONFIGURED)
     {
         return 0;
-    }
-
-    /* Waiting for USART is free */
-    while (dObj->plib->writeIsBusy());
+    }    
 
     dObj->plib->write(pData, length);
     
     return length;
+}
+
+bool USI_USART_WriteIsBusy(uint32_t index)
+{
+    USI_USART_OBJ* dObj = USI_USART_GET_INSTANCE(index);
+
+    /* Check handler */
+    if (dObj == NULL)
+    {
+        return false;
+    }
+
+    if (dObj->usiStatus != SRV_USI_STATUS_CONFIGURED)
+    {
+        return false;
+    }
+
+    return dObj->plib->writeIsBusy();
 }
 
 void USI_USART_RegisterCallback(uint32_t index, USI_USART_CALLBACK cbFunc,
@@ -418,12 +425,7 @@ void USI_USART_RegisterCallback(uint32_t index, USI_USART_CALLBACK cbFunc,
     {
         return;
     }
-    
-    if (index >= SRV_USI_USART_CONNECTIONS)
-    {
-        return;
-    }
-    
+
     if (dObj->usiStatus != SRV_USI_STATUS_CONFIGURED)
     {
         return;
@@ -451,12 +453,7 @@ void USI_USART_Close(uint32_t index)
     {
         return;
     }
-    
-    if (index >= SRV_USI_USART_CONNECTIONS)
-    {
-        return;
-    }
-    
+
     dObj->usiStatus = SRV_USI_STATUS_NOT_CONFIGURED;
 }
 
@@ -466,11 +463,6 @@ SRV_USI_STATUS USI_USART_Status(uint32_t index)
     
     /* Check handler */    
     if (dObj == NULL)
-    {
-        return SRV_USI_STATUS_ERROR;
-    }
-    
-    if (index >= SRV_USI_USART_CONNECTIONS)
     {
         return SRV_USI_STATUS_ERROR;
     }
@@ -490,12 +482,7 @@ void USI_USART_Tasks (uint32_t index)
     {
         return;
     }
-    
-    if (index >= SRV_USI_USART_CONNECTIONS)
-    {
-        return;
-    }
-    
+
     if (dObj->usiStatus != SRV_USI_STATUS_CONFIGURED)
     {
         return;

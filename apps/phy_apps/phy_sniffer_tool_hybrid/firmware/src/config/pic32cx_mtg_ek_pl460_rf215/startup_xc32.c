@@ -65,13 +65,16 @@ extern void __attribute__((weak,long_call, alias("Dummy_App_Func"))) __xc32_on_b
 
 /* Linker defined variables */
 extern uint32_t __svectors;
+#if defined (__REINIT_STACK_POINTER)
+extern uint32_t _stack;
+#endif
 
 /* MISRAC 2012 deviation block end */
 
 
 extern int main(void);
 
-__STATIC_INLINE void CMCC_Configure(void)
+__STATIC_INLINE void __attribute__((optimize("-O1"))) CMCC_Configure(void)
 {
     /*Configure ICache and ITCM */
     CMCC0_REGS->CMCC_CTRL &= ~(CMCC_CTRL_CEN_Msk);
@@ -95,11 +98,11 @@ __STATIC_INLINE void CMCC_Configure(void)
 #if (__ARM_FP==14) || (__ARM_FP==4)
 
 /* Enable FPU */
-__STATIC_INLINE void FPU_Enable(void)
+__STATIC_INLINE void __attribute__((optimize("-O1"))) FPU_Enable(void)
 {
     uint32_t primask = __get_PRIMASK();
     __disable_irq();
-     SCB->CPACR |= (((uint32_t)0xFU) << 20);
+    SCB->CPACR |= (((uint32_t)0xFU) << 20);
     __DSB();
     __ISB();
 
@@ -131,7 +134,7 @@ void __attribute__((optimize("-O1"), section(".text.Reset_Handler"), long_call, 
 
 #if defined (__REINIT_STACK_POINTER)
     /* Initialize SP from linker-defined _stack symbol. */
-    __asm__ volatile ("ldr sp, =_stack" : : : "sp");
+    __set_MSP((uint32_t)&_stack);
 
 #ifdef SCB_VTOR_TBLOFF_Msk
     /* Buy stack for locals */

@@ -1182,7 +1182,8 @@ static bool _RF215_PHY_BandOpModeToPhyCfg (
     DRV_RF215_PHY_CFG_OBJ* phyConfig
 )
 {
-    switch (bandOpMode) {
+    switch (bandOpMode)
+    {
         case SUN_FSK_BAND_863_OPM1:
             *phyConfig = SUN_FSK_BAND_863_870_OPM1;
             break;
@@ -1291,16 +1292,84 @@ static bool _RF215_PHY_BandOpModeToPhyCfg (
             *phyConfig = SUN_FSK_BAND_915_928_OPM5;
             break;
 
-        case SUN_FSK_BAND_2450_OPM1:
-            *phyConfig = SUN_FSK_BAND_2400_2483_OPM1;
+        case SUN_FSK_BAND_919_OPM1:
+            *phyConfig = SUN_FSK_BAND_919_923_OPM1;
             break;
 
-        case SUN_FSK_BAND_2450_OPM2:
-            *phyConfig = SUN_FSK_BAND_2400_2483_OPM2;
+        case SUN_FSK_BAND_919_OPM2:
+            *phyConfig = SUN_FSK_BAND_919_923_OPM2;
             break;
 
-        case SUN_FSK_BAND_2450_OPM3:
-            *phyConfig = SUN_FSK_BAND_2400_2483_OPM3;
+        case SUN_FSK_BAND_919_OPM3:
+            *phyConfig = SUN_FSK_BAND_919_923_OPM3;
+            break;
+
+        case SUN_FSK_BAND_919_OPM4:
+            *phyConfig = SUN_FSK_BAND_919_923_OPM4;
+            break;
+
+        case SUN_FSK_BAND_919_OPM5:
+            *phyConfig = SUN_FSK_BAND_919_923_OPM5;
+            break;
+
+        case SUN_FSK_BAND_920_OPM1:
+            *phyConfig = SUN_FSK_BAND_920_928_OPM1;
+            break;
+
+        case SUN_FSK_BAND_920_OPM2:
+            *phyConfig = SUN_FSK_BAND_920_928_OPM2;
+            break;
+
+        case SUN_FSK_BAND_920_OPM3:
+            *phyConfig = SUN_FSK_BAND_920_928_OPM3;
+            break;
+
+        case SUN_FSK_BAND_920_OPM4:
+            *phyConfig = SUN_FSK_BAND_920_928_OPM4;
+            break;
+
+        case SUN_FSK_BAND_920_OPM5:
+            *phyConfig = SUN_FSK_BAND_920_928_OPM5;
+            break;
+
+        case SUN_FSK_BAND_920_OPM6:
+            *phyConfig = SUN_FSK_BAND_920_928_OPM6;
+            break;
+
+        case SUN_FSK_BAND_920_OPM7:
+            *phyConfig = SUN_FSK_BAND_920_928_OPM7;
+            break;
+
+        case SUN_FSK_BAND_920_OPM8:
+            *phyConfig = SUN_FSK_BAND_920_928_OPM8;
+            break;
+
+        case SUN_FSK_BAND_920_OPM9:
+            *phyConfig = SUN_FSK_BAND_920_928_OPM9;
+            break;
+
+        case SUN_FSK_BAND_920_OPM12:
+            *phyConfig = SUN_FSK_BAND_920_928_OPM12;
+            break;
+
+        case SUN_FSK_BAND_920B_INDONESIA_OPM1:
+            *phyConfig = SUN_FSK_BAND_920_923_OPM1;
+            break;
+
+        case SUN_FSK_BAND_920B_INDONESIA_OPM2:
+            *phyConfig = SUN_FSK_BAND_920_923_OPM2;
+            break;
+
+        case SUN_FSK_BAND_920B_INDONESIA_OPM3:
+            *phyConfig = SUN_FSK_BAND_920_923_OPM3;
+            break;
+
+        case SUN_FSK_BAND_920B_INDONESIA_OPM4:
+            *phyConfig = SUN_FSK_BAND_920_923_OPM4;
+            break;
+
+        case SUN_FSK_BAND_920B_INDONESIA_OPM5:
+            *phyConfig = SUN_FSK_BAND_920_923_OPM5;
             break;
 
         default:
@@ -2711,10 +2780,11 @@ static SYS_TIME_HANDLE _RF215_TX_TimeSchedule (
 
     if (force == true)
     {
-        if (txIntDelay <= 0)
+        uint32_t minIntDelay = SYS_TIME_USToCount(5);
+        if (txIntDelay < (int64_t) minIntDelay)
         {
             /* We are late. Generate time interrupt "immediately". */
-            txIntDelay = 1;
+            txIntDelay = (int64_t) minIntDelay;
         }
     }
     else
@@ -3560,7 +3630,7 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
     if (trxrdy != 0)
     {
         DRV_RF215_TX_BUFFER_OBJ* txBufObj = pObj->txBufObj;
-        RF215_PHY_STATE pendState;
+        RF215_PHY_STATE pendState = pObj->txPendingState;
 
         /* Clear pending TX state */
         pObj->txPendingState = PHY_STATE_RESET;
@@ -3581,7 +3651,6 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
         }
 
         /* Check if there is pending TX configuration */
-        pendState = pObj->txPendingState;
         if ((pObj->txStarted == true) && (pObj->phyState < PHY_STATE_TX_CONFIG) &&
                 (pendState >= PHY_STATE_TX_CONFIG))
         {
@@ -3707,9 +3776,6 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
             /* Timer created and started */
             txBufObj->timeHandle = timeHandle;
         }
-
-        /* Disable again time interrupt (enabled by SYS_TIME) */
-        RF215_HAL_DisableTimeInt();
 
         /* Leave critical region */
         SYS_INT_Restore(intStatus);
@@ -4086,9 +4152,6 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
 void RF215_PHY_Reset(uint8_t trxIndex)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIndex];
-    
-    /* Critical region to avoid conflicts in PHY object data */
-    RF215_HAL_EnterCritical();
 
     if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
     {
@@ -4098,9 +4161,6 @@ void RF215_PHY_Reset(uint8_t trxIndex)
 
     pObj->trxResetPending = false;
     pObj->resetInProgress = true;
-    
-    /* Leave critical region */
-    RF215_HAL_LeaveCritical();
 }
 
 void RF215_PHY_DeviceReset()

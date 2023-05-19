@@ -750,7 +750,7 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
             gPlcPhyObj->state[0] = DRV_PLC_PHY_STATE_IDLE;
         }
         
-        /* Check received new parameters event (First event in RX) */
+        /* Check received new data event (First event in RX) */
         if (evObj.evRxDat)
         {        
             _DRV_PLC_PHY_COMM_SpiReadCmd(RX_DAT_ID, sDataRxDat, evObj.rcvDataLength);
@@ -758,7 +758,7 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
             gPlcPhyObj->evRxDat = true;
         }
         
-        /* Check received new data event (Second event in RX) */
+        /* Check received new parameters event (Second event in RX) */
         if (evObj.evRxPar)
         {
             _DRV_PLC_PHY_COMM_SpiReadCmd(RX_PAR_ID, sDataRxPar, PLC_RX_PAR_SIZE - 4);
