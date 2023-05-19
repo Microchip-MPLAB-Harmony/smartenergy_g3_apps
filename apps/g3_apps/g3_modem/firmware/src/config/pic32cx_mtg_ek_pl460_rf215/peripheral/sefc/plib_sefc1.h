@@ -58,8 +58,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define SEFC1_SECTORSIZE              8192
-#define SEFC1_PAGESIZE                512
+#define SEFC1_SECTORSIZE              8192U
+#define SEFC1_PAGESIZE                512U
 #define SEFC1_LOCKSIZE                0x4000
 
 void SEFC1_Initialize(void);
@@ -98,7 +98,7 @@ uint32_t SEFC1_UserSignatureRightsGet(void);
 
 bool SEFC1_UserSignatureRead(uint32_t *data, uint32_t length, SEFC_USERSIGNATURE_BLOCK block, SEFC_USERSIGNATURE_PAGE page);
 
-bool SEFC1_UserSignatureWrite(uint32_t *data, uint32_t length, SEFC_USERSIGNATURE_BLOCK block, SEFC_USERSIGNATURE_PAGE page);
+bool SEFC1_UserSignatureWrite(void *data, uint32_t length, SEFC_USERSIGNATURE_BLOCK block, SEFC_USERSIGNATURE_PAGE page);
 
 void SEFC1_UserSignatureErase(SEFC_USERSIGNATURE_BLOCK block);
 

@@ -115,9 +115,6 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
     spiPlibSetup.clockPolarity = DRV_PLC_SPI_CLOCK_POLARITY_IDLE_LOW;    
     sPlcPlib->spiPlibTransferSetup((uintptr_t)&spiPlibSetup, 0);
     
-    /* CS rises if there is no more data to transfer */
-    *(sPlcPlib->spiCSR) &= ~(FLEX_SPI_CSR_CSAAT_Msk | FLEX_SPI_CSR_CSNAAT_Msk);
-
 }
 
 void DRV_PLC_HAL_Reset(void)

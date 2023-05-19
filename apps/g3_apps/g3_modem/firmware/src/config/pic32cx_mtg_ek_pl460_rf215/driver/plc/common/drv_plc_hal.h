@@ -176,9 +176,6 @@ typedef struct
     /* SPI Write/Read */
     DRV_PLC_SPI_WRITE_READ                 spiWriteRead;
 
-    /* SPI CSR register address. */
-    uint32_t                               *spiCSR;
-
     /* SPI clock frequency */
     uint32_t                               spiClockFrequency;
 

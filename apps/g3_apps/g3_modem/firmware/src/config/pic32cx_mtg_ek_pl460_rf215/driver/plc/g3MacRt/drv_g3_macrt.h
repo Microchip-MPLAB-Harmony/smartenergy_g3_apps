@@ -523,7 +523,6 @@ typedef void ( *DRV_G3_MACRT_EXCEPTION_CALLBACK )( DRV_G3_MACRT_EXCEPTION except
         .dmaChannelRx  = SYS_DMA_CHANNEL_0,
         .spiAddressTx =  (void *)&(SPI0_REGS->SPI_TDR),
         .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
-        .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[1]),
         .spiClockFrequency = DRV_PLC_SPI_CLK,
         .ldoPin = DRV_PLC_LDO_EN_PIN, 
         .resetPin = DRV_PLC_RESET_PIN,

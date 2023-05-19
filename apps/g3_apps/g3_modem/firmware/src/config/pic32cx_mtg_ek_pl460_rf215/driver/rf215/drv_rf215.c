@@ -166,6 +166,7 @@ static void _DRV_RF215_ReadPNVN(uintptr_t context, void* pData, uint64_t time)
 
     if ((pPN[0] != RF215_RF_PN_AT86RF215) || (pPN[1] != RF215_RF_VN_V3))
     {
+        /* Wrong part number read */
         dObj->partNumErr = true;
         return;
     }
@@ -338,8 +339,6 @@ SYS_MODULE_OBJ DRV_RF215_Initialize (
 
     /* Reset RF device in the first task */
     drvRf215Obj.rfChipResetPending = true;
-
-    /* Initialize the driver object */
     drvRf215Obj.timeoutHandle = SYS_TIME_HANDLE_INVALID;
 
     /* Set busy status. Initialization will continue from interrupt */

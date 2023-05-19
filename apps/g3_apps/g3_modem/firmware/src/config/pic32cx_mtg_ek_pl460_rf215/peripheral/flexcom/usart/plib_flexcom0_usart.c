@@ -64,7 +64,7 @@
 // Section: FLEXCOM0 USART Implementation
 // *****************************************************************************
 // *****************************************************************************
-static FLEXCOM_USART_OBJECT flexcom0UsartObj;
+volatile static FLEXCOM_USART_OBJECT flexcom0UsartObj;
 
 void static FLEXCOM0_USART_ErrorClear( void )
 {
@@ -89,27 +89,31 @@ void static FLEXCOM0_USART_ErrorClear( void )
 }
 
 
-void static FLEXCOM0_USART_ISR_RX_Handler( void )
+void static __attribute__((used)) FLEXCOM0_USART_ISR_RX_Handler( void )
 {
+    size_t rxProcessedSize = flexcom0UsartObj.rxProcessedSize;
+    size_t rxSize = flexcom0UsartObj.rxSize;
+
     if(flexcom0UsartObj.rxBusyStatus == true)
     {
-        while(((FLEXCOM0_REGS->FLEX_US_CSR & FLEX_US_CSR_RXRDY_Msk) != 0U) &&
-              (flexcom0UsartObj.rxProcessedSize < flexcom0UsartObj.rxSize))
+        while(((FLEXCOM0_REGS->FLEX_US_CSR & FLEX_US_CSR_RXRDY_Msk) != 0U) && (rxProcessedSize < rxSize))
         {
             if ((FLEXCOM0_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
             {
-                ((uint16_t*)flexcom0UsartObj.rxBuffer)[flexcom0UsartObj.rxProcessedSize] = (FLEXCOM_USART_RHR_9BIT_REG & (uint16_t)FLEX_US_RHR_RXCHR_Msk);
-                flexcom0UsartObj.rxProcessedSize++;
+                ((uint16_t*)flexcom0UsartObj.rxBuffer)[rxProcessedSize] = (FLEXCOM_USART_RHR_9BIT_REG & (uint16_t)FLEX_US_RHR_RXCHR_Msk);
+                rxProcessedSize++;
             }
             else
             {
-                ((uint8_t*)flexcom0UsartObj.rxBuffer)[flexcom0UsartObj.rxProcessedSize] = (FLEXCOM_USART_RHR_8BIT_REG);
-                flexcom0UsartObj.rxProcessedSize++;
+                ((uint8_t*)flexcom0UsartObj.rxBuffer)[rxProcessedSize] = (FLEXCOM_USART_RHR_8BIT_REG);
+                rxProcessedSize++;
             }
         }
 
+        flexcom0UsartObj.rxProcessedSize = rxProcessedSize;
+
         /* Check if the buffer is done */
-        if(flexcom0UsartObj.rxProcessedSize >= flexcom0UsartObj.rxSize)
+        if(rxProcessedSize >= rxSize)
         {
             flexcom0UsartObj.rxBusyStatus = false;
 
@@ -118,7 +122,9 @@ void static FLEXCOM0_USART_ISR_RX_Handler( void )
 
             if(flexcom0UsartObj.rxCallback != NULL)
             {
-                flexcom0UsartObj.rxCallback(flexcom0UsartObj.rxContext);
+                uintptr_t rxContext = flexcom0UsartObj.rxContext;
+
+                flexcom0UsartObj.rxCallback(rxContext);
             }
         }
     }
@@ -128,26 +134,31 @@ void static FLEXCOM0_USART_ISR_RX_Handler( void )
     }
 }
 
-void static FLEXCOM0_USART_ISR_TX_Handler( void )
+void static __attribute__((used)) FLEXCOM0_USART_ISR_TX_Handler( void )
 {
     if(flexcom0UsartObj.txBusyStatus == true)
     {
-        while( ((FLEXCOM0_REGS->FLEX_US_CSR & FLEX_US_CSR_TXRDY_Msk) != 0U) && (flexcom0UsartObj.txProcessedSize < flexcom0UsartObj.txSize))
+        size_t txProcessedSize = flexcom0UsartObj.txProcessedSize;
+        size_t txSize = flexcom0UsartObj.txSize;
+
+        while( ((FLEXCOM0_REGS->FLEX_US_CSR & FLEX_US_CSR_TXRDY_Msk) != 0U) && (txProcessedSize < txSize))
         {
             if ((FLEXCOM0_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
             {
-                FLEXCOM_USART_THR_9BIT_REG =  ((uint16_t*)flexcom0UsartObj.txBuffer)[flexcom0UsartObj.txProcessedSize] & (uint16_t)FLEX_US_THR_TXCHR_Msk;
-                flexcom0UsartObj.txProcessedSize++;
+                FLEXCOM_USART_THR_9BIT_REG =  ((uint16_t*)flexcom0UsartObj.txBuffer)[txProcessedSize] & (uint16_t)FLEX_US_THR_TXCHR_Msk;
+                txProcessedSize++;
             }
             else
             {
-                FLEXCOM_USART_THR_8BIT_REG =  ((uint8_t*)flexcom0UsartObj.txBuffer)[flexcom0UsartObj.txProcessedSize];
-                flexcom0UsartObj.txProcessedSize++;
+                FLEXCOM_USART_THR_8BIT_REG =  ((uint8_t*)flexcom0UsartObj.txBuffer)[txProcessedSize];
+                txProcessedSize++;
             }
         }
 
+        flexcom0UsartObj.txProcessedSize = txProcessedSize;
+
         /* Check if the buffer is done */
-        if(flexcom0UsartObj.txProcessedSize >= flexcom0UsartObj.txSize)
+        if(txProcessedSize >= txSize)
         {
             flexcom0UsartObj.txBusyStatus = false;
 
@@ -155,7 +166,9 @@ void static FLEXCOM0_USART_ISR_TX_Handler( void )
 
             if(flexcom0UsartObj.txCallback != NULL)
             {
-                flexcom0UsartObj.txCallback(flexcom0UsartObj.txContext);
+                uintptr_t txContext = flexcom0UsartObj.txContext;
+
+                flexcom0UsartObj.txCallback(txContext);
             }
         }
     }
@@ -165,7 +178,7 @@ void static FLEXCOM0_USART_ISR_TX_Handler( void )
     }
 }
 
-void FLEXCOM0_InterruptHandler( void )
+void __attribute__((used)) FLEXCOM0_InterruptHandler( void )
 {
     /* Channel status */
     uint32_t channelStatus = FLEXCOM0_REGS->FLEX_US_CSR;
@@ -194,19 +207,21 @@ void FLEXCOM0_InterruptHandler( void )
         /* USART errors are normally associated with the receiver, hence calling receiver context */
         if( flexcom0UsartObj.rxCallback != NULL )
         {
-            flexcom0UsartObj.rxCallback(flexcom0UsartObj.rxContext);
+            uintptr_t rxContext = flexcom0UsartObj.rxContext;
+
+            flexcom0UsartObj.rxCallback(rxContext);
         }
     }
 
     /* Receiver status */
-    if(channelStatus & FLEX_US_CSR_RXRDY_Msk)
+    if((channelStatus & FLEX_US_CSR_RXRDY_Msk) != 0U)
     {
         FLEXCOM0_USART_ISR_RX_Handler();
     }
 
 
     /* Transmitter status */
-    if(channelStatus & FLEX_US_CSR_TXRDY_Msk)
+    if((channelStatus & FLEX_US_CSR_TXRDY_Msk) != 0U)
     {
         FLEXCOM0_USART_ISR_TX_Handler();
     }
@@ -284,7 +299,9 @@ bool FLEXCOM0_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP *setup, uint32_t src
 
     cd0 = fp0 = cd1 = fp1 = baudError0 = baudError1 = 0U;
 
-    if((flexcom0UsartObj.rxBusyStatus == true) || (flexcom0UsartObj.txBusyStatus == true))
+    bool rxBusyStatus = flexcom0UsartObj.rxBusyStatus;
+
+    if((flexcom0UsartObj.txBusyStatus == true) || (rxBusyStatus == true))
     {
         /* Transaction is in progress, so return without updating settings */
         return false;
@@ -389,19 +406,24 @@ bool FLEXCOM0_USART_Write( void *buffer, const size_t size )
             status = true;
 
 
+            size_t txProcessedSize = flexcom0UsartObj.txProcessedSize;
+            size_t txSize = flexcom0UsartObj.txSize;
+
             /* Initiate the transfer by sending first byte */
-            while(((FLEXCOM0_REGS->FLEX_US_CSR & FLEX_US_CSR_TXRDY_Msk) != 0U) && (flexcom0UsartObj.txProcessedSize < flexcom0UsartObj.txSize))
+            while(((FLEXCOM0_REGS->FLEX_US_CSR & FLEX_US_CSR_TXRDY_Msk) != 0U) && (txProcessedSize < txSize))
             {
                 if ((FLEXCOM0_REGS->FLEX_US_MR & FLEX_US_MR_MODE9_Msk) != 0U)
                 {
-                    FLEXCOM_USART_THR_9BIT_REG = ((uint16_t*)flexcom0UsartObj.txBuffer)[flexcom0UsartObj.txProcessedSize] & (uint16_t)FLEX_US_THR_TXCHR_Msk;
+                    FLEXCOM_USART_THR_9BIT_REG = ((uint16_t*)flexcom0UsartObj.txBuffer)[txProcessedSize] & (uint16_t)FLEX_US_THR_TXCHR_Msk;
                 }
                 else
                 {
-                    FLEXCOM_USART_THR_8BIT_REG = ((uint8_t*)flexcom0UsartObj.txBuffer)[flexcom0UsartObj.txProcessedSize];
+                    FLEXCOM_USART_THR_8BIT_REG = ((uint8_t*)flexcom0UsartObj.txBuffer)[txProcessedSize];
                 }
-                flexcom0UsartObj.txProcessedSize++;
+                txProcessedSize++;
             }
+
+            flexcom0UsartObj.txProcessedSize = txProcessedSize;
 
             FLEXCOM0_REGS->FLEX_US_IER = FLEX_US_IER_TXRDY_Msk;
         }
@@ -452,7 +474,8 @@ bool FLEXCOM0_USART_ReadAbort(void)
         flexcom0UsartObj.rxBusyStatus = false;
 
         /* If required application should read the num bytes processed prior to calling the read abort API */
-        flexcom0UsartObj.rxSize = flexcom0UsartObj.rxProcessedSize = 0;
+        flexcom0UsartObj.rxSize = 0U;
+        flexcom0UsartObj.rxProcessedSize = 0U;
     }
 
     return true;

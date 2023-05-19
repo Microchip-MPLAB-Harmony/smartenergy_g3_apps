@@ -270,6 +270,9 @@ ADP_INIT g3AdpInitData = {
     /* Pointer to start of fragmented transfer entries */
     .pFragmentedTransferEntries = &g3AdpFragmentedTransferTable,
 
+    /* ADP fragmentation size */
+    .fragmentSize = G3_ADP_FRAGMENT_SIZE,
+
     /* Number of 1280-byte buffers */
     .numBuffers1280 = G3_ADP_NUM_BUFFERS_1280,
 
@@ -283,7 +286,11 @@ ADP_INIT g3AdpInitData = {
     .numProcessQueueEntries = G3_ADP_PROCESS_QUEUE_SIZE,
 
     /* Number of fragmented transfer entries */
-    .numFragmentedTransferEntries = G3_ADP_FRAG_TRANSFER_TABLE_SIZE
+    .numFragmentedTransferEntries = G3_ADP_FRAG_TRANSFER_TABLE_SIZE,
+
+    /* ADP task rate in milliseconds */
+    .taskRateMs = G3_STACK_TASK_RATE_MS
+
 };
 
 // </editor-fold>
@@ -297,7 +304,7 @@ ADP_INIT g3AdpInitData = {
 // *****************************************************************************
 // <editor-fold defaultstate="collapsed" desc="SYS_TIME Initialization Data">
 
-const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
+static const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
     .timerCallbackSet = (SYS_TIME_PLIB_CALLBACK_REGISTER)TC0_CH0_TimerCallbackRegister,
     .timerStart = (SYS_TIME_PLIB_START)TC0_CH0_TimerStart,
     .timerStop = (SYS_TIME_PLIB_STOP)TC0_CH0_TimerStop ,
@@ -307,7 +314,7 @@ const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
     .timerCounterGet = (SYS_TIME_PLIB_COUNTER_GET)TC0_CH0_TimerCounterGet,
 };
 
-const SYS_TIME_INIT sysTimeInitData =
+static const SYS_TIME_INIT sysTimeInitData =
 {
     .timePlib = &sysTimePlibAPI,
     .hwTimerIntNum = TC0_CH0_IRQn,
@@ -355,9 +362,9 @@ void SYS_Initialize ( void* data )
 
 
 
+    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
-    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  
@@ -379,7 +386,12 @@ void SYS_Initialize ( void* data )
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+    H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
+        
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
+    
+    /* MISRAC 2012 deviation block end */
 
 
     /* Initialize G3 MAC Wrapper Instance */

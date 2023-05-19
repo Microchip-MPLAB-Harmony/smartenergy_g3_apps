@@ -86,9 +86,6 @@ static inline uint32_t  SYS_TIME_MAKE_HANDLE(uint16_t token, uint16_t index)
     return ((uint32_t)(token) << 16 | (uint32_t)(index));
 }
 
-
-/* MISRA C-2012 Rule 10.4 False positive:2 Deviation record ID -  H3_MISRAC_2012_R_10_4_DR_1 */
-
 static bool SYS_TIME_ResourceLock(void)
 {
     /* We will allow requests to be added from the interrupt
@@ -101,7 +98,7 @@ static bool SYS_TIME_ResourceLock(void)
          * Additionally, disable the interrupt to prevent it from modifying the
          * shared resources asynchronously */
 
-        if(OSAL_MUTEX_Lock(&gSystemCounterObj.timerMutex, OSAL_WAIT_FOREVER) == OSAL_RESULT_TRUE)
+        if(OSAL_MUTEX_Lock(&gSystemCounterObj.timerMutex, OSAL_WAIT_FOREVER) == OSAL_RESULT_SUCCESS)
         {
             gSystemCounterObj.hwTimerIntStatus = SYS_INT_SourceDisable(gSystemCounterObj.hwTimerIntNum);
             return true;
@@ -600,7 +597,7 @@ static SYS_TIME_HANDLE SYS_TIME_TimerObjectCreate(
 /* MISRA C-2012 Rule 11.3 deviated:1 Deviation record ID -  H3_MISRAC_2012_R_11_3_DR_1 */
 static void SYS_TIME_CounterInit(SYS_MODULE_INIT* init)
 {
-    uint64_t numerator;
+    uint64_t numerator, numeratorRead;
     SYS_TIME_COUNTER_OBJ* counterObj = (SYS_TIME_COUNTER_OBJ *)&gSystemCounterObj;
     SYS_TIME_INIT* initData = (SYS_TIME_INIT *)init;
 
@@ -609,7 +606,8 @@ static void SYS_TIME_CounterInit(SYS_MODULE_INIT* init)
 
     /*num_timer_cnts = (execution_cycles * timer_freq)/cpu_freq*/
     numerator = ((uint64_t)SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES * counterObj->hwTimerFrequency);
-    counterObj->hwTimerCompareMargin = (numerator/(uint32_t)SYS_TIME_CPU_CLOCK_FREQUENCY) + 2U;
+    numeratorRead = (numerator/(uint64_t)SYS_TIME_CPU_CLOCK_FREQUENCY) + 2U;
+    counterObj->hwTimerCompareMargin = (uint32_t)numeratorRead;
 
     counterObj->hwTimerIntNum = initData->hwTimerIntNum;
     counterObj->hwTimerPreviousValue = 0;
@@ -645,7 +643,7 @@ SYS_MODULE_OBJ SYS_TIME_Initialize( const SYS_MODULE_INDEX index, const SYS_MODU
         return SYS_MODULE_OBJ_INVALID;
     }
     /* Create mutex to guard from multiple contesting threads */
-    if(OSAL_MUTEX_Create(&gSystemCounterObj.timerMutex) != OSAL_RESULT_TRUE)
+    if(OSAL_MUTEX_Create(&gSystemCounterObj.timerMutex) != OSAL_RESULT_SUCCESS)
     {
         return SYS_MODULE_OBJ_INVALID;
     }
@@ -657,7 +655,6 @@ SYS_MODULE_OBJ SYS_TIME_Initialize( const SYS_MODULE_INDEX index, const SYS_MODU
 
     return (SYS_MODULE_OBJ)&gSystemCounterObj;
 }
-/* MISRAC 2012 deviation block end */
 
 /* MISRAC 2012 deviation block end */
 

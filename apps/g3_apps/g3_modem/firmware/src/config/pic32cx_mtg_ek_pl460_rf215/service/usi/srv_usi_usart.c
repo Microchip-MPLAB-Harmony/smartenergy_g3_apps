@@ -54,6 +54,7 @@
 #include "stddef.h"
 #include "configuration.h"
 #include "driver/driver_common.h"
+#include "system/int/sys_int.h"
 #include "srv_usi_local.h"
 #include "srv_usi_usart.h"
 #include "srv_usi_definitions.h"
@@ -201,11 +202,13 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
 {
     USI_USART_OBJ* dObj;
     USI_USART_MSG* pMsg;
-    bool next;
+    bool store;
+    uint8_t charStore;
     
     dObj = (USI_USART_OBJ*)context;
     pMsg = dObj->pRcvMsg;
-    next = false;
+    store = false;
+    charStore = 0;
     
     switch(dObj->devStatus)
     {
@@ -272,7 +275,8 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
             else
             {
                 /* Store character */
-                next = true;
+                store = true;
+                charStore = dObj->rcvChar;
             }
       
             break;
@@ -281,13 +285,15 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
             if (dObj->rcvChar == USI_ESC_KEY_5E)
             {
                 /* Store character after escape it */
-                *pMsg->pDataRd++ = USI_ESC_KEY_7E;
+                store = true;
+                charStore = USI_ESC_KEY_7E;
                 dObj->devStatus = USI_USART_RCV;
             }  
             else if (dObj->rcvChar == USI_ESC_KEY_5D)
             {
                 /* Store character after escape it */
-                *pMsg->pDataRd++ = USI_ESC_KEY_7D;
+                store = true;
+                charStore = USI_ESC_KEY_7D;
                 dObj->devStatus = USI_USART_RCV;
             }
             else
@@ -302,10 +308,10 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
     }    
     
     /* Update pointers */
-    if (next)
+    if (store)
     {
         dObj->byteCount++;
-        if (dObj->byteCount == dObj->rdBufferSize)
+        if (dObj->byteCount > dObj->rdBufferSize)
         {
             /* ERROR: Overflow */
             _USI_USART_ABORT_MSG_IN_QUEUE(dObj);
@@ -314,7 +320,7 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
         }
         else
         {
-            *pMsg->pDataRd++ = dObj->rcvChar;
+            *pMsg->pDataRd++ = charStore;
         }        
     }
     

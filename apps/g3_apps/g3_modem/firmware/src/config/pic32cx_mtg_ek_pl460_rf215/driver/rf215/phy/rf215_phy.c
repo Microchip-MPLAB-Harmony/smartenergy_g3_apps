@@ -3630,9 +3630,6 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
             txBufObj->timeHandle = timeHandle;
         }
 
-        /* Disable again time interrupt (enabled by SYS_TIME) */
-        RF215_HAL_DisableTimeInt();
-
         /* Leave critical region */
         SYS_INT_Restore(intStatus);
     }

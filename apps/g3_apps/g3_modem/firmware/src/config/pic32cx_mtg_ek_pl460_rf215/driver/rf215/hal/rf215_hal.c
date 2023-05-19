@@ -333,9 +333,6 @@ static void _RF215_HAL_ExtIntHandler(PIO_PIN pin, uintptr_t context)
 
 void RF215_HAL_Initialize(const DRV_RF215_INIT * const init)
 {
-    /* Configure SPI Chip Select behavior: Clear CSAAT/CSNAAT bits */
-    *(init->spiCSRegAddress) &= ~(FLEX_SPI_CSR_CSAAT_Msk | FLEX_SPI_CSR_CSNAAT_Msk);
-
     /* Store interrupt sources */
     rf215HalObj.sysTimeIntSource = init->sysTimeIntSource;
     rf215HalObj.dmaIntSource = init->dmaIntSource;
@@ -491,23 +488,26 @@ void RF215_HAL_SpiUnlock()
 
 void RF215_HAL_EnterCritical()
 {
+    bool intStatus = SYS_INT_Disable();
+
     /* Critical region: Disable interrupts to avoid conflicts
      * External interrupt not disabled because it just makes one SPI transfer
      * and there is no other static variable update */
     RF215_HAL_OBJ* hObj = &rf215HalObj;
     hObj->dmaIntStatus = _RF215_HAL_DisableIntSources(&hObj->sysTimeIntStatus, &hObj->plcExtIntStatus);
+
+    SYS_INT_Restore(intStatus);
 }
 
 void RF215_HAL_LeaveCritical()
 {
+    bool intStatus = SYS_INT_Disable();
+
     /* Leave critical region: Restore interrupts */
     RF215_HAL_OBJ* hObj = &rf215HalObj;
     _RF215_HAL_RestoreIntSources(hObj->dmaIntStatus, hObj->sysTimeIntStatus, hObj->plcExtIntStatus);
-}
 
-void RF215_HAL_DisableTimeInt()
-{
-    SYS_INT_SourceDisable(rf215HalObj.sysTimeIntSource);
+    SYS_INT_Restore(intStatus);
 }
 
 void RF215_HAL_SpiRead (

@@ -1023,9 +1023,6 @@ typedef void ( *DRV_RF215_PLIB_SPI_SET_CALLBACK ) (FLEXCOM_SPI_CALLBACK callback
 
 typedef struct
 {
-    /* SPI chip select register address used for SPI configuration */
-    uint32_t*                       spiCSRegAddress;
-
     /* Pointer to SPI PLIB is busy function */
     DRV_RF215_PLIB_SPI_IS_BUSY      spiPlibIsBusy;
 
