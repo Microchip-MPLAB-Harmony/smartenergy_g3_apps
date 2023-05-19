@@ -213,7 +213,7 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
 }
 
 void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
-{   
+{
     if (gDrvPlcPhyObj.status == SYS_STATUS_READY)
     {
         /* Run PLC communication task */

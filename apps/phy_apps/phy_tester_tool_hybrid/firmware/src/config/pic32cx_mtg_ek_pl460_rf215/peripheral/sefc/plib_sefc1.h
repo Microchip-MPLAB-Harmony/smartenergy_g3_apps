@@ -43,6 +43,7 @@
 #ifndef SEFC1_H    // Guards against multiple inclusion
 #define SEFC1_H
 
+#include <sys/attribs.h>
 #include "plib_sefc_common.h"
 
 // DOM-IGNORE-BEGIN
@@ -57,8 +58,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define SEFC1_SECTORSIZE              8192
-#define SEFC1_PAGESIZE                512
+#define SEFC1_SECTORSIZE              8192U
+#define SEFC1_PAGESIZE                512U
 #define SEFC1_LOCKSIZE                0x4000
 
 void SEFC1_Initialize(void);
@@ -82,6 +83,30 @@ bool SEFC1_IsBusy(void);
 void SEFC1_RegionLock(uint32_t address);
 
 void SEFC1_RegionUnlock(uint32_t address);
+
+__longramfunc__ void SEFC1_GpnvmBitSet(uint8_t GpnvmBitNumber);
+
+__longramfunc__ void SEFC1_GpnvmBitClear(uint8_t GpnvmBitNumber);
+
+__longramfunc__ uint32_t SEFC1_GpnvmBitRead(void);
+
+bool SEFC1_UniqueIdentifierRead(uint32_t *data, uint32_t length);
+
+void SEFC1_UserSignatureRightsSet(uint32_t userSignatureRights);
+
+uint32_t SEFC1_UserSignatureRightsGet(void);
+
+bool SEFC1_UserSignatureRead(uint32_t *data, uint32_t length, SEFC_USERSIGNATURE_BLOCK block, SEFC_USERSIGNATURE_PAGE page);
+
+bool SEFC1_UserSignatureWrite(void *data, uint32_t length, SEFC_USERSIGNATURE_BLOCK block, SEFC_USERSIGNATURE_PAGE page);
+
+void SEFC1_UserSignatureErase(SEFC_USERSIGNATURE_BLOCK block);
+
+void SEFC1_CryptographicKeySend(uint16_t sckArg);
+
+void SEFC1_WriteProtectionSet(uint32_t mode);
+
+uint32_t SEFC1_WriteProtectionGet(void);
 
 
 // DOM-IGNORE-BEGIN

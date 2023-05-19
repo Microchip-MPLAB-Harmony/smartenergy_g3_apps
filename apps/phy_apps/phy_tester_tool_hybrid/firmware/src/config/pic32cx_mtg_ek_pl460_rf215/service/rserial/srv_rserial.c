@@ -323,6 +323,7 @@ bool SRV_RSERIAL_ParseTxMessage (
                 if ((txIdHandle->inUse == true) && (txIdHandle->txId == srvRserialLastTxId))
                 {
                     txHandle = txIdHandle->txHandle;
+                    txIdHandle->inUse = false;
                 }
             }
 

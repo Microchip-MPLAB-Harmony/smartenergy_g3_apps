@@ -70,20 +70,20 @@
 #define PIOD_REGS   ((pio_group_registers_t*)(&(PIO1_REGS->PIO_GROUP[0])))
 
 /*** LED Macros for LED_BLUE ***/
-#define LED_BLUE_Toggle() do { PIOD_REGS->PIO_MSKR = (1U<<3); (PIOD_REGS->PIO_ODSR ^= (1U<<3)); } while (0)
+#define LED_BLUE_Toggle() do { PIOD_REGS->PIO_MSKR = (1UL<<3); (PIOD_REGS->PIO_ODSR ^= (1UL<<3)); } while (0)
 #define LED_BLUE_Get() ((PIOD_REGS->PIO_PDSR >> 3) & 0x1)
-#define LED_BLUE_On() (PIOD_REGS->PIO_CODR = (1U<<3))
-#define LED_BLUE_Off() (PIOD_REGS->PIO_SODR = (1U<<3))
+#define LED_BLUE_On() (PIOD_REGS->PIO_CODR = (1UL<<3))
+#define LED_BLUE_Off() (PIOD_REGS->PIO_SODR = (1UL<<3))
 /*** LED Macros for LED_GREEN ***/
-#define LED_GREEN_Toggle() do { PIOD_REGS->PIO_MSKR = (1U<<16); (PIOD_REGS->PIO_ODSR ^= (1U<<16)); } while (0)
+#define LED_GREEN_Toggle() do { PIOD_REGS->PIO_MSKR = (1UL<<16); (PIOD_REGS->PIO_ODSR ^= (1UL<<16)); } while (0)
 #define LED_GREEN_Get() ((PIOD_REGS->PIO_PDSR >> 16) & 0x1)
-#define LED_GREEN_On() (PIOD_REGS->PIO_CODR = (1U<<16))
-#define LED_GREEN_Off() (PIOD_REGS->PIO_SODR = (1U<<16))
+#define LED_GREEN_On() (PIOD_REGS->PIO_CODR = (1UL<<16))
+#define LED_GREEN_Off() (PIOD_REGS->PIO_SODR = (1UL<<16))
 /*** LED Macros for LED_MIKROBUS2_PWM ***/
-#define LED_MIKROBUS2_PWM_Toggle() do { PIOD_REGS->PIO_MSKR = (1U<<18); (PIOD_REGS->PIO_ODSR ^= (1U<<18)); } while (0)
+#define LED_MIKROBUS2_PWM_Toggle() do { PIOD_REGS->PIO_MSKR = (1UL<<18); (PIOD_REGS->PIO_ODSR ^= (1UL<<18)); } while (0)
 #define LED_MIKROBUS2_PWM_Get() ((PIOD_REGS->PIO_PDSR >> 18) & 0x1)
-#define LED_MIKROBUS2_PWM_On() (PIOD_REGS->PIO_CODR = (1U<<18))
-#define LED_MIKROBUS2_PWM_Off() (PIOD_REGS->PIO_SODR = (1U<<18))
+#define LED_MIKROBUS2_PWM_On() (PIOD_REGS->PIO_CODR = (1UL<<18))
+#define LED_MIKROBUS2_PWM_Off() (PIOD_REGS->PIO_SODR = (1UL<<18))
 /*** SWITCH Macros for SWITCH_USER ***/
 #define SWITCH_USER_Get() ((PIOA_REGS->PIO_PDSR >> 7) & 0x1)
 #define SWITCH_USER_STATE_PRESSED 0

@@ -145,6 +145,8 @@ void USI_USART_Tasks (uint32_t index);
 
 size_t USI_USART_Write(uint32_t index, void* pData, size_t length);
 
+bool USI_USART_WriteIsBusy(uint32_t index);
+
 void USI_USART_RegisterCallback(uint32_t index, USI_USART_CALLBACK cbFunc, uintptr_t context);
 
 void USI_USART_Close(uint32_t index);

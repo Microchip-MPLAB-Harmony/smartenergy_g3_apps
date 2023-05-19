@@ -115,9 +115,6 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
     spiPlibSetup.clockPolarity = DRV_PLC_SPI_CLOCK_POLARITY_IDLE_LOW;    
     sPlcPlib->spiPlibTransferSetup((uintptr_t)&spiPlibSetup, 0);
     
-    /* CS rises if there is no more data to transfer */
-    *(sPlcPlib->spiCSR) &= ~(FLEX_SPI_CSR_CSAAT_Msk | FLEX_SPI_CSR_CSNAAT_Msk);
-
 }
 
 void DRV_PLC_HAL_Reset(void)
@@ -183,6 +180,11 @@ void DRV_PLC_HAL_EnableInterrupts(bool enable)
     {
         PIO_PinInterruptDisable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
     }
+}
+
+bool DRV_PLC_HAL_GetPinLevel(SYS_PORT_PIN pin)
+{
+    return (SYS_PORT_PinRead(pin));
 }
 
 void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, uint8_t *pDataWr, uint8_t *pDataRd)
