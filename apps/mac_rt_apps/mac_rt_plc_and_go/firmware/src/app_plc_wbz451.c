@@ -50,6 +50,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#include "stdint.h"
 #include <string.h>
 #include "definitions.h"
 
@@ -193,17 +194,32 @@ static uint8_t APP_PLC_GetMacRTHeaderInfo ( uint8_t *pFrame )
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-void Timer1_Callback (uintptr_t context)
+static void APP_PLC_Timer1_Callback (uintptr_t context)
 {
     appPlc.tmr1Expired = true;
 }
 
-void Timer2_Callback (uintptr_t context)
+static void APP_PLC_Timer2_Callback (uintptr_t context)
 {
     appPlc.tmr2Expired = true;
 }
 
-static void APP_PLC_ExceptionCb( DRV_G3_MACRT_EXCEPTION exceptionObj )
+static void APP_PLC_G3MACRTInitCallback(bool initResult)
+{
+    if (initResult == true)
+    {
+        /* Apply PLC initial configuration */
+        APP_PLC_SetInitialConfiguration();
+    }
+    else
+    {
+        /* Error in G3 MAC RT initialization process */
+        appPlc.state = APP_PLC_STATE_ERROR;
+    }
+}
+
+
+static void APP_PLC_ExceptionCallback( DRV_G3_MACRT_EXCEPTION exceptionObj )
 {
     /* Avoid warning */
     (void)exceptionObj;
@@ -214,7 +230,7 @@ static void APP_PLC_ExceptionCb( DRV_G3_MACRT_EXCEPTION exceptionObj )
     appPlc.state = APP_PLC_STATE_IDLE;
 }
 
-static void APP_PLC_DataCfmCb( MAC_RT_TX_CFM_OBJ *cfmObj )
+static void APP_PLC_DataCfmCallback( MAC_RT_TX_CFM_OBJ *cfmObj )
 {
     /* Update PLC TX Status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
@@ -223,14 +239,15 @@ static void APP_PLC_DataCfmCb( MAC_RT_TX_CFM_OBJ *cfmObj )
     appPlcTx.lastTxStatus = cfmObj->status;
 }
 
-static void APP_PLC_DataIndCb( uint8_t *pData, uint16_t length )
+static void APP_PLC_DataIndCallback( uint8_t *pData, uint16_t length )
 {
     uint8_t *pFrame;
     uint8_t headerLength;
     
-    /* Init Timer to handle PLC Reception led */
+    /* Turn on indication LED and start timer to turn it off */
+    SYS_TIME_TimerDestroy(appPlc.tmr2Handle);
     USER_PLC_IND_LED_On();
-    appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
+    appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
 
     APP_CONSOLE_Print("\rRx (");
     /* Show Modulation of received frame */
@@ -287,7 +304,7 @@ static void APP_PLC_DataIndCb( uint8_t *pData, uint16_t length )
     APP_CONSOLE_Print(MENU_CMD_PROMPT);
 }
 
-static void APP_PLC_RxParamsIndCb( MAC_RT_RX_PARAMETERS_OBJ *pParameters )
+static void APP_PLC_RxParamsIndCallback( MAC_RT_RX_PARAMETERS_OBJ *pParameters )
 {
     appPlcTx.rxParams.highPriority = pParameters->highPriority;
     appPlcTx.rxParams.pduLinkQuality = pParameters->pduLinkQuality;
@@ -393,10 +410,10 @@ void APP_PLC_WBZ451_Tasks ( void )
 
         case APP_PLC_STATE_INIT:
         {
-            SYS_STATUS drvG3MacRtStatus = DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX);
+            DRV_G3_MACRT_STATE drvG3MacRtStatus = DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX);
             
             /* Select PLC Binary file for multi-band solution */
-            if (appPlc.plcMultiband && (drvG3MacRtStatus == SYS_STATUS_UNINITIALIZED))
+            if (appPlc.plcMultiband && (drvG3MacRtStatus == DRV_G3_MACRT_STATE_UNINITIALIZED))
             {
                 if (appPlc.bin2InUse)
                 {
@@ -417,6 +434,9 @@ void APP_PLC_WBZ451_Tasks ( void )
                 EIC_CallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvG3MacRt);
             }
             
+            /* Set G3 MAC RT initialization callback */
+            DRV_G3_MACRT_InitCallbackRegister(DRV_G3_MACRT_INDEX_0, APP_PLC_G3MACRTInitCallback);
+            
             /* Open PLC driver */
             appPlc.drvPl360Handle = DRV_G3_MACRT_Open(DRV_G3_MACRT_INDEX_0, NULL);
 
@@ -434,22 +454,19 @@ void APP_PLC_WBZ451_Tasks ( void )
         case APP_PLC_STATE_OPEN:
         {
             /* Check PLC transceiver */
-            if (DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX_0) == SYS_STATUS_READY)
+            if (DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX_0) == DRV_G3_MACRT_STATE_READY)
             {
                 /* Configure PLC callbacks */
-                DRV_G3_MACRT_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb);
-                DRV_G3_MACRT_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb);
-                DRV_G3_MACRT_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb);
-                DRV_G3_MACRT_RxParamsIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_RxParamsIndCb);
-                
-                /* Apply PLC initial configuration */
-                APP_PLC_SetInitialConfiguration();
+                DRV_G3_MACRT_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCallback);
+                DRV_G3_MACRT_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCallback);
+                DRV_G3_MACRT_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCallback);
+                DRV_G3_MACRT_RxParamsIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_RxParamsIndCallback);
                 
                 /* Enable PLC Transmission */
                 DRV_G3_MACRT_EnableTX(appPlc.drvPl360Handle, true);
                 
                 /* Init Timer to handle blinking led */
-                appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
+                appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
                 
                 /* Set PLC state */
                 appPlc.state = APP_PLC_STATE_WAITING;
@@ -486,6 +503,7 @@ void APP_PLC_WBZ451_Tasks ( void )
             /* Restart PLC Driver */
             appPlc.state = APP_PLC_STATE_INIT;
             appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
+            SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
             break;
         }
 
