@@ -535,6 +535,9 @@ void APP_PLC_Tasks ( void )
             /* Close PLC Driver */
             DRV_G3_MACRT_Close(appPlc.drvPl360Handle);
 
+            /* Stop the timer */
+            SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
+
             /* Restart PLC Driver */
             appPlc.state = APP_PLC_STATE_INIT;
             appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
