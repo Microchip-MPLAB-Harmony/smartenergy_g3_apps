@@ -3,7 +3,7 @@ configName: sam_e70_xult_pl460
 folderName: sam_e70_xult_pl460
 frameworkPath: C:\0_CHRIS\Proyectos\03_MCHP_Harmony_3\BitBucket
 processor: ATSAME70Q21B
-projectName: sam_e70_xult_pl460
+projectName: g3_mac_rt_plc_and_go_sam_e70_xult_pl460
 settings:
   PackageFilter: ''
   FORCE_OPTIMIZATION: 'false'
