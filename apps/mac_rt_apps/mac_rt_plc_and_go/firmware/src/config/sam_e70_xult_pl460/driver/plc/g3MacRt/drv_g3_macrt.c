@@ -79,13 +79,11 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize(
         return SYS_MODULE_OBJ_INVALID;
     }
 
-    if (gDrvG3MacRtObj.inUse == true)
+    if (gDrvG3MacRtObj.state != DRV_G3_MACRT_STATE_UNINITIALIZED)
     {
         return SYS_MODULE_OBJ_INVALID;
     }
 
-    gDrvG3MacRtObj.status                = SYS_STATUS_UNINITIALIZED;
-    gDrvG3MacRtObj.inUse                 = true;
     gDrvG3MacRtObj.plcHal                = g3MacRtInit->plcHal;
     gDrvG3MacRtObj.plcProfile            = g3MacRtInit->plcProfile;
     gDrvG3MacRtObj.binSize               = g3MacRtInit->binEndAddress - g3MacRtInit->binStartAddress;
@@ -111,14 +109,14 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize(
     gDrvG3MacRtObj.plcHal->init((DRV_PLC_PLIB_INTERFACE *)g3MacRtInit->plcHal->plcPlib);
 
     /* Update status */
-    gDrvG3MacRtObj.status                = SYS_STATUS_BUSY;
+    gDrvG3MacRtObj.state                = DRV_G3_MACRT_STATE_INITIALIZED;
 
     /* Return the object structure */
     return ( (SYS_MODULE_OBJ)index );
 
 }
 
-SYS_STATUS DRV_G3_MACRT_Status( const SYS_MODULE_INDEX index )
+DRV_G3_MACRT_STATE DRV_G3_MACRT_Status( const SYS_MODULE_INDEX index )
 {
     /* Validate the request */
     if (index >= DRV_G3_MACRT_INSTANCES_NUMBER)
@@ -127,7 +125,7 @@ SYS_STATUS DRV_G3_MACRT_Status( const SYS_MODULE_INDEX index )
     }
     
     /* Return the driver status */
-    return (gDrvG3MacRtObj.status);
+    return (gDrvG3MacRtObj.state);
 }
 
 DRV_HANDLE DRV_G3_MACRT_Open(
@@ -143,7 +141,7 @@ DRV_HANDLE DRV_G3_MACRT_Open(
         return DRV_HANDLE_INVALID;
     }
 
-    if ((gDrvG3MacRtObj.status != SYS_STATUS_BUSY) || (gDrvG3MacRtObj.inUse == false))
+    if (gDrvG3MacRtObj.state != DRV_G3_MACRT_STATE_INITIALIZED)
     {
         return DRV_HANDLE_INVALID;
     }
@@ -166,6 +164,8 @@ DRV_HANDLE DRV_G3_MACRT_Open(
     }
     
     DRV_PLC_BOOT_Start(&bootInfo, gDrvG3MacRtObj.plcHal);
+    
+    gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_BUSY;
 
     return ((DRV_HANDLE)0);
 }
@@ -174,8 +174,7 @@ void DRV_G3_MACRT_Close( const DRV_HANDLE handle )
 {
     if ((handle != DRV_HANDLE_INVALID) && (handle == 0))
     {
-        /* Go back to status of the initialization routine */
-        gDrvG3MacRtObj.status = SYS_STATUS_BUSY;
+        gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_UNINITIALIZED;
         
         gDrvG3MacRtObj.plcHal->enableExtInt(false);
     }
@@ -281,15 +280,16 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ hSysObj )
     /* Validate the request */
     if (hSysObj >= DRV_G3_MACRT_INSTANCES_NUMBER)
     {
-        return; // SYS_MODULE_OBJ_INVALID
+        return;
     }
-    
-    if (gDrvG3MacRtObj.status == SYS_STATUS_READY)
+
+    if ((gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_READY) ||
+        (gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_WAITING_TX_CFM))
     {
         /* Run G3 MAC RT communication task */
         DRV_G3_MACRT_Task();
     }
-    else if (gDrvG3MacRtObj.status == SYS_STATUS_BUSY)
+    else if (gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_BUSY)
     {
         DRV_PLC_BOOT_STATUS state;
         
@@ -302,8 +302,7 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ hSysObj )
         else if (state == DRV_PLC_BOOT_STATUS_READY)
         {
             DRV_G3_MACRT_Init(&gDrvG3MacRtObj);
-            gDrvG3MacRtObj.status = SYS_STATUS_READY;
-            gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_IDLE;
+            gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_READY;
             /*if (gDrvG3MacRtObj.sleep && gDrvG3MacRtObj.sleepIndCallback)
             {
                 gDrvG3MacRtObj.sleep = false;
@@ -316,9 +315,7 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ hSysObj )
         }
         else
         {
-            gDrvG3MacRtObj.status = SYS_STATUS_ERROR;
             gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_ERROR;
-            
             if (gDrvG3MacRtObj.initCallback)
             {
                 gDrvG3MacRtObj.initCallback(false);
@@ -356,6 +353,7 @@ void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable )
                 gDrvG3MacRtObj.plcHal->setStandBy(true);
                 /* Set Sleep flag */
                 gDrvG3MacRtObj.sleep = true;
+                gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_SLEEP;
             }
             else
             {
@@ -363,7 +361,7 @@ void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable )
                 gDrvG3MacRtObj.plcHal->setStandBy(false);
                 
                 /* Restart from Sleep mode */
-                gDrvG3MacRtObj.status = SYS_STATUS_BUSY;
+                gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_BUSY;
                 DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_SLEEP);
             }
         }

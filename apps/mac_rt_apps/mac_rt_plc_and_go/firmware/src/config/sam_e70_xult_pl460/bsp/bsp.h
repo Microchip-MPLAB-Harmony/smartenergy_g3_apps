@@ -61,13 +61,13 @@
 // *****************************************************************************
 // *****************************************************************************
 /*** LED Macros for LED_EXT1_Pin4 ***/
-#define LED_EXT1_Pin4_Toggle() (PIOA_REGS->PIO_ODSR ^= (1<<19))
-#define LED_EXT1_Pin4_On() (PIOA_REGS->PIO_CODR = (1<<19))
-#define LED_EXT1_Pin4_Off() (PIOA_REGS->PIO_SODR = (1<<19))
+#define LED_EXT1_Pin4_Toggle() (PIOA_REGS->PIO_ODSR ^= (1UL<<19))
+#define LED_EXT1_Pin4_On() (PIOA_REGS->PIO_CODR = (1UL<<19))
+#define LED_EXT1_Pin4_Off() (PIOA_REGS->PIO_SODR = (1UL<<19))
 /*** LED Macros for LED ***/
-#define LED_Toggle() (PIOA_REGS->PIO_ODSR ^= (1<<5))
-#define LED_On() (PIOA_REGS->PIO_CODR = (1<<5))
-#define LED_Off() (PIOA_REGS->PIO_SODR = (1<<5))
+#define LED_Toggle() (PIOA_REGS->PIO_ODSR ^= (1UL<<5))
+#define LED_On() (PIOA_REGS->PIO_CODR = (1UL<<5))
+#define LED_Off() (PIOA_REGS->PIO_SODR = (1UL<<5))
 /*** SWITCH Macros for SWITCH ***/
 #define SWITCH_Get() ((PIOA_REGS->PIO_PDSR >> 11) & 0x1)
 #define SWITCH_STATE_PRESSED 0

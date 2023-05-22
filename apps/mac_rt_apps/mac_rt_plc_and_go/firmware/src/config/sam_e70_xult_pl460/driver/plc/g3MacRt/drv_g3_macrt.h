@@ -72,6 +72,31 @@
 // *****************************************************************************
 // *****************************************************************************
 
+// *****************************************************************************
+/* DRV_G3_MACRT Driver State
+
+  Summary:
+    Defines the status of the DRV_G3_MACRT driver.
+
+  Description:
+    This enumeration defines the status of the DRV_G3_MACRT Driver.
+
+  Remarks:
+    None.
+*/
+
+typedef enum
+{
+    DRV_G3_MACRT_STATE_UNINITIALIZED = SYS_STATUS_UNINITIALIZED,
+    DRV_G3_MACRT_STATE_BUSY = SYS_STATUS_BUSY,
+    DRV_G3_MACRT_STATE_READY = SYS_STATUS_READY,
+    DRV_G3_MACRT_STATE_INITIALIZED = SYS_STATUS_READY_EXTENDED + 1,
+    DRV_G3_MACRT_STATE_WAITING_TX_CFM,
+    DRV_G3_MACRT_STATE_SLEEP,
+    DRV_G3_MACRT_STATE_ERROR = SYS_STATUS_ERROR,
+    DRV_G3_MACRT_STATE_ERROR_COMM = SYS_STATUS_ERROR_EXTENDED - 1,
+} DRV_G3_MACRT_STATE;
+
 /* DRV_PLC Transfer Errors
 
  Summary:
@@ -534,7 +559,6 @@ typedef void ( *DRV_G3_MACRT_SLEEP_IND_CALLBACK )( void );
         .dmaChannelRx  = SYS_DMA_CHANNEL_0,
         .spiAddressTx =  (void *)&(SPI0_REGS->SPI_TDR),
         .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
-        .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[1]),
         .spiClockFrequency = DRV_PLC_SPI_CLK,
         .ldoPin = DRV_PLC_LDO_EN_PIN, 
         .resetPin = DRV_PLC_RESET_PIN,
@@ -649,8 +673,8 @@ DRV_HANDLE DRV_G3_MACRT_Open(const SYS_MODULE_INDEX index,
 
   Description:
     This routine closes opened-instance of the MAC RT driver, invalidating the
-    handle. A new handle must be obtained by calling DRV_G3_MACRT_Open
-    before the caller may use the driver again.
+    handle. A new transfer of binary file should be performed by calling 
+    DRV_G3_MACRT_Initialize routine before the caller may use the driver again.
 
   Precondition:
     DRV_G3_MACRT_Open must have been called to obtain a valid opened device handle.
@@ -1429,7 +1453,7 @@ void DRV_G3_MACRT_ExternalInterruptHandler( PIO_PIN pin, uintptr_t context );
 
 // *************************************************************************
 /* Function:
-    SYS_STATUS DRV_G3_MACRT_Status( const SYS_MODULE_INDEX index )
+    DRV_G3_MACRT_STATE DRV_G3_MACRT_Status( const SYS_MODULE_INDEX index )
 
   Summary:
     Gets the current status of the PLC driver module.
@@ -1445,27 +1469,30 @@ void DRV_G3_MACRT_ExternalInterruptHandler( PIO_PIN pin, uintptr_t context );
     index   -  Identifier for the instance used to initialize driver
 
   Returns:
-    SYS_STATUS_READY - Indicates that the driver is ready to accept
+    DRV_G3_MACRT_STATE_READY - Indicates that the driver is ready to accept
                        requests for new operations.
 
-    SYS_STATUS_UNINITIALIZED - Indicates the driver is not initialized.
+    DRV_G3_MACRT_STATE_UNINITIALIZED - Indicates the driver is not initialized.
   
-    SYS_STATUS_ERROR - Indicates the driver is not initialized correctly.
+    DRV_G3_MACRT_STATE_ERROR - Indicates the driver is not initialized correctly.
   
-    SYS_STATUS_BUSY - Indicates the driver is initializing.
-
+    DRV_G3_MACRT_STATE_BUSY - Indicates the driver is initializing.
+ 
+    DRV_G3_MACRT_STATE_WAITING_TX_CFM - Indicated the driver is waiting a
+    confirmation of the last transmission.
+  
   Example:
     <code>
-    SYS_STATUS status;
+    DRV_G3_MACRT_STATE state;
     // 'DRV_G3_MACRT_INDEX' is the one used before for Driver Initialization
-    status = DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX);
+    state = DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX);
     </code>
 
   Remarks:
     None.
 */
 
-SYS_STATUS DRV_G3_MACRT_Status( const SYS_MODULE_INDEX index );
+DRV_G3_MACRT_STATE DRV_G3_MACRT_Status( const SYS_MODULE_INDEX index );
 
 //***************************************************************************
 /*  Function:

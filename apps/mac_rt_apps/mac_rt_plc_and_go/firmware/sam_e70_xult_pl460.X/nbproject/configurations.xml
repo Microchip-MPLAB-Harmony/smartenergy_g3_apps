@@ -150,6 +150,7 @@
           <itemPath>../src/config/sam_e70_xult_pl460/toolchain_specifics.h</itemPath>
           <itemPath>../src/config/sam_e70_xult_pl460/device.h</itemPath>
           <itemPath>../src/config/sam_e70_xult_pl460/definitions.h</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460/sys_tasks.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">
@@ -429,7 +430,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>j32</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.20</languageToolchainVersion>
+        <languageToolchainVersion>4.21</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -552,7 +553,8 @@
         <property key="no-startup-files" value="false"/>
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value=""/>
-        <property key="preprocessor-macros" value=""/>
+        <property key="preprocessor-macros"
+                  value="ROM_LENGTH=0x200000;ROM_ORIGIN=0x400000"/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>

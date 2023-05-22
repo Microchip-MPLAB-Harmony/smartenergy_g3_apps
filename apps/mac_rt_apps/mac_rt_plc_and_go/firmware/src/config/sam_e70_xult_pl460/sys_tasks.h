@@ -1,23 +1,23 @@
 /*******************************************************************************
-  SPI PLIB
-
-  Company:
-    Microchip Technology Inc.
+ System Tasks Header File
 
   File Name:
-    plib_spi0_master.h
+    sys_tasks.h
 
   Summary:
-    SPI0 Master PLIB Header File
+    This file contains declarations for task handles.
 
   Description:
-    This file has prototype of all the interfaces provided for particular
-    SPI peripheral.
+    Task handles declared in this header file can be used by the application
+    to control the behavior of the tasks.
 
-*******************************************************************************/
+  Remarks:
+    None
+ *******************************************************************************/
 
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -37,46 +37,20 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+ *******************************************************************************/
+// DOM-IGNORE-END
 
-#ifndef PLIB_SPI0_MASTER_H
-#define PLIB_SPI0_MASTER_H
+#ifndef SYS_TASKS_H
+#define SYS_TASKS_H
 
-#include "device.h"
-#include "plib_spi_master_common.h"
+// *****************************************************************************
+// *****************************************************************************
+// Section: Included Files
+// *****************************************************************************
+// *****************************************************************************
 
-/* Provide C++ Compatibility */
-#ifdef __cplusplus
-
-    extern "C" {
-
-#endif
-
-/****************************** SPI0 Interface *********************************/
-
-void SPI0_Initialize( void );
-
-bool SPI0_WriteRead( void* pTransmitData, size_t txSize, void* pReceiveData, size_t rxSize );
-
-bool SPI0_Write( void* pTransmitData, size_t txSize );
-
-bool SPI0_Read( void* pReceiveData, size_t rxSize );
-
-bool SPI0_TransferSetup( SPI_TRANSFER_SETUP *setup, uint32_t spiSourceClock );
-
-bool SPI0_IsTransmitterBusy( void );
+#include "configuration.h"
+#include "definitions.h"
 
 
-
-/* Provide C++ Compatibility */
-#ifdef __cplusplus
-
-    }
-
-#endif
-
-#endif // PLIB_SPI0_MASTER_H
-
-/*******************************************************************************
- End of File
-*/
+#endif //SYS_TASKS_H

@@ -88,12 +88,12 @@ extern "C" {
 #define SYS_TIME_CPU_CLOCK_FREQUENCY                (300000000)
 #define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (900)
 
-#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			1
-#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			0
-#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		1
-#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		512
+#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
+#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(0U)
+#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(1U)
+#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(512U)
 
-#define SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE 	64
+#define SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE 	(64)
 
 #define SYS_CONSOLE_INDEX_0                       0
 
@@ -122,8 +122,7 @@ extern "C" {
 #define DRV_PLC_STBY_PIN                      SYS_PORT_PIN_PA3
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PC17
 #define DRV_PLC_CSR_INDEX                     1
-
-#define DRV_PLC_SPI_CLK                      8000000
+#define DRV_PLC_SPI_CLK                       8000000
 
 /* PLC MAC RT Driver Identification */
 #define DRV_G3_MACRT_INDEX                   0
