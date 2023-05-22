@@ -314,26 +314,26 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;GraphSettings canvasHeight=&quot;384&quot; canvasWidth=&quot;716&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_WBZ451_Curiosity&quot; x=&quot;11&quot; y=&quot;77&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;483&quot; y=&quot;58&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;cmsis&quot; x=&quot;500&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;core&quot; x=&quot;400&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;dfp&quot; x=&quot;180&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;drvG3MacRt&quot; x=&quot;558&quot; y=&quot;265&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;eic&quot; x=&quot;385&quot; y=&quot;201&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;evsys&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;sercom0&quot; x=&quot;384&quot; y=&quot;309&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;sercom1&quot; x=&quot;29&quot; y=&quot;272&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;srv_pcoup&quot; x=&quot;565&quot; y=&quot;189&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;sys_console&quot; x=&quot;186&quot; y=&quot;208&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;sys_time&quot; x=&quot;190&quot; y=&quot;76&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;tc0&quot; x=&quot;33&quot; y=&quot;122&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;trng&quot; x=&quot;336&quot; y=&quot;83&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_WBZ451_Curiosity&quot; x=&quot;0&quot; y=&quot;77&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;327&quot; y=&quot;16&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;cmsis&quot; x=&quot;209&quot; y=&quot;42&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;core&quot; x=&quot;134&quot; y=&quot;41&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;dfp&quot; x=&quot;133&quot; y=&quot;13&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;drvG3MacRt&quot; x=&quot;166&quot; y=&quot;387&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;eic&quot; x=&quot;328&quot; y=&quot;165&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;evsys&quot; x=&quot;0&quot; y=&quot;12&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;sercom0&quot; x=&quot;0&quot; y=&quot;454&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;sercom1&quot; x=&quot;0&quot; y=&quot;272&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;srv_pcoup&quot; x=&quot;0&quot; y=&quot;360&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;sys_console&quot; x=&quot;166&quot; y=&quot;208&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;sys_time&quot; x=&quot;171&quot; y=&quot;77&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;tc0&quot; x=&quot;0&quot; y=&quot;123&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;trng&quot; x=&quot;326&quot; y=&quot;112&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;384&quot; canvasWidth=&quot;716&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -5685,7 +5685,7 @@
    <generatedFileHashHistoryMap class="java.util.HashMap">
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\initialization.c</file>
-         <hash>86f3695524b3a856435fe98906a8efd043a18882753556a20101bbd3e1194f22</hash>
+         <hash>851ee63b0c764645df8b941b67bf7c3af6eb5582de13cd1f305df3a5e04ae690</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\sercom0.h</file>
@@ -5709,7 +5709,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\definitions.h</file>
-         <hash>f47ff85827582db1b4f09faec19033152a769d70834a299c9337298f33d62e55</hash>
+         <hash>c267d841f709cdbe42c79dee3fdc0af4f60d7198eb4de3ad20ff7723ae58f0e3</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\eic.h</file>
@@ -5725,7 +5725,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\clk\plib_clk.h</file>
-         <hash>aeb73e24e5a518024b1c3f7dce953a5cbacead08f55e80ae465fc8d2e522e477</hash>
+         <hash>39b2476052565e9b20debaa1266d19d5072cff729d06d053e629dc57699ec485</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\pmu.h</file>
@@ -5740,12 +5740,16 @@
          <hash>49610c97b76f7a515d39f84fa61cadb3ddf08cc8ca4334c50df6e252a3ae43b5</hash>
       </entry>
       <entry>
+         <file>..\src\config\wbz451_curiosity_pl460\sys_tasks.h</file>
+         <hash>21f254f497a18a024cd00128d06c4776c2643f867a460c1ba9880a7dd41a8d56</hash>
+      </entry>
+      <entry>
          <file>..\src\packs\WBZ451_DFP\instance\adchs.h</file>
          <hash>c33d6a0489955896faefcaa6db806c7a0009576a38177bc9bff7a81fc0a7f52a</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\bsp\bsp.h</file>
-         <hash>85c4a2c7689852777461e0d240c75955ac4b950cdb00ed32fa5c490925e45f22</hash>
+         <hash>ae02c62f7898bb31311dc9f28c756cd706810ae2aabc817f80f5f34854d320bd</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\cru.h</file>
@@ -5757,7 +5761,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\time\src\sys_time.c</file>
-         <hash>b722ac0c5d955d289bd906609ab6f302342166c5ba66f87b30cac17ac6bfdcd9</hash>
+         <hash>fa2d85ab967b80157caf8483f6e28a23b12b548844a1d80f2fef760cd9b99271</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\hmatrixb.h</file>
@@ -5769,7 +5773,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\console\sys_console.h</file>
-         <hash>e8a97986345fb2c80389834b113384eba523837ee43f7798d9b56be630a6e7b3</hash>
+         <hash>cc82ba93f8d69bf31a9dfcfe1e425de3924bcf9e4e4b31f7efad9c2d062dcbf6</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\arb.h</file>
@@ -5809,7 +5813,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\tasks.c</file>
-         <hash>b69938d77702e7ce2cfd0d6c54bb556fc79d8f597a6f8fa29801b94ac3a7ed0c</hash>
+         <hash>923454cfc61d73c2169ee0b1f6ece24b4aaeada60c29b8a158ac440e074c2941</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\libc_syscalls.c</file>
@@ -5817,7 +5821,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\dma\sys_dma_mapping.h</file>
-         <hash>f40fd52b9e96c213abb3996b309103da33f134a85f90c874a99d2184c61c0ece</hash>
+         <hash>ce3b0fb5a381953a0804e467742d198578a5abb4b419c667565553953c4d27c7</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\btzbsys.h</file>
@@ -5837,7 +5841,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\g3MacRt\drv_g3_macrt_local_comm.c</file>
-         <hash>8ee0322da5710fdc2eb062bd06a4f90c596d49983558eb658ba95f8bf310e09f</hash>
+         <hash>785f9fc7fff4ba4c027884b6f2974299cb695071d5a6d206b7ef834dae478ca1</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\tc0.h</file>
@@ -5845,7 +5849,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\time\sys_time.h</file>
-         <hash>f21b100d8f0b8b79af9217315098d51df855d9015f05a7e25ad77414cd19b2c3</hash>
+         <hash>6357468f7670698b16bfb6439d9919ed38eba99d4f03277a8b43ac34586fa1b3</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\pcoup\srv_pcoup.c</file>
@@ -5865,11 +5869,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\int\sys_int_mapping.h</file>
-         <hash>660e7081f93de17660144721849acf269925988a4f6510028d25903aaa866ea1</hash>
+         <hash>5abf8528dabc1b17378f5d137870597037214fddf33880fa40e9263352da3008</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\sercom\usart\plib_sercom1_usart.h</file>
-         <hash>f86af3bb4d72e491a3fa7189838cd59de1ab53d1f113c1d4c5d58e25ab90f60c</hash>
+         <hash>f139e664f91fb7ed962f61e210a4fd17059e895a06a64a243d2fd979ac59b674</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\arb.h</file>
@@ -5901,11 +5905,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\g3MacRt\drv_g3_macrt_local.h</file>
-         <hash>914160af306ffdfdbda764338d2ba91b31eb72877bc9969418ab9e295c3ea6ae</hash>
+         <hash>371d2de3b2e2c7ea8b1eaef395ff5cb176d79837304a270d22724c8ebf419bf6</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\int\src\sys_int.c</file>
-         <hash>23e798871ce6f7b4b0e0dbd5cb2cad7b43bd2dd1f38152f28d14f5a5b7a2938b</hash>
+         <hash>4281667cc2b84c9e4be1f0dfb3f7d42b77d36c5dcf6513d29ff40262f746cfc6</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\cfg.h</file>
@@ -5913,7 +5917,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\sercom\usart\plib_sercom1_usart.c</file>
-         <hash>a96d1fc152bcafa8189f987d6e3b4ef4344524327e21def02ec3c2ec1041e6d8</hash>
+         <hash>77ebcce789a3ede3a566dbf6dd95410d58640e3566bc60fe197c144d795e56c9</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\mpu_armv7.h</file>
@@ -5941,23 +5945,23 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\sercom\usart\plib_sercom_usart_common.h</file>
-         <hash>3feca67a173d19d45961676a16f6153a6d849ecac98e906b62a343258c8bf43b</hash>
+         <hash>f19dafabe0928d60dd83d7e19f35889f200e3fbadff09e2f42523d320acf780a</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\dma\sys_dma.c</file>
-         <hash>857103c3cdd998ea45f31516f435a01901a28afe894c8cce719240297d6c7546</hash>
+         <hash>b898eb7b174f17cd7dcaff8afef4fa2b878dcbc3b4db44b23810c78af55ffd6b</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\g3MacRt\drv_g3_macrt.h</file>
-         <hash>bf8875805c92b682646ca0b96f07186ef20c130963cfd9ce63175145722fad4a</hash>
+         <hash>13bf05b2eded1e0012eb62619346a4357fb5b6a818d56982b8f7e2b7b56a7c67</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\g3MacRt\drv_g3_macrt.c</file>
-         <hash>916a7db04001f604ebb45387f554bf7d74d7249edf3e2dfe42d6b86292ea2ba1</hash>
+         <hash>12b4323c1225288b94da264c52471b5998949f41b3a96fac5b7d407384294786</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\dma\sys_dma.h</file>
-         <hash>81899d4fd8407677e39de171b4d412b7e68ce1da2dc7e2ca63900f41014b900d</hash>
+         <hash>153b47b6dfb1ceaf33660ee253a4b3142f1064dff4f9030ac14afef59db33423</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\freqm.h</file>
@@ -5973,7 +5977,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\trng\plib_trng.c</file>
-         <hash>cd516925d22831fe208996df4d4108f5ae0f56bcc79630309f4628d58565d58f</hash>
+         <hash>c208831dc122994b5a25fa1755a9c202e64f3181538047d332aab885c2258bf9</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\cmcc.h</file>
@@ -6001,7 +6005,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\int\sys_int.h</file>
-         <hash>71e36331ee689ae305b3d8ec49948e3dde0324b65f51bf38f4472b900a421ed6</hash>
+         <hash>dc104ae181fd5309e1bb42896246644fae95915a8e639b23ecfccc8840850274</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\pps.h</file>
@@ -6021,7 +6025,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\time\sys_time_definitions.h</file>
-         <hash>8a02a9fe9638f0afd2e1b4c65f4d4265cd34d8814defa74f9af6d75f52cd317d</hash>
+         <hash>b8c332f36f8a6ed230dc25b1f9f7f2970699947567f80cb06534d405b7a0dd9d</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\dscon.h</file>
@@ -6029,11 +6033,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\exceptions.c</file>
-         <hash>b268111879b5fa0ab2eaf79fc5d4bd1aa046c54d97805246ce08964100a70bfb</hash>
+         <hash>89852728a9a1cc4c9746839cc3caf5308b8698c0c30bf6bfbad0db9e552a387e</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\osal\osal_definitions.h</file>
-         <hash>0a5ca28c4812bb37babfebc1fe30a90b13583504d81910ad159feb746a5b002c</hash>
+         <hash>5f0a2513a093b6d228e2b50646b204923a82047335a47f3d35a2938309ab6f37</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\tc1.h</file>
@@ -6041,7 +6045,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\g3MacRt\bin\G3_MAC_RT_CENA.bin</file>
-         <hash>92458e7e2c6d3968227ef8f15e1dab0c31729406947c1a7ccd9cf8face792acd</hash>
+         <hash>2ee0d0aa6552ab14355cd6dd41a668e047629ffedabce2e2c1763ed886e7d2f5</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\evsys.h</file>
@@ -6049,7 +6053,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\configuration.h</file>
-         <hash>95abda521e6ec4b0e93921ba35d73009f71fe7b4127beed756f4e9c88f1c0945</hash>
+         <hash>b476945b9f088c7ca641cb566f73a5d16c4ea26ac7b10e34e7da58b480701e79</hash>
       </entry>
       <entry>
          <file>..\src\main.c</file>
@@ -6101,15 +6105,15 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\startup_xc32.c</file>
-         <hash>b81b46c0c30b8330b199459ebefb519aff8ad8b4908e57799c98c3ce02b6eb35</hash>
+         <hash>6bb3e7378a91df49ddd20ba777738f924428c7eb959c8a356890e2ca564ebc64</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\common\drv_plc_boot.h</file>
-         <hash>778be73f7ff51791e43a065645bf64a13e3e03113d37ff64f9579c788c381eb2</hash>
+         <hash>f8ce8c632026235f86b98194fcbb4c4d8fb4479c86c892ffbe46fab38cd9df62</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\dmac\plib_dmac.c</file>
-         <hash>45a282cf2cae72273413d25a134eb905a3c0983b96897413800567aaa54261b0</hash>
+         <hash>6d83357f0624aa6d83874fe0d210b1dea83cd04eb1e1d3bb175f107a57b978bd</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\cmcc\plib_cmcc.h</file>
@@ -6117,7 +6121,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\tc\plib_tc0.c</file>
-         <hash>07eb0257e97ad29672e99ff87bcde5be75885f3b44f1d550d81f7807ef43cab1</hash>
+         <hash>2fc5408192b52b60f89e43e0a03cc70344c5b4db823c5240e734cb5453ed5f9f</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\wbz451.h</file>
@@ -6125,7 +6129,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\toolchain_specifics.h</file>
-         <hash>e4c208c7b31281ac70293de02c60f22e4053e7c83d7f009db1697d5677244b96</hash>
+         <hash>6fc0551b0fa3362678b3d7a227386fafa343140d31e4da3ad4af972e61cd0acb</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\tc\plib_tc0.h</file>
@@ -6141,7 +6145,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\osal\osal.h</file>
-         <hash>d42702188d00d3e1d7219d7eef030485896bf8b5ebe55318656e82f0fbb89788</hash>
+         <hash>8404fbe44807fa0484ffb38843a72cb9af8e31c9c30bd1b2594e609b8ea317d9</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\rcon.h</file>
@@ -6149,15 +6153,15 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\cache\sys_cache.h</file>
-         <hash>3407ecac4da455d4b8ba70043f10c20b10e1304e92402db824ca5efa6a2f8402</hash>
+         <hash>b4b3a4e7434759c9bbcd3c6a0ab97558eb2a007f083a4eb76dbedcb2e2c3d86b</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\osal\osal_impl_basic.h</file>
-         <hash>0c388837ef1d4e207a028ed31bfe07f1aac7ea8b0505caff58f737667ccbeaee</hash>
+         <hash>67ce72d34fd1e4dee0b6937fa026ab2c7bd285f82a24da09742c68333adaf0fc</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\common\drv_plc_hal.h</file>
-         <hash>54632788adf1776c75898832f7239b1d1a7de51f3be02d92b7b83badf4fdfe55</hash>
+         <hash>b8ca03683b4d4486a9e94dff25d3bf7ac4d2c20c756b84143d0281e9cdf2444f</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\device_vectors.h</file>
@@ -6181,11 +6185,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\common\drv_plc_hal.c</file>
-         <hash>1804a6dacb2de7ac00a12a0c8dd9cf7ca214ad4e70949fee39df02e26ce710cf</hash>
+         <hash>e443a60c8a2485518452d20025255c347b1d2740fa2bc6cba0caed643f8ab14a</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\interrupts.c</file>
-         <hash>dd5df80e5cd8260fdd55a9c5d2251083841f6d4fb2e9b55ac8cb94827b4f45d2</hash>
+         <hash>4445da43a961d30d78b82f2012b6839885d1ff46565e90f2bb9e01475c208902</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\sercom\spi_master\plib_sercom0_spi_master.h</file>
@@ -6193,7 +6197,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\console\src\sys_console.c</file>
-         <hash>40aa2013385ec344c267d5779ef941d663ecc0739ebe962ad906324e71666c43</hash>
+         <hash>622a27844a650b4fa265c7a4739ba3768a76e4148600be42e44eec2e0673d7c6</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\sercom\spi_master\plib_sercom0_spi_master.c</file>
@@ -6257,7 +6261,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\system_common.h</file>
-         <hash>0dbf2f60b29c97426e70187bc59c652ab5a355f51cfbe3f195ff1c8c6c0b1602</hash>
+         <hash>c9f34bd226f8efab12f5766e77f8355996cd0430b50e0f6ee30258664c494984</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\ramecc.h</file>
@@ -6265,7 +6269,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\common\drv_plc_boot.c</file>
-         <hash>b0e837b33818c114ef668093de713d00eab5268f2ed9fe32494346c4b94ce180</hash>
+         <hash>3a07cdf4f366182e3f0a16faf60a939c6dc88fde00bdd23b96d3764739985295</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\eic.h</file>
@@ -6273,7 +6277,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\console\src\sys_console_uart_definitions.h</file>
-         <hash>0b8c26a32e6ab6cb50039434ed379044bfa539b4ed2ed4b65a281d943a8868d8</hash>
+         <hash>bf403c11673266a5a861fd99253c377030c1a7f9e912eef446101e416b4f8c9a</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armclang_ltm.h</file>
@@ -6305,7 +6309,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\debug\sys_debug.h</file>
-         <hash>222cdc284bd651e83188b9641cc57c133cf86563dbeb5d5523766d4a36087165</hash>
+         <hash>bc6fa321b0be542d074e4564065b7fd69f52556486ac3d892d315b51c434f9ec</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\nvic\plib_nvic.h</file>
@@ -6313,7 +6317,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\time\src\sys_time_local.h</file>
-         <hash>d3ef06b59d9a89efe9e8eb54fcf3b75120d56156cc21f6847ca4f9e902eb7c9d</hash>
+         <hash>df56f970664902417d798760e44978cf4b84c108cf0761647a383e91db76980c</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\dsu.h</file>
@@ -6325,11 +6329,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\g3MacRt\bin\G3_MAC_RT_FCC.bin</file>
-         <hash>f7b390743ab186007b2e42747a41a49d7f72a04e3a56210cd5e399e7fe03214c</hash>
+         <hash>5e0830602f4968728c641219e2b8b97c3c1481e3fa8056818ef58589dd46c481</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\nvic\plib_nvic.c</file>
-         <hash>6a3a3fc3cb4e2250675277747efe9f02dcf703624fd3fcce7212c8bc1b1bdb2f</hash>
+         <hash>21310b2dfa6566fe07f073faa98f9896ea7568384857f1ad763beeae18148076</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\g3MacRt\bin\drv_g3_macrt_bin.S</file>
@@ -6361,7 +6365,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\system_module.h</file>
-         <hash>981fac23277aa77f682e7a9a28d436f892006cd5b4c7f23f50941b6d9a30e740</hash>
+         <hash>96c74368801b0a7aaa25aec3ec2cb0d483250385f103ffc1ff64089b4ca2c6d9</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\dmt.h</file>
@@ -6397,7 +6401,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\eic\plib_eic.c</file>
-         <hash>09d3eb88da04e631df7600c6de62fd2a0e0fed1af7e2ddc0977836b798dcf2c9</hash>
+         <hash>48dd47cffac74b7f1c20912e766594ec9bce9a2463179fb55ad5f454fc1559e6</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\device.h</file>
@@ -6405,11 +6409,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\console\src\sys_console_uart.c</file>
-         <hash>ac0304a177b5e152c80d648da5f5cd87f7d926814f093131b76142c41fde6473</hash>
+         <hash>ff3d1854f469e4fc41d96adce6f7ec38afad5d1b076c295eb4777936777673d0</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\gpio\plib_gpio.c</file>
-         <hash>51e857850efed12fa6de6805484fb5aecc374a567f05ab2e37e66519735b52ec</hash>
+         <hash>cc3f456d2ca1049fff3de633164902cfe86d5f31120c5f88ed328860c6789d17</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\eic\plib_eic.h</file>
@@ -6421,7 +6425,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\cache\sys_cache.c</file>
-         <hash>7ed94244e15453076a32ec0f0e9d07ee40a74661c3da757c15c568b74f96d1ad</hash>
+         <hash>da28c09b0da0fdd6fb7064631c15c9197c78df33fcd17d742baef909830a320e</hash>
       </entry>
       <entry>
          <file>..\src\app_console.c</file>

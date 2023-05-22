@@ -84,27 +84,6 @@ typedef enum
 } DRV_G3_MACRT_CMD;
 
 // *****************************************************************************
-/* DRV_G3_MACRT Transfer Object State
-
-  Summary:
-    Defines the status of the DRV_G3_MACRT Transfer Object.
-
-  Description:
-    This enumeration defines the status of the DRV_G3_MACRT Transfer Object.
-
-  Remarks:
-    None.
-*/
-
-typedef enum
-{
-    DRV_G3_MACRT_STATE_IDLE,
-    DRV_G3_MACRT_STATE_TX,
-    DRV_G3_MACRT_STATE_WAITING_TX_CFM,
-    DRV_G3_MACRT_STATE_ERROR,
-}DRV_G3_MACRT_STATE;
-
-// *****************************************************************************
 /* PLC Driver Instance Object
 
   Summary:
@@ -119,14 +98,8 @@ typedef enum
 
 typedef struct
 {
-    /* Flag to indicate this object is in use  */
-    bool                                      inUse;
-
     /* State of the MAC RT driver */
     DRV_G3_MACRT_STATE                        state;
-
-    /* The status of the driver */
-    SYS_STATUS                                status;
 
     /* HAL API list that will be used by the driver to access the hardware */
     DRV_PLC_HAL_INTERFACE                     *plcHal;

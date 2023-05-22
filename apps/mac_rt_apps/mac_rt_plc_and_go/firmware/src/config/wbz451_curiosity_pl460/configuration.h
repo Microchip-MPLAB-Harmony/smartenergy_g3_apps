@@ -86,12 +86,12 @@ extern "C" {
 #define SYS_TIME_HW_COUNTER_PERIOD                  (0xFFFFU)
 #define SYS_TIME_HW_COUNTER_HALF_PERIOD             (SYS_TIME_HW_COUNTER_PERIOD>>1)
 #define SYS_TIME_CPU_CLOCK_FREQUENCY                (64000000)
-#define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (188)
+#define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (232)
 
-#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			1
-#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			1
-#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		0
-#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		256
+#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
+#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(1U)
+#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(0U)
+#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(256U)
 
 
 #define SYS_CONSOLE_INDEX_0                       0
@@ -114,8 +114,7 @@ extern "C" {
 #define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_RB2
 #define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_RA13
 #define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_RA14
-
-#define DRV_PLC_SPI_CLK                      8000000
+#define DRV_PLC_SPI_CLK                       8000000
 
 /* PLC MAC RT Driver Identification */
 #define DRV_G3_MACRT_INDEX                   0

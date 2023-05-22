@@ -123,6 +123,7 @@
           <itemPath>../src/config/wbz451_curiosity_pl460/configuration.h</itemPath>
           <itemPath>../src/config/wbz451_curiosity_pl460/toolchain_specifics.h</itemPath>
           <itemPath>../src/config/wbz451_curiosity_pl460/device_cache.h</itemPath>
+          <itemPath>../src/config/wbz451_curiosity_pl460/sys_tasks.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">

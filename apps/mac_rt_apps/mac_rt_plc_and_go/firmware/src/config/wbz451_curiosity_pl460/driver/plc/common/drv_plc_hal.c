@@ -208,6 +208,11 @@ void DRV_PLC_HAL_EnableInterrupts(bool enable)
     }
 }
 
+bool DRV_PLC_HAL_GetPinLevel(SYS_PORT_PIN pin)
+{
+    return (SYS_PORT_PinRead(pin));
+}
+
 void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, uint8_t *pDataWr, uint8_t *pDataRd)
 {
     uint8_t *pTxData;  
