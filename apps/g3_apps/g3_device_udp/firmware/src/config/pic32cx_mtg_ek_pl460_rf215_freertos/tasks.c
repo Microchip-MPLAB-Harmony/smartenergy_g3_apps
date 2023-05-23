@@ -132,7 +132,6 @@ static void lAPP_STORAGE_PIC32CXMT_Tasks(  void *pvParameters  )
     while(true)
     {
         APP_STORAGE_PIC32CXMT_Tasks();
-        vTaskDelay(60000U / portTICK_PERIOD_MS);
     }
 }
 
