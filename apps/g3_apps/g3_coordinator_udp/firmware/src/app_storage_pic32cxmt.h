@@ -34,6 +34,7 @@
 #include <stdlib.h>
 #include "configuration.h"
 #include "stack/g3/adaptation/adp.h"
+#include "osal/osal.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -79,6 +80,9 @@ extern "C" {
 
 typedef struct
 {
+    /* Semaphore identifier. Used to suspend task */
+    OSAL_SEM_DECLARE(semaphoreID);
+
     /* Current non-volatile data */
     ADP_NON_VOLATILE_DATA_IND_PARAMS nonVolatileData;
 
