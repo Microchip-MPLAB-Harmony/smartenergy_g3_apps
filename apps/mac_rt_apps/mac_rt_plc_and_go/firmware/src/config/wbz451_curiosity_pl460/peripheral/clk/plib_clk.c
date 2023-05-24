@@ -143,9 +143,9 @@ void CLK_Initialize( void )
     /* SPLLFLOCK    = 0x0    */
     /* SPLLRST      = 0x0      */    
     /* SPLLPOSTDIV1 = 1 */
-    /* SPLLPOSTDIV2 = 0x0 */    
+    /* SPLLPOSTDIV2 = 0x1 */    
     /* SPLL_BYP     = 0x3     */
-    CRU_REGS->CRU_SPLLCON = 0xc0000108U;
+    CRU_REGS->CRU_SPLLCON = 0xc0010108U;
 
 
     /* OSWEN    = SWITCH_COMPLETE    */
