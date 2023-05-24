@@ -57,7 +57,6 @@
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
-
 // *****************************************************************************
 
 /* PAL RF Network Parameters
@@ -152,11 +151,16 @@ typedef struct
 
     PHY_FrameInfo_t txFrame;
     PHY_CSMAMode_t csmaMode;
-    bool frameRetry;
+
     SYS_TIME_HANDLE txTimer;
     uint32_t txTimeIniCount;
     uint32_t txTimeIniCountCalc;
     uint32_t txTimeEndCount;
+
+    volatile bool txPending;
+    bool txCfmErrorPending;
+    PAL_RF_PHY_STATUS txCfmErrorStatus;
+    uint64_t txCfmErrorTime;
 
     uint8_t rxBuffer[LARGE_BUFFER_SIZE];
     uint8_t txBuffer[LARGE_BUFFER_SIZE];

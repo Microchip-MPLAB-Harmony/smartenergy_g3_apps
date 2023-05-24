@@ -1,4 +1,4 @@
-<config configName="wbz451_curiosity_pl460_freertos" projectName="wbz451_curiosity_pl460_freertos" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.0">
+<config configName="wbz451_curiosity_pl460_freertos" projectName="wbz451_curiosity_pl460_freertos" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.7">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -10584,7 +10584,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="pdsSystem" name="PDS_APPS_ITEM_IDS"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;pdsSystem&gt;
   &lt;pdsSystem dnOrder=&quot;0&quot; id=&quot;PDS_APPS_ITEM_IDS&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/pdsSystem&gt;
 &lt;/pdsSystem&gt;
 </value>
@@ -26420,7 +26422,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\adaptation\g3_lib_loadng.a</file>
-         <hash>543a8344799a73569afa696bb8d698a0a3b64fa9bfc33ea0c34bebaeb32b9859</hash>
+         <hash>a22fadd0d8a8b78c45747f2e2823338eda68bb2e9a21f0045e4d5a8d0af30dd2</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\sp_c32.c</file>
@@ -26488,7 +26490,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\pal\rf\pal_rf.c</file>
-         <hash>1b78080652e53443e5a9699bb60d7c898d18268997bf383f7f531cbc77fda784</hash>
+         <hash>f59832a36b8c133c11c81211edb923170938a92de6ab562168097bf321813599</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\library\tcpip\tcp.h</file>
@@ -26544,11 +26546,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\pal\rf\pal_rf_local.h</file>
-         <hash>589502538a758d8dea5992bf1bead47fc8e4427052b148730db29ea3c273ea60</hash>
+         <hash>ee48dce1ecf790cab4802eb4f2f50b26f4fc0331ed8819a22219ff8fc7d0cdd3</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\pal\rf\pal_rf.h</file>
-         <hash>0b17a5383a758295d4ac88555fb48e9dee8dda91cce8efb7fb17c2f0e6e57076</hash>
+         <hash>9661a8c07643fec7e2f8af38ef9fb7faf1e437328e0fef33cad5234573aba6af</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\mpu_armv7.h</file>
@@ -26684,7 +26686,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\mac\mac_plc\g3_lib_plc_mac.a</file>
-         <hash>6ef7b446fe62289de2f31985cad46708f95170f4dc3823799f577848c8527417</hash>
+         <hash>aceca8afdc004b5def60a0ebcac7b68e7f3f1c884acba19843de6cc55671e419</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\library\tcpip\src\lldp_manager.h</file>
@@ -26892,7 +26894,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\net\macg3adp\drv_mac_g3adp.h</file>
-         <hash>58570747d9ac77f17352646d1d84711d34a91e959d50273cf79f9cf8c184c68e</hash>
+         <hash>60d65ab62b582655071bd83542222140a73bed92cf1ffac69159c78da50b9e8c</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\pal\plc\pal_plc.c</file>
@@ -27016,7 +27018,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\net\macg3adp\src\drv_mac_g3adp.c</file>
-         <hash>dca42b31bf0aa3f382cb4fa4e8b032bdaf44ec346f0131a6b2af47a720892788</hash>
+         <hash>2128a47862255a28567de357d0d58be61325f3d43c395ed3500d275023d01e33</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\sercom0.h</file>
@@ -27044,7 +27046,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\initialization.c</file>
-         <hash>d97efb8cbdfd2fe152e50a69e9bc9b6c1e5d5e949a2c62deb3a60458af095f5c</hash>
+         <hash>49d8bf9bccd89328a65174c0fed549c4681065240f13b99ca11bfe2287e69ac1</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\osal\osal_freertos_extend.c</file>
@@ -27224,7 +27226,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\mac\mac_rf\g3_lib_rf_mac.a</file>
-         <hash>230aa6ca5eeabdffc25c6aec1353a687e8d8f8db23da8042d95c4af9212af511</hash>
+         <hash>8f1d4659d59d2b82a57da768f64d5e3771a510d37c70fa41622709b11a67b881</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\mac\mac_common\mac_common_defs.h</file>
@@ -27576,7 +27578,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\configuration.h</file>
-         <hash>10b52b1904030dd07855d995429ad248802091fe1e6d5ff655aec7f7d1b9d9ed</hash>
+         <hash>bbe07e09dc30a8680b4440980895d75150cdf73b6cb8463e7e88cbf2c1cc8cd4</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\projdefs.h</file>
@@ -27644,7 +27646,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\net\macg3adp\src\drv_mac_g3adp_local.h</file>
-         <hash>1263653a8865d81aeda8531e975a229d988c86a6e43678ecb3dcff878fb3ddfd</hash>
+         <hash>1e1355202883ec91a0f27081df708711c1904604f370925ae803cb8c4678d4f3</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\port\pic32\pic32mz-crypt.c</file>
@@ -27712,7 +27714,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\driver\pds\include\pds_config.h</file>
-         <hash>4dd76971c870952df136f770d84e19feadffb0a253c7cd83665df2a9672c4579</hash>
+         <hash>9b8789b6edc8185f687b3c80f0ce2c3dd1b643125ffaa1445edd4ae3868eed94</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\ge_operations.c</file>
@@ -28060,7 +28062,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\definitions.h</file>
-         <hash>903085b5851c9936bb742f5c254a63cf6c3f2ce1b70f1a914fefd5e3d962496e</hash>
+         <hash>00430cb2acf8e288a5dd55a71f0adb671349926529f0ec1091814e1a0c7a924c</hash>
       </entry>
       <entry>
          <file>..\src\app_udp_responder.h</file>
@@ -28112,7 +28114,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\tasks.c</file>
-         <hash>145f0214cb0660350d503d1c0b5bead2b776d7fa36bd5f5d0f3d9af8a4e58d9a</hash>
+         <hash>b118bfa27935d15d5fc45f52ce3f585c87b095b9e57bfefcd23b106b773cd19d</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_pukcl_functions.h</file>
@@ -28140,7 +28142,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\adaptation\g3_lib_adp.a</file>
-         <hash>075b02940663850a9c06b8cd87a3984f46dc8e0a5b486d6e524f2aaf67af905f</hash>
+         <hash>04071490810030b07b62344de9e090e8b86048da85aaed7c3338a8fdf89eca11</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\peripheral\sercom\spi_master\plib_sercom0_spi_master.c</file>

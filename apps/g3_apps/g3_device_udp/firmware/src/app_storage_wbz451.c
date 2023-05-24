@@ -82,16 +82,6 @@ void APP_STORAGE_PDSWriteCompleteCallback(PDS_MemId_t itemID)
 
 }
 
-bool APP_STORAGE_PDSUpdateMemoryCallback(PDS_UpdateMemory_t *memory)
-{
-    if (memory->id == APP_STORAGE_PDS_ITEM_1)
-    {
-        app_storage_wbz451Data.updateMemConfirm = true;
-    }
-
-    return true;
-}
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Local Functions
@@ -115,10 +105,7 @@ bool APP_STORAGE_PDSUpdateMemoryCallback(PDS_UpdateMemory_t *memory)
 
 void APP_STORAGE_WBZ451_Initialize ( void )
 {
-    bool res;
-
     PDS_RegisterWriteCompleteCallback(APP_STORAGE_PDSWriteCompleteCallback);
-    PDS_RegisterUpdateMemoryCallback(APP_STORAGE_PDSUpdateMemoryCallback);
 
     if (PDS_IsAbleToRestore(APP_STORAGE_PDS_ITEM_1))
     {
@@ -154,11 +141,7 @@ void APP_STORAGE_WBZ451_Initialize ( void )
         app_storage_wbz451Data.writeMemConfirm = false;
         app_storage_wbz451Data.updateMemConfirm = false;
         /* Store Data in NVM */
-         res = PDS_Store(APP_STORAGE_PDS_ITEM_1);
-        if (res)
-        {
-            randomValue = 0;
-        }
+        PDS_Store(APP_STORAGE_PDS_ITEM_1);
     }
 
     /* Create semaphore. It is used to suspend task. */

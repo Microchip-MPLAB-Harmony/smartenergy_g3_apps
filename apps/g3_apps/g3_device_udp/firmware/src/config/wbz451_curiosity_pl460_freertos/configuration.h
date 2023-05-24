@@ -125,7 +125,7 @@ extern "C" {
 #define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_RB2
 #define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_RA13
 #define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_RA14
-#define DRV_PLC_SPI_CLK                       8000000
+#define DRV_PLC_SPI_CLK                       1000000
 
 /* PLC MAC RT Driver RTOS Configuration Options */
 #define DRV_PLC_RTOS_STACK_SIZE               256
@@ -136,7 +136,12 @@ extern "C" {
 #define DRV_G3_MACRT_INSTANCES_NUMBER        1
 #define DRV_G3_MACRT_HOST_DESC               "WBZ451"
 /* PAL RF Configuration Options */
-#define PAL_RF_PHY_INDEX                     0
+#define PAL_RF_PHY_INDEX                      0
+
+/* PAL RF RTOS Configuration */
+#define PAL_RF_RTOS_STACK_SIZE                64
+#define PAL_RF_RTOS_TASK_PRIORITY             5
+
 
 
 // *****************************************************************************

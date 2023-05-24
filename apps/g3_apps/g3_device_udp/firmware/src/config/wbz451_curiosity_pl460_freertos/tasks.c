@@ -139,6 +139,15 @@ static void lAPP_STORAGE_WBZ451_Tasks(  void *pvParameters  )
     }
 }
 
+static void _PAL_RF_Tasks(  void *pvParameters  )
+{
+    while(true)
+    {
+        /* Maintain G3 PAL RF */
+        PAL_RF_Tasks();
+    }
+}
+
 
 
 
@@ -200,6 +209,15 @@ void SYS_Tasks ( void )
         (TaskHandle_t*)NULL
     );
 
+
+
+    xTaskCreate( _PAL_RF_Tasks,
+        "PAL_RF_TASKS",
+        PAL_RF_RTOS_STACK_SIZE,
+        (void*)NULL,
+        PAL_RF_RTOS_TASK_PRIORITY,
+        (TaskHandle_t*)NULL
+    );
 
 
 
