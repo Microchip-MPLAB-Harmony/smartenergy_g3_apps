@@ -48,9 +48,9 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-#define APP_PLC_SERIAL_DATA_BUFFER_SIZE (512 + 128)
 #define APP_PLC_DATA_BUFFER_SIZE        512
-#define APP_PLC_PIB_BUFFER_SIZE         256
+#define APP_PLC_SERIAL_DATA_BUFFER_SIZE (APP_PLC_DATA_BUFFER_SIZE + 128)
+#define APP_PLC_PIB_BUFFER_SIZE         (PROTOCOL_CARRIERS_MAX * 2)
 
 #define APP_PLC_LED_BLINK_RATE_MS       500
 #define APP_PLC_LED_BLINK_PLC_MSG_MS    100

@@ -70,10 +70,10 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-#define APP_SERIAL_DATA_BUFFER_SIZE   512
 #define APP_PLC_DATA_BUFFER_SIZE      512
-#define APP_PLC_PIB_BUFFER_SIZE       256
-    
+#define APP_SERIAL_DATA_BUFFER_SIZE   (APP_PLC_DATA_BUFFER_SIZE + 32)
+#define APP_PLC_PIB_BUFFER_SIZE       PROTOCOL_CARRIERS_MAX
+
 #define LED_BLINK_RATE_MS             500
 #define LED_BLINK_PLC_MSG_MS          100
     
@@ -130,11 +130,9 @@ typedef struct
     
     DRV_HANDLE drvPl360Handle;
     
-    SRV_USI_HANDLE srvUSIHandle;    
+    SRV_USI_HANDLE srvUSIHandle;
     
     uint8_t *pSerialData;
-    
-    DRV_PLC_PHY_RECEPTION_OBJ plcRxObj;
     
     DRV_PLC_PHY_PIB_OBJ plcPIB;
 
