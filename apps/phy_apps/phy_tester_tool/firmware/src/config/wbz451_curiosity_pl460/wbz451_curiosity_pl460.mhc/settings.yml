@@ -3,7 +3,7 @@ configName: wbz451_curiosity_pl460
 folderName: phy_tester_tool_wbz451_curiosity_pl460
 frameworkPath: C:\0_CHRIS\Proyectos\03_MCHP_Harmony_3\BitBucket
 processor: WBZ451
-projectName: phy_tester_tool_wbz451_curiosity_pl460
+projectName: g3_phy_tester_tool_wbz451_curiosity_pl460
 settings:
   PackageFilter: ''
   FORCE_OPTIMIZATION: 'false'
