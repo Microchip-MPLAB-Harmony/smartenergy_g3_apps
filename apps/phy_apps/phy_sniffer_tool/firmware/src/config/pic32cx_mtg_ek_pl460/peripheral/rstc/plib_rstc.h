@@ -114,8 +114,6 @@ RSTC_RESET_CAUSE RSTC_ResetCauseGet (void);
 
 bool RSTC_PMCResetStatusGet(void);
 
-void RSTC_CoProcessorEnable(bool enable);
-
 void RSTC_CoProcessorPeripheralEnable(bool enable);
 
 // DOM-IGNORE-BEGIN

@@ -65,14 +65,9 @@
 // *****************************************************************************
 // *****************************************************************************
 
-/* TODO: Make all defines MCC configurable */
-/* LBP_NUM_SLOTS defines the number of parallel bootstrap procedures that can be carried out */
-#define LBP_NUM_SLOTS 5
-#define BOOTSTRAP_MSG_MAX_RETRIES 1
-#define G3_COORDINATOR_PAN_ID                   0x781D
-#define MAX_LBDS                                500
-#define LBS_INVALID_SHORT_ADDRESS               0
-#define INITIAL_KEY_INDEX                       0
+#define LBP_NUM_SLOTS               5
+#define BOOTSTRAP_MSG_MAX_RETRIES   1
+#define INITIAL_KEY_INDEX           0
 
 // *****************************************************************************
 // *****************************************************************************
@@ -119,26 +114,44 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 
-static uint8_t sNsduHandle = 0;
-static uint8_t sMaxHops = 0;
-static uint16_t sMsgTimeoutSeconds = 300;
-static uint8_t sCurrKeyIndex = 0;
+/* Default value for Current GMK
+ * This parameter is intended to be set from Application through LBP_IB_GMK IB */
 static uint8_t sCurrGMK[16]  =
     {0xAF, 0x4D, 0x6D, 0xCC, 0xF1, 0x4D, 0xE7, 0xC1, 0xC4, 0x23, 0x5E, 0x6F, 0xEF, 0x6C, 0x15, 0x1F};
+
+/* Default value for Rekeying GMK
+ * This parameter is intended to be set from Application through LBP_IB_REKEY_GMK IB */
 static uint8_t sRekeyGMK[16] =
     {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16};
+
+/* Default value for PSK
+ * This parameter is intended to be set from Application through LBP_IB_PSK IB */
 static EAP_PSK_KEY sEapPskKey = {
     {0xAB, 0x10, 0x34, 0x11, 0x45, 0x11, 0x1B, 0xC3, 0xC1, 0x2D, 0xE8, 0xFF, 0x11, 0x14, 0x22, 0x04}
 };
+
+/* Default value for ID_S
+ * This parameter is intended to be set from Application through LBP_IB_IDS IB */
 static EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S sIdS;
+
+/* Default value for waiting an LBP response, in seconds
+ * This parameter is intended to be set from Application through LBP_IB_MSG_TIMEOUT IB */
+static uint16_t sMsgTimeoutSeconds = 300;
+
+static uint8_t sNsduHandle = 0;
+static uint8_t sMaxHops = 0;
+static uint8_t sCurrKeyIndex = 0;
+
 static const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S sIdSArib =
     {LBP_NETWORK_ACCESS_ID_SIZE_S_ARIB,
     {0x53, 0x4D, 0xAD, 0xB2, 0xC4, 0xD5, 0xE6, 0xFA, 0x53, 0x4D, 0xAD, 0xB2, 0xC4, 0xD5, 0xE6, 0xFA,
     0x53, 0x4D, 0xAD, 0xB2, 0xC4, 0xD5, 0xE6, 0xFA, 0x53, 0x4D, 0xAD, 0xB2, 0xC4, 0xD5, 0xE6, 0xFA,
     0x53, 0x4D}};
+
 static const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S sIdSCenFcc =
     {LBP_NETWORK_ACCESS_ID_SIZE_S_CENELEC_FCC,
     {0x81, 0x72, 0x63, 0x54, 0x45, 0x36, 0x27, 0x18}};
+
 static bool sAribBand;
 static uint8_t sEAPIdentifier = 0;
 static bool sRekey;

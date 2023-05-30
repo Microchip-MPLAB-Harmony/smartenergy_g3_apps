@@ -386,7 +386,7 @@ void DRV_PLC_BOOT_Tasks( void )
         sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_STARTINGUP;
         
         _DRV_PLC_BOOT_DisableBootCmd();
-        while(sDrvPlcHalObj->getPinLevel(sDrvPlcHalObj->plcPlib->extIntPin) == 0)
+        while(sDrvPlcHalObj->getPinLevel(sDrvPlcHalObj->plcPlib->extIntPio) == 0)
         {
             counter++;
             if (counter > 0x1FF)
@@ -398,7 +398,7 @@ void DRV_PLC_BOOT_Tasks( void )
     }
     else if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_STARTINGUP)
     {
-        if (sDrvPlcHalObj->getPinLevel(sDrvPlcHalObj->plcPlib->extIntPin) == 0)
+        if (sDrvPlcHalObj->getPinLevel(sDrvPlcHalObj->plcPlib->extIntPio) == 0)
         {
             sDrvPlcBootInfo.validationCounter = 50;
             sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_VALIDATING;

@@ -72,21 +72,18 @@ extern "C" {
 // *****************************************************************************
 
 
-#define DATA_CACHE_IS_ENABLED()                        CMCC_DataCacheIsEnabled()
-#define INSTRUCTION_CACHE_IS_ENABLED()                 CMCC_InstructionCacheIsEnabled()
+#define ICACHE_ENABLE()
+#define ICACHE_DISABLE()
+#define ICACHE_INVALIDATE()
 
-#define ICACHE_ENABLE()                                CMCC_EnableICache()
-#define ICACHE_DISABLE()                               CMCC_DisableICache()
-#define ICACHE_INVALIDATE()                            CMCC_InvalidateAll()
-
-#define DCACHE_ENABLE()                                CMCC_EnableDCache()         
-#define DCACHE_DISABLE()                               CMCC_DisableDCache()
-#define DCACHE_INVALIDATE()                            CMCC_InvalidateAll()
-#define DCACHE_CLEAN()                                 CMCC_InvalidateAll()
-#define DCACHE_CLEAN_INVALIDATE()                      CMCC_InvalidateAll()
-#define DCACHE_CLEAN_BY_ADDR(addr,sz)                  CMCC_InvalidateAll()
-#define DCACHE_INVALIDATE_BY_ADDR(addr,sz)             CMCC_InvalidateAll()
-#define DCACHE_CLEAN_INVALIDATE_BY_ADDR(addr,sz)       CMCC_InvalidateAll()
+#define DCACHE_ENABLE()
+#define DCACHE_DISABLE()
+#define DCACHE_INVALIDATE()
+#define DCACHE_CLEAN()
+#define DCACHE_CLEAN_INVALIDATE()
+#define DCACHE_CLEAN_BY_ADDR(addr,sz)
+#define DCACHE_INVALIDATE_BY_ADDR(addr,sz)
+#define DCACHE_CLEAN_INVALIDATE_BY_ADDR(addr,sz)
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

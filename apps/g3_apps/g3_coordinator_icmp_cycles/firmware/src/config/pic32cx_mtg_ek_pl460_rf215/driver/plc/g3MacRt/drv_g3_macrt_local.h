@@ -118,7 +118,7 @@ typedef struct
 
     /* PLC Initialization Confirm Callback */
     DRV_G3_MACRT_INIT_CALLBACK                initCallback;
-	
+    
     /* Application Bootloader Data Callback */
     DRV_PLC_BOOT_DATA_CALLBACK                bootDataCallback;
 

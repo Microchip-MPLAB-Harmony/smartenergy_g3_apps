@@ -98,9 +98,9 @@ static bool SYS_TIME_ResourceLock(void)
          * Additionally, disable the interrupt to prevent it from modifying the
          * shared resources asynchronously */
 
-        if(OSAL_MUTEX_Lock(&gSystemCounterObj.timerMutex, OSAL_WAIT_FOREVER) == OSAL_RESULT_TRUE)
+        if(OSAL_MUTEX_Lock(&gSystemCounterObj.timerMutex, OSAL_WAIT_FOREVER) == OSAL_RESULT_SUCCESS)
         {
-            (void) SYS_INT_SourceDisable(gSystemCounterObj.hwTimerIntNum);
+            gSystemCounterObj.hwTimerIntStatus = SYS_INT_SourceDisable(gSystemCounterObj.hwTimerIntNum);
             return true;
         }
         else
@@ -119,7 +119,7 @@ static bool SYS_TIME_ResourceLock(void)
 
 static void SYS_TIME_ResourceUnlock(void)
 {
-    SYS_INT_SourceEnable(gSystemCounterObj.hwTimerIntNum);
+    SYS_INT_SourceRestore(gSystemCounterObj.hwTimerIntNum, gSystemCounterObj.hwTimerIntStatus);
 
     if(gSystemCounterObj.interruptNestingCount == 0U)
     {
@@ -594,17 +594,20 @@ static SYS_TIME_HANDLE SYS_TIME_TimerObjectCreate(
     return tmrHandle;
 }
 
+/* MISRA C-2012 Rule 11.3 deviated:1 Deviation record ID -  H3_MISRAC_2012_R_11_3_DR_1 */
 static void SYS_TIME_CounterInit(SYS_MODULE_INIT* init)
 {
+    uint64_t numerator, numeratorRead;
     SYS_TIME_COUNTER_OBJ* counterObj = (SYS_TIME_COUNTER_OBJ *)&gSystemCounterObj;
     SYS_TIME_INIT* initData = (SYS_TIME_INIT *)init;
-    int32_t cpuCyclesPerTimerClock;
 
     counterObj->timePlib = initData->timePlib;
     counterObj->hwTimerFrequency = counterObj->timePlib->timerFrequencyGet();
 
-    cpuCyclesPerTimerClock=((uint32_t)SYS_TIME_CPU_CLOCK_FREQUENCY/counterObj->hwTimerFrequency);
-    counterObj->hwTimerCompareMargin=((uint32_t)SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES/(uint32_t)cpuCyclesPerTimerClock) + 2U;
+    /*num_timer_cnts = (execution_cycles * timer_freq)/cpu_freq*/
+    numerator = ((uint64_t)SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES * counterObj->hwTimerFrequency);
+    numeratorRead = (numerator/(uint64_t)SYS_TIME_CPU_CLOCK_FREQUENCY) + 2U;
+    counterObj->hwTimerCompareMargin = (uint32_t)numeratorRead;
 
     counterObj->hwTimerIntNum = initData->hwTimerIntNum;
     counterObj->hwTimerPreviousValue = 0;
@@ -623,12 +626,16 @@ static void SYS_TIME_CounterInit(SYS_MODULE_INIT* init)
     counterObj->timePlib->timerCompareSet(counterObj->hwTimerCompareValue);
     counterObj->timePlib->timerStart();
 }
+/* MISRAC 2012 deviation block end */
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: System Interface Functions
 // *****************************************************************************
 // *****************************************************************************
+
+/* MISRA C-2012 Rule 11.8 deviated:1 Deviation record ID -  H3_MISRAC_2012_R_11_8_DR_1 */
+
 SYS_MODULE_OBJ SYS_TIME_Initialize( const SYS_MODULE_INDEX index, const SYS_MODULE_INIT * const init )
 {
     if(init == NULL || index != (uint32_t)SYS_TIME_INDEX_0)
@@ -636,7 +643,7 @@ SYS_MODULE_OBJ SYS_TIME_Initialize( const SYS_MODULE_INDEX index, const SYS_MODU
         return SYS_MODULE_OBJ_INVALID;
     }
     /* Create mutex to guard from multiple contesting threads */
-    if(OSAL_MUTEX_Create(&gSystemCounterObj.timerMutex) != OSAL_RESULT_TRUE)
+    if(OSAL_MUTEX_Create(&gSystemCounterObj.timerMutex) != OSAL_RESULT_SUCCESS)
     {
         return SYS_MODULE_OBJ_INVALID;
     }
@@ -648,6 +655,8 @@ SYS_MODULE_OBJ SYS_TIME_Initialize( const SYS_MODULE_INDEX index, const SYS_MODU
 
     return (SYS_MODULE_OBJ)&gSystemCounterObj;
 }
+
+/* MISRAC 2012 deviation block end */
 
 void SYS_TIME_Deinitialize ( SYS_MODULE_OBJ object )
 {

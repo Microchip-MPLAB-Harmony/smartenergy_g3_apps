@@ -90,9 +90,8 @@ void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
     /* Clear StandBy pin */
     SYS_PORT_PinClear(sPlcPlib->stByPin);
 
-
     /* Disable External Interrupt */
-    PIO_PinInterruptDisable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
+    PIO_PinInterruptDisable((PIO_PIN)sPlcPlib->extIntPin);
     /* Enable External Interrupt Source */
     SYS_INT_SourceEnable(DRV_PLC_EXT_INT_SRC);
 }
@@ -143,13 +142,16 @@ void DRV_PLC_HAL_Reset(void)
 
 void DRV_PLC_HAL_SetStandBy(bool enable)
 {
-    if (enable) {
+    if (enable) 
+    {
         /* Enable Reset pin */
         SYS_PORT_PinClear(sPlcPlib->resetPin);
 
         /* Enable Stby Pin */
         SYS_PORT_PinSet(sPlcPlib->stByPin);
-    } else {
+    } 
+    else 
+    {
         /* Disable Stby Pin */
         SYS_PORT_PinClear(sPlcPlib->stByPin);
 
@@ -163,19 +165,25 @@ void DRV_PLC_HAL_SetStandBy(bool enable)
 
 bool DRV_PLC_HAL_GetThermalMonitor(void)
 {
-    if (SYS_PORT_PinRead(sPlcPlib->thMonPin)) {
+    if (SYS_PORT_PinRead(sPlcPlib->thMonPin)) 
+    {
         return false;
-    } else {
+    } 
+    else 
+    {
         return true;
     }
 }
 
 void DRV_PLC_HAL_SetTxEnable(bool enable)
 {
-    if (enable) {
+    if (enable) 
+    {
         /* Set TX Enable Pin */
         SYS_PORT_PinSet(sPlcPlib->txEnablePin);
-    } else {
+    } 
+    else 
+    {
         /* Clear TX Enable Pin */
         SYS_PORT_PinClear(sPlcPlib->txEnablePin);
     }
@@ -197,11 +205,11 @@ void DRV_PLC_HAL_EnableInterrupts(bool enable)
     if (enable)
     {
         SYS_INT_SourceStatusClear(DRV_PLC_EXT_INT_SRC);
-        PIO_PinInterruptEnable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
+        PIO_PinInterruptEnable((PIO_PIN)sPlcPlib->extIntPin);
     }
     else
     {
-        PIO_PinInterruptDisable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
+        PIO_PinInterruptDisable((PIO_PIN)sPlcPlib->extIntPin);
     }
 }
 
@@ -231,10 +239,12 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
             dataLength = HAL_SPI_BUFFER_SIZE - 6;
         }
         
-        if (pDataWr) {
+        if (pDataWr) 
+        {
             memcpy(pTxData, pDataWr, dataLength);
         }
-        else{
+        else
+        {
             /* Insert dummy data */
             memset(pTxData, 0, dataLength);
         }

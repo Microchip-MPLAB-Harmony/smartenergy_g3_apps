@@ -89,7 +89,7 @@ void _DRV_USBHSV1_Tasks(  void *pvParameters  )
     }
 }
 
-void _SYS_CONSOLE_0_Tasks(  void *pvParameters  )
+void lSYS_CONSOLE_0_Tasks(  void *pvParameters  )
 {
     while(1)
     {
@@ -141,7 +141,7 @@ static void lAPP_CONSOLE_Tasks(  void *pvParameters  )
 void SYS_Tasks ( void )
 {
     /* Maintain system services */
-        xTaskCreate( _SYS_CONSOLE_0_Tasks,
+        xTaskCreate( lSYS_CONSOLE_0_Tasks,
         "SYS_CONSOLE_0_TASKS",
         SYS_CONSOLE_RTOS_STACK_SIZE_IDX0,
         (void*)NULL,

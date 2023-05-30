@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>phy_tester_tool_wbz451_curiosity_pl460</name>
+            <name>g3_phy_tester_tool_wbz451_curiosity_pl460</name>
             <creation-uuid>ef49ee78-cb3b-4613-a66c-b8ad9669fd3d</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

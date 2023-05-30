@@ -25983,7 +25983,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="tcpipIPv6" name="TCPIP_IPV6_HEAP_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipIPv6&gt;
   &lt;tcpipIPv6 dnOrder=&quot;0&quot; id=&quot;TCPIP_IPV6_HEAP_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tcpipIPv6&quot; value=&quot;1024&quot;/&gt;
     &lt;/Values&gt;
   &lt;/tcpipIPv6&gt;
@@ -27497,9 +27502,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="tcpipStack" name="TCPIP_STACK_HEAP_CALC_MASK"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipStack&gt;
   &lt;tcpipStack dnOrder=&quot;0&quot; id=&quot;TCPIP_STACK_HEAP_CALC_MASK&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/tcpipStack&gt;
 &lt;/tcpipStack&gt;
 </value>
@@ -27667,7 +27670,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="tcpipStack" name="TCPIP_STACK_MALLOC_FUNC"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipStack&gt;
   &lt;tcpipStack dnOrder=&quot;0&quot; id=&quot;TCPIP_STACK_MALLOC_FUNC&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;malloc&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/tcpipStack&gt;
 &lt;/tcpipStack&gt;
 </value>
@@ -28100,7 +28105,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\library\tcpip\src\tcpip_manager.c</file>
-         <hash>80bc8ca229f2a33c860dd5ba209857cd48ca8b17803097e9f2d121877ca72ecc</hash>
+         <hash>d561aa59f49eae4a4c66989e51964ba5287d460d964ae16eb7b256a74cc7d4c3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\peripheral\dwdt\plib_dwdt.h</file>
@@ -28344,11 +28349,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\driver\plc\g3MacRt\drv_g3_macrt_local_comm.h</file>
-         <hash>0d632d2e1e212b945b9b9c33078117c3b00a56403a2bdcb300b367811da4a974</hash>
+         <hash>c50cc4a879a9e9da2d1935b931282b9fbb82e8b2409e8ef4e22de6e7c68ec2af</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\driver\plc\g3MacRt\drv_g3_macrt_local_comm.c</file>
-         <hash>d751a1bac3902e8ced29e41b7bbd7014c260b0027e40de599788910221ba8202</hash>
+         <hash>fcbd8937903bb4f889921256d73415064c3783d66d9ad9cd41979d8ead5f5c6c</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\wc_port.c</file>
@@ -28400,7 +28405,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\driver\plc\g3MacRt\drv_g3_macrt.c</file>
-         <hash>e1a83e24d81e82cca304308895c38e75cadadaa21ab91d8f4b885e4f7e2a2c63</hash>
+         <hash>907a39b9d7c91f93942b5a91fa6c750f855f706f3e75bfb9ba66c60e5bfbace9</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\peripheral\trng\plib_trng.h</file>
@@ -28432,7 +28437,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\bsp\bsp.h</file>
-         <hash>d5602c10e31c82352e92eaa489d765c4e10bbf3f2b4cc94558a99b47e042e0fc</hash>
+         <hash>11ee62e7b23268746e221707bafd3bdc0faddf9df8e94e287921a251200e7404</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\sha3.c</file>
@@ -28468,7 +28473,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\driver\plc\common\drv_plc_hal.h</file>
-         <hash>1fc1ab1d31b9bc284fee6a920755f52182f17b0bbe9edfdf59f2489abf843c67</hash>
+         <hash>ce5ba252a4435f31b924c865310f6574cffea2afb6a7849d32e0d8eb72753bab</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\peripheral\adc\plib_adc_common.h</file>
@@ -28520,7 +28525,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\driver\plc\common\drv_plc_hal.c</file>
-         <hash>65bcd836267f4d7fc9305c27eefddad72de8a8ba58485e2b4e6aa087fe5d9cdd</hash>
+         <hash>b63a8d3c144676efa52cbeb14e3935f900a4b5df8e0c2d545d546f4f6e1d2a8e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\library\tcpip\src\snmpv3_private.h</file>
@@ -28704,7 +28709,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\stack\g3\adaptation\g3_lib_adp.a</file>
-         <hash>caee59a41bcc6b858ca55325b33b7cbdb1904c217b96e71552fb5d261d8b746f</hash>
+         <hash>50fd845e1ab42ec4e1171878a1f2f67ac2fe0ef4fb737c99c984fcf388d7d55f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\interrupts.c</file>
@@ -28888,7 +28893,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\configuration.h</file>
-         <hash>6734b2a68deb3a3769fcfe08559eac22e7c01b0a082039139d92648a4f4feaed</hash>
+         <hash>59ccd84214afa361fc7d2cd45f87fdcdcf6c15cc35c956221cd2282f45c78462</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\pio\pic32cx2051mtg128.h</file>
@@ -29172,7 +29177,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\stack\g3\mac\mac_wrapper\mac_wrapper.h</file>
-         <hash>802d8ea6f628e586d5c92ad68d750ff64e3c49cc2507f1c3d64c1bdbe5d5e697</hash>
+         <hash>8001b673bc90fc3ddd340d0abe6184274177b71984dfafd20e4f5278f356b66a</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\mem2mem0.h</file>
@@ -29200,11 +29205,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\stack\g3\mac\mac_rf\g3_lib_rf_mac.a</file>
-         <hash>9e8a48cd3105b9b84f2e674a5089b3be2ee64263d3a343cb0535118a128461c2</hash>
+         <hash>3c1e30a76972756f4329d5bc917c7414a4a62857316cad52f0808f8e94b650c1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\stack\g3\mac\mac_wrapper\mac_wrapper.c</file>
-         <hash>67d391ba455882e0cc73f144e243bb1bb019d86a893275b9d112f04681721437</hash>
+         <hash>fbb20124f6e5808a9f2295ac70cd13a6342db700ca7cd15bee7794161e44139f</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\gpbr.h</file>
@@ -29264,7 +29269,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\driver\rf215\drv_rf215_definitions.h</file>
-         <hash>29b8d476ed5d84f625cab8bd2d7578c4944133248f2cd94f0d1c505cf66f43c9</hash>
+         <hash>a72473318ed14f2a95426ae55597750869d01b776c1a5ef487f602c56b4f63b6</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_sha512_hw.h</file>
@@ -29296,7 +29301,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\library\tcpip\src\common\sys_fs_shell.h</file>
-         <hash>bacdc9c802c7ec4f22b52367f13c3f7b7209078df3de74a24f428b6018eb3c27</hash>
+         <hash>f7a74e6dd9bd24b6eb45adf2000e7d7c04f6595c638759b6a810d90fba9e82a5</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\certs_test.h</file>
@@ -29368,7 +29373,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\stack\g3\mac\mac_plc\g3_lib_plc_mac.a</file>
-         <hash>bddb8e87415261820ad07143fd1e78003e5a1b31e3f972253667837c19f14e02</hash>
+         <hash>1c7fc996d022f1ab5b89ebcd7c62f4cec79b68d5ca04b4fcb94edd785d1ec451</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\task.h</file>
@@ -29680,7 +29685,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\library\tcpip\tcpip.h</file>
-         <hash>832d56786b8b2ca927cf9d2dbff264911bf8802e7eac9bb326f79534aa3711f6</hash>
+         <hash>3657bbceb9ebe3da4c7139521bce64a8d6f4f062f62e2d0b4e96e93569edb06a</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\kdf.c</file>
@@ -30020,7 +30025,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\stack\g3\mac\mac_common\mac_common.h</file>
-         <hash>6cbe96c9c110fb689f93a7bfb1cae2aab97b8e384d0eb7f788704fc076227c4e</hash>
+         <hash>89747d6a2c7d3ecaadb89ed3ce1fe8c48f93a51ff5d2ee69a7d29020a4988fbf</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cachel1_armv7.h</file>
@@ -30036,7 +30041,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\stack\g3\mac\mac_common\mac_common.c</file>
-         <hash>a8cd922f322e464e4fbfd84287ec2846069753c4f4a54d4592c8ba019a8ea082</hash>
+         <hash>654a0073eda98513c799814b09fa84480b3e42770ea7a7a54352bbe03c7f810a</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\ecc_fp.c</file>
@@ -30244,7 +30249,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\service\security\aes_wrapper.c</file>
-         <hash>0bd2b1f00ba3ac9bd76da3181eff0838cb1bfe1e621836f981b95b20a2c9c08b</hash>
+         <hash>e59fa25711a11c4fda4a359310d0ab94a185c2e7586d08c76fa404d7120d07ac</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\srp.c</file>
@@ -30252,7 +30257,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\service\security\aes_wrapper.h</file>
-         <hash>ac1e0ef74ce4391e569c067a2d1c2d00ad4d0fefab36926bd5299a09e507c27a</hash>
+         <hash>fd39c86c205887848764c1eda126c19f7322fa6c0d454f6fe929f778ee2d3fe3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\library\tcpip\tcpip_manager.h</file>
@@ -30332,7 +30337,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\driver\plc\common\drv_plc_boot.c</file>
-         <hash>3a07cdf4f366182e3f0a16faf60a939c6dc88fde00bdd23b96d3764739985295</hash>
+         <hash>d776492cff6419873df1d6c35bd627d1ac964565f93c6ee366051b632aa92824</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\system\ports\sys_ports.h</file>
@@ -30380,7 +30385,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\service\security\cipher_wrapper.c</file>
-         <hash>ab5b41c25d1218efb413cc044e6a10b2562247af208d6459f407c97f27991970</hash>
+         <hash>35d9e2c45122ed1cf539cd9a24c384cb4ea5ecdb3669df707e33675f0403eae4</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\dh.h</file>
@@ -30452,7 +30457,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\driver\plc\g3MacRt\drv_g3_macrt_local.h</file>
-         <hash>f0121dde4db579ae8fb0d80e57fcf1a4d899e7583e276799b04defb3369ed22d</hash>
+         <hash>618d1a50060a23125594e2e1d7277ebcb8adc7f5dbc2c29979b967bfa8b2b0b1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\library\tcpip\src\snmp_manager.h</file>
@@ -30476,7 +30481,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\initialization.c</file>
-         <hash>1e1ab9834d8aac520abbdc935760fc1bc426a419a533f6c1e9d2139b52c185a7</hash>
+         <hash>c2fa7c2751f780c4d3308a725f72a8a9b0c515be3310cd3aaf707c38875356a5</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\aes.h</file>
@@ -30504,7 +30509,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\service\security\cipher_wrapper.h</file>
-         <hash>514932077d078470b747cabe72ab2217e2b0b0b9e37e08043b095e29a9544932</hash>
+         <hash>99b4eaeff9a306cf35501e93da3f7e63ee41af782b096790a90efcfa12593b0d</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\dwdt.h</file>

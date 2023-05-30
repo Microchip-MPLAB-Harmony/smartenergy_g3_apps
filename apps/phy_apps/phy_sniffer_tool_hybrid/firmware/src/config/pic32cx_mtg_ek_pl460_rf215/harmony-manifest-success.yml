@@ -4,7 +4,7 @@
 
 
 project: phy_sniffer_tool_hybrid
-creation_date: 2023-05-19T12:42:26.350+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2023-06-01T09:56:47.331+02:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.3.0
@@ -14,9 +14,9 @@ harmony_version: v1.2.0
 compiler: XC32 (v4.21) 
 
 modules:
-    - {name: "csp", version: "v3.17.0-rc.1"}
-    - {name: "core", version: "v3.13.0-rc.1"}
+    - {name: "csp", version: "v3.17.0"}
+    - {name: "core", version: "v3.13.0"}
     - {name: "dev_packs", version: "v3.16.0"}
-    - {name: "bsp", version: "v3.15.0"}
+    - {name: "bsp", version: "v3.16.0"}
     - {name: "smartenergy", version: "unknown"}
 

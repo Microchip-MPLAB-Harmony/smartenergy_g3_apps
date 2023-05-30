@@ -48,7 +48,6 @@
 #include "device.h"
 
 
-
 // ****************************************************************************
 // ****************************************************************************
 // Section: Configuration Bits
@@ -159,6 +158,10 @@
 // Section: Driver Initialization Data
 // *****************************************************************************
 // *****************************************************************************
+/* Following MISRA-C rules are deviated in the below code block */
+/* MISRA C-2012 Rule 11.1 */
+/* MISRA C-2012 Rule 11.3 */
+/* MISRA C-2012 Rule 11.8 */
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -171,32 +174,35 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     .dmaChannelTx = SYS_DMA_CHANNEL_1,
 
     /* DMA Channel for Receive */
-    .dmaChannelRx  = SYS_DMA_CHANNEL_0,
+    .dmaChannelRx = SYS_DMA_CHANNEL_0,
 
     /* SPI Transmit Register */
-    .spiAddressTx =  (void *)&(SERCOM0_REGS->SPIM.SERCOM_DATA),
+    .spiAddressTx = (void *)&(SERCOM0_REGS->SPIM.SERCOM_DATA),
 
     /* SPI Receive Register */
     .spiAddressRx  = (void *)&(SERCOM0_REGS->SPIM.SERCOM_DATA),
 
     /* SPI Chip select pin */
     .spiCSPin = DRV_PLC_SPI_CS_PIN,
-    
+
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-    
+
     /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN, 
-    
+    .ldoPin = DRV_PLC_LDO_EN_PIN,
+
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
-       
+
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
 
+    /* PLC External Interrupt Pio */
+    .extIntPio = DRV_PLC_EXT_INT_PIO,
+
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
-    
+
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -216,9 +222,12 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC Set TX Enable Pin */
     .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
+
+    /* PLC HAL Enable/Disable external interrupt */
+    .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
 
     /* PLC HAL delay function */
     .delay = (DRV_PLC_HAL_DELAY)DRV_PLC_HAL_Delay,
@@ -246,20 +255,20 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
     .plcHal = &drvPLCHalAPI,
 
     /* PLC PHY Number of clients */
-    .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,  
+    .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,
 
     /* PLC PHY profile */
     .plcProfile = DRV_PLC_PHY_PROFILE,
- 
+
     /* PLC Binary start address */
     .binStartAddress = (uint32_t)&plc_phy_bin_start,
-    
+
     /* PLC Binary end address */
     .binEndAddress = (uint32_t)&plc_phy_bin_end,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
-    
+
 };
 
 // </editor-fold>
@@ -298,6 +307,7 @@ const SRV_USI_INIT srvUSI0Init =
 // </editor-fold>
 
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: System Data
@@ -320,7 +330,7 @@ SYSTEM_OBJECTS sysObj;
 // *****************************************************************************
 // <editor-fold defaultstate="collapsed" desc="SYS_TIME Initialization Data">
 
-const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
+static const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
     .timerCallbackSet = (SYS_TIME_PLIB_CALLBACK_REGISTER)TC0_TimerCallbackRegister,
     .timerStart = (SYS_TIME_PLIB_START)TC0_TimerStart,
     .timerStop = (SYS_TIME_PLIB_STOP)TC0_TimerStop,
@@ -330,7 +340,7 @@ const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
     .timerCounterGet = (SYS_TIME_PLIB_COUNTER_GET)TC0_Timer16bitCounterGet,
 };
 
-const SYS_TIME_INIT sysTimeInitData =
+static const SYS_TIME_INIT sysTimeInitData =
 {
     .timePlib = &sysTimePlibAPI,
     .hwTimerIntNum = TC0_IRQn,
@@ -346,7 +356,7 @@ const SYS_TIME_INIT sysTimeInitData =
 // *****************************************************************************
 // *****************************************************************************
 
-
+/* MISRAC 2012 deviation block end */
 
 /*******************************************************************************
   Function:
@@ -360,10 +370,11 @@ const SYS_TIME_INIT sysTimeInitData =
 
 void SYS_Initialize ( void* data )
 {
+
     /* MISRAC 2012 deviation block start */
     /* MISRA C-2012 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2012_R_2_2_DR_1 */
 
-  
+
     CLK_Initialize();
     /* Configure Prefetch, Wait States */
     PCHE_REGS->PCHE_CHECON = (PCHE_REGS->PCHE_CHECON & (~(PCHE_CHECON_PFMWS_Msk | PCHE_CHECON_ADRWS_Msk | PCHE_CHECON_PREFEN_Msk)))
@@ -375,9 +386,9 @@ void SYS_Initialize ( void* data )
 
     SERCOM1_USART_Initialize();
 
-    SERCOM0_SPI_Initialize();
-
     EVSYS_Initialize();
+
+    SERCOM0_SPI_Initialize();
 
     DMAC_Initialize();
 
@@ -387,6 +398,12 @@ void SYS_Initialize ( void* data )
 
 	BSP_Initialize();
 
+
+    /* MISRAC 2012 deviation block start */
+    /* Following MISRA-C rules deviated in this block  */
+    /* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    /* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+
     /* Initialize PLC Phy Driver Instance */
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
     EIC_CallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
@@ -394,17 +411,23 @@ void SYS_Initialize ( void* data )
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
+    H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
+
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
 
+    /* MISRAC 2012 deviation block end */
 
+
+    /* MISRAC 2012 deviation block end */
     APP_WBZ451_Initialize();
 
 
     NVIC_Initialize();
 
+
     /* MISRAC 2012 deviation block end */
 }
-
 
 /*******************************************************************************
  End of File

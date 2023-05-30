@@ -86,7 +86,7 @@ extern "C" {
 #define SYS_TIME_HW_COUNTER_PERIOD                  (0xFFFFU)
 #define SYS_TIME_HW_COUNTER_HALF_PERIOD             (SYS_TIME_HW_COUNTER_PERIOD>>1)
 #define SYS_TIME_CPU_CLOCK_FREQUENCY                (64000000)
-#define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (188)
+#define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (232)
 
 
 
@@ -104,17 +104,17 @@ extern "C" {
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_SPI_CS_PIN                    SYS_PORT_PIN_RA9
 #define DRV_PLC_EXT_INT_SRC                   EIC_IRQn
+#define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_RA2
 #define DRV_PLC_EXT_INT_PIN                   EIC_PIN_0
 #define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_RB2
 #define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_RA13
 #define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_RA14
-
 #define DRV_PLC_SPI_CLK                       8000000
+
+/* PLC Driver Identification */
 #define DRV_PLC_PHY_INSTANCES_NUMBER          1
 #define DRV_PLC_PHY_INDEX                     0
 #define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1
-
-/* PLC Driver Identification */
 #define DRV_PLC_PHY_PROFILE                   2
 #define DRV_PLC_PHY_NUM_CARRIERS              NUM_CARRIERS_FCC
 #define DRV_PLC_PHY_HOST_PRODUCT              0x3601

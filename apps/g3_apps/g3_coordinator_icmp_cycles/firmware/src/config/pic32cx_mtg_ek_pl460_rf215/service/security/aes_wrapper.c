@@ -45,7 +45,6 @@
 
 #include <string.h>
 #include <stdbool.h>
-#include <stdint.h>
 #include "definitions.h"
 #include "aes_wrapper.h"
 
@@ -62,11 +61,11 @@ static uint8_t sKey[256];
 static uint16_t sKeyLen;
 
 /* AES context used in this wrapper */
-CRYPT_AES_CTX sAesCtx;
+static CRYPT_AES_CTX sAesCtx;
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: File scope functions
+// Section: Service Interface Functions
 // *****************************************************************************
 // *****************************************************************************
 
@@ -80,7 +79,7 @@ void AES_Wrapper_ContextFree(void)
     memset(&sAesCtx, 0, sizeof(sAesCtx));
 }
 
-void AES_Wrapper_Encrypt(const unsigned char *in, unsigned char *out)
+void AES_Wrapper_Encrypt(const uint8_t *in, uint8_t *out)
 {
     /* Set the AES key */
     CRYPT_AES_KeySet(&sAesCtx, sKey, sKeyLen, NULL, CRYPT_AES_ENCRYPTION);
@@ -89,7 +88,7 @@ void AES_Wrapper_Encrypt(const unsigned char *in, unsigned char *out)
     CRYPT_AES_DIRECT_Encrypt(&sAesCtx, out, in);
 }
 
-void AES_Wrapper_Decrypt(const unsigned char *in, unsigned char *out)
+void AES_Wrapper_Decrypt(const uint8_t *in, uint8_t *out)
 {
     /* Set the AES key */
     CRYPT_AES_KeySet(&sAesCtx, sKey, sKeyLen, NULL, CRYPT_AES_DECRYPTION);
@@ -98,7 +97,7 @@ void AES_Wrapper_Decrypt(const unsigned char *in, unsigned char *out)
     CRYPT_AES_DIRECT_Decrypt(&sAesCtx, out, in);
 }
 
-void AES_Wrapper_KeySet(const unsigned char *key, unsigned int keyLen)
+void AES_Wrapper_KeySet(const uint8_t *key, uint32_t keyLen)
 {
     /* Store the key */
     memcpy(sKey, key, keyLen);
@@ -107,12 +106,12 @@ void AES_Wrapper_KeySet(const unsigned char *key, unsigned int keyLen)
     sKeyLen = keyLen;
 }
 
-void AES_Wrapper_SetEncryptKey(const unsigned char *key, unsigned int keyLen)
+void AES_Wrapper_SetEncryptKey(const uint8_t *key, uint32_t keyLen)
 {
     CRYPT_AES_KeySet(&sAesCtx, key, keyLen, NULL, CRYPT_AES_ENCRYPTION);
 }
 
-void AES_Wrapper_EncryptEcb(const unsigned char *in, unsigned char *out)
+void AES_Wrapper_EncryptEcb(const uint8_t *in, uint8_t *out)
 {
     CRYPT_AES_DIRECT_Encrypt(&sAesCtx, out, in);
 }

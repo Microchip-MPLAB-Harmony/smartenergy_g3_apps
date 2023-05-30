@@ -184,9 +184,11 @@ void SRV_PSERIAL_ParseTxMessage(DRV_PLC_PHY_TRANSMISSION_OBJ* pDataDst, uint8_t*
     pDataDst->dataLength = ((uint16_t)*pDataSrc++) << 8;
     pDataDst->dataLength += (uint16_t)*pDataSrc++;
 
-    /* copy data */
-    memcpy(pDataDst->pTransmitData, pDataSrc, pDataDst->dataLength);
-    
+    if (pDataDst->dataLength <= PSERIAL_MAX_DATA_LEN)
+    {
+        /* copy data */
+        memcpy(pDataDst->pTransmitData, pDataSrc, pDataDst->dataLength);
+    }
 }
 
 size_t SRV_PSERIAL_SerialRxMessage(uint8_t* pDataDst, DRV_PLC_PHY_RECEPTION_OBJ* pDataSrc)

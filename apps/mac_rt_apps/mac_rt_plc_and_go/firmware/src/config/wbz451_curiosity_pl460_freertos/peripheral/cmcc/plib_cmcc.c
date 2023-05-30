@@ -38,7 +38,6 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
-#include <stdbool.h>
 #include "device.h"
 #include "peripheral/cmcc/plib_cmcc.h"
 #include "interrupts.h"
@@ -107,24 +106,3 @@ void CMCC_InvalidateAll (void )
     CMCC_REGS->CMCC_MAINT0 = CMCC_MAINT0_INVALL_Msk;
 }
 
-bool CMCC_DataCacheIsEnabled ( void )
-{
-    if ((CMCC_REGS->CMCC_SR & CMCC_SR_CSTS_Msk) & 
-       ((CMCC_REGS->CMCC_CFG & CMCC_CFG_DCDIS_Msk) == 0))
-    {
-        return true;
-    }
-    
-    return false;
-}
-
-bool CMCC_InstructionCacheIsEnabled ( void )
-{
-    if ((CMCC_REGS->CMCC_SR & CMCC_SR_CSTS_Msk) & 
-       ((CMCC_REGS->CMCC_CFG & CMCC_CFG_ICDIS_Msk) == 0))
-    {
-        return true;
-    }
-    
-    return false;
-}

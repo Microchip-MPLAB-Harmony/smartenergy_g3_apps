@@ -133,6 +133,7 @@
           <itemPath>../src/config/pic32cx_mtg_ek_pl460/toolchain_specifics.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460/device_vectors.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460/device_cache.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460/sys_tasks.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">

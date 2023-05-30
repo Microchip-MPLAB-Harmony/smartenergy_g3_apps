@@ -55,7 +55,9 @@
 
 /* Time control variables */
 static uint64_t previousCounter64 = 0;
+static uint32_t auxMsCounter = 0;
 static uint32_t currentMsCounter = 0;
+static uint32_t currentSecondCounter = 0;
 
 MAC_COMMON_MIB macMibCommon;
 
@@ -407,12 +409,31 @@ uint32_t MAC_COMMON_GetMsCounter(void)
     /* Update previous counter for next computation */
     previousCounter64 += SYS_TIME_MSToCount(elapsedMs);
 
+    /* Check whether seconds counter has to be updated */
+    if ((currentMsCounter - auxMsCounter) > 1000)
+    {
+        /* Assume no more than one second passed */
+        /* This function is called every few program loops */
+        currentSecondCounter++;
+        auxMsCounter += 1000;
+    }
+
     return currentMsCounter;
 }
 
 bool MAC_COMMON_TimeIsPast(int32_t timeValue)
 {
     return (((int32_t)(MAC_COMMON_GetMsCounter()) - timeValue) > 0);
+}
+
+uint32_t MAC_COMMON_GetSecondsCounter(void)
+{
+    return currentSecondCounter;
+}
+
+bool MAC_COMMON_TimeIsPastSeconds(int32_t timeValue)
+{
+    return (((int32_t)currentSecondCounter - timeValue) > 0);
 }
 
 /*******************************************************************************

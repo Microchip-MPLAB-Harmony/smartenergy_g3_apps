@@ -88,12 +88,12 @@ extern "C" {
 #define SYS_TIME_CPU_CLOCK_FREQUENCY                (300000000)
 #define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (900)
 
-#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			1
-#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			0
-#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		1
-#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		512
+#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
+#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(0U)
+#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(1U)
+#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(512U)
 
-#define SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE 	64
+#define SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE 	(64)
 
 #define SYS_CONSOLE_INDEX_0                       0
 
@@ -115,6 +115,7 @@ extern "C" {
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_D
 #define DRV_PLC_EXT_INT_SRC                   PIOD_IRQn
+#define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PD28
 #define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PD28
 #define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PA0
 #define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PC30
@@ -122,13 +123,12 @@ extern "C" {
 #define DRV_PLC_STBY_PIN                      SYS_PORT_PIN_PA3
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PC17
 #define DRV_PLC_CSR_INDEX                     1
-
 #define DRV_PLC_SPI_CLK                       8000000
+
+/* PLC Driver Identification */
 #define DRV_PLC_PHY_INSTANCES_NUMBER          1
 #define DRV_PLC_PHY_INDEX                     0
 #define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1
-
-/* PLC Driver Identification */
 #define DRV_PLC_PHY_PROFILE                   2
 #define DRV_PLC_PHY_NUM_CARRIERS              NUM_CARRIERS_FCC
 #define DRV_PLC_PHY_HOST_PRODUCT              0x3601

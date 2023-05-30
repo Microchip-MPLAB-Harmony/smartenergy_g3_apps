@@ -192,7 +192,7 @@ void MAC_COMMON_Init(void);
         //...
 
         MAC_COMMON_Reset();
-        
+
         // Reset other modules
         //...
     }
@@ -311,11 +311,11 @@ MAC_STATUS MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
     )
 
   Summary:
-    The MAC_COMMON_GetMsCounter primitive gets the value of a counter 
+    The MAC_COMMON_GetMsCounter primitive gets the value of a counter
     that is incremented every millisecond.
 
   Description:
-    This primitive makes use of SYS_TIME service to get the value of the 
+    This primitive makes use of SYS_TIME service to get the value of the
     millisecond counter in order to be able to set timeouts and perform delays.
     This function returns the current value of such counter.
 
@@ -368,7 +368,7 @@ uint32_t MAC_COMMON_GetMsCounter(void);
     timeValue      - Time value in milliseconds
 
   Returns:
-    True if the time value is in the past. 
+    True if the time value is in the past.
     False if the time value is not in the past.
 
   Example:
@@ -388,6 +388,92 @@ uint32_t MAC_COMMON_GetMsCounter(void);
     None.
 */
 bool MAC_COMMON_TimeIsPast(int32_t timeValue);
+
+// *****************************************************************************
+/* Function:
+    uint32_t MAC_COMMON_GetSecondsCounter
+    (
+      void
+    )
+
+  Summary:
+    The MAC_COMMON_GetSecondsCounter primitive gets the value of a counter
+    that is incremented every second.
+
+  Description:
+    A seconds counter is provided in order to be able to set timeouts
+    and perform delays.
+    This function returns the current value of such counter.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    Value of seconds counter.
+
+  Example:
+    <code>
+    previousCounter = MAC_COMMON_GetSecondsCounter();
+
+    // Perform other actions
+    // ...
+
+    newCounter = MAC_COMMON_GetSecondsCounter();
+
+    if ((newCounter - previousCounter) > TIMEOUT_SECONDS)
+    {
+        // Timeout elapsed
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
+uint32_t MAC_COMMON_GetSecondsCounter(void);
+
+// *****************************************************************************
+/* Function:
+    bool MAC_COMMON_TimeIsPastSeconds
+    (
+      int32_t timeValue
+    )
+
+  Summary:
+    Indicates whether the given time value is in the past.
+
+  Description:
+    This primitive indicates whether the given time value is in the past.
+
+  Precondition:
+    None.
+
+  Parameters:
+    timeValue      - Time value in seconds
+
+  Returns:
+    True if the time value is in the past.
+    False if the time value is not in the past.
+
+  Example:
+    <code>
+    int32_t validityTime = 10;
+
+    // Perform other actions
+    // ...
+
+    if (MAC_COMMON_TimeIsPastSeconds(validityTime))
+    {
+        // Validity ended
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
+bool MAC_COMMON_TimeIsPastSeconds(int32_t timeValue);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

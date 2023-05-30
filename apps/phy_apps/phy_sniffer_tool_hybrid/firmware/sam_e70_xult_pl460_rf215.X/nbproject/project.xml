@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>phy_sniffer_tool_hybrid_g3_sam_e70_xult</name>
+            <name>g3_phy_sniffer_tool_hybrid_g3_sam_e70_xult</name>
             <creation-uuid>d5755781-ec21-43a8-a6f6-abfb82f5dbdb</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>

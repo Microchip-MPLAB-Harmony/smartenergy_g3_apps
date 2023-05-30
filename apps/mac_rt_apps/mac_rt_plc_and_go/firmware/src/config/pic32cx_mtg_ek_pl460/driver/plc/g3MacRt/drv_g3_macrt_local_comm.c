@@ -11,7 +11,7 @@
     G3 MAC RT Driver Local Communication Profile Layer
 
   Description:
-    This file contains the source code for the implementation of the G3 Profile 
+    This file contains the source code for the implementation of the G3 Profile
     Layer.
 *******************************************************************************/
 
@@ -81,7 +81,7 @@ static CACHE_ALIGN uint8_t gG3RegResponse[CACHE_ALIGNED_SIZE_GET(DRV_G3_MACRT_RE
 static bool _DRV_G3_MACRT_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
 {
     bool result = false;
-    
+
     if (info->key == DRV_PLC_HAL_KEY_CORTEX)
     {
         /* Communication correct */
@@ -105,26 +105,26 @@ static bool _DRV_G3_MACRT_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
             gG3MacRtObj->exceptionCallback(DRV_G3_MACRT_EXCEPTION_UNEXPECTED_KEY);
         }
     }
-    
+
     return result;
 }
 
-static void _DRV_G3_MACRT_COMM_SpiWriteCmd(DRV_G3_MACRT_MEM_ID id, uint8_t *pData, 
+static void _DRV_G3_MACRT_COMM_SpiWriteCmd(DRV_G3_MACRT_MEM_ID id, uint8_t *pData,
         uint16_t length)
 {
     DRV_PLC_HAL_CMD halCmd;
     DRV_PLC_HAL_INFO halInfo;
-    
+
     /* Disable external interrupt from PLC */
     gG3MacRtObj->plcHal->enableExtInt(false);
-    
+
     halCmd.cmd = DRV_PLC_HAL_CMD_WR;
     halCmd.memId = id;
     halCmd.length = length;
     halCmd.pData = pData;
-    
+
     gG3MacRtObj->plcHal->sendWrRdCmd(&halCmd, &halInfo);
-    
+
     /* Check communication integrity */
     if (_DRV_G3_MACRT_COMM_CheckComm(&halInfo) == false)
     {
@@ -133,32 +133,32 @@ static void _DRV_G3_MACRT_COMM_SpiWriteCmd(DRV_G3_MACRT_MEM_ID id, uint8_t *pDat
         {
             gG3MacRtObj->evResetTxCfm = true;
         }
-        
+
         gG3MacRtObj->state = DRV_G3_MACRT_STATE_ERROR_COMM;
     }
     else
     {
         /* Enable external interrupt from PLC */
-        gG3MacRtObj->plcHal->enableExtInt(true); 
+        gG3MacRtObj->plcHal->enableExtInt(true);
     }
 }
 
-static void _DRV_G3_MACRT_COMM_SpiReadCmd(DRV_G3_MACRT_MEM_ID id, uint8_t *pData, 
+static void _DRV_G3_MACRT_COMM_SpiReadCmd(DRV_G3_MACRT_MEM_ID id, uint8_t *pData,
         uint16_t length)
 {
     DRV_PLC_HAL_CMD halCmd;
     DRV_PLC_HAL_INFO halInfo;
-    
+
     /* Disable external interrupt from PLC */
     gG3MacRtObj->plcHal->enableExtInt(false);
-    
+
     halCmd.cmd = DRV_PLC_HAL_CMD_RD;
     halCmd.memId = id;
     halCmd.length = length;
     halCmd.pData = pData;
-    
+
     gG3MacRtObj->plcHal->sendWrRdCmd(&halCmd, &halInfo);
-    
+
     /* Check communication integrity */
     if (_DRV_G3_MACRT_COMM_CheckComm(&halInfo) == false)
     {
@@ -167,12 +167,12 @@ static void _DRV_G3_MACRT_COMM_SpiReadCmd(DRV_G3_MACRT_MEM_ID id, uint8_t *pData
         {
             gG3MacRtObj->evResetTxCfm = true;
         }
-        
+
         gG3MacRtObj->state = DRV_G3_MACRT_STATE_ERROR_COMM;
     }
-    
+
     /* Enable external interrupt from PLC */
-    gG3MacRtObj->plcHal->enableExtInt(true); 
+    gG3MacRtObj->plcHal->enableExtInt(true);
 }
 
 static void _DRV_G3_MACRT_COMM_GetEventsInfo(DRV_G3_MACRT_EVENTS_OBJ *eventsObj)
@@ -180,16 +180,16 @@ static void _DRV_G3_MACRT_COMM_GetEventsInfo(DRV_G3_MACRT_EVENTS_OBJ *eventsObj)
     uint8_t *pData;
     DRV_PLC_HAL_CMD halCmd;
     DRV_PLC_HAL_INFO halInfo;
-    
-    pData = gG3StatusInfo;    
-    
+
+    pData = gG3StatusInfo;
+
     halCmd.cmd = DRV_PLC_HAL_CMD_RD;
     halCmd.memId = STATUS_INFO_ID;
     halCmd.length = DRV_G3_MACRT_STATUS_LENGTH;
     halCmd.pData = pData;
-    
+
     gG3MacRtObj->plcHal->sendWrRdCmd(&halCmd, &halInfo);
-    
+
     /* Check communication integrity */
     if (_DRV_G3_MACRT_COMM_CheckComm(&halInfo) == false)
     {
@@ -198,10 +198,10 @@ static void _DRV_G3_MACRT_COMM_GetEventsInfo(DRV_G3_MACRT_EVENTS_OBJ *eventsObj)
         {
             gG3MacRtObj->evResetTxCfm = true;
         }
-        
+
         gG3MacRtObj->state = DRV_G3_MACRT_STATE_ERROR_COMM;
-    } 
-    
+    }
+
     /* Extract Events information */
     eventsObj->evTxCfm = (halInfo.flags & DRV_G3_MACRT_EV_TX_CFM_FLAG_MASK)? 1:0;
     eventsObj->evDataInd = (halInfo.flags & DRV_G3_MACRT_EV_DATA_IND_FLAG_MASK)? 1:0;
@@ -210,7 +210,7 @@ static void _DRV_G3_MACRT_COMM_GetEventsInfo(DRV_G3_MACRT_EVENTS_OBJ *eventsObj)
     eventsObj->evRxParInd = (halInfo.flags & DRV_G3_MACRT_EV_RX_PAR_IND_FLAG_MASK)? 1:0;
     eventsObj->evRegRsp = (halInfo.flags & DRV_G3_MACRT_EV_REG_RSP_MASK)? 1:0;
     eventsObj->evPhySniffer = (halInfo.flags & DRV_G3_MACRT_EV_PHY_SNF_FLAG_MASK)? 1:0;
-    
+
     /* Extract Timer info */
     eventsObj->timerRef = ((uint32_t)*pData++);
     eventsObj->timerRef += ((uint32_t)*pData++) << 8;
@@ -236,7 +236,7 @@ static void _DRV_G3_MACRT_COMM_GetEventsInfo(DRV_G3_MACRT_EVENTS_OBJ *eventsObj)
 void DRV_G3_MACRT_Init(DRV_G3_MACRT_OBJ *g3MacRt)
 {
     gG3MacRtObj = g3MacRt;
-    
+
     /* Clear PLC events information */
     gG3MacRtObj->evDataIndLength = 0;
     gG3MacRtObj->evRegRspLength = 0;
@@ -246,7 +246,7 @@ void DRV_G3_MACRT_Init(DRV_G3_MACRT_OBJ *g3MacRt)
     gG3MacRtObj->evRxParams = false;
     gG3MacRtObj->evResetTxCfm = false;
     gG3MacRtObj->evTxCfm = false;
-    
+
     /* Enable external interrupt from PLC */
     gG3MacRtObj->plcHal->enableExtInt(true);
 }
@@ -258,12 +258,15 @@ void DRV_G3_MACRT_Task(void)
     {
         MAC_RT_TX_CFM_OBJ *pTxCfmObj;
         MAC_RT_TX_CFM_OBJ txCfmObj;
-    
+
+        /* Reset event flag */
+        gG3MacRtObj->evTxCfm = false;
+
         if (gG3MacRtObj->evResetTxCfm)
         {
             /* Reset event flag */
             gG3MacRtObj->evResetTxCfm = false;
-            
+
             /* Fill Tx Cfm object in case of reset while transmission */
             pTxCfmObj = &txCfmObj;
             txCfmObj.status = MAC_RT_STATUS_DENIED;
@@ -271,90 +274,94 @@ void DRV_G3_MACRT_Task(void)
         } else {
             pTxCfmObj = (MAC_RT_TX_CFM_OBJ *)gG3TxConfirm;
         }
-        
+
         /* Report to upper layer */
         if (gG3MacRtObj->txCfmCallback)
         {
             gG3MacRtObj->txCfmCallback(pTxCfmObj);
         }
-        
+
         /* Update MAC RT state */
         gG3MacRtObj->state = DRV_G3_MACRT_STATE_READY;
-        /* Reset event flag */
-        gG3MacRtObj->evTxCfm = false;
     }
-    
+
     if (gG3MacRtObj->evRxParams)
-    {   
+    {
+        /* Reset event flag */
+        gG3MacRtObj->evRxParams = false;
+
         if (gG3MacRtObj->rxParamsIndCallback)
         {
             /* Report to upper layer */
             gG3MacRtObj->rxParamsIndCallback((MAC_RT_RX_PARAMETERS_OBJ *)gG3RxParameters);
         }
-        
-        /* Reset event flag */
-        gG3MacRtObj->evRxParams = false;
     }
-    
+
     if (gG3MacRtObj->evDataIndLength)
-    {   
+    {
+        uint16_t evDataLength = gG3MacRtObj->evDataIndLength;
+
+        /* Reset event flag */
+        gG3MacRtObj->evDataIndLength = 0;
+
         if (gG3MacRtObj->dataIndCallback)
         {
             /* Report to upper layer */
-            gG3MacRtObj->dataIndCallback(gG3RxData, gG3MacRtObj->evDataIndLength);
+            gG3MacRtObj->dataIndCallback(gG3RxData, evDataLength);
         }
-        
-        /* Reset event flag */
-        gG3MacRtObj->evDataIndLength = 0;
     }
-    
+
     if (gG3MacRtObj->evMacSnifLength)
-    {   
+    {
+        uint16_t evDataLength = gG3MacRtObj->evMacSnifLength;
+
+        /* Reset event flag */
+        gG3MacRtObj->evMacSnifLength = 0;
+
         if ((gG3MacRtObj->macSnifferIndCallback) && (gG3MacRtObj->pMacDataSniffer))
         {
             /* Report to upper layer */
-            gG3MacRtObj->macSnifferIndCallback(gG3MacRtObj->pMacDataSniffer, gG3MacRtObj->evMacSnifLength);
+            gG3MacRtObj->macSnifferIndCallback(gG3MacRtObj->pMacDataSniffer, evDataLength);
         }
-        
-        /* Reset event flag */
-        gG3MacRtObj->evMacSnifLength = 0;
     }
-    
+
     if (gG3MacRtObj->evCommStatus)
-    {   
+    {
+        /* Reset event flag */
+        gG3MacRtObj->evCommStatus = false;
+
         if (gG3MacRtObj->commStatusIndCallback)
         {
             /* Report to upper layer */
             gG3MacRtObj->commStatusIndCallback(gG3CommStatus);
         }
-        
-        /* Reset event flag */
-        gG3MacRtObj->evCommStatus = false;
     }
-    
+
     if (gG3MacRtObj->evPhySnifLength)
-    {   
+    {
+        uint16_t evDataLength = gG3MacRtObj->evPhySnifLength;
+
+        /* Reset event flag */
+        gG3MacRtObj->evPhySnifLength = 0;
+
         if ((gG3MacRtObj->phySnifferIndCallback) && (gG3MacRtObj->pPhyDataSniffer))
         {
             /* Report to upper layer */
-            gG3MacRtObj->phySnifferIndCallback(gG3MacRtObj->evPhySnifLength);
+            gG3MacRtObj->phySnifferIndCallback(evDataLength);
         }
-        
-        /* Reset event flag */
-        gG3MacRtObj->evPhySnifLength = 0;
     }
 }
 
 void DRV_G3_MACRT_TxRequest(const DRV_HANDLE handle, uint8_t *pData, uint16_t length)
-{    
-    if((handle != DRV_HANDLE_INVALID) && (handle == 0) && 
+{
+    if((handle != DRV_HANDLE_INVALID) && (handle == 0) &&
        (gG3MacRtObj->state == DRV_G3_MACRT_STATE_READY))
     {
         /* Check Length */
-		if ((length > 0) && (length <= (DRV_G3_MACRT_DATA_MAX_SIZE))) {
+        if ((length > 0) && (length <= (DRV_G3_MACRT_DATA_MAX_SIZE))) {
             uint8_t *pTxData;
-            
-			/* Update PLC state: transmitting */
+
+            /* Update PLC state: transmitting */
             gG3MacRtObj->state = DRV_G3_MACRT_STATE_WAITING_TX_CFM;
 
             /* Build and Send TX data */
@@ -363,7 +370,7 @@ void DRV_G3_MACRT_TxRequest(const DRV_HANDLE handle, uint8_t *pData, uint16_t le
             *pTxData++= (uint8_t)(length >> 8);
             memcpy(pTxData, pData, length);
             _DRV_G3_MACRT_COMM_SpiWriteCmd(TX_REQ_ID, gG3TxData, length + 2);
-		}
+        }
         else
         {
             MAC_RT_TX_CFM_OBJ cfmObj;
@@ -390,22 +397,16 @@ void DRV_G3_MACRT_TxRequest(const DRV_HANDLE handle, uint8_t *pData, uint16_t le
 }
 
 MAC_RT_STATUS DRV_G3_MACRT_PIBGet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibObj)
-{    
+{
     if ((handle != DRV_HANDLE_INVALID) && (handle == 0))
-    {        
+    {
         uint8_t *pDst;
         uint16_t waitCounter;
         uint16_t dummyValue;
-        
-        /* Check Length */
-		if (pibObj->length > MAC_RT_PIB_MAX_VALUE_LENGTH) {
-			/* Length error */
-			return MAC_RT_STATUS_INVALID_PARAMETER;
-		}
-        
+
         /* Reset Event flag */
         gG3MacRtObj->evRegRspLength = 0;
-        
+
         /* Build command */
         pDst = gG3RegResponse;
 
@@ -419,54 +420,57 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBGet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
 
         /* Send PIB information request */
         _DRV_G3_MACRT_COMM_SpiWriteCmd(REG_RSP_ID, gG3RegResponse, pDst - gG3RegResponse);
-        
+
         /* Sync function: Wait to response from interrupt */
-		waitCounter = 100;
-		dummyValue = gG3MacRtObj->evRegRspLength;
-		while (!dummyValue) {
-			/* Wait for interrupt. The CPU is in sleep mode until an interrupt occurs. */
-			__asm("WFI");
-			if (!waitCounter--) {
-				/* Error in get cmd */
-				return MAC_RT_STATUS_TRANSACTION_OVERFLOW;
-			}
+        waitCounter = 100;
+        dummyValue = gG3MacRtObj->evRegRspLength;
+        while (!dummyValue) {
+            /* Wait for interrupt. The CPU is in sleep mode until an interrupt occurs. */
+            __asm("WFI");
+            if (!waitCounter--) {
+                /* Error in get cmd */
+                return MAC_RT_STATUS_TRANSACTION_OVERFLOW;
+            }
 
-			dummyValue = gG3MacRtObj->evRegRspLength;
-		}
+            dummyValue = gG3MacRtObj->evRegRspLength;
+        }
 
-		/* Check Response Content */
-		if (*gG3RegResponse != MAC_RT_STATUS_SUCCESS) {
-			/* Not success process */
-			return (MAC_RT_STATUS)*gG3RegResponse;
-		}
+        /* Check Response Content */
+        if (*gG3RegResponse != MAC_RT_STATUS_SUCCESS) {
+            /* Not success process */
+            return (MAC_RT_STATUS)*gG3RegResponse;
+        }
 
         /* Copy Reg data in PIB object */
-		memcpy(pibObj->pData, gG3RegResponse + 8, gG3MacRtObj->evRegRspLength);
-		pibObj->length = gG3MacRtObj->evRegRspLength;
+        memcpy(pibObj->pData, gG3RegResponse + 8, gG3MacRtObj->evRegRspLength);
+        pibObj->length = gG3MacRtObj->evRegRspLength;
 
-		/* Reset event flag */
-		gG3MacRtObj->evRegRspLength = 0;
+        /* Reset event flag */
+        gG3MacRtObj->evRegRspLength = 0;
 
         return MAC_RT_STATUS_SUCCESS;
     }
-    
+
     return MAC_RT_STATUS_DENIED;
 }
 
 MAC_RT_STATUS DRV_G3_MACRT_PIBSet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibObj)
-{    
+{
     if ((handle != DRV_HANDLE_INVALID) && (handle == 0))
-    {        
+    {
         uint8_t *pDst;
         uint16_t waitCounter;
         uint16_t dummyValue;
-        
+
         /* Check Length */
-		if (pibObj->length > MAC_RT_PIB_MAX_VALUE_LENGTH) {
-			/* Length error */
-			return MAC_RT_STATUS_INVALID_PARAMETER;
-		}
-        
+        if (pibObj->length > MAC_RT_PIB_MAX_VALUE_LENGTH) {
+            /* Length error */
+            return MAC_RT_STATUS_INVALID_PARAMETER;
+        }
+
+        /* Reset event flag */
+        gG3MacRtObj->evRegRspLength = 0;
+
         /* Build command */
         pDst = gG3RegResponse;
 
@@ -483,33 +487,36 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBSet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
 
         /* Send PIB information request */
         _DRV_G3_MACRT_COMM_SpiWriteCmd(REG_RSP_ID, gG3RegResponse, pDst - gG3RegResponse);
-        
-        /* Sync function: Wait to response from interrupt */
-		waitCounter = 100;
-		dummyValue = gG3MacRtObj->evRegRspLength;
-		while (!dummyValue) {
-			/* Wait for interrupt. The CPU is in sleep mode until an interrupt occurs. */
-			__asm("WFI");
-			if (!waitCounter--) {
-				/* Error in get cmd */
-				return MAC_RT_STATUS_TRANSACTION_OVERFLOW;
-			}
 
-			dummyValue = gG3MacRtObj->evRegRspLength;
-		}
+        /* Sync function: Wait to response from interrupt */
+        waitCounter = 100;
+        dummyValue = gG3MacRtObj->evRegRspLength;
+        while (!dummyValue) {
+            /* Wait for interrupt. The CPU is in sleep mode until an interrupt occurs. */
+            __asm("WFI");
+            if (!waitCounter--) {
+                /* Error in get cmd */
+                return MAC_RT_STATUS_TRANSACTION_OVERFLOW;
+            }
+
+            dummyValue = gG3MacRtObj->evRegRspLength;
+        }
+
+        /* Reset event flag */
+        gG3MacRtObj->evRegRspLength = 0;
 
         return MAC_RT_STATUS_SUCCESS;
     }
-    
+
     return MAC_RT_STATUS_DENIED;
 }
 
 void DRV_G3_MACRT_SetCoordinator(const DRV_HANDLE handle)
-{    
+{
     if ((handle != DRV_HANDLE_INVALID) && (handle == 0))
-    {        
+    {
         uint8_t coordinator;
-        
+
         coordinator = 1;
         /* Send Coordinator Capabilities Request */
         _DRV_G3_MACRT_COMM_SpiWriteCmd(SET_COORD_ID, &coordinator, 1);
@@ -517,11 +524,11 @@ void DRV_G3_MACRT_SetCoordinator(const DRV_HANDLE handle)
 }
 
 void DRV_G3_MACRT_EnablePhySniffer(const DRV_HANDLE handle)
-{    
+{
     if ((handle != DRV_HANDLE_INVALID) && (handle == 0))
-    {        
+    {
         uint8_t sniffer;
-        
+
         sniffer = 1;
         /* Enable PHY Sniffer capabilities */
         _DRV_G3_MACRT_COMM_SpiWriteCmd(PHY_SNF_ID, &sniffer, 1);
@@ -529,77 +536,77 @@ void DRV_G3_MACRT_EnablePhySniffer(const DRV_HANDLE handle)
 }
 
 uint32_t DRV_G3_MACRT_GetTimerReference(const DRV_HANDLE handle)
-{    
+{
     uint32_t timerReference = 0;
-    
+
     if ((handle != DRV_HANDLE_INVALID) && (handle == 0))
-    {        
+    {
         /* Read G3 Internal Timer Reference */
         _DRV_G3_MACRT_COMM_SpiReadCmd(STATUS_INFO_ID, (uint8_t *)&timerReference, 4);
     }
-    
+
     return timerReference;
 }
 
 void DRV_G3_MACRT_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
-{   
+{
     /* Avoid warning */
     (void)context;
 
     if ((gG3MacRtObj) && (pin == (PIO_PIN)gG3MacRtObj->plcHal->plcPlib->extIntPin))
     {
         DRV_G3_MACRT_EVENTS_OBJ evObj;
-        
+
         /* Time guard */
         gG3MacRtObj->plcHal->delay(20);
-        
+
         /* Get PLC events information */
         _DRV_G3_MACRT_COMM_GetEventsInfo(&evObj);
-        
+
         /* Check confirmation of the transmission event */
         if (evObj.evTxCfm)
         {
-            _DRV_G3_MACRT_COMM_SpiReadCmd(TX_CFM_ID, gG3TxConfirm, 
+            _DRV_G3_MACRT_COMM_SpiReadCmd(TX_CFM_ID, gG3TxConfirm,
                     DRV_G3_MACRT_TX_CFM_SIZE);
             /* update event flag */
             gG3MacRtObj->evTxCfm = true;
         }
-        
+
         /* Check RX paramenters indication event */
         if (evObj.evRxParInd)
-        {        
-            _DRV_G3_MACRT_COMM_SpiReadCmd(RX_PAR_IND_ID, gG3RxParameters, 
+        {
+            _DRV_G3_MACRT_COMM_SpiReadCmd(RX_PAR_IND_ID, gG3RxParameters,
                     DRV_G3_MACRT_RX_PAR_SIZE);
             /* update event flag */
             gG3MacRtObj->evRxParams = true;
         }
-        
+
         /* Check received new data event */
         if (evObj.evDataInd)
-        {       
-            if ((evObj.rcvDataLength == 0) || 
+        {
+            if ((evObj.rcvDataLength == 0) ||
                 (evObj.rcvDataLength > DRV_G3_MACRT_DATA_MAX_SIZE))
             {
                 evObj.rcvDataLength = 1;
             }
-            _DRV_G3_MACRT_COMM_SpiReadCmd(DATA_IND_ID, gG3RxData, 
+            _DRV_G3_MACRT_COMM_SpiReadCmd(DATA_IND_ID, gG3RxData,
                     evObj.rcvDataLength);
             /* update event flag */
             gG3MacRtObj->evDataIndLength = evObj.rcvDataLength;
         }
-        
+
         /* Check MAC Sniffer event */
         if (evObj.evMacSniffer)
-        {          
+        {
             uint8_t *pData;
             uint8_t dummyData;
-            
-            if ((evObj.macSnifLength == 0) || 
+
+            if ((evObj.macSnifLength == 0) ||
                 (evObj.macSnifLength > DRV_G3_MACRT_DATA_MAX_SIZE))
             {
                 evObj.macSnifLength = 1;
             }
-            
+
             if (gG3MacRtObj->pMacDataSniffer)
             {
                 pData = gG3MacRtObj->pMacDataSniffer;
@@ -609,37 +616,37 @@ void DRV_G3_MACRT_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
                 pData = &dummyData;
                 evObj.macSnifLength = 1;
             }
-            
+
             _DRV_G3_MACRT_COMM_SpiReadCmd(MAC_SNIF_ID, pData, evObj.macSnifLength);
-            
+
             /* update event flag */
             if (evObj.phySnifLength > 1)
             {
                 gG3MacRtObj->evMacSnifLength = evObj.macSnifLength;
             }
         }
-        
+
         /* Check Comm Status event */
         if (evObj.evCommStatus)
-        {        
-            _DRV_G3_MACRT_COMM_SpiReadCmd(COMM_STATUS_ID, gG3CommStatus, 
+        {
+            _DRV_G3_MACRT_COMM_SpiReadCmd(COMM_STATUS_ID, gG3CommStatus,
                     DRV_G3_MACRT_COMM_STATUS_SIZE);
             /* update event flag */
             gG3MacRtObj->evCommStatus = true;
         }
-        
+
         /* Check PHY Sniffer event */
         if (evObj.evPhySniffer)
         {
             uint8_t *pData;
             uint8_t dummyData;
-            
-            if ((evObj.phySnifLength == 0) || 
+
+            if ((evObj.phySnifLength == 0) ||
                 (evObj.phySnifLength > DRV_G3_MACRT_PHY_MAX_SIZE))
             {
                 evObj.phySnifLength = 1;
             }
-            
+
             if (gG3MacRtObj->pPhyDataSniffer)
             {
                 pData = gG3MacRtObj->pPhyDataSniffer;
@@ -649,30 +656,30 @@ void DRV_G3_MACRT_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
                 pData = &dummyData;
                 evObj.phySnifLength = 1;
             }
-            
+
             _DRV_G3_MACRT_COMM_SpiReadCmd(PHY_SNF_ID, pData, evObj.phySnifLength);
-            
+
             /* update event flag */
             if (evObj.phySnifLength > 1)
             {
                 gG3MacRtObj->evPhySnifLength = evObj.phySnifLength;
             }
         }
-        
+
         /* Check Register info event */
         if (evObj.evRegRsp)
-        {          
-            if ((evObj.regRspLength == 0) || 
-                (evObj.regRspLength > DRV_G3_MACRT_REG_PKT_SIZE))
+        {
+            if ((evObj.regRspLength == 0) ||
+                ((evObj.regRspLength + 8) > DRV_G3_MACRT_REG_PKT_SIZE))
             {
                 evObj.regRspLength = 1;
             }
-            _DRV_G3_MACRT_COMM_SpiReadCmd(REG_RSP_ID, gG3RegResponse, 
+            _DRV_G3_MACRT_COMM_SpiReadCmd(REG_RSP_ID, gG3RegResponse,
                     evObj.regRspLength + 8);
             /* update event flag */
             gG3MacRtObj->evRegRspLength = evObj.regRspLength;
         }
-        
+
         /* Time guard */
         gG3MacRtObj->plcHal->delay(50);
     }

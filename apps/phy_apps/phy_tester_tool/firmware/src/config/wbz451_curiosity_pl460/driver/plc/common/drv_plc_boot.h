@@ -262,6 +262,7 @@ typedef enum
     DRV_PLC_BOOT_STATUS_IDLE = 0,
     DRV_PLC_BOOT_STATUS_PROCESING,
     DRV_PLC_BOOT_STATUS_SWITCHING,
+    DRV_PLC_BOOT_STATUS_STARTINGUP,
     DRV_PLC_BOOT_STATUS_VALIDATING,
     DRV_PLC_BOOT_STATUS_READY,
     DRV_PLC_BOOT_STATUS_ERROR,
@@ -288,6 +289,7 @@ typedef struct
     uint8_t                    secSN[16]; 
     DRV_PLC_BOOT_DATA_CALLBACK bootDataCallback;
     uintptr_t                  contextBoot;
+    uint8_t                    validationCounter;
 } DRV_PLC_BOOT_INFO;
 
 // *****************************************************************************

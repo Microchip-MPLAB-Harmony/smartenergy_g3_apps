@@ -127,15 +127,7 @@ void SYS_CACHE_CleanDCache (void)
     }
 }
 
-void SYS_CACHE_CleanInvalidateDCache (void)
-{
-    if (DATA_CACHE_IS_ENABLED() != 0U) // If Data Cache is enabled
-    {
-        DCACHE_CLEAN_INVALIDATE();
-    }
-}
-
-void SYS_CACHE_InvalidateDCache_by_Addr (uint32_t *addr, int32_t size)
+void SYS_CACHE_InvalidateDCache_by_Addr (void *addr, int32_t size)
 {
     if (DATA_CACHE_IS_ENABLED() != 0U) // If Data Cache is enabled
     {
@@ -143,7 +135,7 @@ void SYS_CACHE_InvalidateDCache_by_Addr (uint32_t *addr, int32_t size)
     }
 }
 
-void SYS_CACHE_CleanDCache_by_Addr (uint32_t *addr, int32_t size)
+void SYS_CACHE_CleanDCache_by_Addr (void *addr, int32_t size)
 {
     if (DATA_CACHE_IS_ENABLED() != 0U) // If Data Cache is enabled
     {
@@ -153,7 +145,15 @@ void SYS_CACHE_CleanDCache_by_Addr (uint32_t *addr, int32_t size)
 
 /* MISRA C-2012 Rule 5.1 deviated:1 Deviation record ID -  H3_MISRAC_2012_R_5_1_DR_1 */
 
-void SYS_CACHE_CleanInvalidateDCache_by_Addr (uint32_t *addr, int32_t size)
+void SYS_CACHE_CleanInvalidateDCache (void)
+{
+    if (DATA_CACHE_IS_ENABLED() != 0U) // If Data Cache is enabled
+    {
+        DCACHE_CLEAN_INVALIDATE();
+    }
+}
+
+void SYS_CACHE_CleanInvalidateDCache_by_Addr (void *addr, int32_t size)
 {
     if (DATA_CACHE_IS_ENABLED() != 0U) // If Data Cache is enabled
     {

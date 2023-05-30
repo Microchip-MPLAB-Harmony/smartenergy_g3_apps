@@ -48,6 +48,59 @@ It allows user to Program, Erase and lock the on-chip FLASH memory.
 static uint32_t sefc_status = 0;
 
 
+// *****************************************************************************
+// *****************************************************************************
+// SEFC0 Local Functions
+// *****************************************************************************
+// *****************************************************************************
+// *****************************************************************************
+
+__longramfunc__ static bool SEFC0_sequenceRead(uint32_t cmdStart, uint32_t cmdStop,
+                                               uint32_t *data, uint32_t length, uint32_t address)
+{
+    uint32_t count = 0;
+    uint32_t sefcFmrReg;
+    uint32_t *pAddress = (uint32_t *)address;
+
+    /* Disable Sequential Code Optimization */
+    sefcFmrReg = SEFC0_REGS->SEFC_EEFC_FMR;
+    SEFC0_REGS->SEFC_EEFC_FMR |= SEFC_EEFC_FMR_SCOD_Msk;
+
+    SEFC0_REGS->SEFC_EEFC_FCR = (cmdStart | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    while ((SEFC0_REGS->SEFC_EEFC_FSR & SEFC_EEFC_FSR_FRDY_Msk) == SEFC_EEFC_FSR_FRDY_Msk)
+    {
+        // Wait for the flash ready falls
+    }
+
+    for (count = 0; count < length; count++)
+    {
+        data[count] = pAddress[count];
+    }
+
+    SEFC0_REGS->SEFC_EEFC_FCR = (cmdStop | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    while ((SEFC0_REGS->SEFC_EEFC_FSR & SEFC_EEFC_FSR_FRDY_Msk) == 0U)
+    {
+        // Wait for the flash ready
+    }
+
+    /* Enable Sequential Code Optimization */
+    if ((sefcFmrReg & SEFC_EEFC_FMR_SCOD_Msk) == 0U)
+    {
+        SEFC0_REGS->SEFC_EEFC_FMR &= ~SEFC_EEFC_FMR_SCOD_Msk;
+    }
+
+    return true;
+}
+
+// *****************************************************************************
+// *****************************************************************************
+// SEFC0 PLib Interface Routines
+// *****************************************************************************
+// *****************************************************************************
+// *****************************************************************************
+
 void SEFC0_Initialize(void)
 {
     SEFC0_REGS->SEFC_EEFC_FMR = SEFC_EEFC_FMR_FWS(7U) | SEFC_EEFC_FMR_CLOE_Msk | SEFC_EEFC_FMR_ALWAYS1_Msk;
@@ -184,6 +237,120 @@ void SEFC0_RegionUnlock(uint32_t address)
 
 }
 
+__longramfunc__ void SEFC0_GpnvmBitSet(uint8_t GpnvmBitNumber)
+{
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_SGPB | SEFC_EEFC_FCR_FARG((uint32_t)GpnvmBitNumber) | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    while ((SEFC0_REGS->SEFC_EEFC_FSR & SEFC_EEFC_FSR_FRDY_Msk) == 0U)
+    {
+        // Wait for the flash ready
+    }
+}
+
+__longramfunc__ void SEFC0_GpnvmBitClear(uint8_t GpnvmBitNumber)
+{
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_CGPB | SEFC_EEFC_FCR_FARG((uint32_t)GpnvmBitNumber) | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    while ((SEFC0_REGS->SEFC_EEFC_FSR & SEFC_EEFC_FSR_FRDY_Msk) == 0U)
+    {
+        // Wait for the flash ready
+    }
+}
+
+__longramfunc__ uint32_t SEFC0_GpnvmBitRead(void)
+{
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_GGPB | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    while ((SEFC0_REGS->SEFC_EEFC_FSR & SEFC_EEFC_FSR_FRDY_Msk) == 0U)
+    {
+        // Wait for the flash ready
+    }
+
+    return (uint32_t)SEFC0_REGS->SEFC_EEFC_FRR;
+}
+
+bool SEFC0_UniqueIdentifierRead(uint32_t *data, uint32_t length)
+{
+    /* Check Unique Identifier length (128 bits) */
+    if (length > 4U)
+    {
+        return false;
+    }
+
+    return SEFC0_sequenceRead(SEFC_EEFC_FCR_FCMD_STUI, SEFC_EEFC_FCR_FCMD_SPUI, data, length, IFLASH0_ADDR);
+}
+
+void SEFC0_UserSignatureRightsSet(uint32_t userSignatureRights)
+{
+    SEFC0_REGS->SEFC_EEFC_USR = userSignatureRights;
+}
+
+uint32_t SEFC0_UserSignatureRightsGet(void)
+{
+    return SEFC0_REGS->SEFC_EEFC_USR;
+}
+
+bool SEFC0_UserSignatureRead(uint32_t *data, uint32_t length, SEFC_USERSIGNATURE_BLOCK block, SEFC_USERSIGNATURE_PAGE page)
+{
+    uint32_t address;
+
+    address = IFLASH0_ADDR + ((((uint32_t)block * 8U) + (uint32_t)page) * SEFC0_PAGESIZE);
+
+    return SEFC0_sequenceRead(SEFC_EEFC_FCR_FCMD_STUS, SEFC_EEFC_FCR_FCMD_SPUS, data, length, address);
+}
+
+bool SEFC0_UserSignatureWrite(void *data, uint32_t length, SEFC_USERSIGNATURE_BLOCK block, SEFC_USERSIGNATURE_PAGE page)
+{
+    uint32_t count = 0U;
+    uint64_t *dest = NULL;
+    uint64_t *src = (uint64_t *)data;
+    uint32_t page_number = 0U;
+
+    if (length > (IFLASH0_PAGE_SIZE >> 2))
+    {
+        return false;
+    }
+
+    page_number = (((uint32_t)block * 8U) + (uint32_t)page);
+
+    dest = (uint64_t *)(IFLASH0_ADDR + (page_number * IFLASH0_PAGE_SIZE));
+
+    /* Writing 8-bit and 16-bit data is not allowed and may lead to unpredictable data corruption */
+    for (count = 0; count < (length >> 1); count++)
+    {
+        *dest = *src;
+        dest++;
+        src++;
+    }
+
+    __DSB();
+    __ISB();
+
+    /* Issue the FLASH write operation*/
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_WUS | SEFC_EEFC_FCR_FARG(page_number) | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    sefc_status = 0;
+
+
+    return true;
+}
+
+void SEFC0_UserSignatureErase(SEFC_USERSIGNATURE_BLOCK block)
+{
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_EUS | SEFC_EEFC_FCR_FARG((uint32_t)((uint32_t)block << 3U)) | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    sefc_status = 0;
+
+}
+
+void SEFC0_CryptographicKeySend(uint16_t sckArg)
+{
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_SCK | SEFC_EEFC_FCR_FARG((uint32_t)sckArg) | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    sefc_status = 0;
+
+}
+
 bool SEFC0_IsBusy(void)
 {
     sefc_status |= SEFC0_REGS->SEFC_EEFC_FSR;
@@ -194,6 +361,16 @@ SEFC_ERROR SEFC0_ErrorGet( void )
 {
     sefc_status |= SEFC0_REGS->SEFC_EEFC_FSR;
     return (SEFC_ERROR)sefc_status;
+}
+
+void SEFC0_WriteProtectionSet(uint32_t mode)
+{
+    SEFC0_REGS->SEFC_EEFC_WPMR = SEFC_EEFC_WPMR_WPKEY_PASSWD | mode;
+}
+
+uint32_t SEFC0_WriteProtectionGet(void)
+{
+    return SEFC0_REGS->SEFC_EEFC_WPMR;
 }
 
 

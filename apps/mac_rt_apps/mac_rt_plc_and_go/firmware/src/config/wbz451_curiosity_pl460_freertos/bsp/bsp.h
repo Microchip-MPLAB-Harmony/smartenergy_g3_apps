@@ -40,8 +40,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef _BSP_H
-#define _BSP_H
+#ifndef BSP_H
+#define BSP_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -60,6 +60,9 @@
 // Section: BSP Macros
 // *****************************************************************************
 // *****************************************************************************
+#define wbz451_curiosity
+#define BSP_NAME             "wbz451_curiosity"
+
 /*** LED Macros for RGB_LED_RED ***/
 #define RGB_LED_RED_Toggle() (GPIOB_REGS->GPIO_LATINV = (1UL<<0))
 #define RGB_LED_RED_Get() ((GPIOB_REGS->GPIO_PORT >> 0) & 0x1U)
@@ -117,7 +120,6 @@
 
   Example:
     <code>
-    //Initialize the BSP
     BSP_Initialize();
     </code>
 
@@ -127,7 +129,7 @@
 
 void BSP_Initialize(void);
 
-#endif // _BSP_H
+#endif // BSP_H
 
 /*******************************************************************************
  End of File

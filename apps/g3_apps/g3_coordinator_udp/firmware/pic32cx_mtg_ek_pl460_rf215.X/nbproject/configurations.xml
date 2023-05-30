@@ -321,10 +321,10 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/cache/sys_cache.h</itemPath>
             </logicalFolder>
             <logicalFolder name="console" displayName="console" projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/sys_console.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_uart.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_local.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_uart_definitions.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/sys_console.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/debug/sys_debug.h</itemPath>
@@ -806,8 +806,8 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/cache/sys_cache.c</itemPath>
             </logicalFolder>
             <logicalFolder name="console" displayName="console" projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console.c</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_uart.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console.c</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/debug/src/sys_debug.c</itemPath>

@@ -145,6 +145,8 @@ void USI_CDC_Tasks (uint32_t index);
 
 size_t USI_CDC_Write(uint32_t index, void* pData, size_t length);
 
+bool USI_CDC_WriteIsBusy(uint32_t index);
+
 void USI_CDC_RegisterCallback(uint32_t index, USI_CDC_CALLBACK cbFunc, uintptr_t context);
 
 void USI_CDC_Close(uint32_t index);

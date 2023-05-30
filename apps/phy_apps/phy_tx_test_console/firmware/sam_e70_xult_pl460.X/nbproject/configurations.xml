@@ -126,6 +126,7 @@
           <itemPath>../src/config/sam_e70_xult_pl460/device.h</itemPath>
           <itemPath>../src/config/sam_e70_xult_pl460/user.h</itemPath>
           <itemPath>../src/config/sam_e70_xult_pl460/configuration.h</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460/sys_tasks.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="packs" projectFiles="true">

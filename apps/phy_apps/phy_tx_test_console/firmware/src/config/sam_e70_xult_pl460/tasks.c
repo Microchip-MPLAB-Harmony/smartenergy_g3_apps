@@ -52,6 +52,7 @@
 
 #include "configuration.h"
 #include "definitions.h"
+#include "sys_tasks.h"
 
 
 
@@ -79,6 +80,7 @@ void SYS_Tasks ( void )
     
     /* Maintain PLC PHY Driver */
     DRV_PLC_PHY_Tasks(sysObj.drvPlcPhy);
+
 DRV_MEMORY_Tasks(sysObj.drvMemory0);
 
 

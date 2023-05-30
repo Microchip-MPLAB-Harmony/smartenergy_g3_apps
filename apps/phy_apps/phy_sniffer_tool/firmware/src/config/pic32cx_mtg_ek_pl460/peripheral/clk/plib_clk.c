@@ -21,7 +21,6 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 #include <stdbool.h>
-#include "device.h"
 #include "plib_clk.h"
 #include "peripheral/rstc/plib_rstc.h"
 
@@ -33,14 +32,10 @@
 #define PLLB_UPDT_STUPTIM_VAL   0x00U
 #define PLLC_UPDT_STUPTIM_VAL   0x00U
 
-typedef enum
-{
-    PLLA = 0U,
-    PLLB,
-    PLLC
-}pll_id_t;
+#define NOP()    asm("NOP")
 
-typedef struct pmc_pll_cfg_tag {
+typedef struct pmc_pll_cfg_tag
+{
     uint32_t ctrl0;
     uint32_t ctrl1;
     uint32_t ctrl2;
@@ -48,6 +43,7 @@ typedef struct pmc_pll_cfg_tag {
     uint32_t acr;
     uint32_t stuptim;
 }pmc_pll_cfg_t;
+
 
 
 static const pmc_pll_cfg_t plla_cfg = {
@@ -62,6 +58,7 @@ static const pmc_pll_cfg_t plla_cfg = {
 
 
 
+
 static const pmc_pll_cfg_t pllb_cfg = {
     .ctrl0   = (PMC_PLL_CTRL0_ENLOCK_Msk | PMC_PLL_CTRL0_ENPLL_Msk | PMC_PLL_CTRL0_PLLMS(0U)
                | PMC_PLL_CTRL0_ENPLLO0_Msk | PMC_PLL_CTRL0_DIVPMC0(1U)),
@@ -73,6 +70,9 @@ static const pmc_pll_cfg_t pllb_cfg = {
 };
 
 
+
+
+static bool spreadRestoreStatus[3] = {false, false, false};
 
 /*********************************************************************************
                             Initialize Slow Clock (SLCK)
@@ -90,16 +90,123 @@ static void SlowClockInitialize(void)
     }
 }
 
+void CLK_TDSCLKSelectXTAL(void)
+{
+    /* 32KHz Crystal Oscillator is selected as the Slow Clock (SLCK) source.
+    Enable 32KHz Crystal Oscillator  */
 
-/*********************************************************************************
-                                Disable Main RC Oscillator
-*********************************************************************************/
-static void DisableMainRCOscillator(void)
+    SUPC_REGS->SUPC_CR |= SUPC_CR_KEY_PASSWD | SUPC_CR_TDXTALSEL_XTAL;
+
+    /* Wait until Slow Clock (SLCK) is switched from RC */
+    while ((SUPC_REGS->SUPC_SR & SUPC_SR_TDOSCSEL_XTAL) == 0U)
+    {
+        /* Wait for status to set */
+    }
+}
+
+
+
+void CLK_EnableMainRCOscillator(void)
+{
+    /* Enable the RC Oscillator */
+    PMC_REGS->CKGR_MOR = PMC_REGS->CKGR_MOR | (CKGR_MOR_KEY_PASSWD | CKGR_MOR_MOSCRCEN_Msk);
+
+    while ((PMC_REGS->PMC_SR & PMC_SR_MOSCRCS_Msk) != PMC_SR_MOSCRCS_Msk)
+    {
+        /* Wait for the RC Oscillator to stabilize */
+    }
+}
+
+void CLK_DisableMainRCOscillator(void)
 {
     /* Disable the RC Oscillator */
     PMC_REGS->CKGR_MOR = CKGR_MOR_KEY_PASSWD | (PMC_REGS->CKGR_MOR & ~CKGR_MOR_MOSCRCEN_Msk);
 }
 
+void CLK_EnableMainXTALOscillator(void)
+{
+    /* Enable Main Crystal Oscillator */
+    PMC_REGS->CKGR_MOR = (PMC_REGS->CKGR_MOR & ~CKGR_MOR_MOSCXTST_Msk) | CKGR_MOR_KEY_PASSWD | CKGR_MOR_MOSCXTST(0U) | CKGR_MOR_MOSCXTEN_Msk;
+
+    while ((PMC_REGS->PMC_SR & PMC_SR_MOSCXTS_Msk) == 0U)
+    {
+        /* Wait until the main oscillator clock is ready */
+    }
+}
+
+void CLK_DisableMainXTALOscillator(void)
+{
+    /* Disable the XTAL Oscillator */
+    PMC_REGS->CKGR_MOR = CKGR_MOR_KEY_PASSWD | (PMC_REGS->CKGR_MOR & ~CKGR_MOR_MOSCXTEN_Msk);
+}
+
+void CLK_MainOscillatorSelectXTAL(void)
+{
+    /* Main Crystal Oscillator is selected as the Main Clock (MAINCK) source.
+    Switch Main Clock (MAINCK) to Main Crystal Oscillator clock */
+
+    PMC_REGS->CKGR_MOR = (PMC_REGS->CKGR_MOR | CKGR_MOR_MOSCSEL_Msk) | CKGR_MOR_KEY_PASSWD;
+    while ((PMC_REGS->PMC_SR & PMC_SR_MOSCSELS_Msk) != PMC_SR_MOSCSELS_Msk)
+    {
+        /* Wait until MAINCK is switched to Main Crystal Oscillator */
+    }
+}
+
+void CLK_MainOscillatorSelectRC(void)
+{
+    /* RC Oscillator is selected as the Main Clock (MAINCK) source.
+    Switch Main Clock (MAINCK) to RC Oscillator clock */
+
+    PMC_REGS->CKGR_MOR = (PMC_REGS->CKGR_MOR & ~CKGR_MOR_MOSCSEL_Msk) | CKGR_MOR_KEY_PASSWD;
+    while ((PMC_REGS->PMC_SR & PMC_SR_MOSCSELS_Msk) != PMC_SR_MOSCSELS_Msk)
+    {
+        /* Wait until MAINCK is switched to RC Oscillator */
+    }
+}
+
+static void spreadDisable(PLL_ID pllID)
+{
+    uint32_t nstep = 0;
+    bool isSpreadEn = false;
+
+    PMC_REGS->PMC_PLL_UPDT |= (PMC_REGS->PMC_PLL_UPDT & ~(PMC_PLL_UPDT_UPDATE_Msk | PMC_PLL_UPDT_ID_Msk)) | PMC_PLL_UPDT_ID(pllID);
+
+    /* Disable spread if enabled */
+    if ((PMC_REGS->PMC_PLL_SSR & PMC_PLL_SSR_ENSPREAD_Msk) != 0U)
+    {
+        PMC_REGS->PMC_PLL_SSR &= ~PMC_PLL_SSR_ENSPREAD_Msk;
+
+        /* Wait for 2 x NSTEP cycles of the source clock of the PLL */
+        nstep = (PMC_REGS->PMC_PLL_SSR & PMC_PLL_SSR_NSTEP_Msk) >> PMC_PLL_SSR_NSTEP_Pos;
+
+        if ((PMC_REGS->PMC_PLL_CTRL0 & PMC_PLL_CTRL0_PLLMS_Msk) != 0U)
+        {
+            nstep *= 7U;
+        }
+        else
+        {
+            nstep *= 2500U;
+        }
+
+        for (uint32_t i = 0; i < nstep; i++)
+        {
+            NOP();NOP();NOP();NOP();NOP();
+        }
+
+        isSpreadEn = true;
+    }
+
+    spreadRestoreStatus[pllID] = isSpreadEn;
+}
+
+static void spreadRestore(PLL_ID pllID)
+{
+    if (spreadRestoreStatus[pllID] == true)
+    {
+        PMC_REGS->PMC_PLL_UPDT |= (PMC_REGS->PMC_PLL_UPDT & ~(PMC_PLL_UPDT_UPDATE_Msk | PMC_PLL_UPDT_ID_Msk)) | PMC_PLL_UPDT_ID(pllID);
+        PMC_REGS->PMC_PLL_SSR |= PMC_PLL_SSR_ENSPREAD_Msk;
+    }
+}
 
 /*********************************************************************************
                                     Initialize PLL
@@ -142,7 +249,54 @@ static void PLLInitialize(uint32_t pll_id, const pmc_pll_cfg_t *pll_cfg)
         reg = PMC_REGS->PMC_PLL_SSR & ~(PMC_PLL_SSR_Msk);
         reg |= pll_cfg->ssr;
         PMC_REGS->PMC_PLL_SSR = reg;
+        if ((PMC_REGS->PMC_PLL_SSR & PMC_PLL_SSR_ENSPREAD_Msk) != 0U)
+        {
+            spreadRestoreStatus[pll_id] = true;
+        }
     }
+}
+
+void CLK_PLLEnable(PLL_ID pllID)
+{
+    PMC_REGS->PMC_PLL_UPDT |= (PMC_REGS->PMC_PLL_UPDT & ~(PMC_PLL_UPDT_UPDATE_Msk | PMC_PLL_UPDT_ID_Msk)) | PMC_PLL_UPDT_ID(pllID);
+
+    if (pllID == PLLA)
+    {
+        PMC_REGS->PMC_PLL_CTRL0 |= (PMC_PLL_CTRL0_ENPLL_Msk | PMC_PLL_CTRL0_ENPLLO0_Msk | PMC_PLL_CTRL0_ENPLLO1_Msk);
+    }
+    else
+    {
+        PMC_REGS->PMC_PLL_CTRL0 |= (PMC_PLL_CTRL0_ENPLL_Msk | PMC_PLL_CTRL0_ENPLLO0_Msk);
+    }
+
+    PMC_REGS->PMC_PLL_UPDT |= PMC_PLL_UPDT_UPDATE_Msk;
+
+    while ((PMC_REGS->PMC_PLL_ISR0 & (1UL << (uint32_t)pllID)) == 0U)
+    {
+        /* Wait for PLL lock to rise */
+    }
+
+    spreadRestore(pllID);
+}
+
+void CLK_PLLDisable(PLL_ID pllID)
+{
+    PMC_REGS->PMC_PLL_UPDT |= (PMC_REGS->PMC_PLL_UPDT & ~(PMC_PLL_UPDT_UPDATE_Msk | PMC_PLL_UPDT_ID_Msk)) | PMC_PLL_UPDT_ID(pllID);
+
+    spreadDisable(pllID);
+
+    if (pllID == PLLA)
+    {
+        PMC_REGS->PMC_PLL_CTRL0 = PMC_REGS->PMC_PLL_CTRL0 & ~(PMC_PLL_CTRL0_ENPLLO0_Msk | PMC_PLL_CTRL0_ENPLLO1_Msk);
+    }
+    else
+    {
+        PMC_REGS->PMC_PLL_CTRL0 = PMC_REGS->PMC_PLL_CTRL0 & ~PMC_PLL_CTRL0_ENPLLO0_Msk;
+    }
+
+    PMC_REGS->PMC_PLL_UPDT |= PMC_PLL_UPDT_UPDATE_Msk;
+
+    PMC_REGS->PMC_PLL_CTRL0 &= ~PMC_PLL_CTRL0_ENPLL_Msk;
 }
 
 
@@ -197,14 +351,42 @@ static void CPUClockInitialize(void)
 }
 
 
+
+
+void CLK_Core1BusMasterClkEnable(void)
+{
+    PMC_REGS->PMC_SCER = (PMC_SCER_CPKEY_PASSWD | PMC_SCER_CPBMCK_Msk);
+
+    while ((PMC_REGS->PMC_SR & PMC_SR_CPMCKRDY_Msk) != PMC_SR_CPMCKRDY_Msk)
+    {
+        /* Wait for status CPMCKRDY */
+    }
+}
+
+void CLK_Core1BusMasterClkDisable(void)
+{
+    PMC_REGS->PMC_SCDR = (PMC_SCDR_CPKEY_PASSWD | PMC_SCDR_CPBMCK_Msk);
+}
+
+
 /*********************************************************************************
                     Enable/Disable flash patch based on core frequency
 *********************************************************************************/
-static void ApplyFlashPatch(void)
+static void CLK_ApplyFlashPatch(uint32_t cpuCLKFreq)
 {
     SFR_REGS->SFR_WPMR = SFR_WPMR_WPKEY_PASSWD;
-    /*Enable Flash high speed patch */
-    SFR_REGS->SFR_FLASH = 0x0U;
+
+    if (cpuCLKFreq >= 160000000U)
+    {
+        /*Enable Flash high speed patch */
+        SFR_REGS->SFR_FLASH = 0x0U;
+    }
+    else
+    {
+        /*Disable Flash high speed patch */;
+        SFR_REGS->SFR_FLASH = SFR_FLASH_Msk;
+    }
+
     SFR_REGS->SFR_WPMR = (SFR_WPMR_WPKEY_PASSWD | SFR_WPMR_WPEN_Msk);
 }
 
@@ -226,12 +408,10 @@ static bool PeripheralClockStatus(uint32_t periph_id)
     {
         status = (*(volatile uint32_t* const)((PMC_BASE_ADDRESS +
                                                         csr_offset[index])));
-        retval = ((status & (1 << (periph_id % 32U))) != 0U);
+        retval = ((status & ((uint32_t)1U << (periph_id % 32U))) != 0U);
     }
     return retval;
 }
-
-
 /*********************************************************************************
                         Initialize Peripheral clocks
 *********************************************************************************/
@@ -293,7 +473,7 @@ void CLK_Initialize( void )
         PLLInitialize((uint32_t)PLLB, &pllb_cfg);
 
         /* Apply flash patch */
-        ApplyFlashPatch();
+        CLK_ApplyFlashPatch(200000000);
 
         /* Initialize CPU clock */
         CPUClockInitialize();
@@ -302,11 +482,11 @@ void CLK_Initialize( void )
         PeripheralClockInitialize();
 
         /* Disable Main RC Oscillator */
-        DisableMainRCOscillator();
+        CLK_DisableMainRCOscillator();
     }
     else
     {
         /* Apply flash patch */
-        ApplyFlashPatch();
+        CLK_ApplyFlashPatch(200000000);
     }
 }

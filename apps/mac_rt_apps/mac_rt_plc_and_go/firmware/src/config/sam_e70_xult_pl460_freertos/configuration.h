@@ -118,6 +118,7 @@ extern "C" {
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_D
 #define DRV_PLC_EXT_INT_SRC                   PIOD_IRQn
+#define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PD28
 #define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PD28
 #define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PA0
 #define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PC30

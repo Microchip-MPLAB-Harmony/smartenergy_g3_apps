@@ -60,15 +60,6 @@
 // Section: RTOS "Tasks" Routine
 // *****************************************************************************
 // *****************************************************************************
-static void _DRV_G3_MACRT_Tasks(  void *pvParameters  )
-{
-    while(true)
-    {
-        /* Maintain G3 MAC RT Driver */
-        DRV_G3_MACRT_Tasks(sysObj.drvG3MacRt);
-    }
-}
-
 void _USB_DEVICE_Tasks(  void *pvParameters  )
 {
     while(1)
@@ -76,6 +67,15 @@ void _USB_DEVICE_Tasks(  void *pvParameters  )
                 /* USB Device layer tasks routine */
         USB_DEVICE_Tasks(sysObj.usbDevObject0);
         vTaskDelay(10 / portTICK_PERIOD_MS);
+    }
+}
+
+static void _DRV_G3_MACRT_Tasks(  void *pvParameters  )
+{
+    while(true)
+    {
+        /* Maintain G3 MAC RT Driver */
+        DRV_G3_MACRT_Tasks(sysObj.drvG3MacRt);
     }
 }
 
@@ -89,7 +89,7 @@ void _DRV_USBHSV1_Tasks(  void *pvParameters  )
     }
 }
 
-void _SYS_CONSOLE_0_Tasks(  void *pvParameters  )
+void lSYS_CONSOLE_0_Tasks(  void *pvParameters  )
 {
     while(1)
     {
@@ -103,7 +103,7 @@ void _SYS_CONSOLE_0_Tasks(  void *pvParameters  )
 TaskHandle_t xAPP_PLC_Tasks;
 
 static void lAPP_PLC_Tasks(  void *pvParameters  )
-{   
+{
     while(true)
     {
         APP_PLC_Tasks();
@@ -114,7 +114,7 @@ static void lAPP_PLC_Tasks(  void *pvParameters  )
 TaskHandle_t xAPP_CONSOLE_Tasks;
 
 static void lAPP_CONSOLE_Tasks(  void *pvParameters  )
-{   
+{
     while(true)
     {
         APP_CONSOLE_Tasks();
@@ -141,7 +141,7 @@ static void lAPP_CONSOLE_Tasks(  void *pvParameters  )
 void SYS_Tasks ( void )
 {
     /* Maintain system services */
-        xTaskCreate( _SYS_CONSOLE_0_Tasks,
+        xTaskCreate( lSYS_CONSOLE_0_Tasks,
         "SYS_CONSOLE_0_TASKS",
         SYS_CONSOLE_RTOS_STACK_SIZE_IDX0,
         (void*)NULL,
@@ -152,7 +152,7 @@ void SYS_Tasks ( void )
 
 
     /* Maintain Device Drivers */
-    
+
     xTaskCreate( _DRV_G3_MACRT_Tasks,
         "DRV_G3_MACRT_TASKS",
         DRV_PLC_RTOS_STACK_SIZE,
@@ -205,7 +205,7 @@ void SYS_Tasks ( void )
 
 
     /* Start RTOS Scheduler. */
-    
+
      /**********************************************************************
      * Create all Threads for APP Tasks before starting FreeRTOS Scheduler *
      ***********************************************************************/

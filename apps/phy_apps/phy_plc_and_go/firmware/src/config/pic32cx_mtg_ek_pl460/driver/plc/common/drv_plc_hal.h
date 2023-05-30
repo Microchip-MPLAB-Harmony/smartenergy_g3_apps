@@ -176,9 +176,6 @@ typedef struct
     /* SPI Write/Read */
     DRV_PLC_SPI_WRITE_READ                 spiWriteRead;
 
-    /* SPI CSR register address. */
-    uint32_t                               *spiCSR;
-
     /* SPI clock frequency */
     uint32_t                               spiClockFrequency;
 
@@ -190,6 +187,9 @@ typedef struct
 
     /* PLC external interrupt pin */
     SYS_PORT_PIN                           extIntPin;
+
+    /* PLC external interrupt pio */
+    SYS_PORT_PIN                           extIntPio;
 
     /* PLC Tx Enable pin */
     SYS_PORT_PIN                           txEnablePin;
@@ -217,6 +217,8 @@ typedef bool (* DRV_PLC_HAL_GET_THMON)(void);
 typedef bool (* DRV_PLC_HAL_SET_TXENABLE)(bool);
 
 typedef void (* DRV_PLC_HAL_ENABLE_EXT_INT)(bool);
+
+typedef bool (* DRV_PLC_HAL_GET_PIN_LEVEL)(SYS_PORT_PIN pin);
 
 typedef void (* DRV_PLC_HAL_DELAY)(uint64_t);
 
@@ -263,6 +265,9 @@ typedef struct
 
     /* PLC HAL Enable/Disable external interrupt */
     DRV_PLC_HAL_ENABLE_EXT_INT               enableExtInt;
+
+    /* PLC HAL Get Pin level */
+    DRV_PLC_HAL_GET_PIN_LEVEL                getPinLevel;
 
     /* PLC HAL delay function */
     DRV_PLC_HAL_DELAY                        delay;
@@ -328,6 +333,7 @@ bool DRV_PLC_HAL_GetThermalMonitor(void);
 void DRV_PLC_HAL_Setup(bool set16Bits);
 void DRV_PLC_HAL_SetTxEnable(bool enable);
 void DRV_PLC_HAL_EnableInterrupts(bool enable);
+bool DRV_PLC_HAL_GetPinLevel(SYS_PORT_PIN pin);
 void DRV_PLC_HAL_Delay(uint64_t delayUs);
 void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t address, uint32_t dataLength, uint8_t *pDataWr, uint8_t *pDataRd);
 void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo);

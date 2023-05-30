@@ -4,19 +4,19 @@
 
 
 project: phy_tester_tool
-creation_date: 2023-02-14T10:10:16.950+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2023-06-01T10:16:31.742+02:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mhc_mode: Standalone            # [IDE|Standalone|Headless]
-mhc_version: NA
+mhc_version: v3.8.5
 mplabx_version: NA        # if MPLAB X plugin only
 plugin_version: NA        # if MPLAB X plugin only
 compiler: xc32
 
 modules:
-    - {name: "csp", version: "v3.15.0"}
-    - {name: "core", version: "v3.12.0-E1"}
-    - {name: "dev_packs", version: "v3.15.0"}
+    - {name: "csp", version: "v3.17.0"}
+    - {name: "core", version: "v3.13.0"}
+    - {name: "dev_packs", version: "v3.16.0"}
     - {name: "usb", version: "v3.10.0"}
     - {name: "smartenergy", version: "unknown"}
-    - {name: "bsp", version: "v3.15.0"}
+    - {name: "bsp", version: "v3.16.0"}
 

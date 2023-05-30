@@ -1094,8 +1094,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;535&quot; canvasWidth=&quot;733&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E70_Xplained_Ultra&quot; x=&quot;20&quot; y=&quot;62&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;580&quot; y=&quot;20&quot;/&gt;
@@ -1116,6 +1115,7 @@
         &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;usart1&quot; x=&quot;64&quot; y=&quot;479&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;535&quot; canvasWidth=&quot;733&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -5917,19 +5917,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="usart1" name="USART_NVIC_ENABLE_COMMENT"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;usart1&gt;
-  &lt;usart1 dnOrder=&quot;0&quot; id=&quot;USART_NVIC_ENABLE_COMMENT&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/usart1&gt;
-&lt;/usart1&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="usart1" name="USART_OPERATING_MODE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;usart1&gt;
   &lt;usart1 dnOrder=&quot;0&quot; id=&quot;USART_OPERATING_MODE&quot;&gt;
@@ -6034,7 +6021,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\osal\osal_impl_basic.h</file>
-         <hash>0c388837ef1d4e207a028ed31bfe07f1aac7ea8b0505caff58f737667ccbeaee</hash>
+         <hash>67ce72d34fd1e4dee0b6937fa026ab2c7bd285f82a24da09742c68333adaf0fc</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\service\pvddmon\srv_pvddmon.c</file>
@@ -6054,7 +6041,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\memory\src\drv_memory.c</file>
-         <hash>b9b7cd3017239bb840c2aa997fcb9940bec33e6d0a0ba3786f2164e9f5b2ae78</hash>
+         <hash>5699c8f9c6b65dbd0424a7a6279758add16f702edf6eab7630127bc1844c84e4</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\system.h</file>
@@ -6062,7 +6049,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\xdmac\plib_xdmac.c</file>
-         <hash>cb8cfa4bd285ad210adc367eb1dc80cf61e3a4a450dec61cd76c1b2a946e1e81</hash>
+         <hash>c8260c8725ea63dbd6f8a6eb616853a5aee886ae441ef55d1d9bf6586680e39e</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\ports\sys_ports.h</file>
@@ -6078,7 +6065,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\pio\plib_pio.c</file>
-         <hash>c698ec01fc1b5a0faeccd9b4e7fb30d56139e5c98f5307b1871a1d97f0ba434d</hash>
+         <hash>7850dd338479f9ccd17d9dbdb8f832ddb984197ba2f1a5f2caa750ae7e4f14d1</hash>
       </entry>
       <entry>
          <file>..\src\app_nvm.c</file>
@@ -6106,7 +6093,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\tasks.c</file>
-         <hash>085d18a7596f8781ea3940ffe02a464ba06c2b5fd6733227bcdfd0644c861943</hash>
+         <hash>a8f90326fa1398aec1430f7a0aec12849803a971c1f53a2b136ca443f3d2d269</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\acc.h</file>
@@ -6130,7 +6117,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\system_common.h</file>
-         <hash>0dbf2f60b29c97426e70187bc59c652ab5a355f51cfbe3f195ff1c8c6c0b1602</hash>
+         <hash>c9f34bd226f8efab12f5766e77f8355996cd0430b50e0f6ee30258664c494984</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\ssc.h</file>
@@ -6146,7 +6133,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\memory\drv_memory_efc.h</file>
-         <hash>3046f0ae69b171080882a3e29bf18246a61db45872db526a43be81b89bde54d0</hash>
+         <hash>d01f08415c38037399fb83c6837a440b5fa9e109f61046233442ded272565534</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\mpu_armv7.h</file>
@@ -6170,15 +6157,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\phy\bin\PLC_PHY_G3_FCC.bin</file>
-         <hash>603fc816139313cb135a28f62e2a9f52876ef3e33d70b11943f51b85abc11443</hash>
+         <hash>9b58e022530cf632b16b66d0c50bc5519898b2cae4a0d3b3c6f66e5792354cb7</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\clk\plib_clk.c</file>
-         <hash>70a04dade8910820709830e9f03a0447bb9e40f3ee821dd5bd45bf25a587b6de</hash>
+         <hash>0a867bc05ed00cc1bd55204055c626e07c7e2901fd35e8179d91cdcf0b948876</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\system_module.h</file>
-         <hash>981fac23277aa77f682e7a9a28d436f892006cd5b4c7f23f50941b6d9a30e740</hash>
+         <hash>96c74368801b0a7aaa25aec3ec2cb0d483250385f103ffc1ff64089b4ca2c6d9</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armclang.h</file>
@@ -6205,6 +6192,10 @@
          <hash>858f8710d4287200a5ee7f3b3ad7c24f505aed9c05c16956ab0ff9f7bb162a6a</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_e70_xult_pl460\sys_tasks.h</file>
+         <hash>21f254f497a18a024cd00128d06c4776c2643f867a460c1ba9880a7dd41a8d56</hash>
+      </entry>
+      <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\i2sc.h</file>
          <hash>929c154958f13481b063e36f36e839169b1900483c2aa5c1a68fcd98b8fcbd8c</hash>
       </entry>
@@ -6226,7 +6217,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\system_media.h</file>
-         <hash>be592b4eb9eb4cc8f25cf734fc15b088de091d2f8051b0fcba091c1b6194df5f</hash>
+         <hash>e61ba67015cfba6a7425d077cd2c633ba9989218bbe585078efe2face729401f</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\user.h</file>
@@ -6238,15 +6229,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\console\src\sys_console.c</file>
-         <hash>40aa2013385ec344c267d5779ef941d663ecc0739ebe962ad906324e71666c43</hash>
+         <hash>622a27844a650b4fa265c7a4739ba3768a76e4148600be42e44eec2e0673d7c6</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\toolchain_specifics.h</file>
-         <hash>2559d185e92918f61c308a62200cb0cda72726c63111561524dd53afcc635a18</hash>
+         <hash>406ef48ae415706beb0796977cab09342077f7b1efc3f24767bd97bbd5e5a433</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\interrupts.c</file>
-         <hash>394a1e390b554d32bdfb9015ad22410dce53a29cd6dfff9f5c6754f2f3be512b</hash>
+         <hash>811d823e36ed52eea6a207b3d479196caba9f1ae67633f248a1b0a942d53a2ab</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\i2sc0.h</file>
@@ -6258,7 +6249,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\int\src\sys_int.c</file>
-         <hash>23e798871ce6f7b4b0e0dbd5cb2cad7b43bd2dd1f38152f28d14f5a5b7a2938b</hash>
+         <hash>4281667cc2b84c9e4be1f0dfb3f7d42b77d36c5dcf6513d29ff40262f746cfc6</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\interrupts.h</file>
@@ -6282,7 +6273,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\common\drv_plc_boot.h</file>
-         <hash>778be73f7ff51791e43a065645bf64a13e3e03113d37ff64f9579c788c381eb2</hash>
+         <hash>f8ce8c632026235f86b98194fcbb4c4d8fb4479c86c892ffbe46fab38cd9df62</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\efc\plib_efc.h</file>
@@ -6322,27 +6313,27 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\common\drv_plc_boot.c</file>
-         <hash>b0e837b33818c114ef668093de713d00eab5268f2ed9fe32494346c4b94ce180</hash>
+         <hash>d776492cff6419873df1d6c35bd627d1ac964565f93c6ee366051b632aa92824</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\tc\plib_tc0.c</file>
-         <hash>f8437ecf8770a207a66c002b44a78446f678035ca94f3b8fe0edfd93fae1620e</hash>
+         <hash>b193f7c7dade208f4ccef393a627107f5c5bb9a1116b6f0642183f97d1caad93</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\dma\sys_dma.h</file>
-         <hash>8c029e0eeb3eb9d94a6fbc5c696caf64b67c8f88e71d9617e44349b5d316412b</hash>
+         <hash>d570c3eedcfc24c49dd3d48022af76f4351b6b7065ae41df42f1fb0d56bf6466</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\configuration.h</file>
-         <hash>1a3f8a247e533eeeb243f3349a6ac3b0606bd49480ff436f32be56bc8821405d</hash>
+         <hash>a3d555f209997938656e490b224b992c2f9a6c97038814fce30bdf357c015bd2</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\osal\osal.h</file>
-         <hash>d42702188d00d3e1d7219d7eef030485896bf8b5ebe55318656e82f0fbb89788</hash>
+         <hash>8404fbe44807fa0484ffb38843a72cb9af8e31c9c30bd1b2594e609b8ea317d9</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\startup_xc32.c</file>
-         <hash>99f155f0a79b5b95e4382f0a32e186b13b677c304c3583009ffef3d879309c85</hash>
+         <hash>eea4e495dc8487c0587ebfe6d915202cd456a4dde990a9847f3bd149ae8ec7d2</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\tc1.h</file>
@@ -6362,11 +6353,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\dma\sys_dma.c</file>
-         <hash>d6d217d1e698ac5abed0d91e1e4c2d83fe3bfe7faf5d0bb9648f1d3e2b4e82c0</hash>
+         <hash>7ff3098ac82e3249ded5161ea2600e009d1d2011e0f98e9be90ea52b3ee7e2bb</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\initialization.c</file>
-         <hash>91801c323c9d0806c2814fad5b17fd4a9665cfcc1978d2fd1eff76aa2b94d3f8</hash>
+         <hash>1f2c2a82aeb76aa3f601db45b4e8e5897fff2689972671ad528c6618ba17ef1d</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\mcan.h</file>
@@ -6378,7 +6369,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\cache\sys_cache.h</file>
-         <hash>3407ecac4da455d4b8ba70043f10c20b10e1304e92402db824ca5efa6a2f8402</hash>
+         <hash>b4b3a4e7434759c9bbcd3c6a0ab97558eb2a007f083a4eb76dbedcb2e2c3d86b</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\rswdt.h</file>
@@ -6442,7 +6433,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\time\src\sys_time.c</file>
-         <hash>b722ac0c5d955d289bd906609ab6f302342166c5ba66f87b30cac17ac6bfdcd9</hash>
+         <hash>fa2d85ab967b80157caf8483f6e28a23b12b548844a1d80f2fef760cd9b99271</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\pwm1.h</file>
@@ -6450,7 +6441,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\xdmac\plib_xdmac_common.h</file>
-         <hash>96647f506cf2fe28b1204a1e6ce56e8e4cf04da59d224d6bace73fa5749c87ac</hash>
+         <hash>e5a0dc5bf08198069d8bf3ab33895344fc92b184bf5fa23efdbad2940827693e</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\console\src\sys_console_uart.h</file>
@@ -6458,7 +6449,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\console\src\sys_console_uart.c</file>
-         <hash>ac0304a177b5e152c80d648da5f5cd87f7d926814f093131b76142c41fde6473</hash>
+         <hash>ff3d1854f469e4fc41d96adce6f7ec38afad5d1b076c295eb4777936777673d0</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\tc0.h</file>
@@ -6466,11 +6457,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\osal\osal_definitions.h</file>
-         <hash>0a5ca28c4812bb37babfebc1fe30a90b13583504d81910ad159feb746a5b002c</hash>
+         <hash>5f0a2513a093b6d228e2b50646b204923a82047335a47f3d35a2938309ab6f37</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\phy\bin\PLC_PHY_G3_CENA.bin</file>
-         <hash>31677857c185060e22af048767a2861da8b3c85d5d9a5994e88c6eeb19d85262</hash>
+         <hash>fc514a6d2175a0529ee9084cf772ee33a712c69ece457a8ab2f443385d586185</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\trng.h</file>
@@ -6482,7 +6473,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\common\drv_plc_hal.c</file>
-         <hash>415d2e569791ac1f80a85930a1b833d2442771a0303dc1e6f634629b5467cca7</hash>
+         <hash>930f46e6332b8b7668cca9058f25f0f9d0f0d548c71cf518eed3488daed3968f</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cachel1_armv7.h</file>
@@ -6506,11 +6497,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\memory\drv_memory_definitions.h</file>
-         <hash>1e3d2eb7fd3cbaf473c3ad343f80e9da31f41f856d08c2dc268eb0c1001a2aee</hash>
+         <hash>b8f10e5a04840558da99e20856d3f7394b280d5e399d72ee5ef1cf13b3ee48f2</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\common\drv_plc_hal.h</file>
-         <hash>706ad637949950d7592275206f3472292ddc81b711eeea9d8d2dff628756e185</hash>
+         <hash>198161828a48509f3249c0fe711772a58e6d32f6cc46c0419fce90cecbf65582</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\efc.h</file>
@@ -6518,7 +6509,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\console\sys_console.h</file>
-         <hash>e8a97986345fb2c80389834b113384eba523837ee43f7798d9b56be630a6e7b3</hash>
+         <hash>cc82ba93f8d69bf31a9dfcfe1e425de3924bcf9e4e4b31f7efad9c2d062dcbf6</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\gmac.h</file>
@@ -6530,15 +6521,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\bsp\bsp.h</file>
-         <hash>7f7c7aeb6bcaf917d516ced403f0a74d96861ad92fc349f85c3e25744c8e70d7</hash>
+         <hash>7c5b338b67dc1404ac96c8a1e4c0976143deb543e64bec64beed58dff969ad4f</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\definitions.h</file>
-         <hash>60c0ea8e3b701352d40218451e8f7de0da15b9152fbbfb333a52920e05dc9511</hash>
+         <hash>06f305373e31905c8b2a313a81f484edcfb8b8c493f2b4c0ba9bb64a61b269b4</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\memory\src\drv_memory_local.h</file>
-         <hash>7938d56b25af2bfaad712cba18a690a52bad94080eafbc9c15c235b587cdd5cb</hash>
+         <hash>129258f301260bf3f612f02652c061c7df89379cc21950df0d02ba5f5ee1845d</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\bsp\bsp.c</file>
@@ -6558,7 +6549,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\memory\drv_memory.h</file>
-         <hash>23efb46974c19b12bca3a289f273f20c6993da56604044d7ba6cc581f333ce3c</hash>
+         <hash>614702f2ebbb2a6a2b1baf1c9f8472c94ea3588e370c507c9bf408b1d86702af</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\afec.h</file>
@@ -6566,11 +6557,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\dma\sys_dma_mapping.h</file>
-         <hash>46692be94e8ea198c1eae3eda1c21ff9371e94078e2011831412b838d8e7fad5</hash>
+         <hash>4ff8aeb6274c85bdd6ee30cc2a43f307a17265ec98f56f77c063a262dbb8c5f6</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\debug\sys_debug.h</file>
-         <hash>222cdc284bd651e83188b9641cc57c133cf86563dbeb5d5523766d4a36087165</hash>
+         <hash>bc6fa321b0be542d074e4564065b7fd69f52556486ac3d892d315b51c434f9ec</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\rstc.h</file>
@@ -6582,11 +6573,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>0dd3eb494870587ab3793ef3f5da9844c9b89bd40b78f8b5d1a78b615940645a</hash>
+         <hash>655240bdb991b70fe20fa22826f47018c68391724faa2153b746938c6e1fa32c</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\usart\plib_usart_common.h</file>
-         <hash>b9fb9df95c5845d747bbe90092965566dba079f71d63010902133c86237a1a50</hash>
+         <hash>515630c93a179f33d4067575f9619de7269c9f1ebaee4496dad91fd1b58879b8</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\gmac.h</file>
@@ -6606,11 +6597,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\int\sys_int_mapping.h</file>
-         <hash>660e7081f93de17660144721849acf269925988a4f6510028d25903aaa866ea1</hash>
+         <hash>5abf8528dabc1b17378f5d137870597037214fddf33880fa40e9263352da3008</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\cache\sys_cache.c</file>
-         <hash>7266793f96d0991d1cff7006720bff2a3f6974ca34aa53e488763b2a9f307ab9</hash>
+         <hash>5f8c30e8077b915a4c4ff0515354b2877dc74c3236f307bdc1132307269fbf86</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\wdt.h</file>
@@ -6634,15 +6625,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\trng\plib_trng.c</file>
-         <hash>221a76b4d3a7036b77871184c1441aa2476bbf2e069e1c2faa3debbe1045e2a2</hash>
+         <hash>829c692d8fc068b388cf7db32ce8b3ab81a6e4efc756b4ea03f84264c0c668fe</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\phy\drv_plc_phy.c</file>
-         <hash>213b3d02d5c8ee53f07663765e9cf6ca2b0ad10bb3a09912b2c432b316218ded</hash>
+         <hash>3f9e34db113700f8c45db99004bac6d0fa3df83df333803febc8bac24ce78d2c</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\trng\plib_trng.h</file>
-         <hash>f2e79f6d3a503c9a91e9df5d089b8becc5d5a3bafd5c0341e8f1279a5193ecf0</hash>
+         <hash>6c51ae3ca0b94df4a3848fa5080fad5502f807320e9db37fea87fa07fe441735</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\rtt.h</file>
@@ -6650,7 +6641,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\phy\drv_plc_phy.h</file>
-         <hash>7c77e6a245d77e478c40b316953bc56f1d0e697621b2acc206e3610acb471ef4</hash>
+         <hash>db39258593ae809939b869aa8cf4fe45558504c20c4966a5eefcb7f434d37207</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\twihs.h</file>
@@ -6658,7 +6649,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\tc\plib_tc_common.h</file>
-         <hash>18de4e464f8009ae88ff57f51eade38db795cae08b4a09570ef487e4e980d086</hash>
+         <hash>920c335908d58caf6b00d824870cc7c8b80011a09c27e6ff7b56f6fc237ee5c5</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_compiler.h</file>
@@ -6690,7 +6681,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\time\src\sys_time_local.h</file>
-         <hash>d3ef06b59d9a89efe9e8eb54fcf3b75120d56156cc21f6847ca4f9e902eb7c9d</hash>
+         <hash>df56f970664902417d798760e44978cf4b84c108cf0761647a383e91db76980c</hash>
       </entry>
       <entry>
          <file>..\src\main.c</file>
@@ -6718,7 +6709,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\int\sys_int.h</file>
-         <hash>71e36331ee689ae305b3d8ec49948e3dde0324b65f51bf38f4472b900a421ed6</hash>
+         <hash>dc104ae181fd5309e1bb42896246644fae95915a8e639b23ecfccc8840850274</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\pmc.h</file>
@@ -6730,7 +6721,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\console\src\sys_console_uart_definitions.h</file>
-         <hash>0b8c26a32e6ab6cb50039434ed379044bfa539b4ed2ed4b65a281d943a8868d8</hash>
+         <hash>bf403c11673266a5a861fd99253c377030c1a7f9e912eef446101e416b4f8c9a</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\spi.h</file>
@@ -6742,7 +6733,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\time\sys_time_definitions.h</file>
-         <hash>8a02a9fe9638f0afd2e1b4c65f4d4265cd34d8814defa74f9af6d75f52cd317d</hash>
+         <hash>b8c332f36f8a6ed230dc25b1f9f7f2970699947567f80cb06534d405b7a0dd9d</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_iccarm.h</file>
@@ -6770,7 +6761,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\nvic\plib_nvic.c</file>
-         <hash>91e8763704607d4fecd9129ad7ce45a98d41306be59ea30782fc66ea568b4d9a</hash>
+         <hash>ffd1b35e4c1a85978ee1bfad0db729d203c8dc1f0fda9d8a331f420968022742</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\supc.h</file>
@@ -6782,11 +6773,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\exceptions.c</file>
-         <hash>b268111879b5fa0ab2eaf79fc5d4bd1aa046c54d97805246ce08964100a70bfb</hash>
+         <hash>89852728a9a1cc4c9746839cc3caf5308b8698c0c30bf6bfbad0db9e552a387e</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\afec\plib_afec1.c</file>
-         <hash>9287186bbc5d7dff7e7312b750e2de0214d9d0bb71edaf825f749a66dc6cb391</hash>
+         <hash>8a8ab6d07727361b85ea7fd9cd40d932c506cc76b07dc6606954794fc043fdb3</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\matrix.h</file>
@@ -6794,7 +6785,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\time\sys_time.h</file>
-         <hash>f21b100d8f0b8b79af9217315098d51df855d9015f05a7e25ad77414cd19b2c3</hash>
+         <hash>6357468f7670698b16bfb6439d9919ed38eba99d4f03277a8b43ac34586fa1b3</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\isi.h</file>
@@ -6802,7 +6793,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\usart\plib_usart1.c</file>
-         <hash>91be18e6c3218f10b91211b24b0afb63f31d028ab08b6cbbca0e27c0dca06812</hash>
+         <hash>8fbd2a38daf208a768cc61b261836b502d1e86e96d0448dde030a3ee9bf18d4b</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\libc_syscalls.c</file>
@@ -6830,7 +6821,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\spi\spi_master\plib_spi0_master.c</file>
-         <hash>983761d912d27646ee2ba8dc39e5a41e84701e7c3075635ec7143437523b7b82</hash>
+         <hash>7f4ea845efe0b4c12e8879703c86c886f1d1c025bd06532275930ef64393aefa</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\afec\plib_afec1.h</file>
@@ -6846,7 +6837,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\spi\spi_master\plib_spi_master_common.h</file>
-         <hash>f6ddb3dab29c28ff6b4a6938d9d9d113a32e4b750a9e9f4698f9599297d102f8</hash>
+         <hash>e9a33a15a5f1458ccee12f902c1c4473038018a855a40614746be6e6e0e81b09</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\ports\sys_ports_mapping.h</file>
@@ -6854,7 +6845,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\spi\spi_master\plib_spi0_master.h</file>
-         <hash>d575d160a9664bb536a7c5727a5859582f4daae1e811dc718689840794853cb9</hash>
+         <hash>baea54ccc662ad375d397641a8c8397e3b53d9dde17017eb6526ddac8984ac79</hash>
       </entry>
       <entry>
          <file>..\src\app_console.c</file>

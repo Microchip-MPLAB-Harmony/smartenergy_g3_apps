@@ -48,7 +48,6 @@
 #include "device.h"
 
 
-
 // ****************************************************************************
 // ****************************************************************************
 // Section: Configuration Bits
@@ -66,6 +65,10 @@
 // Section: Driver Initialization Data
 // *****************************************************************************
 // *****************************************************************************
+/* Following MISRA-C rules are deviated in the below code block */
+/* MISRA C-2012 Rule 11.1 */
+/* MISRA C-2012 Rule 11.3 */
+/* MISRA C-2012 Rule 11.8 */
 // <editor-fold defaultstate="collapsed" desc="DRV_RF215 Initialization Data">
 
 /* RF215 Driver Initialization Data */
@@ -118,10 +121,10 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     .dmaChannelTx = SYS_DMA_CHANNEL_0,
 
     /* DMA Channel for Receive */
-    .dmaChannelRx  = SYS_DMA_CHANNEL_1,
+    .dmaChannelRx = SYS_DMA_CHANNEL_1,
 
     /* SPI Transmit Register */
-    .spiAddressTx =  (void *)&(SPI0_REGS->SPI_TDR),
+    .spiAddressTx = (void *)&(SPI0_REGS->SPI_TDR),
 
     /* SPI Receive Register */
     .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
@@ -138,6 +141,9 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
        
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
+       
+    /* PLC External Interrupt Pio */
+    .extIntPio = DRV_PLC_EXT_INT_PIO,
 
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
@@ -257,6 +263,7 @@ const SRV_USI_INIT srvUSI0Init =
 // </editor-fold>
 
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: System Data
@@ -364,7 +371,7 @@ static const SYS_TIME_INIT sysTimeInitData =
 // *****************************************************************************
 // *****************************************************************************
 
-
+/* MISRAC 2012 deviation block end */
 
 /*******************************************************************************
   Function:
@@ -378,6 +385,7 @@ static const SYS_TIME_INIT sysTimeInitData =
 
 void SYS_Initialize ( void* data )
 {
+
     /* MISRAC 2012 deviation block start */
     /* MISRA C-2012 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2012_R_2_2_DR_1 */
 
@@ -406,6 +414,12 @@ void SYS_Initialize ( void* data )
 	SPI0_Initialize();
 
 
+
+    /* MISRAC 2012 deviation block start */
+    /* Following MISRA-C rules deviated in this block  */
+    /* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    /* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+
     /* Initialize RF215 Driver Instance */
     sysObj.drvRf215 = DRV_RF215_Initialize(DRV_RF215_INDEX_0, (SYS_MODULE_INIT *)&drvRf215InitData);
     /* Initialize PLC Phy Driver Instance */
@@ -431,14 +445,15 @@ void SYS_Initialize ( void* data )
     sysObj.drvUSBHSV1Object = DRV_USBHSV1_Initialize(DRV_USBHSV1_INDEX_0, (SYS_MODULE_INIT *) &drvUSBInit);	
 
 
+    /* MISRAC 2012 deviation block end */
     APP_Initialize();
 
 
     NVIC_Initialize();
 
+
     /* MISRAC 2012 deviation block end */
 }
-
 
 /*******************************************************************************
  End of File

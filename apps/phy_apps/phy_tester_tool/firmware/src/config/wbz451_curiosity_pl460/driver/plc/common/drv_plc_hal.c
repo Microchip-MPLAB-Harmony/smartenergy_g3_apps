@@ -121,9 +121,8 @@ void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
 {
     sPlcPlib = plcPlib;   
     
-
     /* Disable External Interrupt */
-    EIC_InterruptDisable(DRV_PLC_EXT_INT_PIN);
+    EIC_InterruptDisable((EIC_PIN)sPlcPlib->extIntPin);
     /* Enable External Interrupt Source */
     SYS_INT_SourceEnable(DRV_PLC_EXT_INT_SRC);
 }
@@ -175,10 +174,13 @@ void DRV_PLC_HAL_Reset(void)
 
 void DRV_PLC_HAL_SetTxEnable(bool enable)
 {
-    if (enable) {
+    if (enable) 
+    {
         /* Set TX Enable Pin */
         SYS_PORT_PinSet(sPlcPlib->txEnablePin);
-    } else {
+    } 
+    else 
+    {
         /* Clear TX Enable Pin */
         SYS_PORT_PinClear(sPlcPlib->txEnablePin);
     }
@@ -200,12 +202,17 @@ void DRV_PLC_HAL_EnableInterrupts(bool enable)
     if (enable)
     {
         SYS_INT_SourceStatusClear(DRV_PLC_EXT_INT_SRC);
-        EIC_InterruptEnable(DRV_PLC_EXT_INT_PIN);
+        EIC_InterruptEnable((EIC_PIN)sPlcPlib->extIntPin);
     }
     else
     {
-        EIC_InterruptDisable(DRV_PLC_EXT_INT_PIN);
+        EIC_InterruptDisable((EIC_PIN)sPlcPlib->extIntPin);
     }
+}
+
+bool DRV_PLC_HAL_GetPinLevel(SYS_PORT_PIN pin)
+{
+    return (SYS_PORT_PinRead(pin));
 }
 
 void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, uint8_t *pDataWr, uint8_t *pDataRd)
@@ -230,10 +237,12 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
             dataLength = HAL_SPI_BUFFER_SIZE - 6;
         }
         
-        if (pDataWr) {
+        if (pDataWr) 
+        {
             memcpy(pTxData, pDataWr, dataLength);
         }
-        else{
+        else
+        {
             /* Insert dummy data */
             memset(pTxData, 0, dataLength);
         }
@@ -244,26 +253,18 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
     /* Get length of transaction in bytes */
     size = pTxData - sTxSpiData;
 
-    if (DATA_CACHE_IS_ENABLED())
-    {
-        /* Invalidate cache lines having received buffer before using it
-         * to load the latest data in the actual memory to the cache */
-        DCACHE_CLEAN_BY_ADDR((uint32_t *)sTxSpiData, HAL_SPI_BUFFER_SIZE);
-        DCACHE_INVALIDATE_BY_ADDR((uint32_t *)sRxSpiData, HAL_SPI_BUFFER_SIZE);
-    }
-
     /* Assert CS pin */
     SYS_PORT_PinClear(sPlcPlib->spiCSPin);
-    
+   
     SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelRx, (const void *)sPlcPlib->spiAddressRx, (const void *)sRxSpiData, size);
     SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelTx, (const void *)sTxSpiData, (const void *)sPlcPlib->spiAddressTx, size);
 
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx));
-    
+
     /* Deassert CS pin */
-    SYS_PORT_PinSet(sPlcPlib->spiCSPin);
-        
-    if (pDataRd) {
+    SYS_PORT_PinSet(sPlcPlib->spiCSPin);   
+
+    if (pDataRd) {        
         /* Update data received */
         memcpy(pDataRd, &sRxSpiData[6], dataLength);
     }
@@ -314,14 +315,6 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
         cmdSize++;
     }
        
-    if (DATA_CACHE_IS_ENABLED())
-    {
-        /* Invalidate cache lines having received buffer before using it
-         * to load the latest data in the actual memory to the cache */
-        DCACHE_CLEAN_BY_ADDR((uint32_t *)sTxSpiData, HAL_SPI_BUFFER_SIZE);
-        DCACHE_INVALIDATE_BY_ADDR((uint32_t *)sRxSpiData, HAL_SPI_BUFFER_SIZE);
-    }
-
     /* Assert CS pin */
     SYS_PORT_PinClear(sPlcPlib->spiCSPin);
    
@@ -332,7 +325,7 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
 
     /* Deassert CS pin */
     SYS_PORT_PinSet(sPlcPlib->spiCSPin);
-    
+
     if (pCmd->cmd == DRV_PLC_HAL_CMD_RD) {
         /* Update data received */
         memcpyREV16(pCmd->pData, &sRxSpiData[4], pCmd->length);

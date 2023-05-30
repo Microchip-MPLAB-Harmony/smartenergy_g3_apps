@@ -209,8 +209,8 @@
                 </logicalFolder>
               </logicalFolder>
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/peripheral/flexcom/usart/plib_flexcom_usart_local.h</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/peripheral/flexcom/usart/plib_flexcom0_usart.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/peripheral/flexcom/usart/plib_flexcom_usart_local.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
@@ -321,9 +321,9 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/system/cache/sys_cache.h</itemPath>
             </logicalFolder>
             <logicalFolder name="console" displayName="console" projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/system/console/src/sys_console_uart.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/system/console/src/sys_console_local.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/system/console/sys_console.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/system/console/src/sys_console_uart.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/system/console/src/sys_console_uart_definitions.h</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
@@ -839,8 +839,8 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/system/cache/sys_cache.c</itemPath>
             </logicalFolder>
             <logicalFolder name="console" displayName="console" projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/system/console/src/sys_console_uart.c</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/system/console/src/sys_console.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/system/console/src/sys_console_uart.c</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/system/debug/src/sys_debug.c</itemPath>

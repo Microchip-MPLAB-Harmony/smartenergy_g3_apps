@@ -125,13 +125,13 @@ bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch)
     /* Transmission branch not recognized */
     return false;
   }
-  
+
   /* Set PLC PHY Coupling parameters */
   pibObj.id = PLC_ID_IC_DRIVER_CFG;
   pibObj.length = 1;
   pibObj.pData = &pCoupValues->lineDrvConf;
   result = DRV_PLC_PHY_PIBSet(handle, &pibObj);
-  
+
   pibObj.id = PLC_ID_NUM_TX_LEVELS;
   pibObj.pData = &pCoupValues->numTxLevels;
   result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
@@ -139,7 +139,7 @@ bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch)
   pibObj.id = PLC_ID_DACC_TABLE_CFG;
   pibObj.length = sizeof(pCoupValues->daccTable);
   pibObj.pData = (uint8_t *)pCoupValues->daccTable;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj); 
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);  
 
   pibObj.id = PLC_ID_MAX_RMS_TABLE_HI;
   pibObj.length = sizeof(pCoupValues->rmsHigh);
@@ -167,7 +167,7 @@ bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch)
   pibObj.id = PLC_ID_GAIN_TABLE_VLO;
   pibObj.pData = (uint8_t *)pCoupValues->gainVLow;
   result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
-  
+
   pibObj.id = PLC_ID_PREDIST_COEF_TABLE_HI;
   pibObj.length = pCoupValues->equSize;
   pibObj.pData = (uint8_t *)pCoupValues->equHigh;

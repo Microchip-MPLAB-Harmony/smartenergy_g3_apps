@@ -63,10 +63,10 @@
 #include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
 #include "peripheral/sefc/plib_sefc0.h"
 #include "peripheral/sefc/plib_sefc1.h"
-#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
+#include "system/time/sys_time.h"
 #include "service/pvddmon/srv_pvddmon.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
@@ -87,6 +87,12 @@ extern "C" {
 
 #endif
 // DOM-IGNORE-END
+
+/* Device Information */
+#define DEVICE_NAME			 "PIC32CX2051MTG128"
+#define DEVICE_ARCH			 "CORTEX-M4"
+#define DEVICE_FAMILY		 "PIC32CX_MT"
+#define DEVICE_SERIES		 "PIC32CXMTG"
 
 /* CPU clock frequency */
 #define CPU_CLOCK_FREQUENCY 200000000
@@ -201,8 +207,8 @@ Remarks:
 
 typedef struct
 {
-    SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ drvPlcPhy;
+    SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  sysConsole0;
 
 

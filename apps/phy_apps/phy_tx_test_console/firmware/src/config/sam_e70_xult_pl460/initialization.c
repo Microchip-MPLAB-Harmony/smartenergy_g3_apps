@@ -48,7 +48,6 @@
 #include "device.h"
 
 
-
 // ****************************************************************************
 // ****************************************************************************
 // Section: Configuration Bits
@@ -66,6 +65,10 @@
 // Section: Driver Initialization Data
 // *****************************************************************************
 // *****************************************************************************
+/* Following MISRA-C rules are deviated in the below code block */
+/* MISRA C-2012 Rule 11.1 */
+/* MISRA C-2012 Rule 11.3 */
+/* MISRA C-2012 Rule 11.8 */
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -78,16 +81,14 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     .dmaChannelTx = SYS_DMA_CHANNEL_1,
 
     /* DMA Channel for Receive */
-    .dmaChannelRx  = SYS_DMA_CHANNEL_0,
+    .dmaChannelRx = SYS_DMA_CHANNEL_0,
 
     /* SPI Transmit Register */
-    .spiAddressTx =  (void *)&(SPI0_REGS->SPI_TDR),
+    .spiAddressTx = (void *)&(SPI0_REGS->SPI_TDR),
 
     /* SPI Receive Register */
     .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
 
-    /* SPI CSR register address. */
-    .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[DRV_PLC_CSR_INDEX]),
     
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
@@ -100,6 +101,9 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
        
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
+       
+    /* PLC External Interrupt Pio */
+    .extIntPio = DRV_PLC_EXT_INT_PIO,
 
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
@@ -138,6 +142,9 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
     
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
+    
+    /* PLC HAL Enable/Disable external interrupt */
+    .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
 
     /* PLC HAL delay function */
     .delay = (DRV_PLC_HAL_DELAY)DRV_PLC_HAL_Delay,
@@ -188,9 +195,9 @@ static uint8_t gDrvMemory0EraseBuffer[EFC_ERASE_BUFFER_SIZE] CACHE_ALIGN;
 
 static DRV_MEMORY_CLIENT_OBJECT gDrvMemory0ClientObject[DRV_MEMORY_CLIENTS_NUMBER_IDX0];
 
-static DRV_MEMORY_BUFFER_OBJECT gDrvMemory0BufferObject[DRV_MEMORY_BUFFER_QUEUE_SIZE_IDX0];
+static DRV_MEMORY_BUFFER_OBJECT gDrvMemory0BufferObject[DRV_MEMORY_BUF_Q_SIZE_IDX0];
 
-const DRV_MEMORY_DEVICE_INTERFACE drvMemory0DeviceAPI = {
+static const DRV_MEMORY_DEVICE_INTERFACE drvMemory0DeviceAPI = {
     .Open               = DRV_EFC_Open,
     .Close              = DRV_EFC_Close,
     .Status             = DRV_EFC_Status,
@@ -201,8 +208,7 @@ const DRV_MEMORY_DEVICE_INTERFACE drvMemory0DeviceAPI = {
     .GeometryGet        = (DRV_MEMORY_DEVICE_GEOMETRY_GET)DRV_EFC_GeometryGet,
     .TransferStatusGet  = (DRV_MEMORY_DEVICE_TRANSFER_STATUS_GET)DRV_EFC_TransferStatusGet
 };
-
-const DRV_MEMORY_INIT drvMemory0InitData =
+static const DRV_MEMORY_INIT drvMemory0InitData =
 {
     .memDevIndex                = 0,
     .memoryDevice               = &drvMemory0DeviceAPI,
@@ -211,11 +217,12 @@ const DRV_MEMORY_INIT drvMemory0InitData =
     .ewBuffer                   = &gDrvMemory0EraseBuffer[0],
     .clientObjPool              = (uintptr_t)&gDrvMemory0ClientObject[0],
     .bufferObj                  = (uintptr_t)&gDrvMemory0BufferObject[0],
-    .queueSize                  = DRV_MEMORY_BUFFER_QUEUE_SIZE_IDX0,
+    .queueSize                  = DRV_MEMORY_BUF_Q_SIZE_IDX0,
     .nClientsMax                = DRV_MEMORY_CLIENTS_NUMBER_IDX0
 };
 
 // </editor-fold>
+
 
 
 // *****************************************************************************
@@ -240,7 +247,7 @@ SYSTEM_OBJECTS sysObj;
 // *****************************************************************************
 // <editor-fold defaultstate="collapsed" desc="SYS_TIME Initialization Data">
 
-const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
+static const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
     .timerCallbackSet = (SYS_TIME_PLIB_CALLBACK_REGISTER)TC0_CH0_TimerCallbackRegister,
     .timerStart = (SYS_TIME_PLIB_START)TC0_CH0_TimerStart,
     .timerStop = (SYS_TIME_PLIB_STOP)TC0_CH0_TimerStop ,
@@ -250,7 +257,7 @@ const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
     .timerCounterGet = (SYS_TIME_PLIB_COUNTER_GET)TC0_CH0_TimerCounterGet,
 };
 
-const SYS_TIME_INIT sysTimeInitData =
+static const SYS_TIME_INIT sysTimeInitData =
 {
     .timePlib = &sysTimePlibAPI,
     .hwTimerIntNum = TC0_CH0_IRQn,
@@ -260,25 +267,22 @@ const SYS_TIME_INIT sysTimeInitData =
 // <editor-fold defaultstate="collapsed" desc="SYS_CONSOLE Instance 0 Initialization Data">
 
 
-/* Declared in console device implementation (sys_console_uart.c) */
-extern const SYS_CONSOLE_DEV_DESC sysConsoleUARTDevDesc;
-
-const SYS_CONSOLE_UART_PLIB_INTERFACE sysConsole0UARTPlibAPI =
+static const SYS_CONSOLE_UART_PLIB_INTERFACE sysConsole0UARTPlibAPI =
 {
-    .read = (SYS_CONSOLE_UART_PLIB_READ)USART1_Read,
-	.readCountGet = (SYS_CONSOLE_UART_PLIB_READ_COUNT_GET)USART1_ReadCountGet,
-	.readFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_READ_FREE_BUFFFER_COUNT_GET)USART1_ReadFreeBufferCountGet,
-    .write = (SYS_CONSOLE_UART_PLIB_WRITE)USART1_Write,
-	.writeCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_COUNT_GET)USART1_WriteCountGet,
-	.writeFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_FREE_BUFFER_COUNT_GET)USART1_WriteFreeBufferCountGet,
+    .read_t = (SYS_CONSOLE_UART_PLIB_READ)USART1_Read,
+    .readCountGet = (SYS_CONSOLE_UART_PLIB_READ_COUNT_GET)USART1_ReadCountGet,
+    .readFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_READ_FREE_BUFFFER_COUNT_GET)USART1_ReadFreeBufferCountGet,
+    .write_t = (SYS_CONSOLE_UART_PLIB_WRITE)USART1_Write,
+    .writeCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_COUNT_GET)USART1_WriteCountGet,
+    .writeFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_FREE_BUFFER_COUNT_GET)USART1_WriteFreeBufferCountGet,
 };
 
-const SYS_CONSOLE_UART_INIT_DATA sysConsole0UARTInitData =
+static const SYS_CONSOLE_UART_INIT_DATA sysConsole0UARTInitData =
 {
-    .uartPLIB = &sysConsole0UARTPlibAPI,    
+    .uartPLIB = &sysConsole0UARTPlibAPI,
 };
 
-const SYS_CONSOLE_INIT sysConsole0Init =
+static const SYS_CONSOLE_INIT sysConsole0Init =
 {
     .deviceInitData = (const void*)&sysConsole0UARTInitData,
     .consDevDesc = &sysConsoleUARTDevDesc,
@@ -298,7 +302,7 @@ const SYS_CONSOLE_INIT sysConsole0Init =
 // *****************************************************************************
 // *****************************************************************************
 
-
+/* MISRAC 2012 deviation block end */
 
 /*******************************************************************************
   Function:
@@ -312,6 +316,7 @@ const SYS_CONSOLE_INIT sysConsole0Init =
 
 void SYS_Initialize ( void* data )
 {
+
     /* MISRAC 2012 deviation block start */
     /* MISRA C-2012 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2012_R_2_2_DR_1 */
 
@@ -321,9 +326,9 @@ void SYS_Initialize ( void* data )
     CLOCK_Initialize();
 	PIO_Initialize();
 
-
-
     XDMAC_Initialize();
+
+
 
 	RSWDT_REGS->RSWDT_MR = RSWDT_MR_WDDIS_Msk;	// Disable RSWDT 
 
@@ -344,20 +349,35 @@ void SYS_Initialize ( void* data )
     USART1_Initialize();
 
 
+
+    /* MISRAC 2012 deviation block start */
+    /* Following MISRA-C rules deviated in this block  */
+    /* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    /* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+
     /* Initialize PLC Phy Driver Instance */
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
     PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+
 
     sysObj.drvMemory0 = DRV_MEMORY_Initialize((SYS_MODULE_INDEX)DRV_MEMORY_INDEX_0, (SYS_MODULE_INIT *)&drvMemory0InitData);
 
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
 
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+    H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
+        
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
-    sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
+    
+    /* MISRAC 2012 deviation block end */
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
+        sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
+   /* MISRAC 2012 deviation block end */
 
 
-
+    /* MISRAC 2012 deviation block end */
     APP_PLC_Initialize();
     APP_CONSOLE_Initialize();
     APP_NVM_Initialize();
@@ -365,9 +385,9 @@ void SYS_Initialize ( void* data )
 
     NVIC_Initialize();
 
+
     /* MISRAC 2012 deviation block end */
 }
-
 
 /*******************************************************************************
  End of File

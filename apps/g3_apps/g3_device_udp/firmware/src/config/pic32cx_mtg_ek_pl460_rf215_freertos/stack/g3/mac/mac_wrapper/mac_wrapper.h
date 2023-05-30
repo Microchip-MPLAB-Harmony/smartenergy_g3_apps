@@ -834,7 +834,7 @@ SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index);
     <code>
     MAC_WRP_HANDLE handle;
     SYS_MODULE_OBJ sysObjMacWrp;
-    
+
     sysObjMacWrp = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0);
 
     handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
@@ -929,7 +929,7 @@ void MAC_WRP_SetCallbacks(MAC_WRP_HANDLE handle, MAC_WRP_HANDLERS* handlers);
     while (true)
     {
         MAC_WRP_Tasks(sysObjMacWrp);
-    
+
         // Do other tasks
     }
     </code>
@@ -1596,11 +1596,11 @@ uint8_t MAC_WRP_SerialStringifySetConfirm (
     )
 
   Summary:
-    The MAC_WRP_GetMsCounter primitive gets the value of a counter 
+    The MAC_WRP_GetMsCounter primitive gets the value of a counter
     that is incremented every millisecond.
 
   Description:
-    This primitive makes use of SYS_TIME service to get the value of the 
+    This primitive makes use of SYS_TIME service to get the value of the
     millisecond counter in order to be able to set timeouts and perform delays.
     This function returns the current value of such counter.
 
@@ -1653,7 +1653,7 @@ uint32_t MAC_WRP_GetMsCounter(void);
     timeValue      - Time value in milliseconds
 
   Returns:
-    True if the time value is in the past. 
+    True if the time value is in the past.
     False if the time value is not in the past.
 
   Example:
@@ -1673,6 +1673,92 @@ uint32_t MAC_WRP_GetMsCounter(void);
     None.
 */
 bool MAC_WRP_TimeIsPast(int32_t timeValue);
+
+// *****************************************************************************
+/* Function:
+    uint32_t MAC_WRP_GetSecondsCounter
+    (
+      void
+    )
+
+  Summary:
+    The MAC_WRP_GetSecondsCounter primitive gets the value of a counter
+    that is incremented every second.
+
+  Description:
+    A seconds counter is provided in order to be able to set timeouts
+    and perform delays.
+    This function returns the current value of such counter.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    Value of seconds counter.
+
+  Example:
+    <code>
+    previousCounter = MAC_WRP_GetSecondsCounter();
+
+    // Perform other actions
+    // ...
+
+    newCounter = MAC_WRP_GetSecondsCounter();
+
+    if ((newCounter - previousCounter) > TIMEOUT_SECONDS)
+    {
+        // Timeout elapsed
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
+uint32_t MAC_WRP_GetSecondsCounter(void);
+
+// *****************************************************************************
+/* Function:
+    bool MAC_WRP_TimeIsPastSeconds
+    (
+      int32_t timeValue
+    )
+
+  Summary:
+    Indicates whether the given time value is in the past.
+
+  Description:
+    This primitive indicates whether the given time value is in the past.
+
+  Precondition:
+    None.
+
+  Parameters:
+    timeValue      - Time value in seconds
+
+  Returns:
+    True if the time value is in the past.
+    False if the time value is not in the past.
+
+  Example:
+    <code>
+    int32_t validityTime = 10;
+
+    // Perform other actions
+    // ...
+
+    if (MAC_WRP_TimeIsPastSeconds(validityTime))
+    {
+        // Validity ended
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
+bool MAC_WRP_TimeIsPastSeconds(int32_t timeValue);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

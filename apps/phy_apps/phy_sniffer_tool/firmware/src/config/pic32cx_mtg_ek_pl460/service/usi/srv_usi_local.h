@@ -71,8 +71,8 @@
 #define USI_LEN_LO_MSK                0xC0
 #define USI_LEN_LO_SHIFT              6
 #define USI_XLEN_OFFSET               2
-#define USI_XLEN_MSK                  0xC0
-#define USI_XLEN_SHIFT_L              4
+#define USI_XLEN_MSK                  0x80
+#define USI_XLEN_SHIFT_L              3
 #define USI_XLEN_SHIFT_R              10
 #define USI_XLEN2_OFFSET              2
 #define USI_XLEN2_MSK                 0xF0
@@ -80,7 +80,7 @@
 #define USI_XLEN2_SHIFT_R             6
 #define USI_PAYLOAD_OFFSET            2
 #define USI_CMD_OFFSET                2
-#define USI_CMD_MSK                   0x3F
+#define USI_CMD_MSK                   0x7F
 #define USI_CMD2_MSK                  0x0F
         
 #define USI_TYPE_PROTOCOL(A)       ((A)&USI_TYPE_MSK)
@@ -94,7 +94,7 @@
                                   + (((uint16_t)(C)&USI_XLEN2_MSK) << USI_XLEN2_SHIFT_L))
 #define USI_LEN_HI_PROTOCOL(A)    (((uint16_t)(A) >> USI_LEN_HI_SHIFT) & USI_LEN_HI_MSK)
 #define USI_LEN_LO_PROTOCOL(A)    (((uint16_t)(A) << USI_LEN_LO_SHIFT) & USI_LEN_LO_MSK)
-#define USI_LEN_EX_PROTOCOL(A)    (((uint16_t)(A & 0x0c00)) >> 4)
+#define USI_LEN_EX_PROTOCOL(A)    (((uint16_t)(A & 0x0400)) >> 3)
 #define USI_CMD_PROTOCOL(A)       ((A)&USI_CMD_MSK)
 
 #define USI_LEN_EX2_PROTOCOL(A)   (((uint16_t)(A & 0x3C00)) >> 6)

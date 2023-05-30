@@ -40,8 +40,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef _BSP_H
-#define _BSP_H
+#ifndef BSP_H
+#define BSP_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -60,6 +60,9 @@
 // Section: BSP Macros
 // *****************************************************************************
 // *****************************************************************************
+#define pic32cxmtg_ek
+#define BSP_NAME             "pic32cxmtg_ek"
+
 /*PIOA base address */
 #define PIOA_REGS   ((pio_group_registers_t*)(&(PIO0_REGS->PIO_GROUP[0])))
 /*PIOB base address */
@@ -70,15 +73,15 @@
 #define PIOD_REGS   ((pio_group_registers_t*)(&(PIO1_REGS->PIO_GROUP[0])))
 
 /*** LED Macros for LED_BLUE ***/
-#define LED_BLUE_Toggle() do { PIOD_REGS->PIO_MSKR = (1U<<3); (PIOD_REGS->PIO_ODSR ^= (1U<<3)); } while (0)
+#define LED_BLUE_Toggle() do { PIOD_REGS->PIO_MSKR = (1UL<<3); (PIOD_REGS->PIO_ODSR ^= (1UL<<3)); } while (0)
 #define LED_BLUE_Get() ((PIOD_REGS->PIO_PDSR >> 3) & 0x1)
-#define LED_BLUE_On() (PIOD_REGS->PIO_CODR = (1U<<3))
-#define LED_BLUE_Off() (PIOD_REGS->PIO_SODR = (1U<<3))
+#define LED_BLUE_On() (PIOD_REGS->PIO_CODR = (1UL<<3))
+#define LED_BLUE_Off() (PIOD_REGS->PIO_SODR = (1UL<<3))
 /*** LED Macros for LED_GREEN ***/
-#define LED_GREEN_Toggle() do { PIOD_REGS->PIO_MSKR = (1U<<16); (PIOD_REGS->PIO_ODSR ^= (1U<<16)); } while (0)
+#define LED_GREEN_Toggle() do { PIOD_REGS->PIO_MSKR = (1UL<<16); (PIOD_REGS->PIO_ODSR ^= (1UL<<16)); } while (0)
 #define LED_GREEN_Get() ((PIOD_REGS->PIO_PDSR >> 16) & 0x1)
-#define LED_GREEN_On() (PIOD_REGS->PIO_CODR = (1U<<16))
-#define LED_GREEN_Off() (PIOD_REGS->PIO_SODR = (1U<<16))
+#define LED_GREEN_On() (PIOD_REGS->PIO_CODR = (1UL<<16))
+#define LED_GREEN_Off() (PIOD_REGS->PIO_SODR = (1UL<<16))
 /*** SWITCH Macros for SWITCH_USER ***/
 #define SWITCH_USER_Get() ((PIOA_REGS->PIO_PDSR >> 7) & 0x1)
 #define SWITCH_USER_STATE_PRESSED 0
@@ -116,7 +119,6 @@
 
   Example:
     <code>
-    //Initialize the BSP
     BSP_Initialize();
     </code>
 
@@ -126,7 +128,7 @@
 
 void BSP_Initialize(void);
 
-#endif // _BSP_H
+#endif // BSP_H
 
 /*******************************************************************************
  End of File

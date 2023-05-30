@@ -79,10 +79,10 @@
 
   Remarks:
     This data type is just to simplify the PHY band and operating mode
-    configuration, for the most common ones, defined in IEEE 802.15.4-2020 (see
-    ieee_15_4_sun_fsk.h and ieee_15_4_sun_ofdm.h). But it is also possible to
-    apply a different PHY configuration, using the DRV_RF215_PHY_CFG_OBJ data
-    type (PIB RF215_PIB_PHY_CONFIG).
+    configuration, for the most common ones, defined in IEEE 802.15.4-2020 +
+    2022-aa amendment (see ieee_15_4_sun_fsk.h and ieee_15_4_sun_ofdm.h). But it
+    is also possible to apply a different PHY configuration, using the
+    DRV_RF215_PHY_CFG_OBJ data type (PIB RF215_PIB_PHY_CONFIG).
 */
 
 typedef enum
@@ -148,31 +148,31 @@ typedef enum
     SUN_OFDM_BAND_915C_OPT1   = 0x1210,
 
     /* 919 (919-923 MHz) band. Malaysia */
-    SUN_FSK_BAND_919_OPM1   = 0x1501,
-    SUN_FSK_BAND_919_OPM2   = 0x1502,
-    SUN_FSK_BAND_919_OPM3   = 0x1503,
-    SUN_FSK_BAND_919_OPM4   = 0x1504,
-    SUN_FSK_BAND_919_OPM5   = 0x1505,
-    SUN_OFDM_BAND_919_OPT4  = 0x1540,
-    SUN_OFDM_BAND_919_OPT3  = 0x1530,
-    SUN_OFDM_BAND_919_OPT2  = 0x1520,
-    SUN_OFDM_BAND_919_OPT1  = 0x1510,
+    SUN_FSK_BAND_919_OPM1     = 0x1501,
+    SUN_FSK_BAND_919_OPM2     = 0x1502,
+    SUN_FSK_BAND_919_OPM3     = 0x1503,
+    SUN_FSK_BAND_919_OPM4     = 0x1504,
+    SUN_FSK_BAND_919_OPM5     = 0x1505,
+    SUN_OFDM_BAND_919_OPT4    = 0x1540,
+    SUN_OFDM_BAND_919_OPT3    = 0x1530,
+    SUN_OFDM_BAND_919_OPT2    = 0x1520,
+    SUN_OFDM_BAND_919_OPT1    = 0x1510,
 
     /* 920 (920-928 MHz) band. Japan */
-    SUN_FSK_BAND_920_OPM1   = 0x0901,
-    SUN_FSK_BAND_920_OPM2   = 0x0902,
-    SUN_FSK_BAND_920_OPM3   = 0x0903,
-    SUN_FSK_BAND_920_OPM4   = 0x0904,
-    SUN_FSK_BAND_920_OPM5   = 0x0905,
-    SUN_FSK_BAND_920_OPM6   = 0x0906,
-    SUN_FSK_BAND_920_OPM7   = 0x0907,
-    SUN_FSK_BAND_920_OPM8   = 0x0908,
-    SUN_FSK_BAND_920_OPM9   = 0x0909,
-    SUN_FSK_BAND_920_OPM12  = 0x090C,
-    SUN_OFDM_BAND_920_OPT4  = 0x0940,
-    SUN_OFDM_BAND_920_OPT3  = 0x0930,
-    SUN_OFDM_BAND_920_OPT2  = 0x0920,
-    SUN_OFDM_BAND_920_OPT1  = 0x0910,
+    SUN_FSK_BAND_920_OPM1     = 0x0901,
+    SUN_FSK_BAND_920_OPM2     = 0x0902,
+    SUN_FSK_BAND_920_OPM3     = 0x0903,
+    SUN_FSK_BAND_920_OPM4     = 0x0904,
+    SUN_FSK_BAND_920_OPM5     = 0x0905,
+    SUN_FSK_BAND_920_OPM6     = 0x0906,
+    SUN_FSK_BAND_920_OPM7     = 0x0907,
+    SUN_FSK_BAND_920_OPM8     = 0x0908,
+    SUN_FSK_BAND_920_OPM9     = 0x0909,
+    SUN_FSK_BAND_920_OPM12    = 0x090C,
+    SUN_OFDM_BAND_920_OPT4    = 0x0940,
+    SUN_OFDM_BAND_920_OPT3    = 0x0930,
+    SUN_OFDM_BAND_920_OPT2    = 0x0920,
+    SUN_OFDM_BAND_920_OPT1    = 0x0910,
 
     /* 920-b (920-923 MHz) band. Indonesia */
     SUN_FSK_BAND_920B_INDONESIA_OPM1  = 0x1701,
@@ -554,7 +554,7 @@ typedef enum
     /* Duration in us of Energy Detection for CCA. 16 bits */
     RF215_PIB_PHY_CCA_ED_DURATION       = 0x0141,
 
-    /* Threshold in dBm of for CCA with Energy Detection. 8 bits */
+    /* Threshold in dBm for CCA with Energy Detection. 8 bits */
     RF215_PIB_PHY_CCA_ED_THRESHOLD      = 0x0142,
 
     /* Turnaround time in us (aTurnaroundTime in IEEE 802.15.4).
@@ -618,7 +618,7 @@ typedef enum
     /* Reception false positive count (read-only). 32 bits */
     RF215_PIB_PHY_RX_ERR_FALSE_POSITIVE = 0x01B3,
 
-    /* Reception errors count due to bad message length(read-only). 32 bits */
+    /* Reception errors count due to bad message length (read-only). 32 bits */
     RF215_PIB_PHY_RX_ERR_BAD_LEN        = 0x01B4,
 
     /* Reception errors count due to bad format or bad FCS in header

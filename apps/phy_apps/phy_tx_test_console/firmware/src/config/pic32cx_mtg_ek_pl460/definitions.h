@@ -64,14 +64,14 @@
 #include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
 #include "driver/sst26/drv_sst26.h"
 #include "peripheral/sefc/plib_sefc0.h"
-#include "peripheral/sefc/plib_sefc1.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
 #include "system/time/sys_time.h"
+#include "peripheral/sefc/plib_sefc1.h"
 #include "peripheral/qspi/plib_qspi.h"
-#include "peripheral/trng/plib_trng.h"
 #include "service/pvddmon/srv_pvddmon.h"
+#include "peripheral/trng/plib_trng.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
 #include "system/int/sys_int.h"
@@ -92,6 +92,12 @@ extern "C" {
 
 #endif
 // DOM-IGNORE-END
+
+/* Device Information */
+#define DEVICE_NAME			 "PIC32CX2051MTG128"
+#define DEVICE_ARCH			 "CORTEX-M4"
+#define DEVICE_FAMILY		 "PIC32CX_MT"
+#define DEVICE_SERIES		 "PIC32CXMTG"
 
 /* CPU clock frequency */
 #define CPU_CLOCK_FREQUENCY 200000000

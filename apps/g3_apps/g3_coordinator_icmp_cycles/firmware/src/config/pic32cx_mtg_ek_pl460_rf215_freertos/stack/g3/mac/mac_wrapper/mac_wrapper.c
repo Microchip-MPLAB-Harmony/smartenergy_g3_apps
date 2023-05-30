@@ -220,7 +220,7 @@ static MAC_WRP_DATA_REQ_ENTRY *_getDataReqEntryByHandle(uint8_t handle)
 
     for (index = 0; index < MAC_WRP_DATA_REQ_QUEUE_SIZE; index++)
     {
-        if ((dataReqQueue[index].used == true) && 
+        if ((dataReqQueue[index].used == true) &&
             (dataReqQueue[index].dataReqParams.msduHandle == handle))
         {
             found = &dataReqQueue[index];
@@ -258,7 +258,7 @@ static bool _hyalCheckDuplicates(uint16_t srcAddr, uint8_t *msdu, uint16_t msduL
     while (index < HYAL_DUPLICATES_TABLE_SIZE)
     {
         // Look for same fields and different MediaType
-        if ((entry->srcAddress == srcAddr) && (entry->msduLen == msduLen) && 
+        if ((entry->srcAddress == srcAddr) && (entry->msduLen == msduLen) &&
             (entry->crc == crc) && (entry->mediaType != mediaType))
         {
             duplicate = true;
@@ -423,7 +423,7 @@ static void _Callback_MacPlcDataConfirm(MAC_DATA_CONFIRM_PARAMS *dcParams)
                 else
                 {
                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "Look for RF POS Table entry for %0004X\r\n", matchingDataReq->dataReqParams.destAddress.shortAddress);
-                    status = (MAC_WRP_STATUS) MAC_RF_GetRequestSync(MAC_PIB_MANUF_POS_TABLE_ELEMENT_RF, 
+                    status = (MAC_WRP_STATUS) MAC_RF_GetRequestSync(MAC_PIB_MANUF_POS_TABLE_ELEMENT_RF,
                             matchingDataReq->dataReqParams.destAddress.shortAddress, &pibValue);
                 }
 
@@ -517,7 +517,7 @@ static void _Callback_MacPlcDataIndication(MAC_DATA_INDICATION_PARAMS *diParams)
     /* Check if the same frame has been received on the other medium (duplicate detection), except for broadcast */
     if (MAC_SHORT_ADDRESS_BROADCAST != diParams->destAddress.shortAddress)
     {
-        if (_hyalCheckDuplicates(diParams->srcAddress.shortAddress, diParams->msdu, 
+        if (_hyalCheckDuplicates(diParams->srcAddress.shortAddress, diParams->msdu,
             diParams->msduLength, MAC_WRP_MEDIA_TYPE_IND_PLC))
         {
             /* Same frame was received on RF medium. Drop indication */
@@ -540,7 +540,7 @@ static void _Callback_MacPlcResetConfirm(MAC_RESET_CONFIRM_PARAMS *rcParams)
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "_Callback_MacPlcResetConfirm: Status: %u\r\n", rcParams->status);
 
     MAC_WRP_RESET_CONFIRM_PARAMS resetConfirmParams;
-    
+
     if (hyalData.waitingSecondResetConfirm)
     {
         /* Second Confirm arrived. Send confirm to upper layer depending on results */
@@ -597,7 +597,7 @@ static void _Callback_MacPlcScanConfirm(MAC_SCAN_CONFIRM_PARAMS *scParams)
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "_Callback_MacPlcScanConfirm: Status: %u\r\n", scParams->status);
 
     MAC_WRP_SCAN_CONFIRM_PARAMS scanConfirmParams;
-    
+
     if (hyalData.waitingSecondScanConfirm)
     {
         /* Second Confirm arrived */
@@ -635,7 +635,7 @@ static void _Callback_MacPlcStartConfirm(MAC_START_CONFIRM_PARAMS *scParams)
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "_Callback_MacPlcStartConfirm: Status: %u\r\n", scParams->status);
 
     MAC_WRP_START_CONFIRM_PARAMS startConfirmParams;
-    
+
     if (hyalData.waitingSecondStartConfirm)
     {
         /* Second Confirm arrived. Send confirm to upper layer depending on results */
@@ -746,7 +746,7 @@ static void _Callback_MacRfDataConfirm(MAC_DATA_CONFIRM_PARAMS *dcParams)
                 else
                 {
                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "Look for PLC POS Table entry for %0004X\r\n", matchingDataReq->dataReqParams.destAddress.shortAddress);
-                    status = (MAC_WRP_STATUS) MAC_PLC_GetRequestSync(MAC_PIB_MANUF_POS_TABLE_ELEMENT, 
+                    status = (MAC_WRP_STATUS) MAC_PLC_GetRequestSync(MAC_PIB_MANUF_POS_TABLE_ELEMENT,
                             matchingDataReq->dataReqParams.destAddress.shortAddress, &pibValue);
                 }
 
@@ -806,7 +806,7 @@ static void _Callback_MacRfDataConfirm(MAC_DATA_CONFIRM_PARAMS *dcParams)
             dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_RF;
             /* Send confirm to upper layer */
             sendConfirm = true;
-            break;        
+            break;
         default: /* RF only */
             /* Fill Media Type */
             dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_RF;
@@ -835,7 +835,7 @@ static void _Callback_MacRfDataIndication(MAC_DATA_INDICATION_PARAMS *diParams)
     /* Check if the same frame has been received on the other medium (duplicate detection), except for broadcast */
     if (MAC_SHORT_ADDRESS_BROADCAST != diParams->destAddress.shortAddress)
     {
-        if (_hyalCheckDuplicates(diParams->srcAddress.shortAddress, diParams->msdu, 
+        if (_hyalCheckDuplicates(diParams->srcAddress.shortAddress, diParams->msdu,
             diParams->msduLength, MAC_WRP_MEDIA_TYPE_IND_RF))
         {
             /* Same frame was received on PLC medium. Drop indication */
@@ -858,7 +858,7 @@ static void _Callback_MacRfResetConfirm(MAC_RESET_CONFIRM_PARAMS *rcParams)
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "_Callback_MacRfResetConfirm: Status: %u\r\n", rcParams->status);
 
     MAC_WRP_RESET_CONFIRM_PARAMS resetConfirmParams;
-    
+
     if (hyalData.waitingSecondResetConfirm)
     {
         /* Second Confirm arrived. Send confirm to upper layer depending on results */
@@ -915,7 +915,7 @@ static void _Callback_MacRfScanConfirm(MAC_SCAN_CONFIRM_PARAMS *scParams)
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "_Callback_MacRfScanConfirm: Status: %u\r\n", scParams->status);
 
     MAC_WRP_SCAN_CONFIRM_PARAMS scanConfirmParams;
-    
+
     if (hyalData.waitingSecondScanConfirm)
     {
         /* Second Confirm arrived */
@@ -953,7 +953,7 @@ static void _Callback_MacRfStartConfirm(MAC_START_CONFIRM_PARAMS *scParams)
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "_Callback_MacRfStartConfirm: Status: %u\r\n", scParams->status);
 
     MAC_WRP_START_CONFIRM_PARAMS startConfirmParams;
-    
+
     if (hyalData.waitingSecondStartConfirm)
     {
         /* Second Confirm arrived. Send confirm to upper layer depending on results */
@@ -1038,7 +1038,7 @@ SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index)
         dataReqQueue[index].used = false;
     }
 
-    return (SYS_MODULE_OBJ)0; 
+    return (SYS_MODULE_OBJ)0;
 }
 
 MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand)
@@ -2260,6 +2260,18 @@ bool MAC_WRP_TimeIsPast(int32_t timeValue)
 {
     /* Call lower layer function */
     return MAC_COMMON_TimeIsPast(timeValue);
+}
+
+uint32_t MAC_WRP_GetSecondsCounter(void)
+{
+    /* Call lower layer function */
+    return MAC_COMMON_GetSecondsCounter();
+}
+
+bool MAC_WRP_TimeIsPastSeconds(int32_t timeValue)
+{
+    /* Call lower layer function */
+    return MAC_COMMON_TimeIsPastSeconds(timeValue);
 }
 
 /*******************************************************************************

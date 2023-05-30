@@ -48,7 +48,6 @@
 #include "device.h"
 
 
-
 // ****************************************************************************
 // ****************************************************************************
 // Section: Configuration Bits
@@ -67,6 +66,10 @@
 // Section: Driver Initialization Data
 // *****************************************************************************
 // *****************************************************************************
+/* Following MISRA-C rules are deviated in the below code block */
+/* MISRA C-2012 Rule 11.1 */
+/* MISRA C-2012 Rule 11.3 */
+/* MISRA C-2012 Rule 11.8 */
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -81,25 +84,28 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI Write/Read */
     .spiWriteRead = FLEXCOM5_SPI_WriteRead,
 
-    
+
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-    
+
     /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN, 
-    
+    .ldoPin = DRV_PLC_LDO_EN_PIN,
+
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
-       
+
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
 
+    /* PLC External Interrupt Pio */
+    .extIntPio = DRV_PLC_EXT_INT_PIO,
+
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
-    
+
     /* PLC External Interrupt Pin */
     .thMonPin = DRV_PLC_THMON_PIN,
-    
+
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -119,13 +125,13 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC Get Thermal Monitor value */
     .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,
-    
+
     /* PLC Set TX Enable Pin */
     .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
 
@@ -153,16 +159,16 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 
     /* SPI PLIB API interface*/
     .plcHal = &drvPLCHalAPI,
- 
+
     /* PLC MAC RT Binary start address */
     .binStartAddress = (uint32_t)&g3_mac_rt_bin_start,
-    
+
     /* PLC MAC RT Binary end address */
     .binEndAddress = (uint32_t)&g3_mac_rt_bin_end,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
-    
+
 };
 
 // </editor-fold>
@@ -230,6 +236,7 @@ const SRV_USI_INIT srvUSI0Init =
 
 
 // </editor-fold>
+
 
 
 // *****************************************************************************
@@ -330,7 +337,7 @@ static const SYS_TIME_INIT sysTimeInitData =
 // *****************************************************************************
 // *****************************************************************************
 
-
+/* MISRAC 2012 deviation block end */
 
 /*******************************************************************************
   Function:
@@ -344,6 +351,7 @@ static const SYS_TIME_INIT sysTimeInitData =
 
 void SYS_Initialize ( void* data )
 {
+
     /* MISRAC 2012 deviation block start */
     /* MISRA C-2012 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2012_R_2_2_DR_1 */
 
@@ -351,7 +359,7 @@ void SYS_Initialize ( void* data )
     SEFC0_Initialize();
 
     SEFC1_Initialize();
-  
+
     DWDT_Initialize();
     CLK_Initialize();
     RSTC_Initialize();
@@ -367,13 +375,19 @@ void SYS_Initialize ( void* data )
 
     FLEXCOM5_SPI_Initialize();
 
- 
-    TC0_CH0_TimerInitialize(); 
-     
-    
+
+    TC0_CH0_TimerInitialize();
+
+
     FLEXCOM0_USART_Initialize();
 
 	BSP_Initialize();
+
+
+    /* MISRAC 2012 deviation block start */
+    /* Following MISRA-C rules deviated in this block  */
+    /* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    /* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
     /* Initialize G3 MAC RT Driver Instance */
     sysObj.drvG3MacRt = DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvG3MacRtInitData);
@@ -386,11 +400,11 @@ void SYS_Initialize ( void* data )
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-        
+
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
-    
+
     /* MISRAC 2012 deviation block end */
 
 
@@ -405,14 +419,15 @@ void SYS_Initialize ( void* data )
 
     CRYPT_WCCB_Initialize();
 
+    /* MISRAC 2012 deviation block end */
     APP_Initialize();
 
 
     NVIC_Initialize();
 
+
     /* MISRAC 2012 deviation block end */
 }
-
 
 /*******************************************************************************
  End of File

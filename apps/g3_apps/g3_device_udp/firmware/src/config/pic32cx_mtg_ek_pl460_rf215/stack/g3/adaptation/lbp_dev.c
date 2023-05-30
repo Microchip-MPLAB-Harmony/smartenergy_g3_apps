@@ -67,7 +67,8 @@
 /* ***************************************************************************** */
 /* ***************************************************************************** */
 
-#define UNSET_KEY   0xFF
+/* Reserved value to consider a Key is not set */
+#define UNSET_KEY                                   0xFF
 
 /* States of Bootstrap process for EndDevice */
 #define LBP_STATE_BOOT_NOT_JOINED                   0x00
@@ -80,10 +81,10 @@
 #define LBP_STATE_BOOT_JOINED                       0x40
 
 /* EXT field types */
-#define EAP_EXT_TYPE_CONFIGURATION_PARAMETERS   0x02
+#define EAP_EXT_TYPE_CONFIGURATION_PARAMETERS       0x02
 
 /* Seconds to wait for reser after Kick reception */
-#define KICK_WAIT_RESET_SECONDS   2
+#define KICK_WAIT_RESET_SECONDS                     2
 
 /* ***************************************************************************** */
 /* ***************************************************************************** */
@@ -140,14 +141,21 @@ typedef enum {
 /* ***************************************************************************** */
 /* ***************************************************************************** */
 
-LBP_CONTEXT_DEV lbpContext;
-
+/* Default value for PSK
+ * This parameter is intended to be set from Application through LBP_IB_PSK IB */
 static EAP_PSK_KEY sEapPskKey = {
     {0xAB, 0x10, 0x34, 0x11, 0x45, 0x11, 0x1B, 0xC3, 0xC1, 0x2D, 0xE8, 0xFF, 0x11, 0x14, 0x22, 0x04}
 };
+
+/* Default value for ID_P
+ * This parameter is intended to be set from Application through LBP_IB_IDP IB */
 static EAP_PSK_NETWORK_ACCESS_IDENTIFIER_P sIdP = {0};
 
+/* Default value for RAND_P
+ * This parameter is intended to be set from Application through LBP_IB_RANDP IB */
 static EAP_PSK_RAND sRandP = {{0}};
+
+LBP_CONTEXT_DEV lbpContext;
 
 static uint8_t sLbpBuffer[ADP_LBP_MAX_NSDU_LENGTH];
 

@@ -65,7 +65,6 @@ void GPIO_Initialize ( void )
           /* PORTA Initialization */
     GPIOA_REGS->GPIO_LAT = 0x200U; /* Initial Latch Value */
     GPIOA_REGS->GPIO_TRISCLR = 0x6200U; /* Direction Control */
-    GPIOA_REGS->GPIO_CNPUSET = 0x4U; /* Pull-Up Enable */
     GPIOA_REGS->GPIO_CNPDSET = 0x4U; /* Pull-Down Enable */
     /* PORTB Initialization */
     GPIOB_REGS->GPIO_LAT = 0x4U; /* Initial Latch Value */

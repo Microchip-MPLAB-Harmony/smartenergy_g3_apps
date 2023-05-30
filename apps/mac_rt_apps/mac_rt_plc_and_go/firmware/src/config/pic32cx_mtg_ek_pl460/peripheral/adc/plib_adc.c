@@ -41,6 +41,7 @@
 // DOM-IGNORE-END
 #include "device.h"
 #include "plib_adc.h"
+#include "interrupts.h"
 
 #define ADC_SEQ1_CHANNEL_NUM (8U)
 
@@ -51,7 +52,7 @@
 // *****************************************************************************
 // *****************************************************************************
 /* Object to hold callback function and context */
-static ADC_CALLBACK_OBJECT ADC_CallbackObj;
+volatile static ADC_CALLBACK_OBJECT ADC_CallbackObj;
 
 /* Initialize ADC peripheral */
 void ADC_Initialize(void)
@@ -60,7 +61,7 @@ void ADC_Initialize(void)
     ADC_REGS->ADC_CR = ADC_CR_SWRST_Msk;
 
     /* Prescaler and different time settings as per CLOCK section  */
-    ADC_REGS->ADC_MR = ADC_MR_PRESCAL(4U) | ADC_MR_TRACKTIM(14U) | ADC_MR_STARTUP_SUT512 |
+    ADC_REGS->ADC_MR =  ADC_MR_ALWAYS_Msk |  ADC_MR_PRESCAL(4U) | ADC_MR_TRACKTIM(14U) | ADC_MR_STARTUP_SUT512 |
         ADC_MR_TRANSFER(2U) | ADC_MR_ANACH_ALLOWED;
 
     /* Resolution and Sign mode of result */
@@ -142,14 +143,9 @@ void ADC_ConversionSequenceSet(ADC_CHANNEL_NUM *channelList, uint8_t numChannel)
     uint8_t channelIndex;
     ADC_REGS->ADC_SEQR1 = 0U;
 
-    if (numChannel > 8U)
+    if (numChannel < 8U)
     {
-        return;
-    }
-
-    for (channelIndex = 0U; channelIndex < numChannel; channelIndex++)
-    {
-        if (channelIndex < ADC_SEQ1_CHANNEL_NUM)
+        for (channelIndex = 0U; channelIndex < numChannel; channelIndex++)
         {
             ADC_REGS->ADC_SEQR1 |= channelList[channelIndex] << (channelIndex * 4U);
         }
@@ -204,16 +200,18 @@ void ADC_CallbackRegister(ADC_CALLBACK callback, uintptr_t context)
     ADC_CallbackObj.callback_fn = callback;
     ADC_CallbackObj.context = context;
 }
-/* Interrupt Handler */
-void ADC_InterruptHandler(void)
-{
-    uint32_t interruptStatus = 0;
-    uint32_t eocInterruptStatus = 0;
 
-    interruptStatus = ADC_REGS->ADC_ISR;
-    eocInterruptStatus = ADC_REGS->ADC_EOC_ISR;
+/* Interrupt Handler */
+void __attribute__((used)) ADC_InterruptHandler(void)
+{
+    uint32_t interruptStatus = ADC_REGS->ADC_ISR;
+    uint32_t eocInterruptStatus = ADC_REGS->ADC_EOC_ISR;
+
+    /* Additional temporary variable used to prevent MISRA violations (Rule 13.x) */
+    uintptr_t context = ADC_CallbackObj.context;
+
     if (ADC_CallbackObj.callback_fn != NULL)
     {
-        ADC_CallbackObj.callback_fn(interruptStatus, eocInterruptStatus, ADC_CallbackObj.context);
+        ADC_CallbackObj.callback_fn(interruptStatus, eocInterruptStatus, context);
     }
 }

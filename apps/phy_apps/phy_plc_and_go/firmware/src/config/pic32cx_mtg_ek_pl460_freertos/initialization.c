@@ -96,6 +96,9 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
        
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
+       
+    /* PLC External Interrupt Pio */
+    .extIntPio = DRV_PLC_EXT_INT_PIO,
 
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,

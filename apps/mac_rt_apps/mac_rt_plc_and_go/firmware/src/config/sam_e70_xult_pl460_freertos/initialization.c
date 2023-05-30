@@ -81,10 +81,10 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     .dmaChannelTx = SYS_DMA_CHANNEL_0,
 
     /* DMA Channel for Receive */
-    .dmaChannelRx  = SYS_DMA_CHANNEL_1,
+    .dmaChannelRx = SYS_DMA_CHANNEL_1,
 
     /* SPI Transmit Register */
-    .spiAddressTx =  (void *)&(SPI0_REGS->SPI_TDR),
+    .spiAddressTx = (void *)&(SPI0_REGS->SPI_TDR),
 
     /* SPI Receive Register */
     .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
@@ -101,6 +101,9 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
        
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
+       
+    /* PLC External Interrupt Pio */
+    .extIntPio = DRV_PLC_EXT_INT_PIO,
 
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
@@ -245,7 +248,7 @@ const DRV_USBHSV1_INIT drvUSBInit =
     .operationMode = DRV_USBHSV1_OPMODE_DEVICE,
 
     /* To operate in USB Normal Mode */
-	.operationSpeed = DRV_USBHSV1_DEVICE_SPEEDCONF_LOW_POWER,
+    .operationSpeed = DRV_USBHSV1_DEVICE_SPEEDCONF_NORMAL,
 
     /* Identifies peripheral (PLIB-level) ID */
     .usbID = USBHS_REGS,

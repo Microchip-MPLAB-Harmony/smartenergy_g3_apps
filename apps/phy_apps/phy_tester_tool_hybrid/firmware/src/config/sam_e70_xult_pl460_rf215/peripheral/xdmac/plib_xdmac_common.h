@@ -133,7 +133,7 @@ typedef uint32_t XDMAC_CHANNEL_CONFIG;
     device data sheet to determine availability.
 */
 
-/* MISRA C-2012 Rule 6.1 deviated:5 Deviation record ID -  H3_MISRAC_2012_R_6_1_DR_1 */
+/* MISRA C-2012 Rule 6.1 deviated 6 times. Deviation record ID -  H3_MISRAC_2012_R_6_1_DR_1 */
 
 typedef union
 {

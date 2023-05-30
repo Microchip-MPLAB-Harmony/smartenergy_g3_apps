@@ -67,25 +67,25 @@
 
 /* EAP message types */
 /* The value takes in account the 2 reserved bits (values are left shifted by 2 bits) */
-#define EAP_REQUEST 0x04
-#define EAP_RESPONSE 0x08
-#define EAP_SUCCESS 0x0C
-#define EAP_FAILURE 0x10
+#define EAP_REQUEST                    0x04
+#define EAP_RESPONSE                   0x08
+#define EAP_SUCCESS                    0x0C
+#define EAP_FAILURE                    0x10
 
 /* T-subfield types */
 /* 0 The first EAP-PSK message */
+#define EAP_PSK_T0                     (0x00 << 6)
 /* 1 The second EAP-PSK message */
+#define EAP_PSK_T1                     (0x01 << 6)
 /* 2 The third EAP-PSK message */
+#define EAP_PSK_T2                     (0x02 << 6)
 /* 3 The fourth EAP-PSK message */
-#define EAP_PSK_T0 (0x00 << 6)
-#define EAP_PSK_T1 (0x01 << 6)
-#define EAP_PSK_T2 (0x02 << 6)
-#define EAP_PSK_T3 (0x03 << 6)
+#define EAP_PSK_T3                     (0x03 << 6)
 
 /* P-Channel result field */
-#define PCHANNEL_RESULT_CONTINUE 0x01
-#define PCHANNEL_RESULT_DONE_SUCCESS 0x02
-#define PCHANNEL_RESULT_DONE_FAILURE 0x03
+#define PCHANNEL_RESULT_CONTINUE       0x01
+#define PCHANNEL_RESULT_DONE_SUCCESS   0x02
+#define PCHANNEL_RESULT_DONE_FAILURE   0x03
 
 // *****************************************************************************
 // *****************************************************************************

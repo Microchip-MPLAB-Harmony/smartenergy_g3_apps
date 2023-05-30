@@ -7106,16 +7106,19 @@
       &lt;String dnOrder=&quot;0&quot; id=&quot;dest&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;/peripheral/flexcom/usart/&lt;/Value&gt;
       &lt;/String&gt;
-      &lt;String dnOrder=&quot;1&quot; id=&quot;name&quot;&gt;
+      &lt;Boolean dnOrder=&quot;1&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+      &lt;String dnOrder=&quot;2&quot; id=&quot;name&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;plib_flexcom_usart_local.h&lt;/Value&gt;
       &lt;/String&gt;
-      &lt;String dnOrder=&quot;2&quot; id=&quot;project&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;config/pic32cx_mtg_ek_pl460/peripheral/flexcom/usart/&lt;/Value&gt;
+      &lt;String dnOrder=&quot;3&quot; id=&quot;project&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/&lt;/Value&gt;
       &lt;/String&gt;
-      &lt;String dnOrder=&quot;3&quot; id=&quot;source&quot;&gt;
+      &lt;String dnOrder=&quot;4&quot; id=&quot;source&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;../peripheral/flexcom_11268/templates/plib_flexcom_usart_local.h&lt;/Value&gt;
       &lt;/String&gt;
-      &lt;String dnOrder=&quot;4&quot; id=&quot;type&quot;&gt;
+      &lt;String dnOrder=&quot;5&quot; id=&quot;type&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;HEADER&lt;/Value&gt;
       &lt;/String&gt;
     &lt;/Attributes&gt;
@@ -7131,19 +7134,22 @@
       &lt;String dnOrder=&quot;0&quot; id=&quot;dest&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;/peripheral/flexcom/usart/&lt;/Value&gt;
       &lt;/String&gt;
-      &lt;Boolean dnOrder=&quot;1&quot; id=&quot;markup&quot;&gt;
+      &lt;Boolean dnOrder=&quot;1&quot; id=&quot;enabled&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
-      &lt;String dnOrder=&quot;2&quot; id=&quot;name&quot;&gt;
+      &lt;Boolean dnOrder=&quot;2&quot; id=&quot;markup&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+      &lt;String dnOrder=&quot;3&quot; id=&quot;name&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;plib_flexcom0_usart.h&lt;/Value&gt;
       &lt;/String&gt;
-      &lt;String dnOrder=&quot;3&quot; id=&quot;project&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;config/pic32cx_mtg_ek_pl460/peripheral/flexcom/usart/&lt;/Value&gt;
+      &lt;String dnOrder=&quot;4&quot; id=&quot;project&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/&lt;/Value&gt;
       &lt;/String&gt;
-      &lt;String dnOrder=&quot;4&quot; id=&quot;source&quot;&gt;
+      &lt;String dnOrder=&quot;5&quot; id=&quot;source&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;../peripheral/flexcom_11268/templates/plib_flexcom_usart.h.ftl&lt;/Value&gt;
       &lt;/String&gt;
-      &lt;String dnOrder=&quot;5&quot; id=&quot;type&quot;&gt;
+      &lt;String dnOrder=&quot;6&quot; id=&quot;type&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;HEADER&lt;/Value&gt;
       &lt;/String&gt;
     &lt;/Attributes&gt;
@@ -7159,16 +7165,19 @@
       &lt;String dnOrder=&quot;0&quot; id=&quot;dest&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;/peripheral/flexcom/usart/&lt;/Value&gt;
       &lt;/String&gt;
-      &lt;Boolean dnOrder=&quot;1&quot; id=&quot;markup&quot;&gt;
+      &lt;Boolean dnOrder=&quot;1&quot; id=&quot;enabled&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
-      &lt;String dnOrder=&quot;2&quot; id=&quot;name&quot;&gt;
+      &lt;Boolean dnOrder=&quot;2&quot; id=&quot;markup&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+      &lt;String dnOrder=&quot;3&quot; id=&quot;name&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;plib_flexcom0_usart.c&lt;/Value&gt;
       &lt;/String&gt;
-      &lt;String dnOrder=&quot;3&quot; id=&quot;project&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;config/pic32cx_mtg_ek_pl460/peripheral/flexcom/usart/&lt;/Value&gt;
+      &lt;String dnOrder=&quot;4&quot; id=&quot;project&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/&lt;/Value&gt;
       &lt;/String&gt;
-      &lt;String dnOrder=&quot;4&quot; id=&quot;source&quot;&gt;
+      &lt;String dnOrder=&quot;5&quot; id=&quot;source&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;../peripheral/flexcom_11268/templates/plib_flexcom_usart.c.ftl&lt;/Value&gt;
       &lt;/String&gt;
     &lt;/Attributes&gt;
@@ -12672,7 +12681,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>fc397f1bad13433b518a0fbeda72c9ac402fd9abfc50c3c35b1653a39d0d4362</hash>
+         <hash>f0a382bd85cfe4304ace36f1a05f877888ead25ab5ebbeb62435e62503bf3f44</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\tc2.h</file>
@@ -12728,7 +12737,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\drv_rf215_definitions.h</file>
-         <hash>75d2b632ff8fad72e9d30b115c65301a008982aa51bef7e9fca16fbfdc516517</hash>
+         <hash>aa9abddd65561091fda12c39bc55d8003f19d29a705b8981f48a9ee33f5db86d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\time\src\sys_time_local.h</file>
@@ -12736,7 +12745,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>1c205b3f21602636b1d878ea28dd4850cb6a7dced06181af646fc742d37fb997</hash>
+         <hash>3aee2e91cb6f6efc8f3d8a5b05e8cae31434f4b6a0861a1976c17fecf2d685fc</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\aesb.h</file>
@@ -12796,7 +12805,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_hal.h</file>
-         <hash>68348ecfb20ed4229fb4f30cab1ae6a38974138590c1089235fbc312b1144c93</hash>
+         <hash>2a00e96bd402919df85f5ab53754bc390cdc254e8a34921e62287453928210d4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_boot.h</file>
@@ -12804,7 +12813,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_boot.c</file>
-         <hash>3a07cdf4f366182e3f0a16faf60a939c6dc88fde00bdd23b96d3764739985295</hash>
+         <hash>d776492cff6419873df1d6c35bd627d1ac964565f93c6ee366051b632aa92824</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\sfr.h</file>
@@ -12816,7 +12825,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_hal.c</file>
-         <hash>bedaa4b4c5c5a5c12f6ada6f86f14a5adfba8007e78a03666b4e3ef844823885</hash>
+         <hash>6d01da29a8890bd4454b9388995012d3b7db19bafb51966d17d9059fb135c4bb</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\phy\ieee_15_4_sun_fsk.h</file>
@@ -12836,7 +12845,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\configuration.h</file>
-         <hash>f4bb6b4494ce9a7a11c85717911080b6d3e396c5856bd8a99d9a3fc11a0a725f</hash>
+         <hash>b759107170110b5db142ddc40eca7b45c794253377fa0774267065f093adfc2a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\flexcom\usart\plib_flexcom_usart_local.h</file>
@@ -13024,7 +13033,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\cache\sys_cache.h</file>
-         <hash>3407ecac4da455d4b8ba70043f10c20b10e1304e92402db824ca5efa6a2f8402</hash>
+         <hash>b4b3a4e7434759c9bbcd3c6a0ab97558eb2a007f083a4eb76dbedcb2e2c3d86b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.h</file>
@@ -13032,7 +13041,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\cache\sys_cache.c</file>
-         <hash>26a622ca9ceb6d2339fb4a6c917a739f8b23c62b8b69eff439831e7fd36914c5</hash>
+         <hash>da28c09b0da0fdd6fb7064631c15c9197c78df33fcd17d742baef909830a320e</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\trng.h</file>
@@ -13040,7 +13049,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>a49a7a281176192f3af064f684c32592478716209c117580dd2b2ad8254d4055</hash>
+         <hash>de3e2f33f76ed0e7028ddd1d70213f4bc9cd59e350e18723e02be3a03259b0bf</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\flexcom6.h</file>
@@ -13088,7 +13097,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\bsp\bsp.h</file>
-         <hash>2e03a1b29ea6e90e30e414c707fb5fdb739c49666e3d4a605913e1a00ae7b5da</hash>
+         <hash>2ad22ea281c0c4a382b0d9934013834bf0efbf96337921da71086865213e1548</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\cmcc1.h</file>
@@ -13240,7 +13249,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.c</file>
-         <hash>43de765380c48ca48aa8213ac03d53d44837482e798d59fa18571a49370876dc</hash>
+         <hash>940cd4db1fe23a767c5354f3f71e163b9096e08948dbe06c994ec7209c07a06d</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\dwdt.h</file>

@@ -63,12 +63,11 @@
 #define member_size(type, member) sizeof(((type *)0)->member)
 
 /* IANA allocated value */
-#define EAP_PSK_IANA_TYPE 0x2F
-
+#define EAP_PSK_IANA_TYPE           0x2F
 /* T Subfield mask */
-#define EAP_T_SUBFIELD_MASK 0xC0
+#define EAP_T_SUBFIELD_MASK         0xC0
 /* Protected Channel Result mask */
-#define EAP_P_CHANNEL_RESULT_MASK 0xC0
+#define EAP_P_CHANNEL_RESULT_MASK   0xC0
 
 // *****************************************************************************
 // *****************************************************************************

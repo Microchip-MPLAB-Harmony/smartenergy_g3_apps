@@ -174,32 +174,35 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     .dmaChannelTx = SYS_DMA_CHANNEL_0,
 
     /* DMA Channel for Receive */
-    .dmaChannelRx  = SYS_DMA_CHANNEL_1,
+    .dmaChannelRx = SYS_DMA_CHANNEL_1,
 
     /* SPI Transmit Register */
-    .spiAddressTx =  (void *)&(SERCOM0_REGS->SPIM.SERCOM_DATA),
+    .spiAddressTx = (void *)&(SERCOM0_REGS->SPIM.SERCOM_DATA),
 
     /* SPI Receive Register */
     .spiAddressRx  = (void *)&(SERCOM0_REGS->SPIM.SERCOM_DATA),
 
     /* SPI Chip select pin */
     .spiCSPin = DRV_PLC_SPI_CS_PIN,
-    
+
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-    
+
     /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN, 
-    
+    .ldoPin = DRV_PLC_LDO_EN_PIN,
+
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
-       
+
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
 
+    /* PLC External Interrupt Pio */
+    .extIntPio = DRV_PLC_EXT_INT_PIO,
+
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
-    
+
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -219,10 +222,10 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC Set TX Enable Pin */
     .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
 
@@ -250,16 +253,16 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 
     /* SPI PLIB API interface*/
     .plcHal = &drvPLCHalAPI,
- 
+
     /* PLC MAC RT Binary start address */
     .binStartAddress = (uint32_t)&g3_mac_rt_bin_start,
-    
+
     /* PLC MAC RT Binary end address */
     .binEndAddress = (uint32_t)&g3_mac_rt_bin_end,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
-    
+
 };
 
 // </editor-fold>
@@ -361,7 +364,7 @@ void SYS_Initialize ( void* data )
     /* MISRAC 2012 deviation block start */
     /* MISRA C-2012 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2012_R_2_2_DR_1 */
 
-  
+
     CLK_Initialize();
     /* Configure Prefetch, Wait States */
     PCHE_REGS->PCHE_CHECON = (PCHE_REGS->PCHE_CHECON & (~(PCHE_CHECON_PFMWS_Msk | PCHE_CHECON_ADRWS_Msk | PCHE_CHECON_PREFEN_Msk)))
@@ -398,13 +401,13 @@ void SYS_Initialize ( void* data )
     EIC_CallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvG3MacRt);
 
 
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-        
+
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
-    
+
     /* MISRAC 2012 deviation block end */
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
      H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
         sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
    /* MISRAC 2012 deviation block end */

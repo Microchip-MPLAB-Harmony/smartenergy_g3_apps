@@ -52,6 +52,7 @@
 
 #include "configuration.h"
 #include "definitions.h"
+#include "sys_tasks.h"
 
 
 
@@ -80,6 +81,7 @@ void SYS_Tasks ( void )
     DRV_PLC_PHY_Tasks(sysObj.drvPlcPhy);
 
 
+
     /* Maintain Middleware & Other Libraries */
         /* USB Device layer tasks routine */ 
     USB_DEVICE_Tasks(sysObj.usbDevObject0);
@@ -89,6 +91,7 @@ void SYS_Tasks ( void )
 
 
     SRV_USI_Tasks(sysObj.srvUSI0);
+
 
 
     /* Maintain the application's state machine. */

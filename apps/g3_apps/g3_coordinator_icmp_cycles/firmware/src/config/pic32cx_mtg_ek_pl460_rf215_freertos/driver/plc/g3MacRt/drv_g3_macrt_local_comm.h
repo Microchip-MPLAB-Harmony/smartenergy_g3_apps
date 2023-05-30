@@ -138,16 +138,16 @@ typedef struct {
 */
 
 typedef enum {
-	STATUS_INFO_ID = 0,
-	SET_COORD_ID,
-	TX_REQ_ID,
-	TX_CFM_ID,
-	DATA_IND_ID,
-	MAC_SNIF_ID,
-	COMM_STATUS_ID,
-	RX_PAR_IND_ID,
-	REG_RSP_ID,
-	PHY_SNF_ID
+    STATUS_INFO_ID = 0,
+    SET_COORD_ID,
+    TX_REQ_ID,
+    TX_CFM_ID,
+    DATA_IND_ID,
+    MAC_SNIF_ID,
+    COMM_STATUS_ID,
+    RX_PAR_IND_ID,
+    REG_RSP_ID,
+    PHY_SNF_ID
 } DRV_G3_MACRT_MEM_ID;
 
 /****************************** DRV_PLC Interface ***************************/

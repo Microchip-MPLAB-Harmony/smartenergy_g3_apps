@@ -4759,7 +4759,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;485&quot; canvasWidth=&quot;721&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;GraphSettings canvasHeight=&quot;485&quot; canvasWidth=&quot;569&quot; dnOrder=&quot;0&quot;/&gt;
     &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_PIC32CXMTG_Evaluation_Kit&quot; x=&quot;0&quot; y=&quot;33&quot;/&gt;
@@ -4770,13 +4770,13 @@
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;core&quot; x=&quot;224&quot; y=&quot;33&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;dfp&quot; x=&quot;0&quot; y=&quot;6&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;drvG3MacRt&quot; x=&quot;142&quot; y=&quot;305&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;flexcom0&quot; x=&quot;321&quot; y=&quot;351&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;flexcom0&quot; x=&quot;338&quot; y=&quot;351&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;flexcom5&quot; x=&quot;0&quot; y=&quot;373&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;sefc0&quot; x=&quot;301&quot; y=&quot;8&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;sefc1&quot; x=&quot;432&quot; y=&quot;9&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;srv_pcoup&quot; x=&quot;0&quot; y=&quot;298&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;srv_pvddmon&quot; x=&quot;411&quot; y=&quot;194&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sys_console&quot; x=&quot;451&quot; y=&quot;287&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sys_console&quot; x=&quot;480&quot; y=&quot;287&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;sys_time&quot; x=&quot;143&quot; y=&quot;169&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;tc0&quot; x=&quot;0&quot; y=&quot;215&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;trng&quot; x=&quot;302&quot; y=&quot;85&quot;/&gt;
@@ -7386,7 +7386,7 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;plib_flexcom_usart_local.h&lt;/Value&gt;
       &lt;/String&gt;
       &lt;String dnOrder=&quot;3&quot; id=&quot;project&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;config/pic32cx_mtg_ek_pl460/peripheral/flexcom/usart/&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;config/pic32cx_mtg_ek_pl460_freertos/peripheral/flexcom/usart/&lt;/Value&gt;
       &lt;/String&gt;
       &lt;String dnOrder=&quot;4&quot; id=&quot;source&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;../peripheral/flexcom_11268/templates/plib_flexcom_usart_local.h&lt;/Value&gt;
@@ -7417,7 +7417,7 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;plib_flexcom0_usart.h&lt;/Value&gt;
       &lt;/String&gt;
       &lt;String dnOrder=&quot;4&quot; id=&quot;project&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;config/pic32cx_mtg_ek_pl460/peripheral/flexcom/usart/&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;config/pic32cx_mtg_ek_pl460_freertos/peripheral/flexcom/usart/&lt;/Value&gt;
       &lt;/String&gt;
       &lt;String dnOrder=&quot;5&quot; id=&quot;source&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;../peripheral/flexcom_11268/templates/plib_flexcom_usart_ring_buffer.h.ftl&lt;/Value&gt;
@@ -7448,7 +7448,7 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;plib_flexcom0_usart.c&lt;/Value&gt;
       &lt;/String&gt;
       &lt;String dnOrder=&quot;4&quot; id=&quot;project&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;config/pic32cx_mtg_ek_pl460/peripheral/flexcom/usart/&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;config/pic32cx_mtg_ek_pl460_freertos/peripheral/flexcom/usart/&lt;/Value&gt;
       &lt;/String&gt;
       &lt;String dnOrder=&quot;5&quot; id=&quot;source&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;../peripheral/flexcom_11268/templates/plib_flexcom_usart_ring_buffer.c.ftl&lt;/Value&gt;
@@ -7565,6 +7565,24 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom0" name="FLEXCOM_SPI_CSR0_CSAAT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;flexcom0&gt;
+  &lt;flexcom0 dnOrder=&quot;0&quot; id=&quot;FLEXCOM_SPI_CSR0_CSAAT&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/flexcom0&gt;
+&lt;/flexcom0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom0" name="FLEXCOM_SPI_CSR0_CSNAAT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;flexcom0&gt;
+  &lt;flexcom0 dnOrder=&quot;0&quot; id=&quot;FLEXCOM_SPI_CSR0_CSNAAT&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/flexcom0&gt;
+&lt;/flexcom0&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom0" name="FLEXCOM_SPI_CSR0_DLYBCT"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;flexcom0&gt;
   &lt;flexcom0 dnOrder=&quot;0&quot; id=&quot;FLEXCOM_SPI_CSR0_DLYBCT&quot;&gt;
@@ -7624,6 +7642,24 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom0" name="FLEXCOM_SPI_CSR1_CPOL"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;flexcom0&gt;
   &lt;flexcom0 dnOrder=&quot;0&quot; id=&quot;FLEXCOM_SPI_CSR1_CPOL&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/flexcom0&gt;
+&lt;/flexcom0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom0" name="FLEXCOM_SPI_CSR1_CSAAT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;flexcom0&gt;
+  &lt;flexcom0 dnOrder=&quot;0&quot; id=&quot;FLEXCOM_SPI_CSR1_CSAAT&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/flexcom0&gt;
+&lt;/flexcom0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom0" name="FLEXCOM_SPI_CSR1_CSNAAT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;flexcom0&gt;
+  &lt;flexcom0 dnOrder=&quot;0&quot; id=&quot;FLEXCOM_SPI_CSR1_CSNAAT&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/flexcom0&gt;
 &lt;/flexcom0&gt;
@@ -8534,14 +8570,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom0" name="USART_TX_RING_BUFFER_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;flexcom0&gt;
   &lt;flexcom0 dnOrder=&quot;0&quot; id=&quot;USART_TX_RING_BUFFER_SIZE&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;512&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/flexcom0&gt;
 &lt;/flexcom0&gt;
 </value>
@@ -20154,6 +20183,45 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_console_0" name="SYS_CONSOLE_UART_DEFINITIONS_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_console_0&gt;
+  &lt;sys_console_0 dnOrder=&quot;0&quot; id=&quot;SYS_CONSOLE_UART_DEFINITIONS_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/sys_console_0&gt;
+&lt;/sys_console_0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_console_0" name="SYS_CONSOLE_UART_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_console_0&gt;
+  &lt;sys_console_0 dnOrder=&quot;0&quot; id=&quot;SYS_CONSOLE_UART_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/sys_console_0&gt;
+&lt;/sys_console_0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_console_0" name="SYS_CONSOLE_UART_SOURCE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_console_0&gt;
+  &lt;sys_console_0 dnOrder=&quot;0&quot; id=&quot;SYS_CONSOLE_UART_SOURCE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/sys_console_0&gt;
+&lt;/sys_console_0&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_console_0" name="SYS_CONSOLE_USB_CDC_SOURCE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_console_0&gt;
   &lt;sys_console_0 dnOrder=&quot;0&quot; id=&quot;SYS_CONSOLE_USB_CDC_SOURCE&quot;&gt;
@@ -21800,7 +21868,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\configuration.h</file>
-         <hash>76c09ceff7f59dd15816145252fab361ce240b9e0d6d8643e8004d7a4b49052b</hash>
+         <hash>612fbc317957af8d59d630e0ee7b642f692a3c47bfd607155358b73417ba3602</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\freertos_hooks.c</file>
@@ -21840,7 +21908,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\common\drv_plc_hal.c</file>
-         <hash>afce751abc5f3f327ca1bf32f0bae6dd465b95830d8f39e7048b490694ac3e23</hash>
+         <hash>788dd13dba3d3eb72dc2b0b4dc57bcc2bb76d4289603aa382df477e59bb8ab46</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\sfr.h</file>
@@ -21852,7 +21920,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\common\drv_plc_hal.h</file>
-         <hash>f7512db5aaf79193f83de101572fb6f335b44af638e874fd982fc53b49cffc38</hash>
+         <hash>50eb677091bc02daf4942d05083814e89cec1cc5965a4aa3380bdd4741de14ea</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\mpu_armv7.h</file>
@@ -21900,7 +21968,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt.c</file>
-         <hash>14d86126897f36bfae88e3eb2d1ad32bdbecd7491c3d73785b99beafa9eb3af3</hash>
+         <hash>36a95d0590ae0ff9b2383abc82f789ea8d6a94f12414629d2a6219d75cbf4c0a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\peripheral\rstc\plib_rstc.h</file>
@@ -21940,7 +22008,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt_local.h</file>
-         <hash>4b63374a5ee86b8f44f3a3d806c113e451f5ea55b55ae5588135409a1a1de3bd</hash>
+         <hash>a6076d5d37aa407861bed78356206ad9317f75a84ba214c1095351ce8c0e0df7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\peripheral\trng\plib_trng.h</file>
@@ -21956,7 +22024,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\common\drv_plc_boot.c</file>
-         <hash>3a07cdf4f366182e3f0a16faf60a939c6dc88fde00bdd23b96d3764739985295</hash>
+         <hash>d776492cff6419873df1d6c35bd627d1ac964565f93c6ee366051b632aa92824</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\common\drv_plc_boot.h</file>
@@ -22268,7 +22336,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\peripheral\flexcom\usart\plib_flexcom0_usart.c</file>
-         <hash>91efc230e9a2a075d7e4a072b11ffea42073731d90d0538f56179fed5741b7ab</hash>
+         <hash>63c238a9ec83219678361f13ac9357b423d2c9d9eab3530f64b810c89b62ebf9</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\flexcom.h</file>
@@ -22332,7 +22400,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt_local_comm.h</file>
-         <hash>0d632d2e1e212b945b9b9c33078117c3b00a56403a2bdcb300b367811da4a974</hash>
+         <hash>c50cc4a879a9e9da2d1935b931282b9fbb82e8b2409e8ef4e22de6e7c68ec2af</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\acc.h</file>
@@ -22340,7 +22408,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt_local_comm.c</file>
-         <hash>d751a1bac3902e8ced29e41b7bbd7014c260b0027e40de599788910221ba8202</hash>
+         <hash>fcbd8937903bb4f889921256d73415064c3783d66d9ad9cd41979d8ead5f5c6c</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\pwm.h</file>
@@ -22356,7 +22424,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\definitions.h</file>
-         <hash>0880ee425fee3cffe951d0642142b5ca27997897e3f414e898ffe98eb12e5d2d</hash>
+         <hash>e176dd2d458ceaef92ee7da5fa0629b33a50d1502db93f926fbf7dd49327357f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\device.h</file>
@@ -22500,7 +22568,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\bsp\bsp.h</file>
-         <hash>d5602c10e31c82352e92eaa489d765c4e10bbf3f2b4cc94558a99b47e042e0fc</hash>
+         <hash>11ee62e7b23268746e221707bafd3bdc0faddf9df8e94e287921a251200e7404</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\chipid.h</file>
@@ -22572,7 +22640,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\initialization.c</file>
-         <hash>1a9022d192d3b0e9140e9c105b4e9030dd2a905887ff34f6664391f9c89e0c5c</hash>
+         <hash>c4a33bd3e5315ed25c6658a1a3038dd03a52b49465dbe55008b263e5fb0599a0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\service\pcoup\srv_pcoup.h</file>

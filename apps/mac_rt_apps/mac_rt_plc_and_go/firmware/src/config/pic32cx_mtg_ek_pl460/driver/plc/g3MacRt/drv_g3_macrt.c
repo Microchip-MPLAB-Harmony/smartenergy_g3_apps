@@ -228,7 +228,7 @@ void DRV_G3_MACRT_RxParamsIndCallbackRegister(
 void DRV_G3_MACRT_MacSnifferCallbackRegister( 
     const DRV_HANDLE handle, 
     const DRV_G3_MACRT_MAC_SNIFFER_IND_CALLBACK callback,
-	uint8_t* pDataBuffer
+    uint8_t* pDataBuffer
 )
 {
     if ((handle != DRV_HANDLE_INVALID) && (handle == 0) && 
@@ -253,7 +253,7 @@ void DRV_G3_MACRT_CommStatusCallbackRegister(
 void DRV_G3_MACRT_PhySnifferCallbackRegister( 
     const DRV_HANDLE handle, 
     const DRV_G3_MACRT_PHY_SNIFFER_IND_CALLBACK callback,
-	uint8_t* pDataBuffer
+    uint8_t* pDataBuffer
 )
 {
     if ((handle != DRV_HANDLE_INVALID) && (handle == 0) && 
@@ -282,7 +282,7 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ hSysObj )
     {
         return;
     }
-    
+
     if ((gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_READY) ||
         (gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_WAITING_TX_CFM))
     {

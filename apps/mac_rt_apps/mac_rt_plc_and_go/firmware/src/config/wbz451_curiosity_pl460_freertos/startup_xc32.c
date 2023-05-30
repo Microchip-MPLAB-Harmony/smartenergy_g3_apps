@@ -81,7 +81,7 @@ __STATIC_INLINE void __attribute__((optimize("-O1"))) CMCC_Configure(void)
     {
         /*Wait for the operation to complete*/
     }
-    CMCC_REGS->CMCC_CFG = CMCC_CFG_CSIZESW(2U);
+    CMCC_REGS->CMCC_CFG = CMCC_CFG_CSIZESW(2U)| CMCC_CFG_DCDIS_Msk;
     CMCC_REGS->CMCC_CTRL = (CMCC_CTRL_CEN_Msk);
 }
 

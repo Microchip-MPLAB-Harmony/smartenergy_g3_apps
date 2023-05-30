@@ -1133,6 +1133,45 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="HarmonyCore" name="SYS_CACHE_DEF"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
+  &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;SYS_CACHE_DEF&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/HarmonyCore&gt;
+&lt;/HarmonyCore&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="HarmonyCore" name="SYS_CACHE_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
+  &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;SYS_CACHE_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/HarmonyCore&gt;
+&lt;/HarmonyCore&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="HarmonyCore" name="SYS_CACHE_SOURCE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
+  &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;SYS_CACHE_SOURCE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/HarmonyCore&gt;
+&lt;/HarmonyCore&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="HarmonyCore" name="SYS_TASKS_H"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;SYS_TASKS_H&quot;&gt;
@@ -1585,7 +1624,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_35_PU&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;True&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -1683,9 +1722,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="DATA_CACHE_ENABLE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;DATA_CACHE_ENABLE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -2795,7 +2832,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SYS_PORT_A_CNPU&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;4&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -3853,6 +3890,50 @@
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvG3MacRt&gt;
+&lt;/drvG3MacRt&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvG3MacRt" name="DRV_PLC_EIC_SIGNAL"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvG3MacRt&gt;
+  &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;DRV_PLC_EIC_SIGNAL&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;EIC_PIN_0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvG3MacRt&gt;
+&lt;/drvG3MacRt&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvG3MacRt" name="DRV_PLC_EXT_INT_PIN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvG3MacRt&gt;
+  &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;DRV_PLC_EXT_INT_PIN&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;2&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvG3MacRt&gt;
+&lt;/drvG3MacRt&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvG3MacRt" name="DRV_PLC_EXT_INT_PIO_PORT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvG3MacRt&gt;
+  &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;DRV_PLC_EXT_INT_PIO_PORT&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvG3MacRt&quot; value=&quot;PIO_PORT_A&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvG3MacRt&gt;
+&lt;/drvG3MacRt&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvG3MacRt" name="DRV_PLC_EXT_INT_SRC"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvG3MacRt&gt;
+  &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;DRV_PLC_EXT_INT_SRC&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvG3MacRt&quot; value=&quot;PIOA_IRQn&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drvG3MacRt&gt;
 &lt;/drvG3MacRt&gt;
@@ -6967,11 +7048,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt.c</file>
-         <hash>e1a83e24d81e82cca304308895c38e75cadadaa21ab91d8f4b885e4f7e2a2c63</hash>
+         <hash>907a39b9d7c91f93942b5a91fa6c750f855f706f3e75bfb9ba66c60e5bfbace9</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\startup_xc32.c</file>
-         <hash>6bb3e7378a91df49ddd20ba777738f924428c7eb959c8a356890e2ca564ebc64</hash>
+         <hash>6945b6a1826ae28babaae6cd59e20b8e74e464d4de4fa6fdbb92158ffaa02257</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\gpioa.h</file>
@@ -6999,7 +7080,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\definitions.h</file>
-         <hash>915b7b7265fc294d1a8e8751a07b0ea587d92dfb5bb467396c4c3485e23db326</hash>
+         <hash>6ffe44a1d3fb5e182171b0665e7141137ae82ba2b649a3ddb954753b5708b494</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\system\system.h</file>
@@ -7107,7 +7188,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt_local.h</file>
-         <hash>f0121dde4db579ae8fb0d80e57fcf1a4d899e7583e276799b04defb3369ed22d</hash>
+         <hash>618d1a50060a23125594e2e1d7277ebcb8adc7f5dbc2c29979b967bfa8b2b0b1</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\peripheral\nvic\plib_nvic.c</file>
@@ -7271,7 +7352,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\initialization.c</file>
-         <hash>cf6ae15dabf52407e95bfb059605b3899266fe357f0f5adf417ec22f75f6a932</hash>
+         <hash>6d70fc0b9202ce387ee0183e20749890accb089cb29ab0eea8804c7d80743510</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\system\console\src\sys_console.c</file>
@@ -7339,7 +7420,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\driver\plc\common\drv_plc_boot.c</file>
-         <hash>3a07cdf4f366182e3f0a16faf60a939c6dc88fde00bdd23b96d3764739985295</hash>
+         <hash>d776492cff6419873df1d6c35bd627d1ac964565f93c6ee366051b632aa92824</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\btzbsys.h</file>
@@ -7379,7 +7460,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt_local_comm.c</file>
-         <hash>401cd04d6cd704755a4412042d1d8335ed19824d439e08b9513e5482c4cd4147</hash>
+         <hash>a36fa6e7ac655941b852da9c138c4f2f0fb8642e798446388c852851c77cd633</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\zigbee.h</file>
@@ -7387,7 +7468,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt_local_comm.h</file>
-         <hash>0d632d2e1e212b945b9b9c33078117c3b00a56403a2bdcb300b367811da4a974</hash>
+         <hash>c50cc4a879a9e9da2d1935b931282b9fbb82e8b2409e8ef4e22de6e7c68ec2af</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\cfg.h</file>
@@ -7407,7 +7488,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\driver\plc\common\drv_plc_hal.c</file>
-         <hash>e443a60c8a2485518452d20025255c347b1d2740fa2bc6cba0caed643f8ab14a</hash>
+         <hash>1a044b974094b83bf96123408f355b3785b8020532e102d688d7e4f67213756f</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\freqm.h</file>
@@ -7419,7 +7500,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\driver\plc\common\drv_plc_hal.h</file>
-         <hash>b8ca03683b4d4486a9e94dff25d3bf7ac4d2c20c756b84143d0281e9cdf2444f</hash>
+         <hash>2e200bf637bb980663d7689d1924f746998672597bdf1aa4a9d190a1c782f14d</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\system\console\src\sys_console_uart_definitions.h</file>
@@ -7523,7 +7604,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\bsp\bsp.h</file>
-         <hash>ae02c62f7898bb31311dc9f28c756cd706810ae2aabc817f80f5f34854d320bd</hash>
+         <hash>4a36303d1af1d4ccd44e9a47bac0759b07c3f6386b2ea8afedd9a765bf518309</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\semphr.h</file>
@@ -7595,7 +7676,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\configuration.h</file>
-         <hash>64fe09032154dc5a0c1b752f6f50948fa241ad4c7aa270d474379c96b8d0e95f</hash>
+         <hash>8cab3cac2f22df4af59110cbc81d80d7ebd0572d53c852fc110b891303d45cd1</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\projdefs.h</file>
@@ -7683,7 +7764,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\peripheral\gpio\plib_gpio.c</file>
-         <hash>cc3f456d2ca1049fff3de633164902cfe86d5f31120c5f88ed328860c6789d17</hash>
+         <hash>a0d706cdf3022c5ee263852b000188b7c428abe840636ec98a46e6c5515f8177</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\peripheral\eic\plib_eic.h</file>

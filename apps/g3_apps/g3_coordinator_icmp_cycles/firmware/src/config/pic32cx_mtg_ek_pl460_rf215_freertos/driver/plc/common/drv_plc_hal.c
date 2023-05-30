@@ -11,7 +11,7 @@
     PLC Driver Hardware Abstraction Layer
 
   Description:
-    This file contains the source code for the implementation of the Hardware 
+    This file contains the source code for the implementation of the Hardware
     Abstraction Layer.
 *******************************************************************************/
 
@@ -85,11 +85,10 @@ static DRV_PLC_PLIB_INTERFACE *sPlcPlib;
 // *****************************************************************************
 void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
 {
-    sPlcPlib = plcPlib;   
-    
+    sPlcPlib = plcPlib;
 
     /* Disable External Interrupt */
-    PIO_PinInterruptDisable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
+    PIO_PinInterruptDisable((PIO_PIN)sPlcPlib->extIntPin);
     /* Enable External Interrupt Source */
     SYS_INT_SourceEnable(DRV_PLC_EXT_INT_SRC);
 }
@@ -99,8 +98,8 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
     DRV_PLC_SPI_TRANSFER_SETUP spiPlibSetup;
 
     while(sPlcPlib->spiIsBusy());
-        
-    if (set16Bits) 
+
+    if (set16Bits)
     {
         spiPlibSetup.dataBits = DRV_PLC_SPI_DATA_BITS_16;
     }
@@ -108,13 +107,13 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
     {
         spiPlibSetup.dataBits = DRV_PLC_SPI_DATA_BITS_8;
     }
-    
+
     /* Configure SPI PLIB */
     spiPlibSetup.clockFrequency = sPlcPlib->spiClockFrequency;
     spiPlibSetup.clockPhase = DRV_PLC_SPI_CLOCK_PHASE_LEADING_EDGE;
-    spiPlibSetup.clockPolarity = DRV_PLC_SPI_CLOCK_POLARITY_IDLE_LOW;    
+    spiPlibSetup.clockPolarity = DRV_PLC_SPI_CLOCK_POLARITY_IDLE_LOW;
     sPlcPlib->spiPlibTransferSetup((uintptr_t)&spiPlibSetup, 0);
-    
+
 }
 
 void DRV_PLC_HAL_Reset(void)
@@ -140,26 +139,32 @@ void DRV_PLC_HAL_Reset(void)
 
 bool DRV_PLC_HAL_GetThermalMonitor(void)
 {
-    if (SYS_PORT_PinRead(sPlcPlib->thMonPin)) {
+    if (SYS_PORT_PinRead(sPlcPlib->thMonPin))
+    {
         return false;
-    } else {
+    }
+    else
+    {
         return true;
     }
 }
 
 void DRV_PLC_HAL_SetTxEnable(bool enable)
 {
-    if (enable) {
+    if (enable)
+    {
         /* Set TX Enable Pin */
         SYS_PORT_PinSet(sPlcPlib->txEnablePin);
-    } else {
+    }
+    else
+    {
         /* Clear TX Enable Pin */
         SYS_PORT_PinClear(sPlcPlib->txEnablePin);
     }
 }
 
 void DRV_PLC_HAL_Delay(uint64_t delayUs)
-{ 
+{
     SYS_TIME_HANDLE tmrHandle = SYS_TIME_HANDLE_INVALID;
 
     if (SYS_TIME_DelayUS(delayUs, &tmrHandle) == SYS_TIME_SUCCESS)
@@ -174,11 +179,11 @@ void DRV_PLC_HAL_EnableInterrupts(bool enable)
     if (enable)
     {
         SYS_INT_SourceStatusClear(DRV_PLC_EXT_INT_SRC);
-        PIO_PinInterruptEnable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
+        PIO_PinInterruptEnable((PIO_PIN)sPlcPlib->extIntPin);
     }
     else
     {
-        PIO_PinInterruptDisable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
+        PIO_PinInterruptDisable((PIO_PIN)sPlcPlib->extIntPin);
     }
 }
 
@@ -189,13 +194,13 @@ bool DRV_PLC_HAL_GetPinLevel(SYS_PORT_PIN pin)
 
 void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, uint8_t *pDataWr, uint8_t *pDataRd)
 {
-    uint8_t *pTxData;  
+    uint8_t *pTxData;
     size_t size;
 
     while(sPlcPlib->spiIsBusy());
-    
+
     pTxData = sTxSpiData;
-    
+
     /* Build command */
     memcpy(pTxData, &addr, 4);
     pTxData += 4;
@@ -207,15 +212,17 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
         {
             dataLength = HAL_SPI_BUFFER_SIZE - 6;
         }
-        
-        if (pDataWr) {
+
+        if (pDataWr)
+        {
             memcpy(pTxData, pDataWr, dataLength);
         }
-        else{
+        else
+        {
             /* Insert dummy data */
             memset(pTxData, 0, dataLength);
         }
-        
+
         pTxData += dataLength;
     }
 
@@ -226,7 +233,7 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
 
     if (pDataRd) {
         while(sPlcPlib->spiIsBusy());
-        
+
         /* Update data received */
         memcpy(pDataRd, &sRxSpiData[6], dataLength);
     }
@@ -239,20 +246,20 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
     size_t dataLength;
 
     while(sPlcPlib->spiIsBusy());
-    
+
     pTxData = sTxSpiData;
-    
+
     dataLength = ((pCmd->length + 1) >> 1) & 0x7FFF;
-    
+
     /* Protect length */
     if ((dataLength == 0) || (dataLength > (HAL_SPI_MSG_DATA_SIZE + HAL_SPI_MSG_PARAMS_SIZE)))
     {
         return;
     }
-    
+
     /* Join CMD and Length */
     dataLength |= pCmd->cmd;
-    
+
     /* Build command */
     /* Address */
     *pTxData++ = (uint8_t)(pCmd->memId);
@@ -271,32 +278,32 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
     pTxData += pCmd->length;
 
     cmdSize = pTxData - sTxSpiData;
-    
+
     if (cmdSize % 2) {
         *pTxData++ = 0;
         cmdSize++;
     }
 
-    sPlcPlib->spiWriteRead(sTxSpiData, cmdSize >> 1, sRxSpiData, cmdSize >> 1);    
+    sPlcPlib->spiWriteRead(sTxSpiData, cmdSize >> 1, sRxSpiData, cmdSize >> 1);
 
     if (pCmd->cmd == DRV_PLC_HAL_CMD_RD) {
         while(sPlcPlib->spiIsBusy());
-        
+
         /* Update data received */
         memcpy(pCmd->pData, &sRxSpiData[4], pCmd->length);
     }
-    
+
     /* Get HAL info */
     pInfo->key = DRV_PLC_HAL_KEY(sRxSpiData[0], sRxSpiData[1]);
     if (pInfo->key == DRV_PLC_HAL_KEY_CORTEX)
     {
         pInfo->flags = DRV_PLC_HAL_FLAGS_CORTEX(sRxSpiData[2], sRxSpiData[3]);
-    } 
+    }
     else if (pInfo->key == DRV_PLC_HAL_KEY_BOOT)
     {
         pInfo->flags = DRV_PLC_HAL_FLAGS_BOOT(sRxSpiData[0], sRxSpiData[2], sRxSpiData[3]);
-    } 
-    else 
+    }
+    else
     {
         pInfo->flags = 0;
     }

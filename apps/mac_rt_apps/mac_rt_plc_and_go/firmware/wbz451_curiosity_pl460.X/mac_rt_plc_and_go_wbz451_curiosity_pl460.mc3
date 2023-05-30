@@ -314,8 +314,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;384&quot; canvasWidth=&quot;716&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_WBZ451_Curiosity&quot; x=&quot;0&quot; y=&quot;77&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;327&quot; y=&quot;16&quot;/&gt;
@@ -334,6 +333,7 @@
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;trng&quot; x=&quot;326&quot; y=&quot;112&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;384&quot; canvasWidth=&quot;716&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -732,7 +732,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_35_PU&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;True&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -831,7 +831,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;DATA_CACHE_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -1722,7 +1722,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SYS_PORT_A_CNPU&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;4&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -2736,6 +2736,50 @@
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvG3MacRt&gt;
+&lt;/drvG3MacRt&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvG3MacRt" name="DRV_PLC_EIC_SIGNAL"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvG3MacRt&gt;
+  &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;DRV_PLC_EIC_SIGNAL&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;EIC_PIN_0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvG3MacRt&gt;
+&lt;/drvG3MacRt&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvG3MacRt" name="DRV_PLC_EXT_INT_PIN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvG3MacRt&gt;
+  &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;DRV_PLC_EXT_INT_PIN&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;2&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvG3MacRt&gt;
+&lt;/drvG3MacRt&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvG3MacRt" name="DRV_PLC_EXT_INT_PIO_PORT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvG3MacRt&gt;
+  &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;DRV_PLC_EXT_INT_PIO_PORT&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvG3MacRt&quot; value=&quot;PIO_PORT_A&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvG3MacRt&gt;
+&lt;/drvG3MacRt&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvG3MacRt" name="DRV_PLC_EXT_INT_SRC"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvG3MacRt&gt;
+  &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;DRV_PLC_EXT_INT_SRC&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvG3MacRt&quot; value=&quot;PIOA_IRQn&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drvG3MacRt&gt;
 &lt;/drvG3MacRt&gt;
@@ -5685,7 +5729,7 @@
    <generatedFileHashHistoryMap class="java.util.HashMap">
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\initialization.c</file>
-         <hash>851ee63b0c764645df8b941b67bf7c3af6eb5582de13cd1f305df3a5e04ae690</hash>
+         <hash>6d70fc0b9202ce387ee0183e20749890accb089cb29ab0eea8804c7d80743510</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\sercom0.h</file>
@@ -5749,7 +5793,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\bsp\bsp.h</file>
-         <hash>ae02c62f7898bb31311dc9f28c756cd706810ae2aabc817f80f5f34854d320bd</hash>
+         <hash>4a36303d1af1d4ccd44e9a47bac0759b07c3f6386b2ea8afedd9a765bf518309</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\cru.h</file>
@@ -5841,7 +5885,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\g3MacRt\drv_g3_macrt_local_comm.c</file>
-         <hash>785f9fc7fff4ba4c027884b6f2974299cb695071d5a6d206b7ef834dae478ca1</hash>
+         <hash>df0da300331e238da487a73fa50bf7b614ed11b22e196c8d7a76f48cbde86951</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\tc0.h</file>
@@ -5905,7 +5949,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\g3MacRt\drv_g3_macrt_local.h</file>
-         <hash>371d2de3b2e2c7ea8b1eaef395ff5cb176d79837304a270d22724c8ebf419bf6</hash>
+         <hash>b2a80d9549b1f779aed3921d8015c2cc973f1e5075e8a3a2fae2887d05d47653</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\int\src\sys_int.c</file>
@@ -5941,7 +5985,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\g3MacRt\drv_g3_macrt_local_comm.h</file>
-         <hash>0d632d2e1e212b945b9b9c33078117c3b00a56403a2bdcb300b367811da4a974</hash>
+         <hash>c50cc4a879a9e9da2d1935b931282b9fbb82e8b2409e8ef4e22de6e7c68ec2af</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\sercom\usart\plib_sercom_usart_common.h</file>
@@ -5957,7 +6001,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\g3MacRt\drv_g3_macrt.c</file>
-         <hash>12b4323c1225288b94da264c52471b5998949f41b3a96fac5b7d407384294786</hash>
+         <hash>fa16ccd2e1bd5ef7dc8b42f22561fb44e91fe5029cfe9f0b5fb8d186b2574e74</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\system\dma\sys_dma.h</file>
@@ -6053,7 +6097,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\configuration.h</file>
-         <hash>b476945b9f088c7ca641cb566f73a5d16c4ea26ac7b10e34e7da58b480701e79</hash>
+         <hash>8f49d8d4c3bb592d36adb6b86cc27ae6296dfaafe3baf8e1b2aa1d73eaee0292</hash>
       </entry>
       <entry>
          <file>..\src\main.c</file>
@@ -6105,7 +6149,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\startup_xc32.c</file>
-         <hash>6bb3e7378a91df49ddd20ba777738f924428c7eb959c8a356890e2ca564ebc64</hash>
+         <hash>6945b6a1826ae28babaae6cd59e20b8e74e464d4de4fa6fdbb92158ffaa02257</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\common\drv_plc_boot.h</file>
@@ -6161,7 +6205,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\common\drv_plc_hal.h</file>
-         <hash>b8ca03683b4d4486a9e94dff25d3bf7ac4d2c20c756b84143d0281e9cdf2444f</hash>
+         <hash>2e200bf637bb980663d7689d1924f746998672597bdf1aa4a9d190a1c782f14d</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\device_vectors.h</file>
@@ -6185,7 +6229,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\common\drv_plc_hal.c</file>
-         <hash>e443a60c8a2485518452d20025255c347b1d2740fa2bc6cba0caed643f8ab14a</hash>
+         <hash>1a044b974094b83bf96123408f355b3785b8020532e102d688d7e4f67213756f</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\interrupts.c</file>
@@ -6269,7 +6313,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\common\drv_plc_boot.c</file>
-         <hash>3a07cdf4f366182e3f0a16faf60a939c6dc88fde00bdd23b96d3764739985295</hash>
+         <hash>d776492cff6419873df1d6c35bd627d1ac964565f93c6ee366051b632aa92824</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\eic.h</file>
@@ -6413,7 +6457,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\gpio\plib_gpio.c</file>
-         <hash>cc3f456d2ca1049fff3de633164902cfe86d5f31120c5f88ed328860c6789d17</hash>
+         <hash>a0d706cdf3022c5ee263852b000188b7c428abe840636ec98a46e6c5515f8177</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\eic\plib_eic.h</file>

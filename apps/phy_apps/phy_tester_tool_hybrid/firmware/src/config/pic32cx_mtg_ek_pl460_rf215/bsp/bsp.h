@@ -40,8 +40,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef _BSP_H
-#define _BSP_H
+#ifndef BSP_H
+#define BSP_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -60,6 +60,9 @@
 // Section: BSP Macros
 // *****************************************************************************
 // *****************************************************************************
+#define pic32cxmtg_ek
+#define BSP_NAME             "pic32cxmtg_ek"
+
 /*PIOA base address */
 #define PIOA_REGS   ((pio_group_registers_t*)(&(PIO0_REGS->PIO_GROUP[0])))
 /*PIOB base address */
@@ -121,7 +124,6 @@
 
   Example:
     <code>
-    //Initialize the BSP
     BSP_Initialize();
     </code>
 
@@ -131,7 +133,7 @@
 
 void BSP_Initialize(void);
 
-#endif // _BSP_H
+#endif // BSP_H
 
 /*******************************************************************************
  End of File

@@ -71,9 +71,10 @@
 // *****************************************************************************
 // *****************************************************************************
 #define PSERIAL_TONEMAP_SIZE     3
-#define PSERIAL_SUBBANDS_SIZE    24   
-#define PSERIAL_CARRIERS_SIZE    72        
+#define PSERIAL_SUBBANDS_SIZE    24
+#define PSERIAL_CARRIERS_SIZE    72
 #define PSERIAL_RS_2_BLOCKS      1
+#define PSERIAL_MAX_DATA_LEN     494
 
 /* PLC Phy Tester Tool command
 

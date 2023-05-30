@@ -48,7 +48,6 @@
 
 #include <string.h>
 #include <stdbool.h>
-#include <stdint.h>
 #include "definitions.h"
 #include "cipher_wrapper.h"
 #include "eax.h"
@@ -61,91 +60,86 @@
 // *****************************************************************************
 
 /* CMAC context used in this wrapper */
-Cmac sCmacCtx;
+static Cmac sCmacCtx;
 
 /* CCM context used in this wrapper */
-Aes sCcmCtx;
+static Aes sCcmCtx;
 
 /* EAX context used in this wrapper */
-eax_ctx sEaxCtx;
+static eax_ctx sEaxCtx;
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: File scope functions
+// Section: Service Interface Functions
 // *****************************************************************************
 // *****************************************************************************
 
-int CIPHER_Wrapper_CmacStart(const unsigned char *key, unsigned int keyLen)
+int32_t CIPHER_Wrapper_CmacStart(const uint8_t *key, uint32_t keyLen)
 {
     return wc_InitCmac(&sCmacCtx, key, keyLen, WC_CMAC_AES, NULL);
 }
 
-int CIPHER_Wrapper_CmacUpdate(const unsigned char *input, unsigned int ilen)
+int32_t CIPHER_Wrapper_CmacUpdate(const uint8_t *input, uint32_t iLen)
 {
-    return wc_CmacUpdate(&sCmacCtx, input, ilen);
+    return wc_CmacUpdate(&sCmacCtx, input, iLen);
 }
 
-int CIPHER_Wrapper_CmacFinish(unsigned char *output)
+int32_t CIPHER_Wrapper_CmacFinish(uint8_t *output)
 {
-    unsigned int outputLen = AES_BLOCK_SIZE; 
+    unsigned int outputLen = AES_BLOCK_SIZE;
 
     return wc_CmacFinal(&sCmacCtx, output, &outputLen);
 }
 
-int CIPHER_Wrapper_CcmSetkey(const unsigned char *key, unsigned int keyLen)
+int32_t CIPHER_Wrapper_CcmSetkey(const uint8_t *key, uint32_t keyLen)
 {
     return wc_AesCcmSetKey(&sCcmCtx, key, keyLen);
 }
 
-int CIPHER_Wrapper_CcmAuthDecrypt(unsigned int length, const unsigned char *iv,
-		                  unsigned int ivLen, const unsigned char *add, 
-                                  unsigned int addLen, 
-                                  const unsigned char *input,
-		                  unsigned char *output, 
-                                  const unsigned char *tag, 
-                                  unsigned int tagLen)
+int32_t CIPHER_Wrapper_CcmAuthDecrypt(uint32_t length,
+                                      const uint8_t *iv, uint32_t ivLen,
+                                      const uint8_t *add, uint32_t addLen,
+                                      const uint8_t *input, uint8_t *output,
+                                      const uint8_t *tag, uint32_t tagLen)
 {
     return wc_AesCcmDecrypt(&sCcmCtx, output, input, length, iv, ivLen, tag, 
                             tagLen, add, addLen);
 }
 
-int CIPHER_Wrapper_CcmEncryptAndTag(unsigned int length, 
-                                    const unsigned char *iv,
-		                    unsigned int ivLen, 
-                                    const unsigned char *add, 
-                                    unsigned int addLen, 
-                                    const unsigned char *input,
-		                    unsigned char *output, unsigned char *tag, 
-                                    unsigned int tagLen)
+int32_t CIPHER_Wrapper_CcmEncryptAndTag(uint32_t length,
+                                        const uint8_t *iv, uint32_t ivLen,
+                                        const uint8_t *add, uint32_t addLen,
+                                        const uint8_t *input, uint8_t *output,
+                                        uint8_t *tag, uint32_t tagLen)
 {
     return wc_AesCcmEncrypt(&sCcmCtx, output, input, length, iv, ivLen, tag, 
                             tagLen, add, addLen);
 }
 
-int CIPHER_Wrapper_EaxInitKey(const unsigned char *key, unsigned int keyLen)
+int32_t CIPHER_Wrapper_EaxInitKey(const uint8_t *key, uint32_t keyLen)
 {
     return eax_init_and_key(key, keyLen, &sEaxCtx);
 }
 
-int CIPHER_Wrapper_EaxEncrypt(const unsigned char *iv, unsigned int ivLen,
-		              const unsigned char *hdr, unsigned int hdrLen, 
-                              unsigned char *msg, unsigned int msgLen,
-		              unsigned char *tag, unsigned int tagLen)
+int32_t CIPHER_Wrapper_EaxEncrypt(const uint8_t *iv, uint32_t ivLen,
+                                  const uint8_t *hdr, uint32_t hdrLen,
+                                  uint8_t *msg, uint32_t msgLen,
+                                  uint8_t *tag, uint32_t tagLen)
 {
     return eax_encrypt_message(iv, ivLen, hdr, hdrLen, msg, msgLen, tag, 
                                tagLen, &sEaxCtx);
 }
 
-int CIPHER_Wrapper_EaxDecrypt(const unsigned char *iv, unsigned int ivLen,
-		              const unsigned char *hdr, unsigned int hdrLen, 
-                              unsigned char *msg, unsigned int msgLen,
-		              const unsigned char *tag, unsigned int tagLen)
+int32_t CIPHER_Wrapper_EaxDecrypt(const uint8_t *iv, uint32_t ivLen,
+                                  const uint8_t *hdr, uint32_t hdrLen,
+                                  uint8_t *msg, uint32_t msgLen,
+                                  const uint8_t *tag, uint32_t tagLen)
 {
     return eax_decrypt_message(iv, ivLen, hdr, hdrLen, msg, msgLen, tag, 
                                tagLen, &sEaxCtx);
 }
 
-int CIPHER_Wrapper_EaxEnd(void) 
+int32_t CIPHER_Wrapper_EaxEnd(void) 
 {
     return eax_end(&sEaxCtx);
 }
