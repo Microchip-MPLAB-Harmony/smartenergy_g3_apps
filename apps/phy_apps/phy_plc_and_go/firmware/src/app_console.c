@@ -283,7 +283,10 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 {
     uint8_t schemeMenu = 0xFF;
     uint8_t index;
-    
+    uint8_t version;
+
+    version = (uint8_t)(appPlcTx.pl360PhyVersion >> 16);
+
     APP_CONSOLE_Print("\r\n--- Tx Modulation Configuration Menu ---\r\n");
     APP_CONSOLE_Print("Select Modulation:\r\n");
     
@@ -340,35 +343,194 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
         switch (index)
         {
             case 0:
-                APP_CONSOLE_Print("0: BPSK Robust Differential ... 5.5 kbit/s\r\n");
+                APP_CONSOLE_Print("0: BPSK Robust Differential ... ");
+                switch (version)
+                {
+                    case 1:
+                    default:
+                        /* CENELEC-A */
+                        APP_CONSOLE_Print("5.5 kbit/s\r\n");
+                        break;
+
+                    case 2:
+                        /* FCC */
+                        APP_CONSOLE_Print("35.6 kbit/s\r\n");
+                        break;
+
+                    case 3:
+                        /* ARIB */
+                        APP_CONSOLE_Print("25.7 kbit/s\r\n");
+                        break;
+
+                    case 4:
+                        /* CENELEC-B */
+                        APP_CONSOLE_Print("2.1 kbit/s\r\n");
+                        break;
+                }
                 break;
 
             case 1:
-                APP_CONSOLE_Print("1: BPSK Differential .......... 20.1 kbit/s\r\n");
+                APP_CONSOLE_Print("1: BPSK Differential .......... ");
+                switch (version)
+                {
+                    case 1:
+                    default:
+                        /* CENELEC-A */
+                        APP_CONSOLE_Print("20.1 kbit/s\r\n");
+                        break;
+
+                    case 2:
+                        /* FCC */
+                        APP_CONSOLE_Print("122 kbit/s\r\n");
+                        break;
+
+                    case 3:
+                        /* ARIB */
+                        APP_CONSOLE_Print("81.2 kbit/s\r\n");
+                        break;
+
+                    case 4:
+                        /* CENELEC-B */
+                        APP_CONSOLE_Print("9.2 kbit/s\r\n");
+                        break;
+                }
                 break;
 
             case 2:
-                APP_CONSOLE_Print("2: QPSK Differential .......... 34.5 kbit/s\r\n");
+                APP_CONSOLE_Print("2: QPSK Differential .......... ");
+                switch (version)
+                {
+                    case 1:
+                    default:
+                        /* CENELEC-A */
+                        APP_CONSOLE_Print("34.5 kbit/s\r\n");
+                        break;
+
+                    case 2:
+                        /* FCC */
+                        APP_CONSOLE_Print("210.6 kbit/s\r\n");
+                        break;
+
+                    case 3:
+                        /* ARIB */
+                        APP_CONSOLE_Print("130.4 kbit/s\r\n");
+                        break;
+
+                    case 4:
+                        /* CENELEC-B */
+                        APP_CONSOLE_Print("16.4 kbit/s\r\n");
+                        break;
+                }
                 break;
 
             case 3:
-                APP_CONSOLE_Print("3: 8PSK Differential .......... 44.6 kbit/s\r\n");
+                APP_CONSOLE_Print("3: 8PSK Differential .......... ");
+                switch (version)
+                {
+                    case 1:
+                    default:
+                        /* CENELEC-A */
+                        APP_CONSOLE_Print("44.6 kbit/s\r\n");
+                        break;
+
+                    case 2:
+                        /* FCC */
+                        APP_CONSOLE_Print("279.8 kbit/s\r\n");
+                        break;
+
+                    case 4:
+                        /* CENELEC-B */
+                        APP_CONSOLE_Print("21.8 kbit/s\r\n");
+                        break;
+                }
                 break;
 
             case 4:
-                APP_CONSOLE_Print("4: BPSK Robust Coherent ....... 5 kbit/s\r\n");
+                APP_CONSOLE_Print("4: BPSK Robust Coherent ....... ");
+                switch (version)
+                {
+                    case 1:
+                    default:
+                        /* CENELEC-A */
+                        APP_CONSOLE_Print("5 kbit/s\r\n");
+                        break;
+
+                    case 2:
+                        /* FCC */
+                        APP_CONSOLE_Print("32.8 kbit/s\r\n");
+                        break;
+
+                    case 4:
+                        /* CENELEC-B */
+                        APP_CONSOLE_Print("1.7 kbit/s\r\n");
+                        break;
+                }
                 break;
 
             case 5:
-                APP_CONSOLE_Print("5: BPSK Coherent .............. 18.5 kbit/s\r\n");
+                APP_CONSOLE_Print("5: BPSK Coherent .............. ");
+                switch (version)
+                {
+                    case 1:
+                    default:
+                        /* CENELEC-A */
+                        APP_CONSOLE_Print("18.5 kbit/s\r\n");
+                        break;
+
+                    case 2:
+                        /* FCC */
+                        APP_CONSOLE_Print("112 kbit/s\r\n");
+                        break;
+
+                    case 4:
+                        /* CENELEC-B */
+                        APP_CONSOLE_Print("7.9 kbit/s\r\n");
+                        break;
+                }
                 break;
 
             case 6:
-                APP_CONSOLE_Print("6: QPSK Coherent .............. 31.3 kbit/s\r\n");
+                APP_CONSOLE_Print("6: QPSK Coherent .............. ");
+                switch (version)
+                {
+                    case 1:
+                    default:
+                        /* CENELEC-A */
+                        APP_CONSOLE_Print("31.3 kbit/s\r\n");
+                        break;
+
+                    case 2:
+                        /* FCC */
+                        APP_CONSOLE_Print("194 kbit/s\r\n");
+                        break;
+
+                    case 4:
+                        /* CENELEC-B */
+                        APP_CONSOLE_Print("14.5 kbit/s\r\n");
+                        break;
+                }
                 break;
 
             case 7:
-                APP_CONSOLE_Print("7: 8PSK Coherent .............. 41.2 kbit/s\r\n");
+                APP_CONSOLE_Print("7: 8PSK Coherent .............. ");
+                switch (version)
+                {
+                    case 1:
+                    default:
+                        /* CENELEC-A */
+                        APP_CONSOLE_Print("41.2 kbit/s\r\n");
+                        break;
+
+                    case 2:
+                        /* FCC */
+                        APP_CONSOLE_Print("252.1 kbit/s\r\n");
+                        break;
+
+                    case 4:
+                        /* CENELEC-B */
+                        APP_CONSOLE_Print("19.6 kbit/s\r\n");
+                        break;
+                }
                 break;
         }
     }
@@ -719,13 +881,13 @@ void APP_CONSOLE_Tasks ( void )
                         APP_CONSOLE_Print("  TX_RESULT_INV_DT\r\n");
                         break;
                     case DRV_PLC_PHY_TX_CANCELLED:
-                        APP_CONSOLE_Print("  DRV_PLC_PHY_TX_CANCELLED\r\n");
+                        APP_CONSOLE_Print("  TX_CANCELLED\r\n");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120:
-                        APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120\r\n");
+                        APP_CONSOLE_Print("  TX_RESULT_HIGH_TEMP_120\r\n");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_110:
-                        APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_110\r\n");
+                        APP_CONSOLE_Print("  TX_RESULT_HIGH_TEMP_110\r\n");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_NO_TX:
                         APP_CONSOLE_Print("  TX_RESULT_NO_TX\r\n");
