@@ -312,6 +312,7 @@
                 </logicalFolder>
                 <logicalFolder name="rf" displayName="rf" projectFiles="true">
                   <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/g3/pal/rf/pal_rf.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/g3/pal/rf/pal_rf_local.h</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>

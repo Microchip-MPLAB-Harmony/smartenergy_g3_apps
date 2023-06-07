@@ -1,4 +1,4 @@
-<config configName="pic32cx_mtg_ek_pl460_rf215" projectName="g3_coordinator_udp_pic32cx_mtg_ek" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.0">
+<config configName="pic32cx_mtg_ek_pl460_rf215" projectName="g3_coordinator_udp_pic32cx_mtg_ek" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.7">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -4301,7 +4301,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;555&quot; canvasWidth=&quot;601&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;GraphSettings canvasHeight=&quot;370&quot; canvasWidth=&quot;469&quot; dnOrder=&quot;0&quot;/&gt;
     &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;BASIC CONFIGURATION&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipStack&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
@@ -4316,7 +4316,7 @@
     &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;G3 STACK&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;g3PalPlc&quot; x=&quot;143&quot; y=&quot;15&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3PalRf&quot; x=&quot;327&quot; y=&quot;15&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3PalRf&quot; x=&quot;328&quot; y=&quot;13&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;g3_config&quot; x=&quot;0&quot; y=&quot;13&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;srvLogReport&quot; x=&quot;325&quot; y=&quot;239&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srvQueue&quot; x=&quot;141&quot; y=&quot;236&quot;/&gt;
@@ -7688,16 +7688,6 @@
           &lt;/String&gt;
         &lt;/Attributes&gt;
       &lt;/DirectDependency&gt;
-      &lt;DirectCapability dnOrder=&quot;1&quot; id=&quot;libdrvRf215&quot;&gt;
-        &lt;Attributes dnOrder=&quot;0&quot;&gt;
-          &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;g3PalRf&lt;/Value&gt;
-          &lt;/String&gt;
-          &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;g3PalRf_DrvRfPhy_dependency&lt;/Value&gt;
-          &lt;/String&gt;
-        &lt;/Attributes&gt;
-      &lt;/DirectCapability&gt;
     &lt;/Attachments&gt;
   &lt;/drvRf215&gt;
 &lt;/drvRf215&gt;
@@ -11928,20 +11918,7 @@
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalRf&gt;
-  &lt;g3PalRf dnOrder=&quot;0&quot;&gt;
-    &lt;Attachments dnOrder=&quot;0&quot;&gt;
-      &lt;DirectDependency dnOrder=&quot;0&quot; id=&quot;g3PalRf_DrvRfPhy_dependency&quot;&gt;
-        &lt;Attributes dnOrder=&quot;0&quot;&gt;
-          &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;drvRf215&lt;/Value&gt;
-          &lt;/String&gt;
-          &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;libdrvRf215&lt;/Value&gt;
-          &lt;/String&gt;
-        &lt;/Attributes&gt;
-      &lt;/DirectDependency&gt;
-    &lt;/Attachments&gt;
-  &lt;/g3PalRf&gt;
+  &lt;g3PalRf dnOrder=&quot;0&quot;/&gt;
 &lt;/g3PalRf&gt;
 </value>
       </entry>
@@ -11974,6 +11951,58 @@
     &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/g3PalRf&gt;
 &lt;/g3PalRf&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_config" name="!@#harmonyAttachmentState"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_config&gt;
+  &lt;g3_config dnOrder=&quot;0&quot;&gt;
+    &lt;Attachments dnOrder=&quot;0&quot;&gt;
+      &lt;GenericDependency dnOrder=&quot;0&quot; id=&quot;g3_palplc_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+          &lt;/Boolean&gt;
+        &lt;/Attributes&gt;
+      &lt;/GenericDependency&gt;
+      &lt;GenericDependency dnOrder=&quot;1&quot; id=&quot;g3_palrf_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+          &lt;/Boolean&gt;
+        &lt;/Attributes&gt;
+      &lt;/GenericDependency&gt;
+      &lt;GenericDependency dnOrder=&quot;2&quot; id=&quot;g3_srv_log_report_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+          &lt;/Boolean&gt;
+        &lt;/Attributes&gt;
+      &lt;/GenericDependency&gt;
+      &lt;GenericDependency dnOrder=&quot;3&quot; id=&quot;g3_srv_queue_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+          &lt;/Boolean&gt;
+        &lt;/Attributes&gt;
+      &lt;/GenericDependency&gt;
+      &lt;GenericDependency dnOrder=&quot;4&quot; id=&quot;g3_srv_random_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+          &lt;/Boolean&gt;
+        &lt;/Attributes&gt;
+      &lt;/GenericDependency&gt;
+      &lt;GenericDependency dnOrder=&quot;5&quot; id=&quot;g3_srv_security_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+          &lt;/Boolean&gt;
+        &lt;/Attributes&gt;
+      &lt;/GenericDependency&gt;
+    &lt;/Attachments&gt;
+  &lt;/g3_config&gt;
+&lt;/g3_config&gt;
 </value>
       </entry>
       <entry>
@@ -27403,7 +27432,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_plc\g3_lib_plc_mac.a</file>
-         <hash>1c7fc996d022f1ab5b89ebcd7c62f4cec79b68d5ca04b4fcb94edd785d1ec451</hash>
+         <hash>66ef173a4d90ba92a8bcef62bd7c1511c7cf1902030cedf86bca970dc60414f8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\tftpc_manager.h</file>
@@ -27535,7 +27564,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\adaptation\g3_lib_loadng.a</file>
-         <hash>2a0c789505ee6da0aa412638c412f0597590432f09c70b57c3e52ea13405def3</hash>
+         <hash>fbe25a98c33aef06f0b3cab0f979a5fcb4618681b5833095da7fa995c3e4cf38</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system_config.h</file>
@@ -27603,7 +27632,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>1ec849c36ff86535b0a10765cab6eb392494c78d66c31006d43b40917c7c7c7b</hash>
+         <hash>5ddeea2e73d244f9714d6048f3e4cb5190427c7202bac856462653630862c7de</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\sha3.c</file>
@@ -27835,7 +27864,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\pal\rf\pal_rf.h</file>
-         <hash>8c96a554df045437cfd4111a4d74d0f3e26ef7c954dd9f78001c240e1d867f65</hash>
+         <hash>f2627ccca3405ca733c1d7a0400063dff059ed845c5ff550cdd9516a25465bb3</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\des3.c</file>
@@ -27859,7 +27888,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\pal\rf\pal_rf.c</file>
-         <hash>af5da94d0a184a1e33f369c6df9e8ae390c85dccce78bd7d6e9c6db79174fcf1</hash>
+         <hash>9ea2bf344de595dfacbda9a4fc1793224233e3715060bd9069561ec272c31af8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\drv_rf215.h</file>
@@ -27908,6 +27937,10 @@
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\security\aes_wrapper.c</file>
          <hash>e59fa25711a11c4fda4a359310d0ab94a185c2e7586d08c76fa404d7120d07ac</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\pal\rf\pal_rf_local.h</file>
+         <hash>38cd0ebc2f50fe350fd25e32ba10f12ac56cf5a23e9ce49c91a8f4a1a415ad68</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\siphash.c</file>
@@ -28795,7 +28828,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>e3a48e690a939d6718cb4ca9bda6f7f6c85a0e7f63e9dc84852fee80fac1f34b</hash>
+         <hash>3d1a3c4f0fd1e086ff91a5f5a5d784447aaa79343f9de72f76c580d71ab70cb8</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_pukcl_functions.h</file>
@@ -29075,7 +29108,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\configuration.h</file>
-         <hash>262d965399458c4bcd4fc23c050ca7cb1e12203fb6234946f14bf43c55f673cc</hash>
+         <hash>26659d3bac6f300580dca3cc558ea94e3514c646fd9c711aa8b08c2b2ebc2210</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\udp.c</file>
@@ -29207,7 +29240,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_rf\g3_lib_rf_mac.a</file>
-         <hash>3c1e30a76972756f4329d5bc917c7414a4a62857316cad52f0808f8e94b650c1</hash>
+         <hash>691c09b6bfcf777c6d3648288daf7f21e01df0c3800a15e25da3af0c9bafecb8</hash>
       </entry>
       <entry>
          <file>..\src\app_cycles.c</file>
@@ -29775,7 +29808,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\adaptation\g3_lib_adp.a</file>
-         <hash>50fd845e1ab42ec4e1171878a1f2f67ac2fe0ef4fb737c99c984fcf388d7d55f</hash>
+         <hash>ef24c2e13585a39fa288dcb8cce07e949d55cd35982cd96ee4b78e29dc44bff0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\berkeley_manager.h</file>

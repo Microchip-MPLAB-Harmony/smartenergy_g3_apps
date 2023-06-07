@@ -265,7 +265,6 @@ typedef enum
     PAL_RF_STATUS_READY = SYS_STATUS_READY,
     PAL_RF_STATUS_ERROR = SYS_STATUS_ERROR,
     PAL_RF_STATUS_INVALID_OBJECT = SYS_STATUS_ERROR_EXTENDED - 1,
-    PAL_RF_STATUS_DEINITIALIZED = SYS_STATUS_READY_EXTENDED + 1,
 } PAL_RF_STATUS;
 
 // *****************************************************************************
@@ -679,6 +678,46 @@ PAL_RF_HANDLE PAL_RF_HandleGet(const SYS_MODULE_INDEX index);
  */
 
 void PAL_RF_Deinitialize(SYS_MODULE_OBJ object);
+
+//***************************************************************************
+/*  Function:
+       void PAL_RF_Tasks( void )
+    
+  Summary:
+    Maintains the PAL RF's state machine.
+
+  Description:
+    This function is used to maintain the PAL RF's internal state machine.
+
+  Precondition:
+    The PAL_RF_Initialize routine must have been called for the
+    specified PAL RF module instance.
+
+  Parameters:
+    None
+
+  Returns:
+    None
+
+  Example:
+    <code>
+    
+    while (true)
+    {
+        PAL_RF_Tasks();
+    
+        // Do other tasks
+    }
+    </code>
+
+  Remarks:
+    - This function is normally not called directly by an application. It is
+      called by the system's Tasks routine (SYS_Tasks)
+    - This function will never block or access any resources that may cause
+      it to block.                        
+  */
+
+void PAL_RF_Tasks( void );
 
 // *****************************************************************************
 /* Function:

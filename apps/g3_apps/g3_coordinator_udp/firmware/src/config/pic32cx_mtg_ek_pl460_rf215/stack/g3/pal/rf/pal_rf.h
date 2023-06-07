@@ -51,7 +51,6 @@
 #include <stdint.h>
 #include "system/system.h"
 #include "driver/driver.h"
-#include "driver/rf215/drv_rf215_definitions.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -60,6 +59,104 @@
 // *****************************************************************************
 
 // *****************************************************************************
+/* PAL RF PIB Attribute
+
+  Summary:
+
+  Description:
+ 
+*/
+typedef enum
+{
+    /* RF device identifier. 16 bits */
+    PAL_RF_PIB_DEVICE_ID = 0x0000,
+    /* RF PHY layer firmware version number. 6 bytes */
+    PAL_RF_PIB_FW_VERSION = 0x0001,
+    /* RF device reset (write-only). 8 bits */
+    PAL_RF_PIB_DEVICE_RESET = 0x0002,
+    /* RF transceiver reset (write-only). 8 bits */
+    PAL_RF_PIB_TRX_RESET = 0x0080,
+    /* RF transceiver sleep. 8 bits */
+    PAL_RF_PIB_TRX_SLEEP = 0x0081,
+    /* RF PHY configuration. 19 bytes (see "DRV_RF215_PHY_CFG_OBJ", only valid for DRV_RF215) */
+    PAL_RF_PIB_PHY_CONFIG = 0x0100,
+    /* RF PHY band and operating mode. 16 bits */
+    PAL_RF_PIB_PHY_BAND_OPERATING_MODE = 0x0101,
+    /* RF channel number used for transmission and reception. 16 bits */
+    PAL_RF_PIB_PHY_CHANNEL_NUM = 0x0120,
+    /* RF frequency in Hz used for transmission and reception. 32 bits (read-only, only valid for DRV_RF215) */
+    PAL_RF_PIB_PHY_CHANNEL_FREQ_HZ = 0x0121,
+    /* RF channel number used for transmission and reception. 8 bits */
+    PAL_RF_PIB_PHY_CHANNEL_PAGE = 0x0122,
+    /* RF channels supported used for transmission and reception. 32 bits */
+    PAL_RF_PIB_PHY_CHANNELS_SUPPORTED = 0x0123,
+    /* Duration in us of Energy Detection for CCA. 16 bits */
+    PAL_RF_PIB_PHY_CCA_ED_DURATION = 0x0141,
+    /* Threshold in dBm of for CCA with Energy Detection. 16 bits */
+    PAL_RF_PIB_PHY_CCA_ED_THRESHOLD = 0x0142,
+    /* Perform a single ED measurement on current channel (dBm). 8 bits */
+    PAL_RF_PIB_PHY_CCA_ED_SAMPLE = 0x0143,
+    /* Turnaround time in us (aTurnaroundTime in IEEE 802.15.4). 16 bits (read-only) */
+    PAL_RF_PIB_PHY_TURNAROUND_TIME = 0x0160,
+    /* Number of payload symbols in last transmitted message. 16 bits */
+    PAL_RF_PIB_PHY_TX_PAY_SYMBOLS = 0x0180,
+    /* Number of payload symbols in last received message. 16 bits */
+    PAL_RF_PIB_PHY_RX_PAY_SYMBOLS = 0x0181,
+    /* Successfully transmitted messages count. 32 bits */
+    PAL_RF_PIB_PHY_TX_TOTAL = 0x01A0,
+    /* Successfully transmitted bytes count. 32 bits */
+    PAL_RF_PIB_PHY_TX_TOTAL_BYTES = 0x01A1,
+    /* Transmission errors count. 32 bits */
+    PAL_RF_PIB_PHY_TX_ERR_TOTAL = 0x01A2,
+    /* Transmission errors count due to already in transmission. 32 bits */
+    PAL_RF_PIB_PHY_TX_ERR_BUSY_TX = 0x01A3,
+    /* Transmission errors count due to already in reception. 32 bits */
+    PAL_RF_PIB_PHY_TX_ERR_BUSY_RX = 0x01A4,
+    /* Transmission errors count due to busy channel. 32 bits */
+    PAL_RF_PIB_PHY_TX_ERR_BUSY_CHN = 0x01A5,
+    /* Transmission errors count due to bad message length. 32 bits */
+    PAL_RF_PIB_PHY_TX_ERR_BAD_LEN = 0x01A6,
+    /* Transmission errors count due to bad format. 32 bits */
+    PAL_RF_PIB_PHY_TX_ERR_BAD_FORMAT = 0x01A7,
+    /* Transmission errors count due to timeout. 32 bits */
+    PAL_RF_PIB_PHY_TX_ERR_TIMEOUT = 0x01A8,
+    /* Transmission aborted count. 32 bits */
+    PAL_RF_PIB_PHY_TX_ERR_ABORTED = 0x01A9,
+    /* Transmission confirms not handled by upper layer count. 32 bits */
+    PAL_RF_PIB_PHY_TX_CFM_NOT_HANDLED = 0x01AA,
+    /* Successfully received messages count. 32 bits */
+    PAL_RF_PIB_PHY_RX_TOTAL = 0x01B0,
+    /* Successfully received bytes count. 32 bits */
+    PAL_RF_PIB_PHY_RX_TOTAL_BYTES = 0x01B1,
+    /* Reception errors count. 32 bits */
+    PAL_RF_PIB_PHY_RX_ERR_TOTAL = 0x01B2,
+    /* Reception false positive count. 32 bits */
+    PAL_RF_PIB_PHY_RX_ERR_FALSE_POSITIVE = 0x01B3,
+    /* Reception errors count due to bad message length. 32 bits */
+    PAL_RF_PIB_PHY_RX_ERR_BAD_LEN = 0x01B4,
+    /* Reception errors count due to bad format or bad FCS in header. 32 bits */
+    PAL_RF_PIB_PHY_RX_ERR_BAD_FORMAT = 0x01B5,
+    /* Reception errors count due to bad FCS in payload. 32 bits */
+    PAL_RF_PIB_PHY_RX_ERR_BAD_FCS_PAY = 0x01B6,
+    /* Reception aborted count. 32 bits */
+    PAL_RF_PIB_PHY_RX_ERR_ABORTED = 0x01B7,
+    /* Reception overrided (another message with higher signal level) count. 32 bits */
+    PAL_RF_PIB_PHY_RX_OVERRIDE = 0x01B8,
+    /* Reception indications not handled by upper layer count. 32 bits */
+    PAL_RF_PIB_PHY_RX_IND_NOT_HANDLED = 0x01B9,
+    /* Reset Phy Statistics (write-only) */
+    PAL_RF_PIB_PHY_STATS_RESET = 0x01C0,
+    /* Set Continuous Tx Mode (write-only) */
+    PAL_RF_PIB_SET_CONTINUOUS_TX_MODE = 0x01C1,
+    /* Backoff period unit in us (aUnitBackoffPeriod in IEEE 802.15.4) used for CSMA-CA . 16 bits (read-only) */
+    PAL_RF_PIB_MAC_UNIT_BACKOFF_PERIOD = 0x0200,
+    /* SUN FSK FEC enabled or disabled for transmission (only valid for DRV_RF215. phyFskFecEnabled in IEEE 802.15.4). 8 bits */
+    PAL_RF_PIB_TX_FSK_FEC = 0x8000,
+    /* SUN OFDM MCS (only valid for DRV_RF215. Modulation and coding scheme) used for transmission. 8 bits */
+    PAL_RF_PIB_TX_OFDM_MCS = 0x8001,
+
+} PAL_RF_PIB_ATTRIBUTE;
+
 /* PAL RF Result
 
   Summary:
@@ -71,12 +168,12 @@
 typedef enum 
 {
     
-    PAL_RF_PIB_SUCCESS        = RF215_PIB_RESULT_SUCCESS,
-    PAL_RF_PIB_INVALID_PARAM  = RF215_PIB_RESULT_INVALID_PARAM,
-    PAL_RF_PIB_INVALID_ATTR   = RF215_PIB_RESULT_INVALID_ATTR,
-    PAL_RF_PIB_INVALID_HANDLE = RF215_PIB_RESULT_INVALID_HANDLE,
-    PAL_RF_PIB_READ_ONLY      = RF215_PIB_RESULT_READ_ONLY,
-    PAL_RF_PIB_WRITE_ONLY     = RF215_PIB_RESULT_WRITE_ONLY,
+    PAL_RF_PIB_SUCCESS,
+    PAL_RF_PIB_INVALID_PARAM,
+    PAL_RF_PIB_INVALID_ATTR,
+    PAL_RF_PIB_INVALID_HANDLE,
+    PAL_RF_PIB_READ_ONLY,
+    PAL_RF_PIB_WRITE_ONLY,
     PAL_RF_PIB_ERROR
             
 } PAL_RF_PIB_RESULT;
@@ -166,8 +263,68 @@ typedef enum
     PAL_RF_STATUS_BUSY = SYS_STATUS_BUSY,
     PAL_RF_STATUS_READY = SYS_STATUS_READY,
     PAL_RF_STATUS_ERROR = SYS_STATUS_ERROR,
-    PAL_RF_STATUS_INVALID_OBJECT = SYS_STATUS_ERROR_EXTENDED - 1,
+    PAL_RF_STATUS_INVALID_OBJECT = SYS_STATUS_ERROR_EXTENDED - 1,   
+    PAL_RF_STATUS_DEINITIALIZED = SYS_STATUS_READY_EXTENDED + 1,
 } PAL_RF_STATUS;
+
+// *****************************************************************************
+
+/* PAR RF TX Request Parameters
+
+  Summary:
+    Defines the parameters used in PAL RF transmissions.
+
+  Description:
+    This data type defines the parameters needed to request a transmission,
+    using the PAL_RF_TxRequest function.
+
+  Remarks:
+    None.
+ */
+
+typedef struct
+{
+    /* TX time (PPDU start), referred to system 64-bit time counter */
+    uint64_t timeCount;
+
+    /* Transmitter power attenuation in dB (max 31 dB) */
+    uint32_t txPowerAttenuation;
+
+    /* CSMA enable flag */
+    bool csmaEnable;
+
+} PAL_RF_TX_PARAMETERS;
+
+// *****************************************************************************
+
+/* PAR RF RX Indication Data
+
+  Summary:
+    Defines the data reported in PAR RF RX indication.
+
+  Description:
+    This data type defines the data reported in the PAR RF receive indication via
+    PAL_RF_DataIndication callback.
+
+  Remarks:
+    None.
+ */
+
+typedef struct
+{
+    /* RX time (PPDU start), referred to system 64-bit time counter */
+    uint64_t timeIniCount;
+
+    /* RX time (PPDU end), referred to system 64-bit time counter */
+    uint64_t timeEndCount;
+
+    /* RSSI in dBm */
+    int8_t rssi;
+
+    /* Correct FCS flag */
+    bool fcsOk;
+
+} PAL_RF_RX_PARAMETERS;
 
 // *****************************************************************************
 /* PAL RF PHY TX Results
@@ -196,63 +353,6 @@ typedef enum
 } PAL_RF_PHY_STATUS;
 
 // *****************************************************************************
-/* PAR RF TX Request Parameters
-
-  Summary:
-    Defines the parameters used in PAL RF transmissions.
-
-  Description:
-    This data type defines the parameters needed to request a transmission,
-    using the PAL_RF_TxRequest function.
-
-  Remarks:
-    None.
-*/
-
-typedef struct 
-{
-    /* TX time (PPDU start), referred to system 64-bit time counter */
-    uint64_t timeCount;
-
-    /* Transmitter power attenuation in dB (max 31 dB) */
-    uint32_t txPowerAttenuation;
-
-    /* CSMA enable flag */
-    bool csmaEnable;
-
-} PAL_RF_TX_PARAMETERS;
-
-// *****************************************************************************
-/* PAR RF RX Indication Data
-
-  Summary:
-    Defines the data reported in PAR RF RX indication.
-
-  Description:
-    This data type defines the data reported in the PAR RF receive indication via 
-    PAL_RF_DataIndication callback.
-
-  Remarks:
-    None.
-*/
-
-typedef struct 
-{
-    /* RX time (PPDU start), referred to system 64-bit time counter */
-    uint64_t timeIniCount;
-    
-    /* RX time (PPDU end), referred to system 64-bit time counter */
-    uint64_t timeEndCount;
-
-    /* RSSI in dBm */
-    int8_t rssi;
-
-    /* Correct FCS flag */
-    bool fcsOk;
-
-} PAL_RF_RX_PARAMETERS;
-
-// *****************************************************************************
 /* PAR RF PIB data
 
   Summary:
@@ -262,18 +362,18 @@ typedef struct
     This data type defines the data used in a PIB request.
 
   Remarks:
-    PAL_RF_MAX_PIB_SIZE is the size of the largest PIB attibute (DRV_RF215_PHY_CFG_OBJ).
+    PAL_RF_MAX_PIB_SIZE is the size of the largest PIB attribute.
 */
 
-#define PAL_RF_MAX_PIB_SIZE     (sizeof(DRV_RF215_PHY_CFG_OBJ))
+#define PAL_RF_MAX_PIB_SIZE     (32U)
 
 typedef struct 
 {
     /* Data buffer wher data is read/stored */
     uint8_t pData[PAL_RF_MAX_PIB_SIZE];
 
-    /* RF215 Driver PIB Attribute to request */
-    DRV_RF215_PIB_ATTRIBUTE pib;
+    /* RF Driver PIB Attribute to request */
+    PAL_RF_PIB_ATTRIBUTE pib;
 
 } PAL_RF_PIB_OBJ;
 
@@ -398,31 +498,6 @@ typedef struct
 {
     PAL_RF_HANDLERS                 rfPhyHandlers;
 } PAL_RF_INIT;
-
-// *****************************************************************************
-/* PAL RF Data
-
-  Summary:
-    Holds PAL RF internal data.
-
-  Description:
-    This data type defines the all data required to handle the PAL RF module.
-
-  Remarks:
-    None.
-*/
-
-typedef struct  
-{
-    DRV_HANDLE drvRfPhyHandle;
-    
-    PAL_RF_STATUS status;
-    
-    PAL_RF_HANDLERS rfPhyHandlers;
-    
-    DRV_RF215_PHY_MOD_SCHEME rfPhyModScheme;
-
-} PAL_RF_DATA;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -737,11 +812,11 @@ void PAL_RF_Reset(PAL_RF_HANDLE handle);
     <code>
     PAL_RF_HANDLE palRfHandle; // returned from PAL_RF_HandleGet
 
-    appRFData.pibObj.pib = RF215_PIB_FW_VERSION;
+    appRFData.pibObj.pib = PAL_RF_PIB_PHY_FW_VERSION;
             
     if (PAL_RF_GetRfPhyPib(palRfHandle, &appRFData.pibObj) == PAL_RF_PIB_SUCCESS)
     {
-        uint8_t size = PAL_RF_GetRfPhyPibLength(palRfHandle, RF215_PIB_FW_VERSION);
+        uint8_t size = PAL_RF_GetRfPhyPibLength(palRfHandle, PAL_RF_PIB_PHY_FW_VERSION);
         memcpy(&appRFData.fwVersion, appRFData.pibObj.pData, size);
         appRFData.state = APP_RF_STATE_GET_PHY_CONFIG;
     }
@@ -779,7 +854,7 @@ PAL_RF_PIB_RESULT PAL_RF_GetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
     <code>
     PAL_RF_HANDLE palRfHandle; // returned from PAL_RF_HandleGet
 
-    appRFData.pibObj.pib = RF215_PIB_PHY_CHANNEL_NUM;
+    appRFData.pibObj.pib = PAL_RF_PIB_PHY_CHANNEL_NUM;
     appRFData.pibObj.pData[0] = 1;
             
     if (PAL_RF_SetRfPhyPib(palRfHandle, &appRFData.pibObj) == PAL_RF_PIB_SUCCESS)
@@ -796,7 +871,7 @@ PAL_RF_PIB_RESULT PAL_RF_SetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
 
 // *****************************************************************************
 /* Function:
-    uint8_t PAL_RF_GetRfPhyPibLength(PAL_RF_HANDLE handle, DRV_RF215_PIB_ATTRIBUTE attribute)
+    uint8_t PAL_RF_GetRfPhyPibLength(PAL_RF_HANDLE handle, PAL_RF_PIB_ATTRIBUTE attribute)
 
   Summary:
     Gets size of PIB attribute.
@@ -809,7 +884,7 @@ PAL_RF_PIB_RESULT PAL_RF_SetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
     None.
 
   Parameters:
-    attribute - A valid PIB attribute (see DRV_RF215_PIB_ATTRIBUTE).
+    attribute - A valid PIB attribute (see PAL_RF_PIB_ATTRIBUTE).
 
   Returns:
     Size of PIB attribute in bytes. 0 if invalid PIB attribute.
@@ -819,14 +894,14 @@ PAL_RF_PIB_RESULT PAL_RF_SetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
     PAL_RF_HANDLE palRfHandle; // returned from PAL_RF_HandleGet
     uint8_t pibSize;
 
-    pibSize = PAL_RF_GetRfPhyPibLength(palRfHandle, RF215_PIB_PHY_CONFIG);
+    pibSize = PAL_RF_GetRfPhyPibLength(palRfHandle, PAL_RF_PIB_PHY_CONFIG);
     </code>
 
   Remarks:
     None.
 */
 
-uint8_t PAL_RF_GetRfPhyPibLength(PAL_RF_HANDLE handle, DRV_RF215_PIB_ATTRIBUTE attribute);
+uint8_t PAL_RF_GetRfPhyPibLength(PAL_RF_HANDLE handle, PAL_RF_PIB_ATTRIBUTE attribute);
  
 #endif // #ifndef _PAL_RF_H
 /*******************************************************************************

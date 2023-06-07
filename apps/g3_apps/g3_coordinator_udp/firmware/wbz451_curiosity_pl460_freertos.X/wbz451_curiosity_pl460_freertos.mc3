@@ -1,4 +1,4 @@
-<config configName="wbz451_curiosity_pl460_freertos" projectName="wbz451_curiosity_pl460_freertos" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.0">
+<config configName="wbz451_curiosity_pl460_freertos" projectName="wbz451_curiosity_pl460_freertos" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.7">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -134,15 +134,15 @@
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
+         <string>srv_rsniffer</string>
+         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
+      </entry>
+      <entry>
          <string>srv_usi</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
          <string>srv_usi_0</string>
-         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
-      </entry>
-      <entry>
-         <string>sys_debug</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
@@ -4537,7 +4537,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;733&quot; canvasWidth=&quot;731&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;GraphSettings canvasHeight=&quot;200&quot; canvasWidth=&quot;176&quot; dnOrder=&quot;0&quot;/&gt;
     &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;BASIC CONFIGURATION&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipStack&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
@@ -4552,7 +4552,7 @@
     &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;G3 STACK&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;g3PalPlc&quot; x=&quot;227&quot; y=&quot;223&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3PalRf&quot; x=&quot;230&quot; y=&quot;120&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3PalRf&quot; x=&quot;230&quot; y=&quot;121&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;g3_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;lib_crypto&quot; x=&quot;226&quot; y=&quot;362&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;26&quot; y=&quot;318&quot;/&gt;
@@ -4560,6 +4560,7 @@
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvQueue&quot; x=&quot;410&quot; y=&quot;120&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;srvRandom&quot; x=&quot;160&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;srvSecurity&quot; x=&quot;320&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;srv_rsniffer&quot; x=&quot;407&quot; y=&quot;223&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;4&quot; id=&quot;NETWORK LAYER&quot;&gt;
@@ -4586,10 +4587,10 @@
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_WBZ451_Curiosity&quot; x=&quot;19&quot; y=&quot;75&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;FreeRTOS&quot; x=&quot;420&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;G3 STACK&quot; x=&quot;611&quot; y=&quot;358&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;G3 STACK&quot; x=&quot;433&quot; y=&quot;290&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;HarmonyCore&quot; x=&quot;580&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;IEEE_802154_PHY&quot; x=&quot;589&quot; y=&quot;556&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;TCP/IP STACK&quot; x=&quot;397&quot; y=&quot;441&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;TCP/IP STACK&quot; x=&quot;428&quot; y=&quot;357&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;cmsis&quot; x=&quot;280&quot; y=&quot;77&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;core&quot; x=&quot;200&quot; y=&quot;77&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;dfp&quot; x=&quot;171&quot; y=&quot;21&quot;/&gt;
@@ -4604,10 +4605,9 @@
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;srv_pcoup&quot; x=&quot;218&quot; y=&quot;133&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;srv_pcrc&quot; x=&quot;38&quot; y=&quot;392&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;srv_usi&quot; x=&quot;181&quot; y=&quot;354&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;sys_debug&quot; x=&quot;397&quot; y=&quot;297&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;sys_time&quot; x=&quot;589&quot; y=&quot;116&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;22&quot; id=&quot;tc0&quot; x=&quot;419&quot; y=&quot;162&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;23&quot; id=&quot;trng&quot; x=&quot;30&quot; y=&quot;180&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;sys_time&quot; x=&quot;589&quot; y=&quot;116&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;tc0&quot; x=&quot;419&quot; y=&quot;162&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;22&quot; id=&quot;trng&quot; x=&quot;30&quot; y=&quot;180&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
   &lt;/UserData&gt;
@@ -7549,7 +7549,7 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;XC32_HEAP_SIZE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1024&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;18000&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;19456&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -8822,6 +8822,15 @@
          <value>G3 STACK</value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="G3_PAL_RF_DUMMY"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalRf&gt;
+  &lt;g3PalRf dnOrder=&quot;0&quot; id=&quot;G3_PAL_RF_DUMMY&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/g3PalRf&gt;
+&lt;/g3PalRf&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="G3_PAL_RF_PHY_CHANNEL"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalRf&gt;
   &lt;g3PalRf dnOrder=&quot;0&quot; id=&quot;G3_PAL_RF_PHY_CHANNEL&quot;&gt;
@@ -8840,9 +8849,29 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="G3_PAL_RF_PHY_SNIFFER_EN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalRf&gt;
+  &lt;g3PalRf dnOrder=&quot;0&quot; id=&quot;G3_PAL_RF_PHY_SNIFFER_EN&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/g3PalRf&gt;
+&lt;/g3PalRf&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="G3_PAL_RF_PHY_TX_POWER"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalRf&gt;
   &lt;g3PalRf dnOrder=&quot;0&quot; id=&quot;G3_PAL_RF_PHY_TX_POWER&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/g3PalRf&gt;
+&lt;/g3PalRf&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalRf" name="G3_PAL_RF_USI_INSTANCE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalRf&gt;
+  &lt;g3PalRf dnOrder=&quot;0&quot; id=&quot;G3_PAL_RF_USI_INSTANCE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/g3PalRf&gt;
 &lt;/g3PalRf&gt;
@@ -10589,7 +10618,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="pdsSystem" name="PDS_APPS_ITEM_IDS"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;pdsSystem&gt;
   &lt;pdsSystem dnOrder=&quot;0&quot; id=&quot;PDS_APPS_ITEM_IDS&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/pdsSystem&gt;
 &lt;/pdsSystem&gt;
 </value>
@@ -23080,6 +23111,21 @@
          <value>__ROOTVIEW</value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_rsniffer" name="#&amp;__MCC_Group_Parrent_id"/>
+         <value>G3 STACK</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_rsniffer" name="SRV_RSNF_PROTOCOL"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_rsniffer&gt;
+  &lt;srv_rsniffer dnOrder=&quot;0&quot; id=&quot;SRV_RSNF_PROTOCOL&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_rsniffer&quot; value=&quot;G3&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/srv_rsniffer&gt;
+&lt;/srv_rsniffer&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_usi" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_usi&gt;
   &lt;srv_usi dnOrder=&quot;0&quot;/&gt;
@@ -23350,53 +23396,6 @@
     &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/srv_usi_0&gt;
 &lt;/srv_usi_0&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_debug" name="!@#harmonyAttachmentState"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_debug&gt;
-  &lt;sys_debug dnOrder=&quot;0&quot;/&gt;
-&lt;/sys_debug&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_debug" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>__ROOTVIEW</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_debug" name="SYS_CONSOLE_DEVICE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_debug&gt;
-  &lt;sys_debug dnOrder=&quot;0&quot; id=&quot;SYS_CONSOLE_DEVICE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/sys_debug&gt;
-&lt;/sys_debug&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_debug" name="SYS_CONSOLE_INDEX"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_debug&gt;
-  &lt;sys_debug dnOrder=&quot;0&quot; id=&quot;SYS_CONSOLE_INDEX&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/sys_debug&gt;
-&lt;/sys_debug&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_debug" name="SYS_DEBUG_LEVEL"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_debug&gt;
-  &lt;sys_debug dnOrder=&quot;0&quot; id=&quot;SYS_DEBUG_LEVEL&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/sys_debug&gt;
-&lt;/sys_debug&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_debug" name="SYS_DEBUG_USE_CONSOLE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_debug&gt;
-  &lt;sys_debug dnOrder=&quot;0&quot; id=&quot;SYS_DEBUG_USE_CONSOLE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/sys_debug&gt;
-&lt;/sys_debug&gt;
 </value>
       </entry>
       <entry>
@@ -25615,7 +25614,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="tcpipStack" name="TCPIP_STACK_DRAM_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipStack&gt;
   &lt;tcpipStack dnOrder=&quot;0&quot; id=&quot;TCPIP_STACK_DRAM_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;18432&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/tcpipStack&gt;
 &lt;/tcpipStack&gt;
 </value>
@@ -25837,7 +25838,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="tcpipStack" name="TCPIP_STACK_MALLOC_FUNC"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipStack&gt;
   &lt;tcpipStack dnOrder=&quot;0&quot; id=&quot;TCPIP_STACK_MALLOC_FUNC&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;malloc&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/tcpipStack&gt;
 &lt;/tcpipStack&gt;
 </value>
@@ -26068,7 +26071,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="tcpipStack" name="TCPIP_STACK_RTOS_DELAY"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipStack&gt;
   &lt;tcpipStack dnOrder=&quot;0&quot; id=&quot;TCPIP_STACK_RTOS_DELAY&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;10&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/tcpipStack&gt;
 &lt;/tcpipStack&gt;
 </value>
@@ -26369,10 +26374,6 @@
          <hash>1b97e6d4d9aa480e94b8d2641d7abbc52be867f5167c43410586d9b59d160151</hash>
       </entry>
       <entry>
-         <file>..\src\config\wbz451_curiosity_pl460_freertos\system\console\src\sys_console_local.h</file>
-         <hash>024a0b50ea2fea72b964b8209fb256b5df6693badd320485821e7912c5eebb25</hash>
-      </entry>
-      <entry>
          <file>..\src\packs\WBZ451_DFP\instance\pmu.h</file>
          <hash>f83c1f7fcacd3b1c03168d4ba1c114f29eef293c30b3a60bc2ef74077aa50bb2</hash>
       </entry>
@@ -26410,7 +26411,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\adaptation\g3_lib_loadng.a</file>
-         <hash>5b4c2db4d561739cd8d99958f5a6addee75cd004bd0075a1d12aabe9f976d79f</hash>
+         <hash>1d8c55d2fb5eb4c3b1b54b0cad6e3a7c8a67f5588ed8a8fe6bbcdd919d62cab4</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\sp_c32.c</file>
@@ -26478,7 +26479,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\pal\rf\pal_rf.c</file>
-         <hash>1b78080652e53443e5a9699bb60d7c898d18268997bf383f7f531cbc77fda784</hash>
+         <hash>0fbc9d4d09d9ea517f806b2bef0e74f067defdc23a9d23fa785d9021d19a1e6d</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\library\tcpip\tcp.h</file>
@@ -26517,6 +26518,10 @@
          <hash>4caa1fee66e4ca927fc51110b268f5d125e347bf90762a709b83dd25e934f4ba</hash>
       </entry>
       <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\service\usi\srv_usi_definitions.h</file>
+         <hash>569f2ed098917c8c333d3237966302fda8e6d20dcd3985b1c1bb23e3de339627</hash>
+      </entry>
+      <entry>
          <file>..\src\packs\WBZ451_DFP\component\ac.h</file>
          <hash>dfc5868f8585e0a114de91e691cd649d6884c78316754558da849ebd6513c15e</hash>
       </entry>
@@ -26534,11 +26539,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\pal\rf\pal_rf_local.h</file>
-         <hash>589502538a758d8dea5992bf1bead47fc8e4427052b148730db29ea3c273ea60</hash>
+         <hash>65aaf66a1d2ee1100fac42ef4287c83a5ea880ea947007c19e3996a86f84d950</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\pal\rf\pal_rf.h</file>
-         <hash>0b17a5383a758295d4ac88555fb48e9dee8dda91cce8efb7fb17c2f0e6e57076</hash>
+         <hash>9661a8c07643fec7e2f8af38ef9fb7faf1e437328e0fef33cad5234573aba6af</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\mpu_armv7.h</file>
@@ -26555,6 +26560,10 @@
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\FreeRTOS.h</file>
          <hash>03e9c94aba57e3cf7f4f73bc2d3eb4a96ae38f3425eedb5450622ca286475a0b</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\service\usi\srv_usi_usart.c</file>
+         <hash>36f4f54fe28479a9b901616c0ff2b041768fe88f15fd710cc832a007b939f06b</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\peripheral\dmac\plib_dmac.h</file>
@@ -26607,10 +26616,6 @@
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\coding.h</file>
          <hash>4f3390734289cfc5d9f146a32f1736296844770230df771290624b7a41ff5888</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\wbz451_curiosity_pl460_freertos\system\debug\src\sys_debug.c</file>
-         <hash>474ee981d4285453a2ae9f1e4735c40129281931b89f579c3c413acdff1d8d26</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\port\pic32\crypt_pukcl_functions.c</file>
@@ -26674,7 +26679,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\mac\mac_plc\g3_lib_plc_mac.a</file>
-         <hash>7398d690ad5aa43a9a3dc6cbd4a00fceae860d6eb2d000d0ad097cae7a1c2c24</hash>
+         <hash>aceca8afdc004b5def60a0ebcac7b68e7f3f1c884acba19843de6cc55671e419</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\library\tcpip\src\lldp_manager.h</file>
@@ -26861,8 +26866,8 @@
          <hash>3e2e7e32fd61eb82837dd9348b26d48b0ff16598be368c10160ab6988b612504</hash>
       </entry>
       <entry>
-         <file>..\src\config\wbz451_curiosity_pl460_freertos\system\console\sys_console.h</file>
-         <hash>cc82ba93f8d69bf31a9dfcfe1e425de3924bcf9e4e4b31f7efad9c2d062dcbf6</hash>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\service\pcrc\srv_pcrc.c</file>
+         <hash>c38bbf85429abc0e1e842e81e444df329b8a5a8e6a58cf5166f56f0bbe690411</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\port\pic32\crypt_rng_sam6334.c</file>
@@ -26882,7 +26887,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\net\macg3adp\drv_mac_g3adp.h</file>
-         <hash>58570747d9ac77f17352646d1d84711d34a91e959d50273cf79f9cf8c184c68e</hash>
+         <hash>60d65ab62b582655071bd83542222140a73bed92cf1ffac69159c78da50b9e8c</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\pal\plc\pal_plc.c</file>
@@ -26919,6 +26924,10 @@
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\peripheral\evsys\plib_evsys.h</file>
          <hash>f7d08eb8162f271ce1db384c082586a6624e506aa7f502c64c4ab5a1aadac47d</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\service\pcrc\srv_pcrc.h</file>
+         <hash>0169278ed8779223944629595dbab27d8a29f9e2f59582204ac6cf5425d72ad4</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\blake2b.c</file>
@@ -27006,7 +27015,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\net\macg3adp\src\drv_mac_g3adp.c</file>
-         <hash>dca42b31bf0aa3f382cb4fa4e8b032bdaf44ec346f0131a6b2af47a720892788</hash>
+         <hash>2128a47862255a28567de357d0d58be61325f3d43c395ed3500d275023d01e33</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\sercom0.h</file>
@@ -27034,7 +27043,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\initialization.c</file>
-         <hash>53c0620e90c28c94cea8f45adcb256322615f85893f897a2b52bffe8c2234d72</hash>
+         <hash>db0e212a8799f8a174064a2f2623625e1869612e874def9a22e9373344b546ab</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\osal\osal_freertos_extend.c</file>
@@ -27133,6 +27142,14 @@
          <hash>2935cc3c7225d43109d4e563e9010b109de0dd7cd57b2dea0441c01eb5505a49</hash>
       </entry>
       <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\service\usi\srv_usi.h</file>
+         <hash>2d842a747311a24a7b809a7af744e2bb010866c9d94e554e165d8ca9cdfccc07</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\service\usi\srv_usi.c</file>
+         <hash>77fb89a6275d5f87b43d9268008eb3b95ad25d80e051fb563eac20da49e6e498</hash>
+      </entry>
+      <entry>
          <file>..\src\packs\WBZ451_DFP\component\btzbsys.h</file>
          <hash>5d4df908ca51fa52022d378305bc7cdd72c50852660c210a79272003cb0116f3</hash>
       </entry>
@@ -27214,7 +27231,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\mac\mac_rf\g3_lib_rf_mac.a</file>
-         <hash>65578fda7346fd72e4eba00d4514d248deeb40014f19d791609bfddd40651216</hash>
+         <hash>f7b5eb8bbf84f87ef35106a25817ce12a17cbb015175c691470e7b9f7f371689</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\mac\mac_common\mac_common_defs.h</file>
@@ -27287,10 +27304,6 @@
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\peripheral\nvm\plib_nvm.h</file>
          <hash>09e5ae6fb041fff9a63a2eea153d19e6f73f2cb92138e24eddf4bb8401122630</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\wbz451_curiosity_pl460_freertos\system\console\src\sys_console_uart_definitions.h</file>
-         <hash>bf403c11673266a5a861fd99253c377030c1a7f9e912eef446101e416b4f8c9a</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\queue.h</file>
@@ -27525,6 +27538,10 @@
          <hash>97d2623aed56415b2a16f134bee4254687b29762c116c1d4cddc3a2c9f418060</hash>
       </entry>
       <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\service\usi\srv_usi_usart.h</file>
+         <hash>7cbfb1ba2881fe736bed8eadbcb8d97a2e0e047fb0aa04143e8d53171b3698a0</hash>
+      </entry>
+      <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\ge_operations.h</file>
          <hash>fa7f3ae8b9e9001b5c978ded3213524489d5937d2bd71550d29cbd0b6120d8b9</hash>
       </entry>
@@ -27574,7 +27591,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\configuration.h</file>
-         <hash>10b52b1904030dd07855d995429ad248802091fe1e6d5ff655aec7f7d1b9d9ed</hash>
+         <hash>1df98a61297355fe889bfa9b72be8de3867ebc310eff5d4facb3ee75c90be76d</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\projdefs.h</file>
@@ -27642,7 +27659,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\net\macg3adp\src\drv_mac_g3adp_local.h</file>
-         <hash>1263653a8865d81aeda8531e975a229d988c86a6e43678ecb3dcff878fb3ddfd</hash>
+         <hash>1e1355202883ec91a0f27081df708711c1904604f370925ae803cb8c4678d4f3</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\port\pic32\pic32mz-crypt.c</file>
@@ -27718,7 +27735,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\driver\pds\include\pds_config.h</file>
-         <hash>4dd76971c870952df136f770d84e19feadffb0a253c7cd83665df2a9672c4579</hash>
+         <hash>9b8789b6edc8185f687b3c80f0ce2c3dd1b643125ffaa1445edd4ae3868eed94</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\ge_operations.c</file>
@@ -27781,6 +27798,10 @@
          <hash>7a517a17efdaed2f4b05d64859e80b55968041ab805b73c34de17bead03727c1</hash>
       </entry>
       <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\service\rsniffer\srv_rsniffer.h</file>
+         <hash>aff9c12057163e9047dd417ee53a6b4de09bea77088eb6421fe681cb866cf351</hash>
+      </entry>
+      <entry>
          <file>..\src\packs\WBZ451_DFP\instance\tcc0.h</file>
          <hash>d558e40bd0a292131f0755568eda4e4538c8f40aa02f81a273cba1a887fe0481</hash>
       </entry>
@@ -27799,6 +27820,10 @@
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\port\pic32\crypt_rsa_pukcl.c</file>
          <hash>178faa11301de1061a85b3562d6d642abe79ef48777e63178310f2929d6dc8e2</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\service\rsniffer\srv_rsniffer.c</file>
+         <hash>cb471ce800c6e4625aa202ca8136af31f192a3162bafd874475c67c00b0f825e</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\library\tcpip\dhcp.h</file>
@@ -27891,6 +27916,10 @@
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\IEEE_802154_PHY\phy\src\phy_rx_frame_cb.c</file>
          <hash>c5a18233056b8a5ae4c7c0f278d141af986a00e824a4952c62cc14950da3c625</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\service\usi\srv_usi_local.h</file>
+         <hash>48d9c984df81f85e52dbf227fe718a5d54f02616503d2f3b31432549ae62cd09</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\library\tcpip\src\iperf_manager.h</file>
@@ -28066,7 +28095,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\definitions.h</file>
-         <hash>841c1cf75c85134ec18eae7663f255ae3839c400669da8e3d8c69ba184cde76d</hash>
+         <hash>8558b7e1eed71581c2e5177e6298858e722b83a5b77cb487267719c9a640592b</hash>
       </entry>
       <entry>
          <file>..\src\app_udp_responder.h</file>
@@ -28118,7 +28147,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\tasks.c</file>
-         <hash>1dab4e0d81eac118104063a4b9fe61665a6517cafe171a14dba0fd1f90944803</hash>
+         <hash>23fc662814d9a82281ae965d3ca15b2a78cf523261ea7d758f34d2647d033861</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_pukcl_functions.h</file>
@@ -28146,7 +28175,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\stack\g3\adaptation\g3_lib_adp.a</file>
-         <hash>fe092c9d7f13398b575bd9961acb2ffda2f64675160e5521372f81c02ed39b6e</hash>
+         <hash>ea1df7359e4737c236b3e6bca34c3dddcc67a1ccd8970f8b66e6b71cf7e6ab0e</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\peripheral\sercom\spi_master\plib_sercom0_spi_master.c</file>
@@ -28314,7 +28343,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\peripheral\sercom\usart\plib_sercom1_usart.c</file>
-         <hash>45e5568048ef15b01f0fad4a802809f0f8fcabb8d9b8d66d40166da3ebb5ca81</hash>
+         <hash>ed94f8bd22e2b1b57b33c7c48969f3ed73ede922783ce4bbbf89d3a2b8493b95</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\wc_dsp.c</file>
@@ -28330,7 +28359,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\peripheral\sercom\usart\plib_sercom1_usart.h</file>
-         <hash>f139e664f91fb7ed962f61e210a4fd17059e895a06a64a243d2fd979ac59b674</hash>
+         <hash>31ecd4d25e40afbba112cd54d25fd2d83a03ac60ec8af86178f70f70392cdf19</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\library\tcpip\dhcpv6.h</file>
@@ -28409,20 +28438,12 @@
          <hash>1fb91d4180de562169726db32e95be8e11bcb5b64b5bd31a3c5ab702d86cc189</hash>
       </entry>
       <entry>
-         <file>..\src\config\wbz451_curiosity_pl460_freertos\system\console\src\sys_console_uart.c</file>
-         <hash>ff3d1854f469e4fc41d96adce6f7ec38afad5d1b076c295eb4777936777673d0</hash>
-      </entry>
-      <entry>
          <file>..\src\packs\WBZ451_DFP\instance\tc3.h</file>
          <hash>b86c9b15a3df097dc03d529c8750fbd5a158a693a0ad3bc44ebea966af0cacae</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\compress.h</file>
          <hash>b2646c85385efb1d76fbdc13f5f1feb687698b5ba30d2d0255b9efd8fab84d6e</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\wbz451_curiosity_pl460_freertos\system\console\src\sys_console_uart.h</file>
-         <hash>690c74d55c9204f3e3d621635257df1de1c89f097671a678c359f5e24461589a</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\dsa.c</file>
@@ -28479,10 +28500,6 @@
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\ecc_fp.c</file>
          <hash>768159060f0b2b1b467786a1b5e75b4887fd834b3dfcf6b8ab7ae7577bceb581</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\wbz451_curiosity_pl460_freertos\system\console\src\sys_console.c</file>
-         <hash>622a27844a650b4fa265c7a4739ba3768a76e4148600be42e44eec2e0673d7c6</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\component\aes.h</file>
@@ -28875,10 +28892,6 @@
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\library\tcpip\src\arp_manager.h</file>
          <hash>b36c7361ae4e158c5624c0c1d5f3360fed773608ef0e4f4d38e925b56d83c49c</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\wbz451_curiosity_pl460_freertos\system\debug\src\sys_debug_local.h</file>
-         <hash>d14855e54d4929ec6c9c3ea1e9de3fdc1711bb278fc27ab39079e9f16ecc87d5</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\pkcs12.c</file>

@@ -88,24 +88,6 @@ extern "C" {
 #define SYS_TIME_CPU_CLOCK_FREQUENCY                (64000000)
 #define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (232)
 
-#define SYS_CONSOLE_INDEX_0                       0
-
-
-
-
-
-#define SYS_DEBUG_ENABLE
-#define SYS_DEBUG_GLOBAL_ERROR_LEVEL       SYS_ERROR_DEBUG
-#define SYS_DEBUG_BUFFER_DMA_READY
-#define SYS_DEBUG_USE_CONSOLE
-
-
-#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
-#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(1U)
-#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(0U)
-#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(8000U)
-
-
 
 
 // *****************************************************************************
@@ -125,7 +107,7 @@ extern "C" {
 #define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_RB2
 #define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_RA13
 #define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_RA14
-#define DRV_PLC_SPI_CLK                       8000000
+#define DRV_PLC_SPI_CLK                       1000000
 
 /* PLC MAC RT Driver RTOS Configuration Options */
 #define DRV_PLC_RTOS_STACK_SIZE               256
@@ -135,8 +117,26 @@ extern "C" {
 #define DRV_G3_MACRT_INDEX                   0
 #define DRV_G3_MACRT_INSTANCES_NUMBER        1
 #define DRV_G3_MACRT_HOST_DESC               "WBZ451"
+/* USI Service Common Configuration Options */
+#define SRV_USI_INSTANCES_NUMBER              1
+#define SRV_USI_USART_CONNECTIONS             1
+#define SRV_USI_CDC_CONNECTIONS               0
+#define SRV_USI_MSG_POOL_SIZE                 5
 /* PAL RF Configuration Options */
-#define PAL_RF_PHY_INDEX                     0
+#define PAL_RF_PHY_INDEX                      0
+#define PAL_RF_PHY_SNIFFER_USI_INSTANCE       SRV_USI_INDEX_0
+
+/* PAL RF RTOS Configuration */
+#define PAL_RF_RTOS_STACK_SIZE                64
+#define PAL_RF_RTOS_TASK_PRIORITY             5
+
+/* USI Service Instance 0 Configuration Options */
+#define SRV_USI_INDEX_0                       0
+#define SRV_USI0_RD_BUF_SIZE                  1024
+#define SRV_USI0_WR_BUF_SIZE                  1024
+#define SRV_USI0_RTOS_STACK_SIZE               256
+#define SRV_USI0_RTOS_TASK_PRIORITY            1
+
 
 
 // *****************************************************************************
@@ -259,7 +259,7 @@ extern "C" {
 
 /*** TCPIP Heap Configuration ***/
 #define TCPIP_STACK_USE_INTERNAL_HEAP
-#define TCPIP_STACK_DRAM_SIZE                       39250
+#define TCPIP_STACK_DRAM_SIZE                       18432
 #define TCPIP_STACK_DRAM_RUN_LIMIT                  2048
 
 #define TCPIP_STACK_MALLOC_FUNC                     malloc

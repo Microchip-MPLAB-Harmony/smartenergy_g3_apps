@@ -102,7 +102,7 @@ void _TCPIP_STACK_Task(  void *pvParameters  )
     while(1)
     {
         TCPIP_STACK_Task(sysObj.tcpip);
-        vTaskDelay(1 / portTICK_PERIOD_MS);
+        vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 }
 
@@ -161,6 +161,23 @@ static void lAPP_CYCLES_Tasks(  void *pvParameters  )
     }
 }
 
+static void _PAL_RF_Tasks(  void *pvParameters  )
+{
+    while(true)
+    {
+        /* Maintain G3 PAL RF */
+        PAL_RF_Tasks();
+    }
+}
+
+static void _SRV_USI0_Tasks(  void *pvParameters  )
+{
+    while(true)
+    {
+        SRV_USI_Tasks(sysObj.srvUSI0);
+    }
+}
+
 
 
 
@@ -180,7 +197,6 @@ static void lAPP_CYCLES_Tasks(  void *pvParameters  )
 void SYS_Tasks ( void )
 {
     /* Maintain system services */
-
 
 
     /* Maintain Device Drivers */
@@ -222,6 +238,24 @@ void SYS_Tasks ( void )
         (TaskHandle_t*)NULL
     );
 
+
+
+    xTaskCreate( _PAL_RF_Tasks,
+        "PAL_RF_TASKS",
+        PAL_RF_RTOS_STACK_SIZE,
+        (void*)NULL,
+        PAL_RF_RTOS_TASK_PRIORITY,
+        (TaskHandle_t*)NULL
+    );
+
+
+    xTaskCreate( _SRV_USI0_Tasks,
+        "SRV_USI0_TASKS",
+        SRV_USI0_RTOS_STACK_SIZE,
+        (void*)NULL,
+        SRV_USI0_RTOS_TASK_PRIORITY,
+        (TaskHandle_t*)NULL
+    );
 
 
 

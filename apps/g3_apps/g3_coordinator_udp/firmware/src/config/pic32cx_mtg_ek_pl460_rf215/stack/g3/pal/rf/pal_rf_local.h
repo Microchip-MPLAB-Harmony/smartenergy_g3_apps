@@ -1,22 +1,20 @@
 /*******************************************************************************
-  Debug System Service Local Data Structures
-
   Company:
     Microchip Technology Inc.
 
   File Name:
-    sys_debug_local.h
+    pal_rf.h
 
   Summary:
-    Debug System Service local declarations and definitions.
+    Platform Abstraction Layer RF (PAL RF) Interface Local header file.
 
   Description:
-    This file contains the Debug System Service local declarations and definitions.
+    Platform Abstraction Layer RF (PAL RF) Interface local header.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,8 +37,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef SYS_DEBUG_LOCAL_H
-#define SYS_DEBUG_LOCAL_H
+#ifndef _PAL_RF_LOCAL_H
+#define _PAL_RF_LOCAL_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -48,48 +46,43 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#include "configuration.h"
+#include <stdbool.h>
+#include <stdint.h>
+#include "system/system.h"
 #include "driver/driver.h"
-
-// DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
-
-    extern "C" {
-
-#endif
-// DOM-IGNORE-END
+#include "driver/rf215/drv_rf215_definitions.h"
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Data Type Definitions
+// Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
 
-// *****************************************************************************
-/* SYS DEBUG OBJECT INSTANCE structure
+/* PAL RF Data
 
   Summary:
-    System Debug object instance structure.
+    Holds PAL RF internal data.
 
   Description:
-    This data type defines the System Debug object instance.
+    This data type defines the all data required to handle the PAL RF module.
 
   Remarks:
     None.
 */
 
-typedef struct
+typedef struct  
 {
-    SYS_STATUS                        status;
-    SYS_MODULE_INDEX                  debugConsole;
-} SYS_DEBUG_INSTANCE;
+    DRV_HANDLE drvRfPhyHandle;
+    
+    PAL_RF_STATUS status;
+    
+    PAL_RF_HANDLERS rfPhyHandlers;
+    
+    DRV_RF215_PHY_MOD_SCHEME rfPhyModScheme;
 
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
+} PAL_RF_DATA;
 
-    }
-
-#endif
-//DOM-IGNORE-END
-
-#endif //#ifndef SYS_DEBUG_LOCAL_H
+#endif // #ifndef _PAL_RF_LOCAL_H
+/*******************************************************************************
+ End of File
+*/

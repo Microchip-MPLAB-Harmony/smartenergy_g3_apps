@@ -54,6 +54,7 @@
 #include "driver/rf215/drv_rf215.h"
 #include "driver/rf215/drv_rf215_definitions.h"
 #include "pal_rf.h"
+#include "pal_rf_local.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -210,6 +211,12 @@ PAL_RF_HANDLE PAL_RF_HandleGet(const SYS_MODULE_INDEX index)
     {
         return PAL_RF_HANDLE_INVALID;
     }
+    
+    /* Check previously initialized */
+    if (palRfData.status == PAL_RF_STATUS_UNINITIALIZED)
+    {
+        return PAL_RF_HANDLE_INVALID;
+    }
 
     return (PAL_RF_HANDLE)&palRfData;
 }
@@ -227,6 +234,12 @@ PAL_RF_STATUS PAL_RF_Status(SYS_MODULE_OBJ object)
 void PAL_RF_Deinitialize(SYS_MODULE_OBJ object)
 {
     if (object != (SYS_MODULE_OBJ)PAL_RF_PHY_INDEX)
+    {
+        return;
+    }
+    
+    /* Check status */
+    if (palRfData.status == PAL_RF_STATUS_UNINITIALIZED)
     {
         return;
     }
@@ -313,6 +326,16 @@ void PAL_RF_Reset(PAL_RF_HANDLE handle)
     DRV_RF215_SetPib(palRfData.drvRfPhyHandle, RF215_PIB_PHY_STATS_RESET, &resetValue);
 }
  
+uint64_t PAL_RF_GetPhyTime(PAL_RF_HANDLE handle)
+{
+    if (handle != (PAL_RF_HANDLE)&palRfData)
+    {
+        return 0;
+    }
+    
+    return SYS_TIME_Counter64Get();
+}
+
 PAL_RF_PIB_RESULT PAL_RF_GetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibObj)
 {
     if (handle != (PAL_RF_HANDLE)&palRfData)
@@ -347,11 +370,11 @@ PAL_RF_PIB_RESULT PAL_RF_SetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
             pibObj->pData);
 }
 
-uint8_t PAL_RF_GetRfPhyPibLength(PAL_RF_HANDLE handle, DRV_RF215_PIB_ATTRIBUTE attribute)
+uint8_t PAL_RF_GetRfPhyPibLength(PAL_RF_HANDLE handle, PAL_RF_PIB_ATTRIBUTE attribute)
 {
     if (handle != (PAL_RF_HANDLE)&palRfData)
     {
-        return PAL_RF_PIB_INVALID_HANDLE;
+        return 0;
     }
     
     return DRV_RF215_GetPibSize(attribute);

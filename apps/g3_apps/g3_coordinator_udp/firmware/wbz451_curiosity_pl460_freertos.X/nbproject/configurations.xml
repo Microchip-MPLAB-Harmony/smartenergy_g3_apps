@@ -272,11 +272,17 @@
             <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/pcoup/srv_pcoup.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="pcrc" displayName="pcrc" projectFiles="true">
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/pcrc/srv_pcrc.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/queue/srv_queue.h</itemPath>
             </logicalFolder>
             <logicalFolder name="random" displayName="random" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/random/srv_random.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rsniffer" displayName="rsniffer" projectFiles="true">
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/rsniffer/srv_rsniffer.h</itemPath>
             </logicalFolder>
             <logicalFolder name="security" displayName="security" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/security/mode_hdr.h</itemPath>
@@ -285,6 +291,12 @@
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/security/cipher_wrapper.h</itemPath>
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/security/brg_endian.h</itemPath>
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/security/aes_wrapper.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="usi" displayName="usi" projectFiles="true">
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/usi/srv_usi_usart.h</itemPath>
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/usi/srv_usi.h</itemPath>
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/usi/srv_usi_local.h</itemPath>
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/usi/srv_usi_definitions.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stack" displayName="stack" projectFiles="true">
@@ -345,15 +357,8 @@
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/cache/sys_cache.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="console" displayName="console" projectFiles="true">
-              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/console/src/sys_console_uart.h</itemPath>
-              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/console/src/sys_console_local.h</itemPath>
-              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/console/src/sys_console_uart_definitions.h</itemPath>
-              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/console/sys_console.h</itemPath>
-            </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/debug/sys_debug.h</itemPath>
-              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/debug/src/sys_debug_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/dma/sys_dma_mapping.h</itemPath>
@@ -829,16 +834,26 @@
             <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/pcoup/srv_pcoup.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="pcrc" displayName="pcrc" projectFiles="true">
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/pcrc/srv_pcrc.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/queue/srv_queue.c</itemPath>
             </logicalFolder>
             <logicalFolder name="random" displayName="random" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/random/srv_random.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="rsniffer" displayName="rsniffer" projectFiles="true">
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/rsniffer/srv_rsniffer.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="security" displayName="security" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/security/eax.c</itemPath>
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/security/cipher_wrapper.c</itemPath>
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/security/aes_wrapper.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="usi" displayName="usi" projectFiles="true">
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/usi/srv_usi_usart.c</itemPath>
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/usi/srv_usi.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stack" displayName="stack" projectFiles="true">
@@ -880,13 +895,6 @@
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/cache/sys_cache.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="console" displayName="console" projectFiles="true">
-              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/console/src/sys_console.c</itemPath>
-              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/console/src/sys_console_uart.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="debug" displayName="debug" projectFiles="true">
-              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/debug/src/sys_debug.c</itemPath>
             </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/system/dma/sys_dma.c</itemPath>
@@ -1055,7 +1063,7 @@
         <targetDevice>WBZ451</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>pkob4hybrid</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.21</languageToolchainVersion>
         <platform>3</platform>
@@ -1117,7 +1125,6 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -1148,7 +1155,6 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
-        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -1177,7 +1183,6 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1194,7 +1199,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="18000"/>
+        <property key="heap-size" value="19456"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>
@@ -1217,7 +1222,6 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1246,7 +1250,6 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
-        <property key="appendMe" value=""/>
         <property key="common-include-directories" value=""/>
         <property key="gp-relative-option" value=""/>
         <property key="legacy-libc" value="false"/>
@@ -1274,7 +1277,10 @@
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.simultaneous.debug" value="false"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
         <property key="freeze.timers" value="false"/>
+        <property key="lastid" value=""/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
         <property key="memories.configurationmemory" value="true"/>
@@ -1288,6 +1294,8 @@
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="1000000-2001ffff"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/0_CHRIS/Proyectos/03_MCHP_Harmony_3/BitBucket/smartenergy_g3_apps/apps/g3_apps/g3_coordinator_udp/firmware/wbz451_curiosity_pl460_freertos.X/debug/wbz451_curiosity_pl460_freertos/wbz451_curiosity_pl460_freertos_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>
@@ -1324,7 +1332,10 @@
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.simultaneous.debug" value="false"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
         <property key="freeze.timers" value="false"/>
+        <property key="lastid" value=""/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
         <property key="memories.configurationmemory" value="true"/>

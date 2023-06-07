@@ -28,6 +28,7 @@
 // *****************************************************************************
 
 #include "definitions.h"
+#include "configuration.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -70,6 +71,43 @@ static void _APP_CYCLES_NextPacket(void);
 // Section: Application Local Functions
 // *****************************************************************************
 // *****************************************************************************
+static void _APP_CYCLES_ShowReport(void)
+{
+#if SYS_CONSOLE_DEVICE_MAX_INSTANCES > 0U
+    uint32_t numErrors;
+    uint8_t successRate;
+    uint64_t currentTimeCount = SYS_TIME_Counter64Get();
+    uint64_t elapsedTimeCount = currentTimeCount - app_cyclesData.timeCountCycleStart;
+    uint64_t elapsedTimeCountTotal = currentTimeCount - app_cyclesData.timeCountFirstCycleStart;
+    SYS_DEBUG_PRINT(SYS_ERROR_INFO, "APP_CYCLES: Cycle %u finished. Duration %u ms "
+            "(average total: %u ms; average device: %u ms)\r\n",
+            app_cyclesData.cycleIndex, SYS_TIME_CountToMS(elapsedTimeCount),
+            SYS_TIME_CountToMS(elapsedTimeCountTotal / (app_cyclesData.cycleIndex + 1)),
+            SYS_TIME_CountToMS(elapsedTimeCount / app_cyclesData.numDevicesJoined));
+
+    SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_CYCLES: Summary\r\n");
+
+    /* Print statistics */
+    for (uint16_t i = 0; i < APP_EAP_SERVER_MAX_DEVICES; i++)
+    {
+        if (app_cyclesStatistics[i].shortAddress != 0xFFFF)
+        {
+            numErrors = app_cyclesStatistics[i].numUdpRequests - app_cyclesStatistics[i].numUdpReplies;
+            successRate = (app_cyclesStatistics[i].numUdpReplies * 100) / app_cyclesStatistics[i].numUdpRequests;
+            SYS_DEBUG_PRINT(SYS_ERROR_INFO, "Short address 0x%04X: Sent %u, Success %u (%hhu %%), Errors %u,"
+                    " Average duration %u\r\n", app_cyclesStatistics[i].shortAddress,
+                    app_cyclesStatistics[i].numUdpRequests, app_cyclesStatistics[i].numUdpReplies,
+                    successRate, numErrors,
+                    SYS_TIME_CountToMS(app_cyclesStatistics[i].timeCountTotal / (app_cyclesData.cycleIndex + 1)));
+        }
+    }
+
+    numErrors = app_cyclesData.numUdpRequests - app_cyclesData.numUdpReplies;
+    successRate = (app_cyclesData.numUdpReplies * 100) / app_cyclesData.numUdpRequests;
+    SYS_DEBUG_PRINT(SYS_ERROR_INFO, "TOTAL: Sent %u, Success %u (%hhu %%), Errors %u\r\n",
+            app_cyclesData.numUdpRequests, app_cyclesData.numUdpReplies, successRate, numErrors);
+#endif
+}
 
 static void _APP_CYCLES_SendPacket(void)
 {
@@ -209,38 +247,7 @@ static void _APP_CYCLES_NextPacket(void)
         app_cyclesData.deviceIndex++;
         if (app_cyclesData.deviceIndex == app_cyclesData.numDevicesJoined)
         {
-            uint32_t numErrors;
-            uint8_t successRate;
-            uint64_t currentTimeCount = SYS_TIME_Counter64Get();
-            uint64_t elapsedTimeCount = currentTimeCount - app_cyclesData.timeCountCycleStart;
-            uint64_t elapsedTimeCountTotal = currentTimeCount - app_cyclesData.timeCountFirstCycleStart;
-            SYS_DEBUG_PRINT(SYS_ERROR_INFO, "APP_CYCLES: Cycle %u finished. Duration %u ms "
-                    "(average total: %u ms; average device: %u ms)\r\n",
-                    app_cyclesData.cycleIndex, SYS_TIME_CountToMS(elapsedTimeCount),
-                    SYS_TIME_CountToMS(elapsedTimeCountTotal / (app_cyclesData.cycleIndex + 1)),
-                    SYS_TIME_CountToMS(elapsedTimeCount / app_cyclesData.numDevicesJoined));
-
-            SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_CYCLES: Summary\r\n");
-
-            /* Print statistics */
-            for (uint16_t i = 0; i < APP_EAP_SERVER_MAX_DEVICES; i++)
-            {
-                if (app_cyclesStatistics[i].shortAddress != 0xFFFF)
-                {
-                    numErrors = app_cyclesStatistics[i].numUdpRequests - app_cyclesStatistics[i].numUdpReplies;
-                    successRate = (app_cyclesStatistics[i].numUdpReplies * 100) / app_cyclesStatistics[i].numUdpRequests;
-                    SYS_DEBUG_PRINT(SYS_ERROR_INFO, "Short address 0x%04X: Sent %u, Success %u (%hhu %%), Errors %u,"
-                            " Average duration %u\r\n", app_cyclesStatistics[i].shortAddress,
-                            app_cyclesStatistics[i].numUdpRequests, app_cyclesStatistics[i].numUdpReplies,
-                            successRate, numErrors,
-                            SYS_TIME_CountToMS(app_cyclesStatistics[i].timeCountTotal / (app_cyclesData.cycleIndex + 1)));
-                }
-            }
-
-            numErrors = app_cyclesData.numUdpRequests - app_cyclesData.numUdpReplies;
-            successRate = (app_cyclesData.numUdpReplies * 100) / app_cyclesData.numUdpRequests;
-            SYS_DEBUG_PRINT(SYS_ERROR_INFO, "TOTAL: Sent %u, Success %u (%hhu %%), Errors %u\r\n",
-                    app_cyclesData.numUdpRequests, app_cyclesData.numUdpReplies, successRate, numErrors);
+            _APP_CYCLES_ShowReport();
 
             /* Start again with first device */
             app_cyclesData.cycleIndex++;
@@ -286,6 +293,7 @@ void APP_CYCLES_Initialize ( void )
         app_cyclesStatistics[i].numUdpReplies = 0;
         app_cyclesStatistics[i].shortAddress = 0xFFFF;
     }
+
 }
 
 

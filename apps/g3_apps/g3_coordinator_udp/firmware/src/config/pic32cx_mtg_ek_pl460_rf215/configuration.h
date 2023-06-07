@@ -150,7 +150,7 @@ extern "C" {
 #define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 1400
 
 /* PAL RF Configuration Options */
-#define PAL_RF_PHY_INDEX                     0
+#define PAL_RF_PHY_INDEX                      0
 
 
 

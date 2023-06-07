@@ -57,6 +57,9 @@
 #include "phy_constants.h"
 #include "pal_rf.h"
 #include "pal_rf_local.h"
+#include "service/rsniffer/srv_rsniffer.h"
+#include "service/usi/srv_usi.h"
+#include "osal/osal.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -87,13 +90,16 @@ static PAL_RF_PHY_STATUS palRfPhyStatus[] = {
 #define CCA_MODE (1U)
 #define TRANSMIT_POWER_DBm (12U)
 #define PROMISCUOUS_MODE (true)
+#define AUTOACK_MODE (false)
+
+/* Define a semaphore to signal the PAL RF Tasks to process Tx/Rx packets */
+OSAL_SEM_DECLARE(palRFSemID);
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: local callbacks
 // *****************************************************************************
 // *****************************************************************************
-
 void PHY_TxDoneCallback(PHY_Retval_t status, PHY_FrameInfo_t *frame)
 {
     uint64_t timeIniCount;
@@ -224,10 +230,25 @@ void PHY_TxDoneCallback(PHY_Retval_t status, PHY_FrameInfo_t *frame)
         break;
     }
 
+    /* Send RF Phy Sniffer TX Data to USI */
+    palRfData.snifferData.timeIniCount = palRfData.txTimeIniCountCalc;
+    palRfData.snifferData.durationCount = SYS_TIME_USToCount(phyDurationSymb << 4);
+    palRfData.snifferData.paySymbols = rfStats->txLastPaySymbols;
+    palRfData.snifferData.rssi = 0;
+    palRfData.snifferData.pData = &frame->mpdu[1];
+    palRfData.snifferData.payloadLen = nBytesSent;
+    palRfData.serialData = SRV_RSNIFFER_SerialCfmMessage(&palRfData.snifferData, &palRfData.serialLen);
+    if ((palRfData.serialData != NULL) && (palRfData.serialLen != 0))
+    {
+        // Send through USI
+        SRV_USI_Send_Message(palRfData.usiHandler, SRV_USI_PROT_ID_SNIFF_G3,
+                palRfData.serialData, palRfData.serialLen);
+    }
+
     if (palRfData.rfPhyHandlers.palRfTxConfirm)
     {
         palRfData.rfPhyHandlers.palRfTxConfirm(palRfStatus,
-                                               palRfData.txTimeIniCountCalc, timeEndCount);
+                palRfData.txTimeIniCountCalc, timeEndCount);
     }
 }
 
@@ -262,15 +283,15 @@ void PHY_RxFrameCallback(PHY_FrameInfo_t *rxFrame)
     /* Get Payload */
     offset = LENGTH_FIELD_LEN;
     memcpy(palRfData.rxBuffer, &rxFrame->mpdu[offset], payloadLen);
+    offset += payloadLen;
     pData = palRfData.rxBuffer;
     /* Get LQI */
-    offset += payloadLen;
     palRfData.lastRxPktLQI = rxFrame->mpdu[offset];
-    /* Get ED_LEVEL */
     offset += LQI_LEN;
+    /* Get ED_LEVEL */
     palRfData.lastRxPktED = rxFrame->mpdu[offset];
-    /* Get RSSI */
     offset += ED_VAL_LEN;
+    /* Get RSSI */
     rxParameters.rssi = rxFrame->mpdu[offset] + PHY_GetRSSIBaseVal();
 
     /* Get Frame Times */
@@ -300,6 +321,21 @@ void PHY_RxFrameCallback(PHY_FrameInfo_t *rxFrame)
     /* Free-up the buffer which was used for reception once the frame is extracted. */
     bmm_buffer_free(rxFrame->buffer_header);
 
+    /* Send RF Phy Sniffer RX Data to USI */
+    palRfData.snifferData.timeIniCount = rxParameters.timeIniCount;
+    palRfData.snifferData.durationCount = SYS_TIME_USToCount(phyDurationSymb << 4);
+    palRfData.snifferData.paySymbols = rfStats->rxLastPaySymbols;
+    palRfData.snifferData.rssi = rxParameters.rssi;
+    palRfData.snifferData.pData = pData;
+    palRfData.snifferData.payloadLen = payloadLen;
+    palRfData.serialData = SRV_RSNIFFER_SerialRxMessage(&palRfData.snifferData, &palRfData.serialLen);
+    if ((palRfData.serialData != NULL) && (palRfData.serialLen != 0))
+    {
+        // Send through USI
+        SRV_USI_Send_Message(palRfData.usiHandler, SRV_USI_PROT_ID_SNIFF_G3,
+                palRfData.serialData, palRfData.serialLen);
+    }
+
     if (palRfData.rfPhyHandlers.palRfDataIndication)
     {
         palRfData.rfPhyHandlers.palRfDataIndication(pData, payloadLen, &rxParameters);
@@ -308,26 +344,10 @@ void PHY_RxFrameCallback(PHY_FrameInfo_t *rxFrame)
 
 static void _PAL_RF_TxTimeCallback(uintptr_t context)
 {
-    PAL_RF_DATA *palRfData = (PAL_RF_DATA *)context;
-    PHY_Retval_t phyStatus;
-    PAL_RF_PHY_STATUS palRfStatus;
+    palRfData.txPending = true;
 
-    palRfData->txTimer = SYS_TIME_HANDLE_INVALID;
-
-    palRfData->txTimeIniCount = SYS_TIME_Counter64Get();
-    phyStatus = PHY_TxFrame(&palRfData->txFrame, palRfData->csmaMode, palRfData->frameRetry);
-    palRfStatus = palRfPhyStatus[phyStatus & 0x0F];
-
-    if (palRfStatus != PAL_RF_PHY_SUCCESS)
-    {
-        palRfData->stats.txErrorTimeout++;
-        // Report TX CFM callback
-        if (palRfData->rfPhyHandlers.palRfTxConfirm)
-        {
-            palRfData->rfPhyHandlers.palRfTxConfirm(palRfStatus, palRfData->txTimeIniCount,
-                                                    palRfData->txTimeIniCount);
-        }
-    }
+    /* Signal thread to transmit a new packet */
+    OSAL_SEM_PostISR(&palRFSemID);
 }
 
 // *****************************************************************************
@@ -335,6 +355,17 @@ static void _PAL_RF_TxTimeCallback(uintptr_t context)
 // Section: local functions
 // *****************************************************************************
 // *****************************************************************************
+static void _PAL_RF_ReportErrorTX(PAL_RF_PHY_STATUS status, uint64_t time)
+{
+    palRfData.stats.txTotalErrors++;
+
+    palRfData.txCfmErrorPending = true;
+    palRfData.txCfmErrorStatus = status;
+    palRfData.txCfmErrorTime = time;
+
+    /* Signal thread to transmit a new packet */
+    OSAL_SEM_Post(&palRFSemID);
+}
 
 static PAL_RF_PIB_RESULT _PAL_RF_setRFNetworkParameters(void)
 {
@@ -376,6 +407,12 @@ static PAL_RF_PIB_RESULT _PAL_RF_setRFNetworkParameters(void)
         return PAL_RF_PIB_INVALID_PARAM;
     }
 
+    attributeStatus = PHY_ConfigAutoAck(AUTOACK_MODE);
+    if (attributeStatus != PHY_SUCCESS)
+    {
+        return PAL_RF_PIB_INVALID_PARAM;
+    }
+
     return PAL_RF_PIB_SUCCESS;
 }
 
@@ -409,6 +446,8 @@ SYS_MODULE_OBJ PAL_RF_Initialize(const SYS_MODULE_INDEX index,
     palRfData.phySWVersion = PHY_GetSWVersion();
 
     /* Init Pal RF Data */
+    palRfData.txPending = false;
+    palRfData.txCfmErrorPending = false;
     palRfData.txContinuousMode = false;
     palRfData.sleepMode = false;
     memset(&palRfData.stats, 0, sizeof (palRfData.stats));
@@ -422,6 +461,16 @@ SYS_MODULE_OBJ PAL_RF_Initialize(const SYS_MODULE_INDEX index,
 
     /* Enable Transceiver */
     if (PHY_RxEnable(PHY_STATE_RX_ON) != PHY_RX_ON)
+    {
+        return SYS_MODULE_OBJ_INVALID;
+    }
+
+    /* Get USI handler for RF PHY SNIFFER protocol */
+    palRfData.usiHandler = SRV_USI_Open(PAL_RF_PHY_SNIFFER_USI_INSTANCE);
+
+
+    /* Create the PAL RF Semaphore */
+    if (OSAL_SEM_Create(&palRFSemID, OSAL_SEM_TYPE_BINARY, 0, 0) == OSAL_RESULT_FALSE)
     {
         return SYS_MODULE_OBJ_INVALID;
     }
@@ -491,117 +540,158 @@ void PAL_RF_Deinitialize(SYS_MODULE_OBJ object)
         return;
     }
 
+    /* Check status */
+    if (palRfData.status == PAL_RF_STATUS_UNINITIALIZED)
+    {
+        return;
+    }
+
     /* Disable Transceiver */
     PHY_RxEnable(PHY_STATE_TRX_OFF);
 
-    palRfData.status = PAL_RF_STATUS_DEINITIALIZED;
+    /* Delete Semaphore */
+    OSAL_SEM_Delete(&palRFSemID);
+
+    palRfData.status = PAL_RF_STATUS_UNINITIALIZED;
+}
+
+void PAL_RF_Tasks(void)
+{
+    PAL_RF_DATA *palRf = &palRfData;
+
+    if (palRf->status == PAL_RF_STATUS_UNINITIALIZED)
+    {
+        vTaskDelay(50U / portTICK_PERIOD_MS);
+        return;
+    }
+
+    /* Wait for the PAL RF semaphore to get to process Tx/Rx packets */
+    OSAL_SEM_Pend(&palRFSemID, OSAL_WAIT_FOREVER);
+
+    if (palRf->txPending)
+    {
+        palRf->txPending = false;
+        PHY_Retval_t phyStatus;
+        PAL_RF_PHY_STATUS palRfStatus;
+
+        palRf->txTimer = SYS_TIME_HANDLE_INVALID;
+
+        palRf->txTimeIniCount = SYS_TIME_Counter64Get();
+
+        phyStatus = PHY_TxFrame(&palRf->txFrame, palRf->csmaMode, false);
+        palRfStatus = palRfPhyStatus[phyStatus & 0x0F];
+
+        if (palRfStatus != PAL_RF_PHY_SUCCESS)
+        {
+            palRf->txCfmErrorPending = true;
+            palRf->txCfmErrorStatus = palRfStatus;
+            palRf->txCfmErrorTime = palRf->txTimeIniCount;
+        }
+    }
+
+    if (palRf->txCfmErrorPending)
+    {
+        palRf->txCfmErrorPending = false;
+        // Report ERROR through TX CFM callback
+        if (palRf->rfPhyHandlers.palRfTxConfirm)
+        {
+            palRf->rfPhyHandlers.palRfTxConfirm(palRf->txCfmErrorStatus,
+                        palRf->txCfmErrorTime, palRf->txCfmErrorTime);
+        }
+    }
 }
 
 PAL_RF_TX_HANDLE PAL_RF_TxRequest(PAL_RF_HANDLE handle, uint8_t *pData,
                                   uint16_t length, PAL_RF_TX_PARAMETERS *txParameters)
 {
+    uint64_t timeCount;
+    int64_t timeDiffCount;
+    int8_t pwrDbm;
+
+    timeCount = SYS_TIME_Counter64Get();
+
     if (handle != (PAL_RF_HANDLE) & palRfData)
     {
-        uint64_t timeCount;
-        int64_t timeDiffCount;
-        int8_t pwrDbm;
+        // Report TX CFM error
+        _PAL_RF_ReportErrorTX(PAL_RF_PHY_ERROR, timeCount);
 
-        timeCount = SYS_TIME_Counter64Get();
+        return (PAL_RF_HANDLE)&palRfData;
+    }
 
-        if ((palRfData.txTimer != SYS_TIME_HANDLE_INVALID) ||
-                (palRfData.txContinuousMode) || (palRfData.sleepMode))
+    if ((palRfData.txTimer != SYS_TIME_HANDLE_INVALID) ||
+            (palRfData.txContinuousMode) || (palRfData.sleepMode))
+    {
+        // Report TX CFM error
+        palRfData.stats.txErrorBusyTX++;
+        _PAL_RF_ReportErrorTX(PAL_RF_PHY_BUSY_TX, timeCount);
+
+        return (PAL_RF_HANDLE)&palRfData;
+    }
+
+    if (length > LARGE_BUFFER_SIZE - 1)
+    {
+        // Report TX CFM error
+        palRfData.stats.txErrorLength++;
+        _PAL_RF_ReportErrorTX(PAL_RF_PHY_INVALID_PARAM, timeCount);
+
+        return (PAL_RF_HANDLE)&palRfData;
+    }
+
+    palRfData.txFrame.mpdu = palRfData.txBuffer;
+    palRfData.txBuffer[0] = (uint8_t)length;
+    memcpy(&palRfData.txBuffer[1], pData, (uint8_t)length);
+
+    if (txParameters->csmaEnable)
+    {
+        palRfData.csmaMode = CSMA_UNSLOTTED;
+    }
+    else
+    {
+        palRfData.csmaMode = NO_CSMA_NO_IFS;
+    }
+
+    /* Set Tx Power (Power value in dBm (-14dBm to 12dBm))*/
+    pwrDbm = 12 - txParameters->txPowerAttenuation;
+    if (pwrDbm < -14)
+    {
+        pwrDbm = -14;
+    }
+    PHY_ConfigTxPwr(PWR_DBM_VALUE, pwrDbm);
+
+    timeDiffCount = txParameters->timeCount - timeCount;
+    if (timeDiffCount < 0)
+    {
+        PHY_Retval_t phyStatus;
+        PAL_RF_PHY_STATUS palRfStatus;
+
+        // Immediate transmission
+        palRfData.txTimeIniCount = SYS_TIME_Counter64Get();
+        phyStatus = PHY_TxFrame(&palRfData.txFrame, palRfData.csmaMode, false);
+        palRfStatus = palRfPhyStatus[phyStatus & 0x0F];
+        if (palRfStatus != PAL_RF_PHY_SUCCESS)
         {
-            // Report TX CFM callback of the previous transmission
-            if (palRfData.rfPhyHandlers.palRfTxConfirm)
-            {
-                palRfData.stats.txErrorBusyTX++;
-                palRfData.rfPhyHandlers.palRfTxConfirm(PAL_RF_PHY_BUSY_TX,
-                                                       timeCount, timeCount);
-            }
-
-            return (PAL_RF_HANDLE)&palRfData;
-        }
-
-        if (length > LARGE_BUFFER_SIZE - 1)
-        {
-            // Report TX CFM callback of the error length
-            if (palRfData.rfPhyHandlers.palRfTxConfirm)
-            {
-                palRfData.stats.txErrorLength++;
-                palRfData.rfPhyHandlers.palRfTxConfirm(PAL_RF_PHY_INVALID_PARAM,
-                                                       timeCount, timeCount);
-            }
-
-            return (PAL_RF_HANDLE)&palRfData;
-        }
-
-        palRfData.txFrame.mpdu = palRfData.txBuffer;
-        palRfData.txBuffer[0] = (uint8_t)length;
-        memcpy(&palRfData.txBuffer[1], pData, (uint8_t)length);
-
-        if (txParameters->csmaEnable)
-        {
-            palRfData.csmaMode = CSMA_UNSLOTTED;
-        }
-        else
-        {
-            palRfData.csmaMode = NO_CSMA_NO_IFS;
-        }
-
-        /* Disable PHY SW retries */
-        palRfData.frameRetry = false;
-
-        /* Set Tx Power (Power value in dBm (-14dBm to 12dBm))*/
-        pwrDbm = 12 - txParameters->txPowerAttenuation;
-        if (pwrDbm < -14)
-        {
-            pwrDbm = -14;
-        }
-        PHY_ConfigTxPwr(PWR_DBM_VALUE, pwrDbm);
-
-        timeDiffCount = txParameters->timeCount - timeCount;
-        if (timeDiffCount < 0)
-        {
-            PHY_Retval_t phyStatus;
-            PAL_RF_PHY_STATUS palRfStatus;
-
-            // Immediate transmission
-            palRfData.txTimeIniCount = SYS_TIME_Counter64Get();
-            phyStatus = PHY_TxFrame(&palRfData.txFrame, palRfData.csmaMode, palRfData.frameRetry);
-            palRfStatus = palRfPhyStatus[phyStatus & 0x0F];
-            if (palRfStatus != PAL_RF_PHY_SUCCESS)
-            {
-                palRfData.stats.txTotalErrors++;
-                // Report TX CFM callback
-                if (palRfData.rfPhyHandlers.palRfTxConfirm)
-                {
-                    palRfData.rfPhyHandlers.palRfTxConfirm(palRfStatus, palRfData.txTimeIniCount,
-                                                           palRfData.txTimeIniCount);
-                }
-            }
-            else
-            {
-                palRfData.stats.txCfmNotHandled++;
-            }
+            // Report TX CFM error
+            palRfData.stats.txErrorLength++;
+            _PAL_RF_ReportErrorTX(palRfStatus, palRfData.txTimeIniCount);
         }
         else
         {
-            uint32_t timeDiffUs;
+            palRfData.stats.txCfmNotHandled++;
+        }
+    }
+    else
+    {
+        uint32_t timeDiffUs;
 
-            timeDiffUs = SYS_TIME_CountToUS(timeDiffCount);
-            palRfData.txTimer = SYS_TIME_CallbackRegisterUS(_PAL_RF_TxTimeCallback, (uintptr_t) & palRfData,
-                                                            timeDiffUs, SYS_TIME_SINGLE);
+        timeDiffUs = SYS_TIME_CountToUS(timeDiffCount);
+        palRfData.txTimer = SYS_TIME_CallbackRegisterUS(_PAL_RF_TxTimeCallback, (uintptr_t) & palRfData,
+                                                        timeDiffUs, SYS_TIME_SINGLE);
 
-            if (palRfData.txTimer == SYS_TIME_HANDLE_INVALID)
-            {
-                palRfData.stats.txErrorTimeout++;
-                // Report TX CFM callback
-                if (palRfData.rfPhyHandlers.palRfTxConfirm)
-                {
-                    palRfData.rfPhyHandlers.palRfTxConfirm(PAL_RF_PHY_TIMEOUT,
-                                                           timeCount, timeCount);
-                }
-            }
+        if (palRfData.txTimer == SYS_TIME_HANDLE_INVALID)
+        {
+            // Report TX CFM error
+            palRfData.stats.txErrorTimeout++;
+            _PAL_RF_ReportErrorTX(PAL_RF_PHY_TIMEOUT, timeCount);
         }
     }
 
@@ -638,14 +728,8 @@ void PAL_RF_TxCancel(PAL_RF_HANDLE handle, PAL_RF_TX_HANDLE txHandle)
         /* Enable Transceiver */
         PHY_RxEnable(PHY_STATE_RX_ON);
 
-        // Report TX CFM callback
-        if (palRfData.rfPhyHandlers.palRfTxConfirm)
-        {
-            uint64_t time;
-            time = SYS_TIME_Counter64Get();
-            palRfData.rfPhyHandlers.palRfTxConfirm(PAL_RF_PHY_TX_CANCELLED,
-                                                   time, time);
-        }
+        // Report TX cancelled
+        _PAL_RF_ReportErrorTX(PAL_RF_PHY_TX_CANCELLED, SYS_TIME_Counter64Get());
     }
 }
 
@@ -661,14 +745,8 @@ void PAL_RF_Reset(PAL_RF_HANDLE handle)
         SYS_TIME_TimerDestroy(palRfData.txTimer);
         palRfData.txTimer = SYS_TIME_HANDLE_INVALID;
 
-        // Report TX CFM callback
-        if (palRfData.rfPhyHandlers.palRfTxConfirm)
-        {
-            uint64_t time;
-            time = SYS_TIME_Counter64Get();
-            palRfData.rfPhyHandlers.palRfTxConfirm(PAL_RF_PHY_TX_CANCELLED,
-                                                   time, time);
-        }
+        // Report TX cancelled
+        _PAL_RF_ReportErrorTX(PAL_RF_PHY_TX_CANCELLED, SYS_TIME_Counter64Get());
     }
 
     /* Reset Transceiver : no set PIBs to the default values */
@@ -680,16 +758,6 @@ void PAL_RF_Reset(PAL_RF_HANDLE handle)
     /* Update Pal Rf data flags */
     palRfData.txContinuousMode = false;
     palRfData.sleepMode = false;
-}
-
-uint64_t PAL_RF_GetPhyTime(PAL_RF_HANDLE handle)
-{
-    if (handle != (PAL_RF_HANDLE) & palRfData)
-    {
-        return 0;
-    }
-
-    return SYS_TIME_Counter64Get();
 }
 
 PAL_RF_PIB_RESULT PAL_RF_GetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibObj)

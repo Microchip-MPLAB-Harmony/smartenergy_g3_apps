@@ -266,6 +266,39 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 };
 
 // </editor-fold>
+// <editor-fold defaultstate="collapsed" desc="SRV_USI Instance 0 Initialization Data">
+
+static uint8_t CACHE_ALIGN srvUSI0ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
+static uint8_t CACHE_ALIGN srvUSI0WriteBuffer[SRV_USI0_WR_BUF_SIZE] = {0};
+
+/* Declared in USI USART service implementation (srv_usi_usart.c) */
+extern const SRV_USI_DEV_DESC srvUSIUSARTDevDesc;
+
+const SRV_USI_USART_INTERFACE srvUsi0InitDataSERCOM1 = {
+    .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)SERCOM1_USART_ReadCallbackRegister,
+    .read = (USI_USART_PLIB_WRRD)SERCOM1_USART_Read,
+    .write = (USI_USART_PLIB_WRRD)SERCOM1_USART_Write,
+    .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)SERCOM1_USART_WriteIsBusy,
+    .intSource = SERCOM1_IRQn,
+};
+
+const USI_USART_INIT_DATA srvUsi0InitData = {
+    .plib = (void*)&srvUsi0InitDataSERCOM1,
+    .pRdBuffer = (void*)srvUSI0ReadBuffer,
+    .rdBufferSize = SRV_USI0_RD_BUF_SIZE,
+};
+
+const SRV_USI_INIT srvUSI0Init =
+{
+    .deviceInitData = (const void*)&srvUsi0InitData,
+    .consDevDesc = &srvUSIUSARTDevDesc,
+    .deviceIndex = 0,
+    .pWrBuffer = srvUSI0WriteBuffer,
+    .wrBufferSize = SRV_USI0_WR_BUF_SIZE
+};
+
+
+// </editor-fold>
 
 
 
@@ -545,35 +578,6 @@ static const SYS_TIME_INIT sysTimeInitData =
 };
 
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="SYS_CONSOLE Instance 0 Initialization Data">
-
-
-static const SYS_CONSOLE_UART_PLIB_INTERFACE sysConsole0UARTPlibAPI =
-{
-    .read_t = (SYS_CONSOLE_UART_PLIB_READ)SERCOM1_USART_Read,
-    .readCountGet = (SYS_CONSOLE_UART_PLIB_READ_COUNT_GET)SERCOM1_USART_ReadCountGet,
-    .readFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_READ_FREE_BUFFFER_COUNT_GET)SERCOM1_USART_ReadFreeBufferCountGet,
-    .write_t = (SYS_CONSOLE_UART_PLIB_WRITE)SERCOM1_USART_Write,
-    .writeCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_COUNT_GET)SERCOM1_USART_WriteCountGet,
-    .writeFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_FREE_BUFFER_COUNT_GET)SERCOM1_USART_WriteFreeBufferCountGet,
-};
-
-static const SYS_CONSOLE_UART_INIT_DATA sysConsole0UARTInitData =
-{
-    .uartPLIB = &sysConsole0UARTPlibAPI,
-};
-
-static const SYS_CONSOLE_INIT sysConsole0Init =
-{
-    .deviceInitData = (const void*)&sysConsole0UARTInitData,
-    .consDevDesc = &sysConsoleUARTDevDesc,
-    .deviceIndex = 0,
-};
-
-
-
-// </editor-fold>
-
 /*******************************************************************************
 * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
 *
@@ -628,15 +632,6 @@ __attribute__((ramfunc, long_call, section(".ramfunc"),unique_section)) void PCH
     }
 
 }
-
-
-
-static const SYS_DEBUG_INIT debugInit =
-{
-    .moduleInit = {0},
-    .errorLevel = SYS_DEBUG_GLOBAL_ERROR_LEVEL,
-    .consoleIndex = 0,
-};
 
 
 
@@ -807,21 +802,13 @@ void SYS_Initialize ( void* data )
     PDS_Init(MAX_PDS_ITEMS_COUNT, MAX_PDS_DIRECTORIES_COUNT);
 
 
+    /* Initialize USI Service Instance 0 */
+    sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
 
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
-
-    /* MISRAC 2012 deviation block end */
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
-     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-        sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
-   /* MISRAC 2012 deviation block end */
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
-     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-
-    sysObj.sysDebug = SYS_DEBUG_Initialize(SYS_DEBUG_INDEX_0, (SYS_MODULE_INIT*)&debugInit);
 
     /* MISRAC 2012 deviation block end */
 
