@@ -427,6 +427,7 @@ void APP_PLC_Tasks ( void )
             memset(appPlcTx.pl360Tx.preemphasis, 0, sizeof(appPlcTx.pl360Tx.preemphasis));
             
             /* Set PLC Multiband / Couling Branch flag */
+            appPlcTx.couplingBranch = SRV_PCOUP_Get_Default_Branch();
             if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == NULL) {
                 /* Auxiliary branch is not configured. Single branch */
                 appPlc.plcMultiband = false;
@@ -434,7 +435,6 @@ void APP_PLC_Tasks ( void )
             } else {
                 /* Dual branch */
                 appPlc.plcMultiband = true;
-                appPlcTx.couplingBranch = SRV_PCOUP_Get_Default_Branch();
                 if (appPlcTx.couplingBranch == SRV_PLC_PCOUP_MAIN_BRANCH)
                 {
                     appPlcTx.bin2InUse = false;
@@ -468,6 +468,8 @@ void APP_PLC_Tasks ( void )
                 {
                     drvPlcPhyInitData.binStartAddress = (uint32_t)&plc_phy_bin_start;
                     drvPlcPhyInitData.binEndAddress = (uint32_t)&plc_phy_bin_end;
+                    /* Set Coupling Main branch */
+                    appPlcTx.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
                 }
 
                 /* Initialize PLC Driver Instance */
