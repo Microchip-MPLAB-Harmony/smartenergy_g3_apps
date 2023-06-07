@@ -172,9 +172,9 @@ typedef struct
     
     uint8_t *pDataTx;
     
-	uint8_t txAuto;
+    uint8_t txAuto;
     
-	uint8_t txImpedance;
+    uint8_t txImpedance;
     
     uint8_t toneMapSize;
     

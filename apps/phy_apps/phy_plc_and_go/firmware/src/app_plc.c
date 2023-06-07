@@ -167,7 +167,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
 
     /* Enable CRC calculation for transmission and reception in PLC PHY layer */
     /* In Transmission, 16-bit CRC is computed and added to data payload by PHY layer in PLC device */
-    /* In Reception, CRC is checked by PHY layer in PLC device and the result is reported in uc_crc_ok field in rx_msg_t structure */
+    /* In Reception, CRC is checked by PHY layer in PLC device and the result is reported in crcOk field in DRV_PLC_PHY_RECEPTION_OBJ structure */
     /* The CRC format is the same that uses the G3-PLC stack, which is described in the IEEE 802.15.4 standard. */
     plcCrcEnable = 1;
     pibObj.id = PLC_ID_CRC_TX_RX_CAPABILITY;
@@ -579,7 +579,7 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
     {
         if (appPlc.pvddMonTxEnable)
         {
-            if ((length > 0) && (length <= APP_PLC_BUFFER_SIZE))
+            if ((length > 0) && ((length + 2) <= APP_PLC_BUFFER_SIZE))
             {
                 /* Fill 2 first bytes with data length */
                 /* Physical Layer may add padding bytes in order to complete symbols with data */
@@ -588,7 +588,7 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
                 appPlcTx.pDataTx[1] = length & 0xFF;
 
                 /* Set data length in Tx Parameters structure */
-                /* It should be equal or less than Maximum Data Length (see _get_max_psdu_len) */
+                /* It should be equal or less than Maximum Data Length (see APP_PLC_SetModScheme) */
                 /* Otherwise DRV_PLC_PHY_TX_RESULT_INV_LENGTH will be reported in Tx Confirm */
                 appPlcTx.pl360Tx.dataLength = length + 2;
                 memcpy(appPlcTx.pDataTx + 2, pData, length);

@@ -177,29 +177,29 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
     
     version = (uint8_t)(appPlcTx.pl360PhyVersion >> 16);
 
-	switch (*scheme)
+    switch (*scheme)
     {
-		case '0':
-			modType = MOD_TYPE_BPSK_ROBO;
-			modScheme = MOD_SCHEME_DIFFERENTIAL;
+        case '0':
+            modType = MOD_TYPE_BPSK_ROBO;
+            modScheme = MOD_SCHEME_DIFFERENTIAL;
             APP_CONSOLE_Print("\r\nTx Modulation: BPSK Robust Differential ");
-			break;
+            break;
 
-		case '1':
-			modType = MOD_TYPE_BPSK;
-			modScheme = MOD_SCHEME_DIFFERENTIAL;
+        case '1':
+            modType = MOD_TYPE_BPSK;
+            modScheme = MOD_SCHEME_DIFFERENTIAL;
             APP_CONSOLE_Print("\r\nTx Modulation: BPSK Differential ");
-			break;
+            break;
 
-		case '2':
-			modType = MOD_TYPE_QPSK;
-			modScheme = MOD_SCHEME_DIFFERENTIAL;
+        case '2':
+            modType = MOD_TYPE_QPSK;
+            modScheme = MOD_SCHEME_DIFFERENTIAL;
             APP_CONSOLE_Print("\r\nTx Modulation: QPSK Differential ");
-			break;
+            break;
 
-		case '3':
-			modType = MOD_TYPE_8PSK;
-			modScheme = MOD_SCHEME_DIFFERENTIAL;
+        case '3':
+            modType = MOD_TYPE_8PSK;
+            modScheme = MOD_SCHEME_DIFFERENTIAL;
             if (version == 0x03)
             {
                 APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
@@ -209,11 +209,11 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
             {
                 APP_CONSOLE_Print("\r\nTx Modulation: 8PSK Differential ");
             }
-			break;
+            break;
 
-		case '4':
-			modType = MOD_TYPE_BPSK_ROBO;
-			modScheme = MOD_SCHEME_COHERENT;
+        case '4':
+            modType = MOD_TYPE_BPSK_ROBO;
+            modScheme = MOD_SCHEME_COHERENT;
             if (version == 0x03)
             {
                 APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
@@ -223,11 +223,11 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
             {
                 APP_CONSOLE_Print("\r\nTx Modulation: BPSK Robust Coherent ");
             }
-			break;
+            break;
 
-		case '5':
-			modType = MOD_TYPE_BPSK;
-			modScheme = MOD_SCHEME_COHERENT;
+        case '5':
+            modType = MOD_TYPE_BPSK;
+            modScheme = MOD_SCHEME_COHERENT;
             if (version == 0x03)
             {
                 APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
@@ -237,11 +237,11 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
             {
                 APP_CONSOLE_Print("\r\nTx Modulation: BPSK Coherent ");
             }
-			break;
+            break;
 
-		case '6':
-			modType = MOD_TYPE_QPSK;
-			modScheme = MOD_SCHEME_COHERENT;
+        case '6':
+            modType = MOD_TYPE_QPSK;
+            modScheme = MOD_SCHEME_COHERENT;
             if (version == 0x03)
             {
                 APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
@@ -251,11 +251,11 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
             {
                 APP_CONSOLE_Print("\r\nTx Modulation: QPSK Coherent ");
             }
-			break;
+            break;
 
-		case '7':
-			modType = MOD_TYPE_8PSK;
-			modScheme = MOD_SCHEME_COHERENT;
+        case '7':
+            modType = MOD_TYPE_8PSK;
+            modScheme = MOD_SCHEME_COHERENT;
             if (version == 0x03)
             {
                 APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
@@ -265,11 +265,11 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
             {
                 APP_CONSOLE_Print("\r\nTx Modulation: 8PSK Coherent ");
             }
-			break;
+            break;
 
-		default:
-			result = false;
-	}
+        default:
+            result = false;
+    }
     
     if (result)
     {
@@ -616,26 +616,26 @@ static bool APP_CONSOLE_SetPlcBand(char *mode)
 {
     bool result = false;
 
-	switch (*mode)
+    switch (*mode)
     {
-		case '0':
+        case '0':
             if (appPlcTx.couplingBranch == SRV_PLC_PCOUP_AUXILIARY_BRANCH)
             {
                 appPlcTx.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
                 appPlcTx.bin2InUse = 0;
                 result = true;
             }
-			break;
+            break;
 
-		case '1':
+        case '1':
             if (appPlcTx.couplingBranch == SRV_PLC_PCOUP_MAIN_BRANCH)
             {
                 appPlcTx.couplingBranch = SRV_PLC_PCOUP_AUXILIARY_BRANCH;
                 appPlcTx.bin2InUse = 1;
                 result = true;
             }
-			break;
-	}
+            break;
+    }
 
     return result;
 }
