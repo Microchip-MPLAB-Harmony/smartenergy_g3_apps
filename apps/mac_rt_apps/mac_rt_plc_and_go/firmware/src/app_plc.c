@@ -415,6 +415,7 @@ void APP_PLC_Tasks ( void )
             appPlc.staticNotchingEnable = APP_PLC_STATIC_NOTCHING_ENABLE;
 
             /* Set PLC Multi-band / Coupling Branch flag */
+            appPlc.couplingBranch = SRV_PCOUP_Get_Default_Branch();
             if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == NULL) {
                 /* Auxiliary branch is not configured. Single branch */
                 appPlc.plcMultiband = false;
@@ -422,7 +423,6 @@ void APP_PLC_Tasks ( void )
             } else {
                 /* Dual branch */
                 appPlc.plcMultiband = true;
-                appPlc.couplingBranch = SRV_PCOUP_Get_Default_Branch();
                 if (appPlc.couplingBranch == SRV_PLC_PCOUP_MAIN_BRANCH)
                 {
                     appPlc.bin2InUse = false;
@@ -456,6 +456,8 @@ void APP_PLC_Tasks ( void )
                 {
                     drvG3MacRtInitData.binStartAddress = (uint32_t)&g3_mac_rt_bin_start;
                     drvG3MacRtInitData.binEndAddress = (uint32_t)&g3_mac_rt_bin_end;
+                    /* Set Coupling Main branch */
+                    appPlc.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
                 }
 
                 /* Initialize PLC Driver Instance */
