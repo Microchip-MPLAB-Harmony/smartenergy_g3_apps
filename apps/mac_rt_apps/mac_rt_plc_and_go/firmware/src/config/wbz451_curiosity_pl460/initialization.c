@@ -162,8 +162,24 @@
 /* MISRA C-2012 Rule 11.1 */
 /* MISRA C-2012 Rule 11.3 */
 /* MISRA C-2012 Rule 11.8 */
-// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 
+// <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
+/* This routine should initialize the PL460 control pins as soon as possible */
+/* after a power up reset to avoid risks on starting up PL460 device when */
+/* pull up resistors are configured by default */
+void _on_reset(void)
+{
+
+    /* Enable Reset Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
+    SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
+    /* Disable LDO Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
+    SYS_PORT_PinClear(DRV_PLC_LDO_EN_PIN);
+}
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 /* HAL Interface Initialization for PLC transceiver */
 DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 

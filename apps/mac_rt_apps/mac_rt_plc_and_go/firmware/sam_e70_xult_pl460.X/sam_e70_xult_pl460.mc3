@@ -1,4 +1,4 @@
-<config configName="sam_e70_xult_pl460" projectName="g3_mac_rt_plc_and_go_sam_e70_xult_pl460" configVersion="1.1" device="ATSAME70Q21B" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.14">
+<config configName="sam_e70_xult_pl460" projectName="g3_mac_rt_plc_and_go_sam_e70_xult_pl460" configVersion="1.1" device="ATSAME70Q21B" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.7">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -422,8 +422,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;555&quot; canvasWidth=&quot;786&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E70_Xplained_Ultra&quot; x=&quot;0&quot; y=&quot;49&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;315&quot; y=&quot;93&quot;/&gt;
@@ -445,6 +444,7 @@
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;usb_device_cdc&quot; x=&quot;0&quot; y=&quot;316&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;555&quot; canvasWidth=&quot;786&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -6194,7 +6194,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\configuration.h</file>
-         <hash>f3405b27c700fbe051edcb415261b2da7421313b8dd5d43dd54563a0d4442d59</hash>
+         <hash>324e800d9c452313487e1fff32445c5d6f3cd30c640fe567e2cd4f4055bddac8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\usb\usbhsv1\src\drv_usbhsv1_variant_mapping.h</file>
@@ -6230,7 +6230,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\initialization.c</file>
-         <hash>6fece146d95e408f7e2793558ddb2793102bb298bd773f8ca4a13d5334b60c5f</hash>
+         <hash>8f4488645d419ca521ab4565583610a0071283042e7acc72f0e40d1bf7726ed9</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\mcan.h</file>
@@ -6422,7 +6422,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\definitions.h</file>
-         <hash>c1cf7368b9c930bb284c1932b45d45db93c760b4f89533a101452e72cfaa66ac</hash>
+         <hash>d94ed36dac63419075d0e16b44223289b6916b3a37f5c0d0eb0dfb04bd39ecfe</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\bsp\bsp.c</file>

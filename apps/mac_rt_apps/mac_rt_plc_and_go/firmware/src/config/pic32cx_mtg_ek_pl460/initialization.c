@@ -70,8 +70,38 @@
 /* MISRA C-2012 Rule 11.1 */
 /* MISRA C-2012 Rule 11.3 */
 /* MISRA C-2012 Rule 11.8 */
-// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 
+// <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
+/* This routine should initialize the PL460 control pins as soon as possible */
+/* after a power up reset to avoid risks on starting up PL460 device when */
+/* pull up resistors are configured by default */
+void _on_reset(void)
+{
+    CLK_Core1BusMasterClkEnable();
+    PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
+    while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == false)
+    {
+        /* Wait for clock to be initialized */
+    }
+    PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOD);
+    while((PMC_REGS->PMC_CSR2 & PMC_CSR2_PID85_Msk) == false)
+    {
+        /* Wait for clock to be initialized */
+    }
+
+    /* Enable Reset Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
+    SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
+    /* Disable STBY Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_STBY_PIN);
+    SYS_PORT_PinClear(DRV_PLC_STBY_PIN);
+    /* Disable LDO Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
+    SYS_PORT_PinClear(DRV_PLC_LDO_EN_PIN);
+}
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 /* HAL Interface Initialization for PLC transceiver */
 DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
@@ -84,31 +114,31 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI Write/Read */
     .spiWriteRead = FLEXCOM5_SPI_WriteRead,
 
-    
+
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-    
+
     /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN, 
-    
+    .ldoPin = DRV_PLC_LDO_EN_PIN,
+
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
-       
+
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
-       
+
     /* PLC External Interrupt Pio */
     .extIntPio = DRV_PLC_EXT_INT_PIO,
 
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
-    
+
     /* PLC StandBy Pin */
     .stByPin = DRV_PLC_STBY_PIN,
-    
+
     /* PLC External Interrupt Pin */
     .thMonPin = DRV_PLC_THMON_PIN,
-    
+
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -128,16 +158,16 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC Set StandBy Mode */
     .setStandBy = (DRV_PLC_HAL_SET_STBY)DRV_PLC_HAL_SetStandBy,
-    
+
     /* PLC Get Thermal Monitor value */
     .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,
-    
+
     /* PLC Set TX Enable Pin */
     .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
 
@@ -165,16 +195,16 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 
     /* SPI PLIB API interface*/
     .plcHal = &drvPLCHalAPI,
- 
+
     /* PLC MAC RT Binary start address */
     .binStartAddress = (uint32_t)&g3_mac_rt_bin_start,
-    
+
     /* PLC MAC RT Binary end address */
     .binEndAddress = (uint32_t)&g3_mac_rt_bin_end,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
-    
+
 };
 
 // </editor-fold>
@@ -280,7 +310,7 @@ void SYS_Initialize ( void* data )
     SEFC0_Initialize();
 
     SEFC1_Initialize();
-  
+
     DWDT_Initialize();
     CLK_Initialize();
     RSTC_Initialize();
@@ -295,10 +325,10 @@ void SYS_Initialize ( void* data )
     ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
- 
-    TC0_CH0_TimerInitialize(); 
-     
-    
+
+    TC0_CH0_TimerInitialize();
+
+
     FLEXCOM0_USART_Initialize();
 
 
@@ -315,13 +345,13 @@ void SYS_Initialize ( void* data )
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
 
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-        
+
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
-    
+
     /* MISRAC 2012 deviation block end */
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
      H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
         sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
    /* MISRAC 2012 deviation block end */

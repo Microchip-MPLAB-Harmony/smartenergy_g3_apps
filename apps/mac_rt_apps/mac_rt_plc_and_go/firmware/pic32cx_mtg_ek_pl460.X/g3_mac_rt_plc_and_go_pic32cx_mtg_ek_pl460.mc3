@@ -1,4 +1,4 @@
-<config configName="pic32cx_mtg_ek_pl460" projectName="g3_mac_rt_plc_and_go_pic32cx_mtg_ek_pl460" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.14">
+<config configName="pic32cx_mtg_ek_pl460" projectName="g3_mac_rt_plc_and_go_pic32cx_mtg_ek_pl460" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.7">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -4037,8 +4037,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;485&quot; canvasWidth=&quot;666&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_PIC32CXMTG_Evaluation_Kit&quot; x=&quot;0&quot; y=&quot;33&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;0&quot; y=&quot;72&quot;/&gt;
@@ -4048,7 +4047,7 @@
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;dfp&quot; x=&quot;0&quot; y=&quot;6&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvG3MacRt&quot; x=&quot;148&quot; y=&quot;323&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;flexcom0&quot; x=&quot;321&quot; y=&quot;253&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;flexcom5&quot; x=&quot;0&quot; y=&quot;373&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;flexcom5&quot; x=&quot;0&quot; y=&quot;391&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;sefc0&quot; x=&quot;301&quot; y=&quot;8&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;sefc1&quot; x=&quot;432&quot; y=&quot;9&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;srv_pcoup&quot; x=&quot;0&quot; y=&quot;298&quot;/&gt;
@@ -4059,6 +4058,7 @@
         &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;trng&quot; x=&quot;302&quot; y=&quot;96&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;485&quot; canvasWidth=&quot;666&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -21211,7 +21211,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\initialization.c</file>
-         <hash>c4a33bd3e5315ed25c6658a1a3038dd03a52b49465dbe55008b263e5fb0599a0</hash>
+         <hash>f0e2eb04a77cce9260bbe401f04531b58511b121f8f9aa3448aac0e88f206856</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\aesb.h</file>
@@ -21355,7 +21355,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\definitions.h</file>
-         <hash>ae9db2dbb5ca7c66c33d2070df4efb260bfd3c986ffc32febed21df70e4d3a9d</hash>
+         <hash>fa2bdafe2be0983739bbd63cc7dafdf8dc22af62108d129fcc40820f168f8624</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\core_cm4.h</file>
