@@ -90,7 +90,6 @@ APP_PLC_DATA appPlc;
 APP_PLC_DATA_TX appPlcTx;
 
 static CACHE_ALIGN uint8_t appPlcTxFrameBuffer[CACHE_ALIGNED_SIZE_GET(MAC_RT_DATA_MAX_SIZE)];
-static CACHE_ALIGN uint8_t appPlcRxFrameBuffer[CACHE_ALIGNED_SIZE_GET(MAC_RT_DATA_MAX_SIZE)];
 
 static void APP_PLC_SetInitialConfiguration ( void )
 {
@@ -333,7 +332,6 @@ void APP_PLC_WBZ451_Initialize ( void )
 {
     /* Init PLC data buffers */
     appPlcTx.pTxFrame = appPlcTxFrameBuffer;
-    appPlcTx.pRxFrame = appPlcRxFrameBuffer;
     
     /* Set PLC state */
     appPlc.state = APP_PLC_STATE_IDLE;

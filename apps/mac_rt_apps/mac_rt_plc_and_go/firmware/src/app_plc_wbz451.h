@@ -184,8 +184,6 @@ typedef struct
 {    
     uint8_t *pTxFrame;
     
-    uint8_t *pRxFrame;
-    
     MAC_RT_HEADER txHeader;
     
     MAC_RT_RX_PARAMETERS_OBJ rxParams;
