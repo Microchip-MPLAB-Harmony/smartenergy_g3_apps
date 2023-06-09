@@ -72,7 +72,7 @@ extern "C" {
 #define APP_PLC_PIB_BUFFER_SIZE                   256
     
 /* Each carrier corresponding to the band can be notched (no energy is sent in those carriers) */
-/* Each carrier is represented by one bit (1: carrier used; 0: carrier notched). By default it is all 1's in PL360 device */
+/* Each carrier is represented by one bit (1: carrier used; 0: carrier notched). By default it is all 1's in the PLC device */
 /* The length is the max number of carriers of the broadest band, this is 72 bits (9 bytes), where only the number of carriers in band is used, in this case 72 (FCC) */
 /* The same Tone Mask must be set in both transmitter and receiver. Otherwise they don't understand each other */
 #define APP_PLC_STATIC_NOTCHING_ENABLE                0    
@@ -154,7 +154,7 @@ typedef struct
     
     volatile bool tmr2Expired;
     
-    DRV_HANDLE drvPl360Handle;
+    DRV_HANDLE drvPlcHandle;
     
     bool plcMultiband;
     

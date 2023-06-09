@@ -175,7 +175,7 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
     bool result = true;
     uint8_t version;
     
-    version = (uint8_t)(appPlcTx.pl360PhyVersion >> 16);
+    version = (uint8_t)(appPlcTx.plcPhyVersion >> 16);
 
     switch (*scheme)
     {
@@ -285,45 +285,45 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
     uint8_t index;
     uint8_t version;
 
-    version = (uint8_t)(appPlcTx.pl360PhyVersion >> 16);
+    version = (uint8_t)(appPlcTx.plcPhyVersion >> 16);
 
     APP_CONSOLE_Print("\r\n--- Tx Modulation Configuration Menu ---\r\n");
     APP_CONSOLE_Print("Select Modulation:\r\n");
     
-    if (appPlcTx.pl360Tx.modScheme == MOD_SCHEME_DIFFERENTIAL)
+    if (appPlcTx.plcPhyTx.modScheme == MOD_SCHEME_DIFFERENTIAL)
     {
-        if (appPlcTx.pl360Tx.modType == MOD_TYPE_BPSK_ROBO)
+        if (appPlcTx.plcPhyTx.modType == MOD_TYPE_BPSK_ROBO)
         {
             schemeMenu = 0;
         }
-        else if (appPlcTx.pl360Tx.modType == MOD_TYPE_BPSK)
+        else if (appPlcTx.plcPhyTx.modType == MOD_TYPE_BPSK)
         {
             schemeMenu = 1;
         }
-        else if (appPlcTx.pl360Tx.modType == MOD_TYPE_QPSK)
+        else if (appPlcTx.plcPhyTx.modType == MOD_TYPE_QPSK)
         {
             schemeMenu = 2;
         }
-        else if (appPlcTx.pl360Tx.modType == MOD_TYPE_8PSK)
+        else if (appPlcTx.plcPhyTx.modType == MOD_TYPE_8PSK)
         {
             schemeMenu = 3;
         }
     }
     else
     {   /* MOD_SCHEME_COHERENT */
-        if (appPlcTx.pl360Tx.modType == MOD_TYPE_BPSK_ROBO)
+        if (appPlcTx.plcPhyTx.modType == MOD_TYPE_BPSK_ROBO)
         {
             schemeMenu = 4;
         }
-        else if (appPlcTx.pl360Tx.modType == MOD_TYPE_BPSK)
+        else if (appPlcTx.plcPhyTx.modType == MOD_TYPE_BPSK)
         {
             schemeMenu = 5;
         }
-        else if (appPlcTx.pl360Tx.modType == MOD_TYPE_QPSK)
+        else if (appPlcTx.plcPhyTx.modType == MOD_TYPE_QPSK)
         {
             schemeMenu = 6;
         }
-        else if (appPlcTx.pl360Tx.modType == MOD_TYPE_8PSK)
+        else if (appPlcTx.plcPhyTx.modType == MOD_TYPE_8PSK)
         {
             schemeMenu = 7;
         }
@@ -354,7 +354,16 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
                     case 2:
                         /* FCC */
-                        APP_CONSOLE_Print("35.6 kbit/s\r\n");
+                        if (appPlcTx.plcPhyTx.rs2Blocks == 0)
+                        {
+                            /* 1 Reed-Solomon block */
+                            APP_CONSOLE_Print("34 kbit/s\r\n");
+                        }
+                        else
+                        {
+                            /* 2 Reed-Solomon blocks */
+                            APP_CONSOLE_Print("35.6 kbit/s\r\n");
+                        }
                         break;
 
                     case 3:
@@ -381,7 +390,16 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
                     case 2:
                         /* FCC */
-                        APP_CONSOLE_Print("122 kbit/s\r\n");
+                        if (appPlcTx.plcPhyTx.rs2Blocks == 0)
+                        {
+                            /* 1 Reed-Solomon block */
+                            APP_CONSOLE_Print("105.3 kbit/s\r\n");
+                        }
+                        else
+                        {
+                            /* 2 Reed-Solomon blocks */
+                            APP_CONSOLE_Print("122 kbit/s\r\n");
+                        }
                         break;
 
                     case 3:
@@ -408,7 +426,16 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
                     case 2:
                         /* FCC */
-                        APP_CONSOLE_Print("210.6 kbit/s\r\n");
+                        if (appPlcTx.plcPhyTx.rs2Blocks == 0)
+                        {
+                            /* 1 Reed-Solomon block */
+                            APP_CONSOLE_Print("165.1 kbit/s\r\n");
+                        }
+                        else
+                        {
+                            /* 2 Reed-Solomon blocks */
+                            APP_CONSOLE_Print("210.6 kbit/s\r\n");
+                        }
                         break;
 
                     case 3:
@@ -435,7 +462,16 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
                     case 2:
                         /* FCC */
-                        APP_CONSOLE_Print("279.8 kbit/s\r\n");
+                        if (appPlcTx.plcPhyTx.rs2Blocks == 0)
+                        {
+                            /* 1 Reed-Solomon block */
+                            APP_CONSOLE_Print("205.9 kbit/s\r\n");
+                        }
+                        else
+                        {
+                            /* 2 Reed-Solomon blocks */
+                            APP_CONSOLE_Print("279.8 kbit/s\r\n");
+                        }
                         break;
 
                     case 4:
@@ -457,7 +493,16 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
                     case 2:
                         /* FCC */
-                        APP_CONSOLE_Print("32.8 kbit/s\r\n");
+                        if (appPlcTx.plcPhyTx.rs2Blocks == 0)
+                        {
+                            /* 1 Reed-Solomon block */
+                            APP_CONSOLE_Print("31.2 kbit/s\r\n");
+                        }
+                        else
+                        {
+                            /* 2 Reed-Solomon blocks */
+                            APP_CONSOLE_Print("32.8 kbit/s\r\n");
+                        }
                         break;
 
                     case 4:
@@ -479,7 +524,16 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
                     case 2:
                         /* FCC */
-                        APP_CONSOLE_Print("112 kbit/s\r\n");
+                        if (appPlcTx.plcPhyTx.rs2Blocks == 0)
+                        {
+                            /* 1 Reed-Solomon block */
+                            APP_CONSOLE_Print("96.6 kbit/s\r\n");
+                        }
+                        else
+                        {
+                            /* 2 Reed-Solomon blocks */
+                            APP_CONSOLE_Print("112 kbit/s\r\n");
+                        }
                         break;
 
                     case 4:
@@ -501,7 +555,16 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
                     case 2:
                         /* FCC */
-                        APP_CONSOLE_Print("194 kbit/s\r\n");
+                        if (appPlcTx.plcPhyTx.rs2Blocks == 0)
+                        {
+                            /* 1 Reed-Solomon block */
+                            APP_CONSOLE_Print("152.3 kbit/s\r\n");
+                        }
+                        else
+                        {
+                            /* 2 Reed-Solomon blocks */
+                            APP_CONSOLE_Print("194 kbit/s\r\n");
+                        }
                         break;
 
                     case 4:
@@ -523,7 +586,16 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
                     case 2:
                         /* FCC */
-                        APP_CONSOLE_Print("252.1 kbit/s\r\n");
+                        if (appPlcTx.plcPhyTx.rs2Blocks == 0)
+                        {
+                            /* 1 Reed-Solomon block */
+                            APP_CONSOLE_Print("184.2 kbit/s\r\n");
+                        }
+                        else
+                        {
+                            /* 2 Reed-Solomon blocks */
+                            APP_CONSOLE_Print("252.1 kbit/s\r\n");
+                        }
                         break;
 
                     case 4:
@@ -712,27 +784,26 @@ void APP_CONSOLE_Tasks ( void )
                 APP_CONSOLE_Print(STRING_HEADER);
             
                 /* Show PHY version */
-                APP_CONSOLE_Print("PL360 binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x", 
-                        (uint8_t)(appPlcTx.pl360PhyVersion >> 24), (uint8_t)(appPlcTx.pl360PhyVersion >> 16),
-                        (uint8_t)(appPlcTx.pl360PhyVersion >> 8), (uint8_t)(appPlcTx.pl360PhyVersion));
+                APP_CONSOLE_Print("PLC PHY binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x", 
+                        (uint8_t)(appPlcTx.plcPhyVersion >> 24), (uint8_t)(appPlcTx.plcPhyVersion >> 16),
+                        (uint8_t)(appPlcTx.plcPhyVersion >> 8), (uint8_t)(appPlcTx.plcPhyVersion));
                 
-                /* Set PLC Phy Tone Map Size */
-                if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x01)
+                if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x01)
                 {
                     /* Show PHY Band */
                     APP_CONSOLE_Print("(CENELEC-A band: 35 - 91 kHz)\r\n");
                 }
-                else if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x02)
+                else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x02)
                 {
                     /* Show PHY Band */
                     APP_CONSOLE_Print("(FCC band: 154 - 488 kHz)\r\n");
                 }
-                else if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x03)
+                else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x03)
                 {
                     /* Show PHY Band */
                     APP_CONSOLE_Print("(ARIB band: 154 - 404 kHz)\r\n");
                 }
-                else if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x04)
+                else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x04)
                 {
                     /* Show PHY Band */
                     APP_CONSOLE_Print("(CENELEC-B band: 98 - 122 kHz)\r\n");

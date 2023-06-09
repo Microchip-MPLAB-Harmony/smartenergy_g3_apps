@@ -516,7 +516,7 @@ void APP_CONSOLE_Tasks ( void )
                 APP_CONSOLE_Print(STRING_HEADER);
             
                 /* Show PHY version */
-                APP_CONSOLE_Print("PL360 binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x", 
+                APP_CONSOLE_Print("G3-PLC MAC-RT binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x", 
                         (uint8_t)(appPlc.phyVersion >> 24), (uint8_t)(appPlc.phyVersion >> 16),
                         (uint8_t)(appPlc.phyVersion >> 8), (uint8_t)(appPlc.phyVersion));
                 

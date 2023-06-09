@@ -181,7 +181,7 @@ static bool APP_CONSOLE_SetAttenuationLevel(char *level)
             attLevel += attLevelHex;
 
             if ((attLevel <= 0x1F) || (attLevel == 0xFF)) {
-                appPlcTx.pl360Tx.attenuation = attLevel;
+                appPlcTx.plcPhyTx.attenuation = attLevel;
                 return true;
             }
         }
@@ -197,43 +197,43 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
 	switch (*scheme)
     {
 		case '0':
-			appPlcTx.pl360Tx.modType = MOD_TYPE_BPSK;
-			appPlcTx.pl360Tx.modScheme = MOD_SCHEME_DIFFERENTIAL;
+			appPlcTx.plcPhyTx.modType = MOD_TYPE_BPSK;
+			appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_DIFFERENTIAL;
 			break;
 
 		case '1':
-			appPlcTx.pl360Tx.modType = MOD_TYPE_QPSK;
-			appPlcTx.pl360Tx.modScheme = MOD_SCHEME_DIFFERENTIAL;
+			appPlcTx.plcPhyTx.modType = MOD_TYPE_QPSK;
+			appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_DIFFERENTIAL;
 			break;
 
 		case '2':
-			appPlcTx.pl360Tx.modType = MOD_TYPE_8PSK;
-			appPlcTx.pl360Tx.modScheme = MOD_SCHEME_DIFFERENTIAL;
+			appPlcTx.plcPhyTx.modType = MOD_TYPE_8PSK;
+			appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_DIFFERENTIAL;
 			break;
 
 		case '3':
-			appPlcTx.pl360Tx.modType = MOD_TYPE_BPSK_ROBO;
-			appPlcTx.pl360Tx.modScheme = MOD_SCHEME_DIFFERENTIAL;
+			appPlcTx.plcPhyTx.modType = MOD_TYPE_BPSK_ROBO;
+			appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_DIFFERENTIAL;
 			break;
 
 		case '4':
-			appPlcTx.pl360Tx.modType = MOD_TYPE_BPSK;
-			appPlcTx.pl360Tx.modScheme = MOD_SCHEME_COHERENT;
+			appPlcTx.plcPhyTx.modType = MOD_TYPE_BPSK;
+			appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_COHERENT;
 			break;
 
 		case '5':
-			appPlcTx.pl360Tx.modType = MOD_TYPE_QPSK;
-			appPlcTx.pl360Tx.modScheme = MOD_SCHEME_COHERENT;
+			appPlcTx.plcPhyTx.modType = MOD_TYPE_QPSK;
+			appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_COHERENT;
 			break;
 
 		case '6':
-			appPlcTx.pl360Tx.modType = MOD_TYPE_8PSK;
-			appPlcTx.pl360Tx.modScheme = MOD_SCHEME_COHERENT;
+			appPlcTx.plcPhyTx.modType = MOD_TYPE_8PSK;
+			appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_COHERENT;
 			break;
 
 		case '7':
-			appPlcTx.pl360Tx.modType = MOD_TYPE_BPSK_ROBO;
-			appPlcTx.pl360Tx.modScheme = MOD_SCHEME_COHERENT;
+			appPlcTx.plcPhyTx.modType = MOD_TYPE_BPSK_ROBO;
+			appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_COHERENT;
 			break;
 
 		default:
@@ -249,13 +249,13 @@ static bool APP_CONSOLE_SetTransmissionPeriod(char *pTime, size_t length)
     uint8_t tmpValue;
     bool result = false;
 
-    appPlcTx.pl360Tx.time = 0;
+    appPlcTx.plcPhyTx.time = 0;
 
     for(index = length - 1; index > 0; index--)
     {
         if ((*pTime >= '0') && (*pTime <= '9')) {
 				tmpValue = (*pTime - 0x30);
-                appPlcTx.pl360Tx.time += (uint32_t)pow(10, index) * tmpValue;
+                appPlcTx.plcPhyTx.time += (uint32_t)pow(10, index) * tmpValue;
                 pTime++;
 
                 result = true;
@@ -277,7 +277,7 @@ static bool APP_CONSOLE_SetDataLength(char *pDataLength, size_t length)
     uint8_t tmpValue;
     bool result = false;
 
-    appPlcTx.pl360Tx.dataLength = 0;
+    appPlcTx.plcPhyTx.dataLength = 0;
 
     for (index = length; index > 0; index--)
     {
@@ -296,7 +296,7 @@ static bool APP_CONSOLE_SetDataLength(char *pDataLength, size_t length)
     
     if (result & (dataLength < APP_PLC_BUFFER_SIZE))
     {
-        appPlcTx.pl360Tx.dataLength = dataLength;
+        appPlcTx.plcPhyTx.dataLength = dataLength;
     }
 
     return result;
@@ -309,8 +309,8 @@ static bool APP_CONSOLE_SetDataMode(char *mode)
     uint32_t dataValue;
     bool result = true;
 
-    length = appPlcTx.pl360Tx.dataLength;
-    pData = appPlcTx.pl360Tx.pTransmitData;
+    length = appPlcTx.plcPhyTx.dataLength;
+    pData = appPlcTx.plcPhyTx.pTransmitData;
 
 	switch (*mode)
     {
@@ -392,7 +392,7 @@ static bool APP_CONSOLE_SetToneMap(char *toneMap, size_t length)
     if (result)
     {
         /* Validate New Tone Map */
-        if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x01)
+        if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x01)
         {
             /* CENA(01 - 3F) */
             if (newToneMap[0] > 0x3F)
@@ -400,7 +400,7 @@ static bool APP_CONSOLE_SetToneMap(char *toneMap, size_t length)
                 result = false;
             }
         }
-        else if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x04)
+        else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x04)
         {
             /* CENB(01 - 0F) */
             if (newToneMap[0] > 0x0F)
@@ -413,7 +413,7 @@ static bool APP_CONSOLE_SetToneMap(char *toneMap, size_t length)
     if (result)
     {
         /* Update Tone Map */
-        memcpy(appPlcTx.pl360Tx.toneMap, newToneMap, TONE_MAP_SIZE_MAX);
+        memcpy(appPlcTx.plcPhyTx.toneMap, newToneMap, TONE_MAP_SIZE_MAX);
     }
 
     return result;
@@ -473,21 +473,21 @@ static void APP_CONSOLE_ShowConfiguration(void)
     uint8_t index;
 
     APP_CONSOLE_Print("\n\r-- Configuration Info --------------\r\n");
-    APP_CONSOLE_Print("-I- PHY Version: 0x%08X\n\r", (unsigned int)appPlcTx.pl360PhyVersion);
+    APP_CONSOLE_Print("-I- PHY Version: 0x%08X\n\r", (unsigned int)appPlcTx.plcPhyVersion);
 
-    if (appPlcTx.pl360Tx.attenuation == 0xFF)
+    if (appPlcTx.plcPhyTx.attenuation == 0xFF)
     {
         APP_CONSOLE_Print("-I- TX Attenuation: 0xFF (no signal)\n\r");
     }
     else
     {
-        APP_CONSOLE_Print("-I- TX Attenuation: 0x%02X\n\r", (unsigned int)appPlcTx.pl360Tx.attenuation);
+        APP_CONSOLE_Print("-I- TX Attenuation: 0x%02X\n\r", (unsigned int)appPlcTx.plcPhyTx.attenuation);
     }
 
-    switch (appPlcTx.pl360Tx.modType)
+    switch (appPlcTx.plcPhyTx.modType)
     {
         case MOD_TYPE_BPSK:
-            if (appPlcTx.pl360Tx.modScheme)
+            if (appPlcTx.plcPhyTx.modScheme)
             {
                 APP_CONSOLE_Print("-I- Modulation Scheme: Coherent BPSK \n\r");
             }
@@ -498,7 +498,7 @@ static void APP_CONSOLE_ShowConfiguration(void)
 		break;
 
         case MOD_TYPE_QPSK:
-            if (appPlcTx.pl360Tx.modScheme)
+            if (appPlcTx.plcPhyTx.modScheme)
             {
                 APP_CONSOLE_Print("-I- Modulation Scheme: Coherent QPSK \n\r");
             }
@@ -509,7 +509,7 @@ static void APP_CONSOLE_ShowConfiguration(void)
             break;
 
         case MOD_TYPE_8PSK:
-            if (appPlcTx.pl360Tx.modScheme)
+            if (appPlcTx.plcPhyTx.modScheme)
             {
                 APP_CONSOLE_Print("-I- Modulation Scheme: Coherent 8PSK \n\r");
             }
@@ -520,7 +520,7 @@ static void APP_CONSOLE_ShowConfiguration(void)
             break;
 
         case MOD_TYPE_BPSK_ROBO:
-            if (appPlcTx.pl360Tx.modScheme)
+            if (appPlcTx.plcPhyTx.modScheme)
             {
                 APP_CONSOLE_Print("-I- Modulation Scheme: Coherent Robust\n\r");
             }
@@ -536,7 +536,7 @@ static void APP_CONSOLE_ShowConfiguration(void)
 
     APP_CONSOLE_Print("-I- Tone Map: ");
 	for (index = 0; index < appPlcTx.toneMapSize; index++) {
-		APP_CONSOLE_Print("%02X", appPlcTx.pl360Tx.toneMap[index]);
+		APP_CONSOLE_Print("%02X", appPlcTx.plcPhyTx.toneMap[index]);
 	}
 	APP_CONSOLE_Print("\r\n");
 
@@ -558,10 +558,10 @@ static void APP_CONSOLE_ShowConfiguration(void)
 		APP_CONSOLE_Print("Very Low Impedance \r\n");
 	}
 
-	APP_CONSOLE_Print("-I- Time Period: %u\n\r", (unsigned int)appPlcTx.pl360Tx.time);
-	APP_CONSOLE_Print("-I- Data Len: %u\n\r", (unsigned int)appPlcTx.pl360Tx.dataLength);
+	APP_CONSOLE_Print("-I- Time Period: %u\n\r", (unsigned int)appPlcTx.plcPhyTx.time);
+	APP_CONSOLE_Print("-I- Data Len: %u\n\r", (unsigned int)appPlcTx.plcPhyTx.dataLength);
 
-	if (appPlcTx.pl360Tx.pTransmitData[0] == 0x30)
+	if (appPlcTx.plcPhyTx.pTransmitData[0] == 0x30)
     {
 		APP_CONSOLE_Print("-I- Fixed Data\r\n");
 	}
@@ -644,17 +644,17 @@ void APP_CONSOLE_Tasks ( void )
             if (appPlc.state == APP_PLC_STATE_WAITING)
             {
                 /* Set PLC Phy Tone Map Size */
-                if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x01)
+                if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x01)
                 {
                     /* CENA(01 - 3F) */
                     appPlcTx.toneMapSize = 1;
                 }
-                else if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x02)
+                else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x02)
                 {
                     /* FCC(000001 - FFFFFF) */
                     appPlcTx.toneMapSize = 3;
                 }
-                else if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x04)
+                else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x04)
                 {
                     /* CENB(01 - 0F) */
                     appPlcTx.toneMapSize = 1;
@@ -716,19 +716,19 @@ void APP_CONSOLE_Tasks ( void )
                         break;
 
                     case '4':
-                        if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x01)
+                        if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x01)
                         {
                             APP_CONSOLE_Print("\r\nEnter enter value for tone map. CENA(01 - 3F) : ");
                             appPlcTx.toneMapSize = 1;
                             APP_CONSOLE_ReadRestart(2);
                         }
-                        else if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x02)
+                        else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x02)
                         {
                             APP_CONSOLE_Print("\r\nEnter enter value for tone map. FCC(000001 - FFFFFF) : ");
                             appPlcTx.toneMapSize = 3;
                             APP_CONSOLE_ReadRestart(6);
                         }
-                        else if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x04)
+                        else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x04)
                         {
                             APP_CONSOLE_Print("\r\nEnter enter value for tone map. CENB(01 - 0F) : ");
                             appPlcTx.toneMapSize = 1;
@@ -841,7 +841,7 @@ void APP_CONSOLE_Tasks ( void )
                 if (APP_CONSOLE_SetAttenuationLevel(appConsole.pReceivedChar))
                 {
                     APP_CONSOLE_Print("\r\nSet Attenuation level = 0x%02x\r\n",
-                            (unsigned int)appPlcTx.pl360Tx.attenuation);
+                            (unsigned int)appPlcTx.plcPhyTx.attenuation);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_MENU;
                 }
                 else
@@ -861,8 +861,8 @@ void APP_CONSOLE_Tasks ( void )
                 if (APP_CONSOLE_SetScheme(appConsole.pReceivedChar))
                 {
                     APP_CONSOLE_Print("\r\nSet Type: %u, Scheme: %u \r\n",
-                            (unsigned int)appPlcTx.pl360Tx.modType,
-                            (unsigned int)appPlcTx.pl360Tx.modScheme);
+                            (unsigned int)appPlcTx.plcPhyTx.modType,
+                            (unsigned int)appPlcTx.plcPhyTx.modScheme);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_MENU;
                 }
                 else
@@ -882,7 +882,7 @@ void APP_CONSOLE_Tasks ( void )
                 if (APP_CONSOLE_SetTransmissionPeriod(appConsole.pReceivedChar, appConsole.dataLength))
                 {
                     APP_CONSOLE_Print("\r\nSet Time Period = %u us.\r\n",
-                            (unsigned int)appPlcTx.pl360Tx.time);
+                            (unsigned int)appPlcTx.plcPhyTx.time);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_MENU;
                 }
                 else
@@ -902,7 +902,7 @@ void APP_CONSOLE_Tasks ( void )
                 if (APP_CONSOLE_SetDataLength(appConsole.pReceivedChar, appConsole.dataLength))
                 {
                     APP_CONSOLE_Print("\r\nSet Data Length = %u bytes\r\n",
-                            (unsigned int)appPlcTx.pl360Tx.dataLength);
+                            (unsigned int)appPlcTx.plcPhyTx.dataLength);
 
                     /* Set Data content */
                     APP_CONSOLE_Print(MENU_DATA_MODE);
@@ -947,14 +947,14 @@ void APP_CONSOLE_Tasks ( void )
                     if (appPlcTx.toneMapSize == 3)
                     {
                         APP_CONSOLE_Print("\r\nSet ToneMap: %02x%02x%02x \r\n",
-                            (unsigned int)appPlcTx.pl360Tx.toneMap[0],
-                            (unsigned int)appPlcTx.pl360Tx.toneMap[1],
-                            (unsigned int)appPlcTx.pl360Tx.toneMap[2]);
+                            (unsigned int)appPlcTx.plcPhyTx.toneMap[0],
+                            (unsigned int)appPlcTx.plcPhyTx.toneMap[1],
+                            (unsigned int)appPlcTx.plcPhyTx.toneMap[2]);
                     }
                     else
                     {
                         APP_CONSOLE_Print("\r\nSet ToneMap: %02X \r\n",
-                            (unsigned int)appPlcTx.pl360Tx.toneMap[0]);
+                            (unsigned int)appPlcTx.plcPhyTx.toneMap[0]);
                     }
                     appConsole.state = APP_CONSOLE_STATE_SHOW_MENU;
                 }

@@ -196,7 +196,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
-        DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, false);
+        DRV_PLC_PHY_EnableTX(appPlc.drvPlcHandle, false);
         appPlc.pvddMonTxEnable = false;
         /* Restart PVDD Monitor to check when VDD is within the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
@@ -204,7 +204,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     else
     {
         /* PLC Transmission is permitted again */
-        DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, true);
+        DRV_PLC_PHY_EnableTX(appPlc.drvPlcHandle, true);
         appPlc.pvddMonTxEnable = true;
         /* Restart PVDD Monitor to check when VDD is out of the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
@@ -233,7 +233,7 @@ void APP_PLC_Initialize ( void )
     appPlc.plcPIB.pData = appPlcPibDataBuffer;
 
     /* Init PLC TX Buffer */
-    appPlcTx.pl360Tx.pTransmitData = appPlcTxDataBuffer;
+    appPlcTx.plcPhyTx.pTransmitData = appPlcTxDataBuffer;
     
     /* Set PLC Multiband flag */
     if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == NULL) {
@@ -337,30 +337,30 @@ void APP_PLC_Tasks ( void )
 
                     /* Set configuration by default */
                     appPlcTx.configKey = APP_PLC_CONFIG_KEY;
-                    appPlcTx.pl360PhyVersion = 0;
+                    appPlcTx.plcPhyVersion = 0;
                     appPlcTx.txImpedance = HI_STATE;
                     appPlcTx.txAuto = 1;
-                    appPlcTx.pl360Tx.time = 1000000;
-                    appPlcTx.pl360Tx.attenuation = 0;
-                    appPlcTx.pl360Tx.modScheme = MOD_SCHEME_DIFFERENTIAL;
-                    appPlcTx.pl360Tx.modType = MOD_TYPE_BPSK;
-                    appPlcTx.pl360Tx.delimiterType = DT_SOF_NO_RESP;
-                    appPlcTx.pl360Tx.mode = TX_MODE_RELATIVE;
-                    appPlcTx.pl360Tx.rs2Blocks = 0;
-                    appPlcTx.pl360Tx.pdc = 0;
-                    appPlcTx.pl360Tx.dataLength = 64;
-                    appPlcTx.pl360Tx.pTransmitData = appPlcTxDataBuffer;
-                    pData = appPlcTx.pl360Tx.pTransmitData;
-                    for(index = 0; index < appPlcTx.pl360Tx.dataLength; index++)
+                    appPlcTx.plcPhyTx.time = 1000000;
+                    appPlcTx.plcPhyTx.attenuation = 0;
+                    appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_DIFFERENTIAL;
+                    appPlcTx.plcPhyTx.modType = MOD_TYPE_BPSK;
+                    appPlcTx.plcPhyTx.delimiterType = DT_SOF_NO_RESP;
+                    appPlcTx.plcPhyTx.mode = TX_MODE_RELATIVE;
+                    appPlcTx.plcPhyTx.rs2Blocks = 0;
+                    appPlcTx.plcPhyTx.pdc = 0;
+                    appPlcTx.plcPhyTx.dataLength = 64;
+                    appPlcTx.plcPhyTx.pTransmitData = appPlcTxDataBuffer;
+                    pData = appPlcTx.plcPhyTx.pTransmitData;
+                    for(index = 0; index < appPlcTx.plcPhyTx.dataLength; index++)
                     {
                         *pData++ = index;
                     }
 
                     /* CEN A */
                     appPlcTx.toneMapSize = 1;
-                    appPlcTx.pl360Tx.toneMap[0] = 0x3F;
+                    appPlcTx.plcPhyTx.toneMap[0] = 0x3F;
 
-                    memset(appPlcTx.pl360Tx.preemphasis, 0, sizeof(appPlcTx.pl360Tx.preemphasis));
+                    memset(appPlcTx.plcPhyTx.preemphasis, 0, sizeof(appPlcTx.plcPhyTx.preemphasis));
 
                     /* Clear Transmission flag */
                     appPlcTx.inTx = false;
@@ -437,14 +437,14 @@ void APP_PLC_Tasks ( void )
             }
             
             /* Open PLC driver */
-            appPlc.drvPl360Handle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
+            appPlc.drvPlcHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
 
-            if (appPlc.drvPl360Handle != DRV_HANDLE_INVALID)
+            if (appPlc.drvPlcHandle != DRV_HANDLE_INVALID)
             {
                 if ((appPlc.plcMultiband == true) && (appPlcTx.bin2InUse == true) && (drvPlcStatus == SYS_STATUS_BUSY))
                 {
                     /* Close PLC Driver */
-                    DRV_PLC_PHY_Close(appPlc.drvPl360Handle);
+                    DRV_PLC_PHY_Close(appPlc.drvPlcHandle);
 
                     /* Initialize PLC Driver Instance */
                     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
@@ -452,7 +452,7 @@ void APP_PLC_Tasks ( void )
                     PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
 
                     /* Open PLC driver again */
-                    appPlc.drvPl360Handle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
+                    appPlc.drvPlcHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
                 }
 
                 appPlc.state = APP_PLC_STATE_OPEN;
@@ -473,15 +473,15 @@ void APP_PLC_Tasks ( void )
                 uint32_t version;
 
                 /* Configure PLC callbacks */
-                DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
-                DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
-                DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
+                DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPlcHandle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
+                DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
+                DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
                 
                 /* Apply PLC coupling configuration */
-                SRV_PCOUP_Set_Config(appPlc.drvPl360Handle, appPlcTx.couplingBranch);
+                SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlcTx.couplingBranch);
                 
                 /* Disable TX Enable at the beginning */
-                DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, false);
+                DRV_PLC_PHY_EnableTX(appPlc.drvPlcHandle, false);
                 appPlc.pvddMonTxEnable = false;
                 /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
@@ -494,9 +494,9 @@ void APP_PLC_Tasks ( void )
                 pibObj.id = PLC_ID_VERSION_NUM;
                 pibObj.length = 4;
                 pibObj.pData = (uint8_t *)&version;
-                DRV_PLC_PHY_PIBGet(appPlc.drvPl360Handle, &pibObj);
+                DRV_PLC_PHY_PIBGet(appPlc.drvPlcHandle, &pibObj);
 
-                if (version == appPlcTx.pl360PhyVersion)
+                if (version == appPlcTx.plcPhyVersion)
                 {
                     if (appPlcTx.inTx)
                     {
@@ -511,37 +511,37 @@ void APP_PLC_Tasks ( void )
                 }
                 else
                 {
-                    appPlcTx.pl360PhyVersion = version;
+                    appPlcTx.plcPhyVersion = version;
 
                     /* Adjust ToneMap Info */
-                    switch ((uint8_t)(appPlcTx.pl360PhyVersion >> 16))
+                    switch ((uint8_t)(appPlcTx.plcPhyVersion >> 16))
                     {
                         case 1:
                             /* CEN A */
                             appPlcTx.toneMapSize = TONE_MAP_SIZE_CENELEC;
-                            appPlcTx.pl360Tx.toneMap[0] = 0x3F;
+                            appPlcTx.plcPhyTx.toneMap[0] = 0x3F;
                             break;
 
                         case 2:
                             /* FCC */
                             appPlcTx.toneMapSize = TONE_MAP_SIZE_FCC;
-                            appPlcTx.pl360Tx.toneMap[0] = 0xFF;
-                            appPlcTx.pl360Tx.toneMap[1] = 0xFF;
-                            appPlcTx.pl360Tx.toneMap[2] = 0xFF;
+                            appPlcTx.plcPhyTx.toneMap[0] = 0xFF;
+                            appPlcTx.plcPhyTx.toneMap[1] = 0xFF;
+                            appPlcTx.plcPhyTx.toneMap[2] = 0xFF;
                             break;
 
                         case 3:
                             /* ARIB */
                             appPlcTx.toneMapSize = TONE_MAP_SIZE_FCC;
-                            appPlcTx.pl360Tx.toneMap[0] = 0x03;
-                            appPlcTx.pl360Tx.toneMap[1] = 0xFF;
-                            appPlcTx.pl360Tx.toneMap[2] = 0xFF;
+                            appPlcTx.plcPhyTx.toneMap[0] = 0x03;
+                            appPlcTx.plcPhyTx.toneMap[1] = 0xFF;
+                            appPlcTx.plcPhyTx.toneMap[2] = 0xFF;
                             break;
 
                         case 4:
                             /* CEN B */
                             appPlcTx.toneMapSize = TONE_MAP_SIZE_CENELEC;
-                            appPlcTx.pl360Tx.toneMap[0] = 0x0F;
+                            appPlcTx.plcPhyTx.toneMap[0] = 0x0F;
                             break;
                     }
 
@@ -568,15 +568,15 @@ void APP_PLC_Tasks ( void )
                 pibObj.id = PLC_ID_CFG_AUTODETECT_IMPEDANCE;
                 pibObj.length = 1;
                 pibObj.pData = (uint8_t *)&appPlcTx.txAuto;
-                DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+                DRV_PLC_PHY_PIBSet(appPlc.drvPlcHandle, &pibObj);
                 /* Set Impedance Mode */
                 pibObj.id = PLC_ID_CFG_IMPEDANCE;
                 pibObj.length = 1;
                 pibObj.pData = (uint8_t *)&appPlcTx.txImpedance;
-                DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+                DRV_PLC_PHY_PIBSet(appPlc.drvPlcHandle, &pibObj);
 
                 /* Set Transmission Mode */
-                appPlcTx.pl360Tx.mode = TX_MODE_RELATIVE;
+                appPlcTx.plcPhyTx.mode = TX_MODE_RELATIVE;
 
                 /* Set Transmission flag */
                 appPlcTx.inTx = true;
@@ -592,7 +592,7 @@ void APP_PLC_Tasks ( void )
                     {
                         appPlc.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CFM;
                         /* Send PLC message */
-                        DRV_PLC_PHY_TxRequest(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
+                        DRV_PLC_PHY_TxRequest(appPlc.drvPlcHandle, &appPlcTx.plcPhyTx);
                     }
                     else
                     {
@@ -621,8 +621,8 @@ void APP_PLC_Tasks ( void )
             if (appPlc.plcTxState == APP_PLC_TX_STATE_WAIT_TX_CFM)
             {
                 /* Send PLC Cancel message */
-                appPlcTx.pl360Tx.mode = TX_MODE_CANCEL | TX_MODE_RELATIVE;
-                DRV_PLC_PHY_TxRequest(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
+                appPlcTx.plcPhyTx.mode = TX_MODE_CANCEL | TX_MODE_RELATIVE;
+                DRV_PLC_PHY_TxRequest(appPlc.drvPlcHandle, &appPlcTx.plcPhyTx);
             }
             break;
         }
@@ -640,7 +640,7 @@ void APP_PLC_Tasks ( void )
             appPlcTx.inTx = false;
 
             /* Close PLC Driver */
-            DRV_PLC_PHY_Close(appPlc.drvPl360Handle);
+            DRV_PLC_PHY_Close(appPlc.drvPlcHandle);
             
             /* Destroy Blink Timer */
             SYS_TIME_TimerDestroy(appPlc.tmr1Handle);

@@ -134,7 +134,7 @@ static void _APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t cont
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
-        DRV_PLC_PHY_EnableTX(app_plcData.drvPl360Handle, false);
+        DRV_PLC_PHY_EnableTX(app_plcData.drvPlcHandle, false);
         app_plcData.pvddMonTxEnable = false;
         /* Restart PVDD Monitor to check when VDD is within the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
@@ -142,7 +142,7 @@ static void _APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t cont
     else
     {
         /* PLC Transmission is permitted again */
-        DRV_PLC_PHY_EnableTX(app_plcData.drvPl360Handle, true);
+        DRV_PLC_PHY_EnableTX(app_plcData.drvPlcHandle, true);
         app_plcData.pvddMonTxEnable = true;
         /* Restart PVDD Monitor to check when VDD is out of the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
@@ -169,7 +169,7 @@ void _APP_PLC_UsiPhyProtocolEventCb(uint8_t *pData, size_t length)
             SRV_PSERIAL_ParseGetPIB(&app_plcData.plcPIB, pData);
 
             /* Get PIB from PLC driver */
-            if (DRV_PLC_PHY_PIBGet(app_plcData.drvPl360Handle, &app_plcData.plcPIB))
+            if (DRV_PLC_PHY_PIBGet(app_plcData.drvPlcHandle, &app_plcData.plcPIB))
             {
                 size_t len;
 
@@ -187,7 +187,7 @@ void _APP_PLC_UsiPhyProtocolEventCb(uint8_t *pData, size_t length)
             SRV_PSERIAL_ParseSetPIB(&app_plcData.plcPIB, pData);
 
             /* Set PIB in PLC driver */
-            if (DRV_PLC_PHY_PIBSet(app_plcData.drvPl360Handle, &app_plcData.plcPIB))
+            if (DRV_PLC_PHY_PIBSet(app_plcData.drvPlcHandle, &app_plcData.plcPIB))
             {
                 size_t len;
 
@@ -207,7 +207,7 @@ void _APP_PLC_UsiPhyProtocolEventCb(uint8_t *pData, size_t length)
                 SRV_PSERIAL_ParseTxMessage(&app_plcData.plcTxObj, pData);
 
                 /* Send Message through PLC */
-                DRV_PLC_PHY_TxRequest(app_plcData.drvPl360Handle, &app_plcData.plcTxObj);
+                DRV_PLC_PHY_TxRequest(app_plcData.drvPlcHandle, &app_plcData.plcTxObj);
             }
             else
             {
@@ -237,19 +237,19 @@ static void APP_PLC_SetCouplingConfiguration(void)
     SRV_PLC_PCOUP_BRANCH plcBranch;
 
     plcBranch = SRV_PCOUP_Get_Default_Branch();
-    SRV_PCOUP_Set_Config(app_plcData.drvPl360Handle, plcBranch);
+    SRV_PCOUP_Set_Config(app_plcData.drvPlcHandle, plcBranch);
 
     /* Disable AUTO mode and set VLO behavior by default in order to
      * maximize signal level in any case */
     app_plcData.plcPIB.id = PLC_ID_CFG_AUTODETECT_IMPEDANCE;
     app_plcData.plcPIB.length = 1;
     *app_plcData.plcPIB.pData = 0;
-    DRV_PLC_PHY_PIBSet(app_plcData.drvPl360Handle, &app_plcData.plcPIB);
+    DRV_PLC_PHY_PIBSet(app_plcData.drvPlcHandle, &app_plcData.plcPIB);
 
     app_plcData.plcPIB.id = PLC_ID_CFG_IMPEDANCE;
     app_plcData.plcPIB.length = 1;
     *app_plcData.plcPIB.pData = VLO_STATE;
-    DRV_PLC_PHY_PIBSet(app_plcData.drvPl360Handle, &app_plcData.plcPIB);
+    DRV_PLC_PHY_PIBSet(app_plcData.drvPlcHandle, &app_plcData.plcPIB);
 }
 
 // *****************************************************************************
@@ -325,9 +325,9 @@ void APP_PLC_Tasks ( void )
         case APP_PLC_STATE_INIT:
         {
             /* Open PLC driver: Start uploading process */
-            app_plcData.drvPl360Handle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, NULL);
+            app_plcData.drvPlcHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, NULL);
 
-            if (app_plcData.drvPl360Handle != DRV_HANDLE_INVALID)
+            if (app_plcData.drvPlcHandle != DRV_HANDLE_INVALID)
             {
                 /* Set Application to next state */
                 app_plcData.state = APP_PLC_STATE_REGISTER;
@@ -348,18 +348,18 @@ void APP_PLC_Tasks ( void )
             if (plcStatus == SYS_STATUS_READY)
             {
                 /* Register PLC callback */
-                DRV_PLC_PHY_ExceptionCallbackRegister(app_plcData.drvPl360Handle,
+                DRV_PLC_PHY_ExceptionCallbackRegister(app_plcData.drvPlcHandle,
                         _APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX);
-                DRV_PLC_PHY_DataIndCallbackRegister(app_plcData.drvPl360Handle,
+                DRV_PLC_PHY_DataIndCallbackRegister(app_plcData.drvPlcHandle,
                         _APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX);
-                DRV_PLC_PHY_TxCfmCallbackRegister(app_plcData.drvPl360Handle,
+                DRV_PLC_PHY_TxCfmCallbackRegister(app_plcData.drvPlcHandle,
                         _APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX);
 
                 /* Set PLC coupling configuration */
                 APP_PLC_SetCouplingConfiguration();
 
                 /* Enable PLC PVDD Monitor Service */
-                DRV_PLC_PHY_EnableTX(app_plcData.drvPl360Handle, true);
+                DRV_PLC_PHY_EnableTX(app_plcData.drvPlcHandle, true);
                 SRV_PVDDMON_CallbackRegister(_APP_PLC_PVDDMonitorCb, 0);
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
 

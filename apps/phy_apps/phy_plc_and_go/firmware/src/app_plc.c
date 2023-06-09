@@ -105,7 +105,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
     bool applyStaticNotching = false;
                 
     /* Apply PLC coupling configuration */
-    SRV_PCOUP_Set_Config(appPlc.drvPl360Handle, appPlcTx.couplingBranch);
+    SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlcTx.couplingBranch);
 
     /* Force Transmission to VLO mode by default in order to maximize signal level in anycase */
     /* Disable autodetect mode */
@@ -113,28 +113,28 @@ static void APP_PLC_SetInitialConfiguration ( void )
     pibObj.id = PLC_ID_CFG_AUTODETECT_IMPEDANCE;
     pibObj.length = 1;
     pibObj.pData = (uint8_t *)&appPlcTx.txAuto;
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+    DRV_PLC_PHY_PIBSet(appPlc.drvPlcHandle, &pibObj);
 
     /* Set VLO mode */
     appPlcTx.txImpedance = 2;
     pibObj.id = PLC_ID_CFG_IMPEDANCE;
     pibObj.length = 1;
     pibObj.pData = (uint8_t *)&appPlcTx.txImpedance;
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+    DRV_PLC_PHY_PIBSet(appPlc.drvPlcHandle, &pibObj);
 
     /* Get PLC PHY version */
     pibObj.id = PLC_ID_VERSION_NUM;
     pibObj.length = 4;
-    pibObj.pData = (uint8_t *)&appPlcTx.pl360PhyVersion;
-    DRV_PLC_PHY_PIBGet(appPlc.drvPl360Handle, &pibObj);
+    pibObj.pData = (uint8_t *)&appPlcTx.plcPhyVersion;
+    DRV_PLC_PHY_PIBGet(appPlc.drvPlcHandle, &pibObj);
 
     /* Adjust ToneMap Info */
-    switch ((uint8_t)(appPlcTx.pl360PhyVersion >> 16))
+    switch ((uint8_t)(appPlcTx.plcPhyVersion >> 16))
     {
         case 1:
             /* CEN A */
             appPlcTx.toneMapSize = TONE_MAP_SIZE_CENELEC;
-            appPlcTx.pl360Tx.toneMap[0] = 0x3F;
+            appPlcTx.plcPhyTx.toneMap[0] = 0x3F;
             if (appPlc.staticNotchingEnable)
             {
                 /* Caution: Example provided only for CEN-A band */
@@ -145,23 +145,23 @@ static void APP_PLC_SetInitialConfiguration ( void )
         case 2:
             /* FCC */
             appPlcTx.toneMapSize = TONE_MAP_SIZE_FCC;
-            appPlcTx.pl360Tx.toneMap[0] = 0xFF;
-            appPlcTx.pl360Tx.toneMap[1] = 0xFF;
-            appPlcTx.pl360Tx.toneMap[2] = 0xFF;
+            appPlcTx.plcPhyTx.toneMap[0] = 0xFF;
+            appPlcTx.plcPhyTx.toneMap[1] = 0xFF;
+            appPlcTx.plcPhyTx.toneMap[2] = 0xFF;
             break;
 
         case 3:
             /* ARIB */
             appPlcTx.toneMapSize = TONE_MAP_SIZE_ARIB;
-            appPlcTx.pl360Tx.toneMap[0] = 0x03;
-            appPlcTx.pl360Tx.toneMap[1] = 0xFF;
-            appPlcTx.pl360Tx.toneMap[2] = 0xFF;
+            appPlcTx.plcPhyTx.toneMap[0] = 0x03;
+            appPlcTx.plcPhyTx.toneMap[1] = 0xFF;
+            appPlcTx.plcPhyTx.toneMap[2] = 0xFF;
             break;
 
         case 4:
             /* CEN B */
             appPlcTx.toneMapSize = TONE_MAP_SIZE_CENELEC;
-            appPlcTx.pl360Tx.toneMap[0] = 0x0F;
+            appPlcTx.plcPhyTx.toneMap[0] = 0x0F;
             break;
     }
 
@@ -173,7 +173,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
     pibObj.id = PLC_ID_CRC_TX_RX_CAPABILITY;
     pibObj.length = 1;
     pibObj.pData = (uint8_t *)&plcCrcEnable;
-    DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+    DRV_PLC_PHY_PIBSet(appPlc.drvPlcHandle, &pibObj);
 
     if (applyStaticNotching)
     {
@@ -181,11 +181,11 @@ static void APP_PLC_SetInitialConfiguration ( void )
         pibObj.id = PLC_ID_TONE_MASK;
         pibObj.length = NUM_CARRIERS_CENELEC_A;
         pibObj.pData = (uint8_t *)&appPlcStaticNotching;
-        DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &pibObj);
+        DRV_PLC_PHY_PIBSet(appPlc.drvPlcHandle, &pibObj);
     }
 
     /* Get maximum data length allowed with configured Tx Parameters */
-    APP_PLC_SetModScheme(appPlcTx.pl360Tx.modType, appPlcTx.pl360Tx.modScheme);
+    APP_PLC_SetModScheme(appPlcTx.plcPhyTx.modType, appPlcTx.plcPhyTx.modScheme);
 }
 
 // *****************************************************************************
@@ -211,7 +211,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
-        DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, false);
+        DRV_PLC_PHY_EnableTX(appPlc.drvPlcHandle, false);
         appPlc.pvddMonTxEnable = false;
         /* Restart PVDD Monitor to check when VDD is within the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
@@ -219,7 +219,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     else
     {
         /* PLC Transmission is permitted again */
-        DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, true);
+        DRV_PLC_PHY_EnableTX(appPlc.drvPlcHandle, true);
         appPlc.pvddMonTxEnable = true;
         /* Restart PVDD Monitor to check when VDD is out of the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
@@ -360,7 +360,7 @@ void APP_PLC_Initialize ( void )
 
     /* Init PLC objects */
     appPlcTx.pDataTx = appPlcTxDataBuffer;
-    appPlcTx.pl360Tx.pTransmitData = appPlcTx.pDataTx;
+    appPlcTx.plcPhyTx.pTransmitData = appPlcTx.pDataTx;
     
     /* Set PLC state */
     appPlc.state = APP_PLC_STATE_IDLE;
@@ -412,19 +412,19 @@ void APP_PLC_Tasks ( void )
             appPlc.staticNotchingEnable = APP_PLC_STATIC_NOTCHING_ENABLE;
 
             /* Set configuration by default */
-            appPlcTx.pl360Tx.time = 0;
-            appPlcTx.pl360Tx.attenuation = 0;
-            appPlcTx.pl360Tx.modScheme = MOD_SCHEME_DIFFERENTIAL;
-            appPlcTx.pl360Tx.modType = MOD_TYPE_BPSK;
-            appPlcTx.pl360Tx.delimiterType = DT_SOF_NO_RESP;
-            appPlcTx.pl360Tx.mode = TX_MODE_FORCED | TX_MODE_RELATIVE;
+            appPlcTx.plcPhyTx.time = 0;
+            appPlcTx.plcPhyTx.attenuation = 0;
+            appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_DIFFERENTIAL;
+            appPlcTx.plcPhyTx.modType = MOD_TYPE_BPSK;
+            appPlcTx.plcPhyTx.delimiterType = DT_SOF_NO_RESP;
+            appPlcTx.plcPhyTx.mode = TX_MODE_FORCED | TX_MODE_RELATIVE;
             /* Set 1 Reed-Solomon block. In this example it cannot be configured dynamically. To test 2 Reed-Solomon blocks change 0 by 1 (Only for FCC). */
-            appPlcTx.pl360Tx.rs2Blocks = 0;
-            appPlcTx.pl360Tx.pdc = 0;
-            appPlcTx.pl360Tx.pTransmitData = appPlcTx.pDataTx;
-            appPlcTx.pl360Tx.dataLength = 0;
+            appPlcTx.plcPhyTx.rs2Blocks = 0;
+            appPlcTx.plcPhyTx.pdc = 0;
+            appPlcTx.plcPhyTx.pTransmitData = appPlcTx.pDataTx;
+            appPlcTx.plcPhyTx.dataLength = 0;
 
-            memset(appPlcTx.pl360Tx.preemphasis, 0, sizeof(appPlcTx.pl360Tx.preemphasis));
+            memset(appPlcTx.plcPhyTx.preemphasis, 0, sizeof(appPlcTx.plcPhyTx.preemphasis));
             
             /* Set PLC Multiband / Couling Branch flag */
             appPlcTx.couplingBranch = SRV_PCOUP_Get_Default_Branch();
@@ -479,9 +479,9 @@ void APP_PLC_Tasks ( void )
             }
             
             /* Open PLC driver */
-            appPlc.drvPl360Handle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
+            appPlc.drvPlcHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
 
-            if (appPlc.drvPl360Handle != DRV_HANDLE_INVALID)
+            if (appPlc.drvPlcHandle != DRV_HANDLE_INVALID)
             {
                 appPlc.state = APP_PLC_STATE_OPEN;
             }
@@ -498,16 +498,16 @@ void APP_PLC_Tasks ( void )
             if (DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX_0) == SYS_STATUS_READY)
             {
                 /* Configure PLC callbacks */
-                DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, 0);
-                DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, 0);
-                DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb, 0);
-                DRV_PLC_PHY_SleepDisableCallbackRegister(appPlc.drvPl360Handle, APP_PLC_SleepModeDisableCb, 0);
+                DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPlcHandle, APP_PLC_ExceptionCb, 0);
+                DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataCfmCb, 0);
+                DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataIndCb, 0);
+                DRV_PLC_PHY_SleepDisableCallbackRegister(appPlc.drvPlcHandle, APP_PLC_SleepModeDisableCb, 0);
                 
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
                 
                 /* Disable TX Enable at the beginning */
-                DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, false);
+                DRV_PLC_PHY_EnableTX(appPlc.drvPlcHandle, false);
                 appPlc.pvddMonTxEnable = false;
                 /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
@@ -546,7 +546,7 @@ void APP_PLC_Tasks ( void )
             }
 
             /* Close PLC Driver */
-            DRV_PLC_PHY_Close(appPlc.drvPl360Handle);
+            DRV_PLC_PHY_Close(appPlc.drvPlcHandle);
 
             /* Stop timer */
             SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
@@ -566,13 +566,6 @@ void APP_PLC_Tasks ( void )
     }
 }
 
-/*******************************************************************************
-  Function:
-    bool APP_PLC_Initialize(void)
-
-  Remarks:
-    See prototype in app_plc.h.
- */
 bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
 {
     if (appPlc.state == APP_PLC_STATE_WAITING)
@@ -590,12 +583,12 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
                 /* Set data length in Tx Parameters structure */
                 /* It should be equal or less than Maximum Data Length (see APP_PLC_SetModScheme) */
                 /* Otherwise DRV_PLC_PHY_TX_RESULT_INV_LENGTH will be reported in Tx Confirm */
-                appPlcTx.pl360Tx.dataLength = length + 2;
+                appPlcTx.plcPhyTx.dataLength = length + 2;
                 memcpy(appPlcTx.pDataTx + 2, pData, length);
 
                 appPlc.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CFM;
 
-                DRV_PLC_PHY_TxRequest(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
+                DRV_PLC_PHY_TxRequest(appPlc.drvPlcHandle, &appPlcTx.plcPhyTx);
 
                 /* Set PLC state */
                 if (appPlc.plcTxState == APP_PLC_TX_STATE_WAIT_TX_CFM)
@@ -616,25 +609,25 @@ void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME
     
     if (appPlc.state == APP_PLC_STATE_WAITING)
     {
-        appPlcTx.pl360Tx.modScheme = modScheme;
-        appPlcTx.pl360Tx.modType = modType;
+        appPlcTx.plcPhyTx.modScheme = modScheme;
+        appPlcTx.plcPhyTx.modType = modType;
         
         parameters.modScheme = modScheme;
         parameters.modType = modType;
-        parameters.rs2Blocks = appPlcTx.pl360Tx.rs2Blocks;
+        parameters.rs2Blocks = appPlcTx.plcPhyTx.rs2Blocks;
         memset(parameters.toneMap, 0, TONE_MAP_SIZE_MAX);
-        memcpy(parameters.toneMap, appPlcTx.pl360Tx.toneMap, appPlcTx.toneMapSize);
+        memcpy(parameters.toneMap, appPlcTx.plcPhyTx.toneMap, appPlcTx.toneMapSize);
 
-        /* Set parameters for MAX_PSDU_LEN computation in PLC device */
+        /* Set parameters for MAX_PSDU_LEN computation in PLC PHY */
         appPlc.plcPIB.id = PLC_ID_MAX_PSDU_LEN_PARAMS;
         appPlc.plcPIB.length = sizeof(parameters);
         memcpy(appPlc.plcPIB.pData, (uint8_t *)&parameters, appPlc.plcPIB.length); 
-        DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+        DRV_PLC_PHY_PIBSet(appPlc.drvPlcHandle, &appPlc.plcPIB);
 
-        /* Get MAX_PSDU_LEN from PL360 device */
+        /* Get MAX_PSDU_LEN from PLC PHY */
         appPlc.plcPIB.id = PLC_ID_MAX_PSDU_LEN;
         appPlc.plcPIB.length = 2;
-        DRV_PLC_PHY_PIBGet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+        DRV_PLC_PHY_PIBGet(appPlc.drvPlcHandle, &appPlc.plcPIB);
         appPlcTx.maxPsduLen = appPlc.plcPIB.pData[0];
         appPlcTx.maxPsduLen += (uint16_t)appPlc.plcPIB.pData[1] << 8;
     }
@@ -646,7 +639,7 @@ bool APP_PLC_SetSleepMode ( bool enable )
     
     if (sleepIsEnabled != enable)
     {
-        DRV_PLC_PHY_Sleep(appPlc.drvPl360Handle, enable);
+        DRV_PLC_PHY_Sleep(appPlc.drvPlcHandle, enable);
         if (enable)
         {
             appPlc.state = APP_PLC_STATE_SLEEP;

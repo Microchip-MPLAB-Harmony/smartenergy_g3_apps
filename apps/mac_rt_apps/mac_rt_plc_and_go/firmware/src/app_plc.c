@@ -95,7 +95,7 @@ static CACHE_ALIGN uint8_t appPlcRxFrameBuffer[CACHE_ALIGNED_SIZE_GET(MAC_RT_DAT
 static void APP_PLC_SetInitialConfiguration ( void )
 {
     /* Apply PLC coupling configuration */
-    SRV_PCOUP_Set_Config(appPlc.drvPl360Handle, appPlc.couplingBranch);
+    SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlc.couplingBranch);
 
     /* Force Transmission to VLO mode by default in order to maximize signal level in any case */
     /* Disable auto-detect mode */
@@ -103,18 +103,18 @@ static void APP_PLC_SetInitialConfiguration ( void )
     appPlc.plcPIB.index = PHY_PIB_CFG_AUTODETECT_IMPEDANCE;
     appPlc.plcPIB.length = 1;
     appPlc.plcPIB.pData[0] = 0;
-    DRV_G3_MACRT_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+    DRV_G3_MACRT_PIBSet(appPlc.drvPlcHandle, &appPlc.plcPIB);
 
     /* Set VLO mode */
     appPlc.plcPIB.index = PHY_PIB_CFG_IMPEDANCE;
     appPlc.plcPIB.length = 1;
     appPlc.plcPIB.pData[0] = 2;
-    DRV_G3_MACRT_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+    DRV_G3_MACRT_PIBSet(appPlc.drvPlcHandle, &appPlc.plcPIB);
 
     /* Get PLC PHY version */
     appPlc.plcPIB.index = PHY_PIB_VERSION_NUM;
     appPlc.plcPIB.length = 4;
-    DRV_G3_MACRT_PIBGet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+    DRV_G3_MACRT_PIBGet(appPlc.drvPlcHandle, &appPlc.plcPIB);
     memcpy((uint8_t *)&appPlc.phyVersion, appPlc.plcPIB.pData, 4);
     
     /* Fill MAC RT Header */
@@ -225,7 +225,7 @@ static void APP_PLC_PVDDMonitorCallback( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
-        DRV_G3_MACRT_EnableTX(appPlc.drvPl360Handle, false);
+        DRV_G3_MACRT_EnableTX(appPlc.drvPlcHandle, false);
         appPlc.pvddMonTxEnable = false;
         /* Restart PVDD Monitor to check when VDD is within the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
@@ -233,7 +233,7 @@ static void APP_PLC_PVDDMonitorCallback( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t
     else
     {
         /* PLC Transmission is permitted again */
-        DRV_G3_MACRT_EnableTX(appPlc.drvPl360Handle, true);
+        DRV_G3_MACRT_EnableTX(appPlc.drvPlcHandle, true);
         appPlc.pvddMonTxEnable = true;
         /* Restart PVDD Monitor to check when VDD is out of the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
@@ -468,9 +468,9 @@ void APP_PLC_Tasks ( void )
             DRV_G3_MACRT_InitCallbackRegister(DRV_G3_MACRT_INDEX_0, APP_PLC_G3MACRTInitCallback);
             
             /* Open PLC driver */
-            appPlc.drvPl360Handle = DRV_G3_MACRT_Open(DRV_G3_MACRT_INDEX_0, NULL);
+            appPlc.drvPlcHandle = DRV_G3_MACRT_Open(DRV_G3_MACRT_INDEX_0, NULL);
 
-            if (appPlc.drvPl360Handle != DRV_HANDLE_INVALID)
+            if (appPlc.drvPlcHandle != DRV_HANDLE_INVALID)
             {
                 appPlc.state = APP_PLC_STATE_OPEN;
             }
@@ -487,14 +487,14 @@ void APP_PLC_Tasks ( void )
             if (DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX_0) == DRV_G3_MACRT_STATE_READY)
             {
                 /* Configure PLC callbacks */
-                DRV_G3_MACRT_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCallback);
-                DRV_G3_MACRT_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCallback);
-                DRV_G3_MACRT_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCallback);
-                DRV_G3_MACRT_RxParamsIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_RxParamsIndCallback);
-                DRV_G3_MACRT_SleepIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_SleepModeDisableCallback);
+                DRV_G3_MACRT_ExceptionCallbackRegister(appPlc.drvPlcHandle, APP_PLC_ExceptionCallback);
+                DRV_G3_MACRT_TxCfmCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataCfmCallback);
+                DRV_G3_MACRT_DataIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataIndCallback);
+                DRV_G3_MACRT_RxParamsIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_RxParamsIndCallback);
+                DRV_G3_MACRT_SleepIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_SleepModeDisableCallback);
                 
                 /* Enable PLC Transmission */
-                DRV_G3_MACRT_EnableTX(appPlc.drvPl360Handle, true);                        
+                DRV_G3_MACRT_EnableTX(appPlc.drvPlcHandle, true);
                 
                 /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCallback, 0);
@@ -533,7 +533,7 @@ void APP_PLC_Tasks ( void )
             }
 
             /* Close PLC Driver */
-            DRV_G3_MACRT_Close(appPlc.drvPl360Handle);
+            DRV_G3_MACRT_Close(appPlc.drvPlcHandle);
 
             /* Restart PLC Driver */
             appPlc.state = APP_PLC_STATE_INIT;
@@ -577,7 +577,7 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
             pFrame += length;
 
             /* Send MAC RT Frame */
-            DRV_G3_MACRT_TxRequest(appPlc.drvPl360Handle, appPlcTx.pTxFrame, 
+            DRV_G3_MACRT_TxRequest(appPlc.drvPlcHandle, appPlcTx.pTxFrame, 
                     pFrame - appPlcTx.pTxFrame);
 
             /* Set PLC state */
@@ -598,7 +598,7 @@ bool APP_PLC_SetSleepMode ( bool enable )
     
     if (sleepIsEnabled != enable)
     {
-        DRV_G3_MACRT_Sleep(appPlc.drvPl360Handle, enable);
+        DRV_G3_MACRT_Sleep(appPlc.drvPlcHandle, enable);
         if (enable)
         {
             appPlc.prevState = appPlc.state;
@@ -627,7 +627,7 @@ void APP_PLC_SetSourceAddress ( uint16_t address )
     appPlc.plcPIB.index = 0;
     appPlc.plcPIB.length = 2;
     memcpy(appPlc.plcPIB.pData, (uint8_t *)&address, 2);
-    DRV_G3_MACRT_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+    DRV_G3_MACRT_PIBSet(appPlc.drvPlcHandle, &appPlc.plcPIB);
 }
 
 void APP_PLC_SetDestinationAddress ( uint16_t address )
@@ -650,7 +650,7 @@ void APP_PLC_SetPANID ( uint16_t panid )
     appPlc.plcPIB.index = 0;
     appPlc.plcPIB.length = 2;
     memcpy(appPlc.plcPIB.pData, (uint8_t *)&panid, 2);
-    DRV_G3_MACRT_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
+    DRV_G3_MACRT_PIBSet(appPlc.drvPlcHandle, &appPlc.plcPIB);
 }
 
 /*******************************************************************************

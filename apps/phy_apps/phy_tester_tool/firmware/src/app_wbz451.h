@@ -145,7 +145,7 @@ typedef struct
     
     volatile bool tmr2Expired;
     
-    DRV_HANDLE drvPl360Handle;
+    DRV_HANDLE drvPlcHandle;
     
     SRV_USI_HANDLE srvUSIHandle;
     

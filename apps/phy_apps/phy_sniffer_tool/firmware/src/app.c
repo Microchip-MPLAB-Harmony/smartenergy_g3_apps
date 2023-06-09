@@ -113,7 +113,7 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
         /* Report RX Symbols */
         appData.plcPIB.id = PLC_ID_RX_PAY_SYMBOLS;
         appData.plcPIB.length = 2;
-        DRV_PLC_PHY_PIBGet(appData.drvPl360Handle, &appData.plcPIB);
+        DRV_PLC_PHY_PIBGet(appData.drvPlcHandle, &appData.plcPIB);
 
         SRV_PSNIFFER_SetRxPayloadSymbols(*(uint16_t *)appData.plcPIB.pData);
 
@@ -148,7 +148,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
             /* Send data to PLC */
             appData.plcPIB.id = PLC_ID_TONE_MASK;
             appData.plcPIB.length = PSNIFFER_CARRIERS_SIZE;
-            DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
+            DRV_PLC_PHY_PIBSet(appData.drvPlcHandle, &appData.plcPIB);
 
         }
         break;
@@ -223,9 +223,9 @@ void APP_Tasks(void)
         case APP_STATE_INIT:
         {
             /* Open PLC driver : Start uploading process */
-            appData.drvPl360Handle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, NULL);
+            appData.drvPlcHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, NULL);
 
-            if (appData.drvPl360Handle != DRV_HANDLE_INVALID)
+            if (appData.drvPlcHandle != DRV_HANDLE_INVALID)
             {
                 /* Set Application to next state */
                 appData.state = APP_STATE_REGISTER;
@@ -245,7 +245,7 @@ void APP_Tasks(void)
             if (DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX) == SYS_STATUS_READY)
             {
                 /* Register PLC callback */
-                DRV_PLC_PHY_DataIndCallbackRegister(appData.drvPl360Handle,
+                DRV_PLC_PHY_DataIndCallbackRegister(appData.drvPlcHandle,
                         APP_PLCDataIndCb, DRV_PLC_PHY_INDEX);
 
                 /* Open USI Service */
