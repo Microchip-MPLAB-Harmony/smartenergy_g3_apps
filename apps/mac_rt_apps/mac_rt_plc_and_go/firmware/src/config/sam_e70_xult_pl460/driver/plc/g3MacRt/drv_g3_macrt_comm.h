@@ -325,7 +325,7 @@ typedef struct {
     None
 */
 typedef struct {
-    uint8_t toneMap[(MAX_PHY_TONES + 7) / 8];
+    uint8_t toneMask[(MAX_PHY_TONES + 7) / 8];
 } MAC_RT_TONE_MASK;
 
 // *****************************************************************************

@@ -92,6 +92,10 @@ APP_PLC_DATA_TX appPlcTx;
 static CACHE_ALIGN uint8_t appPlcTxFrameBuffer[CACHE_ALIGNED_SIZE_GET(MAC_RT_DATA_MAX_SIZE)];
 static CACHE_ALIGN uint8_t appPlcRxFrameBuffer[CACHE_ALIGNED_SIZE_GET(MAC_RT_DATA_MAX_SIZE)];
 
+static const MAC_RT_TONE_MASK appPlcToneMask = {
+    .toneMask = APP_PLC_TONE_MASK_STATIC_NOTCHING_EXAMPLE
+};
+
 static void APP_PLC_SetInitialConfiguration ( void )
 {
     /* Apply PLC coupling configuration */
@@ -131,6 +135,16 @@ static void APP_PLC_SetInitialConfiguration ( void )
     /* Set Addresses */
     APP_PLC_SetDestinationAddress(MAC_RT_SHORT_ADDRESS_BROADCAST);
     APP_PLC_SetSourceAddress((uint16_t)TRNG_ReadData());
+
+    if (appPlc.staticNotchingEnable)
+    {
+        /* Set Tone Mask (Static Notching) */
+        appPlc.plcPIB.pib = MAC_RT_PIB_TONE_MASK;
+        appPlc.plcPIB.index = 0;
+        appPlc.plcPIB.length = sizeof(MAC_RT_TONE_MASK);
+        memcpy(appPlc.plcPIB.pData, appPlcToneMask.toneMask, sizeof(MAC_RT_TONE_MASK));
+        DRV_G3_MACRT_PIBSet(appPlc.drvPlcHandle, &appPlc.plcPIB);
+    }
 }
 
 static uint8_t APP_PLC_BuildMacRTHeader ( uint8_t *pFrame, MAC_RT_HEADER *pHeader )
