@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Package name="smartenergy_g3_apps">
     <Dependencies>
-        <Dependency name="bsp" version="v3.16.0"/>
-        <Dependency name="csp" version="v3.17.0"/>
-        <Dependency name="core" version="v3.13.0"/>
+        <Dependency name="bsp" version="dev"/>
+        <Dependency name="csp" version="dev"/>
+        <Dependency name="core" version="dev"/>
         <Dependency name="CMSIS-FreeRTOS" version="v10.5.1"/>
-        <Dependency name="smartenergy" version="v1.2.0"/>
-        <Dependency name="smartenergy_g3" version="v1.0.0"/>
-        <Dependency name="usb" version="v3.10.0"/>
-        <Dependency name="crypto" version="v3.8.0"/>
+        <Dependency name="smartenergy" version="dev"/>
+        <Dependency name="smartenergy_g3" version="dev"/>
+        <Dependency name="usb" version="dev"/>
+        <Dependency name="crypto" version="dev"/>
         <Dependency name="wolfssl" version="v5.4.0"/>
-        <Dependency name="net" version="v3.10.0"/>
+        <Dependency name="net" version="dev"/>
     </Dependencies>
 </Package>
