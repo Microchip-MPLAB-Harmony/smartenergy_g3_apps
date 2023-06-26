@@ -1,4 +1,4 @@
-<config configName="pic32cx_mtg_ek_pl460_rf215" projectName="g3_phy_tester_tool_hybrid_pic32cx_mtg_ek" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.14">
+<config configName="pic32cx_mtg_ek_pl460_rf215" projectName="g3_phy_tester_tool_hybrid_pic32cx_mtg_ek" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.7">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -23245,7 +23245,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_local_comm.h</file>
-         <hash>face564faf7d7e86f32af39c8f4bf21c8d826bf032f95cb68bc8101cfe3791b8</hash>
+         <hash>d000c6544a3168de21410a39429e30bfb81af2795755e179951f8965d6d9ca8d</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\gpbr.h</file>
@@ -23265,7 +23265,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>1ddfe4433dcb6e9bb1cb2c2376075a874ad133279b4960bcc4ef6e546dd80f51</hash>
+         <hash>3dadf2b35ab348ad32a8e1d622c2102dcad6a4e604ce17812910808bb4e7049f</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\tc2.h</file>
@@ -23325,7 +23325,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\drv_rf215_definitions.h</file>
-         <hash>094c4e0bb2185f97231dc4db96ceddb3623b20340252dd89d58edd10911cdce3</hash>
+         <hash>c5f680ab44cc05bf39295683bd0061da60b1e5522663b539a2d4c7e4dd31f8b6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\time\src\sys_time_local.h</file>
@@ -23333,7 +23333,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>23ce47b8283478991afe790913603ada1f308d842aca714fc532d5c6b726f1a6</hash>
+         <hash>4532856ca22a6047743392076c5f5cf25856783cf24c16a9da40275c6b1a8400</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\aesb.h</file>
@@ -23493,7 +23493,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pvddmon\srv_pvddmon.h</file>
-         <hash>7dd0af25d2e0a06a40750b582ec67ca27e1324a942480e7825e515a9646b3c92</hash>
+         <hash>d82664bffb6b240fa6e3d2834994d8cfb1d928f4c5ecc6b87f30465283d59493</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\rstc.h</file>
@@ -23629,7 +23629,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\rserial\srv_rserial.h</file>
-         <hash>db97a5bacf173ac70ff42d406d824fd19c802cc544fff033913a65d1acf3f7e6</hash>
+         <hash>8ac2d5df3a21688254f96d98e6d479fa51e99053500fddccc142e5c7215c4be1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\cache\sys_cache.c</file>
@@ -23641,7 +23641,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>f628316de0a01588d081e99104cb5c568fd93bd4214c40432482f93399159bb7</hash>
+         <hash>3dca71a1498e216de435068c03f90d4b7bff7648055a5900255d89e8efc8c569</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\flexcom6.h</file>
@@ -23665,7 +23665,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\rserial\srv_rserial.c</file>
-         <hash>d097c9f67fb4ada5078272d97d09b6454f076d2b260ac742802d9b571c84d1d3</hash>
+         <hash>6cec2796e6e0b01869bd2249e9c16b1902c4330f787cd346344f6f1484ddab7e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\driver_common.h</file>
@@ -23761,7 +23761,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\phy\rf215_phy.c</file>
-         <hash>6c5df0792e25482226716f7bfdb791f3664386007d7567c2ca1020e1bc313134</hash>
+         <hash>bd87ea85883401d85fea5852616bc06565a846fd206baa9d204922cf6044fe86</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\system_module.h</file>
@@ -23929,7 +23929,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pserial\srv_pserial.h</file>
-         <hash>eacf4c67e009f3784ca84e002470a25ccbbcc55a0cbc2ca657f8cc5816bdcedf</hash>
+         <hash>bab1fa4232fc379b409de0c79514de2e178a6ee6d22918cf1510e531e3fb6b48</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\fuses.h</file>

@@ -418,7 +418,6 @@ DRV_RF215_TRX_ID SRV_RSERIAL_ParseTxMessageTrxId(uint8_t* pDataSrc);
 /* Function:
     bool SRV_RSERIAL_ParseTxMessage (
         uint8_t* pDataSrc,
-        DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
         DRV_RF215_TX_REQUEST_OBJ* pDataDst,
         DRV_RF215_TX_HANDLE* pTxHandleCancel
     )
@@ -437,7 +436,6 @@ DRV_RF215_TRX_ID SRV_RSERIAL_ParseTxMessageTrxId(uint8_t* pDataSrc);
 
   Parameters:
     pDataSrc        - Pointer to buffer containing serial frame
-    pPhyCfgObj      - Pointer to RF PHY configuration object
     pDataDst        - Pointer to a DRV_RF215_TX_REQUEST_OBJ object to fill
                       (output)
     pTxHandleCancel - Pointer to TX handle to cancel (output)
@@ -451,7 +449,6 @@ DRV_RF215_TRX_ID SRV_RSERIAL_ParseTxMessageTrxId(uint8_t* pDataSrc);
     DRV_RF215_TRX_ID trxId;
     DRV_HANDLE rf215HandleRF09, rf215HandleRF24; // returned from DRV_RF215_Open
     DRV_HANDLE rf215Handle;
-    DRV_RF215_PHY_CFG_OBJ phyCfg;
     DRV_RF215_TX_REQUEST_OBJ txReq;
     DRV_RF215_TX_HANDLE txHandle;
     bool txCancel;
@@ -473,12 +470,8 @@ DRV_RF215_TRX_ID SRV_RSERIAL_ParseTxMessageTrxId(uint8_t* pDataSrc);
             rf215Handle = rf215HandleRF24;
         }
 
-        // Get RF PHY configuration
-        DRV_RF215_GetPib(rf215Handle, RF215_PIB_PHY_CONFIG, &phyCfg);
-
         // Parse TX request data from USI
-        txCancel = SRV_RSERIAL_ParseTxMessage(pData, &phyCfg, &txReq,
-                &txHandle);
+        txCancel = SRV_RSERIAL_ParseTxMessage(pData, &txReq, &txHandle);
 
         if (txCancel == false)
         {
@@ -502,7 +495,6 @@ DRV_RF215_TRX_ID SRV_RSERIAL_ParseTxMessageTrxId(uint8_t* pDataSrc);
 
 bool SRV_RSERIAL_ParseTxMessage (
     uint8_t* pDataSrc,
-    DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
     DRV_RF215_TX_REQUEST_OBJ* pDataDst,
     DRV_RF215_TX_HANDLE* pTxHandleCancel
 );
@@ -533,7 +525,6 @@ bool SRV_RSERIAL_ParseTxMessage (
     DRV_RF215_TRX_ID trxId;
     DRV_HANDLE rf215HandleRF09, rf215HandleRF24; // returned from DRV_RF215_Open
     DRV_HANDLE rf215Handle;
-    DRV_RF215_PHY_CFG_OBJ phyCfg;
     DRV_RF215_TX_REQUEST_OBJ txReq;
     DRV_RF215_TX_HANDLE txHandle;
     bool txCancel;
@@ -555,12 +546,8 @@ bool SRV_RSERIAL_ParseTxMessage (
             rf215Handle = rf215HandleRF24;
         }
 
-        // Get RF PHY configuration
-        DRV_RF215_GetPib(rf215Handle, RF215_PIB_PHY_CONFIG, &phyCfg);
-
         // Parse TX request data from USI
-        txCancel = SRV_RSERIAL_ParseTxMessage(pData, &phyCfg, &txReq,
-                &txHandle);
+        txCancel = SRV_RSERIAL_ParseTxMessage(pData, &txReq, &txHandle);
 
         if (txCancel == false)
         {
@@ -589,7 +576,6 @@ void SRV_RSERIAL_SetTxHandle(DRV_RF215_TX_HANDLE txHandle);
     uint8_t* SRV_RSERIAL_SerialRxMessage (
         DRV_RF215_RX_INDICATION_OBJ* pIndObj,
         DRV_RF215_TRX_ID trxId,
-        DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
         size_t* pMsgLen
     )
 
@@ -608,7 +594,6 @@ void SRV_RSERIAL_SetTxHandle(DRV_RF215_TX_HANDLE txHandle);
     pIndObj    - Pointer to RF Reception object containing the frame and
                  parameters
     trxId      - TRX identifier (Sub-1GHz, 2.4GHz)
-    pPhyCfgObj - Pointer to RF PHY configuration object
     pMsgLen    - Pointer to sniffer message length in bytes (output)
 
   Returns:
@@ -621,16 +606,12 @@ void SRV_RSERIAL_SetTxHandle(DRV_RF215_TX_HANDLE txHandle);
 
     void _APP_RF_RxIndCb(DRV_RF215_RX_INDICATION_OBJ* indObj, uintptr_t ctxt)
     {
-        DRV_RF215_PHY_CFG_OBJ phyCfg;
         uint8_t* pSerialData;
         size_t length;
 
-        // Get RF PHY configuration
-        DRV_RF215_GetPib(rf215Handle, RF215_PIB_PHY_CONFIG, &phyCfg);
-
         // Serialize received message and send through USI
         pSerialData = SRV_RSERIAL_SerialRxMessage(indObj, RF215_TRX_ID_RF09,
-                &phyCfg, &length);
+                &length);
         SRV_USI_Send_Message(srvUSIHandle, SRV_USI_PROT_ID_PHY_RF215,
                 pSerialData, length);
     }
@@ -643,7 +624,6 @@ void SRV_RSERIAL_SetTxHandle(DRV_RF215_TX_HANDLE txHandle);
 uint8_t* SRV_RSERIAL_SerialRxMessage (
     DRV_RF215_RX_INDICATION_OBJ* pIndObj,
     DRV_RF215_TRX_ID trxId,
-    DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
     size_t* pMsgLen
 );
 

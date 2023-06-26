@@ -237,13 +237,12 @@ DRV_RF215_TRX_ID SRV_RSERIAL_ParseTxMessageTrxId(uint8_t* pDataSrc)
 
 bool SRV_RSERIAL_ParseTxMessage (
     uint8_t* pDataSrc,
-    DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
     DRV_RF215_TX_REQUEST_OBJ* pDataDst,
     DRV_RF215_TX_HANDLE* pTxHandleCancel
 )
 {
     uint32_t txTimeUS;
-    uint8_t modScheme, timeMode;
+    uint8_t timeMode;
     bool txCancel;
 
     /* Skip command and TRX identifier */
@@ -256,7 +255,7 @@ bool SRV_RSERIAL_ParseTxMessage (
     txTimeUS += (uint32_t) *pDataSrc++;
     pDataDst->psduLen = ((uint16_t) *pDataSrc++) << 8;
     pDataDst->psduLen += (uint16_t) *pDataSrc++;
-    modScheme = *pDataSrc++;
+    pDataDst->modScheme = (DRV_RF215_PHY_MOD_SCHEME) *pDataSrc++;
     pDataDst->ccaMode = (DRV_RF215_PHY_CCA_MODE) *pDataSrc++;
     timeMode = *pDataSrc++;
     pDataDst->cancelByRx = (bool) *pDataSrc++;
@@ -266,16 +265,6 @@ bool SRV_RSERIAL_ParseTxMessage (
 
     /* Pointer to TX data */
     pDataDst->psdu = pDataSrc;
-
-    /* Parse modulation scheme depending on PHY type */
-    if (pPhyCfgObj->phyType == PHY_TYPE_FSK)
-    {
-        pDataDst->modScheme = (DRV_RF215_PHY_MOD_SCHEME) modScheme;
-    }
-    else /* PHY_TYPE_OFDM */
-    {
-        pDataDst->modScheme = (DRV_RF215_PHY_MOD_SCHEME) (modScheme + OFDM_MCS_0);
-    }
 
     /* Parse time mode and TX time */
     txCancel = false;
@@ -352,7 +341,6 @@ void SRV_RSERIAL_SetTxHandle(DRV_RF215_TX_HANDLE txHandle)
 uint8_t* SRV_RSERIAL_SerialRxMessage (
     DRV_RF215_RX_INDICATION_OBJ* pIndObj,
     DRV_RF215_TRX_ID trxId,
-    DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
     size_t* pMsgLen
 )
 {
@@ -383,14 +371,7 @@ uint8_t* SRV_RSERIAL_SerialRxMessage (
     psduLen = pIndObj->psduLen;
     *pData++ = (uint8_t) (psduLen >> 8);
     *pData++ = (uint8_t) (psduLen);
-    if (pPhyCfgObj->phyType == PHY_TYPE_FSK)
-    {
-        *pData++ = (uint8_t) pIndObj->modScheme;
-    }
-    else /* PHY_TYPE_OFDM */
-    {
-        *pData++ = (uint8_t) (pIndObj->modScheme - OFDM_MCS_0);
-    }
+    *pData++ = (uint8_t) pIndObj->modScheme;
     *pData++ = (uint8_t) pIndObj->rssiDBm;
     *pData++ = (uint8_t) pIndObj->fcsOk;
 

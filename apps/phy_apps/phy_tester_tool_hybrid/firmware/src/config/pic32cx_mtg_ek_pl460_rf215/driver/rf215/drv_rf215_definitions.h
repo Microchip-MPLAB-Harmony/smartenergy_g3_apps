@@ -390,25 +390,25 @@ typedef enum
     FSK_FEC_ON   = 1,
 
     /* OFDM: BPSK, 1/2 convolutional encoder rate, 4x frequency repetition */
-    OFDM_MCS_0   = 2,
+    OFDM_MCS_0   = 0,
 
     /* OFDM: BPSK, 1/2 convolutional encoder rate, 2x frequency repetition */
-    OFDM_MCS_1   = 3,
+    OFDM_MCS_1   = 1,
 
     /* OFDM: QPSK, 1/2 convolutional encoder rate, 2x frequency repetition */
-    OFDM_MCS_2   = 4,
+    OFDM_MCS_2   = 2,
 
     /* OFDM: QPSK, 1/2 convolutional encoder rate */
-    OFDM_MCS_3   = 5,
+    OFDM_MCS_3   = 3,
 
     /* OFDM: QPSK, 3/4 convolutional encoder rate */
-    OFDM_MCS_4   = 6,
+    OFDM_MCS_4   = 4,
 
     /* OFDM: 16-QAM, 1/2 convolutional encoder rate */
-    OFDM_MCS_5   = 7,
+    OFDM_MCS_5   = 5,
 
     /* OFDM: 16-QAM, 3/4 convolutional encoder rate */
-    OFDM_MCS_6   = 8,
+    OFDM_MCS_6   = 6,
 
     /* Invalid modulation scheme */
     MOD_SCHEME_INVALID = 0xFF,

@@ -146,7 +146,7 @@ typedef enum {
 
 /****************************** DRV_PLC_PHY Interface ***************************/
 
-void DRV_PLC_PHY_Init(DRV_PLC_PHY_OBJ *pl360);
+void DRV_PLC_PHY_Init(DRV_PLC_PHY_OBJ *plcPhyObj);
 void DRV_PLC_PHY_Task(void);
 
 #endif //#ifndef _DRV_PLC_PHY_LOCAL_COMM_H

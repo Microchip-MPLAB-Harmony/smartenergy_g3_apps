@@ -67,26 +67,12 @@ static void _APP_RF_TimeExpired(uintptr_t context)
 
 static void _APP_RF_RxIndCb(DRV_RF215_RX_INDICATION_OBJ* indObj, uintptr_t ctxt)
 {
-    DRV_RF215_PHY_CFG_OBJ phyCfg;
-    DRV_HANDLE rf215Handle;
     uint8_t* pSerialData;
     size_t length;
     DRV_RF215_TRX_ID trxId = (DRV_RF215_TRX_ID) ctxt;
 
-    if (trxId == RF215_TRX_ID_RF09)
-    {
-        rf215Handle = app_rfData.rf215HandleRF09;
-    }
-    else
-    {
-        rf215Handle = app_rfData.rf215HandleRF24;
-    }
-
-    /* Get RF PHY configuration */
-    DRV_RF215_GetPib(rf215Handle, RF215_PIB_PHY_CONFIG, &phyCfg);
-
     /* Serialize received message and send through USI */
-    pSerialData = SRV_RSERIAL_SerialRxMessage(indObj, trxId, &phyCfg, &length);
+    pSerialData = SRV_RSERIAL_SerialRxMessage(indObj, trxId, &length);
     SRV_USI_Send_Message(app_rfData.srvUSIHandle, SRV_USI_PROT_ID_PHY_RF215,
             pSerialData, length);
 }
@@ -201,7 +187,6 @@ void _APP_RF_UsiPhyProtocolEventCb(uint8_t *pData, size_t usiLength)
         case SRV_RSERIAL_CMD_PHY_SEND_MSG:
         {
             bool txCancel;
-            DRV_RF215_PHY_CFG_OBJ phyCfg;
             DRV_RF215_TX_REQUEST_OBJ txReq;
             DRV_RF215_TX_HANDLE txHandle;
 
@@ -217,11 +202,8 @@ void _APP_RF_UsiPhyProtocolEventCb(uint8_t *pData, size_t usiLength)
                 rf215Handle = app_rfData.rf215HandleRF24;
             }
 
-            /* Get RF PHY configuration */
-            DRV_RF215_GetPib(rf215Handle, RF215_PIB_PHY_CONFIG, &phyCfg);
-
             /* Parse TX request data from USI */
-            txCancel = SRV_RSERIAL_ParseTxMessage(pData, &phyCfg, &txReq, &txHandle);
+            txCancel = SRV_RSERIAL_ParseTxMessage(pData, &txReq, &txHandle);
 
             if (txCancel == false)
             {

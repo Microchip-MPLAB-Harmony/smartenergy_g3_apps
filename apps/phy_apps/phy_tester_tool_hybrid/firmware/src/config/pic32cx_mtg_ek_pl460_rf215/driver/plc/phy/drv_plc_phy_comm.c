@@ -421,9 +421,9 @@ static void _DRV_PLC_PHY_COMM_GetEventsInfo(DRV_PLC_PHY_EVENTS_OBJ *eventsObj)
 // Section: DRV_PLC_PHY Common Interface Implementation
 // *****************************************************************************
 // *****************************************************************************
-void DRV_PLC_PHY_Init(DRV_PLC_PHY_OBJ *pl360)
+void DRV_PLC_PHY_Init(DRV_PLC_PHY_OBJ *plcPhyObj)
 {
-    gPlcPhyObj = pl360;
+    gPlcPhyObj = plcPhyObj;
     
     /* Clear information about PLC events */
     gPlcPhyObj->evTxCfm[0] = false;

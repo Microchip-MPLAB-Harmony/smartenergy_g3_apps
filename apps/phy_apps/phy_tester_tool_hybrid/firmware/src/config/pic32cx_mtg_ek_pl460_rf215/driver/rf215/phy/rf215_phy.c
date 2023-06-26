@@ -777,7 +777,7 @@ static inline uint32_t _RF215_OFDM_PpduDuration (
     uint16_t symbolsTotal;
     uint16_t symbolsPay;
     uint16_t bitsSymb;
-    uint8_t mcsIndex = (uint8_t) (modScheme - OFDM_MCS_0);
+    uint8_t mcsIndex = (uint8_t) modScheme;
     const RF215_OFDM_BW_OPT_CONST_OBJ* optConst = &ofdmBwOptConst[ofdmCfg->opt];
     const RF215_OFDM_MCS_CONST_OBJ* mcsConst = &ofdmMcsConst[mcsIndex];
     uint8_t repFactShift = mcsConst->repFactorShift;
@@ -828,7 +828,7 @@ static inline DRV_RF215_PHY_MOD_SCHEME _RF215_OFDM_ReadPHR (
 
     /* Get MCS from PHR */
     phr &= RF215_BBCn_OFDMPHRRX_MCS_Msk;
-    modScheme = (DRV_RF215_PHY_MOD_SCHEME) (phr + OFDM_MCS_0);
+    modScheme = (DRV_RF215_PHY_MOD_SCHEME) phr;
 
     if ((modScheme > OFDM_MCS_6) || (modScheme < ofdmBwOptConst[opt].minMCS))
     {
@@ -987,7 +987,7 @@ static inline uint16_t _RF215_BBC_GetBestFBLI (
     {
         /* OFDM constants depending on bandwidth option and MCS */
         optConst = &ofdmBwOptConst[phyTypeCfg->ofdm.opt];
-        mcsConst = &ofdmMcsConst[(uint8_t) (modScheme - OFDM_MCS_0)];
+        mcsConst = &ofdmMcsConst[(uint8_t) modScheme];
 
         /* Total bits (coded, with repetition) of 1 OFDM symbol */
         bitsSymb = (uint16_t) optConst->dataCarriers << mcsConst->bitsCarrierShift;
@@ -3440,7 +3440,7 @@ static DRV_RF215_TX_RESULT _RF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     else
     {
         /* OFDM: Minimum TX power attenuation to comply with EVM requirements */
-        mcsIndex = (uint8_t) (txBufObj->reqObj.modScheme - OFDM_MCS_0);
+        mcsIndex = (uint8_t) txBufObj->reqObj.modScheme;
         if (txPwrAtt < 31)
         {
             txPwrAtt += ofdmMcsConst[mcsIndex].minTxPwrAttMin;

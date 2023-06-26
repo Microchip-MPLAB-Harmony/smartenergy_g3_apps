@@ -4,10 +4,10 @@
 
 
 project: phy_tester_tool_hybrid
-creation_date: 2023-06-01T10:10:01.574+02:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2023-06-26T13:50:04.654+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mhc_mode: Standalone            # [IDE|Standalone|Headless]
-mhc_version: v3.8.5
+mhc_version: NA
 mplabx_version: NA        # if MPLAB X plugin only
 plugin_version: NA        # if MPLAB X plugin only
 compiler: xc32
@@ -15,7 +15,7 @@ compiler: xc32
 modules:
     - {name: "csp", version: "v3.17.0"}
     - {name: "core", version: "v3.13.0"}
-    - {name: "usb", version: "v3.10.0"}
+    - {name: "usb", version: "v3.11.0-E2"}
     - {name: "dev_packs", version: "v3.16.0"}
     - {name: "smartenergy", version: "unknown"}
     - {name: "bsp", version: "v3.16.0"}

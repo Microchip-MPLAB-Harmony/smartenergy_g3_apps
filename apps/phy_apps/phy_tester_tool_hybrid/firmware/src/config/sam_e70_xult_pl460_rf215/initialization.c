@@ -109,8 +109,29 @@ const DRV_RF215_INIT drvRf215InitData = {
 };
 
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 
+// <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
+/* This routine should initialize the PL460 control pins as soon as possible */
+/* after a power up reset to avoid risks on starting up PL460 device when */ 
+/* pull up resistors are configured by default */
+void _on_reset(void)
+{
+    /* Enables PIOA and PIOC */
+    PMC_REGS->PMC_PCER0 = PMC_PCER0_PID10_Msk | PMC_PCER0_PID12_Msk;
+
+    /* Enable Reset Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
+    SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
+    /* Disable STBY Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_STBY_PIN);
+    SYS_PORT_PinClear(DRV_PLC_STBY_PIN);
+    /* Disable LDO Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
+    SYS_PORT_PinClear(DRV_PLC_LDO_EN_PIN);
+}
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 /* HAL Interface Initialization for PLC transceiver */
 DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
