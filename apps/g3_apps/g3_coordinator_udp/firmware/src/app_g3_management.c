@@ -135,8 +135,8 @@ static void _ADP_NetworkStartConfirm(uint8_t status)
         prefixData[0] = APP_TCPIP_IPV6_NETWORK_PREFIX_G3_LEN;
         prefixData[1] = 1; // OnLink flag
         prefixData[2] = 1; // AutonomuosConfiguration flag
-        *((uint32_t*) &prefixData[3]) = 2000000; // valid lifetime
-        *((uint32_t*) &prefixData[7]) = 2000000; // preferred lifetime
+        *((uint32_t*) &prefixData[3]) = 0x7FFFFFFF; // valid lifetime
+        *((uint32_t*) &prefixData[7]) = 0x7FFFFFFF; // preferred lifetime
         memcpy(&prefixData[11], &networkPrefix, 16);
         ADP_SetRequestSync(ADP_IB_PREFIX_TABLE, 0, 27, (const uint8_t*) prefixData, &setConfirm);
 
