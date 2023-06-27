@@ -105,6 +105,15 @@ static void _APP_CYCLES_IcmpCallback (
 
 static void _APP_CYCLES_SendPacket(void)
 {
+    if (app_cyclesData.availableBuffers == false)
+    {
+        /* Full buffers, wait for availability to send the packet */
+        app_cyclesData.packetPending = true;
+        return;
+    }
+
+    app_cyclesData.packetPending = false;
+
     /* Send ICMPv6 echo request */
     app_cyclesData.timeCountEchoRequest = SYS_TIME_Counter64Get();
     app_cyclesData.icmpResult = TCPIP_ICMPV6_EchoRequestSend(app_cyclesData.netHandle, &app_cyclesData.targetAddress,
@@ -280,6 +289,8 @@ void APP_CYCLES_Initialize ( void )
     app_cyclesData.numDevicesJoined = 0;
     app_cyclesData.sequenceNumber = 0;
     app_cyclesData.timeExpired = false;
+    app_cyclesData.availableBuffers = true;
+    app_cyclesData.packetPending = false;
     for (uint16_t i = 0; i < APP_EAP_SERVER_MAX_DEVICES; i++)
     {
         app_cyclesStatistics[i].timeCountTotal = 0;
@@ -450,7 +461,23 @@ void APP_CYCLES_Tasks ( void )
 
 void APP_CYCLES_AdpBufferIndication(ADP_BUFFER_IND_PARAMS* bufferInd)
 {
-    /* TODO */
+    if ((bufferInd->largeBuffersAvailable == 1) && (bufferInd->mediumBuffersAvailable == 1) &&
+            (bufferInd->smallBuffersAvailable == 1))
+    {
+        /* All buffers are available */
+        app_cyclesData.availableBuffers = true;
+
+        if (app_cyclesData.packetPending == true)
+        {
+            /* Send pending packet */
+            _APP_CYCLES_SendPacket();
+        }
+    }
+    else
+    {
+        /* At least one type of buffers are full */
+        app_cyclesData.availableBuffers = false;
+    }
 }
 
 /*******************************************************************************

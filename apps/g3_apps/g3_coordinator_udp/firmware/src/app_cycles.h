@@ -191,6 +191,13 @@ typedef struct
     /* Timer expired flag */
     bool timeExpired;
 
+    /* Flag to indicate that ADP buffers are available */
+    bool availableBuffers;
+
+    /* Flag to indicate that packet is pending to be sent because of buffer
+     * availability */
+    bool packetPending;
+
 } APP_CYCLES_DATA;
 
 // *****************************************************************************
