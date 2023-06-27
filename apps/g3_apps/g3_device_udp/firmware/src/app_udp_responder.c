@@ -331,6 +331,58 @@ void APP_UDP_RESPONDER_Tasks ( void )
                     break;
                 }
 
+                case 4:
+                {
+                    /* Multicast traffic trigger:
+                     * Upon reception, the device must send an UDP frame to the
+                     * ff02::1 multicast address, using the received frame
+                     * source and destination ports for the destination and
+                     * source ports (respectively) of the response frame,
+                     * setting the message type to 0x02 (UDP reply) and copying
+                     * the message data from the request */
+                    uint16_t responseSize, availableTxSize, chunkSize;
+                    IPV6_ADDR multicastAddr;
+
+                    /* Set multi-cast address as destination */
+                    TCPIP_Helper_StringToIPv6Address(
+                            APP_UDP_RESPONDER_IPV6_MULTICAST_0_CONFORMANCE, &multicastAddr);
+                    TCPIP_UDP_DestinationIPAddressSet(app_udp_responderData.socket,
+                            IP_ADDRESS_TYPE_IPV6, (IP_MULTI_ADDRESS*) &multicastAddr);
+
+                    /* Put the first byte (2: UDP reply) */
+                    TCPIP_UDP_Put(app_udp_responderData.socket, 2);
+
+                    /* Check available TX bytes in UDP socket */
+                    responseSize = rxPayloadSize - 1;
+                    availableTxSize = TCPIP_UDP_TxPutIsReady(app_udp_responderData.socket, responseSize);
+                    if (responseSize > availableTxSize)
+                    {
+                        responseSize = availableTxSize;
+                    }
+
+                    /* Read the remaining UDP payload bytes and insert in UDP
+                     * reply. Implemented in a loop, processing up to 32 bytes
+                     * at a time. This limits memory usage while maximizing
+                     * performance. */
+                    chunkSize = 32;
+                    for (uint16_t written = 0; written < responseSize; written += chunkSize)
+                    {
+                        if (written + chunkSize > responseSize)
+                        {
+                            /* Treat the last chunk */
+                            chunkSize = responseSize - written;
+                        }
+
+                        TCPIP_UDP_ArrayGet(app_udp_responderData.socket, payloadFragment, chunkSize);
+                        TCPIP_UDP_ArrayPut(app_udp_responderData.socket,
+                                (const uint8_t *) payloadFragment, chunkSize);
+                    }
+
+                    /* Send the UDP reply */
+                    TCPIP_UDP_Flush(app_udp_responderData.socket);
+                    break;
+                }
+
                 case 5:
                 {
                     /* The following extension is added to the UDP responder, in
@@ -447,6 +499,33 @@ void APP_UDP_RESPONDER_Tasks ( void )
                     */
                     APP_G3_MANAGEMENT_SetContinuousTxRF();
                     SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_UDP_RESPONDER: RF continuous TX request\r\n");
+                    break;
+                }
+
+                case 10:
+                {
+                    /* LastGasp mode activation:
+                     * Upon reception of this message, adpLastGasp is set to
+                     * TRUE by the IUT, then an ICMPv6 Echo request is sent to
+                     * multicast address ff02::1 by the IUT (required to have
+                     * the IUT generate a broadcast message on activation).
+                     * No confirmation message is defined or required.
+                     * Validation of the LastGasp feature uses normal ICMPv6
+                     * Echo messages, no further application layer modifications
+                     * are required. Disabling LastGasp mode will be done by
+                     * rebooting the DUT: after power-up, the DUT shall start
+                     * with adpLastGasp set to FALSE, as defined in G3-PLC
+                     * specification */
+                    IPV6_ADDR multicastAddr;
+
+                    APP_G3_MANAGEMENT_SetLastGaspMode();
+
+                    /* Send ICMPv6 Echo Request to multi-cast address */
+                    TCPIP_Helper_StringToIPv6Address(
+                            APP_UDP_RESPONDER_IPV6_MULTICAST_0_CONFORMANCE, &multicastAddr);
+                    TCPIP_ICMPV6_EchoRequestSend(app_udp_responderData.netHandle,
+                            &multicastAddr, 0, 0, 10);
+                    SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_UDP_RESPONDER: Last Gasp activation request\r\n");
                     break;
                 }
 

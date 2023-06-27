@@ -777,6 +777,37 @@ uint8_t APP_G3_MANAGEMENT_SetConfigRF(uint8_t* pParameters);
 
 void APP_G3_MANAGEMENT_SetContinuousTxRF ( void );
 
+/*******************************************************************************
+  Function:
+    void APP_G3_MANAGEMENT_SetLastGaspMode(void)
+
+  Summary:
+    Configures the ADP Conformance Last Gasp Mode from UDP responder message.
+
+  Description:
+    This function configures the ADP Conformance Last Gasp Mode from UDP
+    responder message.
+
+  Precondition:
+    APP_G3_MANAGEMENT_Initialize should be called before calling this routine.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    APP_G3_MANAGEMENT_SetLastGaspMode();
+    </code>
+
+  Remarks:
+    None.
+*/
+
+void APP_G3_MANAGEMENT_SetLastGaspMode(void);
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

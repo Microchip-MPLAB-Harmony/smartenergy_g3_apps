@@ -298,6 +298,7 @@ static void _APP_G3_MANAGEMENT_TimeExpiredSetFlag(uintptr_t context)
 static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
 {
     ADP_SET_CFM_PARAMS setConfirm;
+    ADP_MAC_GET_CFM_PARAMS macGetConfirm;
 
     /* Set ADP parameters needed for Conformance Test */
     ADP_SetRequestSync(ADP_IB_BLACKLIST_TABLE_ENTRY_TTL, 0, 2,
@@ -352,17 +353,23 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
             (const uint8_t*) &app_g3_managementConst.clusterTrickleIconformance,
             &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_DELAY_LOW_LQI, 0, 2,
-            (const uint8_t*) &app_g3_managementConst.delayLowLQIconformance,
-            &setConfirm);
+    /* Check RF interface availability */
+    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_RF_IFACE_AVAILABLE, 0, &macGetConfirm);
+    if ((macGetConfirm.status != G3_SUCCESS) || (macGetConfirm.attributeValue[0] == 0))
+    {
+        /* RF interface not available. Set parameters for PLC-only device */
+        ADP_SetRequestSync(ADP_IB_DELAY_LOW_LQI, 0, 2,
+                (const uint8_t*) &app_g3_managementConst.delayLowLQIconformance,
+                &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_DELAY_HIGH_LQI, 0, 2,
-            (const uint8_t*) &app_g3_managementConst.delayHighLQIconformance,
-            &setConfirm);
+        ADP_SetRequestSync(ADP_IB_DELAY_HIGH_LQI, 0, 2,
+                (const uint8_t*) &app_g3_managementConst.delayHighLQIconformance,
+                &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_CLUSTER_TRICKLE_I, 0, 2,
-            (const uint8_t*) &app_g3_managementConst.clusterTrickleIconformance,
-            &setConfirm);
+        ADP_SetRequestSync(ADP_IB_CLUSTER_TRICKLE_I, 0, 2,
+                (const uint8_t*) &app_g3_managementConst.clusterTrickleIconformance,
+                &setConfirm);
+    }
 
     ADP_SetRequestSync(ADP_IB_MAX_HOPS, 0, 1,
             &app_g3_managementConst.maxHopsConformance, &setConfirm);
@@ -1089,6 +1096,15 @@ void APP_G3_MANAGEMENT_SetContinuousTxRF ( void )
 
     ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_PHY_PARAM_RF, MAC_WRP_RF_PHY_PARAM_SET_CONTINUOUS_TX_MODE,
             1, (const uint8_t*) &continuousTxEnabled, &setConfirm);
+}
+
+void APP_G3_MANAGEMENT_SetLastGaspMode(void)
+{
+    ADP_SET_CFM_PARAMS setConfirm;
+    uint8_t valueTrue = 1;
+
+    /* Enable Last Gasp */
+    ADP_SetRequestSync(ADP_IB_LAST_GASP, 0, 1, (const uint8_t*) &valueTrue, &setConfirm);
 }
 
 /*******************************************************************************
