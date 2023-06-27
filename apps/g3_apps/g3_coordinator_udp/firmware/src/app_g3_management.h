@@ -101,6 +101,9 @@ extern "C" {
 /* Blacklist table entry TTL for Conformance: 2 minutes */
 #define APP_G3_MANAGEMENT_BLACKLIST_TABLE_ENTRY_TTL_CONFORMANCE 2
 
+/* Broadcast Log table entry TTL for Conformance: 2 minutes */
+#define APP_G3_MANAGEMENT_BROADCAST_LOG_TABLE_ENTRY_TTL_CONFORMANCE 2
+
 /* Group Table index 0: 0x8001 (note that the IPv6 layer must listen to
  * ff02::1 in correspondence to this group) */
 #define APP_G3_MANAGEMENT_GROUP_TABLE_0_CONFORMANCE 0x8001
@@ -109,11 +112,47 @@ extern "C" {
  * ff12:30:1122:3344:5566:0:123:4567 in correspondence to this group) */
 #define APP_G3_MANAGEMENT_GROUP_TABLE_1_CONFORMANCE 0x8567
 
+/* Weak LQI for Conformance: 60 */
+#define APP_G3_MANAGEMENT_WEAK_LQI_CONFORMANCE 60
+
+/* RF Weak LQI for Conformance: 100 */
+#define APP_G3_MANAGEMENT_WEAK_LQI_RF_CONFORMANCE 100
+
+/* Trickle Enabled for Conformance */
+#define APP_G3_MANAGEMENT_TRICKLE_DATA_ENABLED_CONFORMANCE 1
+
+/* Trickle Adaptive Ki for Conformance: True */
+#define APP_G3_MANAGEMENT_TRICKLE_ADAPTIVE_KI_CONFORMANCE 1
+
+/* Jitter delays for Conformance: 1500ms and 100ms */
+#define APP_G3_MANAGEMENT_DELAY_LOW_LQI_CONFORMANCE 1500
+#define APP_G3_MANAGEMENT_DELAY_HIGH_LQI_CONFORMANCE 100
+
+/* Cluster Trickle Enabled for Conformance */
+#define APP_G3_MANAGEMENT_CLUSTER_TRICKLE_ENABLED_CONFORMANCE 1
+
+/* Cluster Trickle I for Conformance: 1200ms */
+#define APP_G3_MANAGEMENT_CLUSTER_TRICKLE_I_CONFORMANCE 1200
+
+/* RF Trickle LQI Thresholds for Conformance: 100 and 120 */
+#define APP_G3_MANAGEMENT_TRICKLE_LQI_THRESHOLD_LOW_RF_CONFORMANCE 100
+#define APP_G3_MANAGEMENT_TRICKLE_LQI_THRESHOLD_HIGH_RF_CONFORMANCE 120
+
+/* Jitter LQI thresholds for Conformance: 100 and 170 */
+#define APP_G3_MANAGEMENT_JITTER_LOW_LQI_RF_CONFORMANCE 100
+#define APP_G3_MANAGEMENT_JITTER_HIGH_LQI_RF_CONFORMANCE 170
+
+/* Cluster Min LQI for Conformance: 110 */
+#define APP_G3_MANAGEMENT_CLUSTER_MIN_LQI_RF_CONFORMANCE 110
+
 /* Tone-Map Response TTL for Conformance: 2 minutes */
 #define APP_G3_MANAGEMENT_TMR_TTL_CONFORMANCE 2
 
 /* Destination Address Set index 0 for Conformance: address added */
 #define APP_G3_MANAGEMENT_DEST_ADDR_SET_0_CONFORMANCE 0x7FFF
+
+/* Maximum CSMA Back-offs for Conformance: 5 */
+#define APP_G3_MANAGEMENT_MAX_CSMA_BACKOFFS_CONFORMANCE 5
 
 /* Maximum CSMA Back-offs RF for Conformance: 50 */
 #define APP_G3_MANAGEMENT_MAX_CSMA_BACKOFFS_RF_CONFORMANCE 50
@@ -121,14 +160,20 @@ extern "C" {
 /* Maximum Frame Retries RF for Conformance: 5 */
 #define APP_G3_MANAGEMENT_MAX_FRAME_RETRIES_RF_CONFORMANCE 5
 
-/* POS Table Entry TTL for Conformance: 3 minutes */
-#define APP_G3_MANAGEMENT_POS_TABLE_TTL_CONFORMANCE 3
+/* POS Table Entry TTL for Conformance: 4 minutes */
+#define APP_G3_MANAGEMENT_POS_TABLE_TTL_CONFORMANCE 4
+
+/* POS Recent Entry Threshold for Conformance: 3 minutes */
+#define APP_G3_MANAGEMENT_POS_RECENT_THRESHOLD_CONFORMANCE 3
+
+/* Adaptive Power Low Bound for Conformance: 74 */
+#define APP_G3_MANAGEMENT_ADAPTIVE_POWER_LOW_BOUND_CONFORMANCE 74
 
 /* Routing parameters for Conformance */
 #define APP_G3_MANAGEMENT_KR_CONFORMANCE     0
 #define APP_G3_MANAGEMENT_KM_CONFORMANCE     0
 #define APP_G3_MANAGEMENT_KC_CONFORMANCE     0
-#define APP_G3_MANAGEMENT_KQ_CONFORMANCE     0
+#define APP_G3_MANAGEMENT_KQ_CONFORMANCE     10
 #define APP_G3_MANAGEMENT_KH_CONFORMANCE     4
 #define APP_G3_MANAGEMENT_KRT_CONFORMANCE    0
 #define APP_G3_MANAGEMENT_KQ_RF_CONFORMANCE  0
@@ -268,6 +313,9 @@ typedef struct
     /* ADP_IB_BLACKLIST_TABLE_ENTRY_TTL for Conformance */
     const uint16_t blacklistTableEntryTTLconformance;
 
+    /* ADP_IB_BROADCAST_LOG_TABLE_ENTRY_TTL for Conformance */
+    const uint16_t broadcastLogTableEntryTTLconformance;
+
     /* ADP_IB_GROUP_TABLE: Group Table index 0 for Conformance */
     const uint16_t gropTable0Conformance;
 
@@ -278,6 +326,24 @@ typedef struct
      * Conformance */
     const uint16_t destAddrSet0Conformance;
 
+    /* ADP_IB_DELAY_LOW_LQI / ADP_IB_DELAY_LOW_LQI_RF for Conformance */
+    const uint16_t delayLowLQIconformance;
+
+    /* ADP_IB_DELAY_HIGH_LQI / ADP_IB_DELAY_HIGH_LQI_RF for Conformance */
+    const uint16_t delayHighLQIconformance;
+
+    /* ADP_IB_RREQ_JITTER_LOW_LQI_RF for Conformance */
+    const uint16_t rreqJitterLowLQIRFconformance;
+
+    /* ADP_IB_RREQ_JITTER_HIGH_LQI_RF for Conformance */
+    const uint16_t rreqJitterHighLQIRFconformance;
+
+    /* ADP_IB_CLUSTER_MIN_LQI_RF for Conformance */
+    const uint16_t clusterMinLQIRFconformance;
+
+    /* ADP_IB_CLUSTER_TRICKLE_I / ADP_IB_CLUSTER_TRICKLE_I_RF for Conformance */
+    const uint16_t clusterTrickleIconformance;
+
     /* ADP_IB_MAX_HOPS */
     const uint8_t maxHops;
 
@@ -287,8 +353,32 @@ typedef struct
     /* ADP_IB_MANUF_BROADCAST_ROUTE_ALL */
     const uint8_t broadcastRouteAll;
 
+    /* ADP_IB_WEAK_LQI_VALUE for Conformance */
+    const uint8_t weakLQIvalueConformance;
+
+    /* ADP_IB_WEAK_LQI_VALUE_RF for Conformance */
+    const uint8_t weakLQIvalueRFconformance;
+
+    /* ADP_IB_TRICKLE_DATA_ENABLED for Conformance */
+    const uint8_t trickleDataEnabledConformance;
+
+    /* ADP_IB_TRICKLE_ADAPTIVE_KI for Conformance */
+    const uint8_t trickleAdaptiveKiConformance;
+
+    /* ADP_IB_TRICKLE_LQI_THRESHOLD_LOW_RF for Conformance */
+    const uint8_t trickleLQIthresholdLowRFconformance;
+
+    /* ADP_IB_TRICKLE_LQI_THRESHOLD_HIGH_RF for Conformance */
+    const uint8_t trickleLQIthresholdHighRFconformance;
+
+    /* ADP_IB_CLUSTER_TRICKLE_ENABLED for Conformance */
+    const uint8_t clusterTrickleEnabledConformance;
+
     /* MAC_WRP_PIB_TMR_TTL for Conformance */
     const uint8_t tmrTTLconformance;
+
+    /* MAC_WRP_PIB_MAX_CSMA_BACKOFFS for Conformance */
+    const uint8_t maxCSMAbackoffsConformance;
 
     /* MAC_WRP_PIB_MAX_CSMA_BACKOFFS_RF for Conformance */
     const uint8_t maxCSMAbackoffsRFconformance;
@@ -298,6 +388,12 @@ typedef struct
 
     /* MAC_WRP_PIB_POS_TABLE_ENTRY_TTL for Conformance */
     const uint8_t posTableEntryTTLconformance;
+
+    /* MAC_WRP_PIB_POS_RECENT_ENTRY_THRESHOLD for Conformance */
+    const uint8_t posRecentEntryThresholdConformance;
+
+    /* MAC_WRP_PIB_ADAPTIVE_POWER_LOW_BOUND_RF for Conformance */
+    const uint8_t adaptivePowerLowBoundRFconformance;
 
     /* ADP_IB_KR for Conformance */
     const uint8_t krConformance;

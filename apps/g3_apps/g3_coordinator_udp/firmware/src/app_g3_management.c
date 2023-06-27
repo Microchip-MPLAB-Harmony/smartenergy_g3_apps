@@ -73,16 +73,33 @@ static const APP_G3_MANAGEMENT_CONSTANTS app_g3_managementConst = {
 
     /* G3 Conformance parameters */
     .blacklistTableEntryTTLconformance = APP_G3_MANAGEMENT_BLACKLIST_TABLE_ENTRY_TTL_CONFORMANCE,
+    .broadcastLogTableEntryTTLconformance = APP_G3_MANAGEMENT_BROADCAST_LOG_TABLE_ENTRY_TTL_CONFORMANCE,
     .gropTable0Conformance = APP_G3_MANAGEMENT_GROUP_TABLE_0_CONFORMANCE,
     .gropTable1Conformance = APP_G3_MANAGEMENT_GROUP_TABLE_1_CONFORMANCE,
     .routingTableEntryTTLconformance = APP_G3_MANAGEMENT_ROUTING_TABLE_ENTRY_TTL_CONFORMANCE,
     .maxJoinWaitTimeConformance = APP_G3_MANAGEMENT_MAX_JOIN_WAIT_TIME_CONFORMANCE,
     .destAddrSet0Conformance = APP_G3_MANAGEMENT_DEST_ADDR_SET_0_CONFORMANCE,
+    .delayLowLQIconformance = APP_G3_MANAGEMENT_DELAY_LOW_LQI_CONFORMANCE,
+    .delayHighLQIconformance = APP_G3_MANAGEMENT_DELAY_HIGH_LQI_CONFORMANCE,
+    .rreqJitterLowLQIRFconformance = APP_G3_MANAGEMENT_JITTER_LOW_LQI_RF_CONFORMANCE,
+    .rreqJitterHighLQIRFconformance = APP_G3_MANAGEMENT_JITTER_HIGH_LQI_RF_CONFORMANCE,
+    .clusterMinLQIRFconformance = APP_G3_MANAGEMENT_CLUSTER_MIN_LQI_RF_CONFORMANCE,
+    .clusterTrickleIconformance = APP_G3_MANAGEMENT_CLUSTER_TRICKLE_I_CONFORMANCE,
     .maxHopsConformance = APP_G3_MANAGEMENT_MAX_HOPS_CONFORMANCE,
+    .weakLQIvalueConformance = APP_G3_MANAGEMENT_WEAK_LQI_CONFORMANCE,
+    .weakLQIvalueRFconformance = APP_G3_MANAGEMENT_WEAK_LQI_RF_CONFORMANCE,
+    .trickleDataEnabledConformance = APP_G3_MANAGEMENT_TRICKLE_DATA_ENABLED_CONFORMANCE,
+    .trickleAdaptiveKiConformance = APP_G3_MANAGEMENT_ADAPTIVE_POWER_LOW_BOUND_CONFORMANCE,
+    .trickleLQIthresholdLowRFconformance = APP_G3_MANAGEMENT_TRICKLE_LQI_THRESHOLD_LOW_RF_CONFORMANCE,
+    .trickleLQIthresholdHighRFconformance = APP_G3_MANAGEMENT_TRICKLE_LQI_THRESHOLD_HIGH_RF_CONFORMANCE,
+    .clusterTrickleEnabledConformance = APP_G3_MANAGEMENT_CLUSTER_TRICKLE_ENABLED_CONFORMANCE,
     .tmrTTLconformance = APP_G3_MANAGEMENT_TMR_TTL_CONFORMANCE,
+    .maxCSMAbackoffsConformance = APP_G3_MANAGEMENT_MAX_CSMA_BACKOFFS_CONFORMANCE,
     .maxCSMAbackoffsRFconformance = APP_G3_MANAGEMENT_MAX_CSMA_BACKOFFS_RF_CONFORMANCE,
     .maxFrameRetriesRFconformance = APP_G3_MANAGEMENT_MAX_FRAME_RETRIES_RF_CONFORMANCE,
     .posTableEntryTTLconformance = APP_G3_MANAGEMENT_POS_TABLE_TTL_CONFORMANCE,
+    .posRecentEntryThresholdConformance = APP_G3_MANAGEMENT_POS_RECENT_THRESHOLD_CONFORMANCE,
+    .adaptivePowerLowBoundRFconformance = APP_G3_MANAGEMENT_ADAPTIVE_POWER_LOW_BOUND_CONFORMANCE,
     .krConformance = APP_G3_MANAGEMENT_KRT_CONFORMANCE,
     .kmConformance = APP_G3_MANAGEMENT_KM_CONFORMANCE,
     .kcConformance = APP_G3_MANAGEMENT_KC_CONFORMANCE,
@@ -215,6 +232,10 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
             (const uint8_t*) &app_g3_managementConst.blacklistTableEntryTTLconformance,
             &setConfirm);
 
+    ADP_SetRequestSync(ADP_IB_BROADCAST_LOG_TABLE_ENTRY_TTL, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.broadcastLogTableEntryTTLconformance,
+            &setConfirm);
+
     ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 1, 2,
             (const uint8_t*) &app_g3_managementConst.gropTable0Conformance,
             &setConfirm);
@@ -235,8 +256,65 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
             (const uint8_t*) &app_g3_managementConst.destAddrSet0Conformance,
             &setConfirm);
 
+    ADP_SetRequestSync(ADP_IB_DELAY_LOW_LQI_RF, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.delayLowLQIconformance,
+            &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_DELAY_HIGH_LQI_RF, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.delayHighLQIconformance,
+            &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_RREQ_JITTER_LOW_LQI_RF, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.rreqJitterLowLQIRFconformance,
+            &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_RREQ_JITTER_HIGH_LQI_RF, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.rreqJitterHighLQIRFconformance,
+            &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_CLUSTER_MIN_LQI_RF, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.clusterMinLQIRFconformance,
+            &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_CLUSTER_TRICKLE_I_RF, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.clusterTrickleIconformance,
+            &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_DELAY_LOW_LQI, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.delayLowLQIconformance,
+            &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_DELAY_HIGH_LQI, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.delayHighLQIconformance,
+            &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_CLUSTER_TRICKLE_I, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.clusterTrickleIconformance,
+            &setConfirm);
+
     ADP_SetRequestSync(ADP_IB_MAX_HOPS, 0, 1,
             &app_g3_managementConst.maxHopsConformance, &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_WEAK_LQI_VALUE, 0, 1,
+            &app_g3_managementConst.weakLQIvalueConformance, &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_WEAK_LQI_VALUE_RF, 0, 1,
+            &app_g3_managementConst.weakLQIvalueRFconformance, &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_TRICKLE_DATA_ENABLED, 0, 1,
+            &app_g3_managementConst.trickleDataEnabledConformance, &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_TRICKLE_ADAPTIVE_KI, 0, 1,
+            &app_g3_managementConst.adaptivePowerLowBoundRFconformance, &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_TRICKLE_LQI_THRESHOLD_LOW_RF, 0, 1,
+            &app_g3_managementConst.trickleLQIthresholdLowRFconformance, &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_TRICKLE_LQI_THRESHOLD_HIGH_RF, 0, 1,
+            &app_g3_managementConst.trickleLQIthresholdHighRFconformance, &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_CLUSTER_TRICKLE_ENABLED, 0, 1,
+            &app_g3_managementConst.clusterTrickleEnabledConformance, &setConfirm);
 
     ADP_SetRequestSync(ADP_IB_KR, 0, 1,
             &app_g3_managementConst.krConformance, &setConfirm);
@@ -272,6 +350,9 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
     ADP_MacSetRequestSync(MAC_WRP_PIB_TMR_TTL, 0, 1,
             &app_g3_managementConst.tmrTTLconformance, &setConfirm);
 
+    ADP_MacSetRequestSync(MAC_WRP_PIB_MAX_CSMA_BACKOFFS, 0, 1,
+            &app_g3_managementConst.maxCSMAbackoffsConformance, &setConfirm);
+
     ADP_MacSetRequestSync(MAC_WRP_PIB_MAX_CSMA_BACKOFFS_RF, 0, 1,
             &app_g3_managementConst.maxCSMAbackoffsRFconformance, &setConfirm);
 
@@ -280,6 +361,12 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
 
     ADP_MacSetRequestSync(MAC_WRP_PIB_POS_TABLE_ENTRY_TTL, 0, 1,
             &app_g3_managementConst.posTableEntryTTLconformance, &setConfirm);
+
+    ADP_MacSetRequestSync(MAC_WRP_PIB_POS_RECENT_ENTRY_THRESHOLD, 0, 1,
+            &app_g3_managementConst.posRecentEntryThresholdConformance, &setConfirm);
+
+    ADP_MacSetRequestSync(MAC_WRP_PIB_ADAPTIVE_POWER_LOW_BOUND_RF, 0, 1,
+            &app_g3_managementConst.adaptivePowerLowBoundRFconformance, &setConfirm);
 }
 
 static void _APP_G3_MANAGEMENT_InitializeParameters(void)
