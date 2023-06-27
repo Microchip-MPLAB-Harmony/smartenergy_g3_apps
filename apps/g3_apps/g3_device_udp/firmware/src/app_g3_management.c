@@ -507,6 +507,13 @@ static void _APP_G3_MANAGEMENT_InitializeParameters(void)
          * because they are internally restored when ADP reset is performed */
         app_g3_managementData.writeNonVolatileData = false;
     }
+
+    if (app_g3_managementData.configureParamsRF == true)
+    {
+        /* In case we get here after a kick event, restore RF configuration set
+         * by UDP responder */
+        APP_G3_MANAGEMENT_SetConfigRF(app_g3_managementData.savedParamsRF);
+    }
 }
 
 static bool _APP_G3_MANAGEMENT_CheckBeaconLOADngLBPframes(void)
@@ -600,6 +607,7 @@ void APP_G3_MANAGEMENT_Initialize ( void )
     app_g3_managementData.timerLedHandle = SYS_TIME_HANDLE_INVALID;
     app_g3_managementData.timerLedExpired = false;
     app_g3_managementData.writeNonVolatileData = true;
+    app_g3_managementData.configureParamsRF = false;
 #ifdef APP_G3_MANAGEMENT_CONFORMANCE_TEST
     /* Conformance Test enabled at compilation time.
      * APP_G3_MANAGEMENT_SetConformanceConfig could be used to enable Conformance
@@ -1025,16 +1033,15 @@ uint8_t APP_G3_MANAGEMENT_SetConfigRF(uint8_t* pParameters)
 
     /* Check RF interface availability */
     ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_RF_IFACE_AVAILABLE, 0, &macGetConfirm);
-    if (macGetConfirm.status != G3_SUCCESS)
+    if ((macGetConfirm.status != G3_SUCCESS) || (macGetConfirm.attributeValue[0] == 0))
     {
+        /* RF interface not available */
         return 1;
     }
 
-    if (macGetConfirm.attributeValue[0] == 0)
-    {
-        /* RF interface not available */
-        return 2;
-    }
+    /* Save RF parameters to restore configuration after kick */
+    app_g3_managementData.configureParamsRF = true;
+    memcpy(app_g3_managementData.savedParamsRF, pParameters, 4);
 
     /* Decode parameters */
     frequencyBand = *pParameters++;
@@ -1048,7 +1055,7 @@ uint8_t APP_G3_MANAGEMENT_SetConfigRF(uint8_t* pParameters)
             2, (const uint8_t*) &freqBandOpMode, &setConfirm);
     if (setConfirm.status != G3_SUCCESS)
     {
-        /* Invalid/unsupported configuration */
+        /* Invalid/unsupported frequency band/operating mode */
         return 2;
     }
 

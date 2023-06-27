@@ -299,6 +299,9 @@ typedef struct
     /* Number of join retries */
     uint8_t joinRetries;
 
+    /* Saved RF parameters used restore configuration after kick event */
+    uint8_t savedParamsRF[4];
+
     /* Conformance Test flag */
     bool conformanceTest;
 
@@ -311,6 +314,9 @@ typedef struct
 
     /* Flag to indicate if LED blinking time has expired */
     bool timerLedExpired;
+
+    /* Flag to indicate if RF configuration has to be restored after kick */
+    bool configureParamsRF;
 
 } APP_G3_MANAGEMENT_DATA;
 
