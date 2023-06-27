@@ -95,8 +95,8 @@ static void _ADP_NetworkStartConfirm(uint8_t status)
         prefixData[0] = APP_TCPIP_IPV6_NETWORK_PREFIX_G3_LEN;
         prefixData[1] = 1; // OnLink flag
         prefixData[2] = 1; // AutonomuosConfiguration flag
-        *((uint32_t*) &prefixData[3]) = 2000000; // valid lifetime
-        *((uint32_t*) &prefixData[7]) = 2000000; // preferred lifetime
+        *((uint32_t*) &prefixData[3]) = 0x7FFFFFFF; // valid lifetime
+        *((uint32_t*) &prefixData[7]) = 0x7FFFFFFF; // preferred lifetime
         memcpy(&prefixData[11], &networkPrefix, 16);
         ADP_SetRequestSync(ADP_IB_PREFIX_TABLE, 0, 27, (const uint8_t*) prefixData, &setConfirm);
 
@@ -133,6 +133,7 @@ static void _ADP_DiscoveryIndication(ADP_PAN_DESCRIPTOR* pPanDescriptor)
 
 static void _ADP_DiscoveryConfirm(uint8_t status)
 {
+    ADP_SET_CFM_PARAMS setConfirm;
     bool checkAllPanId = true;
 
     while (checkAllPanId == true)
@@ -150,6 +151,10 @@ static void _ADP_DiscoveryConfirm(uint8_t status)
             }
         }
     }
+
+    /* Set short address for coordinator (0x0000) */
+    ADP_MacSetRequestSync(MAC_WRP_PIB_SHORT_ADDRESS, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.shortAddress, &setConfirm);
 
     /* Start G3 network */
     app_g3_managementData.state = APP_G3_MANAGEMENT_STATE_STARTING_NETWORK;
@@ -191,10 +196,6 @@ static void _APP_G3_MANAGEMENT_InitializeParameters(void)
     /* Set extended address (EUI64). It must be unique for each device. */
     ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_EXTENDED_ADDRESS, 0, 8,
             (const uint8_t*) app_g3_managementData.eui64.value, &setConfirm);
-
-    /* Set short address for coordinator (0x0000) */
-    ADP_MacSetRequestSync(MAC_WRP_PIB_SHORT_ADDRESS, 0, 2,
-            (const uint8_t*) &app_g3_managementConst.shortAddress, &setConfirm);
 
     /* Set user-specific ADP parameters */
     ADP_SetRequestSync(ADP_IB_CONTEXT_INFORMATION_TABLE, 0, 14,
