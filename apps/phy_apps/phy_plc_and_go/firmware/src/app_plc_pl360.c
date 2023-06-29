@@ -97,7 +97,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
     DRV_PLC_PHY_PIB_OBJ pibObj;
     uint8_t plcCrcEnable;
     bool applyStaticNotching = false;
-                
+
     /* Apply PLC coupling configuration */
     SRV_PCOUP_Set_Config(appPlc.drvPl360Handle, appPlcTx.couplingBranch);
 
@@ -205,8 +205,8 @@ static void APP_PLC_ExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj, uintptr_t co
 
     /* Clear App flag */
     appPlc.waitingTxCfm = false;
-    /* Restart PLC task */
-    appPlc.state = APP_PLC_STATE_IDLE;
+    /* Go to Exception state to restart PLC Driver */
+    appPlc.state = APP_PLC_STATE_EXCEPTION;
 }
 
 static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t context )
@@ -223,14 +223,14 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
 {
     /* Avoid warning */
     (void)context;
-    
+
     if (indObj->crcOk == 1)
     {
         uint16_t us_len;
-        
+
         us_len = (uint16_t)indObj->pReceivedData[0] << 8;
         us_len += (uint16_t)indObj->pReceivedData[1];
-        
+
         if (us_len > (indObj->dataLength))
         {
             /* Length error: length in message content should never be more than total data length from PHY */
@@ -241,7 +241,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
             /* Init Timer to handle PLC Reception led */
             USER_PLC_IND_LED_On();
             appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
-                
+
             APP_CONSOLE_Print("\rRx (");
             /* Show Modulation of received frame */
             if (indObj->modScheme == MOD_SCHEME_DIFFERENTIAL)
@@ -293,7 +293,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
     {
         APP_CONSOLE_Print("\rRx ERROR: CRC error\r\n");
     }
-    
+
     APP_CONSOLE_Print(MENU_CMD_PROMPT);
 }
 
@@ -320,16 +320,16 @@ void APP_PLC_PL360_Initialize ( void )
     /* Init PLC objects */
     appPlcTx.pDataTx = appPlcTxDataBuffer;
     appPlcTx.pl360Tx.pTransmitData = appPlcTx.pDataTx;
-    
+
     /* Set PLC state */
     appPlc.state = APP_PLC_STATE_IDLE;
-    
+
     /* Init Timer handler */
     appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr2Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr1Expired = false;
     appPlc.tmr2Expired = false;
-    
+
 }
 
 /******************************************************************************
@@ -348,13 +348,13 @@ void APP_PLC_PL360_Tasks ( void )
         appPlc.tmr1Expired = false;
         USER_BLINK_LED_Toggle();
     }
-    
+
     if (appPlc.tmr2Expired)
     {
         appPlc.tmr2Expired = false;
         USER_PLC_IND_LED_Off();
     }
-    
+
     /* Check the application's current state. */
     switch ( appPlc.state )
     {
@@ -378,7 +378,7 @@ void APP_PLC_PL360_Tasks ( void )
             appPlcTx.pl360Tx.dataLength = 0;
 
             memset(appPlcTx.pl360Tx.preemphasis, 0, sizeof(appPlcTx.pl360Tx.preemphasis));
-            
+
             /* Set PLC Multiband / Couling Branch flag */
             if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == NULL) {
                 /* Auxiliary branch is not configured. Single branch */
@@ -406,7 +406,7 @@ void APP_PLC_PL360_Tasks ( void )
         case APP_PLC_STATE_INIT:
         {
             SYS_STATUS drvPlcStatus = DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX);
-            
+
             /* Select PLC Binary file for multi-band solution */
             if (appPlc.plcMultiband && (drvPlcStatus == SYS_STATUS_UNINITIALIZED))
             {
@@ -428,7 +428,7 @@ void APP_PLC_PL360_Tasks ( void )
                 /* Register Callback function to handle PLC interruption */
                 PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
             }
-            
+
             /* Open PLC driver */
             appPlc.drvPl360Handle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
 
@@ -452,13 +452,13 @@ void APP_PLC_PL360_Tasks ( void )
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, 0);
                 DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, 0);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb, 0);
-                
+
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
-                
+
                 /* Init Timer to handle blinking led */
                 appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
-                
+
                 /* Set PLC state */
                 appPlc.state = APP_PLC_STATE_WAITING;
             }
@@ -496,6 +496,15 @@ void APP_PLC_PL360_Tasks ( void )
 
             /* Restart PLC Driver */
             appPlc.state = APP_PLC_STATE_INIT;
+            break;
+        }
+
+        case APP_PLC_STATE_EXCEPTION:
+        {
+            /* Close Driver and go to INIT state for reinitialization */
+            DRV_PLC_PHY_Close(appPlc.drvPl360Handle);
+            appPlc.state = APP_PLC_STATE_INIT;
+            SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
             break;
         }
 
@@ -545,19 +554,19 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
             }
         }
     }
-    
+
     return false;
 }
 
 void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME modScheme )
 {
     DRV_PLC_PHY_MAX_PSDU_LEN_PARAMS parameters;
-    
+
     if (appPlc.state == APP_PLC_STATE_WAITING)
     {
         appPlcTx.pl360Tx.modScheme = modScheme;
         appPlcTx.pl360Tx.modType = modType;
-        
+
         parameters.modScheme = modScheme;
         parameters.modType = modType;
         parameters.rs2Blocks = appPlcTx.pl360Tx.rs2Blocks;
@@ -567,7 +576,7 @@ void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME
         /* Set parameters for MAX_PSDU_LEN computation in PLC device */
         appPlc.plcPIB.id = PLC_ID_MAX_PSDU_LEN_PARAMS;
         appPlc.plcPIB.length = sizeof(parameters);
-        memcpy(appPlc.plcPIB.pData, (uint8_t *)&parameters, appPlc.plcPIB.length); 
+        memcpy(appPlc.plcPIB.pData, (uint8_t *)&parameters, appPlc.plcPIB.length);
         DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
 
         /* Get MAX_PSDU_LEN from PL360 device */

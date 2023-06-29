@@ -206,8 +206,8 @@ static void APP_PLC_ExceptionCallback( DRV_G3_MACRT_EXCEPTION exceptionObj )
 
     /* Update PLC TX Status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
-    /* Restart PLC task */
-    appPlc.state = APP_PLC_STATE_IDLE;
+    /* Go to Exception state to restart PLC Driver */
+    appPlc.state = APP_PLC_STATE_EXCEPTION;
 }
 
 static void APP_PLC_DataCfmCallback( MAC_RT_TX_CFM_OBJ *cfmObj )
@@ -421,6 +421,15 @@ void APP_Tasks ( void )
             {
                  appPlc.state = APP_PLC_STATE_SET_NEXT_TX;
             }
+            break;
+        }
+
+        case APP_PLC_STATE_EXCEPTION:
+        {
+            /* Close Driver and go to INIT state for reinitialization */
+            DRV_G3_MACRT_Close(appPlc.drvPlcHandle);
+            appPlc.state = APP_PLC_STATE_INIT;
+            SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
             break;
         }
 

@@ -119,7 +119,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
     appPlc.plcPIB.length = 4;
     DRV_G3_MACRT_PIBGet(appPlc.drvPlcHandle, &appPlc.plcPIB);
     memcpy((uint8_t *)&appPlc.phyVersion, appPlc.plcPIB.pData, 4);
-    
+
     /* Fill MAC RT Header */
     appPlcTx.txHeader.frameControl.frameType = MAC_RT_FRAME_TYPE_DATA;
     appPlcTx.txHeader.frameControl.securityEnabled = 0;
@@ -127,10 +127,10 @@ static void APP_PLC_SetInitialConfiguration ( void )
     appPlcTx.txHeader.frameControl.ackRequest = 0; // No en Broadcast
     appPlcTx.txHeader.frameControl.frameVersion = 1;
     appPlcTx.txHeader.sequenceNumber = 0;
-    
+
     /* Set PAN_ID */
     APP_PLC_SetPANID(CONF_PAN_ID);
-    
+
     /* Set Addresses */
     APP_PLC_SetDestinationAddress(MAC_RT_SHORT_ADDRESS_BROADCAST);
     APP_PLC_SetSourceAddress((uint16_t)TRNG_ReadData());
@@ -149,9 +149,9 @@ static void APP_PLC_SetInitialConfiguration ( void )
 static uint8_t APP_PLC_BuildMacRTHeader ( uint8_t *pFrame, MAC_RT_HEADER *pHeader )
 {
     uint8_t *pData;
-    
+
     pData = pFrame;
-    
+
     /* Copy Frame Control and Sequence number */
     memcpy(pData, pHeader, 3);
     pData += 3;
@@ -166,7 +166,7 @@ static uint8_t APP_PLC_BuildMacRTHeader ( uint8_t *pFrame, MAC_RT_HEADER *pHeade
     /* Source Address */
     *pData++ = (uint8_t)(pHeader->sourceAddress.shortAddress);
     *pData++ = (uint8_t)(pHeader->sourceAddress.shortAddress >> 8);
-    
+
     /* Return Header length */
     return (uint8_t)(pData - pFrame);
 }
@@ -175,24 +175,24 @@ static uint8_t APP_PLC_GetMacRTHeaderInfo ( uint8_t *pFrame )
 {
     uint8_t *pData;
     uint16_t address;
-    
+
     /* Frame Struct :
      * Frame Control(2b) + Seq Num(1b) + Dest PAN ID(2b) + Dest Addr(2b) + Src Addr(2b) */
-    
+
     pData = pFrame;
     pData += 2;
-    
+
     pData++; /* Sequence number */
-    
+
     pData += 2; /* PAN ID */
-    
+
     /* Destination address */
     address = *pData++;
     address += (uint16_t)*pData++ << 8;
     APP_CONSOLE_Print("Destination Address: 0x%04X ", address);
 
     /* panIdCompression = 1 -> No Source PAN ID */
-    
+
     /* Source address */
     address = *pData++;
     address += (uint16_t)*pData++ << 8;
@@ -234,7 +234,7 @@ static void APP_PLC_G3MACRTInitCallback(bool initResult)
 static void APP_PLC_PVDDMonitorCallback( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     (void)context;
-    
+
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
@@ -269,15 +269,15 @@ static void APP_PLC_ExceptionCallback( DRV_G3_MACRT_EXCEPTION exceptionObj )
 
     /* Update PLC TX Status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
-    /* Restart PLC task */
-    appPlc.state = APP_PLC_STATE_IDLE;
+    /* Go to Exception state to restart PLC Driver */
+    appPlc.state = APP_PLC_STATE_EXCEPTION;
 }
 
 static void APP_PLC_DataCfmCallback( MAC_RT_TX_CFM_OBJ *cfmObj )
 {
     /* Update PLC TX Status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
-    
+
     /* Capture TX result of the last transmission */
     appPlcTx.lastTxStatus = cfmObj->status;
 }
@@ -286,7 +286,7 @@ static void APP_PLC_DataIndCallback( uint8_t *pData, uint16_t length )
 {
     uint8_t *pFrame;
     uint8_t headerLength;
-    
+
     /* Turn on indication LED and start timer to turn it off */
     SYS_TIME_TimerDestroy(appPlc.tmr2Handle);
     USER_PLC_IND_LED_On();
@@ -332,18 +332,18 @@ static void APP_PLC_DataIndCallback( uint8_t *pData, uint16_t length )
             APP_CONSOLE_Print("8PSK Coherent, ");
         }
     }
-    /* Show LQI (Link Quality Indicator). It is in quarters of dB and 10-dB 
+    /* Show LQI (Link Quality Indicator). It is in quarters of dB and 10-dB
      * offset: SNR(dB) = (LQI - 40) / 4 */
     APP_CONSOLE_Print("LQI %ddB): ", div_round((int16_t)appPlcTx.rxParams.pduLinkQuality - 40, 4));
-    
+
     /* Extract MAC RT Header */
     pFrame = pData;
     headerLength = APP_PLC_GetMacRTHeaderInfo(pFrame);
     pFrame += headerLength;
-    
+
     /* Show Payload */
     APP_CONSOLE_Print("%.*s", length - headerLength, pFrame);
-    
+
     APP_CONSOLE_Print(MENU_CMD_PROMPT);
 }
 
@@ -354,9 +354,9 @@ static void APP_PLC_RxParamsIndCallback( MAC_RT_RX_PARAMETERS_OBJ *pParameters )
     appPlcTx.rxParams.phaseDifferential = pParameters->phaseDifferential;
     appPlcTx.rxParams.modType = pParameters->modType;
     appPlcTx.rxParams.modScheme = pParameters->modScheme;
-    
+
     memcpy(&appPlcTx.rxParams.toneMap, &pParameters->toneMap, sizeof(MAC_RT_TONE_MAP));
-    
+
     memcpy(&appPlcTx.rxParams.toneMapRsp, &pParameters->toneMapRsp, sizeof(MAC_RT_TONE_MAP_RSP_DATA));
 }
 
@@ -376,13 +376,13 @@ void APP_PLC_Initialize ( void )
 {
     /* Init PLC data buffers */
     appPlcTx.pTxFrame = appPlcTxFrameBuffer;
-    
+
     /* Set PLC state */
     appPlc.state = APP_PLC_STATE_IDLE;
-    
+
     /* Set PVDD Monitor tracking data */
     appPlc.pvddMonTxEnable = true;
-    
+
     /* Init PLC TX status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
 
@@ -391,7 +391,7 @@ void APP_PLC_Initialize ( void )
     appPlc.tmr2Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr1Expired = false;
     appPlc.tmr2Expired = false;
-    
+
 }
 
 /******************************************************************************
@@ -403,20 +403,20 @@ void APP_PLC_Initialize ( void )
  */
 
 void APP_PLC_Tasks ( void )
-{   
+{
     /* Signalling */
     if (appPlc.tmr1Expired)
     {
         appPlc.tmr1Expired = false;
         USER_BLINK_LED_Toggle();
     }
-    
+
     if (appPlc.tmr2Expired)
     {
         appPlc.tmr2Expired = false;
         USER_PLC_IND_LED_Off();
     }
-    
+
     /* Check the application's current state. */
     switch ( appPlc.state )
     {
@@ -453,7 +453,7 @@ void APP_PLC_Tasks ( void )
         case APP_PLC_STATE_INIT:
         {
             DRV_G3_MACRT_STATE drvG3MacRtStatus = DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX);
-            
+
             /* Select PLC Binary file for multi-band solution */
             if (appPlc.plcMultiband && (drvG3MacRtStatus == DRV_G3_MACRT_STATE_UNINITIALIZED))
             {
@@ -477,10 +477,10 @@ void APP_PLC_Tasks ( void )
                 /* Register Callback function to handle PLC interruption */
                 PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvG3MacRt);
             }
-            
+
             /* Set G3 MAC RT initialization callback */
             DRV_G3_MACRT_InitCallbackRegister(DRV_G3_MACRT_INDEX_0, APP_PLC_G3MACRTInitCallback);
-            
+
             /* Open PLC driver */
             appPlc.drvPlcHandle = DRV_G3_MACRT_Open(DRV_G3_MACRT_INDEX_0, NULL);
 
@@ -506,17 +506,17 @@ void APP_PLC_Tasks ( void )
                 DRV_G3_MACRT_DataIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataIndCallback);
                 DRV_G3_MACRT_RxParamsIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_RxParamsIndCallback);
                 DRV_G3_MACRT_SleepIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_SleepModeDisableCallback);
-                
+
                 /* Enable PLC Transmission */
                 DRV_G3_MACRT_EnableTX(appPlc.drvPlcHandle, true);
-                
+
                 /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCallback, 0);
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
-            
+
                 /* Init Timer to handle blinking led */
                 appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
-                
+
                 /* Set PLC state */
                 appPlc.state = APP_PLC_STATE_WAITING;
             }
@@ -556,6 +556,15 @@ void APP_PLC_Tasks ( void )
             break;
         }
 
+        case APP_PLC_STATE_EXCEPTION:
+        {
+            /* Close Driver and go to INIT state for reinitialization */
+            DRV_G3_MACRT_Close(appPlc.drvPlcHandle);
+            appPlc.state = APP_PLC_STATE_INIT;
+            SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
+            break;
+        }
+
         /* The default state should never be executed. */
         default:
         {
@@ -573,25 +582,25 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
         {
             uint8_t *pFrame;
             uint8_t headerLen;
-            
+
             if (length > MAC_RT_MAX_PAYLOAD_SIZE) {
                 return false;
             }
-            
+
             appPlc.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CFM;
-            
+
             pFrame = appPlcTx.pTxFrame;
-            
+
             /* Build MAC RT Frame */
             headerLen = APP_PLC_BuildMacRTHeader(pFrame, &appPlcTx.txHeader);
             pFrame += headerLen;
-            
+
             /* Fill Payload */
             memcpy(pFrame, pData, length);
             pFrame += length;
 
             /* Send MAC RT Frame */
-            DRV_G3_MACRT_TxRequest(appPlc.drvPlcHandle, appPlcTx.pTxFrame, 
+            DRV_G3_MACRT_TxRequest(appPlc.drvPlcHandle, appPlcTx.pTxFrame,
                     pFrame - appPlcTx.pTxFrame);
 
             /* Set PLC state */
@@ -602,14 +611,14 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
             }
         }
     }
-    
+
     return false;
 }
 
 bool APP_PLC_SetSleepMode ( bool enable )
 {
     bool sleepIsEnabled = (appPlc.state == APP_PLC_STATE_SLEEP);
-    
+
     if (sleepIsEnabled != enable)
     {
         DRV_G3_MACRT_Sleep(appPlc.drvPlcHandle, enable);
@@ -622,10 +631,10 @@ bool APP_PLC_SetSleepMode ( bool enable )
         {
             appPlc.state = appPlc.prevState;
         }
-        
+
         return true;
     }
-    
+
     return false;
 }
 
@@ -635,7 +644,7 @@ void APP_PLC_SetSourceAddress ( uint16_t address )
     appPlcTx.txHeader.frameControl.srcAddressingMode = MAC_RT_SHORT_ADDRESS;
     appPlcTx.txHeader.sourceAddress.addressMode = MAC_RT_SHORT_ADDRESS;
     appPlcTx.txHeader.sourceAddress.shortAddress = address;
-    
+
     /* Set Short Address in G3 MAC RT device */
     appPlc.plcPIB.pib = MAC_RT_PIB_SHORT_ADDRESS;
     appPlc.plcPIB.index = 0;
@@ -658,7 +667,7 @@ void APP_PLC_SetPANID ( uint16_t panid )
     appPlcTx.txHeader.frameControl.panIdCompression = 1;
     appPlcTx.txHeader.destinationPAN = panid;
     appPlcTx.txHeader.sourcePAN = panid;
-    
+
     /* Set Short Address in G3 MAC RT device */
     appPlc.plcPIB.pib = MAC_RT_PIB_PAN_ID;
     appPlc.plcPIB.index = 0;

@@ -75,7 +75,7 @@
 */
 
 CACHE_ALIGN APP_DATA appData;
-    
+
 static CACHE_ALIGN uint8_t pPLCDataTxBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_DATA_BUFFER_SIZE)];
 static CACHE_ALIGN uint8_t pPLCDataPIBBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_PIB_BUFFER_SIZE)];
 static CACHE_ALIGN uint8_t pSerialDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_SERIAL_DATA_BUFFER_SIZE)];
@@ -89,10 +89,10 @@ static CACHE_ALIGN uint8_t pSerialDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_SERIAL_D
 static void APP_PLC_SetCouplingConfiguration(void)
 {
     SRV_PLC_PCOUP_BRANCH plcBranch;
-    
+
     plcBranch = SRV_PCOUP_Get_Default_Branch();
     SRV_PCOUP_Set_Config(appData.drvPlcHandle, plcBranch);
-    
+
     /* Disable AUTO mode and set VLO behavior by default in order to
      * maximize signal level in any case */
     appData.plcPIB.id = PLC_ID_CFG_AUTODETECT_IMPEDANCE;
@@ -144,9 +144,12 @@ static void APP_PLCExceptionCallback(DRV_PLC_PHY_EXCEPTION exceptionObj,
 
         default:
             appData.plc_phy_err_unknow++;
-	}
+    }
 
-	appData.plc_phy_exception = true;
+    appData.plc_phy_exception = true;
+
+    /* Go to Exception state to restart PLC Driver */
+    appData.state = APP_STATE_EXCEPTION;
 }
 
 static void APP_PLCDataIndCallback(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
@@ -179,7 +182,7 @@ static void APP_PLCDataCfmCallback(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uin
 
     /* Avoid warning */
     (void)context;
-    
+
     appData.plcTxState = APP_PLC_TX_STATE_IDLE;
 
     /* Add received message */
@@ -193,7 +196,7 @@ static void APP_PLCDataCfmCallback(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uin
 static void APP_PLCPVDDMonitorCallback( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     (void)context;
-    
+
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
@@ -269,7 +272,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
             {
                 /* Set PLC TX State to wait Tx confirmation */
                 appData.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CFM;
-                
+
                 /* Capture and parse data from USI */
                 SRV_PSERIAL_ParseTxMessage(&appData.plcTxObj, pData);
 
@@ -279,7 +282,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
             else
             {
                 DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmData;
-                
+
                 cfmData.time = 0;
                 cfmData.rmsCalc = 0;
                 cfmData.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
@@ -336,10 +339,10 @@ void APP_Initialize(void)
     appData.plcTxObj.pTransmitData = pPLCDataTxBuffer;
     appData.plcPIB.pData = pPLCDataPIBBuffer;
     appData.pSerialData = pSerialDataBuffer;
-    
+
     /* Set PVDD Monitor tracking data */
     appData.pvddMonTxEnable = true;
-    
+
     /* Init PLC TX status */
     appData.plcTxState = APP_PLC_TX_STATE_IDLE;
 }
@@ -355,21 +358,21 @@ void APP_Initialize(void)
 void APP_Tasks(void)
 {
     CLEAR_WATCHDOG();
-    
+
     /* Signalling: LED Toggle */
     if (appData.tmr1Expired)
     {
         appData.tmr1Expired = false;
         USER_BLINK_LED_Toggle();
     }
-    
+
     /* Signalling: PLC RX */
     if (appData.tmr2Expired)
     {
         appData.tmr2Expired = false;
         USER_PLC_IND_LED_Off();
     }
-    
+
     /* Check the application's current state. */
     switch(appData.state)
     {
@@ -470,11 +473,20 @@ void APP_Tasks(void)
             if (SRV_USI_Status(appData.srvUSIHandle) == SRV_USI_STATUS_NOT_CONFIGURED)
             {
                 /* Set Application to next state */
-                appData.state = APP_STATE_CONFIG_USI;  
+                appData.state = APP_STATE_CONFIG_USI;
                 SYS_TIME_TimerStop(appData.tmr1Handle);
                 /* Disable Blink Led */
                 USER_BLINK_LED_Off();
             }
+            break;
+        }
+
+        case APP_STATE_EXCEPTION:
+        {
+            /* Close Driver and go to INIT state for reinitialization */
+            DRV_PLC_PHY_Close(appData.drvPlcHandle);
+            appData.state = APP_STATE_INIT;
+            SYS_TIME_TimerDestroy(appData.tmr1Handle);
             break;
         }
 

@@ -68,18 +68,18 @@ extern "C" {
 // *****************************************************************************
 #define LED_BLINK_RATE_MS                         500
 #define LED_PLC_RX_MSG_RATE_MS                    50
-    
-#define APP_PLC_BUFFER_SIZE                       512    
+
+#define APP_PLC_BUFFER_SIZE                       512
 #define APP_PLC_PIB_BUFFER_SIZE                   256
-    
+
 /* Each carrier corresponding to the band can be notched (no energy is sent in those carriers) */
 /* Each carrier is represented by one byte (0: carrier used; 1: carrier notched). By default it is all 0's in PLC device */
 /* The length is the number of carriers corresponding to the band in use. */
 /* In this example case 36 (only valid for CENELEC-A band). */
 /* The same Tone Mask must be set in both transmitter and receiver. Otherwise they don't understand each other */
-#define APP_PLC_STATIC_NOTCHING_ENABLE                0    
+#define APP_PLC_STATIC_NOTCHING_ENABLE                0
 #define APP_PLC_TONE_MASK_STATIC_NOTCHING_EXAMPLE     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-    
+
 // *****************************************************************************
 /* Application states
 
@@ -102,6 +102,7 @@ typedef enum
     APP_PLC_STATE_WAITING_TX_CFM,
     APP_PLC_STATE_SET_BAND,
     APP_PLC_STATE_SLEEP,
+    APP_PLC_STATE_EXCEPTION,
     APP_PLC_STATE_ERROR,
 
 } APP_PLC_STATES;
@@ -122,47 +123,47 @@ typedef enum
 typedef struct
 {
     SYS_TIME_HANDLE tmr1Handle;
-    
+
     volatile bool tmr1Expired;
-    
+
     SYS_TIME_HANDLE tmr2Handle;
-    
+
     volatile bool tmr2Expired;
-    
+
     APP_PLC_STATES state;
-    
+
     DRV_HANDLE drvPl360Handle;
-    
+
     bool waitingTxCfm;
-    
+
     DRV_PLC_PHY_TX_RESULT lastTxResult;
-    
+
     bool plcMultiband;
-    
+
     DRV_PLC_PHY_PIB_OBJ plcPIB;
-    
+
     bool staticNotchingEnable;
-    
+
 } APP_PLC_DATA;
 
 typedef struct
-{    
+{
     uint32_t pl360PhyVersion;
-    
+
     DRV_PLC_PHY_TRANSMISSION_OBJ pl360Tx;
-    
+
     uint8_t *pDataTx;
-    
+
 	uint8_t txAuto;
-    
+
 	uint8_t txImpedance;
-    
+
     uint8_t toneMapSize;
-    
+
     bool bin2InUse;
-    
+
     SRV_PLC_PCOUP_BRANCH couplingBranch;
-    
+
     uint16_t maxPsduLen;
 
 } APP_PLC_DATA_TX;

@@ -89,15 +89,18 @@ static void _APP_PLC_ExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj,
 
         default:
             app_plcData.plc_phy_err_unknow++;
-	}
+    }
 
-	app_plcData.plc_phy_exception = true;
+    app_plcData.plc_phy_exception = true;
+
+    /* Go to Exception state to restart PLC Driver */
+    app_plcData.state = APP_PLC_STATE_EXCEPTION;
 }
 
 static void _APP_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
 {
     size_t length;
-    
+
     /* Avoid warning */
     (void) context;
 
@@ -388,7 +391,7 @@ void APP_PLC_Tasks ( void )
         case APP_PLC_STATE_CONFIG_USI:
         {
             SRV_USI_STATUS usiStatus = SRV_USI_Status(app_plcData.srvUSIHandle);
-            
+
             if (usiStatus == SRV_USI_STATUS_CONFIGURED)
             {
                 /* Register USI callback */
@@ -429,6 +432,15 @@ void APP_PLC_Tasks ( void )
                 /* Disable Blink Led */
                 USER_PLC_BLINK_LED_Off();
             }
+            break;
+        }
+
+        case APP_PLC_STATE_EXCEPTION:
+        {
+            /* Close Driver and go to INIT state for reinitialization */
+            DRV_PLC_PHY_Close(app_plcData.drvPlcHandle);
+            app_plcData.state = APP_PLC_STATE_INIT;
+            SYS_TIME_TimerDestroy(app_plcData.tmr1Handle);
             break;
         }
 

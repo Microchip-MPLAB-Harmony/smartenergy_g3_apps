@@ -73,10 +73,10 @@ extern "C" {
 #define APP_SERIAL_DATA_BUFFER_SIZE   512
 #define APP_PLC_DATA_BUFFER_SIZE      512
 #define APP_PLC_PIB_BUFFER_SIZE       256
-    
+
 #define LED_BLINK_RATE_MS             500
 #define LED_BLINK_PLC_MSG_MS          100
-    
+
 // *****************************************************************************
 /* Application states
 
@@ -99,6 +99,7 @@ typedef enum
     APP_STATE_SEND_PLC_MSG,
     APP_STATE_SEND_USI_MSG,
     APP_STATE_READY,
+    APP_STATE_EXCEPTION,
     APP_STATE_ERROR
 
 } APP_STATE;
@@ -136,43 +137,43 @@ typedef enum
 typedef struct
 {
     APP_STATE state;
-    
+
     SYS_TIME_HANDLE tmr1Handle;
-    
+
     volatile bool tmr1Expired;
-    
+
     SYS_TIME_HANDLE tmr2Handle;
-    
+
     volatile bool tmr2Expired;
-    
+
     DRV_HANDLE drvPlcHandle;
-    
+
     SRV_USI_HANDLE srvUSIHandle;
-    
+
     bool plc_phy_exception;
-    
+
     uint32_t plc_phy_err_unexpected;
-    
+
     uint32_t plc_phy_err_critical;
-    
+
     uint32_t plc_phy_err_reset;
-    
+
     uint32_t plc_phy_err_unknow;
-    
+
     uint8_t *pSerialData;
-    
+
     DRV_PLC_PHY_TRANSMISSION_OBJ plcTxObj;
-    
+
     DRV_PLC_PHY_TRANSMISSION_CFM_OBJ plcTxCfmObj;
-    
+
     DRV_PLC_PHY_RECEPTION_OBJ plcRxObj;
-    
+
     DRV_PLC_PHY_PIB_OBJ plcPIB;
-    
+
     bool pvddMonTxEnable;
-    
+
     APP_PLC_TX_STATE plcTxState;
-    
+
 } APP_DATA;
 
 // *****************************************************************************

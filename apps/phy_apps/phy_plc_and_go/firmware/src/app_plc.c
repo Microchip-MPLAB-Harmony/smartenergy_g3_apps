@@ -103,7 +103,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
     DRV_PLC_PHY_PIB_OBJ pibObj;
     uint8_t plcCrcEnable;
     bool applyStaticNotching = false;
-                
+
     /* Apply PLC coupling configuration */
     SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlcTx.couplingBranch);
 
@@ -207,7 +207,7 @@ void APP_PLC_Timer2_Callback (uintptr_t context)
 static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     (void)context;
-    
+
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
@@ -246,8 +246,8 @@ static void APP_PLC_ExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj, uintptr_t co
 
     /* Update PLC TX Status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
-    /* Restart PLC task */
-    appPlc.state = APP_PLC_STATE_IDLE;
+    /* Go to Exception state to restart PLC Driver */
+    appPlc.state = APP_PLC_STATE_EXCEPTION;
 }
 
 static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t context )
@@ -257,7 +257,7 @@ static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_
 
     /* Update PLC TX Status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
-    
+
     /* Capture TX result of the last transmission */
     appPlc.lastTxResult = cfmObj->result;
 }
@@ -266,14 +266,14 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
 {
     /* Avoid warning */
     (void)context;
-    
+
     if (indObj->crcOk == 1)
     {
         uint16_t us_len;
-        
+
         us_len = (uint16_t)indObj->pReceivedData[0] << 8;
         us_len += (uint16_t)indObj->pReceivedData[1];
-        
+
         if (us_len > (indObj->dataLength))
         {
             /* Length error: length in message content should never be more than total data length from PHY */
@@ -285,7 +285,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
             SYS_TIME_TimerDestroy(appPlc.tmr2Handle);
             USER_PLC_IND_LED_On();
             appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
-                
+
             APP_CONSOLE_Print("\rRx (");
             /* Show Modulation of received frame */
             if (indObj->modScheme == MOD_SCHEME_DIFFERENTIAL)
@@ -337,7 +337,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
     {
         APP_CONSOLE_Print("\rRx ERROR: CRC error\r\n");
     }
-    
+
     APP_CONSOLE_Print(MENU_CMD_PROMPT);
 }
 
@@ -361,13 +361,13 @@ void APP_PLC_Initialize ( void )
     /* Init PLC objects */
     appPlcTx.pDataTx = appPlcTxDataBuffer;
     appPlcTx.plcPhyTx.pTransmitData = appPlcTx.pDataTx;
-    
+
     /* Set PLC state */
     appPlc.state = APP_PLC_STATE_IDLE;
-    
+
     /* Set PVDD Monitor tracking data */
     appPlc.pvddMonTxEnable = true;
-    
+
     /* Init PLC TX status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
 
@@ -376,7 +376,7 @@ void APP_PLC_Initialize ( void )
     appPlc.tmr2Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr1Expired = false;
     appPlc.tmr2Expired = false;
-    
+
 }
 
 /******************************************************************************
@@ -388,20 +388,20 @@ void APP_PLC_Initialize ( void )
  */
 
 void APP_PLC_Tasks ( void )
-{   
+{
     /* Signalling */
     if (appPlc.tmr1Expired)
     {
         appPlc.tmr1Expired = false;
         USER_BLINK_LED_Toggle();
     }
-    
+
     if (appPlc.tmr2Expired)
     {
         appPlc.tmr2Expired = false;
         USER_PLC_IND_LED_Off();
     }
-    
+
     /* Check the application's current state. */
     switch ( appPlc.state )
     {
@@ -425,7 +425,7 @@ void APP_PLC_Tasks ( void )
             appPlcTx.plcPhyTx.dataLength = 0;
 
             memset(appPlcTx.plcPhyTx.preemphasis, 0, sizeof(appPlcTx.plcPhyTx.preemphasis));
-            
+
             /* Set PLC Multiband / Couling Branch flag */
             appPlcTx.couplingBranch = SRV_PCOUP_Get_Default_Branch();
             if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == NULL) {
@@ -453,7 +453,7 @@ void APP_PLC_Tasks ( void )
         case APP_PLC_STATE_INIT:
         {
             SYS_STATUS drvPlcStatus = DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX);
-            
+
             /* Select PLC Binary file for multi-band solution */
             if (appPlc.plcMultiband && (drvPlcStatus == SYS_STATUS_UNINITIALIZED))
             {
@@ -477,7 +477,7 @@ void APP_PLC_Tasks ( void )
                 /* Register Callback function to handle PLC interruption */
                 PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
             }
-            
+
             /* Open PLC driver */
             appPlc.drvPlcHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
 
@@ -502,20 +502,20 @@ void APP_PLC_Tasks ( void )
                 DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataCfmCb, 0);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataIndCb, 0);
                 DRV_PLC_PHY_SleepDisableCallbackRegister(appPlc.drvPlcHandle, APP_PLC_SleepModeDisableCb, 0);
-                
+
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
-                
+
                 /* Disable TX Enable at the beginning */
                 DRV_PLC_PHY_EnableTX(appPlc.drvPlcHandle, false);
                 appPlc.pvddMonTxEnable = false;
                 /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_IN);
-            
+
                 /* Init Timer to handle blinking led */
                 appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
-                
+
                 /* Set PLC state */
                 appPlc.state = APP_PLC_STATE_WAITING;
             }
@@ -554,6 +554,15 @@ void APP_PLC_Tasks ( void )
             /* Restart PLC Driver */
             appPlc.state = APP_PLC_STATE_INIT;
             appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
+            break;
+        }
+
+        case APP_PLC_STATE_EXCEPTION:
+        {
+            /* Close Driver and go to INIT state for reinitialization */
+            DRV_PLC_PHY_Close(appPlc.drvPlcHandle);
+            appPlc.state = APP_PLC_STATE_INIT;
+            SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
             break;
         }
 
@@ -599,19 +608,19 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
             }
         }
     }
-    
+
     return false;
 }
 
 void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME modScheme )
 {
     DRV_PLC_PHY_MAX_PSDU_LEN_PARAMS parameters;
-    
+
     if (appPlc.state == APP_PLC_STATE_WAITING)
     {
         appPlcTx.plcPhyTx.modScheme = modScheme;
         appPlcTx.plcPhyTx.modType = modType;
-        
+
         parameters.modScheme = modScheme;
         parameters.modType = modType;
         parameters.rs2Blocks = appPlcTx.plcPhyTx.rs2Blocks;
@@ -621,7 +630,7 @@ void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME
         /* Set parameters for MAX_PSDU_LEN computation in PLC PHY */
         appPlc.plcPIB.id = PLC_ID_MAX_PSDU_LEN_PARAMS;
         appPlc.plcPIB.length = sizeof(parameters);
-        memcpy(appPlc.plcPIB.pData, (uint8_t *)&parameters, appPlc.plcPIB.length); 
+        memcpy(appPlc.plcPIB.pData, (uint8_t *)&parameters, appPlc.plcPIB.length);
         DRV_PLC_PHY_PIBSet(appPlc.drvPlcHandle, &appPlc.plcPIB);
 
         /* Get MAX_PSDU_LEN from PLC PHY */
@@ -636,7 +645,7 @@ void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME
 bool APP_PLC_SetSleepMode ( bool enable )
 {
     bool sleepIsEnabled = (appPlc.state == APP_PLC_STATE_SLEEP);
-    
+
     if (sleepIsEnabled != enable)
     {
         DRV_PLC_PHY_Sleep(appPlc.drvPlcHandle, enable);
@@ -644,10 +653,10 @@ bool APP_PLC_SetSleepMode ( bool enable )
         {
             appPlc.state = APP_PLC_STATE_SLEEP;
         }
-        
+
         return true;
     }
-    
+
     return false;
 }
 

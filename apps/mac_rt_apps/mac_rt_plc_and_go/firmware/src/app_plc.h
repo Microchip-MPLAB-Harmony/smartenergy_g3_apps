@@ -68,16 +68,16 @@ extern "C" {
 // *****************************************************************************
 #define LED_BLINK_RATE_MS                         500
 #define LED_PLC_RX_MSG_RATE_MS                    50
-    
+
 #define APP_PLC_PIB_BUFFER_SIZE                   256
-    
+
 /* Each carrier corresponding to the band can be notched (no energy is sent in those carriers) */
 /* Each carrier is represented by one bit (1: carrier used; 0: carrier notched). By default it is all 1's in the PLC device */
 /* The length is the max number of carriers of the broadest band, this is 72 bits (9 bytes), where only the number of carriers in band is used, in this case 72 (FCC) */
 /* The same Tone Mask must be set in both transmitter and receiver. Otherwise they don't understand each other */
-#define APP_PLC_STATIC_NOTCHING_ENABLE                0    
+#define APP_PLC_STATIC_NOTCHING_ENABLE                0
 #define APP_PLC_TONE_MASK_STATIC_NOTCHING_EXAMPLE     {0xFF, 0xFF, 0x01, 0xF0, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}
-    
+
 /* ACK request modes */
 #define CONF_ACK_REQUEST_DISABLE           0
 #define CONF_ACK_REQUEST_ENABLE            1
@@ -87,7 +87,7 @@ extern "C" {
 
 /* Configure PAN ID */
 #define CONF_PAN_ID                        0x781D
-    
+
 // *****************************************************************************
 /* Application states
 
@@ -110,6 +110,7 @@ typedef enum
     APP_PLC_STATE_WAITING_TX_CFM,
     APP_PLC_STATE_SET_BAND,
     APP_PLC_STATE_SLEEP,
+    APP_PLC_STATE_EXCEPTION,
     APP_PLC_STATE_ERROR,
 
 } APP_PLC_STATES;
@@ -147,53 +148,53 @@ typedef enum
 typedef struct
 {
     SYS_TIME_HANDLE tmr1Handle;
-    
+
     volatile bool tmr1Expired;
-    
+
     SYS_TIME_HANDLE tmr2Handle;
-    
+
     volatile bool tmr2Expired;
-    
+
     DRV_HANDLE drvPlcHandle;
-    
+
     bool plcMultiband;
-    
+
     bool bin2InUse;
-    
+
     bool staticNotchingEnable;
-    
+
     bool pvddMonTxEnable;
-    
+
     uint32_t phyVersion;
-    
+
     uint8_t toneMapSize;
-    
+
     APP_PLC_STATES state;
-    
+
     APP_PLC_STATES prevState;
-    
+
     uint16_t maxPsduLen;
-    
+
     APP_PLC_TX_STATE plcTxState;
-    
+
     MAC_RT_PIB_OBJ plcPIB;
-    
+
     SRV_PLC_PCOUP_BRANCH couplingBranch;
-    
+
 } APP_PLC_DATA;
 
 typedef struct
-{    
+{
     uint8_t *pTxFrame;
-    
+
     MAC_RT_HEADER txHeader;
-    
+
     MAC_RT_RX_PARAMETERS_OBJ rxParams;
-    
+
     MAC_RT_STATUS lastTxStatus;
-    
+
     bool ackRequest;
-    
+
 } APP_PLC_DATA_TX;
 
 extern APP_PLC_DATA appPlc;
