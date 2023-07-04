@@ -340,7 +340,7 @@ void APP_PLC_Tasks ( void )
                     appPlcTx.plcPhyVersion = 0;
                     appPlcTx.txImpedance = HI_STATE;
                     appPlcTx.txAuto = 1;
-                    appPlcTx.plcPhyTx.time = 1000000;
+                    appPlcTx.plcPhyTx.timeIni = 1000000;
                     appPlcTx.plcPhyTx.attenuation = 0;
                     appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_DIFFERENTIAL;
                     appPlcTx.plcPhyTx.modType = MOD_TYPE_BPSK;
@@ -598,7 +598,7 @@ void APP_PLC_Tasks ( void )
                     {
                         DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmData;
                         
-                        cfmData.time = 0;
+                        cfmData.timeEnd = 0;
                         cfmData.rmsCalc = 0;
                         cfmData.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
                         APP_PLC_DataCfmCb(&cfmData, 0);

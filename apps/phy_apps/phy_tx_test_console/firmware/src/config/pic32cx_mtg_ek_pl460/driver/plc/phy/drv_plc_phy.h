@@ -39,8 +39,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _DRV_PLC_PHY_H
-#define _DRV_PLC_PHY_H
+#ifndef DRV_PLC_PHY_H
+#define DRV_PLC_PHY_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -136,38 +136,27 @@ typedef enum
         switch(cfmObj->result)
         {
             case DRV_PLC_PHY_TX_RESULT_PROCESS:
-                // Transmission result: already in process
-                break;   
+                break;
             case DRV_PLC_PHY_TX_RESULT_SUCCESS:
-                // Transmission result: end successfully
-                break;   
+                break;
             case DRV_PLC_PHY_TX_RESULT_INV_LENGTH:
-                // Transmission result: invalid length error
                 break;
             case DRV_PLC_PHY_TX_RESULT_BUSY_CH:
-                // Transmission result: busy channel error
-                break;    
+                break;
             case DRV_PLC_PHY_TX_RESULT_BUSY_TX:
-                // Transmission result: busy in transmission error
-                break;    
+                break;
             case DRV_PLC_PHY_TX_RESULT_BUSY_RX:
-                // Transmission result: busy in reception error
-                break;   
+                break;
             case DRV_PLC_PHY_TX_RESULT_INV_SCHEME:
-                // Transmission result: invalid modulation scheme error
-                break; 
+                break;
             case DRV_PLC_PHY_TX_RESULT_TIMEOUT:
-                // Transmission result: timeout error
-                break;   
+                break;
             case DRV_PLC_PHY_TX_RESULT_INV_TONEMAP:
-                // Transmission result: invalid tone map error
                 break;
             case DRV_PLC_PHY_TX_RESULT_INV_MODE:
-                // Transmission result: invalid G3 Mode error
-                break;   
+                break;
             case DRV_PLC_PHY_TX_RESULT_NO_TX:
-                // Transmission result: No transmission ongoing
-                break;   
+                break;
         }
     }
     </code>
@@ -222,9 +211,7 @@ typedef void ( *DRV_PLC_PHY_TX_CFM_CALLBACK )( DRV_PLC_PHY_TRANSMISSION_CFM_OBJ 
     {
         MY_APP_DATA_STRUCT pAppData = (MY_APP_DATA_STRUCT) context;
 
-        // Check length of the new message
         if (indObj->dataLength) {
-          // extract data from received message
           memcpy(appData.pDataRx, indObj->pReceivedData, indObj->dataLength);
         }
     </code>
@@ -280,23 +267,19 @@ typedef void ( *DRV_PLC_PHY_DATA_IND_CALLBACK )( DRV_PLC_PHY_RECEPTION_OBJ *indO
         switch (exceptionObj) 
         {
             case DRV_PLC_PHY_EXCEPTION_UNEXPECTED_KEY:
-                // SPI has detected an unexpected status, reset is recommended
                 break;
 
             case DRV_PLC_PHY_EXCEPTION_CRITICAL_ERROR:
-                // SPI critical error in last transfer. Bootloader task has failured.
                 break;
 
             case DRV_PLC_PHY_EXCEPTION_DEBUG:
-                // PLC transceiver has been reseted by Debugging tool
                 break;
 
             case DRV_PLC_PHY_EXCEPTION_RESET:
-                // PLC transceiver has been reseted
                 break;
 
             default:
-                // SPI has detected an unexpected status, reset is recommended
+                break;
         }
 
         appData.plc_phy_exception = true;
@@ -396,9 +379,7 @@ typedef void ( *DRV_PLC_PHY_EXCEPTION_CALLBACK )( DRV_PLC_PHY_EXCEPTION exceptio
     };
 
     sysObjDrvPLC0 = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX_0, (SYS_MODULE_INIT *)&drvPLC0InitData);
-    // Register Callback function is mandatory to handle PLC interruption 
     PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObjDrvPLC0);
-
     </code>
 
   Remarks:
@@ -456,8 +437,7 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize( const SYS_MODULE_INDEX index, const SYS_M
     handle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
     if (handle == DRV_HANDLE_INVALID)
     {
-        // Unable to open the driver
-        // May be the driver is not initialized
+
     }
     </code>
 
@@ -492,10 +472,7 @@ DRV_HANDLE DRV_PLC_PHY_Open(const SYS_MODULE_INDEX index,
 
   Example:
     <code>
-    // 'handle', returned from the DRV_PLC_PHY_Open
-
     DRV_PLC_PHY_Close(handle);
-
     </code>
 
   Remarks:
@@ -526,19 +503,12 @@ void DRV_PLC_PHY_Close(const DRV_HANDLE handle);
 
   Example:
     <code>
-    // 'handle', returned from the DRV_PLC_PHY_Open
-    
     DRV_PLC_PHY_TRANSMISSION_OBJ transmitObj;
 
-    // It is mandatory to set all transmission parameters using DRV_PLC_PHY_TRANSMISSION_OBJ
-    // Those parameters depends on the PLC profile in use.
-    // Local function implemented in the user application
     _setupTransmissionParameters();
     
     memcpy(transmitObj.data, src_buf, data_len);
     transmitObj.length = data_len;
-
-    // Rest of the paramenters in transmitObj were configured previously
 
     DRV_PLC_PHY_TxRequest(handle, &transmitObj);
 
@@ -572,8 +542,6 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
 
   Example:
     <code>
-    // 'handle', returned from the DRV_PLC_PHY_Open
-    
     DRV_PLC_PHY_PIB_OBJ pibObj;
     uint32_t version;
     
@@ -583,7 +551,6 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
     pibObj.sync = true;
 
     DRV_PLC_PHY_PIBGet(handle, &pibObj);
-
     </code>
 
   Remarks:
@@ -614,28 +581,23 @@ bool DRV_PLC_PHY_PIBGet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj);
 
   Example:
     <code>
-    // 'handle', returned from the DRV_PLC_PHY_Open
-    
     DRV_PLC_PHY_PIB_OBJ pibObj;
     uint8_t autoMode
     uint8_t impedance;
- 
-    // Disable AUTODETECT impedance mode
+
     autoMode = 0;
- 
-    // Set VLO impedance mode
+
     impedance = VLO_STATE; 
- 
+
     pibObj.pData = &autoMode;
     pibObj.length = 1;
     pibObj.id = PLC_ID_CFG_AUTODETECT_IMPEDANCE;
     DRV_PLC_PHY_PIBSet(handle, &pibObj);
- 
+
     pibObj.pData = &impedance;
     pibObj.length = 1;
     pibObj.id = PLC_ID_CFG_IMPEDANCE;
     DRV_PLC_PHY_PIBSet(handle, &pibObj);
-
     </code>
 
   Remarks:
@@ -680,33 +642,27 @@ bool DRV_PLC_PHY_PIBSet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj);
 
   Example:
     <code>
-     // Event is received when the transmission is finished
     void APP_PLC_Data_Cfm_callback(DRV_PLC_PHY_DATA_CFM_OBJ *cfmObj, uintptr_t context)
     {
-        // The context handle was set to an application specific
-        // object. It is now retrievable easily in the event handler.
         MY_APP_OBJ myAppObj = (MY_APP_OBJ *) context;
 
-        if (cfmObj->result == DRV_PLC_PHY_TX_RESULT_PROCESS) {
-          // This means the data was transferred successfully.
-        } else {
-          // Error handling here.
+        if (cfmObj->result == DRV_PLC_PHY_TX_RESULT_PROCESS)
+        {
+
+        }
+        else
+        {
+
         }
     }
       
-    // myAppObj is an application specific state data object.
     MY_APP_OBJ myAppObj;
 
-    DRV_PLC_PHY_TRANSMISSION_OBJ myTransmissionObj;    
-
-    // myHandle is the handle returned from DRV_PLC_PHY_Open API.
-
-    // Client registers a data confirm callback with driver. This is done once
+    DRV_PLC_PHY_TRANSMISSION_OBJ myTransmissionObj;
 
     DRV_PLC_PHY_TxCfmCallbackRegister( myHandle, APP_PLC_Data_Cfm_callback, (uintptr_t)&myAppObj );
 
     DRV_PLC_PHY_TxRequest(myHandle, myTransmissionObj) == false);
-   
     </code>
 
 */
@@ -754,28 +710,15 @@ void DRV_PLC_PHY_TxCfmCallbackRegister(
 
   Example:
     <code>
-
     void APP_PLC_Data_Ind_callback(DRV_PLC_PHY_DATA_IND_OBJ *indObj, uintptr_t context)
     {
-        // The context handle was set to an application specific
-        // object. It is now retrievable easily in the event handler.
         MY_APP_OBJ myAppObj = (MY_APP_OBJ *) context;
-
-        // Reception handling here.
 
     }
       
-    // myAppObj is an application specific state data object.
     MY_APP_OBJ myAppObj;
 
-    // myHandle is the handle returned from DRV_PLC_PHY_Open API.
-
-    // Client registers a data confirm callback with driver. This is done once
-
     DRV_PLC_PHY_DataIndCallbackRegister( myHandle, APP_PLC_Data_Ind_callback, (uintptr_t)&myAppObj );
-
-    // Event is received when PLC data is receiving.
-    
     </code>
 
 */
@@ -823,26 +766,15 @@ void DRV_PLC_PHY_DataIndCallbackRegister(
 
   Example:
     <code>
-
     void APP_PLC_Exception_callback(DRV_PLC_PHY_EXCEPTION_OBJ *exceptionObj, uintptr_t context)
     {
-        // The context handle was set to an application specific
-        // object. It is now retrievable easily in the event handler.
         MY_APP_OBJ myAppObj = (MY_APP_OBJ *) context;
-
-        // Exception handling here.
 
     }
       
-    // myAppObj is an application specific state data object.
     MY_APP_OBJ myAppObj;
 
-    // myHandle is the handle returned from DRV_PLC_PHY_Open API.
-
-    // Client registers a data confirm callback with driver. This is done once
-
     DRV_PLC_PHY_ExceptionCallbackRegister( myHandle, APP_PLC_Exception_callback, (uintptr_t)&myAppObj );
-
     </code>
 
 */
@@ -878,12 +810,8 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
 
   Example:
     <code>
-      
-    // Initialize PLC Driver Instance
     sysObj.drvPLC = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
-    // Register Callback function to handle PLC interruption
     PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPLC);
-
     </code>
 
 */
@@ -951,13 +879,11 @@ SYS_STATUS DRV_PLC_PHY_Status( const SYS_MODULE_INDEX index );
     None
   Example:
     <code>
-    SYS_MODULE_OBJ      object;     // Returned from DRV_PLC_PHY_Initialize
+    SYS_MODULE_OBJ      object;
     
     while (true)
     {
         DRV_PLC_PHY_Tasks (object);
-    
-        // Do other tasks
     }
     </code>
 
@@ -998,7 +924,7 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object );
     None.
   Example:
     <code>
-    SYS_MODULE_OBJ      object;     // Returned from DRV_PLC_PHY_Initialize
+    SYS_MODULE_OBJ      object;
     
     while (true)
     {
@@ -1025,7 +951,7 @@ void DRV_PLC_PHY_EnableTX( const DRV_HANDLE handle, bool enable );
 
 #include "driver/plc/phy/drv_plc_phy_local.h"
 
-#endif // #ifndef _DRV_PLC_PHY_H
+#endif // #ifndef DRV_PLC_PHY_H
 /*******************************************************************************
  End of File
 */

@@ -1,4 +1,4 @@
-<config configName="pic32cx_mtg_ek_pl460" projectName="g3_phy_tx_test_console_pic32cx_mtg_ek_pl460" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.14">
+<config configName="pic32cx_mtg_ek_pl460" projectName="g3_phy_tx_test_console_pic32cx_mtg_ek_pl460" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.7">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -4117,11 +4117,11 @@
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;core&quot; x=&quot;224&quot; y=&quot;33&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;dfp&quot; x=&quot;0&quot; y=&quot;6&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvPlcPhy&quot; x=&quot;139&quot; y=&quot;329&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;drv_memory&quot; x=&quot;563&quot; y=&quot;328&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;drv_sst26&quot; x=&quot;417&quot; y=&quot;346&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;flexcom0&quot; x=&quot;343&quot; y=&quot;145&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;flexcom5&quot; x=&quot;0&quot; y=&quot;373&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;qspi&quot; x=&quot;277&quot; y=&quot;368&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;drv_memory&quot; x=&quot;567&quot; y=&quot;324&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;drv_sst26&quot; x=&quot;430&quot; y=&quot;342&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;flexcom0&quot; x=&quot;344&quot; y=&quot;146&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;flexcom5&quot; x=&quot;0&quot; y=&quot;397&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;qspi&quot; x=&quot;298&quot; y=&quot;364&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;sefc0&quot; x=&quot;301&quot; y=&quot;8&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;sefc1&quot; x=&quot;432&quot; y=&quot;9&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;srv_pcoup&quot; x=&quot;0&quot; y=&quot;298&quot;/&gt;
@@ -22319,7 +22319,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\drv_plc_phy_local.h</file>
-         <hash>f946bd6dfb449c508e913b3eaa04a99383421a81ae52124e5d2cd2b45d102b75</hash>
+         <hash>5c111c32423c3407213d9b54c61ee2733933581014ab646851bdaf71bad665bf</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armcc.h</file>
@@ -22395,7 +22395,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\service\pvddmon\srv_pvddmon.h</file>
-         <hash>7dd0af25d2e0a06a40750b582ec67ca27e1324a942480e7825e515a9646b3c92</hash>
+         <hash>d82664bffb6b240fa6e3d2834994d8cfb1d928f4c5ecc6b87f30465283d59493</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\peripheral\supc\plib_supc.c</file>
@@ -22583,7 +22583,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_hal.c</file>
-         <hash>b63a8d3c144676efa52cbeb14e3935f900a4b5df8e0c2d545d546f4f6e1d2a8e</hash>
+         <hash>6797603e78c01c2e59dd2835d9902182993730edce08fa223ee3d4519dc5ce9e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\peripheral\qspi\plib_qspi_common.h</file>
@@ -22599,7 +22599,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_hal.h</file>
-         <hash>f7852d881630b7c1ceac2d0ef339f53a738f5fdf945187efaafd3ecf8d7ef8ea</hash>
+         <hash>df3f6c2b374b98e7b07044853b49cf020443b4ef7f2506415b76d04142127ebb</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\memory\drv_memory.h</file>
@@ -22647,7 +22647,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_boot.h</file>
-         <hash>f8ce8c632026235f86b98194fcbb4c4d8fb4479c86c892ffbe46fab38cd9df62</hash>
+         <hash>f361d776a0aab79f7040beece16e4766ff3c1233d557a5f6e14854934987ca7c</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\aes.h</file>
@@ -22663,7 +22663,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\initialization.c</file>
-         <hash>465553996c560bf5a7dc63803b975322e9fe1e8aee24cf9a84de5e64917f2edf</hash>
+         <hash>b68bddb87ad92e441787ed001bdfad63633d3848bca43f003829ddf57eb43814</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\bin\PLC_PHY_G3_CENA.bin</file>
@@ -22679,7 +22679,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\configuration.h</file>
-         <hash>3dff001bf4dca74a8d86167dae83aa26652faa77063ab1c668bc22281ea4c617</hash>
+         <hash>54295b9443f49408a0a44c21329648a2d4210d18e2901c1af6f079908d6d467e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\system\console\src\sys_console_uart.h</file>
@@ -22699,7 +22699,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\drv_plc_phy_local_comm.h</file>
-         <hash>face564faf7d7e86f32af39c8f4bf21c8d826bf032f95cb68bc8101cfe3791b8</hash>
+         <hash>785a5ca1572af8422760da2b68dd7934dd4f2290ac8172dbeaae9c054467901c</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\cmcc0.h</file>
@@ -22815,7 +22815,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\definitions.h</file>
-         <hash>9a474b11186e826d980815ed938dd61631dd6419a08bf4333c6703ba31b84926</hash>
+         <hash>b42ff9bf02dba4b16a33cb87797432d36e5911924b35e8f4fa098518e083e14b</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\core_cm4.h</file>
@@ -22891,7 +22891,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\drv_plc_phy.h</file>
-         <hash>f46e0f8b1d1fb2ae1b4d6415f1fb85e1271be461d8d6ee6ea7242d94ccd8ba7f</hash>
+         <hash>7b3c892874f69989e445b6ad2629ad7a62b58016911195e0f3c4c50180a574b2</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\system\system_media.h</file>
@@ -22899,7 +22899,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\drv_plc_phy.c</file>
-         <hash>483a2578b5e5a0ff01e11fdef8a4d1a2886bbae4ebb66a0813cb2efcad0077d5</hash>
+         <hash>75578df605e4d9895ec18e23a3ab86b6ee9924df9bf2afa5d5f9713986fb86ae</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\adc.h</file>
@@ -22943,7 +22943,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>f628316de0a01588d081e99104cb5c568fd93bd4214c40432482f93399159bb7</hash>
+         <hash>b450fd1fb1098cfb5d194101b186b09cfee6c5f109e1893224bf2e5cf84e7ab7</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\matrix.h</file>
@@ -22975,7 +22975,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\drv_plc_phy_comm.h</file>
-         <hash>848939b5bf74caeb24c5cdcf256d81e18072fc8421ec47a6d3aca38960337577</hash>
+         <hash>4e7feb544327e6cf5eedf649d55a86ba1263c5c7611d61d884a7a743fde7e7bd</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\fuses.h</file>
@@ -22991,7 +22991,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_boot.c</file>
-         <hash>d776492cff6419873df1d6c35bd627d1ac964565f93c6ee366051b632aa92824</hash>
+         <hash>77ddce6745cac27a87f391811ade192136475790f6ac5ecb6095d0e54e3a4010</hash>
       </entry>
       <entry>
          <file>..\src\app_console.c</file>

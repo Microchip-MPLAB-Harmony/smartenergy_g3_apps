@@ -249,13 +249,13 @@ static bool APP_CONSOLE_SetTransmissionPeriod(char *pTime, size_t length)
     uint8_t tmpValue;
     bool result = false;
 
-    appPlcTx.plcPhyTx.time = 0;
+    appPlcTx.plcPhyTx.timeIni = 0;
 
     for(index = length - 1; index > 0; index--)
     {
         if ((*pTime >= '0') && (*pTime <= '9')) {
 				tmpValue = (*pTime - 0x30);
-                appPlcTx.plcPhyTx.time += (uint32_t)pow(10, index) * tmpValue;
+                appPlcTx.plcPhyTx.timeIni += (uint32_t)pow(10, index) * tmpValue;
                 pTime++;
 
                 result = true;
@@ -558,7 +558,7 @@ static void APP_CONSOLE_ShowConfiguration(void)
 		APP_CONSOLE_Print("Very Low Impedance \r\n");
 	}
 
-	APP_CONSOLE_Print("-I- Time Period: %u\n\r", (unsigned int)appPlcTx.plcPhyTx.time);
+	APP_CONSOLE_Print("-I- Time Period: %u\n\r", (unsigned int)appPlcTx.plcPhyTx.timeIni);
 	APP_CONSOLE_Print("-I- Data Len: %u\n\r", (unsigned int)appPlcTx.plcPhyTx.dataLength);
 
 	if (appPlcTx.plcPhyTx.pTransmitData[0] == 0x30)
@@ -882,7 +882,7 @@ void APP_CONSOLE_Tasks ( void )
                 if (APP_CONSOLE_SetTransmissionPeriod(appConsole.pReceivedChar, appConsole.dataLength))
                 {
                     APP_CONSOLE_Print("\r\nSet Time Period = %u us.\r\n",
-                            (unsigned int)appPlcTx.plcPhyTx.time);
+                            (unsigned int)appPlcTx.plcPhyTx.timeIni);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_MENU;
                 }
                 else
