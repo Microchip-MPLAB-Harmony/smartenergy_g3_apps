@@ -66,77 +66,77 @@
 // *****************************************************************************
 // *****************************************************************************
 /* G3 Bandplan */
-#define G3_CEN_A                                   0
-#define G3_CEN_B                                   1
-#define G3_FCC                                     2
-#define G3_ARIB                                    3
-#define G3_INVALID                                 0xFF
+#define G3_CEN_A                                   0U
+#define G3_CEN_B                                   1U
+#define G3_FCC                                     2U
+#define G3_ARIB                                    3U
+#define G3_INVALID                                 0xFFU
 
 /* Number of carriers for Cenelec-A bandplan */
-#define NUM_CARRIERS_CENELEC_A                     36
-/* Number of carriers for Cenelec-B bandplan */      
-#define NUM_CARRIERS_CENELEC_B                     16
-/* Number of carriers for FCC bandplan */      
-#define NUM_CARRIERS_FCC                           72
-/* Number of carriers for ARIB bandplan */      
-#define NUM_CARRIERS_ARIB                          54
+#define NUM_CARRIERS_CENELEC_A                     36U
+/* Number of carriers for Cenelec-B bandplan */
+#define NUM_CARRIERS_CENELEC_B                     16U
+/* Number of carriers for FCC bandplan */
+#define NUM_CARRIERS_FCC                           72U
+/* Number of carriers for ARIB bandplan */
+#define NUM_CARRIERS_ARIB                          54U
 
 /* Subbands for Cenelec-A bandplan */
-#define NUM_SUBBANDS_CENELEC_A                     6
+#define NUM_SUBBANDS_CENELEC_A                     6U
 /* Subbands for Cenelec-B bandplan */
-#define NUM_SUBBANDS_CENELEC_B                     4
+#define NUM_SUBBANDS_CENELEC_B                     4U
 /* Subbands for FCC bandplan */
-#define NUM_SUBBANDS_FCC                           24
+#define NUM_SUBBANDS_FCC                           24U
 /* Subbands for ARIB bandplan */
-#define NUM_SUBBANDS_ARIB                          16
+#define NUM_SUBBANDS_ARIB                          16U
 
 /* CENELEC A Band Plan (35 - 91 Khz) */
-#define PLC_CENELEC_A                              0
+#define PLC_CENELEC_A                              0U
 /* CENELEC-B Band Plan (98 - 122 Khz) */
-#define PLC_CENELEC_B                              1
+#define PLC_CENELEC_B                              1U
 /* FCC Band Plan (155 - 487 Khz) */
-#define PLC_FCC                                    2
+#define PLC_FCC                                    2U
 /* ARIB Band Plan (155 - 404 Khz) */
-#define PLC_ARIB                                   3
+#define PLC_ARIB                                   3U
       
 /* Tone Map size for Cenelec(A,B) bandplan */
-#define TONE_MAP_SIZE_CENELEC                      1
+#define TONE_MAP_SIZE_CENELEC                      1U
 /* Tone Map size for FCC bandplan */
-#define TONE_MAP_SIZE_FCC                          3
+#define TONE_MAP_SIZE_FCC                          3U
 /* Tone Map size for ARIB bandplan */
-#define TONE_MAP_SIZE_ARIB                         3
+#define TONE_MAP_SIZE_ARIB                         3U
 /* Maximum number of protocol carriers */
 #define PROTOCOL_CARRIERS_MAX                      NUM_CARRIERS_FCC
 /* Maximum number of tone map */
-#define TONE_MAP_SIZE_MAX                          TONE_MAP_SIZE_FCC     
+#define TONE_MAP_SIZE_MAX                          TONE_MAP_SIZE_FCC
 /* Maximum number of subbands */
 #define NUM_SUBBANDS_MAX                           NUM_SUBBANDS_FCC
 
 /* TX Mode: Forced transmission */
-#define TX_MODE_FORCED                             (1 << 0)
-/* TX Mode: Absolute transmission */          
-#define TX_MODE_ABSOLUTE                           (0 << 1)
-/* TX Mode: Delayed transmission */          
-#define TX_MODE_RELATIVE                           (1 << 1)
+#define TX_MODE_FORCED                             (1U << 0)
+/* TX Mode: Absolute transmission */
+#define TX_MODE_ABSOLUTE                           (0U << 1)
+/* TX Mode: Delayed transmission */
+#define TX_MODE_RELATIVE                           (1U << 1)
 /* TX Mode: SYNCP Continuous transmission */
-#define TX_MODE_SYNCP_CONTINUOUS                   (1 << 2)
+#define TX_MODE_SYNCP_CONTINUOUS                   (1U << 2)
 /* TX Mode: Symbols Continuous transmission */
-#define TX_MODE_SYMBOLS_CONTINUOUS                 (1 << 3)
+#define TX_MODE_SYMBOLS_CONTINUOUS                 (1U << 3)
 /* TX Mode: Cancel transmission */
-#define TX_MODE_CANCEL                             (1 << 4)
+#define TX_MODE_CANCEL                             (1U << 4)
 
 /* Impedance Configuration: High mode */
-#define HI_STATE                                   0x00
-/* Impedance Configuration: Low mode */      
-#define LOW_STATE                                  0x01
+#define HI_STATE                                   0x00U
+/* Impedance Configuration: Low mode */
+#define LOW_STATE                                  0x01U
 /* Impedance Configuration: Very Low mode */
-#define VLO_STATE                                  0x02  
+#define VLO_STATE                                  0x02U  
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: Data Types
 // *****************************************************************************
-// *****************************************************************************      
+// *****************************************************************************
 
 // *****************************************************************************
 /* G3 PHY Information Base (PIBs)
@@ -291,6 +291,9 @@ typedef enum {
   DT_NACK = 3,
 }DRV_PLC_PHY_DEL_TYPE;
 
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID -  H3_MISRAC_2012_R_5_2_DR_1 */
+
 // *****************************************************************************
 /* G3 Result values of a previous transmission
 
@@ -332,7 +335,9 @@ typedef enum {
   /* Transmission result: No transmission ongoing */
   DRV_PLC_PHY_TX_RESULT_NO_TX = 255,
 }DRV_PLC_PHY_TX_RESULT;
- 
+
+/* MISRA C-2012 deviation block end */
+
 // *****************************************************************************
 /* G3 Tone map response data
 
@@ -386,7 +391,7 @@ typedef struct __attribute__((packed, aligned(1))) {
   /* Pointer to data buffer to transmit */
   uint8_t *pTransmitData;
   /* Instant when transmission has to start referred to 1us PHY counter */
-  uint32_t time;
+  uint32_t timeIni;
   /* Length of the data to transmit in bytes */
   uint16_t dataLength;
   /* Preemphasis for transmission */
@@ -421,7 +426,7 @@ typedef struct __attribute__((packed, aligned(1))) {
 */
 typedef struct {
   /* Instant when frame transmission ended referred to 1us PHY counter */
-  uint32_t time;
+  uint32_t timeEnd;
   /* RMS_CALC it allows to estimate tx power injected */
   uint32_t rmsCalc;
   /* Tx Result (see "TX Result values" above) */
@@ -441,7 +446,7 @@ typedef struct __attribute__((packed, aligned(1))) {
    /* Pointer to received data buffer */
   uint8_t *pReceivedData;
   /* Instant when frame was received (end of message) referred to 1us PHY counter */
-  uint32_t time;
+  uint32_t timeEnd;
   /* Frame duration referred to 1us PHY counter (Preamble + FCH + Payload) */
   uint32_t frameDuration;
   /* Length of the received data in bytes */

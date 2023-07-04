@@ -1,4 +1,4 @@
-<config configName="pic32cx_mtg_ek_pl460" projectName="g3_phy_plc_and_go_pic32cx_mtg_ek_pl460" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.14">
+<config configName="pic32cx_mtg_ek_pl460" projectName="g3_phy_plc_and_go_pic32cx_mtg_ek_pl460" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.7">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -4042,7 +4042,7 @@
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;core&quot; x=&quot;224&quot; y=&quot;33&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;dfp&quot; x=&quot;0&quot; y=&quot;6&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvPlcPhy&quot; x=&quot;159&quot; y=&quot;329&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;flexcom0&quot; x=&quot;338&quot; y=&quot;184&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;flexcom0&quot; x=&quot;337&quot; y=&quot;185&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;flexcom5&quot; x=&quot;3&quot; y=&quot;397&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;sefc0&quot; x=&quot;301&quot; y=&quot;8&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;sefc1&quot; x=&quot;432&quot; y=&quot;9&quot;/&gt;
@@ -7752,7 +7752,14 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom0" name="USART_TX_RING_BUFFER_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;flexcom0&gt;
   &lt;flexcom0 dnOrder=&quot;0&quot; id=&quot;USART_TX_RING_BUFFER_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;512&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/flexcom0&gt;
 &lt;/flexcom0&gt;
 </value>
@@ -21146,7 +21153,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\drv_plc_phy_local.h</file>
-         <hash>64fc1a96d3d95e40457ff21dad39c221d6b643d855a2ead51959a99df3eafc08</hash>
+         <hash>9acf295b669b23a44b6791de42bd2c67e681294945e32e0f1b7e951e9418d1fb</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armcc.h</file>
@@ -21218,7 +21225,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\service\pvddmon\srv_pvddmon.h</file>
-         <hash>7dd0af25d2e0a06a40750b582ec67ca27e1324a942480e7825e515a9646b3c92</hash>
+         <hash>d82664bffb6b240fa6e3d2834994d8cfb1d928f4c5ecc6b87f30465283d59493</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\peripheral\supc\plib_supc.c</file>
@@ -21402,7 +21409,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_hal.c</file>
-         <hash>788dd13dba3d3eb72dc2b0b4dc57bcc2bb76d4289603aa382df477e59bb8ab46</hash>
+         <hash>87353535c30842f9b1e61c5bfb7f2acc8e0de651ac0fe1015757d3d03e3a95ba</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\driver.h</file>
@@ -21414,7 +21421,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_hal.h</file>
-         <hash>398793e2721f7dcb6e585e0d1f7f3e590498b0ee4083718782d9d781d2d3fc8d</hash>
+         <hash>4330546fb90e2e54f57dfc9222f48998ae13071d420aa5d55cea92c3f0ff343f</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cachel1_armv7.h</file>
@@ -21454,7 +21461,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_boot.h</file>
-         <hash>f8ce8c632026235f86b98194fcbb4c4d8fb4479c86c892ffbe46fab38cd9df62</hash>
+         <hash>f361d776a0aab79f7040beece16e4766ff3c1233d557a5f6e14854934987ca7c</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\aes.h</file>
@@ -21470,7 +21477,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\initialization.c</file>
-         <hash>993aee3cafa3cd29564f6bc37a4c3d2c9107430c698428e35c47b4645372278a</hash>
+         <hash>266be197ff7eb9c2b7e3b4829d7b72978c6f83201f6480e5b2df5de7f06e2ea6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\bin\PLC_PHY_G3_CENA.bin</file>
@@ -21486,7 +21493,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\configuration.h</file>
-         <hash>fe908aee9895d3877b49b7b0714531ed6bc325efcb41aee6df0fe2b0356a49e3</hash>
+         <hash>8c0e4353c3f2a04e6bc77ce8ba4529967833f0fc0e120c2cbe14725fdc9963b6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\system\console\src\sys_console_uart.h</file>
@@ -21506,7 +21513,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\drv_plc_phy_local_comm.h</file>
-         <hash>face564faf7d7e86f32af39c8f4bf21c8d826bf032f95cb68bc8101cfe3791b8</hash>
+         <hash>785a5ca1572af8422760da2b68dd7934dd4f2290ac8172dbeaae9c054467901c</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\cmcc0.h</file>
@@ -21694,11 +21701,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\drv_plc_phy.h</file>
-         <hash>db39258593ae809939b869aa8cf4fe45558504c20c4966a5eefcb7f434d37207</hash>
+         <hash>4776dcf45f6b6a311f21186bd12661d603a5dfa9874a81f9ba5dc541a32a0d38</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\drv_plc_phy.c</file>
-         <hash>3f9e34db113700f8c45db99004bac6d0fa3df83df333803febc8bac24ce78d2c</hash>
+         <hash>b3a42cd83675c6312035708855fd2a8067045c45a76c9746a4c14c49047299d2</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\adc.h</file>
@@ -21730,7 +21737,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\peripheral\flexcom\usart\plib_flexcom0_usart.c</file>
-         <hash>63c238a9ec83219678361f13ac9357b423d2c9d9eab3530f64b810c89b62ebf9</hash>
+         <hash>91efc230e9a2a075d7e4a072b11ffea42073731d90d0538f56179fed5741b7ab</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\gpbr.h</file>
@@ -21742,7 +21749,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>4fb632d168c8d0b513c1ace29cd67fe9d150b092421b71c6bba128bf5fd39144</hash>
+         <hash>c61f8c99215ea7e4bc8c5fecea318bd4ed2fc9f9f535cdee0d9ff2e4aa11b8c2</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\matrix.h</file>
@@ -21774,7 +21781,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\phy\drv_plc_phy_comm.h</file>
-         <hash>848939b5bf74caeb24c5cdcf256d81e18072fc8421ec47a6d3aca38960337577</hash>
+         <hash>4e7feb544327e6cf5eedf649d55a86ba1263c5c7611d61d884a7a743fde7e7bd</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\fuses.h</file>
@@ -21790,7 +21797,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_boot.c</file>
-         <hash>d776492cff6419873df1d6c35bd627d1ac964565f93c6ee366051b632aa92824</hash>
+         <hash>77ddce6745cac27a87f391811ade192136475790f6ac5ecb6095d0e54e3a4010</hash>
       </entry>
       <entry>
          <file>..\src\app_console.c</file>

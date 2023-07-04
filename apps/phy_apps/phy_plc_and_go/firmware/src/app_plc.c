@@ -412,7 +412,7 @@ void APP_PLC_Tasks ( void )
             appPlc.staticNotchingEnable = APP_PLC_STATIC_NOTCHING_ENABLE;
 
             /* Set configuration by default */
-            appPlcTx.plcPhyTx.time = 0;
+            appPlcTx.plcPhyTx.timeIni = 0;
             appPlcTx.plcPhyTx.attenuation = 0;
             appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_DIFFERENTIAL;
             appPlcTx.plcPhyTx.modType = MOD_TYPE_BPSK;

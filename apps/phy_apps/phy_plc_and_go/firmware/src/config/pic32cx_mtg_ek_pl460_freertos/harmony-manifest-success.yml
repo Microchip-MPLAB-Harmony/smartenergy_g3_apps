@@ -4,12 +4,12 @@
 
 
 project: phy_plc_and_go
-creation_date: 2023-06-01T13:14:34.483+02:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2023-07-04T10:39:24.566+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: IDE            # [IDE|Standalone|Headless]
-mcc_version: v5.3.0
-mcc_core_version: v5.5.0
-mplabx_version: v6.05        # if MPLAB X plugin only
+mcc_version: v5.3.7
+mcc_core_version: v5.5.7
+mplabx_version: v6.10        # if MPLAB X plugin only
 harmony_version: v1.3.1
 compiler: XC32 (v4.21) 
 
@@ -17,7 +17,7 @@ modules:
     - {name: "csp", version: "v3.17.0"}
     - {name: "core", version: "v3.13.0"}
     - {name: "dev_packs", version: "v3.16.0"}
-    - {name: "smartenergy", version: "v1.1.0-70-g9a68973"}
+    - {name: "smartenergy", version: "v1.1.0-84-g6f275e0"}
     - {name: "bsp", version: "v3.16.0"}
     - {name: "CMSIS-FreeRTOS", version: "v10.5.1"}
 

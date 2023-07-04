@@ -39,8 +39,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _DRV_PLC_PHY_LOCAL_H
-#define _DRV_PLC_PHY_LOCAL_H
+#ifndef DRV_PLC_PHY_LOCAL_H
+#define DRV_PLC_PHY_LOCAL_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -202,4 +202,4 @@ typedef struct
 } DRV_PLC_PHY_OBJ;
 
 
-#endif //#ifndef _DRV_PLC_PHY_LOCAL_H
+#endif //#ifndef DRV_PLC_PHY_LOCAL_H
