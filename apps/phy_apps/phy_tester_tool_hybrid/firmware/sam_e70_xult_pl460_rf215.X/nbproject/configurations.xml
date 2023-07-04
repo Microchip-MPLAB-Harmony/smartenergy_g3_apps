@@ -466,14 +466,14 @@
         <targetDevice>ATSAME70Q21B</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>EdbgTool</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.21</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
-        <pack name="SAME70_DFP" vendor="Microchip" version="4.9.129"/>
+        <pack name="SAME70_DFP" vendor="Microchip" version="4.10.248"/>
+        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -656,6 +656,8 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
         <property key="firmware.path"
                   value="Press to browse for a specific firmware version"/>
         <property key="firmware.toolpack"
@@ -678,8 +680,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="400000-5fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/WORK/GIT/mh3/smartenergy_g3_apps/apps/phy_apps/phy_tester_tool_hybrid/firmware/sam_e70_xult_pl460_rf215.X/debug/sam_e70_xult_pl460_rf215/sam_e70_xult_pl460_rf215_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -711,6 +711,8 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
         <property key="firmware.path"
                   value="Press to browse for a specific firmware version"/>
         <property key="firmware.toolpack"

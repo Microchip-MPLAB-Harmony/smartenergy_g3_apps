@@ -216,7 +216,7 @@ void _APP_PLC_UsiPhyProtocolEventCb(uint8_t *pData, size_t length)
             {
                 DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmData;
 
-                cfmData.time = 0;
+                cfmData.timeEnd = 0;
                 cfmData.rmsCalc = 0;
                 cfmData.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
                 _APP_PLC_DataCfmCb(&cfmData, 0);

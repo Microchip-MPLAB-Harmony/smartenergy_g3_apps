@@ -111,29 +111,36 @@ const DRV_RF215_INIT drvRf215InitData = {
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
-/* This routine should initialize the PL460 control pins as soon as possible */
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
+/* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
+
+/* This routine must initialize the PL460 control pins as soon as possible */
 /* after a power up reset to avoid risks on starting up PL460 device when */ 
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
     /* Enables PIOA and PIOC */
     PMC_REGS->PMC_PCER0 = PMC_PCER0_PID10_Msk | PMC_PCER0_PID12_Msk;
-
     /* Enable Reset Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
     /* Disable STBY Pin */
-    SYS_PORT_PinOutputEnable(DRV_PLC_STBY_PIN);
-    SYS_PORT_PinClear(DRV_PLC_STBY_PIN);
+    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA3);
+    SYS_PORT_PinClear(SYS_PORT_PIN_PA3);
     /* Disable LDO Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
     SYS_PORT_PinClear(DRV_PLC_LDO_EN_PIN);
 }
+
+/* MISRA C-2012 deviation block end */
+
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 /* HAL Interface Initialization for PLC transceiver */
-DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
+static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI Transfer Setup */
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SPI0_TransferSetup,
@@ -193,7 +200,7 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 };
 
 /* HAL Interface Initialization for PLC transceiver */
-DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
+static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC PLIB */
     .plcPlib = &drvPLCPlib,
@@ -241,6 +248,9 @@ extern uint8_t plc_phy_bin_end;
 extern uint8_t plc_phy_bin2_start;
 extern uint8_t plc_phy_bin2_end;
 
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
+
 /* PLC Driver Initialization Data */
 DRV_PLC_PHY_INIT drvPlcPhyInitData = {
 
@@ -263,6 +273,8 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
     .secure = DRV_PLC_SECURE,
     
 };
+
+/* MISRA C-2012 deviation block end */
 
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SRV_USI Instance 1 Initialization Data">
@@ -494,7 +506,7 @@ void SYS_Initialize ( void* data )
     sysObj.drvRf215 = DRV_RF215_Initialize(DRV_RF215_INDEX_0, (SYS_MODULE_INIT *)&drvRf215InitData);
     /* Initialize PLC Phy Driver Instance */
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
-    PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+    (void)PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
 
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
