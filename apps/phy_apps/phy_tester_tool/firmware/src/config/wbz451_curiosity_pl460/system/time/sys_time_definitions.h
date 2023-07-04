@@ -75,9 +75,9 @@ typedef void (*SYS_TIME_PLIB_START)(void);
 typedef void (*SYS_TIME_PLIB_STOP)(void);
 
 
-typedef void (*SYS_TIME_PLIB_PERIOD_SET)(uint16_t period);
-typedef void (*SYS_TIME_PLIB_COMPARE_SET) (uint16_t compare);
-typedef uint16_t (*SYS_TIME_PLIB_COUNTER_GET)(void);
+typedef void (*SYS_TIME_PLIB_PERIOD_SET)(uint32_t period);
+typedef void (*SYS_TIME_PLIB_COMPARE_SET) (uint32_t compare);
+typedef uint32_t (*SYS_TIME_PLIB_COUNTER_GET)(void);
 
 typedef struct
 {

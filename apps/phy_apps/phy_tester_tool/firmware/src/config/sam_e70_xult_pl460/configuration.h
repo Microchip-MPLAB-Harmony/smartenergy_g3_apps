@@ -115,16 +115,16 @@ extern "C" {
 #define DRV_PLC_SPI_CLK                       8000000
 
 /* PLC Driver Identification */
-#define DRV_PLC_PHY_INSTANCES_NUMBER          1
-#define DRV_PLC_PHY_INDEX                     0
-#define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1
-#define DRV_PLC_PHY_PROFILE                   2
+#define DRV_PLC_PHY_INSTANCES_NUMBER          1U
+#define DRV_PLC_PHY_INDEX                     0U
+#define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1U
+#define DRV_PLC_PHY_PROFILE                   2U
 #define DRV_PLC_PHY_NUM_CARRIERS              NUM_CARRIERS_FCC
-#define DRV_PLC_PHY_HOST_PRODUCT              0x3601
-#define DRV_PLC_PHY_HOST_VERSION              0x36010300
-#define DRV_PLC_PHY_HOST_PHY                  0x36020103
+#define DRV_PLC_PHY_HOST_PRODUCT              0x3601U
+#define DRV_PLC_PHY_HOST_VERSION              0x36010300UL
+#define DRV_PLC_PHY_HOST_PHY                  0x36020103UL
 #define DRV_PLC_PHY_HOST_DESC                 "ATSAME70Q21B"
-#define DRV_PLC_PHY_HOST_MODEL                3
+#define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
 /* USI Service Instance 0 Configuration Options */
 #define SRV_USI_INDEX_0                       0
@@ -151,6 +151,15 @@ extern "C" {
 #define USB_DEVICE_EP0_BUFFER_SIZE                          64
 
 
+/* Maximum instances of CDC function driver */
+#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1
+
+
+/* CDC Transfer Queue Size for both read and
+   write. Applicable to all instances of the
+   function driver */
+#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3
+
 /*** USB Driver Configuration ***/
 
 /* Maximum USB driver instances */
@@ -167,15 +176,6 @@ extern "C" {
 
 /* Alignment for buffers that are submitted to USB Driver*/ 
 #define USB_ALIGN  CACHE_ALIGN
-
-/* Maximum instances of CDC function driver */
-#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1
-
-
-/* CDC Transfer Queue Size for both read and
-   write. Applicable to all instances of the
-   function driver */
-#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3
 
 
 

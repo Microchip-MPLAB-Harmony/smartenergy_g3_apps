@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -177,10 +177,10 @@ void SRV_PSERIAL_ParseTxMessage(DRV_PLC_PHY_TRANSMISSION_OBJ* pDataDst, uint8_t*
     pDataSrc += PSERIAL_SUBBANDS_SIZE;
 
     pDataDst->delimiterType = (DRV_PLC_PHY_DEL_TYPE)(*pDataSrc++);
-    pDataDst->time = ((uint32_t)*pDataSrc++) << 24;
-    pDataDst->time += ((uint32_t)*pDataSrc++) << 16;
-    pDataDst->time += ((uint32_t)*pDataSrc++) << 8;
-    pDataDst->time += (uint32_t)*pDataSrc++;
+    pDataDst->timeIni = ((uint32_t)*pDataSrc++) << 24;
+    pDataDst->timeIni += ((uint32_t)*pDataSrc++) << 16;
+    pDataDst->timeIni += ((uint32_t)*pDataSrc++) << 8;
+    pDataDst->timeIni += (uint32_t)*pDataSrc++;
     pDataDst->dataLength = ((uint16_t)*pDataSrc++) << 8;
     pDataDst->dataLength += (uint16_t)*pDataSrc++;
 
@@ -238,10 +238,10 @@ size_t SRV_PSERIAL_SerialRxMessage(uint8_t* pDataDst, DRV_PLC_PHY_RECEPTION_OBJ*
     *pData++ = (uint8_t)(pDataSrc->rsCorrectedErrors);
     *pData++ = (uint8_t)((pDataSrc->dataLength) >> 8);
     *pData++ = (uint8_t)(pDataSrc->dataLength);
-    *pData++ = (uint8_t)((pDataSrc->time) >> 24);
-    *pData++ = (uint8_t)((pDataSrc->time) >> 16);
-    *pData++ = (uint8_t)((pDataSrc->time) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->time);
+    *pData++ = (uint8_t)((pDataSrc->timeEnd) >> 24);
+    *pData++ = (uint8_t)((pDataSrc->timeEnd) >> 16);
+    *pData++ = (uint8_t)((pDataSrc->timeEnd) >> 8);
+    *pData++ = (uint8_t)(pDataSrc->timeEnd);
     *pData++ = (uint8_t)((pDataSrc->frameDuration) >> 24);
     *pData++ = (uint8_t)((pDataSrc->frameDuration) >> 16);
     *pData++ = (uint8_t)((pDataSrc->frameDuration) >> 8);
@@ -268,10 +268,10 @@ size_t SRV_PSERIAL_SerialCfmMessage(uint8_t* pDataDst, DRV_PLC_PHY_TRANSMISSION_
     *pData++ = (uint8_t)((pDataSrc->rmsCalc) >> 16);
     *pData++ = (uint8_t)((pDataSrc->rmsCalc) >> 8);
     *pData++ = (uint8_t)(pDataSrc->rmsCalc);
-    *pData++ = (uint8_t)((pDataSrc->time) >> 24);
-    *pData++ = (uint8_t)((pDataSrc->time) >> 16);
-    *pData++ = (uint8_t)((pDataSrc->time) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->time);
-      
+    *pData++ = (uint8_t)((pDataSrc->timeEnd) >> 24);
+    *pData++ = (uint8_t)((pDataSrc->timeEnd) >> 16);
+    *pData++ = (uint8_t)((pDataSrc->timeEnd) >> 8);
+    *pData++ = (uint8_t)(pDataSrc->timeEnd);
+
     return (pData - pDataDst);    
 }
