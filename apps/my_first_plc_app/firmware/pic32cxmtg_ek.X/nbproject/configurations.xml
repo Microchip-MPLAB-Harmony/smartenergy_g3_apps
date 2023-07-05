@@ -351,7 +351,7 @@
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
-      <itemPath>pic32cxmtg_ek.mc3</itemPath>
+      <itemPath>my_first_plc_app_pic32cx_mtg_ek_pl460.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

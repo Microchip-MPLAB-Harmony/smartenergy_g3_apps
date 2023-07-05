@@ -455,7 +455,7 @@
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
-      <itemPath>sam_e70_xult_pl460_rf215.mc3</itemPath>
+      <itemPath>g3_phy_tester_tool_hybrid_sam_e70_xult.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

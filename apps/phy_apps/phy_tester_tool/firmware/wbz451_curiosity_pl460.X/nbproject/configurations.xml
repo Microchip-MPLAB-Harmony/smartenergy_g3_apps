@@ -365,7 +365,7 @@
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
-      <itemPath>phy_tester_tool_wbz451_curiosity_pl460.mc3</itemPath>
+      <itemPath>g3_phy_tester_tool_wbz451_curiosity_pl460.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

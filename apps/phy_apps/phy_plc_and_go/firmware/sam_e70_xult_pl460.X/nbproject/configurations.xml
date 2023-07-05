@@ -400,7 +400,7 @@
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
-      <itemPath>sam_e70_xult_pl460.mc3</itemPath>
+      <itemPath>g3_phy_plc_and_go_sam_e70_xult_pl460.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>

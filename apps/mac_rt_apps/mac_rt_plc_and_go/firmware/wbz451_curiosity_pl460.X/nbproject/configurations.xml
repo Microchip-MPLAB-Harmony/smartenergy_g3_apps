@@ -362,7 +362,7 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
       <itemPath>wbz451_curiosity_pl460.mc3</itemPath>
-      <itemPath>mac_rt_plc_and_go_wbz451_curiosity_pl460.mc3</itemPath>
+      <itemPath>g3_mac_rt_plc_and_go_wbz451_curiosity_pl460.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

@@ -270,7 +270,7 @@
                    displayName="Important Files"
                    projectFiles="true">
       <itemPath>Makefile</itemPath>
-      <itemPath>sam_e70_xult_pl460.mc3</itemPath>
+      <itemPath>g3_phy_sniffer_tool_sam_e70_xult_pl460.mc3</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

@@ -1040,7 +1040,7 @@
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
-      <itemPath>wbz451_curiosity_pl460_freertos.mc3</itemPath>
+      <itemPath>g3_device_udp_wbz451_curiosity_freertos.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
