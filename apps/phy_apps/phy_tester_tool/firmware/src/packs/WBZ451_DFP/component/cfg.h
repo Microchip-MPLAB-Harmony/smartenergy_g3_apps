@@ -1,7 +1,7 @@
 /*
  * Component description for CFG
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2022-02-28T16:51:20Z */
+/* file generated from device description version 2023-05-31T11:03:01Z */
 #ifndef _BZ45_CFG_COMPONENT_H_
 #define _BZ45_CFG_COMPONENT_H_
 
@@ -121,6 +121,24 @@
 #define CFG_CFGCON0_SLRTEN_Msk                (_UINT32_(0x7) << CFG_CFGCON0_SLRTEN_Pos)            /* (CFG_CFGCON0 Mask) SLRTEN */
 #define CFG_CFGCON0_SLRTEN(value)             (CFG_CFGCON0_SLRTEN_Msk & (_UINT32_(value) << CFG_CFGCON0_SLRTEN_Pos)) 
 
+/* -------- CFG_CFGCON0CLR : (CFG Offset: 0x04) (R/W 32) Bit clear register -------- */
+#define CFG_CFGCON0CLR_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON0CLR) Bit clear register  Reset Value */
+
+#define CFG_CFGCON0CLR_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON0CLR) Register Mask  */
+
+
+/* -------- CFG_CFGCON0SET : (CFG Offset: 0x08) (R/W 32) Bit set register -------- */
+#define CFG_CFGCON0SET_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON0SET) Bit set register  Reset Value */
+
+#define CFG_CFGCON0SET_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON0SET) Register Mask  */
+
+
+/* -------- CFG_CFGCON0INV : (CFG Offset: 0x0C) (R/W 32) Bit invert register -------- */
+#define CFG_CFGCON0INV_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON0INV) Bit invert register  Reset Value */
+
+#define CFG_CFGCON0INV_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON0INV) Register Mask  */
+
+
 /* -------- CFG_CFGCON1 : (CFG Offset: 0x10) (R/W 32)  -------- */
 #define CFG_CFGCON1_RESETVALUE                _UINT32_(0x1F00443B)                                 /*  (CFG_CFGCON1)   Reset Value */
 
@@ -202,6 +220,24 @@
 #define CFG_CFGCON1_I2CDSEL_Msk               (_UINT32_(0x7) << CFG_CFGCON1_I2CDSEL_Pos)           /* (CFG_CFGCON1 Mask) I2CDSEL */
 #define CFG_CFGCON1_I2CDSEL(value)            (CFG_CFGCON1_I2CDSEL_Msk & (_UINT32_(value) << CFG_CFGCON1_I2CDSEL_Pos)) 
 
+/* -------- CFG_CFGCON1CLR : (CFG Offset: 0x14) (R/W 32) Bit clear register -------- */
+#define CFG_CFGCON1CLR_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON1CLR) Bit clear register  Reset Value */
+
+#define CFG_CFGCON1CLR_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON1CLR) Register Mask  */
+
+
+/* -------- CFG_CFGCON1SET : (CFG Offset: 0x18) (R/W 32) Bit set register -------- */
+#define CFG_CFGCON1SET_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON1SET) Bit set register  Reset Value */
+
+#define CFG_CFGCON1SET_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON1SET) Register Mask  */
+
+
+/* -------- CFG_CFGCON1INV : (CFG Offset: 0x1C) (R/W 32) Bit invert register -------- */
+#define CFG_CFGCON1INV_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON1INV) Bit invert register  Reset Value */
+
+#define CFG_CFGCON1INV_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON1INV) Register Mask  */
+
+
 /* -------- CFG_CFGCON2 : (CFG Offset: 0x20) (R/W 32)  -------- */
 #define CFG_CFGCON2_RESETVALUE                _UINT32_(0x7F7FFF38)                                 /*  (CFG_CFGCON2)   Reset Value */
 
@@ -254,6 +290,24 @@
 #define CFG_CFGCON2_DMTEN_Msk                 (_UINT32_(0x1) << CFG_CFGCON2_DMTEN_Pos)             /* (CFG_CFGCON2) Dead Man Timer Enable Mask */
 #define CFG_CFGCON2_DMTEN(value)              (CFG_CFGCON2_DMTEN_Msk & (_UINT32_(value) << CFG_CFGCON2_DMTEN_Pos)) /* Assigment of value for DMTEN in the CFG_CFGCON2 register */
 #define CFG_CFGCON2_Msk                       _UINT32_(0xFFFFFFBF)                                 /* (CFG_CFGCON2) Register Mask  */
+
+
+/* -------- CFG_CFGCON2CLR : (CFG Offset: 0x24) (R/W 32) Bit clear register -------- */
+#define CFG_CFGCON2CLR_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON2CLR) Bit clear register  Reset Value */
+
+#define CFG_CFGCON2CLR_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON2CLR) Register Mask  */
+
+
+/* -------- CFG_CFGCON2SET : (CFG Offset: 0x28) (R/W 32) Bit set register -------- */
+#define CFG_CFGCON2SET_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON2SET) Bit set register  Reset Value */
+
+#define CFG_CFGCON2SET_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON2SET) Register Mask  */
+
+
+/* -------- CFG_CFGCON2INV : (CFG Offset: 0x2C) (R/W 32) Bit invert register -------- */
+#define CFG_CFGCON2INV_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON2INV) Bit invert register  Reset Value */
+
+#define CFG_CFGCON2INV_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON2INV) Register Mask  */
 
 
 /* -------- CFG_CFGCON4 : (CFG Offset: 0x40) (R/W 32)  -------- */
@@ -310,6 +364,24 @@
 #define CFG_CFGCON4_Msk                       _UINT32_(0xBFFFFFFF)                                 /* (CFG_CFGCON4) Register Mask  */
 
 
+/* -------- CFG_CFGCON4CLR : (CFG Offset: 0x44) (R/W 32) Bit clear register -------- */
+#define CFG_CFGCON4CLR_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON4CLR) Bit clear register  Reset Value */
+
+#define CFG_CFGCON4CLR_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON4CLR) Register Mask  */
+
+
+/* -------- CFG_CFGCON4SET : (CFG Offset: 0x48) (R/W 32) Bit set register -------- */
+#define CFG_CFGCON4SET_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON4SET) Bit set register  Reset Value */
+
+#define CFG_CFGCON4SET_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON4SET) Register Mask  */
+
+
+/* -------- CFG_CFGCON4INV : (CFG Offset: 0x4C) (R/W 32) Bit invert register -------- */
+#define CFG_CFGCON4INV_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON4INV) Bit invert register  Reset Value */
+
+#define CFG_CFGCON4INV_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON4INV) Register Mask  */
+
+
 /* -------- CFG_CFGPGQOS : (CFG Offset: 0x50) (R/W 32)  -------- */
 #define CFG_CFGPGQOS_RESETVALUE               _UINT32_(0xE040004C)                                 /*  (CFG_CFGPGQOS)   Reset Value */
 
@@ -350,6 +422,24 @@
 #define CFG_CFGPGQOS_WISIBQOS_Msk             (_UINT32_(0x3) << CFG_CFGPGQOS_WISIBQOS_Pos)         /* (CFG_CFGPGQOS) Wireless SIB QOS Control Mask */
 #define CFG_CFGPGQOS_WISIBQOS(value)          (CFG_CFGPGQOS_WISIBQOS_Msk & (_UINT32_(value) << CFG_CFGPGQOS_WISIBQOS_Pos)) /* Assigment of value for WISIBQOS in the CFG_CFGPGQOS register */
 #define CFG_CFGPGQOS_Msk                      _UINT32_(0xF3FF03FF)                                 /* (CFG_CFGPGQOS) Register Mask  */
+
+
+/* -------- CFG_CFGPGQOSCLR : (CFG Offset: 0x54) (R/W 32) Bit clear register -------- */
+#define CFG_CFGPGQOSCLR_RESETVALUE            _UINT32_(0x00)                                       /*  (CFG_CFGPGQOSCLR) Bit clear register  Reset Value */
+
+#define CFG_CFGPGQOSCLR_Msk                   _UINT32_(0x00000000)                                 /* (CFG_CFGPGQOSCLR) Register Mask  */
+
+
+/* -------- CFG_CFGPGQOSSET : (CFG Offset: 0x58) (R/W 32) Bit set register -------- */
+#define CFG_CFGPGQOSSET_RESETVALUE            _UINT32_(0x00)                                       /*  (CFG_CFGPGQOSSET) Bit set register  Reset Value */
+
+#define CFG_CFGPGQOSSET_Msk                   _UINT32_(0x00000000)                                 /* (CFG_CFGPGQOSSET) Register Mask  */
+
+
+/* -------- CFG_CFGPGQOSINV : (CFG Offset: 0x5C) (R/W 32) Bit invert register -------- */
+#define CFG_CFGPGQOSINV_RESETVALUE            _UINT32_(0x00)                                       /*  (CFG_CFGPGQOSINV) Bit invert register  Reset Value */
+
+#define CFG_CFGPGQOSINV_Msk                   _UINT32_(0x00000000)                                 /* (CFG_CFGPGQOSINV) Register Mask  */
 
 
 /* -------- CFG_CFGPCLKGEN1 : (CFG Offset: 0x60) (R/W 32)  -------- */
@@ -566,6 +656,24 @@
 #define CFG_CFGPCLKGEN1_Msk                   _UINT32_(0xFFFFFFFF)                                 /* (CFG_CFGPCLKGEN1) Register Mask  */
 
 
+/* -------- CFG_CFGPCLKGEN1CLR : (CFG Offset: 0x64) (R/W 32) Bit clear register -------- */
+#define CFG_CFGPCLKGEN1CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN1CLR) Bit clear register  Reset Value */
+
+#define CFG_CFGPCLKGEN1CLR_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN1CLR) Register Mask  */
+
+
+/* -------- CFG_CFGPCLKGEN1SET : (CFG Offset: 0x68) (R/W 32) Bit set register -------- */
+#define CFG_CFGPCLKGEN1SET_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN1SET) Bit set register  Reset Value */
+
+#define CFG_CFGPCLKGEN1SET_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN1SET) Register Mask  */
+
+
+/* -------- CFG_CFGPCLKGEN1INV : (CFG Offset: 0x6C) (R/W 32) Bit invert register -------- */
+#define CFG_CFGPCLKGEN1INV_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN1INV) Bit invert register  Reset Value */
+
+#define CFG_CFGPCLKGEN1INV_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN1INV) Register Mask  */
+
+
 /* -------- CFG_CFGPCLKGEN2 : (CFG Offset: 0x70) (R/W 32)  -------- */
 #define CFG_CFGPCLKGEN2_RESETVALUE            _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN2)   Reset Value */
 
@@ -778,6 +886,24 @@
 #define CFG_CFGPCLKGEN2_C8D_ON                (CFG_CFGPCLKGEN2_C8D_ON_Val << CFG_CFGPCLKGEN2_C8D_Pos) /* (CFG_CFGPCLKGEN2) Enable PGCLK Position  */
 #define CFG_CFGPCLKGEN2_C8D_OFF               (CFG_CFGPCLKGEN2_C8D_OFF_Val << CFG_CFGPCLKGEN2_C8D_Pos) /* (CFG_CFGPCLKGEN2) Disable PGCLK Position  */
 #define CFG_CFGPCLKGEN2_Msk                   _UINT32_(0xFFFFFFFF)                                 /* (CFG_CFGPCLKGEN2) Register Mask  */
+
+
+/* -------- CFG_CFGPCLKGEN2CLR : (CFG Offset: 0x74) (R/W 32) Bit clear register -------- */
+#define CFG_CFGPCLKGEN2CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN2CLR) Bit clear register  Reset Value */
+
+#define CFG_CFGPCLKGEN2CLR_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN2CLR) Register Mask  */
+
+
+/* -------- CFG_CFGPCLKGEN2SET : (CFG Offset: 0x78) (R/W 32) Bit set register -------- */
+#define CFG_CFGPCLKGEN2SET_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN2SET) Bit set register  Reset Value */
+
+#define CFG_CFGPCLKGEN2SET_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN2SET) Register Mask  */
+
+
+/* -------- CFG_CFGPCLKGEN2INV : (CFG Offset: 0x7C) (R/W 32) Bit invert register -------- */
+#define CFG_CFGPCLKGEN2INV_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN2INV) Bit invert register  Reset Value */
+
+#define CFG_CFGPCLKGEN2INV_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN2INV) Register Mask  */
 
 
 /* -------- CFG_CFGPCLKGEN3 : (CFG Offset: 0x80) (R/W 32)  -------- */
@@ -994,6 +1120,24 @@
 #define CFG_CFGPCLKGEN3_Msk                   _UINT32_(0xFFFFFFFF)                                 /* (CFG_CFGPCLKGEN3) Register Mask  */
 
 
+/* -------- CFG_CFGPCLKGEN3CLR : (CFG Offset: 0x84) (R/W 32) Bit clear register -------- */
+#define CFG_CFGPCLKGEN3CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN3CLR) Bit clear register  Reset Value */
+
+#define CFG_CFGPCLKGEN3CLR_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN3CLR) Register Mask  */
+
+
+/* -------- CFG_CFGPCLKGEN3SET : (CFG Offset: 0x88) (R/W 32) Bit set register -------- */
+#define CFG_CFGPCLKGEN3SET_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN3SET) Bit set register  Reset Value */
+
+#define CFG_CFGPCLKGEN3SET_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN3SET) Register Mask  */
+
+
+/* -------- CFG_CFGPCLKGEN3INV : (CFG Offset: 0x8C) (R/W 32) Bit invert register -------- */
+#define CFG_CFGPCLKGEN3INV_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN3INV) Bit invert register  Reset Value */
+
+#define CFG_CFGPCLKGEN3INV_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN3INV) Register Mask  */
+
+
 /* -------- CFG_ID : (CFG Offset: 0x90) ( R/ 32) Device ID -------- */
 #define CFG_ID_RESETVALUE                     _UINT32_(0x00)                                       /*  (CFG_ID) Device ID  Reset Value */
 
@@ -1007,6 +1151,24 @@
 #define CFG_USER_ID_USER_ID_Msk               (_UINT32_(0xFFFF) << CFG_USER_ID_USER_ID_Pos)        /* (CFG_USER_ID) User unique ID, readable using the JTAG USER_ID instruction Mask */
 #define CFG_USER_ID_USER_ID(value)            (CFG_USER_ID_USER_ID_Msk & (_UINT32_(value) << CFG_USER_ID_USER_ID_Pos)) /* Assigment of value for USER_ID in the CFG_USER_ID register */
 #define CFG_USER_ID_Msk                       _UINT32_(0x0000FFFF)                                 /* (CFG_USER_ID) Register Mask  */
+
+
+/* -------- CFG_USER_IDCLR : (CFG Offset: 0xA4) (R/W 32) Bit clear register -------- */
+#define CFG_USER_IDCLR_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_USER_IDCLR) Bit clear register  Reset Value */
+
+#define CFG_USER_IDCLR_Msk                    _UINT32_(0x00000000)                                 /* (CFG_USER_IDCLR) Register Mask  */
+
+
+/* -------- CFG_USER_IDSET : (CFG Offset: 0xA8) (R/W 32) Bit set register -------- */
+#define CFG_USER_IDSET_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_USER_IDSET) Bit set register  Reset Value */
+
+#define CFG_USER_IDSET_Msk                    _UINT32_(0x00000000)                                 /* (CFG_USER_IDSET) Register Mask  */
+
+
+/* -------- CFG_USER_IDINV : (CFG Offset: 0xAC) (R/W 32) Bit invert register -------- */
+#define CFG_USER_IDINV_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_USER_IDINV) Bit invert register  Reset Value */
+
+#define CFG_USER_IDINV_Msk                    _UINT32_(0x00000000)                                 /* (CFG_USER_IDINV) Register Mask  */
 
 
 /* -------- CFG_SYSKEY : (CFG Offset: 0xB0) (R/W 32)  -------- */
@@ -1054,6 +1216,24 @@
 #define CFG_PMD1_Msk                          _UINT32_(0x200101DF)                                 /* (CFG_PMD1) Register Mask  */
 
 
+/* -------- CFG_PMD1CLR : (CFG Offset: 0xC4) (R/W 32) Bit clear register -------- */
+#define CFG_PMD1CLR_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD1CLR) Bit clear register  Reset Value */
+
+#define CFG_PMD1CLR_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD1CLR) Register Mask  */
+
+
+/* -------- CFG_PMD1SET : (CFG Offset: 0xC8) (R/W 32) Bit set register -------- */
+#define CFG_PMD1SET_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD1SET) Bit set register  Reset Value */
+
+#define CFG_PMD1SET_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD1SET) Register Mask  */
+
+
+/* -------- CFG_PMD1INV : (CFG Offset: 0xCC) (R/W 32) Bit invert register -------- */
+#define CFG_PMD1INV_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD1INV) Bit invert register  Reset Value */
+
+#define CFG_PMD1INV_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD1INV) Register Mask  */
+
+
 /* -------- CFG_PMD2 : (CFG Offset: 0xD0) (R/W 32)  -------- */
 #define CFG_PMD2_RESETVALUE                   _UINT32_(0x00)                                       /*  (CFG_PMD2)   Reset Value */
 
@@ -1076,6 +1256,24 @@
 #define CFG_PMD2_REFO4MD_Msk                  (_UINT32_(0x1) << CFG_PMD2_REFO4MD_Pos)              /* (CFG_PMD2) Reference (Clock) Out 4 Module Disable Mask */
 #define CFG_PMD2_REFO4MD(value)               (CFG_PMD2_REFO4MD_Msk & (_UINT32_(value) << CFG_PMD2_REFO4MD_Pos)) /* Assigment of value for REFO4MD in the CFG_PMD2 register */
 #define CFG_PMD2_Msk                          _UINT32_(0xF3000000)                                 /* (CFG_PMD2) Register Mask  */
+
+
+/* -------- CFG_PMD2CLR : (CFG Offset: 0xD4) (R/W 32) Bit clear register -------- */
+#define CFG_PMD2CLR_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD2CLR) Bit clear register  Reset Value */
+
+#define CFG_PMD2CLR_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD2CLR) Register Mask  */
+
+
+/* -------- CFG_PMD2SET : (CFG Offset: 0xD8) (R/W 32) Bit set register -------- */
+#define CFG_PMD2SET_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD2SET) Bit set register  Reset Value */
+
+#define CFG_PMD2SET_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD2SET) Register Mask  */
+
+
+/* -------- CFG_PMD2INV : (CFG Offset: 0xDC) (R/W 32) Bit invert register -------- */
+#define CFG_PMD2INV_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD2INV) Bit invert register  Reset Value */
+
+#define CFG_PMD2INV_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD2INV) Register Mask  */
 
 
 /* -------- CFG_PMD3 : (CFG Offset: 0xE0) (R/W 32)  -------- */
@@ -1129,6 +1327,24 @@
 #define CFG_PMD3_Msk                          _UINT32_(0x00007FFF)                                 /* (CFG_PMD3) Register Mask  */
 
 
+/* -------- CFG_PMD3CLR : (CFG Offset: 0xE4) (R/W 32) Bit clear register -------- */
+#define CFG_PMD3CLR_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD3CLR) Bit clear register  Reset Value */
+
+#define CFG_PMD3CLR_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD3CLR) Register Mask  */
+
+
+/* -------- CFG_PMD3SET : (CFG Offset: 0xE8) (R/W 32) Bit set register -------- */
+#define CFG_PMD3SET_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD3SET) Bit set register  Reset Value */
+
+#define CFG_PMD3SET_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD3SET) Register Mask  */
+
+
+/* -------- CFG_PMD3INV : (CFG Offset: 0xEC) (R/W 32) Bit invert register -------- */
+#define CFG_PMD3INV_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD3INV) Bit invert register  Reset Value */
+
+#define CFG_PMD3INV_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD3INV) Register Mask  */
+
+
 /* -------- CFG_MISCSTAT : (CFG Offset: 0x100) (R/W 32)  -------- */
 #define CFG_MISCSTAT_RESETVALUE               _UINT32_(0x1000081)                                  /*  (CFG_MISCSTAT)   Reset Value */
 
@@ -1159,275 +1375,59 @@
 #define CFG_BCFG0_BINFOVALID_Msk              (_UINT32_(0x1) << CFG_BCFG0_BINFOVALID_Pos)          /* (CFG_BCFG0 Mask) BINFOVALID */
 #define CFG_BCFG0_BINFOVALID(value)           (CFG_BCFG0_BINFOVALID_Msk & (_UINT32_(value) << CFG_BCFG0_BINFOVALID_Pos)) 
 
-/* -------- CFG_CFGCON0CLR : (CFG Offset: 0x04) (R/W 32) Bit clear register -------- */
-#define CFG_CFGCON0CLR_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON0CLR) Bit clear register  Reset Value */
-
-#define CFG_CFGCON0CLR_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON0CLR) Register Mask  */
-
-
-/* -------- CFG_CFGCON0SET : (CFG Offset: 0x08) (R/W 32) Bit set register -------- */
-#define CFG_CFGCON0SET_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON0SET) Bit set register  Reset Value */
-
-#define CFG_CFGCON0SET_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON0SET) Register Mask  */
-
-
-/* -------- CFG_CFGCON0INV : (CFG Offset: 0x0C) (R/W 32) Bit invert register -------- */
-#define CFG_CFGCON0INV_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON0INV) Bit invert register  Reset Value */
-
-#define CFG_CFGCON0INV_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON0INV) Register Mask  */
-
-
-/* -------- CFG_CFGCON1CLR : (CFG Offset: 0x14) (R/W 32) Bit clear register -------- */
-#define CFG_CFGCON1CLR_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON1CLR) Bit clear register  Reset Value */
-
-#define CFG_CFGCON1CLR_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON1CLR) Register Mask  */
-
-
-/* -------- CFG_CFGCON1SET : (CFG Offset: 0x18) (R/W 32) Bit set register -------- */
-#define CFG_CFGCON1SET_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON1SET) Bit set register  Reset Value */
-
-#define CFG_CFGCON1SET_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON1SET) Register Mask  */
-
-
-/* -------- CFG_CFGCON1INV : (CFG Offset: 0x1C) (R/W 32) Bit invert register -------- */
-#define CFG_CFGCON1INV_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON1INV) Bit invert register  Reset Value */
-
-#define CFG_CFGCON1INV_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON1INV) Register Mask  */
-
-
-/* -------- CFG_CFGCON2CLR : (CFG Offset: 0x24) (R/W 32) Bit clear register -------- */
-#define CFG_CFGCON2CLR_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON2CLR) Bit clear register  Reset Value */
-
-#define CFG_CFGCON2CLR_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON2CLR) Register Mask  */
-
-
-/* -------- CFG_CFGCON2SET : (CFG Offset: 0x28) (R/W 32) Bit set register -------- */
-#define CFG_CFGCON2SET_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON2SET) Bit set register  Reset Value */
-
-#define CFG_CFGCON2SET_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON2SET) Register Mask  */
-
-
-/* -------- CFG_CFGCON2INV : (CFG Offset: 0x2C) (R/W 32) Bit invert register -------- */
-#define CFG_CFGCON2INV_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON2INV) Bit invert register  Reset Value */
-
-#define CFG_CFGCON2INV_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON2INV) Register Mask  */
-
-
-/* -------- CFG_CFGCON4CLR : (CFG Offset: 0x44) (R/W 32) Bit clear register -------- */
-#define CFG_CFGCON4CLR_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON4CLR) Bit clear register  Reset Value */
-
-#define CFG_CFGCON4CLR_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON4CLR) Register Mask  */
-
-
-/* -------- CFG_CFGCON4SET : (CFG Offset: 0x48) (R/W 32) Bit set register -------- */
-#define CFG_CFGCON4SET_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON4SET) Bit set register  Reset Value */
-
-#define CFG_CFGCON4SET_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON4SET) Register Mask  */
-
-
-/* -------- CFG_CFGCON4INV : (CFG Offset: 0x4C) (R/W 32) Bit invert register -------- */
-#define CFG_CFGCON4INV_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_CFGCON4INV) Bit invert register  Reset Value */
-
-#define CFG_CFGCON4INV_Msk                    _UINT32_(0x00000000)                                 /* (CFG_CFGCON4INV) Register Mask  */
-
-
-/* -------- CFG_CFGPGQOSCLR : (CFG Offset: 0x54) (R/W 32) Bit clear register -------- */
-#define CFG_CFGPGQOSCLR_RESETVALUE            _UINT32_(0x00)                                       /*  (CFG_CFGPGQOSCLR) Bit clear register  Reset Value */
-
-#define CFG_CFGPGQOSCLR_Msk                   _UINT32_(0x00000000)                                 /* (CFG_CFGPGQOSCLR) Register Mask  */
-
-
-/* -------- CFG_CFGPGQOSSET : (CFG Offset: 0x58) (R/W 32) Bit set register -------- */
-#define CFG_CFGPGQOSSET_RESETVALUE            _UINT32_(0x00)                                       /*  (CFG_CFGPGQOSSET) Bit set register  Reset Value */
-
-#define CFG_CFGPGQOSSET_Msk                   _UINT32_(0x00000000)                                 /* (CFG_CFGPGQOSSET) Register Mask  */
-
-
-/* -------- CFG_CFGPGQOSINV : (CFG Offset: 0x5C) (R/W 32) Bit invert register -------- */
-#define CFG_CFGPGQOSINV_RESETVALUE            _UINT32_(0x00)                                       /*  (CFG_CFGPGQOSINV) Bit invert register  Reset Value */
-
-#define CFG_CFGPGQOSINV_Msk                   _UINT32_(0x00000000)                                 /* (CFG_CFGPGQOSINV) Register Mask  */
-
-
-/* -------- CFG_CFGPCLKGEN1CLR : (CFG Offset: 0x64) (R/W 32) Bit clear register -------- */
-#define CFG_CFGPCLKGEN1CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN1CLR) Bit clear register  Reset Value */
-
-#define CFG_CFGPCLKGEN1CLR_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN1CLR) Register Mask  */
-
-
-/* -------- CFG_CFGPCLKGEN1SET : (CFG Offset: 0x68) (R/W 32) Bit set register -------- */
-#define CFG_CFGPCLKGEN1SET_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN1SET) Bit set register  Reset Value */
-
-#define CFG_CFGPCLKGEN1SET_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN1SET) Register Mask  */
-
-
-/* -------- CFG_CFGPCLKGEN1INV : (CFG Offset: 0x6C) (R/W 32) Bit invert register -------- */
-#define CFG_CFGPCLKGEN1INV_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN1INV) Bit invert register  Reset Value */
-
-#define CFG_CFGPCLKGEN1INV_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN1INV) Register Mask  */
-
-
-/* -------- CFG_CFGPCLKGEN2CLR : (CFG Offset: 0x74) (R/W 32) Bit clear register -------- */
-#define CFG_CFGPCLKGEN2CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN2CLR) Bit clear register  Reset Value */
-
-#define CFG_CFGPCLKGEN2CLR_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN2CLR) Register Mask  */
-
-
-/* -------- CFG_CFGPCLKGEN2SET : (CFG Offset: 0x78) (R/W 32) Bit set register -------- */
-#define CFG_CFGPCLKGEN2SET_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN2SET) Bit set register  Reset Value */
-
-#define CFG_CFGPCLKGEN2SET_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN2SET) Register Mask  */
-
-
-/* -------- CFG_CFGPCLKGEN2INV : (CFG Offset: 0x7C) (R/W 32) Bit invert register -------- */
-#define CFG_CFGPCLKGEN2INV_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN2INV) Bit invert register  Reset Value */
-
-#define CFG_CFGPCLKGEN2INV_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN2INV) Register Mask  */
-
-
-/* -------- CFG_CFGPCLKGEN3CLR : (CFG Offset: 0x84) (R/W 32) Bit clear register -------- */
-#define CFG_CFGPCLKGEN3CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN3CLR) Bit clear register  Reset Value */
-
-#define CFG_CFGPCLKGEN3CLR_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN3CLR) Register Mask  */
-
-
-/* -------- CFG_CFGPCLKGEN3SET : (CFG Offset: 0x88) (R/W 32) Bit set register -------- */
-#define CFG_CFGPCLKGEN3SET_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN3SET) Bit set register  Reset Value */
-
-#define CFG_CFGPCLKGEN3SET_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN3SET) Register Mask  */
-
-
-/* -------- CFG_CFGPCLKGEN3INV : (CFG Offset: 0x8C) (R/W 32) Bit invert register -------- */
-#define CFG_CFGPCLKGEN3INV_RESETVALUE         _UINT32_(0x00)                                       /*  (CFG_CFGPCLKGEN3INV) Bit invert register  Reset Value */
-
-#define CFG_CFGPCLKGEN3INV_Msk                _UINT32_(0x00000000)                                 /* (CFG_CFGPCLKGEN3INV) Register Mask  */
-
-
-/* -------- CFG_USER_IDCLR : (CFG Offset: 0xA4) (R/W 32) Bit clear register -------- */
-#define CFG_USER_IDCLR_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_USER_IDCLR) Bit clear register  Reset Value */
-
-#define CFG_USER_IDCLR_Msk                    _UINT32_(0x00000000)                                 /* (CFG_USER_IDCLR) Register Mask  */
-
-
-/* -------- CFG_USER_IDSET : (CFG Offset: 0xA8) (R/W 32) Bit set register -------- */
-#define CFG_USER_IDSET_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_USER_IDSET) Bit set register  Reset Value */
-
-#define CFG_USER_IDSET_Msk                    _UINT32_(0x00000000)                                 /* (CFG_USER_IDSET) Register Mask  */
-
-
-/* -------- CFG_USER_IDINV : (CFG Offset: 0xAC) (R/W 32) Bit invert register -------- */
-#define CFG_USER_IDINV_RESETVALUE             _UINT32_(0x00)                                       /*  (CFG_USER_IDINV) Bit invert register  Reset Value */
-
-#define CFG_USER_IDINV_Msk                    _UINT32_(0x00000000)                                 /* (CFG_USER_IDINV) Register Mask  */
-
-
-/* -------- CFG_PMD1CLR : (CFG Offset: 0xC4) (R/W 32) Bit clear register -------- */
-#define CFG_PMD1CLR_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD1CLR) Bit clear register  Reset Value */
-
-#define CFG_PMD1CLR_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD1CLR) Register Mask  */
-
-
-/* -------- CFG_PMD1SET : (CFG Offset: 0xC8) (R/W 32) Bit set register -------- */
-#define CFG_PMD1SET_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD1SET) Bit set register  Reset Value */
-
-#define CFG_PMD1SET_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD1SET) Register Mask  */
-
-
-/* -------- CFG_PMD1INV : (CFG Offset: 0xCC) (R/W 32) Bit invert register -------- */
-#define CFG_PMD1INV_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD1INV) Bit invert register  Reset Value */
-
-#define CFG_PMD1INV_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD1INV) Register Mask  */
-
-
-/* -------- CFG_PMD2CLR : (CFG Offset: 0xD4) (R/W 32) Bit clear register -------- */
-#define CFG_PMD2CLR_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD2CLR) Bit clear register  Reset Value */
-
-#define CFG_PMD2CLR_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD2CLR) Register Mask  */
-
-
-/* -------- CFG_PMD2SET : (CFG Offset: 0xD8) (R/W 32) Bit set register -------- */
-#define CFG_PMD2SET_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD2SET) Bit set register  Reset Value */
-
-#define CFG_PMD2SET_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD2SET) Register Mask  */
-
-
-/* -------- CFG_PMD2INV : (CFG Offset: 0xDC) (R/W 32) Bit invert register -------- */
-#define CFG_PMD2INV_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD2INV) Bit invert register  Reset Value */
-
-#define CFG_PMD2INV_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD2INV) Register Mask  */
-
-
-/* -------- CFG_PMD3CLR : (CFG Offset: 0xE4) (R/W 32) Bit clear register -------- */
-#define CFG_PMD3CLR_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD3CLR) Bit clear register  Reset Value */
-
-#define CFG_PMD3CLR_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD3CLR) Register Mask  */
-
-
-/* -------- CFG_PMD3SET : (CFG Offset: 0xE8) (R/W 32) Bit set register -------- */
-#define CFG_PMD3SET_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD3SET) Bit set register  Reset Value */
-
-#define CFG_PMD3SET_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD3SET) Register Mask  */
-
-
-/* -------- CFG_PMD3INV : (CFG Offset: 0xEC) (R/W 32) Bit invert register -------- */
-#define CFG_PMD3INV_RESETVALUE                _UINT32_(0x00)                                       /*  (CFG_PMD3INV) Bit invert register  Reset Value */
-
-#define CFG_PMD3INV_Msk                       _UINT32_(0x00000000)                                 /* (CFG_PMD3INV) Register Mask  */
-
-
 /** \brief CFG register offsets definitions */
 #define CFG_CFGCON0_REG_OFST           _UINT32_(0x00)      /* (CFG_CFGCON0)  Offset */
-#define CFG_CFGCON1_REG_OFST           _UINT32_(0x10)      /* (CFG_CFGCON1)  Offset */
-#define CFG_CFGCON2_REG_OFST           _UINT32_(0x20)      /* (CFG_CFGCON2)  Offset */
-#define CFG_CFGCON4_REG_OFST           _UINT32_(0x40)      /* (CFG_CFGCON4)  Offset */
-#define CFG_CFGPGQOS_REG_OFST          _UINT32_(0x50)      /* (CFG_CFGPGQOS)  Offset */
-#define CFG_CFGPCLKGEN1_REG_OFST       _UINT32_(0x60)      /* (CFG_CFGPCLKGEN1)  Offset */
-#define CFG_CFGPCLKGEN2_REG_OFST       _UINT32_(0x70)      /* (CFG_CFGPCLKGEN2)  Offset */
-#define CFG_CFGPCLKGEN3_REG_OFST       _UINT32_(0x80)      /* (CFG_CFGPCLKGEN3)  Offset */
-#define CFG_ID_REG_OFST                _UINT32_(0x90)      /* (CFG_ID) Device ID Offset */
-#define CFG_USER_ID_REG_OFST           _UINT32_(0xA0)      /* (CFG_USER_ID)  Offset */
-#define CFG_SYSKEY_REG_OFST            _UINT32_(0xB0)      /* (CFG_SYSKEY)  Offset */
-#define CFG_PMD1_REG_OFST              _UINT32_(0xC0)      /* (CFG_PMD1)  Offset */
-#define CFG_PMD2_REG_OFST              _UINT32_(0xD0)      /* (CFG_PMD2)  Offset */
-#define CFG_PMD3_REG_OFST              _UINT32_(0xE0)      /* (CFG_PMD3)  Offset */
-#define CFG_MISCSTAT_REG_OFST          _UINT32_(0x100)     /* (CFG_MISCSTAT)  Offset */
-#define CFG_BCFG0_REG_OFST             _UINT32_(0x200)     /* (CFG_BCFG0)  Offset */
 #define CFG_CFGCON0CLR_REG_OFST        _UINT32_(0x04)      /* (CFG_CFGCON0CLR) Bit clear register Offset */
 #define CFG_CFGCON0SET_REG_OFST        _UINT32_(0x08)      /* (CFG_CFGCON0SET) Bit set register Offset */
 #define CFG_CFGCON0INV_REG_OFST        _UINT32_(0x0C)      /* (CFG_CFGCON0INV) Bit invert register Offset */
+#define CFG_CFGCON1_REG_OFST           _UINT32_(0x10)      /* (CFG_CFGCON1)  Offset */
 #define CFG_CFGCON1CLR_REG_OFST        _UINT32_(0x14)      /* (CFG_CFGCON1CLR) Bit clear register Offset */
 #define CFG_CFGCON1SET_REG_OFST        _UINT32_(0x18)      /* (CFG_CFGCON1SET) Bit set register Offset */
 #define CFG_CFGCON1INV_REG_OFST        _UINT32_(0x1C)      /* (CFG_CFGCON1INV) Bit invert register Offset */
+#define CFG_CFGCON2_REG_OFST           _UINT32_(0x20)      /* (CFG_CFGCON2)  Offset */
 #define CFG_CFGCON2CLR_REG_OFST        _UINT32_(0x24)      /* (CFG_CFGCON2CLR) Bit clear register Offset */
 #define CFG_CFGCON2SET_REG_OFST        _UINT32_(0x28)      /* (CFG_CFGCON2SET) Bit set register Offset */
 #define CFG_CFGCON2INV_REG_OFST        _UINT32_(0x2C)      /* (CFG_CFGCON2INV) Bit invert register Offset */
+#define CFG_CFGCON4_REG_OFST           _UINT32_(0x40)      /* (CFG_CFGCON4)  Offset */
 #define CFG_CFGCON4CLR_REG_OFST        _UINT32_(0x44)      /* (CFG_CFGCON4CLR) Bit clear register Offset */
 #define CFG_CFGCON4SET_REG_OFST        _UINT32_(0x48)      /* (CFG_CFGCON4SET) Bit set register Offset */
 #define CFG_CFGCON4INV_REG_OFST        _UINT32_(0x4C)      /* (CFG_CFGCON4INV) Bit invert register Offset */
+#define CFG_CFGPGQOS_REG_OFST          _UINT32_(0x50)      /* (CFG_CFGPGQOS)  Offset */
 #define CFG_CFGPGQOSCLR_REG_OFST       _UINT32_(0x54)      /* (CFG_CFGPGQOSCLR) Bit clear register Offset */
 #define CFG_CFGPGQOSSET_REG_OFST       _UINT32_(0x58)      /* (CFG_CFGPGQOSSET) Bit set register Offset */
 #define CFG_CFGPGQOSINV_REG_OFST       _UINT32_(0x5C)      /* (CFG_CFGPGQOSINV) Bit invert register Offset */
+#define CFG_CFGPCLKGEN1_REG_OFST       _UINT32_(0x60)      /* (CFG_CFGPCLKGEN1)  Offset */
 #define CFG_CFGPCLKGEN1CLR_REG_OFST    _UINT32_(0x64)      /* (CFG_CFGPCLKGEN1CLR) Bit clear register Offset */
 #define CFG_CFGPCLKGEN1SET_REG_OFST    _UINT32_(0x68)      /* (CFG_CFGPCLKGEN1SET) Bit set register Offset */
 #define CFG_CFGPCLKGEN1INV_REG_OFST    _UINT32_(0x6C)      /* (CFG_CFGPCLKGEN1INV) Bit invert register Offset */
+#define CFG_CFGPCLKGEN2_REG_OFST       _UINT32_(0x70)      /* (CFG_CFGPCLKGEN2)  Offset */
 #define CFG_CFGPCLKGEN2CLR_REG_OFST    _UINT32_(0x74)      /* (CFG_CFGPCLKGEN2CLR) Bit clear register Offset */
 #define CFG_CFGPCLKGEN2SET_REG_OFST    _UINT32_(0x78)      /* (CFG_CFGPCLKGEN2SET) Bit set register Offset */
 #define CFG_CFGPCLKGEN2INV_REG_OFST    _UINT32_(0x7C)      /* (CFG_CFGPCLKGEN2INV) Bit invert register Offset */
+#define CFG_CFGPCLKGEN3_REG_OFST       _UINT32_(0x80)      /* (CFG_CFGPCLKGEN3)  Offset */
 #define CFG_CFGPCLKGEN3CLR_REG_OFST    _UINT32_(0x84)      /* (CFG_CFGPCLKGEN3CLR) Bit clear register Offset */
 #define CFG_CFGPCLKGEN3SET_REG_OFST    _UINT32_(0x88)      /* (CFG_CFGPCLKGEN3SET) Bit set register Offset */
 #define CFG_CFGPCLKGEN3INV_REG_OFST    _UINT32_(0x8C)      /* (CFG_CFGPCLKGEN3INV) Bit invert register Offset */
+#define CFG_ID_REG_OFST                _UINT32_(0x90)      /* (CFG_ID) Device ID Offset */
+#define CFG_USER_ID_REG_OFST           _UINT32_(0xA0)      /* (CFG_USER_ID)  Offset */
 #define CFG_USER_IDCLR_REG_OFST        _UINT32_(0xA4)      /* (CFG_USER_IDCLR) Bit clear register Offset */
 #define CFG_USER_IDSET_REG_OFST        _UINT32_(0xA8)      /* (CFG_USER_IDSET) Bit set register Offset */
 #define CFG_USER_IDINV_REG_OFST        _UINT32_(0xAC)      /* (CFG_USER_IDINV) Bit invert register Offset */
+#define CFG_SYSKEY_REG_OFST            _UINT32_(0xB0)      /* (CFG_SYSKEY)  Offset */
+#define CFG_PMD1_REG_OFST              _UINT32_(0xC0)      /* (CFG_PMD1)  Offset */
 #define CFG_PMD1CLR_REG_OFST           _UINT32_(0xC4)      /* (CFG_PMD1CLR) Bit clear register Offset */
 #define CFG_PMD1SET_REG_OFST           _UINT32_(0xC8)      /* (CFG_PMD1SET) Bit set register Offset */
 #define CFG_PMD1INV_REG_OFST           _UINT32_(0xCC)      /* (CFG_PMD1INV) Bit invert register Offset */
+#define CFG_PMD2_REG_OFST              _UINT32_(0xD0)      /* (CFG_PMD2)  Offset */
 #define CFG_PMD2CLR_REG_OFST           _UINT32_(0xD4)      /* (CFG_PMD2CLR) Bit clear register Offset */
 #define CFG_PMD2SET_REG_OFST           _UINT32_(0xD8)      /* (CFG_PMD2SET) Bit set register Offset */
 #define CFG_PMD2INV_REG_OFST           _UINT32_(0xDC)      /* (CFG_PMD2INV) Bit invert register Offset */
+#define CFG_PMD3_REG_OFST              _UINT32_(0xE0)      /* (CFG_PMD3)  Offset */
 #define CFG_PMD3CLR_REG_OFST           _UINT32_(0xE4)      /* (CFG_PMD3CLR) Bit clear register Offset */
 #define CFG_PMD3SET_REG_OFST           _UINT32_(0xE8)      /* (CFG_PMD3SET) Bit set register Offset */
 #define CFG_PMD3INV_REG_OFST           _UINT32_(0xEC)      /* (CFG_PMD3INV) Bit invert register Offset */
+#define CFG_MISCSTAT_REG_OFST          _UINT32_(0x100)     /* (CFG_MISCSTAT)  Offset */
+#define CFG_BCFG0_REG_OFST             _UINT32_(0x200)     /* (CFG_BCFG0)  Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief CFG register API structure */

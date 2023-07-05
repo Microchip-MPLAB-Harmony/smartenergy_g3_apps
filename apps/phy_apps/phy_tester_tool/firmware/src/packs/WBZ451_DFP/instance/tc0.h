@@ -1,7 +1,7 @@
 /*
  * Instance header file for WBZ451
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,20 +20,20 @@
  *
  */
 
-/* file generated from device description version 2022-02-28T16:51:20Z */
+/* file generated from device description version 2023-05-31T11:03:01Z */
 #ifndef _BZ45_TC0_INSTANCE_
 #define _BZ45_TC0_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for TC0 peripheral ========== */
 #define TC0_CC_NUM                               (2)        
-#define TC0_DMAC_ID_OVF                          (29)       
 #define TC0_DMAC_ID_MC_0                         (30)       
 #define TC0_DMAC_ID_MC_1                         (31)       
+#define TC0_DMAC_ID_OVF                          (29)       
 #define TC0_EXT                                  (0)        
 #define TC0_GCLK_ID                              (22)       
+#define TC0_INSTANCE_ID                          (5)        
 #define TC0_MASTER_SLAVE_MODE                    (1)        
 #define TC0_OW_NUM                               (2)        
-#define TC0_INSTANCE_ID                          (5)        
 
 #endif /* _BZ45_TC0_INSTANCE_ */
