@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -131,16 +131,16 @@ typedef enum
   Remarks:
     None.
 */
-typedef struct _queue_element_tag
+typedef struct SRV_QUEUE_ELEMENT_tag
 {
     /* Pointer to the previous object of the queue */
-    struct _queue_element_tag *prev;                
-    
-    /* Pointer to the next object of the queue */
-    struct _queue_element_tag *next;                
+    struct SRV_QUEUE_ELEMENT_tag *prev;
 
-    /* Element priority (only with priority queues) */  
-    uint32_t priority;                              
+    /* Pointer to the next object of the queue */
+    struct SRV_QUEUE_ELEMENT_tag *next;
+
+    /* Element priority (only with priority queues) */
+    uint32_t priority;
 } SRV_QUEUE_ELEMENT;
 
 // *****************************************************************************
@@ -155,22 +155,22 @@ typedef struct _queue_element_tag
   Remarks:
     None.
 */
-typedef struct  
+typedef struct
 {
     /* Pointer to the head of the queue */
-    SRV_QUEUE_ELEMENT *head;                           
+    SRV_QUEUE_ELEMENT *head;
     
     /* Pointer to the tail of the queue */
-    SRV_QUEUE_ELEMENT *tail;                           
+    SRV_QUEUE_ELEMENT *tail;
     
     /* Queue capacity */
-    uint16_t capacity;                               
+    uint16_t capacity;
     
     /* Queue size */
-    uint16_t size;                                   
+    uint16_t size;
     
     /* Queue mode (single or priority queue) */
-    SRV_QUEUE_TYPE type;                                    
+    SRV_QUEUE_TYPE type;
 } SRV_QUEUE;
 
 // *****************************************************************************

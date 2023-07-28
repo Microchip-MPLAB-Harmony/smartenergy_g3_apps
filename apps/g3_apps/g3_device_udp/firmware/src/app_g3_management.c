@@ -924,6 +924,15 @@ uint16_t APP_G3_MANAGEMENT_GetShortAddress(void)
     return app_g3_managementData.shortAddress;
 }
 
+uint16_t APP_G3_MANAGEMENT_GetCoordinatorShortAddress(void)
+{
+    ADP_GET_CFM_PARAMS getConfirm;
+
+    ADP_GetRequestSync(ADP_IB_COORD_SHORT_ADDRESS, 0, &getConfirm);
+
+    return *((uint16_t*) getConfirm.attributeValue);
+}
+
 uint8_t* APP_G3_MANAGEMENT_GetExtendedAddress(void)
 {
     return app_g3_managementData.eui64.value;

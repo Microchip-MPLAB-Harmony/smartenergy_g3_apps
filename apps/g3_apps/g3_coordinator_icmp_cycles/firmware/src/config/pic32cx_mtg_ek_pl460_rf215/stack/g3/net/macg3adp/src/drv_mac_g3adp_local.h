@@ -121,27 +121,27 @@ typedef struct
   Description: All the data related to G3 ADP MAC driver
 */
 typedef struct {	
-	
+    
     SYS_STATUS                      sysStat;      // driver status
     
     TCPIP_MAC_EVENT                 enabledEvents; 
     TCPIP_MAC_EVENT                 pendingEvents; 
     
-	TCPIP_MAC_RX_STATISTICS         rxStat;       // run time statistics
-	TCPIP_MAC_TX_STATISTICS         txStat;       // run time statistics
+    TCPIP_MAC_RX_STATISTICS         rxStat;       // run time statistics
+    TCPIP_MAC_TX_STATISTICS         txStat;       // run time statistics
 
-	// general stuff
-	const void*                     allocH ;      // allocation handle
-	TCPIP_MAC_HEAP_CallocF          callocF;      // allocation functions
-	TCPIP_MAC_HEAP_FreeF            freeF;
+    // general stuff
+    const void*                     allocH ;      // allocation handle
+    TCPIP_MAC_HEAP_CallocF          callocF;      // allocation functions
+    TCPIP_MAC_HEAP_FreeF            freeF;
     
-	// packet allocation functions
-	TCPIP_MAC_PKT_AllocF            pktAllocF;
-	TCPIP_MAC_PKT_FreeF             pktFreeF;
-	TCPIP_MAC_PKT_AckF              pktAckF;
-	
-	// synchronization
-	TCPIP_MAC_SynchReqF             synchF;
+    // packet allocation functions
+    TCPIP_MAC_PKT_AllocF            pktAllocF;
+    TCPIP_MAC_PKT_FreeF             pktFreeF;
+    TCPIP_MAC_PKT_AckF              pktAckF;
+    
+    // synchronization
+    TCPIP_MAC_SynchReqF             synchF;
     // Event reporting. */
     TCPIP_MAC_EventF                eventF;
     // Parameter to be used when the event function is called
@@ -158,15 +158,15 @@ typedef struct {
     SRV_QUEUE                       adpRxQueue;
     
     union
-	{
-		uint8_t        val;
-		struct
-		{
-			uint8_t    _init               : 1;    // the corresponding MAC is initialized
-			uint8_t    _open               : 1;    // the corresponding MAC is opened
-			uint8_t    _linkPresent        : 1;    // link connection to the ADP Network properly detected : on/off
-		};
-	}_macFlags;	
+    {
+        uint8_t        val;
+        struct
+        {
+            uint8_t    _init               : 1;    // the corresponding MAC is initialized
+            uint8_t    _open               : 1;    // the corresponding MAC is opened
+            uint8_t    _linkPresent        : 1;    // link connection to the ADP Network properly detected : on/off
+        };
+    }_macFlags;	
     
 } DRV_G3ADP_MAC_INSTANCE;
 
@@ -181,8 +181,8 @@ typedef struct {
 */
 typedef struct
 {
-	const TCPIP_MAC_OBJECT* pObj;		    // Pointer to G3 ADP MAC object
-	DRV_G3ADP_MAC_INSTANCE  g3AdpMacData;   // G3 ADP MAC data
+    const TCPIP_MAC_OBJECT* pObj;		    // Pointer to G3 ADP MAC object
+    DRV_G3ADP_MAC_INSTANCE  g3AdpMacData;   // G3 ADP MAC data
 } DRV_G3ADP_MAC_DRIVER;
 
 // *****************************************************************************

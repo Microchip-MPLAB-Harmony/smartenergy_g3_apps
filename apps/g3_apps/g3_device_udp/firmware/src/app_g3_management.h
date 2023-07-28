@@ -619,6 +619,36 @@ uint16_t APP_G3_MANAGEMENT_GetShortAddress(void);
 
 /*******************************************************************************
   Function:
+    uint16_t APP_G3_MANAGEMENT_GetCoordinatorShortAddress(void)
+
+  Summary:
+    Gets Coordinator short address.
+
+  Description:
+    This function gets the short address of the PAN Coordinator.
+
+  Precondition:
+    APP_G3_MANAGEMENT_Initialize should be called before calling this routine.
+
+  Parameters:
+    None.
+
+  Returns:
+    Coordinator short address.
+
+  Example:
+    <code>
+    uint16_t coordShortAddress = APP_G3_MANAGEMENT_GetCoordinatorShortAddress();
+    </code>
+
+  Remarks:
+    None.
+*/
+
+uint16_t APP_G3_MANAGEMENT_GetCoordinatorShortAddress(void);
+
+/*******************************************************************************
+  Function:
     uint8_t* APP_G3_MANAGEMENT_GetExtendedAddress(void)
 
   Summary:

@@ -263,7 +263,7 @@ typedef enum
     MAC_PIB_MANUF_MAC_RT_SLEEP_MODE = 0x08000024,
     // Set PLC Debug Mode
     MAC_PIB_MANUF_MAC_RT_DEBUG_SET = 0x08000025,
-    // Read PL360 Debug Information
+    // Read PLC Debug Information
     MAC_PIB_MANUF_MAC_RT_DEBUG_READ = 0x08000026,
     // Provides access to POS table by short address (referenced as index)
     MAC_PIB_MANUF_POS_TABLE_ELEMENT = 0x08000027,
@@ -286,17 +286,18 @@ typedef enum
 /* Function:
     MAC_STATUS MAC_PLC_MIB_SetAttributeSync
     (
-        MAC_COMMON_PIB_ATTRIBUTE attribute, 
-        uint16_t index, 
+        MAC_COMMON_PIB_ATTRIBUTE attribute,
+        uint16_t index,
         const MAC_PIB_VALUE *pibValue
     )
 
   Summary:
     The MAC_PLC_MIB_SetAttributeSync primitive sets the value of an attribute in the
-    MAC layer Information Base (IB).
+    MAC layer Common Information Base (IB).
 
   Description:
-    SetAttributeSync primitive is used to set the value of a MIB.
+    SetAttributeSync primitive is used to set the value of a MIB stored
+    in MAC Common module.
     Sync suffix indicates that result of set operation is provided upon
     function call return, in the return status code.
 
@@ -319,7 +320,7 @@ typedef enum
     MAC_STATUS status;
     const MAC_PIB_VALUE value = {
         .length = 1,
-        .value = 6
+        .value = 1
     };
 
     status = MAC_PLC_MIB_SetAttributeSync(MAC_COMMON_PIB_PROMISCUOUS_MODE, 0, &value);
@@ -332,7 +333,7 @@ typedef enum
   Remarks:
     None.
 */
-MAC_STATUS MAC_PLC_MIB_SetAttributeSync(MAC_COMMON_PIB_ATTRIBUTE attribute, 
+MAC_STATUS MAC_PLC_MIB_SetAttributeSync(MAC_COMMON_PIB_ATTRIBUTE attribute,
     uint16_t index, const MAC_PIB_VALUE *pibValue);
 
 //DOM-IGNORE-BEGIN

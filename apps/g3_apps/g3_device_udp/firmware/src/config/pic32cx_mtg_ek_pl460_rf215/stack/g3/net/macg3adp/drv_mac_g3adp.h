@@ -97,8 +97,8 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  */
 typedef struct
 {	
-	/** RX Descriptor count */
-	uint16_t nRxDescCnt;
+    /** RX Descriptor count */
+    uint16_t nRxDescCnt;
     /* Number of MAC dedicated RX buffers */
     /* These buffers/packets are owned by the MAC and are not returned to the packet pool */
     /* They are allocated at MAC initialization time using pktAllocF */ 
@@ -109,21 +109,21 @@ typedef struct
     uint16_t nRxDedicatedBuffers;
     /* Number Additional RX buffer allocated during MAC initialization */
     /* These buffers/packets are freed during runtime */
-	uint16_t nRxAddlBuffCount;
+    uint16_t nRxAddlBuffCount;
     /** RX buffer count threshold */
-	uint16_t nRxBuffCntThres;
+    uint16_t nRxBuffCntThres;
     /** RX buffer allocate count */
-	uint16_t nRxBuffAllocCnt;
-	/** TX Descriptor count */
-	uint16_t nTxDescCnt;	
+    uint16_t nRxBuffAllocCnt;
+    /** TX Descriptor count */
+    uint16_t nTxDescCnt;	
     /** Max TX Packet size */
     uint16_t txMaxPktSize;
-	/** RX buffer size */
-	uint16_t rxBufferSize;
+    /** RX buffer size */
+    uint16_t rxBufferSize;
     /** Queue Tx Enable status */
-	uint8_t queueTxEnable;
+    uint8_t queueTxEnable;
     /** Queue Rx Enable status */
-	uint8_t queueRxEnable;
+    uint8_t queueRxEnable;
 } TCPIP_MODULE_GMAC_QUEUE_CONFIG;
 
 
@@ -141,9 +141,9 @@ typedef struct
 
 typedef enum  
 {
-	TYPE2_START_OF_FRAME = 0,
-	TYPE2_ETHERTYPE = 1,
-	TYPE2_IP_HEADER = 2,
+    TYPE2_START_OF_FRAME = 0,
+    TYPE2_ETHERTYPE = 1,
+    TYPE2_IP_HEADER = 2,
     TYPE2_TCP_UDP_HEADER = 3,
 } GMAC_TYPE2_OFFSET_START_LIST;
 
@@ -209,7 +209,7 @@ typedef struct DRV_G3ADP_MAC_RXQUE_FILTER_INIT
 
   Summary:
     Initializes the PIC32 Ethernet MAC.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function supports the initialization of the PIC32 Ethernet MAC.  Used by tcpip_module_manager.
@@ -243,7 +243,7 @@ SYS_MODULE_OBJ DRV_G3ADP_MAC_Initialize(const SYS_MODULE_INDEX index, const SYS_
 
   Summary:
     Deinitializes the PIC32 Ethernet MAC.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function supports teardown of the PIC32 Ethernet MAC (opposite of set up).  Used by tcpip_module_manager.
@@ -275,7 +275,7 @@ void DRV_G3ADP_MAC_Deinitialize(SYS_MODULE_OBJ object);
 
   Summary:
     Reinitializes the PIC32 Ethernet MAC.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function supports re-initialization of the PIC32 Ethernet MAC (opposite of set up).
@@ -308,7 +308,7 @@ void DRV_G3ADP_MAC_Reinitialize(SYS_MODULE_OBJ object, const SYS_MODULE_INIT * c
     
   Summary:
     Provides the current status of the MAC driver module.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function provides the current status of the MAC driver
@@ -344,7 +344,7 @@ SYS_STATUS DRV_G3ADP_MAC_Status ( SYS_MODULE_OBJ object );
     
   Summary:
     Maintains the EThernet MAC driver's state machine.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function is used to maintain the driver's internal state machine
@@ -376,7 +376,7 @@ void DRV_G3ADP_MAC_Tasks( SYS_MODULE_OBJ object );
     
   Summary:
     Opens a client instance of the PIC32 MAC Driver.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function opens a client instance of the PIC32 MAC Driver.
@@ -412,7 +412,7 @@ DRV_HANDLE DRV_G3ADP_MAC_Open(const SYS_MODULE_INDEX index, const DRV_IO_INTENT 
     
   Summary:
     Closes a client instance of the PIC32 MAC Driver.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function closes a client instance of the PIC32 MAC Driver.
@@ -442,7 +442,7 @@ void DRV_G3ADP_MAC_Close( DRV_HANDLE hMac );
 
   Summary:
     Checks current link status.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function checks the link status of the associated network interface.
@@ -478,7 +478,7 @@ bool DRV_G3ADP_MAC_LinkCheck( DRV_HANDLE hMac );
 
   Summary:
     Selects the current power mode for the Ethernet MAC.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function sets the power mode for the Ethernet MAC.
@@ -512,7 +512,7 @@ bool DRV_G3ADP_MAC_PowerMode( DRV_HANDLE hMac, TCPIP_MAC_POWER_MODE pwrMode );
     
   Summary:
     Sets the current MAC hash table receive filter.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function sets the MAC hash table filtering to allow 
@@ -567,7 +567,7 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_RxFilterHashTableEntrySet(DRV_HANDLE hMac, const TCP
     
   Summary:
     MAC driver transmit function.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This is the MAC transmit function.
@@ -614,7 +614,7 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_PacketTx(DRV_HANDLE hMac, TCPIP_MAC_PACKET * ptrPack
 
   Summary:
     This is the MAC receive function.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function will return a packet if such a pending packet exists.
@@ -679,7 +679,7 @@ TCPIP_MAC_PACKET* DRV_G3ADP_MAC_PacketRx (DRV_HANDLE hMac, TCPIP_MAC_RES* pRes, 
     
   Summary:
     MAC periodic processing function.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This is a function that allows for internal processing by the MAC
@@ -725,7 +725,7 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_Process(DRV_HANDLE hMac);
 
   Summary:
     Gets the current MAC statistics.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function will get the current value of the statistic counters
@@ -767,7 +767,7 @@ TCPIP_MAC_RES       DRV_G3ADP_MAC_StatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_RX_ST
 
   Summary:
     MAC parameter get function.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This is a function that returns the run time parameters of the MAC driver.
@@ -796,7 +796,7 @@ TCPIP_MAC_RES     DRV_G3ADP_MAC_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMET
 
   Summary:
     Gets the current MAC hardware statistics registers.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function will get the current value of the statistic registers
@@ -839,7 +839,7 @@ TCPIP_MAC_RES       DRV_G3ADP_MAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_M
 
   Summary:
     Gets the current MAC driver configuration.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function will get the current MAC driver configuration and store it into
@@ -879,7 +879,7 @@ size_t      DRV_G3ADP_MAC_ConfigGet(DRV_HANDLE hMac, void* configBuff, size_t bu
     
   Summary:
     Enables/disables the MAC events.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This is a function that enables or disables the events to be reported
@@ -936,7 +936,7 @@ bool DRV_G3ADP_MAC_EventMaskSet(DRV_HANDLE hMac, TCPIP_MAC_EVENT macEvents, bool
     
   Summary:
     Acknowledges and re-enables processed events.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
     
   Description:
     This function acknowledges and re-enables processed events. Multiple
@@ -993,7 +993,7 @@ bool    DRV_G3ADP_MAC_EventAcknowledge(DRV_HANDLE hMac, TCPIP_MAC_EVENT tcpAckEv
     
   Summary:
     Returns the currently pending events.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function returns the currently pending Ethernet MAC events.
@@ -1045,7 +1045,7 @@ TCPIP_MAC_EVENT DRV_G3ADP_MAC_EventPendingGet(DRV_HANDLE hMac);
     
   Summary:
     Ethernet MAC driver interrupt function.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This is the Ethernet MAC driver interrupt service routine.

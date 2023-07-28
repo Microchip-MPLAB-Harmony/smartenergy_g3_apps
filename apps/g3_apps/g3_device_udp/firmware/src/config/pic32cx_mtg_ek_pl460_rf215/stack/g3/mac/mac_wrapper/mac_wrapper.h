@@ -877,14 +877,14 @@ MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand);
     handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
 
     MAC_WRP_HANDLERS macWrpHandlers = {
-        dataConfirmCallback = appDataConfirm,
-        dataIndicationCallback = appDataIndication,
-        resetConfirmCallback = appResetConfirm,
-        beaconNotifyIndicationCallback = appBeaconIndication,
-        scanConfirmCallback = appScanConfirm,
-        startConfirmCallback = NULL, // Start primitive not used
-        commStatusIndicationCallback = appCommStatus,
-        snifferIndicationCallback = NULL, // MAC Sniffer not used
+        .dataConfirmCallback = appDataConfirm,
+        .dataIndicationCallback = appDataIndication,
+        .resetConfirmCallback = appResetConfirm,
+        .beaconNotifyIndicationCallback = appBeaconIndication,
+        .scanConfirmCallback = appScanConfirm,
+        .startConfirmCallback = NULL, // Start primitive not used
+        .commStatusIndicationCallback = appCommStatus,
+        .snifferIndicationCallback = NULL, // MAC Sniffer not used
     };
 
     MAC_WRP_SetCallbacks(handle, &macWrpHandlers);
@@ -903,7 +903,7 @@ void MAC_WRP_SetCallbacks(MAC_WRP_HANDLE handle, MAC_WRP_HANDLERS* handlers);
     )
 
   Summary:
-    Maintains MAC Wrapper State Machine.
+    Maintains MAC Layers State Machines.
 
   Description:
     MAC Wrapper does not have a State Machine to maintain, but is in charge
@@ -1349,247 +1349,6 @@ SYS_STATUS MAC_WRP_Status(void);
 
 // *****************************************************************************
 /* Function:
-    uint32_t MAC_WRP_SerialParseGetRequest(uint8_t* pData, uint16_t* index)
-
-  Summary:
-    Parse PIB get request serial message.
-
-  Description:
-    This routine parses a PIB get request serial message. It gives the PIB
-    attribute and index from the data contained in the serial message.
-
-  Precondition:
-    None.
-
-  Parameters:
-    pData     - Pointer to serial message data
-    index     - Pointer to attribute index (output)
-
-  Returns:
-    PIB attribute.
-
-  Example:
-    <code>
-    // macWrpHandle returned from MAC_WRP_Open
-    // usiHandle returned from SRV_USI_Open
-    uint32_t attribute;
-    uint16_t index;
-    MAC_WRP_PIB_VALUE pibValue;
-    MAC_WRP_PIB_ATTRIBUTE pibAttr;
-    MAC_WRP_STATUS getStatus;
-    uint8_t serialRspBuffer[512];
-    uint8_t serialRspLen = 0;
-
-    // Get PIB from MAC
-    attribute = MAC_WRP_SerialParseGetRequest(pData, &index);
-    pibAttr = (MAC_WRP_PIB_ATTRIBUTE) attribute;
-    getStatus = MAC_WRP_GetRequestSync(macWrpHandle, pibAttr, index, &pibValue);
-
-    // Fill serial response buffer
-    serialRspBuffer[serialRspLen++] = MAC_WRP_SERIAL_MSG_MAC_GET_CONFIRM;
-    serialRspLen += MAC_WRP_SerialStringifyGetConfirm(&serialRspBuffer[serialRspLen],
-            getStatus, pibAttr, index, pibValue.value, pibValue.length);
-
-    // Send through USI
-    SRV_USI_Send_Message(usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
-    </code>
-
-  Remarks:
-    None.
-*/
-uint32_t MAC_WRP_SerialParseGetRequest(uint8_t* pData, uint16_t* index);
-
-// *****************************************************************************
-/* Function:
-    uint8_t MAC_WRP_SerialStringifyGetConfirm (
-        uint8_t *serialData,
-        MAC_WRP_STATUS getStatus,
-        MAC_WRP_PIB_ATTRIBUTE attribute,
-        uint16_t index,
-        uint8_t* pibValue,
-        uint8_t pibLength
-    )
-
-  Summary:
-    Serialize MAC PIB get confirm.
-
-  Description:
-    This routine serializes a MAC PIB get confirm message.
-
-  Precondition:
-    MAC PIB should have been read through MAC_WRP_GetRequestSync.
-
-  Parameters:
-    serialData - Pointer to serial message data
-    getStatus  - Result of getting the PIB
-    attribute  - PIB attribute
-    index      - Attribute index
-    pibValue   - Pointer to PIB value
-    pibLength  - PIB length in bytes
-
-  Returns:
-    Serial message length.
-
-  Example:
-    <code>
-    // macWrpHandle returned from MAC_WRP_Open
-    // usiHandle returned from SRV_USI_Open
-    uint32_t attribute;
-    uint16_t index;
-    MAC_WRP_PIB_VALUE pibValue;
-    MAC_WRP_PIB_ATTRIBUTE pibAttr;
-    MAC_WRP_STATUS getStatus;
-    uint8_t serialRspBuffer[512];
-    uint8_t serialRspLen = 0;
-
-    // Get PIB from MAC
-    attribute = MAC_WRP_SerialParseGetRequest(pData, &index);
-    pibAttr = (MAC_WRP_PIB_ATTRIBUTE) attribute;
-    getStatus = MAC_WRP_GetRequestSync(macWrpHandle, pibAttr, index, &pibValue);
-
-    // Fill serial response buffer
-    serialRspBuffer[serialRspLen++] = MAC_WRP_SERIAL_MSG_MAC_GET_CONFIRM;
-    serialRspLen += MAC_WRP_SerialStringifyGetConfirm(&serialRspBuffer[serialRspLen],
-            getStatus, pibAttr, index, pibValue.value, pibValue.length);
-
-    // Send through USI
-    SRV_USI_Send_Message(usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
-    </code>
-
-  Remarks:
-    None.
-*/
-uint8_t MAC_WRP_SerialStringifyGetConfirm (
-    uint8_t *serialData,
-    MAC_WRP_STATUS getStatus,
-    MAC_WRP_PIB_ATTRIBUTE attribute,
-    uint16_t index,
-    uint8_t* pibValue,
-    uint8_t pibLength
-);
-
-// *****************************************************************************
-/* Function:
-    MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
-        uint8_t* pData,
-        uint16_t* index,
-        MAC_WRP_PIB_VALUE* pibValue
-    )
-
-  Summary:
-    Parse PIB set request serial message.
-
-  Description:
-    This routine parses a PIB set request serial message. It gives the PIB
-    attribute, index and value from the data contained in the serial message.
-
-  Precondition:
-    None.
-
-  Parameters:
-    pData     - Pointer to serial message data
-    index     - Pointer to attribute index (output)
-    pibValue  - Pointer to PIB value structure (output)
-
-  Returns:
-    PIB attribute.
-
-  Example:
-    <code>
-    // macWrpHandle returned from MAC_WRP_Open
-    // usiHandle returned from SRV_USI_Open
-    uint16_t index;
-    MAC_WRP_PIB_VALUE pibValue;
-    MAC_WRP_PIB_ATTRIBUTE attribute;
-    MAC_WRP_STATUS setStatus;
-    uint8_t serialRspBuffer[512];
-    uint8_t serialRspLen = 0;
-
-    // Set MAC PIB
-    attribute = MAC_WRP_SerialParseSetRequest(pData, &index, &pibValue);
-    setStatus = MAC_WRP_SetRequestSync(macWrpHandle, attribute, index, &pibValue);
-
-    // Fill serial response buffer
-    serialRspBuffer[serialRspLen++] = MAC_WRP_SERIAL_MSG_MAC_SET_CONFIRM;
-    serialRspLen += MAC_WRP_SerialStringifySetConfirm(&serialRspBuffer[serialRspLen],
-            setStatus, attribute, index);
-
-    // Send through USI
-    SRV_USI_Send_Message(usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
-    </code>
-
-  Remarks:
-    None.
-*/
-MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
-    uint8_t* pData,
-    uint16_t* index,
-    MAC_WRP_PIB_VALUE* pibValue
-);
-
-// *****************************************************************************
-/* Function:
-    uint8_t MAC_WRP_SerialStringifySetConfirm (
-        uint8_t *serialData,
-        MAC_WRP_STATUS setStatus,
-        MAC_WRP_PIB_ATTRIBUTE attribute,
-        uint16_t index
-    )
-
-  Summary:
-    Serialize MAC PIB set confirm.
-
-  Description:
-    This routine serializes a MAC PIB set confirm message.
-
-  Precondition:
-    MAC PIB should have been set through MAC_WRP_SetRequestSync.
-
-  Parameters:
-    serialData - Pointer to serial message data
-    setStatus  - Result of setting the PIB
-    attribute  - PIB attribute
-    index      - Attribute index
-
-  Returns:
-    Serial message length.
-
-  Example:
-    <code>
-    // macWrpHandle returned from MAC_WRP_Open
-    // usiHandle returned from SRV_USI_Open
-    uint16_t index;
-    MAC_WRP_PIB_VALUE pibValue;
-    MAC_WRP_PIB_ATTRIBUTE attribute;
-    MAC_WRP_STATUS setStatus;
-    uint8_t serialRspBuffer[512];
-    uint8_t serialRspLen = 0;
-
-    // Set MAC PIB
-    attribute = MAC_WRP_SerialParseSetRequest(pData, &index, &pibValue);
-    setStatus = MAC_WRP_SetRequestSync(macWrpHandle, attribute, index, &pibValue);
-
-    // Fill serial response buffer
-    serialRspBuffer[serialRspLen++] = MAC_WRP_SERIAL_MSG_MAC_SET_CONFIRM;
-    serialRspLen += MAC_WRP_SerialStringifySetConfirm(&serialRspBuffer[serialRspLen],
-            setStatus, attribute, index);
-
-    // Send through USI
-    SRV_USI_Send_Message(usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
-    </code>
-
-  Remarks:
-    None.
-*/
-uint8_t MAC_WRP_SerialStringifySetConfirm (
-    uint8_t *serialData,
-    MAC_WRP_STATUS setStatus,
-    MAC_WRP_PIB_ATTRIBUTE attribute,
-    uint16_t index
-);
-
-// *****************************************************************************
-/* Function:
     uint32_t MAC_WRP_GetMsCounter
     (
       void
@@ -1650,7 +1409,7 @@ uint32_t MAC_WRP_GetMsCounter(void);
     SYS_TIME_Initialize primitive has to be called before.
 
   Parameters:
-    timeValue      - Time value in milliseconds
+    timeValue - Time value in milliseconds
 
   Returns:
     True if the time value is in the past.
@@ -1736,7 +1495,7 @@ uint32_t MAC_WRP_GetSecondsCounter(void);
     None.
 
   Parameters:
-    timeValue      - Time value in seconds
+    timeValue - Time value in seconds
 
   Returns:
     True if the time value is in the past.

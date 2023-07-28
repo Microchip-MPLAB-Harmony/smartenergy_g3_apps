@@ -34,6 +34,7 @@
 #include "configuration.h"
 #include "system/time/sys_time.h"
 #include "library/tcpip/tcpip.h"
+#include "stack/g3/adaptation/adp.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

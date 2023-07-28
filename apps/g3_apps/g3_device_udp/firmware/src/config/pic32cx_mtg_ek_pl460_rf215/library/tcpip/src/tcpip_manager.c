@@ -531,9 +531,6 @@ static const TCPIP_STACK_MODULE_ENTRY TCPIP_STACK_MODULE_ENTRY_TBL [] =
 #if defined(TCPIP_STACK_USE_MAC_BRIDGE)
     {.moduleId = TCPIP_MODULE_MAC_BRIDGE,   .initFunc = (tcpipModuleInitFunc)TCPIP_MAC_Bridge_Initialize,  .deInitFunc = TCPIP_MAC_Bridge_Deinitialize},      // TCPIP_MODULE_MAC_BRIDGE
 #endif 
-#if defined(TCPIP_STACK_USE_HTTP_SERVER_V2)
-    {.moduleId = TCPIP_MODULE_HTTP_SERVER_V2, .initFunc = (tcpipModuleInitFunc)TCPIP_HTTP_Server_Initialize,  .deInitFunc = TCPIP_HTTP_Server_Deinitialize},      // TCPIP_STACK_USE_HTTP_SERVER_V2
-#endif  // defined(TCPIP_STACK_USE_HTTP_SERVER_V2)
     // Add other stack modules here
      
 };
@@ -641,9 +638,6 @@ static const TCPIP_STACK_MODULE_ENTRY TCPIP_STACK_MODULE_ENTRY_TBL [] =
 #if defined(TCPIP_STACK_USE_FTP_CLIENT)
     {.moduleId = TCPIP_MODULE_FTP_CLIENT,   .initFunc = (tcpipModuleInitFunc)TCPIP_FTPC_Initialize},          // TCPIP_MODULE_FTP_CLIENT
 #endif 
-#if defined(TCPIP_STACK_USE_HTTP_SERVER_V2)
-    {.moduleId = TCPIP_MODULE_HTTP_SERVER_V2, .initFunc = (tcpipModuleInitFunc)TCPIP_HTTP_Server_Initialize},   // TCPIP_STACK_USE_HTTP_SERVER_V2
-#endif  // defined(TCPIP_STACK_USE_HTTP_SERVER_V2)
     // Add other stack modules here
      
 };
@@ -3826,7 +3820,7 @@ static const TCPIP_STACK_MODULE_CONFIG* _TCPIP_STACK_FindModuleData(TCPIP_STACK_
 }
 
 
-int  TCPIP_STACK_NetIxGet(TCPIP_NET_IF* pNetIf)
+int  TCPIP_STACK_NetIxGet(const TCPIP_NET_IF* pNetIf)
 {
     if(pNetIf)
     {

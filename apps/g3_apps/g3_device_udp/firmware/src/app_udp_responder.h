@@ -118,6 +118,9 @@ typedef struct
     /* IPv6 unique local address (ULA) */
     IPV6_ADDR uniqueLocalAddress;
 
+    /* Coordinator IPv6 link-local address */
+    IPV6_ADDR coordLinkLocalAddress;
+
     /* TCP/IP Network handle */
     TCPIP_NET_HANDLE netHandle;
 

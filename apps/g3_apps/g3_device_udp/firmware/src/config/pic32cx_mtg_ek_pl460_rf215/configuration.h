@@ -114,7 +114,7 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 /* PAL PLC Configuration Options */
-#define PAL_PLC_PHY_INDEX                     0
+#define PAL_PLC_PHY_INDEX                     0U
 
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
@@ -130,27 +130,27 @@ extern "C" {
 #define DRV_PLC_SPI_CLK                       8000000
 
 /* PLC MAC RT Driver Identification */
-#define DRV_G3_MACRT_INDEX                   0
-#define DRV_G3_MACRT_INSTANCES_NUMBER        1
+#define DRV_G3_MACRT_INDEX                   0U
+#define DRV_G3_MACRT_INSTANCES_NUMBER        1U
 #define DRV_G3_MACRT_HOST_DESC               "PIC32CX2051MTG128"
 /* RF215 Driver Configuration Options */
-#define DRV_RF215_INDEX_0                     0
-#define DRV_RF215_CLIENTS_NUMBER              1
-#define DRV_RF215_TX_BUFFERS_NUMBER           1
-#define DRV_RF215_CSR_INDEX                   0
+#define DRV_RF215_INDEX_0                     0U
+#define DRV_RF215_CLIENTS_NUMBER              1U
+#define DRV_RF215_TX_BUFFERS_NUMBER           1U
 #define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PC7
 #define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PD17
 #define DRV_RF215_LED_TX_PIN                  SYS_PORT_PIN_PA8
 #define DRV_RF215_LED_RX_PIN                  SYS_PORT_PIN_PA9
-#define DRV_RF215_NUM_TRX                     1
-#define DRV_RF215_FCS_LEN                     4
-#define DRV_RF215_MAX_PSDU_LEN                576
-#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000
-#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  180
-#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 1400
+#define DRV_RF215_NUM_TRX                     1U
+#define DRV_RF215_FCS_LEN                     4U
+#define DRV_RF215_MAX_PSDU_LEN                576U
+#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000U
+#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  180U
+#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 1400U
 
 /* PAL RF Configuration Options */
-#define PAL_RF_PHY_INDEX                     0
+#define PAL_RF_PHY_INDEX                      0U
+
 
 
 
@@ -236,8 +236,10 @@ extern "C" {
 #define TCPIP_NETWORK_DEFAULT_POWER_MODE_IDX0         "full"
 #define TCPIP_NETWORK_DEFAULT_INTERFACE_FLAGS_IDX0            \
                                                     TCPIP_NETWORK_CONFIG_MULTICAST_ON |\
+                                                    (TCPIP_NETWORK_CONFIG_IPV6_G3_NET | TCPIP_NETWORK_CONFIG_IPV6_NO_DAD) |\
+                                                    TCPIP_NETWORK_CONFIG_IPV6_UNICAST_RS |\
                                                     TCPIP_NETWORK_CONFIG_IP_STATIC
-                                                    
+
 #define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0         DRV_G3ADP_MACObject
 
 
@@ -262,6 +264,12 @@ extern "C" {
 #define TCPIP_IPV6_FRAGMENT_PKT_TIMEOUT 				60
 #define TCPIP_IPV6_RX_FRAGMENTED_BUFFER_SIZE 			1280
 #define TCPIP_IPV6_EXTERN_PACKET_PROCESS   false
+
+
+#define TCPIP_IPV6_G3_PLC_SUPPORT                       true
+
+#define TCPIP_IPV6_G3_PLC_BORDER_ROUTER                 false
+
 
 
 /*** TCPIP Heap Configuration ***/

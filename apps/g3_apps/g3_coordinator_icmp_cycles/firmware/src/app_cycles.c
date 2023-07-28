@@ -119,9 +119,6 @@ static void _APP_CYCLES_SendPacket(void)
     app_cyclesData.icmpResult = TCPIP_ICMPV6_EchoRequestSend(app_cyclesData.netHandle, &app_cyclesData.targetAddress,
             app_cyclesData.sequenceNumber, 0, app_cyclesData.packetSize);
 
-    /* Force neighbor reachable status in NDP */
-    TCPIP_NDP_NborReachConfirm(app_cyclesData.netHandle, &app_cyclesData.targetAddress);
-
     SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: Ping packet size %hu\r\n", app_cyclesData.packetSize);
 
     if (app_cyclesData.icmpResult == true)
@@ -234,7 +231,7 @@ static void _APP_CYCLES_NextPacket(void)
             /* Print statistics */
             for (uint16_t i = 0; i < APP_EAP_SERVER_MAX_DEVICES; i++)
             {
-                if (app_cyclesStatistics[i].shortAddress != 0xFFFF)
+                if ((app_cyclesStatistics[i].shortAddress != 0xFFFF) && (app_cyclesStatistics[i].numEchoRequests > 0))
                 {
                     numErrors = app_cyclesStatistics[i].numEchoRequests - app_cyclesStatistics[i].numEchoReplies;
                     successRate = (app_cyclesStatistics[i].numEchoReplies * 100) / app_cyclesStatistics[i].numEchoRequests;
@@ -361,6 +358,10 @@ void APP_CYCLES_Tasks ( void )
                 ipv6Addr.v[15] = eui64[0];
                 TCPIP_IPV6_UnicastAddressAdd(app_cyclesData.netHandle,
                         &ipv6Addr, APP_TCPIP_IPV6_NETWORK_PREFIX_G3_LEN, false);
+
+                /* Set PAN ID in TCP/IP stack in order to recognize all
+                 * link-local addresses in the network as neighbors */
+                TCPIP_IPV6_G3PLC_PanIdSet(app_cyclesData.netHandle, panId);
             }
 
             break;

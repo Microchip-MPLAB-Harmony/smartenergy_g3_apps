@@ -1,18 +1,15 @@
 /*******************************************************************************
-  Source for the pseudo-random numbers generation service
-
   Company:
     Microchip Technology Inc.
 
   File Name:
-    srv_random.c
+    pal_rf.h
 
   Summary:
-    Interface implementation for the pseudo-random numbers generation service.
+    RF Platform Abstraction Layer (PAL) Interface Local header file.
 
   Description:
-    This file implements the interface for the pseudo-random numbers generation 
-    service.
+    RF Platform Abstraction Layer (PAL) Interface Local header file.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
@@ -40,6 +37,9 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
+#ifndef PAL_RF_LOCAL_H
+#define PAL_RF_LOCAL_H
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: File includes
@@ -48,80 +48,47 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include "definitions.h"
-#include "srv_random.h"
+#include "system/system.h"
+#include "driver/driver.h"
+#include "driver/rf215/drv_rf215_definitions.h"
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Random Service Interface Implementation
+// Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
 
-uint8_t SRV_RANDOM_Get8bits(void)
+/* PAL RF Data
+
+  Summary:
+    Holds PAL RF internal data.
+
+  Description:
+    This data type defines the all data required to handle the PAL RF module.
+
+  Remarks:
+    None.
+*/
+
+typedef struct  
 {
-    uint8_t retValue;
+    DRV_HANDLE drvRfPhyHandle;
+    
+    PAL_RF_STATUS status;
+    
+    PAL_RF_HANDLERS rfPhyHandlers;
+    
+    DRV_RF215_PHY_MOD_SCHEME rfPhyModScheme;
 
-    retValue = (uint8_t)TRNG_ReadData();
+    DRV_RF215_PHY_MOD_SCHEME rfPhyModSchemeFsk;
 
-    return retValue;
-}
+    DRV_RF215_PHY_MOD_SCHEME rfPhyModSchemeOfdm;
 
-uint16_t SRV_RANDOM_Get16bits(void)
-{
-    uint16_t retValue;
+    DRV_RF215_PHY_CFG_OBJ rfPhyConfig;
 
-    retValue = (uint16_t)TRNG_ReadData();
+} PAL_RF_DATA;
 
-    return retValue;
-}
-
-uint16_t  SRV_RANDOM_Get16bitsInRange(uint16_t min, uint16_t max)
-{
-    uint16_t localMin = min;
-
-    if (max < min) 
-    {
-        localMin = max;
-        max = min;
-    }
-
-    return (SRV_RANDOM_Get16bits() % (max - localMin + 1U) + localMin);
-}
-
-uint32_t SRV_RANDOM_Get32bits(void)
-{
-    uint32_t retValue;
-
-    retValue = TRNG_ReadData();
-
-    return retValue;
-}
-
-uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t min, uint32_t max)
-{
-    uint32_t localMin = min;
-
-    if (max < min) 
-    {
-        localMin = max;
-        max = min;
-    }
-
-    return (SRV_RANDOM_Get32bits() % (max - localMin + 1U) + localMin);
-}
-
-void SRV_RANDOM_Get128bits(uint8_t *rndValue)
-{
-    uint32_t randNum;
-    uint8_t n;
-
-    for (n = 0U; n < 4U; n ++)
-    {
-        randNum = TRNG_ReadData();
-
-        *rndValue++ = (uint8_t)(randNum >> 24);
-        *rndValue++ = (uint8_t)(randNum >> 16);
-        *rndValue++ = (uint8_t)(randNum >> 8);
-        *rndValue++ = (uint8_t)randNum;
-    }
-}
+#endif // #ifndef PAL_RF_LOCAL_H
+/*******************************************************************************
+ End of File
+*/
