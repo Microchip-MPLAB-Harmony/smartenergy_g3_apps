@@ -253,14 +253,14 @@ void APP_Initialize ( void )
 
     /* Read UniqueID to set extended address (EUI64) */
     SEFC0_UniqueIdentifierRead((uint32_t*) uniqueId, 4);
-    appData.eui64.value[0] = uniqueId[0] ^ uniqueId[1];
-    appData.eui64.value[1] = uniqueId[2] ^ uniqueId[3];
-    appData.eui64.value[2] = uniqueId[4] ^ uniqueId[5];
-    appData.eui64.value[3] = uniqueId[6] ^ uniqueId[7];
-    appData.eui64.value[4] = uniqueId[8] ^ uniqueId[9];
-    appData.eui64.value[5] = uniqueId[10] ^ uniqueId[11];
-    appData.eui64.value[6] = uniqueId[12] ^ uniqueId[13];
-    appData.eui64.value[7] = uniqueId[14] ^ uniqueId[15];
+    appData.eui64.value[7] = uniqueId[4];
+    appData.eui64.value[6] = uniqueId[5];
+    appData.eui64.value[5] = uniqueId[6];
+    appData.eui64.value[4] = uniqueId[7];
+    appData.eui64.value[3] = (uniqueId[8] << 4) | (uniqueId[9] & 0x0F);
+    appData.eui64.value[2] = (uniqueId[10] << 4) | (uniqueId[11] & 0x0F);
+    appData.eui64.value[1] = (uniqueId[12] << 4) | (uniqueId[13] & 0x0F);
+    appData.eui64.value[0] = (uniqueId[14] << 4) | (uniqueId[15] & 0x0F);
 
     /* Place the application state machine in its initial state */
     appData.state = APP_STATE_INIT;

@@ -247,14 +247,14 @@ void APP_STORAGE_GetExtendedAddress(uint8_t* eui64)
 
     /* Read UniqueID to set extended address (EUI64) */
     SEFC0_UniqueIdentifierRead((uint32_t*) uniqueId, 4);
-    eui64[0] = uniqueId[0] ^ uniqueId[1];
-    eui64[1] = uniqueId[2] ^ uniqueId[3];
-    eui64[2] = uniqueId[4] ^ uniqueId[5];
-    eui64[3] = uniqueId[6] ^ uniqueId[7];
-    eui64[4] = uniqueId[8] ^ uniqueId[9];
-    eui64[5] = uniqueId[10] ^ uniqueId[11];
-    eui64[6] = uniqueId[12] ^ uniqueId[13];
-    eui64[7] = uniqueId[14] ^ uniqueId[15];
+    eui64[7] = uniqueId[4];
+    eui64[6] = uniqueId[5];
+    eui64[5] = uniqueId[6];
+    eui64[4] = uniqueId[7];
+    eui64[3] = (uniqueId[8] << 4) | (uniqueId[9] & 0x0F);
+    eui64[2] = (uniqueId[10] << 4) | (uniqueId[11] & 0x0F);
+    eui64[1] = (uniqueId[12] << 4) | (uniqueId[13] & 0x0F);
+    eui64[0] = (uniqueId[14] << 4) | (uniqueId[15] & 0x0F);
 }
 
 ADP_NON_VOLATILE_DATA_IND_PARAMS* APP_STORAGE_GetNonVolatileData(void)
