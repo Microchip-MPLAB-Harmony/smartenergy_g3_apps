@@ -1,18 +1,15 @@
 /*******************************************************************************
-  Source for the pseudo-random numbers generation service
-
   Company:
     Microchip Technology Inc.
 
   File Name:
-    srv_random.c
+    pal_plc.h
 
   Summary:
-    Interface implementation for the pseudo-random numbers generation service.
+    PLC Platform Abstraction Layer (PAL) Interface Local header file.
 
   Description:
-    This file implements the interface for the pseudo-random numbers generation 
-    service.
+    PLC Platform Abstraction Layer (PAL) Interface Local header file.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
@@ -40,6 +37,9 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
+#ifndef PAL_PLC_LOCAL_H
+#define PAL_PLC_LOCAL_H
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: File includes
@@ -48,80 +48,58 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include "definitions.h"
-#include "srv_random.h"
+#include "stack/g3/pal/plc/pal_plc.h"
+#include "service/pcoup/srv_pcoup.h"
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Random Service Interface Implementation
+// Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
 
-uint8_t SRV_RANDOM_Get8bits(void)
+// *****************************************************************************
+/* PAL PLC Data
+
+  Summary:
+    Holds PAL PLC internal data.
+
+  Description:
+    This data type defines the all data required to handle the PAL PLC module.
+
+  Remarks:
+    None.
+*/
+typedef struct  
 {
-    uint8_t retValue;
+    DRV_HANDLE drvG3MacRtHandle;
 
-    retValue = (uint8_t)TRNG_ReadData();
+    PAL_PLC_STATUS status;
 
-    return retValue;
-}
+    PAL_PLC_HANDLERS initHandlers;
 
-uint16_t SRV_RANDOM_Get16bits(void)
-{
-    uint16_t retValue;
+    MAC_RT_BAND plcBand;
 
-    retValue = (uint16_t)TRNG_ReadData();
+    SRV_PLC_PCOUP_BRANCH plcBranch;
 
-    return retValue;
-}
+    MAC_RT_PIB_OBJ plcPIB;
 
-uint16_t  SRV_RANDOM_Get16bitsInRange(uint16_t min, uint16_t max)
-{
-    uint16_t localMin = min;
+    MAC_RT_MIB_INIT_OBJ mibInitData;
 
-    if (max < min) 
-    {
-        localMin = max;
-        max = min;
-    }
+    uint8_t statsErrorUnexpectedKey;
 
-    return (SRV_RANDOM_Get16bits() % (max - localMin + 1U) + localMin);
-}
+    uint8_t statsErrorReset;
 
-uint32_t SRV_RANDOM_Get32bits(void)
-{
-    uint32_t retValue;
+    bool waitingTxCfm;
 
-    retValue = TRNG_ReadData();
+    bool restartMib;
 
-    return retValue;
-}
+    bool coordinator;
 
-uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t min, uint32_t max)
-{
-    uint32_t localMin = min;
+    bool pvddMonTxEnable;
 
-    if (max < min) 
-    {
-        localMin = max;
-        max = min;
-    }
+} PAL_PLC_DATA;
 
-    return (SRV_RANDOM_Get32bits() % (max - localMin + 1U) + localMin);
-}
-
-void SRV_RANDOM_Get128bits(uint8_t *rndValue)
-{
-    uint32_t randNum;
-    uint8_t n;
-
-    for (n = 0U; n < 4U; n ++)
-    {
-        randNum = TRNG_ReadData();
-
-        *rndValue++ = (uint8_t)(randNum >> 24);
-        *rndValue++ = (uint8_t)(randNum >> 16);
-        *rndValue++ = (uint8_t)(randNum >> 8);
-        *rndValue++ = (uint8_t)randNum;
-    }
-}
+#endif // #ifndef PAL_PLC_LOCAL_H
+/*******************************************************************************
+ End of File
+*/

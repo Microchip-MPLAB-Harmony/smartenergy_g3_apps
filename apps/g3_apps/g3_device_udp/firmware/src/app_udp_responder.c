@@ -121,7 +121,7 @@ static void _APP_UDP_RESPONDER_SetIPv6Addresses(void)
     memcpy(macAddrCoord.v, &app_udp_responderData.coordLinkLocalAddress.v[sizeof(IPV6_ADDR) - sizeof(TCPIP_MAC_ADDR)],
            sizeof(TCPIP_MAC_ADDR));
 
-    /* Add coordinator address to NDP neighbor table */
+    /* Add coordinator address to NDP neighbor table as router */
     TCPIP_IPV6_NeighborAddressAdd(app_udp_responderData.netHandle, &app_udp_responderData.coordLinkLocalAddress,
             &macAddrCoord, TCPIP_IPV6_NEIGHBOR_FLAG_PERM | TCPIP_IPV6_NEIGHBOR_FLAG_ROUTER);
 }

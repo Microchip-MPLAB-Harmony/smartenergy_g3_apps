@@ -336,14 +336,13 @@ typedef enum
     TCPIP_MODULE_FTP_SERVER,
     TCPIP_MODULE_HTTP_SERVER,
     TCPIP_MODULE_HTTP_NET_SERVER,
-    TCPIP_MODULE_HTTP_SERVER_V2,    /* new HTTP server v2 module */
     TCPIP_MODULE_TELNET_SERVER,
     TCPIP_MODULE_SNMP_SERVER,
     TCPIP_MODULE_SNMPV3_SERVER,
     TCPIP_MODULE_DYNDNS_CLIENT,
-
-    /*DOM-IGNORE-BEGIN*/    // 3rd layer modules: 30 - 38 /*DOM-IGNORE-END*/
     TCPIP_MODULE_BERKELEY,
+
+    /*DOM-IGNORE-BEGIN*/    // 3rd layer modules: 30 - 37 /*DOM-IGNORE-END*/
     TCPIP_MODULE_REBOOT_SERVER,
     TCPIP_MODULE_COMMAND,
     TCPIP_MODULE_IPERF,
@@ -466,6 +465,28 @@ typedef enum
 
     /* the network configuration contains an IPv6 static address and subnet prefix length */
     TCPIP_NETWORK_CONFIG_IPV6_ADDRESS         /*DOM-IGNORE-BEGIN*/ = 0x0100 /*DOM-IGNORE-END*/,   
+
+    /* G3-PLC IPv6 general interface flags */
+    /* the network will be part of a G3-PLC network */
+    TCPIP_NETWORK_CONFIG_IPV6_G3_NET          /*DOM-IGNORE-BEGIN*/ = 0x0200 /*DOM-IGNORE-END*/,   
+
+    /* The IPv6 will suppress the Duplicate Address Detection on this interface */
+    TCPIP_NETWORK_CONFIG_IPV6_NO_DAD          /*DOM-IGNORE-BEGIN*/ = 0x0400 /*DOM-IGNORE-END*/,   
+    
+    /* G3-PLC IPv6 router/coordinator interface flags */
+    /* the network will act as an IPv6 border router/coordinator, replying to solicitations */
+    TCPIP_NETWORK_CONFIG_IPV6_ROUTER          /*DOM-IGNORE-BEGIN*/ = 0x0800 /*DOM-IGNORE-END*/,   
+
+    /* when configured as an IPv6 router, sending advertisements is enabled  */
+    TCPIP_NETWORK_CONFIG_IPV6_ADV_ENABLED     /*DOM-IGNORE-BEGIN*/ = 0x1000 /*DOM-IGNORE-END*/,   
+
+    /* Suppress the RS (Router Solicitation) messages on this interface */
+    TCPIP_NETWORK_CONFIG_IPV6_NO_RS           /*DOM-IGNORE-BEGIN*/ = 0x2000 /*DOM-IGNORE-END*/,   
+    
+    /* G3-PLC IPv6 device interface flags */
+    /* Send RS messages to a router unicast address rather than multicast.
+      By default the 'all IPv6 routers' multicast address: 'ff02::02' is used */
+    TCPIP_NETWORK_CONFIG_IPV6_UNICAST_RS      /*DOM-IGNORE-BEGIN*/ = 0x4000 /*DOM-IGNORE-END*/,   
 
     /* add other configuration flags here */
 }TCPIP_NETWORK_CONFIG_FLAGS;

@@ -70,9 +70,6 @@ extern "C" {
 /* Routing table entry TTL: 180 minutes */
 #define APP_G3_MANAGEMENT_ROUTING_TABLE_ENTRY_TTL 180
 
-/* Maximum Join Time: 90 seconds */
-#define APP_G3_MANAGEMENT_MAX_JOIN_WAIT_TIME 90
-
 /* Maximum Hops: 10 */
 #define APP_G3_MANAGEMENT_MAX_HOPS 10
 
@@ -197,9 +194,6 @@ typedef struct
 
     /* ADP_IB_ROUTING_TABLE_ENTRY_TTL */
     const uint16_t routingTableEntryTTL;
-
-    /* ADP_IB_MAX_JOIN_WAIT_TIME */
-    const uint16_t maxJoinWaitTime;
 
     /* MAC_WRP_PIB_DUTY_CYCLE_LIMIT_RF */
     const uint16_t dutyCycleLimitRF;

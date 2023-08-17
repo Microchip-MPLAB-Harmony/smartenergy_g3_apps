@@ -66,7 +66,6 @@ static const APP_G3_MANAGEMENT_CONSTANTS app_g3_managementConst = {
     .contextInfoTable1 = APP_G3_MANAGEMENT_CONTEXT_INFO_TABLE_1,
     .shortAddress = APP_G3_MANAGEMENT_SHORT_ADDRESS,
     .routingTableEntryTTL = APP_G3_MANAGEMENT_ROUTING_TABLE_ENTRY_TTL,
-    .maxJoinWaitTime = APP_G3_MANAGEMENT_MAX_JOIN_WAIT_TIME,
     .maxHops = APP_G3_MANAGEMENT_MAX_HOPS,
     .broadcastRouteAll = APP_G3_MANAGEMENT_BROADCAST_ROUTE_ALL,
     .dutyCycleLimitRF = APP_G3_MANAGEMENT_DUTY_CYCLE_LIMIT_RF
@@ -191,7 +190,6 @@ void APP_SYS_TIME_CallbackSetFlag(uintptr_t context)
 static void _APP_G3_MANAGEMENT_InitializeParameters(void)
 {
     ADP_SET_CFM_PARAMS setConfirm;
-    uint16_t multicastGroup;
 
     /* Set extended address (EUI64). It must be unique for each device. */
     ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_EXTENDED_ADDRESS, 0, 8,
@@ -210,17 +208,7 @@ static void _APP_G3_MANAGEMENT_InitializeParameters(void)
     ADP_SetRequestSync(ADP_IB_ROUTING_TABLE_ENTRY_TTL, 0, 2,
             (const uint8_t*) &app_g3_managementConst.routingTableEntryTTL, &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_MAX_JOIN_WAIT_TIME, 0, 2,
-            (const uint8_t*) &app_g3_managementConst.maxJoinWaitTime, &setConfirm);
-
     ADP_SetRequestSync(ADP_IB_MAX_HOPS, 0, 1, &app_g3_managementConst.maxHops, &setConfirm);
-
-    /* Add short address to multi-cast group table in order to receive NDP
-     * Neighbor Solicitation messages */
-    multicastGroup = (uint8_t) app_g3_managementConst.shortAddress;
-    multicastGroup |= (uint8_t) ((app_g3_managementConst.shortAddress >> 8) & 0x1F);
-    multicastGroup |= 0x8000;
-    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 0, 2, (const uint8_t*) &multicastGroup, &setConfirm);
 
     /* Set user-specific MAC parameters */
     ADP_MacSetRequestSync(MAC_WRP_PIB_DUTY_CYCLE_LIMIT_RF, 0, 2,

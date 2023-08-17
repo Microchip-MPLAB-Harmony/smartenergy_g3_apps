@@ -143,9 +143,6 @@ typedef struct
 
 typedef struct
 {
-    /* Target address to send UDP request */
-    IPV6_ADDR targetAddress;
-
     /* Time counter corresponding to first UDP cycle start */
     uint64_t timeCountFirstCycleStart;
 

@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _MAC_WRAPPER_DEFS_H
-#define _MAC_WRAPPER_DEFS_H
+#ifndef MAC_WRAPPER_DEFS_H
+#define MAC_WRAPPER_DEFS_H
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -57,16 +57,16 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define MAC_WRP_MAX_TONES                (72)
-#define MAC_WRP_MAX_TONE_GROUPS          (24)
+#define MAC_WRP_MAX_TONES                (72U)
+#define MAC_WRP_MAX_TONE_GROUPS          (24U)
 
-#define MAC_WRP_PAN_ID_BROADCAST         (0xFFFFu)
-#define MAC_WRP_SHORT_ADDRESS_BROADCAST  (0xFFFFu)
-#define MAC_WRP_SHORT_ADDRESS_UNDEFINED  (0xFFFFu)
+#define MAC_WRP_PAN_ID_BROADCAST         (0xFFFFU)
+#define MAC_WRP_SHORT_ADDRESS_BROADCAST  (0xFFFFU)
+#define MAC_WRP_SHORT_ADDRESS_UNDEFINED  (0xFFFFU)
 
-#define MAC_WRP_SECURITY_KEY_LENGTH      (16)
+#define MAC_WRP_SECURITY_KEY_LENGTH      (16U)
 
-#define MAC_WRP_PIB_MAX_VALUE_LENGTH     (144)
+#define MAC_WRP_PIB_MAX_VALUE_LENGTH     (144U)
 
 // *****************************************************************************
 // *****************************************************************************
@@ -517,7 +517,8 @@ typedef uint32_t MAC_WRP_TIMESTAMP;
     which contains information of the Beacon frames seen on a G3 network.
 
    Remarks:
-    None.
+    mediaType field is only relevant if both MAC layers are used,
+    otherwise it is fixed to the available MAC.
 */
 typedef struct
 {
@@ -603,40 +604,21 @@ typedef enum
 typedef enum
 {
     MAC_WRP_STATUS_SUCCESS = 0x00,
-    MAC_WRP_STATUS_BEACON_LOSS = 0xE0,
     MAC_WRP_STATUS_CHANNEL_ACCESS_FAILURE = 0xE1,
     MAC_WRP_STATUS_COUNTER_ERROR = 0xDB,
     MAC_WRP_STATUS_DENIED = 0xE2,
-    MAC_WRP_STATUS_DISABLE_TRX_FAILURE = 0xE3,
     MAC_WRP_STATUS_FRAME_TOO_LONG = 0xE5,
-    MAC_WRP_STATUS_IMPROPER_KEY_TYPE = 0xDC,
-    MAC_WRP_STATUS_IMPROPER_SECURITY_LEVEL = 0xDD,
-    MAC_WRP_STATUS_INVALID_ADDRESS = 0xF5,
-    MAC_WRP_STATUS_INVALID_GTS = 0xE6,
     MAC_WRP_STATUS_INVALID_HANDLE = 0xE7,
     MAC_WRP_STATUS_INVALID_INDEX = 0xF9,
     MAC_WRP_STATUS_INVALID_PARAMETER = 0xE8,
     MAC_WRP_STATUS_LIMIT_REACHED = 0xFA,
     MAC_WRP_STATUS_NO_ACK = 0xE9,
-    MAC_WRP_STATUS_NO_BEACON = 0xEA,
-    MAC_WRP_STATUS_NO_DATA = 0xEB,
     MAC_WRP_STATUS_NO_SHORT_ADDRESS = 0xEC,
-    MAC_WRP_STATUS_ON_TIME_TOO_LONG = 0xF6,
-    MAC_WRP_STATUS_OUT_OF_CAP = 0xED,
-    MAC_WRP_STATUS_PAN_ID_CONFLICT = 0xEE,
-    MAC_WRP_STATUS_PAST_TIME = 0xF7,
     MAC_WRP_STATUS_READ_ONLY = 0xFB,
-    MAC_WRP_STATUS_REALIGNMENT = 0xEF,
-    MAC_WRP_STATUS_SCAN_IN_PROGRESS = 0xFC,
     MAC_WRP_STATUS_SECURITY_ERROR = 0xE4,
-    MAC_WRP_STATUS_SUPERFRAME_OVERLAP = 0xFD,
-    MAC_WRP_STATUS_TRACKING_OFF = 0xF8,
-    MAC_WRP_STATUS_TRANSACTION_EXPIRED = 0xF0,
     MAC_WRP_STATUS_TRANSACTION_OVERFLOW = 0xF1,
-    MAC_WRP_STATUS_TX_ACTIVE = 0xF2,
     MAC_WRP_STATUS_UNAVAILABLE_KEY = 0xF3,
     MAC_WRP_STATUS_UNSUPPORTED_ATTRIBUTE = 0xF4,
-    MAC_WRP_STATUS_UNSUPPORTED_LEGACY = 0xDE,
     MAC_WRP_STATUS_UNSUPPORTED_SECURITY = 0xDF,
     MAC_WRP_STATUS_ALTERNATE_PANID_DETECTION = 0x80,
     MAC_WRP_STATUS_QUEUE_FULL = 0xD0,
@@ -660,6 +642,9 @@ typedef struct
     bool valid;
     uint8_t key[MAC_WRP_SECURITY_KEY_LENGTH];
 } MAC_WRP_SECURITY_KEY;
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 5.2 deviated 41 times.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
 
 // *****************************************************************************
 /* MAC Wrapper Parameter Information Base definition
@@ -723,7 +708,7 @@ typedef enum
     MAC_WRP_PIB_POS_RECENT_ENTRIES = 0x00000122, /* 16 bits */
     MAC_WRP_PIB_PLC_DISABLE = 0x00000123, /* 8 bits (bool) */
     /* manufacturer specific */
-    /* provides access to device table. 8 Byte entries. */
+    /* provides access to device table. 6 Byte entries. */
     MAC_WRP_PIB_MANUF_DEVICE_TABLE = 0x08000000,
     /* Extended address of this node. 8 Byte array. */
     MAC_WRP_PIB_MANUF_EXTENDED_ADDRESS = 0x08000001,
@@ -802,10 +787,6 @@ typedef enum
     MAC_WRP_PIB_MANUF_RESET_MAC_STATS = 0x08000023,
     /* Enable/Disable Sleep Mode */
     MAC_WRP_PIB_MANUF_SLEEP_MODE = 0x08000024,
-    /* Set PLC in Debug Mode */
-    MAC_WRP_PIB_MANUF_DEBUG_SET = 0x08000025,
-    /* Read PLC debug information */
-    MAC_WRP_PIB_MANUF_DEBUG_READ = 0x08000026,
     /* Provides access to POS table by short address (referenced as index). 5 Byte entries */
     MAC_WRP_PIB_MANUF_POS_TABLE_ELEMENT = 0x08000027,
     /* Minimum LQI to consider a neighbour for Trickle. 8 bits. */
@@ -1118,6 +1099,8 @@ typedef enum
     MAC_WRP_RF_PHY_PARAM_TX_OFDM_MCS = 0x8001,
 } MAC_WRP_PHY_PARAM_RF;
 
+/* MISRA C-2012 deviation block end */
+
 // *****************************************************************************
 /* MAC Wrapper PIB Value definition
 
@@ -1158,6 +1141,9 @@ typedef struct
     uint8_t txCoef[6];
 } MAC_WRP_TX_COEF;
 
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 6.1 deviated 5 times.  Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
+
 // *****************************************************************************
 /* MAC Wrapper PLC Neighbour Table Entry definition
 
@@ -1184,6 +1170,8 @@ typedef struct __attribute__((packed))
     uint8_t lqi;
     uint16_t tmrValidTime;
 } MAC_WRP_NEIGHBOUR_ENTRY;
+
+/* MISRA C-2012 deviation block end */
 
 // *****************************************************************************
 /* MAC Wrapper PLC POS Table Entry definition
@@ -1235,7 +1223,7 @@ typedef struct __attribute__((packed))
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _MAC_WRAPPER_DEFS_H
+#endif // #ifndef MAC_WRAPPER_DEFS_H
 
 /*******************************************************************************
  End of File

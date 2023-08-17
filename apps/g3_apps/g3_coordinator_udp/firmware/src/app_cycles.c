@@ -90,7 +90,7 @@ static void _APP_CYCLES_ShowReport(void)
     /* Print statistics */
     for (uint16_t i = 0; i < APP_EAP_SERVER_MAX_DEVICES; i++)
     {
-        if (app_cyclesStatistics[i].shortAddress != 0xFFFF)
+        if ((app_cyclesStatistics[i].shortAddress != 0xFFFF) && (app_cyclesStatistics[i].numUdpRequests > 0))
         {
             numErrors = app_cyclesStatistics[i].numUdpRequests - app_cyclesStatistics[i].numUdpReplies;
             successRate = (app_cyclesStatistics[i].numUdpReplies * 100) / app_cyclesStatistics[i].numUdpRequests;
@@ -154,9 +154,6 @@ static void _APP_CYCLES_SendPacket(void)
     app_cyclesData.timeCountUdpRequest = SYS_TIME_Counter64Get();
     TCPIP_UDP_Flush(app_cyclesData.socket);
 
-    /* Force neighbor reachable status in NDP */
-    TCPIP_NDP_NborReachConfirm(app_cyclesData.netHandle, &app_cyclesData.targetAddress);
-
     SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: UDP packet size %hu\r\n", app_cyclesData.packetSize);
 
     /* Create timer for timeout to detect UDP reply not received */
@@ -172,6 +169,7 @@ static void _APP_CYCLES_SendPacket(void)
 
 static void _APP_CYCLES_StartDeviceCycle(void)
 {
+    IPV6_ADDR targetAddress;
     APP_CYCLES_STATISTICS_ENTRY* pFreeStatsEntry = NULL;
     APP_CYCLES_STATISTICS_ENTRY* pStatsEntry = NULL;
     uint16_t shortAddress, panId;
@@ -181,12 +179,12 @@ static void _APP_CYCLES_StartDeviceCycle(void)
     /* Create link-local address based on short address and PAN ID */
     shortAddress = APP_EAP_SERVER_GetDeviceAddress(app_cyclesData.deviceIndex, eui64);
     panId = APP_G3_MANAGEMENT_GetPanId();
-    TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_LINK_LOCAL_ADDRESS_G3, &app_cyclesData.targetAddress);
-    app_cyclesData.targetAddress.v[8] = (uint8_t) (panId >> 8);
-    app_cyclesData.targetAddress.v[9] = (uint8_t) panId;
-    app_cyclesData.targetAddress.v[14] = (uint8_t) (shortAddress >> 8);
-    app_cyclesData.targetAddress.v[15] = (uint8_t) shortAddress;
-    TCPIP_Helper_IPv6AddressToString(&app_cyclesData.targetAddress, targetAddressString, sizeof(targetAddressString) - 1);
+    TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_LINK_LOCAL_ADDRESS_G3, &targetAddress);
+    targetAddress.v[8] = (uint8_t) (panId >> 8);
+    targetAddress.v[9] = (uint8_t) panId;
+    targetAddress.v[14] = (uint8_t) (shortAddress >> 8);
+    targetAddress.v[15] = (uint8_t) shortAddress;
+    TCPIP_Helper_IPv6AddressToString(&targetAddress, targetAddressString, sizeof(targetAddressString) - 1);
 
     /* Close socket if already opened */
     if (app_cyclesData.socket != INVALID_SOCKET)
@@ -196,7 +194,7 @@ static void _APP_CYCLES_StartDeviceCycle(void)
 
     /* Open UDP client socket */
     app_cyclesData.socket = TCPIP_UDP_ClientOpen(IP_ADDRESS_TYPE_IPV6,
-            APP_UDP_RESPONDER_SOCKET_PORT_CONFORMANCE, (IP_MULTI_ADDRESS*) &app_cyclesData.targetAddress);
+            APP_UDP_RESPONDER_SOCKET_PORT_CONFORMANCE, (IP_MULTI_ADDRESS*) &targetAddress);
 
     SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: Starting cycle for %s (Short Address: 0x%04X,"
             " EUI64: 0x%02X%02X%02X%02X%02X%02X%02X%02X)\r\n", targetAddressString, shortAddress,

@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -123,7 +123,7 @@ static DRV_RF215_TX_BUFFER_OBJ drvRf215TxBufPool[DRV_RF215_TX_BUFFERS_NUMBER] = 
 // *****************************************************************************
 // *****************************************************************************
 
-static inline uint32_t _DRV_RF215_MakeHandle (uint8_t index)
+static inline uint32_t lDRV_RF215_MakeHandle (uint8_t index)
 {
     /* Build handle and update token count. There is no issue if it overflows */
     uint32_t handle = ((uint32_t) (drvRf215Obj.tokenCount++) << 16) | index;
@@ -131,14 +131,14 @@ static inline uint32_t _DRV_RF215_MakeHandle (uint8_t index)
     return handle;
 }
 
-static DRV_RF215_CLIENT_OBJ* _DRV_RF215_DrvHandleValidate(DRV_HANDLE handle)
+static DRV_RF215_CLIENT_OBJ* lDRV_RF215_DrvHandleValidate(DRV_HANDLE handle)
 {
     uint8_t clientIndex;
     DRV_RF215_CLIENT_OBJ* clientObj;
 
     /* Extract the client index from the handle */
-    clientIndex = handle & 0xFF;
-    if (clientIndex > DRV_RF215_CLIENTS_NUMBER)
+    clientIndex = (uint8_t) handle;
+    if (clientIndex >= DRV_RF215_CLIENTS_NUMBER)
     {
         return NULL;
     }
@@ -153,13 +153,13 @@ static DRV_RF215_CLIENT_OBJ* _DRV_RF215_DrvHandleValidate(DRV_HANDLE handle)
     return clientObj;
 }
 
-static void _DRV_RF215_Timeout(uintptr_t context)
+static void lDRV_RF215_Timeout(uintptr_t context)
 {
     DRV_RF215_OBJ* dObj = (DRV_RF215_OBJ *)context;
     dObj->timeoutErr = true;
 }
 
-static void _DRV_RF215_ReadPNVN(uintptr_t context, void* pData, uint64_t time)
+static void lDRV_RF215_ReadPNVN(uintptr_t context, void* pData, uint64_t timeRead)
 {
     DRV_RF215_OBJ* dObj = (DRV_RF215_OBJ *) context;
     uint8_t* pPN = pData;
@@ -171,11 +171,16 @@ static void _DRV_RF215_ReadPNVN(uintptr_t context, void* pData, uint64_t time)
         return;
     }
 
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.8 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+
     /* Disable clock output by default (not used) */
-    RF215_HAL_SpiWrite(RF215_RF_CLKO, (void *)&rf215RegValues.RF_CLKO, 1);
+    RF215_HAL_SpiWrite(RF215_RF_CLKO, (void *) &rf215RegValues.RF_CLKO, 1);
 
     /* RF24 TRX disabled: Switch it to sleep state to save power */
     RF215_HAL_SpiWrite(RF215_ADDR_RF24_CMD, (void *) &rf215RegValues.RFn_CMD.sleep, 1);
+
+    /* MISRA C-2012 deviation block end */
 
     /* RF09 TRX reset event */
     RF215_PHY_ExtIntEvent(RF215_TRX_RF09_IDX, RF215_RFn_IRQ_WAKEUP, 0);
@@ -184,7 +189,7 @@ static void _DRV_RF215_ReadPNVN(uintptr_t context, void* pData, uint64_t time)
     dObj->rfChipResetFlag = true;
 }
 
-static void _DRV_RF215_ReadIRQS(uintptr_t context, void* pData, uint64_t time)
+static void lDRV_RF215_ReadIRQS(uintptr_t context, void* pData, uint64_t timeRead)
 {
     DRV_RF215_OBJ* dObj = (DRV_RF215_OBJ *) context;
     uint8_t* pFlags = pData;
@@ -202,7 +207,7 @@ static void _DRV_RF215_ReadIRQS(uintptr_t context, void* pData, uint64_t time)
     {
         /* First interrupt after initialization: Chip Reset / Power-On-Reset
          * should be indicated */
-        if (((rf09IRQS & rf24IRQS) != RF215_RFn_IRQ_WAKEUP) || (bbc0IRQS != 0))
+        if (((rf09IRQS & rf24IRQS) != RF215_RFn_IRQ_WAKEUP) || (bbc0IRQS != 0U))
 
         {
             RF215_HAL_Deinitialize();
@@ -210,33 +215,33 @@ static void _DRV_RF215_ReadIRQS(uintptr_t context, void* pData, uint64_t time)
             return;
         }
     }
-    else if (((rf09IRQS & 0xC0) != 0) || ((rf24IRQS & 0xC0) != 0))
+    else if (((rf09IRQS & 0xC0U) != 0U) || ((rf24IRQS & 0xC0U) != 0U))
     {
         /* 2 MSB bits of RFn_IRQS should be always 0 */
         dObj->irqsErr = true;
         return;
     }
-    else if ((rf09IRQS | rf24IRQS | bbc0IRQS) == 0)
+    else if ((rf09IRQS | rf24IRQS | bbc0IRQS) == 0U)
     {
         /* Count consecutive times reading RF215 flags as empty */
-        if (dObj->irqsEmptyCount == 3)
+        if (dObj->irqsEmptyCount == 3U)
         {
             dObj->irqsErr = true;
-            dObj->irqsEmptyCount = 0;
+            dObj->irqsEmptyCount = 0U;
             return;
         }
     }
     else
     {
-        dObj->irqsEmptyCount = 0;
+        dObj->irqsEmptyCount = 0U;
     }
 
     /* Check Chip Reset / Power-On-Reset (Wake-up Interrupt on both TRX) */
-    if ((rf09IRQS & rf24IRQS & RF215_RFn_IRQ_WAKEUP) != 0)
+    if ((rf09IRQS & rf24IRQS & RF215_RFn_IRQ_WAKEUP) != 0U)
     {
         /* Read Device Part Number and Version Number registers */
         uint8_t* pPN = &dObj->RF_PN;
-        RF215_HAL_SpiRead(RF215_RF_PN, pPN, 2, _DRV_RF215_ReadPNVN, context);
+        RF215_HAL_SpiRead(RF215_RF_PN, pPN, 2U, lDRV_RF215_ReadPNVN, context);
         RF215_PHY_DeviceReset();
         return;
     }
@@ -263,7 +268,7 @@ void DRV_RF215_ExtIntHandler(void)
     }
 
     /* Read IRQ Status registers (RF09_IRQS, RF24_IRQS, BBC0_IRQS) */
-    RF215_HAL_SpiRead(RF215_RF09_IRQS, pFlags, 3, _DRV_RF215_ReadIRQS, context);
+    RF215_HAL_SpiRead(RF215_RF09_IRQS, pFlags, 3, lDRV_RF215_ReadIRQS, context);
 }
 
 void DRV_RF215_NotifyRxInd(uint8_t trxIdx, DRV_RF215_RX_INDICATION_OBJ* ind)
@@ -304,7 +309,7 @@ void DRV_RF215_AbortTxByPhyConfig(uint8_t trxIdx)
     for (uint8_t bufIdx = 0; bufIdx < DRV_RF215_TX_BUFFERS_NUMBER; bufIdx++)
     {
         DRV_RF215_TX_BUFFER_OBJ* txBufObj = &drvRf215TxBufPool[bufIdx];
-        if ((txBufObj->inUse == true) && (txBufObj->cfmPending = false) && (txBufObj->clientObj->trxIndex == trxIdx))
+        if ((txBufObj->inUse == true) && (txBufObj->cfmPending == false) && (txBufObj->clientObj->trxIndex == trxIdx))
         {
             RF215_PHY_SetTxCfm(txBufObj, RF215_TX_ABORTED);
         }
@@ -322,7 +327,10 @@ SYS_MODULE_OBJ DRV_RF215_Initialize (
     const SYS_MODULE_INIT * const init
 )
 {
-    const DRV_RF215_INIT* rfPhyInit = (DRV_RF215_INIT *)init;
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    const DRV_RF215_INIT * const rfPhyInit = (const DRV_RF215_INIT * const)init;
+    /* MISRA C-2012 deviation block end */
     DRV_RF215_PHY_BAND_OPM bandOpMode;
     uint16_t channelNum;
 
@@ -420,7 +428,7 @@ void DRV_RF215_Tasks( SYS_MODULE_OBJ object )
             {
                 /* Register initialization timeout callback */
                 dObj->timeoutHandle = SYS_TIME_CallbackRegisterMS(
-                        _DRV_RF215_Timeout, (uintptr_t) dObj, 5, SYS_TIME_SINGLE);
+                        lDRV_RF215_Timeout, (uintptr_t) dObj, 5, SYS_TIME_SINGLE);
             }
 
             if ((dObj->timeoutErr == true) || (dObj->irqsErr == true) || (dObj->partNumErr == true))
@@ -428,11 +436,14 @@ void DRV_RF215_Tasks( SYS_MODULE_OBJ object )
                 RF215_HAL_Deinitialize();
                 dObj->sysStatus = SYS_STATUS_ERROR;
             }
-            else if (dObj->rfChipResetFlag == true)
+            else
             {
-                SYS_TIME_TimerDestroy(dObj->timeoutHandle);
-                dObj->rfChipResetFlag = false;
-                dObj->sysStatus = SYS_STATUS_READY;
+                if (dObj->rfChipResetFlag == true)
+                {
+                    (void) SYS_TIME_TimerDestroy(dObj->timeoutHandle);
+                    dObj->rfChipResetFlag = false;
+                    dObj->sysStatus = SYS_STATUS_READY;
+                }
             }
 
             break;
@@ -503,6 +514,7 @@ void DRV_RF215_Tasks( SYS_MODULE_OBJ object )
         case SYS_STATUS_UNINITIALIZED:
         default:
         {
+            dObj->sysStatus = SYS_STATUS_ERROR;
             break;
         }
     }
@@ -563,7 +575,7 @@ DRV_HANDLE DRV_RF215_Open (
             clientObj->trxIndex = trxIdx;
             clientObj->rxIndCallback = NULL;
             clientObj->txCfmCallback = NULL;
-            clientObj->clientHandle = _DRV_RF215_MakeHandle(clientIdx);
+            clientObj->clientHandle = lDRV_RF215_MakeHandle(clientIdx);
             return clientObj->clientHandle;
         }
     }
@@ -574,7 +586,7 @@ DRV_HANDLE DRV_RF215_Open (
 
 void DRV_RF215_Close( const DRV_HANDLE drvHandle )
 {
-    DRV_RF215_CLIENT_OBJ* clientObj = _DRV_RF215_DrvHandleValidate(drvHandle);
+    DRV_RF215_CLIENT_OBJ* clientObj = lDRV_RF215_DrvHandleValidate(drvHandle);
     if (clientObj != NULL)
     {
         /* Set client object as free */
@@ -588,7 +600,7 @@ void DRV_RF215_RxIndCallbackRegister (
     uintptr_t context
 )
 {
-    DRV_RF215_CLIENT_OBJ* clientObj = _DRV_RF215_DrvHandleValidate(drvHandle);
+    DRV_RF215_CLIENT_OBJ* clientObj = lDRV_RF215_DrvHandleValidate(drvHandle);
     if (clientObj != NULL)
     {
         /* Register RX indication callback for this client */
@@ -603,7 +615,7 @@ void DRV_RF215_TxCfmCallbackRegister (
     uintptr_t context
 )
 {
-    DRV_RF215_CLIENT_OBJ* clientObj = _DRV_RF215_DrvHandleValidate(drvHandle);
+    DRV_RF215_CLIENT_OBJ* clientObj = lDRV_RF215_DrvHandleValidate(drvHandle);
     if (clientObj != NULL)
     {
         /* Register TX confirm callback for this client */
@@ -620,7 +632,7 @@ DRV_RF215_TX_HANDLE DRV_RF215_TxRequest (
 {
     uint8_t bufIdx;
 
-    DRV_RF215_CLIENT_OBJ* clientObj = _DRV_RF215_DrvHandleValidate(drvHandle);
+    DRV_RF215_CLIENT_OBJ* clientObj = lDRV_RF215_DrvHandleValidate(drvHandle);
     if (clientObj == NULL)
     {
         *result = RF215_TX_INVALID_DRV_HANDLE;
@@ -639,10 +651,10 @@ DRV_RF215_TX_HANDLE DRV_RF215_TxRequest (
             /* Initialize RF215 driver's TX buffer. Copy PSDU. */
             txBufObj->clientObj = clientObj;
             txBufObj->reqObj = *reqObj;
-            txBufObj->txHandle = _DRV_RF215_MakeHandle(bufIdx);
+            txBufObj->txHandle = lDRV_RF215_MakeHandle(bufIdx);
             txBufObj->inUse = true;
             txBufObj->cfmPending = false;
-            memcpy(txBufObj->psdu, reqObj->psdu, reqObj->psduLen);
+            (void) memcpy(txBufObj->psdu, reqObj->psdu, reqObj->psduLen);
 
             /* Transmission request */
             *result = RF215_PHY_TxRequest(txBufObj);
@@ -674,15 +686,15 @@ void DRV_RF215_TxCancel(DRV_HANDLE drvHandle, DRV_RF215_TX_HANDLE txHandle)
     DRV_RF215_TX_BUFFER_OBJ* txBufObj;
     uint8_t bufIdx;
 
-    clientObj = _DRV_RF215_DrvHandleValidate(drvHandle);
+    clientObj = lDRV_RF215_DrvHandleValidate(drvHandle);
     if (clientObj == NULL)
     {
         return;
     }
 
     /* Validate TX handle */
-    bufIdx = txHandle & 0xFF;
-    if (bufIdx > DRV_RF215_TX_BUFFERS_NUMBER)
+    bufIdx = (uint8_t) txHandle;
+    if (bufIdx >= DRV_RF215_TX_BUFFERS_NUMBER)
     {
         return;
     }
@@ -715,8 +727,9 @@ uint8_t DRV_RF215_GetPibSize(DRV_RF215_PIB_ATTRIBUTE attr)
         case RF215_PIB_DEVICE_RESET:
         case RF215_PIB_TRX_RESET:
         case RF215_PIB_TRX_SLEEP:
+        case RF215_PIB_PHY_CCA_ED_THRESHOLD:
         case RF215_PIB_PHY_TX_CONTINUOUS:
-            len = sizeof(uint8_t);
+            len = 1U;
             break;
 
         case RF215_PIB_DEVICE_ID:
@@ -726,7 +739,7 @@ uint8_t DRV_RF215_GetPibSize(DRV_RF215_PIB_ATTRIBUTE attr)
         case RF215_PIB_PHY_CCA_ED_DURATION:
         case RF215_PIB_PHY_TURNAROUND_TIME:
         case RF215_PIB_MAC_UNIT_BACKOFF_PERIOD:
-            len = sizeof(uint16_t);
+            len = 2U;
             break;
 
         case RF215_PIB_PHY_CHANNEL_FREQ_HZ:
@@ -751,27 +764,23 @@ uint8_t DRV_RF215_GetPibSize(DRV_RF215_PIB_ATTRIBUTE attr)
         case RF215_PIB_PHY_RX_ERR_ABORTED:
         case RF215_PIB_PHY_RX_OVERRIDE:
         case RF215_PIB_PHY_RX_IND_NOT_HANDLED:
-            len = sizeof(uint32_t);
-            break;
-
-        case RF215_PIB_PHY_CCA_ED_THRESHOLD:
-            len = sizeof(int8_t);
+            len = 4U;
             break;
 
         case RF215_PIB_FW_VERSION:
-            len = sizeof(DRV_RF215_FW_VERSION);
+            len = (uint8_t) sizeof(DRV_RF215_FW_VERSION);
             break;
 
         case RF215_PIB_PHY_CONFIG:
-            len = sizeof(DRV_RF215_PHY_CFG_OBJ);
+            len = (uint8_t) sizeof(DRV_RF215_PHY_CFG_OBJ);
             break;
 
         case RF215_PIB_PHY_BAND_OPERATING_MODE:
-            len = sizeof(DRV_RF215_PHY_BAND_OPM);
+            len = (uint8_t) sizeof(DRV_RF215_PHY_BAND_OPM);
             break;
 
         default:
-            len = 0;
+            len = 0U;
             break;
     }
 
@@ -785,8 +794,9 @@ DRV_RF215_PIB_RESULT DRV_RF215_GetPib (
 )
 {
     DRV_RF215_CLIENT_OBJ* clientObj;
+    DRV_RF215_PIB_RESULT result = RF215_PIB_RESULT_SUCCESS;
 
-    clientObj = _DRV_RF215_DrvHandleValidate(drvHandle);
+    clientObj = lDRV_RF215_DrvHandleValidate(drvHandle);
     if (clientObj == NULL)
     {
         return RF215_PIB_RESULT_INVALID_HANDLE;
@@ -797,21 +807,23 @@ DRV_RF215_PIB_RESULT DRV_RF215_GetPib (
         case RF215_PIB_DEVICE_RESET:
         case RF215_PIB_TRX_RESET:
         case RF215_PIB_PHY_STATS_RESET:
-            return RF215_PIB_RESULT_WRITE_ONLY;
+            result = RF215_PIB_RESULT_WRITE_ONLY;
+            break;
 
         case RF215_PIB_DEVICE_ID:
             *((uint16_t *) value) = 0x215;
             break;
 
         case RF215_PIB_FW_VERSION:
-            memcpy(value, &rf215FwVersion, sizeof(rf215FwVersion));
+            (void) memcpy(value, (const void *) &rf215FwVersion, sizeof(rf215FwVersion));
             break;
 
         default:
-            return RF215_PHY_GetPib(clientObj->trxIndex, attr, value);
+            result = RF215_PHY_GetPib(clientObj->trxIndex, attr, value);
+            break;
     }
 
-    return RF215_PIB_RESULT_SUCCESS;
+    return result;
 }
 
 DRV_RF215_PIB_RESULT DRV_RF215_SetPib (
@@ -821,8 +833,9 @@ DRV_RF215_PIB_RESULT DRV_RF215_SetPib (
 )
 {
     DRV_RF215_CLIENT_OBJ* clientObj;
+    DRV_RF215_PIB_RESULT result = RF215_PIB_RESULT_SUCCESS;
 
-    clientObj = _DRV_RF215_DrvHandleValidate(drvHandle);
+    clientObj = lDRV_RF215_DrvHandleValidate(drvHandle);
     if (clientObj == NULL)
     {
         return RF215_PIB_RESULT_INVALID_HANDLE;
@@ -858,7 +871,8 @@ DRV_RF215_PIB_RESULT DRV_RF215_SetPib (
         case RF215_PIB_PHY_RX_OVERRIDE:
         case RF215_PIB_PHY_RX_IND_NOT_HANDLED:
         case RF215_PIB_MAC_UNIT_BACKOFF_PERIOD:
-            return RF215_PIB_RESULT_READ_ONLY;
+            result = RF215_PIB_RESULT_READ_ONLY;
+            break;
 
         case RF215_PIB_DEVICE_RESET:
             /* Critical region to avoid conflicts in PHY object data */
@@ -872,8 +886,9 @@ DRV_RF215_PIB_RESULT DRV_RF215_SetPib (
             break;
 
         default:
-            return RF215_PHY_SetPib(clientObj->trxIndex, attr, value);
+            result = RF215_PHY_SetPib(clientObj->trxIndex, attr, value);
+            break;
     }
 
-    return RF215_PIB_RESULT_SUCCESS;
+    return result;
 }

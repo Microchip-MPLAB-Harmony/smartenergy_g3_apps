@@ -187,7 +187,7 @@ static void _LBP_ADP_NetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS* pNetwor
         ADP_GET_CFM_PARAMS getConfirm;
         ADP_SET_CFM_PARAMS setConfirm;
         IPV6_ADDR networkPrefix;
-        uint16_t shortAddress, panId, multicastGroup;
+        uint16_t shortAddress, panId;
         uint8_t prefixData[27];
 
         /* Successful join */
@@ -204,13 +204,6 @@ static void _LBP_ADP_NetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS* pNetwor
             ADP_SetRequestSync(ADP_IB_CONTEXT_INFORMATION_TABLE, 0, getConfirm.attributeLength,
                 (const uint8_t*) getConfirm.attributeValue, &setConfirm);
         }
-
-        /* Add short address to multi-cast group table in order to receive NDP
-         * Neighbor Solicitation messages */
-        multicastGroup = (uint8_t) shortAddress;
-        multicastGroup |= (uint8_t) ((shortAddress >> 8) & 0x1F);
-        multicastGroup |= 0x8000;
-        ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 0, 2, (const uint8_t*) &multicastGroup, &setConfirm);
 
         /* Start a route request to coordinator */
         ADP_GetRequestSync(ADP_IB_COORD_SHORT_ADDRESS, 0, &getConfirm);
@@ -309,11 +302,11 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
             (const uint8_t*) &app_g3_managementConst.broadcastLogTableEntryTTLconformance,
             &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 1, 2,
+    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 0, 2,
             (const uint8_t*) &app_g3_managementConst.gropTable0Conformance,
             &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 2, 2,
+    ADP_SetRequestSync(ADP_IB_GROUP_TABLE, 1, 2,
             (const uint8_t*) &app_g3_managementConst.gropTable1Conformance,
             &setConfirm);
 

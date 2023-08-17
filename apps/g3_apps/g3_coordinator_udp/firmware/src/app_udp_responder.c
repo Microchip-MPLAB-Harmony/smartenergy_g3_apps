@@ -102,6 +102,10 @@ static void _APP_UDP_RESPONDER_SetIPv6Addresses(void)
     app_udp_responderData.uniqueLocalAddress.v[15] = eui64[0];
     TCPIP_IPV6_UnicastAddressAdd(app_udp_responderData.netHandle,
             &app_udp_responderData.uniqueLocalAddress, APP_TCPIP_IPV6_NETWORK_PREFIX_G3_LEN, false);
+
+    /* Set PAN ID in TCP/IP stack in order to recognize all link-local addresses
+     * in the network as neighbors */
+    TCPIP_IPV6_G3PLC_PanIdSet(app_udp_responderData.netHandle, panId);
 }
 
 // *****************************************************************************
@@ -184,7 +188,6 @@ void APP_UDP_RESPONDER_Tasks ( void )
         /* Serving connection on UDP port */
         case APP_UDP_RESPONDER_STATE_SERVING_CONNECTION:
         {
-            UDP_SOCKET_INFO socketInfo;
             uint16_t rxPayloadSize;
             uint8_t payloadFragment[32];
             uint8_t udpProtocol;
@@ -199,9 +202,6 @@ void APP_UDP_RESPONDER_Tasks ( void )
             }
 
             SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_UDP_RESPONDER: %u bytes received\r\n", rxPayloadSize);
-
-            /* Get socket info to know the source and destination addresses */
-            TCPIP_UDP_SocketInfoGet(app_udp_responderData.socket, &socketInfo);
 
             /* Read first received byte (protocol) */
             TCPIP_UDP_Get(app_udp_responderData.socket, &udpProtocol);
@@ -279,6 +279,7 @@ void APP_UDP_RESPONDER_Tasks ( void )
                      * "80 00 xxxx 0102 0304 0506070809" (where xxxx correspond
                      * to the ICMP checksum). */
                     IPV6_PACKET * pkt;
+                    UDP_SOCKET_INFO socketInfo;
                     uint16_t identifier, sequenceNumber, icmpPayloadSize, availableTxSize, chunkSize;
 
                     /* Check payload length */
@@ -294,10 +295,13 @@ void APP_UDP_RESPONDER_Tasks ( void )
                     identifier = TCPIP_Helper_ntohs(identifier);
                     sequenceNumber = TCPIP_Helper_ntohs(sequenceNumber);
 
+                    /* Get socket info to know the source and destination addresses */
+                    TCPIP_UDP_SocketInfoGet(app_udp_responderData.socket, &socketInfo);
+
                     /* Create ICMPv6 ECHO request packet */
                     pkt = TCPIP_ICMPV6_HeaderEchoRequestPut (app_udp_responderData.netHandle,
-                            (const IPV6_ADDR*) &socketInfo.destIPaddress.v6Add,
-                            (const IPV6_ADDR*) &socketInfo.sourceIPaddress.v6Add,
+                            &socketInfo.destIPaddress.v6Add,
+                            &socketInfo.sourceIPaddress.v6Add,
                             ICMPV6_INFO_ECHO_REQUEST, identifier, sequenceNumber);
 
                     /* Check available TX bytes in IPv6 packet */
@@ -534,10 +538,6 @@ void APP_UDP_RESPONDER_Tasks ( void )
                     break;
                 }
             }
-
-            /* Force neighbor reachable status in NDP */
-            TCPIP_NDP_NborReachConfirm(app_udp_responderData.netHandle,
-                    (const IPV6_ADDR*) &socketInfo.sourceIPaddress.v6Add);
 
             /* Received UDP frame processed, we can discard it */
             TCPIP_UDP_Discard(app_udp_responderData.socket);
