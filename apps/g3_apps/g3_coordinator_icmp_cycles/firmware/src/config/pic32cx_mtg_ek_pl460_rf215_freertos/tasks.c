@@ -60,7 +60,7 @@
 // Section: RTOS "Tasks" Routine
 // *****************************************************************************
 // *****************************************************************************
-static void _DRV_G3_MACRT_Tasks(  void *pvParameters  )
+static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
 {
     while(true)
     {
@@ -69,7 +69,7 @@ static void _DRV_G3_MACRT_Tasks(  void *pvParameters  )
     }
 }
 
-static void _DRV_RF215_Tasks(  void *pvParameters  )
+static void lDRV_RF215_Tasks(  void *pvParameters  )
 {
     while(true)
     {
@@ -78,7 +78,7 @@ static void _DRV_RF215_Tasks(  void *pvParameters  )
     }
 }
 
-static void _G3_STACK_Tasks(  void *pvParameters  )
+static void lG3_STACK_Tasks(  void *pvParameters  )
 {
     while(true)
     {
@@ -170,7 +170,7 @@ void SYS_Tasks ( void )
 
     /* Maintain Device Drivers */
     
-    xTaskCreate( _DRV_G3_MACRT_Tasks,
+    (void) xTaskCreate( lDRV_G3_MACRT_Tasks,
         "DRV_G3_MACRT_TASKS",
         DRV_PLC_RTOS_STACK_SIZE,
         (void*)NULL,
@@ -179,7 +179,7 @@ void SYS_Tasks ( void )
     );
 
 
-    xTaskCreate( _DRV_RF215_Tasks,
+    (void) xTaskCreate( lDRV_RF215_Tasks,
         "DRV_RF215_TASKS",
         DRV_RF215_RTOS_STACK_SIZE,
         (void*)NULL,
@@ -191,7 +191,7 @@ void SYS_Tasks ( void )
 
     /* Maintain Middleware & Other Libraries */
     
-    xTaskCreate( _G3_STACK_Tasks,
+    (void) xTaskCreate( lG3_STACK_Tasks,
         "G3_STACK_TASKS",
         G3_STACK_RTOS_STACK_SIZE,
         (void*)NULL,

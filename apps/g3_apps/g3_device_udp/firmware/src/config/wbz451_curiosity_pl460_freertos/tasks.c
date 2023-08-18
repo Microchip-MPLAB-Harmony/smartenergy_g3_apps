@@ -60,7 +60,7 @@
 // Section: RTOS "Tasks" Routine
 // *****************************************************************************
 // *****************************************************************************
-static void _DRV_G3_MACRT_Tasks(  void *pvParameters  )
+static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
 {
     while(true)
     {
@@ -69,7 +69,7 @@ static void _DRV_G3_MACRT_Tasks(  void *pvParameters  )
     }
 }
 
-static void _G3_STACK_Tasks(  void *pvParameters  )
+static void lG3_STACK_Tasks(  void *pvParameters  )
 {
     while(true)
     {
@@ -139,7 +139,7 @@ static void lAPP_STORAGE_WBZ451_Tasks(  void *pvParameters  )
     }
 }
 
-static void _PAL_RF_Tasks(  void *pvParameters  )
+static void lPAL_RF_Tasks(  void *pvParameters  )
 {
     while(true)
     {
@@ -172,7 +172,7 @@ void SYS_Tasks ( void )
 
     /* Maintain Device Drivers */
 
-    xTaskCreate( _DRV_G3_MACRT_Tasks,
+    (void) xTaskCreate( lDRV_G3_MACRT_Tasks,
         "DRV_G3_MACRT_TASKS",
         DRV_PLC_RTOS_STACK_SIZE,
         (void*)NULL,
@@ -184,7 +184,7 @@ void SYS_Tasks ( void )
 
     /* Maintain Middleware & Other Libraries */
 
-    xTaskCreate( _G3_STACK_Tasks,
+    (void) xTaskCreate( lG3_STACK_Tasks,
         "G3_STACK_TASKS",
         G3_STACK_RTOS_STACK_SIZE,
         (void*)NULL,
@@ -211,7 +211,7 @@ void SYS_Tasks ( void )
 
 
 
-    xTaskCreate( _PAL_RF_Tasks,
+    (void) xTaskCreate( lPAL_RF_Tasks,
         "PAL_RF_TASKS",
         PAL_RF_RTOS_STACK_SIZE,
         (void*)NULL,

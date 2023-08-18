@@ -20,7 +20,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -61,18 +61,18 @@
 // *****************************************************************************
 
 /* G3 sniffer identifiers and version */
-#define RSNIFFER_PHY_CMD_RECEIVE_MSG                  0x00
-#define RSNIFFER_VERSION                              0x02
-#define RSNIFFER_RF215_G3                             0x14
+#define RSNIFFER_PHY_CMD_RECEIVE_MSG                  0x00U
+#define RSNIFFER_VERSION                              0x02U
+#define RSNIFFER_RF215_G3                             0x14U
 
 /* G3 sniffer modulation types (PLC modulation types + RF PHY types) */
-#define RSNIFFER_MOD_TYPE_RF_OQPSK                    0x80
+#define RSNIFFER_MOD_TYPE_RF_OQPSK                    0x80U
 
 /* G3 sniffer modulation schemes (PLC modulation schemes + RF modulations) */
-#define RSNIFFER_MOD_SCHEME_RF_OQPSK                  0x80
+#define RSNIFFER_MOD_SCHEME_RF_OQPSK                  0x80U
 
 /* Buffer sizes */
-#define RSNIFFER_MSG_HEADER_SIZE                      25
+#define RSNIFFER_MSG_HEADER_SIZE                      25U
 #define RSNIFFER_MSG_MAX_SIZE                         (LARGE_BUFFER_SIZE + RSNIFFER_MSG_HEADER_SIZE)
 
 // *****************************************************************************
@@ -84,14 +84,13 @@
 static uint64_t srvRsnifferPrevSysTime = 0;
 static uint32_t srvRsnifferPrevTimeUS = 0;
 static uint8_t srvRsnifferRxMsg[RSNIFFER_MSG_MAX_SIZE];
-static uint8_t srvRsnifferTxMsg[RSNIFFER_MSG_MAX_SIZE];
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: File Scope Functions
 // *****************************************************************************
 // *****************************************************************************
-static uint32_t _SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
+static uint32_t lSRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
 {
     uint64_t sysTimeDiff;
     uint32_t sysTimeDiffNumHigh, sysTimeDiffRemaining;
@@ -99,11 +98,11 @@ static uint32_t _SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
 
     /* Difference between current and previous system time */
     sysTimeDiff = sysTime - srvRsnifferPrevSysTime;
-    sysTimeDiffNumHigh = (uint32_t) (sysTimeDiff / 0x10000000);
-    sysTimeDiffRemaining = (uint32_t) (sysTimeDiff % 0x10000000);
+    sysTimeDiffNumHigh = (uint32_t) (sysTimeDiff / 0x10000000UL);
+    sysTimeDiffRemaining = (uint32_t) (sysTimeDiff % 0x10000000UL);
 
     /* Convert system time to microseconds and add to previous time */
-    timeUS += (SYS_TIME_CountToUS(0x10000000) * sysTimeDiffNumHigh);
+    timeUS += (SYS_TIME_CountToUS(0x10000000UL) * sysTimeDiffNumHigh);
     timeUS += SYS_TIME_CountToUS(sysTimeDiffRemaining);
 
     /* Store times for next computation */
@@ -119,9 +118,10 @@ static uint32_t _SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
 // *****************************************************************************
 // *****************************************************************************
 
-uint8_t* SRV_RSNIFFER_SerialRxMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMsgLen )
+uint8_t* SRV_RSNIFFER_SerialMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMsgLen )
 {
     uint32_t timeIni, timeEnd;
+    int16_t rssi;
 
     /* Receive message command */
     srvRsnifferRxMsg[0] = RSNIFFER_PHY_CMD_RECEIVE_MSG;
@@ -141,78 +141,32 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *p
 
     /* Number of payload symbols */
     srvRsnifferRxMsg[7] = (uint8_t) (rxData->paySymbols >> 8);
-    srvRsnifferRxMsg[8] = (uint8_t) (rxData->paySymbols);
+    srvRsnifferRxMsg[8] = (uint8_t) rxData->paySymbols;
 
     /* Initial and end time of RX frame */
-    timeIni = _SRV_RSNIFFER_SysTimeToUS(rxData->timeIniCount);
+    timeIni = lSRV_RSNIFFER_SysTimeToUS(rxData->timeIniCount);
     srvRsnifferRxMsg[11] = (uint8_t) (timeIni >> 24);
     srvRsnifferRxMsg[12] = (uint8_t) (timeIni >> 16);
     srvRsnifferRxMsg[13] = (uint8_t) (timeIni >> 8);
-    srvRsnifferRxMsg[14] = (uint8_t) (timeIni);
+    srvRsnifferRxMsg[14] = (uint8_t) timeIni;
     timeEnd = timeIni + SYS_TIME_CountToUS(rxData->durationCount);
     srvRsnifferRxMsg[15] = (uint8_t) (timeEnd >> 24);
     srvRsnifferRxMsg[16] = (uint8_t) (timeEnd >> 16);
     srvRsnifferRxMsg[17] = (uint8_t) (timeEnd >> 8);
-    srvRsnifferRxMsg[18] = (uint8_t) (timeEnd);
+    srvRsnifferRxMsg[18] = (uint8_t) timeEnd;
 
     /* RSSI */
-    srvRsnifferRxMsg[19] = (uint8_t) (rxData->rssi >> 8);
-    srvRsnifferRxMsg[20] = (uint8_t) (rxData->rssi);
+    rssi = (int16_t) rxData->rssi;
+    srvRsnifferRxMsg[19] = (uint8_t) ((uint16_t) rssi >> 8);
+    srvRsnifferRxMsg[20] = (uint8_t) rssi;
 
     /* Data payload length */
     srvRsnifferRxMsg[23] = (uint8_t) (rxData->payloadLen >> 8);
-    srvRsnifferRxMsg[24] = (uint8_t) (rxData->payloadLen);
+    srvRsnifferRxMsg[24] = (uint8_t) rxData->payloadLen;
 
     /* Copy payload */
-    memcpy(srvRsnifferRxMsg + RSNIFFER_MSG_HEADER_SIZE, rxData->pData, rxData->payloadLen);
+    (void) memcpy(srvRsnifferRxMsg + RSNIFFER_MSG_HEADER_SIZE, rxData->pData, rxData->payloadLen);
 
     *pMsgLen = (size_t) rxData->payloadLen + RSNIFFER_MSG_HEADER_SIZE;
     return srvRsnifferRxMsg;
-}
-
-uint8_t* SRV_RSNIFFER_SerialCfmMessage ( SRV_RSNIFFER_PHY_DATA *txData, size_t *pMsgLen )
-{
-    uint32_t timeIni, timeEnd;
-
-    /* Receive message command */
-    srvRsnifferTxMsg[0] = RSNIFFER_PHY_CMD_RECEIVE_MSG;
-
-    /* Sniffer version and sniffer type */
-    srvRsnifferTxMsg[1] = RSNIFFER_VERSION;
-    srvRsnifferTxMsg[2] = RSNIFFER_RF215_G3;
-
-    /* Modulation scheme */
-    srvRsnifferRxMsg[3] = RSNIFFER_MOD_SCHEME_RF_OQPSK;
-
-    /* Modulation type depending on RF PHY configuration */
-    srvRsnifferTxMsg[4] = RSNIFFER_MOD_TYPE_RF_OQPSK;
-
-    /* Correct FCS flag */
-    srvRsnifferTxMsg[5] = (uint8_t) true;
-
-    /* Number of payload symbols */
-    srvRsnifferTxMsg[7] = (uint8_t) (txData->paySymbols >> 8);
-    srvRsnifferTxMsg[8] = (uint8_t) (txData->paySymbols);
-
-    /* Initial and end time of RX frame */
-    timeIni = _SRV_RSNIFFER_SysTimeToUS(txData->timeIniCount);
-    srvRsnifferTxMsg[11] = (uint8_t) (timeIni >> 24);
-    srvRsnifferTxMsg[12] = (uint8_t) (timeIni >> 16);
-    srvRsnifferTxMsg[13] = (uint8_t) (timeIni >> 8);
-    srvRsnifferTxMsg[14] = (uint8_t) (timeIni);
-    timeEnd = timeIni + SYS_TIME_CountToUS(txData->durationCount);
-    srvRsnifferTxMsg[15] = (uint8_t) (timeEnd >> 24);
-    srvRsnifferTxMsg[16] = (uint8_t) (timeEnd >> 16);
-    srvRsnifferTxMsg[17] = (uint8_t) (timeEnd >> 8);
-    srvRsnifferTxMsg[18] = (uint8_t) (timeEnd);
-
-    /* Data payload length */
-    srvRsnifferTxMsg[23] = (uint8_t) (txData->payloadLen >> 8);
-    srvRsnifferTxMsg[24] = (uint8_t) (txData->payloadLen);
-
-    /* Copy payload */
-    memcpy(srvRsnifferTxMsg + RSNIFFER_MSG_HEADER_SIZE, txData->pData, txData->payloadLen);
-
-    *pMsgLen = (size_t) txData->payloadLen + RSNIFFER_MSG_HEADER_SIZE;
-    return srvRsnifferTxMsg;
 }

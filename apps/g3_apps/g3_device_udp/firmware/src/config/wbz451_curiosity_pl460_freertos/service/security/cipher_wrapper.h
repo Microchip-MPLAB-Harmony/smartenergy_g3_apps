@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _CIPHER_WRAPPER_H
-#define _CIPHER_WRAPPER_H
+#ifndef CIPHER_WRAPPER_H
+#define CIPHER_WRAPPER_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -318,7 +318,7 @@ int32_t CIPHER_Wrapper_CcmAuthDecrypt(uint32_t length,
     uint8_t plain[] = { some plain text message };
     uint8_t cipher[sizeof(plain)];
     uint8_t authIn[] = { some authentication input };
-    uint8_t tag[AES_BLOCK_SIZE]; // will store authentication code
+    uint8_t tag[AES_BLOCK_SIZE];
     uint8_t key[] = { some key };
 
     ret = CIPHER_Wrapper_CcmSetkey(key, sizeof(key));
@@ -408,7 +408,7 @@ int32_t CIPHER_Wrapper_EaxInitKey(const uint8_t *key, uint32_t keyLen);
     nonce[] = { some initialization nonce };
     header[] = { some header };
     message[] = { some plain text message };
-    tag[AES_BLOCK_SIZE]; // will store authentication code
+    tag[AES_BLOCK_SIZE];
     uint8_t key[] = { some key };
 
     ret = CIPHER_Wrapper_EaxInitKey(key, sizeof(key));
@@ -514,4 +514,4 @@ int32_t CIPHER_Wrapper_EaxEnd(void);
  }
 #endif
 
-#endif /* _CIPHER_WRAPPER_H */
+#endif /* CIPHER_WRAPPER_H */

@@ -63,19 +63,19 @@ uint16_t LBP_EncodeKickFromLBDRequest(
     uint16_t bufferLength,
     uint8_t *pMessageBuffer)
 {
-    uint16_t encodedLength = 0;
+    uint16_t encodedLength = 0U;
 
     /* Check the message buffer size */
-    if (bufferLength >= ADP_ADDRESS_64BITS + 2)
+    if (bufferLength >= ADP_ADDRESS_64BITS + 2U)
     {
         /* Start message encoding */
         /* DisableBackupFlag not set in Kick frames, MediaType set to 0x0 */
         pMessageBuffer[0] = (LBP_KICK_FROM_LBD << 4);
         pMessageBuffer[1] = 0; /* Transaction id is reserved */
 
-        memcpy(&pMessageBuffer[2], pEUI64Address, ADP_ADDRESS_64BITS);
+        (void) memcpy(&pMessageBuffer[2], pEUI64Address->value, ADP_ADDRESS_64BITS);
 
-        encodedLength = ADP_ADDRESS_64BITS + 2;
+        encodedLength = ADP_ADDRESS_64BITS + 2U;
     }
 
     return encodedLength;
@@ -86,19 +86,19 @@ uint16_t LBP_EncodeKickToLBD(
     uint16_t bufferLength,
     uint8_t *pMessageBuffer)
 {
-    uint16_t encodedLength = 0;
+    uint16_t encodedLength = 0U;
 
     /* Check the message buffer size */
-    if (bufferLength >= ADP_ADDRESS_64BITS + 2)
+    if (bufferLength >= ADP_ADDRESS_64BITS + 2U)
     {
         /* Start message encoding */
         /* Media Type set to 0x0 on Kick */
         pMessageBuffer[0] = (LBP_KICK_TO_LBD << 4);
-        pMessageBuffer[1] = 0; /* Transaction id is reserved */
+        pMessageBuffer[1] = 0U; /* Transaction id is reserved */
 
-        memcpy(&pMessageBuffer[2], pEUI64Address, ADP_ADDRESS_64BITS);
+        (void) memcpy(&pMessageBuffer[2], pEUI64Address->value, ADP_ADDRESS_64BITS);
 
-        encodedLength = ADP_ADDRESS_64BITS + 2;
+        encodedLength = ADP_ADDRESS_64BITS + 2U;
     }
 
     return encodedLength;
@@ -112,22 +112,22 @@ uint16_t LBP_EncodeJoiningRequest(
     uint16_t bufferLength,
     uint8_t *pMessageBuffer)
 {
-    uint16_t encodedLength = 0;
+    uint16_t encodedLength = 0U;
 
     /* Check the message buffer size */
-    if (bufferLength >= (lbpDataLength + ADP_ADDRESS_64BITS + 2))
+    if (bufferLength >= (lbpDataLength + ADP_ADDRESS_64BITS + 2U))
     {
         /* As the bootstrapping data is already in the message buffer, */
         /* move it to its place after the A_LDB field */
-        memmove(&pMessageBuffer[ADP_ADDRESS_64BITS + 2], pMessageBuffer, lbpDataLength);
+        (void) memmove(&pMessageBuffer[ADP_ADDRESS_64BITS + 2U], pMessageBuffer, lbpDataLength);
 
         /* Start message encoding */
         pMessageBuffer[0] = (LBP_JOINING << 4) | (mediaType << 3) | (disableBackupMedium << 2);
-        pMessageBuffer[1] = 0; /* Transaction id is reserved */
+        pMessageBuffer[1] = 0U; /* Transaction id is reserved */
 
-        memcpy(&pMessageBuffer[2], pEUI64Address, ADP_ADDRESS_64BITS);
+        (void) memcpy(&pMessageBuffer[2], pEUI64Address->value, ADP_ADDRESS_64BITS);
 
-        encodedLength = lbpDataLength + ADP_ADDRESS_64BITS + 2;
+        encodedLength = lbpDataLength + ADP_ADDRESS_64BITS + 2U;
     }
 
     return encodedLength;
@@ -144,19 +144,19 @@ uint16_t LBP_EncodeChallengeRequest(
     uint16_t encodedLength = 0;
 
     /* Check the message buffer size */
-    if (bufferLength >= (lbpDataLength + ADP_ADDRESS_64BITS + 2))
+    if (bufferLength >= (lbpDataLength + ADP_ADDRESS_64BITS + 2U))
     {
         /* As the bootstrapping data is already in the message buffer, */
         /* move it to its place after the A_LDB field */
-        memmove(&pMessageBuffer[ADP_ADDRESS_64BITS + 2], pMessageBuffer, lbpDataLength);
+        (void) memmove(&pMessageBuffer[ADP_ADDRESS_64BITS + 2U], pMessageBuffer, lbpDataLength);
 
         /* Start message encoding */
         pMessageBuffer[0] = (LBP_CHALLENGE << 4) | (mediaType << 3) | (disableBackupMedium << 2);
-        pMessageBuffer[1] = 0; /* Transaction id is reserved */
+        pMessageBuffer[1] = 0U; /* Transaction id is reserved */
 
-        memcpy(&pMessageBuffer[2], pEUI64Address, ADP_ADDRESS_64BITS);
+        (void) memcpy(&pMessageBuffer[2], pEUI64Address->value, ADP_ADDRESS_64BITS);
 
-        encodedLength = lbpDataLength + ADP_ADDRESS_64BITS + 2;
+        encodedLength = lbpDataLength + ADP_ADDRESS_64BITS + 2U;
     }
 
     return encodedLength;
@@ -170,22 +170,22 @@ uint16_t LBP_EncodeAcceptedRequest(
     uint16_t bufferLength,
     uint8_t *pMessageBuffer)
 {
-    uint16_t encodedLength = 0;
+    uint16_t encodedLength = 0U;
 
     /* Check the message buffer size */
-    if (bufferLength >= (lbpDataLength + ADP_ADDRESS_64BITS + 2))
+    if (bufferLength >= (lbpDataLength + ADP_ADDRESS_64BITS + 2U))
     {
         /* As the bootstrapping data is already in the message buffer, */
         /* move it to its place after the A_LDB field */
-        memmove(&pMessageBuffer[8 + 2], pMessageBuffer, lbpDataLength);
+        (void) memmove(&pMessageBuffer[8 + 2], pMessageBuffer, lbpDataLength);
 
         /* Start message encoding */
         pMessageBuffer[0] = (LBP_ACCEPTED << 4) | (mediaType << 3) | (disableBackupMedium << 2);
-        pMessageBuffer[1] = 0; /* Transaction id is reserved */
+        pMessageBuffer[1] = 0U; /* Transaction id is reserved */
 
-        memcpy(&pMessageBuffer[2], pEUI64Address, ADP_ADDRESS_64BITS);
+        (void) memcpy(&pMessageBuffer[2], pEUI64Address->value, ADP_ADDRESS_64BITS);
 
-        encodedLength = lbpDataLength + ADP_ADDRESS_64BITS + 2;
+        encodedLength = lbpDataLength + ADP_ADDRESS_64BITS + 2U;
     }
 
     return encodedLength;
@@ -199,16 +199,16 @@ uint16_t LBP_EncodeDecline(
     uint16_t bufferLength,
     uint8_t *pMessageBuffer)
 {
-    uint16_t encodedLength = 0;
+    uint16_t encodedLength = 0U;
 
-    if (bufferLength >= (ADP_ADDRESS_64BITS + 2))
+    if (bufferLength >= (ADP_ADDRESS_64BITS + 2U))
     {
         pMessageBuffer[0] = (LBP_DECLINE  << 4) | (mediaType << 3) | (disableBackupMedium << 2);
         pMessageBuffer[1] = 0; /* Transaction id is reserved */
 
-        memcpy(&pMessageBuffer[2], pEUI64Address->value, ADP_ADDRESS_64BITS);
+        (void) memcpy(&pMessageBuffer[2], pEUI64Address->value, ADP_ADDRESS_64BITS);
 
-        encodedLength = ADP_ADDRESS_64BITS + 2;
+        encodedLength = ADP_ADDRESS_64BITS + 2U;
         
         /* encode EAP Failure */
         encodedLength += EAP_PSK_EncodeEAPFailure(
@@ -225,18 +225,18 @@ bool LBP_DecodeMessage(
     uint8_t *pMessageBuffer,
     uint8_t *pMessageType,
     ADP_EXTENDED_ADDRESS *pEUI64Address,
-    uint16_t *plbpDataLength,
+    uint16_t *pLbpDataLength,
     uint8_t **pLbpData)
 {
     bool retVal = false;
 
-    if (bufferLength >= (ADP_ADDRESS_64BITS + 2)) {
-        *pMessageType = ((pMessageBuffer[0] & 0xF0) >> 4);
+    if (bufferLength >= (ADP_ADDRESS_64BITS + 2U)) {
+        *pMessageType = pMessageBuffer[0] >> 4;
 
-        memcpy(&pEUI64Address->value, &pMessageBuffer[2], ADP_ADDRESS_64BITS);
+        (void) memcpy(&pEUI64Address->value, &pMessageBuffer[2], ADP_ADDRESS_64BITS);
 
-        *pLbpData = &pMessageBuffer[ADP_ADDRESS_64BITS + 2];
-        *plbpDataLength = bufferLength - (ADP_ADDRESS_64BITS + 2);
+        *pLbpData = &pMessageBuffer[ADP_ADDRESS_64BITS + 2U];
+        *pLbpDataLength = bufferLength - (ADP_ADDRESS_64BITS + 2U);
 
         retVal = true;
     }

@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -53,75 +53,75 @@
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: File scope functions
+// Section: Random Service Interface Implementation
 // *****************************************************************************
 // *****************************************************************************
 
 uint8_t SRV_RANDOM_Get8bits(void)
 {
-  uint8_t retValue;
+    uint8_t retValue;
 
-  retValue = (uint8_t)TRNG_ReadData();
+    retValue = (uint8_t)TRNG_ReadData();
 
-  return retValue;
+    return retValue;
 }
 
 uint16_t SRV_RANDOM_Get16bits(void)
 {
-  uint16_t retValue;
+    uint16_t retValue;
 
-  retValue = (uint16_t)TRNG_ReadData();
+    retValue = (uint16_t)TRNG_ReadData();
 
-  return retValue;
+    return retValue;
 }
 
 uint16_t  SRV_RANDOM_Get16bitsInRange(uint16_t min, uint16_t max)
 {
-  uint16_t localMin = min;
+    uint16_t localMin = min;
 
-  if (max < min) 
-  {
-    localMin = max;
-    max = min;
-  }
+    if (max < min) 
+    {
+        localMin = max;
+        max = min;
+    }
 
-  return (SRV_RANDOM_Get16bits() % (max - localMin + 1) + localMin);
+    return (SRV_RANDOM_Get16bits() % (max - localMin + 1U) + localMin);
 }
 
 uint32_t SRV_RANDOM_Get32bits(void)
 {
-  uint32_t retValue;
+    uint32_t retValue;
 
-  retValue = TRNG_ReadData();
+    retValue = TRNG_ReadData();
 
-  return retValue;
+    return retValue;
 }
 
 uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t min, uint32_t max)
 {
-  uint32_t localMin = min;
+    uint32_t localMin = min;
 
-  if (max < min) 
-  {
-    localMin = max;
-    max = min;
-  }
+    if (max < min) 
+    {
+        localMin = max;
+        max = min;
+    }
 
-  return (SRV_RANDOM_Get32bits() % (max - localMin + 1) + localMin);
+    return (SRV_RANDOM_Get32bits() % (max - localMin + 1U) + localMin);
 }
 
 void SRV_RANDOM_Get128bits(uint8_t *rndValue)
 {
-  uint32_t randNum;
-  uint8_t n;
+    uint32_t randNum;
+    uint8_t n;
 
-  for (n = 0; n < 4; n ++)
-  {
-    randNum = TRNG_ReadData();
+    for (n = 0U; n < 4U; n ++)
+    {
+        randNum = TRNG_ReadData();
 
-    *rndValue++ = (uint8_t)(randNum >> 24);
-    *rndValue++ = (uint8_t)(randNum >> 16);
-    *rndValue++ = (uint8_t)(randNum >> 8);
-    *rndValue++ = (uint8_t)(randNum);
-  }
+        *rndValue++ = (uint8_t)(randNum >> 24);
+        *rndValue++ = (uint8_t)(randNum >> 16);
+        *rndValue++ = (uint8_t)(randNum >> 8);
+        *rndValue++ = (uint8_t)randNum;
+    }
 }

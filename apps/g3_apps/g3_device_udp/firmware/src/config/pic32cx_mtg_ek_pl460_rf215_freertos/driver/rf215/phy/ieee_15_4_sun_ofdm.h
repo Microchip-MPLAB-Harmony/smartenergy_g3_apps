@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _IEEE_15_4_SUN_OFDM_H
-#define _IEEE_15_4_SUN_OFDM_H
+#ifndef IEEE_15_4_SUN_OFDM_H
+#define IEEE_15_4_SUN_OFDM_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -94,1065 +94,1070 @@
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_470_510_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 470200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 198, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 470200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 198U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /************************* Frequency band 779-787 MHz *************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_779_787_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 779200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 38, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 779200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 38U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_779_787_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 779400000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 18, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 779400000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 18U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 2 */
 #define SUN_OFDM_BAND_779_787_OPT2              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_2, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 779800000, \
-		.chnSpaHz = 800000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 8, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_2, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 779800000UL, \
+        .chnSpaHz = 800000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 8U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 1 */
 #define SUN_OFDM_BAND_779_787_OPT1              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_1, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 780200000, \
-		.chnSpaHz = 1200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 5, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_1, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 780200000UL, \
+        .chnSpaHz = 1200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 5U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+    }
 
 /************* Frequency band 863-870 MHz (RF-PLC Hybrid default) *************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_863_870_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 863100000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 34, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 863100000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 34U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /************************* Frequency band 865-867 MHz *************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_865_867_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 865100000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 9, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 865100000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 9U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /************************* Frequency band 866-869 MHz *************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_866_869_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 863100000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 15, \
-		.chnNumMax = 29, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 863100000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 15U, \
+        .chnNumMax = 29U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_866_869_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 863200000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 8, \
-		.chnNumMax = 14, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 863200000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 8U, \
+        .chnNumMax = 14U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /************************* Frequency band 870-876 MHz *************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_870_876_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 870200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 29, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 870200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 29U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /************************* Frequency band 902-928 MHz *************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_902_928_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 128, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 128U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_902_928_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902400000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 63, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902400000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 63U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 2 */
 #define SUN_OFDM_BAND_902_928_OPT2              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_2, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902800000, \
-		.chnSpaHz = 800000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 30, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_2, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902800000UL, \
+        .chnSpaHz = 800000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 30U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 1 */
 #define SUN_OFDM_BAND_902_928_OPT1              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_1, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 903200000, \
-		.chnSpaHz = 1200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 19, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_1, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 903200000UL, \
+        .chnSpaHz = 1200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 19U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+    }
 
 /******************* Frequency band 902-928 MHz (alternate) *******************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_902_928_ALT_OPT4          (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 128, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 128U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_902_928_ALT_OPT3          (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902400000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 63, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902400000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 63U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 2 */
 #define SUN_OFDM_BAND_902_928_ALT_OPT2          (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_2, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902800000, \
-		.chnSpaHz = 800000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 30, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_2, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902800000UL, \
+        .chnSpaHz = 800000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 30U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 1 */
 #define SUN_OFDM_BAND_902_928_ALT_OPT1          (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_1, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 903200000, \
-		.chnSpaHz = 1200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 19, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_1, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 903200000UL, \
+        .chnSpaHz = 1200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 19U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+    }
 
 /******************* Frequency band 902-907.5 & 915-928 MHz *******************/
 
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 5.4 deviated 3 times.  Deviation record ID - H3_MISRAC_2012_R_5_4_DR_1 */
+
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_902_907_915_928_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 26, \
-		.chnNumMin2 = 65, \
-		.chnNumMax2 = 128, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 26U, \
+        .chnNumMin2 = 65U, \
+        .chnNumMax2 = 128U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_902_907_915_928_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902400000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 12, \
-		.chnNumMin2 = 32, \
-		.chnNumMax2 = 63, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902400000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 12U, \
+        .chnNumMin2 = 32U, \
+        .chnNumMax2 = 63U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 2 */
 #define SUN_OFDM_BAND_902_907_915_928_OPT2              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_2, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902800000, \
-		.chnSpaHz = 800000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 5, \
-		.chnNumMin2 = 16, \
-		.chnNumMax2 = 30, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_2, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902800000UL, \
+        .chnSpaHz = 800000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 5U, \
+        .chnNumMin2 = 16U, \
+        .chnNumMax2 = 30U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 1 */
 #define SUN_OFDM_BAND_902_907_915_928_OPT1              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_1, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 903200000, \
-		.chnSpaHz = 1200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 3, \
-		.chnNumMin2 = 11, \
-		.chnNumMax2 = 19, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_1, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 903200000UL, \
+        .chnSpaHz = 1200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 3U, \
+        .chnNumMin2 = 11U, \
+        .chnNumMax2 = 19U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+    }
+
+/* MISRA C-2012 deviation block end */
 
 /************************* Frequency band 915-928 MHz *************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_915_928_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 65, \
-		.chnNumMax = 128, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 65U, \
+        .chnNumMax = 128U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_915_928_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902400000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 32, \
-		.chnNumMax = 63, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902400000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 32U, \
+        .chnNumMax = 63U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 2 */
 #define SUN_OFDM_BAND_915_928_OPT2              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_2, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902800000, \
-		.chnSpaHz = 800000, \
-		.chnNumMin = 16, \
-		.chnNumMax = 30, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_2, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902800000UL, \
+        .chnSpaHz = 800000U, \
+        .chnNumMin = 16U, \
+        .chnNumMax = 30U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 1 */
 #define SUN_OFDM_BAND_915_928_OPT1              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_1, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 903200000, \
-		.chnSpaHz = 1200000, \
-		.chnNumMin = 11, \
-		.chnNumMax = 19, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_1, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 903200000UL, \
+        .chnSpaHz = 1200000U, \
+        .chnNumMin = 11U, \
+        .chnNumMax = 19U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+    }
 
 /************************* Frequency band 915-921 MHz *************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_915_921_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 65, \
-		.chnNumMax = 93, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 65U, \
+        .chnNumMax = 93U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_915_921_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902400000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 32, \
-		.chnNumMax = 46, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902400000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 32U, \
+        .chnNumMax = 46U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /************************* Frequency band 915-918 MHz *************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_915_918_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 65, \
-		.chnNumMax = 78, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 65U, \
+        .chnNumMax = 78U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_915_918_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902400000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 32, \
-		.chnNumMax = 38, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902400000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 32U, \
+        .chnNumMax = 38U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 2 */
 #define SUN_OFDM_BAND_915_918_OPT2              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_2, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902800000, \
-		.chnSpaHz = 800000, \
-		.chnNumMin = 16, \
-		.chnNumMax = 18, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_2, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902800000UL, \
+        .chnSpaHz = 800000U, \
+        .chnNumMin = 16U, \
+        .chnNumMax = 18U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 1 */
 #define SUN_OFDM_BAND_915_918_OPT1              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_1, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 903200000, \
-		.chnSpaHz = 1200000, \
-		.chnNumMin = 11, \
-		.chnNumMax = 11, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_1, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 903200000UL, \
+        .chnSpaHz = 1200000U, \
+        .chnNumMin = 11U, \
+        .chnNumMax = 11U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+    }
 
 /************************ Frequency band 917-923.5 MHz ************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_917_923_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 917100000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 31, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 917100000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 31U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_917_923_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 917300000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 15, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 917300000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 15U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 2 */
 #define SUN_OFDM_BAND_917_923_OPT2              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_2, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 917500000, \
-		.chnSpaHz = 800000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 7, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_2, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 917500000UL, \
+        .chnSpaHz = 800000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 7U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 1 */
 #define SUN_OFDM_BAND_917_923_OPT1              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_1, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 917900000, \
-		.chnSpaHz = 1200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 4, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_1, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 917900000UL, \
+        .chnSpaHz = 1200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 4U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+    }
 
 /************************* Frequency band 919-923 MHz *************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_919_923_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 85, \
-		.chnNumMax = 103, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 85U, \
+        .chnNumMax = 103U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_919_923_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902400000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 42, \
-		.chnNumMax = 51, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902400000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 42U, \
+        .chnNumMax = 51U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 2 */
 #define SUN_OFDM_BAND_919_923_OPT2              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_2, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902800000, \
-		.chnSpaHz = 800000, \
-		.chnNumMin = 21, \
-		.chnNumMax = 24, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_2, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902800000UL, \
+        .chnSpaHz = 800000U, \
+        .chnNumMin = 21U, \
+        .chnNumMax = 24U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 1 */
 #define SUN_OFDM_BAND_919_923_OPT1              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_1, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 903200000, \
-		.chnSpaHz = 1200000, \
-		.chnNumMin = 14, \
-		.chnNumMax = 16, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_1, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 903200000UL, \
+        .chnSpaHz = 1200000U, \
+        .chnNumMin = 14U, \
+        .chnNumMax = 16U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+    }
 
 /************************* Frequency band 920-928 MHz *************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_920_928_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 920200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 38, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 920200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 38U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_920_928_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 920400000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 18, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 920400000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 18U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 2 */
 #define SUN_OFDM_BAND_920_928_OPT2              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_2, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 920800000, \
-		.chnSpaHz = 800000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 8, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_2, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 920800000UL, \
+        .chnSpaHz = 800000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 8U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 1 */
 #define SUN_OFDM_BAND_920_928_OPT1              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_1, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 921200000, \
-		.chnSpaHz = 1200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 4, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_1, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 921200000UL, \
+        .chnSpaHz = 1200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 4U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+    }
 
 /*********************** Frequency band 920.5-924.5MHz ************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_920_924_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 92, \
-		.chnNumMax = 111, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 92U, \
+        .chnNumMax = 111U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /************************* Frequency band 920-925 MHz *************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_920_925_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 90, \
-		.chnNumMax = 113, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 90U, \
+        .chnNumMax = 113U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_920_925_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902400000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 45, \
-		.chnNumMax = 56, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902400000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 45U, \
+        .chnNumMax = 56U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 2 */
 #define SUN_OFDM_BAND_920_925_OPT2              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_2, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902800000, \
-		.chnSpaHz = 800000, \
-		.chnNumMin = 22, \
-		.chnNumMax = 27, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_2, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902800000UL, \
+        .chnSpaHz = 800000U, \
+        .chnNumMin = 22U, \
+        .chnNumMax = 27U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 1 */
 #define SUN_OFDM_BAND_920_925_OPT1              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_1, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 903200000, \
-		.chnSpaHz = 1200000, \
-		.chnNumMin = 15, \
-		.chnNumMax = 17, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_1, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 903200000UL, \
+        .chnSpaHz = 1200000U, \
+        .chnNumMin = 15U, \
+        .chnNumMax = 17U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+    }
 
 /************************* Frequency band 920-923 MHz *************************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_920_923_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902200000, \
-		.chnSpaHz = 200000, \
-		.chnNumMin = 90, \
-		.chnNumMax = 103, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 90U, \
+        .chnNumMax = 103U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_920_923_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902400000, \
-		.chnSpaHz = 400000, \
-		.chnNumMin = 45, \
-		.chnNumMax = 51, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902400000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 45U, \
+        .chnNumMax = 51U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 2 */
 #define SUN_OFDM_BAND_920_923_OPT2              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_2, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 902800000, \
-		.chnSpaHz = 800000, \
-		.chnNumMin = 22, \
-		.chnNumMax = 24, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_2, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 902800000UL, \
+        .chnSpaHz = 800000U, \
+        .chnNumMin = 22U, \
+        .chnNumMax = 24U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 1 */
 #define SUN_OFDM_BAND_920_923_OPT1              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_1, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 903200000, \
-		.chnSpaHz = 1200000, \
-		.chnNumMin = 15, \
-		.chnNumMax = 16, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_1, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 903200000UL, \
+        .chnSpaHz = 1200000U, \
+        .chnNumMin = 15U, \
+        .chnNumMax = 16U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+    }
 
 /************************* Frequency band 2400-2483.5 MHz *********************/
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_2400_2483_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_4, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 2400200000,	\
-		.chnSpaHz = 200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 415, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_4, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 2400200000UL, \
+        .chnSpaHz = 200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 415U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT4_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 3 */
 #define SUN_OFDM_BAND_2400_2483_OPT3              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_3, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 2400400000,	\
-		.chnSpaHz = 400000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 206, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_3, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 2400400000UL, \
+        .chnSpaHz = 400000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 206U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT3_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 2 */
 #define SUN_OFDM_BAND_2400_2483_OPT2              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_2, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 2400800000,	\
-		.chnSpaHz = 800000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 96, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_2, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 2400800000UL, \
+        .chnSpaHz = 800000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 96U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT2_CCA_THRESHOLD, \
+    }
 
 /* OFDM Bandwidth Option 1 */
 #define SUN_OFDM_BAND_2400_2483_OPT1              (DRV_RF215_PHY_CFG_OBJ) \
-	{ \
-		.phyType = PHY_TYPE_OFDM, \
-		.phyTypeCfg.ofdm = { \
-			.opt = OFDM_BW_OPT_1, \
-			.itlv = OFDM_INTERLEAVING_1 \
-		}, \
-		.chnF0Hz = 2401200000,	\
-		.chnSpaHz = 1200000, \
-		.chnNumMin = 0, \
-		.chnNumMax = 63, \
-		.chnNumMin2 = 0xFFFF, \
-		.chnNumMax2 = 0, \
-		.ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
-		.ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
-	}
+    { \
+        .phyType = PHY_TYPE_OFDM, \
+        .phyTypeCfg.ofdm = { \
+            .opt = OFDM_BW_OPT_1, \
+            .itlv = OFDM_INTERLEAVING_1 \
+        }, \
+        .chnF0Hz = 2401200000UL, \
+        .chnSpaHz = 1200000U, \
+        .chnNumMin = 0U, \
+        .chnNumMax = 63U, \
+        .chnNumMin2 = 0xFFFFU, \
+        .chnNumMax2 = 0U, \
+        .ccaEdDurationUS = SUN_OFDM_CCA_ED_DURATION, \
+        .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
+    }
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -1160,4 +1165,4 @@
 #endif
 //DOM-IGNORE-END
 
-#endif /* _IEEE_15_4_SUN_OFDM_H */
+#endif /* IEEE_15_4_SUN_OFDM_H */

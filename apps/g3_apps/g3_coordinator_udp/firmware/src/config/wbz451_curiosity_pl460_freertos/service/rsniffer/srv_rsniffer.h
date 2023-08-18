@@ -19,7 +19,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -76,23 +76,23 @@
 
 typedef struct 
 {
-    /* Pointer to RF PHY data payload */
-    uint8_t *pData;
-
     /* Time counter when the packet has been received/transmitted */
-    uint32_t timeIniCount;
+    uint64_t timeIniCount;
 
     /* Packet duration */
     uint32_t durationCount;
 
-    /* RSSI value in dBm */
-    uint16_t rssi;
+    /* Pointer to RF PHY data payload */
+    uint8_t *pData;
 
     /* Number of symbols of the payload */
     uint16_t paySymbols;
 
     /* Payload length in bytes */
     uint16_t payloadLen;
+
+    /* RSSI value in dBm */
+    int8_t rssi;
 
 } SRV_RSNIFFER_PHY_DATA;
 
@@ -104,7 +104,7 @@ typedef struct
 
 // *****************************************************************************
 /* Function:
-    SRV_RSNIFFER_SerialRxMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMsgLen )
+    SRV_RSNIFFER_SerialMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMsgLen )
 
   Summary:
     Serializes a received RF frame along with its parameters.
@@ -135,40 +135,6 @@ typedef struct
     None.
 */
 
-uint8_t* SRV_RSNIFFER_SerialRxMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMsgLen );
-
-// *****************************************************************************
-/* Function:
-    uint8_t* SRV_RSNIFFER_SerialCfmMessage ( SRV_RSNIFFER_PHY_DATA *txData, size_t *pMsgLen )
-
-  Summary:
-    Serializes a transmitted RF frame along with its parameters.
-
-  Description:
-    This function serializes the RF transmitted packet in a buffer for further transmission
-    through serial interface.
-
-  Precondition:
-    None.
-
-  Parameters:
-    rxData     - Pointer to RF transmission data containing the frame and
-                 parameters
-    pMsgLen    - Pointer to sniffer message length in bytes (output)
-
-  Returns:
-    Pointer to sniffer message to be sent through serial interface.
-
-  Example:
-    <code>
-    
-
-    </code>
-
-  Remarks:
-    None.
-*/
-
-uint8_t* SRV_RSNIFFER_SerialCfmMessage ( SRV_RSNIFFER_PHY_DATA *txData, size_t *pMsgLen );
+uint8_t* SRV_RSNIFFER_SerialMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMsgLen );
 
 #endif //SRV_RSNIFFER_H

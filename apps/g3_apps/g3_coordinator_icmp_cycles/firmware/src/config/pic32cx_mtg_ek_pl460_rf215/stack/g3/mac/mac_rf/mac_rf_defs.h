@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _MAC_RF_DEFS_H
-#define _MAC_RF_DEFS_H
+#ifndef MAC_RF_DEFS_H
+#define MAC_RF_DEFS_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -214,7 +214,7 @@ typedef struct
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _MAC_RF_DEFS_H
+#endif // #ifndef MAC_RF_DEFS_H
 
 /*******************************************************************************
  End of File

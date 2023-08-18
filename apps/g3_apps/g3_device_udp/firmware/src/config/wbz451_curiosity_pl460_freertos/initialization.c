@@ -144,7 +144,7 @@
 
 /*** FBCFG0 ***/
 #pragma config BINFOVALID =      VALID
-#pragma config PCSCMODE =      SINGLE
+#pragma config PCSCMODE =      DUAL
 
 /*** FCPN0 ***/
 #pragma config CP =      DISABLED
@@ -162,10 +162,29 @@
 /* MISRA C-2012 Rule 11.1 */
 /* MISRA C-2012 Rule 11.3 */
 /* MISRA C-2012 Rule 11.8 */
-// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 
+// <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
+
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
+/* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
+
+/* This routine must initialize the PL460 control pins as soon as possible */
+/* after a power up reset to avoid risks on starting up PL460 device when */
+/* pull up resistors are configured by default */
+void _on_reset(void)
+{
+    __asm volatile ("NOP");
+}
+
+/* MISRA C-2012 deviation block end */
+
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 /* HAL Interface Initialization for PLC transceiver */
-DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
+static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI Transfer Setup */
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SERCOM0_SPI_TransferSetup,
@@ -206,7 +225,7 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 };
 
 /* HAL Interface Initialization for PLC transceiver */
-DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
+static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC PLIB */
     .plcPlib = &drvPLCPlib,
@@ -242,11 +261,8 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_G3_MACRT Initialization Data">
 
-/* PLC MAC RT Binary file addressing */
-extern uint8_t g3_mac_rt_bin_start;
-extern uint8_t g3_mac_rt_bin_end;
-extern uint8_t g3_mac_rt_bin2_start;
-extern uint8_t g3_mac_rt_bin2_end;
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 
 /* G3 MAC RT Driver Initialization Data */
 DRV_G3_MACRT_INIT drvG3MacRtInitData = {
@@ -264,6 +280,8 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
     .secure = DRV_PLC_SECURE,
 
 };
+
+/* MISRA C-2012 deviation block end */
 
 // </editor-fold>
 
@@ -284,14 +302,14 @@ SYSTEM_OBJECTS sysObj;
 // *****************************************************************************
 // <editor-fold defaultstate="collapsed" desc="G3 ADP Initialization Data">
 /* G3 ADP Buffers and Queues */
-ADP_DATA_PARAMS_BUFFER_1280 g3Adp1280Buffers[G3_ADP_NUM_BUFFERS_1280];
-ADP_DATA_PARAMS_BUFFER_400 g3Adp400Buffers[G3_ADP_NUM_BUFFERS_400];
-ADP_DATA_PARAMS_BUFFER_100 g3Adp100Buffers[G3_ADP_NUM_BUFFERS_100];
-ADP_PROCESS_QUEUE_ENTRY g3AdpProcessQueueEntries[G3_ADP_PROCESS_QUEUE_SIZE];
-ADP_LOWPAN_FRAGMENTED_DATA g3AdpFragmentedTransferTable[G3_ADP_FRAG_TRANSFER_TABLE_SIZE];
+static ADP_DATA_PARAMS_BUFFER_1280 g3Adp1280Buffers[G3_ADP_NUM_BUFFERS_1280];
+static ADP_DATA_PARAMS_BUFFER_400 g3Adp400Buffers[G3_ADP_NUM_BUFFERS_400];
+static ADP_DATA_PARAMS_BUFFER_100 g3Adp100Buffers[G3_ADP_NUM_BUFFERS_100];
+static ADP_PROCESS_QUEUE_ENTRY g3AdpProcessQueueEntries[G3_ADP_PROCESS_QUEUE_SIZE];
+static ADP_LOWPAN_FRAGMENTED_DATA g3AdpFragmentedTransferTable[G3_ADP_FRAG_TRANSFER_TABLE_SIZE];
 
 /* G3 ADP Initialization Data */
-ADP_INIT g3AdpInitData = {
+static ADP_INIT g3AdpInitData = {
     /* Pointer to start of 1280-byte buffers */
     .pBuffers1280 = &g3Adp1280Buffers,
 
@@ -456,7 +474,7 @@ const TCPIP_STACK_MODULE_CONFIG TCPIP_STACK_MODULE_CONFIG_TBL [] =
 
 // MAC modules
 
-    {TCPIP_MODULE_MAC_PIC32CXMT,    0},                             // TCPIP_MODULE_MAC_PIC32CXMT
+    {TCPIP_MODULE_MAC_G3ADP,        0},                             // TCPIP_MODULE_MAC_G3ADP
 };
 
 const size_t TCPIP_STACK_MODULE_CONFIG_TBL_SIZE = sizeof (TCPIP_STACK_MODULE_CONFIG_TBL) / sizeof (*TCPIP_STACK_MODULE_CONFIG_TBL);

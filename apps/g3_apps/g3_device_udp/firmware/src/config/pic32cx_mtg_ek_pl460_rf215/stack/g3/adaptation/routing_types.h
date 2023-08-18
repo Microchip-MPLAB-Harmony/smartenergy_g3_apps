@@ -41,8 +41,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _ROUTING_TYPES_H
-#define _ROUTING_TYPES_H
+#ifndef ROUTING_TYPES_H
+#define ROUTING_TYPES_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -131,7 +131,6 @@
     App_DiscoverRouteCallback(uint8_t status, uint16_t dstAddr,
         uint16_t nextHop, void* pUserData)
     {
-        // Check result
         if (status == G3_SUCCESS)
         {
             
@@ -170,7 +169,6 @@ typedef void (*ROUTING_WRP_DISCOVER_ROUTE_CALLBACK)(uint8_t status,
     App_DiscoverPathCallback(uint8_t status,
         ADP_PATH_DESCRIPTOR *pPathDescriptor)
     {
-        // Check result
         if (status == G3_SUCCESS)
         {
             
@@ -183,6 +181,9 @@ typedef void (*ROUTING_WRP_DISCOVER_ROUTE_CALLBACK)(uint8_t status,
 */
 typedef void (*ROUTING_WRP_DISCOVER_PATH_CALLBACK)(uint8_t status,
     ADP_PATH_DESCRIPTOR *pPathDescriptor);
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 6.1 deviated 8 times.  Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
 
 // *****************************************************************************
 /* Routing Table Entry Definition
@@ -219,6 +220,8 @@ typedef struct
     uint8_t isRouter : 1;
   
 } ROUTING_TABLE_ENTRY;
+
+/* MISRA C-2012 deviation block end */
 
 // *****************************************************************************
 /* Routing Blacklist Table Entry Definition
@@ -301,12 +304,12 @@ typedef struct {
    Remarks:
     None.
 */
-typedef struct _ROUTING_RREP_GENERATION_ENTRY {
+typedef struct ROUTING_RREP_GENERATION_ENTRY_tag {
     /* Timer to control the RREP sending */
     SYS_TIME_HANDLE timeHandle;
 
     /* Pointer to RREP generation entry used when timer expires */
-    struct _ROUTING_RREP_GENERATION_ENTRY* timerRrepGenEntry;
+    struct ROUTING_RREP_GENERATION_ENTRY_tag *timerRrepGenEntry;
 
     /* RREQ originator (and final destination of RREP) */
     uint16_t origAddr;
@@ -409,13 +412,13 @@ typedef struct {
   Remarks:
     None.
 */
-typedef struct _ROUTING_RREQ_TABLE_ENTRY
+typedef struct ROUTING_RREQ_TABLE_ENTRY_tag
 {
     /* Pointer to the previous object of the queue */
-    struct _ROUTING_RREQ_TABLE_ENTRY *prev;
+    struct ROUTING_RREQ_TABLE_ENTRY_tag *prev;
 
     /* Pointer to the next object of the queue */
-    struct _ROUTING_RREQ_TABLE_ENTRY *next;
+    struct ROUTING_RREQ_TABLE_ENTRY_tag *next;
 
     /* Pointer to discover route entry */
     ROUTING_DISCOVER_ROUTE_ENTRY *pDiscoverRoute;
@@ -493,4 +496,4 @@ typedef struct
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _ROUTING_TYPES_H
+#endif // #ifndef ROUTING_TYPES_H

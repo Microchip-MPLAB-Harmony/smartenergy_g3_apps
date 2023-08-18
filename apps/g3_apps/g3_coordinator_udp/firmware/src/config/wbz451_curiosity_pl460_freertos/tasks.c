@@ -60,7 +60,7 @@
 // Section: RTOS "Tasks" Routine
 // *****************************************************************************
 // *****************************************************************************
-static void _DRV_G3_MACRT_Tasks(  void *pvParameters  )
+static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
 {
     while(true)
     {
@@ -69,7 +69,7 @@ static void _DRV_G3_MACRT_Tasks(  void *pvParameters  )
     }
 }
 
-static void _G3_STACK_Tasks(  void *pvParameters  )
+static void lG3_STACK_Tasks(  void *pvParameters  )
 {
     while(true)
     {
@@ -102,7 +102,7 @@ void _TCPIP_STACK_Task(  void *pvParameters  )
     while(1)
     {
         TCPIP_STACK_Task(sysObj.tcpip);
-        vTaskDelay(10 / portTICK_PERIOD_MS);
+        vTaskDelay(1 / portTICK_PERIOD_MS);
     }
 }
 
@@ -161,7 +161,7 @@ static void lAPP_CYCLES_Tasks(  void *pvParameters  )
     }
 }
 
-static void _PAL_RF_Tasks(  void *pvParameters  )
+static void lPAL_RF_Tasks(  void *pvParameters  )
 {
     while(true)
     {
@@ -170,7 +170,7 @@ static void _PAL_RF_Tasks(  void *pvParameters  )
     }
 }
 
-static void _SRV_USI0_Tasks(  void *pvParameters  )
+static void lSRV_USI0_Tasks(  void *pvParameters  )
 {
     while(true)
     {
@@ -201,7 +201,7 @@ void SYS_Tasks ( void )
 
     /* Maintain Device Drivers */
 
-    xTaskCreate( _DRV_G3_MACRT_Tasks,
+    (void) xTaskCreate( lDRV_G3_MACRT_Tasks,
         "DRV_G3_MACRT_TASKS",
         DRV_PLC_RTOS_STACK_SIZE,
         (void*)NULL,
@@ -213,7 +213,7 @@ void SYS_Tasks ( void )
 
     /* Maintain Middleware & Other Libraries */
 
-    xTaskCreate( _G3_STACK_Tasks,
+    (void) xTaskCreate( lG3_STACK_Tasks,
         "G3_STACK_TASKS",
         G3_STACK_RTOS_STACK_SIZE,
         (void*)NULL,
@@ -240,7 +240,7 @@ void SYS_Tasks ( void )
 
 
 
-    xTaskCreate( _PAL_RF_Tasks,
+    (void) xTaskCreate( lPAL_RF_Tasks,
         "PAL_RF_TASKS",
         PAL_RF_RTOS_STACK_SIZE,
         (void*)NULL,
@@ -249,7 +249,7 @@ void SYS_Tasks ( void )
     );
 
 
-    xTaskCreate( _SRV_USI0_Tasks,
+    (void) xTaskCreate( lSRV_USI0_Tasks,
         "SRV_USI0_TASKS",
         SRV_USI0_RTOS_STACK_SIZE,
         (void*)NULL,

@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -97,104 +97,125 @@ static const SRV_PLC_PCOUP_DATA srvPlcCoup = {
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: File scope functions
+// Section: PLC PHY Coupling Service Interface Implementation
 // *****************************************************************************
 // *****************************************************************************
+
 SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch)
 {
-  if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
-  {
-    /* PLC PHY Coupling parameters for Main transmission branch */
-    return (SRV_PLC_PCOUP_DATA *)&srvPlcCoup;
-  }
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
-  /* Transmission branch not recognized */
-  return NULL;
+    if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
+    {
+        /* PLC PHY Coupling parameters for Main transmission branch */
+        return (SRV_PLC_PCOUP_DATA *)&srvPlcCoup;
+    }
+
+    /* MISRA C-2012 deviation block end */
+
+    /* Transmission branch not recognized */
+    return NULL;
 }
 
 bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch)
 {
-  SRV_PLC_PCOUP_DATA *pCoupValues;
-  MAC_RT_PIB_OBJ pibObj;
-  MAC_RT_STATUS result;
+    SRV_PLC_PCOUP_DATA *pCoupValues;
+    bool result, resultOut;
+    MAC_RT_PIB_OBJ pibObj;
 
-  /* Get PLC PHY Coupling parameters for the desired transmission branch */
-  pCoupValues = SRV_PCOUP_Get_Config(branch);
+    /* Get PLC PHY Coupling parameters for the desired transmission branch */
+    pCoupValues = SRV_PCOUP_Get_Config(branch);
 
-  if (pCoupValues == NULL)
-  {
-    /* Transmission branch not recognized */
-    return false;
-  }
+    if (pCoupValues == NULL)
+    {
+        /* Transmission branch not recognized */
+        return false;
+    }
 
-  /* Set PLC PHY Coupling parameters */
-  pibObj.pib = MAC_RT_PIB_MANUF_PHY_PARAM;
-  pibObj.index = PHY_PIB_PLC_IC_DRIVER_CFG;
-  pibObj.length = 1;
-  pibObj.pData[0] = pCoupValues->lineDrvConf;
-  result = DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    /* Set PLC PHY Coupling parameters */
+    pibObj.pib = MAC_RT_PIB_MANUF_PHY_PARAM;
+    pibObj.index = (uint16_t)PHY_PIB_PLC_IC_DRIVER_CFG;
+    pibObj.length = 1;
+    pibObj.pData[0] = pCoupValues->lineDrvConf;
+    result = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
 
-  pibObj.index = PHY_PIB_NUM_TX_LEVELS;
-  pibObj.pData[0] = pCoupValues->numTxLevels;
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_NUM_TX_LEVELS;
+    pibObj.pData[0] = pCoupValues->numTxLevels;
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_DACC_TABLE_CFG;
-  pibObj.length = sizeof(pCoupValues->daccTable);
-  memcpy(pibObj.pData, pCoupValues->daccTable, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);  
+    pibObj.index = (uint16_t)PHY_PIB_DACC_TABLE_CFG;
+    pibObj.length = (uint8_t)sizeof(pCoupValues->daccTable);
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->daccTable, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_MAX_RMS_TABLE_HI;
-  pibObj.length = sizeof(pCoupValues->rmsHigh);
-  memcpy(pibObj.pData, pCoupValues->rmsHigh, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_MAX_RMS_TABLE_HI;
+    pibObj.length = (uint8_t)sizeof(pCoupValues->rmsHigh);
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->rmsHigh, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_MAX_RMS_TABLE_VLO;
-  memcpy(pibObj.pData, pCoupValues->rmsVLow, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_MAX_RMS_TABLE_VLO;
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->rmsVLow, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_THRESHOLDS_TABLE_HI;
-  pibObj.length = sizeof(pCoupValues->thrsHigh);
-  memcpy(pibObj.pData, pCoupValues->thrsHigh, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_THRESHOLDS_TABLE_HI;
+    pibObj.length = (uint8_t)sizeof(pCoupValues->thrsHigh);
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->thrsHigh, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_THRESHOLDS_TABLE_VLO;
-  memcpy(pibObj.pData, pCoupValues->thrsVLow, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_THRESHOLDS_TABLE_VLO;
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->thrsVLow, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_GAIN_TABLE_HI;
-  pibObj.length = sizeof(pCoupValues->gainHigh);
-  memcpy(pibObj.pData, pCoupValues->gainHigh, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_GAIN_TABLE_HI;
+    pibObj.length = (uint8_t)sizeof(pCoupValues->gainHigh);
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->gainHigh, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_GAIN_TABLE_VLO;
-  memcpy(pibObj.pData, pCoupValues->gainVLow, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_GAIN_TABLE_VLO;
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->gainVLow, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_PREDIST_COEF_TABLE_HI;
-  pibObj.length = pCoupValues->equSize;
-  memcpy(pibObj.pData, pCoupValues->equHigh, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.8 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
-  pibObj.index = PHY_PIB_PREDIST_COEF_TABLE_VLO;
-  memcpy(pibObj.pData, pCoupValues->equVlow, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_PREDIST_COEF_TABLE_HI;
+    pibObj.length = pCoupValues->equSize;
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->equHigh, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  return (bool)(result == MAC_RT_STATUS_SUCCESS);
+    pibObj.index = (uint16_t)PHY_PIB_PREDIST_COEF_TABLE_VLO;
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->equVlow, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
+
+    /* MISRA C-2012 deviation block end */
+
+    return result;
 }
 
 SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void )
 {
-  return SRV_PCOUP_DEFAULT_BRANCH;
+    return SRV_PCOUP_DEFAULT_BRANCH;
 }
 
 uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch)
 {
-  if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
-  {
-    /* PHY band for Main transmission branch */
-    return G3_FCC;
-  }
+    if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
+    {
+        /* PHY band for Main transmission branch */
+       return (uint8_t)G3_FCC;
+   }
 
-  /* Transmission branch not recognized */
-  return G3_INVALID;
+    /* Transmission branch not recognized */
+    return (uint8_t)G3_INVALID;
 }

@@ -1,7 +1,7 @@
 /*
  * Component description for ADCHS
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2022-02-28T16:51:20Z */
+/* file generated from device description version 2023-05-31T11:03:01Z */
 #ifndef _BZ45_ADCHS_COMPONENT_H_
 #define _BZ45_ADCHS_COMPONENT_H_
 
@@ -162,6 +162,24 @@
 #define ADCHS_ADCCON1_Msk                     _UINT32_(0x00FFE77F)                                 /* (ADCHS_ADCCON1) Register Mask  */
 
 
+/* -------- ADCHS_ADCCON1CLR : (ADCHS Offset: 0x04) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCCON1CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON1CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCCON1CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON1CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCCON1SET : (ADCHS Offset: 0x08) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCCON1SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON1SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCCON1SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON1SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCCON1INV : (ADCHS Offset: 0x0C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCCON1INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON1INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCCON1INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON1INV) Register Mask  */
+
+
 /* -------- ADCHS_ADCCON2 : (ADCHS Offset: 0x10) (R/W 32)  -------- */
 #define ADCHS_ADCCON2_RESETVALUE              _UINT32_(0x00)                                       /*  (ADCHS_ADCCON2)   Reset Value */
 
@@ -236,6 +254,24 @@
 #define ADCHS_ADCCON2_BGVRRDY_VREF_RDY        (ADCHS_ADCCON2_BGVRRDY_VREF_RDY_Val << ADCHS_ADCCON2_BGVRRDY_Pos) /* (ADCHS_ADCCON2) Both band gap voltage and ADC reference voltages (Vref) are ready Position  */
 #define ADCHS_ADCCON2_BGVRRDY_VREF_NOTRDY     (ADCHS_ADCCON2_BGVRRDY_VREF_NOTRDY_Val << ADCHS_ADCCON2_BGVRRDY_Pos) /* (ADCHS_ADCCON2) Either or both band gap voltage and ADC reference voltages (Vref) are not ready Position  */
 #define ADCHS_ADCCON2_Msk                     _UINT32_(0xE3FFEF7F)                                 /* (ADCHS_ADCCON2) Register Mask  */
+
+
+/* -------- ADCHS_ADCCON2CLR : (ADCHS Offset: 0x14) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCCON2CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON2CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCCON2CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON2CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCCON2SET : (ADCHS Offset: 0x18) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCCON2SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON2SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCCON2SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON2SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCCON2INV : (ADCHS Offset: 0x1C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCCON2INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON2INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCCON2INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON2INV) Register Mask  */
 
 
 /* -------- ADCHS_ADCCON3 : (ADCHS Offset: 0x20) (R/W 32)  -------- */
@@ -344,6 +380,24 @@
 #define ADCHS_ADCCON3_DIGEN_Pos               _UINT32_(23)                                         /* (ADCHS_ADCCON3 Position) Shared ADC (ADC7) Digital Enable bit */
 #define ADCHS_ADCCON3_DIGEN_Msk               (_UINT32_(0x1) << ADCHS_ADCCON3_DIGEN_Pos)           /* (ADCHS_ADCCON3 Mask) DIGEN */
 #define ADCHS_ADCCON3_DIGEN(value)            (ADCHS_ADCCON3_DIGEN_Msk & (_UINT32_(value) << ADCHS_ADCCON3_DIGEN_Pos)) 
+
+/* -------- ADCHS_ADCCON3CLR : (ADCHS Offset: 0x24) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCCON3CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON3CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCCON3CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON3CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCCON3SET : (ADCHS Offset: 0x28) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCCON3SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON3SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCCON3SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON3SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCCON3INV : (ADCHS Offset: 0x2C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCCON3INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON3INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCCON3INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON3INV) Register Mask  */
+
 
 /* -------- ADCHS_ADCIMCON1 : (ADCHS Offset: 0x40) (R/W 32)  -------- */
 #define ADCHS_ADCIMCON1_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADCIMCON1)   Reset Value */
@@ -519,6 +573,24 @@
 #define ADCHS_ADCIMCON1_Msk                   _UINT32_(0x00FFFFFF)                                 /* (ADCHS_ADCIMCON1) Register Mask  */
 
 
+/* -------- ADCHS_ADCIMOD1CLR : (ADCHS Offset: 0x44) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCIMOD1CLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCIMOD1CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCIMOD1CLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCIMOD1CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCIMOD1SET : (ADCHS Offset: 0x48) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCIMOD1SET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCIMOD1SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCIMOD1SET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCIMOD1SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCIMOD1INV : (ADCHS Offset: 0x4C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCIMOD1INV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCIMOD1INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCIMOD1INV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCIMOD1INV) Register Mask  */
+
+
 /* -------- ADCHS_ADCGIRQEN1 : (ADCHS Offset: 0x80) (R/W 32)  -------- */
 #define ADCHS_ADCGIRQEN1_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCGIRQEN1)   Reset Value */
 
@@ -611,6 +683,24 @@
 #define ADCHS_ADCGIRQEN1_AGIEN_Pos            _UINT32_(0)                                          /* (ADCHS_ADCGIRQEN1 Position) ADC Global Interrupt Enable bit */
 #define ADCHS_ADCGIRQEN1_AGIEN_Msk            (_UINT32_(0xFFF) << ADCHS_ADCGIRQEN1_AGIEN_Pos)      /* (ADCHS_ADCGIRQEN1 Mask) AGIEN */
 #define ADCHS_ADCGIRQEN1_AGIEN(value)         (ADCHS_ADCGIRQEN1_AGIEN_Msk & (_UINT32_(value) << ADCHS_ADCGIRQEN1_AGIEN_Pos)) 
+
+/* -------- ADCHS_ADCGIRQEN1CLR : (ADCHS Offset: 0x84) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCGIRQEN1CLR_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCGIRQEN1CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCGIRQEN1CLR_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCGIRQEN1CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCGIRQEN1SET : (ADCHS Offset: 0x88) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCGIRQEN1SET_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCGIRQEN1SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCGIRQEN1SET_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCGIRQEN1SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCGIRQEN1INV : (ADCHS Offset: 0x8C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCGIRQEN1INV_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCGIRQEN1INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCGIRQEN1INV_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCGIRQEN1INV) Register Mask  */
+
 
 /* -------- ADCHS_ADCCSS1 : (ADCHS Offset: 0xA0) (R/W 32)  -------- */
 #define ADCHS_ADCCSS1_RESETVALUE              _UINT32_(0x00)                                       /*  (ADCHS_ADCCSS1)   Reset Value */
@@ -705,6 +795,24 @@
 #define ADCHS_ADCCSS1_CSS_Msk                 (_UINT32_(0xFFF) << ADCHS_ADCCSS1_CSS_Pos)           /* (ADCHS_ADCCSS1 Mask) CSS */
 #define ADCHS_ADCCSS1_CSS(value)              (ADCHS_ADCCSS1_CSS_Msk & (_UINT32_(value) << ADCHS_ADCCSS1_CSS_Pos)) 
 
+/* -------- ADCHS_ADCCSS1CLR : (ADCHS Offset: 0xA4) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCCSS1CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCSS1CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCCSS1CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCSS1CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCCSS1SET : (ADCHS Offset: 0xA8) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCCSS1SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCSS1SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCCSS1SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCSS1SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCCSS1INV : (ADCHS Offset: 0xAC) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCCSS1INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCSS1INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCCSS1INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCSS1INV) Register Mask  */
+
+
 /* -------- ADCHS_ADCDSTAT1 : (ADCHS Offset: 0xC0) (R/W 32)  -------- */
 #define ADCHS_ADCDSTAT1_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADCDSTAT1)   Reset Value */
 
@@ -750,6 +858,24 @@
 #define ADCHS_ADCDSTAT1_ARDY_Msk              (_UINT32_(0xFFF) << ADCHS_ADCDSTAT1_ARDY_Pos)        /* (ADCHS_ADCDSTAT1 Mask) ARDY */
 #define ADCHS_ADCDSTAT1_ARDY(value)           (ADCHS_ADCDSTAT1_ARDY_Msk & (_UINT32_(value) << ADCHS_ADCDSTAT1_ARDY_Pos)) 
 
+/* -------- ADCHS_ADCDSTAT1CLR : (ADCHS Offset: 0xC4) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCDSTAT1CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCDSTAT1CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCDSTAT1CLR_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCDSTAT1CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCDSTAT1SET : (ADCHS Offset: 0xC8) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCDSTAT1SET_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCDSTAT1SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCDSTAT1SET_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCDSTAT1SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCDSTAT1INV : (ADCHS Offset: 0xCC) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCDSTAT1INV_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCDSTAT1INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCDSTAT1INV_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCDSTAT1INV) Register Mask  */
+
+
 /* -------- ADCHS_ADCCMPEN1 : (ADCHS Offset: 0xE0) (R/W 32)  -------- */
 #define ADCHS_ADCCMPEN1_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN1)   Reset Value */
 
@@ -783,6 +909,24 @@
 #define ADCHS_ADCCMPEN1_CMPE_Msk              (_UINT32_(0xFF) << ADCHS_ADCCMPEN1_CMPE_Pos)         /* (ADCHS_ADCCMPEN1 Mask) CMPE */
 #define ADCHS_ADCCMPEN1_CMPE(value)           (ADCHS_ADCCMPEN1_CMPE_Msk & (_UINT32_(value) << ADCHS_ADCCMPEN1_CMPE_Pos)) 
 
+/* -------- ADCHS_ADCCMPEN0CLR : (ADCHS Offset: 0xE4) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCCMPEN0CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN0CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCCMPEN0CLR_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPEN0CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCCMPEN0SET : (ADCHS Offset: 0xE8) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCCMPEN0SET_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN0SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCCMPEN0SET_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPEN0SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCCMPEN0INV : (ADCHS Offset: 0xEC) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCCMPEN0INV_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN0INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCCMPEN0INV_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPEN0INV) Register Mask  */
+
+
 /* -------- ADCHS_ADCCMP1 : (ADCHS Offset: 0xF0) (R/W 32)  -------- */
 #define ADCHS_ADCCMP1_RESETVALUE              _UINT32_(0x00)                                       /*  (ADCHS_ADCCMP1)   Reset Value */
 
@@ -793,6 +937,24 @@
 #define ADCHS_ADCCMP1_ADCMPHI_Msk             (_UINT32_(0xFFFF) << ADCHS_ADCCMP1_ADCMPHI_Pos)      /* (ADCHS_ADCCMP1)  Mask */
 #define ADCHS_ADCCMP1_ADCMPHI(value)          (ADCHS_ADCCMP1_ADCMPHI_Msk & (_UINT32_(value) << ADCHS_ADCCMP1_ADCMPHI_Pos)) /* Assigment of value for ADCMPHI in the ADCHS_ADCCMP1 register */
 #define ADCHS_ADCCMP1_Msk                     _UINT32_(0xFFFFFFFF)                                 /* (ADCHS_ADCCMP1) Register Mask  */
+
+
+/* -------- ADCHS_ADCCMP0CLR : (ADCHS Offset: 0xF4) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCCMP0CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCMP0CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCCMP0CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMP0CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCCMP0SET : (ADCHS Offset: 0xF8) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCCMP0SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCMP0SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCCMP0SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMP0SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCCMP0INV : (ADCHS Offset: 0xFC) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCCMP0INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCMP0INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCCMP0INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMP0INV) Register Mask  */
 
 
 /* -------- ADCHS_ADCCMPEN2 : (ADCHS Offset: 0x100) (R/W 32)  -------- */
@@ -828,6 +990,24 @@
 #define ADCHS_ADCCMPEN2_CMPE_Msk              (_UINT32_(0xFF) << ADCHS_ADCCMPEN2_CMPE_Pos)         /* (ADCHS_ADCCMPEN2 Mask) CMPE */
 #define ADCHS_ADCCMPEN2_CMPE(value)           (ADCHS_ADCCMPEN2_CMPE_Msk & (_UINT32_(value) << ADCHS_ADCCMPEN2_CMPE_Pos)) 
 
+/* -------- ADCHS_ADCCMPEN1CLR : (ADCHS Offset: 0x104) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCCMPEN1CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN1CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCCMPEN1CLR_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPEN1CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCCMPEN1SET : (ADCHS Offset: 0x108) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCCMPEN1SET_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN1SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCCMPEN1SET_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPEN1SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCCMPEN1INV : (ADCHS Offset: 0x10C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCCMPEN1INV_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN1INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCCMPEN1INV_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPEN1INV) Register Mask  */
+
+
 /* -------- ADCHS_ADCCMP2 : (ADCHS Offset: 0x110) (R/W 32)  -------- */
 #define ADCHS_ADCCMP2_RESETVALUE              _UINT32_(0x00)                                       /*  (ADCHS_ADCCMP2)   Reset Value */
 
@@ -838,6 +1018,24 @@
 #define ADCHS_ADCCMP2_ADCMPHI_Msk             (_UINT32_(0xFFFF) << ADCHS_ADCCMP2_ADCMPHI_Pos)      /* (ADCHS_ADCCMP2)  Mask */
 #define ADCHS_ADCCMP2_ADCMPHI(value)          (ADCHS_ADCCMP2_ADCMPHI_Msk & (_UINT32_(value) << ADCHS_ADCCMP2_ADCMPHI_Pos)) /* Assigment of value for ADCMPHI in the ADCHS_ADCCMP2 register */
 #define ADCHS_ADCCMP2_Msk                     _UINT32_(0xFFFFFFFF)                                 /* (ADCHS_ADCCMP2) Register Mask  */
+
+
+/* -------- ADCHS_ADDCMP1CLR : (ADCHS Offset: 0x114) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADDCMP1CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADDCMP1CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADDCMP1CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADDCMP1CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADDCMP1SET : (ADCHS Offset: 0x118) (R/W 32) Bit set register -------- */
+#define ADCHS_ADDCMP1SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADDCMP1SET) Bit set register  Reset Value */
+
+#define ADCHS_ADDCMP1SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADDCMP1SET) Register Mask  */
+
+
+/* -------- ADCHS_ADDCMP1INV : (ADCHS Offset: 0x11C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADDCMP1INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADDCMP1INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADDCMP1INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADDCMP1INV) Register Mask  */
 
 
 /* -------- ADCHS_ADCFLTR1 : (ADCHS Offset: 0x1A0) (R/W 32)  -------- */
@@ -885,6 +1083,24 @@
 #define ADCHS_ADCFLTR1_AFEN_Msk               (_UINT32_(0x1) << ADCHS_ADCFLTR1_AFEN_Pos)           /* (ADCHS_ADCFLTR1 Mask) AFEN */
 #define ADCHS_ADCFLTR1_AFEN(value)            (ADCHS_ADCFLTR1_AFEN_Msk & (_UINT32_(value) << ADCHS_ADCFLTR1_AFEN_Pos)) 
 
+/* -------- ADCHS_ADCFLTR0CLR : (ADCHS Offset: 0x1A4) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCFLTR0CLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR0CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCFLTR0CLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFLTR0CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCFLTR0SET : (ADCHS Offset: 0x1A8) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCFLTR0SET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR0SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCFLTR0SET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFLTR0SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCFLTR0INV : (ADCHS Offset: 0x1AC) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCFLTR0INV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR0INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCFLTR0INV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFLTR0INV) Register Mask  */
+
+
 /* -------- ADCHS_ADCFLTR2 : (ADCHS Offset: 0x1B0) (R/W 32)  -------- */
 #define ADCHS_ADCFLTR2_RESETVALUE             _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR2)   Reset Value */
 
@@ -929,6 +1145,24 @@
 #define ADCHS_ADCFLTR2_AFEN_Pos               _UINT32_(31)                                         /* (ADCHS_ADCFLTR2 Position)  */
 #define ADCHS_ADCFLTR2_AFEN_Msk               (_UINT32_(0x1) << ADCHS_ADCFLTR2_AFEN_Pos)           /* (ADCHS_ADCFLTR2 Mask) AFEN */
 #define ADCHS_ADCFLTR2_AFEN(value)            (ADCHS_ADCFLTR2_AFEN_Msk & (_UINT32_(value) << ADCHS_ADCFLTR2_AFEN_Pos)) 
+
+/* -------- ADCHS_ADCFLTR1CLR : (ADCHS Offset: 0x1B4) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCFLTR1CLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR1CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCFLTR1CLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFLTR1CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCFLTR1SET : (ADCHS Offset: 0x1B8) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCFLTR1SET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR1SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCFLTR1SET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFLTR1SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCFLTR1INV : (ADCHS Offset: 0x1BC) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCFLTR1INV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR1INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCFLTR1INV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFLTR1INV) Register Mask  */
+
 
 /* -------- ADCHS_ADCTRG1 : (ADCHS Offset: 0x200) (R/W 32) ADC Trigger Source 1 Register -------- */
 #define ADCHS_ADCTRG1_RESETVALUE              _UINT32_(0x00)                                       /*  (ADCHS_ADCTRG1) ADC Trigger Source 1 Register  Reset Value */
@@ -1092,6 +1326,24 @@
 #define ADCHS_ADCTRG1_Msk                     _UINT32_(0x1F1F1F1F)                                 /* (ADCHS_ADCTRG1) Register Mask  */
 
 
+/* -------- ADCHS_ADCTRG1CLR : (ADCHS Offset: 0x204) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCTRG1CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCTRG1CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCTRG1CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCTRG1CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCTRG1SET : (ADCHS Offset: 0x208) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCTRG1SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCTRG1SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCTRG1SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCTRG1SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCTRG1INV : (ADCHS Offset: 0x20C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCTRG1INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCTRG1INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCTRG1INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCTRG1INV) Register Mask  */
+
+
 /* -------- ADCHS_ADCTRG2 : (ADCHS Offset: 0x210) (R/W 32) ADC Trigger Source 2 Register -------- */
 #define ADCHS_ADCTRG2_RESETVALUE              _UINT32_(0x00)                                       /*  (ADCHS_ADCTRG2) ADC Trigger Source 2 Register  Reset Value */
 
@@ -1176,6 +1428,42 @@
 #define ADCHS_ADCTRG2_Msk                     _UINT32_(0x00001F1F)                                 /* (ADCHS_ADCTRG2) Register Mask  */
 
 
+/* -------- ADCHS_ADTRG2CLR : (ADCHS Offset: 0x214) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADTRG2CLR_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADTRG2CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADTRG2CLR_Msk                   _UINT32_(0x00000000)                                 /* (ADCHS_ADTRG2CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADTRG2SET : (ADCHS Offset: 0x218) (R/W 32) Bit set register -------- */
+#define ADCHS_ADTRG2SET_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADTRG2SET) Bit set register  Reset Value */
+
+#define ADCHS_ADTRG2SET_Msk                   _UINT32_(0x00000000)                                 /* (ADCHS_ADTRG2SET) Register Mask  */
+
+
+/* -------- ADCHS_ADTRG2INV : (ADCHS Offset: 0x21C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADTRG2INV_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADTRG2INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADTRG2INV_Msk                   _UINT32_(0x00000000)                                 /* (ADCHS_ADTRG2INV) Register Mask  */
+
+
+/* -------- ADCHS_ADTRG3CLR : (ADCHS Offset: 0x224) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADTRG3CLR_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADTRG3CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADTRG3CLR_Msk                   _UINT32_(0x00000000)                                 /* (ADCHS_ADTRG3CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADTRG3SET : (ADCHS Offset: 0x228) (R/W 32) Bit set register -------- */
+#define ADCHS_ADTRG3SET_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADTRG3SET) Bit set register  Reset Value */
+
+#define ADCHS_ADTRG3SET_Msk                   _UINT32_(0x00000000)                                 /* (ADCHS_ADTRG3SET) Register Mask  */
+
+
+/* -------- ADCHS_ADTRG3INV : (ADCHS Offset: 0x22C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADTRG3INV_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADTRG3INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADTRG3INV_Msk                   _UINT32_(0x00000000)                                 /* (ADCHS_ADTRG3INV) Register Mask  */
+
+
 /* -------- ADCHS_ADCCMPCON1 : (ADCHS Offset: 0x280) (R/W 32)  -------- */
 #define ADCHS_ADCCMPCON1_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPCON1)   Reset Value */
 
@@ -1212,6 +1500,24 @@
 #define ADCHS_ADCCMPCON1_Msk                  _UINT32_(0xFFFF3FFF)                                 /* (ADCHS_ADCCMPCON1) Register Mask  */
 
 
+/* -------- ADCHS_ADCCMPCON1CLR : (ADCHS Offset: 0x284) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCCMPCON1CLR_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPCON1CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCCMPCON1CLR_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPCON1CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCCMPCON1SET : (ADCHS Offset: 0x288) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCCMPCON1SET_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPCON1SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCCMPCON1SET_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPCON1SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCCMPCON1INV : (ADCHS Offset: 0x28C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCCMPCON1INV_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPCON1INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCCMPCON1INV_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPCON1INV) Register Mask  */
+
+
 /* -------- ADCHS_ADCCMPCON2 : (ADCHS Offset: 0x290) (R/W 32)  -------- */
 #define ADCHS_ADCCMPCON2_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPCON2)   Reset Value */
 
@@ -1245,6 +1551,60 @@
 #define ADCHS_ADCCMPCON2_Msk                  _UINT32_(0x00001FFF)                                 /* (ADCHS_ADCCMPCON2) Register Mask  */
 
 
+/* -------- ADCHS_ADCMPCON2CLR : (ADCHS Offset: 0x294) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCMPCON2CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCMPCON2CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCMPCON2CLR_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCMPCON2CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCMPCON2SET : (ADCHS Offset: 0x298) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCMPCON2SET_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCMPCON2SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCMPCON2SET_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCMPCON2SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCMPCON2INV : (ADCHS Offset: 0x29C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCMPCON2INV_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCMPCON2INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCMPCON2INV_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCMPCON2INV) Register Mask  */
+
+
+/* -------- ADCHS_ADCFSTATCLR : (ADCHS Offset: 0x2E4) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCFSTATCLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFSTATCLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCFSTATCLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFSTATCLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCFSTATSET : (ADCHS Offset: 0x2E8) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCFSTATSET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFSTATSET) Bit set register  Reset Value */
+
+#define ADCHS_ADCFSTATSET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFSTATSET) Register Mask  */
+
+
+/* -------- ADCHS_ADCFSTATINV : (ADCHS Offset: 0x2EC) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCFSTATINV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFSTATINV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCFSTATINV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFSTATINV) Register Mask  */
+
+
+/* -------- ADCHS_ADCFIFOCLR : (ADCHS Offset: 0x2F4) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCFIFOCLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCFIFOCLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCFIFOCLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCFIFOCLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCFIFOSET : (ADCHS Offset: 0x2F8) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCFIFOSET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCFIFOSET) Bit set register  Reset Value */
+
+#define ADCHS_ADCFIFOSET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCFIFOSET) Register Mask  */
+
+
+/* -------- ADCHS_ADCFIFOINV : (ADCHS Offset: 0x2FC) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCFIFOINV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCFIFOINV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCFIFOINV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCFIFOINV) Register Mask  */
+
+
 /* -------- ADCHS_ADCBASE : (ADCHS Offset: 0x300) (R/W 32)  -------- */
 #define ADCHS_ADCBASE_RESETVALUE              _UINT32_(0x00)                                       /*  (ADCHS_ADCBASE)   Reset Value */
 
@@ -1252,6 +1612,24 @@
 #define ADCHS_ADCBASE_ADCBASE_Msk             (_UINT32_(0xFFFF) << ADCHS_ADCBASE_ADCBASE_Pos)      /* (ADCHS_ADCBASE)  Mask */
 #define ADCHS_ADCBASE_ADCBASE(value)          (ADCHS_ADCBASE_ADCBASE_Msk & (_UINT32_(value) << ADCHS_ADCBASE_ADCBASE_Pos)) /* Assigment of value for ADCBASE in the ADCHS_ADCBASE register */
 #define ADCHS_ADCBASE_Msk                     _UINT32_(0x0000FFFF)                                 /* (ADCHS_ADCBASE) Register Mask  */
+
+
+/* -------- ADCHS_ADCBASECLR : (ADCHS Offset: 0x304) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCBASECLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCBASECLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCBASECLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCBASECLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCBASESET : (ADCHS Offset: 0x308) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCBASESET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCBASESET) Bit set register  Reset Value */
+
+#define ADCHS_ADCBASESET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCBASESET) Register Mask  */
+
+
+/* -------- ADCHS_ADCBASEINV : (ADCHS Offset: 0x30C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCBASEINV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCBASEINV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCBASEINV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCBASEINV) Register Mask  */
 
 
 /* -------- ADCHS_ADCDMASTAT : (ADCHS Offset: 0x310) (R/W 32)  -------- */
@@ -1293,6 +1671,24 @@
 #define ADCHS_ADCDMASTAT_RBF_IEN_Msk          (_UINT32_(0x1) << ADCHS_ADCDMASTAT_RBF_IEN_Pos)      /* (ADCHS_ADCDMASTAT Mask) RBF_IEN */
 #define ADCHS_ADCDMASTAT_RBF_IEN(value)       (ADCHS_ADCDMASTAT_RBF_IEN_Msk & (_UINT32_(value) << ADCHS_ADCDMASTAT_RBF_IEN_Pos)) 
 
+/* -------- ADCHS_ADCDMASTATCLR : (ADCHS Offset: 0x314) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCDMASTATCLR_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCDMASTATCLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCDMASTATCLR_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCDMASTATCLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCDMASTATSET : (ADCHS Offset: 0x318) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCDMASTATSET_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCDMASTATSET) Bit set register  Reset Value */
+
+#define ADCHS_ADCDMASTATSET_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCDMASTATSET) Register Mask  */
+
+
+/* -------- ADCHS_ADCDMASTATINV : (ADCHS Offset: 0x31C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCDMASTATINV_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCDMASTATINV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCDMASTATINV_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCDMASTATINV) Register Mask  */
+
+
 /* -------- ADCHS_ADCCNTB : (ADCHS Offset: 0x320) (R/W 32)  -------- */
 #define ADCHS_ADCCNTB_RESETVALUE              _UINT32_(0x00)                                       /*  (ADCHS_ADCCNTB)   Reset Value */
 
@@ -1302,6 +1698,24 @@
 #define ADCHS_ADCCNTB_Msk                     _UINT32_(0xFFFFFFFF)                                 /* (ADCHS_ADCCNTB) Register Mask  */
 
 
+/* -------- ADCHS_ADCCNTBCLR : (ADCHS Offset: 0x324) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCCNTBCLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCNTBCLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCCNTBCLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCNTBCLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCCNTBSET : (ADCHS Offset: 0x328) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCCNTBSET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCNTBSET) Bit set register  Reset Value */
+
+#define ADCHS_ADCCNTBSET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCNTBSET) Register Mask  */
+
+
+/* -------- ADCHS_ADCCNTBINV : (ADCHS Offset: 0x32C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCCNTBINV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCNTBINV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCCNTBINV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCNTBINV) Register Mask  */
+
+
 /* -------- ADCHS_ADCDMAB : (ADCHS Offset: 0x330) (R/W 32)  -------- */
 #define ADCHS_ADCDMAB_RESETVALUE              _UINT32_(0x00)                                       /*  (ADCHS_ADCDMAB)   Reset Value */
 
@@ -1309,6 +1723,24 @@
 #define ADCHS_ADCDMAB_ADDMAB_Msk              (_UINT32_(0xFFFFFFFF) << ADCHS_ADCDMAB_ADDMAB_Pos)   /* (ADCHS_ADCDMAB)  Mask */
 #define ADCHS_ADCDMAB_ADDMAB(value)           (ADCHS_ADCDMAB_ADDMAB_Msk & (_UINT32_(value) << ADCHS_ADCDMAB_ADDMAB_Pos)) /* Assigment of value for ADDMAB in the ADCHS_ADCDMAB register */
 #define ADCHS_ADCDMAB_Msk                     _UINT32_(0xFFFFFFFF)                                 /* (ADCHS_ADCDMAB) Register Mask  */
+
+
+/* -------- ADCHS_ADCDMABCLR : (ADCHS Offset: 0x334) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCDMABCLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCDMABCLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCDMABCLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCDMABCLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCDMABSET : (ADCHS Offset: 0x338) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCDMABSET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCDMABSET) Bit set register  Reset Value */
+
+#define ADCHS_ADCDMABSET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCDMABSET) Register Mask  */
+
+
+/* -------- ADCHS_ADCDMABINV : (ADCHS Offset: 0x33C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCDMABINV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCDMABINV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCDMABINV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCDMABINV) Register Mask  */
 
 
 /* -------- ADCHS_ADCTRGSNS : (ADCHS Offset: 0x340) (R/W 32)  -------- */
@@ -1343,6 +1775,60 @@
 #define ADCHS_ADCTRGSNS_LVL_Pos               _UINT32_(0)                                          /* (ADCHS_ADCTRGSNS Position)  */
 #define ADCHS_ADCTRGSNS_LVL_Msk               (_UINT32_(0xFF) << ADCHS_ADCTRGSNS_LVL_Pos)          /* (ADCHS_ADCTRGSNS Mask) LVL */
 #define ADCHS_ADCTRGSNS_LVL(value)            (ADCHS_ADCTRGSNS_LVL_Msk & (_UINT32_(value) << ADCHS_ADCTRGSNS_LVL_Pos)) 
+
+/* -------- ADCHS_ADCTRGSNSCLR : (ADCHS Offset: 0x344) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCTRGSNSCLR_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCTRGSNSCLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCTRGSNSCLR_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCTRGSNSCLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCTRGSNSSET : (ADCHS Offset: 0x348) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCTRGSNSSET_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCTRGSNSSET) Bit set register  Reset Value */
+
+#define ADCHS_ADCTRGSNSSET_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCTRGSNSSET) Register Mask  */
+
+
+/* -------- ADCHS_ADCTRGSNSINV : (ADCHS Offset: 0x34C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCTRGSNSINV_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCTRGSNSINV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCTRGSNSINV_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCTRGSNSINV) Register Mask  */
+
+
+/* -------- ADCHS_ADC0TIMECLR : (ADCHS Offset: 0x354) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADC0TIMECLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADC0TIMECLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADC0TIMECLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADC0TIMECLR) Register Mask  */
+
+
+/* -------- ADCHS_ADC0TIMESET : (ADCHS Offset: 0x358) (R/W 32) Bit set register -------- */
+#define ADCHS_ADC0TIMESET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADC0TIMESET) Bit set register  Reset Value */
+
+#define ADCHS_ADC0TIMESET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADC0TIMESET) Register Mask  */
+
+
+/* -------- ADCHS_ADC0TIMEINV : (ADCHS Offset: 0x35C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADC0TIMEINV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADC0TIMEINV) Bit invert register  Reset Value */
+
+#define ADCHS_ADC0TIMEINV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADC0TIMEINV) Register Mask  */
+
+
+/* -------- ADCHS_ADCEISTAT1CLR : (ADCHS Offset: 0x3E4) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCEISTAT1CLR_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCEISTAT1CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCEISTAT1CLR_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCEISTAT1CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCEISTAT1SET : (ADCHS Offset: 0x3E8) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCEISTAT1SET_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCEISTAT1SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCEISTAT1SET_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCEISTAT1SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCEISTAT1INV : (ADCHS Offset: 0x3EC) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCEISTAT1INV_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCEISTAT1INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCEISTAT1INV_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCEISTAT1INV) Register Mask  */
+
 
 /* -------- ADCHS_ADCANCON : (ADCHS Offset: 0x400) (R/W 32)  -------- */
 #define ADCHS_ADCANCON_RESETVALUE             _UINT32_(0x00)                                       /*  (ADCHS_ADCANCON)   Reset Value */
@@ -1380,6 +1866,24 @@
 #define ADCHS_ADCANCON_WKIEN_Msk              (_UINT32_(0x3) << ADCHS_ADCANCON_WKIEN_Pos)          /* (ADCHS_ADCANCON Mask) WKIEN */
 #define ADCHS_ADCANCON_WKIEN(value)           (ADCHS_ADCANCON_WKIEN_Msk & (_UINT32_(value) << ADCHS_ADCANCON_WKIEN_Pos)) 
 
+/* -------- ADCHS_ADCANLCTLCLR : (ADCHS Offset: 0x404) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCANLCTLCLR_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCANLCTLCLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCANLCTLCLR_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCANLCTLCLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCANLCTLSET : (ADCHS Offset: 0x408) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCANLCTLSET_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCANLCTLSET) Bit set register  Reset Value */
+
+#define ADCHS_ADCANLCTLSET_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCANLCTLSET) Register Mask  */
+
+
+/* -------- ADCHS_ADCANLCTLINV : (ADCHS Offset: 0x40C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCANLCTLINV_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCANLCTLINV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCANLCTLINV_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCANLCTLINV) Register Mask  */
+
+
 /* -------- ADCHS_ADC7CFG : (ADCHS Offset: 0x670) (R/W 32)  -------- */
 #define ADCHS_ADC7CFG_RESETVALUE              _UINT32_(0x00)                                       /*  (ADCHS_ADC7CFG)   Reset Value */
 
@@ -1387,6 +1891,42 @@
 #define ADCHS_ADC7CFG_ADC7CFG_Msk             (_UINT32_(0xFFFFFFFF) << ADCHS_ADC7CFG_ADC7CFG_Pos)  /* (ADCHS_ADC7CFG)  Mask */
 #define ADCHS_ADC7CFG_ADC7CFG(value)          (ADCHS_ADC7CFG_ADC7CFG_Msk & (_UINT32_(value) << ADCHS_ADC7CFG_ADC7CFG_Pos)) /* Assigment of value for ADC7CFG in the ADCHS_ADC7CFG register */
 #define ADCHS_ADC7CFG_Msk                     _UINT32_(0xFFFFFFFF)                                 /* (ADCHS_ADC7CFG) Register Mask  */
+
+
+/* -------- ADCHS_ADCFGSHRCLR : (ADCHS Offset: 0x674) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCFGSHRCLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFGSHRCLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCFGSHRCLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFGSHRCLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCFGSHRSET : (ADCHS Offset: 0x678) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCFGSHRSET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFGSHRSET) Bit set register  Reset Value */
+
+#define ADCHS_ADCFGSHRSET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFGSHRSET) Register Mask  */
+
+
+/* -------- ADCHS_ADCFGSHRINV : (ADCHS Offset: 0x67C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCFGSHRINV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFGSHRINV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCFGSHRINV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFGSHRINV) Register Mask  */
+
+
+/* -------- ADCHS_ADCSVCONCLR : (ADCHS Offset: 0x684) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCSVCONCLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCSVCONCLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCSVCONCLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCSVCONCLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCSVCONSET : (ADCHS Offset: 0x688) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCSVCONSET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCSVCONSET) Bit set register  Reset Value */
+
+#define ADCHS_ADCSVCONSET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCSVCONSET) Register Mask  */
+
+
+/* -------- ADCHS_ADCSVCONINV : (ADCHS Offset: 0x68C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCSVCONINV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCSVCONINV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCSVCONINV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCSVCONINV) Register Mask  */
 
 
 /* -------- ADCHS_ADCSYSCFG0 : (ADCHS Offset: 0x700) (R/W 32)  -------- */
@@ -1433,6 +1973,24 @@
 #define ADCHS_ADCSYSCFG0_AN_Pos               _UINT32_(0)                                          /* (ADCHS_ADCSYSCFG0 Position)  */
 #define ADCHS_ADCSYSCFG0_AN_Msk               (_UINT32_(0xFFF) << ADCHS_ADCSYSCFG0_AN_Pos)         /* (ADCHS_ADCSYSCFG0 Mask) AN */
 #define ADCHS_ADCSYSCFG0_AN(value)            (ADCHS_ADCSYSCFG0_AN_Msk & (_UINT32_(value) << ADCHS_ADCSYSCFG0_AN_Pos)) 
+
+/* -------- ADCHS_ADCSYSCFG0CLR : (ADCHS Offset: 0x704) (R/W 32) Bit clear register -------- */
+#define ADCHS_ADCSYSCFG0CLR_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCSYSCFG0CLR) Bit clear register  Reset Value */
+
+#define ADCHS_ADCSYSCFG0CLR_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCSYSCFG0CLR) Register Mask  */
+
+
+/* -------- ADCHS_ADCSYSCFG0SET : (ADCHS Offset: 0x708) (R/W 32) Bit set register -------- */
+#define ADCHS_ADCSYSCFG0SET_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCSYSCFG0SET) Bit set register  Reset Value */
+
+#define ADCHS_ADCSYSCFG0SET_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCSYSCFG0SET) Register Mask  */
+
+
+/* -------- ADCHS_ADCSYSCFG0INV : (ADCHS Offset: 0x70C) (R/W 32) Bit invert register -------- */
+#define ADCHS_ADCSYSCFG0INV_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCSYSCFG0INV) Bit invert register  Reset Value */
+
+#define ADCHS_ADCSYSCFG0INV_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCSYSCFG0INV) Register Mask  */
+
 
 /* -------- ADCHS_ADCDATA0 : (ADCHS Offset: 0xA00) (R/W 32)  -------- */
 #define ADCHS_ADCDATA0_RESETVALUE             _UINT32_(0x00)                                       /*  (ADCHS_ADCDATA0)   Reset Value */
@@ -1542,590 +2100,125 @@
 #define ADCHS_ADCDATA11_Msk                   _UINT32_(0xFFFFFFFF)                                 /* (ADCHS_ADCDATA11) Register Mask  */
 
 
-/* -------- ADCHS_ADCCON1CLR : (ADCHS Offset: 0x04) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCCON1CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON1CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCCON1CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON1CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCCON1SET : (ADCHS Offset: 0x08) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCCON1SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON1SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCCON1SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON1SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCCON1INV : (ADCHS Offset: 0x0C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCCON1INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON1INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCCON1INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON1INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCCON2CLR : (ADCHS Offset: 0x14) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCCON2CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON2CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCCON2CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON2CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCCON2SET : (ADCHS Offset: 0x18) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCCON2SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON2SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCCON2SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON2SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCCON2INV : (ADCHS Offset: 0x1C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCCON2INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON2INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCCON2INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON2INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCCON3CLR : (ADCHS Offset: 0x24) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCCON3CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON3CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCCON3CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON3CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCCON3SET : (ADCHS Offset: 0x28) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCCON3SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON3SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCCON3SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON3SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCCON3INV : (ADCHS Offset: 0x2C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCCON3INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCON3INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCCON3INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCON3INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCIMOD1CLR : (ADCHS Offset: 0x44) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCIMOD1CLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCIMOD1CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCIMOD1CLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCIMOD1CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCIMOD1SET : (ADCHS Offset: 0x48) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCIMOD1SET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCIMOD1SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCIMOD1SET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCIMOD1SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCIMOD1INV : (ADCHS Offset: 0x4C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCIMOD1INV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCIMOD1INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCIMOD1INV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCIMOD1INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCGIRQEN1CLR : (ADCHS Offset: 0x84) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCGIRQEN1CLR_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCGIRQEN1CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCGIRQEN1CLR_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCGIRQEN1CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCGIRQEN1SET : (ADCHS Offset: 0x88) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCGIRQEN1SET_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCGIRQEN1SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCGIRQEN1SET_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCGIRQEN1SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCGIRQEN1INV : (ADCHS Offset: 0x8C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCGIRQEN1INV_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCGIRQEN1INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCGIRQEN1INV_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCGIRQEN1INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCCSS1CLR : (ADCHS Offset: 0xA4) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCCSS1CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCSS1CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCCSS1CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCSS1CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCCSS1SET : (ADCHS Offset: 0xA8) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCCSS1SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCSS1SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCCSS1SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCSS1SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCCSS1INV : (ADCHS Offset: 0xAC) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCCSS1INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCSS1INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCCSS1INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCSS1INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCDSTAT1CLR : (ADCHS Offset: 0xC4) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCDSTAT1CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCDSTAT1CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCDSTAT1CLR_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCDSTAT1CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCDSTAT1SET : (ADCHS Offset: 0xC8) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCDSTAT1SET_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCDSTAT1SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCDSTAT1SET_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCDSTAT1SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCDSTAT1INV : (ADCHS Offset: 0xCC) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCDSTAT1INV_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCDSTAT1INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCDSTAT1INV_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCDSTAT1INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCCMPEN0CLR : (ADCHS Offset: 0xE4) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCCMPEN0CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN0CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCCMPEN0CLR_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPEN0CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCCMPEN0SET : (ADCHS Offset: 0xE8) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCCMPEN0SET_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN0SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCCMPEN0SET_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPEN0SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCCMPEN0INV : (ADCHS Offset: 0xEC) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCCMPEN0INV_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN0INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCCMPEN0INV_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPEN0INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCCMP0CLR : (ADCHS Offset: 0xF4) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCCMP0CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCMP0CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCCMP0CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMP0CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCCMP0SET : (ADCHS Offset: 0xF8) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCCMP0SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCMP0SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCCMP0SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMP0SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCCMP0INV : (ADCHS Offset: 0xFC) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCCMP0INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCMP0INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCCMP0INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMP0INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCCMPEN1CLR : (ADCHS Offset: 0x104) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCCMPEN1CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN1CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCCMPEN1CLR_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPEN1CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCCMPEN1SET : (ADCHS Offset: 0x108) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCCMPEN1SET_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN1SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCCMPEN1SET_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPEN1SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCCMPEN1INV : (ADCHS Offset: 0x10C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCCMPEN1INV_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPEN1INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCCMPEN1INV_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPEN1INV) Register Mask  */
-
-
-/* -------- ADCHS_ADDCMP1CLR : (ADCHS Offset: 0x114) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADDCMP1CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADDCMP1CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADDCMP1CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADDCMP1CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADDCMP1SET : (ADCHS Offset: 0x118) (R/W 32) Bit set register -------- */
-#define ADCHS_ADDCMP1SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADDCMP1SET) Bit set register  Reset Value */
-
-#define ADCHS_ADDCMP1SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADDCMP1SET) Register Mask  */
-
-
-/* -------- ADCHS_ADDCMP1INV : (ADCHS Offset: 0x11C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADDCMP1INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADDCMP1INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADDCMP1INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADDCMP1INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCFLTR0CLR : (ADCHS Offset: 0x1A4) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCFLTR0CLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR0CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCFLTR0CLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFLTR0CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCFLTR0SET : (ADCHS Offset: 0x1A8) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCFLTR0SET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR0SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCFLTR0SET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFLTR0SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCFLTR0INV : (ADCHS Offset: 0x1AC) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCFLTR0INV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR0INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCFLTR0INV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFLTR0INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCFLTR1CLR : (ADCHS Offset: 0x1B4) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCFLTR1CLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR1CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCFLTR1CLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFLTR1CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCFLTR1SET : (ADCHS Offset: 0x1B8) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCFLTR1SET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR1SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCFLTR1SET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFLTR1SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCFLTR1INV : (ADCHS Offset: 0x1BC) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCFLTR1INV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFLTR1INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCFLTR1INV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFLTR1INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCTRG1CLR : (ADCHS Offset: 0x204) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCTRG1CLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCTRG1CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCTRG1CLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCTRG1CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCTRG1SET : (ADCHS Offset: 0x208) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCTRG1SET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCTRG1SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCTRG1SET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCTRG1SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCTRG1INV : (ADCHS Offset: 0x20C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCTRG1INV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCTRG1INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCTRG1INV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCTRG1INV) Register Mask  */
-
-
-/* -------- ADCHS_ADTRG2CLR : (ADCHS Offset: 0x214) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADTRG2CLR_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADTRG2CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADTRG2CLR_Msk                   _UINT32_(0x00000000)                                 /* (ADCHS_ADTRG2CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADTRG2SET : (ADCHS Offset: 0x218) (R/W 32) Bit set register -------- */
-#define ADCHS_ADTRG2SET_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADTRG2SET) Bit set register  Reset Value */
-
-#define ADCHS_ADTRG2SET_Msk                   _UINT32_(0x00000000)                                 /* (ADCHS_ADTRG2SET) Register Mask  */
-
-
-/* -------- ADCHS_ADTRG2INV : (ADCHS Offset: 0x21C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADTRG2INV_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADTRG2INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADTRG2INV_Msk                   _UINT32_(0x00000000)                                 /* (ADCHS_ADTRG2INV) Register Mask  */
-
-
-/* -------- ADCHS_ADTRG3CLR : (ADCHS Offset: 0x224) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADTRG3CLR_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADTRG3CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADTRG3CLR_Msk                   _UINT32_(0x00000000)                                 /* (ADCHS_ADTRG3CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADTRG3SET : (ADCHS Offset: 0x228) (R/W 32) Bit set register -------- */
-#define ADCHS_ADTRG3SET_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADTRG3SET) Bit set register  Reset Value */
-
-#define ADCHS_ADTRG3SET_Msk                   _UINT32_(0x00000000)                                 /* (ADCHS_ADTRG3SET) Register Mask  */
-
-
-/* -------- ADCHS_ADTRG3INV : (ADCHS Offset: 0x22C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADTRG3INV_RESETVALUE            _UINT32_(0x00)                                       /*  (ADCHS_ADTRG3INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADTRG3INV_Msk                   _UINT32_(0x00000000)                                 /* (ADCHS_ADTRG3INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCCMPCON1CLR : (ADCHS Offset: 0x284) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCCMPCON1CLR_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPCON1CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCCMPCON1CLR_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPCON1CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCCMPCON1SET : (ADCHS Offset: 0x288) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCCMPCON1SET_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPCON1SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCCMPCON1SET_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPCON1SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCCMPCON1INV : (ADCHS Offset: 0x28C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCCMPCON1INV_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCCMPCON1INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCCMPCON1INV_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCCMPCON1INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCMPCON2CLR : (ADCHS Offset: 0x294) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCMPCON2CLR_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCMPCON2CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCMPCON2CLR_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCMPCON2CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCMPCON2SET : (ADCHS Offset: 0x298) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCMPCON2SET_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCMPCON2SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCMPCON2SET_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCMPCON2SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCMPCON2INV : (ADCHS Offset: 0x29C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCMPCON2INV_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCMPCON2INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCMPCON2INV_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCMPCON2INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCFSTATCLR : (ADCHS Offset: 0x2E4) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCFSTATCLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFSTATCLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCFSTATCLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFSTATCLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCFSTATSET : (ADCHS Offset: 0x2E8) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCFSTATSET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFSTATSET) Bit set register  Reset Value */
-
-#define ADCHS_ADCFSTATSET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFSTATSET) Register Mask  */
-
-
-/* -------- ADCHS_ADCFSTATINV : (ADCHS Offset: 0x2EC) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCFSTATINV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFSTATINV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCFSTATINV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFSTATINV) Register Mask  */
-
-
-/* -------- ADCHS_ADCFIFOCLR : (ADCHS Offset: 0x2F4) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCFIFOCLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCFIFOCLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCFIFOCLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCFIFOCLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCFIFOSET : (ADCHS Offset: 0x2F8) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCFIFOSET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCFIFOSET) Bit set register  Reset Value */
-
-#define ADCHS_ADCFIFOSET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCFIFOSET) Register Mask  */
-
-
-/* -------- ADCHS_ADCFIFOINV : (ADCHS Offset: 0x2FC) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCFIFOINV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCFIFOINV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCFIFOINV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCFIFOINV) Register Mask  */
-
-
-/* -------- ADCHS_ADCBASECLR : (ADCHS Offset: 0x304) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCBASECLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCBASECLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCBASECLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCBASECLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCBASESET : (ADCHS Offset: 0x308) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCBASESET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCBASESET) Bit set register  Reset Value */
-
-#define ADCHS_ADCBASESET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCBASESET) Register Mask  */
-
-
-/* -------- ADCHS_ADCBASEINV : (ADCHS Offset: 0x30C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCBASEINV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCBASEINV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCBASEINV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCBASEINV) Register Mask  */
-
-
-/* -------- ADCHS_ADCDMASTATCLR : (ADCHS Offset: 0x314) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCDMASTATCLR_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCDMASTATCLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCDMASTATCLR_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCDMASTATCLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCDMASTATSET : (ADCHS Offset: 0x318) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCDMASTATSET_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCDMASTATSET) Bit set register  Reset Value */
-
-#define ADCHS_ADCDMASTATSET_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCDMASTATSET) Register Mask  */
-
-
-/* -------- ADCHS_ADCDMASTATINV : (ADCHS Offset: 0x31C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCDMASTATINV_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCDMASTATINV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCDMASTATINV_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCDMASTATINV) Register Mask  */
-
-
-/* -------- ADCHS_ADCCNTBCLR : (ADCHS Offset: 0x324) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCCNTBCLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCNTBCLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCCNTBCLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCNTBCLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCCNTBSET : (ADCHS Offset: 0x328) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCCNTBSET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCNTBSET) Bit set register  Reset Value */
-
-#define ADCHS_ADCCNTBSET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCNTBSET) Register Mask  */
-
-
-/* -------- ADCHS_ADCCNTBINV : (ADCHS Offset: 0x32C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCCNTBINV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCCNTBINV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCCNTBINV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCCNTBINV) Register Mask  */
-
-
-/* -------- ADCHS_ADCDMABCLR : (ADCHS Offset: 0x334) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCDMABCLR_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCDMABCLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCDMABCLR_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCDMABCLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCDMABSET : (ADCHS Offset: 0x338) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCDMABSET_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCDMABSET) Bit set register  Reset Value */
-
-#define ADCHS_ADCDMABSET_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCDMABSET) Register Mask  */
-
-
-/* -------- ADCHS_ADCDMABINV : (ADCHS Offset: 0x33C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCDMABINV_RESETVALUE           _UINT32_(0x00)                                       /*  (ADCHS_ADCDMABINV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCDMABINV_Msk                  _UINT32_(0x00000000)                                 /* (ADCHS_ADCDMABINV) Register Mask  */
-
-
-/* -------- ADCHS_ADCTRGSNSCLR : (ADCHS Offset: 0x344) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCTRGSNSCLR_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCTRGSNSCLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCTRGSNSCLR_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCTRGSNSCLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCTRGSNSSET : (ADCHS Offset: 0x348) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCTRGSNSSET_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCTRGSNSSET) Bit set register  Reset Value */
-
-#define ADCHS_ADCTRGSNSSET_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCTRGSNSSET) Register Mask  */
-
-
-/* -------- ADCHS_ADCTRGSNSINV : (ADCHS Offset: 0x34C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCTRGSNSINV_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCTRGSNSINV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCTRGSNSINV_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCTRGSNSINV) Register Mask  */
-
-
-/* -------- ADCHS_ADC0TIMECLR : (ADCHS Offset: 0x354) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADC0TIMECLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADC0TIMECLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADC0TIMECLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADC0TIMECLR) Register Mask  */
-
-
-/* -------- ADCHS_ADC0TIMESET : (ADCHS Offset: 0x358) (R/W 32) Bit set register -------- */
-#define ADCHS_ADC0TIMESET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADC0TIMESET) Bit set register  Reset Value */
-
-#define ADCHS_ADC0TIMESET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADC0TIMESET) Register Mask  */
-
-
-/* -------- ADCHS_ADC0TIMEINV : (ADCHS Offset: 0x35C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADC0TIMEINV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADC0TIMEINV) Bit invert register  Reset Value */
-
-#define ADCHS_ADC0TIMEINV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADC0TIMEINV) Register Mask  */
-
-
-/* -------- ADCHS_ADCEISTAT1CLR : (ADCHS Offset: 0x3E4) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCEISTAT1CLR_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCEISTAT1CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCEISTAT1CLR_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCEISTAT1CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCEISTAT1SET : (ADCHS Offset: 0x3E8) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCEISTAT1SET_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCEISTAT1SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCEISTAT1SET_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCEISTAT1SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCEISTAT1INV : (ADCHS Offset: 0x3EC) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCEISTAT1INV_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCEISTAT1INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCEISTAT1INV_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCEISTAT1INV) Register Mask  */
-
-
-/* -------- ADCHS_ADCANLCTLCLR : (ADCHS Offset: 0x404) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCANLCTLCLR_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCANLCTLCLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCANLCTLCLR_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCANLCTLCLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCANLCTLSET : (ADCHS Offset: 0x408) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCANLCTLSET_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCANLCTLSET) Bit set register  Reset Value */
-
-#define ADCHS_ADCANLCTLSET_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCANLCTLSET) Register Mask  */
-
-
-/* -------- ADCHS_ADCANLCTLINV : (ADCHS Offset: 0x40C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCANLCTLINV_RESETVALUE         _UINT32_(0x00)                                       /*  (ADCHS_ADCANLCTLINV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCANLCTLINV_Msk                _UINT32_(0x00000000)                                 /* (ADCHS_ADCANLCTLINV) Register Mask  */
-
-
-/* -------- ADCHS_ADCFGSHRCLR : (ADCHS Offset: 0x674) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCFGSHRCLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFGSHRCLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCFGSHRCLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFGSHRCLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCFGSHRSET : (ADCHS Offset: 0x678) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCFGSHRSET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFGSHRSET) Bit set register  Reset Value */
-
-#define ADCHS_ADCFGSHRSET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFGSHRSET) Register Mask  */
-
-
-/* -------- ADCHS_ADCFGSHRINV : (ADCHS Offset: 0x67C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCFGSHRINV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCFGSHRINV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCFGSHRINV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCFGSHRINV) Register Mask  */
-
-
-/* -------- ADCHS_ADCSVCONCLR : (ADCHS Offset: 0x684) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCSVCONCLR_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCSVCONCLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCSVCONCLR_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCSVCONCLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCSVCONSET : (ADCHS Offset: 0x688) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCSVCONSET_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCSVCONSET) Bit set register  Reset Value */
-
-#define ADCHS_ADCSVCONSET_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCSVCONSET) Register Mask  */
-
-
-/* -------- ADCHS_ADCSVCONINV : (ADCHS Offset: 0x68C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCSVCONINV_RESETVALUE          _UINT32_(0x00)                                       /*  (ADCHS_ADCSVCONINV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCSVCONINV_Msk                 _UINT32_(0x00000000)                                 /* (ADCHS_ADCSVCONINV) Register Mask  */
-
-
-/* -------- ADCHS_ADCSYSCFG0CLR : (ADCHS Offset: 0x704) (R/W 32) Bit clear register -------- */
-#define ADCHS_ADCSYSCFG0CLR_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCSYSCFG0CLR) Bit clear register  Reset Value */
-
-#define ADCHS_ADCSYSCFG0CLR_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCSYSCFG0CLR) Register Mask  */
-
-
-/* -------- ADCHS_ADCSYSCFG0SET : (ADCHS Offset: 0x708) (R/W 32) Bit set register -------- */
-#define ADCHS_ADCSYSCFG0SET_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCSYSCFG0SET) Bit set register  Reset Value */
-
-#define ADCHS_ADCSYSCFG0SET_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCSYSCFG0SET) Register Mask  */
-
-
-/* -------- ADCHS_ADCSYSCFG0INV : (ADCHS Offset: 0x70C) (R/W 32) Bit invert register -------- */
-#define ADCHS_ADCSYSCFG0INV_RESETVALUE        _UINT32_(0x00)                                       /*  (ADCHS_ADCSYSCFG0INV) Bit invert register  Reset Value */
-
-#define ADCHS_ADCSYSCFG0INV_Msk               _UINT32_(0x00000000)                                 /* (ADCHS_ADCSYSCFG0INV) Register Mask  */
-
-
 /** \brief ADCHS register offsets definitions */
 #define ADCHS_ADCCON1_REG_OFST         _UINT32_(0x00)      /* (ADCHS_ADCCON1)  Offset */
+#define ADCHS_ADCCON1CLR_REG_OFST      _UINT32_(0x04)      /* (ADCHS_ADCCON1CLR) Bit clear register Offset */
+#define ADCHS_ADCCON1SET_REG_OFST      _UINT32_(0x08)      /* (ADCHS_ADCCON1SET) Bit set register Offset */
+#define ADCHS_ADCCON1INV_REG_OFST      _UINT32_(0x0C)      /* (ADCHS_ADCCON1INV) Bit invert register Offset */
 #define ADCHS_ADCCON2_REG_OFST         _UINT32_(0x10)      /* (ADCHS_ADCCON2)  Offset */
+#define ADCHS_ADCCON2CLR_REG_OFST      _UINT32_(0x14)      /* (ADCHS_ADCCON2CLR) Bit clear register Offset */
+#define ADCHS_ADCCON2SET_REG_OFST      _UINT32_(0x18)      /* (ADCHS_ADCCON2SET) Bit set register Offset */
+#define ADCHS_ADCCON2INV_REG_OFST      _UINT32_(0x1C)      /* (ADCHS_ADCCON2INV) Bit invert register Offset */
 #define ADCHS_ADCCON3_REG_OFST         _UINT32_(0x20)      /* (ADCHS_ADCCON3)  Offset */
+#define ADCHS_ADCCON3CLR_REG_OFST      _UINT32_(0x24)      /* (ADCHS_ADCCON3CLR) Bit clear register Offset */
+#define ADCHS_ADCCON3SET_REG_OFST      _UINT32_(0x28)      /* (ADCHS_ADCCON3SET) Bit set register Offset */
+#define ADCHS_ADCCON3INV_REG_OFST      _UINT32_(0x2C)      /* (ADCHS_ADCCON3INV) Bit invert register Offset */
 #define ADCHS_ADCIMCON1_REG_OFST       _UINT32_(0x40)      /* (ADCHS_ADCIMCON1)  Offset */
+#define ADCHS_ADCIMOD1CLR_REG_OFST     _UINT32_(0x44)      /* (ADCHS_ADCIMOD1CLR) Bit clear register Offset */
+#define ADCHS_ADCIMOD1SET_REG_OFST     _UINT32_(0x48)      /* (ADCHS_ADCIMOD1SET) Bit set register Offset */
+#define ADCHS_ADCIMOD1INV_REG_OFST     _UINT32_(0x4C)      /* (ADCHS_ADCIMOD1INV) Bit invert register Offset */
 #define ADCHS_ADCGIRQEN1_REG_OFST      _UINT32_(0x80)      /* (ADCHS_ADCGIRQEN1)  Offset */
+#define ADCHS_ADCGIRQEN1CLR_REG_OFST   _UINT32_(0x84)      /* (ADCHS_ADCGIRQEN1CLR) Bit clear register Offset */
+#define ADCHS_ADCGIRQEN1SET_REG_OFST   _UINT32_(0x88)      /* (ADCHS_ADCGIRQEN1SET) Bit set register Offset */
+#define ADCHS_ADCGIRQEN1INV_REG_OFST   _UINT32_(0x8C)      /* (ADCHS_ADCGIRQEN1INV) Bit invert register Offset */
 #define ADCHS_ADCCSS1_REG_OFST         _UINT32_(0xA0)      /* (ADCHS_ADCCSS1)  Offset */
+#define ADCHS_ADCCSS1CLR_REG_OFST      _UINT32_(0xA4)      /* (ADCHS_ADCCSS1CLR) Bit clear register Offset */
+#define ADCHS_ADCCSS1SET_REG_OFST      _UINT32_(0xA8)      /* (ADCHS_ADCCSS1SET) Bit set register Offset */
+#define ADCHS_ADCCSS1INV_REG_OFST      _UINT32_(0xAC)      /* (ADCHS_ADCCSS1INV) Bit invert register Offset */
 #define ADCHS_ADCDSTAT1_REG_OFST       _UINT32_(0xC0)      /* (ADCHS_ADCDSTAT1)  Offset */
+#define ADCHS_ADCDSTAT1CLR_REG_OFST    _UINT32_(0xC4)      /* (ADCHS_ADCDSTAT1CLR) Bit clear register Offset */
+#define ADCHS_ADCDSTAT1SET_REG_OFST    _UINT32_(0xC8)      /* (ADCHS_ADCDSTAT1SET) Bit set register Offset */
+#define ADCHS_ADCDSTAT1INV_REG_OFST    _UINT32_(0xCC)      /* (ADCHS_ADCDSTAT1INV) Bit invert register Offset */
 #define ADCHS_ADCCMPEN1_REG_OFST       _UINT32_(0xE0)      /* (ADCHS_ADCCMPEN1)  Offset */
+#define ADCHS_ADCCMPEN0CLR_REG_OFST    _UINT32_(0xE4)      /* (ADCHS_ADCCMPEN0CLR) Bit clear register Offset */
+#define ADCHS_ADCCMPEN0SET_REG_OFST    _UINT32_(0xE8)      /* (ADCHS_ADCCMPEN0SET) Bit set register Offset */
+#define ADCHS_ADCCMPEN0INV_REG_OFST    _UINT32_(0xEC)      /* (ADCHS_ADCCMPEN0INV) Bit invert register Offset */
 #define ADCHS_ADCCMP1_REG_OFST         _UINT32_(0xF0)      /* (ADCHS_ADCCMP1)  Offset */
+#define ADCHS_ADCCMP0CLR_REG_OFST      _UINT32_(0xF4)      /* (ADCHS_ADCCMP0CLR) Bit clear register Offset */
+#define ADCHS_ADCCMP0SET_REG_OFST      _UINT32_(0xF8)      /* (ADCHS_ADCCMP0SET) Bit set register Offset */
+#define ADCHS_ADCCMP0INV_REG_OFST      _UINT32_(0xFC)      /* (ADCHS_ADCCMP0INV) Bit invert register Offset */
 #define ADCHS_ADCCMPEN2_REG_OFST       _UINT32_(0x100)     /* (ADCHS_ADCCMPEN2)  Offset */
+#define ADCHS_ADCCMPEN1CLR_REG_OFST    _UINT32_(0x104)     /* (ADCHS_ADCCMPEN1CLR) Bit clear register Offset */
+#define ADCHS_ADCCMPEN1SET_REG_OFST    _UINT32_(0x108)     /* (ADCHS_ADCCMPEN1SET) Bit set register Offset */
+#define ADCHS_ADCCMPEN1INV_REG_OFST    _UINT32_(0x10C)     /* (ADCHS_ADCCMPEN1INV) Bit invert register Offset */
 #define ADCHS_ADCCMP2_REG_OFST         _UINT32_(0x110)     /* (ADCHS_ADCCMP2)  Offset */
+#define ADCHS_ADDCMP1CLR_REG_OFST      _UINT32_(0x114)     /* (ADCHS_ADDCMP1CLR) Bit clear register Offset */
+#define ADCHS_ADDCMP1SET_REG_OFST      _UINT32_(0x118)     /* (ADCHS_ADDCMP1SET) Bit set register Offset */
+#define ADCHS_ADDCMP1INV_REG_OFST      _UINT32_(0x11C)     /* (ADCHS_ADDCMP1INV) Bit invert register Offset */
 #define ADCHS_ADCFLTR1_REG_OFST        _UINT32_(0x1A0)     /* (ADCHS_ADCFLTR1)  Offset */
+#define ADCHS_ADCFLTR0CLR_REG_OFST     _UINT32_(0x1A4)     /* (ADCHS_ADCFLTR0CLR) Bit clear register Offset */
+#define ADCHS_ADCFLTR0SET_REG_OFST     _UINT32_(0x1A8)     /* (ADCHS_ADCFLTR0SET) Bit set register Offset */
+#define ADCHS_ADCFLTR0INV_REG_OFST     _UINT32_(0x1AC)     /* (ADCHS_ADCFLTR0INV) Bit invert register Offset */
 #define ADCHS_ADCFLTR2_REG_OFST        _UINT32_(0x1B0)     /* (ADCHS_ADCFLTR2)  Offset */
+#define ADCHS_ADCFLTR1CLR_REG_OFST     _UINT32_(0x1B4)     /* (ADCHS_ADCFLTR1CLR) Bit clear register Offset */
+#define ADCHS_ADCFLTR1SET_REG_OFST     _UINT32_(0x1B8)     /* (ADCHS_ADCFLTR1SET) Bit set register Offset */
+#define ADCHS_ADCFLTR1INV_REG_OFST     _UINT32_(0x1BC)     /* (ADCHS_ADCFLTR1INV) Bit invert register Offset */
 #define ADCHS_ADCTRG1_REG_OFST         _UINT32_(0x200)     /* (ADCHS_ADCTRG1) ADC Trigger Source 1 Register Offset */
+#define ADCHS_ADCTRG1CLR_REG_OFST      _UINT32_(0x204)     /* (ADCHS_ADCTRG1CLR) Bit clear register Offset */
+#define ADCHS_ADCTRG1SET_REG_OFST      _UINT32_(0x208)     /* (ADCHS_ADCTRG1SET) Bit set register Offset */
+#define ADCHS_ADCTRG1INV_REG_OFST      _UINT32_(0x20C)     /* (ADCHS_ADCTRG1INV) Bit invert register Offset */
 #define ADCHS_ADCTRG2_REG_OFST         _UINT32_(0x210)     /* (ADCHS_ADCTRG2) ADC Trigger Source 2 Register Offset */
+#define ADCHS_ADTRG2CLR_REG_OFST       _UINT32_(0x214)     /* (ADCHS_ADTRG2CLR) Bit clear register Offset */
+#define ADCHS_ADTRG2SET_REG_OFST       _UINT32_(0x218)     /* (ADCHS_ADTRG2SET) Bit set register Offset */
+#define ADCHS_ADTRG2INV_REG_OFST       _UINT32_(0x21C)     /* (ADCHS_ADTRG2INV) Bit invert register Offset */
+#define ADCHS_ADTRG3CLR_REG_OFST       _UINT32_(0x224)     /* (ADCHS_ADTRG3CLR) Bit clear register Offset */
+#define ADCHS_ADTRG3SET_REG_OFST       _UINT32_(0x228)     /* (ADCHS_ADTRG3SET) Bit set register Offset */
+#define ADCHS_ADTRG3INV_REG_OFST       _UINT32_(0x22C)     /* (ADCHS_ADTRG3INV) Bit invert register Offset */
 #define ADCHS_ADCCMPCON1_REG_OFST      _UINT32_(0x280)     /* (ADCHS_ADCCMPCON1)  Offset */
+#define ADCHS_ADCCMPCON1CLR_REG_OFST   _UINT32_(0x284)     /* (ADCHS_ADCCMPCON1CLR) Bit clear register Offset */
+#define ADCHS_ADCCMPCON1SET_REG_OFST   _UINT32_(0x288)     /* (ADCHS_ADCCMPCON1SET) Bit set register Offset */
+#define ADCHS_ADCCMPCON1INV_REG_OFST   _UINT32_(0x28C)     /* (ADCHS_ADCCMPCON1INV) Bit invert register Offset */
 #define ADCHS_ADCCMPCON2_REG_OFST      _UINT32_(0x290)     /* (ADCHS_ADCCMPCON2)  Offset */
+#define ADCHS_ADCMPCON2CLR_REG_OFST    _UINT32_(0x294)     /* (ADCHS_ADCMPCON2CLR) Bit clear register Offset */
+#define ADCHS_ADCMPCON2SET_REG_OFST    _UINT32_(0x298)     /* (ADCHS_ADCMPCON2SET) Bit set register Offset */
+#define ADCHS_ADCMPCON2INV_REG_OFST    _UINT32_(0x29C)     /* (ADCHS_ADCMPCON2INV) Bit invert register Offset */
+#define ADCHS_ADCFSTATCLR_REG_OFST     _UINT32_(0x2E4)     /* (ADCHS_ADCFSTATCLR) Bit clear register Offset */
+#define ADCHS_ADCFSTATSET_REG_OFST     _UINT32_(0x2E8)     /* (ADCHS_ADCFSTATSET) Bit set register Offset */
+#define ADCHS_ADCFSTATINV_REG_OFST     _UINT32_(0x2EC)     /* (ADCHS_ADCFSTATINV) Bit invert register Offset */
+#define ADCHS_ADCFIFOCLR_REG_OFST      _UINT32_(0x2F4)     /* (ADCHS_ADCFIFOCLR) Bit clear register Offset */
+#define ADCHS_ADCFIFOSET_REG_OFST      _UINT32_(0x2F8)     /* (ADCHS_ADCFIFOSET) Bit set register Offset */
+#define ADCHS_ADCFIFOINV_REG_OFST      _UINT32_(0x2FC)     /* (ADCHS_ADCFIFOINV) Bit invert register Offset */
 #define ADCHS_ADCBASE_REG_OFST         _UINT32_(0x300)     /* (ADCHS_ADCBASE)  Offset */
+#define ADCHS_ADCBASECLR_REG_OFST      _UINT32_(0x304)     /* (ADCHS_ADCBASECLR) Bit clear register Offset */
+#define ADCHS_ADCBASESET_REG_OFST      _UINT32_(0x308)     /* (ADCHS_ADCBASESET) Bit set register Offset */
+#define ADCHS_ADCBASEINV_REG_OFST      _UINT32_(0x30C)     /* (ADCHS_ADCBASEINV) Bit invert register Offset */
 #define ADCHS_ADCDMASTAT_REG_OFST      _UINT32_(0x310)     /* (ADCHS_ADCDMASTAT)  Offset */
+#define ADCHS_ADCDMASTATCLR_REG_OFST   _UINT32_(0x314)     /* (ADCHS_ADCDMASTATCLR) Bit clear register Offset */
+#define ADCHS_ADCDMASTATSET_REG_OFST   _UINT32_(0x318)     /* (ADCHS_ADCDMASTATSET) Bit set register Offset */
+#define ADCHS_ADCDMASTATINV_REG_OFST   _UINT32_(0x31C)     /* (ADCHS_ADCDMASTATINV) Bit invert register Offset */
 #define ADCHS_ADCCNTB_REG_OFST         _UINT32_(0x320)     /* (ADCHS_ADCCNTB)  Offset */
+#define ADCHS_ADCCNTBCLR_REG_OFST      _UINT32_(0x324)     /* (ADCHS_ADCCNTBCLR) Bit clear register Offset */
+#define ADCHS_ADCCNTBSET_REG_OFST      _UINT32_(0x328)     /* (ADCHS_ADCCNTBSET) Bit set register Offset */
+#define ADCHS_ADCCNTBINV_REG_OFST      _UINT32_(0x32C)     /* (ADCHS_ADCCNTBINV) Bit invert register Offset */
 #define ADCHS_ADCDMAB_REG_OFST         _UINT32_(0x330)     /* (ADCHS_ADCDMAB)  Offset */
+#define ADCHS_ADCDMABCLR_REG_OFST      _UINT32_(0x334)     /* (ADCHS_ADCDMABCLR) Bit clear register Offset */
+#define ADCHS_ADCDMABSET_REG_OFST      _UINT32_(0x338)     /* (ADCHS_ADCDMABSET) Bit set register Offset */
+#define ADCHS_ADCDMABINV_REG_OFST      _UINT32_(0x33C)     /* (ADCHS_ADCDMABINV) Bit invert register Offset */
 #define ADCHS_ADCTRGSNS_REG_OFST       _UINT32_(0x340)     /* (ADCHS_ADCTRGSNS)  Offset */
+#define ADCHS_ADCTRGSNSCLR_REG_OFST    _UINT32_(0x344)     /* (ADCHS_ADCTRGSNSCLR) Bit clear register Offset */
+#define ADCHS_ADCTRGSNSSET_REG_OFST    _UINT32_(0x348)     /* (ADCHS_ADCTRGSNSSET) Bit set register Offset */
+#define ADCHS_ADCTRGSNSINV_REG_OFST    _UINT32_(0x34C)     /* (ADCHS_ADCTRGSNSINV) Bit invert register Offset */
+#define ADCHS_ADC0TIMECLR_REG_OFST     _UINT32_(0x354)     /* (ADCHS_ADC0TIMECLR) Bit clear register Offset */
+#define ADCHS_ADC0TIMESET_REG_OFST     _UINT32_(0x358)     /* (ADCHS_ADC0TIMESET) Bit set register Offset */
+#define ADCHS_ADC0TIMEINV_REG_OFST     _UINT32_(0x35C)     /* (ADCHS_ADC0TIMEINV) Bit invert register Offset */
+#define ADCHS_ADCEISTAT1CLR_REG_OFST   _UINT32_(0x3E4)     /* (ADCHS_ADCEISTAT1CLR) Bit clear register Offset */
+#define ADCHS_ADCEISTAT1SET_REG_OFST   _UINT32_(0x3E8)     /* (ADCHS_ADCEISTAT1SET) Bit set register Offset */
+#define ADCHS_ADCEISTAT1INV_REG_OFST   _UINT32_(0x3EC)     /* (ADCHS_ADCEISTAT1INV) Bit invert register Offset */
 #define ADCHS_ADCANCON_REG_OFST        _UINT32_(0x400)     /* (ADCHS_ADCANCON)  Offset */
+#define ADCHS_ADCANLCTLCLR_REG_OFST    _UINT32_(0x404)     /* (ADCHS_ADCANLCTLCLR) Bit clear register Offset */
+#define ADCHS_ADCANLCTLSET_REG_OFST    _UINT32_(0x408)     /* (ADCHS_ADCANLCTLSET) Bit set register Offset */
+#define ADCHS_ADCANLCTLINV_REG_OFST    _UINT32_(0x40C)     /* (ADCHS_ADCANLCTLINV) Bit invert register Offset */
 #define ADCHS_ADC7CFG_REG_OFST         _UINT32_(0x670)     /* (ADCHS_ADC7CFG)  Offset */
+#define ADCHS_ADCFGSHRCLR_REG_OFST     _UINT32_(0x674)     /* (ADCHS_ADCFGSHRCLR) Bit clear register Offset */
+#define ADCHS_ADCFGSHRSET_REG_OFST     _UINT32_(0x678)     /* (ADCHS_ADCFGSHRSET) Bit set register Offset */
+#define ADCHS_ADCFGSHRINV_REG_OFST     _UINT32_(0x67C)     /* (ADCHS_ADCFGSHRINV) Bit invert register Offset */
+#define ADCHS_ADCSVCONCLR_REG_OFST     _UINT32_(0x684)     /* (ADCHS_ADCSVCONCLR) Bit clear register Offset */
+#define ADCHS_ADCSVCONSET_REG_OFST     _UINT32_(0x688)     /* (ADCHS_ADCSVCONSET) Bit set register Offset */
+#define ADCHS_ADCSVCONINV_REG_OFST     _UINT32_(0x68C)     /* (ADCHS_ADCSVCONINV) Bit invert register Offset */
 #define ADCHS_ADCSYSCFG0_REG_OFST      _UINT32_(0x700)     /* (ADCHS_ADCSYSCFG0)  Offset */
+#define ADCHS_ADCSYSCFG0CLR_REG_OFST   _UINT32_(0x704)     /* (ADCHS_ADCSYSCFG0CLR) Bit clear register Offset */
+#define ADCHS_ADCSYSCFG0SET_REG_OFST   _UINT32_(0x708)     /* (ADCHS_ADCSYSCFG0SET) Bit set register Offset */
+#define ADCHS_ADCSYSCFG0INV_REG_OFST   _UINT32_(0x70C)     /* (ADCHS_ADCSYSCFG0INV) Bit invert register Offset */
 #define ADCHS_ADCDATA0_REG_OFST        _UINT32_(0xA00)     /* (ADCHS_ADCDATA0)  Offset */
 #define ADCHS_ADCDATA1_REG_OFST        _UINT32_(0xA10)     /* (ADCHS_ADCDATA1)  Offset */
 #define ADCHS_ADCDATA2_REG_OFST        _UINT32_(0xA20)     /* (ADCHS_ADCDATA2)  Offset */
@@ -2138,99 +2231,6 @@
 #define ADCHS_ADCDATA9_REG_OFST        _UINT32_(0xA90)     /* (ADCHS_ADCDATA9)  Offset */
 #define ADCHS_ADCDATA10_REG_OFST       _UINT32_(0xAA0)     /* (ADCHS_ADCDATA10)  Offset */
 #define ADCHS_ADCDATA11_REG_OFST       _UINT32_(0xAB0)     /* (ADCHS_ADCDATA11)  Offset */
-#define ADCHS_ADCCON1CLR_REG_OFST      _UINT32_(0x04)      /* (ADCHS_ADCCON1CLR) Bit clear register Offset */
-#define ADCHS_ADCCON1SET_REG_OFST      _UINT32_(0x08)      /* (ADCHS_ADCCON1SET) Bit set register Offset */
-#define ADCHS_ADCCON1INV_REG_OFST      _UINT32_(0x0C)      /* (ADCHS_ADCCON1INV) Bit invert register Offset */
-#define ADCHS_ADCCON2CLR_REG_OFST      _UINT32_(0x14)      /* (ADCHS_ADCCON2CLR) Bit clear register Offset */
-#define ADCHS_ADCCON2SET_REG_OFST      _UINT32_(0x18)      /* (ADCHS_ADCCON2SET) Bit set register Offset */
-#define ADCHS_ADCCON2INV_REG_OFST      _UINT32_(0x1C)      /* (ADCHS_ADCCON2INV) Bit invert register Offset */
-#define ADCHS_ADCCON3CLR_REG_OFST      _UINT32_(0x24)      /* (ADCHS_ADCCON3CLR) Bit clear register Offset */
-#define ADCHS_ADCCON3SET_REG_OFST      _UINT32_(0x28)      /* (ADCHS_ADCCON3SET) Bit set register Offset */
-#define ADCHS_ADCCON3INV_REG_OFST      _UINT32_(0x2C)      /* (ADCHS_ADCCON3INV) Bit invert register Offset */
-#define ADCHS_ADCIMOD1CLR_REG_OFST     _UINT32_(0x44)      /* (ADCHS_ADCIMOD1CLR) Bit clear register Offset */
-#define ADCHS_ADCIMOD1SET_REG_OFST     _UINT32_(0x48)      /* (ADCHS_ADCIMOD1SET) Bit set register Offset */
-#define ADCHS_ADCIMOD1INV_REG_OFST     _UINT32_(0x4C)      /* (ADCHS_ADCIMOD1INV) Bit invert register Offset */
-#define ADCHS_ADCGIRQEN1CLR_REG_OFST   _UINT32_(0x84)      /* (ADCHS_ADCGIRQEN1CLR) Bit clear register Offset */
-#define ADCHS_ADCGIRQEN1SET_REG_OFST   _UINT32_(0x88)      /* (ADCHS_ADCGIRQEN1SET) Bit set register Offset */
-#define ADCHS_ADCGIRQEN1INV_REG_OFST   _UINT32_(0x8C)      /* (ADCHS_ADCGIRQEN1INV) Bit invert register Offset */
-#define ADCHS_ADCCSS1CLR_REG_OFST      _UINT32_(0xA4)      /* (ADCHS_ADCCSS1CLR) Bit clear register Offset */
-#define ADCHS_ADCCSS1SET_REG_OFST      _UINT32_(0xA8)      /* (ADCHS_ADCCSS1SET) Bit set register Offset */
-#define ADCHS_ADCCSS1INV_REG_OFST      _UINT32_(0xAC)      /* (ADCHS_ADCCSS1INV) Bit invert register Offset */
-#define ADCHS_ADCDSTAT1CLR_REG_OFST    _UINT32_(0xC4)      /* (ADCHS_ADCDSTAT1CLR) Bit clear register Offset */
-#define ADCHS_ADCDSTAT1SET_REG_OFST    _UINT32_(0xC8)      /* (ADCHS_ADCDSTAT1SET) Bit set register Offset */
-#define ADCHS_ADCDSTAT1INV_REG_OFST    _UINT32_(0xCC)      /* (ADCHS_ADCDSTAT1INV) Bit invert register Offset */
-#define ADCHS_ADCCMPEN0CLR_REG_OFST    _UINT32_(0xE4)      /* (ADCHS_ADCCMPEN0CLR) Bit clear register Offset */
-#define ADCHS_ADCCMPEN0SET_REG_OFST    _UINT32_(0xE8)      /* (ADCHS_ADCCMPEN0SET) Bit set register Offset */
-#define ADCHS_ADCCMPEN0INV_REG_OFST    _UINT32_(0xEC)      /* (ADCHS_ADCCMPEN0INV) Bit invert register Offset */
-#define ADCHS_ADCCMP0CLR_REG_OFST      _UINT32_(0xF4)      /* (ADCHS_ADCCMP0CLR) Bit clear register Offset */
-#define ADCHS_ADCCMP0SET_REG_OFST      _UINT32_(0xF8)      /* (ADCHS_ADCCMP0SET) Bit set register Offset */
-#define ADCHS_ADCCMP0INV_REG_OFST      _UINT32_(0xFC)      /* (ADCHS_ADCCMP0INV) Bit invert register Offset */
-#define ADCHS_ADCCMPEN1CLR_REG_OFST    _UINT32_(0x104)     /* (ADCHS_ADCCMPEN1CLR) Bit clear register Offset */
-#define ADCHS_ADCCMPEN1SET_REG_OFST    _UINT32_(0x108)     /* (ADCHS_ADCCMPEN1SET) Bit set register Offset */
-#define ADCHS_ADCCMPEN1INV_REG_OFST    _UINT32_(0x10C)     /* (ADCHS_ADCCMPEN1INV) Bit invert register Offset */
-#define ADCHS_ADDCMP1CLR_REG_OFST      _UINT32_(0x114)     /* (ADCHS_ADDCMP1CLR) Bit clear register Offset */
-#define ADCHS_ADDCMP1SET_REG_OFST      _UINT32_(0x118)     /* (ADCHS_ADDCMP1SET) Bit set register Offset */
-#define ADCHS_ADDCMP1INV_REG_OFST      _UINT32_(0x11C)     /* (ADCHS_ADDCMP1INV) Bit invert register Offset */
-#define ADCHS_ADCFLTR0CLR_REG_OFST     _UINT32_(0x1A4)     /* (ADCHS_ADCFLTR0CLR) Bit clear register Offset */
-#define ADCHS_ADCFLTR0SET_REG_OFST     _UINT32_(0x1A8)     /* (ADCHS_ADCFLTR0SET) Bit set register Offset */
-#define ADCHS_ADCFLTR0INV_REG_OFST     _UINT32_(0x1AC)     /* (ADCHS_ADCFLTR0INV) Bit invert register Offset */
-#define ADCHS_ADCFLTR1CLR_REG_OFST     _UINT32_(0x1B4)     /* (ADCHS_ADCFLTR1CLR) Bit clear register Offset */
-#define ADCHS_ADCFLTR1SET_REG_OFST     _UINT32_(0x1B8)     /* (ADCHS_ADCFLTR1SET) Bit set register Offset */
-#define ADCHS_ADCFLTR1INV_REG_OFST     _UINT32_(0x1BC)     /* (ADCHS_ADCFLTR1INV) Bit invert register Offset */
-#define ADCHS_ADCTRG1CLR_REG_OFST      _UINT32_(0x204)     /* (ADCHS_ADCTRG1CLR) Bit clear register Offset */
-#define ADCHS_ADCTRG1SET_REG_OFST      _UINT32_(0x208)     /* (ADCHS_ADCTRG1SET) Bit set register Offset */
-#define ADCHS_ADCTRG1INV_REG_OFST      _UINT32_(0x20C)     /* (ADCHS_ADCTRG1INV) Bit invert register Offset */
-#define ADCHS_ADTRG2CLR_REG_OFST       _UINT32_(0x214)     /* (ADCHS_ADTRG2CLR) Bit clear register Offset */
-#define ADCHS_ADTRG2SET_REG_OFST       _UINT32_(0x218)     /* (ADCHS_ADTRG2SET) Bit set register Offset */
-#define ADCHS_ADTRG2INV_REG_OFST       _UINT32_(0x21C)     /* (ADCHS_ADTRG2INV) Bit invert register Offset */
-#define ADCHS_ADTRG3CLR_REG_OFST       _UINT32_(0x224)     /* (ADCHS_ADTRG3CLR) Bit clear register Offset */
-#define ADCHS_ADTRG3SET_REG_OFST       _UINT32_(0x228)     /* (ADCHS_ADTRG3SET) Bit set register Offset */
-#define ADCHS_ADTRG3INV_REG_OFST       _UINT32_(0x22C)     /* (ADCHS_ADTRG3INV) Bit invert register Offset */
-#define ADCHS_ADCCMPCON1CLR_REG_OFST   _UINT32_(0x284)     /* (ADCHS_ADCCMPCON1CLR) Bit clear register Offset */
-#define ADCHS_ADCCMPCON1SET_REG_OFST   _UINT32_(0x288)     /* (ADCHS_ADCCMPCON1SET) Bit set register Offset */
-#define ADCHS_ADCCMPCON1INV_REG_OFST   _UINT32_(0x28C)     /* (ADCHS_ADCCMPCON1INV) Bit invert register Offset */
-#define ADCHS_ADCMPCON2CLR_REG_OFST    _UINT32_(0x294)     /* (ADCHS_ADCMPCON2CLR) Bit clear register Offset */
-#define ADCHS_ADCMPCON2SET_REG_OFST    _UINT32_(0x298)     /* (ADCHS_ADCMPCON2SET) Bit set register Offset */
-#define ADCHS_ADCMPCON2INV_REG_OFST    _UINT32_(0x29C)     /* (ADCHS_ADCMPCON2INV) Bit invert register Offset */
-#define ADCHS_ADCFSTATCLR_REG_OFST     _UINT32_(0x2E4)     /* (ADCHS_ADCFSTATCLR) Bit clear register Offset */
-#define ADCHS_ADCFSTATSET_REG_OFST     _UINT32_(0x2E8)     /* (ADCHS_ADCFSTATSET) Bit set register Offset */
-#define ADCHS_ADCFSTATINV_REG_OFST     _UINT32_(0x2EC)     /* (ADCHS_ADCFSTATINV) Bit invert register Offset */
-#define ADCHS_ADCFIFOCLR_REG_OFST      _UINT32_(0x2F4)     /* (ADCHS_ADCFIFOCLR) Bit clear register Offset */
-#define ADCHS_ADCFIFOSET_REG_OFST      _UINT32_(0x2F8)     /* (ADCHS_ADCFIFOSET) Bit set register Offset */
-#define ADCHS_ADCFIFOINV_REG_OFST      _UINT32_(0x2FC)     /* (ADCHS_ADCFIFOINV) Bit invert register Offset */
-#define ADCHS_ADCBASECLR_REG_OFST      _UINT32_(0x304)     /* (ADCHS_ADCBASECLR) Bit clear register Offset */
-#define ADCHS_ADCBASESET_REG_OFST      _UINT32_(0x308)     /* (ADCHS_ADCBASESET) Bit set register Offset */
-#define ADCHS_ADCBASEINV_REG_OFST      _UINT32_(0x30C)     /* (ADCHS_ADCBASEINV) Bit invert register Offset */
-#define ADCHS_ADCDMASTATCLR_REG_OFST   _UINT32_(0x314)     /* (ADCHS_ADCDMASTATCLR) Bit clear register Offset */
-#define ADCHS_ADCDMASTATSET_REG_OFST   _UINT32_(0x318)     /* (ADCHS_ADCDMASTATSET) Bit set register Offset */
-#define ADCHS_ADCDMASTATINV_REG_OFST   _UINT32_(0x31C)     /* (ADCHS_ADCDMASTATINV) Bit invert register Offset */
-#define ADCHS_ADCCNTBCLR_REG_OFST      _UINT32_(0x324)     /* (ADCHS_ADCCNTBCLR) Bit clear register Offset */
-#define ADCHS_ADCCNTBSET_REG_OFST      _UINT32_(0x328)     /* (ADCHS_ADCCNTBSET) Bit set register Offset */
-#define ADCHS_ADCCNTBINV_REG_OFST      _UINT32_(0x32C)     /* (ADCHS_ADCCNTBINV) Bit invert register Offset */
-#define ADCHS_ADCDMABCLR_REG_OFST      _UINT32_(0x334)     /* (ADCHS_ADCDMABCLR) Bit clear register Offset */
-#define ADCHS_ADCDMABSET_REG_OFST      _UINT32_(0x338)     /* (ADCHS_ADCDMABSET) Bit set register Offset */
-#define ADCHS_ADCDMABINV_REG_OFST      _UINT32_(0x33C)     /* (ADCHS_ADCDMABINV) Bit invert register Offset */
-#define ADCHS_ADCTRGSNSCLR_REG_OFST    _UINT32_(0x344)     /* (ADCHS_ADCTRGSNSCLR) Bit clear register Offset */
-#define ADCHS_ADCTRGSNSSET_REG_OFST    _UINT32_(0x348)     /* (ADCHS_ADCTRGSNSSET) Bit set register Offset */
-#define ADCHS_ADCTRGSNSINV_REG_OFST    _UINT32_(0x34C)     /* (ADCHS_ADCTRGSNSINV) Bit invert register Offset */
-#define ADCHS_ADC0TIMECLR_REG_OFST     _UINT32_(0x354)     /* (ADCHS_ADC0TIMECLR) Bit clear register Offset */
-#define ADCHS_ADC0TIMESET_REG_OFST     _UINT32_(0x358)     /* (ADCHS_ADC0TIMESET) Bit set register Offset */
-#define ADCHS_ADC0TIMEINV_REG_OFST     _UINT32_(0x35C)     /* (ADCHS_ADC0TIMEINV) Bit invert register Offset */
-#define ADCHS_ADCEISTAT1CLR_REG_OFST   _UINT32_(0x3E4)     /* (ADCHS_ADCEISTAT1CLR) Bit clear register Offset */
-#define ADCHS_ADCEISTAT1SET_REG_OFST   _UINT32_(0x3E8)     /* (ADCHS_ADCEISTAT1SET) Bit set register Offset */
-#define ADCHS_ADCEISTAT1INV_REG_OFST   _UINT32_(0x3EC)     /* (ADCHS_ADCEISTAT1INV) Bit invert register Offset */
-#define ADCHS_ADCANLCTLCLR_REG_OFST    _UINT32_(0x404)     /* (ADCHS_ADCANLCTLCLR) Bit clear register Offset */
-#define ADCHS_ADCANLCTLSET_REG_OFST    _UINT32_(0x408)     /* (ADCHS_ADCANLCTLSET) Bit set register Offset */
-#define ADCHS_ADCANLCTLINV_REG_OFST    _UINT32_(0x40C)     /* (ADCHS_ADCANLCTLINV) Bit invert register Offset */
-#define ADCHS_ADCFGSHRCLR_REG_OFST     _UINT32_(0x674)     /* (ADCHS_ADCFGSHRCLR) Bit clear register Offset */
-#define ADCHS_ADCFGSHRSET_REG_OFST     _UINT32_(0x678)     /* (ADCHS_ADCFGSHRSET) Bit set register Offset */
-#define ADCHS_ADCFGSHRINV_REG_OFST     _UINT32_(0x67C)     /* (ADCHS_ADCFGSHRINV) Bit invert register Offset */
-#define ADCHS_ADCSVCONCLR_REG_OFST     _UINT32_(0x684)     /* (ADCHS_ADCSVCONCLR) Bit clear register Offset */
-#define ADCHS_ADCSVCONSET_REG_OFST     _UINT32_(0x688)     /* (ADCHS_ADCSVCONSET) Bit set register Offset */
-#define ADCHS_ADCSVCONINV_REG_OFST     _UINT32_(0x68C)     /* (ADCHS_ADCSVCONINV) Bit invert register Offset */
-#define ADCHS_ADCSYSCFG0CLR_REG_OFST   _UINT32_(0x704)     /* (ADCHS_ADCSYSCFG0CLR) Bit clear register Offset */
-#define ADCHS_ADCSYSCFG0SET_REG_OFST   _UINT32_(0x708)     /* (ADCHS_ADCSYSCFG0SET) Bit set register Offset */
-#define ADCHS_ADCSYSCFG0INV_REG_OFST   _UINT32_(0x70C)     /* (ADCHS_ADCSYSCFG0INV) Bit invert register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief ADCHS register API structure */

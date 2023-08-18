@@ -118,7 +118,6 @@
 #include "osal/osal.h"
 #include "system/debug/sys_debug.h"
 #include "peripheral/sercom/usart/plib_sercom1_usart.h"
-#include "peripheral/sercom/spi_master/plib_sercom0_spi_master.h"
 #include "peripheral/evsys/plib_evsys.h"
 /*******************************************************************************
 * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
@@ -144,6 +143,7 @@
 *******************************************************************************/
 #include "driver/pds/include/pds.h"
 #include "driver/pds/include/pds_config.h"
+#include "peripheral/sercom/spi_master/plib_sercom0_spi_master.h"
 #include "peripheral/clk/plib_clk.h"
 #include "peripheral/gpio/plib_gpio.h"
 #include "peripheral/nvic/plib_nvic.h"
@@ -292,7 +292,6 @@ Remarks:
 
 typedef struct
 {
-    SYS_MODULE_OBJ g3PalPlc;
     SYS_MODULE_OBJ  drvG3MacRt;
 
     SYS_MODULE_OBJ g3MacWrapper;
@@ -301,7 +300,6 @@ typedef struct
     SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ  tcpip;
-    SYS_MODULE_OBJ g3PalRf;
     SYS_MODULE_OBJ srvUSI0;
 
 } SYSTEM_OBJECTS;

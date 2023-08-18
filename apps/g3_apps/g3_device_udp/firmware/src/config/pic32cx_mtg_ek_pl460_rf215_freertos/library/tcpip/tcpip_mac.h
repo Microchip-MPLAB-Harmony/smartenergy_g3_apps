@@ -182,9 +182,9 @@ typedef enum
     TCPIP_MODULE_MAC_LAN865X_0       = 0x1110,   // first mac instance
     TCPIP_MODULE_MAC_LAN865X_1       = 0x1111,   // second mac instance
 
-    // Internal/Embedded G3 ADP MAC of PIC32CXMT devices
-    TCPIP_MODULE_MAC_PIC32CXMT       = 0x10B0,
-    TCPIP_MODULE_MAC_PIC32CXMT_0     = 0x10B0,   // alternate numbered name
+    // Internal/Embedded G3 ADP MAC
+    TCPIP_MODULE_MAC_G3ADP           = 0x10B0,
+    TCPIP_MODULE_MAC_G3ADP_0         = 0x10B0,   // alternate numbered name
 
     // External, non MCHP, MAC modules
     TCPIP_MODULE_MAC_EXTERNAL       = 0x4000,

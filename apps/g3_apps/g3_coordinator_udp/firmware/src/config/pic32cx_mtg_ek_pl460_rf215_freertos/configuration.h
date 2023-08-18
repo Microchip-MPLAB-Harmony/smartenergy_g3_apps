@@ -114,7 +114,7 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 /* PAL PLC Configuration Options */
-#define PAL_PLC_PHY_INDEX                     0
+#define PAL_PLC_PHY_INDEX                     0U
 
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
@@ -134,29 +134,29 @@ extern "C" {
 #define DRV_PLC_RTOS_TASK_PRIORITY            1
 
 /* PLC MAC RT Driver Identification */
-#define DRV_G3_MACRT_INDEX                   0
-#define DRV_G3_MACRT_INSTANCES_NUMBER        1
+#define DRV_G3_MACRT_INDEX                   0U
+#define DRV_G3_MACRT_INSTANCES_NUMBER        1U
 #define DRV_G3_MACRT_HOST_DESC               "PIC32CX2051MTG128"
 /* RF215 Driver Configuration Options */
-#define DRV_RF215_INDEX_0                     0
-#define DRV_RF215_CLIENTS_NUMBER              1
-#define DRV_RF215_TX_BUFFERS_NUMBER           1
+#define DRV_RF215_INDEX_0                     0U
+#define DRV_RF215_CLIENTS_NUMBER              1U
+#define DRV_RF215_TX_BUFFERS_NUMBER           1U
 #define DRV_RF215_RTOS_STACK_SIZE             256
-#define DRV_RF215_RTOS_TASK_PRIORITY          1
-#define DRV_RF215_CSR_INDEX                   0
+#define DRV_RF215_RTOS_TASK_PRIORITY          1U
 #define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PC7
 #define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PD17
 #define DRV_RF215_LED_TX_PIN                  SYS_PORT_PIN_PA8
 #define DRV_RF215_LED_RX_PIN                  SYS_PORT_PIN_PA9
-#define DRV_RF215_NUM_TRX                     1
-#define DRV_RF215_FCS_LEN                     4
-#define DRV_RF215_MAX_PSDU_LEN                576
-#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000
-#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  180
-#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 1400
+#define DRV_RF215_NUM_TRX                     1U
+#define DRV_RF215_FCS_LEN                     4U
+#define DRV_RF215_MAX_PSDU_LEN                576U
+#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000U
+#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  180U
+#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 1400U
 
 /* PAL RF Configuration Options */
-#define PAL_RF_PHY_INDEX                     0
+#define PAL_RF_PHY_INDEX                      0U
+
 
 
 
@@ -167,48 +167,48 @@ extern "C" {
 // *****************************************************************************
 
 /* G3 stack RTOS configuration */
-#define G3_STACK_RTOS_STACK_SIZE         512
-#define G3_STACK_RTOS_TASK_PRIORITY      1
-#define G3_STACK_RTOS_TASK_DELAY_MS      5
+#define G3_STACK_RTOS_STACK_SIZE         512U
+#define G3_STACK_RTOS_TASK_PRIORITY      1U
+#define G3_STACK_RTOS_TASK_DELAY_MS      5U
 
 /* MAC COMMON Identification */
-#define G3_MAC_COMMON_INDEX_0            0
-#define G3_MAC_COMMON_INSTANCES_NUMBER   1
+#define G3_MAC_COMMON_INDEX_0            0U
+#define G3_MAC_COMMON_INSTANCES_NUMBER   1U
 
 /* MAC PLC Identification */
-#define G3_MAC_PLC_INDEX_0               0
-#define G3_MAC_PLC_INSTANCES_NUMBER      1
+#define G3_MAC_PLC_INDEX_0               0U
+#define G3_MAC_PLC_INSTANCES_NUMBER      1U
 
 /* MAC RF Identification */
-#define G3_MAC_RF_INDEX_0                0
-#define G3_MAC_RF_INSTANCES_NUMBER       1
+#define G3_MAC_RF_INDEX_0                0U
+#define G3_MAC_RF_INSTANCES_NUMBER       1U
 
 /* MAC Wrapper Identification */
-#define G3_MAC_WRP_INDEX_0               0
-#define G3_MAC_WRP_INSTANCES_NUMBER      1
+#define G3_MAC_WRP_INDEX_0               0U
+#define G3_MAC_WRP_INSTANCES_NUMBER      1U
 
 /* Adaptation Layer Identification */
-#define G3_ADP_INDEX_0                   0
-#define G3_ADP_INSTANCES_NUMBER          1
+#define G3_ADP_INDEX_0                   0U
+#define G3_ADP_INSTANCES_NUMBER          1U
 
 /* Number of buffers for Adaptation Layer */
-#define G3_ADP_NUM_BUFFERS_1280          1
-#define G3_ADP_NUM_BUFFERS_400           3
-#define G3_ADP_NUM_BUFFERS_100           3
+#define G3_ADP_NUM_BUFFERS_1280          1U
+#define G3_ADP_NUM_BUFFERS_400           3U
+#define G3_ADP_NUM_BUFFERS_100           3U
 #define G3_ADP_PROCESS_QUEUE_SIZE        (G3_ADP_NUM_BUFFERS_1280 + G3_ADP_NUM_BUFFERS_400 + G3_ADP_NUM_BUFFERS_100)
-#define G3_ADP_FRAG_TRANSFER_TABLE_SIZE  1
-#define G3_ADP_FRAGMENT_SIZE             400
+#define G3_ADP_FRAG_TRANSFER_TABLE_SIZE  1U
+#define G3_ADP_FRAGMENT_SIZE             400U
 
-#define G3_ADP_ROUTING_TABLE_SIZE        150
-#define G3_ADP_BLACKLIST_TABLE_SIZE      20
-#define G3_ADP_ROUTING_SET_SIZE          30
-#define G3_ADP_DESTINATION_ADDR_SET_SIZE 1
+#define G3_ADP_ROUTING_TABLE_SIZE        150U
+#define G3_ADP_BLACKLIST_TABLE_SIZE      20U
+#define G3_ADP_ROUTING_SET_SIZE          30U
+#define G3_ADP_DESTINATION_ADDR_SET_SIZE 1U
 
 /* Table sizes for Routing (LOADNG) */
-#define LOADNG_PENDING_RREQ_TABLE_SIZE   6
-#define LOADNG_RREP_GEN_TABLE_SIZE       3
-#define LOADNG_RREQ_FORWARD_TABLE_SIZE   5
-#define LOADNG_DISCOVER_ROUTE_TABLE_SIZE 3
+#define LOADNG_PENDING_RREQ_TABLE_SIZE   6U
+#define LOADNG_RREP_GEN_TABLE_SIZE       3U
+#define LOADNG_RREQ_FORWARD_TABLE_SIZE   5U
+#define LOADNG_DISCOVER_ROUTE_TABLE_SIZE 3U
 
 
 
@@ -217,11 +217,11 @@ extern "C" {
 
 #define TCPIP_IPV6_NDP_MAX_RTR_SOLICITATION_DELAY 	1
 #define TCPIP_IPV6_NDP_RTR_SOLICITATION_INTERVAL 	4
-#define TCPIP_IPV6_NDP_MAX_RTR_SOLICITATIONS 		1
-#define TCPIP_IPV6_NDP_MAX_MULTICAST_SOLICIT 		1
+#define TCPIP_IPV6_NDP_MAX_RTR_SOLICITATIONS 		3
+#define TCPIP_IPV6_NDP_MAX_MULTICAST_SOLICIT 		3
 #define TCPIP_IPV6_NDP_MAX_UNICAST_SOLICIT 			3
 #define TCPIP_IPV6_NDP_MAX_ANYCAST_DELAY_TIME 		1
-#define TCPIP_IPV6_NDP_MAX_NEIGHBOR_ADVERTISEMENT 	1
+#define TCPIP_IPV6_NDP_MAX_NEIGHBOR_ADVERTISEMENT 	3
 #define TCPIP_IPV6_NDP_REACHABLE_TIME 				30
 #define TCPIP_IPV6_NDP_RETRANS_TIMER 				1
 #define TCPIP_IPV6_NDP_DELAY_FIRST_PROBE_TIME 		5
@@ -244,6 +244,8 @@ extern "C" {
 #define TCPIP_NETWORK_DEFAULT_POWER_MODE_IDX0         "full"
 #define TCPIP_NETWORK_DEFAULT_INTERFACE_FLAGS_IDX0            \
                                                     TCPIP_NETWORK_CONFIG_MULTICAST_ON |\
+                                                    (TCPIP_NETWORK_CONFIG_IPV6_G3_NET | TCPIP_NETWORK_CONFIG_IPV6_NO_DAD) |\
+                                                    (TCPIP_NETWORK_CONFIG_IPV6_ROUTER | TCPIP_NETWORK_CONFIG_IPV6_NO_RS) |\
                                                     TCPIP_NETWORK_CONFIG_IP_STATIC
                                                     
 #define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0         DRV_G3ADP_MACObject
@@ -256,7 +258,7 @@ extern "C" {
 #define TCPIP_IPV6_MINIMUM_LINK_MTU 					1280
 #define TCPIP_IPV6_DEFAULT_LINK_MTU 					1280
 #define TCPIP_IPV6_DEFAULT_CUR_HOP_LIMIT 				64
-#define TCPIP_IPV6_DEFAULT_BASE_REACHABLE_TIME 			2000000
+#define TCPIP_IPV6_DEFAULT_BASE_REACHABLE_TIME 			30
 #define TCPIP_IPV6_DEFAULT_RETRANSMIT_TIME 				1000
 #define TCPIP_IPV6_QUEUE_NEIGHBOR_PACKET_LIMIT 			1
 #define TCPIP_IPV6_NEIGHBOR_CACHE_ENTRY_STALE_TIMEOUT 	600
@@ -270,6 +272,12 @@ extern "C" {
 #define TCPIP_IPV6_FRAGMENT_PKT_TIMEOUT 				60
 #define TCPIP_IPV6_RX_FRAGMENTED_BUFFER_SIZE 			1280
 #define TCPIP_IPV6_EXTERN_PACKET_PROCESS   false
+
+
+#define TCPIP_IPV6_G3_PLC_SUPPORT                       true
+
+#define TCPIP_IPV6_G3_PLC_BORDER_ROUTER                 true
+
 
 
 /*** TCPIP Heap Configuration ***/

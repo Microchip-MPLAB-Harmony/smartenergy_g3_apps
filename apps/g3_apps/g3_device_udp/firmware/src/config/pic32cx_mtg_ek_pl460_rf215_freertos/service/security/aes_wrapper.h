@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,8 +39,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _AES_WRAPPER_H
-#define _AES_WRAPPER_H
+#ifndef AES_WRAPPER_H
+#define AES_WRAPPER_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -313,4 +313,4 @@ void AES_Wrapper_EncryptEcb(const uint8_t *in, uint8_t *out);
 }
 #endif
 
-#endif /* _AES_WRAPPER_H */
+#endif /* AES_WRAPPER_H */

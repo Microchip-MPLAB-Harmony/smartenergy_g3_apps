@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _ADP_SHARED_TYPES_H
-#define _ADP_SHARED_TYPES_H
+#ifndef ADP_SHARED_TYPES_H
+#define ADP_SHARED_TYPES_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -109,7 +109,6 @@
     <code>
     App_DataSendCallback(uint8_t status)
     {
-        // Check result
         if (status == G3_SUCCESS)
         {
             
@@ -243,10 +242,10 @@ typedef struct
    Remarks:
     The client does not need to use this data type.
 */
-typedef struct _ADP_PROCESS_QUEUE_ENTRY
+typedef struct ADP_PROCESS_QUEUE_ENTRY_tag
 {
     /* Pointer to the next object of the queue */
-    struct _ADP_PROCESS_QUEUE_ENTRY* next;
+    struct ADP_PROCESS_QUEUE_ENTRY_tag *next;
 
     /* Pointer to data send parameters */
     ADP_DATA_SEND_PARAMS* pSendParameters;
@@ -363,4 +362,4 @@ typedef struct
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _ADP_SHARED_TYPES_H
+#endif // #ifndef ADP_SHARED_TYPES_H

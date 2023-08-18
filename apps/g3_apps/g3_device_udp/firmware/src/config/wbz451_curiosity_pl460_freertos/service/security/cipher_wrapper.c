@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -76,7 +76,7 @@ static eax_ctx sEaxCtx;
 
 int32_t CIPHER_Wrapper_CmacStart(const uint8_t *key, uint32_t keyLen)
 {
-    return wc_InitCmac(&sCmacCtx, key, keyLen, WC_CMAC_AES, NULL);
+    return wc_InitCmac(&sCmacCtx, key, keyLen, (int32_t) WC_CMAC_AES, NULL);
 }
 
 int32_t CIPHER_Wrapper_CmacUpdate(const uint8_t *input, uint32_t iLen)

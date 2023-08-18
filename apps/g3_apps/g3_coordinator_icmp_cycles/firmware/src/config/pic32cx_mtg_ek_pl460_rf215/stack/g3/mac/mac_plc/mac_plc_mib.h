@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,8 +39,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _MAC_PLC_MIB_H
-#define _MAC_PLC_MIB_H
+#ifndef MAC_PLC_MIB_H
+#define MAC_PLC_MIB_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -57,12 +57,6 @@
 
 #endif
 // DOM-IGNORE-END
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Macro Definitions
-// *****************************************************************************
-// *****************************************************************************
 
 // *****************************************************************************
 // *****************************************************************************
@@ -131,6 +125,9 @@ typedef struct
     bool plcDisable;
     bool plcAvailable;
 } MAC_PLC_MIB;
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
 
 // *****************************************************************************
 /* MAC PLC Parameter Information Base definition
@@ -261,10 +258,6 @@ typedef enum
     MAC_PIB_MANUF_RESET_MAC_STATS = 0x08000023,
     // Enable/Disable Sleep Mode
     MAC_PIB_MANUF_MAC_RT_SLEEP_MODE = 0x08000024,
-    // Set PLC Debug Mode
-    MAC_PIB_MANUF_MAC_RT_DEBUG_SET = 0x08000025,
-    // Read PLC Debug Information
-    MAC_PIB_MANUF_MAC_RT_DEBUG_READ = 0x08000026,
     // Provides access to POS table by short address (referenced as index)
     MAC_PIB_MANUF_POS_TABLE_ELEMENT = 0x08000027,
     // Minimum LQI to consider a neighbour for Trickle
@@ -281,6 +274,8 @@ typedef enum
     // Check 'enum EPhyParam' in MacRtMib.h for available Phy parameter IDs
     MAC_PIB_MANUF_PHY_PARAM = 0x08000020
 } MAC_PLC_PIB_ATTRIBUTE;
+
+/* MISRA C-2012 deviation block end */
 
 // *****************************************************************************
 /* Function:
@@ -326,7 +321,7 @@ typedef enum
     status = MAC_PLC_MIB_SetAttributeSync(MAC_COMMON_PIB_PROMISCUOUS_MODE, 0, &value);
     if (status == MAC_STATUS_SUCCESS)
     {
-        // MIB correctly set
+        
     }
     </code>
 
@@ -342,7 +337,7 @@ MAC_STATUS MAC_PLC_MIB_SetAttributeSync(MAC_COMMON_PIB_ATTRIBUTE attribute,
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _MAC_PLC_MIB_H
+#endif // #ifndef MAC_PLC_MIB_H
 
 /*******************************************************************************
  End of File

@@ -1,7 +1,7 @@
 /*
  * Component description for DMT
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2022-02-28T16:51:20Z */
+/* file generated from device description version 2023-05-31T11:03:01Z */
 #ifndef _BZ45_DMT_COMPONENT_H_
 #define _BZ45_DMT_COMPONENT_H_
 
@@ -35,75 +35,6 @@
 #define DMT_DMTCON_ON_Msk                     (_UINT32_(0x1) << DMT_DMTCON_ON_Pos)                 /* (DMT_DMTCON)  Mask */
 #define DMT_DMTCON_ON(value)                  (DMT_DMTCON_ON_Msk & (_UINT32_(value) << DMT_DMTCON_ON_Pos)) /* Assigment of value for ON in the DMT_DMTCON register */
 #define DMT_DMTCON_Msk                        _UINT32_(0x00008000)                                 /* (DMT_DMTCON) Register Mask  */
-
-
-/* -------- DMT_DMTPRECLR : (DMT Offset: 0x10) (R/W 32)  -------- */
-#define DMT_DMTPRECLR_RESETVALUE              _UINT32_(0x00)                                       /*  (DMT_DMTPRECLR)   Reset Value */
-
-#define DMT_DMTPRECLR_STEP1_Pos               _UINT32_(8)                                          /* (DMT_DMTPRECLR)  Position */
-#define DMT_DMTPRECLR_STEP1_Msk               (_UINT32_(0xFF) << DMT_DMTPRECLR_STEP1_Pos)          /* (DMT_DMTPRECLR)  Mask */
-#define DMT_DMTPRECLR_STEP1(value)            (DMT_DMTPRECLR_STEP1_Msk & (_UINT32_(value) << DMT_DMTPRECLR_STEP1_Pos)) /* Assigment of value for STEP1 in the DMT_DMTPRECLR register */
-#define DMT_DMTPRECLR_Msk                     _UINT32_(0x0000FF00)                                 /* (DMT_DMTPRECLR) Register Mask  */
-
-
-/* -------- DMT_DMTCLR : (DMT Offset: 0x20) (R/W 32)  -------- */
-#define DMT_DMTCLR_RESETVALUE                 _UINT32_(0x00)                                       /*  (DMT_DMTCLR)   Reset Value */
-
-#define DMT_DMTCLR_STEP2_Pos                  _UINT32_(0)                                          /* (DMT_DMTCLR)  Position */
-#define DMT_DMTCLR_STEP2_Msk                  (_UINT32_(0xFF) << DMT_DMTCLR_STEP2_Pos)             /* (DMT_DMTCLR)  Mask */
-#define DMT_DMTCLR_STEP2(value)               (DMT_DMTCLR_STEP2_Msk & (_UINT32_(value) << DMT_DMTCLR_STEP2_Pos)) /* Assigment of value for STEP2 in the DMT_DMTCLR register */
-#define DMT_DMTCLR_Msk                        _UINT32_(0x000000FF)                                 /* (DMT_DMTCLR) Register Mask  */
-
-
-/* -------- DMT_DMTSTAT : (DMT Offset: 0x30) (R/W 32)  -------- */
-#define DMT_DMTSTAT_RESETVALUE                _UINT32_(0x00)                                       /*  (DMT_DMTSTAT)   Reset Value */
-
-#define DMT_DMTSTAT_WINOPN_Pos                _UINT32_(0)                                          /* (DMT_DMTSTAT)  Position */
-#define DMT_DMTSTAT_WINOPN_Msk                (_UINT32_(0x1) << DMT_DMTSTAT_WINOPN_Pos)            /* (DMT_DMTSTAT)  Mask */
-#define DMT_DMTSTAT_WINOPN(value)             (DMT_DMTSTAT_WINOPN_Msk & (_UINT32_(value) << DMT_DMTSTAT_WINOPN_Pos)) /* Assigment of value for WINOPN in the DMT_DMTSTAT register */
-#define DMT_DMTSTAT_DMTEVENT_Pos              _UINT32_(5)                                          /* (DMT_DMTSTAT)  Position */
-#define DMT_DMTSTAT_DMTEVENT_Msk              (_UINT32_(0x1) << DMT_DMTSTAT_DMTEVENT_Pos)          /* (DMT_DMTSTAT)  Mask */
-#define DMT_DMTSTAT_DMTEVENT(value)           (DMT_DMTSTAT_DMTEVENT_Msk & (_UINT32_(value) << DMT_DMTSTAT_DMTEVENT_Pos)) /* Assigment of value for DMTEVENT in the DMT_DMTSTAT register */
-#define DMT_DMTSTAT_BAD_Pos                   _UINT32_(6)                                          /* (DMT_DMTSTAT)  Position */
-#define DMT_DMTSTAT_BAD_Msk                   (_UINT32_(0x3) << DMT_DMTSTAT_BAD_Pos)               /* (DMT_DMTSTAT)  Mask */
-#define DMT_DMTSTAT_BAD(value)                (DMT_DMTSTAT_BAD_Msk & (_UINT32_(value) << DMT_DMTSTAT_BAD_Pos)) /* Assigment of value for BAD in the DMT_DMTSTAT register */
-#define DMT_DMTSTAT_Msk                       _UINT32_(0x000000E1)                                 /* (DMT_DMTSTAT) Register Mask  */
-
-
-/* -------- DMT_DMTCNT : (DMT Offset: 0x40) (R/W 32)  -------- */
-#define DMT_DMTCNT_RESETVALUE                 _UINT32_(0x00)                                       /*  (DMT_DMTCNT)   Reset Value */
-
-#define DMT_DMTCNT_COUNTER_Pos                _UINT32_(0)                                          /* (DMT_DMTCNT)  Position */
-#define DMT_DMTCNT_COUNTER_Msk                (_UINT32_(0xFFFFFFFF) << DMT_DMTCNT_COUNTER_Pos)     /* (DMT_DMTCNT)  Mask */
-#define DMT_DMTCNT_COUNTER(value)             (DMT_DMTCNT_COUNTER_Msk & (_UINT32_(value) << DMT_DMTCNT_COUNTER_Pos)) /* Assigment of value for COUNTER in the DMT_DMTCNT register */
-#define DMT_DMTCNT_Msk                        _UINT32_(0xFFFFFFFF)                                 /* (DMT_DMTCNT) Register Mask  */
-
-
-/* -------- DMT_DMTHOLDREG : (DMT Offset: 0x50) (R/W 32)  -------- */
-#define DMT_DMTHOLDREG_RESETVALUE             _UINT32_(0x00)                                       /*  (DMT_DMTHOLDREG)   Reset Value */
-
-#define DMT_DMTHOLDREG_UPRCNT_Pos             _UINT32_(0)                                          /* (DMT_DMTHOLDREG)  Position */
-#define DMT_DMTHOLDREG_UPRCNT_Msk             (_UINT32_(0xFFFF) << DMT_DMTHOLDREG_UPRCNT_Pos)      /* (DMT_DMTHOLDREG)  Mask */
-#define DMT_DMTHOLDREG_UPRCNT(value)          (DMT_DMTHOLDREG_UPRCNT_Msk & (_UINT32_(value) << DMT_DMTHOLDREG_UPRCNT_Pos)) /* Assigment of value for UPRCNT in the DMT_DMTHOLDREG register */
-#define DMT_DMTHOLDREG_Msk                    _UINT32_(0x0000FFFF)                                 /* (DMT_DMTHOLDREG) Register Mask  */
-
-
-/* -------- DMT_DMTPSCNT : (DMT Offset: 0x60) (R/W 32)  -------- */
-#define DMT_DMTPSCNT_RESETVALUE               _UINT32_(0x00)                                       /*  (DMT_DMTPSCNT)   Reset Value */
-
-#define DMT_DMTPSCNT_PSCNT_Pos                _UINT32_(0)                                          /* (DMT_DMTPSCNT)  Position */
-#define DMT_DMTPSCNT_PSCNT_Msk                (_UINT32_(0xFFFFFFFF) << DMT_DMTPSCNT_PSCNT_Pos)     /* (DMT_DMTPSCNT)  Mask */
-#define DMT_DMTPSCNT_PSCNT(value)             (DMT_DMTPSCNT_PSCNT_Msk & (_UINT32_(value) << DMT_DMTPSCNT_PSCNT_Pos)) /* Assigment of value for PSCNT in the DMT_DMTPSCNT register */
-#define DMT_DMTPSCNT_Msk                      _UINT32_(0xFFFFFFFF)                                 /* (DMT_DMTPSCNT) Register Mask  */
-
-
-/* -------- DMT_DMTPSINTV : (DMT Offset: 0x70) (R/W 32)  -------- */
-#define DMT_DMTPSINTV_RESETVALUE              _UINT32_(0x00)                                       /*  (DMT_DMTPSINTV)   Reset Value */
-
-#define DMT_DMTPSINTV_PSINTV_Pos              _UINT32_(0)                                          /* (DMT_DMTPSINTV)  Position */
-#define DMT_DMTPSINTV_PSINTV_Msk              (_UINT32_(0xFFFFFFFF) << DMT_DMTPSINTV_PSINTV_Pos)   /* (DMT_DMTPSINTV)  Mask */
-#define DMT_DMTPSINTV_PSINTV(value)           (DMT_DMTPSINTV_PSINTV_Msk & (_UINT32_(value) << DMT_DMTPSINTV_PSINTV_Pos)) /* Assigment of value for PSINTV in the DMT_DMTPSINTV register */
-#define DMT_DMTPSINTV_Msk                     _UINT32_(0xFFFFFFFF)                                 /* (DMT_DMTPSINTV) Register Mask  */
 
 
 /* -------- DMT_DMTCONCLR : (DMT Offset: 0x04) (R/W 32) Bit clear register -------- */
@@ -124,6 +55,15 @@
 #define DMT_DMTCONINV_Msk                     _UINT32_(0x00000000)                                 /* (DMT_DMTCONINV) Register Mask  */
 
 
+/* -------- DMT_DMTPRECLR : (DMT Offset: 0x10) (R/W 32)  -------- */
+#define DMT_DMTPRECLR_RESETVALUE              _UINT32_(0x00)                                       /*  (DMT_DMTPRECLR)   Reset Value */
+
+#define DMT_DMTPRECLR_STEP1_Pos               _UINT32_(8)                                          /* (DMT_DMTPRECLR)  Position */
+#define DMT_DMTPRECLR_STEP1_Msk               (_UINT32_(0xFF) << DMT_DMTPRECLR_STEP1_Pos)          /* (DMT_DMTPRECLR)  Mask */
+#define DMT_DMTPRECLR_STEP1(value)            (DMT_DMTPRECLR_STEP1_Msk & (_UINT32_(value) << DMT_DMTPRECLR_STEP1_Pos)) /* Assigment of value for STEP1 in the DMT_DMTPRECLR register */
+#define DMT_DMTPRECLR_Msk                     _UINT32_(0x0000FF00)                                 /* (DMT_DMTPRECLR) Register Mask  */
+
+
 /* -------- DMT_DMTPRECLRCLR : (DMT Offset: 0x14) (R/W 32) Bit clear register -------- */
 #define DMT_DMTPRECLRCLR_RESETVALUE           _UINT32_(0x00)                                       /*  (DMT_DMTPRECLRCLR) Bit clear register  Reset Value */
 
@@ -140,6 +80,15 @@
 #define DMT_DMTPRECLRINV_RESETVALUE           _UINT32_(0x00)                                       /*  (DMT_DMTPRECLRINV) Bit invert register  Reset Value */
 
 #define DMT_DMTPRECLRINV_Msk                  _UINT32_(0x00000000)                                 /* (DMT_DMTPRECLRINV) Register Mask  */
+
+
+/* -------- DMT_DMTCLR : (DMT Offset: 0x20) (R/W 32)  -------- */
+#define DMT_DMTCLR_RESETVALUE                 _UINT32_(0x00)                                       /*  (DMT_DMTCLR)   Reset Value */
+
+#define DMT_DMTCLR_STEP2_Pos                  _UINT32_(0)                                          /* (DMT_DMTCLR)  Position */
+#define DMT_DMTCLR_STEP2_Msk                  (_UINT32_(0xFF) << DMT_DMTCLR_STEP2_Pos)             /* (DMT_DMTCLR)  Mask */
+#define DMT_DMTCLR_STEP2(value)               (DMT_DMTCLR_STEP2_Msk & (_UINT32_(value) << DMT_DMTCLR_STEP2_Pos)) /* Assigment of value for STEP2 in the DMT_DMTCLR register */
+#define DMT_DMTCLR_Msk                        _UINT32_(0x000000FF)                                 /* (DMT_DMTCLR) Register Mask  */
 
 
 /* -------- DMT_DMTCLRCLR : (DMT Offset: 0x24) (R/W 32) Bit clear register -------- */
@@ -160,6 +109,21 @@
 #define DMT_DMTCLRINV_Msk                     _UINT32_(0x00000000)                                 /* (DMT_DMTCLRINV) Register Mask  */
 
 
+/* -------- DMT_DMTSTAT : (DMT Offset: 0x30) (R/W 32)  -------- */
+#define DMT_DMTSTAT_RESETVALUE                _UINT32_(0x00)                                       /*  (DMT_DMTSTAT)   Reset Value */
+
+#define DMT_DMTSTAT_WINOPN_Pos                _UINT32_(0)                                          /* (DMT_DMTSTAT)  Position */
+#define DMT_DMTSTAT_WINOPN_Msk                (_UINT32_(0x1) << DMT_DMTSTAT_WINOPN_Pos)            /* (DMT_DMTSTAT)  Mask */
+#define DMT_DMTSTAT_WINOPN(value)             (DMT_DMTSTAT_WINOPN_Msk & (_UINT32_(value) << DMT_DMTSTAT_WINOPN_Pos)) /* Assigment of value for WINOPN in the DMT_DMTSTAT register */
+#define DMT_DMTSTAT_DMTEVENT_Pos              _UINT32_(5)                                          /* (DMT_DMTSTAT)  Position */
+#define DMT_DMTSTAT_DMTEVENT_Msk              (_UINT32_(0x1) << DMT_DMTSTAT_DMTEVENT_Pos)          /* (DMT_DMTSTAT)  Mask */
+#define DMT_DMTSTAT_DMTEVENT(value)           (DMT_DMTSTAT_DMTEVENT_Msk & (_UINT32_(value) << DMT_DMTSTAT_DMTEVENT_Pos)) /* Assigment of value for DMTEVENT in the DMT_DMTSTAT register */
+#define DMT_DMTSTAT_BAD_Pos                   _UINT32_(6)                                          /* (DMT_DMTSTAT)  Position */
+#define DMT_DMTSTAT_BAD_Msk                   (_UINT32_(0x3) << DMT_DMTSTAT_BAD_Pos)               /* (DMT_DMTSTAT)  Mask */
+#define DMT_DMTSTAT_BAD(value)                (DMT_DMTSTAT_BAD_Msk & (_UINT32_(value) << DMT_DMTSTAT_BAD_Pos)) /* Assigment of value for BAD in the DMT_DMTSTAT register */
+#define DMT_DMTSTAT_Msk                       _UINT32_(0x000000E1)                                 /* (DMT_DMTSTAT) Register Mask  */
+
+
 /* -------- DMT_DMTSTATCLR : (DMT Offset: 0x34) (R/W 32) Bit clear register -------- */
 #define DMT_DMTSTATCLR_RESETVALUE             _UINT32_(0x00)                                       /*  (DMT_DMTSTATCLR) Bit clear register  Reset Value */
 
@@ -176,6 +140,15 @@
 #define DMT_DMTSTATINV_RESETVALUE             _UINT32_(0x00)                                       /*  (DMT_DMTSTATINV) Bit invert register  Reset Value */
 
 #define DMT_DMTSTATINV_Msk                    _UINT32_(0x00000000)                                 /* (DMT_DMTSTATINV) Register Mask  */
+
+
+/* -------- DMT_DMTCNT : (DMT Offset: 0x40) (R/W 32)  -------- */
+#define DMT_DMTCNT_RESETVALUE                 _UINT32_(0x00)                                       /*  (DMT_DMTCNT)   Reset Value */
+
+#define DMT_DMTCNT_COUNTER_Pos                _UINT32_(0)                                          /* (DMT_DMTCNT)  Position */
+#define DMT_DMTCNT_COUNTER_Msk                (_UINT32_(0xFFFFFFFF) << DMT_DMTCNT_COUNTER_Pos)     /* (DMT_DMTCNT)  Mask */
+#define DMT_DMTCNT_COUNTER(value)             (DMT_DMTCNT_COUNTER_Msk & (_UINT32_(value) << DMT_DMTCNT_COUNTER_Pos)) /* Assigment of value for COUNTER in the DMT_DMTCNT register */
+#define DMT_DMTCNT_Msk                        _UINT32_(0xFFFFFFFF)                                 /* (DMT_DMTCNT) Register Mask  */
 
 
 /* -------- DMT_DMTCNTCLR : (DMT Offset: 0x44) (R/W 32) Bit clear register -------- */
@@ -196,6 +169,15 @@
 #define DMT_DMTCNTINV_Msk                     _UINT32_(0x00000000)                                 /* (DMT_DMTCNTINV) Register Mask  */
 
 
+/* -------- DMT_DMTHOLDREG : (DMT Offset: 0x50) (R/W 32)  -------- */
+#define DMT_DMTHOLDREG_RESETVALUE             _UINT32_(0x00)                                       /*  (DMT_DMTHOLDREG)   Reset Value */
+
+#define DMT_DMTHOLDREG_UPRCNT_Pos             _UINT32_(0)                                          /* (DMT_DMTHOLDREG)  Position */
+#define DMT_DMTHOLDREG_UPRCNT_Msk             (_UINT32_(0xFFFF) << DMT_DMTHOLDREG_UPRCNT_Pos)      /* (DMT_DMTHOLDREG)  Mask */
+#define DMT_DMTHOLDREG_UPRCNT(value)          (DMT_DMTHOLDREG_UPRCNT_Msk & (_UINT32_(value) << DMT_DMTHOLDREG_UPRCNT_Pos)) /* Assigment of value for UPRCNT in the DMT_DMTHOLDREG register */
+#define DMT_DMTHOLDREG_Msk                    _UINT32_(0x0000FFFF)                                 /* (DMT_DMTHOLDREG) Register Mask  */
+
+
 /* -------- DMT_DMTHOLDREGCLR : (DMT Offset: 0x54) (R/W 32) Bit clear register -------- */
 #define DMT_DMTHOLDREGCLR_RESETVALUE          _UINT32_(0x00)                                       /*  (DMT_DMTHOLDREGCLR) Bit clear register  Reset Value */
 
@@ -214,6 +196,15 @@
 #define DMT_DMTHOLDREGINV_Msk                 _UINT32_(0x00000000)                                 /* (DMT_DMTHOLDREGINV) Register Mask  */
 
 
+/* -------- DMT_DMTPSCNT : (DMT Offset: 0x60) (R/W 32)  -------- */
+#define DMT_DMTPSCNT_RESETVALUE               _UINT32_(0x00)                                       /*  (DMT_DMTPSCNT)   Reset Value */
+
+#define DMT_DMTPSCNT_PSCNT_Pos                _UINT32_(0)                                          /* (DMT_DMTPSCNT)  Position */
+#define DMT_DMTPSCNT_PSCNT_Msk                (_UINT32_(0xFFFFFFFF) << DMT_DMTPSCNT_PSCNT_Pos)     /* (DMT_DMTPSCNT)  Mask */
+#define DMT_DMTPSCNT_PSCNT(value)             (DMT_DMTPSCNT_PSCNT_Msk & (_UINT32_(value) << DMT_DMTPSCNT_PSCNT_Pos)) /* Assigment of value for PSCNT in the DMT_DMTPSCNT register */
+#define DMT_DMTPSCNT_Msk                      _UINT32_(0xFFFFFFFF)                                 /* (DMT_DMTPSCNT) Register Mask  */
+
+
 /* -------- DMT_DMTPSCNTCLR : (DMT Offset: 0x64) (R/W 32) Bit clear register -------- */
 #define DMT_DMTPSCNTCLR_RESETVALUE            _UINT32_(0x00)                                       /*  (DMT_DMTPSCNTCLR) Bit clear register  Reset Value */
 
@@ -230,6 +221,15 @@
 #define DMT_DMTPSCNTINV_RESETVALUE            _UINT32_(0x00)                                       /*  (DMT_DMTPSCNTINV) Bit invert register  Reset Value */
 
 #define DMT_DMTPSCNTINV_Msk                   _UINT32_(0x00000000)                                 /* (DMT_DMTPSCNTINV) Register Mask  */
+
+
+/* -------- DMT_DMTPSINTV : (DMT Offset: 0x70) (R/W 32)  -------- */
+#define DMT_DMTPSINTV_RESETVALUE              _UINT32_(0x00)                                       /*  (DMT_DMTPSINTV)   Reset Value */
+
+#define DMT_DMTPSINTV_PSINTV_Pos              _UINT32_(0)                                          /* (DMT_DMTPSINTV)  Position */
+#define DMT_DMTPSINTV_PSINTV_Msk              (_UINT32_(0xFFFFFFFF) << DMT_DMTPSINTV_PSINTV_Pos)   /* (DMT_DMTPSINTV)  Mask */
+#define DMT_DMTPSINTV_PSINTV(value)           (DMT_DMTPSINTV_PSINTV_Msk & (_UINT32_(value) << DMT_DMTPSINTV_PSINTV_Pos)) /* Assigment of value for PSINTV in the DMT_DMTPSINTV register */
+#define DMT_DMTPSINTV_Msk                     _UINT32_(0xFFFFFFFF)                                 /* (DMT_DMTPSINTV) Register Mask  */
 
 
 /* -------- DMT_DMTPSINTVCLR : (DMT Offset: 0x74) (R/W 32) Bit clear register -------- */
@@ -252,34 +252,34 @@
 
 /** \brief DMT register offsets definitions */
 #define DMT_DMTCON_REG_OFST            _UINT32_(0x00)      /* (DMT_DMTCON)  Offset */
-#define DMT_DMTPRECLR_REG_OFST         _UINT32_(0x10)      /* (DMT_DMTPRECLR)  Offset */
-#define DMT_DMTCLR_REG_OFST            _UINT32_(0x20)      /* (DMT_DMTCLR)  Offset */
-#define DMT_DMTSTAT_REG_OFST           _UINT32_(0x30)      /* (DMT_DMTSTAT)  Offset */
-#define DMT_DMTCNT_REG_OFST            _UINT32_(0x40)      /* (DMT_DMTCNT)  Offset */
-#define DMT_DMTHOLDREG_REG_OFST        _UINT32_(0x50)      /* (DMT_DMTHOLDREG)  Offset */
-#define DMT_DMTPSCNT_REG_OFST          _UINT32_(0x60)      /* (DMT_DMTPSCNT)  Offset */
-#define DMT_DMTPSINTV_REG_OFST         _UINT32_(0x70)      /* (DMT_DMTPSINTV)  Offset */
 #define DMT_DMTCONCLR_REG_OFST         _UINT32_(0x04)      /* (DMT_DMTCONCLR) Bit clear register Offset */
 #define DMT_DMTCONSET_REG_OFST         _UINT32_(0x08)      /* (DMT_DMTCONSET) Bit set register Offset */
 #define DMT_DMTCONINV_REG_OFST         _UINT32_(0x0C)      /* (DMT_DMTCONINV) Bit invert register Offset */
+#define DMT_DMTPRECLR_REG_OFST         _UINT32_(0x10)      /* (DMT_DMTPRECLR)  Offset */
 #define DMT_DMTPRECLRCLR_REG_OFST      _UINT32_(0x14)      /* (DMT_DMTPRECLRCLR) Bit clear register Offset */
 #define DMT_DMTPRECLRSET_REG_OFST      _UINT32_(0x18)      /* (DMT_DMTPRECLRSET) Bit set register Offset */
 #define DMT_DMTPRECLRINV_REG_OFST      _UINT32_(0x1C)      /* (DMT_DMTPRECLRINV) Bit invert register Offset */
+#define DMT_DMTCLR_REG_OFST            _UINT32_(0x20)      /* (DMT_DMTCLR)  Offset */
 #define DMT_DMTCLRCLR_REG_OFST         _UINT32_(0x24)      /* (DMT_DMTCLRCLR) Bit clear register Offset */
 #define DMT_DMTCLRSET_REG_OFST         _UINT32_(0x28)      /* (DMT_DMTCLRSET) Bit set register Offset */
 #define DMT_DMTCLRINV_REG_OFST         _UINT32_(0x2C)      /* (DMT_DMTCLRINV) Bit invert register Offset */
+#define DMT_DMTSTAT_REG_OFST           _UINT32_(0x30)      /* (DMT_DMTSTAT)  Offset */
 #define DMT_DMTSTATCLR_REG_OFST        _UINT32_(0x34)      /* (DMT_DMTSTATCLR) Bit clear register Offset */
 #define DMT_DMTSTATSET_REG_OFST        _UINT32_(0x38)      /* (DMT_DMTSTATSET) Bit set register Offset */
 #define DMT_DMTSTATINV_REG_OFST        _UINT32_(0x3C)      /* (DMT_DMTSTATINV) Bit invert register Offset */
+#define DMT_DMTCNT_REG_OFST            _UINT32_(0x40)      /* (DMT_DMTCNT)  Offset */
 #define DMT_DMTCNTCLR_REG_OFST         _UINT32_(0x44)      /* (DMT_DMTCNTCLR) Bit clear register Offset */
 #define DMT_DMTCNTSET_REG_OFST         _UINT32_(0x48)      /* (DMT_DMTCNTSET) Bit set register Offset */
 #define DMT_DMTCNTINV_REG_OFST         _UINT32_(0x4C)      /* (DMT_DMTCNTINV) Bit invert register Offset */
+#define DMT_DMTHOLDREG_REG_OFST        _UINT32_(0x50)      /* (DMT_DMTHOLDREG)  Offset */
 #define DMT_DMTHOLDREGCLR_REG_OFST     _UINT32_(0x54)      /* (DMT_DMTHOLDREGCLR) Bit clear register Offset */
 #define DMT_DMTHOLDREGSET_REG_OFST     _UINT32_(0x58)      /* (DMT_DMTHOLDREGSET) Bit set register Offset */
 #define DMT_DMTHOLDREGINV_REG_OFST     _UINT32_(0x5C)      /* (DMT_DMTHOLDREGINV) Bit invert register Offset */
+#define DMT_DMTPSCNT_REG_OFST          _UINT32_(0x60)      /* (DMT_DMTPSCNT)  Offset */
 #define DMT_DMTPSCNTCLR_REG_OFST       _UINT32_(0x64)      /* (DMT_DMTPSCNTCLR) Bit clear register Offset */
 #define DMT_DMTPSCNTSET_REG_OFST       _UINT32_(0x68)      /* (DMT_DMTPSCNTSET) Bit set register Offset */
 #define DMT_DMTPSCNTINV_REG_OFST       _UINT32_(0x6C)      /* (DMT_DMTPSCNTINV) Bit invert register Offset */
+#define DMT_DMTPSINTV_REG_OFST         _UINT32_(0x70)      /* (DMT_DMTPSINTV)  Offset */
 #define DMT_DMTPSINTVCLR_REG_OFST      _UINT32_(0x74)      /* (DMT_DMTPSINTVCLR) Bit clear register Offset */
 #define DMT_DMTPSINTVSET_REG_OFST      _UINT32_(0x78)      /* (DMT_DMTPSINTVSET) Bit set register Offset */
 #define DMT_DMTPSINTVINV_REG_OFST      _UINT32_(0x7C)      /* (DMT_DMTPSINTVINV) Bit invert register Offset */

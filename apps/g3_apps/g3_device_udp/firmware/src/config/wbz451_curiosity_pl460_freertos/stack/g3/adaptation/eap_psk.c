@@ -15,7 +15,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -63,11 +63,11 @@
 #define member_size(type, member) sizeof(((type *)0)->member)
 
 /* IANA allocated value */
-#define EAP_PSK_IANA_TYPE           0x2F
+#define EAP_PSK_IANA_TYPE           0x2FU
 /* T Subfield mask */
-#define EAP_T_SUBFIELD_MASK         0xC0
+#define EAP_T_SUBFIELD_MASK         0xC0U
 /* Protected Channel Result mask */
-#define EAP_P_CHANNEL_RESULT_MASK   0xC0
+#define EAP_P_CHANNEL_RESULT_MASK   0xC0U
 
 // *****************************************************************************
 // *****************************************************************************
@@ -83,7 +83,7 @@ void EAP_PSK_Initialize(
     uint8_t block[16] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
     uint8_t res[16] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-    memset(pPskContext, 0, sizeof(EAP_PSK_CONTEXT));
+    (void) memset(pPskContext, 0, sizeof(EAP_PSK_CONTEXT));
 
     /* Initialize the AES */
     AES_Wrapper_ContextInit();
@@ -92,14 +92,14 @@ void EAP_PSK_Initialize(
     AES_Wrapper_EncryptEcb(block, res);
 
     /* Xor with c1 = "1" */
-    res[15] ^= 0x01;
+    res[15] ^= 0x01U;
 
     /* Generate AK */
     AES_Wrapper_EncryptEcb(res, pPskContext->ak.value);
 
     /* Generate AK */
     /* Xor with c1 = "2" */
-    res[15] ^= 0x03; /* 3 instead of 2 because it has been already xor'ed with 1 and we want to get back the initial value */
+    res[15] ^= 0x03U; /* 3 instead of 2 because it has been already xor'ed with 1 and we want to get back the initial value */
 
     /* Generate KDK */
     AES_Wrapper_EncryptEcb(res, pPskContext->kdk.value);
@@ -123,23 +123,23 @@ void EAP_PSK_InitializeTEKMSK(
     AES_Wrapper_EncryptEcb(pRandP->value, res);
 
     /* Xor with c1 = "1" */
-    res[15] ^= 0x01;
+    res[15] ^= 0x01U;
 
     /* Generate TEK */
     AES_Wrapper_EncryptEcb(res, pPskContext->tek.value);
 
     /* Undo xor to generate next block*/
-    res[15] ^= 0x01;
+    res[15] ^= 0x01U;
 
     /* Generate MSK with subsequent blocks */
-    for (idx = 0; idx < 4; idx++)
+    for (idx = 0U; idx < 4U; idx++)
     {
         /* Xor with c1 = "(idx + 2)" */
-        res[15] ^= (idx + 2);
+        res[15] ^= (idx + 2U);
         /* Get next block for MSK at corresponding index */
-        AES_Wrapper_EncryptEcb(res, &pPskContext->msk.value[idx * 16]);
+        AES_Wrapper_EncryptEcb(res, &pPskContext->msk.value[idx << 4]);
         /* Undo xor to generate next block*/
-        res[15] ^= (idx + 2);
+        res[15] ^= (idx + 2U);
     }
 
     /* Free the AES */
@@ -157,22 +157,22 @@ bool EAP_PSK_DecodeMessage(
     )
 {
     bool retVal = false;
-    uint16_t eapMessageLength = 0;
+    uint16_t eapMessageLength = 0U;
 
-    if (messageLength >= 4)
+    if (messageLength >= 4U)
     {
         *pCode = pMessage[0];
         *pIdentifier = pMessage[1];
-        eapMessageLength = ((pMessage[2] << 8) | pMessage[3]);
+        eapMessageLength = (((uint16_t)pMessage[2] << 8) | pMessage[3]);
 
         /* A message with the Length field set to a value larger than the number of received octets MUST be silently discarded. */
         retVal = (eapMessageLength <= messageLength);
 
-        if (retVal && (eapMessageLength >= 6))
+        if (retVal && (eapMessageLength >= 6U))
         {
             *pTSubfield = (pMessage[5] & EAP_T_SUBFIELD_MASK);
             *pEAPData = &pMessage[6];
-            *pEAPDataLength = eapMessageLength - 6; /* 4 for the size of the header + 2 eaptype and T field */
+            *pEAPDataLength = eapMessageLength - 6U; /* 4 for the size of the header + 2 eaptype and T field */
 
             retVal = (pMessage[4] == EAP_PSK_IANA_TYPE);
         }
@@ -185,7 +185,7 @@ bool EAP_PSK_DecodeMessage1(
     uint16_t messageLength,
     uint8_t *pMessage,
     EAP_PSK_RAND *pRandS,
-    EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS
+    EAP_PSK_NETWORK_ACCESS_ID_S *pIdS
     )
 {
     bool retVal = false;
@@ -193,10 +193,13 @@ bool EAP_PSK_DecodeMessage1(
     /* Check the length of the message */
     if (messageLength >= sizeof(pRandS->value))
     {
-        memcpy(pRandS->value, pMessage, sizeof(pRandS->value));
+        uint16_t sizeIdS;
 
-        pIdS->size = messageLength - sizeof(pRandS->value);
-        memcpy(pIdS->value, &pMessage[sizeof(pRandS->value)], pIdS->size);
+        (void) memcpy(pRandS->value, pMessage, sizeof(pRandS->value));
+
+        sizeIdS = messageLength - (uint16_t)sizeof(pRandS->value);
+        pIdS->size = (uint8_t)sizeIdS;
+        (void) memcpy(pIdS->value, &pMessage[sizeof(pRandS->value)], pIdS->size);
         retVal = true;
     }
 
@@ -208,34 +211,34 @@ uint16_t EAP_PSK_EncodeMessage2(
     uint8_t identifier,
     const EAP_PSK_RAND *pRandS,
     const EAP_PSK_RAND *pRandP,
-    const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS,
-    const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_P *pIdP,
+    const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
+    const EAP_PSK_NETWORK_ACCESS_ID_P *pIdP,
     uint16_t memoryBufferLength,
     uint8_t *pMemoryBuffer
     )
 {
-    uint16_t encodeSize = 0;
-    int ret;
+    uint16_t encodeSize = 0U;
+    int32_t ret;
     uint8_t macP[16];
-    uint8_t seed[2 * member_size(EAP_PSK_NETWORK_ACCESS_IDENTIFIER_P, value)
-        + 2 * member_size(EAP_PSK_RAND, value)];
-    uint16_t seedUsedSize = 0;
+    uint8_t seed[(2U * member_size(EAP_PSK_NETWORK_ACCESS_ID_P, value))
+        + (2U * member_size(EAP_PSK_RAND, value))];
+    uint16_t seedUsedSize = 0U;
 
     /* check the size of the buffer */
-    if (memoryBufferLength >= 90)
+    if (memoryBufferLength >= 90U)
     {
         /* Compute first MacP = CMAC-AES-128(AK, IdP||IdS||RandS||RandP) */
-        memcpy(seed, pIdP->value, pIdP->size);
+        (void) memcpy(seed, pIdP->value, pIdP->size);
         seedUsedSize += pIdP->size;
 
-        memcpy(&seed[seedUsedSize], pIdS->value, pIdS->size);
+        (void) memcpy(&seed[seedUsedSize], pIdS->value, pIdS->size);
         seedUsedSize += pIdS->size;
 
-        memcpy(&seed[seedUsedSize], pRandS->value, sizeof(pRandS->value));
-        seedUsedSize += sizeof(pRandS->value);
+        (void) memcpy(&seed[seedUsedSize], pRandS->value, sizeof(pRandS->value));
+        seedUsedSize += (uint16_t)sizeof(pRandS->value);
 
-        memcpy(&seed[seedUsedSize], pRandP->value, sizeof(pRandP->value));
-        seedUsedSize += sizeof(pRandP->value);
+        (void) memcpy(&seed[seedUsedSize], pRandP->value, sizeof(pRandP->value));
+        seedUsedSize += (uint16_t)sizeof(pRandP->value);
 
         ret = CIPHER_Wrapper_CmacStart(pPskContext->ak.value, sizeof(pPskContext->ak.value));
         SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "CIPHER_Wrapper_CmacStart returned %d\r\n", ret);
@@ -255,21 +258,21 @@ uint16_t EAP_PSK_EncodeMessage2(
         pMemoryBuffer[1] = identifier;
         pMemoryBuffer[4] = EAP_PSK_IANA_TYPE;
         pMemoryBuffer[5] = EAP_PSK_T1;
-        encodeSize = 6;
+        encodeSize = 6U;
 
         /* EAP message: add PSK fields */
-        memcpy(&pMemoryBuffer[encodeSize], pRandS->value, sizeof(pRandS->value));
-        encodeSize += sizeof(pRandS->value);
-        memcpy(&pMemoryBuffer[encodeSize], pRandP->value, sizeof(pRandP->value));
-        encodeSize += sizeof(pRandP->value);
-        memcpy(&pMemoryBuffer[encodeSize], macP, sizeof(macP));
-        encodeSize += sizeof(macP);
-        memcpy(&pMemoryBuffer[encodeSize], pIdP->value, pIdP->size);
+        (void) memcpy(&pMemoryBuffer[encodeSize], pRandS->value, sizeof(pRandS->value));
+        encodeSize += (uint16_t)sizeof(pRandS->value);
+        (void) memcpy(&pMemoryBuffer[encodeSize], pRandP->value, sizeof(pRandP->value));
+        encodeSize += (uint16_t)sizeof(pRandP->value);
+        (void) memcpy(&pMemoryBuffer[encodeSize], macP, sizeof(macP));
+        encodeSize += (uint16_t)sizeof(macP);
+        (void) memcpy(&pMemoryBuffer[encodeSize], pIdP->value, pIdP->size);
         encodeSize += pIdP->size;
 
         /* Update the EAP header length field */
-        pMemoryBuffer[2] = (uint8_t)((encodeSize >> 8) & 0x00FF);
-        pMemoryBuffer[3] = (uint8_t)(encodeSize & 0x00FF);
+        pMemoryBuffer[2] = (uint8_t)(encodeSize >> 8);
+        pMemoryBuffer[3] = (uint8_t)encodeSize;
 
         (void)(ret);
     }
@@ -292,21 +295,21 @@ bool EAP_PSK_DecodeMessage3(
 {
     bool retVal = false;
     uint8_t macS[16];
-    int ret;
-    uint8_t seed[member_size(EAP_PSK_NETWORK_ACCESS_IDENTIFIER_P, value)
-        + member_size(EAP_PSK_RAND, value)];
-    uint16_t seedUsedSize = 0;
+    int32_t ret;
+    uint8_t seed[(member_size(EAP_PSK_NETWORK_ACCESS_ID_P, value))
+        + (member_size(EAP_PSK_RAND, value))];
+    uint16_t seedUsedSize = 0U;
 
-    if (messageLength >= 59)
+    if (messageLength >= 59U)
     {
-        memcpy(pRandS->value, pMessage, sizeof(pRandS->value));
+        (void) memcpy(pRandS->value, pMessage, sizeof(pRandS->value));
 
         /* Verify MacS: MAC_S = CMAC-AES-128(AK, IdS||RandP) */
-        memcpy(seed, pPskContext->idS.value, pPskContext->idS.size);
+        (void) memcpy(seed, pPskContext->idS.value, pPskContext->idS.size);
         seedUsedSize += pPskContext->idS.size;
 
-        memcpy(&seed[seedUsedSize], pPskContext->randP.value, sizeof(pPskContext->randP.value));
-        seedUsedSize += sizeof(pPskContext->randP.value);
+        (void) memcpy(&seed[seedUsedSize], pPskContext->randP.value, sizeof(pPskContext->randP.value));
+        seedUsedSize += (uint16_t)sizeof(pPskContext->randP.value);
 
         ret = CIPHER_Wrapper_CmacStart(pPskContext->ak.value, sizeof(pPskContext->ak.value));
         SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "CIPHER_Wrapper_CmacStart returned %d\r\n", ret);
@@ -328,11 +331,11 @@ bool EAP_PSK_DecodeMessage3(
                 uint8_t *pAuxNonce = &pMessage[32];
                 uint8_t *pTag = &pMessage[36];
                 uint8_t *pProtectedData = &pMessage[52];
-                uint16_t protectedDataLength = messageLength - 52;
+                uint16_t protectedDataLength = messageLength - 52U;
 
                 /* Prepare 16 bytes nonce */
                 /* Nonce is big endian */
-                memset(auxNonce, 0, sizeof(auxNonce));
+                (void) memset(auxNonce, 0, sizeof(auxNonce));
                 auxNonce[12] = pAuxNonce[0];
                 auxNonce[13] = pAuxNonce[1];
                 auxNonce[14] = pAuxNonce[2];
@@ -349,27 +352,27 @@ bool EAP_PSK_DecodeMessage3(
                 pHeader[0] >>= 2;
 
                 SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pPskContext->tek.value, sizeof(pPskContext->tek.value), "TEK: ");
-                SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, auxNonce, 16, "Nonce/IV: ");
+                SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, auxNonce, 16U, "Nonce/IV: ");
                 SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pHeader, headerLength, "Header: ");
                 SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pProtectedData, protectedDataLength, "Data-encr: ");
-                SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pTag, 16, "Tag: ");
+                SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pTag, 16U, "Tag: ");
 
                 /* CIPHER_WRAPPER_RETURN_GOOD is returned if the input tag matches that for the decrypted message */
-                if (CIPHER_WRAPPER_RETURN_GOOD == 
+                if (CIPHER_WRAPPER_RETURN_GOOD ==
                         CIPHER_Wrapper_EaxDecrypt(auxNonce, /* the initialization vector */
-                            16, /* and its length in bytes */
+                            16U, /* and its length in bytes */
                             pHeader, /* the header buffer */
                             headerLength, /* and its length in bytes */
                             pProtectedData, /* the message buffer */
                             protectedDataLength, /* and its length in bytes */
                             pTag, /* the buffer for the tag */
-                            16) /* and its length in bytes */
+                            16U) /* and its length in bytes */
                             )
                 {
                     /* Retrieve protected parameters */
                     *pPChannelResult = ((pProtectedData[0] & EAP_P_CHANNEL_RESULT_MASK) >> 6);
 
-                    *pPChannelDataLength = protectedDataLength - 1;
+                    *pPChannelDataLength = protectedDataLength - 1U;
                     *pPChannelData = &pProtectedData[1];
 
                     ((uint8_t *)pNonce)[0] = pAuxNonce[3];
@@ -389,7 +392,7 @@ bool EAP_PSK_DecodeMessage3(
                 /* Fix EAP header: left shift Code field with 2 bits as indicated in the G3 specification */
                 pHeader[0] <<= 2;
 
-                CIPHER_Wrapper_EaxEnd();
+                (void) CIPHER_Wrapper_EaxEnd();
             }
 
             (void)(ret);
@@ -416,47 +419,46 @@ uint16_t EAP_PSK_EncodeMessage4(
     uint8_t *pMemoryBuffer
     )
 {
-    uint16_t encodeSize = 0;
-    uint8_t *pTag = 0L;
+    uint16_t encodeSize = 0U;
+    uint8_t *pTag = NULL;
     uint8_t auxNonce[16];
-    uint8_t *pProtectedData = 0L;
-    uint16_t protectedDataLength = 0;
+    uint8_t *pProtectedData = NULL;
+    uint16_t protectedDataLength = 0U;
 
     /* Check the size of the buffer */
-    if (memoryBufferLength >= 43 + PChannelDataLength)
+    if (memoryBufferLength >= 43U + PChannelDataLength)
     {
         /* encode the EAP header; length field will be set at the end of the block */
         pMemoryBuffer[0] = EAP_RESPONSE;
         pMemoryBuffer[1] = identifier;
         pMemoryBuffer[4] = EAP_PSK_IANA_TYPE;
         pMemoryBuffer[5] = EAP_PSK_T3;
-        encodeSize = 6;
+        encodeSize = 6U;
 
         /* EAP message: add PSK fields */
-        memcpy(&pMemoryBuffer[encodeSize], pRandS->value, sizeof(pRandS->value));
-        encodeSize += sizeof(pRandS->value);
+        (void) memcpy(&pMemoryBuffer[encodeSize], pRandS->value, sizeof(pRandS->value));
+        encodeSize += (uint16_t)sizeof(pRandS->value);
 
         /* Nonce is big endian */
-        memset(auxNonce, 0, sizeof(auxNonce));
-        auxNonce[12] = pMemoryBuffer[encodeSize] = (uint8_t)((nonce >> 24) & 0xFF);
-        auxNonce[13] = pMemoryBuffer[encodeSize + 1] = (uint8_t)((nonce >> 16) & 0xFF);
-        auxNonce[14] = pMemoryBuffer[encodeSize + 2] = (uint8_t)((nonce >> 8) & 0xFF);
-        auxNonce[15] = pMemoryBuffer[encodeSize + 3] = (uint8_t)(nonce & 0xFF);
-        encodeSize += 4;
+        (void) memset(auxNonce, 0, sizeof(auxNonce));
+        auxNonce[12] = pMemoryBuffer[encodeSize++] = (uint8_t)(nonce >> 24);
+        auxNonce[13] = pMemoryBuffer[encodeSize++] = (uint8_t)(nonce >> 16);
+        auxNonce[14] = pMemoryBuffer[encodeSize++] = (uint8_t)(nonce >> 8);
+        auxNonce[15] = pMemoryBuffer[encodeSize++] = (uint8_t)nonce;
 
         /* Tag will be set after data protection */
         pTag = &pMemoryBuffer[encodeSize];
-        encodeSize += 16;
+        encodeSize += 16U;
 
         /* Protected data */
         pProtectedData = &pMemoryBuffer[encodeSize];
-        if (PChannelDataLength > 0)
+        if (PChannelDataLength > 0U)
         {
             /* result / extension = 1 */
-            pProtectedData[protectedDataLength] = (PChannelResult << 6) | 0x20;
+            pProtectedData[protectedDataLength] = (PChannelResult << 6) | 0x20U;
             protectedDataLength++;
 
-            memcpy(&pProtectedData[protectedDataLength], pPChannelData, PChannelDataLength);
+            (void) memcpy(&pProtectedData[protectedDataLength], pPChannelData, PChannelDataLength);
             protectedDataLength += PChannelDataLength;
         }
         else
@@ -474,8 +476,8 @@ uint16_t EAP_PSK_EncodeMessage4(
                 CIPHER_Wrapper_EaxInitKey(pPskContext->tek.value, sizeof(pPskContext->tek.value)))
         {
             /* Update the EAP header length field */
-            pMemoryBuffer[2] = (uint8_t)((encodeSize >> 8) & 0x00FF);
-            pMemoryBuffer[3] = (uint8_t)(encodeSize & 0x00FF);
+            pMemoryBuffer[2] = (uint8_t)(encodeSize >> 8);
+            pMemoryBuffer[3] = (uint8_t)encodeSize;
 
             /* The protected data is the 22 bytes header of the EAP message. */
             /* The G3 specifies a slightly modified EAP header but in the same time */
@@ -488,35 +490,35 @@ uint16_t EAP_PSK_EncodeMessage4(
             pMemoryBuffer[0] >>= 2;
 
             SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pPskContext->tek.value, sizeof(pPskContext->tek.value), "TEK: ");
-            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, auxNonce, 16, "Nonce/IV: ");
-            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pMemoryBuffer, 22, "Header: ");
+            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, auxNonce, 16U, "Nonce/IV: ");
+            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pMemoryBuffer, 22U, "Header: ");
             SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pProtectedData, protectedDataLength, "Data-plain: ");
 
             if (CIPHER_WRAPPER_RETURN_GOOD != CIPHER_Wrapper_EaxEncrypt(
                     auxNonce, /* the initialization vector    */
-                    16, /* and its length in bytes      */
+                    16U, /* and its length in bytes      */
                     pMemoryBuffer, /* the header buffer            */
-                    22, /* and its length in bytes      */
+                    22U, /* and its length in bytes      */
                     pProtectedData, /* the message buffer           */
                     protectedDataLength, /* and its length in bytes      */
                     pTag, /* the buffer for the tag       */
-                    16) /* and its length in bytes      */
+                    16U) /* and its length in bytes      */
                     )
             {
                 encodeSize = 0;
             }
 
             SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pProtectedData, protectedDataLength, "Data-encr: ");
-            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pTag, 16, "Tag: ");
+            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pTag, 16U, "Tag: ");
 
             /* Fix EAP header: left shift Code field with 2 bits as indicated in the G3 specification */
             pMemoryBuffer[0] <<= 2;
 
-            CIPHER_Wrapper_EaxEnd();
+            (void) CIPHER_Wrapper_EaxEnd();
         }
         else
         {
-            encodeSize = 0;
+            encodeSize = 0U;
         }
     }
 
@@ -526,32 +528,32 @@ uint16_t EAP_PSK_EncodeMessage4(
 uint16_t EAP_PSK_EncodeMessage1(
     uint8_t identifier,
     const EAP_PSK_RAND *pRandS,
-    const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS,
+    const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
     uint16_t memoryBufferLength,
     uint8_t *pMemoryBuffer
     )
 {
-    uint16_t encodeSize = 0;
+    uint16_t encodeSize = 0U;
 
     /* Check the size of the buffer */
-    if (memoryBufferLength >= 30)
+    if (memoryBufferLength >= 30U)
     {
         /* Encode the EAP header; length field will be set at the end of the block */
         pMemoryBuffer[0] = EAP_REQUEST;
         pMemoryBuffer[1] = identifier;
         pMemoryBuffer[4] = EAP_PSK_IANA_TYPE;
         pMemoryBuffer[5] = EAP_PSK_T0;
-        encodeSize = 6;
+        encodeSize = 6U;
 
         /* EAP message: add PSK fields */
-        memcpy(&pMemoryBuffer[encodeSize], pRandS->value, sizeof(pRandS->value));
-        encodeSize += sizeof(pRandS->value);
-        memcpy(&pMemoryBuffer[encodeSize], pIdS->value, pIdS->size);
+        (void) memcpy(&pMemoryBuffer[encodeSize], pRandS->value, sizeof(pRandS->value));
+        encodeSize += (uint16_t)sizeof(pRandS->value);
+        (void) memcpy(&pMemoryBuffer[encodeSize], pIdS->value, pIdS->size);
         encodeSize += pIdS->size;
 
         /* Update the EAP header length field */
-        pMemoryBuffer[2] = (uint8_t)((encodeSize >> 8) & 0x00FF);
-        pMemoryBuffer[3] = (uint8_t)(encodeSize & 0x00FF);
+        pMemoryBuffer[2] = (uint8_t)(encodeSize >> 8);
+        pMemoryBuffer[3] = (uint8_t)encodeSize;
     }
 
     return encodeSize;
@@ -562,7 +564,7 @@ bool EAP_PSK_DecodeMessage2(
     uint16_t messageLength,
     uint8_t *pMessage,
     const EAP_PSK_CONTEXT *pPskContext,
-    const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS,
+    const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
     EAP_PSK_RAND *pRandS,
     EAP_PSK_RAND *pRandP
     )
@@ -571,16 +573,16 @@ bool EAP_PSK_DecodeMessage2(
     uint8_t minMsgLength;
     uint8_t macP[16];
     uint8_t expectedMacP[16];
-    EAP_PSK_NETWORK_ACCESS_IDENTIFIER_P idP;
-    int16_t ret;
+    EAP_PSK_NETWORK_ACCESS_ID_P idP;
+    int32_t ret;
 
     if (aribBand)
     {
-        minMsgLength = 49;
+        minMsgLength = 49U;
     }
     else
     {
-        minMsgLength = 56;
+        minMsgLength = 56U;
     }
 
     if (messageLength >= minMsgLength)
@@ -589,7 +591,8 @@ bool EAP_PSK_DecodeMessage2(
         if (aribBand)
         {
             /* In ARIB, ID_P can be range between 8 and 36 bytes, its length depends on the message length */
-            idP.size = messageLength - 48;
+            uint16_t sizeIdP = messageLength - 48U;
+            idP.size = (uint8_t)sizeIdP;
             /* Maximum size is checked */
             if (idP.size > LBP_NETWORK_ACCESS_ID_MAX_SIZE_P)
             {
@@ -598,39 +601,39 @@ bool EAP_PSK_DecodeMessage2(
         }
         else
         {
-            idP.size = 8;
+            idP.size = 8U;
         }
 
-        uint8_t seed[LBP_NETWORK_ACCESS_ID_MAX_SIZE_P + LBP_NETWORK_ACCESS_ID_MAX_SIZE_S + 2 * member_size(EAP_PSK_RAND, value)];
-        uint8_t seedSize = idP.size + pIdS->size + 2 * member_size(EAP_PSK_RAND, value);
+        uint8_t seed[(LBP_NETWORK_ACCESS_ID_MAX_SIZE_P + LBP_NETWORK_ACCESS_ID_MAX_SIZE_S) + (2U * member_size(EAP_PSK_RAND, value))];
+        uint8_t seedSize = idP.size + pIdS->size + (2U * member_size(EAP_PSK_RAND, value));
 
-        uint16_t decodeOffset = 0;
-        uint16_t seedOffset = 0;
+        uint16_t decodeOffset = 0U;
+        uint16_t seedOffset = 0U;
 
-        memcpy(pRandS->value, &pMessage[decodeOffset], sizeof(pRandS->value));
-        decodeOffset += sizeof(pRandS->value);
+        (void) memcpy(pRandS->value, &pMessage[decodeOffset], sizeof(pRandS->value));
+        decodeOffset += (uint16_t)sizeof(pRandS->value);
 
-        memcpy(pRandP->value, &pMessage[decodeOffset], sizeof(pRandP->value));
-        decodeOffset += sizeof(pRandP->value);
+        (void) memcpy(pRandP->value, &pMessage[decodeOffset], sizeof(pRandP->value));
+        decodeOffset += (uint16_t)sizeof(pRandP->value);
 
-        memcpy(macP, &pMessage[decodeOffset], sizeof(macP));
-        decodeOffset += sizeof(macP);
+        (void) memcpy(macP, &pMessage[decodeOffset], sizeof(macP));
+        decodeOffset += (uint16_t)sizeof(macP);
 
-        memcpy(idP.value, &pMessage[decodeOffset], idP.size);
+        (void) memcpy(idP.value, &pMessage[decodeOffset], idP.size);
         decodeOffset += idP.size;
 
         /* Compute MacP = CMAC-AES-128(AK, IdP||IdS||RandS||RandP) */
-        memcpy(seed, idP.value, idP.size);
+        (void) memcpy(seed, idP.value, idP.size);
         seedOffset += idP.size;
 
-        memcpy(&seed[seedOffset], pIdS->value, pIdS->size);
+        (void) memcpy(&seed[seedOffset], pIdS->value, pIdS->size);
         seedOffset += pIdS->size;
 
-        memcpy(&seed[seedOffset], pRandS->value, sizeof(pRandS->value));
-        seedOffset += sizeof(pRandS->value);
+        (void) memcpy(&seed[seedOffset], pRandS->value, sizeof(pRandS->value));
+        seedOffset += (uint16_t)sizeof(pRandS->value);
 
-        memcpy(&seed[seedOffset], pRandP->value, sizeof(pRandP->value));
-        seedOffset += sizeof(pRandP->value);
+        (void) memcpy(&seed[seedOffset], pRandP->value, sizeof(pRandP->value));
+        seedOffset += (uint16_t)sizeof(pRandP->value);
 
         ret = CIPHER_Wrapper_CmacStart(pPskContext->ak.value, sizeof(pPskContext->ak.value));
         SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "CIPHER_Wrapper_CmacStart returned %d\r\n", ret);
@@ -647,6 +650,7 @@ bool EAP_PSK_DecodeMessage2(
         retVal = (memcmp(expectedMacP, macP, sizeof(macP)) == 0);
 
         (void)(ret);
+        (void)(decodeOffset);
     }
 
     return retVal;
@@ -663,7 +667,7 @@ uint16_t EAP_PSK_EncodeMessage3(
     uint8_t identifier,
     const EAP_PSK_RAND *pRandS,
     const EAP_PSK_RAND *pRandP,
-    const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS,
+    const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
     uint32_t nonce,
     uint8_t PChannelResult,
     uint16_t PChannelDataLength,
@@ -672,21 +676,21 @@ uint16_t EAP_PSK_EncodeMessage3(
     uint8_t *pMemoryBuffer
     )
 {
-    uint16_t encodeSize = 0;
+    uint16_t encodeSize = 0U;
     uint8_t macS[16];
-    uint8_t *pProtectedData = 0L;
-    uint16_t protectedDataLength = 0;
-    uint8_t *pTag = 0L;
+    uint8_t *pProtectedData = NULL;
+    uint16_t protectedDataLength = 0U;
+    uint8_t *pTag = NULL;
     uint8_t auxNonce[16];
-    int16_t ret;
+    int32_t ret;
     uint8_t seed[LBP_NETWORK_ACCESS_ID_MAX_SIZE_S + member_size(EAP_PSK_RAND, value)];
-    uint8_t seedSize = pIdS->size + member_size(EAP_PSK_RAND, value);
+    uint8_t seedSize = pIdS->size + (uint8_t)member_size(EAP_PSK_RAND, value);
 
     /* check the size of the buffer */
-    if (memoryBufferLength >= 59 + PChannelDataLength)
+    if (memoryBufferLength >= 59U + PChannelDataLength)
     {
-        memcpy(seed, pIdS->value, pIdS->size);
-        memcpy(&seed[pIdS->size], pRandP->value, sizeof(pRandP->value));
+        (void) memcpy(seed, pIdS->value, pIdS->size);
+        (void) memcpy(&seed[pIdS->size], pRandP->value, sizeof(pRandP->value));
 
         ret = CIPHER_Wrapper_CmacStart(pPskContext->ak.value, sizeof(pPskContext->ak.value));
         SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "CIPHER_Wrapper_CmacStart returned %d\r\n", ret);
@@ -704,36 +708,35 @@ uint16_t EAP_PSK_EncodeMessage3(
         pMemoryBuffer[1] = identifier;
         pMemoryBuffer[4] = EAP_PSK_IANA_TYPE;
         pMemoryBuffer[5] = EAP_PSK_T2;
-        encodeSize = 6;
+        encodeSize = 6U;
 
         /* EAP message: add PSK fields */
-        memcpy(&pMemoryBuffer[encodeSize], pRandS->value, sizeof(pRandS->value));
-        encodeSize += sizeof(pRandS->value);
-        memcpy(&pMemoryBuffer[encodeSize], macS, sizeof(macS));
-        encodeSize += sizeof(macS);
+        (void) memcpy(&pMemoryBuffer[encodeSize], pRandS->value, sizeof(pRandS->value));
+        encodeSize += (uint16_t)sizeof(pRandS->value);
+        (void) memcpy(&pMemoryBuffer[encodeSize], macS, sizeof(macS));
+        encodeSize += (uint16_t)sizeof(macS);
 
         /* Prepare P-Channel content */
         /* Nonce is big endian */
-        memset(auxNonce, 0, sizeof(auxNonce));
-        auxNonce[12] = pMemoryBuffer[encodeSize] = (uint8_t)((nonce >> 24) & 0xFF);
-        auxNonce[13] = pMemoryBuffer[encodeSize + 1] = (uint8_t)((nonce >> 16) & 0xFF);
-        auxNonce[14] = pMemoryBuffer[encodeSize + 2] = (uint8_t)((nonce >> 8) & 0xFF);
-        auxNonce[15] = pMemoryBuffer[encodeSize + 3] = (uint8_t)(nonce & 0xFF);
-        encodeSize += 4;
+        (void) memset(auxNonce, 0, sizeof(auxNonce));
+        auxNonce[12] = pMemoryBuffer[encodeSize++] = (uint8_t)(nonce >> 24);
+        auxNonce[13] = pMemoryBuffer[encodeSize++] = (uint8_t)(nonce >> 16);
+        auxNonce[14] = pMemoryBuffer[encodeSize++] = (uint8_t)(nonce >> 8);
+        auxNonce[15] = pMemoryBuffer[encodeSize++] = (uint8_t)nonce;
 
         /* tag will be added later */
         pTag = &pMemoryBuffer[encodeSize];
-        encodeSize += 16;
+        encodeSize += 16U;
 
         /* protected data */
         pProtectedData = &pMemoryBuffer[encodeSize];
-        if (PChannelDataLength > 0)
+        if (PChannelDataLength > 0U)
         {
             /* result / extension = 1 */
-            pProtectedData[protectedDataLength] = (PChannelResult << 6) | 0x20;
+            pProtectedData[protectedDataLength] = (PChannelResult << 6) | 0x20U;
             protectedDataLength++;
 
-            memcpy(&pProtectedData[protectedDataLength], pPChannelData, PChannelDataLength);
+            (void) memcpy(&pProtectedData[protectedDataLength], pPChannelData, PChannelDataLength);
             protectedDataLength += PChannelDataLength;
         }
         else
@@ -750,8 +753,8 @@ uint16_t EAP_PSK_EncodeMessage3(
                 CIPHER_Wrapper_EaxInitKey(pPskContext->tek.value, sizeof(pPskContext->tek.value)))
         {
             /* Npdate the EAP header length field */
-            pMemoryBuffer[2] = (uint8_t)((encodeSize >> 8) & 0x00FF);
-            pMemoryBuffer[3] = (uint8_t)(encodeSize & 0x00FF);
+            pMemoryBuffer[2] = (uint8_t)(encodeSize >> 8);
+            pMemoryBuffer[3] = (uint8_t)encodeSize;
 
             /* The protected data is the 22 bytes header of the EAP message. */
             /* The G3 specifies a slightly modified EAP header but in the same time */
@@ -765,35 +768,35 @@ uint16_t EAP_PSK_EncodeMessage3(
 
             SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pPskContext->tek.value, sizeof(pPskContext->tek.value), "TEK: ");
 
-            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, auxNonce, 16, "Nonce/IV: ");
-            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pMemoryBuffer, 22, "Header: ");
+            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, auxNonce, 16U, "Nonce/IV: ");
+            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pMemoryBuffer, 22U, "Header: ");
             SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pProtectedData, protectedDataLength, "Data-plain: ");
 
             if (CIPHER_WRAPPER_RETURN_GOOD != CIPHER_Wrapper_EaxEncrypt(
                     auxNonce, /* the initialization vector    */
-                    16, /* and its length in bytes      */
+                    16U, /* and its length in bytes      */
                     pMemoryBuffer, /* the header buffer            */
-                    22, /* and its length in bytes      */
+                    22U, /* and its length in bytes      */
                     pProtectedData, /* the message buffer           */
                     protectedDataLength, /* and its length in bytes      */
                     pTag, /* the buffer for the tag       */
-                    16) /* and its length in bytes      */
+                    16U) /* and its length in bytes      */
                     )
             {
                 encodeSize = 0;
             }
 
             SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pProtectedData, protectedDataLength, "Data-encr: ");
-            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pTag, 16, "Tag: ");
+            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pTag, 16U, "Tag: ");
 
             /* Fix EAP header: left shift Code field with 2 bits as indicated in the G3 specification */
             pMemoryBuffer[0] <<= 2;
 
-            CIPHER_Wrapper_EaxEnd();
+            (void) CIPHER_Wrapper_EaxEnd();
         }
         else
         {
-            encodeSize = 0;
+            encodeSize = 0U;
         }
     }
 
@@ -818,11 +821,11 @@ bool EAP_PSK_DecodeMessage4(
     uint8_t *pAuxNonce = &pMessage[16];
     uint8_t *pTag = &pMessage[20];
     uint8_t *pProtectedData = &pMessage[36];
-    uint16_t protectedDataLength = messageLength - 36;
+    uint16_t protectedDataLength = messageLength - 36U;
 
-    if (messageLength >= 41)
+    if (messageLength >= 41U)
     {
-        memcpy(pRandS->value, pMessage, sizeof(pRandS->value));
+        (void) memcpy(pRandS->value, pMessage, sizeof(pRandS->value));
         /* Decrypt P-CHANNEL */
         /* P-CHANNEL uses the TEK key */
         if (CIPHER_WRAPPER_RETURN_GOOD == 
@@ -830,7 +833,7 @@ bool EAP_PSK_DecodeMessage4(
         {
             /* Prepare 16 bytes nonce */
             /* Nonce is big endian */
-            memset(auxNonce, 0, sizeof(auxNonce));
+            (void) memset(auxNonce, 0, sizeof(auxNonce));
             auxNonce[12] = pAuxNonce[0];
             auxNonce[13] = pAuxNonce[1];
             auxNonce[14] = pAuxNonce[2];
@@ -847,28 +850,28 @@ bool EAP_PSK_DecodeMessage4(
             pHeader[0] >>= 2;
 
             SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pPskContext->tek.value, sizeof(pPskContext->tek.value), "TEK: ");
-            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, auxNonce, 16, "Nonce/IV: ");
+            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, auxNonce, 16U, "Nonce/IV: ");
             SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pHeader, headerLength, "Header: ");
             SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pProtectedData, protectedDataLength, "Data-encr: ");
-            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pTag, 16, "Tag: ");
+            SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_DEBUG, pTag, 16U, "Tag: ");
 
             /* CIPHER_WRAPPER_RETURN_GOOD is returned if the input tag matches that for the decrypted message */
             if (CIPHER_WRAPPER_RETURN_GOOD == CIPHER_Wrapper_EaxDecrypt(
                     auxNonce, /* the initialization vector */
-                    16, /* and its length in bytes */
+                    16U, /* and its length in bytes */
                     pHeader, /* the header buffer */
                     headerLength, /* and its length in bytes */
                     pProtectedData, /* the message buffer */
                     protectedDataLength, /* and its length in bytes */
                     pTag, /* the buffer for the tag */
-                    16) /* and its length in bytes */
+                    16U) /* and its length in bytes */
                     )
             {
                 SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "Decode SUCCESS\r\n");
                 /* Retrieve protected parameters */
                 *pPChannelResult = ((pProtectedData[0] & EAP_P_CHANNEL_RESULT_MASK) >> 6);
                 *pPChannelData = &pProtectedData[1];
-                *pPChannelDataLength = protectedDataLength - 1;
+                *pPChannelDataLength = protectedDataLength - 1U;
 
                 ((uint8_t *)pNonce)[0] = pAuxNonce[3];
                 ((uint8_t *)pNonce)[1] = pAuxNonce[2];
@@ -887,7 +890,7 @@ bool EAP_PSK_DecodeMessage4(
             /* Fix EAP header: left shift Code field with 2 bits as indicated in the G3 specification */
             pHeader[0] <<= 2;
 
-            CIPHER_Wrapper_EaxEnd();
+            (void) CIPHER_Wrapper_EaxEnd();
         }
     }
 
@@ -900,19 +903,19 @@ uint16_t EAP_PSK_EncodeEAPSuccess(
     uint8_t *pMemoryBuffer
     )
 {
-    uint16_t encodeSize = 0;
+    uint16_t encodeSize = 0U;
 
     /* Check the size of the buffer */
-    if (memoryBufferLength >= 4)
+    if (memoryBufferLength >= 4U)
     {
         /* Encode the EAP header; length field will be set at the end of the block */
         pMemoryBuffer[0] = EAP_SUCCESS;
         pMemoryBuffer[1] = identifier;
-        encodeSize = 4;
+        encodeSize = 4U;
 
         /* Update the EAP header length field */
-        pMemoryBuffer[2] = (uint8_t)((encodeSize >> 8) & 0x00FF);
-        pMemoryBuffer[3] = (uint8_t)(encodeSize & 0x00FF);
+        pMemoryBuffer[2] = (uint8_t)(encodeSize >> 8);
+        pMemoryBuffer[3] = (uint8_t)encodeSize;
     }
 
     return encodeSize;
@@ -924,19 +927,19 @@ uint16_t EAP_PSK_EncodeEAPFailure(
     uint8_t *pMemoryBuffer
     )
 {
-    uint16_t encodeSize = 0;
+    uint16_t encodeSize = 0U;
 
     /* Check the size of the buffer */
-    if (memoryBufferLength >= 4)
+    if (memoryBufferLength >= 4U)
     {
         /* Encode the EAP header; length field will be set at the end of the block */
         pMemoryBuffer[0] = EAP_FAILURE;
         pMemoryBuffer[1] = identifier;
-        encodeSize = 4;
+        encodeSize = 4U;
 
         /* Update the EAP header length field */
-        pMemoryBuffer[2] = (uint8_t)((encodeSize >> 8) & 0x00FF);
-        pMemoryBuffer[3] = (uint8_t)(encodeSize & 0x00FF);
+        pMemoryBuffer[2] = (uint8_t)(encodeSize >> 8);
+        pMemoryBuffer[3] = (uint8_t)encodeSize;
     }
 
     return encodeSize;
@@ -948,14 +951,14 @@ uint16_t EAP_PSK_EncodeGMKActivation(
     uint8_t *pMemoryBuffer
     )
 {
-    uint16_t encodeSize = 0;
+    uint16_t encodeSize = 0U;
 
     /* Check the size of the buffer */
-    if (memoryBufferLength >= 3)
+    if (memoryBufferLength >= 3U)
     {
         /* Add GMK-activation EAP message */
-        memcpy(pMemoryBuffer, pPChannelData, 3);
-        encodeSize = 3;
+        (void) memcpy(pMemoryBuffer, pPChannelData, 3);
+        encodeSize = 3U;
     }
 
     return encodeSize;

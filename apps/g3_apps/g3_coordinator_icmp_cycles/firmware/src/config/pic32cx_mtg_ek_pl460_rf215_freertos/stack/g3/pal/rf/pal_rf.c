@@ -6,16 +6,16 @@
     pal_rf.c
 
   Summary:
-    Platform Abstraction Layer RF (PAL RF) Interface source file.
+    RF Platform Abstraction Layer (PAL) Interface source file.
 
   Description:
-    Platform Abstraction Layer RF (PAL RF) Interface header.
-    The PAL RF module provides a simple interface to manage the RF PHY driver.
+    RF Platform Abstraction Layer (PAL) Interface source file. The RF PAL module
+    provides a simple interface to manage the RF PHY layer.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -54,6 +54,7 @@
 #include "driver/rf215/drv_rf215.h"
 #include "driver/rf215/drv_rf215_definitions.h"
 #include "pal_rf.h"
+#include "pal_rf_local.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -64,11 +65,11 @@ static PAL_RF_DATA palRfData = {0};
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: local callbacks
+// Section: Local Callbacks
 // *****************************************************************************
 // *****************************************************************************
 
-static void _palRfRxIndCallback(DRV_RF215_RX_INDICATION_OBJ* indObj, uintptr_t ctxt)
+static void lPAL_RF_RxIndCallback(DRV_RF215_RX_INDICATION_OBJ* indObj, uintptr_t ctxt)
 {
     uint8_t *pData;
     uint16_t len;
@@ -81,14 +82,14 @@ static void _palRfRxIndCallback(DRV_RF215_RX_INDICATION_OBJ* indObj, uintptr_t c
     rxParameters.rssi = indObj->rssiDBm;
     rxParameters.fcsOk = indObj->fcsOk;
         
-    if (palRfData.rfPhyHandlers.palRfDataIndication)
+    if (palRfData.rfPhyHandlers.palRfDataIndication != NULL)
     {
         palRfData.rfPhyHandlers.palRfDataIndication(pData, len, &rxParameters);
     }
 
 }
 
-static void _palRfTxCfmCallback (DRV_RF215_TX_HANDLE txHandle, DRV_RF215_TX_CONFIRM_OBJ *cfmObj,
+static void lPAL_RF_TxCfmCallback (DRV_RF215_TX_HANDLE txHandle, DRV_RF215_TX_CONFIRM_OBJ *cfmObj,
     uintptr_t ctxt)
 {
     PAL_RF_PHY_STATUS status = PAL_RF_PHY_ERROR;
@@ -138,18 +139,18 @@ static void _palRfTxCfmCallback (DRV_RF215_TX_HANDLE txHandle, DRV_RF215_TX_CONF
             break;      
     }
     
-    if (palRfData.rfPhyHandlers.palRfTxConfirm)
+    if (palRfData.rfPhyHandlers.palRfTxConfirm != NULL)
     {
         palRfData.rfPhyHandlers.palRfTxConfirm(status, timeIniCount, timeEndCount);
     }
 
 }
 
-static void _palRfInitCallback(uintptr_t context, SYS_STATUS status)
+static void lPAL_RF_InitCallback(uintptr_t context, SYS_STATUS status)
 {
     if (status == SYS_STATUS_ERROR)
     {
-        palRfData.status = SYS_STATUS_ERROR;
+        palRfData.status = PAL_RF_STATUS_ERROR;
         return;
     }
 
@@ -157,15 +158,46 @@ static void _palRfInitCallback(uintptr_t context, SYS_STATUS status)
     
     if (palRfData.drvRfPhyHandle == DRV_HANDLE_INVALID)
     {
-        palRfData.status = SYS_STATUS_ERROR;
+        palRfData.status = PAL_RF_STATUS_ERROR;
         return;
     }
 
     /* Register RF PHY driver callbacks */
-    DRV_RF215_RxIndCallbackRegister(palRfData.drvRfPhyHandle, _palRfRxIndCallback, 0);
-    DRV_RF215_TxCfmCallbackRegister(palRfData.drvRfPhyHandle, _palRfTxCfmCallback, 0);
+    DRV_RF215_RxIndCallbackRegister(palRfData.drvRfPhyHandle, lPAL_RF_RxIndCallback, 0);
+    DRV_RF215_TxCfmCallbackRegister(palRfData.drvRfPhyHandle, lPAL_RF_TxCfmCallback, 0);
 
-    palRfData.status = SYS_STATUS_READY;
+    /* Get RF PHY configuration */
+    (void) DRV_RF215_GetPib(palRfData.drvRfPhyHandle, RF215_PIB_PHY_CONFIG, &palRfData.rfPhyConfig);
+
+    palRfData.rfPhyModSchemeFsk = FSK_FEC_OFF;
+    if (palRfData.rfPhyConfig.phyType == PHY_TYPE_FSK)
+    {
+        palRfData.rfPhyModScheme = palRfData.rfPhyModSchemeFsk;
+        palRfData.rfPhyModSchemeOfdm = OFDM_MCS_0;
+    }
+    else /* PHY_TYPE_OFDM */
+    {
+        switch (palRfData.rfPhyConfig.phyTypeCfg.ofdm.opt)
+        {
+            case OFDM_BW_OPT_4:
+                palRfData.rfPhyModSchemeOfdm = OFDM_MCS_2;
+                break;
+            
+            case OFDM_BW_OPT_3:
+                palRfData.rfPhyModSchemeOfdm = OFDM_MCS_1;
+                break;
+            
+            case OFDM_BW_OPT_2:
+            case OFDM_BW_OPT_1:
+            default:
+                palRfData.rfPhyModSchemeOfdm = OFDM_MCS_0;
+                break;
+        }
+
+        palRfData.rfPhyModScheme = palRfData.rfPhyModSchemeOfdm;
+    }
+
+    palRfData.status = PAL_RF_STATUS_READY;
 }
 
 // *****************************************************************************
@@ -177,7 +209,10 @@ static void _palRfInitCallback(uintptr_t context, SYS_STATUS status)
 SYS_MODULE_OBJ PAL_RF_Initialize(const SYS_MODULE_INDEX index, 
         const SYS_MODULE_INIT * const init)
 {
-    PAL_RF_INIT *palInit = (PAL_RF_INIT *)init;
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    const PAL_RF_INIT * const palInit = (const PAL_RF_INIT * const)init;
+    /* MISRA C-2012 deviation block end */
 
     /* Check Single instance */
     if (index != PAL_RF_PHY_INDEX)
@@ -194,11 +229,10 @@ SYS_MODULE_OBJ PAL_RF_Initialize(const SYS_MODULE_INDEX index,
     palRfData.rfPhyHandlers.palRfDataIndication = palInit->rfPhyHandlers.palRfDataIndication;
     palRfData.rfPhyHandlers.palRfTxConfirm = palInit->rfPhyHandlers.palRfTxConfirm;
 
-    palRfData.rfPhyModScheme = FSK_FEC_OFF;
-    palRfData.status = SYS_STATUS_BUSY;
+    palRfData.status = PAL_RF_STATUS_BUSY;
     palRfData.drvRfPhyHandle = DRV_HANDLE_INVALID;
 
-    DRV_RF215_ReadyStatusCallbackRegister(DRV_RF215_INDEX_0, _palRfInitCallback, 0);
+    DRV_RF215_ReadyStatusCallbackRegister(DRV_RF215_INDEX_0, lPAL_RF_InitCallback, 0);
 
     return (SYS_MODULE_OBJ)PAL_RF_PHY_INDEX;
 }
@@ -207,6 +241,12 @@ PAL_RF_HANDLE PAL_RF_HandleGet(const SYS_MODULE_INDEX index)
 {    
     /* Check Single instance */
     if (index != PAL_RF_PHY_INDEX)
+    {
+        return PAL_RF_HANDLE_INVALID;
+    }
+    
+    /* Check previously initialized */
+    if (palRfData.status == PAL_RF_STATUS_UNINITIALIZED)
     {
         return PAL_RF_HANDLE_INVALID;
     }
@@ -231,6 +271,12 @@ void PAL_RF_Deinitialize(SYS_MODULE_OBJ object)
         return;
     }
     
+    /* Check status */
+    if (palRfData.status == PAL_RF_STATUS_UNINITIALIZED)
+    {
+        return;
+    }
+    
     palRfData.status = PAL_RF_STATUS_UNINITIALIZED;
     
     DRV_RF215_Close((DRV_HANDLE)palRfData.drvRfPhyHandle);
@@ -246,7 +292,7 @@ PAL_RF_TX_HANDLE PAL_RF_TxRequest(PAL_RF_HANDLE handle, uint8_t *pData,
             
     if (handle != (PAL_RF_HANDLE)&palRfData)
     {
-        if (palRfData.rfPhyHandlers.palRfTxConfirm)
+        if (palRfData.rfPhyHandlers.palRfTxConfirm != NULL)
         {
             palRfData.rfPhyHandlers.palRfTxConfirm(PAL_RF_PHY_TRX_OFF, txParameters->timeCount, 
                     txParameters->timeCount);
@@ -284,7 +330,7 @@ PAL_RF_TX_HANDLE PAL_RF_TxRequest(PAL_RF_HANDLE handle, uint8_t *pData,
         cfmObj.txResult = txResult;
         cfmObj.timeIniCount = SYS_TIME_Counter64Get();
         cfmObj.ppduDurationCount = 0;
-        _palRfTxCfmCallback(DRV_RF215_TX_HANDLE_INVALID, &cfmObj, 0);
+        lPAL_RF_TxCfmCallback(DRV_RF215_TX_HANDLE_INVALID, &cfmObj, 0);
     }
     
     return (PAL_RF_TX_HANDLE)rfPhyTxReqHandle;
@@ -309,12 +355,14 @@ void PAL_RF_Reset(PAL_RF_HANDLE handle)
         return;
     }
     
-    DRV_RF215_SetPib(palRfData.drvRfPhyHandle, RF215_PIB_DEVICE_RESET, &resetValue);
-    DRV_RF215_SetPib(palRfData.drvRfPhyHandle, RF215_PIB_PHY_STATS_RESET, &resetValue);
+    (void) DRV_RF215_SetPib(palRfData.drvRfPhyHandle, RF215_PIB_DEVICE_RESET, &resetValue);
+    (void) DRV_RF215_SetPib(palRfData.drvRfPhyHandle, RF215_PIB_PHY_STATS_RESET, &resetValue);
 }
  
 PAL_RF_PIB_RESULT PAL_RF_GetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibObj)
 {
+    PAL_RF_PIB_RESULT pibResult = PAL_RF_PIB_SUCCESS;
+
     if (handle != (PAL_RF_HANDLE)&palRfData)
     {
         return PAL_RF_PIB_INVALID_HANDLE;
@@ -325,13 +373,30 @@ PAL_RF_PIB_RESULT PAL_RF_GetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
         /* Ignore request */
         return PAL_RF_PIB_ERROR;
     }
-    
-    return (PAL_RF_PIB_RESULT)DRV_RF215_GetPib(palRfData.drvRfPhyHandle, pibObj->pib, 
-            pibObj->pData);
+
+    switch (pibObj->pib)
+    {
+        case PAL_RF_PIB_TX_FSK_FEC:
+            pibObj->pData[0] = (uint8_t) palRfData.rfPhyModSchemeFsk;
+            break;
+
+        case PAL_RF_PIB_TX_OFDM_MCS:
+            pibObj->pData[0] = (uint8_t) palRfData.rfPhyModSchemeOfdm;
+            break;
+
+        default:
+            pibResult = (PAL_RF_PIB_RESULT)DRV_RF215_GetPib(palRfData.drvRfPhyHandle,
+                    (DRV_RF215_PIB_ATTRIBUTE)pibObj->pib, pibObj->pData);
+            break;
+    }
+
+    return pibResult;
 }
 
 PAL_RF_PIB_RESULT PAL_RF_SetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibObj)
 {
+    PAL_RF_PIB_RESULT pibResult = PAL_RF_PIB_SUCCESS;
+
     if (handle != (PAL_RF_HANDLE)&palRfData)
     {
         return PAL_RF_PIB_INVALID_HANDLE;
@@ -342,17 +407,128 @@ PAL_RF_PIB_RESULT PAL_RF_SetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
         /* Ignore request */
         return PAL_RF_PIB_ERROR;
     }
-    
-    return (PAL_RF_PIB_RESULT)DRV_RF215_SetPib(palRfData.drvRfPhyHandle, pibObj->pib, 
-            pibObj->pData);
+
+    switch (pibObj->pib)
+    {
+        case PAL_RF_PIB_TX_FSK_FEC:
+            if (pibObj->pData[0] > (uint8_t)PAL_RF_FSK_FEC_ON)
+            {
+                return PAL_RF_PIB_INVALID_PARAM;
+            }
+
+            palRfData.rfPhyModSchemeFsk = (DRV_RF215_PHY_MOD_SCHEME) pibObj->pData[0];
+
+            if (palRfData.rfPhyConfig.phyType == PHY_TYPE_FSK)
+            {
+                palRfData.rfPhyModScheme = palRfData.rfPhyModSchemeFsk;
+            }
+
+            break;
+
+        case PAL_RF_PIB_TX_OFDM_MCS:
+            switch ((PAL_RF_OFDM_MCS) pibObj->pData[0])
+            {
+                case PAL_RF_OFDM_MCS_0:
+                    if ((palRfData.rfPhyConfig.phyType == PHY_TYPE_OFDM) &&
+                        ((palRfData.rfPhyConfig.phyTypeCfg.ofdm.opt == OFDM_BW_OPT_4) ||
+                        (palRfData.rfPhyConfig.phyTypeCfg.ofdm.opt == OFDM_BW_OPT_3)))
+                    {
+                        return PAL_RF_PIB_INVALID_PARAM;
+                    }
+
+                    palRfData.rfPhyModSchemeOfdm = OFDM_MCS_0;
+                    break;
+
+                case PAL_RF_OFDM_MCS_1:
+                    if ((palRfData.rfPhyConfig.phyType == PHY_TYPE_OFDM) &&
+                        (palRfData.rfPhyConfig.phyTypeCfg.ofdm.opt == OFDM_BW_OPT_4))
+                    {
+                        return PAL_RF_PIB_INVALID_PARAM;
+                    }
+
+                    palRfData.rfPhyModSchemeOfdm = OFDM_MCS_1;
+                    break;
+
+                case PAL_RF_OFDM_MCS_2:
+                case PAL_RF_OFDM_MCS_3:
+                case PAL_RF_OFDM_MCS_4:
+                case PAL_RF_OFDM_MCS_5:
+                case PAL_RF_OFDM_MCS_6:
+                    palRfData.rfPhyModSchemeOfdm = (DRV_RF215_PHY_MOD_SCHEME) pibObj->pData[0];
+                    break;
+
+                default:
+                    pibResult = PAL_RF_PIB_INVALID_PARAM;
+                    break;
+            }
+
+            if (palRfData.rfPhyConfig.phyType == PHY_TYPE_OFDM)
+            {
+                palRfData.rfPhyModScheme = palRfData.rfPhyModSchemeOfdm;
+            }
+
+            break;
+
+        default:
+            pibResult = (PAL_RF_PIB_RESULT)DRV_RF215_SetPib(palRfData.drvRfPhyHandle,
+                    (DRV_RF215_PIB_ATTRIBUTE)pibObj->pib, pibObj->pData);
+
+            if ((pibResult == PAL_RF_PIB_SUCCESS) &&
+                ((pibObj->pib == PAL_RF_PIB_PHY_CONFIG) ||
+                (pibObj->pib == PAL_RF_PIB_PHY_BAND_OPERATING_MODE)))
+            {
+                /* Update RF PHY configuration */
+                (void) DRV_RF215_GetPib(palRfData.drvRfPhyHandle, RF215_PIB_PHY_CONFIG, &palRfData.rfPhyConfig);
+                if (palRfData.rfPhyConfig.phyType == PHY_TYPE_FSK)
+                {
+                    palRfData.rfPhyModScheme = palRfData.rfPhyModSchemeFsk;
+                }
+                else /* PHY_TYPE_OFDM */
+                {
+                    if ((palRfData.rfPhyConfig.phyTypeCfg.ofdm.opt == OFDM_BW_OPT_4) &&
+                        (palRfData.rfPhyModSchemeOfdm < OFDM_MCS_2))
+                    {
+                        palRfData.rfPhyModSchemeOfdm = OFDM_MCS_2;
+                    }
+                    else
+                    {
+                        if ((palRfData.rfPhyConfig.phyTypeCfg.ofdm.opt == OFDM_BW_OPT_3) &&
+                            (palRfData.rfPhyModSchemeOfdm < OFDM_MCS_1))
+                        {
+                            palRfData.rfPhyModSchemeOfdm = OFDM_MCS_1;
+                        }
+                    }
+
+                    palRfData.rfPhyModScheme = palRfData.rfPhyModSchemeOfdm;
+                }
+            }
+
+            break;
+    }
+
+    return pibResult;
 }
 
-uint8_t PAL_RF_GetRfPhyPibLength(PAL_RF_HANDLE handle, DRV_RF215_PIB_ATTRIBUTE attribute)
+uint8_t PAL_RF_GetRfPhyPibLength(PAL_RF_HANDLE handle, PAL_RF_PIB_ATTRIBUTE attribute)
 {
+    uint8_t pibLen = 0;
+
     if (handle != (PAL_RF_HANDLE)&palRfData)
     {
-        return PAL_RF_PIB_INVALID_HANDLE;
+        return 0;
     }
-    
-    return DRV_RF215_GetPibSize(attribute);
+
+    switch (attribute)
+    {
+        case PAL_RF_PIB_TX_FSK_FEC:
+        case PAL_RF_PIB_TX_OFDM_MCS:
+            pibLen = 1;
+            break;
+
+        default:
+            pibLen = DRV_RF215_GetPibSize((DRV_RF215_PIB_ATTRIBUTE)attribute);
+            break;
+    }
+
+    return pibLen;
 }

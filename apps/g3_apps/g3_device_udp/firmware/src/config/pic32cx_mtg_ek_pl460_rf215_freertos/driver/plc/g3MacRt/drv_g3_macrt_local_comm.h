@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,8 +39,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _DRV_G3_MACRT_LOCAL_COMM_H
-#define _DRV_G3_MACRT_LOCAL_COMM_H
+#ifndef DRV_G3_MACRT_LOCAL_COMM_H
+#define DRV_G3_MACRT_LOCAL_COMM_H
 
 
 // *****************************************************************************
@@ -56,27 +56,24 @@
 // Section: Macro Definitions
 // *****************************************************************************
 // ***************************************************************************** 
-#define DRV_G3_MACRT_REG_CMD_RD            (0)
-#define DRV_G3_MACRT_REG_CMD_WR            (1)
+#define DRV_G3_MACRT_REG_CMD_RD            0U
+#define DRV_G3_MACRT_REG_CMD_WR            1U
 
-#define DRV_G3_MACRT_STATUS_LENGTH         12
+#define DRV_G3_MACRT_STATUS_LENGTH         12U
 #define DRV_G3_MACRT_DATA_MAX_SIZE         MAC_RT_DATA_MAX_SIZE
-#define DRV_G3_MACRT_COMM_STATUS_SIZE      32
+#define DRV_G3_MACRT_COMM_STATUS_SIZE      32U
 #define DRV_G3_MACRT_TX_CFM_SIZE           sizeof(MAC_RT_TX_CFM_OBJ)
 #define DRV_G3_MACRT_RX_PAR_SIZE           sizeof(MAC_RT_RX_PARAMETERS_OBJ)
 #define DRV_G3_MACRT_REG_PKT_SIZE          sizeof(MAC_RT_PIB_OBJ)
 
-/* ! Maximum length of PHY message (G3). Worts case: G3-FCC */
-#define DRV_G3_MACRT_PHY_MAX_SIZE          494
-
 /* FLAG MASKs for set events */
-#define DRV_G3_MACRT_EV_TX_CFM_FLAG_MASK                 (1<<0)
-#define DRV_G3_MACRT_EV_DATA_IND_FLAG_MASK               (1<<1)
-#define DRV_G3_MACRT_EV_MAC_SNF_FLAG_MASK                (1<<2)
-#define DRV_G3_MACRT_EV_COMM_STATUS_FLAG_MASK            (1<<3)
-#define DRV_G3_MACRT_EV_RX_PAR_IND_FLAG_MASK             (1<<4)
-#define DRV_G3_MACRT_EV_REG_RSP_MASK                     (1<<5)
-#define DRV_G3_MACRT_EV_PHY_SNF_FLAG_MASK                (1<<6)
+#define DRV_G3_MACRT_EV_TX_CFM_FLAG_MASK                 (1U << 0)
+#define DRV_G3_MACRT_EV_DATA_IND_FLAG_MASK               (1U << 1)
+#define DRV_G3_MACRT_EV_MAC_SNF_FLAG_MASK                (1U << 2)
+#define DRV_G3_MACRT_EV_COMM_STATUS_FLAG_MASK            (1U << 3)
+#define DRV_G3_MACRT_EV_RX_PAR_IND_FLAG_MASK             (1U << 4)
+#define DRV_G3_MACRT_EV_REG_RSP_MASK                     (1U << 5)
+#define DRV_G3_MACRT_EV_PHY_SNF_FLAG_MASK                (1U << 6)
 
 // *****************************************************************************
 // *****************************************************************************
@@ -155,4 +152,4 @@ typedef enum {
 void DRV_G3_MACRT_Init(DRV_G3_MACRT_OBJ *g3MacRt);
 void DRV_G3_MACRT_Task(void);
 
-#endif //#ifndef _DRV_G3_MACRT_LOCAL_COMM_H
+#endif //#ifndef DRV_G3_MACRT_LOCAL_COMM_H

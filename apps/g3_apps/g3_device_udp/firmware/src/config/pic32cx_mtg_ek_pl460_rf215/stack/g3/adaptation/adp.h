@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _ADP_H
-#define _ADP_H
+#ifndef ADP_H
+#define ADP_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -133,11 +133,9 @@ typedef struct
     <code>
     App_DataConfirm(ADP_DATA_CFM_PARAMS *params)
     {
-        // Check result
         if (params->status == G3_SUCCESS)
         {
             txHandler = params->nsduHandle;
-            // Dispatch according to handler
         }
     }
     </code>
@@ -198,10 +196,9 @@ typedef struct
     <code>
     App_DataIndication(ADP_DATA_IND_PARAMS *params)
     {
-        // Check Link Quality
         if (params->linkQualityIndicator > 40)
         {
-            // Check data content in params->pNsdu
+            
         }
     }
     </code>
@@ -235,7 +232,6 @@ typedef void (*ADP_DATA_IND_CALLBACK)(ADP_DATA_IND_PARAMS* pDataInd);
     <code>
     App_DiscoveryConfirm(uint8_t status)
     {
-        // Check result
         if (status == G3_SUCCESS)
         {
             
@@ -281,7 +277,6 @@ typedef void (*ADP_DISCOVERY_CFM_CALLBACK)(uint8_t status);
         }
 
         ADP_NetworkJoinRequest(panDescriptor->panId, panDescriptor->panId, mediaType);
-        // Wait for Network Join Confirm    
     }
     </code>
 
@@ -314,7 +309,6 @@ typedef void (*ADP_DISCOVERY_IND_CALLBACK)(ADP_PAN_DESCRIPTOR* pPanDescriptor);
     <code>
     App_NetworkStartConfirm(uint8_t status)
     {
-        // Check result
         if (status == G3_SUCCESS)
         {
             
@@ -351,7 +345,6 @@ typedef void (*ADP_NETWORK_START_CFM_CALLBACK)(uint8_t status);
     <code>
     App_ResetConfirm(uint8_t status)
     {
-        // Check result
         if (status == G3_SUCCESS)
         {
             
@@ -414,7 +407,6 @@ typedef struct
     <code>
     App_SetConfirm(ADP_SET_CFM_PARAMS *params)
     {
-        // Check result
         if (params->status == G3_SUCCESS)
         {
 
@@ -451,7 +443,6 @@ typedef void (*ADP_SET_CFM_CALLBACK)(ADP_SET_CFM_PARAMS* pSetCfm);
     <code>
     App_MacSetConfirm(ADP_SET_CFM_PARAMS *params)
     {
-        // Check result
         if (params->status == G3_SUCCESS)
         {
 
@@ -520,10 +511,9 @@ typedef struct
     <code>
     App_GetConfirm(ADP_GET_CFM_PARAMS *params)
     {
-        // Check result
         if (params->status == G3_SUCCESS)
         {
-            // The value is in params->attributeValue
+            
         }
     }
     </code>
@@ -589,10 +579,9 @@ typedef struct
     <code>
     App_MacGetConfirm(ADP_MAC_GET_CFM_PARAMS *params)
     {
-        // Check result
         if (params->status == G3_SUCCESS)
         {
-            // The value is in params->attributeValue
+            
         }
     }
     </code>
@@ -648,7 +637,6 @@ typedef struct
     <code>
     App_LbpConfirm(ADP_LBP_CFM_PARAMS *params)
     {
-        // Check result
         if (params->status == G3_SUCCESS)
         {
 
@@ -715,10 +703,9 @@ typedef struct
     <code>
     App_LbpIndication(ADP_LBP_IND_PARAMS *params)
     {
-        // Check Link Quality
         if (params->linkQualityIndicator > 40)
         {
-            // Check data content in params->pNsdu
+            
         }
     }
     </code>
@@ -752,7 +739,6 @@ typedef void (*ADP_LBP_IND_CALLBACK)(ADP_LBP_IND_PARAMS* pLbpInd);
     <code>
     App_DiscoveryConfirm(uint8_t status)
     {
-        // Check result
         if (status == G3_SUCCESS)
         {
             
@@ -835,7 +821,6 @@ typedef struct
     <code>
     App_PathDiscoveryConfirm(ADP_LBP_CFM_PARAMS *params)
     {
-        // Check result
         if (params->status == G3_SUCCESS)
         {
 
@@ -916,7 +901,7 @@ typedef struct
     <code>
     App_NetworkStatusIndication(ADP_NETWORK_STATUS_IND_PARAMS *params)
     {
-        // Handle Network Status Indication
+        
     }
     </code>
 
@@ -924,6 +909,9 @@ typedef struct
     None.
 */
 typedef void (*ADP_NETWORK_STATUS_IND_CALLBACK)(ADP_NETWORK_STATUS_IND_PARAMS* pNetworkStatusInd);
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 6.1 deviated 4 times.  Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
 
 // *****************************************************************************
 /* ADP Network Status Indication Parameters
@@ -964,6 +952,8 @@ typedef union
 
 } ADP_BUFFER_IND_PARAMS;
 
+/* MISRA C-2012 deviation block end */
+
 // *****************************************************************************
 /* ADP Buffer Indication Event Handler Function Pointer
 
@@ -990,17 +980,17 @@ typedef union
     {
         if (bufferInd->largeBuffersAvailable == 1)
         {
-            // Large buffer(s) available for Tx
+            
         }
         
         if (bufferInd->mediumBuffersAvailable == 1)
         {
-            // Medium buffer(s) available for Tx
+            
         }
         
         if (bufferInd->smallBuffersAvailable == 1)
         {
-            // Small buffer(s) available for Tx
+            
         }
     }
     </code>
@@ -1036,7 +1026,7 @@ typedef void (*ADP_BUFFER_IND_CALLBACK)(ADP_BUFFER_IND_PARAMS* bufferInd);
     <code>
     App_NetworkLeaveIndication(void)
     {
-        // Handle PREQ Indication
+        
     }
     </code>
 
@@ -1101,7 +1091,7 @@ typedef struct
     <code>
     App_NonVolatileDataIndication(ADP_NON_VOLATILE_DATA_IND_PARAMS *params)
     {
-        // Store non-volatile data
+        
     }
     </code>
 
@@ -1187,7 +1177,7 @@ typedef struct
     <code>
     App_RouteNotFoundIndication(ADP_ROUTE_NOT_FOUND_IND_PARAMS *params)
     {
-        // Handle Route Not Found Indication
+        
     }
     </code>
 
@@ -1365,7 +1355,7 @@ typedef struct
     sysObjAdp = ADP_Initialize(G3_ADP_INDEX_0, (SYS_MODULE_INIT *)&initData);
     if (sysObjAdp == SYS_MODULE_OBJ_INVALID)
     {
-        // Handle error
+        
     }
     </code>
 
@@ -1399,17 +1389,13 @@ SYS_MODULE_OBJ ADP_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE_INI
 
   Example:
     <code>
-    // ...
     ADP_INIT initData;
     SYS_MODULE_OBJ sysObjAdp;
     sysObjAdp = ADP_Initialize(G3_ADP_INDEX_0, (SYS_MODULE_INIT *)&initData);
-    // ...
 
     while (true)
     {
         ADP_Tasks(sysObjAdp);
-    
-        // Do other tasks
     }
     </code>
 
@@ -1483,7 +1469,7 @@ void ADP_Open(ADP_PLC_BAND band);
     status = ADP_Status();
     if (status == ADP_STATUS_READY)
     {
-        // ADP is ready to be used
+        
     }
     </code>
 
@@ -1584,16 +1570,16 @@ void ADP_SetDataNotifications(ADP_DATA_NOTIFICATIONS* pNotifications);
     ADP_MANAGEMENT_NOTIFICATIONS adpNotifications = {
         .discoveryConfirm = appDiscoveryConfirm,
         .discoveryIndication = appDiscoveryIndication,
-        .networkStartConfirm = NULL, // not used
-        .resetConfirm = NULL, // not used
-        .setConfirm = NULL, // not used
-        .macSetConfirm = NULL, // not used
-        .getConfirm = NULL, // not used
-        .macGetConfirm = NULL, // not used
+        .networkStartConfirm = NULL,
+        .resetConfirm = NULL,
+        .setConfirm = NULL,
+        .macSetConfirm = NULL,
+        .getConfirm = NULL,
+        .macGetConfirm = NULL,
         .routeDiscoveryConfirm = appRouteConfirm,
         .pathDiscoveryConfirm = appPathConfirm,
         .networkStatusIndication = appNetworkStatusIndication,
-        .preqIndication = NULL, // not used
+        .preqIndication = NULL,
         .nonVolatileDataIndication = appNonVolatileDataIndication,
         .routeNotFoundIndication = appRouteNotFoundIndication,
         .bufferIndication = appBufferIndication
@@ -1668,21 +1654,22 @@ void ADP_SetNotificationsToLbp(ADP_NOTIFICATIONS_TO_LBP* pNotifications);
 
   Example:
     <code>
-    // ...
     ADP_Open(ADP_BAND_CENELEC_A);
-    // ...
 
     ADP_AVAILABLE_MAC_LAYERS availableLayers;
     availableLayers = ADP_GetAvailableMacLayers();
 
-    if (availableLayers == ADP_AVAILABLE_MAC_PLC) {
-      // Only PLC MAC available
+    if (availableLayers == ADP_AVAILABLE_MAC_PLC)
+    {
+        
     }
-    else if (availableLayers == ADP_AVAILABLE_MAC_RF) {
-      // Only RF MAC available
+    else if (availableLayers == ADP_AVAILABLE_MAC_RF)
+    {
+        
     }
-    else {
-      // Both MAC layers available
+    else
+    {
+        
     }
     </code>
 
@@ -1735,13 +1722,8 @@ ADP_AVAILABLE_MAC_LAYERS ADP_GetAvailableMacLayers(void);
     <code>
     uint8_t nsdu[1280];
     uint16_t nsduLength;
-
-    // ...
-    // Fill NSDU
-    // ...
     
     ADP_DataRequest(nsduLength, nsdu, 0, true, 0);
-    // Wait for Data Confirm
     </code>
 
   Remarks:
@@ -1801,13 +1783,8 @@ void ADP_DataRequest(uint16_t nsduLength, const uint8_t *pNsdu,
     <code>
     uint8_t apdu[1280];
     uint16_t apduLength;
-
-    // ...
-    // Fill NSDU
-    // ...
     
     ADP_NoIPDataRequest(apduLength, apdu, 0x0001, 0, true, 0);
-    // Wait for Data Confirm
     </code>
 
   Remarks:
@@ -1842,7 +1819,6 @@ void ADP_NoIPDataRequest(uint16_t apduLength, const uint8_t *pApdu,
   Example:
     <code>
     ADP_DiscoveryRequest(60);
-    // Wait for Discovery Confirm
     </code>
 
   Remarks:
@@ -1877,7 +1853,6 @@ void ADP_DiscoveryRequest(uint8_t duration);
   Example:
     <code>
     ADP_NetworkStartRequest(0x1234);
-    // Wait for Network Start Confirm
     </code>
 
   Remarks:
@@ -1910,7 +1885,6 @@ void ADP_NetworkStartRequest(uint16_t panId);
   Example:
     <code>
     ADP_ResetRequest();
-    // Wait for Reset Confirm
     </code>
 
   Remarks:
@@ -1946,7 +1920,6 @@ void ADP_ResetRequest(void);
   Example:
     <code>
     ADP_GetRequest(ADP_IB_SOFT_VERSION, 0);
-    // Wait for Get Confirm
     </code>
 
   Remarks:
@@ -1987,10 +1960,9 @@ void ADP_GetRequest(uint32_t attributeId, uint16_t attributeIndex);
 
     ADP_GetRequestSync(ADP_IB_SOFT_VERSION, 0, &getConfirm);
 
-    // Check the result
     if (getConfirm->status == G3_SUCCESS)
     {
-        // Value is stored in getConfirm->attributeValue
+        
     }
     </code>
 
@@ -2029,7 +2001,6 @@ void ADP_GetRequestSync(uint32_t attributeId, uint16_t attributeIndex,
   Example:
     <code>
     ADP_MacGetRequest(MAC_WRP_PIB_SHORT_ADDRESS, 0);
-    // Wait for MAC Get Confirm
     </code>
 
   Remarks:
@@ -2070,10 +2041,9 @@ void ADP_MacGetRequest(uint32_t attributeId, uint16_t attributeIndex);
 
     ADP_MacGetRequestSync(MAC_WRP_PIB_SHORT_ADDRESS, 0, &getConfirm);
 
-    // Check the result
     if (getConfirm->status == G3_SUCCESS)
     {
-        // Value is stored in getConfirm->attributeValue
+        
     }
     </code>
 
@@ -2119,7 +2089,6 @@ void ADP_MacGetRequestSync(uint32_t u32AttributeId, uint16_t u16AttributeIndex,
 
     pAttributeValue[0] = 44;
     ADP_SetRequest(ADP_IB_LOW_LQI_VALUE, 0, 1, pAttributeValue);
-    // Wait for Set Confirm
     </code>
 
   Remarks:
@@ -2169,7 +2138,6 @@ void ADP_SetRequest(uint32_t attributeId, uint16_t attributeIndex,
     ADP_SetRequestSync(ADP_IB_LOW_LQI_VALUE, 0, 1, pAttributeValue,
         &setConfirm);
 
-    // Check the result
     if (setConfirm->status == G3_SUCCESS)
     {
 
@@ -2220,7 +2188,6 @@ void ADP_SetRequestSync(uint32_t attributeId, uint16_t attributeIndex,
 
     pAttributeValue[0] = 5;
     ADP_MacSetRequest(MAC_WRP_PIB_MAX_BE, 0, 1, pAttributeValue);
-    // Wait for MAC Set Confirm
     </code>
 
   Remarks:
@@ -2270,7 +2237,6 @@ void ADP_MacSetRequest(uint32_t attributeId, uint16_t attributeIndex,
     ADP_MacSetRequestSync(MAC_WRP_PIB_MAX_BE, 0, 1, pAttributeValue,
         &setConfirm);
 
-    // Check the result
     if (setConfirm->status == G3_SUCCESS)
     {
 
@@ -2312,7 +2278,6 @@ void ADP_MacSetRequestSync(uint32_t attributeId, uint16_t attributeIndex,
   Example:
     <code>
     ADP_RouteDiscoveryRequest(0x0001, 8);
-    // Wait for Route Discovery Confirm
     </code>
 
   Remarks:
@@ -2348,7 +2313,6 @@ void ADP_RouteDiscoveryRequest(uint16_t dstAddr, uint8_t maxHops);
   Example:
     <code>
     ADP_PathDiscoveryRequest(0x0001, 1);
-    // Wait for Path Discovery Confirm
     </code>
 
   Remarks:
@@ -2413,15 +2377,10 @@ void ADP_PathDiscoveryRequest(uint16_t dstAddr, uint8_t metricType);
     uint16_t nsduLength;
     ADP_ADDRESS destAddress;
 
-    // ...
-    // Fill NSDU
-    // ...
-
     destAddress.addrSize = ADP_ADDRESS_16BITS;
     destAddress.shortAddr = 0x0001;
     
     ADP_LbpRequest(&destAddress, nsduLength, nsdu, 0, 8, true, 0, true);
-    // Wait for LBP Confirm
     </code>
 
   Remarks:
@@ -2437,4 +2396,4 @@ void ADP_LbpRequest(const ADP_ADDRESS *pDstAddr, uint16_t nsduLength,
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _ADP_H
+#endif // #ifndef ADP_H

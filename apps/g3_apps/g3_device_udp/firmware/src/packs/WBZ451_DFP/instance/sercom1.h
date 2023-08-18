@@ -1,7 +1,7 @@
 /*
  * Instance header file for WBZ451
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2022-02-28T16:51:20Z */
+/* file generated from device description version 2023-05-31T11:03:01Z */
 #ifndef _BZ45_SERCOM1_INSTANCE_
 #define _BZ45_SERCOM1_INSTANCE_
 
@@ -33,6 +33,7 @@
 #define SERCOM1_DMAC_ID_TX                       (7)        
 #define SERCOM1_FIFO_DEPTH_POWER                 (1)        
 #define SERCOM1_GCLK_ID_CORE                     (3)        
+#define SERCOM1_INSTANCE_ID                      (4)        
 #define SERCOM1_INT_MSB                          (6)        
 #define SERCOM1_PMSB                             (3)        
 #define SERCOM1_RETENTION_SUPPORT                (0)        
@@ -66,6 +67,5 @@
 #define SERCOM1_USART_RS485                      (1)        
 #define SERCOM1_USART_SAMPA_EXT                  (1)        
 #define SERCOM1_USART_SAMPR_EXT                  (1)        
-#define SERCOM1_INSTANCE_ID                      (4)        
 
 #endif /* _BZ45_SERCOM1_INSTANCE_ */

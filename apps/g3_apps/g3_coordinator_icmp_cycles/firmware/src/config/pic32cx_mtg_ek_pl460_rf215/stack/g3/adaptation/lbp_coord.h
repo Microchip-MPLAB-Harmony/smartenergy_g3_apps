@@ -41,8 +41,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _LBP_COORD_H
-#define _LBP_COORD_H
+#ifndef LBP_COORD_H
+#define LBP_COORD_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -94,9 +94,6 @@
     {
         uint16_t assignedAddress;
 
-        // Check extended address
-
-        // Assign 16-bit address
         assignedAddress = 0x0001;
         LBP_ShortAddressAssign(pLbdAddress, assignedAddress);
     }
@@ -134,7 +131,7 @@ typedef void (*LBP_COORD_JOIN_REQUEST_IND_CALLBACK)(uint8_t* pLbdAddress);
     <code>
     App_JoinCompleteIndication(uint8_t* pLbdAddress, uint16_t assignedAddress)
     {
-        // New device joined the network
+        
     }
     </code>
 
@@ -168,7 +165,7 @@ typedef void (*LBP_COORD_JOIN_COMPLETE_IND_CALLBACK)(uint8_t* pLbdAddress,
     <code>
     App_LeaveIndication(uint16_t networkAddress)
     {
-        // Device left the network
+        
     }
     </code>
 
@@ -516,9 +513,6 @@ void LBP_SetParamCoord(uint32_t attributeId, uint16_t attributeIndex,
     {
         uint16_t assignedAddress;
 
-        // Check extended address
-
-        // Assign 16-bit address
         assignedAddress = 0x0001;
         LBP_ShortAddressAssign(pLbdAddress, assignedAddress);
     }
@@ -535,4 +529,4 @@ void LBP_ShortAddressAssign(uint8_t *pExtAddress, uint16_t assignedAddress);
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _LBP_COORD_H
+#endif // #ifndef LBP_COORD_H

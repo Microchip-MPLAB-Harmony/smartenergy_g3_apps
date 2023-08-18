@@ -1,7 +1,7 @@
 /*
  * Instance header file for WBZ451
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2022-02-28T16:51:20Z */
+/* file generated from device description version 2023-05-31T11:03:01Z */
 #ifndef _BZ45_AC_INSTANCE_
 #define _BZ45_AC_INSTANCE_
 
@@ -29,10 +29,10 @@
 #define AC_COMPCTRL_MUXNEG_OPAMP                 (7)        
 #define AC_GCLK_ID                               (20)       
 #define AC_IMPLEMENTS_VDBLR                      (0)        
+#define AC_INSTANCE_ID                           (71)       
+#define AC_LOAD_CALIB                            (0)        
 #define AC_NUM_CMP                               (2)        
 #define AC_PAIRS                                 (1)        
 #define AC_SPEED_LEVELS                          (2)        
-#define AC_INSTANCE_ID                           (71)       
-#define AC_LOAD_CALIB                            (0)        
 
 #endif /* _BZ45_AC_INSTANCE_ */

@@ -53,6 +53,12 @@
 #include "mac_common.h"
 #include "../mac_plc/mac_plc_mib.h"
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: File Scope Variables
+// *****************************************************************************
+// *****************************************************************************
+
 /* Time control variables */
 static uint64_t previousCounter64 = 0;
 static uint32_t auxMsCounter = 0;
@@ -73,29 +79,25 @@ static const MAC_COMMON_MIB macMibCommonDefaults = {
     false, // coordinator
 };
 
-void MAC_COMMON_Init(void)
-{
-    macMibCommon = macMibCommonDefaults;
-}
+// *****************************************************************************
+// *****************************************************************************
+// Section: File Scope Functions
+// *****************************************************************************
+// *****************************************************************************
 
-void MAC_COMMON_Reset(void)
+static MAC_STATUS lMAC_COMMON_PibGetExtendedAddress(MAC_PIB_VALUE *pibValue)
 {
-    macMibCommon = macMibCommonDefaults;
-}
-
-static MAC_STATUS _macPibGetExtendedAddress(MAC_PIB_VALUE *pibValue)
-{
-    pibValue->length = sizeof(macMibCommon.extendedAddress);
-    memcpy(pibValue->value, &macMibCommon.extendedAddress, pibValue->length);
+    pibValue->length = (uint8_t)sizeof(macMibCommon.extendedAddress);
+    (void) memcpy(pibValue->value, macMibCommon.extendedAddress.address, pibValue->length);
     return MAC_STATUS_SUCCESS;
 }
 
-static MAC_STATUS _macPibSetExtendedAddress(const MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibSetExtendedAddress(const MAC_PIB_VALUE *pibValue)
 {
     MAC_STATUS status = MAC_STATUS_SUCCESS;
     if (pibValue->length == sizeof(macMibCommon.extendedAddress))
     {
-        memcpy(&macMibCommon.extendedAddress, pibValue->value, pibValue->length);
+        (void) memcpy(macMibCommon.extendedAddress.address, pibValue->value, pibValue->length);
     }
     else
     {
@@ -104,19 +106,19 @@ static MAC_STATUS _macPibSetExtendedAddress(const MAC_PIB_VALUE *pibValue)
     return status;
 }
 
-static MAC_STATUS _macPibGetPanId(MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibGetPanId(MAC_PIB_VALUE *pibValue)
 {
-    pibValue->length = sizeof(macMibCommon.panId);
-    memcpy(pibValue->value, &macMibCommon.panId, pibValue->length);
+    pibValue->length = (uint8_t)sizeof(macMibCommon.panId);
+    (void) memcpy((void *)pibValue->value, (void *)&macMibCommon.panId, pibValue->length);
     return MAC_STATUS_SUCCESS;
 }
 
-static MAC_STATUS _macPibSetPanId(const MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibSetPanId(const MAC_PIB_VALUE *pibValue)
 {
     MAC_STATUS status = MAC_STATUS_SUCCESS;
     if (pibValue->length == sizeof(macMibCommon.panId))
     {
-        memcpy(&macMibCommon.panId, pibValue->value, pibValue->length);
+        (void) memcpy((void *)&macMibCommon.panId, (const void *)pibValue->value, pibValue->length);
     }
     else
     {
@@ -125,21 +127,19 @@ static MAC_STATUS _macPibSetPanId(const MAC_PIB_VALUE *pibValue)
     return status;
 }
 
-static MAC_STATUS _macPibGetPromiscuousMode(MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibGetPromiscuousMode(MAC_PIB_VALUE *pibValue)
 {
     pibValue->length = 1;
-    pibValue->value[0] = (macMibCommon.promiscuousMode) ? 1 : 0;
+    pibValue->value[0] = (macMibCommon.promiscuousMode) ? 1U : 0U;
     return MAC_STATUS_SUCCESS;
 }
 
-static MAC_STATUS _macPibSetPromiscuousMode(const MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibSetPromiscuousMode(const MAC_PIB_VALUE *pibValue)
 {
     MAC_STATUS status = MAC_STATUS_SUCCESS;
-    uint8_t u8Value;
-    memcpy(&u8Value, pibValue->value, sizeof(u8Value));
-    if ((pibValue->length == sizeof(u8Value)) && (u8Value <= 1))
+    if ((pibValue->length == sizeof(macMibCommon.promiscuousMode)) && (pibValue->value[0] <= 1U))
     {
-        macMibCommon.promiscuousMode = u8Value != 0;
+        macMibCommon.promiscuousMode = pibValue->value[0] != 0U;
     }
     else
     {
@@ -148,19 +148,19 @@ static MAC_STATUS _macPibSetPromiscuousMode(const MAC_PIB_VALUE *pibValue)
     return status;
 }
 
-static MAC_STATUS _macPibGetShortAddress(MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibGetShortAddress(MAC_PIB_VALUE *pibValue)
 {
-    pibValue->length = sizeof(macMibCommon.shortAddress);
-    memcpy(pibValue->value, &macMibCommon.shortAddress, pibValue->length);
+    pibValue->length = (uint8_t)sizeof(macMibCommon.shortAddress);
+    (void) memcpy((void *)pibValue->value, (void *)&macMibCommon.shortAddress, pibValue->length);
     return MAC_STATUS_SUCCESS;
 }
 
-static MAC_STATUS _macPibSetShortAddress(const MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibSetShortAddress(const MAC_PIB_VALUE *pibValue)
 {
     MAC_STATUS status = MAC_STATUS_SUCCESS;
     if (pibValue->length == sizeof(macMibCommon.shortAddress))
     {
-        memcpy(&macMibCommon.shortAddress, pibValue->value, pibValue->length);
+        (void) memcpy((void *)&macMibCommon.shortAddress, (const void *)pibValue->value, pibValue->length);
     }
     else
     {
@@ -169,19 +169,19 @@ static MAC_STATUS _macPibSetShortAddress(const MAC_PIB_VALUE *pibValue)
     return status;
 }
 
-static MAC_STATUS _macPibGetRcCoord(MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibGetRcCoord(MAC_PIB_VALUE *pibValue)
 {
-    pibValue->length = sizeof(macMibCommon.rcCoord);
-    memcpy(pibValue->value, &macMibCommon.rcCoord, pibValue->length);
+    pibValue->length = (uint8_t)sizeof(macMibCommon.rcCoord);
+    (void) memcpy((void *)pibValue->value, (void *)&macMibCommon.rcCoord, pibValue->length);
     return MAC_STATUS_SUCCESS;
 }
 
-static MAC_STATUS _macPibSetRcCoord(const MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibSetRcCoord(const MAC_PIB_VALUE *pibValue)
 {
     MAC_STATUS status = MAC_STATUS_SUCCESS;
     if (pibValue->length == sizeof(macMibCommon.rcCoord))
     {
-        memcpy(&macMibCommon.rcCoord, pibValue->value, pibValue->length);
+        (void) memcpy((void *)&macMibCommon.rcCoord, (const void *)pibValue->value, pibValue->length);
     }
     else
     {
@@ -190,7 +190,7 @@ static MAC_STATUS _macPibSetRcCoord(const MAC_PIB_VALUE *pibValue)
     return status;
 }
 
-static MAC_STATUS _macPibSetKeyTable(uint16_t index, const MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibSetKeyTable(uint16_t index, const MAC_PIB_VALUE *pibValue)
 {
     MAC_STATUS status;
     if (index < MAC_KEY_TABLE_ENTRIES)
@@ -201,12 +201,12 @@ static MAC_STATUS _macPibSetKeyTable(uint16_t index, const MAC_PIB_VALUE *pibVal
                 (memcmp(&macMibCommon.keyTable[index].key, pibValue->value, MAC_SECURITY_KEY_LENGTH) != 0))
             {
                 // Set value if invalid entry or different key
-                memcpy(&macMibCommon.keyTable[index].key, pibValue->value, MAC_SECURITY_KEY_LENGTH);
+                (void) memcpy(&macMibCommon.keyTable[index].key, pibValue->value, MAC_SECURITY_KEY_LENGTH);
                 macMibCommon.keyTable[index].valid = true;
             }
             status = MAC_STATUS_SUCCESS;
         }
-        else if (pibValue->length == 0)
+        else if (pibValue->length == 0U)
         {
             macMibCommon.keyTable[index].valid = false;
             status = MAC_STATUS_SUCCESS;
@@ -223,19 +223,19 @@ static MAC_STATUS _macPibSetKeyTable(uint16_t index, const MAC_PIB_VALUE *pibVal
     return status;
 }
 
-static MAC_STATUS _macPibGetPOSTableEntryTtl(MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibGetPOSTableEntryTtl(MAC_PIB_VALUE *pibValue)
 {
-    pibValue->length = sizeof(macMibCommon.posTableEntryTtl);
-    memcpy(pibValue->value, &macMibCommon.posTableEntryTtl, pibValue->length);
+    pibValue->length = (uint8_t)sizeof(macMibCommon.posTableEntryTtl);
+    pibValue->value[0] = macMibCommon.posTableEntryTtl;
     return MAC_STATUS_SUCCESS;
 }
 
-static MAC_STATUS _macPibSetPOSTableEntryTtl(const MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibSetPOSTableEntryTtl(const MAC_PIB_VALUE *pibValue)
 {
     MAC_STATUS status = MAC_STATUS_SUCCESS;
     if (pibValue->length == sizeof(macMibCommon.posTableEntryTtl))
     {
-        memcpy(&macMibCommon.posTableEntryTtl, pibValue->value, pibValue->length);
+        macMibCommon.posTableEntryTtl = pibValue->value[0];
     }
     else
     {
@@ -244,30 +244,48 @@ static MAC_STATUS _macPibSetPOSTableEntryTtl(const MAC_PIB_VALUE *pibValue)
     return status;
 }
 
-static MAC_STATUS _macPibGetPOSRecentEntryThreshold(MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibGetPOSRecentEntryThreshold(MAC_PIB_VALUE *pibValue)
 {
-    pibValue->length = sizeof(macMibCommon.posRecentEntryThreshold);
-    memcpy(pibValue->value, &macMibCommon.posRecentEntryThreshold, pibValue->length);
+    pibValue->length = (uint8_t)sizeof(macMibCommon.posRecentEntryThreshold);
+    pibValue->value[0] = macMibCommon.posRecentEntryThreshold;
     return MAC_STATUS_SUCCESS;
 }
 
-static MAC_STATUS _macPibSetPOSRecentEntryThreshold(const MAC_PIB_VALUE *pibValue)
+static MAC_STATUS lMAC_COMMON_PibSetPOSRecentEntryThreshold(const MAC_PIB_VALUE *pibValue)
 {
     MAC_STATUS status = MAC_STATUS_SUCCESS;
-    if (pibValue->length == sizeof(macMibCommon.posRecentEntryThreshold)) {
-        memcpy(&macMibCommon.posRecentEntryThreshold, pibValue->value, pibValue->length);
+    if (pibValue->length == sizeof(macMibCommon.posRecentEntryThreshold))
+    {
+        macMibCommon.posRecentEntryThreshold = pibValue->value[0];
     }
-    else {
+    else
+    {
         status = MAC_STATUS_INVALID_PARAMETER;
     }
     return status;
+}
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: MAC Common Interface Routines
+// *****************************************************************************
+// *****************************************************************************
+
+void MAC_COMMON_Init(void)
+{
+    macMibCommon = macMibCommonDefaults;
+}
+
+void MAC_COMMON_Reset(void)
+{
+    macMibCommon = macMibCommonDefaults;
 }
 
 MAC_STATUS MAC_COMMON_GetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_t index, MAC_PIB_VALUE *pibValue)
 {
     MAC_STATUS status;
     bool isArray = (attribute == MAC_COMMON_PIB_KEY_TABLE);
-    if (!isArray && (index != 0))
+    if (!isArray && (index != 0U))
     {
         status = MAC_STATUS_INVALID_INDEX;
     }
@@ -276,25 +294,25 @@ MAC_STATUS MAC_COMMON_GetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
         switch (attribute)
         {
         case MAC_COMMON_PIB_PAN_ID:
-            status = _macPibGetPanId(pibValue);
+            status = lMAC_COMMON_PibGetPanId(pibValue);
             break;
         case MAC_COMMON_PIB_PROMISCUOUS_MODE:
-            status = _macPibGetPromiscuousMode(pibValue);
+            status = lMAC_COMMON_PibGetPromiscuousMode(pibValue);
             break;
         case MAC_COMMON_PIB_SHORT_ADDRESS:
-            status = _macPibGetShortAddress(pibValue);
+            status = lMAC_COMMON_PibGetShortAddress(pibValue);
             break;
         case MAC_COMMON_PIB_RC_COORD:
-            status = _macPibGetRcCoord(pibValue);
+            status = lMAC_COMMON_PibGetRcCoord(pibValue);
             break;
         case MAC_COMMON_PIB_EXTENDED_ADDRESS:
-            status = _macPibGetExtendedAddress(pibValue);
+            status = lMAC_COMMON_PibGetExtendedAddress(pibValue);
             break;
         case MAC_COMMON_PIB_POS_TABLE_ENTRY_TTL:
-            status = _macPibGetPOSTableEntryTtl(pibValue);
+            status = lMAC_COMMON_PibGetPOSTableEntryTtl(pibValue);
             break;
         case MAC_COMMON_PIB_POS_RECENT_ENTRY_THRESHOLD:
-            status = _macPibGetPOSRecentEntryThreshold(pibValue);
+            status = lMAC_COMMON_PibGetPOSRecentEntryThreshold(pibValue);
             break;
         case MAC_COMMON_PIB_KEY_TABLE:
             status = MAC_STATUS_UNAVAILABLE_KEY;
@@ -308,7 +326,7 @@ MAC_STATUS MAC_COMMON_GetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
 
     if (status != MAC_STATUS_SUCCESS)
     {
-        pibValue->length = 0;
+        pibValue->length = 0U;
     }
     return status;
 }
@@ -317,7 +335,7 @@ MAC_STATUS MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
 {
     MAC_STATUS status;
     bool isArray = (attribute == MAC_COMMON_PIB_KEY_TABLE);
-    if (!isArray && (index != 0))
+    if (!isArray && (index != 0U))
     {
         status = MAC_STATUS_INVALID_INDEX;
     }
@@ -326,63 +344,63 @@ MAC_STATUS MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
         switch (attribute)
         {
         case MAC_COMMON_PIB_PAN_ID:
-            status = _macPibSetPanId(pibValue);
+            status = lMAC_COMMON_PibSetPanId(pibValue);
             if (status == MAC_STATUS_SUCCESS)
             {
                 /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
-                MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
             }
             break;
         case MAC_COMMON_PIB_PROMISCUOUS_MODE:
-            status = _macPibSetPromiscuousMode(pibValue);
+            status = lMAC_COMMON_PibSetPromiscuousMode(pibValue);
             if (status == MAC_STATUS_SUCCESS)
             {
                 /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
-                MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
             }
             break;
         case MAC_COMMON_PIB_SHORT_ADDRESS:
-            status = _macPibSetShortAddress(pibValue);
+            status = lMAC_COMMON_PibSetShortAddress(pibValue);
             if (status == MAC_STATUS_SUCCESS)
             {
                 /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
-                MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
             }
             break;
         case MAC_COMMON_PIB_RC_COORD:
-            status = _macPibSetRcCoord(pibValue);
+            status = lMAC_COMMON_PibSetRcCoord(pibValue);
             if (status == MAC_STATUS_SUCCESS)
             {
                 /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
-                MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
             }
             break;
         case MAC_COMMON_PIB_EXTENDED_ADDRESS:
-            status = _macPibSetExtendedAddress(pibValue);
+            status = lMAC_COMMON_PibSetExtendedAddress(pibValue);
             if (status == MAC_STATUS_SUCCESS)
             {
                 /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
-                MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
             }
             break;
         case MAC_COMMON_PIB_POS_TABLE_ENTRY_TTL:
-            status = _macPibSetPOSTableEntryTtl(pibValue);
+            status = lMAC_COMMON_PibSetPOSTableEntryTtl(pibValue);
             if (status == MAC_STATUS_SUCCESS)
             {
                 /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
-                MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
             }
             break;
         case MAC_COMMON_PIB_POS_RECENT_ENTRY_THRESHOLD:
-            status = _macPibSetPOSRecentEntryThreshold(pibValue);
+            status = lMAC_COMMON_PibSetPOSRecentEntryThreshold(pibValue);
             if (status == MAC_STATUS_SUCCESS)
             {
                 /* Ignore result as it depends on availability of PLC interface, which may be unavailable */
-                MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
             }
             break;
         case MAC_COMMON_PIB_KEY_TABLE:
-            status = _macPibSetKeyTable(index, pibValue);
+            status = lMAC_COMMON_PibSetKeyTable(index, pibValue);
             break;
 
         default:
@@ -410,12 +428,12 @@ uint32_t MAC_COMMON_GetMsCounter(void)
     previousCounter64 += SYS_TIME_MSToCount(elapsedMs);
 
     /* Check whether seconds counter has to be updated */
-    if ((currentMsCounter - auxMsCounter) > 1000)
+    if ((currentMsCounter - auxMsCounter) > 1000U)
     {
         /* Assume no more than one second passed */
         /* This function is called every few program loops */
         currentSecondCounter++;
-        auxMsCounter += 1000;
+        auxMsCounter += 1000U;
     }
 
     return currentMsCounter;

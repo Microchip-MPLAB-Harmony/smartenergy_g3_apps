@@ -15,7 +15,7 @@
 *******************************************************************************/
 
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -58,7 +58,7 @@
 static uint8_t sKey[256];
 
 /* Key size in bytes */
-static uint16_t sKeyLen;
+static uint32_t sKeyLen;
 
 /* AES context used in this wrapper */
 static CRYPT_AES_CTX sAesCtx;
@@ -71,36 +71,36 @@ static CRYPT_AES_CTX sAesCtx;
 
 void AES_Wrapper_ContextInit(void)
 {
-    memset(&sAesCtx, 0, sizeof(sAesCtx));
+    (void) memset(&sAesCtx, 0, sizeof(sAesCtx));
 }
 
 void AES_Wrapper_ContextFree(void)
 {
-    memset(&sAesCtx, 0, sizeof(sAesCtx));
+    (void) memset(&sAesCtx, 0, sizeof(sAesCtx));
 }
 
 void AES_Wrapper_Encrypt(const uint8_t *in, uint8_t *out)
 {
     /* Set the AES key */
-    CRYPT_AES_KeySet(&sAesCtx, sKey, sKeyLen, NULL, CRYPT_AES_ENCRYPTION);
+    (void) CRYPT_AES_KeySet(&sAesCtx, sKey, sKeyLen, NULL, CRYPT_AES_ENCRYPTION);
 
     /* Trigger the AES */
-    CRYPT_AES_DIRECT_Encrypt(&sAesCtx, out, in);
+    (void) CRYPT_AES_DIRECT_Encrypt(&sAesCtx, out, in);
 }
 
 void AES_Wrapper_Decrypt(const uint8_t *in, uint8_t *out)
 {
     /* Set the AES key */
-    CRYPT_AES_KeySet(&sAesCtx, sKey, sKeyLen, NULL, CRYPT_AES_DECRYPTION);
+    (void) CRYPT_AES_KeySet(&sAesCtx, sKey, sKeyLen, NULL, CRYPT_AES_DECRYPTION);
 
     /* Trigger the AES */
-    CRYPT_AES_DIRECT_Decrypt(&sAesCtx, out, in);
+    (void) CRYPT_AES_DIRECT_Decrypt(&sAesCtx, out, in);
 }
 
 void AES_Wrapper_KeySet(const uint8_t *key, uint32_t keyLen)
 {
     /* Store the key */
-    memcpy(sKey, key, keyLen);
+    (void) memcpy(sKey, key, keyLen);
 
     /* Store the key size */
     sKeyLen = keyLen;
@@ -108,10 +108,10 @@ void AES_Wrapper_KeySet(const uint8_t *key, uint32_t keyLen)
 
 void AES_Wrapper_SetEncryptKey(const uint8_t *key, uint32_t keyLen)
 {
-    CRYPT_AES_KeySet(&sAesCtx, key, keyLen, NULL, CRYPT_AES_ENCRYPTION);
+    (void) CRYPT_AES_KeySet(&sAesCtx, key, keyLen, NULL, CRYPT_AES_ENCRYPTION);
 }
 
 void AES_Wrapper_EncryptEcb(const uint8_t *in, uint8_t *out)
 {
-    CRYPT_AES_DIRECT_Encrypt(&sAesCtx, out, in);
+    (void) CRYPT_AES_DIRECT_Encrypt(&sAesCtx, out, in);
 }

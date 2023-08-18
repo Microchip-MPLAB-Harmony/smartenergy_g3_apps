@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _MAC_COMMON_DEFS_H
-#define _MAC_COMMON_DEFS_H
+#ifndef MAC_COMMON_DEFS_H
+#define MAC_COMMON_DEFS_H
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -57,19 +57,19 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define MAC_MAX_MAC_PAYLOAD_SIZE     (400u)
-#define MAC_SECURITY_OVERHEAD        (4)
-#define MAC_MAX_MAC_HEADER_SIZE      (32)
-#define MAC_SECURITY_HEADER_SIZE     (6)
+#define MAC_MAX_MAC_PAYLOAD_SIZE     (400U)
+#define MAC_SECURITY_OVERHEAD        (4U)
+#define MAC_MAX_MAC_HEADER_SIZE      (32U)
+#define MAC_SECURITY_HEADER_SIZE     (6U)
 
-#define MAC_PAN_ID_BROADCAST         (0xFFFFu)
-#define MAC_SHORT_ADDRESS_BROADCAST  (0xFFFFu)
-#define MAC_SHORT_ADDRESS_UNDEFINED  (0xFFFFu)
+#define MAC_PAN_ID_BROADCAST         (0xFFFFU)
+#define MAC_SHORT_ADDRESS_BROADCAST  (0xFFFFU)
+#define MAC_SHORT_ADDRESS_UNDEFINED  (0xFFFFU)
 
-#define MAC_KEY_TABLE_ENTRIES        (2)
-#define MAC_SECURITY_KEY_LENGTH      (16)
+#define MAC_KEY_TABLE_ENTRIES        (2U)
+#define MAC_SECURITY_KEY_LENGTH      (16U)
 
-#define MAX_TONE_GROUPS              (24)
+#define MAX_TONE_GROUPS              (24U)
 
 // *****************************************************************************
 // *****************************************************************************
@@ -94,40 +94,21 @@
 typedef enum
 {
     MAC_STATUS_SUCCESS = 0x00,
-    MAC_STATUS_BEACON_LOSS = 0xE0,
     MAC_STATUS_CHANNEL_ACCESS_FAILURE = 0xE1,
     MAC_STATUS_COUNTER_ERROR = 0xDB,
     MAC_STATUS_DENIED = 0xE2,
-    MAC_STATUS_DISABLE_TRX_FAILURE = 0xE3,
     MAC_STATUS_FRAME_TOO_LONG = 0xE5,
-    MAC_STATUS_IMPROPER_KEY_TYPE = 0xDC,
-    MAC_STATUS_IMPROPER_SECURITY_LEVEL = 0xDD,
-    MAC_STATUS_INVALID_ADDRESS = 0xF5,
-    MAC_STATUS_INVALID_GTS = 0xE6,
     MAC_STATUS_INVALID_HANDLE = 0xE7,
     MAC_STATUS_INVALID_INDEX = 0xF9,
     MAC_STATUS_INVALID_PARAMETER = 0xE8,
     MAC_STATUS_LIMIT_REACHED = 0xFA,
     MAC_STATUS_NO_ACK = 0xE9,
-    MAC_STATUS_NO_BEACON = 0xEA,
-    MAC_STATUS_NO_DATA = 0xEB,
     MAC_STATUS_NO_SHORT_ADDRESS = 0xEC,
-    MAC_STATUS_ON_TIME_TOO_LONG = 0xF6,
-    MAC_STATUS_OUT_OF_CAP = 0xED,
-    MAC_STATUS_PAN_ID_CONFLICT = 0xEE,
-    MAC_STATUS_PAST_TIME = 0xF7,
     MAC_STATUS_READ_ONLY = 0xFB,
-    MAC_STATUS_REALIGNMENT = 0xEF,
-    MAC_STATUS_SCAN_IN_PROGRESS = 0xFC,
     MAC_STATUS_SECURITY_ERROR = 0xE4,
-    MAC_STATUS_SUPERFRAME_OVERLAP = 0xFD,
-    MAC_STATUS_TRACKING_OFF = 0xF8,
-    MAC_STATUS_TRANSACTION_EXPIRED = 0xF0,
     MAC_STATUS_TRANSACTION_OVERFLOW = 0xF1,
-    MAC_STATUS_TX_ACTIVE = 0xF2,
     MAC_STATUS_UNAVAILABLE_KEY = 0xF3,
     MAC_STATUS_UNSUPPORTED_ATTRIBUTE = 0xF4,
-    MAC_STATUS_UNSUPPORTED_LEGACY = 0xDE,
     MAC_STATUS_UNSUPPORTED_SECURITY = 0xDF,
     MAC_STATUS_ALTERNATE_PANID_DETECTION = 0x80,
     MAC_STATUS_QUEUE_FULL = 0xD0,
@@ -777,11 +758,9 @@ typedef struct
     <code>
     App_DataConfirm(MAC_DATA_CONFIRM_PARAMS *params)
     {
-        // Check result
         if (params->status == MAC_STATUS_SUCCESS)
         {
             txHandler = params->msduHandle;
-            // Dispatch accordin to handler
         }
     }
     </code>
@@ -811,19 +790,20 @@ typedef void (*MAC_DataConfirm)(MAC_DATA_CONFIRM_PARAMS *dcParams);
     <code>
     App_DataIndication(MAC_DATA_INDICATION_PARAMS *params)
     {
-        // Check addressing
         if (params->destPanId == myPanId)
         {
             if (params->destAddress.addressMode == MAC_ADDRESS_MODE_SHORT)
             {
-                if (params->destAddress.shortAddress == myShortAddress) {
-                    // Frame is for me
+                if (params->destAddress.shortAddress == myShortAddress)
+                {
+                    
                 }
             }
             else if (params->destAddress.addressMode == MAC_ADDRESS_MODE_EXTENDED)
             {
-                if (params->destAddress.extendedAddress == myExtendedAddress) {
-                    // Frame is for me
+                if (params->destAddress.extendedAddress == myExtendedAddress)
+                {
+                    
                 }
             }
         }
@@ -855,7 +835,6 @@ typedef void (*MAC_DataIndication)(MAC_DATA_INDICATION_PARAMS *diParams);
     <code>
     App_SnifferIndication(MAC_SNIFFER_INDICATION_PARAMS *params)
     {
-        // Send frame to a sniffing handling module
         App_SnifferHandlingTool(params);
     }
     </code>
@@ -885,15 +864,13 @@ typedef void (*MAC_SnifferIndication)(MAC_SNIFFER_INDICATION_PARAMS *siParams);
     <code>
     App_ResetConfirm(MAC_RESET_CONFIRM_PARAMS *params)
     {
-        // Check result
         if (params->status != MAC_STATUS_SUCCESS)
         {
-            // Handle Reset error
+            
         }
         else
         {
-            // Reset performed correctly
-            // Reinitialize MAC module
+            
         }
     }
     </code>
@@ -930,8 +907,6 @@ typedef void (*MAC_ResetConfirm)(MAC_RESET_CONFIRM_PARAMS *rcParams);
 
     App_BeaconIndication(MAC_BEACON_NOTIFY_INDICATION_PARAMS *params)
     {
-        // Keep the Beacon with lowest Route Cost to Coordinator
-        // (criteria chosen for illustration purposes)
         if (params->panDescriptor.rcCoord < lowestRCDescriptor.rcCoord)
         {
             lowestRCDescriptor = params->panDescriptor;
@@ -964,15 +939,13 @@ typedef void (*MAC_BeaconNotifyIndication)(MAC_BEACON_NOTIFY_INDICATION_PARAMS *
     <code>
     App_ScanConfirm(MAC_SCAN_CONFIRM_PARAMS *params)
     {
-        // Check result
         if (params->status != MAC_STATUS_SUCCESS)
         {
-            // Handle Scan error
+            
         }
         else
         {
-            // Scan performed correctly
-            // Check received Beacons
+            
         }
     }
     </code>
@@ -1002,14 +975,13 @@ typedef void (*MAC_ScanConfirm)(MAC_SCAN_CONFIRM_PARAMS *scParams);
     <code>
     App_StartConfirm(MAC_START_CONFIRM_PARAMS *params)
     {
-        // Check result
         if (params->status != MAC_STATUS_SUCCESS)
         {
-            // Handle Start error
+            
         }
         else
         {
-            // Start performed correctly. PAN Coordinator ready.
+            
         }
     }
     </code>
@@ -1043,15 +1015,12 @@ typedef void (*MAC_StartConfirm)(MAC_START_CONFIRM_PARAMS *scParams);
     <code>
     App_CommStatusIndication(MAC_COMM_STATUS_INDICATION_PARAMS *params)
     {
-        // Send event to a handling module
         if (csParams->status == MAC_STATUS_ALTERNATE_PANID_DETECTION)
         {
-            // Frame from other PAN Id received
             App_AlternateIDHandlingTool(params);
         }
         else
         {
-            // Security related issue
             App_SecurityIssueHandlingTool(params);
         }
     }
@@ -1062,13 +1031,21 @@ typedef void (*MAC_StartConfirm)(MAC_START_CONFIRM_PARAMS *scParams);
 */
 typedef void (*MAC_CommStatusIndication)(MAC_COMM_STATUS_INDICATION_PARAMS *csParams);
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: External Data
+// *****************************************************************************
+// *****************************************************************************
+
+extern MAC_COMMON_MIB macMibCommon;
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _MAC_COMMON_DEFS_H
+#endif // #ifndef MAC_COMMON_DEFS_H
 
 /*******************************************************************************
  End of File

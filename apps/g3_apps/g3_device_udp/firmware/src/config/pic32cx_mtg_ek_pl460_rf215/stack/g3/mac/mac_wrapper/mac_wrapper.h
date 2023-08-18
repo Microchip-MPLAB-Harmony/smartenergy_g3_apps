@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _MAC_WRAPPER_H
-#define _MAC_WRAPPER_H
+#ifndef MAC_WRAPPER_H
+#define MAC_WRAPPER_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -450,11 +450,9 @@ typedef enum
     <code>
     App_DataConfirm(MAC_WRP_DATA_CONFIRM_PARAMS *params)
     {
-        // Check result
         if (params->status == MAC_WRP_STATUS_SUCCESS)
         {
             txHandler = params->msduHandle;
-            // Dispatch according to handler
         }
     }
     </code>
@@ -484,19 +482,20 @@ typedef void (*MAC_WRP_DataConfirm)(MAC_WRP_DATA_CONFIRM_PARAMS *dcParams);
     <code>
     App_DataIndication(MAC_WRP_DATA_INDICATION_PARAMS *params)
     {
-        // Check addressing
         if (params->destPanId == myPanId)
         {
             if (params->destAddress.addressMode == MAC_WRP_ADDRESS_MODE_SHORT)
             {
-                if (params->destAddress.shortAddress == myShortAddress) {
-                    // Frame is for me
+                if (params->destAddress.shortAddress == myShortAddress)
+                {
+                    
                 }
             }
             else if (params->destAddress.addressMode == MAC_WRP_ADDRESS_MODE_EXTENDED)
             {
-                if (params->destAddress.extendedAddress == myExtendedAddress) {
-                    // Frame is for me
+                if (params->destAddress.extendedAddress == myExtendedAddress)
+                {
+                    
                 }
             }
         }
@@ -528,7 +527,6 @@ typedef void (*MAC_WRP_DataIndication)(MAC_WRP_DATA_INDICATION_PARAMS *diParams)
     <code>
     App_SnifferIndication(MAC_WRP_SNIFFER_INDICATION_PARAMS *params)
     {
-        // Send frame to a sniffing handling module
         App_SnifferHandlingTool(params);
     }
     </code>
@@ -558,15 +556,13 @@ typedef void (*MAC_WRP_SnifferIndication)(MAC_WRP_SNIFFER_INDICATION_PARAMS *siP
     <code>
     App_ResetConfirm(MAC_WRP_RESET_CONFIRM_PARAMS *params)
     {
-        // Check result
         if (params->status != MAC_WRP_STATUS_SUCCESS)
         {
-            // Handle Reset error
+            
         }
         else
         {
-            // Reset performed correctly
-            // Reinitialize MAC Wrapper module
+            
         }
     }
     </code>
@@ -603,8 +599,6 @@ typedef void (*MAC_WRP_ResetConfirm)(MAC_WRP_RESET_CONFIRM_PARAMS *rcParams);
 
     App_BeaconIndication(MAC_WRP_BEACON_NOTIFY_INDICATION_PARAMS *params)
     {
-        // Keep the Beacon with lowest Route Cost to Coordinator
-        // (criteria chosen for illustration purposes)
         if (params->panDescriptor.rcCoord < lowestRCDescriptor.rcCoord)
         {
             lowestRCDescriptor = params->panDescriptor;
@@ -637,15 +631,13 @@ typedef void (*MAC_WRP_BeaconNotifyIndication)(MAC_WRP_BEACON_NOTIFY_INDICATION_
     <code>
     App_ScanConfirm(MAC_WRP_SCAN_CONFIRM_PARAMS *params)
     {
-        // Check result
         if (params->status != MAC_WRP_STATUS_SUCCESS)
         {
-            // Handle Scan error
+            
         }
         else
         {
-            // Scan performed correctly
-            // Check received Beacons
+            
         }
     }
     </code>
@@ -675,14 +667,13 @@ typedef void (*MAC_WRP_ScanConfirm)(MAC_WRP_SCAN_CONFIRM_PARAMS *scParams);
     <code>
     App_StartConfirm(MAC_WRP_START_CONFIRM_PARAMS *params)
     {
-        // Check result
         if (params->status != MAC_WRP_STATUS_SUCCESS)
         {
-            // Handle Start error
+            
         }
         else
         {
-            // Start performed correctly. PAN Coordinator ready.
+            
         }
     }
     </code>
@@ -716,15 +707,12 @@ typedef void (*MAC_WRP_StartConfirm)(MAC_WRP_START_CONFIRM_PARAMS *scParams);
     <code>
     App_CommStatusIndication(MAC_WRP_COMM_STATUS_INDICATION_PARAMS *params)
     {
-        // Send event to a handling module
         if (csParams->status == MAC_WRP_STATUS_ALTERNATE_PANID_DETECTION)
         {
-            // Frame from other PAN Id received
             App_AlternateIDHandlingTool(params);
         }
         else
         {
-            // Security related issue
             App_SecurityIssueHandlingTool(params);
         }
     }
@@ -796,7 +784,7 @@ typedef struct
     sysObjMacWrp = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0);
     if (sysObjMacWrp == SYS_MODULE_OBJ_INVALID)
     {
-        // Handle error
+        
     }
     </code>
 
@@ -840,7 +828,7 @@ SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index);
     handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
     if (handle == MAC_WRP_HANDLE_INVALID)
     {
-        // Handle error
+        
     }
     </code>
 
@@ -882,9 +870,9 @@ MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand);
         .resetConfirmCallback = appResetConfirm,
         .beaconNotifyIndicationCallback = appBeaconIndication,
         .scanConfirmCallback = appScanConfirm,
-        .startConfirmCallback = NULL, // Start primitive not used
+        .startConfirmCallback = NULL,
         .commStatusIndicationCallback = appCommStatus,
-        .snifferIndicationCallback = NULL, // MAC Sniffer not used
+        .snifferIndicationCallback = NULL,
     };
 
     MAC_WRP_SetCallbacks(handle, &macWrpHandlers);
@@ -921,16 +909,12 @@ void MAC_WRP_SetCallbacks(MAC_WRP_HANDLE handle, MAC_WRP_HANDLERS* handlers);
 
   Example:
     <code>
-    // ...
     SYS_MODULE_OBJ sysObjMacWrp;
     sysObjMacWrp = MAC_WRP_Initialize(G3_MAC_WRP_INDEX_0);
-    // ...
 
     while (true)
     {
         MAC_WRP_Tasks(sysObjMacWrp);
-
-        // Do other tasks
     }
     </code>
 
@@ -968,10 +952,8 @@ void MAC_WRP_Tasks(SYS_MODULE_OBJ object);
 
   Example:
     <code>
-    // ...
     MAC_WRP_HANDLE handle;
     handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
-    // ...
 
     MAC_WRP_DATA_REQUEST_PARAMS params = {
         .srcAddressMode = MAC_WRP_ADDRESS_MODE_SHORT,
@@ -987,7 +969,6 @@ void MAC_WRP_Tasks(SYS_MODULE_OBJ object);
     };
 
     MAC_WRP_DataRequest(handle, &params);
-    // Wait for Data Confirm
     </code>
 
   Remarks:
@@ -1032,17 +1013,15 @@ void MAC_WRP_DataRequest(MAC_WRP_HANDLE handle, MAC_WRP_DATA_REQUEST_PARAMS *drP
 
   Example:
     <code>
-    // ...
     MAC_WRP_HANDLE handle;
     handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
-    // ...
 
     MAC_WRP_STATUS status;
     MAC_WRP_PIB_VALUE value;
     status = MAC_WRP_GetRequestSync(handle, MAC_WRP_PIB_MAX_FRAME_RETRIES, 0, &value);
     if (status == MAC_WRP_STATUS_SUCCESS)
     {
-        // Get value from 'value' parameter
+        
     }
     </code>
 
@@ -1089,10 +1068,8 @@ MAC_WRP_STATUS MAC_WRP_GetRequestSync(MAC_WRP_HANDLE handle,
 
   Example:
     <code>
-    // ...
     MAC_WRP_HANDLE handle;
     handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
-    // ...
 
     MAC_WRP_STATUS status;
     const MAC_WRP_PIB_VALUE value = {
@@ -1103,7 +1080,7 @@ MAC_WRP_STATUS MAC_WRP_GetRequestSync(MAC_WRP_HANDLE handle,
     status = MAC_WRP_SetRequestSync(handle, MAC_WRP_PIB_MAX_FRAME_RETRIES, 0, &value);
     if (status == MAC_WRP_STATUS_SUCCESS)
     {
-        // PIB correctly set
+        
     }
     </code>
 
@@ -1141,18 +1118,14 @@ MAC_WRP_STATUS MAC_WRP_SetRequestSync(MAC_WRP_HANDLE handle,
 
   Example:
     <code>
-    // ...
     MAC_WRP_HANDLE handle;
     handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
-    // ...
 
     MAC_WRP_RESET_REQUEST_PARAMS params = {
         .setDefaultPib = true
     };
 
     MAC_WRP_ResetRequest(handle, &params);
-
-    // Wait for Reset Confirm
     </code>
 
   Remarks:
@@ -1191,18 +1164,14 @@ void MAC_WRP_ResetRequest(MAC_WRP_HANDLE handle, MAC_WRP_RESET_REQUEST_PARAMS *r
 
   Example:
     <code>
-    // ...
     MAC_WRP_HANDLE handle;
     handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
-    // ...
 
     MAC_WRP_SCAN_REQUEST_PARAMS params = {
         .scanDuration = 15
     };
 
     MAC_WRP_ScanRequest(handle, &params);
-
-    // Wait for Scan Confirm
     </code>
 
   Remarks:
@@ -1240,18 +1209,14 @@ void MAC_WRP_ScanRequest(MAC_WRP_HANDLE handle, MAC_WRP_SCAN_REQUEST_PARAMS *sca
 
   Example:
     <code>
-    // ...
     MAC_WRP_HANDLE handle;
     handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
-    // ...
 
     MAC_WRP_START_REQUEST_PARAMS params = {
         .panId = 0x1234
     };
 
     MAC_WRP_StartRequest(handle, &params);
-
-    // Wait for Start Confirm
     </code>
 
   Remarks:
@@ -1285,22 +1250,23 @@ void MAC_WRP_StartRequest(MAC_WRP_HANDLE handle, MAC_WRP_START_REQUEST_PARAMS *s
 
   Example:
     <code>
-    // ...
     MAC_WRP_HANDLE handle;
     handle = MAC_WRP_Open(G3_MAC_WRP_INDEX_0, MAC_WRP_BAND_CENELEC_A);
-    // ...
 
     MAC_WRP_AVAILABLE_MAC_LAYERS availableLayers;
     availableLayers = MAC_WRP_GetAvailableMacLayers(handle);
 
-    if (availableLayers == MAC_WRP_AVAILABLE_MAC_PLC) {
-      // Only PLC MAC available
+    if (availableLayers == MAC_WRP_AVAILABLE_MAC_PLC)
+    {
+        
     }
-    else if (availableLayers == MAC_WRP_AVAILABLE_MAC_RF) {
-      // Only RF MAC available
+    else if (availableLayers == MAC_WRP_AVAILABLE_MAC_RF)
+    {
+        
     }
-    else {
-      // Both MAC layers available
+    else
+    {
+        
     }
     </code>
 
@@ -1338,7 +1304,7 @@ MAC_WRP_AVAILABLE_MAC_LAYERS MAC_WRP_GetAvailableMacLayers(MAC_WRP_HANDLE handle
     status = MAC_WRP_Status();
     if (status == SYS_STATUS_READY)
     {
-        // MAC is ready to be used
+        
     }
     </code>
 
@@ -1376,14 +1342,11 @@ SYS_STATUS MAC_WRP_Status(void);
     <code>
     previousCounter = MAC_WRP_GetMsCounter();
 
-    // Perform other actions
-    // ...
-
     newCounter = MAC_WRP_GetMsCounter();
 
     if ((newCounter - previousCounter) > TIMEOUT_MS)
     {
-        // Timeout elapsed
+        
     }
     </code>
 
@@ -1419,12 +1382,9 @@ uint32_t MAC_WRP_GetMsCounter(void);
     <code>
     int32_t validityTime = 5000;
 
-    // Perform other actions
-    // ...
-
     if (MAC_WRP_TimeIsPast(validityTime))
     {
-        // Validity ended
+        
     }
     </code>
 
@@ -1462,14 +1422,11 @@ bool MAC_WRP_TimeIsPast(int32_t timeValue);
     <code>
     previousCounter = MAC_WRP_GetSecondsCounter();
 
-    // Perform other actions
-    // ...
-
     newCounter = MAC_WRP_GetSecondsCounter();
 
     if ((newCounter - previousCounter) > TIMEOUT_SECONDS)
     {
-        // Timeout elapsed
+        
     }
     </code>
 
@@ -1505,12 +1462,9 @@ uint32_t MAC_WRP_GetSecondsCounter(void);
     <code>
     int32_t validityTime = 10;
 
-    // Perform other actions
-    // ...
-
     if (MAC_WRP_TimeIsPastSeconds(validityTime))
     {
-        // Validity ended
+        
     }
     </code>
 
@@ -1525,7 +1479,7 @@ bool MAC_WRP_TimeIsPastSeconds(int32_t timeValue);
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _MAC_WRAPPER_H
+#endif // #ifndef MAC_WRAPPER_H
 
 /*******************************************************************************
  End of File

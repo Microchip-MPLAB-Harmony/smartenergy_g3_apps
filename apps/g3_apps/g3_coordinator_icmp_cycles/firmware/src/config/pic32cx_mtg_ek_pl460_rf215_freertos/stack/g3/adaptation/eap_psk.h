@@ -41,8 +41,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _EAP_PSK_H
-#define _EAP_PSK_H
+#ifndef EAP_PSK_H
+#define EAP_PSK_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -67,25 +67,25 @@
 
 /* EAP message types */
 /* The value takes in account the 2 reserved bits (values are left shifted by 2 bits) */
-#define EAP_REQUEST                    0x04
-#define EAP_RESPONSE                   0x08
-#define EAP_SUCCESS                    0x0C
-#define EAP_FAILURE                    0x10
+#define EAP_REQUEST                    0x04U
+#define EAP_RESPONSE                   0x08U
+#define EAP_SUCCESS                    0x0CU
+#define EAP_FAILURE                    0x10U
 
 /* T-subfield types */
 /* 0 The first EAP-PSK message */
-#define EAP_PSK_T0                     (0x00 << 6)
+#define EAP_PSK_T0                     (0x00U << 6)
 /* 1 The second EAP-PSK message */
-#define EAP_PSK_T1                     (0x01 << 6)
+#define EAP_PSK_T1                     (0x01U << 6)
 /* 2 The third EAP-PSK message */
-#define EAP_PSK_T2                     (0x02 << 6)
+#define EAP_PSK_T2                     (0x02U << 6)
 /* 3 The fourth EAP-PSK message */
-#define EAP_PSK_T3                     (0x03 << 6)
+#define EAP_PSK_T3                     (0x03U << 6)
 
 /* P-Channel result field */
-#define PCHANNEL_RESULT_CONTINUE       0x01
-#define PCHANNEL_RESULT_DONE_SUCCESS   0x02
-#define PCHANNEL_RESULT_DONE_FAILURE   0x03
+#define PCHANNEL_RESULT_CONTINUE       0x01U
+#define PCHANNEL_RESULT_DONE_SUCCESS   0x02U
+#define PCHANNEL_RESULT_DONE_FAILURE   0x03U
 
 // *****************************************************************************
 // *****************************************************************************
@@ -110,7 +110,7 @@ typedef struct
     uint8_t size;
     uint8_t value[LBP_NETWORK_ACCESS_ID_MAX_SIZE_P];
 
-} EAP_PSK_NETWORK_ACCESS_IDENTIFIER_P;
+} EAP_PSK_NETWORK_ACCESS_ID_P;
 
 // *****************************************************************************
 /* EAP_PSK NetworkAccessIdentifier S type
@@ -129,7 +129,7 @@ typedef struct
     uint8_t size;
     uint8_t value[LBP_NETWORK_ACCESS_ID_MAX_SIZE_S];
 
-} EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S;
+} EAP_PSK_NETWORK_ACCESS_ID_S;
 
 // *****************************************************************************
 /* The EAP_PSK key type
@@ -203,7 +203,7 @@ typedef struct
     EAP_PSK_KEY ak; /* Authentication key */
     EAP_PSK_KEY tek; /* Transient key */
     EAP_PSK_MSK msk; /* Master Session key */
-    EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S idS;
+    EAP_PSK_NETWORK_ACCESS_ID_S idS;
     EAP_PSK_RAND randP;
     EAP_PSK_RAND randS;
 } EAP_PSK_CONTEXT;
@@ -365,7 +365,7 @@ bool EAP_PSK_DecodeMessage(
         uint16_t messageLength,
         uint8_t *pMessage,
         EAP_PSK_RAND *pRandS,
-        EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS
+        EAP_PSK_NETWORK_ACCESS_ID_S *pIdS
         )
 
   Summary:
@@ -399,7 +399,7 @@ bool EAP_PSK_DecodeMessage(
         bool decodeOK;
 
         EAP_PSK_RAND randS;
-        EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S idS;
+        EAP_PSK_NETWORK_ACCESS_ID_S idS;
 
         decodeOK = EAP_PSK_DecodeMessage(messageLength, pMessage,
             &code, &identifier, &tSubfield, &EAPDataLength, &EAPData);
@@ -418,7 +418,7 @@ bool EAP_PSK_DecodeMessage1(
     uint16_t messageLength,
     uint8_t *pMessage,
     EAP_PSK_RAND *pRandS,
-    EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS
+    EAP_PSK_NETWORK_ACCESS_ID_S *pIdS
     );
 
 // *****************************************************************************
@@ -428,8 +428,8 @@ bool EAP_PSK_DecodeMessage1(
         uint8_t identifier,
         const EAP_PSK_RAND *pRandS,
         const EAP_PSK_RAND *pRandP,
-        const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS,
-        const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_P *pIdP,
+        const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
+        const EAP_PSK_NETWORK_ACCESS_ID_P *pIdP,
         uint16_t memoryBufferLength,
         uint8_t *pMemoryBuffer
         )
@@ -470,7 +470,7 @@ bool EAP_PSK_DecodeMessage1(
         bool decodeOK;
 
         EAP_PSK_RAND randS;
-        EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S idS;
+        EAP_PSK_NETWORK_ACCESS_ID_S idS;
 
         decodeOK = EAP_PSK_DecodeMessage(messageLength, pMessage,
             &code, &identifier, &tSubfield, &EAPDataLength, &EAPData);
@@ -482,7 +482,7 @@ bool EAP_PSK_DecodeMessage1(
             if (decodeOK) {
                 uint16_t encodedLen;
                 EAP_PSK_RAND randP = {Peer random sequence};
-                EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S idP = {Peer identifier};
+                EAP_PSK_NETWORK_ACCESS_ID_S idP = {Peer identifier};
 
                 encodedLen = EAP_PSK_EncodeMessage2(&PskContext,
                     identifier, &randS, &randP, &idS, &idP, txBufLen, txBuf);
@@ -499,8 +499,8 @@ uint16_t EAP_PSK_EncodeMessage2(
     uint8_t identifier,
     const EAP_PSK_RAND *pRandS,
     const EAP_PSK_RAND *pRandP,
-    const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS,
-    const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_P *pIdP,
+    const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
+    const EAP_PSK_NETWORK_ACCESS_ID_P *pIdP,
     uint16_t memoryBufferLength,
     uint8_t *pMemoryBuffer
     );
@@ -687,7 +687,7 @@ uint16_t EAP_PSK_EncodeMessage4(
     uint16_t EAP_PSK_EncodeMessage1(
         uint8_t identifier,
         const EAP_PSK_RAND *pRandS,
-        const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS,
+        const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
         uint16_t memoryBufferLength,
         uint8_t *pMemoryBuffer
         )
@@ -717,7 +717,7 @@ uint16_t EAP_PSK_EncodeMessage4(
     {
         uint8_t identifier;
         EAP_PSK_RAND randS;
-        EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S idS;
+        EAP_PSK_NETWORK_ACCESS_ID_S idS;
         uint16_t txBufLen = sizeof(encodeBuffer);
         uint8_t *txBuf = &encodeBuffer[0];
 
@@ -731,7 +731,7 @@ uint16_t EAP_PSK_EncodeMessage4(
 uint16_t EAP_PSK_EncodeMessage1(
     uint8_t identifier,
     const EAP_PSK_RAND *pRandS,
-    const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS,
+    const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
     uint16_t memoryBufferLength,
     uint8_t *pMemoryBuffer
     );
@@ -743,7 +743,7 @@ uint16_t EAP_PSK_EncodeMessage1(
         uint16_t messageLength,
         uint8_t *pMessage,
         const EAP_PSK_CONTEXT *pPskContext,
-        const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS,
+        const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
         EAP_PSK_RAND *pRandS,
         EAP_PSK_RAND *pRandP
         )
@@ -782,7 +782,7 @@ uint16_t EAP_PSK_EncodeMessage1(
         bool decodeOK;
 
         bool arib;
-        EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S idS;
+        EAP_PSK_NETWORK_ACCESS_ID_S idS;
         EAP_PSK_RAND randS;
         EAP_PSK_RAND randP;
         uint16_t headerLength = HEADER_LEN;
@@ -810,7 +810,7 @@ bool EAP_PSK_DecodeMessage2(
     uint16_t messageLength,
     uint8_t *pMessage,
     const EAP_PSK_CONTEXT *pPskContext,
-    const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS,
+    const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
     EAP_PSK_RAND *pRandS,
     EAP_PSK_RAND *pRandP
     );
@@ -822,7 +822,7 @@ bool EAP_PSK_DecodeMessage2(
         uint8_t identifier,
         const EAP_PSK_RAND *pRandS,
         const EAP_PSK_RAND *pRandP,
-        const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS,
+        const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
         uint32_t nonce,
         uint8_t PChannelResult,
         uint16_t PChannelDataLength,
@@ -906,7 +906,7 @@ bool EAP_PSK_DecodeMessage2(
         bool decodeOK;
 
         bool arib;
-        EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S idS;
+        EAP_PSK_NETWORK_ACCESS_ID_S idS;
         EAP_PSK_RAND randS;
         EAP_PSK_RAND randP;
         uint32_t nonce;
@@ -940,7 +940,7 @@ uint16_t EAP_PSK_EncodeMessage3(
     uint8_t identifier,
     const EAP_PSK_RAND *pRandS,
     const EAP_PSK_RAND *pRandP,
-    const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S *pIdS,
+    const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
     uint32_t nonce,
     uint8_t PChannelResult,
     uint16_t PChannelDataLength,
@@ -1072,8 +1072,6 @@ bool EAP_PSK_DecodeMessage4(
         uint16_t encodedLen;
 
         encodedLen = EAP_PSK_EncodeEAPSuccess(identifier, txBufLen, txBuf);
-
-        // Continue encoding LBP frame
     }
     </code>
 
@@ -1122,8 +1120,6 @@ uint16_t EAP_PSK_EncodeEAPSuccess(
         uint16_t encodedLen;
 
         encodedLen = EAP_PSK_EncodeEAPFailure(identifier, txBufLen, txBuf);
-
-        // Continue encoding LBP frame
     }
     </code>
 
@@ -1178,8 +1174,6 @@ uint16_t EAP_PSK_EncodeEAPFailure(
 
         encodedLen = EAP_PSK_EncodeGMKActivation(
             pdata, txBufLen, txBuf);
-
-        // Continue encoding LBP frame
     }
     </code>
 
@@ -1198,4 +1192,4 @@ uint16_t EAP_PSK_EncodeGMKActivation(
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _EAP_PSK_H
+#endif // #ifndef EAP_PSK_H

@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,8 +39,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _DRV_G3_MACRT_LOCAL_H
-#define _DRV_G3_MACRT_LOCAL_H
+#ifndef DRV_G3_MACRT_LOCAL_H
+#define DRV_G3_MACRT_LOCAL_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -119,7 +119,7 @@ typedef struct
 
     /* PLC Initialization Confirm Callback */
     DRV_G3_MACRT_INIT_CALLBACK                initCallback;
-	
+
     /* Application Bootloader Data Callback */
     DRV_PLC_BOOT_DATA_CALLBACK                bootDataCallback;
 
@@ -143,7 +143,7 @@ typedef struct
 
     /* Application Exception Callback */
     DRV_G3_MACRT_EXCEPTION_CALLBACK           exceptionCallback;
-    
+
     /* Event detection flag: data of new reception */
     volatile uint16_t                         evDataIndLength;
 
@@ -167,10 +167,10 @@ typedef struct
 
     /* Event detection flag: RX parameters */
     volatile bool                             evRxParams;
-    
+
     /* Pointer to MAC Sniffer Data Buffer */
     uint8_t                                   *pMacDataSniffer;
-    
+
     /* Pointer to PHY Sniffer Data Buffer */
     uint8_t                                   *pPhyDataSniffer;
 
@@ -180,4 +180,4 @@ typedef struct
 } DRV_G3_MACRT_OBJ;
 
 
-#endif //#ifndef _DRV_G3_MACRT_LOCAL_H
+#endif //#ifndef DRV_G3_MACRT_LOCAL_H

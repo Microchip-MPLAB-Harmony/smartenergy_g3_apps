@@ -19,7 +19,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -54,7 +54,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "system/system.h"
-#include "service/usi/srv_usi_definitions.h"
+#include "service/usi/srv_usi.h"
 #include "osal/osal.h"
 
 // DOM-IGNORE-BEGIN
@@ -65,6 +65,8 @@
 #endif
 // DOM-IGNORE-END
 
+extern const SRV_USI_DEV_DESC srvUSIUSARTDevDesc;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Data Types
@@ -73,13 +75,13 @@
 
 typedef void ( * USI_USART_CALLBACK ) ( uint8_t *data, uint16_t length, uintptr_t context ); 
 
-typedef struct
+typedef struct USI_USART_MSG_tag
 {
     uint8_t*                                 pMessage;
     uint8_t*                                 pDataRd;
     size_t                                   length;
     bool                                     inUse;
-    struct USI_USART_MSG*                    next; 
+    struct USI_USART_MSG_tag*                next; 
 } USI_USART_MSG; 
 
 typedef struct
@@ -95,17 +97,17 @@ typedef enum
     USI_USART_ESC
 } USI_USART_STATE;
 
-typedef void (* PLIB_CALLBACK)( uintptr_t context );
+typedef void (* USI_USART_PLIB_CALLBACK)( uintptr_t context );
 
-typedef void(* USI_USART_PLIB_READ_CALLBACK_REG)(PLIB_CALLBACK callback, uintptr_t context);
+typedef void(* USI_USART_PLIB_READ_CALLBACK_REG)(USI_USART_PLIB_CALLBACK callback, uintptr_t context);
 typedef bool(* USI_USART_PLIB_WRRD)(void *buffer, const size_t size);
 typedef bool(* USI_USART_PLIB_WRITE_ISBUSY)(void);
 
 typedef struct
 {
     USI_USART_PLIB_READ_CALLBACK_REG readCallbackRegister;
-    USI_USART_PLIB_WRRD read;
-    USI_USART_PLIB_WRRD write;
+    USI_USART_PLIB_WRRD readData;
+    USI_USART_PLIB_WRRD writeData;
     USI_USART_PLIB_WRITE_ISBUSY writeIsBusy;
     IRQn_Type intSource;
 } SRV_USI_USART_INTERFACE;
@@ -139,13 +141,13 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 
-DRV_HANDLE USI_USART_Initialize(uint32_t index, const void* initData);
+void USI_USART_Initialize(uint32_t index, const void * const initData);
 
 DRV_HANDLE USI_USART_Open(uint32_t index);
 
 void USI_USART_Tasks (uint32_t index);
 
-size_t USI_USART_Write(uint32_t index, void* pData, size_t length);
+void USI_USART_Write(uint32_t index, void* pData, size_t length);
 
 bool USI_USART_WriteIsBusy(uint32_t index);
 

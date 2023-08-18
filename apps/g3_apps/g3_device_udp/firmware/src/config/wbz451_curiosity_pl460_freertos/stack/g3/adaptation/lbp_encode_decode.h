@@ -39,8 +39,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _LBP_H
-#define _LBP_H
+#ifndef LBP_ENCODE_DECODE_H
+#define LBP_ENCODE_DECODE_H
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -59,38 +59,38 @@
 /* LPB message types */
 /* Fields T and Code are both considered */
 /* The LBD requests joining a PAN and provides the necessary authentication material. */
-#define LBP_JOINING                             0x01
+#define LBP_JOINING                             0x01U
 /* Authentication succeeded with delivery of device specific information (DSI) to the LBD */
-#define LBP_ACCEPTED                            0x09
+#define LBP_ACCEPTED                            0x09U
 /* Authentication in progress. PAN specific information (PSI) may be delivered to the LBD */
-#define LBP_CHALLENGE                           0x0A
+#define LBP_CHALLENGE                           0x0AU
 /* Authentication failed */
-#define LBP_DECLINE                             0x0B
+#define LBP_DECLINE                             0x0BU
 /* KICK frame is used by any device to inform the coordinator that it left the PAN. */
-#define LBP_KICK_FROM_LBD                       0x04
+#define LBP_KICK_FROM_LBD                       0x04U
 /* KICK frame is used by a PAN coordinator to force a device to lose its MAC address */
-#define LBP_KICK_TO_LBD                         0x0C
+#define LBP_KICK_TO_LBD                         0x0CU
 
 /* Parameter values */
 /* Already encoded on 1 byte (M field and last bit included) */
-#define LBP_CONF_PARAM_SHORT_ADDR               0x1D
-#define LBP_CONF_PARAM_GMK                      0x27
-#define LBP_CONF_PARAM_GMK_ACTIVATION           0x2B
-#define LBP_CONF_PARAM_GMK_REMOVAL              0x2F
-#define LBP_CONF_PARAM_RESULT                   0x31
+#define LBP_CONF_PARAM_SHORT_ADDR               0x1DU
+#define LBP_CONF_PARAM_GMK                      0x27U
+#define LBP_CONF_PARAM_GMK_ACTIVATION           0x2BU
+#define LBP_CONF_PARAM_GMK_REMOVAL              0x2FU
+#define LBP_CONF_PARAM_RESULT                   0x31U
 
 /* Parameter result values */
-#define LBP_RESULT_PARAMETER_SUCCESS            0x00
-#define LBP_RESULT_MISSING_REQUIRED_PARAMETER   0x01
-#define LBP_RESULT_INVALID_PARAMETER_VALUE      0x02
-#define LBP_RESULT_UNKNOWN_PARAMETER_ID         0x03
+#define LBP_RESULT_PARAMETER_SUCCESS            0x00U
+#define LBP_RESULT_MISSING_REQUIRED_PARAMETER   0x01U
+#define LBP_RESULT_INVALID_PARAMETER_VALUE      0x02U
+#define LBP_RESULT_UNKNOWN_PARAMETER_ID         0x03U
 
 /* Mask to track the presence of mandatory parameters */
-#define LBP_CONF_PARAM_SHORT_ADDR_MASK          0x01
-#define LBP_CONF_PARAM_GMK_MASK                 0x02
-#define LBP_CONF_PARAM_GMK_ACTIVATION_MASK      0x04
-#define LBP_CONF_PARAM_GMK_REMOVAL_MASK         0x08
-#define LBP_CONF_PARAM_RESULT_MASK              0x10
+#define LBP_CONF_PARAM_SHORT_ADDR_MASK          0x01U
+#define LBP_CONF_PARAM_GMK_MASK                 0x02U
+#define LBP_CONF_PARAM_GMK_ACTIVATION_MASK      0x04U
+#define LBP_CONF_PARAM_GMK_REMOVAL_MASK         0x08U
+#define LBP_CONF_PARAM_RESULT_MASK              0x10U
 
 // *****************************************************************************
 // *****************************************************************************
@@ -479,7 +479,7 @@ uint16_t LBP_EncodeDecline(
 
         if (decodeResult)
         {
-            // Decoding success, handle frame
+
         }
     }
     </code>
@@ -501,4 +501,4 @@ bool LBP_DecodeMessage(
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _LBP_H
+#endif // #ifndef LBP_ENCODE_DECODE_H

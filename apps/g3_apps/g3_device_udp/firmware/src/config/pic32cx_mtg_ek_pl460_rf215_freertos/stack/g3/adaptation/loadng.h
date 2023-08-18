@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _LOADNG_H
-#define _LOADNG_H
+#ifndef LOADNG_H
+#define LOADNG_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -189,14 +189,12 @@ void LOADNG_DiscoverPath(uint16_t dstAddr, uint8_t metricType,
     <code>
     App_DataIndication(MAC_WRP_DATA_INDICATION_PARAMS *params)
     {
-        // Check addressing
         if (params->destPanId == myPanId)
         {
             if (params->destAddress.addressMode == MAC_WRP_ADDRESS_MODE_SHORT)
             {
                 if (params->destAddress.shortAddress == myShortAddress)
                 {
-                    // Frame is for me
                     uint16_t payloadLength = 0;
                     uint8_t commandId = 0;
                     uint8_t* pPayload = NULL;
@@ -441,7 +439,7 @@ void LOADNG_DeleteRoute(uint16_t dstAddr);
 
     if (LOADNG_RouteExists(0x0001) == true)
     {
-        // Route is known
+        
     }
     else
     {
@@ -756,7 +754,7 @@ void LOADNG_RemoveBlacklistOnMedium(uint16_t addr, uint8_t mediaType);
 
     if (LOADNG_IsRouterTo(destAddr))
     {
-      // Do router duties...
+        
     }
     </code>
 
@@ -790,13 +788,9 @@ bool LOADNG_IsRouterTo(uint16_t addr);
 
   Example:
     <code>
-    // ...
-
     while (true)
     {
         LOADNG_Tasks();
-    
-        // Do other tasks
     }
     </code>
 
@@ -811,4 +805,4 @@ void LOADNG_Tasks(void);
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _ADP_H
+#endif // #ifndef LOADNG_H

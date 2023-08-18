@@ -6,15 +6,15 @@
     pal_rf_local.h
 
   Summary:
-    Platform Abstraction Layer RF (PAL RF) Local Interface header file.
+    RF Platform Abstraction Layer (PAL) Interface Local header file.
 
   Description:
-    Platform Abstraction Layer RF (PAL RF) Local Interface header.
+    RF Platform Abstraction Layer (PAL) Interface Local header file.
  *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
- * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software
  * and any derivatives exclusively with Microchip products. It is your
@@ -37,8 +37,8 @@
  *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef _PAL_RF_LOCAL_H
-#define _PAL_RF_LOCAL_H
+#ifndef PAL_RF_LOCAL_H
+#define PAL_RF_LOCAL_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -153,12 +153,12 @@ typedef struct
     PHY_CSMAMode_t csmaMode;
 
     SYS_TIME_HANDLE txTimer;
-    uint32_t txTimeIniCount;
-    uint32_t txTimeIniCountCalc;
-    uint32_t txTimeEndCount;
+    uint64_t txTimeIniCount;
+    uint64_t txTimeIniCountCalc;
+    uint64_t txTimeEndCount;
 
     volatile bool txPending;
-    bool txCfmErrorPending;
+    volatile bool txCfmErrorPending;
     PAL_RF_PHY_STATUS txCfmErrorStatus;
     uint64_t txCfmErrorTime;
 
@@ -175,7 +175,7 @@ typedef struct
 
 } PAL_RF_DATA;
 
-#endif // #ifndef _PAL_RF_LOCAL_H
+#endif // #ifndef PAL_RF_LOCAL_H
 
 /*******************************************************************************
  End of File

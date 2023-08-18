@@ -426,7 +426,7 @@ PAL_RF_PIB_RESULT PAL_RF_SetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
             break;
 
         case PAL_RF_PIB_TX_OFDM_MCS:
-            switch (pibObj->pData[0])
+            switch ((PAL_RF_OFDM_MCS) pibObj->pData[0])
             {
                 case PAL_RF_OFDM_MCS_0:
                     if ((palRfData.rfPhyConfig.phyType == PHY_TYPE_OFDM) &&
@@ -458,7 +458,8 @@ PAL_RF_PIB_RESULT PAL_RF_SetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
                     break;
 
                 default:
-                    return PAL_RF_PIB_INVALID_PARAM;
+                    pibResult = PAL_RF_PIB_INVALID_PARAM;
+                    break;
             }
 
             if (palRfData.rfPhyConfig.phyType == PHY_TYPE_OFDM)
@@ -512,19 +513,21 @@ uint8_t PAL_RF_GetRfPhyPibLength(PAL_RF_HANDLE handle, PAL_RF_PIB_ATTRIBUTE attr
 {
     uint8_t pibLen = 0;
 
-    if (handle == (PAL_RF_HANDLE)&palRfData)
+    if (handle != (PAL_RF_HANDLE)&palRfData)
     {
-        switch (attribute)
-        {
-            case PAL_RF_PIB_TX_FSK_FEC:
-            case PAL_RF_PIB_TX_OFDM_MCS:
-                pibLen = 1;
-                break;
+        return 0;
+    }
 
-            default:
-                pibLen = DRV_RF215_GetPibSize((DRV_RF215_PIB_ATTRIBUTE)attribute);
-                break;
-        }
+    switch (attribute)
+    {
+        case PAL_RF_PIB_TX_FSK_FEC:
+        case PAL_RF_PIB_TX_OFDM_MCS:
+            pibLen = 1;
+            break;
+
+        default:
+            pibLen = DRV_RF215_GetPibSize((DRV_RF215_PIB_ATTRIBUTE)attribute);
+            break;
     }
 
     return pibLen;

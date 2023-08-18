@@ -41,8 +41,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _ROUTING_WRAPPER_H
-#define _ROUTING_WRAPPER_H
+#ifndef ROUTING_WRAPPER_H
+#define ROUTING_WRAPPER_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -119,7 +119,7 @@ void ROUTING_WRP_Reset(MAC_WRP_HANDLE macWrpHandle);
     <code>
     if (ROUTING_WRP_IsDisabled() == false)
     {
-        // Routing is enabled
+        
     }
     else
     {
@@ -155,7 +155,7 @@ bool ROUTING_WRP_IsDisabled(void);
     <code>
     if (ROUTING_WRP_IsAutoRReqDisabled() == false)
     {
-        // Auto RREQ is enabled
+        
     }
     else
     {
@@ -192,7 +192,7 @@ bool ROUTING_WRP_IsAutoRReqDisabled(void);
     <code>
     if (ROUTING_WRP_IsDefaultCoordRouteEnabled() == true)
     {
-        // Default Coordinator Route is enabled
+        
     }
     else
     {
@@ -377,14 +377,12 @@ void ROUTING_WRP_DiscoverPath(uint16_t dstAddr, uint8_t metricType,
     <code>
     App_DataIndication(MAC_WRP_DATA_INDICATION_PARAMS *params)
     {
-        // Check addressing
         if (params->destPanId == myPanId)
         {
             if (params->destAddress.addressMode == MAC_WRP_ADDRESS_MODE_SHORT)
             {
                 if (params->destAddress.shortAddress == myShortAddress)
                 {
-                    // Frame is for me
                     uint16_t payloadLength = 0;
                     uint8_t commandId = 0;
                     uint8_t* pPayload = NULL;
@@ -628,7 +626,7 @@ void ROUTING_WRP_DeleteRoute(uint16_t dstAddr);
 
     if (ROUTING_WRP_RouteExists(0x0001) == true)
     {
-        // Route is known
+        
     }
     else
     {
@@ -944,7 +942,7 @@ void ROUTING_WRP_RemoveBlacklistOnMedium(uint16_t addr, uint8_t mediaType);
 
     if (ROUTING_WRP_IsRouterTo(destAddr))
     {
-      // Do router duties...
+        
     }
     </code>
 
@@ -981,13 +979,9 @@ bool ROUTING_WRP_IsRouterTo(uint16_t addr);
 
   Example:
     <code>
-    // ...
-
     while (true)
     {
         ROUTING_WRP_Tasks();
-    
-        // Do other tasks
     }
     </code>
 
@@ -1002,4 +996,4 @@ void ROUTING_WRP_Tasks(void);
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _ROUTING_WRAPPER_H
+#endif // #ifndef ROUTING_WRAPPER_H
