@@ -73,35 +73,35 @@ static void _APP_UDP_RESPONDER_SetConformance(void)
 
 static void _APP_UDP_RESPONDER_SetIPv6Addresses(void)
 {
+    IPV6_ADDR ipv6Address;
     uint16_t panId;
     uint8_t* eui64;
 
     /* Configure link-local address, based on PAN ID and Short Address */
-    TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_LINK_LOCAL_ADDRESS_G3, &app_udp_responderData.linkLocalAddress);
+    TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_LINK_LOCAL_ADDRESS_G3, &ipv6Address);
     panId = APP_G3_MANAGEMENT_GetPanId();
-    app_udp_responderData.linkLocalAddress.v[8] = (uint8_t) (panId >> 8);
-    app_udp_responderData.linkLocalAddress.v[9] = (uint8_t) panId;
-    app_udp_responderData.linkLocalAddress.v[14] = (uint8_t) (APP_G3_MANAGEMENT_SHORT_ADDRESS >> 8);
-    app_udp_responderData.linkLocalAddress.v[15] = (uint8_t) APP_G3_MANAGEMENT_SHORT_ADDRESS;
-    TCPIP_IPV6_UnicastAddressAdd(app_udp_responderData.netHandle,
-            &app_udp_responderData.linkLocalAddress, 0, false);
+    ipv6Address.v[8] = (uint8_t) (panId >> 8);
+    ipv6Address.v[9] = (uint8_t) panId;
+    ipv6Address.v[14] = (uint8_t) (APP_G3_MANAGEMENT_SHORT_ADDRESS >> 8);
+    ipv6Address.v[15] = (uint8_t) APP_G3_MANAGEMENT_SHORT_ADDRESS;
+    TCPIP_IPV6_UnicastAddressAdd(app_udp_responderData.netHandle, &ipv6Address, 0, false);
 
     /* Configure Unique Local Link (ULA) address, based on PAN ID and Extended
      * Address */
-    TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_NETWORK_PREFIX_G3, &app_udp_responderData.uniqueLocalAddress);
+    TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_NETWORK_PREFIX_G3, &ipv6Address);
     eui64 = APP_G3_MANAGEMENT_GetExtendedAddress();
-    app_udp_responderData.uniqueLocalAddress.v[6] = (uint8_t) (panId >> 8);
-    app_udp_responderData.uniqueLocalAddress.v[7] = (uint8_t) panId;
-    app_udp_responderData.uniqueLocalAddress.v[8] = eui64[7];
-    app_udp_responderData.uniqueLocalAddress.v[9] = eui64[6];
-    app_udp_responderData.uniqueLocalAddress.v[10] = eui64[5];
-    app_udp_responderData.uniqueLocalAddress.v[11] = eui64[4];
-    app_udp_responderData.uniqueLocalAddress.v[12] = eui64[3];
-    app_udp_responderData.uniqueLocalAddress.v[13] = eui64[2];
-    app_udp_responderData.uniqueLocalAddress.v[14] = eui64[1];
-    app_udp_responderData.uniqueLocalAddress.v[15] = eui64[0];
+    ipv6Address.v[6] = (uint8_t) (panId >> 8);
+    ipv6Address.v[7] = (uint8_t) panId;
+    ipv6Address.v[8] = eui64[7];
+    ipv6Address.v[9] = eui64[6];
+    ipv6Address.v[10] = eui64[5];
+    ipv6Address.v[11] = eui64[4];
+    ipv6Address.v[12] = eui64[3];
+    ipv6Address.v[13] = eui64[2];
+    ipv6Address.v[14] = eui64[1];
+    ipv6Address.v[15] = eui64[0];
     TCPIP_IPV6_UnicastAddressAdd(app_udp_responderData.netHandle,
-            &app_udp_responderData.uniqueLocalAddress, APP_TCPIP_IPV6_NETWORK_PREFIX_G3_LEN, false);
+            &ipv6Address, APP_TCPIP_IPV6_NETWORK_PREFIX_G3_LEN, false);
 
     /* Set PAN ID in TCP/IP stack in order to recognize all link-local addresses
      * in the network as neighbors */
@@ -576,23 +576,6 @@ void APP_UDP_RESPONDER_SetConformanceConfig ( void )
         /* TCP/IP stack is ready: set conformance parameters */
         _APP_UDP_RESPONDER_SetConformance();
     }
-}
-
-void APP_UDP_RESPONDER_NetworkJoined(void)
-{
-    if ((app_udp_responderData.state > APP_UDP_RESPONDER_STATE_WAIT_TCPIP_READY) &&
-            (app_udp_responderData.state != APP_UDP_RESPONDER_STATE_ERROR))
-    {
-        /* TCP/IP stack is ready: set IPv6 addresses */
-        _APP_UDP_RESPONDER_SetIPv6Addresses();
-    }
-}
-
-void APP_UDP_RESPONDER_NetworkDisconnected(void)
-{
-    /* Remove IPv6 addresses */
-    TCPIP_IPV6_AddressUnicastRemove(app_udp_responderData.netHandle, &app_udp_responderData.linkLocalAddress);
-    TCPIP_IPV6_AddressUnicastRemove(app_udp_responderData.netHandle, &app_udp_responderData.uniqueLocalAddress);
 }
 
 /*******************************************************************************

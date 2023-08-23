@@ -60,7 +60,7 @@ extern "C" {
 /* Time to wait before start cycling in ms (approx. 60 sec per device) */
 #define APP_CYCLES_TIME_WAIT_CYCLE_MS 120000
 
-/* Timeout in milliseconds to consider echo reply not received */
+/* Timeout in ms to consider echo reply not received */
 #define APP_CYCLES_TIMEOUT_MS 10000
 
 /* ICMPv6 echo request packet size in bytes */

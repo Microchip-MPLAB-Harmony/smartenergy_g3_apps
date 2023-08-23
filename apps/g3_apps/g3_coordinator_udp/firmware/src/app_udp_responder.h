@@ -112,12 +112,6 @@ typedef enum
 
 typedef struct
 {
-    /* IPv6 link-local address */
-    IPV6_ADDR linkLocalAddress;
-
-    /* IPv6 unique local address (ULA) */
-    IPV6_ADDR uniqueLocalAddress;
-
     /* TCP/IP Network handle */
     TCPIP_NET_HANDLE netHandle;
 
@@ -247,67 +241,6 @@ void APP_UDP_RESPONDER_Tasks( void );
 */
 
 void APP_UDP_RESPONDER_SetConformanceConfig ( void );
-
-/*******************************************************************************
-  Function:
-    void APP_UDP_RESPONDER_NetworkJoined()
-
-  Summary:
-    Configures IPv6 addresses once the device is joined to the network.
-
-  Description:
-    This function configures IPv6 addresses once the device is joined to the
-    network.
-
-  Precondition:
-    APP_UDP_RESPONDER_Initialize should be called before calling this routine.
-
-  Parameters:
-    None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    APP_UDP_RESPONDER_NetworkJoined();
-    </code>
-
-  Remarks:
-    None.
-*/
-
-void APP_UDP_RESPONDER_NetworkJoined();
-
-/*******************************************************************************
-  Function:
-    void APP_UDP_RESPONDER_NetworkDisconnected(void)
-
-  Summary:
-    Removes IPv6 addresses once the device leaves the network.
-
-  Description:
-    This function removes IPv6 addresses once the device leaves the network.
-
-  Precondition:
-    APP_UDP_RESPONDER_Initialize should be called before calling this routine.
-
-  Parameters:
-    None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    APP_UDP_RESPONDER_NetworkDisconnected();
-    </code>
-
-  Remarks:
-    None.
-*/
-
-void APP_UDP_RESPONDER_NetworkDisconnected(void);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
