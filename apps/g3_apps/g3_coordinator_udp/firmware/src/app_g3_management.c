@@ -164,6 +164,15 @@ static void _ADP_DiscoveryIndication(ADP_PAN_DESCRIPTOR* pPanDescriptor)
 {
     if (app_g3_managementData.numNetworksFound < APP_G3_MANAGEMENT_PAN_ID_LIST_SIZE)
     {
+        /* Check if PAN ID is already stored */
+        for (uint8_t i = 0; i < app_g3_managementData.numNetworksFound; i++)
+        {
+            if (app_g3_managementPanIdList[i] == pPanDescriptor->panId)
+            {
+                return;
+            }
+        }
+
         /* Store PAN ID in order to not repeat it */
         app_g3_managementPanIdList[app_g3_managementData.numNetworksFound++] = pPanDescriptor->panId;
     }
