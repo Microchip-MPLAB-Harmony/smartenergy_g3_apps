@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -41,8 +41,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _RF215_HAL_H
-#define _RF215_HAL_H
+#ifndef RF215_HAL_H
+#define RF215_HAL_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -68,14 +68,14 @@
 /* RF215 SPI COMMAND definition (Table 4-4 in RF215 datasheet).
  * COMMAND is 16 bits, containing MODE (read / write) and ADDRESS.
  * COMMAND[15:14] = MODE[1:0]; COMMAND[13:0] = ADDRESS[13:0] */
-#define RF215_SPI_CMD_MODE_POS        14
-#define RF215_SPI_CMD_MODE_READ       (0u << RF215_SPI_CMD_MODE_POS)
-#define RF215_SPI_CMD_MODE_WRITE      (2u << RF215_SPI_CMD_MODE_POS)
-#define RF215_SPI_CMD_SIZE            2
+#define RF215_SPI_CMD_MODE_POS        14U
+#define RF215_SPI_CMD_MODE_READ       (0U << RF215_SPI_CMD_MODE_POS)
+#define RF215_SPI_CMD_MODE_WRITE      (2U << RF215_SPI_CMD_MODE_POS)
+#define RF215_SPI_CMD_SIZE            2U
 
 /* SPI transfer duration for one byte in us with 5 decimal bits (equivalent to
    cycles of 32MHz, which is the frequency of RF215 counter) */
-#define RF215_SPI_BYTE_DURATION_US_Q5 28
+#define RF215_SPI_BYTE_DURATION_US_Q5 28U
 
 // *****************************************************************************
 // *****************************************************************************
@@ -114,17 +114,17 @@ typedef enum
     Object used to keep any data required for a SPI transfer.
 */
 
-typedef struct _RF215_SPI_TRANSFER_OBJ
+typedef struct RF215_SPI_TRANSFER_OBJ_tag
 {
-    struct _RF215_SPI_TRANSFER_OBJ* next;
-    void*                           pData;
-    RF215_SPI_TRANSFER_CALLBACK     callback;
-    uintptr_t                       context;
-    size_t                          size;
-    RF215_SPI_TRANSFER_MODE         mode;
-    uint16_t                        regAddr;
-    bool                            inUse;
-    bool                            fromTasks;
+    struct RF215_SPI_TRANSFER_OBJ_tag* next;
+    void*                              pData;
+    RF215_SPI_TRANSFER_CALLBACK        callback;
+    uintptr_t                          context;
+    size_t                             size;
+    RF215_SPI_TRANSFER_MODE            mode;
+    uint16_t                           regAddr;
+    bool                               inUse;
+    bool                               fromTasks;
 } RF215_SPI_TRANSFER_OBJ;
 
 // *****************************************************************************
@@ -195,19 +195,19 @@ typedef struct
 
 void RF215_HAL_Initialize(const DRV_RF215_INIT * const init);
 
-void RF215_HAL_Deinitialize();
+void RF215_HAL_Deinitialize(void);
 
-void RF215_HAL_Tasks();
+void RF215_HAL_Reset(void);
 
-void RF215_HAL_Reset();
+void RF215_HAL_Tasks(void);
 
-bool RF215_HAL_SpiLock();
+bool RF215_HAL_SpiLock(void);
 
-void RF215_HAL_SpiUnlock();
+void RF215_HAL_SpiUnlock(void);
 
-void RF215_HAL_EnterCritical();
+void RF215_HAL_EnterCritical(void);
 
-void RF215_HAL_LeaveCritical();
+void RF215_HAL_LeaveCritical(void);
 
 void RF215_HAL_SpiRead (
     uint16_t addr,
@@ -238,7 +238,7 @@ void RF215_HAL_SpiWriteUpdate (
     size_t size
 );
 
-size_t RF215_HAL_GetSpiQueueSize();
+size_t RF215_HAL_GetSpiQueueSize(void);
 
 void RF215_HAL_LedRx(bool on);
 
@@ -250,4 +250,4 @@ void RF215_HAL_LedTx(bool on);
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _RF215_HAL_H
+#endif // #ifndef RF215_HAL_H

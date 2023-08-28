@@ -41,8 +41,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _ADP_SERIAL_H
-#define _ADP_SERIAL_H
+#ifndef ADP_SERIAL_H
+#define ADP_SERIAL_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -96,9 +96,6 @@
     {
         ADP_EXTENDED_ADDRESS eui64;
         ADP_NON_VOLATILE_DATA_IND_PARAMS nonVolatileData;
-
-        // Get Extended Address. Must be unique for each device.
-        // Load non-volatile data
 
         memcpy(pEUI64->value, eui64.value, 8);
         memcpy(pNonVolatileData, &nonVolatileData, sizeof(nonVolatileData));
@@ -168,7 +165,7 @@ typedef struct
     sysObjAdpSerial = ADP_SERIAL_Initialize(G3_ADP_SERIAL_INDEX_0);
     if (sysObjAdpSerial == SYS_MODULE_OBJ_INVALID)
     {
-        // Handle error
+        
     }
     </code>
 
@@ -201,13 +198,11 @@ SYS_MODULE_OBJ ADP_SERIAL_Initialize(const SYS_MODULE_INDEX index);
 
   Example:
     <code>
-    SYS_MODULE_OBJ sysObjAdpSerial; // Returned from ADP_SERIAL_Initialize
+    SYS_MODULE_OBJ sysObjAdpSerial;
 
     while (true)
     {
         ADP_SERIAL_Tasks(sysObjAdpSerial);
-
-        // Do other tasks
     }
     </code>
 
@@ -259,4 +254,4 @@ void ADP_SERIAL_SetNotifications(ADP_SERIAL_NOTIFICATIONS* pNotifications);
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _ADP_SERIAL_H
+#endif // #ifndef ADP_SERIAL_H

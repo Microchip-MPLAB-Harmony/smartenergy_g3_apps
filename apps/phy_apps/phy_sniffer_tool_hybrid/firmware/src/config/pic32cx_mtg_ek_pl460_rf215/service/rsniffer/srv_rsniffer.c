@@ -20,7 +20,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -60,50 +60,50 @@
 // *****************************************************************************
 
 /* G3 sniffer identifiers and version */
-#define RSNIFFER_PHY_CMD_RECEIVE_MSG                  0x00
-#define RSNIFFER_VERSION                              0x02
-#define RSNIFFER_RF215_G3                             0x14
-#define RSNIFFER_RF215_G3_EXTENDED                    0x34
-#define RSNIFFER_RF215_G3_SIMULATOR                   0xD4
+#define RSNIFFER_PHY_CMD_RECEIVE_MSG                  0x00U
+#define RSNIFFER_VERSION                              0x02U
+#define RSNIFFER_RF215_G3                             0x14U
+#define RSNIFFER_RF215_G3_EXTENDED                    0x34U
+#define RSNIFFER_RF215_G3_SIMULATOR                   0xD4U
 
 /* G3 sniffer modulation types (PLC modulation types + RF PHY types) */
-#define RSNIFFER_MOD_TYPE_PLC_BPSK                    0x00
-#define RSNIFFER_MOD_TYPE_PLC_QPSK                    0x01
-#define RSNIFFER_MOD_TYPE_PLC_8PSK                    0x02
-#define RSNIFFER_MOD_TYPE_PLC_16QAM                   0x03
-#define RSNIFFER_MOD_TYPE_PLC_BPSK_ROBO               0x04
-#define RSNIFFER_MOD_TYPE_RF_FSK50                    0x05
-#define RSNIFFER_MOD_TYPE_RF_FSK100                   0x06
-#define RSNIFFER_MOD_TYPE_RF_FSK150                   0x07
-#define RSNIFFER_MOD_TYPE_RF_FSK200                   0x08
-#define RSNIFFER_MOD_TYPE_RF_FSK300                   0x09
-#define RSNIFFER_MOD_TYPE_RF_FSK400                   0x0A
-#define RSNIFFER_MOD_TYPE_RF_4FSK50                   0x0B
-#define RSNIFFER_MOD_TYPE_RF_4FSK100                  0x0C
-#define RSNIFFER_MOD_TYPE_RF_4FSK150                  0x0D
-#define RSNIFFER_MOD_TYPE_RF_4FSK200                  0x0E
-#define RSNIFFER_MOD_TYPE_RF_4FSK300                  0x0F
-#define RSNIFFER_MOD_TYPE_RF_4FSK400                  0x10
-#define RSNIFFER_MOD_TYPE_RF_OFDM1                    0x11
-#define RSNIFFER_MOD_TYPE_RF_OFDM2                    0x12
-#define RSNIFFER_MOD_TYPE_RF_OFDM3                    0x13
-#define RSNIFFER_MOD_TYPE_RF_OFDM4                    0x14
+#define RSNIFFER_MODTYPE_PLC_BPSK                     0x00U
+#define RSNIFFER_MODTYPE_PLC_QPSK                     0x01U
+#define RSNIFFER_MODTYPE_PLC_8PSK                     0x02U
+#define RSNIFFER_MODTYPE_PLC_16QAM                    0x03U
+#define RSNIFFER_MODTYPE_PLC_BPSK_ROBO                0x04U
+#define RSNIFFER_MODTYPE_RF_FSK50                     0x05U
+#define RSNIFFER_MODTYPE_RF_FSK100                    0x06U
+#define RSNIFFER_MODTYPE_RF_FSK150                    0x07U
+#define RSNIFFER_MODTYPE_RF_FSK200                    0x08U
+#define RSNIFFER_MODTYPE_RF_FSK300                    0x09U
+#define RSNIFFER_MODTYPE_RF_FSK400                    0x0AU
+#define RSNIFFER_MODTYPE_RF_4FSK50                    0x0BU
+#define RSNIFFER_MODTYPE_RF_4FSK100                   0x0CU
+#define RSNIFFER_MODTYPE_RF_4FSK150                   0x0DU
+#define RSNIFFER_MODTYPE_RF_4FSK200                   0x0EU
+#define RSNIFFER_MODTYPE_RF_4FSK300                   0x0FU
+#define RSNIFFER_MODTYPE_RF_4FSK400                   0x10U
+#define RSNIFFER_MODTYPE_RF_OFDM1                     0x11U
+#define RSNIFFER_MODTYPE_RF_OFDM2                     0x12U
+#define RSNIFFER_MODTYPE_RF_OFDM3                     0x13U
+#define RSNIFFER_MODTYPE_RF_OFDM4                     0x14U
 
 /* G3 sniffer modulation schemes (PLC modulation schemes + RF modulations) */
-#define RSNIFFER_MOD_SCHEME_PLC_DIF                   0x00
-#define RSNIFFER_MOD_SCHEME_PLC_COH                   0x01
-#define RSNIFFER_MOD_SCHEME_RF_FSK_FEC_OFF            0x02
-#define RSNIFFER_MOD_SCHEME_RF_FSK_FEC_ON             0x03
-#define RSNIFFER_MOD_SCHEME_RF_OFDM_MCS0              0x04
-#define RSNIFFER_MOD_SCHEME_RF_OFDM_MCS1              0x05
-#define RSNIFFER_MOD_SCHEME_RF_OFDM_MCS2              0x06
-#define RSNIFFER_MOD_SCHEME_RF_OFDM_MCS3              0x07
-#define RSNIFFER_MOD_SCHEME_RF_OFDM_MCS4              0x08
-#define RSNIFFER_MOD_SCHEME_RF_OFDM_MCS5              0x09
-#define RSNIFFER_MOD_SCHEME_RF_OFDM_MCS6              0x0A
+#define RSNIFFER_MODSCHEME_PLC_DIF                    0x00U
+#define RSNIFFER_MODSCHEME_PLC_COH                    0x01U
+#define RSNIFFER_MODSCHEME_RF_FSK_FECOFF              0x02U
+#define RSNIFFER_MODSCHEME_RF_FSK_FECON               0x03U
+#define RSNIFFER_MODSCHEME_RF_OFDM_MCS0               0x04U
+#define RSNIFFER_MODSCHEME_RF_OFDM_MCS1               0x05U
+#define RSNIFFER_MODSCHEME_RF_OFDM_MCS2               0x06U
+#define RSNIFFER_MODSCHEME_RF_OFDM_MCS3               0x07U
+#define RSNIFFER_MODSCHEME_RF_OFDM_MCS4               0x08U
+#define RSNIFFER_MODSCHEME_RF_OFDM_MCS5               0x09U
+#define RSNIFFER_MODSCHEME_RF_OFDM_MCS6               0x0AU
 
 /* Buffer sizes */
-#define RSNIFFER_MSG_HEADER_SIZE                      25
+#define RSNIFFER_MSG_HEADER_SIZE                      25U
 #define RSNIFFER_MSG_MAX_SIZE                         (DRV_RF215_MAX_PSDU_LEN + RSNIFFER_MSG_HEADER_SIZE)
 
 // *****************************************************************************
@@ -123,24 +123,24 @@ static uint8_t srvRsnifferTxMsg[DRV_RF215_TX_BUFFERS_NUMBER][RSNIFFER_MSG_MAX_SI
 // *****************************************************************************
 // *****************************************************************************
 
-static uint8_t _SRV_RSNIFFER_ModType(DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj)
+static uint8_t lSRV_RSNIFFER_ModType(DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj)
 {
     uint8_t modType;
 
     modType = (uint8_t) pPhyCfgObj->phyTypeCfg.fsk.symRate;
     if (pPhyCfgObj->phyTypeCfg.fsk.modOrd == FSK_MOD_ORD_2FSK)
     {
-        modType += RSNIFFER_MOD_TYPE_RF_FSK50;
+        modType += RSNIFFER_MODTYPE_RF_FSK50;
     }
     else /* FSK_MOD_ORD_4FSK */
     {
-        modType += RSNIFFER_MOD_TYPE_RF_4FSK50;
+        modType += RSNIFFER_MODTYPE_RF_4FSK50;
     }
 
     return modType;
 }
 
-static uint32_t _SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
+static uint32_t lSRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
 {
     uint64_t sysTimeDiff;
     uint32_t sysTimeDiffNumHigh, sysTimeDiffRemaining;
@@ -148,11 +148,11 @@ static uint32_t _SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
 
     /* Difference between current and previous system time */
     sysTimeDiff = sysTime - srvRsnifferPrevSysTime;
-    sysTimeDiffNumHigh = (uint32_t) (sysTimeDiff / 0x10000000);
-    sysTimeDiffRemaining = (uint32_t) (sysTimeDiff % 0x10000000);
+    sysTimeDiffNumHigh = (uint32_t) (sysTimeDiff / 0x10000000UL);
+    sysTimeDiffRemaining = (uint32_t) (sysTimeDiff % 0x10000000UL);
 
     /* Convert system time to microseconds and add to previous time */
-    timeUS += (SYS_TIME_CountToUS(0x10000000) * sysTimeDiffNumHigh);
+    timeUS += (SYS_TIME_CountToUS(0x10000000UL) * sysTimeDiffNumHigh);
     timeUS += SYS_TIME_CountToUS(sysTimeDiffRemaining);
 
     /* Store times for next computation */
@@ -187,42 +187,42 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
     srvRsnifferRxMsg[2] = RSNIFFER_RF215_G3;
 
     /* Modulation scheme */
-    srvRsnifferRxMsg[3] = (uint8_t) pIndObj->modScheme + RSNIFFER_MOD_SCHEME_RF_FSK_FEC_OFF;
+    srvRsnifferRxMsg[3] = (uint8_t) pIndObj->modScheme + RSNIFFER_MODSCHEME_RF_FSK_FECOFF;
 
     /* Modulation type depending on RF PHY configuration */
-    srvRsnifferRxMsg[4] = _SRV_RSNIFFER_ModType(pPhyCfgObj);
+    srvRsnifferRxMsg[4] = lSRV_RSNIFFER_ModType(pPhyCfgObj);
 
     /* Correct FCS flag */
     srvRsnifferRxMsg[5] = (uint8_t) pIndObj->fcsOk;
 
     /* Number of payload symbols */
     srvRsnifferRxMsg[7] = (uint8_t) (paySymbols >> 8);
-    srvRsnifferRxMsg[8] = (uint8_t) (paySymbols);
+    srvRsnifferRxMsg[8] = (uint8_t) paySymbols;
 
     /* Initial and end time of RX frame */
-    timeIni = _SRV_RSNIFFER_SysTimeToUS(pIndObj->timeIniCount);
+    timeIni = lSRV_RSNIFFER_SysTimeToUS(pIndObj->timeIniCount);
     srvRsnifferRxMsg[11] = (uint8_t) (timeIni >> 24);
     srvRsnifferRxMsg[12] = (uint8_t) (timeIni >> 16);
     srvRsnifferRxMsg[13] = (uint8_t) (timeIni >> 8);
-    srvRsnifferRxMsg[14] = (uint8_t) (timeIni);
+    srvRsnifferRxMsg[14] = (uint8_t) timeIni;
     timeEnd = timeIni + SYS_TIME_CountToUS(pIndObj->ppduDurationCount);
     srvRsnifferRxMsg[15] = (uint8_t) (timeEnd >> 24);
     srvRsnifferRxMsg[16] = (uint8_t) (timeEnd >> 16);
     srvRsnifferRxMsg[17] = (uint8_t) (timeEnd >> 8);
-    srvRsnifferRxMsg[18] = (uint8_t) (timeEnd);
+    srvRsnifferRxMsg[18] = (uint8_t) timeEnd;
 
     /* RSSI */
     rssi = (int16_t) pIndObj->rssiDBm;
-    srvRsnifferRxMsg[19] = (uint8_t) (rssi >> 8);
+    srvRsnifferRxMsg[19] = (uint8_t) ((uint16_t) rssi >> 8);
     srvRsnifferRxMsg[20] = (uint8_t) (rssi);
 
     /* Data PSDU length (including G3-RF FCS) */
     psduLen = pIndObj->psduLen;
     srvRsnifferRxMsg[23] = (uint8_t) (psduLen >> 8);
-    srvRsnifferRxMsg[24] = (uint8_t) (psduLen);
+    srvRsnifferRxMsg[24] = (uint8_t) psduLen;
 
     /* Copy PSDU */
-    memcpy(srvRsnifferRxMsg + RSNIFFER_MSG_HEADER_SIZE, pIndObj->psdu, psduLen);
+    (void) memcpy(srvRsnifferRxMsg + RSNIFFER_MSG_HEADER_SIZE, pIndObj->psdu, psduLen);
 
     *pMsgLen = (size_t) psduLen + RSNIFFER_MSG_HEADER_SIZE;
     return srvRsnifferRxMsg;
@@ -244,27 +244,27 @@ void SRV_RSNIFFER_SetTxMessage (
     }
 
     /* Get buffer index from TX handle */
-    txBufIndex = (uint8_t) (txHandle & 0xFF);
+    txBufIndex = (uint8_t) txHandle;
     pMsgDest = srvRsnifferTxMsg[txBufIndex];
 
     /* Modulation scheme */
-    pMsgDest[3] = (uint8_t) pReqObj->modScheme + RSNIFFER_MOD_SCHEME_RF_FSK_FEC_OFF;
+    pMsgDest[3] = (uint8_t) pReqObj->modScheme + RSNIFFER_MODSCHEME_RF_FSK_FECOFF;
 
     /* RSSI */
     rssi = 14 - (int16_t) pReqObj->txPwrAtt;
-    pMsgDest[19] = (uint8_t) (rssi >> 8);
-    pMsgDest[20] = (uint8_t) (rssi);
+    pMsgDest[19] = (uint8_t) ((uint16_t) rssi >> 8);
+    pMsgDest[20] = (uint8_t) rssi;
 
     /* Data PSDU length (including G3-RF FCS) */
     psduLen = pReqObj->psduLen;
     pMsgDest[23] = (uint8_t) (psduLen >> 8);
-    pMsgDest[24] = (uint8_t) (psduLen);
+    pMsgDest[24] = (uint8_t) psduLen;
 
     /* Copy PHY data message (without FCS) */
-    memcpy(pMsgDest + RSNIFFER_MSG_HEADER_SIZE, pReqObj->psdu, psduLen - DRV_RF215_FCS_LEN);
+    (void) memcpy(pMsgDest + RSNIFFER_MSG_HEADER_SIZE, pReqObj->psdu, (size_t) psduLen - DRV_RF215_FCS_LEN);
 
     /* FCS set to 0 (automatically computed) */
-    memset(pMsgDest + RSNIFFER_MSG_HEADER_SIZE + psduLen, 0, DRV_RF215_FCS_LEN);
+    (void) memset(pMsgDest + RSNIFFER_MSG_HEADER_SIZE + psduLen, 0, DRV_RF215_FCS_LEN);
 }
 
 uint8_t* SRV_RSNIFFER_SerialCfmMessage (
@@ -288,7 +288,7 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     }
 
     /* Get buffer index from TX handle */
-    txBufIndex = (uint8_t) (txHandle & 0xFF);
+    txBufIndex = (uint8_t) txHandle;
     pMsgDest = srvRsnifferTxMsg[txBufIndex];
 
     /* Receive message command */
@@ -299,7 +299,7 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     pMsgDest[2] = RSNIFFER_RF215_G3;
 
     /* Modulation type depending on RF PHY configuration */
-    pMsgDest[4] = _SRV_RSNIFFER_ModType(pPhyCfgObj);
+    pMsgDest[4] = lSRV_RSNIFFER_ModType(pPhyCfgObj);
 
     /* Correct FCS flag */
     pMsgDest[5] = (uint8_t) true;
@@ -309,7 +309,7 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     pMsgDest[8] = (uint8_t) (paySymbols);
 
     /* Initial and end time of RX frame */
-    timeIni = _SRV_RSNIFFER_SysTimeToUS(pCfmObj->timeIniCount);
+    timeIni = lSRV_RSNIFFER_SysTimeToUS(pCfmObj->timeIniCount);
     pMsgDest[11] = (uint8_t) (timeIni >> 24);
     pMsgDest[12] = (uint8_t) (timeIni >> 16);
     pMsgDest[13] = (uint8_t) (timeIni >> 8);
@@ -320,7 +320,7 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     pMsgDest[17] = (uint8_t) (timeEnd >> 8);
     pMsgDest[18] = (uint8_t) (timeEnd);
 
-    psduLen = (uint16_t) (pMsgDest[23] << 8) + pMsgDest[24];
+    psduLen = ((uint16_t) pMsgDest[23] << 8) + pMsgDest[24];
     *pMsgLen = (size_t) psduLen + RSNIFFER_MSG_HEADER_SIZE;
     return pMsgDest;
 }

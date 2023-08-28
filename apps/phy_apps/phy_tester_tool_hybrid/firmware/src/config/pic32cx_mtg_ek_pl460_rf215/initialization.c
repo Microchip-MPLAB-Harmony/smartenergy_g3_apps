@@ -73,7 +73,7 @@
 // <editor-fold defaultstate="collapsed" desc="DRV_RF215 Initialization Data">
 
 /* RF215 Driver Initialization Data */
-const DRV_RF215_INIT drvRf215InitData = {
+static const DRV_RF215_INIT drvRf215InitData = {
     /* Pointer to SPI PLIB is busy function */
     .spiPlibIsBusy = FLEXCOM3_SPI_IsTransmitterBusy,
 
@@ -110,6 +110,7 @@ const DRV_RF215_INIT drvRf215InitData = {
 
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
 
+
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 /* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
@@ -120,7 +121,7 @@ const DRV_RF215_INIT drvRf215InitData = {
 void _on_reset(void)
 {
     PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
-    while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == false)
+    while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
     {
         /* Wait for clock to be initialized */
     }
@@ -210,12 +211,6 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_PHY Initialization Data">
 
-/* PLC Binary file addressing */
-extern uint8_t plc_phy_bin_start;
-extern uint8_t plc_phy_bin_end;
-extern uint8_t plc_phy_bin2_start;
-extern uint8_t plc_phy_bin2_end;
-
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 
@@ -250,32 +245,31 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
 static uint8_t CACHE_ALIGN srvUSI0ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
 static uint8_t CACHE_ALIGN srvUSI0WriteBuffer[SRV_USI0_WR_BUF_SIZE] = {0};
 
-/* Declared in USI USART service implementation (srv_usi_usart.c) */
-extern const SRV_USI_DEV_DESC srvUSIUSARTDevDesc;
 
-const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM0 = {
+static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM0 = {
     .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM0_USART_ReadCallbackRegister,
-    .read = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Read,
-    .write = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Write,
+    .readData = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Read,
+    .writeData = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Write,
     .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)FLEXCOM0_USART_WriteIsBusy,
     .intSource = FLEXCOM0_IRQn,
 };
 
-const USI_USART_INIT_DATA srvUsi0InitData = {
+static const USI_USART_INIT_DATA srvUsi0InitData = {
     .plib = (void*)&srvUsi0InitDataFLEXCOM0,
     .pRdBuffer = (void*)srvUSI0ReadBuffer,
     .rdBufferSize = SRV_USI0_RD_BUF_SIZE,
 };
 
-const SRV_USI_INIT srvUSI0Init =
+/* srvUSIUSARTDevDesc declared in USI USART service implementation (srv_usi_usart.c) */
+
+static const SRV_USI_INIT srvUSI0Init =
 {
-    .deviceInitData = (const void*)&srvUsi0InitData,
+    .deviceInitData = (const void * const)&srvUsi0InitData,
     .consDevDesc = &srvUSIUSARTDevDesc,
     .deviceIndex = 0,
     .pWrBuffer = srvUSI0WriteBuffer,
     .wrBufferSize = SRV_USI0_WR_BUF_SIZE
 };
-
 
 // </editor-fold>
 
@@ -363,9 +357,9 @@ void SYS_Initialize ( void* data )
 
 
 	BSP_Initialize();
-    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
+    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
 
@@ -385,7 +379,7 @@ void SYS_Initialize ( void* data )
     sysObj.drvRf215 = DRV_RF215_Initialize(DRV_RF215_INDEX_0, (SYS_MODULE_INIT *)&drvRf215InitData);
     /* Initialize PLC Phy Driver Instance */
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
-    (void)PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+    (void) PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
 
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();

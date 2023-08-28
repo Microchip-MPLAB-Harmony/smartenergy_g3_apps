@@ -19,7 +19,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -107,10 +107,16 @@ typedef enum
 }PCRC_CRC_TYPE;
 
 /* SRV_PCRC Handle Macro: Invalid CRC */  
-#define PCRC_INVALID     0xFFFFFFFF
+#define PCRC_INVALID     0xFFFFFFFFUL
 
 /* SRV_PCRC Handle Macro: SNA size */  
 #define PCRC_SNA_SIZE 6
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: CRC Service Interface Definition
+// *****************************************************************************
+// *****************************************************************************
 
 // *****************************************************************************
 /* Function:

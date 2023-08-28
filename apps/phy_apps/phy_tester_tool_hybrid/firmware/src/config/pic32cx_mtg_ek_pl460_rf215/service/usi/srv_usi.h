@@ -24,7 +24,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -142,10 +142,9 @@ typedef uintptr_t SRV_USI_HANDLE;
     <code>
     void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
     {
-        // Message received from external tool
+
     }
 
-    // 'handle', returned from SRV_USI_Open previously called
     SRV_USI_CallbackRegister(handle, SRV_USI_PROT_ID_PHY, APP_USIPhyProtocolEventHandler);
     </code>
 
@@ -171,13 +170,13 @@ typedef void ( * SRV_USI_CALLBACK ) ( uint8_t *pData, size_t length );
 
 typedef void (*USI_READ_CALLBACK) (uint8_t *data, uint16_t length, uintptr_t context); 
 
-typedef DRV_HANDLE (*SRV_USI_INIT_FPTR) (uint32_t index, const void* initData);
+typedef void (*SRV_USI_INIT_FPTR) (uint32_t index, const void * const initData);
 
 typedef DRV_HANDLE (*SRV_USI_OPEN_FPTR) (uint32_t index);
 
 typedef void (*SRV_USI_REGISTER_READ_CALLBACK_FPTR) (uint32_t index, USI_READ_CALLBACK buf, uintptr_t context);
 
-typedef size_t (*SRV_USI_WRITE_FPTR) (uint32_t index, void* buf, size_t length);
+typedef void (*SRV_USI_WRITE_FPTR) (uint32_t index, void* buf, size_t length);
 
 typedef bool (*SRV_USI_WRITE_IS_BUSY_FPTR) (uint32_t index);
 
@@ -212,7 +211,7 @@ typedef struct
 
     SRV_USI_REGISTER_READ_CALLBACK_FPTR setReadCallback;
 
-    SRV_USI_WRITE_FPTR write;
+    SRV_USI_WRITE_FPTR writeData;
 
     SRV_USI_WRITE_IS_BUSY_FPTR writeIsBusy;
 
@@ -225,48 +224,6 @@ typedef struct
 } SRV_USI_DEV_DESC;
 
 // *****************************************************************************
-/* USI Service Instance Object
-
-  Summary:
-    Object used to keep any data required for each instance of the USI Service.
-
-  Description:
-    None.
-
-  Remarks:
-    None.
-*/
-
-typedef struct
-{
-    /* State of this instance */
-    SRV_USI_STATUS                           status;
-
-    /* Device Descriptor */
-    const SRV_USI_DEV_DESC*                  devDesc;
-
-    /* Device index */
-    uint32_t                                 devIndex;
-
-    /* Identifies the USI callback object */
-    SRV_USI_CALLBACK*                        callback;
-    
-    /* Pointer to data buffer used to send messages */
-    void*                                    pWrBuffer;
-    
-    /* Pointer to data buffer used to receive messages */
-    void*                                    pRdBuffer;
-    
-    /* Max size of the write buffer */
-    size_t                                   wrBufferSize;
-    
-    /* Max size of the read buffer */
-    size_t                                   rdBufferSize;
-
-} SRV_USI_OBJ;
-
-// *****************************************************************************
-//
 /* USI Service Initialize structure
 
   Summary:
@@ -295,7 +252,7 @@ typedef struct
 
 typedef struct
 {
-    const void* deviceInitData;
+    const void * const deviceInitData;
 
     const SRV_USI_DEV_DESC* consDevDesc;
 
@@ -322,25 +279,25 @@ typedef struct
     Initializes the specified USI service instance.
 
   Description:
-    This routine initializes the specified USI service instance, making it 
-    ready for clients to open and use. The initialization data is specified by 
+    This routine initializes the specified USI service instance, making it
+    ready for clients to open and use. The initialization data is specified by
     the init parameter.
 
-    The initialization may fail if the number of instances allocated are 
+    The initialization may fail if the number of instances allocated are
     insufficient or if the specified instance is already initialized.
 
-    The USI service instance index is independent of the peripheral instance 
-    it is associated with. For example, USI service instance 0 can be assigned 
+    The USI service instance index is independent of the peripheral instance
+    it is associated with. For example, USI service instance 0 can be assigned
     to UART peripheral instance 2.
 
   Parameters:
     index   - Index for the instance to be initialized
 
-    init    - Pointer to the init data structure containing any data 
+    init    - Pointer to the init data structure containing any data
               necessary to initialize the service.
 
   Returns:
-    If successful, returns a valid USI instance object. Otherwise, returns 
+    If successful, returns a valid USI instance object. Otherwise, returns
     SYS_MODULE_OBJ_INVALID.
 
   Example:
@@ -348,13 +305,12 @@ typedef struct
     static uint8_t CACHE_ALIGN srvUSI0ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
     static uint8_t CACHE_ALIGN srvUSI0WriteBuffer[SRV_USI0_WR_BUF_SIZE] = {0};
 
-    // Declared in USI USART service implementation (srv_usi_usart.c)
     extern const SRV_USI_DEV_DESC srvUSIUSARTDevDesc;
 
     const SRV_USI_USART_INTERFACE srvUsi0InitDataUART2 = {
         .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)UART2_ReadCallbackRegister,
-        .read = (USI_USART_PLIB_WRRD)UART2_Read,
-        .write = (USI_USART_PLIB_WRRD)UART2_Write,
+        .readData = (USI_USART_PLIB_WRRD)UART2_Read,
+        .writeData = (USI_USART_PLIB_WRRD)UART2_Write,
         .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)UART2_WriteIsBusy,
     };
 
@@ -366,7 +322,7 @@ typedef struct
 
     const SRV_USI_INIT srvUSI0Init =
     {
-        .deviceInitData = (const void*)&srvUsi0InitData,
+        .deviceInitData = (const void * const)&srvUsi0InitData,
         .consDevDesc = &srvUSIUSARTDevDesc,
         .deviceIndex = 0,
         .pWrBuffer = srvUSI0WriteBuffer,
@@ -378,7 +334,6 @@ typedef struct
 
     static uint8_t CACHE_ALIGN srvUSI1CDCReadBuffer[128] = {0};
 
-    // Declared in USI CDC service implementation (srv_usi_cdc.c)
     extern const SRV_USI_DEV_DESC srvUSICDCDevDesc;
 
     const USI_CDC_INIT_DATA srvUsi1InitData = {
@@ -391,7 +346,7 @@ typedef struct
 
     const SRV_USI_INIT srvUSI1Init =
     {
-        .deviceInitData = (const void*)&srvUsi1InitData,
+        .deviceInitData = (const void * const)&srvUsi1InitData,
         .consDevDesc = &srvUSICDCDevDesc,
         .deviceIndex = 0,
         .pWrBuffer = srvUSI1WriteBuffer,
@@ -404,18 +359,18 @@ typedef struct
     objSrvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
     if (objSrvUSI0 == SYS_MODULE_OBJ_INVALID)
     {
-        // Handle error
+
     }
 
     objSrvUSI1 = SRV_USI_Initialize(SRV_USI_INDEX_1, (SYS_MODULE_INIT *)&srvUSI1Init);
     if (objSrvUSI1 == SYS_MODULE_OBJ_INVALID)
     {
-        // Handle error
+
     }
     </code>
 
   Remarks:
-    This routine must be called before any other USI routine is called. This 
+    This routine must be called before any other USI routine is called. This
     routine should only during system initialization.
 */
 
@@ -458,7 +413,7 @@ SYS_MODULE_OBJ SRV_USI_Initialize(
     handle = SRV_USI_Open(SRV_USI_INDEX_0);
     if (handle == SRV_USI_HANDLE_INVALID)
     {
-        // Unable to open USI instance. Maybe it is not initialized
+
     }
     </code>
 
@@ -493,8 +448,6 @@ SRV_USI_HANDLE SRV_USI_Open( const SYS_MODULE_INDEX index );
 
   Example:
     <code>
-    // 'handle', returned from SRV_USI_Open previously called
-
     SRV_USI_Close(handle);
     </code>
 
@@ -502,7 +455,7 @@ SRV_USI_HANDLE SRV_USI_Open( const SYS_MODULE_INDEX index );
     None.
 */
 
-void SRV_USI_Close( const SRV_USI_HANDLE handle );
+void SRV_USI_Close( SRV_USI_HANDLE handle );
 
 // *****************************************************************************
 /* Function:
@@ -531,11 +484,9 @@ void SRV_USI_Close( const SRV_USI_HANDLE handle );
 
   Example:
     <code>
-    // 'handle', returned from SRV_USI_Open previously called
-
     if (SRV_USI_Status (handle) == SRV_USI_STATUS_CONFIGURED)
     {
-        // USI service is initialized and ready to accept new requests.
+
     }
     </code>
 
@@ -549,7 +500,7 @@ SRV_USI_STATUS SRV_USI_Status( SRV_USI_HANDLE handle );
 // *****************************************************************************
 /* Function:
   void SRV_USI_CallbackRegister( 
-    const SRV_USI_HANDLE handle,
+    SRV_USI_HANDLE handle,
     SRV_USI_PROTOCOL_ID protocol, 
     SRV_USI_CALLBACK callback)
 
@@ -584,36 +535,35 @@ SRV_USI_STATUS SRV_USI_Status( SRV_USI_HANDLE handle );
     <code>
     void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
     {
-        // Message received from external tool
+
     }
 
-    // 'handle', returned from SRV_USI_Open previously called
     SRV_USI_CallbackRegister(handle, SRV_USI_PROT_ID_PHY, APP_USIPhyProtocolEventHandler);
     </code>
 */
 
 void SRV_USI_CallbackRegister( 
-    const SRV_USI_HANDLE handle,
+    SRV_USI_HANDLE handle,
     SRV_USI_PROTOCOL_ID protocol, 
     SRV_USI_CALLBACK callback);
 
 // *****************************************************************************
 /* Function:
-       void SRV_USI_Tasks( const SYS_MODULE_INDEX index )
-    
+    void SRV_USI_Tasks( SYS_MODULE_OBJ object )
+
   Summary:
     Maintains the USI's state machine.
 
   Description:
-    This function is used to maintain the USI's internal state machine and 
+    This function is used to maintain the USI's internal state machine and
     generate callback functions.
 
   Precondition:
-    SRV_USI_Initialize must have been called for the specified USI service 
+    SRV_USI_Initialize must have been called for the specified USI service
     instance.
 
   Parameters:
-    index - Index for the instance to maintain its state machine
+    object - Object returned from SRV_USI_Initialize
 
   Returns:
     None
@@ -623,24 +573,22 @@ void SRV_USI_CallbackRegister(
     while (true)
     {
         SRV_USI_Tasks(SRV_USI_INDEX_0);
-
-        // Do other tasks
     }
     </code>
 
   Remarks:
-    This function is normally not called directly by an application. It is 
+    This function is normally not called directly by an application. It is
     called by the system's Tasks routine (SYS_Tasks).
 
-    This function will never block or access any resources that may cause it to 
-    block.                   
+    This function will never block or access any resources that may cause it to
+    block.
   */
 
-void SRV_USI_Tasks( const SYS_MODULE_INDEX index );
+void SRV_USI_Tasks( SYS_MODULE_OBJ object );
 
 // *****************************************************************************
 /* Function:
-      void SRV_USI_Send_Message( const SRV_USI_HANDLE handle, 
+      void SRV_USI_Send_Message( SRV_USI_HANDLE handle, 
         SRV_USI_PROTOCOL_ID protocol, uint8_t *data, size_t length )
     
   Summary:
@@ -667,7 +615,6 @@ void SRV_USI_Tasks( const SYS_MODULE_INDEX index );
     <code>
     uint8_t pData[] = "Message to send through USI";
 
-    // 'handle', returned from SRV_USI_Open previously called
     SRV_USI_Send_Message(handle, SRV_USI_PROT_ID_PHY, pData, sizeof(pData));
     </code>
 
@@ -675,7 +622,7 @@ void SRV_USI_Tasks( const SYS_MODULE_INDEX index );
     None.
   */
 
-void SRV_USI_Send_Message( const SRV_USI_HANDLE handle, 
+void SRV_USI_Send_Message( SRV_USI_HANDLE handle, 
         SRV_USI_PROTOCOL_ID protocol, uint8_t *data, size_t length );
 
 // DOM-IGNORE-BEGIN

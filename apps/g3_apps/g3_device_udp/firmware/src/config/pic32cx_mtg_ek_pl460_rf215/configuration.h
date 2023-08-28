@@ -138,7 +138,7 @@ extern "C" {
 #define DRV_RF215_CLIENTS_NUMBER              1U
 #define DRV_RF215_TX_BUFFERS_NUMBER           1U
 #define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PC7
-#define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PD17
+#define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PA25
 #define DRV_RF215_LED_TX_PIN                  SYS_PORT_PIN_PA8
 #define DRV_RF215_LED_RX_PIN                  SYS_PORT_PIN_PA9
 #define DRV_RF215_NUM_TRX                     1U

@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -65,9 +65,9 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define LBP_NUM_SLOTS               5
-#define BOOTSTRAP_MSG_MAX_RETRIES   1
-#define INITIAL_KEY_INDEX           0
+#define LBP_NUM_SLOTS               5U
+#define BOOTSTRAP_MSG_MAX_RETRIES   1U
+#define INITIAL_KEY_INDEX           0U
 
 // *****************************************************************************
 // *****************************************************************************
@@ -132,7 +132,7 @@ static EAP_PSK_KEY sEapPskKey = {
 
 /* Default value for ID_S
  * This parameter is intended to be set from Application through LBP_IB_IDS IB */
-static EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S sIdS;
+static EAP_PSK_NETWORK_ACCESS_ID_S sIdS;
 
 /* Default value for waiting an LBP response, in seconds
  * This parameter is intended to be set from Application through LBP_IB_MSG_TIMEOUT IB */
@@ -142,15 +142,17 @@ static uint8_t sNsduHandle = 0;
 static uint8_t sMaxHops = 0;
 static uint8_t sCurrKeyIndex = 0;
 
-static const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S sIdSArib =
+static const EAP_PSK_NETWORK_ACCESS_ID_S sIdSArib =
     {LBP_NETWORK_ACCESS_ID_SIZE_S_ARIB,
     {0x53, 0x4D, 0xAD, 0xB2, 0xC4, 0xD5, 0xE6, 0xFA, 0x53, 0x4D, 0xAD, 0xB2, 0xC4, 0xD5, 0xE6, 0xFA,
     0x53, 0x4D, 0xAD, 0xB2, 0xC4, 0xD5, 0xE6, 0xFA, 0x53, 0x4D, 0xAD, 0xB2, 0xC4, 0xD5, 0xE6, 0xFA,
     0x53, 0x4D}};
 
-static const EAP_PSK_NETWORK_ACCESS_IDENTIFIER_S sIdSCenFcc =
+static const EAP_PSK_NETWORK_ACCESS_ID_S sIdSCenFcc =
     {LBP_NETWORK_ACCESS_ID_SIZE_S_CENELEC_FCC,
-    {0x81, 0x72, 0x63, 0x54, 0x45, 0x36, 0x27, 0x18}};
+    {0x81, 0x72, 0x63, 0x54, 0x45, 0x36, 0x27, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00}};
 
 static bool sAribBand;
 static uint8_t sEAPIdentifier = 0;
@@ -167,30 +169,23 @@ static LBP_SLOT sLbpSlot[LBP_NUM_SLOTS];
 // *****************************************************************************
 // *****************************************************************************
 
-static uint8_t _GetAdpMaxHops(void)
+static uint8_t lLBP_GetAdpMaxHops(void)
 {
     ADP_GET_CFM_PARAMS getConfirm;
-    ADP_GetRequestSync(ADP_IB_MAX_HOPS, 0, &getConfirm);
+    ADP_GetRequestSync((uint32_t)ADP_IB_MAX_HOPS, 0U, &getConfirm);
     return getConfirm.attributeValue[0];
 }
 
-static bool _SetDeviceTypeCoord(void)
+static void lLBP_SetDeviceTypeCoord(void)
 {
     ADP_SET_CFM_PARAMS setConfirm;
-    uint8_t devType = 1;
-    bool result = false;
+    uint8_t devType = 1U;
 
     // Set on ADP
-    ADP_SetRequestSync(ADP_IB_DEVICE_TYPE, 0, sizeof(devType), &devType, &setConfirm);
-    if (setConfirm.status == G3_SUCCESS)
-    {
-        result = true;
-    }
-
-    return result;
+    ADP_SetRequestSync((uint32_t)ADP_IB_DEVICE_TYPE, 0U, 1U, &devType, &setConfirm);
 }
 
-static void _logShowSlotStatus(LBP_SLOT *pSlot)
+static void lLBP_LogShowSlotStatus(LBP_SLOT *pSlot)
 {
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, 
             "[LBP] Updating slot with LBD_ADDR: %02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X, \
@@ -205,59 +200,58 @@ static void _logShowSlotStatus(LBP_SLOT *pSlot)
     (void)(pSlot);
 }
 
-static void  _initLbpSlots(void)
+static void  lLBP_InitLbpSlots(void)
 {
     uint8_t idx;
 
-    for (idx = 0; idx < LBP_NUM_SLOTS; idx++)
+    for (idx = 0U; idx < LBP_NUM_SLOTS; idx++)
     {
         sLbpSlot[idx].slotState =  LBP_STATE_WAITING_JOINNING;
-        sLbpSlot[idx].pendingConfirms = 0;
-        sLbpSlot[idx].txHandle =  0xff;
-        sLbpSlot[idx].nonce =  0;
+        sLbpSlot[idx].pendingConfirms = 0U;
+        sLbpSlot[idx].txHandle =  0xffU;
+        sLbpSlot[idx].nonce =  0U;
 
-        memset(sLbpSlot[idx].lbdAddress.value, 0xff, sizeof(sLbpSlot[idx].lbdAddress.value));
+        (void) memset(sLbpSlot[idx].lbdAddress.value, 0xff, sizeof(sLbpSlot[idx].lbdAddress.value));
     }
 }
 
-static uint8_t _getNextNsduHandle(void)
+static uint8_t lLBP_GetNextNsduHandle(void)
 {
     return sNsduHandle++;
 }
 
-static void _setKeyingTable(uint8_t keyIndex, uint8_t *key)
+static void lLBP_SetKeyingTable(uint8_t keyIndex, uint8_t *key)
 {
     ADP_SET_CFM_PARAMS setConfirm;
 
     /* Set on MAC and ADP */
-    ADP_MacSetRequestSync(MAC_WRP_PIB_KEY_TABLE, keyIndex, 16, key, &setConfirm);
-    ADP_SetRequestSync(ADP_IB_ACTIVE_KEY_INDEX, 0, sizeof(keyIndex), &keyIndex, &setConfirm);
+    ADP_MacSetRequestSync((uint32_t) MAC_WRP_PIB_KEY_TABLE, keyIndex, 16U, key, &setConfirm);
+    ADP_SetRequestSync((uint32_t) ADP_IB_ACTIVE_KEY_INDEX, 0U, 1U, &keyIndex, &setConfirm);
     sCurrKeyIndex = keyIndex;
 }
 
-static uint8_t _process_accepted_GMK_activation(ADP_EXTENDED_ADDRESS *pLBPEUI64Address, LBP_SLOT *pSlot)
+static void lLBP_ProcessAcceptedGMKactivation(ADP_EXTENDED_ADDRESS *pLBPEUI64Address, LBP_SLOT *pSlot)
 {
     unsigned char *pMemoryBuffer = &pSlot->lbpData[0];
-    unsigned short memoryBufferLength = sizeof(pSlot->lbpData);
+    uint16_t memoryBufferLength = (uint16_t)sizeof(pSlot->lbpData);
     uint8_t pdata[3];
-    uint8_t result = 1;
     uint8_t newKeyIndex;
 
     /* Get current key index and set the new one to the other */
-    if (sCurrKeyIndex == 0)
+    if (sCurrKeyIndex == 0U)
     {
-        newKeyIndex = 1;
+        newKeyIndex = 1U;
     }
     else
     {
-        newKeyIndex = 0;
+        newKeyIndex = 0U;
     }
 
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Accepted(GMK-activation).\r\n");
 
     /* Prepare the protected data carring the key and short addr */
     pdata[0] = LBP_CONF_PARAM_GMK_ACTIVATION;
-    pdata[1] = 0x01;
+    pdata[1] = 0x01U;
     pdata[2] = newKeyIndex; /* key id */
 
     pSlot->lbpDataLength = EAP_PSK_EncodeGMKActivation(
@@ -273,14 +267,12 @@ static uint8_t _process_accepted_GMK_activation(ADP_EXTENDED_ADDRESS *pLBPEUI64A
             pSlot->lbpDataLength,
             memoryBufferLength,
             pMemoryBuffer);
-
-    return(result);
 }
 
-static void _processJoining0(ADP_EXTENDED_ADDRESS *pLBPEUI64Address, LBP_SLOT *pSlot)
+static void lLBP_ProcessJoining0(ADP_EXTENDED_ADDRESS *pLBPEUI64Address, LBP_SLOT *pSlot)
 {
     uint8_t *pMemoryBuffer = &pSlot->lbpData[0];
-    uint16_t memoryBufferLength = sizeof(pSlot->lbpData);
+    uint16_t memoryBufferLength = (uint16_t)sizeof(pSlot->lbpData);
 
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Process Joining 0.\r\n");
 
@@ -309,15 +301,15 @@ static void _processJoining0(ADP_EXTENDED_ADDRESS *pLBPEUI64Address, LBP_SLOT *p
             );
 }
 
-static bool _processJoiningEAPT1(ADP_EXTENDED_ADDRESS lbpEUI64Address, uint16_t EAPDataLength,
+static bool lLBP_ProcessJoiningEAPT1(ADP_EXTENDED_ADDRESS lbpEUI64Address, uint16_t EAPDataLength,
         uint8_t *pEAPData, LBP_SLOT *pSlot)
 {
     EAP_PSK_RAND randS;
     EAP_PSK_RAND randP;
     uint8_t *pMemoryBuffer = &pSlot->lbpData[0];
-    uint16_t memoryBufferLength = sizeof(pSlot->lbpData);
+    uint16_t memoryBufferLength = (uint16_t)sizeof(pSlot->lbpData);
     uint8_t pdata[50];
-    uint16_t PDataLen = 0;
+    uint16_t PDataLen = 0U;
     uint16_t shortAddr;
     uint8_t newKeyIndex;
 
@@ -339,42 +331,42 @@ static bool _processJoiningEAPT1(ADP_EXTENDED_ADDRESS lbpEUI64Address, uint16_t 
         shortAddr = pSlot->assignedShortAddress;
 
         /* Prepare the protected data carring the key and short addr */
-        pdata[PDataLen++] = 0x02; /* ext field */
+        pdata[PDataLen++] = 0x02U; /* ext field */
 
         if (!sRekey)
         {
             pdata[PDataLen++] = LBP_CONF_PARAM_SHORT_ADDR;
-            pdata[PDataLen++] = 2;
-            pdata[PDataLen++] = (uint8_t)((shortAddr & 0xFF00) >> 8);
-            pdata[PDataLen++] = (uint8_t)(shortAddr & 0x00FF);
+            pdata[PDataLen++] = 2U;
+            pdata[PDataLen++] = (uint8_t)(shortAddr >> 8);
+            pdata[PDataLen++] = (uint8_t)shortAddr;
 
             pdata[PDataLen++] = LBP_CONF_PARAM_GMK;
-            pdata[PDataLen++] = 17;
+            pdata[PDataLen++] = 17U;
             pdata[PDataLen++] = sCurrKeyIndex; /* key id */
-            memcpy(&pdata[PDataLen], sCurrGMK, 16); /* key */
-            PDataLen += 16;
+            (void) memcpy(&pdata[PDataLen], sCurrGMK, 16U); /* key */
+            PDataLen += 16U;
 
             pdata[PDataLen++] = LBP_CONF_PARAM_GMK_ACTIVATION;
-            pdata[PDataLen++] = 1;
+            pdata[PDataLen++] = 1U;
             pdata[PDataLen++] = sCurrKeyIndex; /* key id */
         }
         else
         {
             /* Get current key index and set the new one to the other */
-            if (sCurrKeyIndex == 0)
+            if (sCurrKeyIndex == 0U)
             {
-                newKeyIndex = 1;
+                newKeyIndex = 1U;
             }
             else
             {
-                newKeyIndex = 0;
+                newKeyIndex = 0U;
             }
 
             pdata[PDataLen++] = LBP_CONF_PARAM_GMK;
-            pdata[PDataLen++] = 17;
+            pdata[PDataLen++] = 17U;
             pdata[PDataLen++] = newKeyIndex; /* key id */
-            memcpy(&pdata[PDataLen], sRekeyGMK, 16); /* key */
-            PDataLen += 16;
+            (void) memcpy(&pdata[PDataLen], sRekeyGMK, 16U); /* key */
+            PDataLen += 16U;
         }
 
         SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Encoding Message3.\r\n");
@@ -409,26 +401,26 @@ static bool _processJoiningEAPT1(ADP_EXTENDED_ADDRESS lbpEUI64Address, uint16_t 
     }
     else
     {
-        SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] ERROR: _processJoiningEAPT1.\r\n");
+        SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] ERROR: lLBP_ProcessJoiningEAPT1.\r\n");
         return false;
     }
 }
 
-static bool _processJoiningEAPT3(ADP_EXTENDED_ADDRESS lbpEUI64Address, uint8_t *pLbpData, uint16_t EAPDataLength,
+static bool lLBP_ProcessJoiningEAPT3(ADP_EXTENDED_ADDRESS lbpEUI64Address, uint8_t *pLbpData, uint16_t EAPDataLength,
         uint8_t *pEAPData, LBP_SLOT *pSlot)
 {
     EAP_PSK_RAND randS;
-    uint8_t PChannelResult = 0;
-    uint32_t auxNonce = 0;
-    uint16_t PChannelDataLength = 0;
-    uint8_t *pPChannelData = 0L;
+    uint8_t PChannelResult = 0U;
+    uint32_t auxNonce = 0U;
+    uint16_t PChannelDataLength = 0U;
+    uint8_t *pPChannelData = NULL;
     uint8_t *pMemoryBuffer = &pSlot->lbpData[0];
-    uint16_t memoryBufferLength = sizeof(pSlot->lbpData);
+    uint16_t memoryBufferLength = (uint16_t)sizeof(pSlot->lbpData);
 
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Process Joining EAP T3.\r\n");
 
     if (EAP_PSK_DecodeMessage4(EAPDataLength, pEAPData, &pSlot->pskContext,
-            22, pLbpData, &randS, &auxNonce, &PChannelResult,
+            22U, pLbpData, &randS, &auxNonce, &PChannelResult,
             &PChannelDataLength, &pPChannelData))
     {
         SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Decoded Message4.\r\n");
@@ -462,49 +454,49 @@ static bool _processJoiningEAPT3(ADP_EXTENDED_ADDRESS lbpEUI64Address, uint8_t *
     }
     else
     {
-        SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] ERROR: _processJoiningEAPT3.\r\n");
+        SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] ERROR: lLBP_ProcessJoiningEAPT3.\r\n");
         return false;
     }
 }
 
-static void _initLbpMessage(LBP_SLOT *pSlot)
+static void lLBP_InitLbpMessage(LBP_SLOT *pSlot)
 {
-    pSlot->lbpDataLength = 0;
-    memset(pSlot->lbpData, 0, sizeof(pSlot->lbpData));
+    pSlot->lbpDataLength = 0U;
+    (void) memset(pSlot->lbpData, 0, sizeof(pSlot->lbpData));
 }
 
-static LBP_SLOT *_getLbpSlotByAddress(uint8_t *eui64)
+static LBP_SLOT *lLBP_GetLbpSlotByAddress(uint8_t *eui64)
 {
     uint8_t idx;
     LBP_SLOT *pOutSlot = NULL;
 
     /* Check if the lbd is already started */
-    for (idx = 0; idx < LBP_NUM_SLOTS; idx++)
+    for (idx = 0U; idx < LBP_NUM_SLOTS; idx++)
     {
-        if (!memcmp(sLbpSlot[idx].lbdAddress.value, eui64, ADP_ADDRESS_64BITS))
+        if (memcmp(sLbpSlot[idx].lbdAddress.value, eui64, ADP_ADDRESS_64BITS) == 0)
         {
             pOutSlot = &sLbpSlot[idx];
-            SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] _getLbpSlotByAddress --> Slot in use found: %d \r\n", idx);
+            SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] lLBP_GetLbpSlotByAddress --> Slot in use found: %d \r\n", idx);
             break;
         }
     }
     /* If lbd not in progress find free slot */
-    if (!pOutSlot)
+    if (pOutSlot == NULL)
     {
-        for (idx = 0; idx < LBP_NUM_SLOTS; idx++)
+        for (idx = 0U; idx < LBP_NUM_SLOTS; idx++)
         {
             if (sLbpSlot[idx].slotState ==  LBP_STATE_WAITING_JOINNING)
             {
                 pOutSlot = &sLbpSlot[idx];
-                SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] _getLbpSlotByAddress --> Slot free found: %d \r\n", idx);
+                SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] lLBP_GetLbpSlotByAddress --> Slot free found: %d \r\n", idx);
                 break;
             }
         }
     }
 
-    if (!pOutSlot)
+    if (pOutSlot == NULL)
     {
-        SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] _getLbpSlotByAddress --> Slot not found \r\n");
+        SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] lLBP_GetLbpSlotByAddress --> Slot not found \r\n");
     }
 
     return pOutSlot;
@@ -520,27 +512,27 @@ void LBP_Rekey(uint16_t shortAddress, ADP_EXTENDED_ADDRESS *pEUI64Address, bool 
 {
     ADP_ADDRESS dstAddr;
 
-    LBP_SLOT *pSlot = _getLbpSlotByAddress(pEUI64Address->value);
+    LBP_SLOT *pSlot = lLBP_GetLbpSlotByAddress(pEUI64Address->value);
 
-    if (pSlot)
+    if (pSlot != NULL)
     {
-        _initLbpMessage(pSlot);
+        lLBP_InitLbpMessage(pSlot);
         /* DisableBackupFlag and MediaType set to 0x0 in Rekeying frames */
-        pSlot->disableBackupMedium = 0;
-        pSlot->mediaType = 0;
+        pSlot->disableBackupMedium = 0U;
+        pSlot->mediaType = 0U;
         if (distribute)
         {
             /* If re-keying in GMK distribution phase */
             /* Send ADPM-LBP.Request(EAPReq(mes1)) to each registered device */
-            _processJoining0(pEUI64Address, pSlot);
+            lLBP_ProcessJoining0(pEUI64Address, pSlot);
             pSlot->slotState = LBP_STATE_SENT_EAP_MSG_1;
             /* Fill slot address just in case a free slot was returned */
-            memcpy(pSlot->lbdAddress.value, pEUI64Address->value, ADP_ADDRESS_64BITS);
+            (void) memcpy(pSlot->lbdAddress.value, pEUI64Address->value, ADP_ADDRESS_64BITS);
         }
         else
         {
             /* GMK activation phase */
-            _process_accepted_GMK_activation(pEUI64Address, pSlot);
+            lLBP_ProcessAcceptedGMKactivation(pEUI64Address, pSlot);
             pSlot->slotState = LBP_STATE_SENT_EAP_MSG_ACCEPTED;
         }
 
@@ -548,14 +540,14 @@ void LBP_Rekey(uint16_t shortAddress, ADP_EXTENDED_ADDRESS *pEUI64Address, bool 
         dstAddr.addrSize = ADP_ADDRESS_16BITS;
         dstAddr.shortAddr = shortAddress;
 
-        if (pSlot->pendingConfirms > 0)
+        if (pSlot->pendingConfirms > 0U)
         {
             pSlot->pendingTxHandle = pSlot->txHandle;
         }
 
-        pSlot->timeout = MAC_WRP_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
-        pSlot->txHandle = _getNextNsduHandle();
-        pSlot->txAttempts = 0;
+        pSlot->timeout = MAC_WRP_GetMsCounter() + (1000U * (uint32_t)sMsgTimeoutSeconds);
+        pSlot->txHandle = lLBP_GetNextNsduHandle();
+        pSlot->txAttempts = 0U;
         pSlot->pendingConfirms++;
         SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] ADP_LbpRequest Called, handler: %d \r\n", pSlot->txHandle);
         ADP_LbpRequest(
@@ -565,7 +557,7 @@ void LBP_Rekey(uint16_t shortAddress, ADP_EXTENDED_ADDRESS *pEUI64Address, bool 
                 pSlot->txHandle,                        /* NSDU handle */
                 sMaxHops,                               /* Max. Hops */
                 true,                                   /* Discover route */
-                0,                                      /* QoS */
+                0U,                                      /* QoS */
                 false);                                 /* Security enable */
     }
 }
@@ -580,31 +572,31 @@ void LBP_ActivateNewKey(void)
     uint8_t newKeyIndex;
 
     /* Get current key index and set the new one to the other */
-    if (sCurrKeyIndex == 0)
+    if (sCurrKeyIndex == 0U)
     {
-        newKeyIndex = 1;
+        newKeyIndex = 1U;
     }
     else
     {
-        newKeyIndex = 0;
+        newKeyIndex = 0U;
     }
 
     /* Set GMK from Rekey GMK */
-    memcpy(sCurrGMK, sRekeyGMK, sizeof(sCurrGMK));
+    (void) memcpy(sCurrGMK, sRekeyGMK, sizeof(sCurrGMK));
     /* Set key table using the new index and new GMK */
-    _setKeyingTable(newKeyIndex, sCurrGMK);
+    lLBP_SetKeyingTable(newKeyIndex, sCurrGMK);
 }
 
 void LBP_UpdateLbpSlots(void)
 {
     uint8_t idx;
-    for (idx = 0; idx < LBP_NUM_SLOTS; idx++)
+    for (idx = 0U; idx < LBP_NUM_SLOTS; idx++)
     {
         if (sLbpSlot[idx].slotState != LBP_STATE_WAITING_JOINNING)
         {
             if (MAC_WRP_TimeIsPast((int32_t)(sLbpSlot[idx].timeout)))
             {
-                if (sLbpSlot[idx].pendingConfirms == 0)
+                if (sLbpSlot[idx].pendingConfirms == 0U)
                 {
                     if (sLbpSlot[idx].txAttempts < BOOTSTRAP_MSG_MAX_RETRIES)
                     {
@@ -613,42 +605,44 @@ void LBP_UpdateLbpSlots(void)
                         {
                             sLbpSlot[idx].slotState = LBP_STATE_SENT_EAP_MSG_1;
                             SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_SENT_EAP_MSG_1\r\n");
-                            _logShowSlotStatus(&sLbpSlot[idx]);
+                            lLBP_LogShowSlotStatus(&sLbpSlot[idx]);
                         }
-                        else if (sLbpSlot[idx].slotState == LBP_STATE_WAITING_EAP_MSG_4)
-                        {
-                            sLbpSlot[idx].slotState = LBP_STATE_SENT_EAP_MSG_3;
-                            SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_SENT_EAP_MSG_3\r\n");
-                            _logShowSlotStatus(&sLbpSlot[idx]);
+                        else{
+                            if (sLbpSlot[idx].slotState == LBP_STATE_WAITING_EAP_MSG_4)
+                            {
+                                sLbpSlot[idx].slotState = LBP_STATE_SENT_EAP_MSG_3;
+                                SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_SENT_EAP_MSG_3\r\n");
+                                lLBP_LogShowSlotStatus(&sLbpSlot[idx]);
+                            }
                         }
 
                         ADP_ADDRESS dstAddr;
 
-                        if (sLbpSlot[idx].lbpDataLength > 0)
+                        if (sLbpSlot[idx].lbpDataLength > 0U)
                         {
-                            if (sLbpSlot[idx].lbaAddress == 0xFFFF)
+                            if (sLbpSlot[idx].lbaAddress == 0xFFFFU)
                             {
-                                dstAddr.addrSize = 8;
-                                memcpy(dstAddr.extendedAddr.value, &sLbpSlot[idx].lbdAddress.value, 8);
+                                dstAddr.addrSize = 8U;
+                                (void) memcpy(dstAddr.extendedAddr.value, &sLbpSlot[idx].lbdAddress.value, 8);
                             }
                             else
                             {
-                                dstAddr.addrSize = 2;
+                                dstAddr.addrSize = 2U;
                                 dstAddr.shortAddr = sLbpSlot[idx].lbaAddress;
                             }
 
-                            if (sLbpSlot[idx].pendingConfirms > 0)
+                            if (sLbpSlot[idx].pendingConfirms > 0U)
                             {
                                 sLbpSlot[idx].pendingTxHandle = sLbpSlot[idx].txHandle;
                             }
 
-                            sLbpSlot[idx].txHandle = _getNextNsduHandle();
-                            sLbpSlot[idx].timeout = MAC_WRP_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
+                            sLbpSlot[idx].txHandle = lLBP_GetNextNsduHandle();
+                            sLbpSlot[idx].timeout = MAC_WRP_GetMsCounter() + (1000U * (uint32_t)sMsgTimeoutSeconds);
                             sLbpSlot[idx].pendingConfirms++;
 
                             SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Timeout detected. Re-sending MSG for slot: %d Attempt: %d \r\n",
                                     idx, sLbpSlot[idx].txAttempts);
-                            _logShowSlotStatus(&sLbpSlot[idx]);
+                            lLBP_LogShowSlotStatus(&sLbpSlot[idx]);
                             SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] ADP_LbpRequest Called, handler: %d \r\n", sLbpSlot[idx].txHandle);
                             ADP_LbpRequest(
                                     (ADP_ADDRESS const *)&dstAddr,  /* Destination address */
@@ -657,7 +651,7 @@ void LBP_UpdateLbpSlots(void)
                                     sLbpSlot[idx].txHandle,         /* NSDU handle */
                                     sMaxHops,                       /* Max. Hops */
                                     true,                           /* Discover route */
-                                    0,                              /* QoS */
+                                    0U,                              /* QoS */
                                     false);                         /* Security enable */
                         }
                     }
@@ -665,9 +659,9 @@ void LBP_UpdateLbpSlots(void)
                     {
                         SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Reset slot %d:  \r\n", idx);
                         sLbpSlot[idx].slotState = LBP_STATE_WAITING_JOINNING;
-                        sLbpSlot[idx].pendingConfirms = 0;
-                        sLbpSlot[idx].nonce =  0;
-                        sLbpSlot[idx].timeout = 0xFFFFFFFF;
+                        sLbpSlot[idx].pendingConfirms = 0U;
+                        sLbpSlot[idx].nonce =  0U;
+                        sLbpSlot[idx].timeout = 0xFFFFFFFFUL;
                     }
                 }
                 else
@@ -675,26 +669,26 @@ void LBP_UpdateLbpSlots(void)
                     /* Pending confirm and timeout, reset slot */
                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Pending Confirm and Timeout --> Reset slot %d:  \r\n", idx);
                     sLbpSlot[idx].slotState = LBP_STATE_WAITING_JOINNING;
-                    sLbpSlot[idx].pendingConfirms = 0;
-                    sLbpSlot[idx].nonce =  0;
-                    sLbpSlot[idx].timeout = 0xFFFFFFFF;
+                    sLbpSlot[idx].pendingConfirms = 0U;
+                    sLbpSlot[idx].nonce =  0U;
+                    sLbpSlot[idx].timeout = 0xFFFFFFFFUL;
                 }
             }
         }
     }
 }
 
-static void AdpLbpConfirmCoord(ADP_LBP_CFM_PARAMS *pLbpConfirm)
+static void lLBP_AdpLbpConfirmCoord(ADP_LBP_CFM_PARAMS *pLbpConfirm)
 {
     uint8_t idx;
     LBP_SLOT *pCurrentSlot = NULL;
     bool isAcceptedConfirm = false;
 
-    for (idx = 0; idx < LBP_NUM_SLOTS; idx++)
+    for (idx = 0U; idx < LBP_NUM_SLOTS; idx++)
     {
         LBP_SLOT *pSlot = &sLbpSlot[idx];
 
-        if (pSlot->pendingConfirms == 1 && pLbpConfirm->nsduHandle == pSlot->txHandle && pSlot->slotState != LBP_STATE_WAITING_JOINNING)
+        if ((pSlot->pendingConfirms == 1U) && (pLbpConfirm->nsduHandle == pSlot->txHandle) && (pSlot->slotState != LBP_STATE_WAITING_JOINNING))
         {
             SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] AdpNotification_LbpConfirm (%02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X).\r\n",
                     pSlot->lbdAddress.value[0], pSlot->lbdAddress.value[1],
@@ -704,54 +698,54 @@ static void AdpLbpConfirmCoord(ADP_LBP_CFM_PARAMS *pLbpConfirm)
 
             pCurrentSlot = pSlot;
             pSlot->pendingConfirms--;
-            if (pLbpConfirm->status == G3_SUCCESS)
+            if (pLbpConfirm->status == (uint8_t)G3_SUCCESS)
             {
                 switch (pSlot->slotState)
                 {
                 case LBP_STATE_SENT_EAP_MSG_1:
                     pSlot->slotState = LBP_STATE_WAITING_EAP_MSG_2;
                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_WAITING_EAP_MSG_2\r\n");
-                    _logShowSlotStatus(pSlot);
+                    lLBP_LogShowSlotStatus(pSlot);
                     break;
 
                 case LBP_STATE_SENT_EAP_MSG_3:
                     pSlot->slotState = LBP_STATE_WAITING_EAP_MSG_4;
                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_WAITING_EAP_MSG_4\r\n");
-                    _logShowSlotStatus(pSlot);
+                    lLBP_LogShowSlotStatus(pSlot);
                     break;
 
                 case LBP_STATE_SENT_EAP_MSG_ACCEPTED:
                     pSlot->slotState = LBP_STATE_WAITING_JOINNING;
-                    pSlot->nonce =  0;
+                    pSlot->nonce =  0U;
                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_WAITING_JOINNING\r\n");
-                    _logShowSlotStatus(pSlot);
+                    lLBP_LogShowSlotStatus(pSlot);
                     isAcceptedConfirm = true;
                     break;
 
                 case LBP_STATE_SENT_EAP_MSG_DECLINED:
                     pSlot->slotState = LBP_STATE_WAITING_JOINNING;
-                    pSlot->nonce =  0;
+                    pSlot->nonce =  0U;
                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_WAITING_JOINNING\r\n");
-                    _logShowSlotStatus(pSlot);
+                    lLBP_LogShowSlotStatus(pSlot);
                     break;
 
                 default:
                     pSlot->slotState = LBP_STATE_WAITING_JOINNING;
-                    pSlot->nonce =  0;
+                    pSlot->nonce =  0U;
                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_WAITING_JOINNING\r\n");
-                    _logShowSlotStatus(pSlot);
+                    lLBP_LogShowSlotStatus(pSlot);
                     break;
                 }
             }
             else
             {
                 pSlot->slotState = LBP_STATE_WAITING_JOINNING;
-                pSlot->nonce =  0;
+                pSlot->nonce =  0U;
                 SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_WAITING_JOINNING\r\n");
-                _logShowSlotStatus(pSlot);
+                lLBP_LogShowSlotStatus(pSlot);
             }
         }
-        else if (pSlot->pendingConfirms == 2 && pLbpConfirm->nsduHandle == pSlot->pendingTxHandle)
+        else if ((pSlot->pendingConfirms == 2U) && (pLbpConfirm->nsduHandle == pSlot->pendingTxHandle))
         {
             /* Confirm received is for first request (pendingTxHandle) */
             SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] AdpNotification_LbpConfirm (%02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X).\r\n",
@@ -760,25 +754,27 @@ static void AdpLbpConfirmCoord(ADP_LBP_CFM_PARAMS *pLbpConfirm)
                     pSlot->lbdAddress.value[4], pSlot->lbdAddress.value[5],
                     pSlot->lbdAddress.value[6], pSlot->lbdAddress.value[7]);
             pSlot->pendingConfirms--;
-            _logShowSlotStatus(pSlot);
+            lLBP_LogShowSlotStatus(pSlot);
             pCurrentSlot = pSlot;
         }
-        else if (pSlot->pendingConfirms == 2 && pLbpConfirm->nsduHandle == pSlot->txHandle)
-        {
-            /* Confirm received is for last request (txHandle) */
-            SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] AdpNotification_LbpConfirm (%02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X).\r\n",
-                    pSlot->lbdAddress.value[0], pSlot->lbdAddress.value[1],
-                    pSlot->lbdAddress.value[2], pSlot->lbdAddress.value[3],
-                    pSlot->lbdAddress.value[4], pSlot->lbdAddress.value[5],
-                    pSlot->lbdAddress.value[6], pSlot->lbdAddress.value[7]);
-            pSlot->pendingConfirms--;
-            pSlot->txHandle = pSlot->pendingTxHandle;
-            _logShowSlotStatus(pSlot);
-            pCurrentSlot = pSlot;
+        else{
+            if ((pSlot->pendingConfirms == 2U) && (pLbpConfirm->nsduHandle == pSlot->txHandle))
+            {
+                /* Confirm received is for last request (txHandle) */
+                SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] AdpNotification_LbpConfirm (%02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X).\r\n",
+                        pSlot->lbdAddress.value[0], pSlot->lbdAddress.value[1],
+                        pSlot->lbdAddress.value[2], pSlot->lbdAddress.value[3],
+                        pSlot->lbdAddress.value[4], pSlot->lbdAddress.value[5],
+                        pSlot->lbdAddress.value[6], pSlot->lbdAddress.value[7]);
+                pSlot->pendingConfirms--;
+                pSlot->txHandle = pSlot->pendingTxHandle;
+                lLBP_LogShowSlotStatus(pSlot);
+                pCurrentSlot = pSlot;
+            }
         }
     }
 
-    if (!pCurrentSlot)
+    if (pCurrentSlot == NULL)
     {
         SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] AdpNotification_LbpConfirm from unkown node, status: %d  handler: %d \r\n",
                 pLbpConfirm->status, pLbpConfirm->nsduHandle);
@@ -786,10 +782,10 @@ static void AdpLbpConfirmCoord(ADP_LBP_CFM_PARAMS *pLbpConfirm)
     }
     else
     {
-        pCurrentSlot->timeout = MAC_WRP_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
+        pCurrentSlot->timeout = MAC_WRP_GetMsCounter() + (1000U * (uint32_t)sMsgTimeoutSeconds);
     }
 
-    if (pLbpConfirm->status == G3_SUCCESS && isAcceptedConfirm)
+    if ((pLbpConfirm->status == (uint8_t)G3_SUCCESS) && isAcceptedConfirm)
     {
         /* Upper layer indications */
         if (sLbpNotifications.joinCompleteIndication != NULL)
@@ -799,7 +795,7 @@ static void AdpLbpConfirmCoord(ADP_LBP_CFM_PARAMS *pLbpConfirm)
     }
 }
 
-static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
+static void lLBP_AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
 {
     uint16_t origAddress;
     uint8_t msgType;
@@ -807,11 +803,11 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
     uint16_t lbpDataLength;
     ADP_ADDRESS dstAddr;
     /* Embedded EAP message */
-    uint8_t code = 0;
-    uint8_t identifier = 0;
-    uint8_t TSubfield = 0;
-    uint16_t EAPDataLength = 0;
-    uint8_t *pEAPData = 0L;
+    uint8_t code = 0U;
+    uint8_t identifier = 0U;
+    uint8_t TSubfield = 0U;
+    uint16_t EAPDataLength = 0U;
+    uint8_t *pEAPData = NULL;
     ADP_EXTENDED_ADDRESS currentLbdAddress;
     LBP_SLOT *pSlot;
     uint8_t mediaType;
@@ -820,9 +816,9 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
     if (pLbpIndication->srcAddr.addrSize == ADP_ADDRESS_64BITS)
     {
         /* When directly communicating with the LBD(using extended addressing) this field is set to 0xFFFF. */
-        origAddress = 0xFFFF;
+        origAddress = 0xFFFFU;
         /* Check frame coming from LBD is not secured */
-        if (pLbpIndication->securityLevel != MAC_WRP_SECURITY_LEVEL_NONE)
+        if (pLbpIndication->securityLevel != (uint8_t)MAC_WRP_SECURITY_LEVEL_NONE)
         {
             return;
         }
@@ -835,20 +831,25 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
 
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "LBPIndication_Notify(): LbaAddr: 0x%04X NsduLength: %hu.\r\n",origAddress, pLbpIndication->nsduLength);
 
-    msgType = ((pLbpIndication->pNsdu[0] & 0xF0) >> 4);
-    mediaType = ((pLbpIndication->pNsdu[0] & 0x08) >> 3);
-    disableBackupMedium = ((pLbpIndication->pNsdu[0] & 0x04) >> 2);
-    pLbpData = (uint8_t *)&pLbpIndication->pNsdu[10];
-    lbpDataLength = pLbpIndication->nsduLength - 10;
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
-    memcpy(currentLbdAddress.value, &pLbpIndication->pNsdu[2], ADP_ADDRESS_64BITS);
+    msgType = pLbpIndication->pNsdu[0] >> 4;
+    mediaType = (pLbpIndication->pNsdu[0] & 0x08U) >> 3;
+    disableBackupMedium = (pLbpIndication->pNsdu[0] & 0x04U) >> 2;
+    pLbpData = (uint8_t *)&pLbpIndication->pNsdu[10];
+    lbpDataLength = pLbpIndication->nsduLength - 10U;
+
+    /* MISRA C-2012 deviation block end */
+
+    (void) memcpy(currentLbdAddress.value, &pLbpIndication->pNsdu[2], ADP_ADDRESS_64BITS);
 
     /* Check differet conditions if frame comes directly from LBD or from LBA */
-    if (origAddress == 0xFFFF)
+    if (origAddress == 0xFFFFU)
     {
         /* Frame from LBD */
         /* Originator address must be equal to the one in LBP frame */
-        if (memcmp(&currentLbdAddress, &pLbpIndication->srcAddr.extendedAddr, sizeof(ADP_EXTENDED_ADDRESS)) != 0)
+        if (memcmp(&currentLbdAddress.value, pLbpIndication->srcAddr.extendedAddr.value, sizeof(ADP_EXTENDED_ADDRESS)) != 0)
         {
             return;
         }
@@ -862,17 +863,17 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
     {
         /* Frame from LBA */
         /* Src address must be between 0x0000 and 0x7FFF */
-        if (origAddress > 0x7FFF)
+        if (origAddress > 0x7FFFU)
         {
             return;
         }
         /* Security level already checked for frames between 16-bit addresses */
     }
 
-    pSlot = _getLbpSlotByAddress(currentLbdAddress.value);
+    pSlot = lLBP_GetLbpSlotByAddress(currentLbdAddress.value);
     if (pSlot != NULL)
     {
-        _initLbpMessage(pSlot);
+        lLBP_InitLbpMessage(pSlot);
     }
 
     if (msgType == LBP_JOINING)
@@ -884,11 +885,11 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
                 currentLbdAddress.value[6], currentLbdAddress.value[7]);
 
         /* Check the bootstrapping data in order to see the progress of the joining process */
-        if (lbpDataLength == 0)
+        if (lbpDataLength == 0U)
         {
             SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] First joining request.\r\n");
             /* This is the first joining request. Responded only if no other BS was in progress. */
-            if (pSlot)
+            if (pSlot != NULL)
             {
                 if (pSlot->slotState == LBP_STATE_WAITING_JOINNING)
                 {
@@ -897,33 +898,42 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
                     pSlot->disableBackupMedium = disableBackupMedium;
                     /* Store information to be used in Address Assign function */
                     pSlot->lbaAddress = origAddress;
-                    memcpy(pSlot->lbdAddress.value, currentLbdAddress.value,
+                    (void) memcpy(pSlot->lbdAddress.value, currentLbdAddress.value,
                             sizeof(currentLbdAddress.value));
                     /* Check with upper layer if the joining device is accepted */
-                    if (sLbpNotifications.joinRequestIndication != NULL) {
+                    if (sLbpNotifications.joinRequestIndication != NULL)
+                    {
                         sLbpNotifications.joinRequestIndication(currentLbdAddress.value);
                     }
-                    else {
+                    else
+                    {
                         /* If there is no configured callback, assign addresses sequentially */
                         sInternalAssignedAddress++;
                         LBP_ShortAddressAssign(currentLbdAddress.value, sInternalAssignedAddress);
                     }
                     /* Exit function, response will be sent on Address Assign function */
                     return;
-                } else {
+                }
+                else
+                {
                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Repeated message processing Joining, silently ignored \r\n");
                 }
-            } else {
+            }
+            else
+            {
                 SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] No slots available to process the request. Ignored.\r\n");
             }
-        } else {
+        }
+        else
+        {
             /* Check if the message comes from a device currently under BS */
-            if (pSlot) {
+            if (pSlot != NULL)
+            {
                 /* Set Media Type and Disable backup flag from incoming LBP frame on Slot */
                 pSlot->mediaType = mediaType;
                 pSlot->disableBackupMedium = disableBackupMedium;
                 /* check the type of the bootstrap data */
-                if ((pLbpData[0] & 0x01) != 0x01)
+                if ((pLbpData[0] & 0x01U) != 0x01U)
                 {
                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Successive joining request.\r\n");
                     if (EAP_PSK_DecodeMessage(
@@ -937,16 +947,16 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
                     {
                         if (code == EAP_RESPONSE)
                         {
-                            if (TSubfield == EAP_PSK_T1 && (pSlot->slotState == LBP_STATE_WAITING_EAP_MSG_2 ||
-                                    pSlot->slotState == LBP_STATE_SENT_EAP_MSG_1))
+                            if ((TSubfield == EAP_PSK_T1) && ((pSlot->slotState == LBP_STATE_WAITING_EAP_MSG_2) ||
+                                    (pSlot->slotState == LBP_STATE_SENT_EAP_MSG_1)))
                             {
-                                if (_processJoiningEAPT1(currentLbdAddress, EAPDataLength, pEAPData, pSlot) != 1)
+                                if (lLBP_ProcessJoiningEAPT1(currentLbdAddress, EAPDataLength, pEAPData, pSlot) != true)
                                 {
                                     /* Abort current BS process */
                                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] LBP error processing EAP T1.\r\n");
                                     pSlot->slotState = LBP_STATE_WAITING_JOINNING;
-                                    pSlot->pendingConfirms = 0;
-                                    pSlot->nonce =  0;
+                                    pSlot->pendingConfirms = 0U;
+                                    pSlot->nonce =  0U;
 
                                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_WAITING_JOINNING\r\n");
                                 }
@@ -956,11 +966,11 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
                                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_SENT_EAP_MSG_3\r\n");
                                 }
                             }
-                            else if (TSubfield == EAP_PSK_T3 &&
-                                    (pSlot->slotState == LBP_STATE_WAITING_EAP_MSG_4 || pSlot->slotState ==
-                                    LBP_STATE_SENT_EAP_MSG_3))
+                            else if ((TSubfield == EAP_PSK_T3) &&
+                                    ((pSlot->slotState == LBP_STATE_WAITING_EAP_MSG_4) ||
+                                    (pSlot->slotState == LBP_STATE_SENT_EAP_MSG_3)))
                             {
-                                if (_processJoiningEAPT3(currentLbdAddress, pLbpData, EAPDataLength, pEAPData,
+                                if (lLBP_ProcessJoiningEAPT3(currentLbdAddress, pLbpData, EAPDataLength, pEAPData,
                                         pSlot))
                                 {
                                     pSlot->slotState = LBP_STATE_SENT_EAP_MSG_ACCEPTED;
@@ -970,8 +980,8 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
                                 {
                                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] LBP error processing EAP T3.\r\n");
                                     pSlot->slotState = LBP_STATE_WAITING_JOINNING;
-                                    pSlot->pendingConfirms = 0;
-                                    pSlot->nonce =  0;
+                                    pSlot->pendingConfirms = 0U;
+                                    pSlot->nonce =  0U;
                                     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_WAITING_JOINNING\r\n");
                                 }
                             }
@@ -980,8 +990,8 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
                                 /* Abort current BS process */
                                 SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] LBP protocol error.\r\n");
                                 pSlot->slotState = LBP_STATE_WAITING_JOINNING;
-                                pSlot->pendingConfirms = 0;
-                                pSlot->nonce =  0;
+                                pSlot->pendingConfirms = 0U;
+                                pSlot->nonce =  0U;
                                 SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_WAITING_JOINNING\r\n");
                             }
                         }
@@ -991,10 +1001,10 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
                         /* Abort current BS process */
                         SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] ERROR decoding message.\r\n");
                         pSlot->slotState = LBP_STATE_WAITING_JOINNING;
-                        pSlot->pendingConfirms = 0;
-                        pSlot->nonce =  0;
+                        pSlot->pendingConfirms = 0U;
+                        pSlot->nonce =  0U;
                         SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_WAITING_JOINNING\r\n");
-                        _logShowSlotStatus(pSlot);
+                        lLBP_LogShowSlotStatus(pSlot);
                     }
                 }
             }
@@ -1015,12 +1025,12 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
 
     if (pSlot != NULL)
     {
-        if (pSlot->lbpDataLength > 0)
+        if (pSlot->lbpDataLength > 0U)
         {
-            if (origAddress == 0xFFFF)
+            if (origAddress == 0xFFFFU)
             {
                 dstAddr.addrSize = ADP_ADDRESS_64BITS;
-                memcpy(dstAddr.extendedAddr.value, pSlot->lbdAddress.value, ADP_ADDRESS_64BITS);
+                (void) memcpy(dstAddr.extendedAddr.value, pSlot->lbdAddress.value, ADP_ADDRESS_64BITS);
             }
             else
             {
@@ -1028,16 +1038,17 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
                 dstAddr.shortAddr = origAddress;
             }
 
-            if (pSlot->pendingConfirms > 0) {
+            if (pSlot->pendingConfirms > 0U)
+            {
                 pSlot->pendingTxHandle = pSlot->txHandle;
             }
 
-            pSlot->txHandle = _getNextNsduHandle();
-            pSlot->timeout = MAC_WRP_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
-            pSlot->txAttempts = 0;
+            pSlot->txHandle = lLBP_GetNextNsduHandle();
+            pSlot->timeout = MAC_WRP_GetMsCounter() + (1000U * (uint32_t)sMsgTimeoutSeconds);
+            pSlot->txAttempts = 0U;
             pSlot->pendingConfirms++;
 
-            _logShowSlotStatus(pSlot);
+            lLBP_LogShowSlotStatus(pSlot);
             SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] ADP_LbpRequest Called, handler: %d \r\n", pSlot->txHandle);
             ADP_LbpRequest(
                     (ADP_ADDRESS const *)&dstAddr,  /* Destination address */
@@ -1046,7 +1057,7 @@ static void AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
                     pSlot->txHandle,                /* NSDU handle */
                     sMaxHops,                       /* Max. Hops */
                     true,                           /* Discover route */
-                    0,                              /* QoS */
+                    0U,                              /* QoS */
                     false);                         /* Security enable */
         }
     }
@@ -1064,8 +1075,8 @@ void LBP_InitCoord(bool aribBand)
 {
     ADP_NOTIFICATIONS_TO_LBP notifications;
 
-    notifications.lbpConfirm = AdpLbpConfirmCoord;
-    notifications.lbpIndication = AdpLbpIndicationCoord;
+    notifications.lbpConfirm = lLBP_AdpLbpConfirmCoord;
+    notifications.lbpIndication = lLBP_AdpLbpIndicationCoord;
 
     ADP_SetNotificationsToLbp(&notifications);
 
@@ -1075,21 +1086,21 @@ void LBP_InitCoord(bool aribBand)
     if (aribBand)
     {
         sIdS.size = LBP_NETWORK_ACCESS_ID_SIZE_S_ARIB;
-        memcpy(sIdS.value, sIdSArib.value, LBP_NETWORK_ACCESS_ID_SIZE_S_ARIB);
+        (void) memcpy(sIdS.value, sIdSArib.value, LBP_NETWORK_ACCESS_ID_SIZE_S_ARIB);
     }
     else
     {
         sIdS.size = LBP_NETWORK_ACCESS_ID_SIZE_S_CENELEC_FCC;
-        memcpy(sIdS.value, sIdSCenFcc.value, LBP_NETWORK_ACCESS_ID_SIZE_S_CENELEC_FCC);
+        (void) memcpy(sIdS.value, sIdSCenFcc.value, LBP_NETWORK_ACCESS_ID_SIZE_S_CENELEC_FCC);
     }
 
-    _setKeyingTable(INITIAL_KEY_INDEX, sCurrGMK);
+    lLBP_SetKeyingTable(INITIAL_KEY_INDEX, sCurrGMK);
 
-    _initLbpSlots();
+    lLBP_InitLbpSlots();
 
-    sMaxHops = _GetAdpMaxHops();
+    sMaxHops = lLBP_GetAdpMaxHops();
 
-    _SetDeviceTypeCoord();
+    lLBP_SetDeviceTypeCoord();
 }
 
 void LBP_SetNotificationsCoord(LBP_NOTIFICATIONS_COORD *pNotifications)
@@ -1110,19 +1121,19 @@ bool LBP_KickDevice(uint16_t shortAddress, ADP_EXTENDED_ADDRESS *pEUI64Address)
     dstAddr.addrSize = ADP_ADDRESS_16BITS;
     dstAddr.shortAddr = shortAddress;
 
-    lbpDataLength = LBP_EncodeKickToLBD(pEUI64Address, sizeof(lbpData), lbpData);
+    lbpDataLength = LBP_EncodeKickToLBD(pEUI64Address, (uint16_t)sizeof(lbpData), lbpData);
 
     /* If message was properly encoded, send it */
-    if (lbpDataLength)
+    if (lbpDataLength > 0U)
     {
         ADP_LbpRequest(
                 (ADP_ADDRESS const *)&dstAddr,  /* Destination address */
                 lbpDataLength,                  /* NSDU length */
                 lbpData,                        /* NSDU */
-                _getNextNsduHandle(),           /* NSDU handle */
+                lLBP_GetNextNsduHandle(),           /* NSDU handle */
                 sMaxHops,                       /* Max. Hops */
                 true,                           /* Discover route */
-                0,                              /* QoS */
+                0U,                              /* QoS */
                 false);                         /* Security enable */
 
         return true;
@@ -1139,86 +1150,68 @@ void LBP_SetParamCoord(uint32_t attributeId, uint16_t attributeIndex,
 {
     pSetConfirm->attributeId = attributeId;
     pSetConfirm->attributeIndex = attributeIndex;
-    pSetConfirm->status = LBP_STATUS_UNSUPPORTED_PARAMETER;
+    pSetConfirm->status = LBP_STATUS_INVALID_LENGTH;
 
-    switch (attributeId)
+    switch ((LBP_ATTRIBUTE)attributeId)
     {
     case LBP_IB_IDS:
         if ((attributeLen == LBP_NETWORK_ACCESS_ID_SIZE_S_ARIB) ||
             (attributeLen == LBP_NETWORK_ACCESS_ID_SIZE_S_CENELEC_FCC))
         {
             sIdS.size = attributeLen;
-            memcpy(sIdS.value, pAttributeValue, attributeLen);
+            (void) memcpy(sIdS.value, pAttributeValue, attributeLen);
             pSetConfirm->status = LBP_STATUS_OK;
-        }
-        else
-        {
-            pSetConfirm->status = LBP_STATUS_INVALID_LENGTH;
         }
 
         break;
 
     case LBP_IB_PSK:
-        if (attributeLen == 16)
+        if (attributeLen == 16U)
         {
-            memcpy(sEapPskKey.value, pAttributeValue, sizeof(sEapPskKey.value));
+            (void) memcpy(sEapPskKey.value, pAttributeValue, sizeof(sEapPskKey.value));
             pSetConfirm->status = LBP_STATUS_OK;
-        }
-        else
-        {
-            /* Wrong parameter size */
-            pSetConfirm->status = LBP_STATUS_INVALID_LENGTH;
         }
 
         break;
+
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
     case LBP_IB_GMK:
-        if (attributeLen == 16)
+        if (attributeLen == 16U)
         {
             /* Set GMK on LBP module */
-            memcpy(sCurrGMK, pAttributeValue, sizeof(sCurrGMK));
+            (void) memcpy(sCurrGMK, pAttributeValue, sizeof(sCurrGMK));
             /* Set key table on G3 stack using the new index and new GMK */
-            _setKeyingTable(attributeIndex, (uint8_t *)pAttributeValue);
+            lLBP_SetKeyingTable((uint8_t)attributeIndex, (uint8_t *)pAttributeValue);
             pSetConfirm->status = LBP_STATUS_OK;
-        }
-        else
-        {
-            /* Wrong parameter size */
-            pSetConfirm->status = LBP_STATUS_INVALID_LENGTH;
         }
 
         break;
 
+    /* MISRA C-2012 deviation block end */
+
     case LBP_IB_REKEY_GMK:
-        if (attributeLen == 16)
+        if (attributeLen == 16U)
         {
-            memcpy(sRekeyGMK, pAttributeValue, sizeof(sRekeyGMK));
+            (void) memcpy(sRekeyGMK, pAttributeValue, sizeof(sRekeyGMK));
             pSetConfirm->status = LBP_STATUS_OK;
-        }
-        else
-        {
-            /* Wrong parameter size */
-            pSetConfirm->status = LBP_STATUS_INVALID_LENGTH;
         }
 
         break;
 
     case LBP_IB_MSG_TIMEOUT:
-        if (attributeLen == 2)
+        if (attributeLen == 2U)
         {
-            sMsgTimeoutSeconds = ((pAttributeValue[1] << 8) | pAttributeValue[0]);
+            sMsgTimeoutSeconds = ((uint16_t)pAttributeValue[1] << 8) | pAttributeValue[0];
             pSetConfirm->status = LBP_STATUS_OK;
-        }
-        else
-        {
-            /* Wrong parameter size */
-            pSetConfirm->status = LBP_STATUS_INVALID_LENGTH;
         }
 
         break;
 
     default:
         /* Unknown LBP parameter */
+        pSetConfirm->status = LBP_STATUS_UNSUPPORTED_PARAMETER;
         break;
     }
 }
@@ -1229,15 +1222,15 @@ void LBP_ShortAddressAssign(uint8_t *pExtAddress, uint16_t assignedAddress)
     ADP_ADDRESS dstAddr;
     
     /* Get slot from extended address*/
-    pSlot = _getLbpSlotByAddress(pExtAddress);
+    pSlot = lLBP_GetLbpSlotByAddress(pExtAddress);
 
     if (pSlot != NULL)
     {
-        if (assignedAddress == 0xFFFF)
+        if (assignedAddress == 0xFFFFU)
         {
             // Device rejected
             pSlot->lbpDataLength = LBP_EncodeDecline(&pSlot->lbdAddress, pSlot->mediaType,
-                pSlot->disableBackupMedium, sEAPIdentifier, sizeof(pSlot->lbpData), &pSlot->lbpData[0]);
+                pSlot->disableBackupMedium, sEAPIdentifier, (uint16_t)sizeof(pSlot->lbpData), &pSlot->lbpData[0]);
             pSlot->slotState = LBP_STATE_SENT_EAP_MSG_DECLINED;
             sEAPIdentifier++;
             SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_SENT_EAP_MSG_DECLINED\r\n");
@@ -1245,17 +1238,17 @@ void LBP_ShortAddressAssign(uint8_t *pExtAddress, uint16_t assignedAddress)
         else
         {
             pSlot->assignedShortAddress = assignedAddress;
-            _processJoining0(&pSlot->lbdAddress, pSlot);
+            lLBP_ProcessJoining0(&pSlot->lbdAddress, pSlot);
             pSlot->slotState = LBP_STATE_SENT_EAP_MSG_1;
             SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_SENT_EAP_MSG_1\r\n");
         }
         
-        if (pSlot->lbpDataLength > 0)
+        if (pSlot->lbpDataLength > 0U)
         {
-            if (pSlot->lbaAddress == 0xFFFF)
+            if (pSlot->lbaAddress == 0xFFFFU)
             {
                 dstAddr.addrSize = ADP_ADDRESS_64BITS;
-                memcpy(dstAddr.extendedAddr.value, pSlot->lbdAddress.value, ADP_ADDRESS_64BITS);
+                (void) memcpy(dstAddr.extendedAddr.value, pSlot->lbdAddress.value, ADP_ADDRESS_64BITS);
             }
             else
             {
@@ -1263,17 +1256,17 @@ void LBP_ShortAddressAssign(uint8_t *pExtAddress, uint16_t assignedAddress)
                 dstAddr.shortAddr = pSlot->lbaAddress;
             }
 
-            if (pSlot->pendingConfirms > 0)
+            if (pSlot->pendingConfirms > 0U)
             {
                 pSlot->pendingTxHandle = pSlot->txHandle;
             }
 
-            pSlot->txHandle = _getNextNsduHandle();
-            pSlot->timeout = MAC_WRP_GetMsCounter() + 1000 * sMsgTimeoutSeconds;
-            pSlot->txAttempts = 0;
+            pSlot->txHandle = lLBP_GetNextNsduHandle();
+            pSlot->timeout = MAC_WRP_GetMsCounter() + (1000U * (uint32_t)sMsgTimeoutSeconds);
+            pSlot->txAttempts = 0U;
             pSlot->pendingConfirms++;
 
-            _logShowSlotStatus(pSlot);
+            lLBP_LogShowSlotStatus(pSlot);
             SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] ADP_LbpRequest Called, handler: %d \r\n", pSlot->txHandle);
             ADP_LbpRequest(
                     (ADP_ADDRESS const *)&dstAddr,  /* Destination address */
@@ -1282,7 +1275,7 @@ void LBP_ShortAddressAssign(uint8_t *pExtAddress, uint16_t assignedAddress)
                     pSlot->txHandle,                /* NSDU handle */
                     sMaxHops,                       /* Max. Hops */
                     true,                           /* Discover route */
-                    0,                              /* QoS */
+                    0U,                              /* QoS */
                     false);                         /* Security enable */
         }
     }

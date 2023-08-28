@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _SRV_RANDOM_H
-#define _SRV_RANDOM_H
+#ifndef SRV_RANDOM_H
+#define SRV_RANDOM_H
 
 #ifdef __cplusplus // Provide C++ Compatibility
  extern "C" {
@@ -234,4 +234,4 @@ void SRV_RANDOM_Get128bits(uint8_t *rndValue);
  }
 #endif
 
-#endif /* _SRV_RANDOM_H */
+#endif /* SRV_RANDOM_H */

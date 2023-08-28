@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -41,8 +41,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _RF215_PHY_H
-#define _RF215_PHY_H
+#ifndef RF215_PHY_H
+#define RF215_PHY_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -85,7 +85,7 @@
 
 /* Convert execution cycles to us with 5 comma bits (Q5, or cycles of 32MHz) */
 #define EX_CYCL_TO_USQ5(x)       ((uint32_t) \
-    DIV_ROUND((uint64_t) (x * 32000000ULL), SYS_TIME_CPU_CLOCK_FREQUENCY))
+    DIV_ROUND((uint64_t) ((x) * 32000000ULL), (uint32_t) SYS_TIME_CPU_CLOCK_FREQUENCY))
 
 /* Delay between RF215 and SYS_TIME counter reads for synchronization */
 #define RF215_SYNC_DELAY_US_Q5   EX_CYCL_TO_USQ5(DRV_RF215_TIME_SYNC_EXECUTION_CYCLES)
@@ -110,13 +110,13 @@
  * From RX to TX (CCATX) in us [uQ0.5]. Max. 400ns.
  * Energy detection (EDM_SINGLE) delay. 4.125us [uQ3.5] (not in data-sheet).
  * tx_start_delay. Typ. 4 us. */
-#define RF215_TRXOFF_TXPREP_TIME_US_Q5  (200 << 5)
-#define RF215_RX_TXPREP_TIME_US_Q5      6
-#define RF215_TXPREP_RX_TIME_US_Q5      6
-#define RF215_TXPREP_TX_TIME_US_Q5      6
-#define RF215_RX_TX_TIME_US_Q5          13
-#define RF215_RX_CCA_ED_TIME_US_Q5      132
-#define RF215_TX_START_DELAY_US_Q5      (4 << 5)
+#define RF215_TRXOFF_TXPREP_TIME_US_Q5  (200U << 5)
+#define RF215_RX_TXPREP_TIME_US_Q5      6U
+#define RF215_TXPREP_RX_TIME_US_Q5      6U
+#define RF215_TXPREP_TX_TIME_US_Q5      6U
+#define RF215_RX_TX_TIME_US_Q5          13U
+#define RF215_RX_CCA_ED_TIME_US_Q5      132U
+#define RF215_TX_START_DELAY_US_Q5      (4U << 5)
 
 // *****************************************************************************
 /* RF215 Driver Scheduled TX Time Delays
@@ -133,22 +133,22 @@
 
 /* Margin for higher/same priority interrupts or critical regions:
  * 50 us + 10000 execution cycles. */
-#define RF215_TX_IRQ_MARGIN_US_Q5       ((50 << 5) + EX_CYCL_TO_USQ5(10000))
+#define RF215_TX_IRQ_MARGIN_US_Q5       ((50U << 5) + EX_CYCL_TO_USQ5(10000U))
 
 /* Delay of TRXRDY interrupt handling. 7500 execution cycles + 6 SPI bytes */
-#define RF215_TX_TRXRDY_DELAY_US_Q5     (EX_CYCL_TO_USQ5(7500) + \
-    (RF215_SPI_BYTE_DURATION_US_Q5 * 6))
+#define RF215_TX_TRXRDY_DELAY_US_Q5     (EX_CYCL_TO_USQ5(7500U) + \
+    (RF215_SPI_BYTE_DURATION_US_Q5 * 6U))
 
 /* Delay of TX parameter configuration (_RF215_TX_ParamCfg).
  * 2000 cycles + 9 SPI bytes + TRXOFF->TXPREP transition + TRXRDY delay +
  * + IRQ margin */
-#define RF215_TX_PARAM_CFG_DELAY_US_Q5  (EX_CYCL_TO_USQ5(2000) + \
-    (RF215_SPI_BYTE_DURATION_US_Q5 * 9) + RF215_TRXOFF_TXPREP_TIME_US_Q5 + \
+#define RF215_TX_PARAM_CFG_DELAY_US_Q5  (EX_CYCL_TO_USQ5(2000U) + \
+    (RF215_SPI_BYTE_DURATION_US_Q5 * 9U) + RF215_TRXOFF_TXPREP_TIME_US_Q5 + \
     RF215_TX_TRXRDY_DELAY_US_Q5 + RF215_TX_IRQ_MARGIN_US_Q5)
 
 /* Delay of time interrupt handling: IRQ margin + 5000 execution cycles */
 #define RF215_TX_TIME_IRQ_DELAY_US_Q5   (RF215_TX_IRQ_MARGIN_US_Q5 + \
-    EX_CYCL_TO_USQ5(5000))
+    EX_CYCL_TO_USQ5(5000U))
 
 // *****************************************************************************
 /* RF215 PLL Frequency Ranges
@@ -159,14 +159,14 @@
 */
 
 /* First range: 389.5MHz - 510MHz (RF09) */
-#define PLL_FREQ_MIN_RF09_RNG1_Hz           389500000
-#define PLL_FREQ_MAX_RF09_RNG1_Hz           510000000
+#define PLL_FREQ_MIN_RF09_RNG1_Hz           389500000UL
+#define PLL_FREQ_MAX_RF09_RNG1_Hz           510000000UL
 /* Second range: 779MHz - 1020MHz (RF09) */
-#define PLL_FREQ_MIN_RF09_RNG2_Hz           779000000
-#define PLL_FREQ_MAX_RF09_RNG2_Hz          1020000000
+#define PLL_FREQ_MIN_RF09_RNG2_Hz           779000000UL
+#define PLL_FREQ_MAX_RF09_RNG2_Hz          1020000000UL
 /* Third range: 2400MHz - 2483.5MHz (RF24) */
-#define PLL_FREQ_MIN_RF24_RNG3_Hz          2400000000
-#define PLL_FREQ_MAX_RF24_RNG3_Hz          2483500000
+#define PLL_FREQ_MIN_RF24_RNG3_Hz          2400000000UL
+#define PLL_FREQ_MAX_RF24_RNG3_Hz          2483500000UL
 
 // *****************************************************************************
 /* RF215 PLL IEEE-compliant Scheme
@@ -177,15 +177,15 @@
 */
 
 /* Frequency resolution: 25kHz */
-#define PLL_IEEE_FREQ_STEP_Hz              25000
+#define PLL_IEEE_FREQ_STEP_Hz              25000U
 /* Maximum channel number (9 bits) */
-#define PLL_IEEE_CHN_NUM_MAX               511
+#define PLL_IEEE_CHN_NUM_MAX               511U
 /* Maximum channel spacing: 255 (8 bits) * 25kHz = 6.375MHz*/
-#define PLL_IEEE_CHN_SPA_MAX_Hz            (PLL_IEEE_FREQ_STEP_Hz * UINT8_MAX)
+#define PLL_IEEE_CHN_SPA_MAX_Hz            (PLL_IEEE_FREQ_STEP_Hz * 255U)
 /* Frequency offset (RF09): 0Hz */
-#define PLL_IEEE_FREQ_OFFSET09_Hz          0
+#define PLL_IEEE_FREQ_OFFSET09_Hz          0U
 /* Frequency offset (RF24): 1.5GHz */
-#define PLL_IEEE_FREQ_OFFSET24_Hz          1500000000
+#define PLL_IEEE_FREQ_OFFSET24_Hz          1500000000UL
 
 // *****************************************************************************
 /* RF215 PLL Fine Resolution Channel Scheme
@@ -196,17 +196,17 @@
 */
 
 /* Frequency offset (RF09, first range, CNM.CM=1): 377MHz */
-#define PLL_FINE_FREQ_OFFSET_RF09_RNG1_Hz   377000000
+#define PLL_FINE_FREQ_OFFSET_RF09_RNG1_Hz   377000000UL
 /* Frequency offset (RF09, second range, CNM.CM=2): 754MHz */
-#define PLL_FINE_FREQ_OFFSET_RF09_RNG2_Hz   754000000
+#define PLL_FINE_FREQ_OFFSET_RF09_RNG2_Hz   754000000UL
 /* Frequency offset (RF24, third range, CNM.CM=3): 2366MHz */
-#define PLL_FINE_FREQ_OFFSET_RF24_RNG3_Hz  2366000000
+#define PLL_FINE_FREQ_OFFSET_RF24_RNG3_Hz  2366000000UL
 /* Frequency resolution (RF09, first range, CNM.CM=1): 6.5MHz / 2^16 */
-#define PLL_FINE_FREQ_RES_RF09_RNG1_Hz        6500000
+#define PLL_FINE_FREQ_RES_RF09_RNG1_Hz        6500000UL
 /* Frequency resolution (RF09, second range, CNM.CM=2): 13MHz / 2^16 */
-#define PLL_FINE_FREQ_RES_RF09_RNG2_Hz       13000000
+#define PLL_FINE_FREQ_RES_RF09_RNG2_Hz       13000000UL
 /* Frequency resolution (RF24, third range, CNM.CM=3): 26MHz / 2^16 */
-#define PLL_FINE_FREQ_RES_RF24_RNG3_Hz       26000000
+#define PLL_FINE_FREQ_RES_RF24_RNG3_Hz       26000000UL
 
 // *****************************************************************************
 /* RF215 PLL Frequency Tolerance
@@ -216,7 +216,7 @@
 */
 
 /* Convert PPM (10^-6) to uQ0.45 */
-#define PLL_PPM_TO_Q45(x)                  DIV_ROUND(x << 45, 1000000)
+#define PLL_PPM_TO_Q45(x)                  ((uint32_t) DIV_ROUND((x) << 45, 1000000UL))
 
 /* FSK PHY: T<=min(50*10^-6, T0*R*h*F0/R0/h0/F) [IEEE 802.15.4 19.6.3] */
 #define PLL_DELTA_FSK_TMAX_Q45             PLL_PPM_TO_Q45(50ULL)
@@ -238,7 +238,7 @@
  * PC.TXAFCS: Enable Transmitter Auto Frame Check Sequence
  * PC.FCSFE: Enable Frame Check Sequence Filter
  * PC.FCST: 32-bit FCS */
-#define BBC_PC_COMMON(pt)        (RF215_BBCn_PC_PT(pt + 1) | \
+#define BBC_PC_COMMON(pt)        (RF215_BBCn_PC_PT((uint8_t) (pt) + 1U) | \
     RF215_BBCn_PC_FCST_32 | RF215_BBCn_PC_TXAFCS_EN | RF215_BBCn_PC_FCSFE_EN)
 
 /* BBCn_PC register value (Baseband enabled)
@@ -507,7 +507,7 @@ typedef struct
 typedef struct
 {
     /* PLL registers */
-	uint8_t                         RFn_CS;
+    uint8_t                         RFn_CS;
     uint8_t                         RFn_CCF0L;
     uint8_t                         RFn_CCF0H;
     uint8_t                         RFn_CNL;
@@ -687,7 +687,7 @@ typedef struct
     uint8_t                         rxFlagsPending;
 
     /* TRXRDY flag (PLL lock status) */
-    bool                            trxRdy;
+    volatile bool                   trxRdy;
 
     /* Flag to indicate a new RX indication needs to be notified */
     volatile bool                   rxIndPending;
@@ -761,13 +761,6 @@ void RF215_PHY_SetTxCfm (
     DRV_RF215_TX_RESULT result
 );
 
-void RF215_PHY_SetChannelRequest (
-    uint8_t trxIndex,
-    uint64_t timeCount,
-    uint16_t channelNum,
-    DRV_RF215_TX_TIME_MODE timeMode
-);
-
 DRV_RF215_PIB_RESULT RF215_PHY_GetPib (
     uint8_t trxIndex,
     DRV_RF215_PIB_ATTRIBUTE attr,
@@ -782,7 +775,7 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
 
 void RF215_PHY_Reset(uint8_t trxIndex);
 
-void RF215_PHY_DeviceReset();
+void RF215_PHY_DeviceReset(void);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -790,4 +783,4 @@ void RF215_PHY_DeviceReset();
 #endif
 //DOM-IGNORE-END
 
-#endif /* _RF215_PHY_H */
+#endif /* RF215_PHY_H */

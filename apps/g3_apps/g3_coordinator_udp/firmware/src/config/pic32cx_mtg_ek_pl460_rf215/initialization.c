@@ -536,9 +536,9 @@ void SYS_Initialize ( void* data )
 
 
 
+    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
-    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
 

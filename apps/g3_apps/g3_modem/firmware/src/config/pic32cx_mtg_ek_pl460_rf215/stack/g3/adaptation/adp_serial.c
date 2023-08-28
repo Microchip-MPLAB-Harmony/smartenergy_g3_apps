@@ -60,6 +60,9 @@
 // *****************************************************************************
 // *****************************************************************************
 
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 5.2 deviated 6 times.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+
 typedef enum
 {
     /* Generic messages */
@@ -121,6 +124,8 @@ typedef enum
 
 } ADP_SERIAL_MSG_ID;
 
+/* MISRA C-2012 deviation block end */
+
 typedef enum
 {
     ADP_SERIAL_STATUS_SUCCESS = 0,
@@ -160,11 +165,11 @@ static ADP_SERIAL_NOTIFICATIONS adpSerialNotifications;
 // *****************************************************************************
 // *****************************************************************************
 
-static void _memcpyToUsiEndianessUint32(uint8_t* pDst, uint8_t* pSrc)
+static void lMemcpyToUsiEndianessUint32(uint8_t* pDst, uint8_t* pSrc)
 {
     uint32_t aux;
 
-    memcpy((uint8_t *) &aux, pSrc, 4);
+    (void) memcpy((uint8_t *) &aux, pSrc, 4);
 
     *pDst++ = (uint8_t) (aux >> 24);
     *pDst++ = (uint8_t) (aux >> 16);
@@ -172,44 +177,44 @@ static void _memcpyToUsiEndianessUint32(uint8_t* pDst, uint8_t* pSrc)
     *pDst = (uint8_t) aux;
 }
 
-static void _memcpyToUsiEndianessUint16(uint8_t* pDst, uint8_t* pSrc)
+static void lMemcpyToUsiEndianessUint16(uint8_t* pDst, uint8_t* pSrc)
 {
     uint16_t aux;
 
-    memcpy((uint8_t *) &aux, pSrc, 2);
+    (void) memcpy((uint8_t *) &aux, pSrc, 2);
 
     *pDst++ = (uint8_t) (aux >> 8);
     *pDst = (uint8_t) aux;
 }
 
-static void _memcpyFromUsiEndianessUint32(uint8_t* pDst, uint8_t* pSrc)
+static void lMemcpyFromUsiEndianessUint32(uint8_t* pDst, uint8_t* pSrc)
 {
-    uint32_t aux = 0;
+    uint32_t aux;
 
-    aux = (*pSrc++) << 24;
-    aux += (*pSrc++) << 16;
-    aux += (*pSrc++) << 8;
-    aux += *pSrc;
+    aux = ((uint32_t) *pSrc++) << 24;
+    aux += ((uint32_t) *pSrc++) << 16;
+    aux += ((uint32_t) *pSrc++) << 8;
+    aux += (uint32_t)*pSrc;
 
-    memcpy(pDst, (uint8_t *)&aux, 4);
+    (void) memcpy(pDst, (uint8_t *)&aux, 4U);
 }
 
-static void _memcpyFromUsiEndianessUint16(uint8_t* pDst, uint8_t* pSrc)
+static void lMemcpyFromUsiEndianessUint16(uint8_t* pDst, uint8_t* pSrc)
 {
-    uint16_t aux = 0;
+    uint16_t aux;
 
-    aux += (*pSrc++) << 8;
-    aux += *pSrc;
+    aux = ((uint16_t) *pSrc++) << 8;
+    aux += (uint16_t) *pSrc;
 
-    memcpy(pDst, (uint8_t *)&aux, 2);
+    (void) memcpy(pDst, (uint8_t *)&aux, 2U);
 }
 
-static void _StringifyMsgStatus(ADP_SERIAL_STATUS status, ADP_SERIAL_MSG_ID command)
+static void lADP_SER_StringifyMsgStatus(ADP_SERIAL_STATUS status, ADP_SERIAL_MSG_ID command)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_STATUS;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_STATUS;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) status;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) command;
 
@@ -217,30 +222,30 @@ static void _StringifyMsgStatus(ADP_SERIAL_STATUS status, ADP_SERIAL_MSG_ID comm
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyBufferIndication(ADP_BUFFER_IND_PARAMS* bufferInd)
+static void lADP_SER_StringifyBufferIndication(ADP_BUFFER_IND_PARAMS* bufferInd)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_BUFFER_INDICATION;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_BUFFER_INDICATION;
     adpSerialRspBuffer[serialRspLen++] = bufferInd->bufferIndicationBitmap;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyPreqIndication(void)
+static void lADP_SER_StringifyPreqIndication(void)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_PREQ_INDICATION;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_PREQ_INDICATION;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StoreNonVolatileDataIndication(ADP_NON_VOLATILE_DATA_IND_PARAMS* pNonVolatileDataInd)
+static void lADP_SER_StoreNonVolatileDataIndication(ADP_NON_VOLATILE_DATA_IND_PARAMS* pNonVolatileDataInd)
 {
     if (adpSerialNotifications.nonVolatileDataIndication != NULL)
     {
@@ -248,12 +253,12 @@ static void _StoreNonVolatileDataIndication(ADP_NON_VOLATILE_DATA_IND_PARAMS* pN
     }
 }
 
-static void _StringifyRouteNotFoundIndication(ADP_ROUTE_NOT_FOUND_IND_PARAMS* pRouteNotFoundInd)
+static void lADP_SER_StringifyRouteNotFoundIndication(ADP_ROUTE_NOT_FOUND_IND_PARAMS* pRouteNotFoundInd)
 {
-    uint8_t serialRspLen = 0;
+    uint16_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_ROUTE_NOT_FOUND_INDICATION;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_ROUTE_NOT_FOUND_INDICATION;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pRouteNotFoundInd->srcAddr >> 8);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pRouteNotFoundInd->srcAddr;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pRouteNotFoundInd->destAddr >> 8);
@@ -270,19 +275,19 @@ static void _StringifyRouteNotFoundIndication(ADP_ROUTE_NOT_FOUND_IND_PARAMS* pR
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pRouteNotFoundInd->compressedHeader);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pRouteNotFoundInd->nsduLength >> 8);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pRouteNotFoundInd->nsduLength;
-    memcpy(&adpSerialRspBuffer[serialRspLen], pRouteNotFoundInd->pNsdu, pRouteNotFoundInd->nsduLength);
+    (void) memcpy(&adpSerialRspBuffer[serialRspLen], pRouteNotFoundInd->pNsdu, pRouteNotFoundInd->nsduLength);
     serialRspLen += pRouteNotFoundInd->nsduLength;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyDataConfirm(ADP_DATA_CFM_PARAMS* pDataCfm)
+static void lADP_SER_StringifyDataConfirm(ADP_DATA_CFM_PARAMS* pDataCfm)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_DATA_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_DATA_CONFIRM;
     adpSerialRspBuffer[serialRspLen++] = pDataCfm->status;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pDataCfm->nsduHandle;
 
@@ -290,28 +295,28 @@ static void _StringifyDataConfirm(ADP_DATA_CFM_PARAMS* pDataCfm)
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyDataIndication(ADP_DATA_IND_PARAMS* pDataInd)
+static void lADP_SER_StringifyDataIndication(ADP_DATA_IND_PARAMS* pDataInd)
 {
-    uint16_t serialRspLen = 0;
+    uint16_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_DATA_INDICATION;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_DATA_INDICATION;
     adpSerialRspBuffer[serialRspLen++] = pDataInd->linkQualityIndicator;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pDataInd->nsduLength >> 8);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pDataInd->nsduLength;
-    memcpy(&adpSerialRspBuffer[serialRspLen], pDataInd->pNsdu, pDataInd->nsduLength);
+    (void) memcpy(&adpSerialRspBuffer[serialRspLen], pDataInd->pNsdu, pDataInd->nsduLength);
     serialRspLen += pDataInd->nsduLength;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyNetworkStatusIndication(ADP_NETWORK_STATUS_IND_PARAMS* pNetworkStatusInd)
+static void lADP_SER_StringifyNetworkStatusIndication(ADP_NETWORK_STATUS_IND_PARAMS* pNetworkStatusInd)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_NETWORK_STATUS_INDICATION;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_NETWORK_STATUS_INDICATION;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pNetworkStatusInd->panId >> 8);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pNetworkStatusInd->panId;
     adpSerialRspBuffer[serialRspLen++] = pNetworkStatusInd->srcDeviceAddress.addrSize;
@@ -323,7 +328,7 @@ static void _StringifyNetworkStatusIndication(ADP_NETWORK_STATUS_IND_PARAMS* pNe
     else
     {
         /* ADP_ADDRESS_64BITS */
-        memcpy(&adpSerialRspBuffer[serialRspLen], pNetworkStatusInd->srcDeviceAddress.extendedAddr.value,
+        (void) memcpy(&adpSerialRspBuffer[serialRspLen], pNetworkStatusInd->srcDeviceAddress.extendedAddr.value,
                 pNetworkStatusInd->srcDeviceAddress.addrSize);
         serialRspLen += pNetworkStatusInd->srcDeviceAddress.addrSize;
     }
@@ -337,7 +342,7 @@ static void _StringifyNetworkStatusIndication(ADP_NETWORK_STATUS_IND_PARAMS* pNe
     else
     {
         /* ADP_ADDRESS_64BITS */
-        memcpy(&adpSerialRspBuffer[serialRspLen], pNetworkStatusInd->dstDeviceAddress.extendedAddr.value,
+        (void) memcpy(&adpSerialRspBuffer[serialRspLen], pNetworkStatusInd->dstDeviceAddress.extendedAddr.value,
                 pNetworkStatusInd->dstDeviceAddress.addrSize);
         serialRspLen += pNetworkStatusInd->dstDeviceAddress.addrSize;
     }
@@ -351,24 +356,24 @@ static void _StringifyNetworkStatusIndication(ADP_NETWORK_STATUS_IND_PARAMS* pNe
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyDiscoveryConfirm(uint8_t status)
+static void lADP_SER_StringifyDiscoveryConfirm(uint8_t status)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_DISCOVERY_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_DISCOVERY_CONFIRM;
     adpSerialRspBuffer[serialRspLen++] = status;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyDiscoveryIndication(ADP_PAN_DESCRIPTOR* pPanDescriptor)
+static void lADP_SER_StringifyDiscoveryIndication(ADP_PAN_DESCRIPTOR* pPanDescriptor)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_DISCOVERY_INDICATION;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_DISCOVERY_INDICATION;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pPanDescriptor->panId >> 8);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pPanDescriptor->panId;
     adpSerialRspBuffer[serialRspLen++] = pPanDescriptor->linkQuality;
@@ -382,24 +387,24 @@ static void _StringifyDiscoveryIndication(ADP_PAN_DESCRIPTOR* pPanDescriptor)
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyNetworkStartConfirm(uint8_t status)
+static void lADP_SER_StringifyNetworkStartConfirm(uint8_t status)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_NETWORK_START_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_NETWORK_START_CONFIRM;
     adpSerialRspBuffer[serialRspLen++] = status;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyNetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS* pNetworkJoinCfm)
+static void lADP_SER_StringifyNetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS* pNetworkJoinCfm)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_NETWORK_JOIN_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_NETWORK_JOIN_CONFIRM;
     adpSerialRspBuffer[serialRspLen++] = pNetworkJoinCfm->status;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pNetworkJoinCfm->networkAddress >> 8);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pNetworkJoinCfm->networkAddress;
@@ -410,47 +415,47 @@ static void _StringifyNetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS* pNetwo
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyNetworkLeaveIndication(void)
+static void lADP_SER_StringifyNetworkLeaveIndication(void)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_NETWORK_LEAVE_INDICATION;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_NETWORK_LEAVE_INDICATION;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyNetworkLeaveConfirm(uint8_t status)
+static void lADP_SER_StringifyNetworkLeaveConfirm(uint8_t status)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_NETWORK_LEAVE_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_NETWORK_LEAVE_CONFIRM;
     adpSerialRspBuffer[serialRspLen++] = status;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyResetConfirm(uint8_t status)
+static void lADP_SER_StringifyResetConfirm(uint8_t status)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_RESET_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_RESET_CONFIRM;
     adpSerialRspBuffer[serialRspLen++] = status;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifySetConfirm(ADP_SET_CFM_PARAMS* pSetCfm)
+static void lADP_SER_StringifySetConfirm(ADP_SET_CFM_PARAMS* pSetCfm)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_SET_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_SET_CONFIRM;
     adpSerialRspBuffer[serialRspLen++] = pSetCfm->status;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pSetCfm->attributeId >> 24);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pSetCfm->attributeId >> 16);
@@ -463,13 +468,13 @@ static void _StringifySetConfirm(ADP_SET_CFM_PARAMS* pSetCfm)
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
+static void lADP_SER_StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
 {
     uint8_t prefixLenghBytes, contextLength;
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_GET_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_GET_CONFIRM;
     adpSerialRspBuffer[serialRspLen++] = pGetCfm->status;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pGetCfm->attributeId >> 24);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pGetCfm->attributeId >> 16);
@@ -479,9 +484,9 @@ static void _StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pGetCfm->attributeIndex;
     adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeLength;
 
-    if (pGetCfm->status == G3_SUCCESS)
+    if (pGetCfm->status == (uint8_t) G3_SUCCESS)
     {
-        switch (pGetCfm->attributeId)
+        switch ((ADP_PIB_ATTRIBUTE) pGetCfm->attributeId)
         {
             /* 8-bit IBs */
             case ADP_IB_SECURITY_LEVEL:
@@ -583,14 +588,14 @@ static void _StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
             case ADP_IB_MANUF_GROUP_TABLE_COUNT:
             case ADP_IB_MANUF_PAN_ID:
             case ADP_IB_MANUF_SHORT_ADDRESS:
-                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
-                serialRspLen += 2;
+                lMemcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
+                serialRspLen += 2U;
                 break;
 
             /* 32-bit IBs */
             case ADP_IB_MANUF_ROUTING_TABLE_COUNT:
-                _memcpyToUsiEndianessUint32(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
-                serialRspLen += 4;
+                lMemcpyToUsiEndianessUint32(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
+                serialRspLen += 4U;
                 break;
 
             /* Tables and lists */
@@ -602,66 +607,66 @@ static void _StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
                 /* autonomousAddressConfigurationFlag */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[2];
                 /* validTime */
-                _memcpyToUsiEndianessUint32(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[3]); 
-                serialRspLen += 4;
+                lMemcpyToUsiEndianessUint32(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[3]); 
+                serialRspLen += 4U;
                 /* preferredTime */
-                _memcpyToUsiEndianessUint32(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[7]);
-                serialRspLen += 4;
+                lMemcpyToUsiEndianessUint32(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[7]);
+                serialRspLen += 4U;
                 /* prefix */
-                prefixLenghBytes = pGetCfm->attributeLength - 11;
-                memcpy(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[11], prefixLenghBytes);
+                prefixLenghBytes = pGetCfm->attributeLength - 11U;
+                (void) memcpy(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[11], prefixLenghBytes);
                 serialRspLen += prefixLenghBytes;
                 break;
 
             case ADP_IB_CONTEXT_INFORMATION_TABLE:
                 /* validTime */
-                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
-                serialRspLen += 2;
+                lMemcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
+                serialRspLen += 2U;
                 /* validForCompression */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[2];
                 /* bitsContextLength */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[3];
                 /* context */
-                contextLength = pGetCfm->attributeLength - 4;
-                memcpy(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[4], contextLength);
+                contextLength = pGetCfm->attributeLength - 4U;
+                (void) memcpy(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[4], contextLength);
                 serialRspLen += contextLength;
                 break;
 
             case ADP_IB_BROADCAST_LOG_TABLE:
                 /* srcAddr */
-                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
-                serialRspLen += 2;
+                lMemcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
+                serialRspLen += 2U;
                 /* sequenceNumber */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[2];
                 /* validTime */
-                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[3]);
-                serialRspLen += 2;
+                lMemcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[3]);
+                serialRspLen += 2U;
                 break;
 
             case ADP_IB_ROUTING_TABLE:
             case ADP_IB_MANUF_ROUTING_TABLE_ELEMENT:
                 /* dstAddr */
-                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
-                serialRspLen += 2;
+                lMemcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
+                serialRspLen += 2U;
                 /* nextHopAddr */
-                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[2]);
-                serialRspLen += 2;
+                lMemcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[2]);
+                serialRspLen += 2U;
                 /* routeCost */
-                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[4]);
-                serialRspLen += 2;
+                lMemcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[4]);
+                serialRspLen += 2U;
                 /* hopCount, weakLinkCount */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[6];
                 /* mediaType */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[7];
                 /* validTime */
-                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[8]);
-                serialRspLen += 2;
+                lMemcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[8]);
+                serialRspLen += 2U;
                 break;
 
             case ADP_IB_GROUP_TABLE:
                 /* groupAddress */
-                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
-                serialRspLen += 2;
+                lMemcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
+                serialRspLen += 2U;
                 /* valid */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[2];
                 break;
@@ -669,27 +674,32 @@ static void _StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
             case ADP_IB_SOFT_VERSION:
             case ADP_IB_MANUF_ADP_INTERNAL_VERSION:
                 /* Version */
-                memcpy(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue, 6);
-                serialRspLen += 6;
+                (void) memcpy(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue, 6U);
+                serialRspLen += 6U;
                 break;
 
             case ADP_IB_BLACKLIST_TABLE:
                 /* addr */
-                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
-                serialRspLen += 2;
+                lMemcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], pGetCfm->attributeValue);
+                serialRspLen += 2U;
                 /* mediaType */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[2];
                 /* validTime */
-                _memcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[3]);
-                serialRspLen += 2;
+                lMemcpyToUsiEndianessUint16(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[3]);
+                serialRspLen += 2U;
                 break;
 
             case ADP_IB_SNIFFER_MODE:
                 /* TODO */
                 break;
 
+            /* MISRA C-2012 deviation block start */
+            /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+
             default:
                 break;
+
+            /* MISRA C-2012 deviation block end */
         }
     }
 
@@ -697,25 +707,25 @@ static void _StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyRouteDiscoveryConfirm(uint8_t status)
+static void lADP_SER_StringifyRouteDiscoveryConfirm(uint8_t status)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_ROUTE_DISCOVERY_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_ROUTE_DISCOVERY_CONFIRM;
     adpSerialRspBuffer[serialRspLen++] = status;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyPathDiscoveryConfirm(ADP_PATH_DISCOVERY_CFM_PARAMS* pPathDiscoveryCfm)
+static void lADP_SER_StringifyPathDiscoveryConfirm(ADP_PATH_DISCOVERY_CFM_PARAMS* pPathDiscoveryCfm)
 {
     uint8_t index;
-    uint8_t serialRspLen = 0;    
+    uint16_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_PATH_DISCOVERY_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_PATH_DISCOVERY_CONFIRM;
     adpSerialRspBuffer[serialRspLen++] = pPathDiscoveryCfm->status;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pPathDiscoveryCfm->dstAddr >> 8);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pPathDiscoveryCfm->dstAddr;
@@ -725,7 +735,7 @@ static void _StringifyPathDiscoveryConfirm(ADP_PATH_DISCOVERY_CFM_PARAMS* pPathD
     adpSerialRspBuffer[serialRspLen++] = pPathDiscoveryCfm->forwardHopsCount;
     adpSerialRspBuffer[serialRspLen++] = pPathDiscoveryCfm->reverseHopsCount;
 
-    for (index = 0; index < pPathDiscoveryCfm->forwardHopsCount; index++)
+    for (index = 0U; index < pPathDiscoveryCfm->forwardHopsCount; index++)
     {
         adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pPathDiscoveryCfm->forwardPath[index].hopAddress >> 8);
         adpSerialRspBuffer[serialRspLen++] = (uint8_t) pPathDiscoveryCfm->forwardPath[index].hopAddress;
@@ -736,7 +746,7 @@ static void _StringifyPathDiscoveryConfirm(ADP_PATH_DISCOVERY_CFM_PARAMS* pPathD
         adpSerialRspBuffer[serialRspLen++] = pPathDiscoveryCfm->forwardPath[index].mtx;
     }
 
-    for (index = 0; index < pPathDiscoveryCfm->reverseHopsCount; index++)
+    for (index = 0U; index < pPathDiscoveryCfm->reverseHopsCount; index++)
     {
         adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pPathDiscoveryCfm->reversePath[index].hopAddress >> 8);
         adpSerialRspBuffer[serialRspLen++] = (uint8_t) pPathDiscoveryCfm->reversePath[index].hopAddress;
@@ -751,27 +761,27 @@ static void _StringifyPathDiscoveryConfirm(ADP_PATH_DISCOVERY_CFM_PARAMS* pPathD
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyLbpCoordJoinRequestIndication(uint8_t* pLbdAddress)
+static void lADP_SER_StringifyLbpCoordJoinRequestIndication(uint8_t* pLbdAddress)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_LBP_COORD_JOIN_REQUEST_INDICATION;
-    memcpy(&adpSerialRspBuffer[serialRspLen], pLbdAddress, 8);
-    serialRspLen += 8;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_LBP_COORD_JOIN_REQUEST_INDICATION;
+    (void) memcpy(&adpSerialRspBuffer[serialRspLen], pLbdAddress, 8);
+    serialRspLen += 8U;
 
     /* Send through USI */
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyLbpCoordJoinCompleteIndication(uint8_t* pLbdAddress, uint16_t assignedAddress)
+static void lADP_SER_StringifyLbpCoordJoinCompleteIndication(uint8_t* pLbdAddress, uint16_t assignedAddress)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_LBP_COORD_JOIN_COMPLETE_INDICATION;
-    memcpy(&adpSerialRspBuffer[serialRspLen], pLbdAddress, 8);
-    serialRspLen += 8;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_LBP_COORD_JOIN_COMPLETE_INDICATION;
+    (void) memcpy(&adpSerialRspBuffer[serialRspLen], pLbdAddress, 8);
+    serialRspLen += 8U;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (assignedAddress >> 8);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) assignedAddress;
 
@@ -779,12 +789,12 @@ static void _StringifyLbpCoordJoinCompleteIndication(uint8_t* pLbdAddress, uint1
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static void _StringifyLbpCoordLeaveIndication(uint16_t networkAddress)
+static void lADP_SER_StringifyLbpCoordLeaveIndication(uint16_t networkAddress)
 {
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_LBP_COORD_LEAVE_INDICATION;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_LBP_COORD_LEAVE_INDICATION;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (networkAddress >> 8);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) networkAddress;
 
@@ -792,7 +802,7 @@ static void _StringifyLbpCoordLeaveIndication(uint16_t networkAddress)
     SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
-static ADP_SERIAL_STATUS _ParseInitialize(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseInitialize(uint8_t* pData)
 {
     LBP_NOTIFICATIONS_DEV lbpDevNotifications;
     LBP_NOTIFICATIONS_COORD lbpCoordNotifications;
@@ -801,7 +811,7 @@ static ADP_SERIAL_STATUS _ParseInitialize(uint8_t* pData)
     /* Parse initialize message */
     band = (ADP_PLC_BAND) pData[0];
     adpSerialAribBand = (bool) (band == ADP_BAND_ARIB);
-    adpSerialCoord = (bool) (pData[1] != 0);
+    adpSerialCoord = (bool) (pData[1] != 0U);
 
     /* Open ADP */
     ADP_Open(band);
@@ -810,17 +820,17 @@ static ADP_SERIAL_STATUS _ParseInitialize(uint8_t* pData)
     if (adpSerialCoord == true)
     {
         LBP_InitCoord(adpSerialAribBand);
-        lbpCoordNotifications.joinRequestIndication = _StringifyLbpCoordJoinRequestIndication;
-        lbpCoordNotifications.joinCompleteIndication = _StringifyLbpCoordJoinCompleteIndication;
-        lbpCoordNotifications.leaveIndication = _StringifyLbpCoordLeaveIndication;
+        lbpCoordNotifications.joinRequestIndication = lADP_SER_StringifyLbpCoordJoinRequestIndication;
+        lbpCoordNotifications.joinCompleteIndication = lADP_SER_StringifyLbpCoordJoinCompleteIndication;
+        lbpCoordNotifications.leaveIndication = lADP_SER_StringifyLbpCoordLeaveIndication;
         LBP_SetNotificationsCoord(&lbpCoordNotifications);
     }
     else
     {
         LBP_InitDev();
-        lbpDevNotifications.adpNetworkJoinConfirm = _StringifyNetworkJoinConfirm;
-        lbpDevNotifications.adpNetworkLeaveConfirm = _StringifyNetworkLeaveConfirm;
-        lbpDevNotifications.adpNetworkLeaveIndication = _StringifyNetworkLeaveIndication;
+        lbpDevNotifications.adpNetworkJoinConfirm = lADP_SER_StringifyNetworkJoinConfirm;
+        lbpDevNotifications.adpNetworkLeaveConfirm = lADP_SER_StringifyNetworkLeaveConfirm;
+        lbpDevNotifications.adpNetworkLeaveIndication = lADP_SER_StringifyNetworkLeaveIndication;
         LBP_SetNotificationsDev(&lbpDevNotifications);
     }
 
@@ -828,7 +838,7 @@ static ADP_SERIAL_STATUS _ParseInitialize(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseDataRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseDataRequest(uint8_t* pData)
 {
     const uint8_t *nsdu;
     uintptr_t nsduHandle;
@@ -856,13 +866,13 @@ static ADP_SERIAL_STATUS _ParseDataRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseNoIPDataRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseNoIPDataRequest(uint8_t* pData)
 {
     const uint8_t *nsdu;
     uintptr_t nsduHandle;
     uint16_t dstAddr, nsduLength;
     uint8_t qualityOfService;
-    bool discoverRoute;    
+    bool discoverRoute;
 
     if (ADP_Status() < ADP_STATUS_READY)
     {
@@ -886,7 +896,7 @@ static ADP_SERIAL_STATUS _ParseNoIPDataRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseDiscoveryRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseDiscoveryRequest(uint8_t* pData)
 {
     if (ADP_Status() < ADP_STATUS_READY)
     {
@@ -900,7 +910,7 @@ static ADP_SERIAL_STATUS _ParseDiscoveryRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseNetworkStartRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseNetworkStartRequest(uint8_t* pData)
 {
     uint16_t panId;
 
@@ -920,7 +930,7 @@ static ADP_SERIAL_STATUS _ParseNetworkStartRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseNetworkJoinRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseNetworkJoinRequest(uint8_t* pData)
 {
     uint16_t panId, lbaAddress;
     uint8_t mediaType;
@@ -944,7 +954,7 @@ static ADP_SERIAL_STATUS _ParseNetworkJoinRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseNetworkLeaveRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseNetworkLeaveRequest(uint8_t* pData)
 {
     if ((ADP_Status() < ADP_STATUS_READY) || (adpSerialCoord == true))
     {
@@ -958,7 +968,7 @@ static ADP_SERIAL_STATUS _ParseNetworkLeaveRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseResetRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseResetRequest(uint8_t* pData)
 {
     if (ADP_Status() < ADP_STATUS_READY)
     {
@@ -972,13 +982,13 @@ static ADP_SERIAL_STATUS _ParseResetRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseAdpSetRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseSetRequest(uint8_t* pData)
 {
     uint32_t attributeId;
     uint16_t attributeIndex;
     uint8_t attributeValue[64];
     uint8_t prefixLenghBytes, attributeLength, contextLength;
-    uint8_t attributeLengthCnt = 0;
+    uint8_t attributeLengthCnt = 0U;
 
     if (ADP_Status() < ADP_STATUS_READY)
     {
@@ -995,7 +1005,7 @@ static ADP_SERIAL_STATUS _ParseAdpSetRequest(uint8_t* pData)
     attributeIndex += (uint16_t) *pData++;
     attributeLength = *pData++;
 
-    switch (attributeId)
+    switch ((ADP_PIB_ATTRIBUTE)attributeId)
     {
         /* 8-bit IBs */
         case ADP_IB_SECURITY_LEVEL:
@@ -1088,18 +1098,18 @@ static ADP_SERIAL_STATUS _ParseAdpSetRequest(uint8_t* pData)
         case ADP_IB_MANUF_PAN_ID:
         case ADP_IB_MANUF_SHORT_ADDRESS:
         case ADP_IB_GROUP_TABLE:
-            _memcpyFromUsiEndianessUint16(attributeValue, pData);
+            lMemcpyFromUsiEndianessUint16(attributeValue, pData);
             break;
 
         /* 32-bit IBs */
         case ADP_IB_MANUF_ROUTING_TABLE_COUNT:
-            _memcpyFromUsiEndianessUint32(attributeValue, pData);
+            lMemcpyFromUsiEndianessUint32(attributeValue, pData);
             break;
 
         /* Tables and lists */
         case ADP_IB_PREFIX_TABLE:
             /* len = 0 => Delete Entry */
-            if (attributeLength != 0)
+            if (attributeLength != 0U)
             {
                 /* prefixLength */
                 attributeValue[attributeLengthCnt++] = *pData++;
@@ -1108,72 +1118,72 @@ static ADP_SERIAL_STATUS _ParseAdpSetRequest(uint8_t* pData)
                 /* autonomousAddressConfigurationFlag */
                 attributeValue[attributeLengthCnt++] = *pData++;
                 /* validTime */
-                _memcpyFromUsiEndianessUint32(&attributeValue[attributeLengthCnt], pData);
-                attributeLengthCnt += 4;
-                pData += 4;
+                lMemcpyFromUsiEndianessUint32(&attributeValue[attributeLengthCnt], pData);
+                attributeLengthCnt += 4U;
+                pData += 4U;
                 /* preferredTime */
-                _memcpyFromUsiEndianessUint32(&attributeValue[attributeLengthCnt], pData);
-                attributeLengthCnt += 4;
-                pData += 4;
+                lMemcpyFromUsiEndianessUint32(&attributeValue[attributeLengthCnt], pData);
+                attributeLengthCnt += 4U;
+                pData += 4U;
                 /* prefix */
-                prefixLenghBytes = attributeLength - 11;
-                memcpy(&attributeValue[attributeLengthCnt], pData, prefixLenghBytes);
+                prefixLenghBytes = attributeLength - 11U;
+                (void) memcpy(&attributeValue[attributeLengthCnt], pData, prefixLenghBytes);
             }
             break;
 
         case ADP_IB_CONTEXT_INFORMATION_TABLE:
             /* len = 0 => Delete Entry */
-            if (attributeLength != 0)
+            if (attributeLength != 0U)
             {
                 /* validTime */
-                _memcpyFromUsiEndianessUint16(attributeValue, pData);
-                attributeLengthCnt = 2;
-                pData += 2;
+                lMemcpyFromUsiEndianessUint16(attributeValue, pData);
+                attributeLengthCnt = 2U;
+                pData += 2U;
                 /* validForCompression */
                 attributeValue[attributeLengthCnt++] = *pData++;
                 /* bitsContextLength */
                 attributeValue[attributeLengthCnt++] = *pData++;
                 /* context */
-                contextLength  = attributeLength - 4;
-                memcpy(&attributeValue[attributeLengthCnt], pData, contextLength);
+                contextLength  = attributeLength - 4U;
+                (void) memcpy(&attributeValue[attributeLengthCnt], pData, contextLength);
             }
             break;
 
         case ADP_IB_ROUTING_TABLE:
         case ADP_IB_MANUF_ROUTING_TABLE_ELEMENT:
             /* len = 0 => Delete Entry */
-            if (attributeLength != 0)
+            if (attributeLength != 0U)
             {
                 /* dstAddr */
-                _memcpyFromUsiEndianessUint16(attributeValue, pData);
-                attributeLengthCnt = 2;
-                pData += 2;
+                lMemcpyFromUsiEndianessUint16(attributeValue, pData);
+                attributeLengthCnt = 2U;
+                pData += 2U;
                 /* nextHopAddr */
-                _memcpyFromUsiEndianessUint16(&attributeValue[attributeLengthCnt], pData);
-                attributeLengthCnt += 2;
-                pData += 2;
+                lMemcpyFromUsiEndianessUint16(&attributeValue[attributeLengthCnt], pData);
+                attributeLengthCnt += 2U;
+                pData += 2U;
                 /* routeCost */
-                _memcpyFromUsiEndianessUint16(&attributeValue[attributeLengthCnt], pData);
-                attributeLengthCnt += 2;
-                pData += 2;
+                lMemcpyFromUsiEndianessUint16(&attributeValue[attributeLengthCnt], pData);
+                attributeLengthCnt += 2U;
+                pData += 2U;
                 /* hopCount, weakLinkCount */
                 attributeValue[attributeLengthCnt++] = *pData++;
                 /* mediaType */
                 attributeValue[attributeLengthCnt++] = *pData++;
                 /* validTime */
-                _memcpyFromUsiEndianessUint16(&attributeValue[attributeLengthCnt], pData);
+                lMemcpyFromUsiEndianessUint16(&attributeValue[attributeLengthCnt], pData);
             }
             break;
 
         case ADP_IB_BLACKLIST_TABLE:
             /* addr */
-            _memcpyFromUsiEndianessUint16(attributeValue, pData);
-            attributeLengthCnt = 2;
-            pData += 2;
+            lMemcpyFromUsiEndianessUint16(attributeValue, pData);
+            attributeLengthCnt = 2U;
+            pData += 2U;
             /* mediaType */
             attributeValue[attributeLengthCnt++] = *pData++;
             /* validTime */
-            _memcpyFromUsiEndianessUint16(&attributeValue[attributeLengthCnt], pData);
+            lMemcpyFromUsiEndianessUint16(&attributeValue[attributeLengthCnt], pData);
             break;
 
         case ADP_IB_SOFT_VERSION:
@@ -1196,8 +1206,13 @@ static ADP_SERIAL_STATUS _ParseAdpSetRequest(uint8_t* pData)
             /* TODO */
             break;
 
+        /* MISRA C-2012 deviation block start */
+        /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+
         default:
             break;
+
+        /* MISRA C-2012 deviation block end */
     }
 
     /* Send set request to ADP */
@@ -1206,7 +1221,7 @@ static ADP_SERIAL_STATUS _ParseAdpSetRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseAdpGetRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseGetRequest(uint8_t* pData)
 {
     uint32_t attributeId;
     uint16_t attributeIndex;
@@ -1226,7 +1241,7 @@ static ADP_SERIAL_STATUS _ParseAdpGetRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseRouteDiscoveryRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseRouteDiscoveryRequest(uint8_t* pData)
 {
     uint16_t dstAddr;
     uint8_t maxHops;
@@ -1248,14 +1263,14 @@ static ADP_SERIAL_STATUS _ParseRouteDiscoveryRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseMacSetRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseMacSetRequest(uint8_t* pData)
 {
     ADP_SET_CFM_PARAMS setConfirm;
     MAC_WRP_PIB_VALUE pibValue;
     MAC_WRP_PIB_ATTRIBUTE attributeId;
     MAC_WRP_STATUS setStatus;
-    uint16_t attributeIndex;    
-    uint8_t serialRspLen = 0;
+    uint16_t attributeIndex;
+    uint8_t serialRspLen = 0U;
 
     if (ADP_Status() < ADP_STATUS_READY)
     {
@@ -1270,7 +1285,7 @@ static ADP_SERIAL_STATUS _ParseMacSetRequest(uint8_t* pData)
     ADP_MacSetRequestSync((uint32_t) attributeId, attributeIndex, pibValue.length, pibValue.value, &setConfirm);
     
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_MAC_SET_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_MAC_SET_CONFIRM;
     setStatus = (MAC_WRP_STATUS) setConfirm.status;
     serialRspLen += MAC_WRP_SerialStringifySetConfirm(&adpSerialRspBuffer[serialRspLen],
             setStatus, attributeId, attributeIndex);
@@ -1281,7 +1296,7 @@ static ADP_SERIAL_STATUS _ParseMacSetRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseMacGetRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseMacGetRequest(uint8_t* pData)
 {
     ADP_MAC_GET_CFM_PARAMS getConfirm;
     MAC_WRP_PIB_ATTRIBUTE macAttribute;
@@ -1290,7 +1305,7 @@ static ADP_SERIAL_STATUS _ParseMacGetRequest(uint8_t* pData)
     uint32_t attributeId;
     uint16_t attributeIndex;
     uint8_t pibLength;
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     if (ADP_Status() < ADP_STATUS_READY)
     {
@@ -1305,7 +1320,7 @@ static ADP_SERIAL_STATUS _ParseMacGetRequest(uint8_t* pData)
     ADP_MacGetRequestSync(attributeId, attributeIndex, &getConfirm);
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_ADP_MAC_GET_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_MAC_GET_CONFIRM;
     getStatus = (MAC_WRP_STATUS) getConfirm.status;
     macAttribute = (MAC_WRP_PIB_ATTRIBUTE) attributeId;
     pibValue = getConfirm.attributeValue;
@@ -1319,7 +1334,7 @@ static ADP_SERIAL_STATUS _ParseMacGetRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParsePathDiscoveryRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParsePathDiscoveryRequest(uint8_t* pData)
 {
     uint16_t dstAddr;
     uint8_t metricType;
@@ -1341,14 +1356,14 @@ static ADP_SERIAL_STATUS _ParsePathDiscoveryRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseLbpSetRequest(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseLbpSetRequest(uint8_t* pData)
 {
     LBP_SET_PARAM_CONFIRM setConfirm;
     uint32_t attributeId;
     uint16_t attributeIndex;
-    uint8_t attributeValue[LBP_NETWORK_ACCESS_ID_SIZE_P_ARIB];
+    uint8_t attributeValue[LBP_NETWORK_ACCESS_ID_SIZE_P_ARIB] = {0};
     uint8_t attributeLength;
-    uint8_t serialRspLen = 0;
+    uint8_t serialRspLen = 0U;
 
     if (ADP_Status() < ADP_STATUS_READY)
     {
@@ -1365,11 +1380,11 @@ static ADP_SERIAL_STATUS _ParseLbpSetRequest(uint8_t* pData)
     attributeIndex += (uint16_t) *pData++;
     attributeLength = *pData++;
 
-    switch (attributeId)
+    switch ((LBP_ATTRIBUTE) attributeId)
     {
         /* 16-bit IBs */
         case LBP_IB_MSG_TIMEOUT:
-            _memcpyFromUsiEndianessUint16(attributeValue, pData);
+            lMemcpyFromUsiEndianessUint16(attributeValue, pData);
             break;
 
         /* Tables and lists */
@@ -1379,11 +1394,16 @@ static ADP_SERIAL_STATUS _ParseLbpSetRequest(uint8_t* pData)
         case LBP_IB_GMK:
         case LBP_IB_REKEY_GMK:
         case LBP_IB_RANDP:
-            memcpy(attributeValue, pData, attributeLength);
+            (void) memcpy(attributeValue, pData, attributeLength);
             break;
+
+        /* MISRA C-2012 deviation block start */
+        /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
 
         default:
             break;
+
+        /* MISRA C-2012 deviation block end */
     }
 
     /* Set LBP paramter */
@@ -1397,7 +1417,7 @@ static ADP_SERIAL_STATUS _ParseLbpSetRequest(uint8_t* pData)
     }
 
     /* Fill serial response buffer */
-    adpSerialRspBuffer[serialRspLen++] = ADP_SERIAL_MSG_LBP_SET_CONFIRM;
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_LBP_SET_CONFIRM;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) setConfirm.status;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (attributeId >> 24);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (attributeId >> 16);
@@ -1412,7 +1432,7 @@ static ADP_SERIAL_STATUS _ParseLbpSetRequest(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseLbpDevForceRegister(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseLbpDevForceRegister(uint8_t* pData)
 {
     ADP_EXTENDED_ADDRESS* pEUI64Address;
     ADP_GROUP_MASTER_KEY* pGMK;
@@ -1425,13 +1445,13 @@ static ADP_SERIAL_STATUS _ParseLbpDevForceRegister(uint8_t* pData)
     }
 
     /* Parse LBP device force register message */
-    pEUI64Address = (ADP_EXTENDED_ADDRESS*) pData;
-    pData += 8;
+    pEUI64Address = (void*) pData;
+    pData += 8U;
     shortAddress = ((uint16_t) *pData++) << 8;
     shortAddress += (uint16_t) *pData++;
     panId = ((uint16_t) *pData++) << 8;
     panId += (uint16_t) *pData++;
-    pGMK = (ADP_GROUP_MASTER_KEY*) pData;
+    pGMK = (void*) pData;
 
     /* Send force register to LBP device */
     LBP_ForceRegister(pEUI64Address, shortAddress, panId, pGMK);
@@ -1439,7 +1459,7 @@ static ADP_SERIAL_STATUS _ParseLbpDevForceRegister(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseLbpCoordKickDevice(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseLbpCoordKickDevice(uint8_t* pData)
 {
     ADP_EXTENDED_ADDRESS* pEUI64Address;
     uint16_t shortAddress;
@@ -1453,15 +1473,15 @@ static ADP_SERIAL_STATUS _ParseLbpCoordKickDevice(uint8_t* pData)
     /* Parse LBP coordinator kick device message */
     shortAddress = ((uint16_t) *pData++) << 8;
     shortAddress += (uint16_t) *pData++;
-    pEUI64Address = (ADP_EXTENDED_ADDRESS*) pData;
+    pEUI64Address = (void*) pData;
 
     /* Send kick device to LBP coordinator */
-    LBP_KickDevice(shortAddress, pEUI64Address);
+    (void) LBP_KickDevice(shortAddress, pEUI64Address);
 
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseLbpCoordRekey(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseLbpCoordRekey(uint8_t* pData)
 {
     ADP_EXTENDED_ADDRESS* pEUI64Address;
     uint16_t shortAddress;
@@ -1476,8 +1496,8 @@ static ADP_SERIAL_STATUS _ParseLbpCoordRekey(uint8_t* pData)
     /* Parse LBP coordinator rekey message */
     shortAddress = ((uint16_t) *pData++) << 8;
     shortAddress += (uint16_t) *pData++;
-    pEUI64Address = (ADP_EXTENDED_ADDRESS*) pData;
-    pData += 8;
+    pEUI64Address = (void*) pData;
+    pData += 8U;
     distribute = (bool) *pData;
 
     /* Send rekey to LBP coordinator */
@@ -1486,7 +1506,7 @@ static ADP_SERIAL_STATUS _ParseLbpCoordRekey(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseLbpCoordSetRekeyPhase(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseLbpCoordSetRekeyPhase(uint8_t* pData)
 {
     bool rekeyStart;
 
@@ -1505,7 +1525,7 @@ static ADP_SERIAL_STATUS _ParseLbpCoordSetRekeyPhase(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseLbpCoordActivateNewKey(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseLbpCoordActivateNewKey(uint8_t* pData)
 {
     if ((ADP_Status() < ADP_STATUS_READY) || (adpSerialCoord == false))
     {
@@ -1519,7 +1539,7 @@ static ADP_SERIAL_STATUS _ParseLbpCoordActivateNewKey(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static ADP_SERIAL_STATUS _ParseLbpCoordShortAddressAssign(uint8_t* pData)
+static ADP_SERIAL_STATUS lADP_SER_ParseLbpCoordShortAddressAssign(uint8_t* pData)
 {
     uint8_t* pEUI64Address;
     uint16_t assignedAddress;
@@ -1532,7 +1552,7 @@ static ADP_SERIAL_STATUS _ParseLbpCoordShortAddressAssign(uint8_t* pData)
 
     /* Parse LBP coordinator short address assign message */
     pEUI64Address = pData;
-    pData += 8;
+    pData += 8U;
     assignedAddress = ((uint16_t) *pData++) << 8;
     assignedAddress += (uint16_t) *pData;
 
@@ -1542,107 +1562,110 @@ static ADP_SERIAL_STATUS _ParseLbpCoordShortAddressAssign(uint8_t* pData)
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
-static void _Callback_UsiAdpProtocol(uint8_t* pData, size_t length)
+static void lADP_SER_CallbackUsiAdpProtocol(uint8_t* pData, size_t length)
 {
-    uint8_t command;
+    uint8_t commandAux;
+    ADP_SERIAL_MSG_ID command;
     ADP_SERIAL_STATUS status = ADP_SERIAL_STATUS_UNKNOWN_COMMAND;
 
     /* Protection for invalid length */
-    if (length == 0)
+    if (length == 0U)
     {
         return;
     }
 
     /* Process received message */
-    command = (*pData++) & 0x7F;
+    commandAux = (*pData++) & 0x7FU;
+    command = (ADP_SERIAL_MSG_ID) commandAux;
 
     switch (command)
     {
         case ADP_SERIAL_MSG_ADP_INITIALIZE:
-            status = _ParseInitialize(pData);
+            status = lADP_SER_ParseInitialize(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_DATA_REQUEST:
-            status = _ParseDataRequest(pData);
+            status = lADP_SER_ParseDataRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_DISCOVERY_REQUEST:
-            status = _ParseDiscoveryRequest(pData);
+            status = lADP_SER_ParseDiscoveryRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_NETWORK_START_REQUEST:
-            status = _ParseNetworkStartRequest(pData);
+            status = lADP_SER_ParseNetworkStartRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_NETWORK_JOIN_REQUEST:
-            status = _ParseNetworkJoinRequest(pData);
+            status = lADP_SER_ParseNetworkJoinRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_NETWORK_LEAVE_REQUEST:
-            status = _ParseNetworkLeaveRequest(pData);
+            status = lADP_SER_ParseNetworkLeaveRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_RESET_REQUEST:
-            status = _ParseResetRequest(pData);
+            status = lADP_SER_ParseResetRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_SET_REQUEST:
-            status = _ParseAdpSetRequest(pData);
+            status = lADP_SER_ParseSetRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_GET_REQUEST:
-            status = _ParseAdpGetRequest(pData);
+            status = lADP_SER_ParseGetRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_ROUTE_DISCOVERY_REQUEST:
-            status = _ParseRouteDiscoveryRequest(pData);
+            status = lADP_SER_ParseRouteDiscoveryRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_PATH_DISCOVERY_REQUEST:
-            status = _ParsePathDiscoveryRequest(pData);
+            status = lADP_SER_ParsePathDiscoveryRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_MAC_SET_REQUEST:
-            status = _ParseMacSetRequest(pData);
+            status = lADP_SER_ParseMacSetRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_MAC_GET_REQUEST:
-            status = _ParseMacGetRequest(pData);
+            status = lADP_SER_ParseMacGetRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_ADP_NO_IP_DATA_REQUEST:
-            status = _ParseNoIPDataRequest(pData);
+            status = lADP_SER_ParseNoIPDataRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_LBP_SET_REQUEST:
-            status = _ParseLbpSetRequest(pData);
+            status = lADP_SER_ParseLbpSetRequest(pData);
             break;
 
         case ADP_SERIAL_MSG_LBP_DEV_FORCE_REGISTER:
-            status = _ParseLbpDevForceRegister(pData);
+            status = lADP_SER_ParseLbpDevForceRegister(pData);
             break;
 
         case ADP_SERIAL_MSG_LBP_COORD_KICK_DEVICE:
-            status = _ParseLbpCoordKickDevice(pData);
+            status = lADP_SER_ParseLbpCoordKickDevice(pData);
             break;
 
         case ADP_SERIAL_MSG_LBP_COORD_REKEY:
-            status = _ParseLbpCoordRekey(pData);
+            status = lADP_SER_ParseLbpCoordRekey(pData);
             break;
 
         case ADP_SERIAL_MSG_LBP_COORD_SET_REKEY_PHASE:
-            status = _ParseLbpCoordSetRekeyPhase(pData);
+            status = lADP_SER_ParseLbpCoordSetRekeyPhase(pData);
             break;
 
         case ADP_SERIAL_MSG_LBP_COORD_ACTIVATE_NEW_KEY:
-            status = _ParseLbpCoordActivateNewKey(pData);
+            status = lADP_SER_ParseLbpCoordActivateNewKey(pData);
             break;
 
         case ADP_SERIAL_MSG_LBP_COORD_SHORT_ADDRESS_ASSIGN:
-            status = _ParseLbpCoordShortAddressAssign(pData);
+            status = lADP_SER_ParseLbpCoordShortAddressAssign(pData);
             break;
 
         default:
+            status = ADP_SERIAL_STATUS_UNKNOWN_COMMAND;
             break;
     }
 
@@ -1650,7 +1673,7 @@ static void _Callback_UsiAdpProtocol(uint8_t* pData, size_t length)
      * Other messages all have confirm. Send status only if there is a processing error */
     if (status != ADP_SERIAL_STATUS_SUCCESS)
     {
-        _StringifyMsgStatus(status, command);
+        lADP_SER_StringifyMsgStatus(status, command);
     }
 }
 
@@ -1678,27 +1701,26 @@ SYS_MODULE_OBJ ADP_SERIAL_Initialize(const SYS_MODULE_INDEX index)
     adpSerialNotifications.nonVolatileDataIndication = NULL;
 
     /* Set ADP Data callbacks */
-    adpDataNotifications.dataConfirm = _StringifyDataConfirm;
-    adpDataNotifications.dataIndication = _StringifyDataIndication;
+    adpDataNotifications.dataConfirm = lADP_SER_StringifyDataConfirm;
+    adpDataNotifications.dataIndication = lADP_SER_StringifyDataIndication;
     ADP_SetDataNotifications(&adpDataNotifications);
 
     /* Set ADP Management callbacks */
-    adpMngNotifications.discoveryConfirm = _StringifyDiscoveryConfirm;
-    adpMngNotifications.discoveryIndication = _StringifyDiscoveryIndication;
-    adpMngNotifications.networkStartConfirm = _StringifyNetworkStartConfirm;
-    adpMngNotifications.resetConfirm = _StringifyResetConfirm;
-    adpMngNotifications.setConfirm = _StringifySetConfirm;
-    adpMngNotifications.getConfirm = _StringifyGetConfirm;
+    adpMngNotifications.discoveryConfirm = lADP_SER_StringifyDiscoveryConfirm;
+    adpMngNotifications.discoveryIndication = lADP_SER_StringifyDiscoveryIndication;
+    adpMngNotifications.networkStartConfirm = lADP_SER_StringifyNetworkStartConfirm;
+    adpMngNotifications.resetConfirm = lADP_SER_StringifyResetConfirm;
+    adpMngNotifications.setConfirm = lADP_SER_StringifySetConfirm;
+    adpMngNotifications.getConfirm = lADP_SER_StringifyGetConfirm;
     adpMngNotifications.macSetConfirm = NULL;
-    adpMngNotifications.getConfirm = _StringifyGetConfirm;
     adpMngNotifications.macGetConfirm = NULL;
-    adpMngNotifications.routeDiscoveryConfirm = _StringifyRouteDiscoveryConfirm;
-    adpMngNotifications.pathDiscoveryConfirm = _StringifyPathDiscoveryConfirm;
-    adpMngNotifications.networkStatusIndication = _StringifyNetworkStatusIndication;
-    adpMngNotifications.preqIndication = _StringifyPreqIndication;
-    adpMngNotifications.nonVolatileDataIndication = _StoreNonVolatileDataIndication;
-    adpMngNotifications.routeNotFoundIndication = _StringifyRouteNotFoundIndication;
-    adpMngNotifications.bufferIndication = _StringifyBufferIndication;
+    adpMngNotifications.routeDiscoveryConfirm = lADP_SER_StringifyRouteDiscoveryConfirm;
+    adpMngNotifications.pathDiscoveryConfirm = lADP_SER_StringifyPathDiscoveryConfirm;
+    adpMngNotifications.networkStatusIndication = lADP_SER_StringifyNetworkStatusIndication;
+    adpMngNotifications.preqIndication = lADP_SER_StringifyPreqIndication;
+    adpMngNotifications.nonVolatileDataIndication = lADP_SER_StoreNonVolatileDataIndication;
+    adpMngNotifications.routeNotFoundIndication = lADP_SER_StringifyRouteNotFoundIndication;
+    adpMngNotifications.bufferIndication = lADP_SER_StringifyBufferIndication;
     ADP_SetManagementNotifications(&adpMngNotifications);
 
     return (SYS_MODULE_OBJ) G3_ADP_SERIAL_INDEX_0; 
@@ -1718,7 +1740,7 @@ void ADP_SERIAL_Tasks(SYS_MODULE_OBJ object)
     {
         /* Open USI instance for MAC serialization and register callback */
         adpSerialUsiHandle = SRV_USI_Open(G3_ADP_SERIAL_USI_INDEX);
-        SRV_USI_CallbackRegister(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, _Callback_UsiAdpProtocol);
+        SRV_USI_CallbackRegister(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, lADP_SER_CallbackUsiAdpProtocol);
     }
 
     /* Check ADP status */
@@ -1737,21 +1759,21 @@ void ADP_SERIAL_Tasks(SYS_MODULE_OBJ object)
             adpSerialNotifications.setEUI64NonVolatileData(&eui64, &nonVolatileData);
 
             /* Set Extended Address (EUI64) */
-            ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_EXTENDED_ADDRESS, 0, 8, eui64.value, &setConfirm);
+            ADP_MacSetRequestSync((uint32_t) MAC_WRP_PIB_MANUF_EXTENDED_ADDRESS, 0, 8, eui64.value, &setConfirm);
 
             /* Set non-volatile data */
-            ADP_MacSetRequestSync(MAC_WRP_PIB_FRAME_COUNTER, 0, 4,
+            ADP_MacSetRequestSync((uint32_t) MAC_WRP_PIB_FRAME_COUNTER, 0, 4,
                 (const uint8_t*) &nonVolatileData.frameCounter, &setConfirm);
-            ADP_MacSetRequestSync(MAC_WRP_PIB_FRAME_COUNTER_RF, 0, 4,
+            ADP_MacSetRequestSync((uint32_t) MAC_WRP_PIB_FRAME_COUNTER_RF, 0, 4,
                 (const uint8_t*) &nonVolatileData.frameCounterRF, &setConfirm);
-            ADP_SetRequestSync(ADP_IB_MANUF_DISCOVER_SEQUENCE_NUMBER, 0, 2,
+            ADP_SetRequestSync((uint32_t) ADP_IB_MANUF_DISCOVER_SEQUENCE_NUMBER, 0, 2,
                 (const uint8_t*) &nonVolatileData.discoverSeqNumber, &setConfirm);
-            ADP_SetRequestSync(ADP_IB_MANUF_BROADCAST_SEQUENCE_NUMBER, 0, 1,
+            ADP_SetRequestSync((uint32_t) ADP_IB_MANUF_BROADCAST_SEQUENCE_NUMBER, 0, 1,
                 (const uint8_t*) &nonVolatileData.broadcastSeqNumber, &setConfirm);
         }
 
         /* Send ADP initiazation confirm */
-        _StringifyMsgStatus(ADP_SERIAL_STATUS_SUCCESS, ADP_SERIAL_MSG_ADP_INITIALIZE);
+        lADP_SER_StringifyMsgStatus(ADP_SERIAL_STATUS_SUCCESS, ADP_SERIAL_MSG_ADP_INITIALIZE);
     }
 
     if (adpStatus >= ADP_STATUS_READY)

@@ -180,24 +180,6 @@
 #define PL460_NRST_Get()               ((PIOD_REGS->PIO_PDSR >> 15) & 0x1)
 #define PL460_NRST_PIN                  PIO_PIN_PD15
 
-/*** Macros for RF215_RSTN pin ***/
-#define RF215_RSTN_Set()               (PIOD_REGS->PIO_SODR = (1<<17))
-#define RF215_RSTN_Clear()             (PIOD_REGS->PIO_CODR = (1<<17))
-#define RF215_RSTN_Toggle()            do {\
-                                            PIOD_REGS->PIO_MSKR = (1<<17); \
-                                            PIOD_REGS->PIO_ODSR ^= (1<<17);\
-                                        } while (0)
-#define RF215_RSTN_OutputEnable()      do {\
-                                            PIOD_REGS->PIO_MSKR = (1<<17); \
-                                            PIOD_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
-                                        }while(0)
-#define RF215_RSTN_InputEnable()       do { \
-                                            PIOD_REGS->PIO_MSKR = (1<<17); \
-                                            PIOD_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
-                                        } while (0)
-#define RF215_RSTN_Get()               ((PIOD_REGS->PIO_PDSR >> 17) & 0x1)
-#define RF215_RSTN_PIN                  PIO_PIN_PD17
-
 /*** Macros for PL460_ENABLE pin ***/
 #define PL460_ENABLE_Set()               (PIOD_REGS->PIO_SODR = (1<<19))
 #define PL460_ENABLE_Clear()             (PIOD_REGS->PIO_CODR = (1<<19))
@@ -235,6 +217,24 @@
 #define PL460_EXTINT_PIN                  PIO_PIN_PA2
 #define PL460_EXTINT_InterruptEnable()   (PIOA_REGS->PIO_IER = (1<<2))
 #define PL460_EXTINT_InterruptDisable()  (PIOA_REGS->PIO_IDR = (1<<2))
+
+/*** Macros for RF215_RSTN pin ***/
+#define RF215_RSTN_Set()               (PIOA_REGS->PIO_SODR = (1<<25))
+#define RF215_RSTN_Clear()             (PIOA_REGS->PIO_CODR = (1<<25))
+#define RF215_RSTN_Toggle()            do {\
+                                            PIOA_REGS->PIO_MSKR = (1<<25); \
+                                            PIOA_REGS->PIO_ODSR ^= (1<<25);\
+                                        } while (0)
+#define RF215_RSTN_OutputEnable()      do {\
+                                            PIOA_REGS->PIO_MSKR = (1<<25); \
+                                            PIOA_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                        }while(0)
+#define RF215_RSTN_InputEnable()       do { \
+                                            PIOA_REGS->PIO_MSKR = (1<<25); \
+                                            PIOA_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                        } while (0)
+#define RF215_RSTN_Get()               ((PIOA_REGS->PIO_PDSR >> 25) & 0x1)
+#define RF215_RSTN_PIN                  PIO_PIN_PA25
 
 /*** Macros for PL460_NTHW0 pin ***/
 #define PL460_NTHW0_Set()               (PIOB_REGS->PIO_SODR = (1<<15))

@@ -174,9 +174,11 @@
               <logicalFolder name="pal" displayName="pal" projectFiles="true">
                 <logicalFolder name="plc" displayName="plc" projectFiles="true">
                   <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/stack/g3/pal/plc/pal_plc.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/stack/g3/pal/plc/pal_plc_local.h</itemPath>
                 </logicalFolder>
                 <logicalFolder name="rf" displayName="rf" projectFiles="true">
                   <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/stack/g3/pal/rf/pal_rf.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/stack/g3/pal/rf/pal_rf_local.h</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
@@ -828,7 +830,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool></platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.21</languageToolchainVersion>
+        <languageToolchainVersion>4.30</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

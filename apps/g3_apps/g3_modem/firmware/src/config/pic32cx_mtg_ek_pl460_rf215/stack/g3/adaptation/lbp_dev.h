@@ -41,8 +41,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _LBP_DEV_H
-#define _LBP_DEV_H
+#ifndef LBP_DEV_H
+#define LBP_DEV_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -117,7 +117,6 @@ typedef struct
     <code>
     App_LbpJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS *params)
     {
-        // Check result
         if (params->status == G3_SUCCESS)
         {
             
@@ -156,7 +155,7 @@ typedef void (*LBP_ADP_NETWORK_JOIN_CFM_CALLBACK)(
     <code>
     App_LbpLeaveIndication(void)
     {
-        // Handle ADP Network Leave Indication
+        
     }
     </code>
 
@@ -189,7 +188,6 @@ typedef void (*LBP_ADP_NETWORK_LEAVE_IND_CALLBACK)(void);
     <code>
     App_LbpLeaveConfirm(uint8_t status)
     {
-        // Check result
         if (status == G3_SUCCESS)
         {
             
@@ -457,7 +455,6 @@ void LBP_ForceRegister(ADP_EXTENDED_ADDRESS *pEUI64Address,
 
         LBP_AdpNetworkJoinRequest(panDescriptor->panId, panDescriptor->panId,
             mediaType);
-        // Wait for Join Confirm    
     }
     </code>
 
@@ -492,7 +489,6 @@ void LBP_AdpNetworkJoinRequest(uint16_t panId, uint16_t lbaAddress,
   Example:
     <code>
     LBP_AdpNetworkLeaveRequest();
-    // Wait for Leave Confirm
     </code>
 
   Remarks:
@@ -506,4 +502,4 @@ void LBP_AdpNetworkLeaveRequest(void);
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _LBP_DEV_H
+#endif // #ifndef LBP_DEV_H

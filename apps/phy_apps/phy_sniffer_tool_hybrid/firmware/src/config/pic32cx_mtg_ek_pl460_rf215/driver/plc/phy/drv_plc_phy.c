@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -57,7 +57,7 @@
 // *****************************************************************************
 
 /* This is the driver instance object array. */
-DRV_PLC_PHY_OBJ gDrvPlcPhyObj;
+static DRV_PLC_PHY_OBJ gDrvPlcPhyObj;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -70,7 +70,10 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize(
     const SYS_MODULE_INIT * const init
 )
 {
-    DRV_PLC_PHY_INIT* plcPhyInit = (DRV_PLC_PHY_INIT *)init;
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    const DRV_PLC_PHY_INIT * const plcPhyInit = (const DRV_PLC_PHY_INIT * const)init;
+    /* MISRA C-2012 deviation block end */
 
     /* Validate the request */
     if(index >= DRV_PLC_PHY_INSTANCES_NUMBER)
@@ -96,10 +99,10 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize(
     gDrvPlcPhyObj.secure                = plcPhyInit->secure;
     
     /* Callbacks initialization */
-    gDrvPlcPhyObj.txCfmCallback         = 0;
-    gDrvPlcPhyObj.dataIndCallback       = 0;
-    gDrvPlcPhyObj.exceptionCallback     = 0;
-    gDrvPlcPhyObj.bootDataCallback      = 0;
+    gDrvPlcPhyObj.txCfmCallback         = NULL;
+    gDrvPlcPhyObj.dataIndCallback       = NULL;
+    gDrvPlcPhyObj.exceptionCallback     = NULL;
+    gDrvPlcPhyObj.bootDataCallback      = NULL;
 
     /* HAL init */
     gDrvPlcPhyObj.plcHal->init((DRV_PLC_PLIB_INTERFACE *)plcPhyInit->plcHal->plcPlib);
@@ -143,9 +146,9 @@ DRV_HANDLE DRV_PLC_PHY_Open(
     bootInfo.binSize = gDrvPlcPhyObj.binSize;
     bootInfo.binStartAddress = gDrvPlcPhyObj.binStartAddress;
     bootInfo.pendingLength = gDrvPlcPhyObj.binSize;
-    bootInfo.pSrc = gDrvPlcPhyObj.binStartAddress;    
+    bootInfo.pSrc = gDrvPlcPhyObj.binStartAddress;
     bootInfo.secure = gDrvPlcPhyObj.secure;
-    if (callback)
+    if (callback != NULL)
     {
         bootInfo.bootDataCallback = callback;
         bootInfo.contextBoot = index;
@@ -165,7 +168,7 @@ DRV_HANDLE DRV_PLC_PHY_Open(
 
 void DRV_PLC_PHY_Close( const DRV_HANDLE handle )
 {
-    if((handle != DRV_HANDLE_INVALID) && (handle == 0))
+    if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
     {
         gDrvPlcPhyObj.nClients--;
         gDrvPlcPhyObj.inUse = false;
@@ -179,7 +182,7 @@ void DRV_PLC_PHY_TxCfmCallbackRegister(
     const uintptr_t context 
 )
 {
-    if((handle != DRV_HANDLE_INVALID) && (handle == 0))
+    if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
     {
         gDrvPlcPhyObj.txCfmCallback = callback;
         gDrvPlcPhyObj.contextCfm = context;
@@ -192,7 +195,7 @@ void DRV_PLC_PHY_DataIndCallbackRegister(
     const uintptr_t context 
 )
 {
-    if((handle != DRV_HANDLE_INVALID) && (handle == 0))
+    if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
     {
         gDrvPlcPhyObj.dataIndCallback = callback;
         gDrvPlcPhyObj.contextInd = context;
@@ -205,7 +208,7 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
     const uintptr_t context 
 )
 {
-    if((handle != DRV_HANDLE_INVALID) && (handle == 0))
+    if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
     {
         gDrvPlcPhyObj.exceptionCallback = callback;
         gDrvPlcPhyObj.contextExc = context;
@@ -250,7 +253,7 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
 
 void DRV_PLC_PHY_EnableTX( const DRV_HANDLE handle, bool enable )
 {
-     if((handle != DRV_HANDLE_INVALID) && (handle == 0))
+     if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
     {
         /* Set Tx Enable pin */
         gDrvPlcPhyObj.plcHal->setTxEnable(enable);

@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -57,7 +57,7 @@
 // *****************************************************************************
 
 /* Buffer sizes */
-#define RSERIAL_RX_MSG_HEADER_SIZE  15
+#define RSERIAL_RX_MSG_HEADER_SIZE  15U
 #define RSERIAL_RX_MSG_MAX_SIZE     (DRV_RF215_MAX_PSDU_LEN + RSERIAL_RX_MSG_HEADER_SIZE)
 
 // *****************************************************************************
@@ -92,27 +92,27 @@ static uint8_t srvRserialLastTxId;
 // *****************************************************************************
 // *****************************************************************************
 
-static void _SRV_RSERIAL_memcpyRev(uint8_t *pDataDst, uint8_t *pDataSrc, size_t length)
+static void lSRV_RSERIAL_memcpyRev(uint8_t *pDataDst, uint8_t *pDataSrc, size_t length)
 {
     uint8_t *pMemDst, *pMemSrc;
     uint16_t indexRev;
 
-    if (length <= 4)
+    if (length <= 4U)
     {
         pMemDst = pDataDst + length - 1;
         pMemSrc = pDataSrc;
-        for (indexRev = 0; indexRev < length; indexRev++)
+        for (indexRev = 0U; indexRev < length; indexRev++)
         {
-            *pMemDst-- = (uint8_t)*pMemSrc++;
+            *pMemDst-- = (uint8_t) *pMemSrc++;
         }
     }
     else
     {
-        memcpy(pDataDst, pDataSrc, length);
+        (void) memcpy(pDataDst, pDataSrc, length);
     }
 }
 
-static uint32_t _SRV_RSERIAL_SysTimeToUS(uint64_t sysTime)
+static uint32_t lSRV_RSERIAL_SysTimeToUS(uint64_t sysTime)
 {
     uint64_t sysTimeDiff;
     uint32_t sysTimeDiffNumHigh, sysTimeDiffRemaining;
@@ -120,11 +120,11 @@ static uint32_t _SRV_RSERIAL_SysTimeToUS(uint64_t sysTime)
 
     /* Difference between current and previous system time */
     sysTimeDiff = sysTime - srvRserialPrevSysTime;
-    sysTimeDiffNumHigh = (uint32_t) (sysTimeDiff / 0x10000000);
-    sysTimeDiffRemaining = (uint32_t) (sysTimeDiff % 0x10000000);
+    sysTimeDiffNumHigh = (uint32_t) (sysTimeDiff / 0x10000000UL);
+    sysTimeDiffRemaining = (uint32_t) (sysTimeDiff % 0x10000000UL);
 
     /* Convert system time to microseconds and add to previous time */
-    timeUS += (SYS_TIME_CountToUS(0x10000000) * sysTimeDiffNumHigh);
+    timeUS += (SYS_TIME_CountToUS(0x10000000UL) * sysTimeDiffNumHigh);
     timeUS += SYS_TIME_CountToUS(sysTimeDiffRemaining);
 
     /* Store times for next computation */
@@ -188,15 +188,15 @@ uint8_t* SRV_RSERIAL_SerialGetPIB (
     *pDataDest++ = (uint8_t) trxId;
 
     /* PIB identifier, length and result */
-    *pDataDest++ = (uint8_t) (pibAttr >> 8);
-    *pDataDest++ = (uint8_t) (pibAttr);
-    *pDataDest++ = (uint8_t) (pibSize);
-    *pDataDest++ = (uint8_t) (pibResult);
+    *pDataDest++ = (uint8_t) ((uint16_t) pibAttr >> 8);
+    *pDataDest++ = (uint8_t) pibAttr;
+    *pDataDest++ = pibSize;
+    *pDataDest++ = (uint8_t) pibResult;
 
     /* PIB data */
-    _SRV_RSERIAL_memcpyRev(pDataDest, pPibData, pibSize);
+    lSRV_RSERIAL_memcpyRev(pDataDest, pPibData, pibSize);
 
-    *pMsgLen = (size_t) pibSize + 6;
+    *pMsgLen = (size_t) pibSize + 6U;
     return srvRserialBuffer;
 }
 
@@ -217,10 +217,10 @@ uint8_t* SRV_RSERIAL_SerialSetPIB (
     *pDataDest++ = (uint8_t) trxId;
 
     /* PIB identifier, length and result */
-    *pDataDest++ = (uint8_t) (pibAttr >> 8);
-    *pDataDest++ = (uint8_t) (pibAttr);
-    *pDataDest++ = (uint8_t) (pibSize);
-    *pDataDest++ = (uint8_t) (pibResult);
+    *pDataDest++ = (uint8_t) ((uint16_t) pibAttr >> 8);
+    *pDataDest++ = (uint8_t) pibAttr;
+    *pDataDest++ = pibSize;
+    *pDataDest++ = (uint8_t) pibResult;
 
     *pMsgLen = 6;
     return srvRserialBuffer;
@@ -278,9 +278,9 @@ bool SRV_RSERIAL_ParseTxMessage (
             uint32_t timeDiffUS = txTimeUS - srvRserialPrevTimeUS;
 
             /* Convert microseconds to system time and add to previous time */
-            timeDiffNumHigh = timeDiffUS / 0x10000000;
-            timeDiffRemaining = timeDiffUS % 0x10000000;
-            sysTime += (SYS_TIME_USToCount(0x10000000) * timeDiffNumHigh);
+            timeDiffNumHigh = timeDiffUS / 0x10000000UL;
+            timeDiffRemaining = timeDiffUS % 0x10000000UL;
+            sysTime += ((uint64_t) SYS_TIME_USToCount(0x10000000UL) * timeDiffNumHigh);
             sysTime += SYS_TIME_USToCount(timeDiffRemaining);
 
             pDataDst->timeMode = TX_TIME_ABSOLUTE;
@@ -306,7 +306,7 @@ bool SRV_RSERIAL_ParseTxMessage (
         {
             DRV_RF215_TX_HANDLE txHandle = DRV_RF215_TX_HANDLE_INVALID;
             txCancel = true;
-            for (uint8_t txBufIdx = 0; txBufIdx < DRV_RF215_TX_BUFFERS_NUMBER; txBufIdx++)
+            for (uint8_t txBufIdx = 0U; txBufIdx < DRV_RF215_TX_BUFFERS_NUMBER; txBufIdx++)
             {
                 SRV_RSERIAL_TX_HANDLE* txIdHandle = &srvRserialTxHandles[txBufIdx];
                 if ((txIdHandle->inUse == true) && (txIdHandle->txId == srvRserialLastTxId))
@@ -326,7 +326,7 @@ bool SRV_RSERIAL_ParseTxMessage (
 
 void SRV_RSERIAL_SetTxHandle(DRV_RF215_TX_HANDLE txHandle)
 {
-    for (uint8_t txBufIdx = 0; txBufIdx < DRV_RF215_TX_BUFFERS_NUMBER; txBufIdx++)
+    for (uint8_t txBufIdx = 0U; txBufIdx < DRV_RF215_TX_BUFFERS_NUMBER; txBufIdx++)
     {
         SRV_RSERIAL_TX_HANDLE* txIdHandle = &srvRserialTxHandles[txBufIdx];
         if (txIdHandle->inUse == false)
@@ -352,31 +352,31 @@ uint8_t* SRV_RSERIAL_SerialRxMessage (
     pData = srvRserialBuffer;
 
     /* Insert command */
-    *pData++ = SRV_RSERIAL_CMD_PHY_RECEIVE_MSG;
+    *pData++ = (uint8_t) SRV_RSERIAL_CMD_PHY_RECEIVE_MSG;
 
     /* Insert TRX identifier (Sub-1GHz, 2.4GHz) */
     *pData++ = (uint8_t) trxId;
 
     /* Insert RX indication parameters */
-    timeIniUS = _SRV_RSERIAL_SysTimeToUS(pIndObj->timeIniCount);
+    timeIniUS = lSRV_RSERIAL_SysTimeToUS(pIndObj->timeIniCount);
     *pData++ = (uint8_t) (timeIniUS >> 24);
     *pData++ = (uint8_t) (timeIniUS >> 16);
     *pData++ = (uint8_t) (timeIniUS >> 8);
-    *pData++ = (uint8_t) (timeIniUS);
+    *pData++ = (uint8_t) timeIniUS;
     ppduDurationUS = SYS_TIME_CountToUS(pIndObj->ppduDurationCount);
     *pData++ = (uint8_t) (ppduDurationUS >> 24);
     *pData++ = (uint8_t) (ppduDurationUS >> 16);
     *pData++ = (uint8_t) (ppduDurationUS >> 8);
-    *pData++ = (uint8_t) (ppduDurationUS);
+    *pData++ = (uint8_t) ppduDurationUS;
     psduLen = pIndObj->psduLen;
     *pData++ = (uint8_t) (psduLen >> 8);
-    *pData++ = (uint8_t) (psduLen);
+    *pData++ = (uint8_t) psduLen;
     *pData++ = (uint8_t) pIndObj->modScheme;
     *pData++ = (uint8_t) pIndObj->rssiDBm;
     *pData++ = (uint8_t) pIndObj->fcsOk;
 
     /* Insert RX data */
-    memcpy(pData, pIndObj->psdu, psduLen);
+    (void) memcpy(pData, pIndObj->psdu, psduLen);
 
     *pMsgLen = (size_t) psduLen + RSERIAL_RX_MSG_HEADER_SIZE;
     return srvRserialBuffer;
@@ -397,23 +397,23 @@ uint8_t* SRV_RSERIAL_SerialCfmMessage (
     pData = srvRserialBuffer;
 
     /* Insert command */
-    *pData++ = SRV_RSERIAL_CMD_PHY_SEND_MSG_RSP;
+    *pData++ = (uint8_t) SRV_RSERIAL_CMD_PHY_SEND_MSG_RSP;
 
     /* Insert TRX identifier (Sub-1GHz, 2.4GHz) */
     *pData++ = (uint8_t) trxId;
 
     /* Insert TX confirm parameters */
-    timeIniUS = _SRV_RSERIAL_SysTimeToUS(pCfmObj->timeIniCount);
+    timeIniUS = lSRV_RSERIAL_SysTimeToUS(pCfmObj->timeIniCount);
     *pData++ = (uint8_t) (timeIniUS >> 24);
     *pData++ = (uint8_t) (timeIniUS >> 16);
     *pData++ = (uint8_t) (timeIniUS >> 8);
-    *pData++ = (uint8_t) (timeIniUS);
+    *pData++ = (uint8_t) timeIniUS;
     ppduDurationUS = SYS_TIME_CountToUS(pCfmObj->ppduDurationCount);
     *pData++ = (uint8_t) (ppduDurationUS >> 24);
     *pData++ = (uint8_t) (ppduDurationUS >> 16);
     *pData++ = (uint8_t) (ppduDurationUS >> 8);
-    *pData++ = (uint8_t) (ppduDurationUS);
-    for (uint8_t txBufIdx = 0; txBufIdx < DRV_RF215_TX_BUFFERS_NUMBER; txBufIdx++)
+    *pData++ = (uint8_t) ppduDurationUS;
+    for (uint8_t txBufIdx = 0U; txBufIdx < DRV_RF215_TX_BUFFERS_NUMBER; txBufIdx++)
     {
         SRV_RSERIAL_TX_HANDLE* txIdHandle = &srvRserialTxHandles[txBufIdx];
         if ((txIdHandle->inUse == true) && (txIdHandle->txHandle == txHandle))
@@ -423,8 +423,8 @@ uint8_t* SRV_RSERIAL_SerialCfmMessage (
         }
     }
     *pData++ = txId;
-    *pData++ = (uint8_t) pCfmObj->txResult;
+    *pData = (uint8_t) pCfmObj->txResult;
 
-    *pMsgLen = (size_t) (pData - srvRserialBuffer);
+    *pMsgLen = 12U;
     return srvRserialBuffer;
 }

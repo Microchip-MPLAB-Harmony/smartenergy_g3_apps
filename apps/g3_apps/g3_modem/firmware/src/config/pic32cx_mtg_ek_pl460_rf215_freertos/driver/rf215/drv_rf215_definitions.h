@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _DRV_RF215_DEFINITIONS_H
-#define _DRV_RF215_DEFINITIONS_H
+#ifndef DRV_RF215_DEFINITIONS_H
+#define DRV_RF215_DEFINITIONS_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -175,15 +175,15 @@ typedef enum
     SUN_OFDM_BAND_920_OPT1    = 0x0910,
 
     /* 920-b (920-923 MHz) band. Indonesia */
-    SUN_FSK_BAND_920B_INDONESIA_OPM1  = 0x1701,
-    SUN_FSK_BAND_920B_INDONESIA_OPM2  = 0x1702,
-    SUN_FSK_BAND_920B_INDONESIA_OPM3  = 0x1703,
-    SUN_FSK_BAND_920B_INDONESIA_OPM4  = 0x1704,
-    SUN_FSK_BAND_920B_INDONESIA_OPM5  = 0x1705,
-    SUN_OFDM_BAND_920B_INDONESIA_OPT4 = 0x1740,
-    SUN_OFDM_BAND_920B_INDONESIA_OPT3 = 0x1730,
-    SUN_OFDM_BAND_920B_INDONESIA_OPT2 = 0x1720,
-    SUN_OFDM_BAND_920B_INDONESIA_OPT1 = 0x1710,
+    SUN_FSK_BAND_920B_IND_OPM1  = 0x1701,
+    SUN_FSK_BAND_920B_IND_OPM2  = 0x1702,
+    SUN_FSK_BAND_920B_IND_OPM3  = 0x1703,
+    SUN_FSK_BAND_920B_IND_OPM4  = 0x1704,
+    SUN_FSK_BAND_920B_IND_OPM5  = 0x1705,
+    SUN_OFDM_BAND_920B_IND_OPT4 = 0x1740,
+    SUN_OFDM_BAND_920B_IND_OPT3 = 0x1730,
+    SUN_OFDM_BAND_920B_IND_OPT2 = 0x1720,
+    SUN_OFDM_BAND_920B_IND_OPT1 = 0x1710,
 
     /* 2450 (2400-2483.5 MHz) band. */
     SUN_FSK_BAND_2450_OPM1    = 0x0D01,
@@ -390,25 +390,25 @@ typedef enum
     FSK_FEC_ON   = 1,
 
     /* OFDM: BPSK, 1/2 convolutional encoder rate, 4x frequency repetition */
-    OFDM_MCS_0   = 2,
+    OFDM_MCS_0   = 0,
 
     /* OFDM: BPSK, 1/2 convolutional encoder rate, 2x frequency repetition */
-    OFDM_MCS_1   = 3,
+    OFDM_MCS_1   = 1,
 
     /* OFDM: QPSK, 1/2 convolutional encoder rate, 2x frequency repetition */
-    OFDM_MCS_2   = 4,
+    OFDM_MCS_2   = 2,
 
     /* OFDM: QPSK, 1/2 convolutional encoder rate */
-    OFDM_MCS_3   = 5,
+    OFDM_MCS_3   = 3,
 
     /* OFDM: QPSK, 3/4 convolutional encoder rate */
-    OFDM_MCS_4   = 6,
+    OFDM_MCS_4   = 4,
 
     /* OFDM: 16-QAM, 1/2 convolutional encoder rate */
-    OFDM_MCS_5   = 7,
+    OFDM_MCS_5   = 5,
 
     /* OFDM: 16-QAM, 3/4 convolutional encoder rate */
-    OFDM_MCS_6   = 8,
+    OFDM_MCS_6   = 6,
 
     /* Invalid modulation scheme */
     MOD_SCHEME_INVALID = 0xFF,
@@ -1055,4 +1055,4 @@ typedef struct
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _DRV_RF215_DEFINITIONS_H
+#endif // #ifndef DRV_RF215_DEFINITIONS_H

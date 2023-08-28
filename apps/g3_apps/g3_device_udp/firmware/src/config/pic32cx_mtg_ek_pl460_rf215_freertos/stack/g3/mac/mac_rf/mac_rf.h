@@ -423,7 +423,7 @@ MAC_STATUS MAC_RF_GetRequestSync(MAC_RF_PIB_ATTRIBUTE attribute,
     MAC_STATUS status;
     const MAC_PIB_VALUE value = {
         .length = 1,
-        .value = 6
+        .value = {6}
     };
 
     status = MAC_RF_SetRequestSync(MAC_PIB_MAX_FRAME_RETRIES_RF, 0, &value);

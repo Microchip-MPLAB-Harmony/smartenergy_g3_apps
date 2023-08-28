@@ -787,6 +787,10 @@ typedef enum
     MAC_WRP_PIB_MANUF_RESET_MAC_STATS = 0x08000023,
     /* Enable/Disable Sleep Mode */
     MAC_WRP_PIB_MANUF_SLEEP_MODE = 0x08000024,
+    /* Set PLC in Debug Mode */
+    MAC_WRP_PIB_MANUF_DEBUG_SET = 0x08000025,
+    /* Read PLC debug information */
+    MAC_WRP_PIB_MANUF_DEBUG_READ = 0x08000026,
     /* Provides access to POS table by short address (referenced as index). 5 Byte entries */
     MAC_WRP_PIB_MANUF_POS_TABLE_ELEMENT = 0x08000027,
     /* Minimum LQI to consider a neighbour for Trickle. 8 bits. */

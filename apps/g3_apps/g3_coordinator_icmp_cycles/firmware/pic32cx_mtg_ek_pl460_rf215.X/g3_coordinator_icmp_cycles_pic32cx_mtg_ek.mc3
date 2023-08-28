@@ -5451,7 +5451,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_22_DIR&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;Out&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -5462,7 +5462,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_22_FUNCTION_NAME&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;RF215_RSTN&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -5473,7 +5473,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_22_FUNCTION_TYPE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -5484,7 +5484,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_22_PERIPHERAL_FUNCTION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -5934,6 +5934,50 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_67_DIR"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_67_DIR&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;Out&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_67_FUNCTION_NAME"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_67_FUNCTION_NAME&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;RF215_RSTN&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_67_FUNCTION_TYPE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_67_FUNCTION_TYPE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_67_PERIPHERAL_FUNCTION"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_67_PERIPHERAL_FUNCTION&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_6_DIR"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_6_DIR&quot;&gt;
@@ -6256,6 +6300,17 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PORT_A_CFGR_Value25"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_A_CFGR_Value25&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x100&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PORT_A_CFGR_Value7"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_A_CFGR_Value7&quot;&gt;
@@ -6381,7 +6436,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_A_MSKR_ValueGPIO&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x387&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x2000387&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6623,7 +6678,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_D_CFGR_Value17&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x100&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6744,7 +6799,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_D_MSKR_ValueGPIO&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0xb8008&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x98008&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -7813,7 +7868,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
   &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_RESET_PIN&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;99&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;25&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drvRf215&gt;
 &lt;/drvRf215&gt;
@@ -27510,7 +27565,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>7a0a99ad8d864219e93fda613ea20e487e8a84e88eb0f835df7800e798fb49a8</hash>
+         <hash>6c83472da8e1a78eef3e1e2fb1d8ca354d39d6cec35cce8f18ff36d4ec9690dd</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\sha3.c</file>
@@ -27526,7 +27581,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_plc\mac_plc.h</file>
-         <hash>efb08adb774e2682c87596b56a0d0836890a70ba0e3e3ffd2220392a37cc8caa</hash>
+         <hash>a7b1c3ebfb4ecf5c64520f53cb844c7fc4929d34be76c7cfe98b2deb698fa2b9</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\rstc.h</file>
@@ -27626,7 +27681,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\pio\plib_pio.h</file>
-         <hash>a58a6b661c57b59cba12d6c5d9bbad4cf17e2ce25887ee17e8551cab46199b47</hash>
+         <hash>deab18aaf953f77cbb070a3237c984a5a8dbb06c7d2ea1dc7f6a7e88dec6d182</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\port\pic32\crypt_sha224_sam6156.c</file>
@@ -27658,7 +27713,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\pio\plib_pio.c</file>
-         <hash>d6a0849160d876c963a3592fa48659cf7ce7aade70ee5d0663a424e71a5d0f61</hash>
+         <hash>a4ee37326c5935335b95510ceaea257ea0c97e5d5245fc66c080bf22cdb68510</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_GF2NEccAdd_pb.h</file>
@@ -27850,7 +27905,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_wrapper\mac_wrapper_defs.h</file>
-         <hash>77b3b07e8c219fac085a812b4709da42779a46a314a3b44c598f475c894c7895</hash>
+         <hash>03ebed458b9207ae23966ce73b0a7028ffe496487ed51356ff7ab98c0ce35f14</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\flexcom.h</file>
@@ -27938,7 +27993,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\queue\srv_queue.c</file>
-         <hash>c36066cbfdf0d40aa85d50e69ddde7e60200b0d32194d62d44ff389e72abdc7a</hash>
+         <hash>e5fb68ba27c74101f47a9fd7d4ccdea24a9977b22b6016fe5035e6faefd88455</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\tcpip_types.h</file>
@@ -28182,7 +28237,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_common\mac_common.h</file>
-         <hash>4aa4f0f7771efd0200523440dddf9059918b374341908b4521ae34e798a8978c</hash>
+         <hash>f66323896a561b05e9ec08d32c9fedfc8ec94ad9c4312ef76a1cc8380c42531b</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\cryptocb.h</file>
@@ -28446,7 +28501,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_rf\mac_rf.h</file>
-         <hash>fca5f08d0563284193ce2ab1407f902c412ee5335dd3a98d6174baeda2fbde6b</hash>
+         <hash>3d7bf98af012c987a8bdd555b39dee97aeef832bc100f3baf4a1f1335f3bfaaf</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\error-crypt.h</file>
@@ -28530,7 +28585,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\g3MacRt\drv_g3_macrt_comm.h</file>
-         <hash>9a26779e159756ebfb3d4d10b3a47b77fdca310ac291787d200d52128407c269</hash>
+         <hash>71ccaeb81d8e633f5ee0f3561a98d0e8b19536f9771f4e5f11cc253263e06af7</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_sha256_hw.h</file>
@@ -28602,7 +28657,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\g3MacRt\bin\G3_MAC_RT_FCC.bin</file>
-         <hash>5e0830602f4968728c641219e2b8b97c3c1481e3fa8056818ef58589dd46c481</hash>
+         <hash>550d27499557e43397c871d03d2cafdfc6b7b4a48e051708e268ad47de4c4476</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_cf_pb.h</file>
@@ -28702,7 +28757,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>6964e4df0bc4d8d9657f28d9e537dcbc6d8d3bdc64e3708b54c1fc6cef0fb68f</hash>
+         <hash>8bce22c2d29fd741fab62696a06b9660d7e6c1bc37a7c30f9fbec6093f085d94</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_pukcl_functions.h</file>
@@ -28734,7 +28789,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\pin_configurations.csv</file>
-         <hash>e77674b737d505e911c930faa193e7e538f57a292c93deab43e4c6a2de3b8ceb</hash>
+         <hash>9d71f9273bd4c53b582b07138de4ecad2b4aa5642b74ad08c6559cbf8622af3a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\igmp.h</file>
@@ -28982,7 +29037,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\configuration.h</file>
-         <hash>64eb9f9a3763f3e094ef5f51ac768c4c0e86313989d0b2525b56873783df578a</hash>
+         <hash>1dad7b55192235b5e4f64496375823e48be1fefdc1bdf851fa088a8d0a021465</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\md2.c</file>
@@ -29122,7 +29177,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\mac\mac_plc\mac_plc_mib.h</file>
-         <hash>c45179bae19fadce113ff7246cf0646d720861d4b77dadbdb82acfc8cb77ceb6</hash>
+         <hash>24809e403fd94a95e77a618f32ca413f434f655c0e58ba709853aae6be7731d2</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\dwdt\plib_dwdt.h</file>
@@ -29226,7 +29281,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\g3MacRt\bin\G3_MAC_RT_CENA.bin</file>
-         <hash>2ee0d0aa6552ab14355cd6dd41a668e047629ffedabce2e2c1763ed886e7d2f5</hash>
+         <hash>ed0ff4e585961c5cd146a7f4f1f5d58817a712c87863af7650f940823f992cc3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\crypto.h</file>
@@ -29678,7 +29733,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\adaptation\g3_lib_adp.a</file>
-         <hash>9b9a1d8ae5c2b1a79cfb5e41a07545c5f42067904f5f2c63a747cfb9c118a723</hash>
+         <hash>896da49726fa4674f4792ae9a958997c436ef1162c271b063c5f6c559ab3b6fb</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\berkeley_manager.h</file>

@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _MAC_RF_H
-#define _MAC_RF_H
+#ifndef MAC_RF_H
+#define MAC_RF_H
 
 #include "../mac_common/mac_common.h"
 #include "mac_rf_mib.h"
@@ -191,18 +191,16 @@ typedef struct
 
   Example:
     <code>
-    // The following code snippet shows an example MAC Wrapper initialization.
-
     MAC_RF_INIT macRfInit = {
         .macRfHandlers.macRfDataConfirm = appDataConfirm,
         .macRfHandlers.macRfDataIndication = appDataIndication,
         .macRfHandlers.macRfResetConfirm = appResetConfirm,
         .macRfHandlers.macRfBeaconNotifyIndication = appBeaconIndication,
         .macRfHandlers.macRfScanConfirm = appScanConfirm,
-        .macRfHandlers.macRfStartConfirm = NULL, // Start primitive not used
+        .macRfHandlers.macRfStartConfirm = NULL,
         .macRfHandlers.macRfCommStatusIndication = appCommStatus,
-        .macRfHandlers.macRfMacSnifferIndication = NULL, // MAC Sniffer not used
-        .macRfTables = &tables, // Variable containing the MAC RF Tables
+        .macRfHandlers.macRfMacSnifferIndication = NULL,
+        .macRfTables = &tables,
         .palRfIndex = 0,
     };
 
@@ -239,15 +237,11 @@ void MAC_RF_Init(MAC_RF_INIT *init);
 
   Example:
     <code>
-    // ...
     MAC_RF_Init(&macRfInit);
-    // ...
 
     while (true)
     {
         MAC_RF_Tasks();
-    
-        // Do other tasks
     }
     </code>
 
@@ -285,7 +279,7 @@ void MAC_RF_Tasks(void);
     status = MAC_RF_Status();
     if (status == SYS_STATUS_READY)
     {
-        // MAC is ready to be used
+        
     }
     </code>
 
@@ -322,9 +316,6 @@ SYS_STATUS MAC_RF_Status(void);
     <code>
     uint8_t txBuffer[MAC_PDU_SIZE];
 
-    // Fill txBuffer
-    // ...
-
     MAC_DATA_REQUEST_PARAMS params = {
         .srcAddressMode = MAC_ADDRESS_MODE_SHORT,
         .destPanId = 0x1234,
@@ -339,7 +330,6 @@ SYS_STATUS MAC_RF_Status(void);
     };
 
     MAC_RF_DataRequest(&params);
-    // Wait for Data Confirm
     </code>
 
   Remarks:
@@ -386,7 +376,7 @@ void MAC_RF_DataRequest(MAC_DATA_REQUEST_PARAMS *drParams);
     status = MAC_RF_GetRequestSync(MAC_PIB_MAX_FRAME_RETRIES_RF, 0, &value);
     if (status == MAC_STATUS_SUCCESS)
     {
-        // Get value from 'value' parameter
+        
     }
     </code>
 
@@ -433,13 +423,13 @@ MAC_STATUS MAC_RF_GetRequestSync(MAC_RF_PIB_ATTRIBUTE attribute,
     MAC_STATUS status;
     const MAC_PIB_VALUE value = {
         .length = 1,
-        .value = 6
+        .value = {6}
     };
 
     status = MAC_RF_SetRequestSync(MAC_PIB_MAX_FRAME_RETRIES_RF, 0, &value);
     if (status == MAC_STATUS_SUCCESS)
     {
-        // PIB correctly set
+        
     }
     </code>
 
@@ -479,8 +469,6 @@ MAC_STATUS MAC_RF_SetRequestSync(MAC_RF_PIB_ATTRIBUTE attribute,
     };
 
     MAC_RF_ResetRequest(&params);
-
-    // Wait for Reset Confirm
     </code>
 
   Remarks:
@@ -521,8 +509,6 @@ void MAC_RF_ResetRequest(MAC_RESET_REQUEST_PARAMS *rstParams);
     };
 
     MAC_RF_ScanRequest(&params);
-
-    // Wait for Scan Confirm
     </code>
 
   Remarks:
@@ -562,8 +548,6 @@ void MAC_RF_ScanRequest(MAC_SCAN_REQUEST_PARAMS *scanParams);
     };
 
     MAC_RF_StartRequest(&params);
-
-    // Wait for Start Confirm
     </code>
 
   Remarks:
@@ -577,7 +561,7 @@ void MAC_RF_StartRequest(MAC_START_REQUEST_PARAMS *srParams);
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _MAC_RF_H
+#endif // #ifndef MAC_RF_H
 
 /*******************************************************************************
  End of File

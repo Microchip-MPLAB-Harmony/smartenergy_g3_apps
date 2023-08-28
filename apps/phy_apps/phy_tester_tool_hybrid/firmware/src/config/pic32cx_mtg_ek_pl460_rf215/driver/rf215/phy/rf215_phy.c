@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -106,7 +106,7 @@ static const RF215_PLL_CONST_OBJ rf215PllConst[DRV_RF215_NUM_TRX] = {
         .ieeeFreqOffset = PLL_IEEE_FREQ_OFFSET09_Hz,
         .fskTolT0 = PLL_DELTA_FSK_T0_RF09_Q45,
         .fineChnMode = {RF215_RFn_CNM_CM_FINE_389, RF215_RFn_CNM_CM_FINE_779},
-        .numFreqRanges = 2
+        .numFreqRanges = 2U
     },
 
     /* 2.4 GHz Transceiver */
@@ -116,15 +116,15 @@ static const RF215_PLL_CONST_OBJ rf215PllConst[DRV_RF215_NUM_TRX] = {
                 .freqMin = PLL_FREQ_MIN_RF24_RNG3_Hz,
                 .freqMax = PLL_FREQ_MAX_RF24_RNG3_Hz,
             },
-            {0}
+            {0UL}
         },
 
-        .fineFreqRes = {PLL_FINE_FREQ_RES_RF24_RNG3_Hz, 0},
-        .fineFreqOffset = {PLL_FINE_FREQ_OFFSET_RF24_RNG3_Hz, 0},
+        .fineFreqRes = {PLL_FINE_FREQ_RES_RF24_RNG3_Hz, 0U},
+        .fineFreqOffset = {PLL_FINE_FREQ_OFFSET_RF24_RNG3_Hz, 0U},
         .ieeeFreqOffset = PLL_IEEE_FREQ_OFFSET24_Hz,
         .fskTolT0 = PLL_DELTA_FSK_T0_RF24_Q45,
-        .fineChnMode = {RF215_RFn_CNM_CM_FINE_2400, 0},
-        .numFreqRanges = 1
+        .fineChnMode = {RF215_RFn_CNM_CM_FINE_2400, 0U},
+        .numFreqRanges = 1U
     },
 
 };
@@ -133,98 +133,98 @@ static const RF215_PLL_CONST_OBJ rf215PllConst[DRV_RF215_NUM_TRX] = {
 static const RF215_FSK_SYM_RATE_CONST_OBJ fskSymRateConst[6] = {
     /* 50 kHz */
     {
-        .Hz = 50000,
-        .kHz = 50,
-        .txBaseBandDelayUSq5 = 1344, /* 42.0 us */
-        .txPreEmphasisDelay1USq5 = 640, /* 20.0 us */
-        .txPreEmphasisDelay2USq5 = 248, /* 7.75 us */
-        .rxBaseBandDelayUSq5 = 12, /* 0.375 us */
+        .Hz = 50000UL,
+        .kHz = 50U,
+        .txBaseBandDelayUSq5 = 1344U, /* 42.0 us */
+        .txPreEmphasisDelay1USq5 = 640U, /* 20.0 us */
+        .txPreEmphasisDelay2USq5 = 248U, /* 7.75 us */
+        .rxBaseBandDelayUSq5 = 12U, /* 0.375 us */
         .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_400kHz,
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_500kHz,
         .RFn_TXCUT_PARAMP = RF215_RFn_TXCUTC_PARAMP_32us,
-        .BBCn_FSKPE0 = 0x02,
-        .BBCn_FSKPE1 = 0x03,
-        .BBCn_FSKPE2 = 0xFC
+        .BBCn_FSKPE0 = 0x02U,
+        .BBCn_FSKPE1 = 0x03U,
+        .BBCn_FSKPE2 = 0xFCU
     },
 
     /* 100 kHz */
     {
-        .Hz = 100000,
-        .kHz = 100,
-        .txBaseBandDelayUSq5 = 672, /* 21.0 us */
-        .txPreEmphasisDelay1USq5 = 328, /* 10.25 us */
-        .txPreEmphasisDelay2USq5 = 112, /* 3.5 us */
-        .rxBaseBandDelayUSq5 = 68, /* 2.125 us */
+        .Hz = 100000UL,
+        .kHz = 100U,
+        .txBaseBandDelayUSq5 = 672U, /* 21.0 us */
+        .txPreEmphasisDelay1USq5 = 328U, /* 10.25 us */
+        .txPreEmphasisDelay2USq5 = 112U, /* 3.5 us */
+        .rxBaseBandDelayUSq5 = 68U, /* 2.125 us */
         .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_800kHz,
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_1000kHz,
         .RFn_TXCUT_PARAMP = RF215_RFn_TXCUTC_PARAMP_16us,
-        .BBCn_FSKPE0 = 0x0E,
-        .BBCn_FSKPE1 = 0x0F,
-        .BBCn_FSKPE2 = 0xF0
+        .BBCn_FSKPE0 = 0x0EU,
+        .BBCn_FSKPE1 = 0x0FU,
+        .BBCn_FSKPE2 = 0xF0U
     },
 
     /* 150 kHz */
     {
-        .Hz = 150000,
-        .kHz = 150,
-        .txBaseBandDelayUSq5 = 608, /* 19.0 us */
-        .txPreEmphasisDelay1USq5 = 184, /* 5.75 us */
-        .txPreEmphasisDelay2USq5 = 100, /* 3.125 us */
-        .rxBaseBandDelayUSq5 = 212, /* 6.625 us */
+        .Hz = 150000UL,
+        .kHz = 150U,
+        .txBaseBandDelayUSq5 = 608U, /* 19.0 us */
+        .txPreEmphasisDelay1USq5 = 184U, /* 5.75 us */
+        .txPreEmphasisDelay2USq5 = 100U, /* 3.125 us */
+        .rxBaseBandDelayUSq5 = 212U, /* 6.625 us */
         .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_1000kHz,
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_2000kHz,
         .RFn_TXCUT_PARAMP = RF215_RFn_TXCUTC_PARAMP_16us,
-        .BBCn_FSKPE0 = 0x3C,
-        .BBCn_FSKPE1 = 0x3F,
-        .BBCn_FSKPE2 = 0xC0
+        .BBCn_FSKPE0 = 0x3CU,
+        .BBCn_FSKPE1 = 0x3FU,
+        .BBCn_FSKPE2 = 0xC0U
     },
 
     /* 200 kHz */
     {
-        .Hz = 200000,
-        .kHz = 200,
-        .txBaseBandDelayUSq5 = 352, /* 11.0 us */
-        .txPreEmphasisDelay1USq5 = 176, /* 5.5 us */
-        .txPreEmphasisDelay2USq5 = 32, /* 1.0 us */
-        .rxBaseBandDelayUSq5 = 48, /* 1.5 us */
+        .Hz = 200000UL,
+        .kHz = 200U,
+        .txBaseBandDelayUSq5 = 352U, /* 11.0 us */
+        .txPreEmphasisDelay1USq5 = 176U, /* 5.5 us */
+        .txPreEmphasisDelay2USq5 = 32U, /* 1.0 us */
+        .rxBaseBandDelayUSq5 = 48U, /* 1.5 us */
         .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_1000kHz,
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_2000kHz,
         .RFn_TXCUT_PARAMP = RF215_RFn_TXCUTC_PARAMP_16us,
-        .BBCn_FSKPE0 = 0x74,
-        .BBCn_FSKPE1 = 0x7F,
-        .BBCn_FSKPE2 = 0x80
+        .BBCn_FSKPE0 = 0x74U,
+        .BBCn_FSKPE1 = 0x7FU,
+        .BBCn_FSKPE2 = 0x80U
     },
 
     /* 300 kHz */
     {
-        .Hz = 300000,
-        .kHz = 300,
-        .txBaseBandDelayUSq5 = 304, /* 9.5 us */
-        .txPreEmphasisDelay1USq5 = 88, /* 2.75 us */
-        .txPreEmphasisDelay2USq5 = 76, /* 2.375 us */
-        .rxBaseBandDelayUSq5 = 124, /* 3.875 us */
+        .Hz = 300000UL,
+        .kHz = 300U,
+        .txBaseBandDelayUSq5 = 304U, /* 9.5 us */
+        .txPreEmphasisDelay1USq5 = 88U, /* 2.75 us */
+        .txPreEmphasisDelay2USq5 = 76U, /* 2.375 us */
+        .rxBaseBandDelayUSq5 = 124U, /* 3.875 us */
         .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_2000kHz,
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_4000kHz,
         .RFn_TXCUT_PARAMP = RF215_RFn_TXCUTC_PARAMP_8us,
-        .BBCn_FSKPE0 = 0x05,
-        .BBCn_FSKPE1 = 0x3C,
-        .BBCn_FSKPE2 = 0xC3
+        .BBCn_FSKPE0 = 0x05U,
+        .BBCn_FSKPE1 = 0x3CU,
+        .BBCn_FSKPE2 = 0xC3U
     },
 
     /* 400 kHz */
     {
-        .Hz = 400000,
-        .kHz = 400,
-        .txBaseBandDelayUSq5 = 176, /* 5.5 us */
-        .txPreEmphasisDelay1USq5 = 88, /* 2.75 us */
-        .txPreEmphasisDelay2USq5 = 20, /* 0.675 us */
-        .rxBaseBandDelayUSq5 = 20, /* 0.625 us */
+        .Hz = 400000UL,
+        .kHz = 400U,
+        .txBaseBandDelayUSq5 = 176U, /* 5.5 us */
+        .txPreEmphasisDelay1USq5 = 88U, /* 2.75 us */
+        .txPreEmphasisDelay2USq5 = 20U, /* 0.675 us */
+        .rxBaseBandDelayUSq5 = 20U, /* 0.625 us */
         .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_2000kHz,
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_4000kHz,
         .RFn_TXCUT_PARAMP = RF215_RFn_TXCUTC_PARAMP_8us,
-        .BBCn_FSKPE0 = 0x13,
-        .BBCn_FSKPE1 = 0x29,
-        .BBCn_FSKPE2 = 0xC7
+        .BBCn_FSKPE0 = 0x13U,
+        .BBCn_FSKPE1 = 0x29U,
+        .BBCn_FSKPE2 = 0xC7U
     }
 };
 
@@ -232,55 +232,55 @@ static const RF215_FSK_SYM_RATE_CONST_OBJ fskSymRateConst[6] = {
 static const RF215_OFDM_BW_OPT_CONST_OBJ ofdmBwOptConst[4] = {
     /* Option 1 */
     {
-        .bwHz = 1094000,
-        .txBaseBandDelayUSq5 = 16, /* 0.5 us */
-        .rxBaseBandDelayUSq5 = {2936, 3112}, /* 91.75, 97.25 us */
-        .phrSymbols = {3, 4},
-        .dataCarriers = 96,
+        .bwHz = 1094000UL,
+        .txBaseBandDelayUSq5 = 16U, /* 0.5 us */
+        .rxBaseBandDelayUSq5 = {2936U, 3112U}, /* 91.75, 97.25 us */
+        .phrSymbols = {3U, 4U},
+        .dataCarriers = 96U,
         .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_1333kHz,
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_1333kHz,
         /* Higher threshold than in Table 6-93 to avoid false detections */
-        .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(6),
+        .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(6U),
         .minMCS = OFDM_MCS_0
     },
 
     /* Option 2 */
     {
-        .bwHz = 552000,
-        .txBaseBandDelayUSq5 = 16, /* 0.5 us */
-        .rxBaseBandDelayUSq5 = {1988, 2030}, /* 62.125, 63.44 us */
-        .phrSymbols = {6, 8},
-        .dataCarriers = 48,
+        .bwHz = 552000UL,
+        .txBaseBandDelayUSq5 = 16U, /* 0.5 us */
+        .rxBaseBandDelayUSq5 = {1988U, 2030U}, /* 62.125, 63.44 us */
+        .phrSymbols = {6U, 8U},
+        .dataCarriers = 48U,
         .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_1333kHz,
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_1333kHz,
-        .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(5),
+        .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(5U),
         .minMCS = OFDM_MCS_0
     },
 
     /* Option 3 */
     {
-        .bwHz = 281000,
-        .txBaseBandDelayUSq5 = 32, /* 1 us */
-        .rxBaseBandDelayUSq5 = {1677, 1720}, /* 52.41, 53.75 us */
-        .phrSymbols = {6, 6},
-        .dataCarriers = 24,
+        .bwHz = 281000UL,
+        .txBaseBandDelayUSq5 = 32U, /* 1 us */
+        .rxBaseBandDelayUSq5 = {1677U, 1720U}, /* 52.41, 53.75 us */
+        .phrSymbols = {6U, 6U},
+        .dataCarriers = 24U,
         .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_667kHz,
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_667kHz,
-        .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(4),
+        .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(4U),
         .minMCS = OFDM_MCS_1 /* MCS0 not available in option 3 */
     },
 
     /* Option 4 */
     {
-        .bwHz = 156000,
-        .txBaseBandDelayUSq5 = 72, /* 2.25 us */
-        .rxBaseBandDelayUSq5 = {1596, 1640}, /* 49.875, 51.25 us */
-        .phrSymbols = {6, 6},
-        .dataCarriers = 12,
+        .bwHz = 156000UL,
+        .txBaseBandDelayUSq5 = 72U, /* 2.25 us */
+        .rxBaseBandDelayUSq5 = {1596U, 1640U}, /* 49.875, 51.25 us */
+        .phrSymbols = {6U, 6U},
+        .dataCarriers = 12U,
         .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_667kHz,
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_667kHz,
         /* Higher threshold than in Table 6-93 to avoid false detections */
-        .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(4),
+        .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(4U),
         .minMCS = OFDM_MCS_2 /* MCS0 and MCS1 not available in option 4 */
     }
 };
@@ -289,76 +289,76 @@ static const RF215_OFDM_BW_OPT_CONST_OBJ ofdmBwOptConst[4] = {
 static const RF215_OFDM_MCS_CONST_OBJ ofdmMcsConst[7] = {
     /* MCS0 */
     {
-        .repFactorShift = 2,
-        .bitsCarrierShift = 0,
-        .minTxPwrAttMin = 0
+        .repFactorShift = 2U,
+        .bitsCarrierShift = 0U,
+        .minTxPwrAttMin = 0U
     },
 
     /* MCS1 */
     {
-        .repFactorShift = 1,
-        .bitsCarrierShift = 0,
-        .minTxPwrAttMin = 0
+        .repFactorShift = 1U,
+        .bitsCarrierShift = 0U,
+        .minTxPwrAttMin = 0U
     },
 
     /* MCS2 */
     {
-        .repFactorShift = 1,
-        .bitsCarrierShift = 1,
-        .minTxPwrAttMin = 0
+        .repFactorShift = 1U,
+        .bitsCarrierShift = 1U,
+        .minTxPwrAttMin = 0U
     },
 
     /* MCS3 */
     {
-        .repFactorShift = 0,
-        .bitsCarrierShift = 1,
-        .minTxPwrAttMin = 0
+        .repFactorShift = 0U,
+        .bitsCarrierShift = 1U,
+        .minTxPwrAttMin = 0U
     },
 
     /* MCS4 */
     {
-        .repFactorShift = 0,
-        .bitsCarrierShift = 1,
-        .minTxPwrAttMin = 1
+        .repFactorShift = 0U,
+        .bitsCarrierShift = 1U,
+        .minTxPwrAttMin = 1U
     },
 
     /* MCS5 */
     {
-        .repFactorShift = 0,
-        .bitsCarrierShift = 2,
-        .minTxPwrAttMin = 3
+        .repFactorShift = 0U,
+        .bitsCarrierShift = 2U,
+        .minTxPwrAttMin = 3U
     },
 
     /* MCS6 */
     {
-        .repFactorShift = 0,
-        .bitsCarrierShift = 2,
-        .minTxPwrAttMin = 5
+        .repFactorShift = 0U,
+        .bitsCarrierShift = 2U,
+        .minTxPwrAttMin = 5U
     }
 };
 
 /* Transmitter Analog Front-end low-pass cut-off frequencies (TXCUTC.LPFCUT) or
  * Receiver Analog Front-end band-pass half bandwidth (RXBWC.BW) in Hz */
-static const uint32_t rf215AfeCutOffFreq[12] = {80000, 100000, 125000, 160000, \
-    200000, 250000, 315000, 400000, 500000, 625000, 800000, 1000000};
+static const uint32_t rf215AfeCutOffFreq[12] = {80000UL, 100000UL, 125000UL, 160000UL, \
+    200000UL, 250000UL, 315000UL, 400000UL, 500000UL, 625000UL, 800000UL, 1000000UL};
 
 /* Transmitter front-end delay in us [uQ4.5] [Table 6-1] when TXDFE.RCUT=4.
  * It depends on TXDFE.SR (1, 2, 3, 4, 5, 6, 8, 10): 2.0, 4.0, 5.25, 6.25, 8.3,
  * 8.5, 10.25, 13.75 us */
-static const uint16_t rf215TxDfeProcDelay[11] = {0, 64, 128, 168, 200, 266, 272,
-    0, 328, 0, 440};
+static const uint16_t rf215TxDfeProcDelay[11] = {0U, 64U, 128U, 168U, 200U, 266U, 272U,
+    0U, 328U, 0U, 440U};
 
 /* Transmitter front-end delay in us [uQ6.5] [Table 6-1] when TXDFE.RCUT!=4.
  * It depends on TXDFE.SR (1, 2, 3, 4, 5, 6, 8, 10): 4.0, 8.5, 11.0, 15.0, 18.5,
  * 20.5, 28.5, 34.0 us */
-static const uint16_t rf215TxDfeProcRcutDelay[11] = {0, 128, 272, 352, 480, 592,
-    656, 0, 912, 0, 1088};
+static const uint16_t rf215TxDfeProcRcutDelay[11] = {0U, 128U, 272U, 352U, 480U, 592U,
+    656U, 0U, 912U, 0U, 1088U};
 
 /* Receiver front-end delay in us [uQ5.5] (not in data-sheet).
  * When RXDFE.RCUT!=4, it depends on RXDFE.SR (1, 2, 3, 4, 5, 6, 8, 10)
  * 1.75, 3.625, 5.625, 7.5, 8.75, 11.125, 14, 17.25 us */
-static const uint16_t rf215RxDfeProcDelay[11] = {0, 56, 116, 180, 232, 280, \
-    356, 0, 448, 0, 552};
+static const uint16_t rf215RxDfeProcDelay[11] = {0U, 56U, 116U, 180U, 232U, 280U, \
+    356U, 0U, 448U, 0U, 552U};
 
 /* AGC Update Time in us (ceiling) [Figure 6-7]
  * AGCC.AGCI=0: Ordered by TXDFE.SR (1, 2, 3, 4, 5, 6, 8, 10) [Table 6-12]
@@ -366,8 +366,8 @@ static const uint16_t rf215RxDfeProcDelay[11] = {0, 56, 116, 180, 232, 280, \
  * AGCC.AVGS=1: 10.75, 18.5, 27.75, 37, 46.25, 55.5, 74, 85 us
  * AGCC.AVGS=2: 14.75, 26.5, 39.75, 53, 66.25, 79.5, 106, 125 us
  * AGCC.AVGS=3: 22.75, 42.5, 63.75, 85, 106.25, 127.5, 170, 205 us */
-static const uint8_t rf215AgcUpdTime0[11] = {0, 9, 15, 22, 29, 37, 44, 0, 48, \
-    0, 65};
+static const uint8_t rf215AgcUpdTime0[11] = {0U, 9U, 15U, 22U, 29U, 37U, 44U, 0U, 48U, \
+    0U, 65U};
 
 // *****************************************************************************
 // *****************************************************************************
@@ -391,11 +391,12 @@ static uint8_t rf215PhyRegRF_IQIFC1;
 // *****************************************************************************
 // *****************************************************************************
 
-static void _RF215_TX_PrepareTimeExpired(uintptr_t context);
-static DRV_RF215_PIB_RESULT _RF215_PHY_SetPhyConfig (
+static void lRF215_TX_PrepareTimeExpired(uintptr_t context);
+static DRV_RF215_PIB_RESULT lRF215_PHY_SetPhyConfig (
     uint8_t trxIdx,
     DRV_RF215_PHY_CFG_OBJ* phyCfgNew,
-    uint16_t chnNumNew
+    uint16_t chnNumNew,
+    bool listen
 );
 
 // *****************************************************************************
@@ -404,7 +405,7 @@ static DRV_RF215_PIB_RESULT _RF215_PHY_SetPhyConfig (
 // *****************************************************************************
 // *****************************************************************************
 
-static inline bool _RF215_FSK_CheckConfig(DRV_RF215_FSK_CFG_OBJ* fskConfig)
+static inline bool lRF215_FSK_CheckConfig(DRV_RF215_FSK_CFG_OBJ* fskConfig)
 {
     DRV_RF215_FSK_SYM_RATE symRate = fskConfig->symRate;
     DRV_RF215_FSK_MOD_IDX modIdx = fskConfig->modIdx;
@@ -427,17 +428,20 @@ static inline bool _RF215_FSK_CheckConfig(DRV_RF215_FSK_CFG_OBJ* fskConfig)
         /* 2-FSK: 1.0 and 0.5 modulation indexes supported */
         return (bool) (modIdx <= FSK_MOD_IDX_0_5);
     }
-    else if (modOrd == FSK_MOD_ORD_4FSK)
+    else
     {
-        /* 4-FSK: 1.0 modulation index supported */
-        return (bool) (modIdx == FSK_MOD_IDX_1_0);
+        if (modOrd == FSK_MOD_ORD_4FSK)
+        {
+            /* 4-FSK: 1.0 modulation index supported */
+            return (bool) (modIdx == FSK_MOD_IDX_1_0);
+        }
     }
 
     /* Invalid modulation order */
     return false;
 }
 
-static inline void _RF215_FSK_Regs (
+static inline void lRF215_FSK_Regs (
     DRV_RF215_FSK_CFG_OBJ* fskCfg,
     RF215_PHY_REGS_OBJ* phyRegs
 )
@@ -452,7 +456,7 @@ static inline void _RF215_FSK_Regs (
      * using direct modulation with pre-emphasis and BT is ignored in that
      * case (data-sheet 6.10.4.2)
      * FSKC0.MORD: FSK modulation order */
-    fskc0 = RF215_BBCn_FSKC0_BT_2_0 | RF215_BBCn_FSKC0_MORD(fskCfg->modOrd);
+    fskc0 = RF215_BBCn_FSKC0_BT_2_0 | RF215_BBCn_FSKC0_MORD((uint8_t) fskCfg->modOrd);
 
     /* FSKC0.MIDX/MIDXS: FSK modulation index */
     if (modIdx == FSK_MOD_IDX_1_0)
@@ -472,7 +476,7 @@ static inline void _RF215_FSK_Regs (
      * SRATE: FSK symbol rate
      * FSKPLH=0: Preamble length high byte (fixed to 8 octets)
      * FI=0: Sign of FSK deviation frequency not inverted */
-    phyRegs->BBCn_FSKC1 = RF215_BBCn_FSKC1_SRATE(symRate);
+    phyRegs->BBCn_FSKC1 = RF215_BBCn_FSKC1_SRATE((uint8_t) symRate);
 
     /* BBCn_FSKC2: Not needed to modify default register value.
      * FECIE=1: FEC interleaving enabled (NRNSC)
@@ -485,18 +489,18 @@ static inline void _RF215_FSK_Regs (
     phyRegs->BBCn_FSKC2 = RF215_BBCn_FSKC2_Rst;
 
     /* FSKC3.SFDT: SFD Detection Threshold default value 8 */
-    fskc3 = RF215_BBCn_FSKC3_SFDT(8);
+    fskc3 = RF215_BBCn_FSKC3_SFDT(8U);
 
     /* FSKC3.PDT: Preamble Detection Threshold */
     if ((modIdx == FSK_MOD_IDX_0_5) && (symRate >= FSK_SYM_RATE_150kHz))
     {
         /* Higher threshold to avoid false detections (spurious) */
-        fskc3 |= RF215_BBCn_FSKC3_PDT(6);
+        fskc3 |= RF215_BBCn_FSKC3_PDT(6U);
     }
     else
     {
         /* Default value 5 */
-        fskc3 |= RF215_BBCn_FSKC3_PDT(5);
+        fskc3 |= RF215_BBCn_FSKC3_PDT(5U);
     }
 
     /* BBCn_FSKC3 */
@@ -535,7 +539,7 @@ static inline void _RF215_FSK_Regs (
     phyRegs->BBCn_FSKPE2 = fskConst->BBCn_FSKPE2;
 }
 
-static inline uint8_t _RF215_FSK_SymbolsPerOctet (
+static inline uint8_t lRF215_FSK_SymbolsPerOctet (
     DRV_RF215_FSK_CFG_OBJ* fskCfg,
     DRV_RF215_PHY_MOD_SCHEME modScheme
 )
@@ -557,7 +561,7 @@ static inline uint8_t _RF215_FSK_SymbolsPerOctet (
     return symbols;
 }
 
-static inline uint32_t _RF215_FSK_PpduDuration (
+static inline uint32_t lRF215_FSK_PpduDuration (
     DRV_RF215_FSK_CFG_OBJ* fskCfg,
     DRV_RF215_PHY_MOD_SCHEME modScheme,
     uint16_t psduLen,
@@ -565,25 +569,24 @@ static inline uint32_t _RF215_FSK_PpduDuration (
 )
 {
     uint32_t symbolsAux, durationUS;
-    uint16_t symbolsTotal, symbolsPayload;
-    uint8_t symbolsOctet;
-    uint8_t tailPadOctets = 0;
+    uint16_t symbolsTotal, symbolsPayload, symbolsOctet;
+    uint8_t tailPadOctets = 0U;
 
     /* Compute number of FSK symbols per octet (PHR + Payload) */
-    symbolsOctet = _RF215_FSK_SymbolsPerOctet(fskCfg, modScheme);
+    symbolsOctet = lRF215_FSK_SymbolsPerOctet(fskCfg, modScheme);
 
     /* Payload: PSDU + tail + padding. Tail + padding only if FEC enabled */
     if (modScheme == FSK_FEC_ON)
     {
-        if ((psduLen & 1) != 0)
+        if ((psduLen & 1U) != 0U)
         {
             /* PSDU length odd: 3 tail bits + 5 padding bits */
-            tailPadOctets = 1;
+            tailPadOctets = 1U;
         }
         else
         {
             /* PSDU length even: 3 tail bits + 13 padding bits */
-            tailPadOctets = 2;
+            tailPadOctets = 2U;
         }
     }
 
@@ -593,14 +596,14 @@ static inline uint32_t _RF215_FSK_PpduDuration (
      * PHR: 2 octets. Symbols depend on modulation order and FEC.
      * Payload: PSDU+tail+padding. Symbols depend on modulation order and FEC */
     symbolsPayload = (psduLen + tailPadOctets) * symbolsOctet;
-    symbolsTotal = (10 << 3) + (symbolsOctet << 1) + symbolsPayload;
-    symbolsAux = (uint32_t) symbolsTotal * 1000;
+    symbolsTotal = (10U << 3) + (symbolsOctet << 1) + symbolsPayload;
+    symbolsAux = (uint32_t) symbolsTotal * 1000U;
     *pSymbolsPayload = symbolsPayload;
-    durationUS = DIV_ROUND(symbolsAux, fskSymRateConst[fskCfg->symRate].kHz);
+    durationUS = DIV_ROUND(symbolsAux, (uint32_t) fskSymRateConst[fskCfg->symRate].kHz);
     return SYS_TIME_USToCount(durationUS);
 }
 
-static inline DRV_RF215_PHY_MOD_SCHEME _RF215_FSK_ReadPHR(uint8_t phr)
+static inline DRV_RF215_PHY_MOD_SCHEME lRF215_FSK_ReadPHR(uint8_t phr)
 {
     phr &= BBC_FSKPHRRX_MASK;
     if (phr == BBC_FSKPHRRX_FEC_OFF)
@@ -608,17 +611,20 @@ static inline DRV_RF215_PHY_MOD_SCHEME _RF215_FSK_ReadPHR(uint8_t phr)
         /* Valid PHR with SFD0 (uncoded) */
         return FSK_FEC_OFF;
     }
-    else if (phr == BBC_FSKPHRRX_FEC_ON)
+    else
     {
-        /* Valid PHR with SFD1 (coded) */
-        return FSK_FEC_ON;
+        if (phr == BBC_FSKPHRRX_FEC_ON)
+        {
+            /* Valid PHR with SFD1 (coded) */
+            return FSK_FEC_ON;
+        }
     }
 
     /* Invalid PHR */
     return MOD_SCHEME_INVALID;
 }
 
-static inline uint32_t _RF215_FSK_FreqTolQ45 (
+static inline uint32_t lRF215_FSK_FreqTolQ45 (
     const RF215_PLL_CONST_OBJ* pllConst,
     RF215_PLL_PARAMS_OBJ* pllParams,
     DRV_RF215_FSK_CFG_OBJ* fskCfg
@@ -626,6 +632,7 @@ static inline uint32_t _RF215_FSK_FreqTolQ45 (
 {
     /* FSK PHY: T<=min(50*10^-6, T0*R*h*F0/R0/h0/F) */
     uint64_t tolAuxQ45;
+    uint8_t symRateDiv50;
 
     /* Get T0, different for RF09 and RF24 */
     tolAuxQ45 = pllConst->fskTolT0;
@@ -633,8 +640,9 @@ static inline uint32_t _RF215_FSK_FreqTolQ45 (
     /* Multiply by R/R0 (R: FSK symbol rate; R0 = 50kHz)
      * Multiply by F0 (F0 = 915MHz)
      * Multiply by h/h0 (h: FSK modulation index; h0 = 1) */
-    tolAuxQ45 *= (fskSymRateConst[fskCfg->symRate].kHz / 50);
-    tolAuxQ45 *= 915000000;
+    symRateDiv50 = (uint8_t) (fskSymRateConst[fskCfg->symRate].kHz / 50U);
+    tolAuxQ45 *= symRateDiv50;
+    tolAuxQ45 *= 915000000UL;
     if (fskCfg->modIdx == FSK_MOD_IDX_0_5)
     {
         tolAuxQ45 >>= 1;
@@ -652,14 +660,14 @@ static inline uint32_t _RF215_FSK_FreqTolQ45 (
     return (uint32_t) tolAuxQ45;
 }
 
-static inline uint32_t _RF215_FSK_RxStartDelayUSq5 (
+static inline uint32_t lRF215_FSK_RxStartDelayUSq5 (
     DRV_RF215_FSK_CFG_OBJ* fskCfg,
     DRV_RF215_PHY_MOD_SCHEME modScheme
 )
 {
     uint32_t delayUSq5, delayAux;
     uint8_t symbolsOctet;
-    uint8_t symbolsDelay = 0;
+    uint8_t symbolsDelay = 0U;
     DRV_RF215_FSK_SYM_RATE symRate = fskCfg->symRate;
     const RF215_FSK_SYM_RATE_CONST_OBJ* fskConst = &fskSymRateConst[symRate];
 
@@ -667,25 +675,25 @@ static inline uint32_t _RF215_FSK_RxStartDelayUSq5 (
     delayUSq5 = fskConst->rxBaseBandDelayUSq5;
 
     /* Compute number of FSK symbols per octet (PHR + Payload) */
-    symbolsOctet = _RF215_FSK_SymbolsPerOctet(fskCfg, modScheme);
+    symbolsOctet = lRF215_FSK_SymbolsPerOctet(fskCfg, modScheme);
 
     /* Additional delay if FEC is enabled */
     if (modScheme == FSK_FEC_ON)
     {
-        delayUSq5 += 44; /* 1.375 us */
-        symbolsDelay = 34;
+        delayUSq5 += 44U; /* 1.375 us */
+        symbolsDelay = 34U;
     }
 
     /* Compute RXFS delay in microseconds [uQ14.5].
      * SHR (Preamble + SFD): Preamble fixed to 8 octets, SFD 2 octets. 8 symbols
      * per octet (not affected by modulation order and FEC).
      * PHR: 2 octets. Symbols depend on modulation order and FEC. */
-    symbolsDelay += ((10 << 3) + (symbolsOctet << 1));
-    delayAux = (uint32_t) symbolsDelay * (1000 << 5);
-    return (delayUSq5 + DIV_ROUND(delayAux, fskConst->kHz));
+    symbolsDelay += ((10U << 3) + (symbolsOctet << 1));
+    delayAux = (uint32_t) symbolsDelay * (1000U << 5);
+    return (delayUSq5 + DIV_ROUND(delayAux, (uint32_t) fskConst->kHz));
 }
 
-static inline bool _RF215_OFDM_CheckConfig(DRV_RF215_OFDM_CFG_OBJ* ofdmConfig)
+static inline bool lRF215_OFDM_CheckConfig(DRV_RF215_OFDM_CFG_OBJ* ofdmConfig)
 {
     DRV_RF215_OFDM_BW_OPT opt = ofdmConfig->opt;
     DRV_RF215_OFDM_ITLV_MODE itlv = ofdmConfig->itlv;
@@ -701,13 +709,13 @@ static inline bool _RF215_OFDM_CheckConfig(DRV_RF215_OFDM_CFG_OBJ* ofdmConfig)
     return true;
 }
 
-static inline void _RF215_OFDM_Regs (
+static inline void lRF215_OFDM_Regs (
     RF215_PHY_OBJ* phyObj,
     RF215_PHY_REGS_OBJ* phyRegs
 )
 {
     uint32_t freqLow, freqMid, freqHigh, bwHalf;
-    uint8_t ofdmphrrx, ofdmc, ofdmsw, div;
+    uint8_t ofdmphrrx, ofdmc, ofdmsw, freqDiv;
     DRV_RF215_OFDM_CFG_OBJ *ofdmCfg = &phyObj->phyConfig.phyTypeCfg.ofdm;
     DRV_RF215_OFDM_BW_OPT opt = ofdmCfg->opt;
     const RF215_OFDM_BW_OPT_CONST_OBJ* ofdmConst = &ofdmBwOptConst[opt];
@@ -719,17 +727,17 @@ static inline void _RF215_OFDM_Regs (
     bwHalf = ofdmConst->bwHz >> 1;
     freqLow = freqMid - bwHalf;
     freqHigh = freqMid + bwHalf;
-    ofdmphrrx = phyObj->phyRegs.BBCn_OFDMPHRRX & (~RF215_BBCn_OFDMPHRRX_SPC_EN);
-    div = (uint8_t) (freqHigh / 26000000UL);
-    if ((26000000UL * div) >= freqLow)
+    ofdmphrrx = phyObj->phyRegs.BBCn_OFDMPHRRX & ((uint8_t) ~RF215_BBCn_OFDMPHRRX_SPC_EN);
+    freqDiv = (uint8_t) (freqHigh / 26000000UL);
+    if ((26000000UL * freqDiv) >= freqLow)
     {
         /* Multiple of 26MHz falls in receive bandwidth */
         ofdmphrrx |= RF215_BBCn_OFDMPHRRX_SPC_EN;
     }
     else
     {
-        div = (uint8_t) (freqHigh / 32000000UL);
-        if ((32000000UL * div) >= freqLow)
+        freqDiv = (uint8_t) (freqHigh / 32000000UL);
+        if ((32000000UL * freqDiv) >= freqLow)
         {
             /* Multiple of 32MHz falls in receive bandwidth */
             ofdmphrrx |= RF215_BBCn_OFDMPHRRX_SPC_EN;
@@ -742,7 +750,7 @@ static inline void _RF215_OFDM_Regs (
     /* OFDMC.OPT: MR-OFDM Bandwidth Option
      * OFDMC.POI: PIB Attribute phyOFDMInterleaving
      * OFDMC.SSTX: Transmitter Scrambler Seed Configuration (0) */
-    ofdmc = RF215_BBCn_OFDMC_OPT(opt) | RF215_BBCn_OFDMC_POI(ofdmCfg->itlv);
+    ofdmc = RF215_BBCn_OFDMC_OPT((uint8_t) opt) | RF215_BBCn_OFDMC_POI((uint8_t) ofdmCfg->itlv);
 
     /* OFDMC.LFO: Reception with Low Frequency Offset.
      * Enable if it is guaranteed that the absolute frequency offset of the
@@ -750,7 +758,7 @@ static inline void _RF215_OFDM_Regs (
      * Get maximum frequency offset due to tolerance, depending on PHY and
      * channel configuration. Multiply by 2 because offset is given for
      * single-sided clock */
-    if ((phyObj->pllParams.freqDelta << 1) < 57300)
+    if ((phyObj->pllParams.freqDelta << 1) < 57300U)
     {
         ofdmc |= RF215_BBCn_OFDMC_LFO_EN;
     }
@@ -766,7 +774,7 @@ static inline void _RF215_OFDM_Regs (
     phyRegs->BBCn_OFDMSW = ofdmsw;
 }
 
-static inline uint32_t _RF215_OFDM_PpduDuration (
+static inline uint32_t lRF215_OFDM_PpduDuration (
     DRV_RF215_OFDM_CFG_OBJ* ofdmCfg,
     DRV_RF215_PHY_MOD_SCHEME modScheme,
     uint16_t psduLen,
@@ -783,13 +791,13 @@ static inline uint32_t _RF215_OFDM_PpduDuration (
     uint8_t repFactShift = mcsConst->repFactorShift;
 
     /* Payload: PSDU bits + PPDU Tail (6 bits for convolutional encoder) */
-    bitsPayTotal = (psduLen << 3) + 6;
+    bitsPayTotal = ((uint32_t) psduLen << 3) + 6U;
 
     /* Payload: Convolutional encoder (rate depends on MCS) */
     if ((modScheme == OFDM_MCS_4) || (modScheme == OFDM_MCS_6))
     {
         /* Rate 3/4: Multiply by 4/3 */
-        bitsPayTotal = DIV_CEIL(bitsPayTotal << 2, 3);
+        bitsPayTotal = DIV_CEIL(bitsPayTotal << 2, 3U);
     }
     else
     {
@@ -807,19 +815,19 @@ static inline uint32_t _RF215_OFDM_PpduDuration (
     /* If phyOfdmInterleaving=1, symbols multiple of repetition factor */
     if (ofdmCfg->itlv == OFDM_INTERLEAVING_1)
     {
-        symbolsPay = DIV_CEIL(symbolsPay, 1 << repFactShift) << repFactShift;
+        symbolsPay = DIV_CEIL(symbolsPay, (uint16_t) 1U << repFactShift) << repFactShift;
     }
 
     /* Compute frame duration in microseconds
      * SHR (STF + LTF): 6 OFDM symbols (not affected by any parameter)
      * PHR: Number of symbols depending on option and phyOfdmInterleaving */
-    symbolsTotal = 6 + optConst->phrSymbols[ofdmCfg->itlv] + symbolsPay;
+    symbolsTotal = 6U + (uint16_t) optConst->phrSymbols[ofdmCfg->itlv] + symbolsPay;
     *pSymbolsPayload = symbolsPay;
-    durationUS = (uint32_t) symbolsTotal * 120;
+    durationUS = (uint32_t) symbolsTotal * 120U;
     return SYS_TIME_USToCount(durationUS);
 }
 
-static inline DRV_RF215_PHY_MOD_SCHEME _RF215_OFDM_ReadPHR (
+static inline DRV_RF215_PHY_MOD_SCHEME lRF215_OFDM_ReadPHR (
     uint8_t phr,
     DRV_RF215_OFDM_BW_OPT opt
 )
@@ -839,7 +847,7 @@ static inline DRV_RF215_PHY_MOD_SCHEME _RF215_OFDM_ReadPHR (
     return modScheme;
 }
 
-static inline uint32_t _RF215_OFDM_RxStartDelayUSq5 (
+static inline uint32_t lRF215_OFDM_RxStartDelayUSq5 (
     DRV_RF215_OFDM_CFG_OBJ* ofdmCfg
 )
 {
@@ -854,11 +862,11 @@ static inline uint32_t _RF215_OFDM_RxStartDelayUSq5 (
     /* Compute RXFS delay in microseconds [uQ14.5]
      * SHR (STF + LTF): 6 OFDM symbols (not affected by any parameter)
      * PHR: Number of symbols depending on option and phyOfdmInterleaving */
-    symbolsDelay = 6 + optConst->phrSymbols[itlv];
-    return (delayUSq5 + ((uint32_t) symbolsDelay * (120 << 5)));
+    symbolsDelay = 6U + optConst->phrSymbols[itlv];
+    return (delayUSq5 + ((uint32_t) symbolsDelay * (120U << 5)));
 }
 
-static void _RF215_BBC_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* phyRegs)
+static void lRF215_BBC_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* phyRegs)
 {
     /* Get BBC registers for the specific PHY type.
      * Turnaround time used for slotted CSMA-CA (aTurnaroundTime):
@@ -870,19 +878,22 @@ static void _RF215_BBC_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* phyRegs)
      * For all OFDM options it is 1.08 ms (9 symbols of 120 us). */
     if (phyObj->phyConfig.phyType == PHY_TYPE_FSK)
     {
-        _RF215_FSK_Regs(&phyObj->phyConfig.phyTypeCfg.fsk, phyRegs);
+        lRF215_FSK_Regs(&phyObj->phyConfig.phyTypeCfg.fsk, phyRegs);
         phyObj->turnaroundTimeUS = 1000;
     }
     else /* PHY_TYPE_OFDM */
     {
-        _RF215_OFDM_Regs(phyObj, phyRegs);
+        lRF215_OFDM_Regs(phyObj, phyRegs);
         phyObj->turnaroundTimeUS = 1080;
     }
 }
 
-static void _RF215_BBC_WriteRegs(uint8_t trxIdx, RF215_PHY_REGS_OBJ* phyRegsNew)
+static void lRF215_BBC_WriteRegs(uint8_t trxIdx, RF215_PHY_REGS_OBJ* phyRegsNew)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
+
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 18.1 deviated 6 times. Deviation record ID - H3_MISRAC_2012_R_18_1_DR_1 */
 
     /* Write BBC configuration, depending on PHY type */
     if (pObj->phyConfig.phyType == PHY_TYPE_FSK)
@@ -901,9 +912,11 @@ static void _RF215_BBC_WriteRegs(uint8_t trxIdx, RF215_PHY_REGS_OBJ* phyRegsNew)
         RF215_HAL_SpiWriteUpdate(RF215_BBCn_OFDMPHRRX(trxIdx),
                 &phyRegsNew->BBCn_OFDMPHRRX, &pObj->phyRegs.BBCn_OFDMPHRRX, 3);
     }
+
+    /* MISRA C-2012 deviation block end */
 }
 
-static inline void _RF215_BBC_SetPhyControl(uint8_t trxIdx, uint8_t pc)
+static inline void lRF215_BBC_SetPhyControl(uint8_t trxIdx, uint8_t pc)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     if (pObj->phyRegs.BBCn_PC != pc)
@@ -913,65 +926,70 @@ static inline void _RF215_BBC_SetPhyControl(uint8_t trxIdx, uint8_t pc)
     }
 }
 
-static inline void _RF215_BBC_BaseBandDisable(uint8_t trxIdx)
+static inline void lRF215_BBC_BaseBandDisable(uint8_t trxIdx)
 {
-    uint8_t pc = rf215PhyObj[trxIdx].phyRegs.BBCn_PC & (~RF215_BBCn_PC_BBEN_Msk);
-    _RF215_BBC_SetPhyControl(trxIdx, pc);
+    uint8_t pc = rf215PhyObj[trxIdx].phyRegs.BBCn_PC & ((uint8_t) ~RF215_BBCn_PC_BBEN_Msk);
+    lRF215_BBC_SetPhyControl(trxIdx, pc);
 }
 
-static inline void _RF215_BBC_BaseBandEnable(uint8_t trxIdx)
+static inline void lRF215_BBC_BaseBandEnable(uint8_t trxIdx)
 {
     uint8_t pc = rf215PhyObj[trxIdx].phyRegs.BBCn_PC | RF215_BBCn_PC_BBEN_Msk;
-    _RF215_BBC_SetPhyControl(trxIdx, pc);
+    lRF215_BBC_SetPhyControl(trxIdx, pc);
 }
 
-static inline void _RF215_BBC_SetFBLI(uint8_t trxIdx, uint16_t fbli)
+static inline void lRF215_BBC_SetFBLI(uint8_t trxIdx, uint16_t fbli)
 {
-    RF215_PHY_REGS_OBJ regsNew;
+    RF215_PHY_REGS_OBJ regsNew = {0};
     RF215_PHY_REGS_OBJ* regsOld = &rf215PhyObj[trxIdx].phyRegs;
 
     /* Write FBLI value in registers. First byte is LSB. */
-    regsNew.BBCn_FBLIL = (uint8_t) (fbli & 0xFF);
+    regsNew.BBCn_FBLIL = (uint8_t) fbli;
     regsNew.BBCn_FBLIH = (uint8_t) RF215_BBCn_FBLIH_FBLIH(fbli >> 8);
 
     /* If only BBCn_FBLIL is changed, BBCn_FBLIH must be written too */
     if (regsNew.BBCn_FBLIL != regsOld->BBCn_FBLIL)
     {
-        regsOld->BBCn_FBLIH = regsNew.BBCn_FBLIH + 1;
+        regsOld->BBCn_FBLIH = regsNew.BBCn_FBLIH + 1U;
     }
+
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 18.1 deviated twice. Deviation record ID - H3_MISRAC_2012_R_18_1_DR_1 */
 
     /* Write up to 2 registers: BBCn_FBLIL, BBCn_FBLIH */
     RF215_HAL_SpiWriteUpdate(RF215_BBCn_FBLIL(trxIdx),
-            &regsNew.BBCn_FBLIL, &regsOld->BBCn_FBLIL, 2);
+            &regsNew.BBCn_FBLIL, &regsOld->BBCn_FBLIL, 2U);
+
+    /* MISRA C-2012 deviation block end */
 }
 
-static inline uint16_t _RF215_BBC_GetBestFBLI (
+static inline uint16_t lRF215_BBC_GetBestFBLI (
     DRV_RF215_PHY_CFG_OBJ* phyCfg,
     DRV_RF215_PHY_MOD_SCHEME modScheme,
     uint16_t psduLen
 )
 {
-    uint32_t bitsPayTotal, octetsPayTotal, payloadUSq5;
-    uint16_t octetUSq5, marginUSq5, bitsSymb;
+    uint32_t bitsPayTotal, octetsPayTotal, payloadUSq5, octetUSq5;
+    uint16_t marginUSq5, bitsSymb;
     const RF215_OFDM_BW_OPT_CONST_OBJ* optConst;
     const RF215_OFDM_MCS_CONST_OBJ* mcsConst;
     uint8_t symbolsOctet;
-    uint32_t numAux = 0;
-    uint32_t denAux = 1;
-    uint16_t bitsBlock = 8;
-    uint8_t fecK = 0;
-    uint16_t fbli = 2047;
-    uint8_t fecFlushBits = 0;
-    uint8_t fecDelayBits = 0;
+    uint32_t numAux = 0U;
+    uint32_t denAux = 1U;
+    uint16_t bitsBlock = 8U;
+    uint8_t fecK = 0U;
+    uint16_t fbli = 2047U;
+    uint8_t fecFlushBits = 0U;
+    uint8_t fecDelayBits = 0U;
     DRV_RF215_PHY_TYPE_CFG_OBJ* phyTypeCfg = &phyCfg->phyTypeCfg;
 
     if (phyCfg->phyType == PHY_TYPE_FSK)
     {
         /* Compute number of FSK symbols per octet */
-        symbolsOctet = _RF215_FSK_SymbolsPerOctet(&phyTypeCfg->fsk, modScheme);
+        symbolsOctet = lRF215_FSK_SymbolsPerOctet(&phyTypeCfg->fsk, modScheme);
 
         /* Compute octet duration in us [uQ9.5] */
-        numAux = (uint32_t) symbolsOctet * (1000 << 5);
+        numAux = (uint32_t) symbolsOctet * (1000U << 5);
         denAux = fskSymRateConst[phyTypeCfg->fsk.symRate].kHz;
 
         if (modScheme == FSK_FEC_ON)
@@ -979,8 +997,8 @@ static inline uint16_t _RF215_BBC_GetBestFBLI (
             /* FEC (and interleaver) enabled (K = 4). Interleaver works with
              * blocks of 16 code-symbols, so Frame Buffer is updated every
              * 2 octets */
-            bitsBlock = 16;
-            fecK = 4;
+            bitsBlock = 16U;
+            fecK = 4U;
         }
     }
     else
@@ -993,16 +1011,16 @@ static inline uint16_t _RF215_BBC_GetBestFBLI (
         bitsSymb = (uint16_t) optConst->dataCarriers << mcsConst->bitsCarrierShift;
 
         /* OctectDuration = (8*Rep*SymbDur)/(CC_rate*DataCarr*BitsCarr) */
-        numAux = 120 << (mcsConst->repFactorShift + 8);
+        numAux = 120UL << (mcsConst->repFactorShift + 8U);
         denAux = bitsSymb;
 
         /* Number of bits (uncoded, with repetition) of 1 OFDM symbol */
         if ((modScheme == OFDM_MCS_4) || (modScheme == OFDM_MCS_6))
         {
             /* FEC rate 3/4: Multiply by 3/4 */
-            bitsBlock = (bitsSymb * 3) >> 2;
+            bitsBlock = (bitsSymb * 3U) >> 2;
             numAux <<= 2;
-            denAux *= 3;
+            denAux *= 3U;
         }
         else
         {
@@ -1014,7 +1032,7 @@ static inline uint16_t _RF215_BBC_GetBestFBLI (
         /* FEC (and interleaver) always enabled in OFDM (K = 7). Interleaver
          * works with blocks of 1 OFDM symbol (phyOfdmInterleaving=0) or FreqRep
          * OFDM symbols (phyOfdmInterleaving=1) */
-        fecK = 7;
+        fecK = 7U;
         if (phyTypeCfg->ofdm.itlv == OFDM_INTERLEAVING_0)
         {
             bitsBlock >>= mcsConst->repFactorShift;
@@ -1022,28 +1040,28 @@ static inline uint16_t _RF215_BBC_GetBestFBLI (
     }
 
     /* Compute RF octet duration in us [uQ9.5] */
-    octetUSq5 = (uint16_t) DIV_ROUND(numAux, denAux);
+    octetUSq5 = DIV_ROUND(numAux, denAux);
 
-    if (fecK >= 2)
+    if (fecK >= 2U)
     {
         /* FEC enabled. FlushingBits=K-1; Delay=2^(K-2) */
-        fecFlushBits = fecK - 1;
-        fecDelayBits = 1 << (fecK - 2);
+        fecFlushBits = fecK - 1U;
+        fecDelayBits = 1U << (fecK - 2U);
     }
 
     /* Compute total payload octets, including FEC flushing and padding */
-    bitsPayTotal = (psduLen << 3) + fecFlushBits;
+    bitsPayTotal = ((uint32_t) psduLen << 3) + fecFlushBits;
     bitsPayTotal = DIV_CEIL(bitsPayTotal, bitsBlock) * bitsBlock;
-    octetsPayTotal = DIV_CEIL(bitsPayTotal, 8);
+    octetsPayTotal = DIV_CEIL(bitsPayTotal, 8U);
 
     /* 500 us of margin between FBLI and RXFE in case there is another
      * interrupt in between to avoid delaying RXFE interrupt.
      * Added time of SPI transactions before reading buffer in FBLI interrupt:
      * 12 bytes (6 IRQS, 4 FBL, 2 SPI header) */
-    marginUSq5 = (500 << 5) + (RF215_SPI_BYTE_DURATION_US_Q5 * 12);
+    marginUSq5 = (500U << 5) + (RF215_SPI_BYTE_DURATION_US_Q5 * 12U);
 
     /* Payload duration: PsduLen * TimeRfOctect */
-    payloadUSq5 = (uint32_t) octetUSq5 * octetsPayTotal;
+    payloadUSq5 = octetUSq5 * octetsPayTotal;
 
     if (payloadUSq5 > marginUSq5)
     {
@@ -1065,24 +1083,24 @@ static inline uint16_t _RF215_BBC_GetBestFBLI (
         }
         else
         {
-            fbliBits = 0;
+            fbliBits = 0U;
         }
 
-        if (fbliBits > 8)
+        if (fbliBits > 8U)
         {
             /* Convert to octets (flooring) */
             fbli = fbliBits >> 3;
 
             /* FBLI interrupt is triggered when Frame Buffer Level is higher
              * than BBCn_FBLI */
-            fbli -= 1;
+            fbli -= 1U;
         }
     }
 
     return fbli;
 }
 
-static void _RF215_PLL_Params (
+static void lRF215_PLL_Params (
     const RF215_PLL_CONST_OBJ* pllConst,
     RF215_PLL_PARAMS_OBJ* pllParams,
     DRV_RF215_PHY_CFG_OBJ* phyCfg,
@@ -1092,9 +1110,9 @@ static void _RF215_PLL_Params (
     uint64_t chnFreqAux;
     uint32_t chnFreq;
     const RF215_PLL_FREQ_RNG_OBJ* freqRange;
-    uint32_t freqTolQ45 = 0;
-    uint8_t freqRng = 0xFF;
-    uint8_t chnMode = 0;
+    uint32_t freqTolQ45 = 0U;
+    uint8_t freqRng = 0xFFU;
+    uint8_t chnMode = 0U;
 
     /* Compute channel frequency: F = F0 + (CS * CN) */
     chnFreqAux = (uint64_t) phyCfg->chnSpaHz * chnNum;
@@ -1110,7 +1128,7 @@ static void _RF215_PLL_Params (
     pllParams->chnFreq = chnFreq;
 
     /* Check if frequency is within allowed RF215 ranges */
-    for (uint8_t rng = 0; rng < pllConst->numFreqRanges; rng++)
+    for (uint8_t rng = 0U; rng < pllConst->numFreqRanges; rng++)
     {
         freqRange = &pllConst->freqRanges[rng];
         if ((chnFreq >= freqRange->freqMin) && (chnFreq <= freqRange->freqMax))
@@ -1118,8 +1136,8 @@ static void _RF215_PLL_Params (
             /* Frequency is within this supported range */
             freqRng = rng;
 
-            if (((phyCfg->chnF0Hz % PLL_IEEE_FREQ_STEP_Hz) == 0) &&
-                    ((phyCfg->chnSpaHz % PLL_IEEE_FREQ_STEP_Hz) == 0) &&
+            if (((phyCfg->chnF0Hz % PLL_IEEE_FREQ_STEP_Hz) == 0U) &&
+                    ((phyCfg->chnSpaHz % PLL_IEEE_FREQ_STEP_Hz) == 0U) &&
                     (phyCfg->chnSpaHz <= PLL_IEEE_CHN_SPA_MAX_Hz) &&
                     (chnNum <= PLL_IEEE_CHN_NUM_MAX))
             {
@@ -1144,7 +1162,7 @@ static void _RF215_PLL_Params (
     /* Compute maximum frequency offset due to tolerance (single-sided clock) */
     if (phyCfg->phyType == PHY_TYPE_FSK)
     {
-        freqTolQ45 = _RF215_FSK_FreqTolQ45(pllConst, pllParams, &phyCfg->phyTypeCfg.fsk);
+        freqTolQ45 = lRF215_FSK_FreqTolQ45(pllConst, pllParams, &phyCfg->phyTypeCfg.fsk);
     }
     else /* PHY_TYPE_OFDM */
     {
@@ -1156,7 +1174,7 @@ static void _RF215_PLL_Params (
     pllParams->freqDelta = (uint32_t) (chnFreqAux >> 45);
 }
 
-static inline bool _RF215_PLL_CheckConfig (
+static inline bool lRF215_PLL_CheckConfig (
     const RF215_PLL_CONST_OBJ* pllConst,
     RF215_PLL_PARAMS_OBJ* pllParams,
     DRV_RF215_PHY_CFG_OBJ* phyCfg,
@@ -1180,7 +1198,7 @@ static inline bool _RF215_PLL_CheckConfig (
     return true;
 }
 
-static void _RF215_PLL_Regs (
+static void lRF215_PLL_Regs (
     RF215_PHY_OBJ* phyObj,
     const RF215_PLL_CONST_OBJ* pllConst,
     RF215_PHY_REGS_OBJ* regsNew
@@ -1207,11 +1225,11 @@ static void _RF215_PLL_Regs (
         f025KHz = (uint16_t) (f0 / PLL_IEEE_FREQ_STEP_Hz);
 
         /* RFn_CCF0L - Channel Center Frequency F0 Low Byte */
-        regsNew->RFn_CCF0L = (uint8_t) (f025KHz & 0xFF);
+        regsNew->RFn_CCF0L = (uint8_t) f025KHz;
         /* RFn_CCF0H - Channel Center Frequency F0 High Byte */
         regsNew->RFn_CCF0H = (uint8_t) (f025KHz >> 8);
         /* RFn_CNL - Channel Number Low Byte */
-        regsNew->RFn_CNL = (uint8_t) (chnNum & 0xFF);
+        regsNew->RFn_CNL = (uint8_t) chnNum;
         /* RFn_CNM - Channel Mode and Channel Number High Bit */
         regsNew->RFn_CNM = chnMode | (uint8_t) RF215_RFn_CNM_CNH(chnNum >> 8);
     }
@@ -1233,18 +1251,18 @@ static void _RF215_PLL_Regs (
         Nchannel = (uint32_t) DIV_ROUND((uint64_t) f0 << 16, freqRes);
 
         /* RFn_CCF0L - Channel Center Frequency F0 Low Byte (middle byte) */
-        regsNew->RFn_CCF0L = (uint8_t) ((Nchannel >> 8) & 0xFF);
+        regsNew->RFn_CCF0L = (uint8_t) (Nchannel >> 8);
         /* RFn_CCF0H - Channel Center Frequency F0 High Byte (high byte) */
         regsNew->RFn_CCF0H = (uint8_t) (Nchannel >> 16);
         /* RFn_CNL - Channel Number Low Byte (low byte) */
-        regsNew->RFn_CNL = (uint8_t) (Nchannel & 0xFF);
+        regsNew->RFn_CNL = (uint8_t) Nchannel;
 
         /* RFn_CNM - Channel Mode and Channel Number High Bit */
         regsNew->RFn_CNM = chnMode;
 
         /* Recompute channel frequency in Hz as:
          * ((Nchannel*resolution)/2^16)+offset */
-        f0 = (uint32_t) DIV_ROUND((uint64_t) Nchannel * freqRes, 1 << 16);
+        f0 = (uint32_t) DIV_ROUND((uint64_t) Nchannel * freqRes, 1UL << 16);
         f0 += freqOffset;
         pllParams->chnFreq = f0;
     }
@@ -1257,12 +1275,12 @@ static void _RF215_PLL_Regs (
         if (regsNew->RFn_CNM == regsOld->RFn_CNM)
         {
             /* RFn_CNM must always be written */
-            regsOld->RFn_CNM = regsNew->RFn_CNM + 1;
+            regsOld->RFn_CNM = regsNew->RFn_CNM + 1U;
         }
     }
 }
 
-static inline void _RF215_RXFE_SetEDD(uint8_t trxIdx, uint8_t edd)
+static inline void lRF215_RXFE_SetEDD(uint8_t trxIdx, uint8_t edd)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     if (pObj->phyRegs.RFn_EDD != edd)
@@ -1272,30 +1290,30 @@ static inline void _RF215_RXFE_SetEDD(uint8_t trxIdx, uint8_t edd)
     }
 }
 
-static inline void _RF215_RXFE_SetAutoEDD(uint8_t trxIdx)
+static inline void lRF215_RXFE_SetAutoEDD(uint8_t trxIdx)
 {
     /* Energy detection duration for automatic mode */
-    _RF215_RXFE_SetEDD(trxIdx, RF215_RFn_EDD_DTB_128us | RF215_RFn_EDD_DF(63));
+    lRF215_RXFE_SetEDD(trxIdx, RF215_RFn_EDD_DTB_128us | RF215_RFn_EDD_DF(63U));
 }
 
-static inline void _RF215_RXFE_SetEnDetectDuration(uint8_t trxIdx, uint16_t eddUS)
+static inline void lRF215_RXFE_SetEnDetectDuration(uint8_t trxIdx, uint16_t eddUS)
 {
     uint8_t eddDF = 16;
     uint8_t eddDTB = RF215_RFn_EDD_DTB_8us;
 
     /* Convert microseconds to EDD.DTB/DF subfields */
-    if (eddUS <= (63 << 1))
+    if (eddUS <= (63U << 1))
     {
         /* EDD.DTB: 2us */
         eddDTB = RF215_RFn_EDD_DTB_2us;
         eddDF = (uint8_t) (eddUS >> 1);
     }
-    else if (eddUS <= (63 << 3))
+    else if (eddUS <= (63U << 3))
     {
         /* EDD.DTB: 8us */
         eddDF = (uint8_t) (eddUS >> 3);
     }
-    else if (eddUS <= (63 << 5))
+    else if (eddUS <= (63U << 5))
     {
         /* EDD.DTB: 32us */
         eddDTB = RF215_RFn_EDD_DTB_32us;
@@ -1308,10 +1326,10 @@ static inline void _RF215_RXFE_SetEnDetectDuration(uint8_t trxIdx, uint16_t eddU
         eddDF = (uint8_t) (eddUS >> 7);
     }
 
-    _RF215_RXFE_SetEDD(trxIdx, eddDTB | RF215_RFn_EDD_DF(eddDF));
+    lRF215_RXFE_SetEDD(trxIdx, eddDTB | RF215_RFn_EDD_DF(eddDF));
 }
 
-static inline void _RF215_RXFE_AdjustEDD(uint8_t trxIdx)
+static inline void lRF215_RXFE_AdjustEDD(uint8_t trxIdx)
 {
     uint8_t agcUpdTimeUS;
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
@@ -1328,28 +1346,28 @@ static inline void _RF215_RXFE_AdjustEDD(uint8_t trxIdx)
     }
 
     /* Adjust EDD depending on RFn_EDD.DTB resolution (ceiling) */
-    if (eddUS <= (63 << 1))
+    if (eddUS <= (63U << 1))
     {
         /* EDD.DTB: 2us */
-        eddUS = ((eddUS + 1) >> 1) << 1;
+        eddUS = ((eddUS + 1U) >> 1) << 1;
     }
-    else if (eddUS <= (63 << 3))
+    else if (eddUS <= (63U << 3))
     {
         /* EDD.DTB: 8us */
-        eddUS = ((eddUS + 7) >> 3) << 3;
+        eddUS = ((eddUS + 7U) >> 3) << 3;
     }
-    else if (eddUS <= (63 << 5))
+    else if (eddUS <= (63U << 5))
     {
         /* EDD.DTB: 32us */
-        eddUS = ((eddUS + 31) >> 5) << 5;
+        eddUS = ((eddUS + 31U) >> 5) << 5;
     }
     else
     {
         /* EDD.DTB: 128us */
-        eddUS = ((eddUS + 127) >> 7) << 7;
-        if (eddUS > 63 << 7)
+        eddUS = ((eddUS + 127U) >> 7) << 7;
+        if (eddUS > (63U << 7))
         {
-            eddUS = 63 << 7;
+            eddUS = 63U << 7;
         }
     }
 
@@ -1357,10 +1375,10 @@ static inline void _RF215_RXFE_AdjustEDD(uint8_t trxIdx)
     pObj->phyConfig.ccaEdDurationUS = eddUS;
 }
 
-static inline uint8_t _RF215_AFE_CutOff(uint32_t cutOffFreq)
+static inline uint8_t lRF215_AFE_CutOff(uint32_t cutOffFreq)
 {
     /* Find value so that fLPFCUT >= cutoffFreq */
-    for (uint8_t idx = 0; idx < 12; idx++)
+    for (uint8_t idx = 0U; idx < 12U; idx++)
     {
         if (cutOffFreq <= rf215AfeCutOffFreq[idx])
         {
@@ -1370,31 +1388,31 @@ static inline uint8_t _RF215_AFE_CutOff(uint32_t cutOffFreq)
     }
 
     /* Any cut-off frequency meets the requirement */
-    return 11;
+    return 11U;
 }
 
-static inline uint8_t _RF215_DFE_CutOff(uint32_t cutoffFreq, uint8_t sr)
+static inline uint8_t lRF215_DFE_CutOff(uint32_t cutoffFreq, uint8_t sr)
 {
     uint32_t rcutHz[4];
     uint32_t fsHz;
 
     /* Get Transmitter digital front-end sampling frequency in Hz */
-    fsHz = 4000000 / sr;
+    fsHz = 4000000UL / sr;
 
     /** fCUT = x*fs/2; fs is sampling rate; x is between 0.25 and 1 */
     /** Compute cut-off frequencies for fs used */
     /* Value 0: fCUT=0.25*fs/2 */
     rcutHz[0] = fsHz >> 3;
     /* Value 1: fCUT=0.375*fs/2 */
-    rcutHz[1] = (fsHz * 3) >> 4;
+    rcutHz[1] = (fsHz * 3U) >> 4;
     /* Value 2: fCUT=0.5*fs/2 */
     rcutHz[2] = fsHz >> 2;
     /* Value 3: fCUT=0.75*fs/2 */
-    rcutHz[3] = (fsHz * 3) >> 3;
+    rcutHz[3] = (fsHz * 3U) >> 3;
     /* Value 4: fCUT=1.00*fs/2 (bypassed) */
 
     /* Find value so that fCUT >= cutoffFreq */
-    for (uint8_t idx = 0; idx < 4; idx++)
+    for (uint8_t idx = 0U; idx < 4U; idx++)
     {
         if (cutoffFreq <= rcutHz[idx])
         {
@@ -1404,25 +1422,25 @@ static inline uint8_t _RF215_DFE_CutOff(uint32_t cutoffFreq, uint8_t sr)
     }
 
     /* Any RCUT cut-off frequency meet the requirement: bypass */
-    return 4;
+    return 4U;
 }
 
-static void _RF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNew)
+static void lRF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNew)
 {
     uint32_t freqDelta, freqDev, freqDevAux, bwFreqDelta, bwHz;
     const RF215_OFDM_BW_OPT_CONST_OBJ* ofdmConst;
     const RF215_FSK_SYM_RATE_CONST_OBJ* fskConst;
     uint8_t rxbwc, bwVal, lpfcutVal, rcutRxVal, rcutTxVal;
-    uint32_t rxbwcBwHz = 0;
-    uint32_t lpfcutFreq = 0;
-    uint32_t rcutRxFreqHz = 0;
-    uint32_t rcutTxFreqHz = 0;
-    uint8_t rxdfe = 0;
-    uint8_t txdfe = 0;
-    uint8_t srRxVal = 0;
-    uint8_t srTxVal = 0;
-    uint8_t agcs = 0;
-    uint8_t txcutc = 0;
+    uint32_t rxbwcBwHz = 0U;
+    uint32_t lpfcutFreq = 0U;
+    uint32_t rcutRxFreqHz = 0U;
+    uint32_t rcutTxFreqHz = 0U;
+    uint8_t rxdfe = 0U;
+    uint8_t txdfe = 0U;
+    uint8_t srRxVal = 0U;
+    uint8_t srTxVal = 0U;
+    uint8_t agcs = 0U;
+    uint8_t txcutc = 0U;
     DRV_RF215_PHY_TYPE_CFG_OBJ* phyTypeCfg = &phyObj->phyConfig.phyTypeCfg;
     RF215_PHY_REGS_OBJ* regsOld = &phyObj->phyRegs;
 
@@ -1450,7 +1468,7 @@ static void _RF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNe
          * the received signal is not attenuated.
          * fBW >= 2*(max(2.5*fDev, fDev + fDelta))
          * fCUT >= max(2.5*fDev, fDev + fDelta) */
-        rxbwcBwHz = (freqDev * 5) >> 1;
+        rxbwcBwHz = (freqDev * 5U) >> 1;
         freqDevAux = freqDev + freqDelta;
         if (freqDevAux > rxbwcBwHz)
         {
@@ -1465,7 +1483,7 @@ static void _RF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNe
 
         /* AGCS.TGT: AGC target level -24dB [Tables 6-60 to 6-63]
          * AGCS.GCW: keep initial reset value 23 */
-        agcs = RF215_RFn_AGCS_GCW(23) | RF215_RFn_AGCS_TGT_24dB;
+        agcs = RF215_RFn_AGCS_GCW(23U) | RF215_RFn_AGCS_TGT_24dB;
 
         /* TXCUTC.PARAMP: Power Amplifier ramp time
          * TXDFE.SR: Transmitter digital front-end sampling rate
@@ -1480,8 +1498,8 @@ static void _RF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNe
 
         /* Reduce spurious transmissions as much as possible without attenuating
          * transmitted carrier (fdev). fLPFCUT >= 3*fdev; fCUT >= 5*fdev */
-        lpfcutFreq = freqDev * 3;
-        rcutTxFreqHz = freqDev * 5;
+        lpfcutFreq = freqDev * 3U;
+        rcutTxFreqHz = freqDev * 5U;
     }
     else /* PHY_TYPE_OFDM */
     {
@@ -1496,13 +1514,13 @@ static void _RF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNe
          * fBW >= 2*(max(0.5625*BW, (BW/2) + fdelta))
          * fCUT >= max(0.8125*BW, (BW/2) + fdelta) */
         bwFreqDelta = (bwHz >> 1) + freqDelta;
-        rxbwcBwHz = (bwHz * 9) >> 4;
+        rxbwcBwHz = (bwHz * 9U) >> 4;
         if (bwFreqDelta > rxbwcBwHz)
         {
             rxbwcBwHz = bwFreqDelta;
         }
 
-        rcutRxFreqHz = (bwHz * 13) >> 4;
+        rcutRxFreqHz = (bwHz * 13U) >> 4;
         if (bwFreqDelta > rcutRxFreqHz)
         {
             rcutRxFreqHz = bwFreqDelta;
@@ -1513,10 +1531,10 @@ static void _RF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNe
         srRxVal = rxdfe >> RF215_RFn_RXDFE_SR_Pos;
 
         /* AGCS.GCW: keep initial reset value 23 */
-        agcs = RF215_RFn_AGCS_GCW(23);
+        agcs = RF215_RFn_AGCS_GCW(23U);
 
         /* AGCS.TGT: AGC target level, depending on OFDMPHRRX.SPC */
-        if ((regsNew->BBCn_OFDMPHRRX & RF215_BBCn_OFDMPHRRX_SPC_EN) != 0)
+        if ((regsNew->BBCn_OFDMPHRRX & RF215_BBCn_OFDMPHRRX_SPC_EN) != 0U)
         {
             /* Spurious compensation disabled: -21dB */
             agcs |= RF215_RFn_AGCS_TGT_21dB;
@@ -1537,12 +1555,12 @@ static void _RF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNe
         /* Reduce spurious transmissions as much as possible without
          * attenuating transmitted signal (BW / 2).
          * fLPFCUT >= 0.875*BW; fCUT >= 0.875*BW */
-        lpfcutFreq = (ofdmConst->bwHz * 7) >> 3;
+        lpfcutFreq = (ofdmConst->bwHz * 7U) >> 3;
         rcutTxFreqHz = lpfcutFreq;
     }
 
     /* RXBWC.BW: Receiver analog front-end band pass filter bandwidth */
-    bwVal = _RF215_AFE_CutOff(rxbwcBwHz);
+    bwVal = lRF215_AFE_CutOff(rxbwcBwHz);
     rxbwc = RF215_RFn_RXBWC_BW(bwVal);
 
     /* RXBWC.IFS: Multiply fIF by 1.25 if fBW==fIF */
@@ -1558,7 +1576,7 @@ static void _RF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNe
 
     /* RXDFE.RCUT: Receiver digital front-end pre-filter normalized
      * cut-off frequency */
-    rcutRxVal = _RF215_DFE_CutOff(rcutRxFreqHz, srRxVal);
+    rcutRxVal = lRF215_DFE_CutOff(rcutRxFreqHz, srRxVal);
     rxdfe |= RF215_RFn_RXDFE_RCUT(rcutRxVal);
 
     /* RFn_RXDFE */
@@ -1576,18 +1594,18 @@ static void _RF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNe
     /* RFn_EDC: Automatic Energy Detection Mode (triggered by reception) */
     regsNew->RFn_EDC = RF215_RFn_EDC_EDM_AUTO;
     /*  RFn_EDD: Energy detection duration for automatic mode */
-    regsNew->RFn_EDD = RF215_RFn_EDD_DTB_128us | RF215_RFn_EDD_DF(63);
+    regsNew->RFn_EDD = RF215_RFn_EDD_DTB_128us | RF215_RFn_EDD_DF(63U);
     /* RFn_EDV (read-only) */
     regsNew->RFn_EDV = regsOld->RFn_EDV;
     /* RFn_RNDV (read-only) */
     regsNew->RFn_RNDV = regsOld->RFn_RNDV;
 
     /* TXCUTC.LPFCUT: TX analog front-end low pass filter cut-off freq */
-    lpfcutVal = _RF215_AFE_CutOff(lpfcutFreq);
+    lpfcutVal = lRF215_AFE_CutOff(lpfcutFreq);
     txcutc |= RF215_RFn_TXCUTC_LPFCUT(lpfcutVal);
 
     /* TXDFE.RCUT: TX digital front-end pre-filter normalized cut-off freq */
-    rcutTxVal = _RF215_DFE_CutOff(rcutTxFreqHz, srTxVal);
+    rcutTxVal = lRF215_DFE_CutOff(rcutTxFreqHz, srTxVal);
     txdfe |= RF215_RFn_TXDFE_RCUT(rcutTxVal);
 
     /* RFn_TXCUTC */
@@ -1596,29 +1614,36 @@ static void _RF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNe
     regsNew->RFn_TXDFE = txdfe;
 }
 
-static void _RF215_PHY_SetFlag(uintptr_t context, void* pData, uint64_t time)
+static void lRF215_PHY_SetFlag(uintptr_t context, void* pData, uint64_t timeRead)
 {
     bool* flag = (bool *) context;
     *flag = true;
 }
 
-static bool _RF215_PHY_CheckPhyCfg(DRV_RF215_PHY_CFG_OBJ* phyConfig)
+static bool lRF215_PHY_CheckPhyCfg(DRV_RF215_PHY_CFG_OBJ* phyConfig)
 {
+    bool result = false;
+
     switch (phyConfig->phyType)
     {
         case PHY_TYPE_FSK:
-            return _RF215_FSK_CheckConfig(&phyConfig->phyTypeCfg.fsk);
+            result = lRF215_FSK_CheckConfig(&phyConfig->phyTypeCfg.fsk);
+            break;
 
         case PHY_TYPE_OFDM:
-            return _RF215_OFDM_CheckConfig(&phyConfig->phyTypeCfg.ofdm);
+            result = lRF215_OFDM_CheckConfig(&phyConfig->phyTypeCfg.ofdm);
+            break;
 
         default:
             /* PHY type not supported */
-            return false;
+            result = false;
+            break;
     }
+
+    return result;
 }
 
-static uint32_t _RF215_PHY_PpduDuration (
+static uint32_t lRF215_PHY_PpduDuration (
     DRV_RF215_PHY_CFG_OBJ* phyConfig,
     DRV_RF215_PHY_MOD_SCHEME modScheme,
     uint16_t psduLen,
@@ -1627,21 +1652,23 @@ static uint32_t _RF215_PHY_PpduDuration (
 {
     if (phyConfig->phyType == PHY_TYPE_FSK)
     {
-        return _RF215_FSK_PpduDuration(&phyConfig->phyTypeCfg.fsk, modScheme,
+        return lRF215_FSK_PpduDuration(&phyConfig->phyTypeCfg.fsk, modScheme,
                 psduLen, pSymbolsPayload);
     }
     else /* PHY_TYPE_OFDM */
     {
-        return _RF215_OFDM_PpduDuration(&phyConfig->phyTypeCfg.ofdm, modScheme,
+        return lRF215_OFDM_PpduDuration(&phyConfig->phyTypeCfg.ofdm, modScheme,
                 psduLen, pSymbolsPayload);
     }
 }
 
-static bool _RF215_PHY_BandOpModeToPhyCfg (
+static bool lRF215_PHY_BandOpModeToPhyCfg (
     DRV_RF215_PHY_BAND_OPM bandOpMode,
     DRV_RF215_PHY_CFG_OBJ* phyConfig
 )
 {
+    bool result = true;
+
     switch (bandOpMode)
     {
         case SUN_FSK_BAND_863_OPM1:
@@ -1812,23 +1839,23 @@ static bool _RF215_PHY_BandOpModeToPhyCfg (
             *phyConfig = SUN_FSK_BAND_920_928_OPM12;
             break;
 
-        case SUN_FSK_BAND_920B_INDONESIA_OPM1:
+        case SUN_FSK_BAND_920B_IND_OPM1:
             *phyConfig = SUN_FSK_BAND_920_923_OPM1;
             break;
 
-        case SUN_FSK_BAND_920B_INDONESIA_OPM2:
+        case SUN_FSK_BAND_920B_IND_OPM2:
             *phyConfig = SUN_FSK_BAND_920_923_OPM2;
             break;
 
-        case SUN_FSK_BAND_920B_INDONESIA_OPM3:
+        case SUN_FSK_BAND_920B_IND_OPM3:
             *phyConfig = SUN_FSK_BAND_920_923_OPM3;
             break;
 
-        case SUN_FSK_BAND_920B_INDONESIA_OPM4:
+        case SUN_FSK_BAND_920B_IND_OPM4:
             *phyConfig = SUN_FSK_BAND_920_923_OPM4;
             break;
 
-        case SUN_FSK_BAND_920B_INDONESIA_OPM5:
+        case SUN_FSK_BAND_920B_IND_OPM5:
             *phyConfig = SUN_FSK_BAND_920_923_OPM5;
             break;
 
@@ -1952,19 +1979,19 @@ static bool _RF215_PHY_BandOpModeToPhyCfg (
             *phyConfig = SUN_OFDM_BAND_920_928_OPT1;
             break;
 
-        case SUN_OFDM_BAND_920B_INDONESIA_OPT4:
+        case SUN_OFDM_BAND_920B_IND_OPT4:
             *phyConfig = SUN_OFDM_BAND_920_923_OPT4;
             break;
 
-        case SUN_OFDM_BAND_920B_INDONESIA_OPT3:
+        case SUN_OFDM_BAND_920B_IND_OPT3:
             *phyConfig = SUN_OFDM_BAND_920_923_OPT3;
             break;
 
-        case SUN_OFDM_BAND_920B_INDONESIA_OPT2:
+        case SUN_OFDM_BAND_920B_IND_OPT2:
             *phyConfig = SUN_OFDM_BAND_920_923_OPT2;
             break;
 
-        case SUN_OFDM_BAND_920B_INDONESIA_OPT1:
+        case SUN_OFDM_BAND_920B_IND_OPT1:
             *phyConfig = SUN_OFDM_BAND_920_923_OPT1;
             break;
 
@@ -1985,37 +2012,41 @@ static bool _RF215_PHY_BandOpModeToPhyCfg (
             break;
 
         default:
-            return false;
+            result = false;
+            break;
     }
 
-    return true;
+    return result;
 }
 
-static inline int32_t _RF215_PHY_USq5ToSysTimeCount(int32_t timeUSq5)
+static inline int32_t lRF215_PHY_USq5ToSysTimeCount(int32_t timeUSq5)
 {
-    uint32_t sysTimeFreq = SYS_TIME_FrequencyGet();
-    return (int32_t) DIV_ROUND((int64_t) timeUSq5 * sysTimeFreq, 32000000);
+    uint32_t denominatorHalf = 32000000UL >> 1;
+    int32_t sysTimeFreq = (int32_t) SYS_TIME_FrequencyGet();
+    int64_t numerator = (int64_t) timeUSq5 * sysTimeFreq;
+    numerator += (int32_t) denominatorHalf;
+    return (int32_t) (numerator / 32000000L);
 }
 
-static inline int32_t _RF215_PHY_EventTrxCountDiff(void* pData)
+static inline int32_t lRF215_PHY_EventTrxCountDiff(void* pData)
 {
-    int32_t trxCountDiff;
+    uint32_t trxCount, spiHeaderDuration;
     uint8_t* pCNT = (uint8_t *) pData;
 
     /* Read counter (reset at TX start or RX frame start event).
      * BBCn_CNT0 is least significant byte */
-    trxCountDiff = (int32_t) pCNT[0];
-    trxCountDiff += ((int32_t) pCNT[1] << 8);
-    trxCountDiff += ((int32_t) pCNT[2] << 16);
-    trxCountDiff += ((int32_t) pCNT[3] << 24);
+    trxCount = (uint32_t) pCNT[0];
+    trxCount += ((uint32_t) pCNT[1] << 8);
+    trxCount += ((uint32_t) pCNT[2] << 16);
+    trxCount += ((uint32_t) pCNT[3] << 24);
 
     /* Compensate delay between SYS_TIME and TRX counter reads */
-    trxCountDiff += RF215_SYNC_DELAY_US_Q5;
-    trxCountDiff -= (RF215_SPI_BYTE_DURATION_US_Q5 << 1);
-    return trxCountDiff;
+    trxCount += RF215_SYNC_DELAY_US_Q5;
+    spiHeaderDuration = RF215_SPI_BYTE_DURATION_US_Q5 << 1;
+    return (int32_t) trxCount - (int32_t) spiHeaderDuration;
 }
 
-static void _RF215_PHY_CheckAborts(uint8_t trxIdx, bool reset)
+static void lRF215_PHY_CheckAborts(uint8_t trxIdx, bool reset)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
@@ -2043,56 +2074,74 @@ static void _RF215_PHY_CheckAborts(uint8_t trxIdx, bool reset)
             /* Turn off TX LED */
             RF215_HAL_LedTx(false);
 
+            /* Transmission in progress aborted. Set pending TX confirm. */
+            RF215_PHY_SetTxCfm(pObj->txBufObj, RF215_TX_ABORTED);
+            break;
+
         case PHY_STATE_TX_CCA_ED:
             /* ED aborted by leaving RX: Auto mode automatically restored */
             pObj->phyRegs.RFn_EDC = RF215_RFn_EDC_EDM_AUTO;
+
+            /* Transmission in progress aborted. Set pending TX confirm. */
+            RF215_PHY_SetTxCfm(pObj->txBufObj, RF215_TX_ABORTED);
+            break;
 
         case PHY_STATE_TX_TXPREP:
             /* Transmission in progress aborted. Set pending TX confirm. */
             RF215_PHY_SetTxCfm(pObj->txBufObj, RF215_TX_ABORTED);
             break;
 
+        /* MISRA C-2012 deviation block start */
+        /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+
         default:
             break;
+
+        /* MISRA C-2012 deviation block end */
     }
 }
 
-static inline void _RF215_TRX_Command(uint8_t trxIdx, const uint8_t* pCommand)
+static inline void lRF215_TRX_Command(uint8_t trxIdx, const uint8_t* pCommand)
 {
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+
     RF215_HAL_SpiWrite(RF215_RFn_CMD(trxIdx), (void *) pCommand, 1);
+
+    /* MISRA C-2012 deviation block end */
 }
 
-static inline void _RF215_TRX_CommandSleep(uint8_t trxIdx)
+static inline void lRF215_TRX_CommandSleep(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
     /* SLEEP command */
-    _RF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.sleep);
+    lRF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.sleep);
 
     /* Update PHY and TRX states */
     pObj->phyState = PHY_STATE_SLEPT;
     pObj->trxState = RF215_RFn_STATE_RF_RESET;
 }
 
-static inline void _RF215_TRX_CommandTrxOff(uint8_t trxIdx)
+static inline void lRF215_TRX_CommandTrxOff(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
     /* TRXOFF command */
-    _RF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.trxoff);
+    lRF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.trxoff);
 
     /* Update TRX state */
     pObj->trxState = RF215_RFn_STATE_RF_TRXOFF;
     pObj->trxRdy = false;
 }
 
-static inline void _RF215_TRX_CommandTxPrep(uint8_t trxIdx)
+static inline void lRF215_TRX_CommandTxPrep(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     uint8_t trxState = pObj->trxState;
 
     /* TXPREP command */
-    _RF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.txprep);
+    lRF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.txprep);
 
     /* Update TRX state */
     pObj->trxState = RF215_RFn_STATE_RF_TXPREP;
@@ -2108,12 +2157,12 @@ static inline void _RF215_TRX_CommandTxPrep(uint8_t trxIdx)
     }
 }
 
-static inline void _RF215_TRX_CommandTx(uint8_t trxIdx)
+static inline void lRF215_TRX_CommandTx(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
     /* TX command */
-    _RF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.tx);
+    lRF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.tx);
 
     /* Turn on TX LED. Update TRX and PHY state */
     RF215_HAL_LedTx(true);
@@ -2121,83 +2170,82 @@ static inline void _RF215_TRX_CommandTx(uint8_t trxIdx)
     pObj->phyState = PHY_STATE_TX;
 }
 
-static inline void _RF215_TRX_CommandRx(uint8_t trxIdx)
+static inline void lRF215_TRX_CommandRx(uint8_t trxIdx)
 {
     /* RX command */
-    _RF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.rx);
+    lRF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.rx);
 
     /* Update TRX state */
     rf215PhyObj[trxIdx].trxState = RF215_RFn_STATE_RF_RX;
 }
 
-static inline void _RF215_TRX_CommandReset(uint8_t trxIdx)
+static inline void lRF215_TRX_CommandReset(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
     /* RESET command */
-    _RF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.reset);
+    lRF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.reset);
 
     /* Update TRX state */
     pObj->trxState = RF215_RFn_STATE_RF_TRXOFF;
 }
 
-static void _RF215_TRX_RxListen(uint8_t trxIdx)
+static void lRF215_TRX_RxListen(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     bool rxCmd = false;
 
-    if (pObj->trxState != RF215_RFn_STATE_RF_RESET)
+    if (pObj->trxState == RF215_RFn_STATE_RF_RESET)
     {
-        /* Update PHY state */
-        pObj->phyState = PHY_STATE_RX_LISTEN;
+        /* Do nothing */
+        return;
     }
+
+    /* Update PHY state */
+    pObj->phyState = PHY_STATE_RX_LISTEN;
 
     if (pObj->phyCfgPending == true)
     {
         /* Pending PHY configuration */
-        _RF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending);
+        (void) lRF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending, false);
     }
-    switch (pObj->trxState)
+
+    if (pObj->trxState == RF215_RFn_STATE_RF_TXPREP)
     {
-        case RF215_RFn_STATE_RF_RESET:
-            /* RESET/SLEEP state: do nothing */
-            return;
-
-        case RF215_RFn_STATE_RF_TXPREP:
-            /* TXPREP state: send RX command if PLL is locked (TRXRDY).
-             * If PLL is not locked, RX command will be sent from TRXRDY IRQ. */
-            if (pObj->trxRdy == true)
-            {
-                rxCmd = true;
-            }
-            break;
-
-        default:
-            /* TRXOFF/TX/RX state: send TXPREP and RX commands.
-             * 2 commands can be sent consecutively (queue depth: 1 element).
-             * If there is TX or RX in progress it will be aborted. */
-            _RF215_TRX_CommandTxPrep(trxIdx);
+        /* TXPREP state: send RX command if PLL is locked (TRXRDY).
+         * If PLL is not locked, RX command will be sent from TRXRDY IRQ. */
+        if (pObj->trxRdy == true)
+        {
             rxCmd = true;
-            break;
+        }
+    }
+    else
+    {
+        /* TRXOFF/TX/RX state: send TXPREP and RX commands.
+         * 2 commands can be sent consecutively (queue depth: 1 element).
+         * If there is TX or RX in progress it will be aborted. */
+        lRF215_TRX_CommandTxPrep(trxIdx);
+        rxCmd = true;
     }
 
     /* If there was an Energy Detection, we need to restore 2 registers:
      * BBCn_PC: Enable Baseband (disabled during ED).
      * RFn_EDD: Restore ED duration for automatic mode.
      * Registers only written if value changes. */
-    _RF215_BBC_BaseBandEnable(trxIdx);
-    _RF215_RXFE_SetAutoEDD(trxIdx);
+    lRF215_BBC_BaseBandEnable(trxIdx);
+    lRF215_RXFE_SetAutoEDD(trxIdx);
 
     /* RX command */
     if (rxCmd == true)
     {
-        _RF215_TRX_CommandRx(trxIdx);
+        lRF215_TRX_CommandRx(trxIdx);
     }
 }
 
-static bool _RF215_TRX_SwitchTrxOff(uint8_t trxIdx)
+static bool lRF215_TRX_SwitchTrxOff(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
+    bool trxoffCmd = true;
 
     switch (pObj->trxState)
     {
@@ -2207,7 +2255,8 @@ static bool _RF215_TRX_SwitchTrxOff(uint8_t trxIdx)
 
         case RF215_RFn_STATE_RF_TRXOFF:
             /* Already in TRXOFF state */
-            return true;
+            trxoffCmd = false;
+            break;
 
         default:
             /* TXPREP/RX/TX state: Needed to switch to TRXOFF state */
@@ -2217,13 +2266,11 @@ static bool _RF215_TRX_SwitchTrxOff(uint8_t trxIdx)
                  * to send TRXOFF command and make sure TRXOFF is reached. */
                 return false;
             }
-            else
-            {
-                /* We can send TRXOFF command making sure TRXOFF will be reached
-                 * "instantaneously".
-                 * If there is TX or RX in progress it will be aborted. */
-                _RF215_PHY_CheckAborts(trxIdx, false);
-            }
+
+            /* We can send TRXOFF command making sure TRXOFF will be reached
+             * "instantaneously".
+             * If there is TX or RX in progress it will be aborted. */
+            lRF215_PHY_CheckAborts(trxIdx, false);
             break;
     }
 
@@ -2234,19 +2281,25 @@ static bool _RF215_TRX_SwitchTrxOff(uint8_t trxIdx)
      * RX -> TRXOFF: 200 ns Max ("instantaneous" transition).
      * SLEEP -> TRXOFF: 1 us Typ ("instantaneous" transition).
      * DEEP_SLEEP -> TRXOFF: 500 us Max (indicated by Wake-up interrupt). */
-    _RF215_TRX_CommandTrxOff(trxIdx);
+    if (trxoffCmd == true)
+    {
+        lRF215_TRX_CommandTrxOff(trxIdx);
+    }
+
     return true;
 }
 
-static bool _RF215_TRX_SwitchTxPrep(uint8_t trxIdx)
+static bool lRF215_TRX_SwitchTxPrep(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
+    bool txprepState = true;
 
     switch (pObj->trxState)
     {
         case RF215_RFn_STATE_RF_RESET:
             /* RESET/SLEEP state: do nothing */
-            return false;
+            txprepState = false;
+            break;
 
         case RF215_RFn_STATE_RF_TXPREP:
             /* Already in TXPREP state or in transition */
@@ -2262,11 +2315,15 @@ static bool _RF215_TRX_SwitchTxPrep(uint8_t trxIdx)
             }
 
             /* If there is TX or RX in progress it will be aborted */
-            _RF215_PHY_CheckAborts(trxIdx, false);
+            lRF215_PHY_CheckAborts(trxIdx, false);
+
+            /* RX/TX state: Needed to switch to TXPREP state */
+            lRF215_TRX_CommandTxPrep(trxIdx);
+            break;
 
         default:
-            /* TRXOFF/RX/TX state: Needed to switch to TXPREP state */
-            _RF215_TRX_CommandTxPrep(trxIdx);
+            /* TRXOFF state: Needed to switch to TXPREP state */
+            lRF215_TRX_CommandTxPrep(trxIdx);
             break;
     }
 
@@ -2276,103 +2333,124 @@ static bool _RF215_TRX_SwitchTxPrep(uint8_t trxIdx)
      * RX -> TXPREP: 200 ns Max ("instantaneous" transition).
      * TX -> TXPREP: 33 us Max.
      * PLL_CH_SW (channel switch time in TXPREP): 100 us Max. */
-    return pObj->trxRdy;
+    if (txprepState == true)
+    {
+        txprepState = pObj->trxRdy;
+    }
+
+    return txprepState;
 }
 
-static void _RF215_TRX_EnableTxContinuousMode(uint8_t trxIdx)
+static void lRF215_TRX_EnableTxContinuousMode(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     
     /* Swith to TRXOFF state before to configure continuous transmission */
-    if ((pObj->txAutoInProgress == false) && (_RF215_TRX_SwitchTrxOff(trxIdx) == true))
+    if (pObj->txAutoInProgress == false)
     {
-        uint8_t pac;
-        RF215_PHY_REGS_OBJ* phyRegs = &pObj->phyRegs;
-        RF215_PHY_OBJ* pObjOther = &rf215PhyObj[RF215_TRX_RF24_IDX];
-        uint8_t trxIdxOther = RF215_TRX_RF24_IDX;
-        RF215_PHY_STATE phyStateOther;
-
-        if (trxIdx == RF215_TRX_RF24_IDX)
+        if (lRF215_TRX_SwitchTrxOff(trxIdx) == true)
         {
-            pObjOther = &rf215PhyObj[RF215_TRX_RF09_IDX];
-            trxIdxOther = RF215_TRX_RF09_IDX;
-        }
+            uint8_t pac;
+            RF215_PHY_REGS_OBJ* phyRegs = &pObj->phyRegs;
+            RF215_PHY_OBJ* pObjOther = &rf215PhyObj[RF215_TRX_RF24_IDX];
+            uint8_t trxIdxOther = RF215_TRX_RF24_IDX;
+            RF215_PHY_STATE phyStateOther;
 
-        /* Set other TRX to idle state (TRXOFF) */
-        phyStateOther = pObjOther->phyState;
-        if ((phyStateOther != PHY_STATE_TX_CONTINUOUS) && (phyStateOther != PHY_STATE_SLEPT))
-        {
-            if ((pObjOther->txAutoInProgress == true) || (_RF215_TRX_SwitchTrxOff(trxIdxOther) == false))
+            if (trxIdx == RF215_TRX_RF24_IDX)
             {
-                pObjOther->idlePending = true;
-                pObj->txContinuousPending = true;
-                return;
+                pObjOther = &rf215PhyObj[RF215_TRX_RF09_IDX];
+                trxIdxOther = RF215_TRX_RF09_IDX;
             }
 
-            pObjOther->idlePending = false;
-            pObjOther->phyState = PHY_STATE_IDLE;
-        }
+            /* Set other TRX to idle state (TRXOFF) */
+            phyStateOther = pObjOther->phyState;
+            if ((phyStateOther != PHY_STATE_TX_CONTINUOUS) && (phyStateOther != PHY_STATE_SLEPT))
+            {
+                if (pObjOther->txAutoInProgress == true)
+                {
+                    pObjOther->idlePending = true;
+                    pObj->txContinuousPending = true;
+                    return;
+                }
 
-        /* Disable baseband by Chip Mode (RF_IQIFC1) to generate LO carrier.
-         * Chip Mode must be set to 1 (both TRX disabled) */
-        if ((rf215PhyRegRF_IQIFC1 & RF215_RF_IQIFC1_CHPM_Msk) == RF215_RF_IQIFC1_CHPM_BBRF)
-        {
-            /* Write RF_IQIFC1 register */
-            rf215PhyRegRF_IQIFC1 = RF215_RF_IQIFC1_SKEWDRV_3_906ns | RF215_RF_IQIFC1_CHPM_RF;
-            RF215_HAL_SpiWrite(RF215_RF_IQIFC1, &rf215PhyRegRF_IQIFC1, 1);
-        }
+                if (lRF215_TRX_SwitchTrxOff(trxIdxOther) == false)
+                {
+                    pObjOther->idlePending = true;
+                    pObj->txContinuousPending = true;
+                    return;
+                }
 
-        /* Transmitter Power Amplifier Control (RFn_PAC)
-         * PAC.PACUR: Power Amplifier Current Control. No power amplifier
-         * current reduction to achieve maximum output power.
-         * PAC.TXPWR: Maximum Transmitter Output Power. */
-        pac = RF215_RFn_PAC_PACUR_0mA | RF215_RFn_PAC_TXPWR_MAX;
+                pObjOther->idlePending = false;
+                pObjOther->phyState = PHY_STATE_IDLE;
 
-        /* Check if TX power changes */
-        if (phyRegs->RFn_PAC != pac)
-        {
-            phyRegs->RFn_PAC = pac;
-            RF215_HAL_SpiWrite(RF215_RFn_PAC(trxIdx), &phyRegs->RFn_PAC, 1);
-        }
+                if (pObjOther->txStarted == true)
+                {
+                    /* Transmission in progress aborted. Set pending TX confirm. */
+                    RF215_PHY_SetTxCfm(pObjOther->txBufObj, RF215_TX_ABORTED);
+                }
+            }
 
-        /* Switch TRX to TXPREP state before sending TX command */
-        pObj->txContinuousPending = false;
-        _RF215_TRX_CommandTxPrep(trxIdx);
+            /* Disable baseband by Chip Mode (RF_IQIFC1) to generate LO carrier.
+             * Chip Mode must be set to 1 (both TRX disabled) */
+            if ((rf215PhyRegRF_IQIFC1 & RF215_RF_IQIFC1_CHPM_Msk) == RF215_RF_IQIFC1_CHPM_BBRF)
+            {
+                /* Write RF_IQIFC1 register */
+                rf215PhyRegRF_IQIFC1 = RF215_RF_IQIFC1_SKEWDRV_3_906ns | RF215_RF_IQIFC1_CHPM_RF;
+                RF215_HAL_SpiWrite(RF215_RF_IQIFC1, &rf215PhyRegRF_IQIFC1, 1U);
+            }
 
-        /* Overwrite DAC values to transmit continuous carrier at channel
-         * center */
-        phyRegs->RFn_TXDACI = RF215_RFn_TXDACI_ENTXDACID | RF215_RFn_TXDACI_TXDACID(0x7E);
-        phyRegs->RFn_TXDACQ = RF215_RFn_TXDACQ_ENTXDACQD | RF215_RFn_TXDACQ_TXDACQD(0x3F);
-        RF215_HAL_SpiWrite(RF215_RFn_TXDACI(trxIdx), &phyRegs->RFn_TXDACI, 2);
+            /* Transmitter Power Amplifier Control (RFn_PAC)
+            * PAC.PACUR: Power Amplifier Current Control. No power amplifier
+            * current reduction to achieve maximum output power.
+            * PAC.TXPWR: Maximum Transmitter Output Power. */
+            pac = RF215_RFn_PAC_PACUR_0mA | RF215_RFn_PAC_TXPWR_MAX;
 
-        /* Send TX command */
-        _RF215_TRX_CommandTx(trxIdx);
+            /* Check if TX power changes */
+            if (phyRegs->RFn_PAC != pac)
+            {
+                phyRegs->RFn_PAC = pac;
+                RF215_HAL_SpiWrite(RF215_RFn_PAC(trxIdx), &phyRegs->RFn_PAC, 1U);
+            }
 
-        /* Update PHY state */
-        pObj->phyState = PHY_STATE_TX_CONTINUOUS;
+            /* Switch TRX to TXPREP state before sending TX command */
+            pObj->txContinuousPending = false;
+            lRF215_TRX_CommandTxPrep(trxIdx);
 
-        if (pObjOther->txContinuousPending == true)
-        {
-            _RF215_TRX_EnableTxContinuousMode(trxIdxOther);
+            /* Overwrite DAC values to transmit continuous carrier at channel
+            * center */
+            phyRegs->RFn_TXDACI = RF215_RFn_TXDACI_ENTXDACID | RF215_RFn_TXDACI_TXDACID(0x7EU);
+            phyRegs->RFn_TXDACQ = RF215_RFn_TXDACQ_ENTXDACQD | RF215_RFn_TXDACQ_TXDACQD(0x3FU);
+            RF215_HAL_SpiWrite(RF215_RFn_TXDACI(trxIdx), &phyRegs->RFn_TXDACI, 2U);
+
+            /* Send TX command */
+            lRF215_TRX_CommandTx(trxIdx);
+
+            if (pObj->txStarted == true)
+            {
+                /* Transmission in progress aborted. Set pending TX confirm. */
+                RF215_PHY_SetTxCfm(pObj->txBufObj, RF215_TX_ABORTED);
+            }
+
+            /* Update PHY state */
+            pObj->phyState = PHY_STATE_TX_CONTINUOUS;
+            return;
         }
     }
-    else
-    {
-        /* Transition to TXPREP or TX automatic procedure in progress. We need
-         * to wait for TRXRDY or automatic procedure end to send TRXOFF command
-         * and make sure TRXOFF is reached. */
-        pObj->txContinuousPending = true;
-    }
+
+    /* Transition to TXPREP or TX automatic procedure in progress. We need
+     * to wait for TRXRDY or automatic procedure end to send TRXOFF command
+     * and make sure TRXOFF is reached. */
+    pObj->txContinuousPending = true;
 }
 
-static void _RF215_TRX_DisableTxContinuousMode(uint8_t trxIdx)
+static void lRF215_TRX_DisableTxContinuousMode(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObjOther = &rf215PhyObj[RF215_TRX_RF24_IDX];
     uint8_t trxIdxOther = RF215_TRX_RF24_IDX;
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
     /* Stop TX continuous mode with TXPREP command */
-    _RF215_TRX_CommandTxPrep(trxIdx);
+    lRF215_TRX_CommandTxPrep(trxIdx);
 
     /* Restore DAC overwrite values */
     pObj->phyRegs.RFn_TXDACI = 0;
@@ -2388,7 +2466,7 @@ static void _RF215_TRX_DisableTxContinuousMode(uint8_t trxIdx)
     if (pObjOther->phyState == PHY_STATE_TX_CONTINUOUS)
     {
         /* The another TRX is in continuous TX mode */
-        _RF215_TRX_CommandTrxOff(trxIdx);
+        lRF215_TRX_CommandTrxOff(trxIdx);
         pObj->phyState = PHY_STATE_IDLE;
     }
     else
@@ -2398,15 +2476,15 @@ static void _RF215_TRX_DisableTxContinuousMode(uint8_t trxIdx)
         RF215_HAL_SpiWrite(RF215_RF_IQIFC1, &rf215PhyRegRF_IQIFC1, 1);
 
         /* Start listening again on both TRX */
-        _RF215_TRX_RxListen(trxIdx);
-        _RF215_TRX_RxListen(trxIdxOther);
+        lRF215_TRX_RxListen(trxIdx);
+        lRF215_TRX_RxListen(trxIdxOther);
 
         /* Turn off TX LED */
         RF215_HAL_LedTx(false);
     }
 }
 
-static void _RF215_TRX_Reset(uint8_t trxIdx)
+static void lRF215_TRX_Reset(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
@@ -2420,66 +2498,81 @@ static void _RF215_TRX_Reset(uint8_t trxIdx)
         if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
         {
             /* Disable first TX continuous mode */
-            _RF215_TRX_DisableTxContinuousMode(trxIdx);
+            lRF215_TRX_DisableTxContinuousMode(trxIdx);
         }
 
         /* Send RESET command */
-        _RF215_TRX_CommandReset(trxIdx);
+        lRF215_TRX_CommandReset(trxIdx);
         pObj->trxResetPending = false;
         pObj->resetInProgress = true;
     }    
 }
 
-static void _RF215_TRX_Sleep(uint8_t trxIdx)
+static void lRF215_TRX_Sleep(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
-    /* Swith to TRXOFF state before sending SLEEP command */
-    if ((pObj->txAutoInProgress == false) && (_RF215_TRX_SwitchTrxOff(trxIdx) == true))
+    if (pObj->txAutoInProgress == false)
     {
-        if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
+        /* Swith to TRXOFF state before sending SLEEP command */
+        if (lRF215_TRX_SwitchTrxOff(trxIdx) == true)
         {
-            /* Disable first TX continuous mode */
-            _RF215_TRX_DisableTxContinuousMode(trxIdx);
+            if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
+            {
+                /* Disable first TX continuous mode */
+                lRF215_TRX_DisableTxContinuousMode(trxIdx);
+            }
+
+            /* Send SLEEP command */
+            lRF215_TRX_CommandSleep(trxIdx);
+            pObj->trxSleepPending = false;
+
+            if (pObj->txStarted == true)
+            {
+                /* Transmission in progress aborted. Set pending TX confirm. */
+                RF215_PHY_SetTxCfm(pObj->txBufObj, RF215_TX_ABORTED);
+            }
+
+            return;
         }
-        
-        /* Send SLEEP command */
-        _RF215_TRX_CommandSleep(trxIdx);
-        pObj->trxSleepPending = false;
     }
-    else
-    {
-        /* Transition to TXPREP or TX automatic procedure in progress. We need
-         * to wait for TRXRDY or automatic procedure end to send TRXOFF command
-         * and make sure TRXOFF is reached. */
-        pObj->trxSleepPending = true;
-    }
+
+    /* Transition to TXPREP or TX automatic procedure in progress. We need
+     * to wait for TRXRDY or automatic procedure end to send TRXOFF command
+     * and make sure TRXOFF is reached. */
+    pObj->trxSleepPending = true;
 }
 
-static inline void _RF215_TRX_ResetEvent(uint8_t trxIdx)
+static inline void lRF215_TRX_ResetEvent(uint8_t trxIdx)
 {
-    RF215_PHY_REGS_OBJ regsNew;
+    RF215_PHY_REGS_OBJ regsNew = {0};
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     RF215_PHY_REGS_OBJ* regsOld = &pObj->phyRegs;
     RF215_PHY_STATE phyState = pObj->phyState;
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
     RF215_REG_VALUES_OBJ* constRegs = (RF215_REG_VALUES_OBJ *) &rf215RegValues;
+    /* MISRA C-2012 deviation block end */
 
     if (phyState == PHY_STATE_SLEPT)
     {
         /* Unexpected reset while TRX slept. Send SLEEP command again */
-        _RF215_TRX_CommandSleep(trxIdx);
+        lRF215_TRX_CommandSleep(trxIdx);
         return;
     }
-    else if ((phyState != PHY_STATE_RESET) && (phyState != PHY_STATE_TX_CONTINUOUS) && (phyState != PHY_STATE_IDLE))
+    else
     {
-        /* Unexpected reset. Abort TX/RX in progress */
-        _RF215_PHY_CheckAborts(trxIdx, true);
+        if ((phyState != PHY_STATE_RESET) && (phyState != PHY_STATE_TX_CONTINUOUS) && (phyState != PHY_STATE_IDLE))
+        {
+            /* Unexpected reset. Abort TX/RX in progress */
+            lRF215_PHY_CheckAborts(trxIdx, true);
 
-        /* Reset TRX to process reset under control.
-         * Processed in new IRQ. TRX will be in TRXOFF */
-        _RF215_TRX_CommandReset(trxIdx);
-        pObj->phyState = PHY_STATE_RESET;
-        return;
+            /* Reset TRX to process reset under control.
+            * Processed in new IRQ. TRX will be in TRXOFF */
+            lRF215_TRX_CommandReset(trxIdx);
+            pObj->phyState = PHY_STATE_RESET;
+            return;
+        }
     }
 
     /* Write 2 registers: RFn_IRQM, RFn_AUXS */
@@ -2531,19 +2624,24 @@ static inline void _RF215_TRX_ResetEvent(uint8_t trxIdx)
     regsOld->BBCn_FSKPE2 = RF215_BBCn_FSKPE2_Rst;
 
     /* Obtain new register values depending on PHY configuration */
-    _RF215_PLL_Regs(pObj, &rf215PllConst[trxIdx], &regsNew);
-    _RF215_BBC_Regs(pObj, &regsNew);
-    _RF215_TXRXFE_Regs(pObj, &regsNew);
+    lRF215_PLL_Regs(pObj, &rf215PllConst[trxIdx], &regsNew);
+    lRF215_BBC_Regs(pObj, &regsNew);
+    lRF215_TXRXFE_Regs(pObj, &regsNew);
+
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 18.1 deviated twice. Deviation record ID - H3_MISRAC_2012_R_18_1_DR_1 */
 
     /* Write up to 16 registers: RFn_CS to RFn_TXDFE */
     RF215_HAL_SpiWriteUpdate(RF215_RFn_CS(trxIdx),
             &regsNew.RFn_CS, &regsOld->RFn_CS, 16);
 
+    /* MISRA C-2012 deviation block end */
+
     /* Adjust CCA duration (minimum is AGC update time) */
-    _RF215_RXFE_AdjustEDD(trxIdx);
+    lRF215_RXFE_AdjustEDD(trxIdx);
 
     /* Write BBC configuration, depending on PHY type */
-    _RF215_BBC_WriteRegs(trxIdx, &regsNew);
+    lRF215_BBC_WriteRegs(trxIdx, &regsNew);
 
     /* Configure Timestamp Counter in free-running mode.
      * Counter reset at TX/RX event */
@@ -2553,79 +2651,118 @@ static inline void _RF215_TRX_ResetEvent(uint8_t trxIdx)
     if (phyState == PHY_STATE_TX_CONTINUOUS)
     {
         /* Restore continuous TX mode */
-        _RF215_TRX_EnableTxContinuousMode(trxIdx);
+        lRF215_TRX_EnableTxContinuousMode(trxIdx);
     }
-    else if (phyState != PHY_STATE_IDLE)
+    else
     {
-        /* Start listening */
-        _RF215_TRX_RxListen(trxIdx);
+        if (phyState != PHY_STATE_IDLE)
+        {
+            /* Start listening */
+            lRF215_TRX_RxListen(trxIdx);
+        }
     }
 
     pObj->resetInProgress = false;
     if (pObj->txRequestPending == true)
     {
         /* Pending TX request because of TRX reset in progress */
-        RF215_PHY_TxRequest(pObj->txBufObjPending);
+        (void) RF215_PHY_TxRequest(pObj->txBufObjPending);
         pObj->txRequestPending = false;
     }
 }
 
-static DRV_RF215_PIB_RESULT _RF215_PHY_SetPhyConfig (
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 17.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_17_2_DR_1 */
+
+static DRV_RF215_PIB_RESULT lRF215_PHY_SetPhyConfig (
     uint8_t trxIdx,
     DRV_RF215_PHY_CFG_OBJ* phyCfgNew,
-    uint16_t chnNumNew
+    uint16_t chnNumNew,
+    bool listen
 )
 {
     RF215_PLL_PARAMS_OBJ pllParamsNew;
-    RF215_PHY_REGS_OBJ regsNew;
+    RF215_PHY_REGS_OBJ regsNew = {0};
     bool trxStateReached = false;
+    bool phyCfgSame = false;
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     DRV_RF215_PHY_CFG_OBJ* phyCfg = &pObj->phyConfig;
     const RF215_PLL_CONST_OBJ* pllConst = &rf215PllConst[trxIdx];
 
     /* If channel 0, get first available channel */
-    if (chnNumNew == 0)
+    if (chnNumNew == 0U)
     {
         chnNumNew = phyCfgNew->chnNumMin;
     }
 
-    /* Check if PHY configuration changes */
-    if ((memcmp(phyCfgNew, phyCfg, sizeof (DRV_RF215_PHY_CFG_OBJ)) == 0) &&
-            (chnNumNew == pObj->channelNum))
-    {
-        return RF215_PIB_RESULT_SUCCESS;
-    }
-
     /* Check correct PHY configuration */
-    if (_RF215_PHY_CheckPhyCfg(phyCfgNew) == false)
+    if (lRF215_PHY_CheckPhyCfg(phyCfgNew) == false)
     {
         return RF215_PIB_RESULT_INVALID_PARAM;
     }
 
     /* Compute channel frequency, range and mode of initial configuration */
-    _RF215_PLL_Params(pllConst, &pllParamsNew, phyCfgNew, chnNumNew);
+    lRF215_PLL_Params(pllConst, &pllParamsNew, phyCfgNew, chnNumNew);
 
     /* Check correct channel configuration */
-    if (_RF215_PLL_CheckConfig(pllConst, &pllParamsNew, phyCfgNew, chnNumNew) == false)
+    if (lRF215_PLL_CheckConfig(pllConst, &pllParamsNew, phyCfgNew, chnNumNew) == false)
     {
         return RF215_PIB_RESULT_INVALID_PARAM;
+    }
+
+    /* Check if PHY configuration changes */
+    if (phyCfgNew->phyType == phyCfg->phyType)
+    {
+        if (phyCfg->phyType == PHY_TYPE_FSK)
+        {
+            /* Check if FSK configuration changes */
+            if ((phyCfgNew->phyTypeCfg.fsk.symRate == phyCfg->phyTypeCfg.fsk.symRate) &&
+                (phyCfgNew->phyTypeCfg.fsk.modIdx == phyCfg->phyTypeCfg.fsk.modIdx) &&
+                (phyCfgNew->phyTypeCfg.fsk.modOrd == phyCfg->phyTypeCfg.fsk.modOrd))
+            {
+                phyCfgSame = true;
+            }
+        }
+        else
+        {
+            /* Check if OFDM configuration changes */
+            if ((phyCfgNew->phyTypeCfg.ofdm.opt == phyCfg->phyTypeCfg.ofdm.opt) &&
+                (phyCfgNew->phyTypeCfg.ofdm.itlv == phyCfg->phyTypeCfg.ofdm.itlv))
+            {
+                phyCfgSame = true;
+            }
+        }
+    }
+
+
+    if ((phyCfgSame == true) && (pllParamsNew.chnFreq == pObj->pllParams.chnFreq))
+    {
+        /* Same PHY configuration and same channel frequency.
+         * Store new configuration and nothing more to do. */
+        *phyCfg = *phyCfgNew;
+        pObj->channelNum = chnNumNew;
+        pObj->pllParams = pllParamsNew;
+        pObj->phyCfgPending = false;
+
+        /* Adjust CCA duration (minimum is AGC update time) */
+        lRF215_RXFE_AdjustEDD(trxIdx);
+
+        return RF215_PIB_RESULT_SUCCESS;
     }
 
     /* Check that TX automatic procedure is not in progress */
     if (pObj->phyState == PHY_STATE_RX_LISTEN)
     {
-        if ((phyCfgNew->phyType == phyCfg->phyType) &&
-            (memcmp(&phyCfgNew->phyTypeCfg, &phyCfg->phyTypeCfg, sizeof(DRV_RF215_PHY_TYPE_CFG_OBJ)) == 0) &&
-            (pllParamsNew.freqRng == pObj->pllParams.freqRng))
+        if ((phyCfgSame == true) && (pllParamsNew.freqRng == pObj->pllParams.freqRng))
         {
             /* Only frequency changes and it is within same range.
              * It can be configured in TXPREP state. */
-            trxStateReached = _RF215_TRX_SwitchTxPrep(trxIdx);
+            trxStateReached = lRF215_TRX_SwitchTxPrep(trxIdx);
         }
         else
         {
             /* It must be configured in TRXOFF state */
-            trxStateReached = _RF215_TRX_SwitchTrxOff(trxIdx);
+            trxStateReached = lRF215_TRX_SwitchTrxOff(trxIdx);
         }
     }
 
@@ -2642,7 +2779,7 @@ static DRV_RF215_PIB_RESULT _RF215_PHY_SetPhyConfig (
     /* Update BBCn_PC if PHY type changes */
     if (phyCfgNew->phyType != phyCfg->phyType)
     {
-        _RF215_BBC_SetPhyControl(trxIdx, BBC_PC_CFG_BBEN(phyCfgNew->phyType));
+        lRF215_BBC_SetPhyControl(trxIdx, BBC_PC_CFG_BBEN(phyCfgNew->phyType));
 
         /* Abort scheduled transmissions because of PHY type change */
         DRV_RF215_AbortTxByPhyConfig(trxIdx);
@@ -2655,49 +2792,59 @@ static DRV_RF215_PIB_RESULT _RF215_PHY_SetPhyConfig (
     pObj->phyCfgPending = false;
 
     /* Obtain new register values depending on PHY configuration */
-    _RF215_PLL_Regs(pObj, pllConst, &regsNew);
-    _RF215_BBC_Regs(pObj, &regsNew);
-    _RF215_TXRXFE_Regs(pObj, &regsNew);
+    lRF215_PLL_Regs(pObj, pllConst, &regsNew);
+    lRF215_BBC_Regs(pObj, &regsNew);
+    lRF215_TXRXFE_Regs(pObj, &regsNew);
+
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 18.1 deviated twice. Deviation record ID - H3_MISRAC_2012_R_18_1_DR_1 */
 
     /* Write up to 16 registers: RFn_CS to RFn_TXDFE */
     RF215_HAL_SpiWriteUpdate(RF215_RFn_CS(trxIdx),
-            &regsNew.RFn_CS, &pObj->phyRegs.RFn_CS, 16);
+            &regsNew.RFn_CS, &pObj->phyRegs.RFn_CS, 16U);
+
+    /* MISRA C-2012 deviation block end */
 
     /* Adjust CCA duration (minimum is AGC update time) */
-    _RF215_RXFE_AdjustEDD(trxIdx);
+    lRF215_RXFE_AdjustEDD(trxIdx);
 
     /* Write BBC configuration, depending on PHY type */
-    _RF215_BBC_WriteRegs(trxIdx, &regsNew);
+    lRF215_BBC_WriteRegs(trxIdx, &regsNew);
 
     /* Start listening. Clear TRXRDY flag for the case in which frequency is
      * updated in TXPREP (within same frequency range). */
     pObj->trxRdy = false;
-    _RF215_TRX_RxListen(trxIdx);
+    if (listen == true)
+    {
+        lRF215_TRX_RxListen(trxIdx);
+    }
 
     return RF215_PIB_RESULT_SUCCESS;
 }
 
-static uint32_t _RF215_TX_ContentionWindowUS (DRV_RF215_TX_BUFFER_OBJ* txBufObj)
+/* MISRA C-2012 deviation block end */
+
+static uint32_t lRF215_TX_ContentionWindowUS (DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 {
     uint32_t contentionWindowUS;
     DRV_RF215_PHY_CCA_MODE ccaMode = txBufObj->reqObj.ccaMode;
-    uint8_t cw = txBufObj->reqObj.ccaContentionWindow;
+    uint32_t cw = txBufObj->reqObj.ccaContentionWindow;
     RF215_PHY_OBJ* pObj = &rf215PhyObj[txBufObj->clientObj->trxIndex];
 
     if (ccaMode == PHY_CCA_OFF)
     {
         /* CCA disabled: No contention window */
-        return 0;
+        return 0U;
     }
 
     /* Minimum value of CW is 1 */
-    if (cw == 0)
+    if (cw == 0U)
     {
-        cw = 1;
+        cw = 1U;
     }
 
     /* Add turnaround time */
-    contentionWindowUS = (uint32_t) pObj->turnaroundTimeUS * (cw - 1);
+    contentionWindowUS = (uint32_t) pObj->turnaroundTimeUS * (cw - 1U);
 
     if ((ccaMode == PHY_CCA_MODE_1) || (ccaMode == PHY_CCA_MODE_3))
     {
@@ -2708,14 +2855,14 @@ static uint32_t _RF215_TX_ContentionWindowUS (DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     return contentionWindowUS;
 }
 
-static uint32_t _RF215_TX_CommandDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
+static uint32_t lRF215_TX_CommandDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 {
     const RF215_FSK_SYM_RATE_CONST_OBJ* fskConst;
     DRV_RF215_OFDM_BW_OPT opt;
     uint8_t txdfe, sr;
     RF215_PHY_OBJ* pObj = &rf215PhyObj[txBufObj->clientObj->trxIndex];
     DRV_RF215_PHY_CCA_MODE ccaMode = txBufObj->reqObj.ccaMode;
-    uint32_t txCmdDelayUSq5 = RF215_SPI_BYTE_DURATION_US_Q5 * 3;
+    uint32_t txCmdDelayUSq5 = RF215_SPI_BYTE_DURATION_US_Q5 * 3U;
 
     /* Common: TX/CCATX SPI command delay + 3 SPI bytes */
     txCmdDelayUSq5 += RF215_TX_CMD_DELAY_US_Q5;
@@ -2726,9 +2873,9 @@ static uint32_t _RF215_TX_CommandDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
         txCmdDelayUSq5 += RF215_RX_CCA_ED_TIME_US_Q5;
 
         /* Contention window length (incudes ED duration) */
-        txCmdDelayUSq5 += (_RF215_TX_ContentionWindowUS(txBufObj) << 5);
+        txCmdDelayUSq5 += (lRF215_TX_ContentionWindowUS(txBufObj) << 5);
 
-        if (txBufObj->reqObj.ccaContentionWindow <= 1)
+        if (txBufObj->reqObj.ccaContentionWindow <= 1U)
         {
             /* Delay of CCATX: ED (RX) -> TXPREP -> TX (2 state transitions) */
             txCmdDelayUSq5 += RF215_RX_TX_TIME_US_Q5;
@@ -2759,7 +2906,7 @@ static uint32_t _RF215_TX_CommandDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
          * because FSKC0.BT has no effect (GFSK modulator disabled). Delay1 and
          * Delay2 reduce tx_bb_delay. Delay2 has to be compensated in TX confirm
          * time. */
-        if ((pObj->phyRegs.BBCn_FSKDM & RF215_BBCn_FSKDM_PE) != 0)
+        if ((pObj->phyRegs.BBCn_FSKDM & RF215_BBCn_FSKDM_PE) != 0U)
         {
             txCmdDelayUSq5 -= fskConst->txPreEmphasisDelay1USq5;
             txCmdDelayUSq5 -= fskConst->txPreEmphasisDelay2USq5;
@@ -2791,7 +2938,7 @@ static uint32_t _RF215_TX_CommandDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     return txCmdDelayUSq5;
 }
 
-static uint32_t _RF215_TX_PrepareDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
+static uint32_t lRF215_TX_PrepareDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 {
     uint32_t txPrepDelayUSq5 = RF215_TX_TRXRDY_DELAY_US_Q5;
     DRV_RF215_PHY_CCA_MODE ccaMode = txBufObj->reqObj.ccaMode;
@@ -2800,14 +2947,14 @@ static uint32_t _RF215_TX_PrepareDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 
     /* Common: 6 SPI bytes (TXPREP command, BBCn_AMCS) +
      * TRXRDY interrupt delay + IRQ margin + 5000 execution cycles. */
-    txPrepDelayUSq5 += RF215_TX_IRQ_MARGIN_US_Q5 + EX_CYCL_TO_USQ5(5000);
+    txPrepDelayUSq5 += RF215_TX_IRQ_MARGIN_US_Q5 + EX_CYCL_TO_USQ5(5000U);
 
     if ((ccaMode == PHY_CCA_MODE_1) || (ccaMode == PHY_CCA_MODE_3))
     {
         /* CCA with ED: 9 SPI bytes (BB disable, ED duration, RX command) */
-        spiBytes += 9;
+        spiBytes += 9U;
 
-        if (txBufObj->reqObj.ccaContentionWindow > 1)
+        if (txBufObj->reqObj.ccaContentionWindow > 1U)
         {
             /* Contention window: Next ED CCA is not the last one before TX */
             setLen = false;
@@ -2817,8 +2964,8 @@ static uint32_t _RF215_TX_PrepareDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     if (setLen == true)
     {
         /* 4 SPI bytes (PSDU length) + 5000 execution cycles */
-        spiBytes += 4;
-        txPrepDelayUSq5 += EX_CYCL_TO_USQ5(5000);
+        spiBytes += 4U;
+        txPrepDelayUSq5 += EX_CYCL_TO_USQ5(5000U);
     }
 
     /* Add duration of SPI bytes */
@@ -2826,32 +2973,32 @@ static uint32_t _RF215_TX_PrepareDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     return txPrepDelayUSq5;
 }
 
-static uint32_t _RF215_TX_TotalDelay(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
+static uint32_t lRF215_TX_TotalDelay(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 {
     uint32_t txTotalDelayUSq5;
     uint8_t cw = txBufObj->reqObj.ccaContentionWindow;
     DRV_RF215_PHY_CCA_MODE ccaMode = txBufObj->reqObj.ccaMode;
 
     /* Delay between next SPI command (TX/EDM_SINGLE) and TX start time */
-    txTotalDelayUSq5 = _RF215_TX_CommandDelayUSq5(txBufObj);
+    txTotalDelayUSq5 = lRF215_TX_CommandDelayUSq5(txBufObj);
 
     /* Add required time before next SPI command in the worst case:
      * TX parameters configuration (only before last command (TX/CCATX)).
      * TX preparation (only if contention window with Energy Detection). */
-    if ((cw <= 1) || ((ccaMode != PHY_CCA_MODE_1) && (ccaMode != PHY_CCA_MODE_3)))
+    if ((cw <= 1U) || ((ccaMode != PHY_CCA_MODE_1) && (ccaMode != PHY_CCA_MODE_3)))
     {
         txTotalDelayUSq5 += RF215_TX_PARAM_CFG_DELAY_US_Q5;
     }
     else
     {
-        txTotalDelayUSq5 += _RF215_TX_PrepareDelayUSq5(txBufObj);
+        txTotalDelayUSq5 += lRF215_TX_PrepareDelayUSq5(txBufObj);
     }
 
     /* Convert total delay to SYS_TIME count units */
-    return (uint32_t) _RF215_PHY_USq5ToSysTimeCount(txTotalDelayUSq5);
+    return (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) txTotalDelayUSq5);
 }
 
-static void _RF215_TX_UpdStats(RF215_PHY_OBJ* phyObj, DRV_RF215_TX_RESULT result)
+static void lRF215_TX_UpdStats(RF215_PHY_OBJ* phyObj, DRV_RF215_TX_RESULT result)
 {
     if (result != RF215_TX_SUCCESS)
     {
@@ -2901,13 +3048,13 @@ static void _RF215_TX_UpdStats(RF215_PHY_OBJ* phyObj, DRV_RF215_TX_RESULT result
     }
 }
 
-static void _RF215_TX_ReadPS(uintptr_t context, void* pData, uint64_t time)
+static void lRF215_TX_ReadPS(uintptr_t context, void* pData, uint64_t timeRead)
 {
     DRV_RF215_TX_RESULT result = RF215_TX_SUCCESS;
     uint8_t trxIdx = (uint8_t) context;
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
-    if ((*((uint8_t *) pData) & RF215_BBCn_PS_TXUR) != 0)
+    if ((*((uint8_t *) pData) & RF215_BBCn_PS_TXUR) != 0U)
     {
         /* TX underrun error */
         result = RF215_TX_ERROR_UNDERRUN;
@@ -2918,33 +3065,38 @@ static void _RF215_TX_ReadPS(uintptr_t context, void* pData, uint64_t time)
     pObj->txCancelPending = false;
 
     /* Check pending TRX sleep, reset or continuous mode */
-    if (pObj->trxSleepPending == true)
-    {
-        _RF215_TRX_Sleep(trxIdx);
-        pObj->trxResetPending = false;
-    }
-    else if (pObj->trxResetPending == true)
-    {
-        _RF215_TRX_Reset(trxIdx);
-    }
-    else if (pObj->txContinuousPending == true)
-    {
-        _RF215_TRX_EnableTxContinuousMode(trxIdx);
-    }
-    else if (pObj->idlePending == true)
+    if (pObj->idlePending == true)
     {
         uint8_t trxIdxOther = RF215_TRX_RF24_IDX;
         if (trxIdx == RF215_TRX_RF24_IDX)
         {
             trxIdxOther = RF215_TRX_RF09_IDX;
         }
-        
+
         /* Set continuous TX mode on the another TRX */
-        _RF215_TRX_EnableTxContinuousMode(trxIdxOther);
+        lRF215_TRX_EnableTxContinuousMode(trxIdxOther);
+    }
+
+    if (pObj->trxSleepPending == true)
+    {
+        lRF215_TRX_Sleep(trxIdx);
+        pObj->trxResetPending = false;
+        pObj->txContinuousPending = false;
+    }
+    else if (pObj->trxResetPending == true)
+    {
+        lRF215_TRX_Reset(trxIdx);
+    }
+    else
+    {
+        if (pObj->txContinuousPending == true)
+        {
+            lRF215_TRX_EnableTxContinuousMode(trxIdx);
+        }
     }
 }
 
-static void _RF215_TX_FrameEnd(uint8_t trxIdx)
+static void lRF215_TX_FrameEnd(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     DRV_RF215_TX_BUFFER_OBJ* txBufObj = pObj->txBufObj;
@@ -2958,7 +3110,7 @@ static void _RF215_TX_FrameEnd(uint8_t trxIdx)
         {
             /* TRX switches automatically to TXPREP. Start listening again. */
             pObj->trxState = RF215_RFn_STATE_RF_TXPREP;
-            _RF215_TRX_RxListen(trxIdx);
+            lRF215_TRX_RxListen(trxIdx);
         }
         else
         {
@@ -2970,7 +3122,7 @@ static void _RF215_TX_FrameEnd(uint8_t trxIdx)
             if (pObj->phyCfgPending == true)
             {
                 /* Pending PHY configuration */
-                _RF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending);
+                (void) lRF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending, true);
             }
         }
 
@@ -2998,38 +3150,41 @@ static void _RF215_TX_FrameEnd(uint8_t trxIdx)
 
     /* Read TX Underrun status */
     RF215_HAL_SpiRead(RF215_BBCn_PS(trxIdx), &pObj->phyRegs.BBCn_PS, 1,
-            _RF215_TX_ReadPS, (uintptr_t) trxIdx);
+            lRF215_TX_ReadPS, (uintptr_t) trxIdx);
 
     /* Compute duration of the transmitted PPDU */
-    txBufObj->cfmObj.ppduDurationCount = _RF215_PHY_PpduDuration(&pObj->phyConfig,
+    txBufObj->cfmObj.ppduDurationCount = lRF215_PHY_PpduDuration(&pObj->phyConfig,
             txBufObj->reqObj.modScheme, txBufObj->reqObj.psduLen,
             &pObj->txPaySymbols);
 }
 
-static void _RF215_TX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t time)
+static void lRF215_TX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t timeRead)
 {
     const RF215_FSK_SYM_RATE_CONST_OBJ* fskConst;
+    int64_t timeIni;
+    uint32_t txStartDelayUSq5;
     int32_t trxCountDiff;
     RF215_PHY_OBJ* pObj = (RF215_PHY_OBJ *) ctxt;
     uint8_t txdfe = pObj->phyRegs.RFn_TXDFE;
     uint8_t sr = (txdfe & RF215_RFn_TXDFE_SR_Msk) >> RF215_RFn_TXDFE_SR_Pos;
 
     /* Read counter (reset at TX start event) */
-    trxCountDiff = _RF215_PHY_EventTrxCountDiff(pDat);
+    trxCountDiff = lRF215_PHY_EventTrxCountDiff(pDat);
 
     /* The TX start event occurs tx_bb_delay after TX command.
      * Compensate transmitter front-end delay in us [uQ6.5] [Figure 6-3].
      * tx_start_delay: Typ. 4 us [Table 10-7].
      * Transmitter processing delay depends on TXDFE.SR.
      * Higher delay if TXDFE.RCUT != 4 (1.00). */
-    trxCountDiff -= RF215_TX_START_DELAY_US_Q5;
+    txStartDelayUSq5 = RF215_TX_START_DELAY_US_Q5;
+    trxCountDiff -= (int32_t) txStartDelayUSq5;
     if ((txdfe & RF215_RFn_TXDFE_RCUT_Msk) == RF215_RFn_TXDFE_RCUT_1_00)
     {
-        trxCountDiff -= rf215TxDfeProcDelay[sr];
+        trxCountDiff -= (int32_t) rf215TxDfeProcDelay[sr];
     }
     else
     {
-        trxCountDiff -= rf215TxDfeProcRcutDelay[sr];
+        trxCountDiff -= (int32_t) rf215TxDfeProcRcutDelay[sr];
     }
 
     if (pObj->phyConfig.phyType == PHY_TYPE_FSK)
@@ -3039,18 +3194,19 @@ static void _RF215_TX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t time)
          * because FSKC0.BT has no effect (GFSK modulator disabled). Delay1 and
          * Delay2 reduce tx_bb_delay. Delay2 has to be compensated in TX confirm
          * time. */
-        if ((pObj->phyRegs.BBCn_FSKDM & RF215_BBCn_FSKDM_PE) != 0)
+        if ((pObj->phyRegs.BBCn_FSKDM & RF215_BBCn_FSKDM_PE) != 0U)
         {
             fskConst = &fskSymRateConst[pObj->phyConfig.phyTypeCfg.fsk.symRate];
-            trxCountDiff += fskConst->txPreEmphasisDelay2USq5;
+            trxCountDiff += (int32_t) fskConst->txPreEmphasisDelay2USq5;
         }
     }
 
     /* Compute SYS_TIME counter associated to TX event */
-    pObj->txBufObj->cfmObj.timeIniCount = time - (int64_t) _RF215_PHY_USq5ToSysTimeCount(trxCountDiff);
+    timeIni = (int64_t) timeRead - lRF215_PHY_USq5ToSysTimeCount(trxCountDiff);
+    pObj->txBufObj->cfmObj.timeIniCount = (uint64_t) timeIni;
 }
 
-static void _RF215_TX_ReadCaptureTimeExpired(uintptr_t context)
+static void lRF215_TX_ReadCaptureTimeExpired(uintptr_t context)
 {
     bool readTime = true;
     uint8_t trxIdx = (uint8_t) context;
@@ -3070,24 +3226,25 @@ static void _RF215_TX_ReadCaptureTimeExpired(uintptr_t context)
         /* TX has already finished or has been aborted. TX time not read. */
         readTime = false;
     }
-    else if (pObj->phyState != PHY_STATE_TX)
+    else
     {
-        SYS_TIME_HANDLE timeHandle;
-        uint32_t timeReadDelay;
-        uint32_t timeReadDelayUSq5 = pObj->txCmdDelayUSq5 + (150 << 5);
-
-        /* TX has not started yet. Create new timer to postpone TX time read */
-        timeReadDelayUSq5 += RF215_TX_TRXRDY_DELAY_US_Q5;
-        timeReadDelayUSq5 += RF215_TX_IRQ_MARGIN_US_Q5;
-        timeReadDelay = (uint32_t) _RF215_PHY_USq5ToSysTimeCount(timeReadDelayUSq5);
-        timeHandle = SYS_TIME_TimerCreate(0, timeReadDelay,
-            _RF215_TX_ReadCaptureTimeExpired, context, SYS_TIME_SINGLE);
-
-        if (timeHandle != SYS_TIME_HANDLE_INVALID)
+        if (pObj->phyState != PHY_STATE_TX)
         {
-            /* Start the timer to read TX time later */
-            SYS_TIME_TimerStart(timeHandle);
+            SYS_TIME_HANDLE timeHandle;
+            uint32_t timeReadDelay;
+            uint32_t timeReadDelayUSq5 = pObj->txCmdDelayUSq5 + (150U << 5);
+
+            /* TX has not started yet. Create new timer to postpone TX time read */
             readTime = false;
+            timeReadDelayUSq5 += RF215_TX_TRXRDY_DELAY_US_Q5;
+            timeReadDelayUSq5 += RF215_TX_IRQ_MARGIN_US_Q5;
+            timeReadDelay = (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) timeReadDelayUSq5);
+            timeHandle = SYS_TIME_TimerCreate(0U, timeReadDelay,
+                lRF215_TX_ReadCaptureTimeExpired, context, SYS_TIME_SINGLE);
+            if (SYS_TIME_TimerStart(timeHandle) != SYS_TIME_SUCCESS)
+            {
+                (void) SYS_TIME_TimerDestroy(timeHandle);
+            }            
         }
     }
 
@@ -3096,14 +3253,14 @@ static void _RF215_TX_ReadCaptureTimeExpired(uintptr_t context)
         /* Read counter (reset at TX start event).
          * The TX start event occurs tx_bb_delay after TX command.
          * Read BBCn_CNT0..3 (4 bytes). BBCn_CNT0 is least significant byte. */
-        RF215_HAL_SpiRead(RF215_BBCn_CNT0(trxIdx), &pObj->phyRegs.BBCn_CNT0, 4,
-                    _RF215_TX_ReadCNT, (uintptr_t) pObj);
+        RF215_HAL_SpiRead(RF215_BBCn_CNT0(trxIdx), &pObj->phyRegs.BBCn_CNT0, 4U,
+                    lRF215_TX_ReadCNT, (uintptr_t) pObj);
     }
 
     RF215_HAL_LeaveCritical();
 }
 
-static void _RF215_TX_ReadAMCS(uintptr_t context, void* pData, uint64_t time)
+static void lRF215_TX_ReadAMCS(uintptr_t context, void* pData, uint64_t timeRead)
 {
     uint8_t trxIdx = (uint8_t) context;
     uint8_t* pAMCS = (uint8_t *) pData;
@@ -3112,11 +3269,11 @@ static void _RF215_TX_ReadAMCS(uintptr_t context, void* pData, uint64_t time)
 
     /* Clear CCAED to avoid unnecessary write because of read-only bit.
      * CCATX automatic procedure finished. */
-    *pAMCS &= ~RF215_BBCn_AMCS_CCAED;
+    *pAMCS &= (uint8_t) ~RF215_BBCn_AMCS_CCAED;
     pObj->txAutoInProgress = false;
 
     /* Energy Detection finished with CCATX enabled. Check CCAED status bit. */
-    if ((amcs & RF215_BBCn_AMCS_CCAED) == 0)
+    if ((amcs & RF215_BBCn_AMCS_CCAED) == 0U)
     {
         /* Clear channel. CCATX enables baseband automatically.
          * TRX state is automatically updated to TX. Turn on TX LED. */
@@ -3128,8 +3285,7 @@ static void _RF215_TX_ReadAMCS(uintptr_t context, void* pData, uint64_t time)
         /* Process TXFE interrupt if it is pending */
         if (pObj->txfePending == true)
         {
-            _RF215_TX_FrameEnd(trxIdx);
-            pObj->txCancelPending = false;
+            lRF215_TX_FrameEnd(trxIdx);
         }
         else
         {
@@ -3145,7 +3301,7 @@ static void _RF215_TX_ReadAMCS(uintptr_t context, void* pData, uint64_t time)
     {
         /* Busy channel. CCATX does not enable baseband automatically.
          * Enable baseband in TXPREP state and start listening. */
-        _RF215_TRX_RxListen(trxIdx);
+        lRF215_TRX_RxListen(trxIdx);
 
         /* Report busy channel error in TX confirm */
         RF215_PHY_SetTxCfm(pObj->txBufObj, RF215_TX_BUSY_CHN);
@@ -3153,20 +3309,7 @@ static void _RF215_TX_ReadAMCS(uintptr_t context, void* pData, uint64_t time)
     }
 
     /* Check pending TRX sleep, reset or continuous mode */
-    if (pObj->trxSleepPending == true)
-    {
-        _RF215_TRX_Sleep(trxIdx);
-        pObj->trxResetPending = false;
-    }
-    else if (pObj->trxResetPending == true)
-    {
-        _RF215_TRX_Reset(trxIdx);
-    }
-    else if (pObj->txContinuousPending == true)
-    {
-        _RF215_TRX_EnableTxContinuousMode(trxIdx);
-    }
-    else if (pObj->idlePending == true)
+    if (pObj->idlePending == true)
     {
         uint8_t trxIdxOther = RF215_TRX_RF24_IDX;
         if (trxIdx == RF215_TRX_RF24_IDX)
@@ -3175,11 +3318,29 @@ static void _RF215_TX_ReadAMCS(uintptr_t context, void* pData, uint64_t time)
         }
 
         /* Set continuous TX mode on the another TRX */
-        _RF215_TRX_EnableTxContinuousMode(trxIdxOther);
+        lRF215_TRX_EnableTxContinuousMode(trxIdxOther);
+    }
+
+    if (pObj->trxSleepPending == true)
+    {
+        lRF215_TRX_Sleep(trxIdx);
+        pObj->trxResetPending = false;
+        pObj->txContinuousPending = false;
+    }
+    else if (pObj->trxResetPending == true)
+    {
+        lRF215_TRX_Reset(trxIdx);
+    }
+    else
+    {
+        if (pObj->txContinuousPending == true)
+        {
+            lRF215_TRX_EnableTxContinuousMode(trxIdx);
+        }
     }
 }
 
-static void _RF215_TX_ReadEDV(uintptr_t context, void* pData, uint64_t time)
+static void lRF215_TX_ReadEDV(uintptr_t context, void* pData, uint64_t timeRead)
 {
     RF215_PHY_OBJ* pObj = (RF215_PHY_OBJ *) context;
     DRV_RF215_TX_BUFFER_OBJ* txBufObj = pObj->txBufObj;
@@ -3197,47 +3358,51 @@ static void _RF215_TX_ReadEDV(uintptr_t context, void* pData, uint64_t time)
         /* Busy channel. Report busy channel error in TX confirm. */
         RF215_PHY_SetTxCfm(txBufObj, RF215_TX_BUSY_CHN);
     }
-    else if (txBufObj->timeHandle == SYS_TIME_HANDLE_INVALID)
+    else
     {
-        /* Clear channel and no time interrupt scheduled: Timeout error. */
-        RF215_PHY_SetTxCfm(txBufObj, RF215_TX_TIMEOUT);
+        if (txBufObj->timeHandle == SYS_TIME_HANDLE_INVALID)
+        {
+            /* Clear channel and no time interrupt scheduled: Timeout error. */
+            RF215_PHY_SetTxCfm(txBufObj, RF215_TX_TIMEOUT);
+        }
     }
 }
 
-static inline void _RF215_TX_EnDetectComplete(uint8_t trxIdx)
+static inline void lRF215_TX_EnDetectComplete(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     RF215_PHY_REGS_OBJ* phyRegs = &pObj->phyRegs;
 
-    if (pObj->txBufObj->reqObj.ccaContentionWindow == 0)
+    if (pObj->txBufObj->reqObj.ccaContentionWindow == 0U)
     {
         /* Energy Detection finished with CCATX enabled.
          * Read BBCn_AMCS to check busy/clear channel. */
         RF215_HAL_SpiRead(RF215_BBCn_AMCS(trxIdx), &phyRegs->BBCn_AMCS, 1,
-            _RF215_TX_ReadAMCS, (uintptr_t) trxIdx);
+            lRF215_TX_ReadAMCS, (uintptr_t) trxIdx);
     }
     else
     {
         /* Energy Detection finished with contention window (CCATX disabled).
          * Read RFn_EDV to check busy/clear channel. */
-        RF215_HAL_SpiRead(RF215_RFn_EDV(trxIdx), &phyRegs->RFn_EDV, 1,
-            _RF215_TX_ReadEDV, (uintptr_t) pObj);
+        RF215_HAL_SpiRead(RF215_RFn_EDV(trxIdx), &phyRegs->RFn_EDV, 1U,
+            lRF215_TX_ReadEDV, (uintptr_t) pObj);
 
         /* Start listening again before next Energy Detection */
-        _RF215_TRX_RxListen(trxIdx);
+        lRF215_TRX_RxListen(trxIdx);
     }
 }
 
-static inline void _RF215_TX_Start(uint8_t trxIdx)
+static inline void lRF215_TX_Start(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     DRV_RF215_TX_BUFFER_OBJ* txBufObj = pObj->txBufObj;
     DRV_RF215_PHY_CCA_MODE ccaMode = txBufObj->reqObj.ccaMode;
+    bool startReady = (pObj->phyState == PHY_STATE_TX_TXPREP);
     bool writeBuffer = true;
 
     if ((ccaMode == PHY_CCA_MODE_1) || (ccaMode == PHY_CCA_MODE_3))
     {
-        if (pObj->trxRdy == false)
+        if (startReady == false)
         {
             /* We need to make sure that RX state is reached before starting ED.
              * If transition to TXPREP in progress, this function will be called
@@ -3251,7 +3416,7 @@ static inline void _RF215_TX_Start(uint8_t trxIdx)
         RF215_HAL_SpiWrite(RF215_RFn_EDC(trxIdx), &pObj->phyRegs.RFn_EDC, 1);
         pObj->phyState = PHY_STATE_TX_CCA_ED;
 
-        if (txBufObj->reqObj.ccaContentionWindow > 1)
+        if (txBufObj->reqObj.ccaContentionWindow > 1U)
         {
             /* This is not the last ED (contention window) */
             writeBuffer = false;
@@ -3259,7 +3424,7 @@ static inline void _RF215_TX_Start(uint8_t trxIdx)
     }
     else
     {
-        if (pObj->phyState != PHY_STATE_TX_TXPREP)
+        if (startReady == false)
         {
             /* We need to make sure that TXPREP command has been sent before
              * sending TX command. Otherwise, this function will be called
@@ -3269,7 +3434,7 @@ static inline void _RF215_TX_Start(uint8_t trxIdx)
         }
 
         /* Start transmission with TX command */
-        _RF215_TRX_CommandTx(trxIdx);
+        lRF215_TRX_CommandTx(trxIdx);
     }
 
     if (writeBuffer == true)
@@ -3283,9 +3448,9 @@ static inline void _RF215_TX_Start(uint8_t trxIdx)
     }
 }
 
-static void _RF215_TX_Prepare(uint8_t trxIdx)
+static void lRF215_TX_Prepare(uint8_t trxIdx)
 {
-    RF215_PHY_REGS_OBJ regsNew;
+    RF215_PHY_REGS_OBJ regsNew = {0};
     uint16_t psduLen;
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     DRV_RF215_TX_BUFFER_OBJ* txBufObj = pObj->txBufObj;
@@ -3294,7 +3459,7 @@ static void _RF215_TX_Prepare(uint8_t trxIdx)
     bool setLen = true;
 
     /* Switch TRX to TXPREP state to prepare for transmission */
-    if (_RF215_TRX_SwitchTxPrep(trxIdx) == false)
+    if (lRF215_TRX_SwitchTxPrep(trxIdx) == false)
     {
         /* If transition to TXPREP in progress, this function will be called
          * again from TRXRDY interrupt */
@@ -3308,10 +3473,10 @@ static void _RF215_TX_Prepare(uint8_t trxIdx)
          * Disable baseband to avoid decoding during ED.
          * Set ED Duration register.
          * Switch TRX to RX state for ED. */
-        _RF215_BBC_BaseBandDisable(trxIdx);
-        _RF215_RXFE_SetEnDetectDuration(trxIdx, pObj->phyConfig.ccaEdDurationUS);
-        _RF215_TRX_CommandRx(trxIdx);
-        if (txBufObj->reqObj.ccaContentionWindow <= 1)
+        lRF215_BBC_BaseBandDisable(trxIdx);
+        lRF215_RXFE_SetEnDetectDuration(trxIdx, pObj->phyConfig.ccaEdDurationUS);
+        lRF215_TRX_CommandRx(trxIdx);
+        if (txBufObj->reqObj.ccaContentionWindow <= 1U)
         {
             /* Enable CCATX auto procedure (disable TX2RX) and set threshold */
             regsNew.BBCn_AMCS = RF215_BBCn_AMCS_CCATX;
@@ -3320,7 +3485,7 @@ static void _RF215_TX_Prepare(uint8_t trxIdx)
         else
         {
             /* Contention window: Disable CCATX auto procedure */
-            regsNew.BBCn_AMCS = 0;
+            regsNew.BBCn_AMCS = 0U;
             regsNew.BBCn_AMEDT = phyRegs->BBCn_AMEDT;
             setLen = false;
         }
@@ -3333,9 +3498,13 @@ static void _RF215_TX_Prepare(uint8_t trxIdx)
         regsNew.BBCn_AMEDT = phyRegs->BBCn_AMEDT;
     }
 
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 18.1 deviated 4 times. Deviation record ID - H3_MISRAC_2012_R_18_1_DR_1 */
+
     /* Write up to 2 registers: BBCn_AMCS, BBCn_AMEDT */
+    (void) regsNew.BBCn_AMEDT;
     RF215_HAL_SpiWriteUpdate(RF215_BBCn_AMCS(trxIdx),
-            &regsNew.BBCn_AMCS, &phyRegs->BBCn_AMCS, 2);
+            &regsNew.BBCn_AMCS, &phyRegs->BBCn_AMCS, 2U);
 
     if (setLen == true)
     {
@@ -3343,18 +3512,20 @@ static void _RF215_TX_Prepare(uint8_t trxIdx)
          * Write up to 2 registers: BBCn_TXFLL, BBCn_TXFLH.
          * BBCn_TXFLL must always be written. */
         psduLen = txBufObj->reqObj.psduLen;
-        regsNew.BBCn_TXFLL = (uint8_t) (psduLen & 0xFF);
+        regsNew.BBCn_TXFLL = (uint8_t) psduLen;
         regsNew.BBCn_TXFLH = (uint8_t) RF215_BBCn_TXFLH_TXFLH(psduLen >> 8);
-        phyRegs->BBCn_TXFLL = regsNew.BBCn_TXFLL + 1;
+        phyRegs->BBCn_TXFLL = regsNew.BBCn_TXFLL + 1U;
         RF215_HAL_SpiWriteUpdate(RF215_BBCn_TXFLL(trxIdx),
-                &regsNew.BBCn_TXFLL, &phyRegs->BBCn_TXFLL, 2);
+                &regsNew.BBCn_TXFLL, &phyRegs->BBCn_TXFLL, 2U);
     }
+
+    /* MISRA C-2012 deviation block end */
 
     /* Update PHY state */
     pObj->phyState = PHY_STATE_TX_TXPREP;
 }
 
-static DRV_RF215_TX_RESULT _RF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
+static DRV_RF215_TX_RESULT lRF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 {
     RF215_PHY_REGS_OBJ* phyRegs;
     uint8_t* pPHR;
@@ -3363,6 +3534,7 @@ static DRV_RF215_TX_RESULT _RF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     uint8_t trxIdx = txBufObj->clientObj->trxIndex;
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     DRV_RF215_PHY_CCA_MODE ccaMode = txBufObj->reqObj.ccaMode;
+    DRV_RF215_TX_RESULT result = RF215_TX_SUCCESS;
 
     if ((pObj->txStarted == true) && (txBufObj != pObj->txBufObj))
     {
@@ -3380,16 +3552,18 @@ static DRV_RF215_TX_RESULT _RF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     switch (pObj->phyState)
     {
         case PHY_STATE_RESET:
-            return RF215_TX_TIMEOUT;
+            result = RF215_TX_TIMEOUT;
+            break;
 
         case PHY_STATE_SLEPT:
-            return RF215_TX_TRX_SLEPT;
+            result = RF215_TX_TRX_SLEPT;
+            break;
 
         case PHY_STATE_RX_HEADER:
             /* RX in progress: Busy RX error (if CCA uses carrier sense) */
             if ((ccaMode == PHY_CCA_MODE_2) || (ccaMode == PHY_CCA_MODE_3))
             {
-                return RF215_TX_BUSY_RX;
+                result = RF215_TX_BUSY_RX;
             }
             break;
 
@@ -3397,25 +3571,32 @@ static DRV_RF215_TX_RESULT _RF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
             /* RX payload in progress: Busy RX error (except for CCA off) */
             if (ccaMode != PHY_CCA_OFF)
             {
-                return RF215_TX_BUSY_RX;
+                result = RF215_TX_BUSY_RX;
             }
             break;
 
         case PHY_STATE_TX_CONTINUOUS:
         case PHY_STATE_IDLE:
             /* Continuous TX in progress: Busy TX error */
-            return RF215_TX_BUSY_TX;
+            result = RF215_TX_BUSY_TX;
+            break;
 
         default:
+            result = RF215_TX_SUCCESS;
             break;
+    }
+
+    if (result != RF215_TX_SUCCESS)
+    {
+        return result;
     }
 
     /* Everything OK. Set TX in progress */
     pObj->txStarted = true;
     pObj->txBufObj = txBufObj;
-    pObj->txCmdDelayUSq5 = _RF215_TX_CommandDelayUSq5(txBufObj);
+    pObj->txCmdDelayUSq5 = lRF215_TX_CommandDelayUSq5(txBufObj);
 
-    if ((txBufObj->reqObj.ccaContentionWindow > 1) &&
+    if ((txBufObj->reqObj.ccaContentionWindow > 1U) &&
             ((ccaMode == PHY_CCA_MODE_1) || (ccaMode == PHY_CCA_MODE_3)))
     {
         /* TX parameters not configured if contention window (CW > 1) with ED */
@@ -3441,7 +3622,7 @@ static DRV_RF215_TX_RESULT _RF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     {
         /* OFDM: Minimum TX power attenuation to comply with EVM requirements */
         mcsIndex = (uint8_t) txBufObj->reqObj.modScheme;
-        if (txPwrAtt < 31)
+        if (txPwrAtt < 31U)
         {
             txPwrAtt += ofdmMcsConst[mcsIndex].minTxPwrAttMin;
         }
@@ -3455,35 +3636,35 @@ static DRV_RF215_TX_RESULT _RF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     }
 
     /* Maximum TX power attenuation is 31 dB */
-    if (txPwrAtt > 31)
+    if (txPwrAtt > 31U)
     {
-        txPwrAtt = 31;
+        txPwrAtt = 31U;
     }
 
     /* Transmitter Power Amplifier Control (RFn_PAC)
      * PAC.PACUR: Power Amplifier Current Control. No power amplifier current
      * reduction to achieve maximum output power.
      * PAC.TXPWR: Transmitter Output Power. */
-    pac = RF215_RFn_PAC_PACUR_0mA | RF215_RFn_PAC_TXPWR(31 - txPwrAtt);
+    pac = RF215_RFn_PAC_PACUR_0mA | RF215_RFn_PAC_TXPWR(31U - txPwrAtt);
 
     /* Check if modulation scheme or TX power change */
     if ((*pPHR != phrtx) || (phyRegs->RFn_PAC != pac))
     {
         /* Register(s) must be configured in TRXOFF state */
-        if (_RF215_TRX_SwitchTrxOff(trxIdx) == true)
+        if (lRF215_TRX_SwitchTrxOff(trxIdx) == true)
         {
             /* Write PHRTX register if it changes */
             if (*pPHR != phrtx)
             {
                 *pPHR = phrtx;
-                RF215_HAL_SpiWrite(addrPHR, pPHR, 1);
+                RF215_HAL_SpiWrite(addrPHR, pPHR, 1U);
             }
 
             /* Write RFn_PAC register if it changes */
             if (phyRegs->RFn_PAC != pac)
             {
                 phyRegs->RFn_PAC = pac;
-                RF215_HAL_SpiWrite(RF215_RFn_PAC(trxIdx), &phyRegs->RFn_PAC, 1);
+                RF215_HAL_SpiWrite(RF215_RFn_PAC(trxIdx), &phyRegs->RFn_PAC, 1U);
             }
 
             /* Transmission parameters configured. Update PHY state */
@@ -3500,27 +3681,29 @@ static DRV_RF215_TX_RESULT _RF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     return RF215_TX_SUCCESS;
 }
 
-static SYS_TIME_HANDLE _RF215_TX_TimeSchedule (
-    uint64_t time,
+static SYS_TIME_HANDLE lRF215_TX_TimeSchedule (
+    uint64_t txTime,
     bool force,
     SYS_TIME_CALLBACK timeCallback,
     uintptr_t timeContext
 )
 {
+    uint64_t txTimeDelay;
     int64_t txIntDelay;
     uint32_t txIntMargin, txTimeMaxError;
     SYS_TIME_HANDLE timeHandle = SYS_TIME_HANDLE_INVALID;
 
     /* Add margin for higher/same priority interrupts or critical regions */
-    txIntMargin = (uint32_t) _RF215_PHY_USq5ToSysTimeCount(RF215_TX_TIME_IRQ_DELAY_US_Q5);
-    time -= txIntMargin;
+    txIntMargin = (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) RF215_TX_TIME_IRQ_DELAY_US_Q5);
+    txTime -= txIntMargin;
 
     /* Remaining time until the SYS_TIME interrupt is needed.
      * It must fit in 32 bits.
      * If it is already late, the maximum error must not be exceeded. */
-    txIntDelay = (int64_t) time - SYS_TIME_Counter64Get();
+    txTimeDelay = txTime - SYS_TIME_Counter64Get();
+    txIntDelay = (int64_t) txTimeDelay;
     txTimeMaxError = SYS_TIME_USToCount(DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US);
-    if ((txIntDelay > UINT32_MAX) || (txIntDelay < (-((int64_t) txTimeMaxError))))
+    if ((txIntDelay > (int64_t) UINT32_MAX) || (txIntDelay < (-((int64_t) txTimeMaxError))))
     {
         /* Error: delay too long or it is too late for the requested time */
         return timeHandle;
@@ -3549,12 +3732,16 @@ static SYS_TIME_HANDLE _RF215_TX_TimeSchedule (
             timeContext, SYS_TIME_SINGLE);
 
     /* Start the timer */
-    SYS_TIME_TimerStart(timeHandle);
+    if (SYS_TIME_TimerStart(timeHandle) != SYS_TIME_SUCCESS)
+    {
+        (void) SYS_TIME_TimerDestroy(timeHandle);
+        return SYS_TIME_HANDLE_INVALID;
+    }
 
     return timeHandle;
 }
 
-static void _RF215_TX_StartTimeExpired(uintptr_t context)
+static void lRF215_TX_StartTimeExpired(uintptr_t context)
 {
     uint64_t currentTime, txCommandTime;
     uint32_t txCommandDelay;
@@ -3587,7 +3774,7 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
         /* SPI is not free. Add estimated delay for SPI queue to be empty. */
         size_t spiQueueSize = RF215_HAL_GetSpiQueueSize();
         startDelayUSq5 += (uint32_t) spiQueueSize * RF215_SPI_BYTE_DURATION_US_Q5;
-        startDelayUSq5 += EX_CYCL_TO_USQ5(2000);
+        startDelayUSq5 += EX_CYCL_TO_USQ5(2000U);
     }
 
     if (pObj->trxRdy == false)
@@ -3597,22 +3784,26 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
     }
 
     /* Time when next command (TX/EDM_SINGLE) has to be sent */
-    txCommandDelay = (uint32_t) _RF215_PHY_USq5ToSysTimeCount(pObj->txCmdDelayUSq5);
+    txCommandDelay = (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) pObj->txCmdDelayUSq5);
     txCommandTime = txTime - txCommandDelay;
     currentTime = SYS_TIME_Counter64Get();
 
-    if ((startDelayUSq5 > 0) && (txCommandTime > currentTime))
+    if ((startDelayUSq5 > 0U) && (txCommandTime > currentTime))
     {
         uint32_t startDelay;
 
         /* Not ready to start and it is not too late.
          * Create new timer to start TX later. */
-        startDelay = (uint32_t) _RF215_PHY_USq5ToSysTimeCount(startDelayUSq5);
-        timeHandle = SYS_TIME_TimerCreate(0, startDelay,
-                _RF215_TX_StartTimeExpired, context, SYS_TIME_SINGLE);
+        startDelay = (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) startDelayUSq5);
+        timeHandle = SYS_TIME_TimerCreate(0U, startDelay,
+                lRF215_TX_StartTimeExpired, context, SYS_TIME_SINGLE);
 
         /* Start the timer */
-        SYS_TIME_TimerStart(timeHandle);
+        if (SYS_TIME_TimerStart(timeHandle) != SYS_TIME_SUCCESS)
+        {
+            (void) SYS_TIME_TimerDestroy(timeHandle);
+            timeHandle = SYS_TIME_HANDLE_INVALID;
+        }
     }
 
     /* If no timer created, we can start TX */
@@ -3621,12 +3812,13 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
         uint64_t criticalTime;
         uint32_t txTimeMaxError;
         bool intStatus;
+        bool txError = false;
 
         /* Maximum TX time error delay allowed */
         txTimeMaxError = SYS_TIME_USToCount(DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US);
 
         /* Wait until critical time (25 us before command) is reached */
-        criticalTime = txCommandTime - SYS_TIME_USToCount(25);
+        criticalTime = txCommandTime - SYS_TIME_USToCount(25U);
         while (criticalTime > currentTime)
         {
             currentTime = SYS_TIME_Counter64Get();
@@ -3643,7 +3835,7 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
         /* Check that TX time error delay is not exceeded */
         if ((currentTime - txCommandTime) < txTimeMaxError)
         {
-            _RF215_TX_Start(trxIdx);
+            lRF215_TX_Start(trxIdx);
         }
 
         /* Leave critical region */
@@ -3655,13 +3847,13 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
             DRV_RF215_PHY_CCA_MODE ccaMode = txBufObj->reqObj.ccaMode;
 
             /* Update contention window counter (CW) */
-            if ((txBufObj->reqObj.ccaContentionWindow > 0) &&
+            if ((txBufObj->reqObj.ccaContentionWindow > 0U) &&
                 ((ccaMode == PHY_CCA_MODE_1) || (ccaMode == PHY_CCA_MODE_3)))
             {
                 txBufObj->reqObj.ccaContentionWindow--;
             }
 
-            if ((txBufObj->reqObj.ccaContentionWindow > 0) &&
+            if ((txBufObj->reqObj.ccaContentionWindow > 0U) &&
                 ((ccaMode == PHY_CCA_MODE_1) || (ccaMode == PHY_CCA_MODE_3)))
             {
                 uint64_t interruptTime;
@@ -3670,17 +3862,22 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
                 /* There are pending ED for CCA contention window.
                  * Compute total TX delay (worst case) for next ED.
                  * Schedule new timer for next TX configuration/preparation */
-                txTotalDelay = _RF215_TX_TotalDelay(txBufObj);
+                txTotalDelay = lRF215_TX_TotalDelay(txBufObj);
                 interruptTime = txTime - txTotalDelay;
-                timeHandle = _RF215_TX_TimeSchedule(interruptTime, false,
-                        _RF215_TX_PrepareTimeExpired, (uintptr_t) txBufObj);
+                timeHandle = lRF215_TX_TimeSchedule(interruptTime, false,
+                        lRF215_TX_PrepareTimeExpired, (uintptr_t) txBufObj);
+
+                if (timeHandle == SYS_TIME_HANDLE_INVALID)
+                {
+                    txError = true;
+                }
             }
             else
             {
                 /* No ED contention window. At least TX command delay is needed
                  * for the TX capture event time to be ready in RF215.
                  * Add 150 us for margin. */
-                timeReadDelayUSq5 = pObj->txCmdDelayUSq5 + (150 << 5);
+                timeReadDelayUSq5 = pObj->txCmdDelayUSq5 + (150U << 5);
                 if (pObj->phyState <= PHY_STATE_TX_TXPREP)
                 {
                     /* TX/CCATX command has not been sent. Add TRXRDY delay. */
@@ -3689,10 +3886,14 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
                 }
 
                 /* Create and start timer to read TX capture event time */
-                timeReadDelay = (uint32_t) _RF215_PHY_USq5ToSysTimeCount(timeReadDelayUSq5);
+                timeReadDelay = (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) timeReadDelayUSq5);
                 timeHandle = SYS_TIME_TimerCreate(0, timeReadDelay,
-                    _RF215_TX_ReadCaptureTimeExpired, context, SYS_TIME_SINGLE);
-                SYS_TIME_TimerStart(timeHandle);
+                    lRF215_TX_ReadCaptureTimeExpired, context, SYS_TIME_SINGLE);
+                if (SYS_TIME_TimerStart(timeHandle) != SYS_TIME_SUCCESS)
+                {
+                    (void) SYS_TIME_TimerDestroy(timeHandle);
+                    timeHandle = SYS_TIME_HANDLE_INVALID;
+                }
             }
 
             /* Update SYS_TIME handle */
@@ -3700,8 +3901,13 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
         }
         else
         {
+            txError = true;
+        }
+
+        if (txError == true)
+        {
             /* Continue listening and set pending TX confirm with TX error */
-            _RF215_TRX_RxListen(trxIdx);
+            lRF215_TRX_RxListen(trxIdx);
             RF215_PHY_SetTxCfm(txBufObj, RF215_TX_TIMEOUT);
         }
     }
@@ -3709,7 +3915,7 @@ static void _RF215_TX_StartTimeExpired(uintptr_t context)
     RF215_HAL_SpiUnlock();
 }
 
-static void _RF215_TX_PrepareTimeExpired(uintptr_t context)
+static void lRF215_TX_PrepareTimeExpired(uintptr_t context)
 {
     DRV_RF215_TX_RESULT result;
     DRV_RF215_TX_BUFFER_OBJ* txBufObj = (DRV_RF215_TX_BUFFER_OBJ *) context;
@@ -3728,7 +3934,7 @@ static void _RF215_TX_PrepareTimeExpired(uintptr_t context)
     if ((pObj->phyState == PHY_STATE_TX_CCA_ED) || (pObj->txPendingState == PHY_STATE_TX_CCA_ED))
     {
         /* CCA ED still in progress. New interrupt for later (ED duration) */
-        txBufObj->timeHandle = SYS_TIME_CallbackRegisterUS(_RF215_TX_PrepareTimeExpired,
+        txBufObj->timeHandle = SYS_TIME_CallbackRegisterUS(lRF215_TX_PrepareTimeExpired,
                 context, pObj->phyConfig.ccaEdDurationUS, SYS_TIME_SINGLE);
 
         RF215_HAL_LeaveCritical();
@@ -3743,7 +3949,7 @@ static void _RF215_TX_PrepareTimeExpired(uintptr_t context)
     }
 
     /* Carrier sense CCA and TX parameters configuration */
-    result = _RF215_TX_ParamCfg(txBufObj);
+    result = lRF215_TX_ParamCfg(txBufObj);
 
     if (result == RF215_TX_SUCCESS)
     {
@@ -3759,31 +3965,31 @@ static void _RF215_TX_PrepareTimeExpired(uintptr_t context)
             /* Delay between next command (TX/EDM_SINGLE) and TX start time.
              * Add required time for TX preparation.
              * Convert total delay to SYS_TIME count units. */
-            txPrepDelayUSq5 = pObj->txCmdDelayUSq5 + _RF215_TX_PrepareDelayUSq5(txBufObj);
-            interruptTime = txTime - (uint32_t) _RF215_PHY_USq5ToSysTimeCount(txPrepDelayUSq5);
+            txPrepDelayUSq5 = pObj->txCmdDelayUSq5 + lRF215_TX_PrepareDelayUSq5(txBufObj);
+            interruptTime = txTime - (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) txPrepDelayUSq5);
 
             /* Schedule timer for TX configuration/preparation */
-            timeHandle = _RF215_TX_TimeSchedule(interruptTime, false,
-                    _RF215_TX_PrepareTimeExpired, context);
+            timeHandle = lRF215_TX_TimeSchedule(interruptTime, false,
+                    lRF215_TX_PrepareTimeExpired, context);
         }
 
         if (timeHandle == SYS_TIME_HANDLE_INVALID)
         {
             /* No time to wait for new interrupt: Prepare transmission */
-            _RF215_TX_Prepare(trxIdx);
+            lRF215_TX_Prepare(trxIdx);
 
             /* Delay between next command (TX/EDM_SINGLE) and TX start time */
-            interruptTime = txTime - (uint32_t) _RF215_PHY_USq5ToSysTimeCount(pObj->txCmdDelayUSq5);
+            interruptTime = txTime - (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) pObj->txCmdDelayUSq5);
 
             /* Schedule timer for TX start */
-            timeHandle = _RF215_TX_TimeSchedule(interruptTime, true,
-                    _RF215_TX_StartTimeExpired, (uintptr_t) trxIdx);
+            timeHandle = lRF215_TX_TimeSchedule(interruptTime, true,
+                    lRF215_TX_StartTimeExpired, (uintptr_t) trxIdx);
         }
 
         if (timeHandle == SYS_TIME_HANDLE_INVALID)
         {
             /* Error: Timer could not be started. Continue listening. */
-            _RF215_TRX_RxListen(trxIdx);
+            lRF215_TRX_RxListen(trxIdx);
             result = RF215_TX_TIMEOUT;
         }
         else
@@ -3802,7 +4008,7 @@ static void _RF215_TX_PrepareTimeExpired(uintptr_t context)
     RF215_HAL_LeaveCritical();
 }
 
-static void _RF215_RX_PsduEnd(uint8_t trxIdx, bool fcsOk)
+static void lRF215_RX_PsduEnd(uint8_t trxIdx, bool fcsOk)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     uint16_t psduLen = pObj->rxInd.psduLen;
@@ -3822,12 +4028,12 @@ static void _RF215_RX_PsduEnd(uint8_t trxIdx, bool fcsOk)
 
         /* Read the remaining bytes of the received PSDU (part of the payload
          * can be read in FBLI interrupt) */
-        RF215_HAL_SpiRead(addrFBRX, buf, pending, _RF215_PHY_SetFlag, ctxt);
+        RF215_HAL_SpiRead(addrFBRX, buf, pending, lRF215_PHY_SetFlag, ctxt);
     }
     else
     {
         /* PSDU already read in FBLI IRQ. Get Energy Detection Value (RRSI) */
-        RF215_HAL_SpiRead(addrEDV, pRSSI, 1, _RF215_PHY_SetFlag, ctxt);
+        RF215_HAL_SpiRead(addrEDV, pRSSI, 1, lRF215_PHY_SetFlag, ctxt);
     }
 
     /* FCS correct flag */
@@ -3837,7 +4043,7 @@ static void _RF215_RX_PsduEnd(uint8_t trxIdx, bool fcsOk)
     DRV_RF215_AbortTxByRx(trxIdx);
 }
 
-static void _RF215_RX_FrameEnd(uint8_t trxIdx)
+static void lRF215_RX_FrameEnd(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
@@ -3846,19 +4052,19 @@ static void _RF215_RX_FrameEnd(uint8_t trxIdx)
         /* Normal case: TRX switches automatically to TXPREP.
          * Continue listening. */
         pObj->trxState = RF215_RFn_STATE_RF_TXPREP;
-        _RF215_TRX_RxListen(trxIdx);
+        lRF215_TRX_RxListen(trxIdx);
     }
 
     /* If automatic FCS is enabled, RXFE interrupt means that FCS is valid
      * (FCS Filter is enabled: BBCn_PC.FCSFE).
      * Process the end of completed PSDU reception. Read pending bytes from
      * RX Frame Buffer and Energy Detection Value (RRSI) */
-	_RF215_RX_PsduEnd(trxIdx, true);
+    lRF215_RX_PsduEnd(trxIdx, true);
     pObj->phyStatistics.rxTotal++;
     pObj->phyStatistics.rxTotalBytes += pObj->rxInd.psduLen;
 }
 
-static void _RF215_RX_AgcReleaseReadFBL(uintptr_t context, void* pData, uint64_t time)
+static void lRF215_RX_AgcReleaseReadFBL(uintptr_t context, void* pData, uint64_t timeRead)
 {
     uint16_t bufLevel;
     uint8_t trxIdx = (uint8_t) context;
@@ -3876,7 +4082,7 @@ static void _RF215_RX_AgcReleaseReadFBL(uintptr_t context, void* pData, uint64_t
          * means that the FCS is not valid.
          * Process the end of completed PSDU reception. Read pending bytes from
          * RX Frame Buffer and Energy Detection Value (RRSI). */
-        _RF215_RX_PsduEnd(trxIdx, false);
+        lRF215_RX_PsduEnd(trxIdx, false);
         pObj->phyStatistics.rxErrBadFcsPay++;
         pObj->phyStatistics.rxErrTotal++;
     }
@@ -3887,7 +4093,7 @@ static void _RF215_RX_AgcReleaseReadFBL(uintptr_t context, void* pData, uint64_t
     }
 }
 
-static void _RF215_RX_AgcRelease(uint8_t trxIdx)
+static void lRF215_RX_AgcRelease(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     RF215_PHY_STATE phyState = pObj->phyState;
@@ -3901,12 +4107,15 @@ static void _RF215_RX_AgcRelease(uint8_t trxIdx)
         pObj->phyStatistics.rxErrTotal++;
         listen = true;
     }
-    else if (phyState == PHY_STATE_RX_PAYLOAD)
+    else
     {
-        /* Get Frame Buffer Level: Read 2 registers (BBCn_FBLL, BBCn_FBLH) */
-        RF215_HAL_SpiRead(RF215_BBCn_FBLL(trxIdx), &pObj->phyRegs.BBCn_FBLL, 2,
-                _RF215_RX_AgcReleaseReadFBL, (uintptr_t) trxIdx);
-        listen = true;
+        if (phyState == PHY_STATE_RX_PAYLOAD)
+        {
+            /* Get Frame Buffer Level: Read 2 registers (BBCn_FBLL, BBCn_FBLH) */
+            RF215_HAL_SpiRead(RF215_BBCn_FBLL(trxIdx), &pObj->phyRegs.BBCn_FBLL, 2,
+                    lRF215_RX_AgcReleaseReadFBL, (uintptr_t) trxIdx);
+            listen = true;
+        }
     }
 
     if (listen == true)
@@ -3917,12 +4126,12 @@ static void _RF215_RX_AgcRelease(uint8_t trxIdx)
         /* Check pending PHY configuration */
         if (pObj->phyCfgPending == true)
         {
-            _RF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending);
+            (void) lRF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending, true);
         }
     }
 }
 
-static void _RF215_RX_BuffLvlIntReadFBL(uintptr_t context, void* pData, uint64_t time)
+static void lRF215_RX_BuffLvlIntReadFBL(uintptr_t context, void* pData, uint64_t timeRead)
 {
     uint16_t bufLevel;
     uint8_t trxIdx = (uint8_t) context;
@@ -3940,18 +4149,18 @@ static void _RF215_RX_BuffLvlIntReadFBL(uintptr_t context, void* pData, uint64_t
     bufLevel = pFBL[0];
     bufLevel += ((uint16_t) pFBL[1] << 8);
 
-    if ((bufLevel == 0) || (bufLevel > pObj->rxInd.psduLen))
+    if ((bufLevel == 0U) || (bufLevel > pObj->rxInd.psduLen))
     {
         /* Invalid buffer level */
         return;
     }
 
     /* Read PSDU bytes already stored in RX Frame Buffer */
-    RF215_HAL_SpiRead(RF215_BBCn_FBRXS(trxIdx), pObj->rxPsdu, bufLevel, NULL, 0);
+    RF215_HAL_SpiRead(RF215_BBCn_FBRXS(trxIdx), pObj->rxPsdu, bufLevel, NULL, 0U);
     pObj->rxBufferOffset = bufLevel;
 }
 
-static inline void _RF215_RX_BuffLvlInt(uint8_t trxIdx)
+static inline void lRF215_RX_BuffLvlInt(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
@@ -3964,27 +4173,28 @@ static inline void _RF215_RX_BuffLvlInt(uint8_t trxIdx)
     /* Get Frame Buffer Level to know how many bytes can be read:
      * Read 2 registers (BBCn_FBLL, BBCn_FBLH) */
     RF215_HAL_SpiRead(RF215_BBCn_FBLL(trxIdx), &pObj->phyRegs.BBCn_FBLL, 2,
-            _RF215_RX_BuffLvlIntReadFBL, (uintptr_t) trxIdx);
+            lRF215_RX_BuffLvlIntReadFBL, (uintptr_t) trxIdx);
 }
 
-static void _RF215_RX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t time)
+static void lRF215_RX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t timeRead)
 {
+    int64_t timeIni;
     int32_t trxCountDiff;
     RF215_PHY_OBJ* pObj = (RF215_PHY_OBJ *) ctxt;
     uint8_t rxdfe = pObj->phyRegs.RFn_RXDFE;
     DRV_RF215_PHY_CFG_OBJ *phyCfg = &pObj->phyConfig;
 
     /* Read counter (reset at RX frame start event) */
-    trxCountDiff = _RF215_PHY_EventTrxCountDiff(pDat);
+    trxCountDiff = lRF215_PHY_EventTrxCountDiff(pDat);
 
     /* Compensate RXFS interrupt and RX baseband delays */
     if (phyCfg->phyType == PHY_TYPE_FSK)
     {
-        trxCountDiff += _RF215_FSK_RxStartDelayUSq5(&phyCfg->phyTypeCfg.fsk, pObj->rxInd.modScheme);
+        trxCountDiff += (int32_t) lRF215_FSK_RxStartDelayUSq5(&phyCfg->phyTypeCfg.fsk, pObj->rxInd.modScheme);
     }
     else /* PHY_TYPE_OFDM */
     {
-        trxCountDiff += _RF215_OFDM_RxStartDelayUSq5(&phyCfg->phyTypeCfg.ofdm);
+        trxCountDiff += (int32_t) lRF215_OFDM_RxStartDelayUSq5(&phyCfg->phyTypeCfg.ofdm);
     }
 
     /* Compensate RX processing delay */
@@ -3992,15 +4202,16 @@ static void _RF215_RX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t time)
     {
         /* Delay with RXDFE.RCUT != 4: Depends on RXDFE.SR */
         uint8_t sr = (rxdfe & RF215_RFn_RXDFE_SR_Msk) >> RF215_RFn_RXDFE_SR_Pos;
-        trxCountDiff += rf215RxDfeProcDelay[sr];
+        trxCountDiff += (int32_t) rf215RxDfeProcDelay[sr];
     }
 
     /* Compute SYS_TIME counter associated to RX event */
-    pObj->rxInd.timeIniCount = time - (int64_t) _RF215_PHY_USq5ToSysTimeCount(trxCountDiff);
+    timeIni = (int64_t) timeRead - lRF215_PHY_USq5ToSysTimeCount(trxCountDiff);
+    pObj->rxInd.timeIniCount = (uint64_t) timeIni;
     pObj->rxTimeValid = true;
 }
 
-static void _RF215_RX_ReadPHR(uintptr_t context, void* pData, uint64_t time)
+static void lRF215_RX_ReadPHR(uintptr_t context, void* pData, uint64_t timeRead)
 {
     uint16_t psduLen;
     DRV_RF215_PHY_MOD_SCHEME modScheme = FSK_FEC_OFF;
@@ -4033,11 +4244,11 @@ static void _RF215_RX_ReadPHR(uintptr_t context, void* pData, uint64_t time)
         /* Check received PHR */
         if (phyCfg->phyType == PHY_TYPE_FSK)
         {
-            modScheme = _RF215_FSK_ReadPHR(phr);
+            modScheme = lRF215_FSK_ReadPHR(phr);
         }
         else /* PHY_TYPE_OFDM */
         {
-            modScheme = _RF215_OFDM_ReadPHR(phr, phyCfg->phyTypeCfg.ofdm.opt);
+            modScheme = lRF215_OFDM_ReadPHR(phr, phyCfg->phyTypeCfg.ofdm.opt);
         }
 
         if (modScheme == MOD_SCHEME_INVALID)
@@ -4051,13 +4262,13 @@ static void _RF215_RX_ReadPHR(uintptr_t context, void* pData, uint64_t time)
     if (phrErr == false)
     {
         /* PHR and frame length are valid */
-        if (pObj->rxFlagsPending == 0)
+        if (pObj->rxFlagsPending == 0U)
         {
             /* Compute number of bytes to read in FBLI interrupt, optimized to
              * read less bytes as possible in RXFE interrupt, depending on the
              * RF frame parameters and SPI interface */
-            uint16_t fbli = _RF215_BBC_GetBestFBLI(phyCfg, modScheme, psduLen);
-            _RF215_BBC_SetFBLI(trxIdx, fbli);
+            uint16_t fbli = lRF215_BBC_GetBestFBLI(phyCfg, modScheme, psduLen);
+            lRF215_BBC_SetFBLI(trxIdx, fbli);
         }
 
         /* Read counter (reset at RX frame start event).
@@ -4065,7 +4276,7 @@ static void _RF215_RX_ReadPHR(uintptr_t context, void* pData, uint64_t time)
          * Read BBCn_CNT0..3 (4 bytes). BBCn_CNT0 is least significant byte.
          * Read from tasks to avoid issues with SYS_TIME_Counter64Get(). */
         RF215_HAL_SpiReadFromTasks(RF215_BBCn_CNT0(trxIdx), &pObj->phyRegs.BBCn_CNT0,
-                    4, _RF215_RX_ReadCNT, (uintptr_t) pObj);
+                    4, lRF215_RX_ReadCNT, (uintptr_t) pObj);
 
         /* Check pending RX indication */
         if (pObj->rxIndPending == true)
@@ -4076,39 +4287,42 @@ static void _RF215_RX_ReadPHR(uintptr_t context, void* pData, uint64_t time)
         }
 
         /* Update RX indication parameters */
-        pObj->rxBufferOffset = 0;
+        pObj->rxBufferOffset = 0U;
         pObj->rxInd.psduLen = psduLen;
         pObj->rxInd.modScheme = modScheme;
-        pObj->rxInd.ppduDurationCount = _RF215_PHY_PpduDuration(&pObj->phyConfig,
+        pObj->rxInd.ppduDurationCount = lRF215_PHY_PpduDuration(&pObj->phyConfig,
             modScheme, psduLen, &pObj->rxPaySymbols);
 
         /* Process RXFE/AGCR interrupt if it is pending */
-        if ((pObj->rxFlagsPending & RF215_BBCn_IRQ_RXFE) != 0)
+        if ((pObj->rxFlagsPending & RF215_BBCn_IRQ_RXFE) != 0U)
         {
-            _RF215_RX_FrameEnd(trxIdx);
-        }
-        else if ((pObj->rxFlagsPending & RF215_BBCn_IRQ_AGCR) != 0)
-        {
-            _RF215_RX_AgcRelease(trxIdx);
+            lRF215_RX_FrameEnd(trxIdx);
         }
         else
         {
-            /* Turn on RX LED */
-            RF215_HAL_LedRx(true);
-            pObj->ledRxStatus = true;
+            if ((pObj->rxFlagsPending & RF215_BBCn_IRQ_AGCR) != 0U)
+            {
+                lRF215_RX_AgcRelease(trxIdx);
+            }
+            else
+            {
+                /* Turn on RX LED */
+                RF215_HAL_LedRx(true);
+                pObj->ledRxStatus = true;
+            }
         }
     }
     else
     {
         /* Abort ongoing RX and start listening again */
-        _RF215_TRX_RxListen(trxIdx);
+        lRF215_TRX_RxListen(trxIdx);
 
         /* Update PHY statistics */
         pObj->phyStatistics.rxErrTotal++;
     }
 }
 
-static inline void _RF215_RX_FrameStart(uint8_t trxIdx)
+static inline void lRF215_RX_FrameStart(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     RF215_PHY_REGS_OBJ* regs = &pObj->phyRegs;
@@ -4126,13 +4340,13 @@ static inline void _RF215_RX_FrameStart(uint8_t trxIdx)
     }
 
     /* Get PHRRX register */
-    RF215_HAL_SpiRead(addrPHR, pPHR, 1, _RF215_RX_ReadPHR, (uintptr_t) trxIdx);
+    RF215_HAL_SpiRead(addrPHR, pPHR, 1, lRF215_RX_ReadPHR, (uintptr_t) trxIdx);
 
     /* PHY continues receiving the payload */
     pObj->phyState = PHY_STATE_RX_PAYLOAD;
 }
 
-static inline void _RF215_RX_AgcHold(RF215_PHY_OBJ* phyObj)
+static inline void lRF215_RX_AgcHold(RF215_PHY_OBJ* phyObj)
 {
     RF215_PHY_STATE phyState = phyObj->phyState;
     if ((phyState == PHY_STATE_RX_HEADER) || (phyState == PHY_STATE_RX_PAYLOAD))
@@ -4164,7 +4378,7 @@ bool RF215_PHY_Initialize (
     const RF215_PLL_CONST_OBJ* pllConst = &rf215PllConst[trxIdx];
 
     /* Convert frequency band / operating mode to PHY configuration object */
-    if (_RF215_PHY_BandOpModeToPhyCfg(bandOpMode, &phyConfig) == false)
+    if (lRF215_PHY_BandOpModeToPhyCfg(bandOpMode, &phyConfig) == false)
     {
         /* Invalid frequency band / operating mode */
         return false;
@@ -4178,7 +4392,7 @@ bool RF215_PHY_Initialize (
     pObj->rxInd.psdu = rf215PhyRxPsdu;
 
     /* Zero initialization */
-    memset(&pObj->phyStatistics, 0, sizeof(pObj->phyStatistics));
+    (void) memset(&pObj->phyStatistics, 0, sizeof(pObj->phyStatistics));
     pObj->phyState = PHY_STATE_RESET;
     pObj->rxAbortState = PHY_STATE_RESET;
     pObj->txPendingState = PHY_STATE_RESET;
@@ -4201,17 +4415,17 @@ bool RF215_PHY_Initialize (
     pObj->txRequestPending = false;
     pObj->resetInProgress = false;
 
-    if (_RF215_PHY_CheckPhyCfg(&phyConfig) == false)
+    if (lRF215_PHY_CheckPhyCfg(&phyConfig) == false)
     {
         /* Invalid PHY configuration */
         return false;
     }
 
     /* Compute channel frequency, range and mode of initial configuration */
-    _RF215_PLL_Params(pllConst, pllParams, &phyConfig, channelNum);
+    lRF215_PLL_Params(pllConst, pllParams, &phyConfig, channelNum);
 
     /* Check channel configuration */
-    return _RF215_PLL_CheckConfig(pllConst, pllParams, &phyConfig, channelNum);
+    return lRF215_PLL_CheckConfig(pllConst, pllParams, &phyConfig, channelNum);
 }
 
 void RF215_PHY_Tasks(uint8_t trxIdx)
@@ -4230,7 +4444,7 @@ void RF215_PHY_Tasks(uint8_t trxIdx)
         {
             /* Copy RX indication and PSDU to static object and buffer */
             rf215PhyRxInd = pObj->rxInd;
-            memcpy(rf215PhyRxPsdu, pObj->rxPsdu, pObj->rxInd.psduLen);
+            (void) memcpy(rf215PhyRxPsdu, pObj->rxPsdu, pObj->rxInd.psduLen);
             pObj->rxIndPending = false;
             reportInd = true;
         }
@@ -4251,22 +4465,22 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
     /* Check TRX Wake-up interrupt */
-    if ((rfIRQS & RF215_RFn_IRQ_WAKEUP) != 0)
+    if ((rfIRQS & RF215_RFn_IRQ_WAKEUP) != 0U)
     {
-        _RF215_TRX_ResetEvent(trxIdx);
+        lRF215_TRX_ResetEvent(trxIdx);
         return;
     }
 
     /* Check Transceiver Ready interrupt */
     trxrdy = rfIRQS & RF215_RFn_IRQ_TRXRDY;
-    if (trxrdy != 0)
+    if (trxrdy != 0U)
     {
         pObj->trxRdy = true;
     }
 
     /* Check Energy Detection Completion interrupt */
     txfe = bbcIRQS & RF215_BBCn_IRQ_TXFE;
-    if ((rfIRQS & RF215_RFn_IRQ_EDC) != 0)
+    if ((rfIRQS & RF215_RFn_IRQ_EDC) != 0U)
     {
         /* Single ED measurement finished: Auto mode automatically restored */
         pObj->phyRegs.RFn_EDC = RF215_RFn_EDC_EDM_AUTO;
@@ -4274,13 +4488,13 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
         if (pObj->phyState == PHY_STATE_TX_CCA_ED)
         {
             /* Check Energy Detection result for CCA */
-            _RF215_TX_EnDetectComplete(trxIdx);
+            lRF215_TX_EnDetectComplete(trxIdx);
 
             /* TXFE interrupt processed once EDC is completely handled */
-            if (txfe != 0)
+            if (txfe != 0U)
             {
                 pObj->txfePending = true;
-                txfe = 0;
+                txfe = 0U;
             }
             else
             {
@@ -4290,9 +4504,9 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
     }
 
     /* Check Transmitter Frame End interrupt */
-    if (txfe != 0)
+    if (txfe != 0U)
     {
-        _RF215_TX_FrameEnd(trxIdx);
+        lRF215_TX_FrameEnd(trxIdx);
     }
 
     /* Check receiver interrupts */
@@ -4305,35 +4519,41 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
     if (pObj->rxAbortState != PHY_STATE_RESET)
     {
         /* RX aborted since last external interrupt */
-        if ((pObj->rxAbortState == PHY_STATE_RX_PAYLOAD) && (rxfe != 0))
+        if ((pObj->rxAbortState == PHY_STATE_RX_PAYLOAD) && (rxfe != 0U))
         {
             /* RXFE IRQ and payload was being received when RX was aborted */
-            if ((rxfs == 0) && (agch == 0))
+            if ((rxfs == 0U) && (agch == 0U))
             {
                 /* RX aborted just before, but it has actually finished.
                  * Interrupt is handled, but TRX state is not changed. */
-                _RF215_RX_FrameEnd(trxIdx);
-                rxfe = 0;
-                agcr = 0;
+                lRF215_RX_FrameEnd(trxIdx);
+                rxfe = 0U;
+                agcr = 0U;
 
                 /* Undo PHY statistics update */
                 pObj->phyStatistics.rxErrTotal--;
                 pObj->phyStatistics.rxErrAborted--;
             }
-            else if (agcr == 0)
+            else
             {
-                /* Aborted RX has actually finished, but a new frame is
-                 * being received. Ignore this RXFE interrupt. */
-                rxfe = 0;
+                if (agcr == 0U)
+                {
+                    /* Aborted RX has actually finished, but a new frame is
+                    * being received. Ignore this RXFE interrupt. */
+                    rxfe = 0U;
+                }
             }
         }
-        else if ((pObj->rxAbortState == PHY_STATE_RX_HEADER) && (rxfs != 0))
+        else
         {
-            /* RXFS IRQ and header was being received when RX was aborted */
-            if ((agch == 0) && (rxfe == 0))
+            if ((pObj->rxAbortState == PHY_STATE_RX_HEADER) && (rxfs != 0U))
             {
-                /* Ignore this RXFS interrupt (it comes from the aborted RX) */
-                rxfs = 0;
+                /* RXFS IRQ and header was being received when RX was aborted */
+                if ((agch == 0U) && (rxfe == 0U))
+                {
+                    /* Ignore this RXFS interrupt (it comes from the aborted RX) */
+                    rxfs = 0U;
+                }
             }
         }
 
@@ -4345,33 +4565,33 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
     {
         /* If TRX was listening (no frame detected) when RX was aborted, we can
          * ignore these RX interrupts */
-        rxfe = 0;
-        rxfs = 0;
-        agch = 0;
+        rxfe = 0U;
+        rxfs = 0U;
+        agch = 0U;
     }
 
     /* Check AGC Hold interrupt */
-    if (agch != 0)
+    if (agch != 0U)
     {
-        _RF215_RX_AgcHold(pObj);
+        lRF215_RX_AgcHold(pObj);
     }
 
     /* Check Receiver Frame Start interrupt */
-    if (rxfs != 0)
+    if (rxfs != 0U)
     {
-        _RF215_RX_FrameStart(trxIdx);
+        lRF215_RX_FrameStart(trxIdx);
 
         /* RXFE/AGCR interrupt processed once RXFS is completely handled */
         pObj->rxFlagsPending = rxfe | agcr;
-        rxfe = 0;
-        agcr = 0;
-        fbli = 0;
+        rxfe = 0U;
+        agcr = 0U;
+        fbli = 0U;
     }
 
     /* Check Receiver Frame End interrupt */
-    if (rxfe != 0)
+    if (rxfe != 0U)
     {
-        _RF215_RX_FrameEnd(trxIdx);
+        lRF215_RX_FrameEnd(trxIdx);
 
         /* Turn off RX LED */
         RF215_HAL_LedRx(false);
@@ -4379,9 +4599,9 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
     }
 
     /* Check AGC Release interrupt */
-    if (agcr != 0)
+    if (agcr != 0U)
     {
-        _RF215_RX_AgcRelease(trxIdx);
+        lRF215_RX_AgcRelease(trxIdx);
         if (pObj->ledRxStatus == true)
         {
             /* Turn off RX LED */
@@ -4391,31 +4611,18 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
     }
 
     /* Check FBLI interrupt */
-    if (fbli != 0)
+    if (fbli != 0U)
     {
-        _RF215_RX_BuffLvlInt(trxIdx);
+        lRF215_RX_BuffLvlInt(trxIdx);
     }
 
     /* Check Transceiver Ready interrupt */
-    if (trxrdy != 0)
+    if (trxrdy != 0U)
     {
-        DRV_RF215_TX_BUFFER_OBJ* txBufObj = pObj->txBufObj;
-        RF215_PHY_STATE pendState = pObj->txPendingState;
+        RF215_PHY_STATE pendState;
 
-        /* Clear pending TX state */
-        pObj->txPendingState = PHY_STATE_RESET;
-
-        /* Check pending TRX sleep or PHY configuration */
-        if (pObj->trxSleepPending == true)
-        {
-            _RF215_TRX_Sleep(trxIdx);
-            return;
-        }
-        else if (pObj->txContinuousPending == true)
-        {
-            _RF215_TRX_EnableTxContinuousMode(trxIdx);
-        }
-        else if (pObj->idlePending == true)
+        /* Check pending PHY configuration, TRX sleep or continuous TX mode */
+        if (pObj->idlePending == true)
         {
             uint8_t trxIdxOther = RF215_TRX_RF24_IDX;
             if (trxIdx == RF215_TRX_RF24_IDX)
@@ -4424,19 +4631,38 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
             }
 
             /* Set continuous TX mode on the another TRX */
-            _RF215_TRX_EnableTxContinuousMode(trxIdxOther);
+            lRF215_TRX_EnableTxContinuousMode(trxIdxOther);
         }
-        else if (pObj->phyCfgPending == true)
+
+        if (pObj->phyCfgPending == true)
         {
-            _RF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending);
+            (void) lRF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending, true);
         }
+
+        if (pObj->trxSleepPending == true)
+        {
+            lRF215_TRX_Sleep(trxIdx);
+            pObj->txContinuousPending = false;
+        }
+        else
+        {
+            if (pObj->txContinuousPending == true)
+            {
+                lRF215_TRX_EnableTxContinuousMode(trxIdx);
+            }
+        }
+
+        /* Get and clear pending TX state */
+        pendState = pObj->txPendingState;
+        pObj->txPendingState = PHY_STATE_RESET;
 
         /* Check if there is pending TX configuration */
         if ((pObj->txStarted == true) && (pObj->phyState < PHY_STATE_TX_CONFIG) &&
                 (pendState >= PHY_STATE_TX_CONFIG))
         {
             /* Carrier sense CCA and TX parameters configuration */
-            DRV_RF215_TX_RESULT txResult = _RF215_TX_ParamCfg(txBufObj);
+            DRV_RF215_TX_BUFFER_OBJ* txBufObj = pObj->txBufObj;
+            DRV_RF215_TX_RESULT txResult = lRF215_TX_ParamCfg(txBufObj);
             if (txResult != RF215_TX_SUCCESS)
             {
                 /* Set pending TX confirm with TX error */
@@ -4449,13 +4675,13 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
             /* Check if there is pending TX preparation */
             if ((pObj->phyState < PHY_STATE_TX_TXPREP) && (pendState >= PHY_STATE_TX_TXPREP))
             {
-                _RF215_TX_Prepare(trxIdx);
+                lRF215_TX_Prepare(trxIdx);
             }
 
             /* Check if there is pending TX start */
             if ((pObj->phyState == PHY_STATE_TX_TXPREP) && (pendState > PHY_STATE_TX_TXPREP))
             {
-                _RF215_TX_Start(trxIdx);
+                lRF215_TX_Start(trxIdx);
             }
         }
 
@@ -4463,7 +4689,7 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
                 (pObj->trxState != RF215_RFn_STATE_RF_RX))
         {
             /* Send pending RX command */
-            _RF215_TRX_RxListen(trxIdx);
+            lRF215_TRX_RxListen(trxIdx);
         }
     }
 }
@@ -4528,7 +4754,7 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
         }
 
         /* Total TX delay (worst case), in SYS_TIME count units */
-        txTotalDelay = _RF215_TX_TotalDelay(txBufObj);
+        txTotalDelay = lRF215_TX_TotalDelay(txBufObj);
 
         if (timeMode == TX_TIME_RELATIVE)
         {
@@ -4553,8 +4779,8 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
         intStatus = SYS_INT_Disable();
 
         /* Schedule timer for the specified time */
-        timeHandle = _RF215_TX_TimeSchedule(interruptTime, true,
-                _RF215_TX_PrepareTimeExpired, (uintptr_t) txBufObj);
+        timeHandle = lRF215_TX_TimeSchedule(interruptTime, true,
+                lRF215_TX_PrepareTimeExpired, (uintptr_t) txBufObj);
 
         if (timeHandle == SYS_TIME_HANDLE_INVALID)
         {
@@ -4575,7 +4801,7 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     {
         /* Critical region to avoid conflicts in PHY object data.
          * Update PHY statistics with TX error. */
-        _RF215_TX_UpdStats(pObj, result);
+        lRF215_TX_UpdStats(pObj, result);
     }
 
     return result;
@@ -4598,15 +4824,21 @@ void RF215_PHY_TxCancel(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
         }
         else
         {
+            if (pObj->phyState == PHY_STATE_TX)
+            {
+                /* Turn off TX LED */
+                RF215_HAL_LedTx(false);
+            }
+
             /* Abort TX in progress or in preparation. Start listening. */
-            _RF215_TRX_RxListen(trxIdx);
+            lRF215_TRX_RxListen(trxIdx);
         }
     }
 
     if (txCancel == true)
     {
         RF215_PHY_SetTxCfm(txBufObj, RF215_TX_CANCELLED);
-        // SYS_TIME_TimerDestroy(txBufObj->timeHandle);
+        (void) SYS_TIME_TimerDestroy(txBufObj->timeHandle);
 
         /* Free TX buffer. TX confirm will not be notified */
         txBufObj->inUse = false;
@@ -4629,7 +4861,7 @@ void RF215_PHY_SetTxCfm (
     /* Set pending TX confirm and update statistics */
     txBufObj->cfmObj.txResult = result;
     txBufObj->cfmPending = true;
-    _RF215_TX_UpdStats(pObj, result);
+    lRF215_TX_UpdStats(pObj, result);
 
     /* Clear TX flag if buffer corresponds to ongoing transmission */
     if (pObj->txBufObj == txBufObj)
@@ -4653,7 +4885,7 @@ bool RF215_PHY_CheckTxContentionWindow(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     /* Compute contention window duration and convert to SYS_TIME count.
      * Convert RX PPDU duration to SYS_TIME count.
      * Compare end of received frame with start of contention window. */
-    cwDurationUS = _RF215_TX_ContentionWindowUS(txBufObj);
+    cwDurationUS = lRF215_TX_ContentionWindowUS(txBufObj);
     cwDuration = SYS_TIME_USToCount(cwDurationUS);
     if ((pObj->rxInd.timeIniCount + pObj->rxInd.ppduDurationCount) >= (txBufObj->reqObj.timeCount - cwDuration))
     {
@@ -4672,6 +4904,7 @@ DRV_RF215_PIB_RESULT RF215_PHY_GetPib (
 )
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIndex];
+    DRV_RF215_PIB_RESULT result = RF215_PIB_RESULT_SUCCESS;
 
     switch (attr)
     {
@@ -4680,7 +4913,7 @@ DRV_RF215_PIB_RESULT RF215_PHY_GetPib (
             break;
 
         case RF215_PIB_PHY_CONFIG:
-            memcpy((uint8_t *)value, (uint8_t *)&pObj->phyConfig, sizeof(DRV_RF215_PHY_CFG_OBJ));
+            (void) memcpy((uint8_t *)value, (uint8_t *)&pObj->phyConfig, sizeof(DRV_RF215_PHY_CFG_OBJ));
             break;
 
         case RF215_PIB_PHY_BAND_OPERATING_MODE:
@@ -4808,10 +5041,12 @@ DRV_RF215_PIB_RESULT RF215_PHY_GetPib (
             break;
 
         default:
-            return RF215_PIB_RESULT_INVALID_ATTR;
+            result = RF215_PIB_RESULT_INVALID_ATTR;
+            break;
+
     }
 
-    return RF215_PIB_RESULT_SUCCESS;
+    return result;
 }
 
 DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
@@ -4830,7 +5065,7 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
     {
         case RF215_PIB_TRX_RESET:
             /* Send RESET command */
-            _RF215_TRX_Reset(trxIndex);
+            lRF215_TRX_Reset(trxIndex);
             break;
 
         case RF215_PIB_TRX_SLEEP:
@@ -4839,7 +5074,7 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
                 if (pObj->phyState != PHY_STATE_SLEPT)
                 {
                     /* Sleep */
-                    _RF215_TRX_Sleep(trxIndex);
+                    lRF215_TRX_Sleep(trxIndex);
                 }
             }
             else
@@ -4848,26 +5083,29 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
                 {
                     pObj->trxSleepPending = false;
                 }
-                else if (pObj->phyState == PHY_STATE_SLEPT)
+                else
                 {
-                    /* Wake-up */
-                    _RF215_TRX_SwitchTrxOff(trxIndex);
-                    if ((rf215PhyRegRF_IQIFC1 & RF215_RF_IQIFC1_CHPM_Msk) == RF215_RF_IQIFC1_CHPM_BBRF)
+                    if (pObj->phyState == PHY_STATE_SLEPT)
                     {
-                        /* Normal case */
-                        pObj->phyState = PHY_STATE_RESET;
-                    }
-                    else
-                    {
-                        /* The another TRX is in TX continuous mode */
-                        pObj->phyState = PHY_STATE_IDLE;
+                        /* Wake-up */
+                        (void) lRF215_TRX_SwitchTrxOff(trxIndex);
+                        if ((rf215PhyRegRF_IQIFC1 & RF215_RF_IQIFC1_CHPM_Msk) == RF215_RF_IQIFC1_CHPM_BBRF)
+                        {
+                            /* Normal case */
+                            pObj->phyState = PHY_STATE_RESET;
+                        }
+                        else
+                        {
+                            /* The another TRX is in TX continuous mode */
+                            pObj->phyState = PHY_STATE_IDLE;
+                        }
                     }
                 }
             }
             break;
 
         case RF215_PIB_PHY_CONFIG:
-            result = _RF215_PHY_SetPhyConfig(trxIndex, value, 0);
+            result = lRF215_PHY_SetPhyConfig(trxIndex, value, 0, true);
             if (result == RF215_PIB_RESULT_SUCCESS)
             {
                 pObj->bandOpMode = DRV_RF215_BAND_OPM_CUSTOM;
@@ -4881,9 +5119,9 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
 
             /* Convert frequency band and operating mode to PHY configuration
              * object */
-            if (_RF215_PHY_BandOpModeToPhyCfg(phyBandOpmNew, &phyCfgNew) == true)
+            if (lRF215_PHY_BandOpModeToPhyCfg(phyBandOpmNew, &phyCfgNew) == true)
             {
-                result = _RF215_PHY_SetPhyConfig(trxIndex, &phyCfgNew, 0);
+                result = lRF215_PHY_SetPhyConfig(trxIndex, &phyCfgNew, 0, true);
                 if (result == RF215_PIB_RESULT_SUCCESS)
                 {
                     pObj->bandOpMode = phyBandOpmNew;
@@ -4898,14 +5136,14 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
 
         case RF215_PIB_PHY_CHANNEL_NUM:
         {
-            DRV_RF215_PHY_BAND_OPM chnNumNew = *((uint16_t *) value);
-            result = _RF215_PHY_SetPhyConfig(trxIndex, &pObj->phyConfig, chnNumNew);
+            uint16_t chnNumNew = *((uint16_t *) value);
+            result = lRF215_PHY_SetPhyConfig(trxIndex, &pObj->phyConfig, chnNumNew, true);
             break;
         }
 
         case RF215_PIB_PHY_CCA_ED_DURATION:
             pObj->phyConfig.ccaEdDurationUS = *((uint16_t *) value);
-            _RF215_RXFE_AdjustEDD(trxIndex);
+            lRF215_RXFE_AdjustEDD(trxIndex);
             break;
 
         case RF215_PIB_PHY_CCA_ED_THRESHOLD:
@@ -4913,7 +5151,7 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
             break;
 
         case RF215_PIB_PHY_STATS_RESET:
-            memset(&pObj->phyStatistics, 0, sizeof(RF215_PHY_STATISTICS_OBJ));
+            (void) memset(&pObj->phyStatistics, 0, sizeof(RF215_PHY_STATISTICS_OBJ));
             break;
 
         case RF215_PIB_PHY_TX_CONTINUOUS:
@@ -4922,7 +5160,7 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
                 if (pObj->phyState != PHY_STATE_TX_CONTINUOUS)
                 {
                     /* Set continuous TX mode */
-                    _RF215_TRX_EnableTxContinuousMode(trxIndex);
+                    lRF215_TRX_EnableTxContinuousMode(trxIndex);
                 }
             }
             else
@@ -4931,16 +5169,20 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
                 {
                     pObj->txContinuousPending = false;
                 }
-                else if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
+                else
                 {
-                    /* Stop continuous TX mode */
-                    _RF215_TRX_DisableTxContinuousMode(trxIndex);
+                    if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
+                    {
+                        /* Stop continuous TX mode */
+                        lRF215_TRX_DisableTxContinuousMode(trxIndex);
+                    }
                 }
             }
             break;
 
         default:
             result = RF215_PIB_RESULT_INVALID_ATTR;
+            break;
     }
 
     RF215_HAL_LeaveCritical();
@@ -4955,14 +5197,14 @@ void RF215_PHY_Reset(uint8_t trxIndex)
     if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
     {
         /* Disable first TX continuous mode */
-        _RF215_TRX_DisableTxContinuousMode(trxIndex);
+        lRF215_TRX_DisableTxContinuousMode(trxIndex);
     }
 
     pObj->trxResetPending = false;
     pObj->resetInProgress = true;
 }
 
-void RF215_PHY_DeviceReset()
+void RF215_PHY_DeviceReset(void)
 {
     rf215PhyRegRF_IQIFC1 = RF215_RF_IQIFC1_Rst;
 }

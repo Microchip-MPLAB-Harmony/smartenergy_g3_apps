@@ -73,7 +73,7 @@
 // <editor-fold defaultstate="collapsed" desc="DRV_RF215 Initialization Data">
 
 /* RF215 Driver Initialization Data */
-const DRV_RF215_INIT drvRf215InitData = {
+static const DRV_RF215_INIT drvRf215InitData = {
     /* Pointer to SPI PLIB is busy function */
     .spiPlibIsBusy = FLEXCOM3_SPI_IsTransmitterBusy,
 
@@ -101,10 +101,36 @@ const DRV_RF215_INIT drvRf215InitData = {
 };
 
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 
+// <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
+
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
+/* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
+
+/* This routine must initialize the PL460 control pins as soon as possible */
+/* after a power up reset to avoid risks on starting up PL460 device when */ 
+/* pull up resistors are configured by default */
+void _on_reset(void)
+{
+    PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
+    while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
+    {
+        /* Wait for clock to be initialized */
+    }
+    /* Disable STBY Pin */
+    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA0);
+    SYS_PORT_PinClear(SYS_PORT_PIN_PA0);
+}
+
+/* MISRA C-2012 deviation block end */
+
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 /* HAL Interface Initialization for PLC transceiver */
-DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
+static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI Transfer Setup */
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)FLEXCOM5_SPI_TransferSetup,
@@ -137,7 +163,7 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 };
 
 /* HAL Interface Initialization for PLC transceiver */
-DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
+static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC PLIB */
     .plcPlib = &drvPLCPlib,
@@ -173,11 +199,8 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_PHY Initialization Data">
 
-/* PLC Binary file addressing */
-extern uint8_t plc_phy_bin_start;
-extern uint8_t plc_phy_bin_end;
-extern uint8_t plc_phy_bin2_start;
-extern uint8_t plc_phy_bin2_end;
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 
 /* PLC Driver Initialization Data */
 DRV_PLC_PHY_INIT drvPlcPhyInitData = {
@@ -202,38 +225,39 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
     
 };
 
+/* MISRA C-2012 deviation block end */
+
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SRV_USI Instance 0 Initialization Data">
 
 static uint8_t CACHE_ALIGN srvUSI0ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
 static uint8_t CACHE_ALIGN srvUSI0WriteBuffer[SRV_USI0_WR_BUF_SIZE] = {0};
 
-/* Declared in USI USART service implementation (srv_usi_usart.c) */
-extern const SRV_USI_DEV_DESC srvUSIUSARTDevDesc;
 
-const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM0 = {
+static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM0 = {
     .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM0_USART_ReadCallbackRegister,
-    .read = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Read,
-    .write = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Write,
+    .readData = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Read,
+    .writeData = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Write,
     .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)FLEXCOM0_USART_WriteIsBusy,
     .intSource = FLEXCOM0_IRQn,
 };
 
-const USI_USART_INIT_DATA srvUsi0InitData = {
+static const USI_USART_INIT_DATA srvUsi0InitData = {
     .plib = (void*)&srvUsi0InitDataFLEXCOM0,
     .pRdBuffer = (void*)srvUSI0ReadBuffer,
     .rdBufferSize = SRV_USI0_RD_BUF_SIZE,
 };
 
-const SRV_USI_INIT srvUSI0Init =
+/* srvUSIUSARTDevDesc declared in USI USART service implementation (srv_usi_usart.c) */
+
+static const SRV_USI_INIT srvUSI0Init =
 {
-    .deviceInitData = (const void*)&srvUsi0InitData,
+    .deviceInitData = (const void * const)&srvUsi0InitData,
     .consDevDesc = &srvUSIUSARTDevDesc,
     .deviceIndex = 0,
     .pWrBuffer = srvUSI0WriteBuffer,
     .wrBufferSize = SRV_USI0_WR_BUF_SIZE
 };
-
 
 // </editor-fold>
 
@@ -342,7 +366,7 @@ void SYS_Initialize ( void* data )
     sysObj.drvRf215 = DRV_RF215_Initialize(DRV_RF215_INDEX_0, (SYS_MODULE_INIT *)&drvRf215InitData);
     /* Initialize PLC Phy Driver Instance */
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
-    PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+    (void) PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
 
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);

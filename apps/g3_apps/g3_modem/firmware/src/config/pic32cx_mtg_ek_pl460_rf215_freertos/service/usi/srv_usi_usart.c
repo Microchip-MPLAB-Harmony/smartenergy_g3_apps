@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -51,7 +51,7 @@
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-#include "stddef.h"
+#include <stddef.h>
 #include "configuration.h"
 #include "driver/driver_common.h"
 #include "system/int/sys_int.h"
@@ -70,7 +70,7 @@ const SRV_USI_DEV_DESC srvUSIUSARTDevDesc =
     .init                       = USI_USART_Initialize,
     .open                       = USI_USART_Open,
     .setReadCallback            = USI_USART_RegisterCallback,
-    .write                      = USI_USART_Write,
+    .writeData                  = USI_USART_Write,
     .writeIsBusy                = USI_USART_WriteIsBusy,
     .task                       = USI_USART_Tasks,
     .close                      = USI_USART_Close,
@@ -81,7 +81,7 @@ static USI_USART_OBJ gUsiUsartOBJ[SRV_USI_USART_CONNECTIONS] = {0};
 static USI_USART_MSG gUsiUsartMsgPool[SRV_USI_MSG_POOL_SIZE] = {0};
 static USI_USART_MSG_QUEUE gUsiUsartMsgQueue[SRV_USI_USART_CONNECTIONS] = {NULL};
 
-#define USI_USART_GET_INSTANCE(index)    (index >= SRV_USI_USART_CONNECTIONS)? NULL : &gUsiUsartOBJ[index]
+#define USI_USART_GET_INSTANCE(index)    (((index) >= SRV_USI_USART_CONNECTIONS)? NULL : &gUsiUsartOBJ[index])
 
 static uint32_t usiUsartCounterDiscardMsg;
 
@@ -90,7 +90,8 @@ static uint32_t usiUsartCounterDiscardMsg;
 // Section: File scope functions
 // *****************************************************************************
 // *****************************************************************************
-static USI_USART_MSG* _USI_USART_PUT_MSG_TO_QUEUE( USI_USART_OBJ* dObj )
+
+static USI_USART_MSG* lUSI_USART_PutMsgToQueue( USI_USART_OBJ* dObj )
 {
     USI_USART_MSG* pMsg;
     uint8_t index;
@@ -99,7 +100,7 @@ static USI_USART_MSG* _USI_USART_PUT_MSG_TO_QUEUE( USI_USART_OBJ* dObj )
     for (index = 0; index < SRV_USI_MSG_POOL_SIZE; index++)
     {
         pMsg = &gUsiUsartMsgPool[index];
-        if (pMsg->inUse == 0)
+        if (pMsg->inUse == false)
         {
             USI_USART_MSG_QUEUE* dObjQueue;
             
@@ -115,9 +116,9 @@ static USI_USART_MSG* _USI_USART_PUT_MSG_TO_QUEUE( USI_USART_OBJ* dObj )
             }
             else
             {   /* Queue is not empty. Add new msg */
-                dObjQueue->rear->next = (struct USI_USART_MSG*)pMsg;
+                dObjQueue->rear->next = (struct USI_USART_MSG_tag*)pMsg;
                 dObjQueue->rear = pMsg;
-            }           
+            }
             
             return pMsg;
         }
@@ -126,7 +127,7 @@ static USI_USART_MSG* _USI_USART_PUT_MSG_TO_QUEUE( USI_USART_OBJ* dObj )
     return NULL;
 }
 
-static void _USI_USART_GET_MSG_FROM_QUEUE( USI_USART_OBJ* dObj )
+static void lUSI_USART_GetMsgFromQueue( USI_USART_OBJ* dObj )
 {
     USI_USART_MSG_QUEUE* dObjQueue;
     
@@ -150,7 +151,7 @@ static void _USI_USART_GET_MSG_FROM_QUEUE( USI_USART_OBJ* dObj )
     }
 }
 
-static void _USI_USART_ABORT_MSG_IN_QUEUE( USI_USART_OBJ* dObj )
+static void lUSI_USART_AbortMsgInQueue( USI_USART_OBJ* dObj )
 {
     USI_USART_MSG_QUEUE* dObjQueue;
     USI_USART_MSG* pMsgTmp;
@@ -188,17 +189,17 @@ static void _USI_USART_ABORT_MSG_IN_QUEUE( USI_USART_OBJ* dObj )
             /* Update last link */
             pMsgTmp->next = NULL;
             /* Update queue to the previous element */
-            dObjQueue->rear = pMsgPrev;            
+            dObjQueue->rear = pMsgPrev;
             return;
         }
         /* Get Prev message in queue */
         pMsgPrev = pMsgTmp;
         /* Check next element */
-        pMsgTmp = (USI_USART_MSG*)pMsgTmp->next;     
+        pMsgTmp = (USI_USART_MSG*)pMsgTmp->next;
     }
 }
 
-static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
+static void lUSI_USART_PlibCallback( uintptr_t context)
 {
     USI_USART_OBJ* dObj;
     USI_USART_MSG* pMsg;
@@ -226,15 +227,15 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
                 }
                 
                 /* Create new message */
-                pMsg = _USI_USART_PUT_MSG_TO_QUEUE(dObj);
+                pMsg = lUSI_USART_PutMsgToQueue(dObj);
                 
-                if (pMsg)
+                if (pMsg != NULL)
                 {
                     /* Fill in the message */  
                     pData = (uint8_t *)(dObj->pRdBuffer);
                     pMsg->pMessage = pData + dObj->byteCount;
                     pMsg->pDataRd = pMsg->pMessage;
-                    pMsg->length = 0;    
+                    pMsg->length = 0;
 
                     /* Update Msg in reception data */
                     dObj->pRcvMsg = pMsg;
@@ -248,9 +249,9 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
                 /* Post semaphore to resume task */
                 if (dObj->semaphoreID != NULL)
                 {
-                    OSAL_SEM_PostISR(&dObj->semaphoreID);
+                    (void) OSAL_SEM_PostISR(&dObj->semaphoreID);
                 }
-            }            
+            }
             break;
             
         case USI_USART_RCV:
@@ -266,19 +267,20 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
             if (dObj->rcvChar == USI_ESC_KEY_7E)
             {
                 /* End of Message */
-                pMsg->length = pMsg->pDataRd - pMsg->pMessage;
+                ptrdiff_t size = pMsg->pDataRd - pMsg->pMessage;
+                pMsg->length = (size_t)size;
                 dObj->pRcvMsg = NULL;
                 dObj->devStatus = USI_USART_IDLE;
-				
+
                 /* Stop Counter to discard uncompleted Message */
                 usiUsartCounterDiscardMsg = 0;
 
                 /* Post semaphore to resume task */
                 if (dObj->semaphoreID != NULL)
                 {
-                    OSAL_SEM_PostISR(&dObj->semaphoreID);
+                    (void) OSAL_SEM_PostISR(&dObj->semaphoreID);
                 }
-            }              
+            }
             else if (dObj->rcvChar == USI_ESC_KEY_7D)
             {
                 /* Escape character */
@@ -290,10 +292,11 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
                 store = true;
                 charStore = dObj->rcvChar;
             }
-      
+
             break;
             
         case USI_USART_ESC:
+        default:
             if (dObj->rcvChar == USI_ESC_KEY_5E)
             {
                 /* Store character after escape it */
@@ -311,13 +314,13 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
             else
             {
                 /* ERROR: Escape format */
-                _USI_USART_ABORT_MSG_IN_QUEUE(dObj);
+                lUSI_USART_AbortMsgInQueue(dObj);
                 dObj->pRcvMsg = NULL;
                 dObj->devStatus = USI_USART_IDLE;
             }
-      
+
             break;
-    }    
+    }
     
     /* Update pointers */
     if (store)
@@ -326,18 +329,18 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
         if (dObj->byteCount > dObj->rdBufferSize)
         {
             /* ERROR: Overflow */
-            _USI_USART_ABORT_MSG_IN_QUEUE(dObj);
+            lUSI_USART_AbortMsgInQueue(dObj);
             dObj->pRcvMsg = NULL;
             dObj->byteCount = 0;
         }
         else
         {
             *pMsg->pDataRd++ = charStore;
-        }        
+        }
     }
     
     /* Read next char */
-    dObj->plib->read(&dObj->rcvChar, 1);
+    (void) dObj->plib->readData(&dObj->rcvChar, 1);
 }
 
 // *****************************************************************************
@@ -346,15 +349,15 @@ static void _USI_USART_PLIB_CALLBACK( uintptr_t context)
 // *****************************************************************************
 // *****************************************************************************
 
-DRV_HANDLE USI_USART_Initialize(uint32_t index, const void* initData)
+void USI_USART_Initialize(uint32_t index, const void * const initData)
 {
     OSAL_RESULT semResult;
     USI_USART_OBJ* dObj = USI_USART_GET_INSTANCE(index);
-    USI_USART_INIT_DATA* dObjInit = (USI_USART_INIT_DATA*)initData;
+    const USI_USART_INIT_DATA * const dObjInit = (const USI_USART_INIT_DATA * const)initData;
     
     if (dObj == NULL)
     {
-        return DRV_HANDLE_INVALID;
+        return;
     }
 
     dObj->plib = (SRV_USI_USART_INTERFACE*)dObjInit->plib;
@@ -370,13 +373,11 @@ DRV_HANDLE USI_USART_Initialize(uint32_t index, const void* initData)
 
     /* Create semaphore. It is used to suspend and resume task. */
     semResult = OSAL_SEM_Create(&dObj->semaphoreID, OSAL_SEM_TYPE_BINARY, 0, 0);
-    if ((semResult != OSAL_RESULT_TRUE) || (dObj->semaphoreID == NULL))
+    if ((semResult != OSAL_RESULT_SUCCESS) || (dObj->semaphoreID == NULL))
     {
         /* Error: Not enough memory to create semaphore */
         dObj->usiStatus = SRV_USI_STATUS_ERROR;
     }
-
-    return (DRV_HANDLE)index;
 }
 
 DRV_HANDLE USI_USART_Open(uint32_t index)
@@ -393,29 +394,27 @@ DRV_HANDLE USI_USART_Open(uint32_t index)
     return (DRV_HANDLE)index;
 }
 
-size_t USI_USART_Write(uint32_t index, void* pData, size_t length)
+void USI_USART_Write(uint32_t index, void* pData, size_t length)
 {
     USI_USART_OBJ* dObj = USI_USART_GET_INSTANCE(index);
     
     /* Check handler */
     if (dObj == NULL)
     {
-        return 0;
+        return;
     }
 
-    if (length == 0)
+    if (length == 0U)
     {
-        return 0;
+        return;
     }
     
     if (dObj->usiStatus != SRV_USI_STATUS_CONFIGURED)
     {
-        return 0;
+        return;
     }    
 
-    dObj->plib->write(pData, length);
-    
-    return length;
+    (void) dObj->plib->writeData(pData, length);
 }
 
 bool USI_USART_WriteIsBusy(uint32_t index)
@@ -453,7 +452,7 @@ void USI_USART_RegisterCallback(uint32_t index, USI_USART_CALLBACK cbFunc,
     }
     
     /* Set USART PLIB handler */
-    dObj->plib->readCallbackRegister(_USI_USART_PLIB_CALLBACK, (uintptr_t)dObj);
+    dObj->plib->readCallbackRegister(lUSI_USART_PlibCallback, (uintptr_t)dObj);
     
     /* Set callback function */
     dObj->cbFunc = cbFunc;
@@ -462,14 +461,14 @@ void USI_USART_RegisterCallback(uint32_t index, USI_USART_CALLBACK cbFunc,
     dObj->context = context;
     
     /* Launch reception */
-    dObj->plib->read(&dObj->rcvChar, 1);
+    (void) dObj->plib->readData(&dObj->rcvChar, 1);
 }
 
 void USI_USART_Close(uint32_t index)
 {
     USI_USART_OBJ* dObj = USI_USART_GET_INSTANCE(index);
     
-    /* Check handler */    
+    /* Check handler */
     if (dObj == NULL)
     {
         return;
@@ -482,7 +481,7 @@ SRV_USI_STATUS USI_USART_Status(uint32_t index)
 {
     USI_USART_OBJ* dObj = USI_USART_GET_INSTANCE(index);
     
-    /* Check handler */    
+    /* Check handler */
     if (dObj == NULL)
     {
         return SRV_USI_STATUS_ERROR;
@@ -498,7 +497,7 @@ void USI_USART_Tasks (uint32_t index)
     bool interruptState;
     INT_SOURCE aSrcId;
     
-    /* Check handler */    
+    /* Check handler */
     if (dObj == NULL)
     {
         return;
@@ -510,12 +509,12 @@ void USI_USART_Tasks (uint32_t index)
         uint16_t waitMS = 1;
 
         /* If counter to discard message is active, wait for 1 ms. Otherwise, wait forever. */
-        if (usiUsartCounterDiscardMsg == 0)
+        if (usiUsartCounterDiscardMsg == 0U)
         {
             waitMS = OSAL_WAIT_FOREVER;
         }
 
-        OSAL_SEM_Pend(&dObj->semaphoreID, waitMS);
+        (void) OSAL_SEM_Pend(&dObj->semaphoreID, waitMS);
     }
 
     if (dObj->usiStatus != SRV_USI_STATUS_CONFIGURED)
@@ -523,12 +522,12 @@ void USI_USART_Tasks (uint32_t index)
         return;
     }
     
-    if (usiUsartCounterDiscardMsg)
+    if (usiUsartCounterDiscardMsg > 0U)
     {
-        if (--usiUsartCounterDiscardMsg == 0)
+        if (--usiUsartCounterDiscardMsg == 0U)
         {
             /* Discard incomplete message */
-            _USI_USART_ABORT_MSG_IN_QUEUE(dObj);
+            lUSI_USART_AbortMsgInQueue(dObj);
             dObj->pRcvMsg = NULL;
             dObj->devStatus = USI_USART_IDLE;
         }
@@ -537,8 +536,8 @@ void USI_USART_Tasks (uint32_t index)
     /* Handle callback functions */
     pMsg = dObj->pMsgQueue->front;
     if ((pMsg != NULL) && (pMsg != dObj->pRcvMsg))
-    {        
-        if ((dObj->cbFunc) && (pMsg->length > 0))
+    {
+        if ((dObj->cbFunc != NULL) && (pMsg->length > 0U))
         {
             dObj->cbFunc(pMsg->pMessage, pMsg->length, dObj->context);
         }
@@ -549,7 +548,7 @@ void USI_USART_Tasks (uint32_t index)
         interruptState = SYS_INT_SourceDisable(aSrcId);
 
         /* Remove Message from Queue */
-        _USI_USART_GET_MSG_FROM_QUEUE(dObj);
+        lUSI_USART_GetMsgFromQueue(dObj);
         
         /* Restore interrupt state */
         SYS_INT_SourceRestore(aSrcId, interruptState);

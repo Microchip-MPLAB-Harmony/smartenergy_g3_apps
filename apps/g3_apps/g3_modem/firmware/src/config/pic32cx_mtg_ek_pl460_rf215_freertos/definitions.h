@@ -99,7 +99,7 @@
 #include "peripheral/sefc/plib_sefc0.h"
 #include "peripheral/sefc/plib_sefc1.h"
 #include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
-#include "stack/g3/pal/plc/pal_plc.h"
+#include "stack/g3/pal/rf/pal_rf.h"
 #include "service/pvddmon/srv_pvddmon.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -234,7 +234,6 @@ Remarks:
 
 typedef struct
 {
-    SYS_MODULE_OBJ g3PalPlc;
     SYS_MODULE_OBJ  drvG3MacRt;
 
     SYS_MODULE_OBJ drvRf215;
@@ -243,7 +242,6 @@ typedef struct
     SYS_MODULE_OBJ g3AdpSerial;
 
     SYS_MODULE_OBJ  sysTime;
-    SYS_MODULE_OBJ g3PalRf;
     SYS_MODULE_OBJ srvUSI0;
 
 } SYSTEM_OBJECTS;

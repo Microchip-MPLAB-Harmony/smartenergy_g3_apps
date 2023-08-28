@@ -19,7 +19,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -133,7 +133,6 @@ typedef enum
     <code>
     SRV_RSERIAL_COMMAND command;
 
-    // Process received message from USI
     command = SRV_RSERIAL_GetCommand(pData);
     </code>
 
@@ -179,13 +178,11 @@ SRV_RSERIAL_COMMAND SRV_RSERIAL_GetCommand(uint8_t* pData);
     DRV_RF215_PIB_ATTRIBUTE pibAttr;
     uint8_t pibSize;
 
-    // Process received message from USI
     command = SRV_RSERIAL_GetCommand(pData);
 
     if (command == SRV_RSERIAL_CMD_PHY_GET_CFG)
     {
         SRV_RSERIAL_ParsePIB(pData, &trxId, &pibAttr, &pibSize);
-        // Get PIB from RF215 Driver
     }
     </code>
 
@@ -236,8 +233,8 @@ uint8_t* SRV_RSERIAL_ParsePIB (
     <code>
     uint8_t* pSerialData;
     size_t length;
-    SRV_USI_HANDLE srvUSIHandle; // returned from SRV_USI_Open
-    DRV_HANDLE rf215HandleRF09, rf215HandleRF24; // returned from DRV_RF215_Open
+    SRV_USI_HANDLE srvUSIHandle;
+    DRV_HANDLE rf215HandleRF09, rf215HandleRF24;
     DRV_HANDLE rf215Handle;
     SRV_RSERIAL_COMMAND command;
     DRV_RF215_TRX_ID trxId;
@@ -246,7 +243,6 @@ uint8_t* SRV_RSERIAL_ParsePIB (
     uint8_t pibSize;
     uint8_t rfDataPIBBuffer[sizeof(DRV_RF215_PHY_CFG_OBJ)];
 
-    // Process received message from USI
     command = SRV_RSERIAL_GetCommand(pData);
 
     if (command == SRV_RSERIAL_CMD_PHY_GET_CFG)
@@ -262,11 +258,9 @@ uint8_t* SRV_RSERIAL_ParsePIB (
             rf215Handle = rf215HandleRF24;
         }
 
-        // Get PIB from RF215 Driver
         pibResult = DRV_RF215_GetPib(rf215Handle, pibAttr, rfDataPIBBuffer);
         pibSize = DRV_RF215_GetPibSize(pibAttr);
 
-        // Serialize PIB get response and send through USI
         pSerialData = SRV_RSERIAL_SerialGetPIB(trxId, pibAttr, pibSize,
                 pibResult, rfDataPIBBuffer, &length);
         SRV_USI_Send_Message(srvUSIHandle, SRV_USI_PROT_ID_PHY_RF215,
@@ -321,8 +315,8 @@ uint8_t* SRV_RSERIAL_SerialGetPIB (
     <code>
     uint8_t* pSerialData;
     size_t length;
-    SRV_USI_HANDLE srvUSIHandle; // returned from SRV_USI_Open
-    DRV_HANDLE rf215HandleRF09, rf215HandleRF24; // returned from DRV_RF215_Open
+    SRV_USI_HANDLE srvUSIHandle;
+    DRV_HANDLE rf215HandleRF09, rf215HandleRF24;
     DRV_HANDLE rf215Handle;
     SRV_RSERIAL_COMMAND command;
     DRV_RF215_TRX_ID trxId;
@@ -330,7 +324,6 @@ uint8_t* SRV_RSERIAL_SerialGetPIB (
     DRV_RF215_PIB_RESULT pibResult;
     uint8_t pibSize;
 
-    // Process received message from USI
     command = SRV_RSERIAL_GetCommand(pData);
 
     if (command == SRV_RSERIAL_CMD_PHY_SET_CFG)
@@ -348,11 +341,9 @@ uint8_t* SRV_RSERIAL_SerialGetPIB (
             rf215Handle = rf215HandleRF24;
         }
 
-        // Set PIB to RF215 driver
         pibResult = DRV_RF215_SetPib(rf215Handle, pibAttr, pPibValue);
         pibSize = DRV_RF215_GetPibSize(pibAttr);
 
-        // Serialize PIB set response and send through USI
         pSerialData = SRV_RSERIAL_SerialSetPIB(trxId, pibAttr, pibSize,
                 pibResult, &length);
         SRV_USI_Send_Message(srvUSIHandle, SRV_USI_PROT_ID_PHY_RF215,
@@ -398,12 +389,10 @@ uint8_t* SRV_RSERIAL_SerialSetPIB (
     SRV_RSERIAL_COMMAND command;
     DRV_RF215_TRX_ID trxId;
 
-    // Process received message from USI
     command = SRV_RSERIAL_GetCommand(pData);
 
     if (command == SRV_RSERIAL_CMD_PHY_SEND_MSG)
     {
-        // Parse TRX identifier from USI
         trxId = SRV_RSERIAL_ParseTxMessageTrxId(pData);
     }
     </code>
@@ -447,18 +436,16 @@ DRV_RF215_TRX_ID SRV_RSERIAL_ParseTxMessageTrxId(uint8_t* pDataSrc);
     <code>
     SRV_RSERIAL_COMMAND command;
     DRV_RF215_TRX_ID trxId;
-    DRV_HANDLE rf215HandleRF09, rf215HandleRF24; // returned from DRV_RF215_Open
+    DRV_HANDLE rf215HandleRF09, rf215HandleRF24;
     DRV_HANDLE rf215Handle;
     DRV_RF215_TX_REQUEST_OBJ txReq;
     DRV_RF215_TX_HANDLE txHandle;
     bool txCancel;
 
-    // Process received message from USI
     command = SRV_RSERIAL_GetCommand(pData);
 
     if (command == SRV_RSERIAL_CMD_PHY_SEND_MSG)
     {
-        // Parse TRX identifier from USI
         trxId = SRV_RSERIAL_ParseTxMessageTrxId(pData);
 
         if (trxId == RF215_TRX_ID_RF09)
@@ -470,20 +457,17 @@ DRV_RF215_TRX_ID SRV_RSERIAL_ParseTxMessageTrxId(uint8_t* pDataSrc);
             rf215Handle = rf215HandleRF24;
         }
 
-        // Parse TX request data from USI
         txCancel = SRV_RSERIAL_ParseTxMessage(pData, &txReq, &txHandle);
 
         if (txCancel == false)
         {
             DRV_RF215_TX_RESULT txResult;
 
-            // Send Message through RF
             txHandle = DRV_RF215_TxRequest(rf215Handle, &txReq, &txResult);
             SRV_RSERIAL_SetTxHandle(txHandle);
         }
         else
         {
-            // Cancel TX request
             DRV_RF215_TxCancel(rf215Handle, txHandle);
         }
     }
@@ -523,18 +507,16 @@ bool SRV_RSERIAL_ParseTxMessage (
     <code>
     SRV_RSERIAL_COMMAND command;
     DRV_RF215_TRX_ID trxId;
-    DRV_HANDLE rf215HandleRF09, rf215HandleRF24; // returned from DRV_RF215_Open
+    DRV_HANDLE rf215HandleRF09, rf215HandleRF24;
     DRV_HANDLE rf215Handle;
     DRV_RF215_TX_REQUEST_OBJ txReq;
     DRV_RF215_TX_HANDLE txHandle;
     bool txCancel;
 
-    // Process received message from USI
     command = SRV_RSERIAL_GetCommand(pData);
 
     if (command == SRV_RSERIAL_CMD_PHY_SEND_MSG)
     {
-        // Parse TRX identifier from USI
         trxId = SRV_RSERIAL_ParseTxMessageTrxId(pData);
 
         if (trxId == RF215_TRX_ID_RF09)
@@ -546,20 +528,17 @@ bool SRV_RSERIAL_ParseTxMessage (
             rf215Handle = rf215HandleRF24;
         }
 
-        // Parse TX request data from USI
         txCancel = SRV_RSERIAL_ParseTxMessage(pData, &txReq, &txHandle);
 
         if (txCancel == false)
         {
             DRV_RF215_TX_RESULT txResult;
 
-            // Send Message through RF
             txHandle = DRV_RF215_TxRequest(rf215Handle, &txReq, &txResult);
             SRV_RSERIAL_SetTxHandle(txHandle);
         }
         else
         {
-            // Cancel TX request
             DRV_RF215_TxCancel(rf215Handle, txHandle);
         }
     }
@@ -601,15 +580,14 @@ void SRV_RSERIAL_SetTxHandle(DRV_RF215_TX_HANDLE txHandle);
 
   Example:
     <code>
-    DRV_HANDLE rf215Handle; // Returned from DRV_RF215_Open
-    SRV_USI_HANDLE srvUSIHandle; // returned from SRV_USI_Open
+    DRV_HANDLE rf215Handle;
+    SRV_USI_HANDLE srvUSIHandle;
 
     void _APP_RF_RxIndCb(DRV_RF215_RX_INDICATION_OBJ* indObj, uintptr_t ctxt)
     {
         uint8_t* pSerialData;
         size_t length;
 
-        // Serialize received message and send through USI
         pSerialData = SRV_RSERIAL_SerialRxMessage(indObj, RF215_TRX_ID_RF09,
                 &length);
         SRV_USI_Send_Message(srvUSIHandle, SRV_USI_PROT_ID_PHY_RF215,
@@ -659,8 +637,8 @@ uint8_t* SRV_RSERIAL_SerialRxMessage (
 
   Example:
     <code>
-    DRV_HANDLE rf215Handle; // Returned from DRV_RF215_Open
-    SRV_USI_HANDLE srvUSIHandle; // returned from SRV_USI_Open
+    DRV_HANDLE rf215Handle;
+    SRV_USI_HANDLE srvUSIHandle;
 
     void _APP_RF_TxCfmCb (
         DRV_RF215_TX_HANDLE txHandle,
@@ -671,7 +649,6 @@ uint8_t* SRV_RSERIAL_SerialRxMessage (
         uint8_t* pSerialData;
         size_t length;
 
-        // Serialize confirm and send through USI
         pSerialData = SRV_RSERIAL_SerialCfmMessage(cfmObj, RF215_TRX_ID_RF09,
                 txHandle, &length);
         SRV_USI_Send_Message(srvUSIHandle, SRV_USI_PROT_ID_PHY_RF215,

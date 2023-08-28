@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _MAC_COMMON_H
-#define _MAC_COMMON_H
+#ifndef MAC_COMMON_H
+#define MAC_COMMON_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -65,7 +65,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define MAC_PIB_MAX_VALUE_LENGTH (144)
+#define MAC_PIB_MAX_VALUE_LENGTH (144U)
 
 // *****************************************************************************
 // *****************************************************************************
@@ -120,7 +120,7 @@ typedef enum
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: MAC PLC Interface Routines
+// Section: MAC Common Interface Routines
 // *****************************************************************************
 // *****************************************************************************
 
@@ -149,12 +149,7 @@ typedef enum
 
   Example:
     <code>
-    // The following code snippet shows an example MAC Common initialization.
-
     MAC_COMMON_Init();
-
-    // Initialize PLC MAC if needed
-    // Initialize RF MAC if needed
     </code>
 
   Remarks:
@@ -188,13 +183,7 @@ void MAC_COMMON_Init(void);
     <code>
     void globalResetRoutine(void)
     {
-        // Reset G3 stack modules
-        //...
-
         MAC_COMMON_Reset();
-
-        // Reset other modules
-        //...
     }
     </code>
 
@@ -242,7 +231,7 @@ void MAC_COMMON_Reset(void);
     status = MAC_COMMON_GetRequestSync(MAC_COMMON_PIB_RC_COORD, 0, &value);
     if (status == MAC_STATUS_SUCCESS)
     {
-        // Get value from 'value' parameter
+        
     }
     </code>
 
@@ -294,7 +283,7 @@ MAC_STATUS MAC_COMMON_GetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
     status = MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_RC_COORD, 0, &value);
     if (status == MAC_STATUS_SUCCESS)
     {
-        // PIB correctly set
+        
     }
     </code>
 
@@ -332,14 +321,11 @@ MAC_STATUS MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
     <code>
     previousCounter = MAC_COMMON_GetMsCounter();
 
-    // Perform other actions
-    // ...
-
     newCounter = MAC_COMMON_GetMsCounter();
 
     if ((newCounter - previousCounter) > TIMEOUT_MS)
     {
-        // Timeout elapsed
+        
     }
     </code>
 
@@ -375,12 +361,9 @@ uint32_t MAC_COMMON_GetMsCounter(void);
     <code>
     int32_t validityTime = 5000;
 
-    // Perform other actions
-    // ...
-
     if (MAC_COMMON_TimeIsPast(validityTime))
     {
-        // Validity ended
+        
     }
     </code>
 
@@ -418,14 +401,11 @@ bool MAC_COMMON_TimeIsPast(int32_t timeValue);
     <code>
     previousCounter = MAC_COMMON_GetSecondsCounter();
 
-    // Perform other actions
-    // ...
-
     newCounter = MAC_COMMON_GetSecondsCounter();
 
     if ((newCounter - previousCounter) > TIMEOUT_SECONDS)
     {
-        // Timeout elapsed
+        
     }
     </code>
 
@@ -461,12 +441,9 @@ uint32_t MAC_COMMON_GetSecondsCounter(void);
     <code>
     int32_t validityTime = 10;
 
-    // Perform other actions
-    // ...
-
     if (MAC_COMMON_TimeIsPastSeconds(validityTime))
     {
-        // Validity ended
+        
     }
     </code>
 
@@ -481,7 +458,7 @@ bool MAC_COMMON_TimeIsPastSeconds(int32_t timeValue);
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _MAC_COMMON_H
+#endif // #ifndef MAC_COMMON_H
 
 /*******************************************************************************
  End of File

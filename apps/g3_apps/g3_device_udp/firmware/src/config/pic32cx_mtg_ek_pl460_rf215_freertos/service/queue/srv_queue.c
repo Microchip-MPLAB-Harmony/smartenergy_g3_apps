@@ -58,67 +58,6 @@
 // *****************************************************************************
 // *****************************************************************************
 
-static void lSRV_QUEUE_Check_Queue_Consistent(SRV_QUEUE *queue)
-{
-    SRV_QUEUE_ELEMENT *element;
-    uint16_t index, numElements;
-
-    /* Check for size 0 */
-    if (queue->size == 0U) 
-    {
-        if ((queue->head != NULL) || (queue->tail != NULL))
-        {
-            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, QUEUE_NOT_INIT_NULL_SIZE,
-                "Queue not consistent: Badly initialized queue 0 size\r\n");
-        }
-
-        return;
-    }
-
-    /* Check consistency with elements in the queue*/
-    numElements = queue->size;
-    element = queue->head;
-    for (index = 0U; index < numElements; index++)
-    {
-        /* Check first element */
-        if ((index == 0U) && (element->prev != NULL))
-        {
-            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, QUEUE_FIRST_BAD_INIT,
-                "Queue not consistent: First element bad initialized\r\n");
-            break;
-        }
-
-        /* Check last element */
-        if (index == (numElements - 1U))
-        {
-            if (element != queue->tail)
-            {
-                SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, QUEUE_LAST_NOT_TAIL,
-                    "Queue not consistent: Last element different from tail\r\n");
-                break;
-            }
-
-            if (element->next != NULL)
-            {
-                SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, QUEUE_TOO_BIG,
-                    "Queue not consistent: There are more elements than size\r\n");
-                break;
-            }
-        }
-        else
-        {
-            if (element->next->prev != element)
-            {
-                SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, QUEUE_WRONG_CHAIN,
-                    "Queue not consistent: Wrongly chained queue\r\n");
-                break;
-            }
-        }
-
-        element = element->next;
-    }
-}
-
 static void lSRV_QUEUE_Insert_Last_Element(SRV_QUEUE *queue,
                                            SRV_QUEUE_ELEMENT *element)
 {
@@ -312,8 +251,6 @@ void SRV_QUEUE_Append(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element)
             }
         }
     }
-
-    lSRV_QUEUE_Check_Queue_Consistent(queue);
 }
 
 void SRV_QUEUE_Append_With_Priority(SRV_QUEUE *queue, uint32_t priority,
@@ -374,8 +311,6 @@ void SRV_QUEUE_Remove_Element(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element)
             i++;
         }
     }
-
-    lSRV_QUEUE_Check_Queue_Consistent(queue);
 }
 
 SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Element(SRV_QUEUE *queue,
@@ -433,8 +368,6 @@ void SRV_QUEUE_Insert_Before(SRV_QUEUE *queue,
     element->next = currentElement;
     currentElement->prev = element;
     queue->size++;
-
-    lSRV_QUEUE_Check_Queue_Consistent(queue);
 }
 
 void SRV_QUEUE_Insert_After(SRV_QUEUE *queue,
@@ -463,8 +396,6 @@ void SRV_QUEUE_Insert_After(SRV_QUEUE *queue,
     element->prev = currentElement;
     currentElement->next = element;
     queue->size++;
-
-    lSRV_QUEUE_Check_Queue_Consistent(queue);
 }
 
 SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Or_Remove(SRV_QUEUE *queue,
@@ -503,11 +434,6 @@ SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Or_Remove(SRV_QUEUE *queue,
         {
             currentElement = queue->tail;
         }
-    }
-
-    if (accessMode == SRV_QUEUE_MODE_REMOVE)
-    {
-        lSRV_QUEUE_Check_Queue_Consistent(queue);
     }
 
     return (currentElement);

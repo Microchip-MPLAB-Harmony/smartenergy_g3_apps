@@ -96,26 +96,25 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 /* RF215 Driver Configuration Options */
-#define DRV_RF215_INDEX_0                     0
-#define DRV_RF215_CLIENTS_NUMBER              2
-#define DRV_RF215_TX_BUFFERS_NUMBER           2
-#define DRV_RF215_CSR_INDEX                   0
+#define DRV_RF215_INDEX_0                     0U
+#define DRV_RF215_CLIENTS_NUMBER              2U
+#define DRV_RF215_TX_BUFFERS_NUMBER           2U
 #define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PC7
-#define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PD17
+#define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PA25
 #define DRV_RF215_LED_TX_PIN                  SYS_PORT_PIN_PA8
 #define DRV_RF215_LED_RX_PIN                  SYS_PORT_PIN_PA9
-#define DRV_RF215_NUM_TRX                     2
-#define DRV_RF215_FCS_LEN                     4
-#define DRV_RF215_MAX_PSDU_LEN                576
-#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000
-#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  180
-#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 1400
+#define DRV_RF215_NUM_TRX                     2U
+#define DRV_RF215_FCS_LEN                     4U
+#define DRV_RF215_MAX_PSDU_LEN                576U
+#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000U
+#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  180U
+#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 1400U
 
 /* USI Service Common Configuration Options */
-#define SRV_USI_INSTANCES_NUMBER              1
-#define SRV_USI_USART_CONNECTIONS             1
-#define SRV_USI_CDC_CONNECTIONS               0
-#define SRV_USI_MSG_POOL_SIZE                 5
+#define SRV_USI_INSTANCES_NUMBER              1U
+#define SRV_USI_USART_CONNECTIONS             1U
+#define SRV_USI_CDC_CONNECTIONS               0U
+#define SRV_USI_MSG_POOL_SIZE                 5U
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A

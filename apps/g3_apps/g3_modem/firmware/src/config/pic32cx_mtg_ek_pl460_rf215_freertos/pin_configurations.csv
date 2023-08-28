@@ -19,7 +19,7 @@ Pin Number,Pin ID,Custom Name,Function,Direction,Latch,Open Drain,PIO Interrupt,
 18,PD14,,Available,In,,,,,,,
 19,PD15,PL460_NRST,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
 20,PD16,LED_GREEN,LED_AL,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
-22,PD17,RF215_RSTN,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
+22,PD17,,Available,In,,,,,,,
 23,PD18,,Available,In,,,,,,,
 24,PD19,PL460_ENABLE,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
 25,PA10,,Available,In,,,,,,,
@@ -47,7 +47,7 @@ Pin Number,Pin ID,Custom Name,Function,Direction,Latch,Open Drain,PIO Interrupt,
 64,PA22,,FLEXCOM5_IO2,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 65,PA23,,FLEXCOM5_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 66,PA24,,FLEXCOM5_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
-67,PA25,,Available,In,,,,,,,
+67,PA25,RF215_RSTN,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
 68,PA26,,Available,In,,,,,,,
 69,PA27,,Available,In,,,,,,,
 70,PA28,,Available,In,,,,,,,

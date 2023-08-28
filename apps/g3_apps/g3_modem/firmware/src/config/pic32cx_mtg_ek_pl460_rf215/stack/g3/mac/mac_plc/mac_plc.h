@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _MAC_PLC_H
-#define _MAC_PLC_H
+#ifndef MAC_PLC_H
+#define MAC_PLC_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -221,18 +221,16 @@ typedef struct
 
   Example:
     <code>
-    // The following code snippet shows an example MAC PLC initialization.
-
     MAC_PLC_INIT macPlcInit = {
         .macPlcHandlers.macPlcDataConfirm = appDataConfirm,
         .macPlcHandlers.macPlcDataIndication = appDataIndication,
         .macPlcHandlers.macPlcResetConfirm = appResetConfirm,
         .macPlcHandlers.macPlcBeaconNotifyIndication = appBeaconIndication,
         .macPlcHandlers.macPlcScanConfirm = appScanConfirm,
-        .macPlcHandlers.macPlcStartConfirm = NULL, // Start primitive not used
+        .macPlcHandlers.macPlcStartConfirm = NULL,
         .macPlcHandlers.macPlcCommStatusIndication = appCommStatus,
-        .macPlcHandlers.macPlcMacSnifferIndication = NULL, // MAC Sniffer not used
-        .macPlcTables = &tables, // Variable containing the MAC PLC Tables
+        .macPlcHandlers.macPlcMacSnifferIndication = NULL,
+        .macPlcTables = &tables,
         .plcBand = MAC_PLC_BAND_CENELEC_A,
         .palPlcIndex = 0,
     };
@@ -270,15 +268,11 @@ void MAC_PLC_Init(MAC_PLC_INIT *init);
 
   Example:
     <code>
-    // ...
     MAC_PLC_Init(&macPlcInit);
-    // ...
 
     while (true)
     {
         MAC_PLC_Tasks();
-    
-        // Do other tasks
     }
     </code>
 
@@ -316,7 +310,7 @@ void MAC_PLC_Tasks(void);
     status = MAC_PLC_Status();
     if (status == SYS_STATUS_READY)
     {
-        // MAC is ready to be used
+        
     }
     </code>
 
@@ -353,9 +347,6 @@ SYS_STATUS MAC_PLC_Status(void);
     <code>
     uint8_t txBuffer[MAC_PDU_SIZE];
 
-    // Fill txBuffer
-    // ...
-
     MAC_DATA_REQUEST_PARAMS params = {
         .srcAddressMode = MAC_ADDRESS_MODE_SHORT,
         .destPanId = 0x1234,
@@ -370,7 +361,6 @@ SYS_STATUS MAC_PLC_Status(void);
     };
 
     MAC_PLC_DataRequest(&params);
-    // Wait for Data Confirm
     </code>
 
   Remarks:
@@ -417,7 +407,7 @@ void MAC_PLC_DataRequest(MAC_DATA_REQUEST_PARAMS *drParams);
     status = MAC_PLC_GetRequestSync(MAC_PIB_MAX_FRAME_RETRIES, 0, &value);
     if (status == MAC_STATUS_SUCCESS)
     {
-        // Get value from 'value' parameter
+        
     }
     </code>
 
@@ -464,13 +454,13 @@ MAC_STATUS MAC_PLC_GetRequestSync(MAC_PLC_PIB_ATTRIBUTE attribute,
     MAC_STATUS status;
     const MAC_PIB_VALUE value = {
         .length = 1,
-        .value = 6
+        .value = {6}
     };
 
     status = MAC_PLC_SetRequestSync(MAC_PIB_MAX_FRAME_RETRIES, 0, &value);
     if (status == MAC_STATUS_SUCCESS)
     {
-        // PIB correctly set
+        
     }
     </code>
 
@@ -510,8 +500,6 @@ MAC_STATUS MAC_PLC_SetRequestSync(MAC_PLC_PIB_ATTRIBUTE attribute,
     };
 
     MAC_PLC_ResetRequest(&params);
-
-    // Wait for Reset Confirm
     </code>
 
   Remarks:
@@ -552,8 +540,6 @@ void MAC_PLC_ResetRequest(MAC_RESET_REQUEST_PARAMS *rstParams);
     };
 
     MAC_PLC_ScanRequest(&params);
-
-    // Wait for Scan Confirm
     </code>
 
   Remarks:
@@ -593,8 +579,6 @@ void MAC_PLC_ScanRequest(MAC_SCAN_REQUEST_PARAMS *scanParams);
     };
 
     MAC_PLC_StartRequest(&params);
-
-    // Wait for Start Confirm
     </code>
 
   Remarks:
@@ -609,7 +593,7 @@ void MAC_PLC_StartRequest(MAC_START_REQUEST_PARAMS *startParams);
 #endif
 //DOM-IGNORE-END
 
-#endif // #ifndef _MAC_PLC_H
+#endif // #ifndef MAC_PLC_H
 
 /*******************************************************************************
  End of File

@@ -454,7 +454,7 @@ MAC_STATUS MAC_PLC_GetRequestSync(MAC_PLC_PIB_ATTRIBUTE attribute,
     MAC_STATUS status;
     const MAC_PIB_VALUE value = {
         .length = 1,
-        .value = 6
+        .value = {6}
     };
 
     status = MAC_PLC_SetRequestSync(MAC_PIB_MAX_FRAME_RETRIES, 0, &value);

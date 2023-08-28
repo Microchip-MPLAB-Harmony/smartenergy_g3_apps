@@ -258,6 +258,10 @@ typedef enum
     MAC_PIB_MANUF_RESET_MAC_STATS = 0x08000023,
     // Enable/Disable Sleep Mode
     MAC_PIB_MANUF_MAC_RT_SLEEP_MODE = 0x08000024,
+    // Set PLC Debug Mode
+    MAC_PIB_MANUF_MAC_RT_DEBUG_SET = 0x08000025,
+    // Read PLC Debug Information
+    MAC_PIB_MANUF_MAC_RT_DEBUG_READ = 0x08000026,
     // Provides access to POS table by short address (referenced as index)
     MAC_PIB_MANUF_POS_TABLE_ELEMENT = 0x08000027,
     // Minimum LQI to consider a neighbour for Trickle
@@ -315,7 +319,7 @@ typedef enum
     MAC_STATUS status;
     const MAC_PIB_VALUE value = {
         .length = 1,
-        .value = 1
+        .value = {1}
     };
 
     status = MAC_PLC_MIB_SetAttributeSync(MAC_COMMON_PIB_PROMISCUOUS_MODE, 0, &value);
