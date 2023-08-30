@@ -82,7 +82,7 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize(
         return SYS_MODULE_OBJ_INVALID;
     }
 
-    if (gDrvG3MacRtObj.state != DRV_G3_MACRT_STATE_UNINITIALIZED)
+    if ((gDrvG3MacRtObj.state != DRV_G3_MACRT_STATE_UNINITIALIZED) && (gDrvG3MacRtObj.state != DRV_G3_MACRT_STATE_INITIALIZED))
     {
         return SYS_MODULE_OBJ_INVALID;
     }
