@@ -61,11 +61,6 @@
 #define DRV_PLC_PHY_INDEX_0   0
 #define APP_PLC_CONFIG_KEY  0xA55A
 
-extern uint8_t plc_phy_bin_start;
-extern uint8_t plc_phy_bin_end;
-extern uint8_t plc_phy_bin2_start;
-extern uint8_t plc_phy_bin2_end;
-
 /* PLC Driver Initialization Data (initialization.c) */
 extern DRV_PLC_PHY_INIT drvPlcPhyInitData;
 

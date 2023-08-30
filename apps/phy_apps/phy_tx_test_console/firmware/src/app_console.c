@@ -1060,12 +1060,14 @@ void APP_CONSOLE_Tasks ( void )
 void APP_CONSOLE_Print(const char *format, ...)
 {
     size_t len = 0;
-    uint32_t numRetries = 10000;
+    uint32_t numRetries;
     
     if (appConsole.state == APP_CONSOLE_STATE_INIT)
     {
         return;
     }
+
+    numRetries = 1000 * SYS_CONSOLE_WriteCountGet(SYS_CONSOLE_INDEX_0);
 
     while(SYS_CONSOLE_WriteCountGet(SYS_CONSOLE_INDEX_0))
     {
