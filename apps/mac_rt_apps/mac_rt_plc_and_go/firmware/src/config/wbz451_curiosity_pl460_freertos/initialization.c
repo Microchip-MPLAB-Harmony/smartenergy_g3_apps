@@ -144,7 +144,7 @@
 
 /*** FBCFG0 ***/
 #pragma config BINFOVALID =      VALID
-#pragma config PCSCMODE =      SINGLE
+#pragma config PCSCMODE =      DUAL
 
 /*** FCPN0 ***/
 #pragma config CP =      DISABLED
@@ -162,10 +162,29 @@
 /* MISRA C-2012 Rule 11.1 */
 /* MISRA C-2012 Rule 11.3 */
 /* MISRA C-2012 Rule 11.8 */
-// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 
+// <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
+
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
+/* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
+
+/* This routine must initialize the PL460 control pins as soon as possible */
+/* after a power up reset to avoid risks on starting up PL460 device when */
+/* pull up resistors are configured by default */
+void _on_reset(void)
+{
+    __asm volatile ("NOP");
+}
+
+/* MISRA C-2012 deviation block end */
+
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
 /* HAL Interface Initialization for PLC transceiver */
-DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
+static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI Transfer Setup */
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SERCOM0_SPI_TransferSetup,
@@ -206,7 +225,7 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 };
 
 /* HAL Interface Initialization for PLC transceiver */
-DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
+static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC PLIB */
     .plcPlib = &drvPLCPlib,
@@ -242,11 +261,8 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_G3_MACRT Initialization Data">
 
-/* PLC MAC RT Binary file addressing */
-extern uint8_t g3_mac_rt_bin_start;
-extern uint8_t g3_mac_rt_bin_end;
-extern uint8_t g3_mac_rt_bin2_start;
-extern uint8_t g3_mac_rt_bin2_end;
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 
 /* G3 MAC RT Driver Initialization Data */
 DRV_G3_MACRT_INIT drvG3MacRtInitData = {
@@ -264,6 +280,8 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
     .secure = DRV_PLC_SECURE,
 
 };
+
+/* MISRA C-2012 deviation block end */
 
 // </editor-fold>
 
@@ -376,9 +394,9 @@ void SYS_Initialize ( void* data )
 
     SERCOM1_USART_Initialize();
 
-    EVSYS_Initialize();
-
     SERCOM0_SPI_Initialize();
+
+    EVSYS_Initialize();
 
     DMAC_Initialize();
 

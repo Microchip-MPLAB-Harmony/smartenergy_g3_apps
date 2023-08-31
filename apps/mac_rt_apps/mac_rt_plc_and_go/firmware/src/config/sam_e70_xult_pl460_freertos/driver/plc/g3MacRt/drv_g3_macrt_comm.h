@@ -11,13 +11,13 @@
     MAC RT Driver Communication Definitions Header File
 
   Description:
-    This file provides implementation-specific definitions for G3 MAC RT 
+    This file provides implementation-specific definitions for G3 MAC RT
     interface.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -62,36 +62,41 @@
 
 // *****************************************************************************
 // *****************************************************************************
+// Section: External Data
+// *****************************************************************************
+// *****************************************************************************
+
+/* PLC MAC RT Binary file addressing */
+extern uint8_t g3_mac_rt_bin_start;
+extern uint8_t g3_mac_rt_bin_end;
+extern uint8_t g3_mac_rt_bin2_start;
+extern uint8_t g3_mac_rt_bin2_end;
+
+// *****************************************************************************
+// *****************************************************************************
 // Section: Macro Definitions
 // *****************************************************************************
 // *****************************************************************************
-typedef enum {
-    G3_CEN_A = 0,
-    G3_CEN_B,
-    G3_FCC,
-    G3_ARIB,
-    G3_INVALID = 0xFF
-} MAC_RT_BAND;    
 
 /* Tone Map size for Cenelec(A,B) bandplan */
-#define TONE_MAP_SIZE_CENELEC           1
+#define TONE_MAP_SIZE_CENELEC           1U
 /* Tone Map size for FCC bandplan */
-#define TONE_MAP_SIZE_FCC               3
+#define TONE_MAP_SIZE_FCC               3U
 /* Tone Map size for ARIB bandplan */
-#define TONE_MAP_SIZE_ARIB              3
+#define TONE_MAP_SIZE_ARIB              3U
 
-#define MAC_RT_MAX_PAYLOAD_SIZE         (404u)
-#define MAC_RT_FULL_HEADER_SIZE         (32)
+#define MAC_RT_MAX_PAYLOAD_SIZE         (404U)
+#define MAC_RT_FULL_HEADER_SIZE         (32U)
 #define MAC_RT_DATA_MAX_SIZE            (MAC_RT_MAX_PAYLOAD_SIZE + MAC_RT_FULL_HEADER_SIZE)
-#define MAC_RT_SECURITY_HEADER_SIZE     (6)
-#define MAC_RT_SEGMENT_CONTROL_SIZE     (3)
-#define MAC_RT_FCS_SIZE                 (2)
-        
-#define MAC_RT_SHORT_ADDRESS_BROADCAST  (0xFFFFu)
-#define MAC_RT_SHORT_ADDRESS_UNDEFINED  (0xFFFFu)
-        
-#define MAC_RT_PIB_MAX_VALUE_LENGTH     (144)
-#define MAC_RT_PHY_DATA_MAX_SIZE        (494)
+#define MAC_RT_SECURITY_HEADER_SIZE     (6U)
+#define MAC_RT_SEGMENT_CONTROL_SIZE     (3U)
+#define MAC_RT_FCS_SIZE                 (2U)
+
+#define MAC_RT_SHORT_ADDRESS_BROADCAST  (0xFFFFU)
+#define MAC_RT_SHORT_ADDRESS_UNDEFINED  (0xFFFFU)
+
+#define MAC_RT_PIB_MAX_VALUE_LENGTH     (144U)
+#define MAC_RT_PHY_DATA_MAX_SIZE        (494U)
 
 #define MAX_PHY_TONES                   72
 #define MAX_PHY_TONE_GROUPS             24
@@ -100,9 +105,20 @@ typedef enum {
 // *****************************************************************************
 // Section: Data Types
 // *****************************************************************************
-// *****************************************************************************  
 // *****************************************************************************
-        
+// *****************************************************************************
+
+typedef enum {
+    G3_CEN_A = 0,
+    G3_CEN_B,
+    G3_FCC,
+    G3_ARIB,
+    G3_INVALID = 0xFF
+} MAC_RT_BAND;
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 5.2 deviated 4 times.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+
 /* G3 MAC RT PIB list
 
    Summary
@@ -192,7 +208,7 @@ typedef enum {
     MAC_RT_PIB_SLEEP_MODE = 0x08000024,
     /* Set PLC Debug Mode */
     MAC_RT_PIB_DEBUG_SET = 0x08000025,
-    /* Read PL360 Debug Information */
+    /* Read PLC Debug Information */
     MAC_RT_PIB_DEBUG_READ = 0x08000026,
     /* Provides access to POS table by short address (referenced as index) */
     MAC_RT_PIB_MANUF_POS_TABLE_ELEMENT = 0x08000027,
@@ -209,7 +225,9 @@ typedef enum {
     /* Gets or sets a parameter in Phy layer. Index will be used to contain PHY parameter ID.
        Check 'enum EPhyParam' below for available Phy parameter IDs */
     MAC_RT_PIB_MANUF_PHY_PARAM = 0x08000020
-} MAC_RT_PIB;        
+} MAC_RT_PIB;
+
+/* MISRA C-2012 deviation block end */
 
 /* G3 PHY Parameters list
 
@@ -335,7 +353,7 @@ typedef struct {
     The list of all types of modulation supported by G3 spec.
 
    Remarks:
-    Ordered from higher to lower data rate and from higher to lower required 
+    Ordered from higher to lower data rate and from higher to lower required
     SNR (Signal to Noise Ratio): 16QAM, 8PSK, QPSK, BPSK, Robust BPSK
 */
 typedef enum {
@@ -354,9 +372,9 @@ typedef enum {
 
    Remarks:
     Coherent Scheme supports worst SNR (about 3 dB) than Differential Scheme
-    Differential Scheme provides a bit higher data rate because Coherent Scheme 
+    Differential Scheme provides a bit higher data rate because Coherent Scheme
     uses some carriers for pilots
-    Coherent Scheme requires an accurate crystal oscillator. G3-PLC specifies 
+    Coherent Scheme requires an accurate crystal oscillator. G3-PLC specifies
     that the frequency error must be less than 25 PPM
 */
 typedef enum {
@@ -376,11 +394,11 @@ typedef enum {
 */
 typedef struct {
     /* Modulation type */
-    MAC_RT_MOD_TYPE modType;       
-    /* Modulation scheme */             
-    MAC_RT_MOD_SCHEME modScheme;   
-    /* Tone Map */             
-    MAC_RT_TONE_MAP toneMap;           
+    MAC_RT_MOD_TYPE modType;
+    /* Modulation scheme */
+    MAC_RT_MOD_SCHEME modScheme;
+    /* Tone Map */
+    MAC_RT_TONE_MAP toneMap;
 } MAC_RT_TONE_MAP_RSP_DATA;
 
 // *****************************************************************************
@@ -402,7 +420,7 @@ typedef enum {
 /* G3 MAC RT Extended Address
 
    Summary
-    This struct includes extended address. 
+    This struct includes extended address.
 
    Remarks:
 */
@@ -414,27 +432,27 @@ typedef struct {
 /* G3 MAC RT Address
 
    Summary
-    This struct includes addressing mode and address. 
+    This struct includes addressing mode and address.
 
    Remarks:
     The format of the address depends on the addressing mode field.
 */
 typedef struct {
     /* Modulation type */
-    MAC_RT_ADDRESS_MODE addressMode;       
+    MAC_RT_ADDRESS_MODE addressMode;
     union {
         /* Short Address */
         uint16_t shortAddress;
         /* Extended Address */
         MAC_RT_EXT_ADDRESS extendedAddress;
-    };        
+    };
 } MAC_RT_ADDRESS;
 
 // *****************************************************************************
 /* G3 MAC RT Frame Type
 
    Summary
-    This struct includes frame type. 
+    This struct includes frame type.
 
    Remarks:
     The format of the address depends on the addressing mode field.
@@ -454,7 +472,7 @@ typedef enum {
 /* G3 MAC RT Command
 
    Summary
-    This struct includes mac rt commands. 
+    This struct includes mac rt commands.
 
    Remarks:
 */
@@ -467,7 +485,7 @@ typedef enum {
 /* G3 MAC RT DSN Table entry
 
    Summary
-    This struct includes DSN Table entry definition. 
+    This struct includes DSN Table entry definition.
 
    Remarks:
 */
@@ -481,7 +499,7 @@ typedef struct {
 /* G3 MAC RT POS entry
 
    Summary
-    This struct includes POS entry definition. 
+    This struct includes POS entry definition.
 
    Remarks:
 */
@@ -495,7 +513,7 @@ typedef struct __attribute__((packed)) {
 /* G3 MAC RT TX coefficients
 
    Summary
-    This struct includes TX coefficients definition. 
+    This struct includes TX coefficients definition.
 
    Remarks:
 */
@@ -503,11 +521,14 @@ typedef struct {
     uint8_t txCoef[6];
 } MAC_RT_TX_COEF;
 
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 6.1 deviated 12 times.  Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
+
 // *****************************************************************************
 /* G3 MAC RT neighbour entry
 
    Summary
-    This struct includes neighbour entry definition. 
+    This struct includes neighbour entry definition.
 
    Remarks:
 */
@@ -532,7 +553,7 @@ typedef struct __attribute__((packed)) {
 
    Remarks:
     For more information, please refer to G3 Specification
-    
+
 */
 typedef struct {
     /* Frame Type */
@@ -552,7 +573,7 @@ typedef struct {
     /* Frame Version  */
     uint16_t frameVersion : 2;
     /* Source Addressing Mode */
-    uint16_t srcAddressingMode : 2;  
+    uint16_t srcAddressingMode : 2;
 } MAC_RT_FRAME_CONTROL;
 
 // *****************************************************************************
@@ -563,7 +584,7 @@ typedef struct {
 
    Remarks:
     For more information, please refer to G3 Specification
-    
+
 */
 typedef struct {
     /* Reserved */
@@ -579,7 +600,7 @@ typedef struct {
     /* Segment Count */
     uint16_t segmentCount : 6;
     /* Segment Length of MAC frame */
-    uint16_t segmentLength : 10;  
+    uint16_t segmentLength : 10;
 } MAC_RT_SEGMENT_CONTROL;
 
 // *****************************************************************************
@@ -590,7 +611,7 @@ typedef struct {
 
    Remarks:
     For more information, please refer to G3 Specification
-    
+
 */
 typedef struct {
     /* Security Level */
@@ -605,6 +626,8 @@ typedef struct {
     uint8_t keyIdentifier;
 } MAC_RT_AUX_SECURITY_HEADER;
 
+/* MISRA C-2012 deviation block end */
+
 // *****************************************************************************
 /* G3 MAC RT header
 
@@ -613,7 +636,7 @@ typedef struct {
 
    Remarks:
     For more information, please refer to G3 Specification
-    
+
 */
 typedef struct __attribute__((packed, aligned(1))) {
     /* Frame Control Information */
@@ -640,7 +663,7 @@ typedef struct __attribute__((packed, aligned(1))) {
 
    Remarks:
     For more information, please refer to G3 Specification
-    
+
 */
 typedef struct {
     MAC_RT_MOD_SCHEME modScheme;
@@ -835,31 +858,31 @@ typedef struct {
 */
 typedef struct {
     /* SNIFFER_IF_PHY_COMMAND_G3_VERSION */
-    uint8_t commandVersion;    
+    uint8_t commandVersion;
     /* SNIFFER_VERSION */
-	uint8_t snifferVersion;     
+	uint8_t snifferVersion;
     /* SNIFFER_PLC_G3 */
-	uint8_t deviceVersion;  
+	uint8_t deviceVersion;
     /* ModType (high) + ModScheme (low) */
-	uint8_t modTypeScheme;      
+	uint8_t modTypeScheme;
     /* Tone Map */
-	uint8_t toneMap[3];     
+	uint8_t toneMap[3];
     /* Number of symbols */
-	uint16_t symbols;  
+	uint16_t symbols;
     /* Link Quality Indicator */
-	uint8_t lqi;      
+	uint8_t lqi;
     /* Delimiter Type */
-	uint8_t dt;       
+	uint8_t dt;
     /* Init time */
-	uint32_t timeIni;            
+	uint32_t timeIni;
     /* End time */
-	uint32_t timeEnd;     
+	uint32_t timeEnd;
     /* RSSI */
-	uint16_t rssi;      
+	uint16_t rssi;
     /* AGC factor */
-	uint16_t agcFactor;       
+	uint16_t agcFactor;
     /* Data length */
-	uint16_t dataLength;                       
+	uint16_t dataLength;
 } MAC_RT_PHY_SNIFFER_HEADER;
 
 //DOM-IGNORE-BEGIN

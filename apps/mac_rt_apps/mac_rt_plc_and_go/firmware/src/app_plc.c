@@ -63,11 +63,6 @@
 
 #define div_round(a, b)      (((a) + (b >> 1)) / (b))
 
-extern uint8_t g3_mac_rt_bin_start;
-extern uint8_t g3_mac_rt_bin_end;
-extern uint8_t g3_mac_rt_bin2_start;
-extern uint8_t g3_mac_rt_bin2_end;
-
 /* G3 MAC RT Driver Initialization Data (initialization.c) */
 extern DRV_G3_MACRT_INIT drvG3MacRtInitData;
 

@@ -122,8 +122,8 @@ extern "C" {
 #define DRV_PLC_RTOS_TASK_PRIORITY            1
 
 /* PLC MAC RT Driver Identification */
-#define DRV_G3_MACRT_INDEX                   0
-#define DRV_G3_MACRT_INSTANCES_NUMBER        1
+#define DRV_G3_MACRT_INDEX                   0U
+#define DRV_G3_MACRT_INSTANCES_NUMBER        1U
 #define DRV_G3_MACRT_HOST_DESC               "WBZ451"
 
 

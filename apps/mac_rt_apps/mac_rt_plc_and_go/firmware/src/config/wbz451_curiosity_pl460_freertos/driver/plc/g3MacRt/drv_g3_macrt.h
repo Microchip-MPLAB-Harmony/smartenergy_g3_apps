@@ -40,8 +40,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _DRV_G3_MACRT_H
-#define _DRV_G3_MACRT_H
+#ifndef DRV_G3_MACRT_H
+#define DRV_G3_MACRT_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -149,13 +149,10 @@ typedef enum
         switch(cfmObj->status)
         {
             case MAC_RT_STATUS_SUCCESS:
-                // Transmission result: already in process
                 break;   
             case MAC_RT_STATUS_CHANNEL_ACCESS_FAILURE:
-                // Transmission result: CSMA failure
                 break;   
             case MAC_RT_STATUS_NO_ACK:
-                // Transmission result: ACK failure
                 break;
         }
     }
@@ -201,13 +198,10 @@ typedef void ( *DRV_G3_MACRT_INIT_CALLBACK )( bool initResult );
         switch(cfmObj->status)
         {
             case MAC_RT_STATUS_SUCCESS:
-                // Transmission result: already in process
                 break;   
             case MAC_RT_STATUS_CHANNEL_ACCESS_FAILURE:
-                // Transmission result: CSMA failure
                 break;   
             case MAC_RT_STATUS_NO_ACK:
-                // Transmission result: ACK failure
                 break;
         }
     }
@@ -251,10 +245,9 @@ typedef void ( *DRV_G3_MACRT_TX_CFM_CALLBACK )( MAC_RT_TX_CFM_OBJ *cfmObj );
     <code>
     void APP_MyRxEventHandler( uint8_t *pData, uint16_t length )
     {
-        // Check length of the new message
-        if (length) {
-          // extract data from received message
-          memcpy(appData->dataRxBuffer, pData, length);
+        if (length > 0U)
+        {
+            memcpy(appData->dataRxBuffer, pData, length);
         }
     }
     </code>
@@ -293,7 +286,6 @@ typedef void ( *DRV_G3_MACRT_DATA_IND_CALLBACK )( uint8_t *pData, uint16_t lengt
     <code>
     void APP_MyRxParamsHandler( MAC_RT_RX_PARAMETERS_OBJ *pParameters )
     {
-        // extract all parameters from received message
         memcpy(appData->rxParams, (uint8_t *)pParameters, sizeof(MAC_RT_RX_PARAMETERS_OBJ));
     }
     </code>
@@ -330,10 +322,9 @@ typedef void ( *DRV_G3_MACRT_RX_PARAMS_IND_CALLBACK )( MAC_RT_RX_PARAMETERS_OBJ 
     <code>
     void APP_MyMacRtMacSnifferHandler( uint8_t *pData, uint16_t length )
     {
-        // Check length of the new PLC message
-        if (length) {
-          // extract data from received message
-          memcpy(appData->dataMacRtMacSnifferBuffer, pData, length);
+        if (length > 0U)
+        {
+            memcpy(appData->dataMacRtMacSnifferBuffer, pData, length);
         }
     }
     </code>
@@ -368,10 +359,9 @@ typedef void ( *DRV_G3_MACRT_MAC_SNIFFER_IND_CALLBACK )( uint8_t *pData, uint16_
     <code>
     void APP_MyPLCMacRtCommStatusHandler( uint8_t *pData )
     {
-        // Check length of the new PLC message
-        if (length) {
-          // extract data from received message
-          memcpy(appData->dataMacCommStatusBuffer, pData, MAC_RT_COMM_STATUS_SIZE));
+        if (length > 0U)
+        {
+            memcpy(appData->dataMacCommStatusBuffer, pData, MAC_RT_COMM_STATUS_SIZE));
         }
     }
     </code>
@@ -408,10 +398,9 @@ typedef void ( *DRV_G3_MACRT_COMM_STATUS_IND_CALLBACK )( uint8_t *pData );
     <code>
     void APP_MyMacRtPhySnifferHandler( uint16_t length )
     {
-        // Check length of the new PLC message
-        if (length) {
-          // extract data from received message
-          memcpy(appData->dataMacRtPhySnifferBuffer, pData, length);
+        if (length > 0U)
+        {
+            memcpy(appData->dataMacRtPhySnifferBuffer, pData, length);
         }
     }
     </code>
@@ -450,23 +439,18 @@ typedef void ( *DRV_G3_MACRT_PHY_SNIFFER_IND_CALLBACK )( uint16_t length );
         switch (exceptionObj) 
         {
             case DRV_G3_MACRT_EXCEPTION_UNEXPECTED_KEY:
-                // SPI has detected an unexpected status, reset is recommended
                 break;
 
             case DRV_G3_MACRT_EXCEPTION_CRITICAL_ERROR:
-                // SPI critical error in last transfer. Bootloader task has failured.
                 break;
 
             case DRV_G3_MACRT_EXCEPTION_DEBUG:
-                // PLC transceiver has been reset by Debugging tool
                 break;
 
             case DRV_G3_MACRT_EXCEPTION_RESET:
-                // PLC transceiver has been reset
                 break;
 
             default:
-                // SPI has detected an unexpected status, reset is recommended
         }
 
         appData->macrt_exception = true;
@@ -557,9 +541,7 @@ typedef void ( *DRV_G3_MACRT_EXCEPTION_CALLBACK )( DRV_G3_MACRT_EXCEPTION except
     };
 
     sysObjDrvMACRT = DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX_0, (SYS_MODULE_INIT *)&drvPLCMacRtInitData);
-    // Register Callback function is mandatory to handle PLC interruption 
     PIO_PinInterruptCallbackRegister(DRV_G3_MACRT_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObjDrvMACRT);
-
     </code>
 
   Remarks:
@@ -616,8 +598,7 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize( const SYS_MODULE_INDEX index, const SYS_
     handle = DRV_G3_MACRT_Open(DRV_G3_MACRT_INDEX_0, NULL);
     if (handle == DRV_HANDLE_INVALID)
     {
-        // Unable to open the driver
-        // May be the driver is not initialized
+        
     }
     </code>
 
@@ -652,10 +633,7 @@ DRV_HANDLE DRV_G3_MACRT_Open(const SYS_MODULE_INDEX index,
 
   Example:
     <code>
-    // 'handle', returned from the DRV_G3_MACRT_Open
-
     DRV_G3_MACRT_Close(handle);
-
     </code>
 
   Remarks:
@@ -690,13 +668,9 @@ void DRV_G3_MACRT_Close(const DRV_HANDLE handle);
 
   Example:
     <code>
-    // 'handle', returned from the DRV_G3_MACRT_Open
-    
-    // Local function implemented in the user application
     _setupTransmissionParameters();
 
     DRV_G3_MACRT_TxRequest(handle, appData.pData, appData.length);
-
     </code>
 
   Remarks:
@@ -730,8 +704,6 @@ void DRV_G3_MACRT_TxRequest(const DRV_HANDLE handle, uint8_t *pData, uint16_t le
 
   Example:
     <code>
-    // 'handle', returned from the DRV_G3_MACRT_Open
-    
     MAC_RT_PIB_OBJ pibObj;
     uint32_t phyVersion;
     uint8_t macRtVersion[6];
@@ -749,7 +721,6 @@ void DRV_G3_MACRT_TxRequest(const DRV_HANDLE handle, uint8_t *pData, uint16_t le
     pibObj.length = 6;
 
     DRV_G3_MACRT_PIBGet(handle, &pibObj);
-
     </code>
 
   Remarks:
@@ -783,17 +754,13 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBGet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
 
   Example:
     <code>
-    // 'handle', returned from the DRV_G3_MACRT_Open
-    
     MAC_RT_PIB_OBJ pibObj;
     uint8_t autoMode
     uint8_t impedance;
     uint8_t forcedRobo;
  
-    // Disable AUTODETECT impedance mode
     autoMode = 0;
  
-    // Set VLO impedance mode
     impedance = VLO_STATE; 
     
     pibObj.pib = MAC_RT_PIB_MANUF_PHY_PARAM;
@@ -808,7 +775,6 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBGet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
     pibObj.length = 1;
     DRV_G3_MACRT_PIBSet(handle, &pibObj);
  
-    // Forces Modulation Type in every transmitted frame (1 - Force BPSK_ROBO)
     forcedRobo = 1; 
  
     pibObj.pib = MAC_RT_PIB_MANUF_FORCED_MOD_TYPE;
@@ -816,7 +782,6 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBGet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
     pibObj.pData = &forcedRobo;
     pibObj.length = 1;
     DRV_G3_MACRT_PIBSet(handle, &pibObj);
-
     </code>
 
   Remarks:
@@ -850,7 +815,6 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBSet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
 
   Example:
     <code>
-    // 'handle', returned from the DRV_G3_MACRT_Open
     uint32_t macRtTimerRef;
 
     macRtTimerRef = DRV_G3_MACRT_GetTimerReference(handle);
@@ -896,28 +860,26 @@ uint32_t DRV_G3_MACRT_GetTimerReference(const DRV_HANDLE handle);
 
   Example:
     <code>
- 
-     // Event is received when the transmission is finished
-    void APP_PLC_Init_callback(bool initResult)
+ void APP_PLC_Init_callback(bool initResult)
     {
-        if (initResult == True) {
-          // This means the PLC bin file has been loaded successfully.
-        } else {
-          // Error handling here.
+        if (initResult == True)
+        {
+
+        }
+        else
+        {
+
         }
     }
       
-    // G3 MAC RT handler.
     DRV_HANDLE handle;
 
-    // Client registers a PLC initialization callback with driver.
     DRV_G3_MACRT_initCallbackRegister( DRV_G3_MACRT_INDEX_0, APP_PLC_Init_callback );
 
     handle = DRV_G3_MACRT_Open(DRV_G3_MACRT_INDEX_0, NULL);
     if (handle == DRV_HANDLE_INVALID)
     {
-        // Unable to open the driver
-        // May be the driver is not initialized
+
     }   
     </code>
 
@@ -961,27 +923,23 @@ void DRV_G3_MACRT_InitCallbackRegister(
 
   Example:
     <code>
-     // Event is received when the transmission is finished
     void APP_PLC_Tx_Cfm_callback(MAC_RT_TX_CFM_OBJ *cfmObj)
     {
-        if (cfmObj->result == MAC_RT_STATUS_SUCCESS) {
-          // This means the data was transferred successfully.
-        } else {
-          // Error handling here.
+        if (cfmObj->result == MAC_RT_STATUS_SUCCESS)
+        {
+
+        }
+        else
+        {
+
         }
     }
       
-    // myAppObj is an application specific state data object.
     MY_APP_OBJ myAppObj;
-
-    // myHandle is the handle returned from DRV_G3_MACRT_Open API.
-
-    // Client registers a TX confirm callback with driver. This is done once
 
     DRV_G3_MACRT_TxCfmCallbackRegister( myAppObj.myHandle, APP_PLC_Tx_Cfm_callback );
 
     DRV_G3_MACRT_TxRequest(myAppObj.myHandle, myAppObj.pData, myAppObj.dataLength);
-   
     </code>
 
 */
@@ -1027,8 +985,7 @@ void DRV_G3_MACRT_TxCfmCallbackRegister(
 
     void APP_PLC_Data_Ind_callback(uint8_t *pData, uint16_t length)
     {
-        // Reception handling here.
-        if (length)
+        if (length > 0U)
         {
             memcpy(myAppObj->pDataRcv, pData, length);
             myAppObj->lengthDataRcv = length;
@@ -1036,17 +993,9 @@ void DRV_G3_MACRT_TxCfmCallbackRegister(
 
     }
       
-    // myAppObj is an application specific state data object.
     MY_APP_OBJ myAppObj;
 
-    // myHandle is the handle returned from DRV_G3_MACRT_Open API.
-
-    // Client registers a data indication callback with driver. This is done once
-
     DRV_G3_MACRT_DataIndCallbackRegister( myAppObj.myHandle, APP_PLC_Data_Ind_callback );
-
-    // Event is received when PLC data is receiving.
-    
     </code>
 
 */
@@ -1093,20 +1042,12 @@ void DRV_G3_MACRT_DataIndCallbackRegister(
 
     void APP_PLC_Params_Ind_callback(MAC_RT_RX_PARAMETERS_OBJ *pParameters)
     {
-        // Rx Parameters handling here.
+        
     }
       
-    // myAppObj is an application specific state data object.
     MY_APP_OBJ myAppObj;
 
-    // myHandle is the handle returned from DRV_G3_MACRT_Open API.
-
-    // Client registers a RxParams indication callback with driver. This is done once
-
     DRV_G3_MACRT_RxParamsIndCallbackRegister( myAppObj.myHandle, APP_PLC_Params_Ind_callback );
-
-    // Event is received when PLC data is receiving.
-    
     </code>
 
 */
@@ -1160,22 +1101,14 @@ void DRV_G3_MACRT_RxParamsIndCallbackRegister(
     {
         if (length)
         {
-            // Mac Sniffer data handling here.
+            
         }
     }
       
-    // myAppObj is an application specific state data object.
     MY_APP_OBJ myAppObj;
 
-    // myHandle is the handle returned from DRV_G3_MACRT_Open API.
-
-    // Client registers a sniffer callback with MAC RT driver.
-
     DRV_G3_MACRT_MacSnifferCallbackRegister( myAppObj.myHandle, APP_G3_MAC_RT_Mac_Sniffer_callback,
-		myAppObj.pMacSnfBuffer);
-
-    // Event is received when PLC data is receiving.
-    
+            myAppObj.pMacSnfBuffer);
     </code>
 
 */
@@ -1221,19 +1154,12 @@ void DRV_G3_MACRT_MacSnifferCallbackRegister(
 
     void APP_G3_MAC_RT_Comm_Status_callback(uint8_t *pData)
     {
-        // Extract Comm Status Data from data packet.
         
     }
       
-    // myAppObj is an application specific state data object.
     MY_APP_OBJ myAppObj;
 
-    // myHandle is the handle returned from DRV_G3_MACRT_Open API.
-
-    // Client registers a Comm Status callback with MAC RT driver.
-
     DRV_G3_MACRT_CommStatusCallbackRegister( myAppObj.myHandle, APP_G3_MAC_RT_Comm_Status_callback );
-    
     </code>
 
 */
@@ -1287,22 +1213,14 @@ void DRV_G3_MACRT_CommStatusCallbackRegister(
     {
         if (length)
         {
-            // Phy Sniffer data handling here.
+            
         }
     }
       
-    // myAppObj is an application specific state data object.
     MY_APP_OBJ myAppObj;
 
-    // myHandle is the handle returned from DRV_G3_MACRT_Open API.
-
-    // Client registers a Phy sniffer callback with MAC RT driver.
-
     DRV_G3_MACRT_PhySnifferCallbackRegister( myAppObj.myHandle, APP_G3_MAC_RT_Phy_Sniffer_callback,
-		myAppObj.pPhySnfBuffer);
-
-    // Event is received when PLC data is receiving.
-    
+            myAppObj.pPhySnfBuffer);
     </code>
 
 */
@@ -1349,20 +1267,12 @@ void DRV_G3_MACRT_PhySnifferCallbackRegister(
 
     void APP_PLC_Exception_callback(DRV_G3_MACRT_EXCEPTION_OBJ *exceptionObj)
     {
-        // Exception handling here.
 
     }
       
-    // myAppObj is an application specific state data object.
     MY_APP_OBJ myAppObj;
 
-    // myHandle is the handle returned from DRV_G3_MACRT_Open API.
-
-    // Client registers an exception callback with driver. This is done once
-
     DRV_G3_MACRT_ExceptionCallbackRegister( myAppObj.myHandle, APP_PLC_Exception_callback );
-
-    // Event is received when PLC data is receiving.
     </code>
 
 */
@@ -1399,12 +1309,8 @@ void DRV_G3_MACRT_ExceptionCallbackRegister(
 
   Example:
     <code>
-      
-    // Initialize G3 MAC RT Driver Instance
     sysObj.drvPLCMacRt = DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvPLCMacRtInitData);
-    // Register Callback function to handle PLC interruption
     EIC_CallbackRegister(DRV_G3_MACRT_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvPLCMacRt);
-
     </code>
 
 */
@@ -1444,7 +1350,6 @@ void DRV_G3_MACRT_ExternalInterruptHandler( uintptr_t context );
   Example:
     <code>
     DRV_G3_MACRT_STATE state;
-    // 'DRV_G3_MACRT_INDEX' is the one used before for Driver Initialization
     state = DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX);
     </code>
 
@@ -1475,13 +1380,11 @@ DRV_G3_MACRT_STATE DRV_G3_MACRT_Status( const SYS_MODULE_INDEX index );
     None
   Example:
     <code>
-    SYS_MODULE_OBJ      object;     // Returned from DRV_G3_MACRT_Initialize
+    SYS_MODULE_OBJ      object;
     
     while (true)
     {
         DRV_G3_MACRT_Tasks (object);
-    
-        // Do other tasks
     }
     </code>
 
@@ -1519,7 +1422,7 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object );
     None.
   Example:
     <code>
-    SYS_MODULE_OBJ      object;     // Returned from DRV_G3_MACRT_Initialize
+    SYS_MODULE_OBJ      object;
     
     while (true)
     {
@@ -1563,9 +1466,8 @@ void DRV_G3_MACRT_EnableTX( const DRV_HANDLE handle, bool enable );
 
   Example:
     <code>
-    DRV_HANDLER      drvHandler;     // Returned from DRV_G3_MACRT_Open
+    DRV_HANDLER      drvHandler;
     
-    // Enable Coordinator capabilities
     DRV_G3_MACRT_SetCoordinator(drvHandler);
  
     </code>
@@ -1597,11 +1499,9 @@ void DRV_G3_MACRT_SetCoordinator(const DRV_HANDLE handle);
 
   Example:
     <code>
-    DRV_HANDLER      drvHandler;     // Returned from DRV_G3_MACRT_Open
+    DRV_HANDLER      drvHandler;
     
-    // Enable G3 PHY Sniffer capabilities
-    DRV_G3_MACRT_EnablePhySniffer(drvHandler);
- 
+    DRV_G3_MACRT_EnablePhySniffer(drvHandler); 
     </code>
                    
 */
@@ -1614,7 +1514,7 @@ void DRV_G3_MACRT_EnablePhySniffer(const DRV_HANDLE handle);
 
 #include "driver/plc/g3MacRt/drv_g3_macrt_local.h"
 
-#endif // #ifndef _DRV_G3_MACRT_H
+#endif // #ifndef DRV_G3_MACRT_H
 /*******************************************************************************
  End of File
 */

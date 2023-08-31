@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,8 +39,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _DRV_PLC_HAL_H
-#define _DRV_PLC_HAL_H
+#ifndef DRV_PLC_HAL_H
+#define DRV_PLC_HAL_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -69,30 +69,30 @@
 #define DRV_PLC_HAL_CPU_CLOCK_FREQ            200000000
 
 #define DRV_PLC_HAL_CMD_POS                   15
-#define DRV_PLC_HAL_CMD_RD                    (0 << DRV_PLC_HAL_CMD_POS)
-#define DRV_PLC_HAL_CMD_WR                    (1 << DRV_PLC_HAL_CMD_POS)
+#define DRV_PLC_HAL_CMD_RD                    ((uint16_t)0U << DRV_PLC_HAL_CMD_POS)
+#define DRV_PLC_HAL_CMD_WR                    ((uint16_t)1U << DRV_PLC_HAL_CMD_POS)
 
 #define DRV_PLC_HAL_LEN_MASK                  0x7FFF
         
 /* SPI Key MASK */
-#define DRV_PLC_HAL_KEY_MASK                  0xFFFE
+#define DRV_PLC_HAL_KEY_MASK                  0xFFFEU
 /* SPI Key when bootloader is running in PLC transceiver */
-#define DRV_PLC_HAL_KEY_BOOT                  (0x5634 & DRV_PLC_HAL_KEY_MASK)
+#define DRV_PLC_HAL_KEY_BOOT                  (0x5634U & DRV_PLC_HAL_KEY_MASK)
 /* SPI Key when PLC firmware is running in PLC transceiver */
-#define DRV_PLC_HAL_KEY_CORTEX                (0x5a5a & DRV_PLC_HAL_KEY_MASK)
+#define DRV_PLC_HAL_KEY_CORTEX                (0x5a5aU & DRV_PLC_HAL_KEY_MASK)
         
-#define DRV_PLC_HAL_KEY(b0, b1)               ((((uint16_t)b1 << 8) + b0) & DRV_PLC_HAL_KEY_MASK)
-#define DRV_PLC_HAL_FLAGS_BOOT(b0, b2, b3)    ((((uint32_t)b3) << 8) + ((uint32_t)b2) + ((uint32_t)(b0 & 0x01) << 16))
-#define DRV_PLC_HAL_FLAGS_CORTEX(b2, b3)      ((((uint32_t)b3) << 8) + ((uint32_t)b2))        
+#define DRV_PLC_HAL_KEY(b0, b1)               ((((uint16_t)(b1) << 8) + (b0)) & DRV_PLC_HAL_KEY_MASK)
+#define DRV_PLC_HAL_FLAGS_BOOT(b0, b2, b3)    ((((uint32_t)(b3)) << 8) + ((uint32_t)(b2)) + (((uint32_t)(b0) & 0x01UL) << 16))
+#define DRV_PLC_HAL_FLAGS_CORTEX(b2, b3)      ((((uint32_t)(b3)) << 8) + ((uint32_t)(b2)))        
 
 /* User rest flag in bootloader key*/
-#define DRV_PLC_HAL_FLAG_RST_USER             0x00010000
+#define DRV_PLC_HAL_FLAG_RST_USER             0x00010000UL
 /* Cortex(debugger) rest flag in bootloader key*/
-#define DRV_PLC_HAL_FLAG_RST_CORTEX           0x00008000
+#define DRV_PLC_HAL_FLAG_RST_CORTEX           0x00008000UL
 /* Watch Dog flag in bootloader key */
-#define DRV_PLC_HAL_FLAG_RST_WDOG             0x00004000
+#define DRV_PLC_HAL_FLAG_RST_WDOG             0x00004000UL
 /* Power-ON reset is indicated when the three flags are 0, mask will be used to detect it*/
-#define DRV_PLC_HAL_FLAG_RST_PON              0x0001C000  
+#define DRV_PLC_HAL_FLAG_RST_PON              0x0001C000UL
 
 // *****************************************************************************
 // *****************************************************************************
@@ -100,7 +100,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
-typedef bool (* DRV_PLC_SPI_PLIB_TRANSFER_SETUP)(uintptr_t, uint32_t);
+typedef bool (* DRV_PLC_SPI_PLIB_TRANSFER_SETUP)(uintptr_t setup, uint32_t spiSourceClock);
 typedef bool (* DRV_PLC_SPI_WRITE_READ)( void * pTransmitData, size_t txSize, 
         void * pReceiveData, size_t rxSize );
 typedef bool (* DRV_PLC_SPI_ISBUSY)( void );
@@ -115,6 +115,9 @@ typedef enum
 
 } DRV_PLC_SPI_CLOCK_PHASE;
 
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+
 typedef enum
 {
     DRV_PLC_SPI_CLOCK_POLARITY_IDLE_LOW = FLEXCOM_SPI_CLOCK_POLARITY_IDLE_LOW,
@@ -124,6 +127,8 @@ typedef enum
     DRV_PLC_SPI_CLOCK_POLARITY_INVALID = FLEXCOM_SPI_CLOCK_POLARITY_INVALID
 
 } DRV_PLC_SPI_CLOCK_POLARITY;
+
+/* MISRA C-2012 deviation block end */
 
 typedef enum
 {
@@ -204,27 +209,27 @@ typedef struct
 
 // *****************************************************************************
 
-typedef void (* DRV_PLC_HAL_INIT)(DRV_PLC_PLIB_INTERFACE*);
+typedef void (* DRV_PLC_HAL_INIT)(DRV_PLC_PLIB_INTERFACE *plcPlib);
 
-typedef void (* DRV_PLC_HAL_SETUP)(bool);
+typedef void (* DRV_PLC_HAL_SETUP)(bool set16Bits);
 
 typedef void (* DRV_PLC_HAL_RESET)(void);
 
-typedef void (* DRV_PLC_HAL_SET_STBY)(bool);
+typedef void (* DRV_PLC_HAL_SET_STBY)(bool enable);
 
 typedef bool (* DRV_PLC_HAL_GET_THMON)(void);
 
-typedef bool (* DRV_PLC_HAL_SET_TXENABLE)(bool);
+typedef void (* DRV_PLC_HAL_SET_TXENABLE)(bool enable);
 
-typedef void (* DRV_PLC_HAL_ENABLE_EXT_INT)(bool);
+typedef void (* DRV_PLC_HAL_ENABLE_EXT_INT)(bool enable);
 
 typedef bool (* DRV_PLC_HAL_GET_PIN_LEVEL)(SYS_PORT_PIN pin);
 
-typedef void (* DRV_PLC_HAL_DELAY)(uint64_t);
+typedef void (* DRV_PLC_HAL_DELAY)(uint32_t delay);
 
-typedef void (* DRV_PLC_HAL_SEND_BOOT_CMD)(uint16_t, uint32_t, uint32_t, void*, void*);
+typedef void (* DRV_PLC_HAL_SEND_BOOT_CMD)(uint16_t cmd, uint32_t addr, uint32_t dataLength, void *pDataWr, void *pDataRd);
 
-typedef void (* DRV_PLC_HAL_SEND_WRRD_CMD)(void*, void*);
+typedef void (* DRV_PLC_HAL_SEND_WRRD_CMD)(void *pCmd, void *pInfo);
 
 // *****************************************************************************
 /* PLC Driver HAL Interface Data
@@ -316,8 +321,8 @@ typedef struct
 
 typedef struct
 {
-    uint32_t key;
     uint32_t flags;
+    uint16_t key;
 }DRV_PLC_HAL_INFO;
 
 // *****************************************************************************
@@ -334,15 +339,15 @@ void DRV_PLC_HAL_Setup(bool set16Bits);
 void DRV_PLC_HAL_SetTxEnable(bool enable);
 void DRV_PLC_HAL_EnableInterrupts(bool enable);
 bool DRV_PLC_HAL_GetPinLevel(SYS_PORT_PIN pin);
-void DRV_PLC_HAL_Delay(uint64_t delayUs);
-void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t address, uint32_t dataLength, uint8_t *pDataWr, uint8_t *pDataRd);
+void DRV_PLC_HAL_Delay(uint32_t delayUs);
+void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, uint8_t *pDataWr, uint8_t *pDataRd);
 void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // #ifndef _DRV_PLC_HAL_H
+#endif // #ifndef DRV_PLC_HAL_H
 /*******************************************************************************
  End of File
 */

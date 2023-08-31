@@ -60,7 +60,7 @@
 // Section: RTOS "Tasks" Routine
 // *****************************************************************************
 // *****************************************************************************
-static void _DRV_G3_MACRT_Tasks(  void *pvParameters  )
+static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
 {
     while(true)
     {
@@ -116,7 +116,7 @@ void SYS_Tasks ( void )
 
     /* Maintain Device Drivers */
     
-    xTaskCreate( _DRV_G3_MACRT_Tasks,
+    (void) xTaskCreate( lDRV_G3_MACRT_Tasks,
         "DRV_G3_MACRT_TASKS",
         DRV_PLC_RTOS_STACK_SIZE,
         (void*)NULL,

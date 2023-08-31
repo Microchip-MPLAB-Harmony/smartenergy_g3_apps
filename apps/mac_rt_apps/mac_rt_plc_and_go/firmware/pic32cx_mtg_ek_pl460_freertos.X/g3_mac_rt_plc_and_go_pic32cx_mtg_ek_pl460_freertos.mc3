@@ -1,4 +1,4 @@
-<config configName="pic32cx_mtg_ek_pl460_freertos" projectName="g3_mac_rt_plc_and_go_pic32cx_mtg_ek_pl460_freertos" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.0">
+<config configName="pic32cx_mtg_ek_pl460_freertos" projectName="g3_mac_rt_plc_and_go_pic32cx_mtg_ek_pl460_freertos" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.5.7">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -8570,7 +8570,14 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom0" name="USART_TX_RING_BUFFER_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;flexcom0&gt;
   &lt;flexcom0 dnOrder=&quot;0&quot; id=&quot;USART_TX_RING_BUFFER_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;512&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/flexcom0&gt;
 &lt;/flexcom0&gt;
 </value>
@@ -21852,7 +21859,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\g3MacRt\bin\G3_MAC_RT_CENA.bin</file>
-         <hash>2ee0d0aa6552ab14355cd6dd41a668e047629ffedabce2e2c1763ed886e7d2f5</hash>
+         <hash>ed0ff4e585961c5cd146a7f4f1f5d58817a712c87863af7650f940823f992cc3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\user.h</file>
@@ -21868,7 +21875,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\configuration.h</file>
-         <hash>612fbc317957af8d59d630e0ee7b642f692a3c47bfd607155358b73417ba3602</hash>
+         <hash>4b783ed84813c3e319bd70d01b61b42d440f9398d8b174ed063b31b2e85b19aa</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\freertos_hooks.c</file>
@@ -21908,7 +21915,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\common\drv_plc_hal.c</file>
-         <hash>788dd13dba3d3eb72dc2b0b4dc57bcc2bb76d4289603aa382df477e59bb8ab46</hash>
+         <hash>851f645affb49922bc66aa25c1f887dc8e7c5c5c85661a8e185d3bce7e1a03be</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\sfr.h</file>
@@ -21920,7 +21927,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\common\drv_plc_hal.h</file>
-         <hash>50eb677091bc02daf4942d05083814e89cec1cc5965a4aa3380bdd4741de14ea</hash>
+         <hash>a16a3e1b2731971eace1fcd44a8aa1950df5302b5ef73c3e640c8188f884d49e</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\mpu_armv7.h</file>
@@ -21960,15 +21967,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt.h</file>
-         <hash>8a0cbf54794ed0d2bdaeaedc0bb2e7a57e061f7d26c2443351d9015c2bb318f0</hash>
+         <hash>1280771b2a42e70c51b17e37f4a1bad901994bee9a82c3ebb5b50b250218fe3f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\service\pvddmon\srv_pvddmon.c</file>
-         <hash>e80453331cc983e6f4b87c5d846f6ddad2a80dcd768121a6143b7f1262d53c4c</hash>
+         <hash>0adfdf26d2f41fbef8b27a8988e2c83ec076849a9979ee28b111f64777efaf89</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt.c</file>
-         <hash>36a95d0590ae0ff9b2383abc82f789ea8d6a94f12414629d2a6219d75cbf4c0a</hash>
+         <hash>87917743d71c94aac24602e964f7b8bfc84475865e4e6947834e29bee1ec97e2</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\peripheral\rstc\plib_rstc.h</file>
@@ -21992,7 +21999,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\service\pvddmon\srv_pvddmon.h</file>
-         <hash>7dd0af25d2e0a06a40750b582ec67ca27e1324a942480e7825e515a9646b3c92</hash>
+         <hash>71d22d0d89fe22ec5ed8cf1c514604557c34a54ec9836267167bb7b64664f4a3</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\deprecated_definitions.h</file>
@@ -22008,7 +22015,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt_local.h</file>
-         <hash>a6076d5d37aa407861bed78356206ad9317f75a84ba214c1095351ce8c0e0df7</hash>
+         <hash>4c68616fc04eba6ba15b4696515fc2a32a50de0430cd011b4f0b554c7edc7e33</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\peripheral\trng\plib_trng.h</file>
@@ -22024,11 +22031,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\common\drv_plc_boot.c</file>
-         <hash>d776492cff6419873df1d6c35bd627d1ac964565f93c6ee366051b632aa92824</hash>
+         <hash>c8cddc67bef9e115224944f4a756aeabf90013ec47f11c74b257fc0f148cd913</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\common\drv_plc_boot.h</file>
-         <hash>f8ce8c632026235f86b98194fcbb4c4d8fb4479c86c892ffbe46fab38cd9df62</hash>
+         <hash>c92aea753376d937a2bf6a91f52701e888a00371358f10e0ff974db401ab14b0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\osal\osal_freertos.h</file>
@@ -22044,7 +22051,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\tasks.c</file>
-         <hash>d513efc5fdd4a838d3abcf294284cc2c595119644cda936f402e5e7f12d6280d</hash>
+         <hash>a73530c2cc197074cb0dd75b0e2c794ad170b0fa15887bd5927d45cb0c036b72</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\peripheral\flexcom\spi\master\plib_flexcom5_spi_master.c</file>
@@ -22336,7 +22343,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\peripheral\flexcom\usart\plib_flexcom0_usart.c</file>
-         <hash>63c238a9ec83219678361f13ac9357b423d2c9d9eab3530f64b810c89b62ebf9</hash>
+         <hash>91efc230e9a2a075d7e4a072b11ffea42073731d90d0538f56179fed5741b7ab</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\flexcom.h</file>
@@ -22372,7 +22379,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\g3MacRt\bin\G3_MAC_RT_FCC.bin</file>
-         <hash>5e0830602f4968728c641219e2b8b97c3c1481e3fa8056818ef58589dd46c481</hash>
+         <hash>550d27499557e43397c871d03d2cafdfc6b7b4a48e051708e268ad47de4c4476</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\trng.h</file>
@@ -22400,7 +22407,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt_local_comm.h</file>
-         <hash>c50cc4a879a9e9da2d1935b931282b9fbb82e8b2409e8ef4e22de6e7c68ec2af</hash>
+         <hash>97d63b7045bb8cf10bcb7a34a4899f43c0e3e7dfe6fc332e4cd025b46a693125</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\acc.h</file>
@@ -22408,7 +22415,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt_local_comm.c</file>
-         <hash>fcbd8937903bb4f889921256d73415064c3783d66d9ad9cd41979d8ead5f5c6c</hash>
+         <hash>85aeea45371202f742e86d17d4007300adf64982fa38a4e2e6d7f802c73e1deb</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\pwm.h</file>
@@ -22424,7 +22431,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\definitions.h</file>
-         <hash>e176dd2d458ceaef92ee7da5fa0629b33a50d1502db93f926fbf7dd49327357f</hash>
+         <hash>3784f64919545535ff59db20645f5db65501067deedeeb5c921d1c5ec408a47f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\device.h</file>
@@ -22520,7 +22527,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt_comm.h</file>
-         <hash>3075b6d1eb24605d954cc5f4eec221828ccb855e22f64197b1ef30f5488e5ee8</hash>
+         <hash>71ccaeb81d8e633f5ee0f3561a98d0e8b19536f9771f4e5f11cc253263e06af7</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\pdc.h</file>
@@ -22640,11 +22647,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\initialization.c</file>
-         <hash>c4a33bd3e5315ed25c6658a1a3038dd03a52b49465dbe55008b263e5fb0599a0</hash>
+         <hash>92de92ca85c69bce2bd6674f4126698b73af1c4dff0f1bb9a6c237afd0b9e0b9</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\service\pcoup\srv_pcoup.h</file>
-         <hash>6f51ea7cf9dc7a428ebd5b56565a3834ccc5bc5493e9aeae98f9d0ef1d84d453</hash>
+         <hash>64d6bcbbd3065e03b852d6ba32b8d0bacc97a6664878f1c1430dbbaa65e2064e</hash>
       </entry>
       <entry>
          <file>..\src\app_console.c</file>
@@ -22664,7 +22671,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\service\pcoup\srv_pcoup.c</file>
-         <hash>7274d1e097b20d74d624284f092094760704b0b7cf97289c7208b2444bc52485</hash>
+         <hash>aa92f250e2b9dc9cadc6a7f0c7eb4ce2f4e829b5f8e2865e6dec16fb29c149f1</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\sefc.h</file>

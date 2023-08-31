@@ -16,7 +16,7 @@
 *******************************************************************************/
 
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -38,46 +38,65 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: Included Files
+// *****************************************************************************
+// *****************************************************************************
+
 #include "device.h"
 #include "interrupts.h"
 #include "srv_pvddmon.h"
 #include "peripheral/afec/plib_afec1.h"
 
-static SRV_PVDDMON_CMP_MODE srv_pvddmon_mode;
+// *****************************************************************************
+// *****************************************************************************
+// Section: File Scope Data
+// *****************************************************************************
+// *****************************************************************************
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: PLC PVDD Monitor Service Implementation
-// *****************************************************************************
-// *****************************************************************************
+static SRV_PVDDMON_CMP_MODE srv_pvddmon_mode;
 static SRV_PVDDMON_CALLBACK AFEC1_CompareCallback = NULL;
 
-static void _AFEC1_PVDDMONCallback( uint32_t status, uintptr_t context )
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: File Scope Functions
+// *****************************************************************************
+// *****************************************************************************
+
+static void lAFEC1_PVDDMONCallback( uint32_t status, uintptr_t context )
 {
-    if (status & AFEC_ISR_COMPE_Msk)
+    if ((status & AFEC_ISR_COMPE_Msk) != 0U)
     {
-        if (AFEC1_CompareCallback)
+        if (AFEC1_CompareCallback != NULL)
         {
             AFEC1_CompareCallback(srv_pvddmon_mode, context);
         }
     }
 }
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: PLC PVDD Monitor Service Interface Implementation
+// *****************************************************************************
+// *****************************************************************************
+
 void SRV_PVDDMON_Initialize (void)
 {
-    AFEC_CHANNEL_MASK channelMsk = (1 << 6);
+    AFEC_CHANNEL_MASK channelMsk = AFEC_CH6_MASK;
 
     /* Disable AFEC1 channel */
     AFEC1_ChannelsDisable(channelMsk);
 
     /* Disable channel interrupt */
-    AFEC1_ChannelsInterruptDisable(channelMsk);
+    AFEC1_ChannelsInterruptDisable((AFEC_INTERRUPT_MASK)channelMsk);
 }
 
 void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
 {
     uint32_t emr = 0;
-    AFEC_CHANNEL_MASK channelMsk = (1 << 6);
+    AFEC_CHANNEL_MASK channelMsk = AFEC_CH6_MASK;
 
     /* Set Free Run reset */
     AFEC1_REGS->AFEC_MR |= AFEC_MR_FREERUN_Msk;
@@ -118,7 +137,7 @@ void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
 void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
 {
     uint32_t emr;
-    AFEC_CHANNEL_MASK channelMsk = (1 << 6);
+    AFEC_CHANNEL_MASK channelMsk = AFEC_CH6_MASK;
 
     /* Disable channel COMPE interrupt */
     AFEC1_REGS->AFEC_IDR |= AFEC_IER_COMPE_Msk;
@@ -144,7 +163,7 @@ void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
     AFEC1_REGS->AFEC_EMR &= ~AFEC_EMR_CMPMODE_Msk;
     AFEC1_REGS->AFEC_EMR |= emr;
 
-    while(AFEC1_REGS->AFEC_ISR & AFEC_ISR_COMPE_Msk);
+    while((AFEC1_REGS->AFEC_ISR & AFEC_ISR_COMPE_Msk) != 0U){}
 
     /* Enable AFEC1 channel */
     AFEC1_ChannelsEnable(channelMsk);
@@ -156,7 +175,7 @@ void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
 void SRV_PVDDMON_CallbackRegister (SRV_PVDDMON_CALLBACK callback, uintptr_t context)
 {
     /* Register AFEC1 Callback */
-    AFEC1_CallbackRegister(_AFEC1_PVDDMONCallback, context);
+    AFEC1_CallbackRegister(lAFEC1_PVDDMONCallback, context);
     AFEC1_CompareCallback = callback;
 }
 
@@ -164,10 +183,10 @@ bool SRV_PVDDMON_CheckWindow(void)
 {
     uint32_t adcValue;
     
-    adcValue = AFEC1_ChannelResultGet(6);
-    while(adcValue == 0)
+    adcValue = AFEC1_ChannelResultGet(AFEC_CH6);
+    while(adcValue == 0U)
     {
-        adcValue = AFEC1_ChannelResultGet(6);
+        adcValue = AFEC1_ChannelResultGet(AFEC_CH6);
     }
     
     if ((adcValue <= SRV_PVDDMON_HIGH_TRESHOLD) && (adcValue >= SRV_PVDDMON_LOW_TRESHOLD))

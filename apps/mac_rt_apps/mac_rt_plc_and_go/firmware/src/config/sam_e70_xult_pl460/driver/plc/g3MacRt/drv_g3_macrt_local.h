@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,8 +39,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _DRV_G3_MACRT_LOCAL_H
-#define _DRV_G3_MACRT_LOCAL_H
+#ifndef DRV_G3_MACRT_LOCAL_H
+#define DRV_G3_MACRT_LOCAL_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -182,4 +182,4 @@ typedef struct
 } DRV_G3_MACRT_OBJ;
 
 
-#endif //#ifndef _DRV_G3_MACRT_LOCAL_H
+#endif //#ifndef DRV_G3_MACRT_LOCAL_H

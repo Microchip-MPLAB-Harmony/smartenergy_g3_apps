@@ -25,7 +25,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -74,16 +74,16 @@
 #define SRV_PCOUP_DEFAULT_BRANCH                 SRV_PLC_PCOUP_MAIN_BRANCH
 
 /* Equalization number of coefficients (number of carriers) for Main branch */
-#define SRV_PCOUP_EQU_NUM_COEF                   72
+#define SRV_PCOUP_EQU_NUM_COEF                   72U
 
 /* PLC PHY Coupling parameters for Main branch */
 #define SRV_PCOUP_RMS_HIGH_TBL                   {1313, 937, 667, 477, 342, 247, 180, 131}
 #define SRV_PCOUP_RMS_VLOW_TBL                   {4329, 3314, 2387, 1692, 1201, 853, 608, 432}
 #define SRV_PCOUP_THRS_HIGH_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 1025, 729, 519, 372, 265, 191, 140, 101}
 #define SRV_PCOUP_THRS_VLOW_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 10242, 7302, 5197, 3708, 2649, 1906, 1366, 979}
-#define SRV_PCOUP_DACC_TBL                       {0x0, 0x0, 0x100, 0x100, 0x0, 0x0, \
-                                                 0x4f5000ff, 0x1b1b1b1b, 0x0, 0x0, 0x6, 0x355, \
-                                                 0x0, 0x1020f0, 0x355, 0x0, 0x1020ff}
+#define SRV_PCOUP_DACC_TBL                       {0x0UL, 0x0UL, 0x100UL, 0x100UL, 0x0UL, 0x0UL, \
+                                                 0x4f5000ffUL, 0x1b1b1b1bUL, 0x0UL, 0x0UL, 0x6UL, 0x355UL, \
+                                                 0x0UL, 0x1020f0UL, 0x355UL, 0x0UL, 0x1020ffUL}
 #define SRV_PCOUP_GAIN_HIGH_TBL                  {49, 20, 256}
 #define SRV_PCOUP_GAIN_VLOW_TBL                  {364, 180, 408}
 #define SRV_PCOUP_NUM_TX_LEVELS                  8
@@ -103,16 +103,16 @@
                                                   0x7DE6, 0x7FFF}  
 
 /* Equalization number of coefficients (number of carriers) for Auxiliary branch */
-#define SRV_PCOUP_AUX_EQU_NUM_COEF               36
+#define SRV_PCOUP_AUX_EQU_NUM_COEF               36U
 
 /* PLC PHY Coupling parameters for Auxiliary branch */
 #define SRV_PCOUP_AUX_RMS_HIGH_TBL               {1991, 1381, 976, 695, 495, 351, 250, 179}
 #define SRV_PCOUP_AUX_RMS_VLOW_TBL               {6356, 4706, 3317, 2308, 1602, 1112, 778, 546}
 #define SRV_PCOUP_AUX_THRS_HIGH_TBL              {0, 0, 0, 0, 0, 0, 0, 0, 1685, 1173, 828, 589, 419, 298, 212, 151}
 #define SRV_PCOUP_AUX_THRS_VLOW_TBL              {0, 0, 0, 0, 0, 0, 0, 0, 8988, 6370, 4466, 3119, 2171, 1512, 1061, 752}
-#define SRV_PCOUP_AUX_DACC_TBL                   {0x0, 0x21200000, 0x73f0000, 0x3f3f0000, 0xccc, 0x0, \
-                                                 0xa20000ff, 0x14141414, 0x20200000, 0x4400, 0xfd20004, 0x3aa, \
-                                                 0xf0000000, 0x1020f0, 0x3aa, 0xf0000000, 0x1020ff}
+#define SRV_PCOUP_AUX_DACC_TBL                   {0x0UL, 0x21200000UL, 0x73f0000UL, 0x3f3f0000UL, 0xcccUL, 0x0UL, \
+                                                 0xa20000ffUL, 0x14141414UL, 0x20200000UL, 0x4400UL, 0xfd20004UL, 0x3aaUL, \
+                                                 0xf0000000UL, 0x1020f0UL, 0x3aaUL, 0xf0000000UL, 0x1020ffUL}
 #define SRV_PCOUP_AUX_GAIN_HIGH_TBL              {142, 70, 336}
 #define SRV_PCOUP_AUX_GAIN_VLOW_TBL              {474, 230, 597}
 #define SRV_PCOUP_AUX_NUM_TX_LEVELS              8
@@ -287,7 +287,6 @@ SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch);
 
   Example:
     <code>
-    // 'handle', returned from DRV_G3_MACRT_Open
     bool result;
 
     result = SRV_PCOUP_Set_Config(handle, SRV_PLC_PCOUP_MAIN_BRANCH);
@@ -364,7 +363,7 @@ SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void );
 
     if (phyBand == G3_CEN_A)
     {
-        // G3 CEN-A band
+
     }
     </code>
 

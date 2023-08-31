@@ -16,7 +16,7 @@
 *******************************************************************************/
 
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -38,49 +38,68 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: Included Files
+// *****************************************************************************
+// *****************************************************************************
+
 #include "device.h"
 #include "interrupts.h"
 #include "srv_pvddmon.h"
 #include "peripheral/adc/plib_adc.h"
 
-static SRV_PVDDMON_CMP_MODE srv_pvddmon_mode;
+// *****************************************************************************
+// *****************************************************************************
+// Section: File Scope Data
+// *****************************************************************************
+// *****************************************************************************
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: PLC PVDD Monitor Service Implementation
-// *****************************************************************************
-// *****************************************************************************
+static SRV_PVDDMON_CMP_MODE srv_pvddmon_mode;
 static SRV_PVDDMON_CALLBACK ADC_CompareCallback = NULL;
 
-static void _ADC_PVDDMONCallback( uint32_t status, uint32_t eocStatus, uintptr_t context )
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: File Scope Functions
+// *****************************************************************************
+// *****************************************************************************
+
+static void lADC_PVDDMONCallback( uint32_t status, uint32_t eocStatus, uintptr_t context )
 {
     /* Avoid warning */
     (void)eocStatus;
     
-    if (status & ADC_ISR_COMPE_Msk)
+    if ((status & ADC_ISR_COMPE_Msk) != 0U)
     {
-        if (ADC_CompareCallback)
+        if (ADC_CompareCallback != NULL)
         {
             ADC_CompareCallback(srv_pvddmon_mode, context);
         }
     }
 }
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: PLC PVDD Monitor Service Interface Implementation
+// *****************************************************************************
+// *****************************************************************************
+
 void SRV_PVDDMON_Initialize (void)
 {
-    ADC_CHANNEL_MASK channelMsk = (1 << 4);
+    ADC_CHANNEL_MASK channelMsk = ADC_CH4_MASK;
 
     /* Disable ADC channel */
     ADC_ChannelsDisable(channelMsk);
 
     /* Disable channel interrupt */
-    ADC_ChannelsInterruptDisable(channelMsk);
+    ADC_ChannelsInterruptDisable((ADC_INTERRUPT_EOC_MASK)channelMsk);
 }
 
 void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
 {
     uint32_t emr = 0;
-    ADC_CHANNEL_MASK channelMsk = (1 << 4);
+    ADC_CHANNEL_MASK channelMsk = ADC_CH4_MASK;
 
     /* Set Free Run reset */
     ADC_REGS->ADC_TRGR |= ADC_TRGR_TRGMOD_CONTINUOUS;
@@ -127,7 +146,7 @@ void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
 void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
 {
     uint32_t emr;
-    ADC_CHANNEL_MASK channelMsk = (1 << 4);
+    ADC_CHANNEL_MASK channelMsk = ADC_CH4_MASK;
 
     /* Disable channel COMPE interrupt */
     ADC_REGS->ADC_IDR |= ADC_IER_COMPE_Msk;
@@ -153,7 +172,7 @@ void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
     ADC_REGS->ADC_EMR &= ~ADC_EMR_CMPMODE_Msk;
     ADC_REGS->ADC_EMR |= emr;
 
-    while(ADC_REGS->ADC_ISR & ADC_ISR_COMPE_Msk);
+    while((ADC_REGS->ADC_ISR & ADC_ISR_COMPE_Msk) != 0U){}
 
     /* Comparison Restart */
     ADC_REGS->ADC_CR = 0x1U << ADC_CR_CMPRST_Pos;
@@ -168,7 +187,7 @@ void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
 void SRV_PVDDMON_CallbackRegister (SRV_PVDDMON_CALLBACK callback, uintptr_t context)
 {
     /* Register ADC Callback */
-    ADC_CallbackRegister(_ADC_PVDDMONCallback, context);
+    ADC_CallbackRegister(lADC_PVDDMONCallback, context);
     ADC_CompareCallback = callback;
 }
 
@@ -176,10 +195,10 @@ bool SRV_PVDDMON_CheckWindow(void)
 {
     uint32_t adcValue;
     
-    adcValue = ADC_ChannelResultGet(4);
-    while(adcValue == 0)
+    adcValue = ADC_ChannelResultGet(ADC_CH4);
+    while(adcValue == 0U)
     {
-        adcValue = ADC_ChannelResultGet(4);
+        adcValue = ADC_ChannelResultGet(ADC_CH4);
     }
     
     if ((adcValue <= SRV_PVDDMON_HIGH_TRESHOLD) && (adcValue >= SRV_PVDDMON_LOW_TRESHOLD))

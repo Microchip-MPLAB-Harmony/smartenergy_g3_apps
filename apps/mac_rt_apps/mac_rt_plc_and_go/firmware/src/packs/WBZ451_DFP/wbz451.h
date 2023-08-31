@@ -1,7 +1,7 @@
 /*
  * Header file for WBZ451
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* File generated from device description version 2022-02-28T16:51:20Z */
+/* File generated from device description version 2023-05-31T11:03:01Z */
 #ifndef _WBZ451_H_
 #define _WBZ451_H_
 
