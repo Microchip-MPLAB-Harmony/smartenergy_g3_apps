@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -59,6 +59,18 @@
 
 #endif
 // DOM-IGNORE-END
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: External Data
+// *****************************************************************************
+// *****************************************************************************
+
+/* PLC Binary file addressing */
+extern uint8_t plc_phy_bin_start;
+extern uint8_t plc_phy_bin_end;
+extern uint8_t plc_phy_bin2_start;
+extern uint8_t plc_phy_bin2_end;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -292,7 +304,7 @@ typedef enum {
 }DRV_PLC_PHY_DEL_TYPE;
 
 /* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID -  H3_MISRAC_2012_R_5_2_DR_1 */
+/* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
 
 // *****************************************************************************
 /* G3 Result values of a previous transmission

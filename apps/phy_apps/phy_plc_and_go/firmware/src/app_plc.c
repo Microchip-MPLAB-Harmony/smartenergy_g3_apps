@@ -62,11 +62,6 @@
 
 #define div_round(a, b)      (((a) + (b >> 1)) / (b))
 
-extern uint8_t plc_phy_bin_start;
-extern uint8_t plc_phy_bin_end;
-extern uint8_t plc_phy_bin2_start;
-extern uint8_t plc_phy_bin2_end;
-
 /* PLC Driver Initialization Data (initialization.c) */
 extern DRV_PLC_PHY_INIT drvPlcPhyInitData;
 

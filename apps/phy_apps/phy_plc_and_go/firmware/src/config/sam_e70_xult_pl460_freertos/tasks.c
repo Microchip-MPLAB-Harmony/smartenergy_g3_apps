@@ -70,7 +70,7 @@ void _USB_DEVICE_Tasks(  void *pvParameters  )
     }
 }
 
-static void _DRV_PLC_PHY_Tasks(  void *pvParameters  )
+static void lDRV_PLC_PHY_Tasks(  void *pvParameters  )
 {
     while(true)
     {
@@ -153,7 +153,7 @@ void SYS_Tasks ( void )
 
     /* Maintain Device Drivers */
     
-    xTaskCreate( _DRV_PLC_PHY_Tasks,
+    (void) xTaskCreate( lDRV_PLC_PHY_Tasks,
         "DRV_PLC_PHY_TASKS",
         DRV_PLC_RTOS_STACK_SIZE,
         (void*)NULL,

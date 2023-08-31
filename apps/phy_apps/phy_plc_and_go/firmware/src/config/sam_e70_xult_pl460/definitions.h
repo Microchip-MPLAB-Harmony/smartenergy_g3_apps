@@ -58,13 +58,13 @@
 #include "usb/usb_device.h"
 #include "peripheral/efc/plib_efc.h"
 #include "peripheral/tc/plib_tc0.h"
-#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
-#include "bsp/bsp.h"
+#include "system/time/sys_time.h"
 #include "usb/usb_device_cdc.h"
 #include "usb/usb_cdc.h"
+#include "bsp/bsp.h"
 #include "driver/usb/usbhsv1/drv_usbhsv1.h"
 #include "peripheral/afec/plib_afec1.h"
 #include "service/pvddmon/srv_pvddmon.h"
@@ -211,8 +211,8 @@ typedef struct
 {
     SYS_MODULE_OBJ  usbDevObject0;
 
-    SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ drvPlcPhy;
+    SYS_MODULE_OBJ  sysTime;
 	SYS_MODULE_OBJ  drvUSBHSV1Object;
 
     SYS_MODULE_OBJ  sysConsole0;

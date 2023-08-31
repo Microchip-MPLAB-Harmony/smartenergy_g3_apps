@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -69,8 +69,8 @@
 #define DRV_PLC_HAL_CPU_CLOCK_FREQ            200000000
 
 #define DRV_PLC_HAL_CMD_POS                   15
-#define DRV_PLC_HAL_CMD_RD                    (0U << DRV_PLC_HAL_CMD_POS)
-#define DRV_PLC_HAL_CMD_WR                    (1U << DRV_PLC_HAL_CMD_POS)
+#define DRV_PLC_HAL_CMD_RD                    ((uint16_t)0U << DRV_PLC_HAL_CMD_POS)
+#define DRV_PLC_HAL_CMD_WR                    ((uint16_t)1U << DRV_PLC_HAL_CMD_POS)
 
 #define DRV_PLC_HAL_LEN_MASK                  0x7FFF
         
@@ -82,7 +82,7 @@
 #define DRV_PLC_HAL_KEY_CORTEX                (0x1122U & DRV_PLC_HAL_KEY_MASK)
         
 #define DRV_PLC_HAL_KEY(b0, b1)               ((((uint16_t)(b1) << 8) + (b0)) & DRV_PLC_HAL_KEY_MASK)
-#define DRV_PLC_HAL_FLAGS_BOOT(b0, b2, b3)    ((((uint32_t)(b3)) << 8) + ((uint32_t)(b2)) + ((uint32_t)((b0) & 0x01U) << 16))
+#define DRV_PLC_HAL_FLAGS_BOOT(b0, b2, b3)    ((((uint32_t)(b3)) << 8) + ((uint32_t)(b2)) + (((uint32_t)(b0) & 0x01UL) << 16))
 #define DRV_PLC_HAL_FLAGS_CORTEX(b2, b3)      ((((uint32_t)(b3)) << 8) + ((uint32_t)(b2)))        
 
 /* User rest flag in bootloader key*/
@@ -116,7 +116,7 @@ typedef enum
 } DRV_PLC_SPI_CLOCK_PHASE;
 
 /* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+/* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
 
 typedef enum
 {
@@ -321,8 +321,8 @@ typedef struct
 
 typedef struct
 {
-    uint32_t key;
     uint32_t flags;
+    uint16_t key;
 }DRV_PLC_HAL_INFO;
 
 // *****************************************************************************

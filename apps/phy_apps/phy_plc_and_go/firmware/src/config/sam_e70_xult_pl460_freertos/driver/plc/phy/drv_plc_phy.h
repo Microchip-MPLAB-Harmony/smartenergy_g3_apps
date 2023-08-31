@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -874,7 +874,6 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
 
     }
       
-    // myAppObj is an application specific state data object.
     MY_APP_OBJ myAppObj;
 
     DRV_PLC_PHY_SleepDisableCallbackRegister( myHandle, APP_PLC_SleepModeDisableCb, (uintptr_t)&myAppObj );

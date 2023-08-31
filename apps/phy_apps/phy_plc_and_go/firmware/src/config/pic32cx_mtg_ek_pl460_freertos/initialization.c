@@ -73,6 +73,7 @@
 
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
 
+
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 /* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
@@ -83,7 +84,7 @@
 void _on_reset(void)
 {
     PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
-    while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == false)
+    while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
     {
         /* Wait for clock to be initialized */
     }
@@ -178,12 +179,6 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_PHY Initialization Data">
-
-/* PLC Binary file addressing */
-extern uint8_t plc_phy_bin_start;
-extern uint8_t plc_phy_bin_end;
-extern uint8_t plc_phy_bin2_start;
-extern uint8_t plc_phy_bin2_end;
 
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
@@ -346,7 +341,7 @@ void SYS_Initialize ( void* data )
 
     /* Initialize PLC Phy Driver Instance */
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
-    (void)PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+    (void) PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
 
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();

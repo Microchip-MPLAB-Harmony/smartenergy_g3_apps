@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -70,7 +70,10 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize(
     const SYS_MODULE_INIT * const init
 )
 {
-    const DRV_PLC_PHY_INIT* const plcPhyInit = (DRV_PLC_PHY_INIT *)init;
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    const DRV_PLC_PHY_INIT * const plcPhyInit = (const DRV_PLC_PHY_INIT * const)init;
+    /* MISRA C-2012 deviation block end */
 
     /* Validate the request */
     if(index >= DRV_PLC_PHY_INSTANCES_NUMBER)
@@ -113,7 +116,7 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize(
     {
         /* Create semaphore. It is used to suspend and resume task */
         OSAL_RESULT semResult = OSAL_SEM_Create(&gDrvPlcPhyObj.semaphoreID, OSAL_SEM_TYPE_BINARY, 0, 0);
-        if ((semResult != OSAL_RESULT_TRUE) || (gDrvPlcPhyObj.semaphoreID == NULL))
+        if ((semResult != OSAL_RESULT_SUCCESS) || (gDrvPlcPhyObj.semaphoreID == NULL))
         {
             /* Error: Not enough memory to create semaphore */
             gDrvPlcPhyObj.status = SYS_STATUS_ERROR;
@@ -176,7 +179,7 @@ DRV_HANDLE DRV_PLC_PHY_Open(
     /* Post semaphore to resume task */
     if (gDrvPlcPhyObj.semaphoreID != NULL)
     {
-        OSAL_SEM_Post(&gDrvPlcPhyObj.semaphoreID);
+        (void) OSAL_SEM_Post(&gDrvPlcPhyObj.semaphoreID);
     }
 
     return ((DRV_HANDLE)0);
@@ -244,7 +247,7 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
             waitMS = OSAL_WAIT_FOREVER;
         }
 
-        OSAL_SEM_Pend(&gDrvPlcPhyObj.semaphoreID, waitMS);
+        (void) OSAL_SEM_Pend(&gDrvPlcPhyObj.semaphoreID, waitMS);
     }
 
     if (gDrvPlcPhyObj.status == SYS_STATUS_READY)
@@ -326,7 +329,7 @@ void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable )
                 /* Post semaphore to resume task */
                 if (gDrvPlcPhyObj.semaphoreID != NULL)
                 {
-                    OSAL_SEM_Post(&gDrvPlcPhyObj.semaphoreID);
+                    (void) OSAL_SEM_Post(&gDrvPlcPhyObj.semaphoreID);
                 }
             }
         }

@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -70,7 +70,10 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize(
     const SYS_MODULE_INIT * const init
 )
 {
-    const DRV_PLC_PHY_INIT* const plcPhyInit = (DRV_PLC_PHY_INIT *)init;
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    const DRV_PLC_PHY_INIT * const plcPhyInit = (const DRV_PLC_PHY_INIT * const)init;
+    /* MISRA C-2012 deviation block end */
 
     /* Validate the request */
     if(index >= DRV_PLC_PHY_INSTANCES_NUMBER)
