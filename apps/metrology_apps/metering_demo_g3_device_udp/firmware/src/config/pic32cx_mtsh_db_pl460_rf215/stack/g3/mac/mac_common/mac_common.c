@@ -1,0 +1,459 @@
+/*******************************************************************************
+  G3 MAC Common Source File
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    mac_common.c
+
+  Summary:
+    G3 MAC Common Source File
+
+  Description:
+    This file contains implementation of the API
+    to be used by MAC Wrapper when accessing G3 MAC layers.
+*******************************************************************************/
+
+//DOM-IGNORE-BEGIN
+/*******************************************************************************
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+*
+* Subject to your compliance with these terms, you may use Microchip software
+* and any derivatives exclusively with Microchip products. It is your
+* responsibility to comply with third party license terms applicable to your
+* use of third party software (including open source software) that may
+* accompany Microchip software.
+*
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+*******************************************************************************/
+//DOM-IGNORE-END
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: File includes
+// *****************************************************************************
+// *****************************************************************************
+
+#include <stdbool.h>
+#include <stdint.h>
+#include <string.h>
+#include "system/time/sys_time.h"
+#include "mac_common.h"
+#include "../mac_plc/mac_plc_mib.h"
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: File Scope Variables
+// *****************************************************************************
+// *****************************************************************************
+
+/* Time control variables */
+static uint64_t previousCounter64 = 0;
+static uint32_t auxMsCounter = 0;
+static uint32_t currentMsCounter = 0;
+static uint32_t currentSecondCounter = 0;
+
+MAC_COMMON_MIB macMibCommon;
+
+static const MAC_COMMON_MIB macMibCommonDefaults = {
+    0xFFFF, // panId
+    {{0}}, // extendedAddress
+    0xFFFF, // shortAddress
+    false, // promiscuousMode
+    {{0}}, // keyTable
+    0xFFFF, // rcCoord: set RC_COORD to its maximum value of 0xFFFF
+    255, // posTableEntryTtl
+    120, // posRecentEntryThreshold
+    false, // coordinator
+};
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: File Scope Functions
+// *****************************************************************************
+// *****************************************************************************
+
+static MAC_STATUS lMAC_COMMON_PibGetExtendedAddress(MAC_PIB_VALUE *pibValue)
+{
+    pibValue->length = (uint8_t)sizeof(macMibCommon.extendedAddress);
+    (void) memcpy(pibValue->value, macMibCommon.extendedAddress.address, pibValue->length);
+    return MAC_STATUS_SUCCESS;
+}
+
+static MAC_STATUS lMAC_COMMON_PibSetExtendedAddress(const MAC_PIB_VALUE *pibValue)
+{
+    MAC_STATUS status = MAC_STATUS_SUCCESS;
+    if (pibValue->length == sizeof(macMibCommon.extendedAddress))
+    {
+        (void) memcpy(macMibCommon.extendedAddress.address, pibValue->value, pibValue->length);
+    }
+    else
+    {
+        status = MAC_STATUS_INVALID_PARAMETER;
+    }
+    return status;
+}
+
+static MAC_STATUS lMAC_COMMON_PibGetPanId(MAC_PIB_VALUE *pibValue)
+{
+    pibValue->length = (uint8_t)sizeof(macMibCommon.panId);
+    (void) memcpy((void *)pibValue->value, (void *)&macMibCommon.panId, pibValue->length);
+    return MAC_STATUS_SUCCESS;
+}
+
+static MAC_STATUS lMAC_COMMON_PibSetPanId(const MAC_PIB_VALUE *pibValue)
+{
+    MAC_STATUS status = MAC_STATUS_SUCCESS;
+    if (pibValue->length == sizeof(macMibCommon.panId))
+    {
+        (void) memcpy((void *)&macMibCommon.panId, (const void *)pibValue->value, pibValue->length);
+    }
+    else
+    {
+        status = MAC_STATUS_INVALID_PARAMETER;
+    }
+    return status;
+}
+
+static MAC_STATUS lMAC_COMMON_PibGetPromiscuousMode(MAC_PIB_VALUE *pibValue)
+{
+    pibValue->length = 1;
+    pibValue->value[0] = (macMibCommon.promiscuousMode) ? 1U : 0U;
+    return MAC_STATUS_SUCCESS;
+}
+
+static MAC_STATUS lMAC_COMMON_PibSetPromiscuousMode(const MAC_PIB_VALUE *pibValue)
+{
+    MAC_STATUS status = MAC_STATUS_SUCCESS;
+    if ((pibValue->length == sizeof(macMibCommon.promiscuousMode)) && (pibValue->value[0] <= 1U))
+    {
+        macMibCommon.promiscuousMode = pibValue->value[0] != 0U;
+    }
+    else
+    {
+        status = MAC_STATUS_INVALID_PARAMETER;
+    }
+    return status;
+}
+
+static MAC_STATUS lMAC_COMMON_PibGetShortAddress(MAC_PIB_VALUE *pibValue)
+{
+    pibValue->length = (uint8_t)sizeof(macMibCommon.shortAddress);
+    (void) memcpy((void *)pibValue->value, (void *)&macMibCommon.shortAddress, pibValue->length);
+    return MAC_STATUS_SUCCESS;
+}
+
+static MAC_STATUS lMAC_COMMON_PibSetShortAddress(const MAC_PIB_VALUE *pibValue)
+{
+    MAC_STATUS status = MAC_STATUS_SUCCESS;
+    if (pibValue->length == sizeof(macMibCommon.shortAddress))
+    {
+        (void) memcpy((void *)&macMibCommon.shortAddress, (const void *)pibValue->value, pibValue->length);
+    }
+    else
+    {
+        status = MAC_STATUS_INVALID_PARAMETER;
+    }
+    return status;
+}
+
+static MAC_STATUS lMAC_COMMON_PibGetRcCoord(MAC_PIB_VALUE *pibValue)
+{
+    pibValue->length = (uint8_t)sizeof(macMibCommon.rcCoord);
+    (void) memcpy((void *)pibValue->value, (void *)&macMibCommon.rcCoord, pibValue->length);
+    return MAC_STATUS_SUCCESS;
+}
+
+static MAC_STATUS lMAC_COMMON_PibSetRcCoord(const MAC_PIB_VALUE *pibValue)
+{
+    MAC_STATUS status = MAC_STATUS_SUCCESS;
+    if (pibValue->length == sizeof(macMibCommon.rcCoord))
+    {
+        (void) memcpy((void *)&macMibCommon.rcCoord, (const void *)pibValue->value, pibValue->length);
+    }
+    else
+    {
+        status = MAC_STATUS_INVALID_PARAMETER;
+    }
+    return status;
+}
+
+static MAC_STATUS lMAC_COMMON_PibSetKeyTable(uint16_t index, const MAC_PIB_VALUE *pibValue)
+{
+    MAC_STATUS status;
+    if (index < MAC_KEY_TABLE_ENTRIES)
+    {
+        if (pibValue->length == MAC_SECURITY_KEY_LENGTH)
+        {
+            if (!macMibCommon.keyTable[index].valid ||
+                (memcmp(&macMibCommon.keyTable[index].key, pibValue->value, MAC_SECURITY_KEY_LENGTH) != 0))
+            {
+                // Set value if invalid entry or different key
+                (void) memcpy(&macMibCommon.keyTable[index].key, pibValue->value, MAC_SECURITY_KEY_LENGTH);
+                macMibCommon.keyTable[index].valid = true;
+            }
+            status = MAC_STATUS_SUCCESS;
+        }
+        else if (pibValue->length == 0U)
+        {
+            macMibCommon.keyTable[index].valid = false;
+            status = MAC_STATUS_SUCCESS;
+        }
+        else
+        {
+            status = MAC_STATUS_INVALID_PARAMETER;
+        }
+    }
+    else
+    {
+        status = MAC_STATUS_INVALID_INDEX;
+    }
+    return status;
+}
+
+static MAC_STATUS lMAC_COMMON_PibGetPOSTableEntryTtl(MAC_PIB_VALUE *pibValue)
+{
+    pibValue->length = (uint8_t)sizeof(macMibCommon.posTableEntryTtl);
+    pibValue->value[0] = macMibCommon.posTableEntryTtl;
+    return MAC_STATUS_SUCCESS;
+}
+
+static MAC_STATUS lMAC_COMMON_PibSetPOSTableEntryTtl(const MAC_PIB_VALUE *pibValue)
+{
+    MAC_STATUS status = MAC_STATUS_SUCCESS;
+    if (pibValue->length == sizeof(macMibCommon.posTableEntryTtl))
+    {
+        macMibCommon.posTableEntryTtl = pibValue->value[0];
+    }
+    else
+    {
+        status = MAC_STATUS_INVALID_PARAMETER;
+    }
+    return status;
+}
+
+static MAC_STATUS lMAC_COMMON_PibGetPOSRecentEntryThreshold(MAC_PIB_VALUE *pibValue)
+{
+    pibValue->length = (uint8_t)sizeof(macMibCommon.posRecentEntryThreshold);
+    pibValue->value[0] = macMibCommon.posRecentEntryThreshold;
+    return MAC_STATUS_SUCCESS;
+}
+
+static MAC_STATUS lMAC_COMMON_PibSetPOSRecentEntryThreshold(const MAC_PIB_VALUE *pibValue)
+{
+    MAC_STATUS status = MAC_STATUS_SUCCESS;
+    if (pibValue->length == sizeof(macMibCommon.posRecentEntryThreshold))
+    {
+        macMibCommon.posRecentEntryThreshold = pibValue->value[0];
+    }
+    else
+    {
+        status = MAC_STATUS_INVALID_PARAMETER;
+    }
+    return status;
+}
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: MAC Common Interface Routines
+// *****************************************************************************
+// *****************************************************************************
+
+void MAC_COMMON_Init(void)
+{
+    macMibCommon = macMibCommonDefaults;
+}
+
+void MAC_COMMON_Reset(void)
+{
+    macMibCommon = macMibCommonDefaults;
+}
+
+MAC_STATUS MAC_COMMON_GetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_t index, MAC_PIB_VALUE *pibValue)
+{
+    MAC_STATUS status;
+    bool isArray = (attribute == MAC_COMMON_PIB_KEY_TABLE);
+    if (!isArray && (index != 0U))
+    {
+        status = MAC_STATUS_INVALID_INDEX;
+    }
+    else
+    {
+        switch (attribute)
+        {
+        case MAC_COMMON_PIB_PAN_ID:
+            status = lMAC_COMMON_PibGetPanId(pibValue);
+            break;
+        case MAC_COMMON_PIB_PROMISCUOUS_MODE:
+            status = lMAC_COMMON_PibGetPromiscuousMode(pibValue);
+            break;
+        case MAC_COMMON_PIB_SHORT_ADDRESS:
+            status = lMAC_COMMON_PibGetShortAddress(pibValue);
+            break;
+        case MAC_COMMON_PIB_RC_COORD:
+            status = lMAC_COMMON_PibGetRcCoord(pibValue);
+            break;
+        case MAC_COMMON_PIB_EXTENDED_ADDRESS:
+            status = lMAC_COMMON_PibGetExtendedAddress(pibValue);
+            break;
+        case MAC_COMMON_PIB_POS_TABLE_ENTRY_TTL:
+            status = lMAC_COMMON_PibGetPOSTableEntryTtl(pibValue);
+            break;
+        case MAC_COMMON_PIB_POS_RECENT_ENTRY_THRESHOLD:
+            status = lMAC_COMMON_PibGetPOSRecentEntryThreshold(pibValue);
+            break;
+        case MAC_COMMON_PIB_KEY_TABLE:
+            status = MAC_STATUS_UNAVAILABLE_KEY;
+            break;
+
+        default:
+            status = MAC_STATUS_UNSUPPORTED_ATTRIBUTE;
+            break;
+        }
+    }
+
+    if (status != MAC_STATUS_SUCCESS)
+    {
+        pibValue->length = 0U;
+    }
+    return status;
+}
+
+MAC_STATUS MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_t index, const MAC_PIB_VALUE *pibValue)
+{
+    MAC_STATUS status;
+    bool isArray = (attribute == MAC_COMMON_PIB_KEY_TABLE);
+    if (!isArray && (index != 0U))
+    {
+        status = MAC_STATUS_INVALID_INDEX;
+    }
+    else
+    {
+        switch (attribute)
+        {
+        case MAC_COMMON_PIB_PAN_ID:
+            status = lMAC_COMMON_PibSetPanId(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
+            break;
+        case MAC_COMMON_PIB_PROMISCUOUS_MODE:
+            status = lMAC_COMMON_PibSetPromiscuousMode(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
+            break;
+        case MAC_COMMON_PIB_SHORT_ADDRESS:
+            status = lMAC_COMMON_PibSetShortAddress(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
+            break;
+        case MAC_COMMON_PIB_RC_COORD:
+            status = lMAC_COMMON_PibSetRcCoord(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
+            break;
+        case MAC_COMMON_PIB_EXTENDED_ADDRESS:
+            status = lMAC_COMMON_PibSetExtendedAddress(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
+            break;
+        case MAC_COMMON_PIB_POS_TABLE_ENTRY_TTL:
+            status = lMAC_COMMON_PibSetPOSTableEntryTtl(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
+            break;
+        case MAC_COMMON_PIB_POS_RECENT_ENTRY_THRESHOLD:
+            status = lMAC_COMMON_PibSetPOSRecentEntryThreshold(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
+            break;
+        case MAC_COMMON_PIB_KEY_TABLE:
+            status = lMAC_COMMON_PibSetKeyTable(index, pibValue);
+            break;
+
+        default:
+            status = MAC_STATUS_UNSUPPORTED_ATTRIBUTE;
+            break;
+        }
+    }
+    return status;
+}
+
+uint32_t MAC_COMMON_GetMsCounter(void)
+{
+    uint64_t diffCounter64, currentCounter64;
+    uint32_t elapsedMs;
+
+    /* Get current timer counter */
+    currentCounter64 = SYS_TIME_Counter64Get();
+    /* Diff with previous */
+    diffCounter64 = currentCounter64 - previousCounter64;
+    /* Diff in Ms */
+    elapsedMs = SYS_TIME_CountToMS((uint32_t)diffCounter64);
+    /* Update Ms counter */
+    currentMsCounter += elapsedMs;
+    /* Update previous counter for next computation */
+    previousCounter64 += SYS_TIME_MSToCount(elapsedMs);
+
+    /* Check whether seconds counter has to be updated */
+    if ((currentMsCounter - auxMsCounter) > 1000U)
+    {
+        /* Assume no more than one second passed */
+        /* This function is called every few program loops */
+        currentSecondCounter++;
+        auxMsCounter += 1000U;
+    }
+
+    return currentMsCounter;
+}
+
+bool MAC_COMMON_TimeIsPast(int32_t timeValue)
+{
+    return (((int32_t)(MAC_COMMON_GetMsCounter()) - timeValue) > 0);
+}
+
+uint32_t MAC_COMMON_GetSecondsCounter(void)
+{
+    return currentSecondCounter;
+}
+
+bool MAC_COMMON_TimeIsPastSeconds(int32_t timeValue)
+{
+    return (((int32_t)currentSecondCounter - timeValue) > 0);
+}
+
+/*******************************************************************************
+ End of File
+*/

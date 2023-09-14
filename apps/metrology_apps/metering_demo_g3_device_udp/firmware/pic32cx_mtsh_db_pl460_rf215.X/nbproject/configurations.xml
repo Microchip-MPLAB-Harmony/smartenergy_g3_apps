@@ -1,0 +1,1332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="65">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="config" displayName="config" projectFiles="true">
+        <logicalFolder name="pic32cx_mtsh_db_pl460_rf215"
+                       displayName="pic32cx_mtsh_db_pl460_rf215"
+                       projectFiles="true">
+          <logicalFolder name="bsp" displayName="bsp" projectFiles="true">
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/bsp/bsp.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="crypto" displayName="crypto" projectFiles="true">
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/crypto.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="driver" displayName="driver" projectFiles="true">
+            <logicalFolder name="memory" displayName="memory" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/src/drv_memory_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/drv_memory.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/src/drv_memory_file_system.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/drv_memory_definitions.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="metrology" displayName="metrology" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/metrology/drv_metrology_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/metrology/drv_metrology.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/metrology/drv_metrology_regs.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/metrology/drv_metrology_definitions.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="plc" displayName="plc" projectFiles="true">
+              <logicalFolder name="common" displayName="common" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/common/drv_plc_boot.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/common/drv_plc_hal.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="g3MacRt" displayName="g3MacRt" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/g3MacRt/drv_g3_macrt_comm.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/g3MacRt/drv_g3_macrt_local_comm.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/g3MacRt/drv_g3_macrt_local.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/g3MacRt/drv_g3_macrt.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/g3MacRt/drv_g3_macrt_definitions.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="rf215" displayName="rf215" projectFiles="true">
+              <logicalFolder name="hal" displayName="hal" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/rf215/hal/rf215_hal.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="phy" displayName="phy" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/rf215/phy/ieee_15_4_sun_fsk.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/rf215/phy/rf215_phy.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/rf215/phy/ieee_15_4_sun_ofdm.h</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/rf215/drv_rf215_definitions.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/rf215/drv_rf215_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/rf215/drv_rf215.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="sst26" displayName="sst26" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/sst26/src/drv_sst26_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/sst26/drv_sst26.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/sst26/drv_sst26_definitions.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/driver_common.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/driver.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="gfx" displayName="gfx" projectFiles="true">
+            <logicalFolder name="driver" displayName="driver" projectFiles="true">
+              <logicalFolder name="slcdc" displayName="slcdc" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/gfx/driver/controller/slcdc/drv_gfx_slcdc.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/gfx/driver/controller/slcdc/cl010.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/gfx/driver/controller/slcdc/cl010_font.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/gfx/driver/controller/slcdc/cl010_segmap.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="library" displayName="library" projectFiles="true">
+            <logicalFolder name="tcpip" displayName="tcpip" projectFiles="true">
+              <logicalFolder name="src" displayName="src" projectFiles="true">
+                <logicalFolder name="common" displayName="common" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/common/helpers.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/common/sys_fs_shell.h</itemPath>
+                </logicalFolder>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_announce_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_commands_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/nbns_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/lldp_tlv.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ftp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dhcps_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/udp_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ndp_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_reboot_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/icmpv6_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ipv4_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/zero_conf_helper.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/snmp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/igmp_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ftpc_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/arp_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/http_net_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dns_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/hash_fnv.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/arp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/smtp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/iperf_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_types.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dhcp_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_helpers_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ipv6_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ndp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dnss_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dhcp_server_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/lldp_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ipv4_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ddns_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/smtpc_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tftpc_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/http_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/telnet_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tftps_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dhcpv6_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/snmp_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ftpc_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/igmp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dhcpv6_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/http_net_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/http_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dhcp_server_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_manager_control.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dhcp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/lldp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcp_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/icmp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/zero_conf_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/oahash.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/link_list.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dns_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/zero_conf_link_local_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/smtpc_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_module_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/snmpv3_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ftp_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_notify.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/udp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tftpc_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/berkeley_manager.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_heap_alloc.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_packet.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ipv6_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dnss_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dhcps_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tftps_private.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/sntp_manager.h</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/smtpc.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/telnet.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/icmp.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/berkeley_api.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/zero_conf_multicast_dns.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcpip_heap.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/snmp.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/ftp.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/nbns.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcpip_helpers.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/ipv4.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcpip_common_ports.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/dhcp_server.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcpip_ethernet.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/iperf.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/ipv6.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/icmpv6.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/ddns.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/lldp.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tftps.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/udp.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/igmp.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tftpc.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/sntp.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/ndp.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcp.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/arp.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcpip_manager.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcpip_mac_object.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/http.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcpip_mac.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/zero_conf_link_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcpip_mac_bridge.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcpip_announce.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcpip.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/dns.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/dnss.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/dhcp.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/dhcpv6.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/dhcps.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcpip_reboot.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/tcpip_commands.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/ftpc.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/smtp.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/snmpv3.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/http_net.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="net_pres" displayName="net_pres" projectFiles="true">
+            <logicalFolder name="pres" displayName="pres" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/net_pres/pres/net_pres_socketapi.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/net_pres/pres/net_pres_socketapiconversion.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/net_pres/pres/net_pres.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="osal" displayName="osal" projectFiles="true">
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/osal/osal_definitions.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/osal/osal.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/osal/osal_impl_basic.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="adc" displayName="adc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/adc/plib_adc.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/adc/plib_adc_common.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="clk" displayName="clk" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/clk/plib_clk.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="cmcc" displayName="cmcc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/cmcc/plib_cmcc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="dwdt" displayName="dwdt" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/dwdt/plib_dwdt.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="flexcom" displayName="flexcom" projectFiles="true">
+              <logicalFolder name="spi" displayName="spi" projectFiles="true">
+                <logicalFolder name="master" displayName="master" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/spi/master/plib_flexcom_spi_master_common.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/spi/master/plib_flexcom1_spi_master.h</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="usart" displayName="usart" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/plib_flexcom_usart_local.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/plib_flexcom0_usart.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/nvic/plib_nvic.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pio" displayName="pio" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/pio/plib_pio.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="qspi" displayName="qspi" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/qspi/plib_qspi_common.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/qspi/plib_qspi.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rstc" displayName="rstc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/rstc/plib_rstc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rtc" displayName="rtc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/rtc/plib_rtc.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/rtc/plib_rtc_common.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="sefc" displayName="sefc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/sefc/plib_sefc_common.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/sefc/plib_sefc0.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/sefc/plib_sefc1.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="supc" displayName="supc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/supc/plib_supc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="tc" displayName="tc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/tc/plib_tc_common.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/tc/plib_tc0.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="trng" displayName="trng" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/trng/plib_trng.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="service" displayName="service" projectFiles="true">
+            <logicalFolder name="log_report" displayName="log_report" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/log_report/srv_log_report.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/pcoup/srv_pcoup.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/pvddmon/srv_pvddmon.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="queue" displayName="queue" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/queue/srv_queue.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/random/srv_random.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="security" displayName="security" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/security/cipher_wrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/security/eax.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/security/aes_wrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/security/mode_hdr.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/security/brg_types.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/security/brg_endian.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="stack" displayName="stack" projectFiles="true">
+            <logicalFolder name="g3" displayName="g3" projectFiles="true">
+              <logicalFolder name="adaptation" displayName="adaptation" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/adp_shared_types.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/lbp_dev.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/lbp_encode_decode.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/eap_psk.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/routing_wrapper.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/lbp_version.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/adp.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/adp_api_types.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/lbp_defs.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/loadng.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/routing_types.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="mac" displayName="mac" projectFiles="true">
+                <logicalFolder name="mac_common" displayName="mac_common" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_common/mac_common_defs.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_common/mac_common.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="mac_plc" displayName="mac_plc" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_plc/mac_plc_defs.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_plc/mac_plc_mib.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_plc/mac_plc.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="mac_rf" displayName="mac_rf" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_rf/mac_rf_defs.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_rf/mac_rf.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_rf/mac_rf_mib.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="mac_wrapper" displayName="mac_wrapper" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_wrapper/mac_wrapper_defs.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_wrapper/mac_wrapper.h</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="net" displayName="net" projectFiles="true">
+                <logicalFolder name="macg3adp" displayName="macg3adp" projectFiles="true">
+                  <logicalFolder name="src" displayName="src" projectFiles="true">
+                    <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/net/macg3adp/src/drv_mac_g3adp_local.h</itemPath>
+                  </logicalFolder>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/net/macg3adp/drv_mac_g3adp.h</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="pal" displayName="pal" projectFiles="true">
+                <logicalFolder name="plc" displayName="plc" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/pal/plc/pal_plc.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/pal/plc/pal_plc_local.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="rf" displayName="rf" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/pal/rf/pal_rf_local.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/pal/rf/pal_rf.h</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="system" displayName="system" projectFiles="true">
+            <logicalFolder name="cache" displayName="cache" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/cache/sys_cache.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="command" displayName="command" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/command/sys_command.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="console" displayName="console" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/console/src/sys_console_uart.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/console/src/sys_console_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/console/src/sys_console_uart_definitions.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/console/sys_console.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="debug" displayName="debug" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/debug/sys_debug.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="fs" displayName="fs" projectFiles="true">
+              <logicalFolder name="fat_fs" displayName="fat_fs" projectFiles="true">
+                <logicalFolder name="file_system" displayName="file_system" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/file_system/ffconf.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/file_system/ff.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="hardware_access"
+                               displayName="hardware_access"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/hardware_access/diskio.h</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/sys_fs_media_manager.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/sys_fs_fat_interface.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/src/sys_fs_media_manager_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/src/sys_fs_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/sys_fs.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="int" displayName="int" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/int/sys_int_mapping.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/int/sys_int.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="ports" displayName="ports" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/ports/sys_ports_mapping.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/ports/sys_ports.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="reset" displayName="reset" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/reset/sys_reset.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="time" displayName="time" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/time/src/sys_time_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/time/sys_time_definitions.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/time/sys_time.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/system_module.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/system_common.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/system.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/system_media.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/sys_time_h2_adapter.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/sys_random_h2_adapter.h</itemPath>
+          </logicalFolder>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/device_vectors.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/definitions.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/configuration.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/interrupts.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/toolchain_specifics.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/user.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/device.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/device_cache.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/sys_tasks.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system_definitions.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system_config.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/config.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="packs" displayName="packs" projectFiles="true">
+        <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
+          <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
+            <logicalFolder name="Core" displayName="Core" projectFiles="true">
+              <logicalFolder name="Include" displayName="Include" projectFiles="true">
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm4.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="PIC32CX2051MTSH128_DFP"
+                       displayName="PIC32CX2051MTSH128_DFP"
+                       projectFiles="true">
+          <logicalFolder name="component" displayName="component" projectFiles="true">
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/trng.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/gpbr.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/chipid.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/sha.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/adc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/pwm.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/ipc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/dwdt.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/emafe.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/mcspi.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/tc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/sefc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/rtt.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/fuses.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/cmcc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/sfrbu.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/acc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/syscwp.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/pdc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/osc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/slcdc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/icm.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/sfr.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/qspi.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/aesb.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/mem2mem.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/pio.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/matrix.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/rtc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/cpkcc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/aes.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/rstc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/uart.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/pmc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/supc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/component/flexcom.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="instance" displayName="instance" projectFiles="true">
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/sefc1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/tc0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/slcdc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/flexcom6.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/mcspi.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/pio0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/sefc0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/adc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/flexcom5.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/qspi.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/sha.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/mem2mem0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/tc2.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/matrix0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/flexcom4.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/dwdt.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/pwm.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/syscwp.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/mem2mem1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/tc1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/gpbr.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/cpkcc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/flexcom3.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/acc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/icm.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/chipid.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/matrix2.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/flexcom2.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/rtc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/ipc1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/tc3.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/sfrbu.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/rtt.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/matrix1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/flexcom1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/emafe.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/sfr.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/ipc0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/fuses.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/cmcc0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/flexcom0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/aesb.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/rstc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/trng.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/aes.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/cmcc1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/supc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/matrix3.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/flexcom7.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/uart.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/pmc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/instance/pio1.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="pio" displayName="pio" projectFiles="true">
+            <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/pio/pic32cx2051mtsh128.h</itemPath>
+          </logicalFolder>
+          <itemPath>../src/packs/PIC32CX2051MTSH128_DFP/pic32cx2051mtsh128.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="system" displayName="system" projectFiles="true">
+        <logicalFolder name="tmr" displayName="tmr" projectFiles="true">
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/tmr/sys_tmr.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+        <logicalFolder name="port" displayName="port" projectFiles="true">
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_sam11105.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ExpMod_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Hardware_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_hwInt.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_typedef_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_FastCopy_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha512_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_pukcl_functions.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha1_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha384_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_sam6156.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Square_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_PrimeGen_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_RedMod_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Div_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_u2238.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_sam6150.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GCD_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_mapping_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_JumpTable_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccAdd_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_hwInt.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_ecc_pukcl.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_SelfTest_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_rng_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Headers_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Smult_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Services_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccDbl_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccDbl_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_crya_saml11.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ClearFlags_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccMul_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Fill_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccAdd_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEcDsa_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Rc_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Rng_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_cf_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccConv_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_rsa_pukcl.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha224_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_sam6149.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_ecc_ba414e.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/pic32mz-crypt.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccAddSub_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Swap_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccConv_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccMul_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEcDsa_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_CondCopy_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_CRT_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_pukcl_definitions.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Fmult_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Comp_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha256_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccQuickDualMul_pb.h</itemPath>
+        </logicalFolder>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/compress.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/coding.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha256.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve25519.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pwdbased.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sakke.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/eccsi.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/misc.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/asn.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/types.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp_int.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hmac.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/poly1305.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/falcon.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rc2.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed25519.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha3.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_pkcs11.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_encrypt.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fips_test.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_operations.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_port.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_operations.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kdf.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfmath.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mem_track.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfevent.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/settings.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-int.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/des3.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_superclass.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cpuid.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/visibility.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dh.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md4.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs11.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cmac.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md5.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ecc.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha512.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/siphash.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md2.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/memory.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rsa.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/arc4.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cryptocb.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/signature.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/logging.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/error-crypt.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-impl.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs7.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/aes.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/srp.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/integer.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/selftest.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/random.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/tfm.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/certs_test.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dsa.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/camellia.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha20_poly1305.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hash.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ripemd.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/asn_public.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_class.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs12.h</itemPath>
+      </logicalFolder>
+      <itemPath>../src/app_energy.h</itemPath>
+      <itemPath>../src/app_metrology.h</itemPath>
+      <itemPath>../src/app_events.h</itemPath>
+      <itemPath>../src/app_display.h</itemPath>
+      <itemPath>../src/app_console.h</itemPath>
+      <itemPath>../src/app_datalog.h</itemPath>
+      <itemPath>../src/app_storage_pic32cxmt.h</itemPath>
+      <itemPath>../src/app_udp_responder.h</itemPath>
+      <itemPath>../src/app_g3_management.h</itemPath>
+      <itemPath>../src/app_udp_metrology.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LinkerScript"
+                   displayName="Linker Files"
+                   projectFiles="true">
+      <logicalFolder name="config" displayName="config" projectFiles="true">
+        <logicalFolder name="pic32cx_mtsh_db_pl460_rf215"
+                       displayName="pic32cx_mtsh_db_pl460_rf215"
+                       projectFiles="true">
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/PIC32CX2051MTSH128.ld</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="config" displayName="config" projectFiles="true">
+        <logicalFolder name="pic32cx_mtsh_db_pl460_rf215"
+                       displayName="pic32cx_mtsh_db_pl460_rf215"
+                       projectFiles="true">
+          <logicalFolder name="bsp" displayName="bsp" projectFiles="true">
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/bsp/bsp.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="crypto" displayName="crypto" projectFiles="true">
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/src/crypto.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="driver" displayName="driver" projectFiles="true">
+            <logicalFolder name="memory" displayName="memory" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/src/drv_memory_file_system.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/src/drv_memory.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="metrology" displayName="metrology" projectFiles="true">
+              <logicalFolder name="bin" displayName="bin" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/metrology/bin/met_bin.S</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/metrology/drv_metrology.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="plc" displayName="plc" projectFiles="true">
+              <logicalFolder name="common" displayName="common" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/common/drv_plc_boot.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/common/drv_plc_hal.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="g3MacRt" displayName="g3MacRt" projectFiles="true">
+                <logicalFolder name="bin" displayName="bin" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/g3MacRt/bin/drv_g3_macrt_bin.S</itemPath>
+                </logicalFolder>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/g3MacRt/drv_g3_macrt_local_comm.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/g3MacRt/drv_g3_macrt.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="rf215" displayName="rf215" projectFiles="true">
+              <logicalFolder name="hal" displayName="hal" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/rf215/hal/rf215_hal.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="phy" displayName="phy" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/rf215/phy/rf215_phy.c</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/rf215/drv_rf215.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="sst26" displayName="sst26" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/sst26/src/drv_sst26.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="gfx" displayName="gfx" projectFiles="true">
+            <logicalFolder name="driver" displayName="driver" projectFiles="true">
+              <logicalFolder name="slcdc" displayName="slcdc" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/gfx/driver/controller/slcdc/drv_gfx_slcdc.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/gfx/driver/controller/slcdc/cl010_slcdc.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="library" displayName="library" projectFiles="true">
+            <logicalFolder name="tcpip" displayName="tcpip" projectFiles="true">
+              <logicalFolder name="src" displayName="src" projectFiles="true">
+                <logicalFolder name="common" displayName="common" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/helpers.c</itemPath>
+                </logicalFolder>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ndp.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/udp.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/hash_fnv.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_heap_internal.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/ipv6.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/oahash.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dhcp.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_manager.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/icmpv6.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_helpers.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_notify.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/dns.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_heap_alloc.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/tcpip_packet.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="adc" displayName="adc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/adc/plib_adc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="clk" displayName="clk" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/clk/plib_clk.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="cmcc" displayName="cmcc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/cmcc/plib_cmcc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="dwdt" displayName="dwdt" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/dwdt/plib_dwdt.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="flexcom" displayName="flexcom" projectFiles="true">
+              <logicalFolder name="spi" displayName="spi" projectFiles="true">
+                <logicalFolder name="master" displayName="master" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/spi/master/plib_flexcom5_spi_master.c</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/spi/master/plib_flexcom1_spi_master.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="usart" displayName="usart" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/plib_flexcom0_usart.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/nvic/plib_nvic.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pio" displayName="pio" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/pio/plib_pio.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="qspi" displayName="qspi" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/qspi/plib_qspi.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rstc" displayName="rstc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/rstc/plib_rstc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rtc" displayName="rtc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/rtc/plib_rtc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="sefc" displayName="sefc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/sefc/plib_sefc0.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/sefc/plib_sefc1.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="supc" displayName="supc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/supc/plib_supc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="tc" displayName="tc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/tc/plib_tc0.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="trng" displayName="trng" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/trng/plib_trng.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="service" displayName="service" projectFiles="true">
+            <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/pcoup/srv_pcoup.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/pvddmon/srv_pvddmon.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="queue" displayName="queue" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/queue/srv_queue.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/random/srv_random.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="security" displayName="security" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/security/cipher_wrapper.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/security/eax.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/service/security/aes_wrapper.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="stack" displayName="stack" projectFiles="true">
+            <logicalFolder name="g3" displayName="g3" projectFiles="true">
+              <logicalFolder name="adaptation" displayName="adaptation" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/lbp_dev.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/lbp_encode_decode.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/routing_wrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/eap_psk.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="mac" displayName="mac" projectFiles="true">
+                <logicalFolder name="mac_common" displayName="mac_common" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_common/mac_common.c</itemPath>
+                </logicalFolder>
+                <logicalFolder name="mac_wrapper" displayName="mac_wrapper" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_wrapper/mac_wrapper.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="net" displayName="net" projectFiles="true">
+                <logicalFolder name="macg3adp" displayName="macg3adp" projectFiles="true">
+                  <logicalFolder name="src" displayName="src" projectFiles="true">
+                    <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/net/macg3adp/src/drv_mac_g3adp.c</itemPath>
+                  </logicalFolder>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="pal" displayName="pal" projectFiles="true">
+                <logicalFolder name="plc" displayName="plc" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/pal/plc/pal_plc.c</itemPath>
+                </logicalFolder>
+                <logicalFolder name="rf" displayName="rf" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/pal/rf/pal_rf.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stdio/xc32_monitor.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="system" displayName="system" projectFiles="true">
+            <logicalFolder name="cache" displayName="cache" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/cache/sys_cache.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="command" displayName="command" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/command/src/sys_command.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="console" displayName="console" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/console/src/sys_console_uart.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/console/src/sys_console.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="fs" displayName="fs" projectFiles="true">
+              <logicalFolder name="fat_fs" displayName="fat_fs" projectFiles="true">
+                <logicalFolder name="file_system" displayName="file_system" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/file_system/ffunicode.c</itemPath>
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/file_system/ff.c</itemPath>
+                </logicalFolder>
+                <logicalFolder name="hardware_access"
+                               displayName="hardware_access"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/hardware_access/diskio.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/src/sys_fs_fat_interface.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/src/sys_fs_media_manager.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/src/sys_fs.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="int" displayName="int" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/int/src/sys_int.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="reset" displayName="reset" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/reset/sys_reset.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="time" displayName="time" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/time/src/sys_time.c</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/sys_time_h2_adapter.c</itemPath>
+          </logicalFolder>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/startup_xc32.c</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/tasks.c</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/libc_syscalls.c</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/interrupts.c</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/exceptions.c</itemPath>
+          <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/initialization.c</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+        <logicalFolder name="port" displayName="port" projectFiles="true">
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha256_sam11105.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha224_sam6156.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha224_sam11105.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rng_u2242.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha256_sam6156.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha1_sam6156.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rng_sam6334.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_tdes_sam6150.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rsa_pukcl.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sam_u2803.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha384_sam6156.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/pic32mz-crypt.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha512_sam6156.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_ecc_pukcl.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_ecc_ba414e.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha1_sam11105.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_pukcl_functions.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_wolfcryptcb.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_aes_sam6149.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_aes_u2238.c</itemPath>
+        </logicalFolder>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_448.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/signature.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_cortexm.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rc2.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_int.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/curve448.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/compress.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/asm.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/poly1305.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/random.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/coding.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/kdf.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/camellia.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/asn.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cmac.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/dh.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_arm64.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/curve25519.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/chacha.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_dsp.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_448.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_low_mem.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_operations.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ed25519.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/chacha20_poly1305.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_low_mem.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pkcs7.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/arc4.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ed448.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_c64.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sakke.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_arm32.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_operations.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha256.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/eccsi.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cryptocb.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/siphash.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ripemd.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/aes.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/memory.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rsa.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md5.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/logging.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/hmac.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/hash.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/blake2s.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/error.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md4.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_c32.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_port.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_armthumb.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/des3.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cpuid.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/blake2b.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/misc.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_pkcs11.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wolfevent.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/dsa.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_encrypt.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md2.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/falcon.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha3.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ecc_fp.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_x86_64.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha512.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wolfmath.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/integer.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/srp.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/evp.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_dsp32.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pkcs12.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/tfm.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ecc.c</itemPath>
+      </logicalFolder>
+      <itemPath>../src/app_energy.c</itemPath>
+      <itemPath>../src/app_events.c</itemPath>
+      <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/pin_configurations.csv</itemPath>
+      <itemPath>../src/app_metrology.c</itemPath>
+      <itemPath>../src/app_display.c</itemPath>
+      <itemPath>../src/main.c</itemPath>
+      <itemPath>../src/app_datalog.c</itemPath>
+      <itemPath>../src/app_console.c</itemPath>
+      <itemPath>../src/app_storage_pic32cxmt.c</itemPath>
+      <itemPath>../src/app_udp_responder.c</itemPath>
+      <itemPath>../src/app_g3_management.c</itemPath>
+      <itemPath>../src/app_udp_metrology.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+      <itemPath>Makefile</itemPath>
+      <itemPath>metering_demo_g3_device_udp_pic32cx_mtsh_db.mc3</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="pic32cx_mtsh_db_pl460_rf215" type="2">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <targetDevice>PIC32CX2051MTSH128</targetDevice>
+        <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
+        <platformTool>jlink</platformTool>
+        <languageToolchain>XC32</languageToolchain>
+        <languageToolchainVersion>4.30</languageToolchainVersion>
+        <platform>3</platform>
+      </toolsSet>
+      <packs>
+        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.1.115"/>
+        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
+      </packs>
+      <ScriptingSettings>
+      </ScriptingSettings>
+      <compileType>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibFileItem>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_plc/g3_lib_plc_mac.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/mac/mac_rf/g3_lib_rf_mac.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/g3_lib_adp.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/g3/adaptation/g3_lib_loadng.a</linkerLibFileItem>
+          </linkerLibItems>
+        </linkerTool>
+        <archiverTool>
+        </archiverTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <parseOnProdLoad>false</parseOnProdLoad>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
+        <subordinates>
+        </subordinates>
+      </compileType>
+      <makeCustomizationType>
+        <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
+        <makeUseCleanTarget>false</makeUseCleanTarget>
+        <makeCustomizationPreStep></makeCustomizationPreStep>
+        <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
+        <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
+      </makeCustomizationType>
+      <C32>
+        <property key="additional-warnings" value="true"/>
+        <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/pic32cx_mtsh_db_pl460_rf215;../src/config/pic32cx_mtsh_db_pl460_rf215/library;../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src;../src/config/pic32cx_mtsh_db_pl460_rf215/library/tcpip/src/common;../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/file_system;../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/hardware_access;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTSH128_DFP;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="isolate-each-function" value="true"/>
+        <property key="make-warnings-into-errors" value="true"/>
+        <property key="optimization-level" value=""/>
+        <property key="place-data-into-section" value="true"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros"
+                  value="HAVE_CONFIG_H;WOLFSSL_IGNORE_FILE_WARN"/>
+        <property key="strict-ansi" value="false"/>
+        <property key="support-ansi" value="false"/>
+        <property key="tentative-definitions" value="-fno-common"/>
+        <property key="toplevel-reordering" value=""/>
+        <property key="unaligned-access" value=""/>
+        <property key="use-cci" value="false"/>
+        <property key="use-iar" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </C32>
+      <C32-AR>
+        <property key="additional-options-chop-files" value="false"/>
+      </C32-AR>
+      <C32-AS>
+        <property key="appendMe" value=""/>
+        <property key="assembler-symbols" value=""/>
+        <property key="enable-symbols" value="true"/>
+        <property key="exclude-floating-point-library" value="false"/>
+        <property key="expand-macros" value="false"/>
+        <property key="extra-include-directories-for-assembler"
+                  value="../src/config/pic32cx_mtsh_db_pl460_rf215/driver/metrology/bin;../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/g3MacRt/bin"/>
+        <property key="extra-include-directories-for-preprocessor" value=""/>
+        <property key="false-conditionals" value="false"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="keep-locals" value="false"/>
+        <property key="list-assembly" value="false"/>
+        <property key="list-source" value="false"/>
+        <property key="list-symbols" value="false"/>
+        <property key="oXC32asm-list-to-file" value="false"/>
+        <property key="omit-debug-dirs" value="false"/>
+        <property key="omit-forms" value="false"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="warning-level" value=""/>
+      </C32-AS>
+      <C32-CO>
+        <property key="coverage-enable" value=""/>
+        <property key="stack-guidance" value="false"/>
+      </C32-CO>
+      <C32-LD>
+        <property key="additional-options-use-response-files" value="false"/>
+        <property key="additional-options-write-sla" value="false"/>
+        <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
+        <property key="code-dinit" value="false"/>
+        <property key="ebase-addr" value=""/>
+        <property key="enable-check-sections" value="false"/>
+        <property key="exclude-floating-point-library" value="false"/>
+        <property key="exclude-standard-libraries" value="false"/>
+        <property key="extra-lib-directories" value=""/>
+        <property key="fill-flash-options-addr" value=""/>
+        <property key="fill-flash-options-const" value=""/>
+        <property key="fill-flash-options-how" value="0"/>
+        <property key="fill-flash-options-inc-const" value="1"/>
+        <property key="fill-flash-options-increment" value=""/>
+        <property key="fill-flash-options-seq" value=""/>
+        <property key="fill-flash-options-what" value="0"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-cross-reference-file" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="heap-size" value="18432"/>
+        <property key="input-libraries" value=""/>
+        <property key="kseg-length" value=""/>
+        <property key="kseg-origin" value=""/>
+        <property key="linker-symbols" value=""/>
+        <property key="map-file" value="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"/>
+        <property key="no-device-startup-code" value="true"/>
+        <property key="no-startup-files" value="false"/>
+        <property key="oXC32ld-extra-opts" value=""/>
+        <property key="optimization-level" value=""/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="remove-unused-sections" value="true"/>
+        <property key="report-memory-usage" value="false"/>
+        <property key="serial-length" value=""/>
+        <property key="serial-origin" value=""/>
+        <property key="stack-size" value=""/>
+        <property key="symbol-stripping" value=""/>
+        <property key="trace-symbols" value=""/>
+        <property key="warn-section-align" value="false"/>
+      </C32-LD>
+      <C32CPP>
+        <property key="additional-warnings" value="false"/>
+        <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
+        <property key="check-new" value="false"/>
+        <property key="eh-specs" value="true"/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exceptions" value="true"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/pic32cx_mtsh_db_pl460_rf215;../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/file_system;../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/hardware_access;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTSH128_DFP"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="isolate-each-function" value="true"/>
+        <property key="make-warnings-into-errors" value="false"/>
+        <property key="optimization-level" value="-O1"/>
+        <property key="place-data-into-section" value="false"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="rtti" value="true"/>
+        <property key="strict-ansi" value="false"/>
+        <property key="toplevel-reordering" value=""/>
+        <property key="unaligned-access" value=""/>
+        <property key="use-cci" value="false"/>
+        <property key="use-iar" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </C32CPP>
+      <C32Global>
+        <property key="appendMe" value=""/>
+        <property key="common-include-directories" value=""/>
+        <property key="gp-relative-option" value=""/>
+        <property key="legacy-libc" value="false"/>
+        <property key="mdtcm" value=""/>
+        <property key="mitcm" value=""/>
+        <property key="mstacktcm" value="false"/>
+        <property key="omit-pack-options" value="1"/>
+        <property key="relaxed-math" value="false"/>
+        <property key="save-temps" value="false"/>
+        <property key="stack-smashing" value=""/>
+        <property key="wpo-lto" value="false"/>
+      </C32Global>
+      <Tool>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="arm.use_vtor" value="false"/>
+        <property key="arm.vtor_adr" value="exception_table"/>
+        <property key="communication.adaptivespeed" value="false"/>
+        <property key="communication.autoselectspeed" value="true"/>
+        <property key="communication.interface" value="swd"/>
+        <property key="communication.speed" value="4"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
+        <property key="jlink.override" value=""/>
+        <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges.default}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0x1000000-0x2008bfff"/>
+        <property key="programoptions.eraseb4program" value="false"/>
+        <property key="programoptions.preservebootflash" value="false"/>
+        <property key="programoptions.preserveprogrammemory" value="false"/>
+        <property key="programoptions.preserveprogramrange.ranges"
+                  value="0x1000000-0x2008bfff"/>
+        <property key="programoptions.resetafterprogram" value="true"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
+        <property key="script.reset_delay" value="0"/>
+        <property key="script.show_output" value="false"/>
+      </Tool>
+      <jlink>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="arm.use_vtor" value="false"/>
+        <property key="arm.vtor_adr" value="exception_table"/>
+        <property key="communication.adaptivespeed" value="false"/>
+        <property key="communication.autoselectspeed" value="true"/>
+        <property key="communication.interface" value="swd"/>
+        <property key="communication.speed" value="4"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
+        <property key="jlink.override" value=""/>
+        <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges.default}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0x1000000-0x2008bfff"/>
+        <property key="programoptions.eraseb4program" value="false"/>
+        <property key="programoptions.preservebootflash" value="false"/>
+        <property key="programoptions.preserveprogrammemory" value="false"/>
+        <property key="programoptions.preserveprogramrange.ranges"
+                  value="0x1000000-0x2008bfff"/>
+        <property key="programoptions.resetafterprogram" value="true"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
+        <property key="script.reset_delay" value="0"/>
+        <property key="script.show_output" value="false"/>
+      </jlink>
+    </conf>
+  </confs>
+</configurationDescriptor>
