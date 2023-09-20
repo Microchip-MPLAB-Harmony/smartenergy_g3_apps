@@ -234,7 +234,7 @@ typedef void (*ADP_DATA_IND_CALLBACK)(ADP_DATA_IND_PARAMS* pDataInd);
     {
         if (status == G3_SUCCESS)
         {
-            
+
         }
     }
     </code>
@@ -271,12 +271,12 @@ typedef void (*ADP_DISCOVERY_CFM_CALLBACK)(uint8_t status);
     {
         uint8_t mediaType = MAC_WRP_MEDIA_TYPE_REQ_PLC_BACKUP_RF;
 
-        if (panDescriptor-> == MAC_WRP_MEDIA_TYPE_IND_RF)
+        if (panDescriptor->mediaType == MAC_WRP_MEDIA_TYPE_IND_RF)
         {
-            mediaType = MAC_WRP_MEDIA_TYPE_REQ_PLC_BACKUP_PLC;
+            mediaType = MAC_WRP_MEDIA_TYPE_REQ_RF_BACKUP_PLC;
         }
 
-        ADP_NetworkJoinRequest(panDescriptor->panId, panDescriptor->panId, mediaType);
+        LBP_AdpNetworkJoinRequest(panDescriptor->panId, panDescriptor->lbaAddress, mediaType);
     }
     </code>
 
@@ -311,7 +311,7 @@ typedef void (*ADP_DISCOVERY_IND_CALLBACK)(ADP_PAN_DESCRIPTOR* pPanDescriptor);
     {
         if (status == G3_SUCCESS)
         {
-            
+
         }
     }
     </code>
@@ -347,7 +347,7 @@ typedef void (*ADP_NETWORK_START_CFM_CALLBACK)(uint8_t status);
     {
         if (status == G3_SUCCESS)
         {
-            
+
         }
     }
     </code>
@@ -476,7 +476,7 @@ typedef struct
     /* The index within the table of the specified IB attribute read */
     uint16_t attributeIndex;
 
-    /* The status of the set request */
+    /* The status of the get request */
     uint8_t status;
 
     /* The length of the value of the attribute read from the IB */
@@ -741,7 +741,7 @@ typedef void (*ADP_LBP_IND_CALLBACK)(ADP_LBP_IND_PARAMS* pLbpInd);
     {
         if (status == G3_SUCCESS)
         {
-            
+
         }
     }
     </code>
@@ -772,7 +772,7 @@ typedef struct
 
     /* The originator of the path reply */
     uint16_t origAddr;
-    
+
     /* The status of the path discovery (status can be INCOMPLETE and the other
      * parameters contain the	discovered path) */
     uint8_t status;
@@ -861,16 +861,16 @@ typedef struct
      * or to which the frame was being sent */
     uint16_t panId;
 
-    /* The communications status */
+    /* The status/event reported by the primitive */
     uint8_t status;
 
-    /* The security level purportedly used by the received frame */
+    /* The security level used by the received frame */
     uint8_t securityLevel;
 
-    /* The index of the key purportedly used by the originator of the received
+    /* The index of the key used by the originator of the received
      * frame */
     uint8_t keyIndex;
-    
+
     /* The medium (PLC/RF) from which the frame was received */
     uint8_t mediaType;
 
@@ -914,14 +914,14 @@ typedef void (*ADP_NETWORK_STATUS_IND_CALLBACK)(ADP_NETWORK_STATUS_IND_PARAMS* p
 /* MISRA C-2012 Rule 6.1 deviated 4 times.  Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
 
 // *****************************************************************************
-/* ADP Network Status Indication Parameters
+/* ADP Buffer Indication Parameters
 
    Summary:
-    Defines the parameters for the ADP Network Status Indication event handler
+    Defines the parameters for the ADP Buffer Indication event handler
     function.
 
    Description:
-    The structure contains the fields reported by the ADP Network Status
+    The structure contains the fields reported by the ADP Buffer
     Indication event handler function.
 
    Remarks:
@@ -934,11 +934,11 @@ typedef union
         /* Large buffers availability */
         /* '1' if buffers available, '0' otherwise */
         uint8_t largeBuffersAvailable : 1;
-        
+
         /* Medium buffers availability */
         /* '1' if buffers available, '0' otherwise */
         uint8_t mediumBuffersAvailable : 1;
-        
+
         /* Small buffers availability */
         /* '1' if buffers available, '0' otherwise */
         uint8_t smallBuffersAvailable : 1;
@@ -946,7 +946,7 @@ typedef union
         /* Reserved */
         uint8_t :5;
     };
-    
+
     /* Bitmap containig all previous information */
     uint8_t bufferIndicationBitmap;
 
@@ -982,12 +982,12 @@ typedef union
         {
             
         }
-        
+
         if (bufferInd->mediumBuffersAvailable == 1)
         {
             
         }
-        
+
         if (bufferInd->smallBuffersAvailable == 1)
         {
             
@@ -1133,7 +1133,7 @@ typedef struct
 
     /* Address of the previous hop to frame final destination */
     uint16_t previousHopAddr;
-    
+
     /* Route Cost of the broken route (0xFFFF if route did not exist) */
     uint16_t routeCost;
 
@@ -1690,7 +1690,7 @@ ADP_AVAILABLE_MAC_LAYERS ADP_GetAvailableMacLayers(void);
   Description:
     The ADP Data Request primitive is used to transfer data to to another device
     or multiple devices in the G3 Network.
-    
+
     Result is provided in the corresponding ADP Data Confirm callback.
 
   Precondition:
@@ -1722,7 +1722,7 @@ ADP_AVAILABLE_MAC_LAYERS ADP_GetAvailableMacLayers(void);
     <code>
     uint8_t nsdu[1280];
     uint16_t nsduLength;
-    
+
     ADP_DataRequest(nsduLength, nsdu, 0, true, 0);
     </code>
 
@@ -1743,11 +1743,11 @@ void ADP_DataRequest(uint16_t nsduLength, const uint8_t *pNsdu,
     devices providing a 6LowPAN 16-bit Destination Address.
 
   Description:
-    The ADP Data Request primitive is used to transfer data to to another device
+    The ADP No IP Data Request primitive is used to transfer data to to another device
     or multiple devices in the G3 Network, providing a 6LowPAN 16-bit
     Destination Address. PDU does not have to be an IPv6 packet, any protocol
     data can be sent using this primitive.
-    
+
     Result is provided in the corresponding ADP Data Confirm callback.
 
   Precondition:
@@ -1783,7 +1783,7 @@ void ADP_DataRequest(uint16_t nsduLength, const uint8_t *pNsdu,
     <code>
     uint8_t apdu[1280];
     uint16_t apduLength;
-    
+
     ADP_NoIPDataRequest(apduLength, apdu, 0x0001, 0, true, 0);
     </code>
 
@@ -1804,7 +1804,7 @@ void ADP_NoIPDataRequest(uint16_t apduLength, const uint8_t *pApdu,
   Description:
     The ADP Discovery Request primitive allows the upper layer to scan for
     networks operating in its POS.
-    
+
     Result is provided in the corresponding ADP Discovery Confirm callback.
 
   Precondition:
@@ -1837,7 +1837,7 @@ void ADP_DiscoveryRequest(uint8_t duration);
     The ADP Network Start Request primitive allows the upper layer to request
     the starting of a new network. It shall only be invoked by a device
     designated as the PAN coordinator during the factory process.
-    
+
     Result is provided in the corresponding ADP Network Start Confirm callback.
 
   Precondition:
@@ -1870,7 +1870,7 @@ void ADP_NetworkStartRequest(uint16_t panId);
   Description:
     The ADP Reset Request primitive performs a reset of the adaptation sublayer
     and allows the resetting of the MIB attributes.
-    
+
     Result is provided in the corresponding ADP Reset Confirm callback.
 
   Precondition:
@@ -1902,7 +1902,7 @@ void ADP_ResetRequest(void);
   Description:
     The ADP Get Request primitive allows the upper layer to get the value of an
     attribute from the ADP information base.
-    
+
     Result is provided in the corresponding ADP Get Confirm callback.
 
   Precondition:
@@ -1983,7 +1983,7 @@ void ADP_GetRequestSync(uint32_t attributeId, uint16_t attributeIndex,
     The ADP MAC Get Request primitive allows the upper layer to get the value of
     an attribute from the MAC information base. The upper layer cannot access
     directly the MAC layer while ADP is running.
-    
+
     Result is provided in the corresponding ADP MAC Get Confirm callback.
 
   Precondition:
@@ -2025,7 +2025,7 @@ void ADP_MacGetRequest(uint32_t attributeId, uint16_t attributeIndex);
     ADP_Initialize and ADP_Open must have been called before.
 
   Parameters:
-    attributeId    - The identifier of the ADP IB attribute to read
+    attributeId    - The identifier of the MAC IB attribute to read
 
     attributeIndex - The index within the table of the specified IB attribute to
                      read
@@ -2064,7 +2064,7 @@ void ADP_MacGetRequestSync(uint32_t u32AttributeId, uint16_t u16AttributeIndex,
   Description:
     The ADP Set Request primitive allows the upper layer to set the value of an
     attribute in the ADP information base.
-    
+
     Result is provided in the corresponding ADP Set Confirm callback.
 
   Precondition:
@@ -2163,7 +2163,7 @@ void ADP_SetRequestSync(uint32_t attributeId, uint16_t attributeIndex,
     The ADP MAC Set Request primitive allows the upper layer to set the value of an
     attribute in the MAC information base. The upper layer cannot access
     directly the MAC layer while ADP is running.
-    
+
     Result is provided in the corresponding ADP MAC Set Confirm callback.
 
   Precondition:
@@ -2260,7 +2260,7 @@ void ADP_MacSetRequestSync(uint32_t attributeId, uint16_t attributeIndex,
   Description:
     The ADP Route Discovery Request primitive allows the upper layer to initiate
     a route discovery.
-    
+
     Result is provided in the corresponding ADP Route Discovery Confirm callback.
 
   Precondition:
@@ -2295,7 +2295,7 @@ void ADP_RouteDiscoveryRequest(uint16_t dstAddr, uint8_t maxHops);
   Description:
     The ADP Path Discovery Request primitive allows the upper layer to initiate
     a path discovery.
-    
+
     Result is provided in the corresponding ADP Path Discovery Confirm callback.
 
   Precondition:
@@ -2304,15 +2304,15 @@ void ADP_RouteDiscoveryRequest(uint16_t dstAddr, uint8_t maxHops);
   Parameters:
     dstAddr    - The short unicast destination address of the path discovery
 
-    metricType - The metric type to be used for the path discovery (Range:
-                 0x00 - 0x0F)
+    metricType - The metric type to be used for the path discovery
+                 (0x00, 0x0E, 0x0F)
 
   Returns:
     None.
 
   Example:
     <code>
-    ADP_PathDiscoveryRequest(0x0001, 1);
+    ADP_PathDiscoveryRequest(0x0001, 0x0F);
     </code>
 
   Remarks:
@@ -2327,20 +2327,19 @@ void ADP_PathDiscoveryRequest(uint16_t dstAddr, uint8_t metricType);
         bool discoveryRoute, uint8_t qualityOfService, bool securityEnable);
 
   Summary:
-    This primitive allows the upper layer of the client to send the LBP message
-    to the server modem.
+    This primitive allows the upper layer of the client to send an LBP message.
 
   Description:
     The ADP LBP Request primitive allows the upper layer of the client to send
     the LBP message to the server modem.
-    
+
     Result is provided in the corresponding ADP LBP Confirm callback.
 
   Precondition:
     ADP_Initialize and ADP_Open must have been called before.
 
   Parameters:
-    pDstAddr         - 16-bit address of LBA or LBD or 64 bit address (extended
+    pDstAddr         - 16-bit address of LBA or LBS, or 64 bit address (extended
                        address of LBD)
 
     nsduLength       - The size of the NSDU, in bytes; limited to
@@ -2351,10 +2350,9 @@ void ADP_PathDiscoveryRequest(uint16_t dstAddr, uint8_t metricType);
     nsduHandle       - The handle of the NSDU to transmit. This parameter is
                        used to identify in the ADP LBP Confirm primitive which
                        request is concerned. It can be randomly chosen by the
-                       application layer.
+                       upper layer.
 
-    maxHops          - The number of times the frame will be repeated by network
-                       routers
+    maxHops          - The number of hops for the LBP frame
 
     discoverRoute    - If true, a route discovery procedure will be performed
                        prior to sending the frame if a route to the destination
@@ -2373,13 +2371,13 @@ void ADP_PathDiscoveryRequest(uint16_t dstAddr, uint8_t metricType);
 
   Example:
     <code>
-    uint8_t nsdu[1280];
+    uint8_t nsdu[ADP_LBP_MAX_NSDU_LENGTH];
     uint16_t nsduLength;
     ADP_ADDRESS destAddress;
 
     destAddress.addrSize = ADP_ADDRESS_16BITS;
     destAddress.shortAddr = 0x0001;
-    
+
     ADP_LbpRequest(&destAddress, nsduLength, nsdu, 0, 8, true, 0, true);
     </code>
 

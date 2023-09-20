@@ -148,15 +148,15 @@ typedef void (*LBP_COORD_JOIN_COMPLETE_IND_CALLBACK)(uint8_t* pLbdAddress,
     Pointer to a Leave Indication Event handler function.
 
   Description:
-    This data type defines the required function signature for the LBP Join
-    Complete Indication event handling callback function. The LBP Leave
+    This data type defines the required function signature for the LBP Leave
+    Indication event handling callback function. The LBP Leave
     Indication primitive allows the upper layer to be notified when a device
     leaves the network.
 
     A client must register a pointer using the event handling
     function whose function signature (parameter and return value types) matches
-    the types specified by this function pointer in order to receive Join
-    Complete Indication events back from module.
+    the types specified by this function pointer in order to receive Leave
+    Indication events back from module.
 
   Parameters:
     networkAddress - The 16-bit network address of device leaving the network
@@ -240,7 +240,8 @@ void LBP_InitCoord(bool aribBand);
     Updates the slots that control bootstrap protocol.
 
   Description:
-    This routine updates the slots that control bootstrap protocol.
+    This routine updates the slots that control bootstrap protocol
+    and maintains LBP State Machine.
 
   Precondition:
     LBP_InitCoord must have been called before.
@@ -260,7 +261,7 @@ void LBP_InitCoord(bool aribBand);
     </code>
 
   Remarks:
-    This routine should be called from system tasks.
+    None.
 */
 void LBP_UpdateLbpSlots(void);
 

@@ -104,6 +104,19 @@ static void _LBP_COORD_JoinRequestIndication(uint8_t* pLbdAddress)
 
         if (blacklisted == false)
         {
+            /* If EUI64 is already in list, remove it and give a new short
+             * address */
+            for (uint16_t i = 0; i < APP_EAP_SERVER_MAX_DEVICES; i++)
+            {
+                if (memcmp(app_eap_serverExtAddrList[i].value, pLbdAddress, ADP_ADDRESS_64BITS) == 0)
+                {
+                    /* EUI64 found in the list */
+                    memset(app_eap_serverExtAddrList[i].value, 0, ADP_ADDRESS_64BITS);
+                    app_eap_serverData.numDevicesJoined--;
+                    break;
+                }
+            }
+
             if (app_eap_serverData.numShortAddrAssigned < APP_EAP_SERVER_MAX_DEVICES)
             {
                 assignedAddress = APP_EAP_SERVER_INITIAL_SHORT_ADDRESS +
@@ -149,6 +162,11 @@ static void _LBP_COORD_JoinCompleteIndication(uint8_t* pLbdAddress, uint16_t ass
              * list */
             memcpy(app_eap_serverExtAddrList[index].value, pLbdAddress, ADP_ADDRESS_64BITS);
             app_eap_serverData.numDevicesJoined++;
+
+            SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_EAP_SERVER: New device joined (Short Address: 0x%04X,"
+                    " EUI64: 0x%02X%02X%02X%02X%02X%02X%02X%02X)\r\n", assignedAddress,
+                    pLbdAddress[0], pLbdAddress[1], pLbdAddress[2], pLbdAddress[3],
+                    pLbdAddress[4], pLbdAddress[5], pLbdAddress[6], pLbdAddress[7]);
         }
     }
     else
@@ -217,6 +235,9 @@ static void _LBP_COORD_LeaveIndication(uint16_t networkAddress)
         /* Remove the device from the joined devices list */
         memset(app_eap_serverExtAddrList[index].value, 0, ADP_ADDRESS_64BITS);
         app_eap_serverData.numDevicesJoined--;
+
+        SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_EAP_SERVER: Device left "
+                "(Short Address: 0x%04X)\r\n", networkAddress);
     }
 }
 
@@ -289,7 +310,6 @@ void APP_EAP_SERVER_Tasks ( void )
 
                 /* G3 network started in ADP */
                 app_eap_serverData.state = APP_EAP_SERVER_NETWORK_STARTED;
-                SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_EAP_SERVER: ADP network started successfully\r\n");
             }
             else if (adpStatus == ADP_STATUS_ERROR)
             {

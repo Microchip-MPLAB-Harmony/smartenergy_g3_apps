@@ -150,6 +150,9 @@ static void _ADP_NetworkStartConfirm(uint8_t status)
 
         /* Network started */
         app_g3_managementData.state = APP_G3_MANAGEMENT_STATE_NETWORK_STARTED;
+
+        SYS_DEBUG_PRINT(SYS_ERROR_INFO, "APP_G3_MANAGEMENT: ADP network started"
+                "successfully (PAN ID: 0x%04X)\r\n", app_g3_managementData.panId);
     }
     else
     {

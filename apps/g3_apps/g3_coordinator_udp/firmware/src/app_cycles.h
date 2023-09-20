@@ -34,6 +34,7 @@
 #include "configuration.h"
 #include "system/time/sys_time.h"
 #include "library/tcpip/tcpip.h"
+#include "app_udp_responder.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -49,16 +50,32 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-/* Time to wait before start cycling in ms (approx. 60 sec per device) */
+/* If APP_CYCLES_METROLOGY_DATA_REQUEST macro is defined, metrology data is
+ * requested in cycles through UDP */
+//#define APP_CYCLES_METROLOGY_DATA_REQUEST
+
+/* Time to wait before start cycling in ms */
 #define APP_CYCLES_TIME_WAIT_CYCLE_MS 120000
+
+/* Time between device cycles in ms */
+#define APP_CYCLES_TIME_BTW_DEVICE_CYCLES_MS 30
 
 /* Timeout in ms to consider reply not received */
 #define APP_CYCLES_TIMEOUT_MS 10000
 
-/* UDP packet size in bytes */
-#define APP_CYCLES_PACKET_SIZE_1 64
-#define APP_CYCLES_PACKET_SIZE_2 300
-#define APP_CYCLES_PACKET_SIZE_3 1000
+#ifndef APP_CYCLES_METROLOGY_DATA_REQUEST
+    /* UDP packet size in bytes */
+    #define APP_CYCLES_PACKET_SIZE_1 64
+    #define APP_CYCLES_PACKET_SIZE_2 300
+    #define APP_CYCLES_PACKET_SIZE_3 1000
+
+    /* UDP port for UDP responder (conformance) */
+    #define APP_CYCLES_SOCKET_PORT APP_UDP_RESPONDER_SOCKET_PORT_CONFORMANCE
+#else
+    /* Port number for UDP metrology. This port can be compressed using 6LowPAN
+     * (rfc4944, rfc6282) (0xF0B0 - 0xF0BF) */
+    #define APP_CYCLES_SOCKET_PORT 0xF0B0
+#endif
 
 // *****************************************************************************
 // *****************************************************************************
@@ -91,6 +108,9 @@ typedef enum
     /* Cycling state: Sending UDP requests to registered devices */
     APP_CYCLES_STATE_CYCLING,
 
+    /* State to wait for the next device UDP cycle */
+    APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE,
+
     /* Conformance state: Cycling disabled */
     APP_CYCLES_STATE_CONFORMANCE,
 
@@ -116,6 +136,9 @@ typedef struct
 {
     /* Total time count between UDP requests and replies */
     uint64_t timeCountTotal;
+
+    /* Total number of cycles */
+    uint32_t numCycles;
 
     /* Total number of UDP requests sent for this device */
     uint32_t numUdpRequests;
@@ -143,11 +166,11 @@ typedef struct
 
 typedef struct
 {
-    /* Time counter corresponding to first UDP cycle start */
-    uint64_t timeCountFirstCycleStart;
+    /* Total time count between UDP requests and replies */
+    uint64_t timeCountTotal;
 
-    /* Time counter corresponding to current UDP cycle start */
-    uint64_t timeCountCycleStart;
+    /* Total time count between UDP requests and replies for the current cycle */
+    uint64_t timeCountTotalCycle;
 
     /* Time counter corresponding to UDP request */
     uint64_t timeCountUdpRequest;
@@ -179,8 +202,10 @@ typedef struct
     /* Number of devices joined to the network */
     uint16_t numDevicesJoined;
 
+#ifndef APP_CYCLES_METROLOGY_DATA_REQUEST
     /* UDP packet size */
     uint16_t packetSize;
+#endif
 
     /* The application's current state */
     APP_CYCLES_STATES state;
@@ -196,6 +221,105 @@ typedef struct
     bool packetPending;
 
 } APP_CYCLES_DATA;
+
+#ifdef APP_CYCLES_METROLOGY_DATA_REQUEST
+// *****************************************************************************
+/* Metrology RMS Data
+
+  Summary:
+    Holds metrology data.
+
+  Description:
+    This structure holds the metrology data to be sent through UDP
+    (RMS instantaneous values).
+
+  Remarks:
+    None.
+ */
+
+typedef struct
+{
+    /* RMS voltage for phase A */
+    uint32_t rmsUA;
+
+    /* RMS voltage for phase B */
+    uint32_t rmsUB;
+
+    /* RMS voltage for phase C */
+    uint32_t rmsUC;
+
+    /* RMS current for phase A */
+    uint32_t rmsIA;
+
+    /* RMS current for phase B */
+    uint32_t rmsIB;
+
+    /* RMS current for phase C */
+    uint32_t rmsIC;
+
+    /* RMS current for neutral */
+    uint32_t rmsINI;
+
+    /* RMS current for neutral */
+    uint32_t rmsINM;
+
+    /* RMS current for neutral */
+    uint32_t rmsINMI;
+
+    /* RMS active power total */
+    int32_t rmsPT;
+
+    /* RMS active power for phase A */
+    int32_t rmsPA;
+
+    /* RMS active power for phase B */
+    int32_t rmsPB;
+
+    /* RMS active power for phase C */
+    int32_t rmsPC;
+
+    /* RMS reactive power total */
+    int32_t rmsQT;
+
+    /* RMS reactive power for phase A */
+    int32_t rmsQA;
+
+    /* RMS reactive power for phase B */
+    int32_t rmsQB;
+
+    /* RMS reactive power for phase C */
+    int32_t rmsQC;
+
+    /* RMS aparent power total */
+    uint32_t rmsST;
+
+    /* RMS aparent power for phase A */
+    uint32_t rmsSA;
+
+    /* RMS aparent power for phase B */
+    uint32_t rmsSB;
+
+    /* RMS aparent power for phase C */
+    uint32_t rmsSC;
+
+    /* Frequency of the line voltage fundamental harmonic component determined
+     * by the Metrology library using the dominant phase */
+    uint32_t freq;
+
+    /* Angle between the voltage and current vectors for phase A */
+    int32_t angleA;
+
+    /* Angle between the voltage and current vectors for phase B */
+    int32_t angleB;
+
+    /* Angle between the voltage and current vectors for phase C */
+    int32_t angleC;
+
+    /* Angle between the voltage and current vectors for neutral */
+    int32_t angleN;
+
+} APP_CYCLES_METROLOGY_DATA;
+#endif
 
 // *****************************************************************************
 // *****************************************************************************

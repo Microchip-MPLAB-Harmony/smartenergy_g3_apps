@@ -257,7 +257,7 @@ typedef struct
 
    Description:
     This data type defines the structure of a Hop Descriptor. It used to
-    identify a hop in a route.
+    describe a hop in a route.
 
    Remarks:
     None.
@@ -271,7 +271,7 @@ typedef struct
      * (if supported) */
     uint8_t mns;
 
-    /* LinkCost of the node */
+    /* LinkCost of the hop */
     uint8_t linkCost;
 
     /* Phase Differential on link */
@@ -308,7 +308,7 @@ typedef struct
     ADP_HOP_DESCRIPTOR forwardPath[16];
 
     /* Table with the information of each hop in reverse direction (according to
-     * forwardHopsCount) */
+     * reverseHopsCount) */
     ADP_HOP_DESCRIPTOR reversePath[16];
 
     /* The short unicast destination address of the path discovery */
@@ -552,7 +552,6 @@ typedef enum
 */
 typedef enum
 {
-    /* Success */
     ADP_STATUS_UNINITIALIZED = SYS_STATUS_UNINITIALIZED,
     ADP_STATUS_BUSY = SYS_STATUS_BUSY,
     ADP_STATUS_READY = SYS_STATUS_READY,

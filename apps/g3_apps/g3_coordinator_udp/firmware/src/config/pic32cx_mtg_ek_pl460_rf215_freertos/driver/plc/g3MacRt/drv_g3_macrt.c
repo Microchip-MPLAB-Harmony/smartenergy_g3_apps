@@ -11,8 +11,8 @@
     G3 MAC RT Driver Library Interface implementation
 
   Description:
-    The G3 MAC RT Library provides a interface to access the PLC external device.
-    This file implements the G3 Mac Real Time Library interface.
+    The G3 MAC RT Library provides an interface to access the PLC external
+    device. This file implements the G3 MAC Real Time Library interface.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
@@ -82,7 +82,7 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize(
         return SYS_MODULE_OBJ_INVALID;
     }
 
-    if (gDrvG3MacRtObj.state != DRV_G3_MACRT_STATE_UNINITIALIZED)
+    if ((gDrvG3MacRtObj.state != DRV_G3_MACRT_STATE_UNINITIALIZED) && (gDrvG3MacRtObj.state != DRV_G3_MACRT_STATE_INITIALIZED))
     {
         return SYS_MODULE_OBJ_INVALID;
     }

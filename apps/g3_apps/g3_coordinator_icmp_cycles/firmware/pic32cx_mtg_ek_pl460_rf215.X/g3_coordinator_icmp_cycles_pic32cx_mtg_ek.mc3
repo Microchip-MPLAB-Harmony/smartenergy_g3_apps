@@ -7253,7 +7253,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;XC32_HEAP_SIZE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;15360&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;8192&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -7671,15 +7671,6 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvMacG3Adp" name="DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvMacG3Adp&gt;
   &lt;drvMacG3Adp dnOrder=&quot;0&quot; id=&quot;DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/drvMacG3Adp&gt;
-&lt;/drvMacG3Adp&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvMacG3Adp" name="DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvMacG3Adp&gt;
-  &lt;drvMacG3Adp dnOrder=&quot;0&quot; id=&quot;DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/drvMacG3Adp&gt;
 &lt;/drvMacG3Adp&gt;
@@ -9298,7 +9289,7 @@
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;512&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1024&quot;/&gt;
     &lt;/Values&gt;
   &lt;/flexcom0&gt;
 &lt;/flexcom0&gt;
@@ -26589,7 +26580,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipStack&gt;
   &lt;tcpipStack dnOrder=&quot;0&quot; id=&quot;TCPIP_STACK_DRAM_SIZE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;10240&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;7168&quot;/&gt;
     &lt;/Values&gt;
   &lt;/tcpipStack&gt;
 &lt;/tcpipStack&gt;
@@ -27205,7 +27196,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\adaptation\adp.h</file>
-         <hash>ad82a18eda6306ceb9265ed81e22ca1f60b2e6049dca272cfe4b25c31ad649d9</hash>
+         <hash>46e893aaa1da76da27c23eae55b1033eb883984169386c4760f4387aade56b16</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\tcpip_manager.h</file>
@@ -27413,11 +27404,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\g3MacRt\drv_g3_macrt.h</file>
-         <hash>9d27799a7642ef0ecafb6376b4d4d68cb3cdc0a1655dd27baaa6700ffdd34ec3</hash>
+         <hash>74757d914efb01ea3fa360bfbb5a53f8b50b8cd91e501f19c7c0719d0d7018e6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\g3MacRt\drv_g3_macrt_local_comm.c</file>
-         <hash>ba9e0dfcbdff7bec7d1c74cb68b13b2807a50aa4308f684cc257b1450af8960a</hash>
+         <hash>f2512c966978d98b323d852411ce579d4b287e8aef62dfcff7a90dca14d119ff</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\lldp_tlv.h</file>
@@ -27425,11 +27416,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\g3MacRt\drv_g3_macrt.c</file>
-         <hash>b381fd1ef81c11eba69d2fc80faa20d33811a48209c1cb2433f20e516ef713f3</hash>
+         <hash>97dfe484547c262f90c25952e7daf0bd615190353c41edd4a7fc237d8d9846e4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\g3MacRt\drv_g3_macrt_local_comm.h</file>
-         <hash>97d63b7045bb8cf10bcb7a34a4899f43c0e3e7dfe6fc332e4cd025b46a693125</hash>
+         <hash>26f36b477b886033b1289224ede3b2ad6c7aefe67d4109cbefd5976567bf380a</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\sha.h</file>
@@ -27633,7 +27624,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\net\macg3adp\src\drv_mac_g3adp.c</file>
-         <hash>f60a7e8225b9abeea5bf29b27f6899161bef2a6edf33471513ddcd2684933449</hash>
+         <hash>09f15742bf7f7ee4335b0671277afa10641f27f40ea73ccb7274c54e96579269</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\pmc.h</file>
@@ -27661,7 +27652,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\adaptation\adp_api_types.h</file>
-         <hash>bc0be512ed27008343d749f89b9e63f4a5011994d9e281040a50cf0b33cd6b02</hash>
+         <hash>5c81fdd2959cffa85b923805657969cb4769005990d04c13dd547bd25a9ec75b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\dns_manager.h</file>
@@ -27669,7 +27660,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\pal\plc\pal_plc.c</file>
-         <hash>cea56c8e75687594687860bad345ed5f33d610c835e977b72818da56cede912a</hash>
+         <hash>cdec51863df240b3a0830316a182504b358dde95c6b84b34ea1b6e82edecdc9e</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\blake2s.c</file>
@@ -27833,7 +27824,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\flexcom\usart\plib_flexcom0_usart.c</file>
-         <hash>91efc230e9a2a075d7e4a072b11ffea42073731d90d0538f56179fed5741b7ab</hash>
+         <hash>7e21669847189b49e23ce51e57edddec7f7f5c12f1e2e94259a9a27a5aa8d2ad</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\fips_test.h</file>
@@ -28013,7 +28004,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\adaptation\lbp_coord.h</file>
-         <hash>133dcd24ca2d34d6f9596c80e9a28d1da1ad367b46c443911cdc9a8aa93c77bb</hash>
+         <hash>bda40c45615feaa0a0ee7db12ad253d83c3a2e8bd796cfa105f914014e1f8efb</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\pwm.h</file>
@@ -28585,7 +28576,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\g3MacRt\drv_g3_macrt_comm.h</file>
-         <hash>71ccaeb81d8e633f5ee0f3561a98d0e8b19536f9771f4e5f11cc253263e06af7</hash>
+         <hash>15ea6884740737642bdbee551f85f24a12e001c5b90c3486066e18e1da127f11</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_sha256_hw.h</file>
@@ -28989,7 +28980,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_boot.c</file>
-         <hash>1529778341ae69c6d76564981a080f5d76f0ee2229e5987c49232320af3d1e42</hash>
+         <hash>c8cddc67bef9e115224944f4a756aeabf90013ec47f11c74b257fc0f148cd913</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\sfr.h</file>
@@ -29037,7 +29028,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\configuration.h</file>
-         <hash>1dad7b55192235b5e4f64496375823e48be1fefdc1bdf851fa088a8d0a021465</hash>
+         <hash>b48a96e8c5e3066e6a06ce12d6b89c35c6707796eeeed418da9c08b666420c5d</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\md2.c</file>
@@ -29609,7 +29600,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\dhcpv6_private.h</file>
-         <hash>65f660d6f868430549106ad72470d08a484ca051a4de6e212e6479e25f18132c</hash>
+         <hash>9460946a8cb9d6595977edff25fe84c62eedaa46e80a35a751ce508715d5da1c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\library\tcpip\src\snmpv3_private.h</file>
@@ -29721,7 +29712,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\net\macg3adp\src\drv_mac_g3adp_local.h</file>
-         <hash>d73250f4545fd3c49875e1700a1ed7430cec3c86de64fb91446be1d06a5f1142</hash>
+         <hash>7c35953770826b1314558d7566c766f232d5ca4124a58a2ffb44a44a6b7f346c</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_CRT_pb.h</file>
@@ -29729,7 +29720,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\g3MacRt\bin\drv_g3_macrt_bin.S</file>
-         <hash>90473993180633fe7a1cfecae0809cf460e8a484ab0e5659b57e5ded16ea40a0</hash>
+         <hash>27b435bd886ece843ae448e1b685be96e4ea81f26e994339a8c6e38f70ce15d4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\g3\adaptation\g3_lib_adp.a</file>

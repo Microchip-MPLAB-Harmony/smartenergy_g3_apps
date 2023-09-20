@@ -57,8 +57,11 @@ extern "C" {
 #define APP_TCPIP_IPV6_NETWORK_PREFIX_G3     "FD00:0:2:781D:0:0:0:0"
 #define APP_TCPIP_IPV6_NETWORK_PREFIX_G3_LEN 64
 
-/* Time to wait before start cycling in ms (approx. 60 sec per device) */
+/* Time to wait before start cycling in ms */
 #define APP_CYCLES_TIME_WAIT_CYCLE_MS 120000
+
+/* Time between device cycles in ms */
+#define APP_CYCLES_TIME_BTW_DEVICE_CYCLES_MS 30
 
 /* Timeout in ms to consider echo reply not received */
 #define APP_CYCLES_TIMEOUT_MS 10000
@@ -99,6 +102,9 @@ typedef enum
     /* Cycling state: Sending ICMPv6 echo requests to registered devices */
     APP_CYCLES_STATE_CYCLING,
 
+    /* State to wait for the next device UDP cycle */
+    APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE,
+
     /* Error state */
     APP_CYCLES_STATE_ERROR,
 
@@ -121,6 +127,9 @@ typedef struct
 {
     /* Total time count between ICMPv6 echo requests and replies */
     uint64_t timeCountTotal;
+
+    /* Total number of cycles */
+    uint32_t numCycles;
 
     /* Total number of ICMPv6 echo requests sent for this device */
     uint32_t numEchoRequests;
@@ -151,11 +160,11 @@ typedef struct
     /* Target address to send ICMPv6 echo request */
     IPV6_ADDR targetAddress;
 
-    /* Time counter corresponding to first ICMPv6 cycle start */
-    uint64_t timeCountFirstCycleStart;
+    /* Total time count between ICMPv6 echo requests and replies */
+    uint64_t timeCountTotal;
 
-    /* Time counter corresponding to current ICMPv6 cycle start */
-    uint64_t timeCountCycleStart;
+    /* Total time count between ICMPv6 echo requests and replies for the current cycle */
+    uint64_t timeCountTotalCycle;
 
     /* Time counter corresponding to ICMPv6 echo request */
     uint64_t timeCountEchoRequest;

@@ -82,13 +82,14 @@
 // *****************************************************************************
 
 // *****************************************************************************
-/* G3 MACRT Communication Events
+/* G3 MAC RT Communication Events
 
   Summary:
-    Object used to track communications events from G3 MACRT.
+    Object used to track communications events from G3 MAC RT.
 
   Description:
-    This object is used to keep the data necessary to communicate with G3 MACRT.
+    This object is used to keep the data necessary to communicate with G3
+    MAC RT.
 
   Remarks:
     None.
@@ -121,14 +122,15 @@ typedef struct {
     bool evPhySniffer;
 } DRV_G3_MACRT_EVENTS_OBJ;
 
-/* G3 MACRT Internal Memory Map
+// *****************************************************************************
+/* G3 MAC RT Internal Memory Map
 
   Summary:
-    Object used to refer to data regions inside G3 MACRT.
+    Data type used to refer to data regions inside G3 MAC RT.
 
   Description:
-    This object is used to refer to the data necessary to communicate with 
-    G3 MACRT.
+    This data type is used to refer to the data necessary to communicate with 
+    G3 MAC RT.
 
   Remarks:
     None.

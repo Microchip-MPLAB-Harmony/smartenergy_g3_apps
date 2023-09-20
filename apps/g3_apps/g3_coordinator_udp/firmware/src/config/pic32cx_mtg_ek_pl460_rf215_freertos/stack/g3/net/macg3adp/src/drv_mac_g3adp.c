@@ -59,19 +59,19 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 /******************************************************************************
  * G3 ADP MAC object implementation
  ******************************************************************************/
-/*static*/ const TCPIP_MAC_OBJECT DRV_G3ADP_MACObject =  
+/*static*/ const TCPIP_MAC_OBJECT DRV_G3ADP_MACObject =
 {
     .macId                                  = (uint16_t)TCPIP_MODULE_MAC_G3ADP,
     .macType                                = (uint8_t)TCPIP_MAC_TYPE_G3ADP,
-    .macName                                = "G3ADPMAC",   
+    .macName                                = "G3ADPMAC",
     .TCPIP_MAC_Initialize                   = DRV_G3ADP_MAC_Initialize,
 #if (TCPIP_STACK_MAC_DOWN_OPERATION != 0)
     .TCPIP_MAC_Deinitialize                 = DRV_G3ADP_MAC_Deinitialize,
-    .TCPIP_MAC_Reinitialize                 = DRV_G3ADP_MAC_Reinitialize, 
+    .TCPIP_MAC_Reinitialize                 = DRV_G3ADP_MAC_Reinitialize,
 #else
     .TCPIP_MAC_Deinitialize                 = NULL,
     .TCPIP_MAC_Reinitialize                 = NULL,
-#endif  // (TCPIP_STACK_DOWN_OPERATION != 0) 
+#endif  // (TCPIP_STACK_DOWN_OPERATION != 0)
     .TCPIP_MAC_Status                       = DRV_G3ADP_MAC_Status,
     .TCPIP_MAC_Tasks                        = DRV_G3ADP_MAC_Tasks,
     .TCPIP_MAC_Open                         = DRV_G3ADP_MAC_Open,
@@ -97,7 +97,6 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 // *****************************************************************************
 // *****************************************************************************
 
-static DRV_G3ADP_MAC_QUEUE_DATA g3adp_mac_txDataPool[DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT];
 static DRV_G3ADP_MAC_QUEUE_DATA g3adp_mac_rxDataPool[DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT];
 
 static DRV_G3ADP_MAC_DRIVER g3adp_mac_drv_dcpt =
@@ -115,27 +114,20 @@ static DRV_G3ADP_MAC_DRIVER g3adp_mac_drv_dcpt =
 // *****************************************************************************
 // *****************************************************************************
 
-static DRV_G3ADP_MAC_QUEUE_DATA * lDRV_G3ADP_MAC_GetFreeQueueData(DRV_G3ADP_MAC_QUEUE_DATA *dataPool,
-        uint16_t dataLen)
+static DRV_G3ADP_MAC_QUEUE_DATA * lDRV_G3ADP_MAC_GetFreeQueueData(uint16_t dataLen)
 {
     DRV_G3ADP_MAC_DRIVER * pMacDrv = &g3adp_mac_drv_dcpt;
-    DRV_G3ADP_MAC_QUEUE_DATA *ptrDataPool = dataPool;
+    DRV_G3ADP_MAC_QUEUE_DATA *ptrDataPool = g3adp_mac_rxDataPool;
     uint8_t index;
-    uint8_t poolSize = DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT;
 
-    if (dataPool == g3adp_mac_rxDataPool)
-    {
-        poolSize = DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT;
-    }
-    
-    for (index = 0U; index < poolSize; index++)
+    for (index = 0U; index < DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT; index++)
     {
         if (ptrDataPool->inUse == false)
         {
             if (dataLen > 0U)
             {
                 // Dynamically allocate MAC Packet
-                ptrDataPool->pMacPacket = pMacDrv->g3AdpMacData.pktAllocF(sizeof(TCPIP_MAC_PACKET), 
+                ptrDataPool->pMacPacket = pMacDrv->g3AdpMacData.pktAllocF(sizeof(TCPIP_MAC_PACKET),
                         dataLen, TCPIP_MAC_PKT_FLAG_CAST_DISABLED);
 
                 if (ptrDataPool->pMacPacket == NULL)
@@ -154,19 +146,12 @@ static DRV_G3ADP_MAC_QUEUE_DATA * lDRV_G3ADP_MAC_GetFreeQueueData(DRV_G3ADP_MAC_
     return NULL;
 }
 
-static DRV_G3ADP_MAC_QUEUE_DATA * lDRV_G3ADP_MAC_GetQueueDataFromMACPacket(DRV_G3ADP_MAC_QUEUE_DATA *dataPool,
-        TCPIP_MAC_PACKET * pMacPacket)
+static DRV_G3ADP_MAC_QUEUE_DATA * lDRV_G3ADP_MAC_GetQueueDataFromMACPacket(TCPIP_MAC_PACKET * pMacPacket)
 {
-    DRV_G3ADP_MAC_QUEUE_DATA *ptrDataPool = dataPool;
+    DRV_G3ADP_MAC_QUEUE_DATA *ptrDataPool = g3adp_mac_rxDataPool;
     uint8_t index;
-    uint8_t poolSize = DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT;
 
-    if (dataPool == g3adp_mac_rxDataPool)
-    {
-        poolSize = DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT;
-    }
-    
-    for (index = 0U; index < poolSize; index++)
+    for (index = 0U; index < DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT; index++)
     {
         if ((ptrDataPool->inUse == true) && (ptrDataPool->pMacPacket == pMacPacket))
         {
@@ -179,24 +164,17 @@ static DRV_G3ADP_MAC_QUEUE_DATA * lDRV_G3ADP_MAC_GetQueueDataFromMACPacket(DRV_G
     return NULL;
 }
 
-static void lDRV_G3ADP_MAC_PutFreeQueueData(DRV_G3ADP_MAC_QUEUE_DATA *dataPool,
-        DRV_G3ADP_MAC_QUEUE_DATA *queuedData, bool pktFreeF)
+static void lDRV_G3ADP_MAC_PutFreeQueueData(DRV_G3ADP_MAC_QUEUE_DATA *queuedData)
 {
     DRV_G3ADP_MAC_DRIVER * pMacDrv = &g3adp_mac_drv_dcpt;
-    DRV_G3ADP_MAC_QUEUE_DATA *ptrDataPool = dataPool;
+    DRV_G3ADP_MAC_QUEUE_DATA *ptrDataPool = g3adp_mac_rxDataPool;
     uint8_t index;
-    uint8_t poolSize = DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT;
 
-    if (dataPool == g3adp_mac_rxDataPool)
-    {
-        poolSize = DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT;
-    }
-    
-    for (index = 0U; index < poolSize; index++)
+    for (index = 0U; index < DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT; index++)
     {
         if (ptrDataPool == queuedData)
         {
-            if (pktFreeF && (pMacDrv->g3AdpMacData.pktFreeF != NULL))
+            if (pMacDrv->g3AdpMacData.pktFreeF != NULL)
             {
                 // Free memory
                 pMacDrv->g3AdpMacData.pktFreeF(ptrDataPool->pMacPacket);
@@ -215,15 +193,15 @@ static void lDRV_G3ADP_MAC_RxMacFreePacket(TCPIP_MAC_PACKET * pMacPacket, const 
     /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
     DRV_G3ADP_MAC_DRIVER * pMacDrv = (DRV_G3ADP_MAC_DRIVER *) param;
     /* MISRA C-2012 deviation block end */
-    
-    if ((pMacPacket != NULL) &&  (pMacPacket->pDSeg != NULL) 
+
+    if ((pMacPacket != NULL) &&  (pMacPacket->pDSeg != NULL)
             &&  ((pMacPacket->pDSeg->segFlags & (uint16_t)TCPIP_MAC_SEG_FLAG_ACK_REQUIRED) != 0U))
     {
-        DRV_G3ADP_MAC_QUEUE_DATA * rxQueueData =lDRV_G3ADP_MAC_GetQueueDataFromMACPacket(g3adp_mac_rxDataPool, pMacPacket);
-        
+        DRV_G3ADP_MAC_QUEUE_DATA * rxQueueData =lDRV_G3ADP_MAC_GetQueueDataFromMACPacket(pMacPacket);
+
         if (rxQueueData != NULL)
         {
-            lDRV_G3ADP_MAC_PutFreeQueueData(g3adp_mac_rxDataPool, rxQueueData, true);
+            lDRV_G3ADP_MAC_PutFreeQueueData(rxQueueData);
             // Update RX statistics
             pMacDrv->g3AdpMacData.rxStat.nRxPendBuffers--;
         }
@@ -239,8 +217,7 @@ static void lDRV_G3ADP_MAC_RxMacFreePacket(TCPIP_MAC_PACKET * pMacPacket, const 
 static void lDRV_G3ADP_MAC_AdpDataCfmCallback(ADP_DATA_CFM_PARAMS* pDataCfm)
 {
     DRV_G3ADP_MAC_DRIVER * pMacDrv = &g3adp_mac_drv_dcpt;
-    DRV_G3ADP_MAC_QUEUE_DATA * txQueueData;
-    
+
     if (pMacDrv->g3AdpMacData.macFlags.open != 0U)
     {
         TCPIP_MAC_PACKET * pMacPacket = (TCPIP_MAC_PACKET *)pDataCfm->nsduHandle;
@@ -291,8 +268,6 @@ static void lDRV_G3ADP_MAC_AdpDataCfmCallback(ADP_DATA_CFM_PARAMS* pDataCfm)
         *event = (TCPIP_MAC_EVENT)eventValue;
         pMacPacket->pktFlags &= ~((uint16_t)TCPIP_MAC_PKT_FLAG_QUEUED);
 
-        txQueueData = lDRV_G3ADP_MAC_GetQueueDataFromMACPacket(g3adp_mac_txDataPool, pMacPacket);
-        lDRV_G3ADP_MAC_PutFreeQueueData(g3adp_mac_txDataPool, txQueueData, 0U);
         // Update TX statistics
         pMacDrv->g3AdpMacData.txStat.nTxPendBuffers--;
         
@@ -316,8 +291,7 @@ static void lDRV_G3ADP_MAC_AdpDataIndCallback(ADP_DATA_IND_PARAMS* pDataInd)
         uint16_t pendingEvents;
 
         // Get a Free Queue Element from the RX Queue Data Pool
-        rxQueueData = (DRV_G3ADP_MAC_QUEUE_DATA *)lDRV_G3ADP_MAC_GetFreeQueueData(g3adp_mac_rxDataPool,
-                pDataInd->nsduLength);
+        rxQueueData = (DRV_G3ADP_MAC_QUEUE_DATA *)lDRV_G3ADP_MAC_GetFreeQueueData(pDataInd->nsduLength);
         if (rxQueueData == NULL)
         {
             pMacDrv->g3AdpMacData.rxStat.nRxBuffNotAvailable++;
@@ -383,7 +357,7 @@ SYS_MODULE_OBJ DRV_G3ADP_MAC_Initialize(const SYS_MODULE_INDEX index, const SYS_
     const TCPIP_MAC_MODULE_CTRL* macControl = tcpipMacInit->macControl;
 
     if (index != (SYS_MODULE_INDEX)TCPIP_MODULE_MAC_G3ADP)
-    {   
+    {
         return SYS_MODULE_OBJ_INVALID;      // single instance
     }
     
@@ -393,15 +367,15 @@ SYS_MODULE_OBJ DRV_G3ADP_MAC_Initialize(const SYS_MODULE_INDEX index, const SYS_
     {   // already initialized
         return (SYS_MODULE_OBJ)pMacDrv;
     }
-            
+
     if (pMacDrv->g3AdpMacData.macFlags.open != 0U)
     {
         return SYS_MODULE_OBJ_INVALID;     // client already connected
     }
     
     // Init G3 Adp Mac data
-    (void) memset(&pMacDrv->g3AdpMacData, 0x0, sizeof(pMacDrv->g3AdpMacData)); 
-    
+    (void) memset(&pMacDrv->g3AdpMacData, 0x0, sizeof(pMacDrv->g3AdpMacData));
+
     // use initialization data
     pMacDrv->g3AdpMacData.pktAllocF = macControl->pktAllocF;
     pMacDrv->g3AdpMacData.pktFreeF = macControl->pktFreeF;
@@ -411,9 +385,7 @@ SYS_MODULE_OBJ DRV_G3ADP_MAC_Initialize(const SYS_MODULE_INDEX index, const SYS_
     pMacDrv->g3AdpMacData.eventParam = macControl->eventParam;
     
     // Init G3 ADP MAC Tx/Rx queues
-    SRV_QUEUE_Init(&pMacDrv->g3AdpMacData.adpTxQueue, DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT, SRV_QUEUE_TYPE_PRIORITY);
     SRV_QUEUE_Init(&pMacDrv->g3AdpMacData.adpRxQueue, DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT, SRV_QUEUE_TYPE_SINGLE);
-    (void) memset(g3adp_mac_txDataPool, 0, sizeof(g3adp_mac_txDataPool));
     (void) memset(g3adp_mac_rxDataPool, 0, sizeof(g3adp_mac_rxDataPool));
 
     pMacDrv->g3AdpMacData.macFlags.init = 1U;
@@ -428,7 +400,7 @@ SYS_MODULE_OBJ DRV_G3ADP_MAC_Initialize(const SYS_MODULE_INDEX index, const SYS_
 #if (TCPIP_STACK_MAC_DOWN_OPERATION != 0)
 void DRV_G3ADP_MAC_Deinitialize(SYS_MODULE_OBJ object)
 {
-    // This is the function that deinitializes the MAC. 
+    // This is the function that deinitializes the MAC.
     // It is called by the stack as a result of one interface going down.
     DRV_G3ADP_MAC_DRIVER * pMacDrv = &g3adp_mac_drv_dcpt;
     
@@ -437,7 +409,7 @@ void DRV_G3ADP_MAC_Deinitialize(SYS_MODULE_OBJ object)
         if(pMacDrv->g3AdpMacData.macFlags.init != 0U)
         {
             ADP_DATA_NOTIFICATIONS adpDataNot;
-                
+
             // Clear ADP Data Notifications
             adpDataNot.dataConfirm = NULL;
             adpDataNot.dataIndication = NULL;
@@ -553,33 +525,34 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_PacketTx(DRV_HANDLE hMac, TCPIP_MAC_PACKET * ptrPack
     // new packet for transmission
     while (ptrPacket != NULL)
     {
-        DRV_G3ADP_MAC_QUEUE_DATA * txQueueData;
-
-        // Get a Free Queue Element from the TX Queue Data Pool
-        txQueueData = (DRV_G3ADP_MAC_QUEUE_DATA *)lDRV_G3ADP_MAC_GetFreeQueueData(g3adp_mac_txDataPool, 0U);
-        if (txQueueData == NULL)
+        if (ptrPacket->pNetLayer != NULL)
         {
-            pMacDrv->g3AdpMacData.txStat.nTxQueueFull++;
-            return TCPIP_MAC_RES_QUEUE_TX_FULL;
+            IPV6_HEADER *ipv6Pkt;
+            uint16_t length;
+
+            ptrPacket->pktFlags |= (uint16_t)TCPIP_MAC_PKT_FLAG_QUEUED;
+            pMacDrv->g3AdpMacData.txStat.nTxPendBuffers++;
+
+            if (pMacDrv->g3AdpMacData.eventF != NULL)
+            {
+                pMacDrv->g3AdpMacData.eventF(TCPIP_MAC_EV_TX_DONE, pMacDrv->g3AdpMacData.eventParam);
+            }
+
+            // Send packets to G3 ADP
+            ipv6Pkt = (void *)ptrPacket->pNetLayer;
+            length = (uint16_t)sizeof(IPV6_HEADER) + TCPIP_Helper_htons(ipv6Pkt->PayloadLength);
+            ADP_DataRequest(length, (const uint8_t *)ipv6Pkt, (uintptr_t)ptrPacket, true, (uint8_t)(ptrPacket->pktPriority > 0U));
+
+            // Next packet
+            ptrPacket = ptrPacket->next;
         }
-
-        txQueueData->pMacPacket = ptrPacket;
-
-        // Append ADP packets to the ADP TX queue
-        SRV_QUEUE_Append_With_Priority(&pMacDrv->g3AdpMacData.adpTxQueue, 0xFFU - (uint32_t)ptrPacket->pktPriority,
-                                       &txQueueData->queueElement);
-
-        ptrPacket->pktFlags |= (uint16_t)TCPIP_MAC_PKT_FLAG_QUEUED;
-        pMacDrv->g3AdpMacData.txStat.nTxPendBuffers++;
-
-        if (pMacDrv->g3AdpMacData.eventF != NULL)
+        else
         {
-            pMacDrv->g3AdpMacData.eventF(TCPIP_MAC_EV_TX_DONE, pMacDrv->g3AdpMacData.eventParam);
+            pMacDrv->g3AdpMacData.txStat.nTxErrorPackets++;
+            return TCPIP_MAC_RES_PACKET_ERR;
         }
-
-        ptrPacket = ptrPacket->next;
     }
-    
+
     return TCPIP_MAC_RES_OK;
 }
 
@@ -594,8 +567,8 @@ TCPIP_MAC_PACKET* DRV_G3ADP_MAC_PacketRx (DRV_HANDLE hMac, TCPIP_MAC_RES* pRes, 
     {
         return NULL;
     }
-    
-    rxQueueData = (void *)SRV_QUEUE_Read_Or_Remove(&pMacDrv->g3AdpMacData.adpRxQueue, 
+
+    rxQueueData = (void *)SRV_QUEUE_Read_Or_Remove(&pMacDrv->g3AdpMacData.adpRxQueue,
             SRV_QUEUE_MODE_REMOVE, SRV_QUEUE_POSITION_HEAD);
     if (rxQueueData == NULL)
     {
@@ -649,13 +622,13 @@ bool DRV_G3ADP_MAC_LinkCheck(DRV_HANDLE hMac)
 }
 
 TCPIP_MAC_RES DRV_G3ADP_MAC_RxFilterHashTableEntrySet(DRV_HANDLE hMac, const TCPIP_MAC_ADDR* DestMACAddr)
-{ 
+{
     // not supported
     return TCPIP_MAC_RES_OK;
 }
 
 bool DRV_G3ADP_MAC_PowerMode(DRV_HANDLE hMac, TCPIP_MAC_POWER_MODE pwrMode)
-{   
+{
     // not supported
     return true;
 }
@@ -673,26 +646,7 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_Process(DRV_HANDLE hMac)
     {
         return TCPIP_MAC_RES_OP_ERR;
     }
-    
-    // G3 ADP TX Process
-    DRV_G3ADP_MAC_QUEUE_DATA * txQueueData = (void *)SRV_QUEUE_Read_Or_Remove(&pMacDrv->g3AdpMacData.adpTxQueue,
-        SRV_QUEUE_MODE_REMOVE, SRV_QUEUE_POSITION_HEAD);
-    while (txQueueData != NULL)
-    {
-        // Send packets to G3 ADP
-        TCPIP_MAC_PACKET * ptrPacket = txQueueData->pMacPacket;
-        if (ptrPacket->pNetLayer != NULL)
-        {
-            IPV6_HEADER *ipv6Pkt = (void *)ptrPacket->pNetLayer;
-            uint16_t length = (uint16_t)sizeof(IPV6_HEADER) + TCPIP_Helper_htons(ipv6Pkt->PayloadLength);
-            ADP_DataRequest(length, (const uint8_t *)ipv6Pkt, (uintptr_t)ptrPacket, true, (uint8_t)(ptrPacket->pktPriority > 0U));
-        }
 
-        // Get next Queued Data
-        txQueueData = (void *)SRV_QUEUE_Read_Or_Remove(&pMacDrv->g3AdpMacData.adpTxQueue,
-            SRV_QUEUE_MODE_REMOVE, SRV_QUEUE_POSITION_HEAD);
-    }
-    
     return TCPIP_MAC_RES_OK;
 }
 
@@ -746,10 +700,10 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMETERS*
             adpDataNot.dataConfirm = lDRV_G3ADP_MAC_AdpDataCfmCallback;
             adpDataNot.dataIndication = lDRV_G3ADP_MAC_AdpDataIndCallback;
             ADP_SetDataNotifications(&adpDataNot);
-                
+
             // Get MAC address from ADP Extended Address
             ADP_MacGetRequestSync((uint32_t)MAC_WRP_PIB_MANUF_EXTENDED_ADDRESS, 0U, &getConfirm);
-            (void) memcpy(&pMacParams->ifPhyAddress.v, &getConfirm.attributeValue[2], 
+            (void) memcpy(&pMacParams->ifPhyAddress.v, &getConfirm.attributeValue[2],
                     sizeof(pMacParams->ifPhyAddress));
 
             processFlags = (uint16_t)TCPIP_MAC_PROCESS_FLAG_RX | (uint16_t)TCPIP_MAC_PROCESS_FLAG_TX;
@@ -782,7 +736,7 @@ bool DRV_G3ADP_MAC_EventMaskSet(DRV_HANDLE hMac, TCPIP_MAC_EVENT macEvMask, bool
         uint16_t pendingEvents = (uint16_t)pMacDrv->g3AdpMacData.pendingEvents & ~((uint16_t)macEvMask);
         pMacDrv->g3AdpMacData.pendingEvents = (TCPIP_MAC_EVENT)pendingEvents;
     }
-        
+
     return true;
 }
 

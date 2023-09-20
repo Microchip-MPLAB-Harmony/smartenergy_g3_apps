@@ -50,9 +50,8 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-/* If APP_G3_MANAGEMENT_CONFORMANCE_TEST macro is defined, ADP parameters are configured
- * according to Conformance test and network discovery is performed before
- * network start */
+/* If APP_G3_MANAGEMENT_CONFORMANCE_TEST macro is defined, ADP parameters are
+ * configured according to Conformance test */
 //#define APP_G3_MANAGEMENT_CONFORMANCE_TEST
 
 /* PAN ID */

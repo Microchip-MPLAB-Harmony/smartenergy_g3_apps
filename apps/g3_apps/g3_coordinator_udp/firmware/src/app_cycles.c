@@ -55,8 +55,10 @@ APP_CYCLES_DATA app_cyclesData;
 
 static APP_CYCLES_STATISTICS_ENTRY app_cyclesStatistics[APP_EAP_SERVER_MAX_DEVICES];
 
+#ifndef APP_CYCLES_METROLOGY_DATA_REQUEST
 static const uint8_t app_cyclesPayload[16] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, \
         0x66, 0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};
+#endif
 
 // *****************************************************************************
 // *****************************************************************************
@@ -76,14 +78,11 @@ static void _APP_CYCLES_ShowReport(void)
 #if SYS_CONSOLE_DEVICE_MAX_INSTANCES > 0U
     uint32_t numErrors;
     uint8_t successRate;
-    uint64_t currentTimeCount = SYS_TIME_Counter64Get();
-    uint64_t elapsedTimeCount = currentTimeCount - app_cyclesData.timeCountCycleStart;
-    uint64_t elapsedTimeCountTotal = currentTimeCount - app_cyclesData.timeCountFirstCycleStart;
     SYS_DEBUG_PRINT(SYS_ERROR_INFO, "APP_CYCLES: Cycle %u finished. Duration %u ms "
             "(average total: %u ms; average device: %u ms)\r\n",
-            app_cyclesData.cycleIndex, SYS_TIME_CountToMS(elapsedTimeCount),
-            SYS_TIME_CountToMS(elapsedTimeCountTotal / (app_cyclesData.cycleIndex + 1)),
-            SYS_TIME_CountToMS(elapsedTimeCount / app_cyclesData.numDevicesJoined));
+            app_cyclesData.cycleIndex, SYS_TIME_CountToMS(app_cyclesData.timeCountTotalCycle),
+            SYS_TIME_CountToMS(app_cyclesData.timeCountTotal / (app_cyclesData.cycleIndex + 1)),
+            SYS_TIME_CountToMS(app_cyclesData.timeCountTotalCycle / app_cyclesData.numDevicesJoined));
 
     SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_CYCLES: Summary\r\n");
 
@@ -98,7 +97,7 @@ static void _APP_CYCLES_ShowReport(void)
                     " Average duration %u\r\n", app_cyclesStatistics[i].shortAddress,
                     app_cyclesStatistics[i].numUdpRequests, app_cyclesStatistics[i].numUdpReplies,
                     successRate, numErrors,
-                    SYS_TIME_CountToMS(app_cyclesStatistics[i].timeCountTotal / (app_cyclesData.cycleIndex + 1)));
+                    SYS_TIME_CountToMS(app_cyclesStatistics[i].timeCountTotal / app_cyclesStatistics[i].numCycles));
         }
     }
 
@@ -111,7 +110,9 @@ static void _APP_CYCLES_ShowReport(void)
 
 static void _APP_CYCLES_SendPacket(void)
 {
+#ifndef APP_CYCLES_METROLOGY_DATA_REQUEST
     uint16_t availableTxBytes, chunkSize, payloadSize;
+#endif
 
     if (app_cyclesData.availableBuffers == false)
     {
@@ -122,6 +123,7 @@ static void _APP_CYCLES_SendPacket(void)
 
     app_cyclesData.packetPending = false;
 
+#ifndef APP_CYCLES_METROLOGY_DATA_REQUEST
     /* Get the number of bytes that can be written to the socket */
     availableTxBytes = TCPIP_UDP_PutIsReady(app_cyclesData.socket);
     if (availableTxBytes < app_cyclesData.packetSize)
@@ -130,10 +132,12 @@ static void _APP_CYCLES_SendPacket(void)
         _APP_CYCLES_NextPacket();
         return;
     }
+#endif
 
     /* Put the first byte: 0x01 (UDP request) */
     TCPIP_UDP_Put(app_cyclesData.socket, 1);
 
+#ifndef APP_CYCLES_METROLOGY_DATA_REQUEST
     /* Write the remaining UDP payload bytes. Implemented in a loop, processing
      * up to 16 bytes at a time. This limits memory usage while maximizing
      * performance. */
@@ -149,12 +153,15 @@ static void _APP_CYCLES_SendPacket(void)
 
         TCPIP_UDP_ArrayPut(app_cyclesData.socket, app_cyclesPayload, chunkSize);
     }
+#endif
 
     /* Send the UDP request */
     app_cyclesData.timeCountUdpRequest = SYS_TIME_Counter64Get();
     TCPIP_UDP_Flush(app_cyclesData.socket);
 
+#ifndef APP_CYCLES_METROLOGY_DATA_REQUEST
     SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: UDP packet size %hu\r\n", app_cyclesData.packetSize);
+#endif
 
     /* Create timer for timeout to detect UDP reply not received */
     app_cyclesData.timeExpired = false;
@@ -194,7 +201,7 @@ static void _APP_CYCLES_StartDeviceCycle(void)
 
     /* Open UDP client socket */
     app_cyclesData.socket = TCPIP_UDP_ClientOpen(IP_ADDRESS_TYPE_IPV6,
-            APP_UDP_RESPONDER_SOCKET_PORT_CONFORMANCE, (IP_MULTI_ADDRESS*) &targetAddress);
+            APP_CYCLES_SOCKET_PORT, (IP_MULTI_ADDRESS*) &targetAddress);
 
     SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: Starting cycle for %s (Short Address: 0x%04X,"
             " EUI64: 0x%02X%02X%02X%02X%02X%02X%02X%02X)\r\n", targetAddressString, shortAddress,
@@ -223,20 +230,26 @@ static void _APP_CYCLES_StartDeviceCycle(void)
     }
 
     app_cyclesData.pStatsEntry = pStatsEntry;
+    pStatsEntry->numCycles++;
+
+    _APP_CYCLES_SendPacket();
 }
 
 static void _APP_CYCLES_StartCycle(void)
 {
     app_cyclesData.deviceIndex = 0;
+    app_cyclesData.timeCountTotalCycle = 0;
+#ifndef APP_CYCLES_METROLOGY_DATA_REQUEST
     app_cyclesData.packetSize = APP_CYCLES_PACKET_SIZE_1;
+#endif
     app_cyclesData.numDevicesJoined = APP_EAP_SERVER_GetNumDevicesJoined();
     SYS_DEBUG_PRINT(SYS_ERROR_INFO, "APP_CYCLES: Starting cycle %u. %hu nodes in cycle\r\n",
             app_cyclesData.cycleIndex, app_cyclesData.numDevicesJoined);
-    app_cyclesData.timeCountCycleStart = SYS_TIME_Counter64Get();
 }
 
 static void _APP_CYCLES_NextPacket(void)
 {
+#ifndef APP_CYCLES_METROLOGY_DATA_REQUEST
     if (app_cyclesData.packetSize == APP_CYCLES_PACKET_SIZE_1)
     {
         /* Next size */
@@ -261,10 +274,38 @@ static void _APP_CYCLES_NextPacket(void)
             _APP_CYCLES_StartCycle();
         }
 
-        _APP_CYCLES_StartDeviceCycle();
+        /* Start timer to wait before next device cycle */
+        app_cyclesData.timeExpired = false;
+        app_cyclesData.timeHandle = SYS_TIME_CallbackRegisterMS(APP_SYS_TIME_CallbackSetFlag,
+                (uintptr_t) &app_cyclesData.timeExpired, APP_CYCLES_TIME_BTW_DEVICE_CYCLES_MS,
+               SYS_TIME_SINGLE);
+
+        app_cyclesData.state = APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE;
+
+        return;
     }
 
     _APP_CYCLES_SendPacket();
+#else
+    /* Next device */
+    app_cyclesData.deviceIndex++;
+    if (app_cyclesData.deviceIndex == app_cyclesData.numDevicesJoined)
+    {
+        _APP_CYCLES_ShowReport();
+
+        /* Start again with first device */
+        app_cyclesData.cycleIndex++;
+        _APP_CYCLES_StartCycle();
+    }
+
+    /* Start timer to wait before next device cycle */
+    app_cyclesData.timeExpired = false;
+    app_cyclesData.timeHandle = SYS_TIME_CallbackRegisterMS(APP_SYS_TIME_CallbackSetFlag,
+            (uintptr_t) &app_cyclesData.timeExpired, APP_CYCLES_TIME_BTW_DEVICE_CYCLES_MS,
+           SYS_TIME_SINGLE);
+
+    app_cyclesData.state = APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE;
+#endif
 }
 
 // *****************************************************************************
@@ -288,6 +329,7 @@ void APP_CYCLES_Initialize ( void )
 
     /* Initialize application variables */
     app_cyclesData.socket = INVALID_SOCKET;
+    app_cyclesData.timeCountTotal = 0;
     app_cyclesData.numUdpRequests = 0;
     app_cyclesData.numUdpReplies = 0;
     app_cyclesData.cycleIndex = 0;
@@ -298,6 +340,7 @@ void APP_CYCLES_Initialize ( void )
     for (uint16_t i = 0; i < APP_EAP_SERVER_MAX_DEVICES; i++)
     {
         app_cyclesStatistics[i].timeCountTotal = 0;
+        app_cyclesStatistics[i].numCycles = 0;
         app_cyclesStatistics[i].numUdpRequests = 0;
         app_cyclesStatistics[i].numUdpReplies = 0;
         app_cyclesStatistics[i].shortAddress = 0xFFFF;
@@ -347,7 +390,7 @@ void APP_CYCLES_Tasks ( void )
             if (app_cyclesData.numDevicesJoined > 0)
             {
                 /* First device joined the G3 network. Start timer to wait
-                 * before next cycle */
+                 * before first cycle */
                 app_cyclesData.state = APP_CYCLES_STATE_WAIT_FIRST_CYCLE;
                 app_cyclesData.timeHandle = SYS_TIME_CallbackRegisterMS(APP_SYS_TIME_CallbackSetFlag,
                         (uintptr_t) &app_cyclesData.timeExpired, APP_CYCLES_TIME_WAIT_CYCLE_MS,
@@ -378,8 +421,6 @@ void APP_CYCLES_Tasks ( void )
                 /* Waiting time expired. Start first cycle */
                 _APP_CYCLES_StartCycle();
                 _APP_CYCLES_StartDeviceCycle();
-                app_cyclesData.timeCountFirstCycleStart = app_cyclesData.timeCountCycleStart;
-                _APP_CYCLES_SendPacket();
                 app_cyclesData.state = APP_CYCLES_STATE_CYCLING;
             }
 
@@ -394,12 +435,14 @@ void APP_CYCLES_Tasks ( void )
             uint8_t udpProtocol;
             bool payloadOk = true;
 
-            if (app_cyclesData.timeExpired == true)
+            if ((app_cyclesData.timeExpired == true) && (app_cyclesData.availableBuffers == true))
             {
                 /* UDP reply not received */
                 currentTimeCount = SYS_TIME_Counter64Get();
                 elapsedTimeCount = currentTimeCount - app_cyclesData.timeCountUdpRequest;
                 app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
+                app_cyclesData.timeCountTotal += elapsedTimeCount;
+                app_cyclesData.timeCountTotalCycle += elapsedTimeCount;
 
                 SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_CYCLES: UDP reply not received (timeout %u ms)\r\n",
                         SYS_TIME_CountToMS(elapsedTimeCount));
@@ -421,11 +464,14 @@ void APP_CYCLES_Tasks ( void )
             /* UDP frame received. Compute round-trip time. */
             elapsedTimeCount = SYS_TIME_Counter64Get() - app_cyclesData.timeCountUdpRequest;
             app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
+            app_cyclesData.timeCountTotal += elapsedTimeCount;
+            app_cyclesData.timeCountTotalCycle += elapsedTimeCount;
             SYS_TIME_TimerDestroy(app_cyclesData.timeHandle);
 
             /* Read first received byte (protocol) */
             TCPIP_UDP_Get(app_cyclesData.socket, &udpProtocol);
 
+#ifndef APP_CYCLES_METROLOGY_DATA_REQUEST
             if (rxPayloadSize != app_cyclesData.packetSize)
             {
                 /* Wrong UDP packet size */
@@ -458,6 +504,36 @@ void APP_CYCLES_Tasks ( void )
                     }
                }
             }
+#else
+            if (rxPayloadSize != (sizeof(APP_CYCLES_METROLOGY_DATA) + 1))
+            {
+                /* Wrong UDP packet size */
+                payloadOk = false;
+            }
+            else if (udpProtocol == 2)
+            {
+                APP_CYCLES_METROLOGY_DATA metData;
+
+                /* Read metrology data */
+                TCPIP_UDP_ArrayGet(app_cyclesData.socket, (uint8_t *) &metData, sizeof(metData));
+
+                SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: RMS voltage Ua=%.3fV Ub=%.3fV Uc=%.3fV\r\n"
+                        "RMS current Ia=%.4fA Ib=%.4fA Ic=%.4fA, Iini=%.4fA Inm=%.4fA Inmi=%.4fA\r\n"
+                        "RMS active power Pt=%.1fW Pa=%.1fW Pb=%.1fW Pc=%.1fW\r\n"
+                        "RMS reactive power Qt=%.1fW Qa=%.1fW Qb=%.1fW Qc=%.1fW\r\n"
+                        "RMS aparent power St=%.1fW Sa=%.1fW Sb=%.1fW Sc=%.1fW\r\n"
+                        "Frequency=%.2fHz\r\n"
+                        "Angle_A=%.3f Angle_B=%.3f Angle_C=%.3f Angle_N=%.3f\r\n",
+                        (float)metData.rmsUA/10000, (float)metData.rmsUB/10000, (float)metData.rmsUC/10000,
+                        (float)metData.rmsIA/10000, (float)metData.rmsIB/10000, (float)metData.rmsIC/10000,
+                        (float)metData.rmsINI/10000, (float)metData.rmsINM/10000, (float)metData.rmsINMI/10000,
+                        (float)metData.rmsPT/10, (float)metData.rmsPA/10, (float)metData.rmsPB/10, (float)metData.rmsPC/10,
+                        (float)metData.rmsQT/10, (float)metData.rmsQA/10, (float)metData.rmsQB/10, (float)metData.rmsQC/10,
+                        (float)metData.rmsST/10, (float)metData.rmsSA/10, (float)metData.rmsSB/10, (float)metData.rmsSC/10,
+                        (float)metData.freq/100,
+                        (float)metData.angleA/100000, (float)metData.angleB/100000, (float)metData.angleC/100000, (float)metData.angleN/100000);
+            }
+#endif
             else
             {
                 /* Wrong UDP protocol, it must be 0x02 (UDP reply) */
@@ -484,6 +560,18 @@ void APP_CYCLES_Tasks ( void )
 
             /* Next UDP request */
             _APP_CYCLES_NextPacket();
+            break;
+        }
+
+        /* State to wait for the next device UDP cycle */
+        case APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE:
+        {
+            if (app_cyclesData.timeExpired == true)
+            {
+                /* Waiting time expired. Start next device cycle */
+                _APP_CYCLES_StartDeviceCycle();
+                app_cyclesData.state = APP_CYCLES_STATE_CYCLING;
+            }
 
             break;
         }

@@ -415,29 +415,28 @@ void DRV_PLC_BOOT_Tasks( void )
             sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_VALIDATING;
         }
     }
-    else if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_VALIDATING)
+    else
     {
-        /* Check firmware */
-        if (lDRV_PLC_BOOT_CheckFirmware())
+        if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_VALIDATING)
         {
-            /* Update boot status */
-            sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_READY;
-        }
-        else
-        {
-            if ((sDrvPlcBootInfo.validationCounter--) > 0U)
+            /* Check firmware */
+            if (lDRV_PLC_BOOT_CheckFirmware())
             {
-                sDrvPlcHalObj->delay(200);
+                /* Update boot status */
+                sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_READY;
             }
             else
             {
-                sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_ERROR;
+                if ((sDrvPlcBootInfo.validationCounter--) > 0U)
+                {
+                    sDrvPlcHalObj->delay(200);
+                }
+                else
+                {
+                    sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_ERROR;
+                }
             }
         }
-    }
-    else
-    {
-        sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_ERROR;
     }
 }
 

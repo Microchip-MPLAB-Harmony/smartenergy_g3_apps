@@ -87,6 +87,8 @@ static void _APP_CYCLES_IcmpCallback (
         app_cyclesData.numEchoReplies++;
         elapsedTimeCount = currentTimeCount - app_cyclesData.timeCountEchoRequest;
         app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
+        app_cyclesData.timeCountTotal += elapsedTimeCount;
+        app_cyclesData.timeCountTotalCycle += elapsedTimeCount;
         app_cyclesData.pStatsEntry->numEchoReplies++;
 
         SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: ICMPv6 echo reply received (%u ms)\r\n",
@@ -184,16 +186,19 @@ static void _APP_CYCLES_StartDeviceCycle(void)
     }
 
     app_cyclesData.pStatsEntry = pStatsEntry;
+    pStatsEntry->numCycles++;
+
+    _APP_CYCLES_SendPacket();
 }
 
 static void _APP_CYCLES_StartCycle(void)
 {
     app_cyclesData.deviceIndex = 0;
+    app_cyclesData.timeCountTotalCycle = 0;
     app_cyclesData.packetSize = APP_CYCLES_PACKET_SIZE_1;
     app_cyclesData.numDevicesJoined = APP_EAP_SERVER_GetNumDevicesJoined();
     SYS_DEBUG_PRINT(SYS_ERROR_INFO, "APP_CYCLES: Starting cycle %u. %hu nodes in cycle\r\n",
             app_cyclesData.cycleIndex, app_cyclesData.numDevicesJoined);
-    app_cyclesData.timeCountCycleStart = SYS_TIME_Counter64Get();
 }
 
 static void _APP_CYCLES_NextPacket(void)
@@ -217,14 +222,11 @@ static void _APP_CYCLES_NextPacket(void)
         {
             uint32_t numErrors;
             uint8_t successRate;
-            uint64_t currentTimeCount = SYS_TIME_Counter64Get();
-            uint64_t elapsedTimeCount = currentTimeCount - app_cyclesData.timeCountCycleStart;
-            uint64_t elapsedTimeCountTotal = currentTimeCount - app_cyclesData.timeCountFirstCycleStart;
             SYS_DEBUG_PRINT(SYS_ERROR_INFO, "APP_CYCLES: Cycle %u finished. Duration %u ms "
                     "(average total: %u ms; average device: %u ms)\r\n",
-                    app_cyclesData.cycleIndex, SYS_TIME_CountToMS(elapsedTimeCount),
-                    SYS_TIME_CountToMS(elapsedTimeCountTotal / (app_cyclesData.cycleIndex + 1)),
-                    SYS_TIME_CountToMS(elapsedTimeCount / app_cyclesData.numDevicesJoined));
+                    app_cyclesData.cycleIndex, SYS_TIME_CountToMS(app_cyclesData.timeCountTotalCycle),
+                    SYS_TIME_CountToMS(app_cyclesData.timeCountTotal / (app_cyclesData.cycleIndex + 1)),
+                    SYS_TIME_CountToMS(app_cyclesData.timeCountTotalCycle / app_cyclesData.numDevicesJoined));
 
             SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_CYCLES: Summary\r\n");
 
@@ -239,7 +241,7 @@ static void _APP_CYCLES_NextPacket(void)
                             " Average duration %u\r\n", app_cyclesStatistics[i].shortAddress,
                             app_cyclesStatistics[i].numEchoRequests, app_cyclesStatistics[i].numEchoReplies,
                             successRate, numErrors,
-                            SYS_TIME_CountToMS(app_cyclesStatistics[i].timeCountTotal / (app_cyclesData.cycleIndex + 1)));
+                            SYS_TIME_CountToMS(app_cyclesStatistics[i].timeCountTotal / app_cyclesStatistics[i].numCycles));
                 }
             }
 
@@ -254,7 +256,15 @@ static void _APP_CYCLES_NextPacket(void)
             _APP_CYCLES_StartCycle();
         }
 
-        _APP_CYCLES_StartDeviceCycle();
+        /* Start timer to wait before next device cycle */
+        app_cyclesData.timeExpired = false;
+        app_cyclesData.timeHandle = SYS_TIME_CallbackRegisterMS(APP_SYS_TIME_CallbackSetFlag,
+                (uintptr_t) &app_cyclesData.timeExpired, APP_CYCLES_TIME_BTW_DEVICE_CYCLES_MS,
+               SYS_TIME_SINGLE);
+
+        app_cyclesData.state = APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE;
+
+        return;
     }
 
     _APP_CYCLES_SendPacket();
@@ -280,6 +290,7 @@ void APP_CYCLES_Initialize ( void )
     app_cyclesData.state = APP_CYCLES_STATE_WAIT_TCPIP_READY;
 
     /* Initialize application variables */
+    app_cyclesData.timeCountTotal = 0;
     app_cyclesData.numEchoRequests = 0;
     app_cyclesData.numEchoReplies = 0;
     app_cyclesData.cycleIndex = 0;
@@ -291,6 +302,7 @@ void APP_CYCLES_Initialize ( void )
     for (uint16_t i = 0; i < APP_EAP_SERVER_MAX_DEVICES; i++)
     {
         app_cyclesStatistics[i].timeCountTotal = 0;
+        app_cyclesStatistics[i].numCycles = 0;
         app_cyclesStatistics[i].numEchoRequests = 0;
         app_cyclesStatistics[i].numEchoReplies = 0;
         app_cyclesStatistics[i].shortAddress = 0xFFFF;
@@ -376,7 +388,7 @@ void APP_CYCLES_Tasks ( void )
             if (app_cyclesData.numDevicesJoined > 0)
             {
                 /* First device joined the G3 network. Start timer to wait
-                 * before next cycle */
+                 * before first cycle */
                 app_cyclesData.state = APP_CYCLES_STATE_WAIT_FIRST_CYCLE;
                 app_cyclesData.timeHandle = SYS_TIME_CallbackRegisterMS(APP_SYS_TIME_CallbackSetFlag,
                         (uintptr_t) &app_cyclesData.timeExpired, APP_CYCLES_TIME_WAIT_CYCLE_MS,
@@ -407,8 +419,6 @@ void APP_CYCLES_Tasks ( void )
                 /* Waiting time expired. Start first cycle */
                 _APP_CYCLES_StartCycle();
                 _APP_CYCLES_StartDeviceCycle();
-                app_cyclesData.timeCountFirstCycleStart = app_cyclesData.timeCountCycleStart;
-                _APP_CYCLES_SendPacket();
                 app_cyclesData.state = APP_CYCLES_STATE_CYCLING;
             }
 
@@ -418,22 +428,40 @@ void APP_CYCLES_Tasks ( void )
         /* Cycling state: Sending ICMPv6 echo requests to registered devices */
         case APP_CYCLES_STATE_CYCLING:
         {
-            if (app_cyclesData.icmpResult == false)
+            if (app_cyclesData.availableBuffers == true)
             {
-                /* Error sending ICMPv6 echo request. Try again */
-                _APP_CYCLES_SendPacket();
+                if (app_cyclesData.icmpResult == false)
+                {
+                    /* Error sending ICMPv6 echo request. Try again */
+                    _APP_CYCLES_SendPacket();
+                }
+                else if (app_cyclesData.timeExpired == true)
+                {
+                    /* ICMPv6 echo reply not received */
+                    uint64_t elapsedTimeCount = SYS_TIME_Counter64Get() - app_cyclesData.timeCountEchoRequest;
+                    app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
+                    app_cyclesData.timeCountTotal += elapsedTimeCount;
+                    app_cyclesData.timeCountTotalCycle += elapsedTimeCount;
+
+                    SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_CYCLES: ICMPv6 echo reply not received (timeout %u ms)\r\n",
+                            SYS_TIME_CountToMS(elapsedTimeCount));
+
+                    /* Next ICMPv6 echo request */
+                    _APP_CYCLES_NextPacket();
+                }
             }
-            else if (app_cyclesData.timeExpired == true)
+
+            break;
+        }
+
+        /* State to wait for the next device UDP cycle */
+        case APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE:
+        {
+            if (app_cyclesData.timeExpired == true)
             {
-                /* ICMPv6 echo reply not received */
-                uint64_t elapsedTimeCount = SYS_TIME_Counter64Get() - app_cyclesData.timeCountEchoRequest;
-                app_cyclesData.pStatsEntry->timeCountTotal += elapsedTimeCount;
-
-                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_CYCLES: ICMPv6 echo reply not received (timeout %u ms)\r\n",
-                        SYS_TIME_CountToMS(elapsedTimeCount));
-
-                /* Next ICMPv6 echo request */
-                _APP_CYCLES_NextPacket();
+                /* Waiting time expired. Start next device cycle */
+                _APP_CYCLES_StartDeviceCycle();
+                app_cyclesData.state = APP_CYCLES_STATE_CYCLING;
             }
 
             break;
