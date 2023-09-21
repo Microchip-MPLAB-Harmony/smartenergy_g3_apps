@@ -119,7 +119,7 @@ typedef struct
     {
         if (params->status == G3_SUCCESS)
         {
-            
+
         }
     }
     </code>
@@ -190,7 +190,7 @@ typedef void (*LBP_ADP_NETWORK_LEAVE_IND_CALLBACK)(void);
     {
         if (status == G3_SUCCESS)
         {
-            
+
         }
     }
     </code>
@@ -243,11 +243,12 @@ typedef struct {
 
   Example:
     <code>
+    ADP_Open(ADP_BAND_CENELEC_A);
     LBP_InitDev();
     </code>
 
   Remarks:
-    This routine must be called before any other Coordinator LBP API function.
+    This routine must be called before any other Device LBP API function.
 */
 void LBP_InitDev(void);
 
@@ -317,7 +318,7 @@ Summary:
     </code>
 
   Remarks:
-    This routine should be called from system tasks.
+    None.
 */
 void LBP_TasksDev(void);
 
@@ -424,7 +425,7 @@ void LBP_ForceRegister(ADP_EXTENDED_ADDRESS *pEUI64Address,
   Description:
     The LBP Join Request primitive allows the upper layer to join an existing
     network.
-    
+
     Result is provided in the corresponding LBP Join Confirm callback.
 
   Precondition:
@@ -474,7 +475,7 @@ void LBP_AdpNetworkJoinRequest(uint16_t panId, uint16_t lbaAddress,
   Description:
     The LBP Leave Request primitive allows a non-coordinator device to remove
     itself from the network.
-    
+
     Result is provided in the corresponding LBP Leave Confirm callback.
 
   Precondition:

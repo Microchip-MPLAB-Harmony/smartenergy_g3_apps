@@ -552,7 +552,7 @@ void APP_UDP_RESPONDER_Tasks ( void )
 
                 default:
                 {
-                    SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "Drop UDP message\r\n");
+                    SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_UDP_RESPONDER: Drop UDP message\r\n");
                     break;
                 }
             }
