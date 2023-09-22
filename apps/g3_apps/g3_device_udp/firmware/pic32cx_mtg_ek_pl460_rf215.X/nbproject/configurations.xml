@@ -627,6 +627,7 @@
       <itemPath>../src/app_g3_management.h</itemPath>
       <itemPath>../src/app_udp_responder.h</itemPath>
       <itemPath>../src/app_storage_pic32cxmt.h</itemPath>
+      <itemPath>../src/app_tcpip_management.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -932,6 +933,7 @@
       <itemPath>../src/app_g3_management.c</itemPath>
       <itemPath>../src/app_udp_responder.c</itemPath>
       <itemPath>../src/app_storage_pic32cxmt.c</itemPath>
+      <itemPath>../src/app_tcpip_management.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

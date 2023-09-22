@@ -188,7 +188,7 @@ static void lAPP_UDP_RESPONDER_Tasks(  void *pvParameters  )
     while(true)
     {
         APP_UDP_RESPONDER_Tasks();
-        vTaskDelay(5U / portTICK_PERIOD_MS);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 /* Handle for the APP_STORAGE_PIC32CXMT_Tasks. */
@@ -209,7 +209,18 @@ static void lAPP_UDP_METROLOGY_Tasks(  void *pvParameters  )
     while(true)
     {
         APP_UDP_METROLOGY_Tasks();
-        vTaskDelay(5U / portTICK_PERIOD_MS);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
+    }
+}
+/* Handle for the APP_TCPIP_MANAGEMENT_Tasks. */
+TaskHandle_t xAPP_TCPIP_MANAGEMENT_Tasks;
+
+static void lAPP_TCPIP_MANAGEMENT_Tasks(  void *pvParameters  )
+{   
+    while(true)
+    {
+        APP_TCPIP_MANAGEMENT_Tasks();
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 
@@ -423,7 +434,7 @@ void SYS_Tasks ( void )
     /* Create OS Thread for APP_UDP_RESPONDER_Tasks. */
     (void) xTaskCreate((TaskFunction_t) lAPP_UDP_RESPONDER_Tasks,
                 "APP_UDP_RESPONDER_Tasks",
-                512,
+                256,
                 NULL,
                 1,
                 &xAPP_UDP_RESPONDER_Tasks);
@@ -439,10 +450,18 @@ void SYS_Tasks ( void )
     /* Create OS Thread for APP_UDP_METROLOGY_Tasks. */
     (void) xTaskCreate((TaskFunction_t) lAPP_UDP_METROLOGY_Tasks,
                 "APP_UDP_METROLOGY_Tasks",
-                512,
+                256,
                 NULL,
                 1,
                 &xAPP_UDP_METROLOGY_Tasks);
+
+    /* Create OS Thread for APP_TCPIP_MANAGEMENT_Tasks. */
+    (void) xTaskCreate((TaskFunction_t) lAPP_TCPIP_MANAGEMENT_Tasks,
+                "APP_TCPIP_MANAGEMENT_Tasks",
+                256,
+                NULL,
+                1,
+                &xAPP_TCPIP_MANAGEMENT_Tasks);
 
 
 

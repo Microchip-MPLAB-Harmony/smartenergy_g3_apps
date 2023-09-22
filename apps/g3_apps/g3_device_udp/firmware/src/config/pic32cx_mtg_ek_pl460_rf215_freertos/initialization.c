@@ -536,9 +536,9 @@ void SYS_Initialize ( void* data )
 
 
 
+    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
-    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
 
@@ -600,6 +600,7 @@ void SYS_Initialize ( void* data )
     APP_G3_MANAGEMENT_Initialize();
     APP_UDP_RESPONDER_Initialize();
     APP_STORAGE_PIC32CXMT_Initialize();
+    APP_TCPIP_MANAGEMENT_Initialize();
 
 
     NVIC_Initialize();

@@ -152,7 +152,7 @@ static void _APP_CYCLES_StartDeviceCycle(void)
     /* Create link-local address based on short address and PAN ID */
     shortAddress = APP_EAP_SERVER_GetDeviceAddress(app_cyclesData.deviceIndex, eui64);
     panId = APP_G3_MANAGEMENT_GetPanId();
-    TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_LINK_LOCAL_ADDRESS_G3, &app_cyclesData.targetAddress);
+    TCPIP_Helper_StringToIPv6Address(APP_TCPIP_MANAGEMENT_IPV6_LINK_LOCAL_ADDRESS_G3, &app_cyclesData.targetAddress);
     app_cyclesData.targetAddress.v[8] = (uint8_t) (panId >> 8);
     app_cyclesData.targetAddress.v[9] = (uint8_t) panId;
     app_cyclesData.targetAddress.v[14] = (uint8_t) (shortAddress >> 8);
@@ -334,46 +334,10 @@ void APP_CYCLES_Tasks ( void )
             }
             else if(tcpipStat == SYS_STATUS_READY)
             {
-                IPV6_ADDR ipv6Addr;
-                uint8_t* eui64;
-                uint16_t panId;
-
                 /* TCP/IP stack ready. Register ICMPv6 callback */
                 TCPIP_ICMPV6_CallbackRegister(_APP_CYCLES_IcmpCallback);
                 app_cyclesData.netHandle = TCPIP_STACK_NetHandleGet("G3ADPMAC");
                 app_cyclesData.state = APP_CYCLES_STATE_WAIT_FIRST_JOIN;
-
-                /* Configure link-local address, based on PAN ID and Short
-                 * Address */
-                TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_LINK_LOCAL_ADDRESS_G3, &ipv6Addr);
-                panId = APP_G3_MANAGEMENT_GetPanId();
-                ipv6Addr.v[8] = (uint8_t) (panId >> 8);
-                ipv6Addr.v[9] = (uint8_t) panId;
-                ipv6Addr.v[14] = (uint8_t) (APP_G3_MANAGEMENT_SHORT_ADDRESS >> 8);
-                ipv6Addr.v[15] = (uint8_t) APP_G3_MANAGEMENT_SHORT_ADDRESS;
-                TCPIP_IPV6_UnicastAddressAdd(app_cyclesData.netHandle,
-                        &ipv6Addr, 0, false);
-
-                /* Configure Unique Local Link (ULA) address, based on PAN ID
-                 * and EUI64 */
-                TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_NETWORK_PREFIX_G3, &ipv6Addr);
-                eui64 = APP_G3_MANAGEMENT_GetExtendedAddress();
-                ipv6Addr.v[6] = (uint8_t) (panId >> 8);
-                ipv6Addr.v[7] = (uint8_t) panId;
-                ipv6Addr.v[8] = eui64[7];
-                ipv6Addr.v[9] = eui64[6];
-                ipv6Addr.v[10] = eui64[5];
-                ipv6Addr.v[11] = eui64[4];
-                ipv6Addr.v[12] = eui64[3];
-                ipv6Addr.v[13] = eui64[2];
-                ipv6Addr.v[14] = eui64[1];
-                ipv6Addr.v[15] = eui64[0];
-                TCPIP_IPV6_UnicastAddressAdd(app_cyclesData.netHandle,
-                        &ipv6Addr, APP_TCPIP_IPV6_NETWORK_PREFIX_G3_LEN, false);
-
-                /* Set PAN ID in TCP/IP stack in order to recognize all
-                 * link-local addresses in the network as neighbors */
-                TCPIP_IPV6_G3PLC_PanIdSet(app_cyclesData.netHandle, panId);
             }
 
             break;

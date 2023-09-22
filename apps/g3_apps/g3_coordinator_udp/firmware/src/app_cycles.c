@@ -186,7 +186,7 @@ static void _APP_CYCLES_StartDeviceCycle(void)
     /* Create link-local address based on short address and PAN ID */
     shortAddress = APP_EAP_SERVER_GetDeviceAddress(app_cyclesData.deviceIndex, eui64);
     panId = APP_G3_MANAGEMENT_GetPanId();
-    TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_LINK_LOCAL_ADDRESS_G3, &targetAddress);
+    TCPIP_Helper_StringToIPv6Address(APP_TCPIP_MANAGEMENT_IPV6_LINK_LOCAL_ADDRESS_G3, &targetAddress);
     targetAddress.v[8] = (uint8_t) (panId >> 8);
     targetAddress.v[9] = (uint8_t) panId;
     targetAddress.v[14] = (uint8_t) (shortAddress >> 8);
@@ -374,7 +374,6 @@ void APP_CYCLES_Tasks ( void )
             else if(tcpipStat == SYS_STATUS_READY)
             {
                 /* TCP/IP stack ready */
-                app_cyclesData.netHandle = TCPIP_STACK_NetHandleGet("G3ADPMAC");
                 app_cyclesData.state = APP_CYCLES_STATE_WAIT_FIRST_JOIN;
             }
 

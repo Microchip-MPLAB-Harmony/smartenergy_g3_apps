@@ -111,6 +111,9 @@ void SYS_Tasks ( void )
     /* Call Application task APP_STORAGE_PIC32CXMT. */
     APP_STORAGE_PIC32CXMT_Tasks();
 
+    /* Call Application task APP_TCPIP_MANAGEMENT. */
+    APP_TCPIP_MANAGEMENT_Tasks();
+
 
 
 

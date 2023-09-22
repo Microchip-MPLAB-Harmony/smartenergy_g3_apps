@@ -66,6 +66,9 @@ extern TaskHandle_t xAPP_UDP_RESPONDER_Tasks;
 /* Declaration of  APP_STORAGE_PIC32CXMT_Tasks task handle */
 extern TaskHandle_t xAPP_STORAGE_PIC32CXMT_Tasks;
 
+/* Declaration of  APP_TCPIP_MANAGEMENT_Tasks task handle */
+extern TaskHandle_t xAPP_TCPIP_MANAGEMENT_Tasks;
+
 
 
 

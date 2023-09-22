@@ -146,6 +146,9 @@ DRV_SLCDC_Update();
     /* Call Application task APP_UDP_METROLOGY. */
     APP_UDP_METROLOGY_Tasks();
 
+    /* Call Application task APP_TCPIP_MANAGEMENT. */
+    APP_TCPIP_MANAGEMENT_Tasks();
+
 
 
 

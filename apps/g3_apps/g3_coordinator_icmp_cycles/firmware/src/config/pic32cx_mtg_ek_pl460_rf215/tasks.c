@@ -114,6 +114,9 @@ void SYS_Tasks ( void )
     /* Call Application task APP_CYCLES. */
     APP_CYCLES_Tasks();
 
+    /* Call Application task APP_TCPIP_MANAGEMENT. */
+    APP_TCPIP_MANAGEMENT_Tasks();
+
 
 
 

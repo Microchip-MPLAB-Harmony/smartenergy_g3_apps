@@ -50,13 +50,6 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-/* Generic G3 IPv6 local-link address */
-#define APP_TCPIP_IPV6_LINK_LOCAL_ADDRESS_G3 "FE80:0:0:0:781D:FF:FE00:0001"
-
-/* Network prefix for G3 unique local address (ULA) */
-#define APP_TCPIP_IPV6_NETWORK_PREFIX_G3     "FD00:0:2:781D:0:0:0:0"
-#define APP_TCPIP_IPV6_NETWORK_PREFIX_G3_LEN 64
-
 /* Time to wait before start cycling in ms */
 #define APP_CYCLES_TIME_WAIT_CYCLE_MS 120000
 

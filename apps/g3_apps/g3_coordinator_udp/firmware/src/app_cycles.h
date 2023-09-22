@@ -175,9 +175,6 @@ typedef struct
     /* Time counter corresponding to UDP request */
     uint64_t timeCountUdpRequest;
 
-    /* TCP/IP Network handle */
-    TCPIP_NET_HANDLE netHandle;
-
     /* Handle for waiting time before first cycle and timeout */
     SYS_TIME_HANDLE timeHandle;
 

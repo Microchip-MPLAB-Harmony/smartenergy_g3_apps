@@ -768,6 +768,7 @@ void SYS_Initialize ( void* data )
     APP_UDP_RESPONDER_Initialize();
     APP_STORAGE_PIC32CXMT_Initialize();
     APP_UDP_METROLOGY_Initialize();
+    APP_TCPIP_MANAGEMENT_Initialize();
 
 
     NVIC_Initialize();

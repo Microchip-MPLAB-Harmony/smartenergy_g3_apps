@@ -212,9 +212,6 @@ void APP_STORAGE_PIC32CXMT_Initialize ( void )
     {
         SYS_DEBUG_MESSAGE(SYS_ERROR_DEBUG, "APP_STORAGE: Not power-on reset\r\n");
     }
-
-    /* Create semaphore. It is used to suspend task. */
-    OSAL_SEM_Create(&app_storage_pic32cxmtData.semaphoreID, OSAL_SEM_TYPE_BINARY, 0, 0);
 }
 
 /******************************************************************************
@@ -227,11 +224,7 @@ void APP_STORAGE_PIC32CXMT_Initialize ( void )
 
 void APP_STORAGE_PIC32CXMT_Tasks ( void )
 {
-    /* Nothing to do. Suspend task forever (RTOS mode) */
-    if (app_storage_pic32cxmtData.semaphoreID != 0)
-    {
-        OSAL_SEM_Pend(&app_storage_pic32cxmtData.semaphoreID, OSAL_WAIT_FOREVER);
-    }
+    /* Nothing to do */
 }
 
 // *****************************************************************************

@@ -594,6 +594,7 @@ void SYS_Initialize ( void* data )
     APP_EAP_SERVER_Initialize();
     APP_STORAGE_PIC32CXMT_Initialize();
     APP_CYCLES_Initialize();
+    APP_TCPIP_MANAGEMENT_Initialize();
 
 
     NVIC_Initialize();

@@ -142,7 +142,18 @@ static void lAPP_CYCLES_Tasks(  void *pvParameters  )
     while(true)
     {
         APP_CYCLES_Tasks();
-        vTaskDelay(50U / portTICK_PERIOD_MS);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
+    }
+}
+/* Handle for the APP_TCPIP_MANAGEMENT_Tasks. */
+TaskHandle_t xAPP_TCPIP_MANAGEMENT_Tasks;
+
+static void lAPP_TCPIP_MANAGEMENT_Tasks(  void *pvParameters  )
+{   
+    while(true)
+    {
+        APP_TCPIP_MANAGEMENT_Tasks();
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 
@@ -243,6 +254,14 @@ void SYS_Tasks ( void )
                 NULL,
                 1,
                 &xAPP_CYCLES_Tasks);
+
+    /* Create OS Thread for APP_TCPIP_MANAGEMENT_Tasks. */
+    (void) xTaskCreate((TaskFunction_t) lAPP_TCPIP_MANAGEMENT_Tasks,
+                "APP_TCPIP_MANAGEMENT_Tasks",
+                256,
+                NULL,
+                1,
+                &xAPP_TCPIP_MANAGEMENT_Tasks);
 
 
 

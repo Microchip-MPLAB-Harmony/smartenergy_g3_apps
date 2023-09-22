@@ -224,13 +224,13 @@ static void _LBP_ADP_NetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS* pNetwor
         /* Notify UDP responder application to configure IPv6 addresses */
         app_g3_managementData.shortAddress = shortAddress;
         app_g3_managementData.panId = panId;
-        APP_UDP_RESPONDER_NetworkJoined();
+        APP_TCPIP_MANAGEMENT_NetworkJoined();
 
         /* Configure Network Prefix in ADP */
-        TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_NETWORK_PREFIX_G3, &networkPrefix);
+        TCPIP_Helper_StringToIPv6Address(APP_TCPIP_MANAGEMENT_IPV6_NETWORK_PREFIX_G3, &networkPrefix);
         networkPrefix.v[6] = (uint8_t) (panId >> 8);
         networkPrefix.v[7] = (uint8_t) panId;
-        prefixData[0] = APP_TCPIP_IPV6_NETWORK_PREFIX_G3_LEN;
+        prefixData[0] = APP_TCPIP_MANAGEMENT_IPV6_NETWORK_PREFIX_G3_LEN;
         prefixData[1] = 1; // OnLink flag
         prefixData[2] = 1; // AutonomuosConfiguration flag
         *((uint32_t*) &prefixData[3]) = 0x7FFFFFFF; // valid lifetime
@@ -274,7 +274,7 @@ static void _LBP_ADP_NetworkLeaveIndication(void)
     /* The device left the network. ADP is reseted internally. Go to first
      * state. Notify UDP responder application to remove IPv6 addresses */
     app_g3_managementData.state = APP_G3_MANAGEMENT_STATE_WAIT_ADP_READY;
-    APP_UDP_RESPONDER_NetworkDisconnected();
+    APP_TCPIP_MANAGEMENT_NetworkDisconnected();
 
     /* Notify display application to hide communication symbol */
     APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL_OFF);
@@ -927,7 +927,7 @@ void APP_G3_MANAGEMENT_SetConformanceConfig ( void )
         _APP_G3_MANAGEMENT_SetConformanceParameters();
     }
 
-    APP_UDP_RESPONDER_SetConformanceConfig();
+    APP_TCPIP_MANAGEMENT_SetConformanceConfig();
 }
 
 uint8_t APP_G3_MANAGEMENT_SetConformanceTrickleConfig(uint8_t trickleActivation)

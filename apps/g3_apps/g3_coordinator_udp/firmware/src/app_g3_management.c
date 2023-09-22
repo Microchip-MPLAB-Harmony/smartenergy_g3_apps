@@ -127,10 +127,10 @@ static void _ADP_NetworkStartConfirm(uint8_t status)
         ADP_GET_CFM_PARAMS getConfirm;
 
         /* Configure Network Prefix in ADP */
-        TCPIP_Helper_StringToIPv6Address(APP_TCPIP_IPV6_NETWORK_PREFIX_G3, &networkPrefix);
+        TCPIP_Helper_StringToIPv6Address(APP_TCPIP_MANAGEMENT_IPV6_NETWORK_PREFIX_G3, &networkPrefix);
         networkPrefix.v[6] = (uint8_t) (app_g3_managementData.panId >> 8);
         networkPrefix.v[7] = (uint8_t) app_g3_managementData.panId;
-        prefixData[0] = APP_TCPIP_IPV6_NETWORK_PREFIX_G3_LEN;
+        prefixData[0] = APP_TCPIP_MANAGEMENT_IPV6_NETWORK_PREFIX_G3_LEN;
         prefixData[1] = 1; // OnLink flag
         prefixData[2] = 1; // AutonomuosConfiguration flag
         *((uint32_t*) &prefixData[3]) = 0x7FFFFFFF; // valid lifetime
@@ -651,7 +651,7 @@ void APP_G3_MANAGEMENT_SetConformanceConfig ( void )
         _APP_G3_MANAGEMENT_SetConformanceParameters();
     }
 
-    APP_UDP_RESPONDER_SetConformanceConfig();
+    APP_TCPIP_MANAGEMENT_SetConformanceConfig();
     APP_CYCLES_SetConformanceConfig();
 }
 

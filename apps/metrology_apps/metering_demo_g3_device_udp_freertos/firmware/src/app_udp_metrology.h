@@ -100,11 +100,8 @@ typedef enum
 
 typedef struct
 {
-    /* TCP/IP Network handle */
-    TCPIP_NET_HANDLE netHandle;
-
-    /* UDP socket handle */
-    UDP_SOCKET socket;
+    /* Semaphore identifier. Used to suspend task */
+    OSAL_SEM_DECLARE(semaphoreID);
 
     /* The application's current state */
     APP_UDP_METROLOGY_STATES state;

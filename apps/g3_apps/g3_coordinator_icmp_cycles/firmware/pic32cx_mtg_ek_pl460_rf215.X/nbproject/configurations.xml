@@ -628,6 +628,7 @@
       <itemPath>../src/app_g3_management.h</itemPath>
       <itemPath>../src/app_eap_server.h</itemPath>
       <itemPath>../src/app_cycles.h</itemPath>
+      <itemPath>../src/app_tcpip_management.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -933,6 +934,7 @@
       <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/pin_configurations.csv</itemPath>
       <itemPath>../src/app_eap_server.c</itemPath>
       <itemPath>../src/app_cycles.c</itemPath>
+      <itemPath>../src/app_tcpip_management.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

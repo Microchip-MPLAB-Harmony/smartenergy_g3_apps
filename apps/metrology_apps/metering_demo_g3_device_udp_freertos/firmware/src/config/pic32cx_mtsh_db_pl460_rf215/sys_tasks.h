@@ -87,6 +87,9 @@ extern TaskHandle_t xAPP_STORAGE_PIC32CXMT_Tasks;
 /* Declaration of  APP_UDP_METROLOGY_Tasks task handle */
 extern TaskHandle_t xAPP_UDP_METROLOGY_Tasks;
 
+/* Declaration of  APP_TCPIP_MANAGEMENT_Tasks task handle */
+extern TaskHandle_t xAPP_TCPIP_MANAGEMENT_Tasks;
+
 
 /* Declaration of SYS_COMMAND task handle */
 extern TaskHandle_t xSYS_CMD_Tasks;

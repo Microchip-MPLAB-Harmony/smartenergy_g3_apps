@@ -130,6 +130,7 @@
 #include "app_udp_responder.h"
 #include "app_storage_pic32cxmt.h"
 #include "app_udp_metrology.h"
+#include "app_tcpip_management.h"
 
 
 
