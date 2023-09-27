@@ -155,52 +155,6 @@ static double lDRV_Metrology_GetDouble(int64_t value)
     return (double)value;
 }
 
-static void lDRV_Metrology_copy (uintptr_t pDst, uintptr_t pSrc, size_t length)
-{
-    uint32_t size;
-
-    /* Enable PMC clock */
-    PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN(1U) | PMC_PCR_PID(ID_MEM2MEM0);
-
-    /* Configure Transfer Size */
-    if ((length & 0x03U) != 0U)
-    {
-        MEM2MEM0_REGS->MEM2MEM_MR = MEM2MEM_MR_TSIZE_T_32BIT;
-        size = length >> 2U;
-    }
-    else if ((length & 0x01U) != 0U)
-    {
-        MEM2MEM0_REGS->MEM2MEM_MR = MEM2MEM_MR_TSIZE_T_16BIT;
-        size = length >> 1U;
-    }
-    else
-    {
-        MEM2MEM0_REGS->MEM2MEM_MR = MEM2MEM_MR_TSIZE_T_8BIT;
-        size = length;
-    }
-
-    /* Prepare MEM2MEM transfer */
-    MEM2MEM0_REGS->MEM2MEM_TPR = (uint32_t)pSrc;
-    MEM2MEM0_REGS->MEM2MEM_TCR = size;
-    MEM2MEM0_REGS->MEM2MEM_RPR = (uint32_t)pDst;
-    MEM2MEM0_REGS->MEM2MEM_RCR = size;
-
-    /* Start PDC transfer */
-    MEM2MEM0_REGS->MEM2MEM_PTCR = (MEM2MEM_PTCR_RXTEN_Msk | MEM2MEM_PTCR_TXTEN_Msk);
-
-    /* Wait until transfer done */
-    while (0U == (MEM2MEM0_REGS->MEM2MEM_ISR & MEM2MEM_ISR_RXEND_Msk))
-    {
-    }
-
-    /* Stop PDC transfer */
-    MEM2MEM0_REGS->MEM2MEM_PTCR = (MEM2MEM_PTCR_RXTDIS_Msk | MEM2MEM_PTCR_TXTDIS_Msk);
-
-    /* Disable PMC clock */
-    PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN(0U) | PMC_PCR_PID(ID_MEM2MEM0);
-
-}
-
 void IPC1_InterruptHandler (void)
 {
     uint32_t status = IPC1_REGS->IPC_ISR;
@@ -219,9 +173,9 @@ void IPC1_InterruptHandler (void)
         if (gDrvMetObj.metRegisters->MET_STATUS.STATUS == STATUS_STATUS_DSP_RUNNING)
         {
             /* Update Accumulators Data */
-            lDRV_Metrology_copy((uintptr_t)&gDrvMetObj.metAccData, (uintptr_t)&gDrvMetObj.metRegisters->MET_ACCUMULATORS, sizeof(DRV_METROLOGY_REGS_ACCUMULATORS));
+            (void) memcpy(&gDrvMetObj.metAccData, &gDrvMetObj.metRegisters->MET_ACCUMULATORS, sizeof(DRV_METROLOGY_REGS_ACCUMULATORS));
             /* Update Harmonics Data */
-            lDRV_Metrology_copy((uintptr_t)&gDrvMetObj.metHarData, (uintptr_t)&gDrvMetObj.metRegisters->MET_HARMONICS, sizeof(DRV_METROLOGY_REGS_HARMONICS));
+            (void) memcpy(&gDrvMetObj.metHarData, &gDrvMetObj.metRegisters->MET_HARMONICS, sizeof(DRV_METROLOGY_REGS_HARMONICS));
         }
 
         gDrvMetObj.integrationFlag = true;

@@ -79,7 +79,7 @@
    Remarks:
     None.
 */
-#define ADP_MAX_NUMBER_OF_FRAGMENTS 6
+#define ADP_MAX_NUMBER_OF_FRAGMENTS 16
 
 // *****************************************************************************
 // *****************************************************************************
@@ -331,7 +331,10 @@ typedef struct
 
     /* Flag to indicate if header was compressed */
     bool wasCompressed;
-    
+
+    /* Flag to indicate if fragmentation data buffer is used or not */
+    bool used;
+
 } ADP_LOWPAN_FRAGMENTED_DATA;
 
 // *****************************************************************************
