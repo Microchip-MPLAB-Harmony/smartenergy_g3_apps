@@ -1214,7 +1214,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;FreeRTOS&gt;
   &lt;FreeRTOS dnOrder=&quot;0&quot; id=&quot;FREERTOS_TOTAL_HEAP_SIZE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;60416&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;63488&quot;/&gt;
     &lt;/Values&gt;
   &lt;/FreeRTOS&gt;
 &lt;/FreeRTOS&gt;
@@ -30844,7 +30844,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\configuration.h</file>
-         <hash>ee017926b35f1ddd439f3e04effc5c8f38c3f5c6eebf4ac238a41ea40fd14515</hash>
+         <hash>87131236c55f74568f569fbd35ffb0fca2fafa118819bd60514676257bd7ead5</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\library\tcpip\src\berkeley_manager.h</file>
@@ -31332,7 +31332,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\FreeRTOSConfig.h</file>
-         <hash>617b0813879dca588ab476ffd9c56d98b5af8cf3c75373aa9dc427e433da7287</hash>
+         <hash>b0400c5f2dc578080d4946846f91507e18f23348be2fc9481e8afbfd93186860</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\service\security\cipher_wrapper.c</file>
@@ -31724,7 +31724,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\stack\g3\adaptation\g3_lib_adp.a</file>
-         <hash>e176289d44278228abcffac88cc20524079e06d31bee17a077feade6082ce693</hash>
+         <hash>65d434d0bbf0f6ec6f31e97cad804de089ef5cb110bfcb146c6589f6f03fb915</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\library\tcpip\src\tcpip_manager.c</file>

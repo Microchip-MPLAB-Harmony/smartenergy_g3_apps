@@ -1159,7 +1159,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;FreeRTOS&gt;
   &lt;FreeRTOS dnOrder=&quot;0&quot; id=&quot;FREERTOS_TOTAL_HEAP_SIZE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;20480&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;23552&quot;/&gt;
     &lt;/Values&gt;
   &lt;/FreeRTOS&gt;
 &lt;/FreeRTOS&gt;
@@ -28657,7 +28657,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\definitions.h</file>
-         <hash>e53c9ca8c684cd4c7595ea2c738ade9c7a5f6e7201bee7de98e7a054ff1ae5dd</hash>
+         <hash>d985a3779fcef096163323c3cb216eac4dc6d60ea40b6ec793ef937d4d2e496a</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\blake2b.c</file>
@@ -28797,7 +28797,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\stack\g3\adaptation\g3_lib_adp.a</file>
-         <hash>e176289d44278228abcffac88cc20524079e06d31bee17a077feade6082ce693</hash>
+         <hash>65d434d0bbf0f6ec6f31e97cad804de089ef5cb110bfcb146c6589f6f03fb915</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\interrupts.c</file>
@@ -28981,7 +28981,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\configuration.h</file>
-         <hash>0a4a0493b603a32a47f72e9de33bb428500e1b19481e6b29de52e8518b529e0e</hash>
+         <hash>ba342efbef7977d53fd50984de3e68997c25410e2766f84eeb89440610324af8</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\pio\pic32cx2051mtg128.h</file>
@@ -29013,7 +29013,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\FreeRTOSConfig.h</file>
-         <hash>acb0b1f28a002560334c57a61e1fc56f54759d69b17250f09f4300624a2a7901</hash>
+         <hash>0ea5e736713e8d5898f43418ad8de4c927b90f1fb7bfbbad6690dd24639ccc75</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\pwm.h</file>
@@ -30577,7 +30577,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\initialization.c</file>
-         <hash>fc71b3a3777197e405c2ec40210e7962f40da690eff5f5a2364434c334267f41</hash>
+         <hash>7af819641b21ca2f5fa259c65e05f2194d726ebd15416f5f63f03bf295079534</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\aes.h</file>

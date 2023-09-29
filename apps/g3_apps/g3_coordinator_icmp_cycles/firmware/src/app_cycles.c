@@ -237,7 +237,7 @@ static void _APP_CYCLES_NextPacket(void)
                 {
                     numErrors = app_cyclesStatistics[i].numEchoRequests - app_cyclesStatistics[i].numEchoReplies;
                     successRate = (app_cyclesStatistics[i].numEchoReplies * 100) / app_cyclesStatistics[i].numEchoRequests;
-                    SYS_DEBUG_PRINT(SYS_ERROR_INFO, "Short address 0x%04X: Sent %u, Success %u (%hhu %%), Errors %u,"
+                    SYS_DEBUG_PRINT(SYS_ERROR_INFO, "\tShort address 0x%04X: Sent %u, Success %u (%hhu %%), Errors %u,"
                             " Average duration %u\r\n", app_cyclesStatistics[i].shortAddress,
                             app_cyclesStatistics[i].numEchoRequests, app_cyclesStatistics[i].numEchoReplies,
                             successRate, numErrors,
