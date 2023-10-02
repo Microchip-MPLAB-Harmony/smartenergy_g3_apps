@@ -186,8 +186,10 @@ extern "C" {
 /* Network discovery (scan) duration in seconds */
 #define APP_G3_MANAGEMENT_DISCOVERY_DURATION 15
 
-/* Minimum Link Quality to consider a good network to join */
-#define APP_G3_MANAGEMENT_LQI_MIN 53
+/* Minimum Link Quality to consider a good network to join.
+ * Different value for PLC and RF */
+#define APP_G3_MANAGEMENT_LQI_MIN_PLC 53
+#define APP_G3_MANAGEMENT_LQI_MIN_RF  95
 
 /* Maximum Link Quality to consider a good network to join */
 #define APP_G3_MANAGEMENT_ROUTE_COST_COORD_MAX 0x7FFF

@@ -157,8 +157,16 @@ static void _ADP_DiscoveryConfirm(uint8_t status)
 
 static void _ADP_DiscoveryIndication(ADP_PAN_DESCRIPTOR* pPanDescriptor)
 {
+    uint8_t minLQI = APP_G3_MANAGEMENT_LQI_MIN_PLC;
+
+    /* Select minimum LQI depending on Media Type */
+    if (pPanDescriptor->mediaType != MAC_WRP_MEDIA_TYPE_IND_PLC)
+    {
+        minLQI = APP_G3_MANAGEMENT_LQI_MIN_RF;
+    }
+
     /* Check minimum Link Quality and maximum route cost to Coordinator */
-    if ((pPanDescriptor->linkQuality >= APP_G3_MANAGEMENT_LQI_MIN) &&
+    if ((pPanDescriptor->linkQuality >= minLQI) &&
             (pPanDescriptor->rcCoord < APP_G3_MANAGEMENT_ROUTE_COST_COORD_MAX))
     {
         /* Update best network if route cost to Coordinator is better or if it
