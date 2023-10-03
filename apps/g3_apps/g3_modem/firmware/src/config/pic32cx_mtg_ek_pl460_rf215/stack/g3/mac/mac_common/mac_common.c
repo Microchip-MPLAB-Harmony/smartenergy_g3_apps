@@ -413,22 +413,29 @@ MAC_STATUS MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
 
 uint32_t MAC_COMMON_GetMsCounter(void)
 {
-    uint64_t diffCounter64, currentCounter64;
-    uint32_t elapsedMs;
+    uint64_t currentCounter64;
+    int64_t diffCounter64;
+    uint32_t elapsedMs = 0;
 
     /* Get current timer counter */
     currentCounter64 = SYS_TIME_Counter64Get();
+
     /* Diff with previous */
-    diffCounter64 = currentCounter64 - previousCounter64;
-    /* Diff in Ms */
-    elapsedMs = SYS_TIME_CountToMS((uint32_t)diffCounter64);
+    diffCounter64 = (int64_t)currentCounter64 - (int64_t)previousCounter64;
+
+    if (diffCounter64 > 0)
+    {
+        /* Diff in Ms */
+        elapsedMs = SYS_TIME_CountToMS((uint32_t)diffCounter64);
+    }
+
     /* Update Ms counter */
     currentMsCounter += elapsedMs;
     /* Update previous counter for next computation */
     previousCounter64 += SYS_TIME_MSToCount(elapsedMs);
 
     /* Check whether seconds counter has to be updated */
-    if ((currentMsCounter - auxMsCounter) > 1000U)
+    if ((currentMsCounter - auxMsCounter) >= 1000U)
     {
         /* Assume no more than one second passed */
         /* This function is called every few program loops */

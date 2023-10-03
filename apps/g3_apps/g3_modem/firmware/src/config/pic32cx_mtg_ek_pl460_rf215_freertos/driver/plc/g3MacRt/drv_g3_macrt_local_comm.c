@@ -557,7 +557,7 @@ uint32_t DRV_G3_MACRT_GetTimerReference(const DRV_HANDLE handle)
 
     if ((handle != DRV_HANDLE_INVALID) && (handle == 0U))
     {
-        /* Read G3 Internal Timer Reference */
+        /* Read PLC Internal Timer Reference */
         lDRV_G3_MACRT_COMM_SpiReadCmd(STATUS_INFO_ID, (uint8_t *)&timerReference, 4U);
     }
 

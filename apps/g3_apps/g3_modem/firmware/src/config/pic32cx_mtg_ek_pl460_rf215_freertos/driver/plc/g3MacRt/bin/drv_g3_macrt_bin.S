@@ -5,11 +5,11 @@
     Library for Microchip PLC Stack
     
   Description:
-    - Join G3 MAC Real Time binary file together PLC application
+    Join G3 MAC Real Time binary file(s) together with application.
 *******************************************************************************/
 
 /*****************************************************************************
- Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+ Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 
 Microchip Technology Inc. and its subsidiaries.
 

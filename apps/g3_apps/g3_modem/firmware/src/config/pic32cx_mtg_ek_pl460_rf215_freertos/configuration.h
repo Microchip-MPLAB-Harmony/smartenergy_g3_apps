@@ -112,7 +112,7 @@ extern "C" {
 #define DRV_PLC_SPI_CLK                       8000000
 
 /* PLC MAC RT Driver RTOS Configuration Options */
-#define DRV_PLC_RTOS_STACK_SIZE               256
+#define DRV_PLC_RTOS_STACK_SIZE               320
 #define DRV_PLC_RTOS_TASK_PRIORITY            1
 
 /* PLC MAC RT Driver Identification */
@@ -123,7 +123,7 @@ extern "C" {
 #define DRV_RF215_INDEX_0                     0U
 #define DRV_RF215_CLIENTS_NUMBER              1U
 #define DRV_RF215_TX_BUFFERS_NUMBER           1U
-#define DRV_RF215_RTOS_STACK_SIZE             256
+#define DRV_RF215_RTOS_STACK_SIZE             448
 #define DRV_RF215_RTOS_TASK_PRIORITY          1U
 #define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PC7
 #define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PA25
@@ -161,7 +161,7 @@ extern "C" {
 // *****************************************************************************
 
 /* G3 stack RTOS configuration */
-#define G3_STACK_RTOS_STACK_SIZE         512U
+#define G3_STACK_RTOS_STACK_SIZE         896U
 #define G3_STACK_RTOS_TASK_PRIORITY      1U
 #define G3_STACK_RTOS_TASK_DELAY_MS      5U
 
