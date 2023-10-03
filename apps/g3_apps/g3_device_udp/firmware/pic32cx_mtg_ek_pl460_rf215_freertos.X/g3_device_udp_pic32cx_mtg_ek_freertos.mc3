@@ -1321,7 +1321,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="FreeRTOS" name="FREERTOS_USE_TIME_SLICING"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;FreeRTOS&gt;
   &lt;FreeRTOS dnOrder=&quot;0&quot; id=&quot;FREERTOS_USE_TIME_SLICING&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/FreeRTOS&gt;
 &lt;/FreeRTOS&gt;
 </value>
@@ -28769,7 +28771,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\definitions.h</file>
-         <hash>1c9c0d2f015c7eb3c58c0b338ddcd9ed78988e36ce690355e64c55dc9d9df4e7</hash>
+         <hash>eb9c02d97142dec100696c8c29c175fbc14a1743d0f425d803a4ab804df8de25</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\blake2b.c</file>
@@ -29129,7 +29131,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\FreeRTOSConfig.h</file>
-         <hash>acb0b1f28a002560334c57a61e1fc56f54759d69b17250f09f4300624a2a7901</hash>
+         <hash>caf43be9962e91cf6cd1937d322906394d9d16f7b9613ecea2f8cd392851d40f</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\pwm.h</file>
@@ -30685,7 +30687,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\initialization.c</file>
-         <hash>06e73f2095fc0342ba92025e581f2aa1e721e0269767b6f4a417934a9b87c834</hash>
+         <hash>8b9534780f74187acdcf784926823a4ca5d773c1eff4fd0724e7ba4eb1fc0855</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\aes.h</file>

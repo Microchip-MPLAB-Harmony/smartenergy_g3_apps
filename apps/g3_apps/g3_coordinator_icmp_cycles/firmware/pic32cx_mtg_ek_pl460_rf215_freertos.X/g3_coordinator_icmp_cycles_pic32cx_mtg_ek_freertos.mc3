@@ -1313,7 +1313,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="FreeRTOS" name="FREERTOS_USE_TIME_SLICING"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;FreeRTOS&gt;
   &lt;FreeRTOS dnOrder=&quot;0&quot; id=&quot;FREERTOS_USE_TIME_SLICING&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/FreeRTOS&gt;
 &lt;/FreeRTOS&gt;
 </value>
@@ -29013,7 +29015,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\FreeRTOSConfig.h</file>
-         <hash>0ea5e736713e8d5898f43418ad8de4c927b90f1fb7bfbbad6690dd24639ccc75</hash>
+         <hash>65d30c1ca64b11bb88e54a52811a89a03099f6266f3a4337e2267547695750a7</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\pwm.h</file>
