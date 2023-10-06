@@ -56,11 +56,15 @@
 #include "definitions.h"
 
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Global Data Definitions
 // *****************************************************************************
 // *****************************************************************************
+
+
+
 
 // *****************************************************************************
 /* Application Data
@@ -147,6 +151,9 @@ void APP_Tasks ( void )
             bool appInitialized = true;
             //appData.appQueue = xQueueCreate( 10, sizeof(APP_Msg_T) );
 
+
+
+
             if (appInitialized)
             {
 
@@ -159,6 +166,9 @@ void APP_Tasks ( void )
         {
             if (OSAL_QUEUE_Receive(&appData.appQueue, &appMsg, OSAL_WAIT_FOREVER))
             {
+
+
+
             }
             break;
         }

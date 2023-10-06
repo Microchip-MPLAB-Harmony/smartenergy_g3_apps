@@ -128,7 +128,7 @@ OSAL_RESULT OSAL_QUEUE_AddToSet(OSAL_QUEUE_SET_MEMBER_HANDLE_TYPE *queSetMember,
     return OSAL_RESULT_FALSE;
 }
 
-OSAL_RESULT OSAL_QUEUE_SelectFromSet(OSAL_QUEUE_SET_MEMBER_HANDLE_TYPE *queSetMember, OSAL_QUEUE_SET_HANDLE_TYPE *queSetID, uint16_t waitMS)
+OSAL_RESULT OSAL_QUEUE_SelectFromSet(OSAL_QUEUE_SET_MEMBER_HANDLE_TYPE *queSetMember, OSAL_QUEUE_SET_HANDLE_TYPE *queSetID, uint32_t waitMS)
 {
     *queSetMember = xQueueSelectFromSet(*queSetID, waitMS);
 
@@ -142,7 +142,7 @@ OSAL_RESULT OSAL_QUEUE_SelectFromSet(OSAL_QUEUE_SET_MEMBER_HANDLE_TYPE *queSetMe
 
 /*******************************************************************************
   Function:
-    OSAL_RESULT OSAL_QUEUE_Send(OSAL_QUEUE_HANDLE_TYPE *queID, void *itemToQueue, uint16_t waitMS)
+    OSAL_RESULT OSAL_QUEUE_Send(OSAL_QUEUE_HANDLE_TYPE *queID, void *itemToQueue, uint32_t waitMS)
 
   Summary:
     Post an item into an OSAL Queue.
@@ -175,7 +175,7 @@ OSAL_RESULT OSAL_QUEUE_SelectFromSet(OSAL_QUEUE_SET_MEMBER_HANDLE_TYPE *queSetMe
 
   Remarks:
 */
-OSAL_RESULT OSAL_QUEUE_Send(OSAL_QUEUE_HANDLE_TYPE *queID, void *itemToQueue, uint16_t waitMS)
+OSAL_RESULT OSAL_QUEUE_Send(OSAL_QUEUE_HANDLE_TYPE *queID, void *itemToQueue, uint32_t waitMS)
 {
     TickType_t timeout = 0;
 
@@ -245,7 +245,7 @@ OSAL_RESULT OSAL_QUEUE_SendISR(OSAL_QUEUE_HANDLE_TYPE *queID, void  *itemToQueue
 
 /*******************************************************************************
   Function:
-    OSAL_RESULT OSAL_QUEUE_Receive(OSAL_QUEUE_HANDLE_TYPE *queID, void  *buffer, uint16_t waitMS)
+    OSAL_RESULT OSAL_QUEUE_Receive(OSAL_QUEUE_HANDLE_TYPE *queID, void  *buffer, uint32_t waitMS)
 
   Summary:
     Receive an item from an OSAL Queue.
@@ -281,7 +281,7 @@ OSAL_RESULT OSAL_QUEUE_SendISR(OSAL_QUEUE_HANDLE_TYPE *queID, void  *itemToQueue
 
   Remarks:
 */
-OSAL_RESULT OSAL_QUEUE_Receive(OSAL_QUEUE_HANDLE_TYPE *queID, void  *buffer, uint16_t waitMS)
+OSAL_RESULT OSAL_QUEUE_Receive(OSAL_QUEUE_HANDLE_TYPE *queID, void  *buffer, uint32_t waitMS)
 {
     TickType_t timeout = 0;
 

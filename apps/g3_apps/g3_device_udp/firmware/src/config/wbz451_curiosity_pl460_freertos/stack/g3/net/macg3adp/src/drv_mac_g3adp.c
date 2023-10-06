@@ -134,13 +134,16 @@ static DRV_G3ADP_MAC_QUEUE_DATA * lDRV_G3ADP_MAC_GetFreeQueueData(DRV_G3ADP_MAC_
         {
             if (dataLen > 0U)
             {
-                // Dynamically allocate MAC Packet
-                ptrDataPool->pMacPacket = pMacDrv->g3AdpMacData.pktAllocF(sizeof(TCPIP_MAC_PACKET),
-                        dataLen, TCPIP_MAC_PKT_FLAG_CAST_DISABLED);
-
-                if (ptrDataPool->pMacPacket == NULL)
+                if ((dataPool == g3adp_mac_rxDataPool) && (pMacDrv->g3AdpMacData.pktAllocF != NULL))
                 {
-                    return NULL;
+                    // Dynamically allocate MAC Packet
+                    ptrDataPool->pMacPacket = pMacDrv->g3AdpMacData.pktAllocF(sizeof(TCPIP_MAC_PACKET),
+                            dataLen, TCPIP_MAC_PKT_FLAG_CAST_DISABLED);
+
+                    if (ptrDataPool->pMacPacket == NULL)
+                    {
+                        return NULL;
+                    }
                 }
             }
 
@@ -180,7 +183,7 @@ static DRV_G3ADP_MAC_QUEUE_DATA * lDRV_G3ADP_MAC_GetQueueDataFromMACPacket(DRV_G
 }
 
 static void lDRV_G3ADP_MAC_PutFreeQueueData(DRV_G3ADP_MAC_QUEUE_DATA *dataPool,
-        DRV_G3ADP_MAC_QUEUE_DATA *queuedData, bool pktFreeF)
+        DRV_G3ADP_MAC_QUEUE_DATA *queuedData)
 {
     DRV_G3ADP_MAC_DRIVER * pMacDrv = &g3adp_mac_drv_dcpt;
     DRV_G3ADP_MAC_QUEUE_DATA *ptrDataPool = dataPool;
@@ -196,11 +199,12 @@ static void lDRV_G3ADP_MAC_PutFreeQueueData(DRV_G3ADP_MAC_QUEUE_DATA *dataPool,
     {
         if (ptrDataPool == queuedData)
         {
-            if (pktFreeF && (pMacDrv->g3AdpMacData.pktFreeF != NULL))
+            if ((dataPool == g3adp_mac_rxDataPool) && (pMacDrv->g3AdpMacData.pktFreeF != NULL))
             {
                 // Free memory
                 pMacDrv->g3AdpMacData.pktFreeF(ptrDataPool->pMacPacket);
             }
+
             ptrDataPool->inUse = false;
             break;
         }
@@ -223,7 +227,7 @@ static void lDRV_G3ADP_MAC_RxMacFreePacket(TCPIP_MAC_PACKET * pMacPacket, const 
 
         if (rxQueueData != NULL)
         {
-            lDRV_G3ADP_MAC_PutFreeQueueData(g3adp_mac_rxDataPool, rxQueueData, true);
+            lDRV_G3ADP_MAC_PutFreeQueueData(g3adp_mac_rxDataPool, rxQueueData);
             // Update RX statistics
             pMacDrv->g3AdpMacData.rxStat.nRxPendBuffers--;
         }
@@ -288,11 +292,16 @@ static void lDRV_G3ADP_MAC_AdpDataCfmCallback(ADP_DATA_CFM_PARAMS* pDataCfm)
 
         }
 
+        if (result != G3_SUCCESS)
+        {
+            pMacDrv->g3AdpMacData.txStat.nTxErrorPackets++;
+        }
+
         *event = (TCPIP_MAC_EVENT)eventValue;
         pMacPacket->pktFlags &= ~((uint16_t)TCPIP_MAC_PKT_FLAG_QUEUED);
 
         txQueueData = lDRV_G3ADP_MAC_GetQueueDataFromMACPacket(g3adp_mac_txDataPool, pMacPacket);
-        lDRV_G3ADP_MAC_PutFreeQueueData(g3adp_mac_txDataPool, txQueueData, 0U);
+        lDRV_G3ADP_MAC_PutFreeQueueData(g3adp_mac_txDataPool, txQueueData);
         // Update TX statistics
         pMacDrv->g3AdpMacData.txStat.nTxPendBuffers--;
 

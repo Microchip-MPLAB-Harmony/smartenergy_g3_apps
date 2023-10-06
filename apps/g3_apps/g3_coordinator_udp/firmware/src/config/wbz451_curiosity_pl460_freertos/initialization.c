@@ -171,7 +171,7 @@
 /* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
 
 /* This routine must initialize the PL460 control pins as soon as possible */
-/* after a power up reset to avoid risks on starting up PL460 device when */
+/* after a power up reset to avoid risks on starting up PL460 device when */ 
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
@@ -203,25 +203,25 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI Chip select pin */
     .spiCSPin = DRV_PLC_SPI_CS_PIN,
-
+    
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-
+    
     /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN,
-
+    .ldoPin = DRV_PLC_LDO_EN_PIN, 
+    
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
-
+       
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
-
+       
     /* PLC External Interrupt Pio */
     .extIntPio = DRV_PLC_EXT_INT_PIO,
 
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
-
+    
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -241,10 +241,10 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC Set TX Enable Pin */
     .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
-
+    
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
-
+    
     /* PLC HAL Enable/Disable external interrupt */
     .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
 
@@ -269,16 +269,16 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 
     /* SPI PLIB API interface*/
     .plcHal = &drvPLCHalAPI,
-
+ 
     /* PLC MAC RT Binary start address */
     .binStartAddress = (uint32_t)&g3_mac_rt_bin_start,
-
+    
     /* PLC MAC RT Binary end address */
     .binEndAddress = (uint32_t)&g3_mac_rt_bin_end,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
-
+    
 };
 
 /* MISRA C-2012 deviation block end */
@@ -408,7 +408,6 @@ OSAL_SEM_HANDLE_TYPE semPhyInternalHandler;
 
 OSAL_API_LIST_TYPE     osalAPIList;
 
-#define REGULATORY_REGION "ETSI"
 
 
 // <editor-fold defaultstate="collapsed" desc="TCP/IP Stack Initialization Data">
@@ -423,7 +422,7 @@ OSAL_API_LIST_TYPE     osalAPIList;
 const TCPIP_UDP_MODULE_CONFIG tcpipUDPInitData =
 {
     .nSockets       = TCPIP_UDP_MAX_SOCKETS,
-    .sktTxBuffSize  = TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE,
+    .sktTxBuffSize  = TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE, 
 };
 
 
@@ -449,7 +448,7 @@ const TCPIP_UDP_MODULE_CONFIG tcpipUDPInitData =
 
 
 /*** IPv6 Initialization Data ***/
-const TCPIP_IPV6_MODULE_CONFIG  tcpipIPv6InitData =
+const TCPIP_IPV6_MODULE_CONFIG  tcpipIPv6InitData = 
 {
     .rxfragmentBufSize      = TCPIP_IPV6_RX_FRAGMENTED_BUFFER_SIZE,
     .fragmentPktRxTimeout   = TCPIP_IPV6_FRAGMENT_PKT_TIMEOUT,
@@ -640,7 +639,7 @@ __attribute__((ramfunc, long_call, section(".ramfunc"),unique_section)) void PCH
 
     // Set Flash Wait states and enable pre-fetch
     // clear PFMWS and ADRWS
-    PCHE_REGS->PCHE_CHECON = (PCHE_REGS->PCHE_CHECON & (~(PCHE_CHECON_PFMWS_Msk | PCHE_CHECON_ADRWS_Msk | PCHE_CHECON_PREFEN_Msk)))
+    PCHE_REGS->PCHE_CHECON = (PCHE_REGS->PCHE_CHECON & (~(PCHE_CHECON_PFMWS_Msk | PCHE_CHECON_ADRWS_Msk | PCHE_CHECON_PREFEN_Msk))) 
                                     | (PCHE_CHECON_PFMWS(1) | PCHE_CHECON_PREFEN(1));
     // write completion delay
     for(int i=1; i<10; i++)
@@ -649,7 +648,6 @@ __attribute__((ramfunc, long_call, section(".ramfunc"),unique_section)) void PCH
     }
 
 }
-
 
 
 
@@ -707,7 +705,7 @@ void SYS_Initialize ( void* data )
     // Configure Cache and Wait States
     PCHE_Setup();
 
-
+  
     CLK_Initialize();
     /* Configure Prefetch, Wait States */
     PCHE_REGS->PCHE_CHECON = (PCHE_REGS->PCHE_CHECON & (~(PCHE_CHECON_PFMWS_Msk | PCHE_CHECON_ADRWS_Msk | PCHE_CHECON_PREFEN_Msk)))
@@ -726,9 +724,9 @@ void SYS_Initialize ( void* data )
 	BSP_Initialize();
     SERCOM1_USART_Initialize();
 
-    EVSYS_Initialize();
-
     SERCOM0_SPI_Initialize();
+
+    EVSYS_Initialize();
 
     DMAC_Initialize();
 
@@ -745,32 +743,9 @@ void SYS_Initialize ( void* data )
     sysObj.drvG3MacRt = DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvG3MacRtInitData);
     EIC_CallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvG3MacRt);
 
-/*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-
     // Initialize RF System
-    SYS_Load_Cal(WSS_ENABLE_NONE);
-
+    SYS_Load_Cal(WSS_ENABLE_ZB);
+ 
     // Set up OSAL for RF Stack Library usage
     osalAPIList.OSAL_CRIT_Enter      = OSAL_CRIT_Enter;
     osalAPIList.OSAL_CRIT_Leave      = OSAL_CRIT_Leave;
@@ -792,6 +767,8 @@ void SYS_Initialize ( void* data )
 
     osalAPIList.OSAL_MemAlloc = OSAL_Malloc;
     osalAPIList.OSAL_MemFree = OSAL_Free;
+
+
 
 /*******************************************************************************
 * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
@@ -822,11 +799,11 @@ void SYS_Initialize ( void* data )
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-
+        
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
-
+    
     /* MISRAC 2012 deviation block end */
 
 
@@ -837,10 +814,10 @@ void SYS_Initialize ( void* data )
     sysObj.g3Adp = ADP_Initialize(G3_ADP_INDEX_0, (SYS_MODULE_INIT *)&g3AdpInitData);
 
     /* Initialization for IEEE_802154_PHY */
-	OSAL_SEM_Create(&semPhyInternalHandler, OSAL_SEM_TYPE_COUNTING, 20, 0);
+        OSAL_SEM_Create(&semPhyInternalHandler, OSAL_SEM_TYPE_COUNTING, 20, 0);
 
-	PHY_Init();
-
+    PHY_Init();
+    
     /* End of Initialization for IEEE_802154_PHY */
 
 
@@ -857,6 +834,7 @@ void SYS_Initialize ( void* data )
     APP_STORAGE_WBZ451_Initialize();
     APP_EAP_SERVER_Initialize();
     APP_CYCLES_Initialize();
+    APP_TCPIP_MANAGEMENT_Initialize();
 
 
     NVIC_Initialize();

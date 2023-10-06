@@ -104,7 +104,7 @@ typedef struct
 
 // *****************************************************************************
 /* Function:
-    SRV_RSNIFFER_SerialMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMsgLen )
+    SRV_RSNIFFER_SerialRxMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMsgLen )
 
   Summary:
     Serializes a received RF frame along with its parameters.
@@ -135,6 +135,40 @@ typedef struct
     None.
 */
 
-uint8_t* SRV_RSNIFFER_SerialMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMsgLen );
+uint8_t* SRV_RSNIFFER_SerialRxMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMsgLen );
+
+// *****************************************************************************
+/* Function:
+    uint8_t* SRV_RSNIFFER_SerialCfmMessage ( SRV_RSNIFFER_PHY_DATA *txData, size_t *pMsgLen )
+
+  Summary:
+    Serializes a transmitted RF frame along with its parameters.
+
+  Description:
+    This function serializes the RF transmitted packet in a buffer for further transmission
+    through serial interface.
+
+  Precondition:
+    None.
+
+  Parameters:
+    rxData     - Pointer to RF transmission data containing the frame and
+                 parameters
+    pMsgLen    - Pointer to sniffer message length in bytes (output)
+
+  Returns:
+    Pointer to sniffer message to be sent through serial interface.
+
+  Example:
+    <code>
+    
+
+    </code>
+
+  Remarks:
+    None.
+*/
+
+uint8_t* SRV_RSNIFFER_SerialCfmMessage ( SRV_RSNIFFER_PHY_DATA *txData, size_t *pMsgLen );
 
 #endif //SRV_RSNIFFER_H

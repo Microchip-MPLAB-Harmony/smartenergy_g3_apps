@@ -22,7 +22,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -42,11 +42,11 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *******************************************************************************/
+*******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef OSAL_H
-#define OSAL_H
+#ifndef _OSAL_H
+#define _OSAL_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -174,8 +174,8 @@
     initialCount - Starting count value for the semaphore (ignored for a BINARY semaphore)
 
   Returns:
-    - OSAL_RESULT_SUCCESS    - Semaphore created
-    - OSAL_RESULT_FAIL   - Semaphore creation failed
+    - OSAL_RESULT_TRUE    - Semaphore created
+    - OSAL_RESULT_FALSE   - Semaphore creation failed
     - semID               - Updated with valid semaphore handle if call was successful
 
   Example:
@@ -205,8 +205,8 @@
     semID       - Pointer to the Semaphore ID
 
   Returns:
-    - OSAL_RESULT_SUCCESS    - Semaphore deleted
-    - OSAL_RESULT_FAIL   - Semaphore deletion failed
+    - OSAL_RESULT_TRUE    - Semaphore deleted
+    - OSAL_RESULT_FALSE   - Semaphore deletion failed
 
   Example:
     <code>
@@ -221,7 +221,7 @@
 
 /*******************************************************************************
   Function:
-     OSAL_RESULT OSAL_SEM_Pend(OSAL_SEM_HANDLE_TYPE* semID, uint16_t waitMS)
+     OSAL_RESULT OSAL_SEM_Pend(OSAL_SEM_HANDLE_TYPE* semID, uint32_t waitMS)
 
   Summary:
     Waits on a semaphore. Returns true if the semaphore was obtained within the
@@ -243,18 +243,21 @@
                    Other values      - timeout delay
 
   Returns:
-    - OSAL_RESULT_SUCCESS  - Semaphore obtained
-    - OSAL_RESULT_FAIL - Semaphore not obtained or timeout occurred
+    - OSAL_RESULT_TRUE  - Semaphore obtained
+    - OSAL_RESULT_FALSE - Semaphore not obtained or timeout occurred
 
   Example:
     <code>
-    if (OSAL_SEM_Pend(&semUARTRX, 50) == OSAL_RESULT_SUCCESS)
+    if (OSAL_SEM_Pend(&semUARTRX, 50) == OSAL_RESULT_TRUE)
     {
-       c = DRV_USART_ReadByte(drvID);
+        // character available
+        c = DRV_USART_ReadByte(drvID);
+        ...
     }
     else
     {
-
+        // character not available, resend prompt
+        ...
     }
     </code>
 
@@ -262,7 +265,7 @@
     None.
 
     */
-//OSAL_RESULT OSAL_SEM_Pend(OSAL_SEM_HANDLE_TYPE* semID, uint16_t waitMS);
+//OSAL_RESULT OSAL_SEM_Pend(OSAL_SEM_HANDLE_TYPE* semID, uint32_t waitMS);
 
 // *****************************************************************************
 /* Function:
@@ -283,8 +286,8 @@
      semID       - The semID
 
   Returns:
-    - OSAL_RESULT_SUCCESS    - Semaphore posted
-    - OSAL_RESULT_FAIL   - Semaphore not posted
+    - OSAL_RESULT_TRUE    - Semaphore posted
+    - OSAL_RESULT_FALSE   - Semaphore not posted
 
   Example:
     <code>
@@ -318,16 +321,20 @@
     semID -  Pointer to the Semaphore ID
 
   Return:
-    - OSAL_RESULT_SUCCESS - Semaphore posted
-    - OSAL_RESULT_FAIL - Semaphore not posted
+    - OSAL_RESULT_TRUE - Semaphore posted
+    - OSAL_RESULT_FALSE - Semaphore not posted
 
   Example:
     <code>
      void __ISR(UART_2_VECTOR) _UART2RXHandler()
      {
         char c;
+
+        // read the character
         c = U2RXREG;
+        // clear the interrupt flag
         IFS1bits.U2IF = 0;
+        // post a semaphore indicating a character has been received
         OSAL_SEM_PostISR(&semSignal);
 
      }
@@ -372,13 +379,16 @@
 
      if (semCount > 0)
      {
-         if (OSAL_SEM_Pend(&semUART) == OSAL_RESULT_SUCCESS)
+        // obtain the semaphore
+         if (OSAL_SEM_Pend(&semUART) == OSAL_RESULT_TRUE)
          {
+            // perform processing on the comm channel
             ...
          }
      }
      else
      {
+        // no comm channels available
         ...
      }
     </code>
@@ -423,7 +433,9 @@
   Example:
     <code>
      OSAL_CRITSECT_DATA_TYPE IntState;
+     // prevent other tasks pre-empting this sequence of code
      IntState = OSAL_CRIT_Enter(OSAL_CRIT_TYPE_HIGH);
+     // modify the peripheral
      DRV_USART_Reinitialize( objUSART,  &initData);
      OSAL_CRIT_Leave(OSAL_CRIT_TYPE_HIGH, IntState);
     </code>
@@ -469,7 +481,9 @@
   Example:
     <code>
      OSAL_CRITSECT_DATA_TYPE IntState;
+     // prevent other tasks pre-empting this sequence of code
      intState = OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
+     // modify the peripheral
      DRV_USART_Reinitialize( objUSART,  &initData);
      OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, IntState);
     </code>
@@ -519,8 +533,8 @@
     mutexID      - Pointer to the mutex handle
 
   Returns:
-    - OSAL_RESULT_SUCCESS    - Mutex successfully created
-    - OSAL_RESULT_FAIL   - Mutex failed to be created
+    - OSAL_RESULT_TRUE    - Mutex successfully created
+    - OSAL_RESULT_FALSE   - Mutex failed to be created
 
   Example:
     <code>
@@ -528,8 +542,9 @@
 
     OSAL_MUTEX_Create(&mutexData);
     ...
-     if (OSAL_MUTEX_Lock(&mutexData, 1000) == OSAL_RESULT_SUCCESS)
+     if (OSAL_MUTEX_Lock(&mutexData, 1000) == OSAL_RESULT_TRUE)
      {
+        // manipulate the shared data
         ...
      }
     </code>
@@ -557,8 +572,8 @@
     mutexID      - Pointer to the mutex handle
 
   Returns:
-    - OSAL_RESULT_SUCCESS    - Mutex successfully deleted
-    - OSAL_RESULT_FAIL   - Mutex failed to be deleted
+    - OSAL_RESULT_TRUE    - Mutex successfully deleted
+    - OSAL_RESULT_FALSE   - Mutex failed to be deleted
 
   Example:
     <code>
@@ -573,7 +588,7 @@
 
 // *****************************************************************************
 /* Function:
-    OSAL_RESULT OSAL_MUTEX_Lock(OSAL_MUTEX_HANDLE_TYPE* mutexID, uint16_t waitMS)
+    OSAL_RESULT OSAL_MUTEX_Lock(OSAL_MUTEX_HANDLE_TYPE* mutexID, uint32_t waitMS)
 
   Summary:
     Locks a mutex.
@@ -597,17 +612,19 @@
                    Other values, Timeout delay
 
   Returns:
-    - OSAL_RESULT_SUCCESS    - Mutex successfully obtained
-    - OSAL_RESULT_FAIL   - Mutex failed to be obtained or timeout occurred
+    - OSAL_RESULT_TRUE    - Mutex successfully obtained
+    - OSAL_RESULT_FALSE   - Mutex failed to be obtained or timeout occurred
 
   Example:
     <code>
 
     ...
-     if (OSAL_MUTEX_Lock(&mutexData, 1000) == OSAL_RESULT_SUCCESS)
+     if (OSAL_MUTEX_Lock(&mutexData, 1000) == OSAL_RESULT_TRUE)
      {
+        // manipulate the shared data
         ...
 
+        // unlock the mutex
         OSAL_MUTEX_Unlock(&mutexData);
      }
     </code>
@@ -616,7 +633,7 @@
     None.
 
  */
-//OSAL_RESULT OSAL_MUTEX_Lock(OSAL_MUTEX_HANDLE_TYPE* mutexID, uint16_t waitMS);
+//OSAL_RESULT OSAL_MUTEX_Lock(OSAL_MUTEX_HANDLE_TYPE* mutexID, uint32_t waitMS);
 
 // *****************************************************************************
 /* Function:
@@ -635,16 +652,19 @@
     mutexID      - Pointer to the mutex handle
 
   Returns:
-    - OSAL_RESULT_SUCCESS    - Mutex released
-    - OSAL_RESULT_FAIL   - Mutex failed to be released or error occurred
+    - OSAL_RESULT_TRUE    - Mutex released
+    - OSAL_RESULT_FALSE   - Mutex failed to be released or error occurred
 
   Example:
     <code>
 
     ...
-    if (OSAL_MUTEX_Lock(&mutexData, 1000) == OSAL_RESULT_SUCCESS)
+    if (OSAL_MUTEX_Lock(&mutexData, 1000) == OSAL_RESULT_TRUE)
     {
+        // manipulate the shared data
+        ...
 
+        // unlock the mutex
         OSAL_MUTEX_Unlock(&mutexData);
     }
     </code>
@@ -683,6 +703,7 @@
 
   Example:
     <code>
+    // create a working array
     uint8_t* pData;
 
      pData = OSAL_Malloc(32);
@@ -723,13 +744,17 @@
 
   Example:
     <code>
+    // create a working array
     uint8_t* pData;
 
      pData = OSAL_Malloc(32);
      if (pData != NULL)
      {
         ...
+
+        // deallocate the memory
         OSAL_Free(pData);
+        // and prevent it accidentally being used again
         pData = NULL;
      }
     </code>
@@ -762,7 +787,7 @@
     None.
 
   Returns:
-    OSAL_RESULT_SUCCESS  - Initialization completed successfully.
+    OSAL_RESULT_TRUE  - Initialization completed successfully.
 
   Example:
     <code>
@@ -803,6 +828,7 @@
 
   Example:
     <code>
+    // get the RTOS name
     const char* sName;
 
     sName = OSAL_Name();
@@ -815,7 +841,7 @@
  */
 //__INLINE const char* OSAL_Name(void);
 
-#endif // OSAL_H
+#endif // _OSAL_H
 
 /*******************************************************************************
  End of File

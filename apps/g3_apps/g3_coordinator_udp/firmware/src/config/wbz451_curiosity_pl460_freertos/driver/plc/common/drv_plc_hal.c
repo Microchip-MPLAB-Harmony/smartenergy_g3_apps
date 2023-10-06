@@ -11,7 +11,7 @@
     PLC Driver Hardware Abstraction Layer
 
   Description:
-    This file contains the source code for the implementation of the Hardware
+    This file contains the source code for the implementation of the Hardware 
     Abstraction Layer.
 *******************************************************************************/
 
@@ -110,8 +110,8 @@ static void lDRV_PLC_HAL_memcpyREV16 (void * pDst, void * pSrc, size_t size)
 // *****************************************************************************
 void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
 {
-    sPlcPlib = plcPlib;
-
+    sPlcPlib = plcPlib;   
+    
     /* Disable External Interrupt */
     EIC_InterruptDisable(sPlcPlib->extIntPin);
     /* Enable External Interrupt Source */
@@ -126,17 +126,17 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
 
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelTx)){}
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx)){}
-
+        
     spiPlibSetup.dataBits = DRV_PLC_SPI_DATA_BITS_8;
     SYS_DMA_DataWidthSetup(sPlcPlib->dmaChannelTx, SYS_DMA_WIDTH_8_BIT);
     SYS_DMA_DataWidthSetup(sPlcPlib->dmaChannelRx, SYS_DMA_WIDTH_8_BIT);
-
+    
     /* Configure SPI PLIB */
     spiPlibSetup.clockFrequency = sPlcPlib->spiClockFrequency;
     spiPlibSetup.clockPhase = DRV_PLC_SPI_CLOCK_PHASE_LEADING_EDGE;
     spiPlibSetup.clockPolarity = DRV_PLC_SPI_CLOCK_POLARITY_IDLE_LOW;
     (void) sPlcPlib->spiPlibTransferSetup((uintptr_t)&spiPlibSetup, 0);
-
+    
     /* Configure DMA */
     SYS_DMA_AddressingModeSetup(sPlcPlib->dmaChannelTx, SYS_DMA_SOURCE_ADDRESSING_MODE_INCREMENTED, SYS_DMA_DESTINATION_ADDRESSING_MODE_FIXED);
     SYS_DMA_AddressingModeSetup(sPlcPlib->dmaChannelRx, SYS_DMA_SOURCE_ADDRESSING_MODE_FIXED, SYS_DMA_DESTINATION_ADDRESSING_MODE_INCREMENTED);
@@ -165,12 +165,12 @@ void DRV_PLC_HAL_Reset(void)
 
 void DRV_PLC_HAL_SetTxEnable(bool enable)
 {
-    if (enable)
+    if (enable) 
     {
         /* Set TX Enable Pin */
         SYS_PORT_PinSet(sPlcPlib->txEnablePin);
-    }
-    else
+    } 
+    else 
     {
         /* Clear TX Enable Pin */
         SYS_PORT_PinClear(sPlcPlib->txEnablePin);
@@ -178,7 +178,7 @@ void DRV_PLC_HAL_SetTxEnable(bool enable)
 }
 
 void DRV_PLC_HAL_Delay(uint32_t delayUs)
-{
+{ 
     SYS_TIME_HANDLE tmrHandle = SYS_TIME_HANDLE_INVALID;
 
     if (SYS_TIME_DelayUS(delayUs, &tmrHandle) == SYS_TIME_SUCCESS)
@@ -208,14 +208,14 @@ bool DRV_PLC_HAL_GetPinLevel(SYS_PORT_PIN pin)
 
 void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, uint8_t *pDataWr, uint8_t *pDataRd)
 {
-    uint8_t *pTxData;
+    uint8_t *pTxData;  
     size_t size;
 
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelTx)){}
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx)){}
-
+    
     pTxData = sTxSpiData;
-
+    
     /* Build command */
     (void) memcpy(pTxData, (uint8_t *)&addr, 4);
     pTxData += 4;
@@ -227,8 +227,8 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
         {
             dataLength = HAL_SPI_BUFFER_SIZE - 6U;
         }
-
-        if (pDataWr != NULL)
+        
+        if (pDataWr != NULL) 
         {
             (void) memcpy(pTxData, pDataWr, dataLength);
         }
@@ -244,14 +244,14 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
 
     /* Assert CS pin */
     SYS_PORT_PinClear(sPlcPlib->spiCSPin);
-
+   
     (void) SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelRx, (const void *)sPlcPlib->spiAddressRx, (const void *)sRxSpiData, size);
     (void) SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelTx, (const void *)sTxSpiData, (const void *)sPlcPlib->spiAddressTx, size);
 
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx)){}
 
     /* Deassert CS pin */
-    SYS_PORT_PinSet(sPlcPlib->spiCSPin);
+    SYS_PORT_PinSet(sPlcPlib->spiCSPin);   
 
     if ((pDataRd != NULL) && (dataLength > 0U))
     {
@@ -268,20 +268,20 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
 
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelTx)){}
     while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx)){}
-
+    
     pTxData = sTxSpiData;
-
+    
     dataLength = ((pCmd->length + 1U) >> 1) & 0x7FFFU;
-
+    
     /* Protect length */
     if ((dataLength == 0U) || (dataLength > (HAL_SPI_MSG_DATA_SIZE + HAL_SPI_MSG_PARAMS_SIZE)))
     {
         return;
     }
-
+    
     /* Join CMD and Length */
     dataLength |= pCmd->cmd;
-
+    
     /* Build command */
     /* Address */
     *pTxData++ = (uint8_t)(pCmd->memId >> 8);
@@ -301,15 +301,15 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
 
     totalLength = 4U + pCmd->length;
     cmdSize = totalLength;
-
+    
     if ((cmdSize % 2U) > 0U) {
         cmdSize++;
         *pTxData++ = 0;
     }
-
+       
     /* Assert CS pin */
     SYS_PORT_PinClear(sPlcPlib->spiCSPin);
-
+   
     (void) SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelRx, (const void *)sPlcPlib->spiAddressRx, (const void *)sRxSpiData, cmdSize);
     (void) SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelTx, (const void *)sTxSpiData, (const void *)sPlcPlib->spiAddressTx, cmdSize);
 
@@ -322,18 +322,18 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
         /* Update data received */
         lDRV_PLC_HAL_memcpyREV16(pCmd->pData, &sRxSpiData[4], pCmd->length);
     }
-
+    
     /* Get HAL info */
     pInfo->key = DRV_PLC_HAL_KEY(sRxSpiData[1], sRxSpiData[0]);
     if (pInfo->key == DRV_PLC_HAL_KEY_CORTEX)
     {
         pInfo->flags = DRV_PLC_HAL_FLAGS_CORTEX(sRxSpiData[3], sRxSpiData[2]);
-    }
+    } 
     else if (pInfo->key == DRV_PLC_HAL_KEY_BOOT)
     {
         pInfo->flags = DRV_PLC_HAL_FLAGS_BOOT(sRxSpiData[1], sRxSpiData[3], sRxSpiData[2]);
-    }
-    else
+    } 
+    else 
     {
         pInfo->flags = 0UL;
     }

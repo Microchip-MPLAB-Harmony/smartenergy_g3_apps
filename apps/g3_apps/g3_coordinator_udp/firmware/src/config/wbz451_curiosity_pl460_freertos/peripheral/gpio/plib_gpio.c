@@ -64,7 +64,7 @@ void GPIO_Initialize ( void )
 
           /* PORTA Initialization */
     GPIOA_REGS->GPIO_LAT = 0x200U; /* Initial Latch Value */
-    GPIOA_REGS->GPIO_TRISCLR = 0x6200U; /* Direction Control */
+    GPIOA_REGS->GPIO_TRISCLR = 0x6204U; /* Direction Control */
     GPIOA_REGS->GPIO_CNPDSET = 0x4U; /* Pull-Down Enable */
     /* PORTB Initialization */
     GPIOB_REGS->GPIO_LAT = 0x4U; /* Initial Latch Value */
@@ -74,7 +74,6 @@ void GPIO_Initialize ( void )
 
 
     /* PPS Input Remapping */
-    PPS_REGS->PPS_EXTINT0R = 8U;
     PPS_REGS->PPS_SCOM0P2R = 2U;
     PPS_REGS->PPS_SCOM1P1R = 1U;
 

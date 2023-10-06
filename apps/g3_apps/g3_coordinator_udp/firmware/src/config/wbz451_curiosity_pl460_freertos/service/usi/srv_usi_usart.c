@@ -511,7 +511,7 @@ void USI_USART_Tasks (uint32_t index)
         /* If counter to discard message is active, wait for 1 ms. Otherwise, wait forever. */
         if (usiUsartCounterDiscardMsg == 0U)
         {
-            waitMS = OSAL_WAIT_FOREVER;
+            waitMS = (uint16_t)OSAL_WAIT_FOREVER;
         }
 
         (void) OSAL_SEM_Pend(&dObj->semaphoreID, waitMS);

@@ -374,8 +374,10 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
         const SYS_MODULE_INIT * const init)
 {
     const PAL_PLC_INIT * const palInit = (const PAL_PLC_INIT * const)init;
+    bool updateBin = false;
     MAC_RT_BAND plcBandMain;
     MAC_RT_BAND plcBandAux;
+    DRV_G3_MACRT_STATE drvG3MacRtStatus;
     
     /* Check Single instance */
     if (index != PAL_PLC_PHY_INDEX)
@@ -410,8 +412,9 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
         {
             drvG3MacRtInitData.binStartAddress = (uint32_t)&g3_mac_rt_bin_start;
             drvG3MacRtInitData.binEndAddress = (uint32_t)&g3_mac_rt_bin_end;
+            updateBin = true;
         }
-    } 
+    }
     else if (plcBandAux == palPlcData.plcBand) 
     {
         palPlcData.plcBranch = SRV_PLC_PCOUP_AUXILIARY_BRANCH;
@@ -419,14 +422,16 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
         {
             drvG3MacRtInitData.binStartAddress = (uint32_t)&g3_mac_rt_bin2_start;
             drvG3MacRtInitData.binEndAddress = (uint32_t)&g3_mac_rt_bin2_end;
+            updateBin = true;
         }
     }
     else
     {
-        return SYS_MODULE_OBJ_INVALID; 
+        return SYS_MODULE_OBJ_INVALID;
     }
-    
-    if (DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX) != DRV_G3_MACRT_STATE_INITIALIZED)
+
+    drvG3MacRtStatus = DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX);
+    if ((drvG3MacRtStatus != DRV_G3_MACRT_STATE_INITIALIZED) || updateBin)
     {
         /* Initialize PLC Driver Instance */
         (void) DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvG3MacRtInitData);

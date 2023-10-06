@@ -119,7 +119,7 @@ typedef struct
 
     /* PLC Initialization Confirm Callback */
     DRV_G3_MACRT_INIT_CALLBACK                initCallback;
-
+    
     /* Application Bootloader Data Callback */
     DRV_PLC_BOOT_DATA_CALLBACK                bootDataCallback;
 
@@ -143,7 +143,7 @@ typedef struct
 
     /* Application Exception Callback */
     DRV_G3_MACRT_EXCEPTION_CALLBACK           exceptionCallback;
-
+    
     /* Event detection flag: data of new reception */
     volatile uint16_t                         evDataIndLength;
 
@@ -167,10 +167,10 @@ typedef struct
 
     /* Event detection flag: RX parameters */
     volatile bool                             evRxParams;
-
+    
     /* Pointer to MAC Sniffer Data Buffer */
     uint8_t                                   *pMacDataSniffer;
-
+    
     /* Pointer to PHY Sniffer Data Buffer */
     uint8_t                                   *pPhyDataSniffer;
 

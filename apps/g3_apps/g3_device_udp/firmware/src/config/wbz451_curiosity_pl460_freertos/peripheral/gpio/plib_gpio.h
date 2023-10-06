@@ -69,22 +69,30 @@
 #define PLC_SPI_CS_OutputEnable()      (GPIOA_REGS->GPIO_TRISCLR = (1U<<9U))
 #define PLC_SPI_CS_InputEnable()       (GPIOA_REGS->GPIO_TRISSET = (1U<<9U))
 #define PLC_SPI_CS_PIN                  GPIO_PIN_RA9
-/*** Macros for PLC_LDO pin ***/
-#define PLC_LDO_Set()               (GPIOA_REGS->GPIO_LATSET = (1U<<13U))
-#define PLC_LDO_Clear()             (GPIOA_REGS->GPIO_LATCLR = (1U<<13U))
-#define PLC_LDO_Toggle()            (GPIOA_REGS->GPIO_LATINV= (1U<<13U))
-#define PLC_LDO_Get()               ((GPIOA_REGS->GPIO_PORT >> 13U) & 0x1U)
-#define PLC_LDO_OutputEnable()      (GPIOA_REGS->GPIO_TRISCLR = (1U<<13U))
-#define PLC_LDO_InputEnable()       (GPIOA_REGS->GPIO_TRISSET = (1U<<13U))
-#define PLC_LDO_PIN                  GPIO_PIN_RA13
-/*** Macros for PLC_TX_ENABLE pin ***/
-#define PLC_TX_ENABLE_Set()               (GPIOA_REGS->GPIO_LATSET = (1U<<14U))
-#define PLC_TX_ENABLE_Clear()             (GPIOA_REGS->GPIO_LATCLR = (1U<<14U))
-#define PLC_TX_ENABLE_Toggle()            (GPIOA_REGS->GPIO_LATINV= (1U<<14U))
-#define PLC_TX_ENABLE_Get()               ((GPIOA_REGS->GPIO_PORT >> 14U) & 0x1U)
-#define PLC_TX_ENABLE_OutputEnable()      (GPIOA_REGS->GPIO_TRISCLR = (1U<<14U))
-#define PLC_TX_ENABLE_InputEnable()       (GPIOA_REGS->GPIO_TRISSET = (1U<<14U))
-#define PLC_TX_ENABLE_PIN                  GPIO_PIN_RA14
+/*** Macros for TXREQ pin ***/
+#define TXREQ_Set()               (GPIOA_REGS->GPIO_LATSET = (1U<<13U))
+#define TXREQ_Clear()             (GPIOA_REGS->GPIO_LATCLR = (1U<<13U))
+#define TXREQ_Toggle()            (GPIOA_REGS->GPIO_LATINV= (1U<<13U))
+#define TXREQ_Get()               ((GPIOA_REGS->GPIO_PORT >> 13U) & 0x1U)
+#define TXREQ_OutputEnable()      (GPIOA_REGS->GPIO_TRISCLR = (1U<<13U))
+#define TXREQ_InputEnable()       (GPIOA_REGS->GPIO_TRISSET = (1U<<13U))
+#define TXREQ_PIN                  GPIO_PIN_RA13
+/*** Macros for TXCFM pin ***/
+#define TXCFM_Set()               (GPIOA_REGS->GPIO_LATSET = (1U<<14U))
+#define TXCFM_Clear()             (GPIOA_REGS->GPIO_LATCLR = (1U<<14U))
+#define TXCFM_Toggle()            (GPIOA_REGS->GPIO_LATINV= (1U<<14U))
+#define TXCFM_Get()               ((GPIOA_REGS->GPIO_PORT >> 14U) & 0x1U)
+#define TXCFM_OutputEnable()      (GPIOA_REGS->GPIO_TRISCLR = (1U<<14U))
+#define TXCFM_InputEnable()       (GPIOA_REGS->GPIO_TRISSET = (1U<<14U))
+#define TXCFM_PIN                  GPIO_PIN_RA14
+/*** Macros for RXIND pin ***/
+#define RXIND_Set()               (GPIOA_REGS->GPIO_LATSET = (1U<<2U))
+#define RXIND_Clear()             (GPIOA_REGS->GPIO_LATCLR = (1U<<2U))
+#define RXIND_Toggle()            (GPIOA_REGS->GPIO_LATINV= (1U<<2U))
+#define RXIND_Get()               ((GPIOA_REGS->GPIO_PORT >> 2U) & 0x1U)
+#define RXIND_OutputEnable()      (GPIOA_REGS->GPIO_TRISCLR = (1U<<2U))
+#define RXIND_InputEnable()       (GPIOA_REGS->GPIO_TRISSET = (1U<<2U))
+#define RXIND_PIN                  GPIO_PIN_RA2
 /*** Macros for PLC_RST pin ***/
 #define PLC_RST_Set()               (GPIOB_REGS->GPIO_LATSET = (1U<<2U))
 #define PLC_RST_Clear()             (GPIOB_REGS->GPIO_LATCLR = (1U<<2U))

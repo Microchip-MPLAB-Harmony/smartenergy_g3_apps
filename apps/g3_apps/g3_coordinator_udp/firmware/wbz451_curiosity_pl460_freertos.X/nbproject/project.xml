@@ -7,7 +7,9 @@
             <creation-uuid>2faad46c-f16e-46bd-ae88-584a2a4aaf8c</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
-            <make-dep-projects/>
+            <make-dep-projects>
+                <make-dep-project>../../../../../../smartenergy_g3_libs/libs/g3_lib_mac_rf/g3_lib_mac_rf.X</make-dep-project>
+            </make-dep-projects>
             <sourceRootList/>
             <confList>
                 <confElem>

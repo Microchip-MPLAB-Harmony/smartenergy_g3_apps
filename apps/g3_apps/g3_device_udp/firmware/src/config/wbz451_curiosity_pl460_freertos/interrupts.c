@@ -79,12 +79,14 @@ void __attribute__((optimize("-O1"), long_call, noreturn, used))Dummy_Handler(vo
 }
 
 /* MISRAC 2012 deviation block start */
-/* MISRA C-2012 Rule 8.6 deviated 35 times.  Deviation record ID -  H3_MISRAC_2012_R_8_6_DR_1 */
+/* MISRA C-2012 Rule 8.6 deviated 37 times.  Deviation record ID -  H3_MISRAC_2012_R_8_6_DR_1 */
 /* Device vectors list dummy definition*/
 extern void RTC_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
+extern void EIC_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void FREQM_Handler              ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void CHANGE_NOTICE_A_Handler    ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void CHANGE_NOTICE_B_Handler    ( void ) __attribute__((weak, alias("Dummy_Handler")));
+extern void DMAC_0_3_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void DMAC_4_15_Handler          ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void EVSYS_0_3_Handler          ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void EVSYS_4_11_Handler         ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -141,12 +143,12 @@ const H3DeviceVectors exception_table=
     .pfnPendSV_Handler             = xPortPendSVHandler,
     .pfnSysTick_Handler            = xPortSysTickHandler,
     .pfnRTC_Handler                = RTC_Handler,
-    .pfnEIC_Handler                = EIC_InterruptHandler,
+    .pfnEIC_Handler                = EIC_Handler,
     .pfnFREQM_Handler              = FREQM_Handler,
     .pfnFLASH_CONTROL_Handler      = NVM_InterruptHandler,
     .pfnCHANGE_NOTICE_A_Handler    = CHANGE_NOTICE_A_Handler,
     .pfnCHANGE_NOTICE_B_Handler    = CHANGE_NOTICE_B_Handler,
-    .pfnDMAC_0_3_Handler           = DMAC_0_3_InterruptHandler,
+    .pfnDMAC_0_3_Handler           = DMAC_0_3_Handler,
     .pfnDMAC_4_15_Handler          = DMAC_4_15_Handler,
     .pfnEVSYS_0_3_Handler          = EVSYS_0_3_Handler,
     .pfnEVSYS_4_11_Handler         = EVSYS_4_11_Handler,

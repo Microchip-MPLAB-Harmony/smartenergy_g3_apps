@@ -68,7 +68,7 @@ void NVIC_Initialize( void )
     NVIC_EnableIRQ(DMAC_0_3_IRQn);
     NVIC_SetPriority(SERCOM1_IRQn, 7);
     NVIC_EnableIRQ(SERCOM1_IRQn);
-    NVIC_SetPriority(TC0_IRQn, 6);
+    NVIC_SetPriority(TC0_IRQn, 7);
     NVIC_EnableIRQ(TC0_IRQn);
 
     /* Enable Usage fault */

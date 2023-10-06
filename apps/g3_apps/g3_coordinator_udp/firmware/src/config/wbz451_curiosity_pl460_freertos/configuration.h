@@ -81,7 +81,7 @@ extern "C" {
 // *****************************************************************************
 /* TIME System Service Configuration Options */
 #define SYS_TIME_INDEX_0                            (0)
-#define SYS_TIME_MAX_TIMERS                         (5)
+#define SYS_TIME_MAX_TIMERS                         (25)
 #define SYS_TIME_HW_COUNTER_WIDTH                   (16)
 #define SYS_TIME_HW_COUNTER_PERIOD                  (0xFFFFU)
 #define SYS_TIME_HW_COUNTER_HALF_PERIOD             (SYS_TIME_HW_COUNTER_PERIOD>>1)
@@ -127,7 +127,7 @@ extern "C" {
 #define PAL_RF_PHY_SNIFFER_USI_INSTANCE       SRV_USI_INDEX_0
 
 /* PAL RF RTOS Configuration */
-#define PAL_RF_RTOS_STACK_SIZE                64U
+#define PAL_RF_RTOS_STACK_SIZE                256U
 #define PAL_RF_RTOS_TASK_PRIORITY             2
 
 
@@ -147,7 +147,7 @@ extern "C" {
 // *****************************************************************************
 
 /* G3 stack RTOS configuration */
-#define G3_STACK_RTOS_STACK_SIZE         512U
+#define G3_STACK_RTOS_STACK_SIZE         896U
 #define G3_STACK_RTOS_TASK_PRIORITY      1U
 #define G3_STACK_RTOS_TASK_DELAY_MS      5U
 

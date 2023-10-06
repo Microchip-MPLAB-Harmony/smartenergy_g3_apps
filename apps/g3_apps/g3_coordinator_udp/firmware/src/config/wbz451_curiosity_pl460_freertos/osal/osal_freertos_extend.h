@@ -37,9 +37,7 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-// DOM-IGNORE-END
 
-// DOM-IGNORE-BEGIN
 #ifndef _OSAL_FREERTOS_EXTEND_H
 #define _OSAL_FREERTOS_EXTEND_H
 
@@ -157,7 +155,7 @@ OSAL_RESULT OSAL_QUEUE_AddToSet(OSAL_QUEUE_SET_MEMBER_HANDLE_TYPE *queSetMember,
 *@retval OSAL_RESULT_TRUE    - A queue had been created
 *        OSAL_RESULT_FALSE   - Queue creation failed
 */
-OSAL_RESULT OSAL_QUEUE_SelectFromSet(OSAL_QUEUE_SET_MEMBER_HANDLE_TYPE *queSetMember, OSAL_QUEUE_SET_HANDLE_TYPE *queSetID, uint16_t waitMS);
+OSAL_RESULT OSAL_QUEUE_SelectFromSet(OSAL_QUEUE_SET_MEMBER_HANDLE_TYPE *queSetMember, OSAL_QUEUE_SET_HANDLE_TYPE *queSetID, uint32_t waitMS);
 
 // *****************************************************************************
 /**
@@ -179,7 +177,7 @@ OSAL_RESULT OSAL_QUEUE_SelectFromSet(OSAL_QUEUE_SET_MEMBER_HANDLE_TYPE *queSetMe
 *@retval OSAL_RESULT_TRUE    - Item copied to the queue
 *        OSAL_RESULT_FALSE   - Item not copied to the queue or timeout occurred
 */
-OSAL_RESULT OSAL_QUEUE_Send(OSAL_QUEUE_HANDLE_TYPE *queID, void *itemToQueue, uint16_t waitMS);
+OSAL_RESULT OSAL_QUEUE_Send(OSAL_QUEUE_HANDLE_TYPE *queID, void *itemToQueue, uint32_t waitMS);
 
 // *****************************************************************************
 /**
@@ -226,7 +224,7 @@ OSAL_RESULT OSAL_QUEUE_SendISR(OSAL_QUEUE_HANDLE_TYPE *queID, void  *itemToQueue
 *        OSAL_RESULT_FALSE   - An item was not successfully received from the queue
 *                          or timeout occurred
 */
-OSAL_RESULT OSAL_QUEUE_Receive(OSAL_QUEUE_HANDLE_TYPE *queID, void  *pBuffer, uint16_t waitMS);
+OSAL_RESULT OSAL_QUEUE_Receive(OSAL_QUEUE_HANDLE_TYPE *queID, void  *pBuffer, uint32_t waitMS);
 
 // *****************************************************************************
 /**

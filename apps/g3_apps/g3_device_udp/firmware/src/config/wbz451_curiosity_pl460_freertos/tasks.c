@@ -60,15 +60,6 @@
 // Section: RTOS "Tasks" Routine
 // *****************************************************************************
 // *****************************************************************************
-static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
-{
-    while(true)
-    {
-        /* Maintain G3 MAC RT Driver */
-        DRV_G3_MACRT_Tasks(sysObj.drvG3MacRt);
-    }
-}
-
 static void lG3_STACK_Tasks(  void *pvParameters  )
 {
     while(true)
@@ -86,13 +77,14 @@ static void lG3_STACK_Tasks(  void *pvParameters  )
 /* Handle for the APP_Tasks. */
 TaskHandle_t xPHY_Tasks;
 
-void _PHY_Tasks(  void *pvParameters  )
-{
-    while(1)
+static void _PHY_Tasks(  void *pvParameters  )
+{     
+    while(true)
     {
         PHY_Tasks();
     }
 }
+
 
 
 
@@ -110,7 +102,7 @@ void _TCPIP_STACK_Task(  void *pvParameters  )
 TaskHandle_t xAPP_G3_MANAGEMENT_Tasks;
 
 static void lAPP_G3_MANAGEMENT_Tasks(  void *pvParameters  )
-{
+{   
     while(true)
     {
         APP_G3_MANAGEMENT_Tasks();
@@ -121,7 +113,7 @@ static void lAPP_G3_MANAGEMENT_Tasks(  void *pvParameters  )
 TaskHandle_t xAPP_UDP_RESPONDER_Tasks;
 
 static void lAPP_UDP_RESPONDER_Tasks(  void *pvParameters  )
-{
+{   
     while(true)
     {
         APP_UDP_RESPONDER_Tasks();
@@ -132,7 +124,7 @@ static void lAPP_UDP_RESPONDER_Tasks(  void *pvParameters  )
 TaskHandle_t xAPP_STORAGE_WBZ451_Tasks;
 
 static void lAPP_STORAGE_WBZ451_Tasks(  void *pvParameters  )
-{
+{   
     while(true)
     {
         APP_STORAGE_WBZ451_Tasks();
@@ -167,23 +159,14 @@ static void lPAL_RF_Tasks(  void *pvParameters  )
 void SYS_Tasks ( void )
 {
     /* Maintain system services */
-
+    
 
 
     /* Maintain Device Drivers */
-
-    (void) xTaskCreate( lDRV_G3_MACRT_Tasks,
-        "DRV_G3_MACRT_TASKS",
-        DRV_PLC_RTOS_STACK_SIZE,
-        (void*)NULL,
-        DRV_PLC_RTOS_TASK_PRIORITY,
-        (TaskHandle_t*)NULL
-    );
-
-
+    
 
     /* Maintain Middleware & Other Libraries */
-
+    
     (void) xTaskCreate( lG3_STACK_Tasks,
         "G3_STACK_TASKS",
         G3_STACK_RTOS_STACK_SIZE,
@@ -193,7 +176,7 @@ void SYS_Tasks ( void )
     );
 
     /* Create FreeRTOS task for IEEE_802154_PHY */
-	 xTaskCreate((TaskFunction_t) _PHY_Tasks,
+     (void)xTaskCreate((TaskFunction_t) _PHY_Tasks,
                 "PHY_Tasks",
                 1024,
                 NULL,
@@ -250,7 +233,7 @@ void SYS_Tasks ( void )
 
 
     /* Start RTOS Scheduler. */
-
+    
      /**********************************************************************
      * Create all Threads for APP Tasks before starting FreeRTOS Scheduler *
      ***********************************************************************/

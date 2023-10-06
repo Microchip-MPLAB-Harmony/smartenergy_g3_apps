@@ -112,13 +112,7 @@ static uint32_t lSRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
     return timeUS;
 }
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: RF PHY Sniffer Serialization Interface Implementation
-// *****************************************************************************
-// *****************************************************************************
-
-uint8_t* SRV_RSNIFFER_SerialMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMsgLen )
+static uint8_t* lSRV_RSNIFFER_SerialMessage (SRV_RSNIFFER_PHY_DATA *pData, size_t *pMsgLen)
 {
     uint32_t timeIni, timeEnd;
     int16_t rssi;
@@ -140,33 +134,49 @@ uint8_t* SRV_RSNIFFER_SerialMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMs
     srvRsnifferRxMsg[5] = (uint8_t) true;
 
     /* Number of payload symbols */
-    srvRsnifferRxMsg[7] = (uint8_t) (rxData->paySymbols >> 8);
-    srvRsnifferRxMsg[8] = (uint8_t) rxData->paySymbols;
+    srvRsnifferRxMsg[7] = (uint8_t)(pData->paySymbols >> 8);
+    srvRsnifferRxMsg[8] = (uint8_t)pData->paySymbols;
 
     /* Initial and end time of RX frame */
-    timeIni = lSRV_RSNIFFER_SysTimeToUS(rxData->timeIniCount);
-    srvRsnifferRxMsg[11] = (uint8_t) (timeIni >> 24);
-    srvRsnifferRxMsg[12] = (uint8_t) (timeIni >> 16);
-    srvRsnifferRxMsg[13] = (uint8_t) (timeIni >> 8);
-    srvRsnifferRxMsg[14] = (uint8_t) timeIni;
-    timeEnd = timeIni + SYS_TIME_CountToUS(rxData->durationCount);
-    srvRsnifferRxMsg[15] = (uint8_t) (timeEnd >> 24);
-    srvRsnifferRxMsg[16] = (uint8_t) (timeEnd >> 16);
-    srvRsnifferRxMsg[17] = (uint8_t) (timeEnd >> 8);
-    srvRsnifferRxMsg[18] = (uint8_t) timeEnd;
+    timeIni = lSRV_RSNIFFER_SysTimeToUS(pData->timeIniCount);
+    srvRsnifferRxMsg[11] = (uint8_t)(timeIni >> 24);
+    srvRsnifferRxMsg[12] = (uint8_t)(timeIni >> 16);
+    srvRsnifferRxMsg[13] = (uint8_t)(timeIni >> 8);
+    srvRsnifferRxMsg[14] = (uint8_t)timeIni;
+    timeEnd = timeIni + SYS_TIME_CountToUS(pData->durationCount);
+    srvRsnifferRxMsg[15] = (uint8_t)(timeEnd >> 24);
+    srvRsnifferRxMsg[16] = (uint8_t)(timeEnd >> 16);
+    srvRsnifferRxMsg[17] = (uint8_t)(timeEnd >> 8);
+    srvRsnifferRxMsg[18] = (uint8_t)timeEnd;
 
     /* RSSI */
-    rssi = (int16_t) rxData->rssi;
-    srvRsnifferRxMsg[19] = (uint8_t) ((uint16_t) rssi >> 8);
-    srvRsnifferRxMsg[20] = (uint8_t) rssi;
+    rssi = (int16_t)pData->rssi;
+    srvRsnifferRxMsg[19] = (uint8_t)((uint16_t)rssi >> 8);
+    srvRsnifferRxMsg[20] = (uint8_t)rssi;
 
     /* Data payload length */
-    srvRsnifferRxMsg[23] = (uint8_t) (rxData->payloadLen >> 8);
-    srvRsnifferRxMsg[24] = (uint8_t) rxData->payloadLen;
+    srvRsnifferRxMsg[23] = (uint8_t)(pData->payloadLen >> 8);
+    srvRsnifferRxMsg[24] = (uint8_t)pData->payloadLen;
 
     /* Copy payload */
-    (void) memcpy(srvRsnifferRxMsg + RSNIFFER_MSG_HEADER_SIZE, rxData->pData, rxData->payloadLen);
+    (void)memcpy(srvRsnifferRxMsg + RSNIFFER_MSG_HEADER_SIZE, pData->pData, pData->payloadLen);
 
-    *pMsgLen = (size_t) rxData->payloadLen + RSNIFFER_MSG_HEADER_SIZE;
+    *pMsgLen = (size_t)pData->payloadLen + RSNIFFER_MSG_HEADER_SIZE;
     return srvRsnifferRxMsg;
+}
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: RF PHY Sniffer Serialization Interface Implementation
+// *****************************************************************************
+// *****************************************************************************
+
+uint8_t* SRV_RSNIFFER_SerialRxMessage ( SRV_RSNIFFER_PHY_DATA *rxData, size_t *pMsgLen )
+{
+    return lSRV_RSNIFFER_SerialMessage(rxData, pMsgLen);
+}
+
+uint8_t* SRV_RSNIFFER_SerialCfmMessage ( SRV_RSNIFFER_PHY_DATA *txData, size_t *pMsgLen )
+{
+    return lSRV_RSNIFFER_SerialMessage(txData, pMsgLen);
 }

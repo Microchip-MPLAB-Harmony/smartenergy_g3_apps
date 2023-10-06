@@ -51,7 +51,6 @@
 #include <string.h>
 #include "system/time/sys_time.h"
 #include "mac_common.h"
-#include "../mac_plc/mac_plc_mib.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -345,59 +344,24 @@ MAC_STATUS MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
         {
         case MAC_COMMON_PIB_PAN_ID:
             status = lMAC_COMMON_PibSetPanId(pibValue);
-            if (status == MAC_STATUS_SUCCESS)
-            {
-                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
-                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
-            }
             break;
         case MAC_COMMON_PIB_PROMISCUOUS_MODE:
             status = lMAC_COMMON_PibSetPromiscuousMode(pibValue);
-            if (status == MAC_STATUS_SUCCESS)
-            {
-                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
-                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
-            }
             break;
         case MAC_COMMON_PIB_SHORT_ADDRESS:
             status = lMAC_COMMON_PibSetShortAddress(pibValue);
-            if (status == MAC_STATUS_SUCCESS)
-            {
-                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
-                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
-            }
             break;
         case MAC_COMMON_PIB_RC_COORD:
             status = lMAC_COMMON_PibSetRcCoord(pibValue);
-            if (status == MAC_STATUS_SUCCESS)
-            {
-                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
-                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
-            }
             break;
         case MAC_COMMON_PIB_EXTENDED_ADDRESS:
             status = lMAC_COMMON_PibSetExtendedAddress(pibValue);
-            if (status == MAC_STATUS_SUCCESS)
-            {
-                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
-                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
-            }
             break;
         case MAC_COMMON_PIB_POS_TABLE_ENTRY_TTL:
             status = lMAC_COMMON_PibSetPOSTableEntryTtl(pibValue);
-            if (status == MAC_STATUS_SUCCESS)
-            {
-                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
-                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
-            }
             break;
         case MAC_COMMON_PIB_POS_RECENT_ENTRY_THRESHOLD:
             status = lMAC_COMMON_PibSetPOSRecentEntryThreshold(pibValue);
-            if (status == MAC_STATUS_SUCCESS)
-            {
-                /* Ignore result as it depends on availability of PLC interface, which may be unavailable */
-                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
-            }
             break;
         case MAC_COMMON_PIB_KEY_TABLE:
             status = lMAC_COMMON_PibSetKeyTable(index, pibValue);

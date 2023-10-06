@@ -86,13 +86,14 @@ static void lG3_STACK_Tasks(  void *pvParameters  )
 /* Handle for the APP_Tasks. */
 TaskHandle_t xPHY_Tasks;
 
-void _PHY_Tasks(  void *pvParameters  )
-{
-    while(1)
+static void _PHY_Tasks(  void *pvParameters  )
+{     
+    while(true)
     {
         PHY_Tasks();
     }
 }
+
 
 
 
@@ -110,29 +111,29 @@ void _TCPIP_STACK_Task(  void *pvParameters  )
 TaskHandle_t xAPP_G3_MANAGEMENT_Tasks;
 
 static void lAPP_G3_MANAGEMENT_Tasks(  void *pvParameters  )
-{
+{   
     while(true)
     {
         APP_G3_MANAGEMENT_Tasks();
-        vTaskDelay(50U / portTICK_PERIOD_MS);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 /* Handle for the APP_UDP_RESPONDER_Tasks. */
 TaskHandle_t xAPP_UDP_RESPONDER_Tasks;
 
 static void lAPP_UDP_RESPONDER_Tasks(  void *pvParameters  )
-{
+{   
     while(true)
     {
         APP_UDP_RESPONDER_Tasks();
-        vTaskDelay(50U / portTICK_PERIOD_MS);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 /* Handle for the APP_STORAGE_WBZ451_Tasks. */
 TaskHandle_t xAPP_STORAGE_WBZ451_Tasks;
 
 static void lAPP_STORAGE_WBZ451_Tasks(  void *pvParameters  )
-{
+{   
     while(true)
     {
         APP_STORAGE_WBZ451_Tasks();
@@ -142,22 +143,33 @@ static void lAPP_STORAGE_WBZ451_Tasks(  void *pvParameters  )
 TaskHandle_t xAPP_EAP_SERVER_Tasks;
 
 static void lAPP_EAP_SERVER_Tasks(  void *pvParameters  )
-{
+{   
     while(true)
     {
         APP_EAP_SERVER_Tasks();
-        vTaskDelay(50U / portTICK_PERIOD_MS);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 /* Handle for the APP_CYCLES_Tasks. */
 TaskHandle_t xAPP_CYCLES_Tasks;
 
 static void lAPP_CYCLES_Tasks(  void *pvParameters  )
-{
+{   
     while(true)
     {
         APP_CYCLES_Tasks();
-        vTaskDelay(50U / portTICK_PERIOD_MS);
+        vTaskDelay(5U / portTICK_PERIOD_MS);
+    }
+}
+/* Handle for the APP_TCPIP_MANAGEMENT_Tasks. */
+TaskHandle_t xAPP_TCPIP_MANAGEMENT_Tasks;
+
+static void lAPP_TCPIP_MANAGEMENT_Tasks(  void *pvParameters  )
+{   
+    while(true)
+    {
+        APP_TCPIP_MANAGEMENT_Tasks();
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 
@@ -197,10 +209,10 @@ static void lSRV_USI0_Tasks(  void *pvParameters  )
 void SYS_Tasks ( void )
 {
     /* Maintain system services */
-
+    
 
     /* Maintain Device Drivers */
-
+    
     (void) xTaskCreate( lDRV_G3_MACRT_Tasks,
         "DRV_G3_MACRT_TASKS",
         DRV_PLC_RTOS_STACK_SIZE,
@@ -212,7 +224,7 @@ void SYS_Tasks ( void )
 
 
     /* Maintain Middleware & Other Libraries */
-
+    
     (void) xTaskCreate( lG3_STACK_Tasks,
         "G3_STACK_TASKS",
         G3_STACK_RTOS_STACK_SIZE,
@@ -222,7 +234,7 @@ void SYS_Tasks ( void )
     );
 
     /* Create FreeRTOS task for IEEE_802154_PHY */
-	 xTaskCreate((TaskFunction_t) _PHY_Tasks,
+     (void)xTaskCreate((TaskFunction_t) _PHY_Tasks,
                 "PHY_Tasks",
                 1024,
                 NULL,
@@ -300,11 +312,19 @@ void SYS_Tasks ( void )
                 1,
                 &xAPP_CYCLES_Tasks);
 
+    /* Create OS Thread for APP_TCPIP_MANAGEMENT_Tasks. */
+    (void) xTaskCreate((TaskFunction_t) lAPP_TCPIP_MANAGEMENT_Tasks,
+                "APP_TCPIP_MANAGEMENT_Tasks",
+                1024,
+                NULL,
+                1,
+                &xAPP_TCPIP_MANAGEMENT_Tasks);
+
 
 
 
     /* Start RTOS Scheduler. */
-
+    
      /**********************************************************************
      * Create all Threads for APP Tasks before starting FreeRTOS Scheduler *
      ***********************************************************************/

@@ -96,15 +96,15 @@ void CLK_Initialize( void )
     while ((CFG_REGS->CFG_MISCSTAT & CFG_MISCSTAT_CLDORDY_Msk) == 0U)
 	{
         /* Do Nothing */
-	}
-
-    // wait for xtal_ready
+	}		
+    
+    // wait for xtal_ready      
     uint32_t clk_ready_tries = 0U;
     do
     {
         clk_ready_tries++;
     } while(BTZB_XTAL_NOT_READY && (clk_ready_tries < CLK_READY_RETRIES));
-
+    
     if((clk_ready_tries >= CLK_READY_RETRIES) && BTZB_XTAL_NOT_READY)
     {
         BTZBSYS_REGS->BTZBSYS_SUBSYS_CNTRL_REG1 |=(BTZBSYS_SUBSYS_CNTRL_REG1_subsys_bypass_xtal_ready_Msk);
@@ -113,7 +113,7 @@ void CLK_Initialize( void )
 			/* Do Nothing */
 		}
     }
-
+       
     // set PLL_enable
     BLE_REGS->BLE_DPLL_RG2 &= ((uint8_t)~(0x02U));
 
@@ -123,7 +123,7 @@ void CLK_Initialize( void )
     {
         clk_ready_tries++;
     } while(BTZB_PLL_NOT_LOCKED && (clk_ready_tries < CLK_READY_RETRIES));
-
+    
     if((clk_ready_tries >= CLK_READY_RETRIES) && BTZB_PLL_NOT_LOCKED)
     {
         BTZBSYS_REGS->BTZBSYS_SUBSYS_CNTRL_REG1 |= BTZBSYS_SUBSYS_CNTRL_REG1_subsys_bypass_pll_lock_Msk;
@@ -141,9 +141,9 @@ void CLK_Initialize( void )
 
     /* SPLLPWDN     = 0x1     */
     /* SPLLFLOCK    = 0x0    */
-    /* SPLLRST      = 0x0      */
+    /* SPLLRST      = 0x0      */    
     /* SPLLPOSTDIV1 = 1 */
-    /* SPLLPOSTDIV2 = 0x1 */
+    /* SPLLPOSTDIV2 = 0x1 */    
     /* SPLL_BYP     = 0x3     */
     CRU_REGS->CRU_SPLLCON = 0xc0010108U;
 
@@ -165,7 +165,7 @@ void CLK_Initialize( void )
     {
 		/* Do Nothing */
 	}
-
+  
     /* Peripheral Bus 3 is by default enabled, set its divisor */
     /* PBDIV = 10 */
     CRU_REGS->CRU_PB3DIV = CRU_PB3DIV_PBDIVON_Msk | CRU_PB3DIV_PBDIV(9U);
@@ -176,8 +176,8 @@ void CLK_Initialize( void )
     /* REFO1CON register */
     /* ROSEL =  SPLL1 */
     /* DIVSWEN = 1 */
-    /* RSLP = false */
-    /* SIDL = false */
+    /* RSLP = false */ 
+    /* SIDL = false */ 
     /* RODIV = 0 */
     CRU_REGS->CRU_REFO1CON = 0x201U;
 
@@ -194,7 +194,7 @@ void CLK_Initialize( void )
 
 
     CFG_REGS->CFG_PMD1 = 0x200101ceU;
-    CFG_REGS->CFG_PMD3 = 0x7ebcU;
+    CFG_REGS->CFG_PMD3 = 0x7ebdU;
 
 
     /* Lock system since done with clock configuration */

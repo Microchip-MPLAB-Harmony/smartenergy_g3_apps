@@ -25,56 +25,43 @@
                 <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/device_support/include/sleep_system.h</itemPath>
               </logicalFolder>
             </logicalFolder>
+            <logicalFolder name="IEEE_802154_PHY"
+                           displayName="IEEE_802154_PHY"
+                           projectFiles="true">
+              <logicalFolder name="pal" displayName="pal" projectFiles="true">
+                <logicalFolder name="inc" displayName="inc" projectFiles="true">
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/pal/inc/pal.h</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="phy" displayName="phy" projectFiles="true">
+                <logicalFolder name="inc" displayName="inc" projectFiles="true">
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/phy/inc/phy_constants.h</itemPath>
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/phy/inc/phy.h</itemPath>
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/phy/inc/phy_tasks.h</itemPath>
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/phy/inc/ieee_phy_const.h</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="resources" displayName="resources" projectFiles="true">
+                <logicalFolder name="buffer" displayName="buffer" projectFiles="true">
+                  <logicalFolder name="inc" displayName="inc" projectFiles="true">
+                    <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/resources/buffer/inc/bmm.h</itemPath>
+                  </logicalFolder>
+                </logicalFolder>
+                <logicalFolder name="queue" displayName="queue" projectFiles="true">
+                  <logicalFolder name="inc" displayName="inc" projectFiles="true">
+                    <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/resources/queue/inc/qmm.h</itemPath>
+                  </logicalFolder>
+                </logicalFolder>
+              </logicalFolder>
+            </logicalFolder>
             <logicalFolder name="pds" displayName="pds" projectFiles="true">
               <logicalFolder name="include" displayName="include" projectFiles="true">
                 <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/pds/include/pds.h</itemPath>
                 <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/pds/include/pds_config.h</itemPath>
               </logicalFolder>
             </logicalFolder>
-            <logicalFolder name="plc" displayName="plc" projectFiles="true">
-              <logicalFolder name="common" displayName="common" projectFiles="true">
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/common/drv_plc_boot.h</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/common/drv_plc_hal.h</itemPath>
-              </logicalFolder>
-              <logicalFolder name="g3MacRt" displayName="g3MacRt" projectFiles="true">
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt_comm.h</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt_definitions.h</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt_local.h</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt_local_comm.h</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt.h</itemPath>
-              </logicalFolder>
-            </logicalFolder>
             <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/driver.h</itemPath>
             <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/driver_common.h</itemPath>
-          </logicalFolder>
-          <logicalFolder name="IEEE_802154_PHY"
-                         displayName="IEEE_802154_PHY"
-                         projectFiles="true">
-            <logicalFolder name="pal" displayName="pal" projectFiles="true">
-              <logicalFolder name="inc" displayName="inc" projectFiles="true">
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/pal/inc/pal.h</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-            <logicalFolder name="phy" displayName="phy" projectFiles="true">
-              <logicalFolder name="inc" displayName="inc" projectFiles="true">
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/phy/inc/phy.h</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/phy/inc/ieee_phy_const.h</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/phy/inc/phy_tasks.h</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/phy/inc/phy_constants.h</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-            <logicalFolder name="resources" displayName="resources" projectFiles="true">
-              <logicalFolder name="buffer" displayName="buffer" projectFiles="true">
-                <logicalFolder name="inc" displayName="inc" projectFiles="true">
-                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/resources/buffer/inc/bmm.h</itemPath>
-                </logicalFolder>
-              </logicalFolder>
-              <logicalFolder name="queue" displayName="queue" projectFiles="true">
-                <logicalFolder name="inc" displayName="inc" projectFiles="true">
-                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/resources/queue/inc/qmm.h</itemPath>
-                </logicalFolder>
-              </logicalFolder>
-            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="library" displayName="library" projectFiles="true">
             <logicalFolder name="tcpip" displayName="tcpip" projectFiles="true">
@@ -226,9 +213,6 @@
             <logicalFolder name="cmcc" displayName="cmcc" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/cmcc/plib_cmcc.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="dmac" displayName="dmac" projectFiles="true">
-              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/dmac/plib_dmac.h</itemPath>
-            </logicalFolder>
             <logicalFolder name="eic" displayName="eic" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/eic/plib_eic.h</itemPath>
             </logicalFolder>
@@ -245,10 +229,6 @@
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/nvm/plib_nvm.h</itemPath>
             </logicalFolder>
             <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
-              <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/sercom/spi_master/plib_sercom0_spi_master.h</itemPath>
-              </logicalFolder>
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/sercom/usart/plib_sercom1_usart.h</itemPath>
                 <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/sercom/usart/plib_sercom_usart_common.h</itemPath>
@@ -268,9 +248,6 @@
           <logicalFolder name="service" displayName="service" projectFiles="true">
             <logicalFolder name="log_report" displayName="log_report" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/log_report/srv_log_report.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
-              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/pcoup/srv_pcoup.h</itemPath>
             </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/queue/srv_queue.h</itemPath>
@@ -307,11 +284,6 @@
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_common/mac_common.h</itemPath>
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_common/mac_common_defs.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="mac_plc" displayName="mac_plc" projectFiles="true">
-                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_plc/mac_plc_mib.h</itemPath>
-                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_plc/mac_plc_defs.h</itemPath>
-                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_plc/mac_plc.h</itemPath>
-                </logicalFolder>
                 <logicalFolder name="mac_rf" displayName="mac_rf" projectFiles="true">
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_rf/mac_rf_defs.h</itemPath>
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_rf/mac_rf.h</itemPath>
@@ -331,10 +303,6 @@
                 </logicalFolder>
               </logicalFolder>
               <logicalFolder name="pal" displayName="pal" projectFiles="true">
-                <logicalFolder name="plc" displayName="plc" projectFiles="true">
-                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/pal/plc/pal_plc.h</itemPath>
-                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/pal/plc/pal_plc_local.h</itemPath>
-                </logicalFolder>
                 <logicalFolder name="rf" displayName="rf" projectFiles="true">
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/pal/rf/pal_rf_local.h</itemPath>
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/pal/rf/pal_rf.h</itemPath>
@@ -711,45 +679,32 @@
             <itemPath>../src/config/wbz451_curiosity_pl460_freertos/crypto/src/crypto.c</itemPath>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
-            <logicalFolder name="plc" displayName="plc" projectFiles="true">
-              <logicalFolder name="common" displayName="common" projectFiles="true">
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/common/drv_plc_boot.c</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/common/drv_plc_hal.c</itemPath>
-              </logicalFolder>
-              <logicalFolder name="g3MacRt" displayName="g3MacRt" projectFiles="true">
-                <logicalFolder name="bin" displayName="bin" projectFiles="true">
-                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/bin/drv_g3_macrt_bin.S</itemPath>
-                </logicalFolder>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt.c</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt_local_comm.c</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-          </logicalFolder>
-          <logicalFolder name="IEEE_802154_PHY"
-                         displayName="IEEE_802154_PHY"
-                         projectFiles="true">
-            <logicalFolder name="pal" displayName="pal" projectFiles="true">
-              <logicalFolder name="src" displayName="src" projectFiles="true">
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/pal/src/pal.c</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-            <logicalFolder name="phy" displayName="phy" projectFiles="true">
-              <logicalFolder name="src" displayName="src" projectFiles="true">
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/phy/src/phy_rx_frame_cb.c</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/phy/src/phy_task.c</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/phy/src/phy_tx_frame_done_cb.c</itemPath>
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/phy/src/phy_ed_end_cb.c</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-            <logicalFolder name="resources" displayName="resources" projectFiles="true">
-              <logicalFolder name="buffer" displayName="buffer" projectFiles="true">
+            <logicalFolder name="IEEE_802154_PHY"
+                           displayName="IEEE_802154_PHY"
+                           projectFiles="true">
+              <logicalFolder name="pal" displayName="pal" projectFiles="true">
                 <logicalFolder name="src" displayName="src" projectFiles="true">
-                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/resources/buffer/src/bmm.c</itemPath>
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/pal/src/pal.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
-              <logicalFolder name="queue" displayName="queue" projectFiles="true">
+              <logicalFolder name="phy" displayName="phy" projectFiles="true">
                 <logicalFolder name="src" displayName="src" projectFiles="true">
-                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/resources/queue/src/qmm.c</itemPath>
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/phy/src/phy_task.c</itemPath>
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/phy/src/phy_ed_end_cb.c</itemPath>
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/phy/src/phy_rx_frame_cb.c</itemPath>
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/phy/src/phy_tx_frame_done_cb.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="resources" displayName="resources" projectFiles="true">
+                <logicalFolder name="buffer" displayName="buffer" projectFiles="true">
+                  <logicalFolder name="src" displayName="src" projectFiles="true">
+                    <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/resources/buffer/src/bmm.c</itemPath>
+                  </logicalFolder>
+                </logicalFolder>
+                <logicalFolder name="queue" displayName="queue" projectFiles="true">
+                  <logicalFolder name="src" displayName="src" projectFiles="true">
+                    <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/IEEE_802154_PHY/resources/queue/src/qmm.c</itemPath>
+                  </logicalFolder>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
@@ -788,9 +743,6 @@
             <logicalFolder name="cmcc" displayName="cmcc" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/cmcc/plib_cmcc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="dmac" displayName="dmac" projectFiles="true">
-              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/dmac/plib_dmac.c</itemPath>
-            </logicalFolder>
             <logicalFolder name="eic" displayName="eic" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/eic/plib_eic.c</itemPath>
             </logicalFolder>
@@ -807,9 +759,6 @@
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/nvm/plib_nvm.c</itemPath>
             </logicalFolder>
             <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
-              <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
-                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/sercom/spi_master/plib_sercom0_spi_master.c</itemPath>
-              </logicalFolder>
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/sercom/usart/plib_sercom1_usart.c</itemPath>
               </logicalFolder>
@@ -825,9 +774,6 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="service" displayName="service" projectFiles="true">
-            <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
-              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/pcoup/srv_pcoup.c</itemPath>
-            </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/queue/srv_queue.c</itemPath>
             </logicalFolder>
@@ -864,9 +810,6 @@
                 </logicalFolder>
               </logicalFolder>
               <logicalFolder name="pal" displayName="pal" projectFiles="true">
-                <logicalFolder name="plc" displayName="plc" projectFiles="true">
-                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/pal/plc/pal_plc.c</itemPath>
-                </logicalFolder>
                 <logicalFolder name="rf" displayName="rf" projectFiles="true">
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/pal/rf/pal_rf.c</itemPath>
                 </logicalFolder>
@@ -1052,9 +995,9 @@
         <targetDevice>WBZ451</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>pkob4hybrid</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.30</languageToolchainVersion>
+        <languageToolchainVersion>4.35</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -1066,13 +1009,29 @@
       <compileType>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/lib/lib-ieee802154_phy_pic32cxbz-v1.0.0.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/driver/device_support/pic32cx_bz2_device_support.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/driver/pds/pds.a</linkerLibFileItem>
-            <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_rf/g3_lib_rf_mac.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/adaptation/g3_lib_loadng.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/adaptation/g3_lib_adp.a</linkerLibFileItem>
-            <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_plc/g3_lib_plc_mac.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/driver/lib/lib-ieee802154_phy_pic32cxbz-v1.1.0.a</linkerLibFileItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../../../../../smartenergy_g3_libs/libs/g3_lib_mac_rf/g3_lib_mac_rf.X"
+                            CT="3"
+                            CN="release"
+                            AC="true"
+                            BL="true"
+                            WD="../../../../../../smartenergy_g3_libs/libs/g3_lib_mac_rf/g3_lib_mac_rf.X"
+                            BC="${MAKE}  -f Makefile CONF=release"
+                            DBC="${MAKE}  -f Makefile CONF=release TYPE_IMAGE=DEBUG_RUN"
+                            CC="rm -rf &quot;build/release&quot; &quot;dist/release&quot;"
+                            OP="dist/release/production/g3_lib_mac_rf.X.a"
+                            DOP="dist/release/debug/g3_lib_mac_rf.X.a"
+                            FL="dist/release/production/g3_lib_mac_rf.X.a"
+                            PD="dist/release/production/g3_lib_mac_rf.X."
+                            DD="dist/release/debug/g3_lib_mac_rf.X.">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_rf/g3_lib_rf_mac.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -1114,19 +1073,18 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/wbz451_curiosity_pl460_freertos;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/pal/inc;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/phy/inc/;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/resources/buffer/inc/;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/resources/queue/inc/;../src/config/wbz451_curiosity_pl460_freertos/library;../src/config/wbz451_curiosity_pl460_freertos/library/tcpip/src;../src/config/wbz451_curiosity_pl460_freertos/library/tcpip/src/common;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/WBZ451_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl"/>
+                  value="../src;../src/config/wbz451_curiosity_pl460_freertos;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/pal/inc;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/phy/inc/;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/resources/buffer/inc/;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/resources/queue/inc/;../src/config/wbz451_curiosity_pl460_freertos/driver//IEEE_802154_PHY/pal/inc;../src/config/wbz451_curiosity_pl460_freertos/driver//IEEE_802154_PHY/phy/inc/;../src/config/wbz451_curiosity_pl460_freertos/driver//IEEE_802154_PHY/resources/buffer/inc/;../src/config/wbz451_curiosity_pl460_freertos/driver//IEEE_802154_PHY/resources/queue/inc/;../src/config/wbz451_curiosity_pl460_freertos/library;../src/config/wbz451_curiosity_pl460_freertos/library/tcpip/src;../src/config/wbz451_curiosity_pl460_freertos/library/tcpip/src/common;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/WBZ451_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="false"/>
-        <property key="optimization-level" value="-O2"/>
+        <property key="optimization-level" value=""/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -1145,7 +1103,6 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
-        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -1174,7 +1131,6 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1214,7 +1170,6 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1224,7 +1179,7 @@
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/wbz451_curiosity_pl460_freertos;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/pal/inc;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/phy/inc/;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/resources/buffer/inc/;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/resources/queue/inc/;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/WBZ451_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F"/>
+                  value="../src;../src/config/wbz451_curiosity_pl460_freertos;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/pal/inc;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/phy/inc/;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/resources/buffer/inc/;../src/config/wbz451_curiosity_pl460_freertos/IEEE_802154_PHY/resources/queue/inc/;../src/config/wbz451_curiosity_pl460_freertos/driver//IEEE_802154_PHY/pal/inc;../src/config/wbz451_curiosity_pl460_freertos/driver//IEEE_802154_PHY/phy/inc/;../src/config/wbz451_curiosity_pl460_freertos/driver//IEEE_802154_PHY/resources/buffer/inc/;../src/config/wbz451_curiosity_pl460_freertos/driver//IEEE_802154_PHY/resources/queue/inc/;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/WBZ451_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
@@ -1243,7 +1198,6 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
-        <property key="appendMe" value=""/>
         <property key="common-include-directories" value=""/>
         <property key="gp-relative-option" value=""/>
         <property key="legacy-libc" value="false"/>
@@ -1267,8 +1221,8 @@
         <property key="communication.interface" value="swd"/>
         <property key="communication.interface.jtag" value="2wire"/>
         <property key="communication.speed" value="2,000"/>
-        <property key="debugoptions.debug-startup" value="Use system settings"/>
-        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="debugoptions.debug-startup" value="Halt at main"/>
+        <property key="debugoptions.reset-behaviour" value="Main"/>
         <property key="debugoptions.simultaneous.debug" value="false"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="event.recorder.enabled" value="false"/>
@@ -1322,8 +1276,8 @@
         <property key="communication.interface" value="swd"/>
         <property key="communication.interface.jtag" value="2wire"/>
         <property key="communication.speed" value="2,000"/>
-        <property key="debugoptions.debug-startup" value="Use system settings"/>
-        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="debugoptions.debug-startup" value="Halt at main"/>
+        <property key="debugoptions.reset-behaviour" value="Main"/>
         <property key="debugoptions.simultaneous.debug" value="false"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="event.recorder.enabled" value="false"/>

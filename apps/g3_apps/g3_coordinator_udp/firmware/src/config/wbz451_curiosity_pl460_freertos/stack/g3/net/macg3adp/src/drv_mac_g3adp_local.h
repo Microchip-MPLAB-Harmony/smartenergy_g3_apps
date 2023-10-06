@@ -20,23 +20,23 @@
 
 Microchip Technology Inc. and its subsidiaries.
 
-Subject to your compliance with these terms, you may use Microchip software
-and any derivatives exclusively with Microchip products. It is your
-responsibility to comply with third party license terms applicable to your
-use of third party software (including open source software) that may
+Subject to your compliance with these terms, you may use Microchip software 
+and any derivatives exclusively with Microchip products. It is your 
+responsibility to comply with third party license terms applicable to your 
+use of third party software (including open source software) that may 
 accompany Microchip software.
 
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR
+THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
+EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
+WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
 PURPOSE.
 
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
+INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
+WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
+BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
+FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
+ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
 THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *****************************************************************************/
 
@@ -70,7 +70,7 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 
 
 #define DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT         5
-#define DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT         5
+#define DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT         2
 
 
 // *****************************************************************************
@@ -107,27 +107,27 @@ typedef struct
   Description: All the data related to G3 ADP MAC driver
 */
 typedef struct {
-
+    
     SYS_STATUS                      sysStat;      // driver status
-
-    TCPIP_MAC_EVENT                 pendingEvents;
-
+    
+    TCPIP_MAC_EVENT                 pendingEvents; 
+    
     TCPIP_MAC_RX_STATISTICS         rxStat;       // run time statistics
     TCPIP_MAC_TX_STATISTICS         txStat;       // run time statistics
-
+    
     // packet allocation functions
     TCPIP_MAC_PKT_AllocF            pktAllocF;
     TCPIP_MAC_PKT_FreeF             pktFreeF;
-
+    
     // Event reporting. */
     TCPIP_MAC_EventF                eventF;
     // Parameter to be used when the event function is called
     const void*                     eventParam;
-
+    
     SRV_QUEUE                       adpTxQueue;
-
+    
     SRV_QUEUE                       adpRxQueue;
-
+    
     union
     {
         uint8_t        val;
@@ -138,7 +138,7 @@ typedef struct {
             uint8_t    linkPresent        : 1;    // link connection to the ADP Network properly detected : on/off
         };
     }macFlags;
-
+    
 } DRV_G3ADP_MAC_INSTANCE;
 
 /* MISRA C-2012 deviation block end */

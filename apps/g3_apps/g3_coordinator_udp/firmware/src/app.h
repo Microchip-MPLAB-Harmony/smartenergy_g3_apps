@@ -95,8 +95,9 @@ typedef enum
 
 typedef enum APP_MsgId_T
 {
-    APP_MSG_BLE_STACK_EVT,
-    APP_MSG_BLE_STACK_LOG,
+
+
+
     APP_MSG_ZB_STACK_EVT,
     APP_MSG_ZB_STACK_CB,
     APP_MSG_STACK_END
