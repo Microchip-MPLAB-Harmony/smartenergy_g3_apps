@@ -1,21 +1,18 @@
 /*******************************************************************************
- System Tasks Header File
+  Company:
+    Microchip Technology Inc.
 
   File Name:
-    sys_tasks.h
+    pal_plc.h
 
   Summary:
-    This file contains declarations for task handles.
+    PLC Platform Abstraction Layer (PAL) Interface Local header file.
 
   Description:
-    Task handles declared in this header file can be used by the application
-    to control the behavior of the tasks.
+    PLC Platform Abstraction Layer (PAL) Interface Local header file.
+*******************************************************************************/
 
-  Remarks:
-    None
- *******************************************************************************/
-
-// DOM-IGNORE-BEGIN
+//DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
@@ -37,39 +34,70 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *******************************************************************************/
-// DOM-IGNORE-END
+*******************************************************************************/
+//DOM-IGNORE-END
 
-#ifndef SYS_TASKS_H
-#define SYS_TASKS_H
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Included Files
-// *****************************************************************************
-// *****************************************************************************
-
-#include "configuration.h"
-#include "definitions.h"
+#ifndef PAL_PLC_LOCAL_H
+#define PAL_PLC_LOCAL_H
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: RTOS "Tasks" Handles
+// Section: File includes
 // *****************************************************************************
 // *****************************************************************************
-/* Declaration of  APP_G3_MANAGEMENT_Tasks task handle */
-extern TaskHandle_t xAPP_G3_MANAGEMENT_Tasks;
 
-/* Declaration of  APP_UDP_RESPONDER_Tasks task handle */
-extern TaskHandle_t xAPP_UDP_RESPONDER_Tasks;
+#include <stdbool.h>
+#include <stdint.h>
+#include "stack/g3/pal/plc/pal_plc.h"
+#include "service/pcoup/srv_pcoup.h"
 
-/* Declaration of  APP_STORAGE_WBZ451_Tasks task handle */
-extern TaskHandle_t xAPP_STORAGE_WBZ451_Tasks;
+// *****************************************************************************
+// *****************************************************************************
+// Section: Data Types
+// *****************************************************************************
+// *****************************************************************************
 
-/* Declaration of  APP_TCPIP_MANAGEMENT_Tasks task handle */
-extern TaskHandle_t xAPP_TCPIP_MANAGEMENT_Tasks;
+// *****************************************************************************
+/* PAL PLC Data
 
+  Summary:
+    Holds PAL PLC internal data.
 
+  Description:
+    This data type defines the all data required to handle the PAL PLC module.
 
+  Remarks:
+    None.
+*/
+typedef struct  
+{
+    DRV_HANDLE drvG3MacRtHandle;
 
-#endif //SYS_TASKS_H
+    PAL_PLC_STATUS status;
+
+    PAL_PLC_HANDLERS initHandlers;
+
+    MAC_RT_BAND plcBand;
+
+    SRV_PLC_PCOUP_BRANCH plcBranch;
+
+    MAC_RT_PIB_OBJ plcPIB;
+
+    MAC_RT_MIB_INIT_OBJ mibInitData;
+
+    uint8_t statsErrorUnexpectedKey;
+
+    uint8_t statsErrorReset;
+
+    bool waitingTxCfm;
+
+    bool restartMib;
+
+    bool coordinator;
+
+} PAL_PLC_DATA;
+
+#endif // #ifndef PAL_PLC_LOCAL_H
+/*******************************************************************************
+ End of File
+*/

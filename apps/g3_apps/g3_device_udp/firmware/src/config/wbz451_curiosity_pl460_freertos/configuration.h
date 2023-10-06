@@ -81,7 +81,7 @@ extern "C" {
 // *****************************************************************************
 /* TIME System Service Configuration Options */
 #define SYS_TIME_INDEX_0                            (0)
-#define SYS_TIME_MAX_TIMERS                         (26)
+#define SYS_TIME_MAX_TIMERS                         (25)
 #define SYS_TIME_HW_COUNTER_WIDTH                   (16)
 #define SYS_TIME_HW_COUNTER_PERIOD                  (0xFFFFU)
 #define SYS_TIME_HW_COUNTER_HALF_PERIOD             (SYS_TIME_HW_COUNTER_PERIOD>>1)
@@ -113,12 +113,34 @@ extern "C" {
 // Section: Driver Configuration
 // *****************************************************************************
 // *****************************************************************************
+/* PAL PLC Configuration Options */
+#define PAL_PLC_PHY_INDEX                     0U
+
+/* PLC MAC RT Configuration Options */
+#define DRV_PLC_SECURE                        false
+#define DRV_PLC_SPI_CS_PIN                    SYS_PORT_PIN_RA9
+#define DRV_PLC_EXT_INT_SRC                   EIC_IRQn
+#define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_RA2
+#define DRV_PLC_EXT_INT_PIN                   EIC_PIN_0
+#define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_RB2
+#define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_RA13
+#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_RA14
+#define DRV_PLC_SPI_CLK                       1000000
+
+/* PLC MAC RT Driver RTOS Configuration Options */
+#define DRV_PLC_RTOS_STACK_SIZE               256
+#define DRV_PLC_RTOS_TASK_PRIORITY            1
+
+/* PLC MAC RT Driver Identification */
+#define DRV_G3_MACRT_INDEX                   0U
+#define DRV_G3_MACRT_INSTANCES_NUMBER        1U
+#define DRV_G3_MACRT_HOST_DESC               "WBZ451"
 /* PAL RF Configuration Options */
 #define PAL_RF_PHY_INDEX                      0U
 
 /* PAL RF RTOS Configuration */
 #define PAL_RF_RTOS_STACK_SIZE                256U
-#define PAL_RF_RTOS_TASK_PRIORITY             1 //2
+#define PAL_RF_RTOS_TASK_PRIORITY             2
 
 
 
@@ -137,6 +159,10 @@ extern "C" {
 /* MAC COMMON Identification */
 #define G3_MAC_COMMON_INDEX_0            0U
 #define G3_MAC_COMMON_INSTANCES_NUMBER   1U
+
+/* MAC PLC Identification */
+#define G3_MAC_PLC_INDEX_0               0U
+#define G3_MAC_PLC_INSTANCES_NUMBER      1U
 
 /* MAC RF Identification */
 #define G3_MAC_RF_INDEX_0                0U

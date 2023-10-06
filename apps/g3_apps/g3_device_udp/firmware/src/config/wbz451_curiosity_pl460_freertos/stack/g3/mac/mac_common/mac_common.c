@@ -50,7 +50,9 @@
 #include <stdint.h>
 #include <string.h>
 #include "system/time/sys_time.h"
+#include "osal/osal.h"
 #include "mac_common.h"
+#include "../mac_plc/mac_plc_mib.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -63,6 +65,7 @@ static uint64_t previousCounter64 = 0;
 static uint32_t auxMsCounter = 0;
 static uint32_t currentMsCounter = 0;
 static uint32_t currentSecondCounter = 0;
+static OSAL_SEM_HANDLE_TYPE msCounterSemaphoreID = NULL;
 
 MAC_COMMON_MIB macMibCommon;
 
@@ -273,6 +276,19 @@ static MAC_STATUS lMAC_COMMON_PibSetPOSRecentEntryThreshold(const MAC_PIB_VALUE 
 void MAC_COMMON_Init(void)
 {
     macMibCommon = macMibCommonDefaults;
+
+    if (msCounterSemaphoreID == NULL)
+    {
+        /* Create semaphore. It is used to protect ms counter calculation. */
+        OSAL_RESULT semResult = OSAL_SEM_Create(&msCounterSemaphoreID, OSAL_SEM_TYPE_BINARY, 1, 1);
+        if (semResult != OSAL_RESULT_SUCCESS)
+        {
+            if (msCounterSemaphoreID != NULL)
+            {
+                OSAL_SEM_Delete(&msCounterSemaphoreID);
+            }
+        }
+    }
 }
 
 void MAC_COMMON_Reset(void)
@@ -344,24 +360,59 @@ MAC_STATUS MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
         {
         case MAC_COMMON_PIB_PAN_ID:
             status = lMAC_COMMON_PibSetPanId(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
             break;
         case MAC_COMMON_PIB_PROMISCUOUS_MODE:
             status = lMAC_COMMON_PibSetPromiscuousMode(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
             break;
         case MAC_COMMON_PIB_SHORT_ADDRESS:
             status = lMAC_COMMON_PibSetShortAddress(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
             break;
         case MAC_COMMON_PIB_RC_COORD:
             status = lMAC_COMMON_PibSetRcCoord(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
             break;
         case MAC_COMMON_PIB_EXTENDED_ADDRESS:
             status = lMAC_COMMON_PibSetExtendedAddress(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
             break;
         case MAC_COMMON_PIB_POS_TABLE_ENTRY_TTL:
             status = lMAC_COMMON_PibSetPOSTableEntryTtl(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result, as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
             break;
         case MAC_COMMON_PIB_POS_RECENT_ENTRY_THRESHOLD:
             status = lMAC_COMMON_PibSetPOSRecentEntryThreshold(pibValue);
+            if (status == MAC_STATUS_SUCCESS)
+            {
+                /* Ignore result as it depends on availability of PLC interface, which may be unavailable */
+                (void) MAC_PLC_MIB_SetAttributeSync(attribute, index, pibValue);
+            }
             break;
         case MAC_COMMON_PIB_KEY_TABLE:
             status = lMAC_COMMON_PibSetKeyTable(index, pibValue);
@@ -377,27 +428,47 @@ MAC_STATUS MAC_COMMON_SetRequestSync(MAC_COMMON_PIB_ATTRIBUTE attribute, uint16_
 
 uint32_t MAC_COMMON_GetMsCounter(void)
 {
-    uint64_t diffCounter64, currentCounter64;
-    uint32_t elapsedMs;
+    uint64_t currentCounter64;
+    int64_t diffCounter64;
+    uint32_t elapsedMs = 0;
+
+    if (msCounterSemaphoreID != NULL)
+    {
+        /* Suspend task if this function is being executed in another thread */
+        (void) OSAL_SEM_Pend(&msCounterSemaphoreID, OSAL_WAIT_FOREVER);
+    }
 
     /* Get current timer counter */
     currentCounter64 = SYS_TIME_Counter64Get();
+
     /* Diff with previous */
-    diffCounter64 = currentCounter64 - previousCounter64;
-    /* Diff in Ms */
-    elapsedMs = SYS_TIME_CountToMS((uint32_t)diffCounter64);
+    diffCounter64 = (int64_t)currentCounter64 - (int64_t)previousCounter64;
+
+    if (diffCounter64 > 0)
+    {
+        /* Diff in Ms */
+        elapsedMs = SYS_TIME_CountToMS((uint32_t)diffCounter64);
+    }
+
     /* Update Ms counter */
     currentMsCounter += elapsedMs;
     /* Update previous counter for next computation */
     previousCounter64 += SYS_TIME_MSToCount(elapsedMs);
 
     /* Check whether seconds counter has to be updated */
-    if ((currentMsCounter - auxMsCounter) > 1000U)
+    if ((currentMsCounter - auxMsCounter) >= 1000U)
     {
         /* Assume no more than one second passed */
         /* This function is called every few program loops */
         currentSecondCounter++;
         auxMsCounter += 1000U;
+    }
+
+    if (msCounterSemaphoreID != NULL)
+    {
+        /* Post semaphore to resume task in another thread blocked at the
+         * beginning of this function */
+        (void) OSAL_SEM_Post(&msCounterSemaphoreID);
     }
 
     return currentMsCounter;

@@ -163,6 +163,128 @@
 /* MISRA C-2012 Rule 11.3 */
 /* MISRA C-2012 Rule 11.8 */
 
+// <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
+
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
+/* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
+
+/* This routine must initialize the PL460 control pins as soon as possible */
+/* after a power up reset to avoid risks on starting up PL460 device when */ 
+/* pull up resistors are configured by default */
+void _on_reset(void)
+{
+    __asm volatile ("NOP");
+}
+
+/* MISRA C-2012 deviation block end */
+
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="DRV_PLC_HAL Initialization Data">
+/* HAL Interface Initialization for PLC transceiver */
+static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
+
+    /* SPI Transfer Setup */
+    .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SERCOM0_SPI_TransferSetup,
+
+    /* DMA Channel for Transmit */
+    .dmaChannelTx = SYS_DMA_CHANNEL_0,
+
+    /* DMA Channel for Receive */
+    .dmaChannelRx = SYS_DMA_CHANNEL_1,
+
+    /* SPI Transmit Register */
+    .spiAddressTx = (void *)&(SERCOM0_REGS->SPIM.SERCOM_DATA),
+
+    /* SPI Receive Register */
+    .spiAddressRx  = (void *)&(SERCOM0_REGS->SPIM.SERCOM_DATA),
+
+    /* SPI Chip select pin */
+    .spiCSPin = DRV_PLC_SPI_CS_PIN,
+    
+    /* SPI clock frequency */
+    .spiClockFrequency = DRV_PLC_SPI_CLK,
+    
+    /* PLC LDO Enable Pin */
+    .ldoPin = DRV_PLC_LDO_EN_PIN, 
+    
+    /* PLC Reset Pin */
+    .resetPin = DRV_PLC_RESET_PIN,
+       
+    /* PLC External Interrupt Pin */
+    .extIntPin = DRV_PLC_EXT_INT_PIN,
+       
+    /* PLC External Interrupt Pio */
+    .extIntPio = DRV_PLC_EXT_INT_PIO,
+
+    /* PLC TX Enable Pin */
+    .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
+    
+};
+
+/* HAL Interface Initialization for PLC transceiver */
+static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
+
+    /* PLC PLIB */
+    .plcPlib = &drvPLCPlib,
+
+    /* PLC HAL init */
+    .init = (DRV_PLC_HAL_INIT)DRV_PLC_HAL_Init,
+
+    /* PLC HAL setup */
+    .setup = (DRV_PLC_HAL_SETUP)DRV_PLC_HAL_Setup,
+
+    /* PLC transceiver reset */
+    .reset = (DRV_PLC_HAL_RESET)DRV_PLC_HAL_Reset,
+
+    /* PLC Set TX Enable Pin */
+    .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
+    
+    /* PLC HAL Enable/Disable external interrupt */
+    .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
+    
+    /* PLC HAL Enable/Disable external interrupt */
+    .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
+
+    /* PLC HAL delay function */
+    .delay = (DRV_PLC_HAL_DELAY)DRV_PLC_HAL_Delay,
+
+    /* PLC HAL Transfer Bootloader Command */
+    .sendBootCmd = (DRV_PLC_HAL_SEND_BOOT_CMD)DRV_PLC_HAL_SendBootCmd,
+
+    /* PLC HAL Transfer Write/Read Command */
+    .sendWrRdCmd = (DRV_PLC_HAL_SEND_WRRD_CMD)DRV_PLC_HAL_SendWrRdCmd,
+};
+
+// </editor-fold>
+// <editor-fold defaultstate="collapsed" desc="DRV_G3_MACRT Initialization Data">
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
+
+/* G3 MAC RT Driver Initialization Data */
+DRV_G3_MACRT_INIT drvG3MacRtInitData = {
+
+    /* SPI PLIB API interface*/
+    .plcHal = &drvPLCHalAPI,
+ 
+    /* PLC MAC RT Binary start address */
+    .binStartAddress = (uint32_t)&g3_mac_rt_bin_start,
+    
+    /* PLC MAC RT Binary end address */
+    .binEndAddress = (uint32_t)&g3_mac_rt_bin_end,
+
+    /* Secure Mode */
+    .secure = DRV_PLC_SECURE,
+    
+};
+
+/* MISRA C-2012 deviation block end */
+
+// </editor-fold>
+
 
 
 // *****************************************************************************
@@ -610,6 +732,10 @@ void SYS_Initialize ( void* data )
 
     EVSYS_Initialize();
 
+    SERCOM0_SPI_Initialize();
+
+    DMAC_Initialize();
+
     EIC_Initialize();
 
 
@@ -618,6 +744,10 @@ void SYS_Initialize ( void* data )
     /* Following MISRA-C rules deviated in this block  */
     /* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     /* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+
+    /* Initialize G3 MAC RT Driver Instance */
+    sysObj.drvG3MacRt = DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvG3MacRtInitData);
+    EIC_CallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvG3MacRt);
 
     // Initialize RF System
     SYS_Load_Cal(WSS_ENABLE_ZB);
@@ -716,6 +846,7 @@ void SYS_Initialize ( void* data )
     APP_G3_MANAGEMENT_Initialize();
     APP_UDP_RESPONDER_Initialize();
     APP_STORAGE_WBZ451_Initialize();
+    APP_TCPIP_MANAGEMENT_Initialize();
 
 
     NVIC_Initialize();

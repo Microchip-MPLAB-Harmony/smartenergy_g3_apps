@@ -60,6 +60,15 @@
 // Section: RTOS "Tasks" Routine
 // *****************************************************************************
 // *****************************************************************************
+static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
+{
+    while(true)
+    {
+        /* Maintain G3 MAC RT Driver */
+        DRV_G3_MACRT_Tasks(sysObj.drvG3MacRt);
+    }
+}
+
 static void lG3_STACK_Tasks(  void *pvParameters  )
 {
     while(true)
@@ -106,7 +115,7 @@ static void lAPP_G3_MANAGEMENT_Tasks(  void *pvParameters  )
     while(true)
     {
         APP_G3_MANAGEMENT_Tasks();
-        vTaskDelay(50U / portTICK_PERIOD_MS);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 /* Handle for the APP_UDP_RESPONDER_Tasks. */
@@ -117,7 +126,7 @@ static void lAPP_UDP_RESPONDER_Tasks(  void *pvParameters  )
     while(true)
     {
         APP_UDP_RESPONDER_Tasks();
-        vTaskDelay(50U / portTICK_PERIOD_MS);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 /* Handle for the APP_STORAGE_WBZ451_Tasks. */
@@ -128,6 +137,17 @@ static void lAPP_STORAGE_WBZ451_Tasks(  void *pvParameters  )
     while(true)
     {
         APP_STORAGE_WBZ451_Tasks();
+    }
+}
+/* Handle for the APP_TCPIP_MANAGEMENT_Tasks. */
+TaskHandle_t xAPP_TCPIP_MANAGEMENT_Tasks;
+
+static void lAPP_TCPIP_MANAGEMENT_Tasks(  void *pvParameters  )
+{   
+    while(true)
+    {
+        APP_TCPIP_MANAGEMENT_Tasks();
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 
@@ -164,6 +184,15 @@ void SYS_Tasks ( void )
 
     /* Maintain Device Drivers */
     
+    (void) xTaskCreate( lDRV_G3_MACRT_Tasks,
+        "DRV_G3_MACRT_TASKS",
+        DRV_PLC_RTOS_STACK_SIZE,
+        (void*)NULL,
+        DRV_PLC_RTOS_TASK_PRIORITY,
+        (TaskHandle_t*)NULL
+    );
+
+
 
     /* Maintain Middleware & Other Libraries */
     
@@ -228,6 +257,14 @@ void SYS_Tasks ( void )
                 NULL,
                 1,
                 &xAPP_STORAGE_WBZ451_Tasks);
+
+    /* Create OS Thread for APP_TCPIP_MANAGEMENT_Tasks. */
+    (void) xTaskCreate((TaskFunction_t) lAPP_TCPIP_MANAGEMENT_Tasks,
+                "APP_TCPIP_MANAGEMENT_Tasks",
+                1024,
+                NULL,
+                1,
+                &xAPP_TCPIP_MANAGEMENT_Tasks);
 
 
 

@@ -62,6 +62,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
+/* EIC Channel Callback object */
+volatile static EIC_CALLBACK_OBJ    eicCallbackObject[EXTINT_COUNT];
 
 
 void EIC_Initialize (void)
@@ -94,6 +96,14 @@ void EIC_Initialize (void)
 
 
 
+    /* External Interrupt enable*/
+    EIC_REGS->EIC_INTENSET = 0x1U;
+
+    /* Callbacks for enabled interrupts */
+    eicCallbackObject[0].eicPinNo = EIC_PIN_0;
+    eicCallbackObject[1].eicPinNo = EIC_PIN_MAX;
+    eicCallbackObject[2].eicPinNo = EIC_PIN_MAX;
+    eicCallbackObject[3].eicPinNo = EIC_PIN_MAX;
     /* Enable the EIC */
     EIC_REGS->EIC_CTRLA |= (uint8_t)EIC_CTRLA_ENABLE_Msk;
 
@@ -102,3 +112,54 @@ void EIC_Initialize (void)
         /* Wait for sync */
     }
 }
+
+void EIC_InterruptEnable (EIC_PIN pin)
+{
+    EIC_REGS->EIC_INTENSET = (1UL << (uint32_t)pin);
+}
+
+void EIC_InterruptDisable (EIC_PIN pin)
+{
+    EIC_REGS->EIC_INTENCLR = (1UL << (uint32_t)pin);
+}
+
+void EIC_CallbackRegister(EIC_PIN pin, EIC_CALLBACK callback, uintptr_t context)
+{
+    if (eicCallbackObject[pin].eicPinNo == pin)
+    {
+        eicCallbackObject[pin].callback = callback;
+
+        eicCallbackObject[pin].context  = context;
+    }
+}
+
+void __attribute__((used)) EIC_InterruptHandler(void)
+{
+    uint8_t currentChannel;
+    uint32_t eicIntFlagStatus;
+
+    /* Find any triggered channels, run associated callback handlers */
+    for (currentChannel = 0U; currentChannel < EXTINT_COUNT; currentChannel++)
+    {
+        /* Verify if the EXTINT x Interrupt Pin is enabled */
+        if (((uint8_t)eicCallbackObject[currentChannel].eicPinNo == currentChannel))
+        {
+            /* Read the interrupt flag status */
+            eicIntFlagStatus = EIC_REGS->EIC_INTFLAG & (1UL << currentChannel);
+
+            if (0U != eicIntFlagStatus)
+            {
+                /* Find any associated callback entries in the callback table */
+                if ((eicCallbackObject[currentChannel].callback != NULL))
+                {
+                    uintptr_t context = eicCallbackObject[currentChannel].context;
+                    eicCallbackObject[currentChannel].callback(context);
+                }
+
+                /* Clear interrupt flag */
+                EIC_REGS->EIC_INTFLAG = (1UL << currentChannel);
+            }
+        }
+    }
+}
+

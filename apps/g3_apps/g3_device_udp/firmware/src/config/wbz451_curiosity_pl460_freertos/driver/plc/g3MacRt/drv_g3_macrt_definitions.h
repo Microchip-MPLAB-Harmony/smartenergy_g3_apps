@@ -1,23 +1,23 @@
 /*******************************************************************************
- System Tasks Header File
+  PLC Driver Definitions Header File
+
+  Company:
+    Microchip Technology Inc.
 
   File Name:
-    sys_tasks.h
+    drv_g3_definitions.h
 
   Summary:
-    This file contains declarations for task handles.
+    PLC Driver Definitions Header File
 
   Description:
-    Task handles declared in this header file can be used by the application
-    to control the behavior of the tasks.
+    This file provides implementation-specific definitions for the PLC
+    driver's system interface.
+*******************************************************************************/
 
-  Remarks:
-    None
- *******************************************************************************/
-
-// DOM-IGNORE-BEGIN
+//DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -37,39 +37,78 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *******************************************************************************/
+*******************************************************************************/
+//DOM-IGNORE-END
+
+#ifndef DRV_G3_MAC_RT_DEFINITIONS_H
+#define DRV_G3_MAC_RT_DEFINITIONS_H
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: File includes
+// *****************************************************************************
+// *****************************************************************************
+
+#include <device.h>
+#include "driver/plc/common/drv_plc_hal.h"
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
+    extern "C" {
+
+#endif
 // DOM-IGNORE-END
 
-#ifndef SYS_TASKS_H
-#define SYS_TASKS_H
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Included Files
+// Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
 
-#include "configuration.h"
-#include "definitions.h"
-
 // *****************************************************************************
-// *****************************************************************************
-// Section: RTOS "Tasks" Handles
-// *****************************************************************************
-// *****************************************************************************
-/* Declaration of  APP_G3_MANAGEMENT_Tasks task handle */
-extern TaskHandle_t xAPP_G3_MANAGEMENT_Tasks;
+/* PLC Driver Initialization Data
 
-/* Declaration of  APP_UDP_RESPONDER_Tasks task handle */
-extern TaskHandle_t xAPP_UDP_RESPONDER_Tasks;
+  Summary:
+    Defines the data required to initialize the PLC driver
 
-/* Declaration of  APP_STORAGE_WBZ451_Tasks task handle */
-extern TaskHandle_t xAPP_STORAGE_WBZ451_Tasks;
+  Description:
+    This data type defines the data required to initialize or the PLC driver.
 
-/* Declaration of  APP_TCPIP_MANAGEMENT_Tasks task handle */
-extern TaskHandle_t xAPP_TCPIP_MANAGEMENT_Tasks;
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    /* Identifies the HAL API set to be used by the driver to access
+     * peripherals. */
+    DRV_PLC_HAL_INTERFACE           *plcHal;
+
+    /* PLC Profile */
+    uint8_t                         plcProfile;
+
+    /* Start Address where PLC binary file is located */
+    uint32_t                        binStartAddress;
+
+    /* End Address where PLC binary file is located */
+    uint32_t                        binEndAddress;
+
+    /* Secure mode */
+    bool                            secure;
+
+} DRV_G3_MACRT_INIT;
 
 
+//DOM-IGNORE-BEGIN
+#ifdef __cplusplus
+}
+#endif
+//DOM-IGNORE-END
 
+#endif // #ifndef DRV_G3_MAC_RT_DEFINITIONS_H
 
-#endif //SYS_TASKS_H
+/*******************************************************************************
+ End of File
+*/

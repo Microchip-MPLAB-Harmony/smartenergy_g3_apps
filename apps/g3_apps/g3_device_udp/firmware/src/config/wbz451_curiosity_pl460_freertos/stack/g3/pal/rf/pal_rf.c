@@ -94,16 +94,6 @@ static PAL_RF_PHY_STATUS palRfPhyStatus[] = {
 /* Define a semaphore to signal the PAL RF Tasks to process Tx/Rx packets */
 static OSAL_SEM_DECLARE(palRFSemID);
 
-typedef struct
-{
-    PAL_RF_PHY_STATUS status;
-    uint32_t time;
-    uint8_t nBytesSent;
-}PAL_RF_RES;
-
-PAL_RF_RES palRfResults[32];
-uint8_t palRfResultsIndex = 0;
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: File Scope Functions
@@ -112,11 +102,6 @@ uint8_t palRfResultsIndex = 0;
 static void lPAL_RF_ReportResultTX(PAL_RF_PHY_STATUS status, uint64_t time, uint8_t nBytesSent)
 {
     PAL_RF_STATISTICS *rfStats;
-
-    palRfResults[palRfResultsIndex].status = status;
-    palRfResults[palRfResultsIndex].time = time;
-    palRfResults[palRfResultsIndex].nBytesSent = nBytesSent;
-    palRfResultsIndex = (palRfResultsIndex + 1) & 0x1F;
 
     rfStats = &palRfData.stats;
     palRfData.txCfmStatus = status;
@@ -276,7 +261,7 @@ void PHY_TxDoneCallback(PHY_Retval_t status, PHY_FrameInfo_t *frame)
 
     // Report TX CFM
     lPAL_RF_ReportResultTX(palRfStatus, timeCount, nBytesSent);
-
+	
 }
 
 void PHY_RxFrameCallback(PHY_FrameInfo_t *rxFrame)

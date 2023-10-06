@@ -60,6 +60,19 @@
                 <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/pds/include/pds_config.h</itemPath>
               </logicalFolder>
             </logicalFolder>
+            <logicalFolder name="plc" displayName="plc" projectFiles="true">
+              <logicalFolder name="common" displayName="common" projectFiles="true">
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/common/drv_plc_boot.h</itemPath>
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/common/drv_plc_hal.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="g3MacRt" displayName="g3MacRt" projectFiles="true">
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt_comm.h</itemPath>
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt_definitions.h</itemPath>
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt_local.h</itemPath>
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt_local_comm.h</itemPath>
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
             <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/driver.h</itemPath>
             <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/driver_common.h</itemPath>
           </logicalFolder>
@@ -213,6 +226,9 @@
             <logicalFolder name="cmcc" displayName="cmcc" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/cmcc/plib_cmcc.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="dmac" displayName="dmac" projectFiles="true">
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/dmac/plib_dmac.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="eic" displayName="eic" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/eic/plib_eic.h</itemPath>
             </logicalFolder>
@@ -229,6 +245,10 @@
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/nvm/plib_nvm.h</itemPath>
             </logicalFolder>
             <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
+              <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h</itemPath>
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/sercom/spi_master/plib_sercom0_spi_master.h</itemPath>
+              </logicalFolder>
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/sercom/usart/plib_sercom1_usart.h</itemPath>
                 <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/sercom/usart/plib_sercom_usart_common.h</itemPath>
@@ -248,6 +268,9 @@
           <logicalFolder name="service" displayName="service" projectFiles="true">
             <logicalFolder name="log_report" displayName="log_report" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/log_report/srv_log_report.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/pcoup/srv_pcoup.h</itemPath>
             </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/queue/srv_queue.h</itemPath>
@@ -284,6 +307,11 @@
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_common/mac_common.h</itemPath>
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_common/mac_common_defs.h</itemPath>
                 </logicalFolder>
+                <logicalFolder name="mac_plc" displayName="mac_plc" projectFiles="true">
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_plc/mac_plc_mib.h</itemPath>
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_plc/mac_plc_defs.h</itemPath>
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_plc/mac_plc.h</itemPath>
+                </logicalFolder>
                 <logicalFolder name="mac_rf" displayName="mac_rf" projectFiles="true">
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_rf/mac_rf_defs.h</itemPath>
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_rf/mac_rf.h</itemPath>
@@ -303,6 +331,10 @@
                 </logicalFolder>
               </logicalFolder>
               <logicalFolder name="pal" displayName="pal" projectFiles="true">
+                <logicalFolder name="plc" displayName="plc" projectFiles="true">
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/pal/plc/pal_plc_local.h</itemPath>
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/pal/plc/pal_plc.h</itemPath>
+                </logicalFolder>
                 <logicalFolder name="rf" displayName="rf" projectFiles="true">
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/pal/rf/pal_rf_local.h</itemPath>
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/pal/rf/pal_rf.h</itemPath>
@@ -659,6 +691,7 @@
       <itemPath>../src/app_storage_wbz451.h</itemPath>
       <itemPath>../src/app_udp_responder.h</itemPath>
       <itemPath>../src/app_g3_management.h</itemPath>
+      <itemPath>../src/app_tcpip_management.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -708,6 +741,19 @@
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
+            <logicalFolder name="plc" displayName="plc" projectFiles="true">
+              <logicalFolder name="common" displayName="common" projectFiles="true">
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/common/drv_plc_boot.c</itemPath>
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/common/drv_plc_hal.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="g3MacRt" displayName="g3MacRt" projectFiles="true">
+                <logicalFolder name="bin" displayName="bin" projectFiles="true">
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/bin/drv_g3_macrt_bin.S</itemPath>
+                </logicalFolder>
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt.c</itemPath>
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt_local_comm.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="library" displayName="library" projectFiles="true">
             <logicalFolder name="tcpip" displayName="tcpip" projectFiles="true">
@@ -743,6 +789,9 @@
             <logicalFolder name="cmcc" displayName="cmcc" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/cmcc/plib_cmcc.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="dmac" displayName="dmac" projectFiles="true">
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/dmac/plib_dmac.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="eic" displayName="eic" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/eic/plib_eic.c</itemPath>
             </logicalFolder>
@@ -759,6 +808,9 @@
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/nvm/plib_nvm.c</itemPath>
             </logicalFolder>
             <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
+              <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
+                <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/sercom/spi_master/plib_sercom0_spi_master.c</itemPath>
+              </logicalFolder>
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/wbz451_curiosity_pl460_freertos/peripheral/sercom/usart/plib_sercom1_usart.c</itemPath>
               </logicalFolder>
@@ -774,6 +826,9 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="service" displayName="service" projectFiles="true">
+            <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
+              <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/pcoup/srv_pcoup.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460_freertos/service/queue/srv_queue.c</itemPath>
             </logicalFolder>
@@ -810,6 +865,9 @@
                 </logicalFolder>
               </logicalFolder>
               <logicalFolder name="pal" displayName="pal" projectFiles="true">
+                <logicalFolder name="plc" displayName="plc" projectFiles="true">
+                  <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/pal/plc/pal_plc.c</itemPath>
+                </logicalFolder>
                 <logicalFolder name="rf" displayName="rf" projectFiles="true">
                   <itemPath>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/pal/rf/pal_rf.c</itemPath>
                 </logicalFolder>
@@ -979,6 +1037,7 @@
       <itemPath>../src/app_user_edits.c</itemPath>
       <itemPath>../src/app_udp_responder.c</itemPath>
       <itemPath>../src/app_g3_management.c</itemPath>
+      <itemPath>../src/app_tcpip_management.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -1001,8 +1060,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32CX-BZ_DFP" vendor="Microchip" version="1.2.230"/>
         <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
+        <pack name="PIC32CX-BZ_DFP" vendor="Microchip" version="1.2.230"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -1032,6 +1091,7 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_rf/g3_lib_rf_mac.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_plc/g3_lib_plc_mac.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -1073,6 +1133,7 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -1084,7 +1145,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="false"/>
-        <property key="optimization-level" value=""/>
+        <property key="optimization-level" value="-O2"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -1103,6 +1164,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -1131,6 +1193,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1170,6 +1233,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1198,6 +1262,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="common-include-directories" value=""/>
         <property key="gp-relative-option" value=""/>
         <property key="legacy-libc" value="false"/>
@@ -1297,6 +1362,8 @@
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="1000000-2001ffff"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/0_CHRIS/Proyectos/03_MCHP_Harmony_3/BitBucket/smartenergy_g3_apps/apps/g3_apps/g3_device_udp/firmware/wbz451_curiosity_pl460_freertos.X/debug/wbz451_curiosity_pl460_freertos/wbz451_curiosity_pl460_freertos_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>
