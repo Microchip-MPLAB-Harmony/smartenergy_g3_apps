@@ -1054,7 +1054,7 @@
         <targetDevice>WBZ451</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>pkob4hybrid</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.35</languageToolchainVersion>
         <platform>3</platform>
@@ -1073,23 +1073,6 @@
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/adaptation/g3_lib_loadng.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/adaptation/g3_lib_adp.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/driver/lib/lib-ieee802154_phy_pic32cxbz-v1.1.0.a</linkerLibFileItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../../../../../smartenergy_g3_libs/libs/g3_lib_mac_rf/g3_lib_mac_rf.X"
-                            CT="3"
-                            CN="release"
-                            AC="true"
-                            BL="true"
-                            WD="../../../../../../smartenergy_g3_libs/libs/g3_lib_mac_rf/g3_lib_mac_rf.X"
-                            BC="${MAKE}  -f Makefile CONF=release"
-                            DBC="${MAKE}  -f Makefile CONF=release TYPE_IMAGE=DEBUG_RUN"
-                            CC="rm -rf &quot;build/release&quot; &quot;dist/release&quot;"
-                            OP="dist/release/production/g3_lib_mac_rf.X.a"
-                            DOP="dist/release/debug/g3_lib_mac_rf.X.a"
-                            FL="dist/release/production/g3_lib_mac_rf.X.a"
-                            PD="dist/release/production/g3_lib_mac_rf.X."
-                            DD="dist/release/debug/g3_lib_mac_rf.X.">
-              </makeArtifact>
-            </linkerLibProjectItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_rf/g3_lib_rf_mac.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_plc/g3_lib_plc_mac.a</linkerLibFileItem>
           </linkerLibItems>
@@ -1133,7 +1116,6 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -1164,7 +1146,6 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
-        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -1193,7 +1174,6 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1233,7 +1213,6 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1262,7 +1241,6 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
-        <property key="appendMe" value=""/>
         <property key="common-include-directories" value=""/>
         <property key="gp-relative-option" value=""/>
         <property key="legacy-libc" value="false"/>
@@ -1362,8 +1340,6 @@
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="1000000-2001ffff"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/0_CHRIS/Proyectos/03_MCHP_Harmony_3/BitBucket/smartenergy_g3_apps/apps/g3_apps/g3_device_udp/firmware/wbz451_curiosity_pl460_freertos.X/debug/wbz451_curiosity_pl460_freertos/wbz451_curiosity_pl460_freertos_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>

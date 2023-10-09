@@ -175,7 +175,7 @@ typedef struct
 
     uint32_t phySWVersion;
     uint8_t lastRxPktLQI;
-    uint8_t lastRxPktED;
+    int8_t lastRxPktED;
     bool txContinuousMode;
     bool sleepMode;
 

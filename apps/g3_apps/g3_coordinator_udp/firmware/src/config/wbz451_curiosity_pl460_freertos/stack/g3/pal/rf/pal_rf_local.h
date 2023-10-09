@@ -51,8 +51,6 @@
 #include "system/system.h"
 #include "driver/driver.h"
 #include "stack_config.h"
-#include "service/rsniffer/srv_rsniffer.h"
-#include "service/usi/srv_usi.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -177,14 +175,9 @@ typedef struct
 
     uint32_t phySWVersion;
     uint8_t lastRxPktLQI;
-    uint8_t lastRxPktED;
+    int8_t lastRxPktED;
     bool txContinuousMode;
     bool sleepMode;
-
-    uint8_t *serialData; 
-    size_t serialLen;
-    SRV_RSNIFFER_PHY_DATA snifferData;
-    SRV_USI_HANDLE usiHandler;
 
 } PAL_RF_DATA;
 

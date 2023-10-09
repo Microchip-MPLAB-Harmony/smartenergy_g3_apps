@@ -88,6 +88,24 @@ extern "C" {
 #define SYS_TIME_CPU_CLOCK_FREQUENCY                (64000000)
 #define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (232)
 
+#define SYS_CONSOLE_INDEX_0                       0
+
+
+
+
+
+#define SYS_DEBUG_ENABLE
+#define SYS_DEBUG_GLOBAL_ERROR_LEVEL       SYS_ERROR_DEBUG
+#define SYS_DEBUG_BUFFER_DMA_READY
+#define SYS_DEBUG_USE_CONSOLE
+
+
+#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
+#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(1U)
+#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(0U)
+#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(1024U)
+
+
 
 
 // *****************************************************************************
@@ -110,33 +128,20 @@ extern "C" {
 #define DRV_PLC_SPI_CLK                       1000000
 
 /* PLC MAC RT Driver RTOS Configuration Options */
-#define DRV_PLC_RTOS_STACK_SIZE               256
+#define DRV_PLC_RTOS_STACK_SIZE               320
 #define DRV_PLC_RTOS_TASK_PRIORITY            1
 
 /* PLC MAC RT Driver Identification */
 #define DRV_G3_MACRT_INDEX                   0U
 #define DRV_G3_MACRT_INSTANCES_NUMBER        1U
 #define DRV_G3_MACRT_HOST_DESC               "WBZ451"
-/* USI Service Common Configuration Options */
-#define SRV_USI_INSTANCES_NUMBER              1U
-#define SRV_USI_USART_CONNECTIONS             1U
-#define SRV_USI_CDC_CONNECTIONS               0U
-#define SRV_USI_MSG_POOL_SIZE                 5U
 /* PAL RF Configuration Options */
 #define PAL_RF_PHY_INDEX                      0U
-#define PAL_RF_PHY_SNIFFER_USI_INSTANCE       SRV_USI_INDEX_0
 
 /* PAL RF RTOS Configuration */
 #define PAL_RF_RTOS_STACK_SIZE                256U
 #define PAL_RF_RTOS_TASK_PRIORITY             2
 
-
-/* USI Service Instance 0 Configuration Options */
-#define SRV_USI_INDEX_0                       0
-#define SRV_USI0_RD_BUF_SIZE                  1024
-#define SRV_USI0_WR_BUF_SIZE                  1024
-#define SRV_USI0_RTOS_STACK_SIZE               256
-#define SRV_USI0_RTOS_TASK_PRIORITY            1
 
 
 

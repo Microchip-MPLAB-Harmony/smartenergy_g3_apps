@@ -182,14 +182,6 @@ static void lPAL_RF_Tasks(  void *pvParameters  )
     }
 }
 
-static void lSRV_USI0_Tasks(  void *pvParameters  )
-{
-    while(true)
-    {
-        SRV_USI_Tasks(sysObj.srvUSI0);
-    }
-}
-
 
 
 
@@ -210,6 +202,7 @@ void SYS_Tasks ( void )
 {
     /* Maintain system services */
     
+
 
     /* Maintain Device Drivers */
     
@@ -257,15 +250,6 @@ void SYS_Tasks ( void )
         PAL_RF_RTOS_STACK_SIZE,
         (void*)NULL,
         PAL_RF_RTOS_TASK_PRIORITY,
-        (TaskHandle_t*)NULL
-    );
-
-
-    (void) xTaskCreate( lSRV_USI0_Tasks,
-        "SRV_USI0_TASKS",
-        SRV_USI0_RTOS_STACK_SIZE,
-        (void*)NULL,
-        SRV_USI0_RTOS_TASK_PRIORITY,
         (TaskHandle_t*)NULL
     );
 

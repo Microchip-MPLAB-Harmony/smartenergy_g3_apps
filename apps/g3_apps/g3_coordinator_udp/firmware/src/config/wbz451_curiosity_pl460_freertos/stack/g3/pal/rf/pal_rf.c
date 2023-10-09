@@ -57,8 +57,6 @@
 #include "phy_constants.h"
 #include "pal_rf.h"
 #include "pal_rf_local.h"
-#include "service/rsniffer/srv_rsniffer.h"
-#include "service/usi/srv_usi.h"
 #include "osal/osal.h"
 
 // *****************************************************************************
@@ -101,7 +99,7 @@ static OSAL_SEM_DECLARE(palRFSemID);
 // Section: File Scope Functions
 // *****************************************************************************
 // *****************************************************************************
-static void lPAL_RF_ReportResultTX(PAL_RF_PHY_STATUS status, uint64_t time, uint8_t nBytesSent)
+static void lPAL_RF_ReportResultTX(PAL_RF_PHY_STATUS status, uint64_t timeStamp, uint8_t nBytesSent)
 {
     PAL_RF_STATISTICS *rfStats;
 
@@ -151,18 +149,16 @@ static void lPAL_RF_ReportResultTX(PAL_RF_PHY_STATUS status, uint64_t time, uint
             break;
 
         case PAL_RF_PHY_ERROR:
-            rfStats->txErrorPhyErrors++;
-            break;
-
         default:
+            rfStats->txErrorPhyErrors++;
             break;
     }
 
     if (status != PAL_RF_PHY_SUCCESS)
     {
         rfStats->txTotalErrors++;
-        palRfData.txTimeIniCount = time;
-        palRfData.txTimeEndCount = time;
+        palRfData.txTimeIniCount = timeStamp;
+        palRfData.txTimeEndCount = timeStamp;
     }
 
     // Report TX Result through TX CFM callback
@@ -217,7 +213,7 @@ static PAL_RF_PIB_RESULT lPAL_RF_setRFNetworkParameters(void)
     }
 
     // Set the PDT level
-    PHY_ConfigRxSensitivity(PDTLEVEL);
+    (void) PHY_ConfigRxSensitivity(PDTLEVEL);
 
     return PAL_RF_PIB_SUCCESS;
 }
@@ -234,14 +230,14 @@ static PAL_RF_PIB_RESULT lPAL_RF_setRFNetworkParameters(void)
 
 void PHY_TxDoneCallback(PHY_Retval_t status, PHY_FrameInfo_t *frame)
 {
-    uint32_t timeCount;
+    uint64_t timeCount;
     uint32_t phyDurationSymb;
     uint32_t phyDurationCount;
     PAL_RF_PHY_STATUS palRfStatus;
     uint8_t nBytesSent;
 
     timeCount = SYS_TIME_Counter64Get();
-    palRfStatus = palRfPhyStatus[status & 0x0FU];
+    palRfStatus = palRfPhyStatus[(uint8_t)status & 0x0FU];
     /* Get received data lentgh */
     nBytesSent = frame->mpdu[0];
     palRfData.txTransmitting = false;
@@ -249,9 +245,9 @@ void PHY_TxDoneCallback(PHY_Retval_t status, PHY_FrameInfo_t *frame)
     if (palRfStatus == PAL_RF_PHY_SUCCESS)
     {
         /* The number of symbols per octet for the current PHY is 2 */
-        palRfData.stats.txLastPaySymbols = (uint16_t)nBytesSent * 2;
+        palRfData.stats.txLastPaySymbols = (uint16_t)nBytesSent * 2U;
         /* The duration of the synchronization header (SHR) in symbols is 10 */
-        phyDurationSymb = 10 + (uint32_t)palRfData.stats.txLastPaySymbols;
+        phyDurationSymb = 10U + (uint32_t)palRfData.stats.txLastPaySymbols;
         /* Symbol rate : 62.5 Ksymb/s -> 16us/symbol */
         phyDurationCount = SYS_TIME_USToCount(phyDurationSymb << 4);
         palRfData.txTimeEndCount = palRfData.txTimeIniCount + phyDurationCount;
@@ -264,27 +260,6 @@ void PHY_TxDoneCallback(PHY_Retval_t status, PHY_FrameInfo_t *frame)
     // Report TX CFM
     lPAL_RF_ReportResultTX(palRfStatus, timeCount, nBytesSent);
 	
-	if (palRfStatus == PAL_RF_PHY_SUCCESS)
-    {
-		/* Send RF Phy Sniffer TX Data to USI */
-        palRfData.snifferData.timeIniCount = palRfData.txTimeIniCount;
-        palRfData.snifferData.durationCount = phyDurationCount;
-        palRfData.snifferData.paySymbols = palRfData.stats.txLastPaySymbols;
-        palRfData.snifferData.rssi = 0;
-        palRfData.snifferData.pData = &frame->mpdu[1];
-        palRfData.snifferData.payloadLen = nBytesSent;
-        palRfData.serialData = SRV_RSNIFFER_SerialCfmMessage(&palRfData.snifferData, &palRfData.serialLen);
-        
-        if (palRfData.serialLen != 0U)
-        {
-            // Send through USI
-            SRV_USI_Send_Message(palRfData.usiHandler, SRV_USI_PROT_ID_SNIFF_G3,
-                    palRfData.serialData, palRfData.serialLen);
-
-            palRfData.serialLen = 0;
-        }
-	}
-
 }
 
 void PHY_RxFrameCallback(PHY_FrameInfo_t *rxFrame)
@@ -316,9 +291,9 @@ void PHY_RxFrameCallback(PHY_FrameInfo_t *rxFrame)
     /* Get LQI */
     palRfData.lastRxPktLQI = rxFrame->mpdu[frameLen + LQI_LEN];
     /* Get ED_LEVEL */
-    palRfData.lastRxPktED = rxFrame->mpdu[frameLen + LQI_LEN + ED_VAL_LEN];
+    palRfData.lastRxPktED = (int8_t)rxFrame->mpdu[frameLen + LQI_LEN + ED_VAL_LEN];
     /* Get RSSI */
-    rxParameters.rssi = (int8_t)(palRfData.lastRxPktED + PHY_GetRSSIBaseVal());
+    rxParameters.rssi = palRfData.lastRxPktED + PHY_GetRSSIBaseVal();
     rxParameters.fcsOk = true;
 
     /* Update RX statistics */
@@ -326,9 +301,10 @@ void PHY_RxFrameCallback(PHY_FrameInfo_t *rxFrame)
     rfStats->rxTotalBytes += frameLen;
 
     /* The number of symbols per octet for the current PHY is 2 */
-    rfStats->rxLastPaySymbols = (uint16_t)frameLen * 2;
+    rfStats->rxLastPaySymbols = (uint16_t)frameLen;
+    rfStats->rxLastPaySymbols <<= 1;
     /* The duration of the synchronization header (SHR) in symbols is 10 */
-    phyDurationSymb = 10 + (uint32_t)rfStats->rxLastPaySymbols;
+    phyDurationSymb = 10U + (uint32_t)rfStats->rxLastPaySymbols;
     /* Symbol rate : 62.5 Ksymb/s -> 16us/symbol */
     rxParameters.timeIniCount = rxTimeEndCount - SYS_TIME_USToCount(phyDurationSymb << 4);
     rxParameters.timeEndCount = rxTimeEndCount;
@@ -339,24 +315,6 @@ void PHY_RxFrameCallback(PHY_FrameInfo_t *rxFrame)
     if (palRfData.rfPhyHandlers.palRfDataIndication != NULL)
     {
         palRfData.rfPhyHandlers.palRfDataIndication(palRfData.rxBuffer, frameLen, &rxParameters);
-    }
-
-    /* Send RF Phy Sniffer RX Data to USI */
-    palRfData.snifferData.timeIniCount = rxParameters.timeIniCount;
-    palRfData.snifferData.durationCount = SYS_TIME_USToCount(phyDurationSymb << 4);
-    palRfData.snifferData.paySymbols = rfStats->rxLastPaySymbols;
-    palRfData.snifferData.rssi = rxParameters.rssi;
-    palRfData.snifferData.pData = palRfData.rxBuffer;
-    palRfData.snifferData.payloadLen = frameLen;
-    palRfData.serialData = SRV_RSNIFFER_SerialRxMessage(&palRfData.snifferData, &palRfData.serialLen);
-    
-    if (palRfData.serialLen != 0U)
-    {
-        // Send through USI
-        SRV_USI_Send_Message(palRfData.usiHandler, SRV_USI_PROT_ID_SNIFF_G3,
-                palRfData.serialData, palRfData.serialLen);
-
-        palRfData.serialLen = 0;
     }
 
 }
@@ -422,9 +380,6 @@ SYS_MODULE_OBJ PAL_RF_Initialize(const SYS_MODULE_INDEX index,
     {
         return SYS_MODULE_OBJ_INVALID;
     }
-
-    /* Get USI handler for RF PHY SNIFFER protocol */
-    palRfData.usiHandler = SRV_USI_Open(PAL_RF_PHY_SNIFFER_USI_INSTANCE);
 
 
     /* Create the PAL RF Semaphore */
