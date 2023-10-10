@@ -302,12 +302,6 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
 // *****************************************************************************
 // *****************************************************************************
 
-void on_reset(void)
-{
-    /* Configure PIO interface with PLC device ASAP */
-    PIO_Initialize();
-}
-
 /*******************************************************************************
   Function:
     void APP_Initialize(void)
@@ -478,6 +472,7 @@ void APP_Tasks(void)
                 /* Disable Blink Led */
                 USER_BLINK_LED_Off();
             }
+            
             break;
         }
 
