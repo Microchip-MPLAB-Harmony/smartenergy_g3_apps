@@ -677,7 +677,7 @@ void APP_G3_MANAGEMENT_Tasks ( void )
         case APP_G3_MANAGEMENT_STATE_ADP_OPEN:
         {
             SRV_PLC_PCOUP_BRANCH plcBranch;
-            ADP_PLC_BAND plcBand;
+            ADP_BAND plcBand;
 
             /* Get configured PLC band */
             plcBranch = SRV_PCOUP_Get_Default_Branch();

@@ -290,7 +290,7 @@ void APP_EAP_SERVER_Tasks ( void )
             if (adpStatus == ADP_STATUS_LBP_CONNECTED)
             {
                 SRV_PLC_PCOUP_BRANCH plcBranch;
-                ADP_PLC_BAND plcBand;
+                ADP_BAND plcBand;
                 LBP_NOTIFICATIONS_COORD lbpCoordNotifications;
                 LBP_SET_PARAM_CONFIRM lbpSetConfirm;
 
