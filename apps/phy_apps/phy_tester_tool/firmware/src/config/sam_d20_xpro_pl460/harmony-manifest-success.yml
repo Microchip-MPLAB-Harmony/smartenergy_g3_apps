@@ -4,7 +4,7 @@
 
 
 project: phy_tester_tool
-creation_date: 2023-10-17T17:41:32.476+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2023-10-18T12:16:02.326+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.3.7
@@ -17,6 +17,6 @@ modules:
     - {name: "csp", version: "v3.18.0"}
     - {name: "core", version: "v3.13.1"}
     - {name: "dev_packs", version: "v3.18.0"}
-    - {name: "smartenergy", version: "v1.1.0-142-g94e9b84"}
+    - {name: "smartenergy", version: "v1.1.0-143-g2037e46"}
     - {name: "bsp", version: "v3.17.0"}
 

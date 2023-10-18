@@ -291,7 +291,6 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
     
     if ((cmdSize % 2U) > 0U) {
         cmdSize++;
-        *pTxData++ = 0;
     }
        
     /* Assert CS pin */
