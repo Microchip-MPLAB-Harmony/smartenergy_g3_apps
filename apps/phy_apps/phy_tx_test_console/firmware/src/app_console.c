@@ -312,9 +312,9 @@ static bool APP_CONSOLE_SetDataMode(char *mode)
     length = appPlcTx.plcPhyTx.dataLength;
     pData = appPlcTx.plcPhyTx.pTransmitData;
 
-	switch (*mode)
+    switch (*mode)
     {
-		case '0':
+        case '0':
             /* Random mode */
             length >>= 2;
             length++;
@@ -326,23 +326,24 @@ static bool APP_CONSOLE_SetDataMode(char *mode)
                 *pData++ = (uint8_t)(dataValue >> 16);
                 *pData++ = (uint8_t)(dataValue >> 24);
             }
-			break;
+            break;
 
-		case '1':
+        case '1':
             /* Fixed mode */
             dataValue = 0x30;
-			while(length--)
+            while(length--)
             {
                 *pData++ = (uint8_t)dataValue++;
-                if (dataValue == 0x3A) {
+                if (dataValue == 0x3A) 
+                {
                     dataValue = 0x30;
                 }
             }
-			break;
+            break;
 
-		default:
-			result = false;
-	}
+        default:
+            result = false;
+        }
 
     return result;
 }
@@ -423,26 +424,26 @@ static bool APP_CONSOLE_SetBranchMode(char *mode)
 {
     bool result = true;
 
-	switch (*mode)
+    switch (*mode)
     {
-		case '0':
-			appPlcTx.txAuto = 1;
-			appPlcTx.txImpedance = HI_STATE;
-			break;
+        case '0':
+            appPlcTx.txAuto = 1;
+            appPlcTx.txImpedance = HI_STATE;
+            break;
 
-		case '1':
-			appPlcTx.txAuto = 0;
-			appPlcTx.txImpedance = HI_STATE;
-			break;
+        case '1':
+            appPlcTx.txAuto = 0;
+            appPlcTx.txImpedance = HI_STATE;
+            break;
 
-		case '2':
-			appPlcTx.txAuto = 0;
-			appPlcTx.txImpedance = VLO_STATE;
-			break;
+        case '2':
+            appPlcTx.txAuto = 0;
+            appPlcTx.txImpedance = VLO_STATE;
+            break;
 
-		default:
-			result = false;
-	}
+        default:
+            result = false;
+    }
 
     return result;
 }
@@ -451,19 +452,19 @@ static bool APP_CONSOLE_SetPlcBand(char *mode)
 {
     bool result = true;
 
-	switch (*mode)
+    switch (*mode)
     {
-		case '0':
-			appPlcTx.bin2InUse = 0;
-			break;
+        case '0':
+            appPlcTx.bin2InUse = 0;
+            break;
 
-		case '1':
-			appPlcTx.bin2InUse = 1;
-			break;
+        case '1':
+            appPlcTx.bin2InUse = 1;
+            break;
 
-		default:
-			result = false;
-	}
+        default:
+            result = false;
+    }
 
     return result;
 }
@@ -495,7 +496,7 @@ static void APP_CONSOLE_ShowConfiguration(void)
             {
                 APP_CONSOLE_Print("-I- Modulation Scheme: Differential BPSK \n\r");
             }
-		break;
+            break;
 
         case MOD_TYPE_QPSK:
             if (appPlcTx.plcPhyTx.modScheme)
@@ -532,43 +533,44 @@ static void APP_CONSOLE_ShowConfiguration(void)
 
         default:
             APP_CONSOLE_Print("-I- Modulation Scheme: ERROR CFG\n\r");
-	}
+    }
 
     APP_CONSOLE_Print("-I- Tone Map: ");
-	for (index = 0; index < appPlcTx.toneMapSize; index++) {
-		APP_CONSOLE_Print("%02X", appPlcTx.plcPhyTx.toneMap[index]);
-	}
-	APP_CONSOLE_Print("\r\n");
+    for (index = 0; index < appPlcTx.toneMapSize; index++) 
+    {
+        APP_CONSOLE_Print("%02X", appPlcTx.plcPhyTx.toneMap[index]);
+    }
+    APP_CONSOLE_Print("\r\n");
 
     if (appPlcTx.txAuto)
     {
-		APP_CONSOLE_Print("-I- Branch Mode : Autodetect - ");
-	}
+        APP_CONSOLE_Print("-I- Branch Mode : Autodetect - ");
+    }
     else
     {
-		APP_CONSOLE_Print("-I- Branch Mode : Fixed - ");
-	}
+        APP_CONSOLE_Print("-I- Branch Mode : Fixed - ");
+    }
 
-	if (appPlcTx.txImpedance == HI_STATE)
+    if (appPlcTx.txImpedance == HI_STATE)
     {
-		APP_CONSOLE_Print("High Impedance \r\n");
-	}
+        APP_CONSOLE_Print("High Impedance \r\n");
+    }
     else
     {
-		APP_CONSOLE_Print("Very Low Impedance \r\n");
-	}
+        APP_CONSOLE_Print("Very Low Impedance \r\n");
+    }
 
-	APP_CONSOLE_Print("-I- Time Period: %u\n\r", (unsigned int)appPlcTx.plcPhyTx.timeIni);
-	APP_CONSOLE_Print("-I- Data Len: %u\n\r", (unsigned int)appPlcTx.plcPhyTx.dataLength);
+    APP_CONSOLE_Print("-I- Time Period: %u\n\r", (unsigned int)appPlcTx.plcPhyTx.timeIni);
+    APP_CONSOLE_Print("-I- Data Len: %u\n\r", (unsigned int)appPlcTx.plcPhyTx.dataLength);
 
-	if (appPlcTx.plcPhyTx.pTransmitData[0] == 0x30)
+    if (appPlcTx.plcPhyTx.pTransmitData[0] == 0x30)
     {
-		APP_CONSOLE_Print("-I- Fixed Data\r\n");
-	}
+        APP_CONSOLE_Print("-I- Fixed Data\r\n");
+    }
     else
     {
-		APP_CONSOLE_Print("-I- Random Data\r\n");
-	}
+        APP_CONSOLE_Print("-I- Random Data\r\n");
+    }
 }
 
 // *****************************************************************************
