@@ -199,6 +199,7 @@ void APP_PLC_Timer2_Callback (uintptr_t context)
     appPlc.tmr2Expired = true;
 }
 
+#ifndef APP_PLC_DISABLE_PVDDMON
 static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     (void)context;
@@ -220,6 +221,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
     }
 }
+#endif
 
 static void APP_PLC_SleepModeDisableCb( uintptr_t context )
 {
@@ -501,12 +503,18 @@ void APP_PLC_Tasks ( void )
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
 
+#ifndef APP_PLC_DISABLE_PVDDMON                
                 /* Disable TX Enable at the beginning */
                 DRV_PLC_PHY_EnableTX(appPlc.drvPlcHandle, false);
                 appPlc.pvddMonTxEnable = false;
                 /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_IN);
+#else
+                /* Enable TX Enable at the beginning */
+                DRV_PLC_PHY_EnableTX(appPlc.drvPlcHandle, true);
+                appPlc.pvddMonTxEnable = true;
+#endif
 
                 /* Init Timer to handle blinking led */
                 appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
