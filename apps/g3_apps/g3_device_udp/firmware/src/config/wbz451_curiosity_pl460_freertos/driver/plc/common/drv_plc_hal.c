@@ -79,7 +79,7 @@ static DRV_PLC_PLIB_INTERFACE *sPlcPlib;
 // *****************************************************************************
 // *****************************************************************************
 
-static void lDRV_PLC_HAL_memcpyREV16 (void * pDst, void * pSrc, size_t size)
+static void __attribute__((optimize("O0"))) lDRV_PLC_HAL_memcpyREV16 (void * pDst, void * pSrc, size_t size)
 {
     /* R0=pDst; R1=pSrc; R2=size */
     __asm volatile (
