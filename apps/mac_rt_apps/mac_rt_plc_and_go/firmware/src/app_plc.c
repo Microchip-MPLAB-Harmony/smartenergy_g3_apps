@@ -226,6 +226,7 @@ static void APP_PLC_G3MACRTInitCallback(bool initResult)
     }
 }
 
+#ifndef APP_PLC_DISABLE_PVDDMON
 static void APP_PLC_PVDDMonitorCallback( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     (void)context;
@@ -247,6 +248,7 @@ static void APP_PLC_PVDDMonitorCallback( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
     }
 }
+#endif
 
 static void APP_PLC_SleepModeDisableCallback( void )
 {
@@ -502,12 +504,18 @@ void APP_PLC_Tasks ( void )
                 DRV_G3_MACRT_RxParamsIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_RxParamsIndCallback);
                 DRV_G3_MACRT_SleepIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_SleepModeDisableCallback);
 
-                /* Enable PLC Transmission */
-                DRV_G3_MACRT_EnableTX(appPlc.drvPlcHandle, true);
-
+#ifndef APP_PLC_DISABLE_PVDDMON                
+                /* Disable TX Enable at the beginning */
+                DRV_G3_MACRT_EnableTX(appPlc.drvPlcHandle, false);
+                appPlc.pvddMonTxEnable = false;
                 /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCallback, 0);
-                SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
+                SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_IN);
+#else
+                /* Enable TX Enable at the beginning */
+                DRV_G3_MACRT_EnableTX(appPlc.drvPlcHandle, true);
+                appPlc.pvddMonTxEnable = true;
+#endif
 
                 /* Init Timer to handle blinking led */
                 appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
