@@ -1,0 +1,14 @@
+format_version: v1.0
+configName: sam_d20_xpro_pl460_freertos
+folderName: sam_d20_xpro_pl460_freertos
+frameworkPath: C:\0_CHRIS\Proyectos\03_MCHP_Harmony_3\BitBucket
+processor: ATSAMD20J18
+projectName: sam_d20_xpro_pl460_freertos
+settings:
+  PackageFilter: ''
+  FORCE_OPTIMIZATION: 'false'
+  GENERATE_BACKUP: 'true'
+  TRUSTZONE: 'false'
+  CMSISPath: dev_packs\arm\CMSIS\5.8.0
+  MERGE_STRATEGY: USER_ALL
+  DFPPath: dev_packs\Microchip\SAMD20_DFP\3.6.112\samd20\atdf\ATSAMD20J18.atdf
