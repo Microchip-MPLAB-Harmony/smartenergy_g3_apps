@@ -95,8 +95,6 @@ typedef struct
 
     bool coordinator;
 
-    bool pvddMonTxEnable;
-
 } PAL_PLC_DATA;
 
 #endif // #ifndef PAL_PLC_LOCAL_H

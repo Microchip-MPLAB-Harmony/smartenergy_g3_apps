@@ -99,7 +99,7 @@ static MAC_WRP_DATA macWrpData;
 // Data Service Control
 static MAC_WRP_DATA_REQ_ENTRY dataReqQueue[MAC_WRP_DATA_REQ_QUEUE_SIZE];
 
-#define MAC_MAX_DEVICE_TABLE_ENTRIES_PLC    128
+#define MAC_MAX_DEVICE_TABLE_ENTRIES_PLC    32
 
 static MAC_PLC_TABLES macPlcTables;
 static MAC_DEVICE_TABLE_ENTRY macPlcDeviceTable[MAC_MAX_DEVICE_TABLE_ENTRIES_PLC];

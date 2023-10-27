@@ -69,7 +69,7 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 #include "stack/g3/adaptation/adp_shared_types.h"
 
 
-#define DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT         5
+#define DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT         2
 #define DRV_MAC_G3ADP_PACKET_RX_QUEUE_LIMIT         2
 
 

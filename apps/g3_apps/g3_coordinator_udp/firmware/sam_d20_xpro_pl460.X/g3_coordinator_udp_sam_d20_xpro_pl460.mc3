@@ -4297,9 +4297,9 @@
     &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;G3 STACK&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;g3PalPlc&quot; x=&quot;157&quot; y=&quot;153&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;g3_config&quot; x=&quot;20&quot; y=&quot;41&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;srvLogReport&quot; x=&quot;320&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;srvQueue&quot; x=&quot;348&quot; y=&quot;159&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;srvQueue&quot; x=&quot;352&quot; y=&quot;161&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srvRandom&quot; x=&quot;160&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvSecurity&quot; x=&quot;480&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
@@ -4314,7 +4314,7 @@
     &lt;ComponentGraph dnOrder=&quot;5&quot; id=&quot;TCP/IP STACK&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BASIC CONFIGURATION&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;DATA LINK LAYER&quot; x=&quot;560&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;DATA LINK LAYER&quot; x=&quot;561&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;NETWORK LAYER&quot; x=&quot;400&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;TRANSPORT LAYER&quot; x=&quot;220&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
@@ -4327,18 +4327,18 @@
     &lt;ComponentGraph dnOrder=&quot;7&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_D20_Xplained_Pro&quot; x=&quot;180&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;G3 STACK&quot; x=&quot;152&quot; y=&quot;245&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;G3 STACK&quot; x=&quot;152&quot; y=&quot;244&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;HarmonyCore&quot; x=&quot;399&quot; y=&quot;21&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;TCP/IP STACK&quot; x=&quot;330&quot; y=&quot;478&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;TCP/IP STACK&quot; x=&quot;330&quot; y=&quot;479&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;adc&quot; x=&quot;300&quot; y=&quot;271&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;cmsis&quot; x=&quot;272&quot; y=&quot;85&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;cmsis&quot; x=&quot;287&quot; y=&quot;82&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;core&quot; x=&quot;179&quot; y=&quot;84&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;dfp&quot; x=&quot;180&quot; y=&quot;51&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;drvG3MacRt&quot; x=&quot;441&quot; y=&quot;131&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;eic&quot; x=&quot;553&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;evsys&quot; x=&quot;19&quot; y=&quot;99&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;lib_crypto&quot; x=&quot;308&quot; y=&quot;564&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;110&quot; y=&quot;520&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;110&quot; y=&quot;521&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;nvmctrl&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sercom0&quot; x=&quot;299&quot; y=&quot;199&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;sercom3&quot; x=&quot;3&quot; y=&quot;398&quot;/&gt;
@@ -4474,7 +4474,40 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;DEVICE_BOD33_ACTION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;2&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="DEVICE_BOD33_EN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;DEVICE_BOD33_EN&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="DEVICE_BOD33_HYST"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;DEVICE_BOD33_HYST&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="DEVICE_NVMCTRL_EEPROM_SIZE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;DEVICE_NVMCTRL_EEPROM_SIZE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4486,8 +4519,16 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;DEVICE_WDT_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="DEVICE_WDT_EWOFFSET"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;DEVICE_WDT_EWOFFSET&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -4998,6 +5039,39 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_1_0_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_1_0_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_1_0_HANDLER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_1_0_HANDLER&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;SYSCTRL_InterruptHandler&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_1_0_HANDLER_LOCK"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_1_0_HANDLER_LOCK&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_21_0_ENABLE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_21_0_ENABLE&quot;&gt;
@@ -5026,6 +5100,40 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_21_0_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_2_0_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_2_0_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_2_0_HANDLER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_2_0_HANDLER&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;WDT_Handler&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_2_0_HANDLER_LOCK"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_2_0_HANDLER_LOCK&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6783,6 +6891,90 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SUPC_BOD33_MODE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SUPC_BOD33_MODE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SUPC_BOD33_RUNSTDBY"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SUPC_BOD33_RUNSTDBY&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SYSCTRL_INTERRUPT_BOD33DET"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SYSCTRL_INTERRUPT_BOD33DET&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SYSCTRL_INTERRUPT_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SYSCTRL_INTERRUPT_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SYSCTRL_INTERRUPT_ENABLE_UPDATE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SYSCTRL_INTERRUPT_ENABLE_UPDATE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SYSCTRL_INTERRUPT_ENABLE_VAL"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SYSCTRL_INTERRUPT_ENABLE_VAL&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x400&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SYSCTRL_INTERRUPT_HANDLER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SYSCTRL_INTERRUPT_HANDLER&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;SYSCTRL_InterruptHandler&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SYSCTRL_INTERRUPT_HANDLER_LOCK"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SYSCTRL_INTERRUPT_HANDLER_LOCK&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SYSTICK_PERIOD"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SYSTICK_PERIOD&quot;&gt;
@@ -6907,14 +7099,74 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_EW_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_EW_ENABLE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_HEADER"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_HEADER&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_INTERRUPT_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_INTERRUPT_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_INTERRUPT_ENABLE_UPDATE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_INTERRUPT_ENABLE_UPDATE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_INTERRUPT_HANDLER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_INTERRUPT_HANDLER&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;WDT_Handler&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_INTERRUPT_HANDLER_LOCK"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_INTERRUPT_HANDLER_LOCK&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -6925,7 +7177,7 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_SOURCE&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/core&gt;
@@ -6938,7 +7190,7 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_SYS_DEF&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/core&gt;
@@ -6949,9 +7201,16 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_USE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_USE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="XC32_HEAP_SIZE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;XC32_HEAP_SIZE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -7011,7 +7270,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvG3MacRt&gt;
   &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;DRV_PLC_BAND_IN_USE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvG3MacRt&quot; value=&quot;5&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvG3MacRt&quot; value=&quot;2&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drvG3MacRt&gt;
 &lt;/drvG3MacRt&gt;
@@ -7062,9 +7321,7 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/drvG3MacRt&gt;
 &lt;/drvG3MacRt&gt;
 </value>
@@ -7403,7 +7660,7 @@
   &lt;drvG3MacRt dnOrder=&quot;0&quot; id=&quot;MACRT_SOURCE_BIN_G3_CENA&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/drvG3MacRt&gt;
@@ -7483,7 +7740,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvMacG3Adp" name="DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvMacG3Adp&gt;
   &lt;drvMacG3Adp dnOrder=&quot;0&quot; id=&quot;DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;2&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/drvMacG3Adp&gt;
 &lt;/drvMacG3Adp&gt;
 </value>
@@ -8590,9 +8849,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3PalPlc" name="G3_PAL_PLC_PVDD_MONITOR"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3PalPlc&gt;
   &lt;g3PalPlc dnOrder=&quot;0&quot; id=&quot;G3_PAL_PLC_PVDD_MONITOR&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/g3PalPlc&gt;
 &lt;/g3PalPlc&gt;
 </value>
@@ -8742,7 +8999,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_config" name="ADP_ROUTING_TABLE_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_config&gt;
   &lt;g3_config dnOrder=&quot;0&quot; id=&quot;ADP_ROUTING_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;50&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/g3_config&gt;
 &lt;/g3_config&gt;
 </value>
@@ -9081,7 +9340,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_config" name="MAC_PLC_DEVICE_TABLE_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_config&gt;
   &lt;g3_config dnOrder=&quot;0&quot; id=&quot;MAC_PLC_DEVICE_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;32&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/g3_config&gt;
 &lt;/g3_config&gt;
 </value>
@@ -9327,7 +9588,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_aes_192"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_aes_192&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9336,7 +9599,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_aes_256"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_aes_256&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9345,7 +9610,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_aes_cbc"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_aes_cbc&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9410,7 +9677,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_aes_ctr"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_aes_ctr&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9428,7 +9697,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_aes_ecb"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_aes_ecb&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9446,7 +9717,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_aes_gcm"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_aes_gcm&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9473,7 +9746,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_aes_ofb"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_aes_ofb&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9527,7 +9802,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_asn1"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_asn1&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9671,7 +9948,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_ecc"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_ecc&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9779,7 +10058,14 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_hmac"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_hmac&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9842,7 +10128,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_md5"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_md5&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9887,7 +10175,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_oaep"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_oaep&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9912,6 +10202,7 @@
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_wolfcrypt&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
@@ -9930,7 +10221,14 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_randomtest"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_randomtest&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -9948,7 +10246,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_rsa"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_rsa&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -10002,7 +10302,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_sha1"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_sha1&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -10038,7 +10340,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="wolfcrypt_sha256"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;wolfcrypt_sha256&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -12027,9 +12331,7 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;256&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/sercom3&gt;
 &lt;/sercom3&gt;
 </value>
@@ -12108,9 +12410,7 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;256&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/sercom3&gt;
 &lt;/sercom3&gt;
 </value>
@@ -12654,7 +12954,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
   &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_G3_AUX_BAND&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;CEN-A&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;None&quot;/&gt;
     &lt;/Values&gt;
   &lt;/srv_pcoup&gt;
 &lt;/srv_pcoup&gt;
@@ -22204,7 +22504,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_console&gt;
   &lt;sys_console dnOrder=&quot;0&quot; id=&quot;SYS_CONSOLE_PRINT_BUFFER_SIZE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;512&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;256&quot;/&gt;
     &lt;/Values&gt;
   &lt;/sys_console&gt;
 &lt;/sys_console&gt;
@@ -25588,7 +25888,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\definitions.h</file>
-         <hash>75844d7ef59e18cca829463b83e966a52c11c33b186983b09d6e48979af021e8</hash>
+         <hash>8c9715ea93ceb0362f3b9f0ebe9c15cc64765fb949393412a3c4bb4a31eaf949</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_ClearFlags_pb.h</file>
@@ -25596,7 +25896,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\g3MacRt\bin\drv_g3_macrt_bin.S</file>
-         <hash>27b435bd886ece843ae448e1b685be96e4ea81f26e994339a8c6e38f70ce15d4</hash>
+         <hash>54d9eec3082b50232eb3294ec64cd0079f7249a478db0b713df1aae8edc5d934</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_GF2NEccMul_pb.h</file>
@@ -25656,7 +25956,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\pcoup\srv_pcoup.h</file>
-         <hash>64d6bcbbd3065e03b852d6ba32b8d0bacc97a6664878f1c1430dbbaa65e2064e</hash>
+         <hash>cd8cf50d0c086c31accabffe77d8666ecf2aaf4ae40c6a28ecb2ba29603a4a40</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\library\tcpip\src\snmp_private.h</file>
@@ -25676,7 +25976,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\pcoup\srv_pcoup.c</file>
-         <hash>aa92f250e2b9dc9cadc6a7f0c7eb4ce2f4e829b5f8e2865e6dec16fb29c149f1</hash>
+         <hash>8a2c04f9ec77bd27d387bd521c6afd3a230fc04ccbc337d8b61e7220ada4ce8c</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\mpu_armv7.h</file>
@@ -25788,11 +26088,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\clock\plib_clock.h</file>
-         <hash>99bff84fe4a99e6423e2d28f881600300ece34a505bb89f3b4eb61154dbeeb10</hash>
+         <hash>676ac565aeba3600615d8037762906cf75c8c4ad234164d77af60d4cbcf0a2b8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\clock\plib_clock.c</file>
-         <hash>b04772dba6f24c7effce407695212384ae4ebd53939a820c8e531677585e4a48</hash>
+         <hash>1ed60bc9ca06a29228584090e2aca86e0c5d0cfc742db198ad41aeb2e6a54ee7</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\library\tcpip\src\ipv4_manager.h</file>
@@ -25832,7 +26132,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\initialization.c</file>
-         <hash>ce1c19fcd9645b557f69eba04d3b70a48344be9812ca80fabf44d758db216ca3</hash>
+         <hash>454bfaf662384ed1d371accf90f43fa838e7911188e607b6e8158e4abe7595d2</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\library\tcpip\src\tcpip_manager_control.h</file>
@@ -25853,6 +26153,10 @@
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\port\pic32\crypt_tdes_sam6150.c</file>
          <hash>979a1b5b07e41beafa6358cb303728c72d277ec5207c6642449bceaa5194f47c</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_d20_xpro_pl460\stack\g3\mac\mac_plc\g3_lib_mac_plc_cm0.a</file>
+         <hash>45add1273e1d5766a45bd84cf546a330429555edb43600bf9d74d92e5efca561</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\wc_port.c</file>
@@ -25891,10 +26195,6 @@
          <hash>0bfdf86f09cf38af9934f0e70d325b0cb2f7fc8c19cdea21ebb7e47f9cae17be</hash>
       </entry>
       <entry>
-         <file>..\src\config\sam_d20_xpro_pl460\peripheral\wdt\plib_wdt.c</file>
-         <hash>8597a0181a9f082c85aa43a7ddf083b2a0af16fe149d1ce652714c1d22eebbdf</hash>
-      </entry>
-      <entry>
          <file>..\src\config\sam_d20_xpro_pl460\tasks.c</file>
          <hash>3fc652088bb81112f1829f79004428b58914c9e1a4ff0a3b09ae9dbfb9b5be49</hash>
       </entry>
@@ -25925,10 +26225,6 @@
       <entry>
          <file>..\src\packs\ATSAMD20J18_DFP\instance\nvmctrl.h</file>
          <hash>a5e9dc20abc2de5b6e088196bd490e3cca889f0440cd28574e4996522076974f</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\sam_d20_xpro_pl460\peripheral\wdt\plib_wdt.h</file>
-         <hash>f33c3f55c623ed3aab671265f066ebde54e95e3fde5afbeec01dfdc085023eb5</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAMD20J18_DFP\component\gclk.h</file>
@@ -26063,10 +26359,6 @@
          <hash>2f6a6d32dc6dec31ddd87cc6f6b1c24d8ee9b076147d0360399a8b4886847a0d</hash>
       </entry>
       <entry>
-         <file>..\src\config\sam_d20_xpro_pl460\stack\g3\mac\mac_plc\g3_lib_plc_mac.a</file>
-         <hash>555ceae5aaa188c526f2f8336367276dad7d47665d74f83adf23d8431fa52c5d</hash>
-      </entry>
-      <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\blake2s.c</file>
          <hash>0464b47ddeab024086ff004b3931ee9ed736555b7780e0b89c5f9033eded9a11</hash>
       </entry>
@@ -26132,7 +26424,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\sercom\usart\plib_sercom3_usart.c</file>
-         <hash>fabb3db83e80136aaf14f83c9fb6595bc64f2e50c1a0d5ed38d3f3dc304aec34</hash>
+         <hash>78251c199b215c044c9161c83f58a5ce78b429ea99d7c6b45805daba928d7894</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_ZpEccQuickDualMul_pb.h</file>
@@ -26252,7 +26544,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\interrupts.h</file>
-         <hash>ff7eb3b02b8a30c160f94ed0f3b7917083ea8a6b7cfe4caa3b910368c8a8f160</hash>
+         <hash>bf4bc053e1cf9e50ac0e5ba0e0e3cbb716a099c7e4c74920ba6d0dae6f4f5414</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\siphash.c</file>
@@ -26288,7 +26580,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\interrupts.c</file>
-         <hash>f1e756eec8cb918c7c7314c1ada1796930d8fe37470bb84ed99e6959a499094f</hash>
+         <hash>c26bcca254140db027262c46a793e3ca441b7152f94504f6089d9f0e185ddcf0</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\library\tcpip\src\tftpc_private.h</file>
@@ -26384,7 +26676,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\nvic\plib_nvic.c</file>
-         <hash>5f05d6cc04388d4d4466da7345b4991abd6878334bdec29e4a2a2d21550bb008</hash>
+         <hash>be4f5b2095a8dd361e8dfd8e264bc74c3ad1711d5f2fcfa0fc6bd9f5509cece7</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\sp_c64.c</file>
@@ -26595,10 +26887,6 @@
          <hash>18f5025bbe86dc9900df004bd6c3c4a195ed4ef250dd4026f03e11cf24540b5e</hash>
       </entry>
       <entry>
-         <file>..\src\config\sam_d20_xpro_pl460\stack\g3\adaptation\g3_lib_adp.a</file>
-         <hash>65d434d0bbf0f6ec6f31e97cad804de089ef5cb110bfcb146c6589f6f03fb915</hash>
-      </entry>
-      <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_Fill_pb.h</file>
          <hash>4b61f49854b6afa61802dea03789fb46585e631ce880dfdd6d251f5de19b5047</hash>
       </entry>
@@ -26716,7 +27004,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\mac\mac_wrapper\mac_wrapper.c</file>
-         <hash>189b311f1806065046d975a63c97408a7298f0ab6ddb35d91a03071ab362640f</hash>
+         <hash>75c9c55a37ab95bbff8d3a89d86c70c2f17b51751fe1ac3032dda25be8314a37</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\ge_operations.c</file>
@@ -26796,7 +27084,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\pal\plc\pal_plc_local.h</file>
-         <hash>3747d9c540503381124cd9a71162a8a2bdeef452690a25bf8704401db670f565</hash>
+         <hash>98082a3fc0948472d35df4ee5470cfcee3bf3545d281ff71286f5ccdf629f6aa</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\pkcs11.h</file>
@@ -27043,10 +27331,6 @@
          <hash>6c136e5b4ef349437256727bcc2b02432a8b2b4fb2eb242c4daa99503cedb947</hash>
       </entry>
       <entry>
-         <file>..\src\config\sam_d20_xpro_pl460\driver\plc\g3MacRt\bin\G3_MAC_RT_CENA.bin</file>
-         <hash>ed0ff4e585961c5cd146a7f4f1f5d58817a712c87863af7650f940823f992cc3</hash>
-      </entry>
-      <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\g3MacRt\bin\G3_MAC_RT_FCC.bin</file>
          <hash>550d27499557e43397c871d03d2cafdfc6b7b4a48e051708e268ad47de4c4476</hash>
       </entry>
@@ -27200,7 +27484,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\pal\plc\pal_plc.c</file>
-         <hash>cdec51863df240b3a0830316a182504b358dde95c6b84b34ea1b6e82edecdc9e</hash>
+         <hash>d2c1e1186e65539be70c7e872abfc5d99301874ecdfa58f19d77f156976af837</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\g3MacRt\drv_g3_macrt_local_comm.h</file>
@@ -27240,7 +27524,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\net\macg3adp\src\drv_mac_g3adp_local.h</file>
-         <hash>2429397163dd9839206503333354d2f328671b59e58eca331966eb3bea25a3b3</hash>
+         <hash>09610999355290ef4e868cbe01f055609735a5229b3e749555068be39ddabd8a</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\cpuid.c</file>
@@ -27351,10 +27635,6 @@
          <hash>bcecf4d3f946533f0690acb8684dd4811e99dbc291bf8d9bce4a90d645ddd49e</hash>
       </entry>
       <entry>
-         <file>..\src\config\sam_d20_xpro_pl460\stack\g3\adaptation\g3_lib_loadng.a</file>
-         <hash>58b222d9eb952d6331553e1504110e8afce8ca12aaa410828ce13fad922d3fe8</hash>
-      </entry>
-      <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\falcon.c</file>
          <hash>f79ceaee84b254a3215f7d59e048cfeb64576f72790c4573c0287d920316aa9d</hash>
       </entry>
@@ -27385,6 +27665,10 @@
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\system\int\sys_int_mapping.h</file>
          <hash>5abf8528dabc1b17378f5d137870597037214fddf33880fa40e9263352da3008</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_d20_xpro_pl460\stack\g3\adaptation\g3_lib_adp_cm0.a</file>
+         <hash>0a49ff17fb9237541e800e443e383640c3980be526f06c3290003e2ea877b3d1</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAMD20J18_DFP\instance\tc3.h</file>
@@ -27496,7 +27780,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\configuration.h</file>
-         <hash>f138e365ac697d9a7f1843f7aed0c06f87ef6c6068f2f876b6c8aaff709b5cbc</hash>
+         <hash>50a1921999ef26bf260b37c052d202379ef40ebffd8bba833edff37408398e45</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\mac\mac_plc\mac_plc.h</file>
@@ -27577,6 +27861,10 @@
       <entry>
          <file>..\src\main.c</file>
          <hash>d3c233d419e6304bfacbafc18cc68c0f5c26e365f23b20ea40ccfac458f664c5</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_d20_xpro_pl460\stack\g3\adaptation\g3_lib_loadng_cm0.a</file>
+         <hash>ecb602110ee6482b270bfc7387f70438ca09c64d320753598f30ef987f56514c</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\system\time\sys_time_definitions.h</file>

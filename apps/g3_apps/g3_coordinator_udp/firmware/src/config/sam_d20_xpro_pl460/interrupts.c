@@ -76,14 +76,13 @@ void __attribute__((optimize("-O1"), long_call, noreturn, used))Dummy_Handler(vo
 }
 
 /* MISRAC 2012 deviation block start */
-/* MISRA C-2012 Rule 8.6 deviated 23 times.  Deviation record ID -  H3_MISRAC_2012_R_8_6_DR_1 */
+/* MISRA C-2012 Rule 8.6 deviated 22 times.  Deviation record ID -  H3_MISRAC_2012_R_8_6_DR_1 */
 /* Device vectors list dummy definition*/
 extern void SVCall_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void PendSV_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void SysTick_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void PM_Handler                 ( void ) __attribute__((weak, alias("Dummy_Handler")));
-extern void SYSCTRL_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
-extern void WDT_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
+extern void WDT_InterruptHandler       ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void RTC_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void NVMCTRL_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void EVSYS_Handler              ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -122,8 +121,8 @@ const H3DeviceVectors exception_table=
     .pfnPendSV_Handler             = PendSV_Handler,
     .pfnSysTick_Handler            = SysTick_Handler,
     .pfnPM_Handler                 = PM_Handler,
-    .pfnSYSCTRL_Handler            = SYSCTRL_Handler,
-    .pfnWDT_Handler                = WDT_Handler,
+    .pfnSYSCTRL_Handler            = SYSCTRL_InterruptHandler,
+    .pfnWDT_Handler                = WDT_InterruptHandler,
     .pfnRTC_Handler                = RTC_Handler,
     .pfnEIC_Handler                = EIC_InterruptHandler,
     .pfnNVMCTRL_Handler            = NVMCTRL_Handler,

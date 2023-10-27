@@ -28,6 +28,7 @@
 // *****************************************************************************
 
 #include "app_storage_samd20.h"
+#include "definitions.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -58,19 +59,15 @@ APP_STORAGE_SAMD20_DATA app_storage_samd20Data;
 // *****************************************************************************
 // *****************************************************************************
 
-/* TODO:  Add any necessary callback functions.
-*/
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Local Functions
-// *****************************************************************************
-// *****************************************************************************
-
-
-/* TODO:  Add any necessary local functions.
-*/
-
+//static void lWDT_EarlyWarningCallback(uintptr_t context)
+//{
+//    (void) NVMCTRL_PageBufferCommit(app_storage_samd20Data.nonVolatileDataAddress);
+//}
+//
+//static void lSYSCTRL_BOD33DETCalbback (SYSCTRL_INTERRUPT_MASK interruptMask, uintptr_t context)
+//{
+//    (void) NVMCTRL_PageBufferCommit(app_storage_samd20Data.nonVolatileDataAddress);
+//}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -88,14 +85,53 @@ APP_STORAGE_SAMD20_DATA app_storage_samd20Data;
 
 void APP_STORAGE_SAMD20_Initialize ( void )
 {
-    /* Place the App state machine in its initial state. */
-    app_storage_samd20Data.state = APP_STORAGE_SAMD20_STATE_INIT;
+    /* Set EEPROM emulation address */
+    app_storage_samd20Data.nonVolatileDataAddress = NVMCTRL_EEPROM_START_ADDRESS;
 
+//    /* Register WDT callback to write non-volatile data EEPROM emulation */
+//    WDT_CallbackRegister(lWDT_EarlyWarningCallback, 0);
+//    
+//    /* Register BOD33 callback to write non-volatile data EEPROM emulation */
+//    SYSCTRL_CallbackRegister(lSYSCTRL_BOD33DETCalbback, 0);
+    
+    NVMCTRL_Read((uint32_t *)&app_storage_samd20Data.nonVolatileData, 
+                 sizeof(app_storage_samd20Data.nonVolatileData), 
+                 app_storage_samd20Data.nonVolatileDataAddress);
+    
+    if (app_storage_samd20Data.nonVolatileData.key == APP_STORAGE_NON_VOLATILE_DATA_KEY)
+    {
+        SYS_DEBUG_MESSAGE(SYS_ERROR_DEBUG, "APP_STORAGE: Restored Non-Volatile Data\r\n");
+        app_storage_samd20Data.validNonVolatileData = true;
+    }
+    else
+    {
+        SYS_DEBUG_MESSAGE(SYS_ERROR_DEBUG, "APP_STORAGE: Invalid Non-Volatile Data\r\n");
+        app_storage_samd20Data.validNonVolatileData = false;
+    }
 
+    if (app_storage_samd20Data.validNonVolatileData == true)
+    {
+        ADP_NON_VOLATILE_DATA_IND_PARAMS *adpData = &app_storage_samd20Data.nonVolatileData.data;
+        
+        /* Check MAC Frame Counters */
+        if (adpData->frameCounter == 0xFFFFFFFF)
+        {
+            /* Invalid MAC PLC Frame Counter */
+            adpData->frameCounter = 0U;
+            app_storage_samd20Data.validNonVolatileData = false;
+        }
 
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
+        if (adpData->frameCounterRF == 0xFFFFFFFF)
+        {
+            /* Invalid MAC RF Frame Counter */
+            adpData->frameCounterRF = 0U ;
+            app_storage_samd20Data.validNonVolatileData = false;
+        }
+    }
+
+    /* Create semaphore. It is used to suspend task. */
+    OSAL_SEM_Create(&app_storage_samd20Data.semaphoreID, OSAL_SEM_TYPE_BINARY, 0, 0);
+    
 }
 
 
@@ -109,40 +145,69 @@ void APP_STORAGE_SAMD20_Initialize ( void )
 
 void APP_STORAGE_SAMD20_Tasks ( void )
 {
-
-    /* Check the application's current state. */
-    switch ( app_storage_samd20Data.state )
+    /* Nothing to do. Suspend task forever (RTOS mode) */
+    if (app_storage_samd20Data.semaphoreID != 0)
     {
-        /* Application's initial state. */
-        case APP_STORAGE_SAMD20_STATE_INIT:
-        {
-            bool appInitialized = true;
-
-
-            if (appInitialized)
-            {
-
-                app_storage_samd20Data.state = APP_STORAGE_SAMD20_STATE_SERVICE_TASKS;
-            }
-            break;
-        }
-
-        case APP_STORAGE_SAMD20_STATE_SERVICE_TASKS:
-        {
-
-            break;
-        }
-
-        /* TODO: implement your application state machine.*/
-
-
-        /* The default state should never be executed. */
-        default:
-        {
-            /* TODO: Handle error in application's state machine. */
-            break;
-        }
+        OSAL_SEM_Pend(&app_storage_samd20Data.semaphoreID, OSAL_WAIT_FOREVER);
     }
+}
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Interface Functions
+// *****************************************************************************
+// *****************************************************************************
+
+void APP_STORAGE_GetExtendedAddress(uint8_t* eui64)
+{
+    uint32_t serialNumber[4];
+    uint8_t *pSerialNumber = (uint8_t *)&serialNumber[0];
+    
+    /* Read Serial Number to set extended address (EUI64) */
+    serialNumber[0] = *(uint32_t *)0x0080A00C;
+    serialNumber[1] = *(uint32_t *)0x0080A040;
+    serialNumber[2] = *(uint32_t *)0x0080A044;
+    serialNumber[3] = *(uint32_t *)0x0080A048;
+
+    eui64[7] = pSerialNumber[4];
+    eui64[6] = pSerialNumber[5];
+    eui64[5] = pSerialNumber[6];
+    eui64[4] = pSerialNumber[7];
+    eui64[3] = (pSerialNumber[8] << 4) | (pSerialNumber[9] & 0x0F);
+    eui64[2] = (pSerialNumber[10] << 4) | (pSerialNumber[11] & 0x0F);
+    eui64[1] = (pSerialNumber[12] << 4) | (pSerialNumber[13] & 0x0F);
+    eui64[0] = (pSerialNumber[14] << 4) | (pSerialNumber[15] & 0x0F);
+}
+
+ADP_NON_VOLATILE_DATA_IND_PARAMS* APP_STORAGE_GetNonVolatileData(void)
+{
+    if (app_storage_samd20Data.validNonVolatileData == false)
+    {
+        return NULL;
+    }
+    else
+    {
+        return &app_storage_samd20Data.nonVolatileData.data;
+    }
+}
+
+void APP_STORAGE_UpdateNonVolatileData(ADP_NON_VOLATILE_DATA_IND_PARAMS* pNonVolatileData)
+{
+    uint32_t *pData = (uint32_t *)&app_storage_samd20Data.nonVolatileData.data;
+    /* Store non-volatile data to write it in EEPROM emulation at power-down */
+    app_storage_samd20Data.nonVolatileData.key = APP_STORAGE_NON_VOLATILE_DATA_KEY;
+    app_storage_samd20Data.nonVolatileData.data = *pNonVolatileData;
+
+    /* Write non-volatile data data in EEPROM emulated in order to read it at non-power-up
+     * reset. */
+    NVMCTRL_PageBufferWrite(pData, app_storage_samd20Data.nonVolatileDataAddress);
+    
+    if (app_storage_samd20Data.validNonVolatileData == false)
+    {
+        (void) NVMCTRL_PageBufferCommit(app_storage_samd20Data.nonVolatileDataAddress);
+    }
+    
+    app_storage_samd20Data.validNonVolatileData = true;
 }
 
 

@@ -52,6 +52,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include "device.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus // Provide C++ Compatibility
@@ -66,6 +67,18 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
+typedef enum
+{
+    SYSCTRL_INTERRUPT_BOD33DET_MASK = SYSCTRL_INTFLAG_BOD33DET_Msk,
+} SYSCTRL_INTERRUPT_MASK;
+
+typedef void (*SYSCTRL_CALLBACK)(SYSCTRL_INTERRUPT_MASK interruptMask, uintptr_t context);
+
+typedef struct
+{
+    SYSCTRL_CALLBACK    callback;
+    uintptr_t           context;
+} SYSCTRL_CALLBACK_OBJECT;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -74,6 +87,7 @@ extern "C" {
 // *****************************************************************************
 
 void CLOCK_Initialize (void);
+void SYSCTRL_CallbackRegister(SYSCTRL_CALLBACK callback, uintptr_t context);
 
 #ifdef __cplusplus // Provide C++ Compatibility
 }

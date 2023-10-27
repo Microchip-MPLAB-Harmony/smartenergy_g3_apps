@@ -42,6 +42,8 @@
 #include "device.h"
 #include "interrupts.h"
 
+volatile static SYSCTRL_CALLBACK_OBJECT SYSCTRL_CallbackObj;
+
 static void SYSCTRL_Initialize(void)
 {
 
@@ -154,4 +156,32 @@ void CLOCK_Initialize (void)
 
 
 
+
+    SYSCTRL_REGS->SYSCTRL_INTENSET = 0x400U;
+}
+
+void SYSCTRL_CallbackRegister(SYSCTRL_CALLBACK callback, uintptr_t context)
+{
+    SYSCTRL_CallbackObj.callback = callback;
+    SYSCTRL_CallbackObj.context = context;
+}
+
+void __attribute__((used)) SYSCTRL_InterruptHandler(void)
+{
+    uintptr_t context_var;
+
+    if ((SYSCTRL_REGS->SYSCTRL_INTFLAG & SYSCTRL_INTFLAG_BOD33DET_Msk) == SYSCTRL_INTFLAG_BOD33DET_Msk)
+    {
+        SYSCTRL_REGS->SYSCTRL_INTFLAG |= SYSCTRL_INTFLAG_BOD33DET_Msk;
+
+        if(SYSCTRL_CallbackObj.callback != NULL)
+        {
+            context_var = SYSCTRL_CallbackObj.context;
+            SYSCTRL_CallbackObj.callback(SYSCTRL_INTFLAG_BOD33DET_Msk, context_var);
+        }
+    }
+    else
+    {
+
+    }
 }

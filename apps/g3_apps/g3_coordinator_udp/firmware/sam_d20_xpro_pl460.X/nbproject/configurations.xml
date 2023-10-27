@@ -210,9 +210,6 @@
               <itemPath>../src/config/sam_d20_xpro_pl460/peripheral/tc/plib_tc_common.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/peripheral/tc/plib_tc0.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="wdt" displayName="wdt" projectFiles="true">
-              <itemPath>../src/config/sam_d20_xpro_pl460/peripheral/wdt/plib_wdt.h</itemPath>
-            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="service" displayName="service" projectFiles="true">
             <logicalFolder name="log_report" displayName="log_report" projectFiles="true">
@@ -657,9 +654,6 @@
             <logicalFolder name="tc" displayName="tc" projectFiles="true">
               <itemPath>../src/config/sam_d20_xpro_pl460/peripheral/tc/plib_tc0.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="wdt" displayName="wdt" projectFiles="true">
-              <itemPath>../src/config/sam_d20_xpro_pl460/peripheral/wdt/plib_wdt.c</itemPath>
-            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="service" displayName="service" projectFiles="true">
             <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
@@ -860,23 +854,74 @@
         <targetDevice>ATSAMD20J18</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool></platformTool>
+        <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.30</languageToolchainVersion>
+        <languageToolchainVersion>4.35</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMD20_DFP" vendor="Microchip" version="3.6.112"/>
         <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
+        <pack name="SAMD20_DFP" vendor="Microchip" version="3.6.112"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
       <compileType>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibFileItem>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/g3_lib_adp.a</linkerLibFileItem>
-            <linkerLibFileItem>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/g3_lib_loadng.a</linkerLibFileItem>
-            <linkerLibFileItem>../src/config/sam_d20_xpro_pl460/stack/g3/mac/mac_plc/g3_lib_plc_mac.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/g3_lib_adp_cm0.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/sam_d20_xpro_pl460/stack/g3/mac/mac_plc/g3_lib_mac_plc_cm0.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/g3_lib_loadng_cm0.a</linkerLibFileItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../../../../../smartenergy_g3_libs/libs/g3_lib_adp/g3_lib_adp.X"
+                            CT="3"
+                            CN="Release_SAMD20"
+                            AC="true"
+                            BL="true"
+                            WD="../../../../../../smartenergy_g3_libs/libs/g3_lib_adp/g3_lib_adp.X"
+                            BC="${MAKE}  -f Makefile CONF=Release_SAMD20"
+                            DBC="${MAKE}  -f Makefile CONF=Release_SAMD20 TYPE_IMAGE=DEBUG_RUN"
+                            CC="rm -rf &quot;build/Release_SAMD20&quot; &quot;dist/Release_SAMD20&quot;"
+                            OP="dist/Release_SAMD20/production/g3_lib_adp.X.a"
+                            DOP="dist/Release_SAMD20/debug/g3_lib_adp.X.a"
+                            FL="dist/Release_SAMD20/production/g3_lib_adp.X.a"
+                            PD="dist/Release_SAMD20/production/g3_lib_adp.X."
+                            DD="dist/Release_SAMD20/debug/g3_lib_adp.X.">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../../../../../smartenergy_g3_libs/libs/g3_lib_loadng/g3_lib_loadng.X"
+                            CT="3"
+                            CN="Release_SAMD20"
+                            AC="false"
+                            BL="true"
+                            WD="../../../../../../smartenergy_g3_libs/libs/g3_lib_loadng/g3_lib_loadng.X"
+                            BC="${MAKE}  -f Makefile CONF=Release_SAMD20"
+                            DBC="${MAKE}  -f Makefile CONF=Release_SAMD20 TYPE_IMAGE=DEBUG_RUN"
+                            CC="rm -rf &quot;build/Release_SAMD20&quot; &quot;dist/Release_SAMD20&quot;"
+                            OP="dist/Release_SAMD20/production/g3_lib_loadng.X.a"
+                            DOP="dist/Release_SAMD20/debug/g3_lib_loadng.X.a"
+                            FL="dist/Release_SAMD20/production/g3_lib_loadng.X.a"
+                            PD="dist/Release_SAMD20/production/g3_lib_loadng.X."
+                            DD="dist/Release_SAMD20/debug/g3_lib_loadng.X.">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../../../../../smartenergy_g3_libs/libs/g3_lib_mac_plc/g3_lib_mac_plc.X"
+                            CT="3"
+                            CN="Release_SAMD20"
+                            AC="true"
+                            BL="true"
+                            WD="../../../../../../smartenergy_g3_libs/libs/g3_lib_mac_plc/g3_lib_mac_plc.X"
+                            BC="${MAKE}  -f Makefile CONF=Release_SAMD20"
+                            DBC="${MAKE}  -f Makefile CONF=Release_SAMD20 TYPE_IMAGE=DEBUG_RUN"
+                            CC="rm -rf &quot;build/Release_SAMD20&quot; &quot;dist/Release_SAMD20&quot;"
+                            OP="dist/Release_SAMD20/production/g3_lib_mac_plc.X.a"
+                            DOP="dist/Release_SAMD20/debug/g3_lib_mac_plc.X.a"
+                            FL="dist/Release_SAMD20/production/g3_lib_mac_plc.X.a"
+                            PD="dist/Release_SAMD20/production/g3_lib_mac_plc.X."
+                            DD="dist/Release_SAMD20/debug/g3_lib_mac_plc.X.">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -902,7 +947,6 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -933,7 +977,6 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
-        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -962,7 +1005,6 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1002,7 +1044,6 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1043,6 +1084,120 @@
         <property key="stack-smashing" value=""/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
+      <EdbgTool>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="arm.use_vtor" value="false"/>
+        <property key="arm.vtor_adr" value="exception_table"/>
+        <property key="communication.activationmode" value="nohv"/>
+        <property key="communication.interface" value="swd"/>
+        <property key="communication.speed" value="2.000"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="debugoptions.useswbreakpoints" value="true"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
+        <property key="firmware.path"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="firmware.toolpack"
+                  value="Press to select which tool pack to use"/>
+        <property key="firmware.update.action" value="firmware.update.use.latest"/>
+        <property key="freeze.timers" value="false"/>
+        <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
+        <property key="memories.aux" value="false"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.configurationmemory2" value="true"/>
+        <property key="memories.dataflash" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.exclude.configurationmemory" value="true"/>
+        <property key="memories.flashdata" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0-3ffff"/>
+        <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/0_CHRIS/Proyectos/03_MCHP_Harmony_3/BitBucket/smartenergy_g3_apps/apps/g3_apps/g3_coordinator_udp/firmware/sam_d20_xpro_pl460.X/debug/sam_d20_xpro_pl460/sam_d20_xpro_pl460_ptg"/>
+        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.preservedataflash" value="false"/>
+        <property key="programoptions.preservedataflash.ranges"
+                  value="${memories.dataflash.default}"/>
+        <property key="programoptions.preserveeeprom" value="false"/>
+        <property key="programoptions.preserveeeprom.ranges" value=""/>
+        <property key="programoptions.preserveprogram.ranges" value=""/>
+        <property key="programoptions.preserveprogramrange" value="false"/>
+        <property key="programoptions.preserveuserid" value="false"/>
+        <property key="programoptions.programuserotp" value="false"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
+        <property key="script.reset_delay" value="0"/>
+        <property key="script.show_output" value="false"/>
+        <property key="toolpack.updateoptions"
+                  value="toolpack.updateoptions.uselatestoolpack"/>
+        <property key="toolpack.updateoptions.packversion"
+                  value="Press to select which tool pack to use"/>
+        <property key="voltagevalue" value=""/>
+        <property key="x.erase.clearprot" value="true"/>
+      </EdbgTool>
+      <Tool>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="arm.use_vtor" value="false"/>
+        <property key="arm.vtor_adr" value="exception_table"/>
+        <property key="communication.activationmode" value="nohv"/>
+        <property key="communication.interface" value="swd"/>
+        <property key="communication.speed" value="2.000"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
+        <property key="firmware.path"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="firmware.toolpack"
+                  value="Press to select which tool pack to use"/>
+        <property key="firmware.update.action" value="firmware.update.use.latest"/>
+        <property key="freeze.timers" value="false"/>
+        <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
+        <property key="memories.aux" value="false"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.configurationmemory2" value="true"/>
+        <property key="memories.dataflash" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.exclude.configurationmemory" value="true"/>
+        <property key="memories.flashdata" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0-3ffff"/>
+        <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/0_CHRIS/Proyectos/03_MCHP_Harmony_3/BitBucket/smartenergy_g3_apps/apps/g3_apps/g3_coordinator_udp/firmware/sam_d20_xpro_pl460.X/debug/sam_d20_xpro_pl460/sam_d20_xpro_pl460_ptg"/>
+        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.preservedataflash" value="false"/>
+        <property key="programoptions.preservedataflash.ranges"
+                  value="${memories.dataflash.default}"/>
+        <property key="programoptions.preserveeeprom" value="false"/>
+        <property key="programoptions.preserveeeprom.ranges" value=""/>
+        <property key="programoptions.preserveprogram.ranges" value=""/>
+        <property key="programoptions.preserveprogramrange" value="false"/>
+        <property key="programoptions.preserveuserid" value="false"/>
+        <property key="programoptions.programuserotp" value="false"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
+        <property key="script.reset_delay" value="0"/>
+        <property key="script.show_output" value="false"/>
+        <property key="toolpack.updateoptions"
+                  value="toolpack.updateoptions.uselatestoolpack"/>
+        <property key="toolpack.updateoptions.packversion"
+                  value="Press to select which tool pack to use"/>
+        <property key="voltagevalue" value=""/>
+        <property key="x.erase.clearprot" value="true"/>
+      </Tool>
     </conf>
   </confs>
 </configurationDescriptor>

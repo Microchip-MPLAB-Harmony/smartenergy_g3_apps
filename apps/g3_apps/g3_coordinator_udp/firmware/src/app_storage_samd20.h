@@ -32,6 +32,8 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
+#include "stack/g3/adaptation/adp.h"
+#include "osal/osal.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -40,6 +42,15 @@ extern "C" {
 
 #endif
 // DOM-IGNORE-END
+    
+// *****************************************************************************
+// *****************************************************************************
+// Section: Macro Definitions
+// *****************************************************************************
+// *****************************************************************************
+
+/* Key to detect valid non-volatile data in User Signature */
+#define APP_STORAGE_NON_VOLATILE_DATA_KEY 0xA55AA55A
 
 // *****************************************************************************
 // *****************************************************************************
@@ -58,15 +69,11 @@ extern "C" {
     determine the behavior of the application at various times.
 */
 
-typedef enum
+typedef struct
 {
-    /* Application's state machine's initial state. */
-    APP_STORAGE_SAMD20_STATE_INIT=0,
-    APP_STORAGE_SAMD20_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
-
-} APP_STORAGE_SAMD20_STATES;
-
+    uint32_t key;
+    ADP_NON_VOLATILE_DATA_IND_PARAMS data;
+} APP_STORAGE_NONVOLATILE_DATA;
 
 // *****************************************************************************
 /* Application Data
@@ -83,10 +90,17 @@ typedef enum
 
 typedef struct
 {
-    /* The application's current state */
-    APP_STORAGE_SAMD20_STATES state;
+    /* Semaphore identifier. Used to suspend task */
+    OSAL_SEM_DECLARE(semaphoreID);
+    
+    /* Address of the non-volatile data */
+    uint32_t nonVolatileDataAddress;
 
-    /* TODO: Define any additional data used by the application. */
+    /* Current non-volatile data */
+    APP_STORAGE_NONVOLATILE_DATA nonVolatileData;
+
+    /* Flag to indicate if non-volatile data is valid */
+    bool validNonVolatileData;
 
 } APP_STORAGE_SAMD20_DATA;
 
@@ -169,6 +183,118 @@ void APP_STORAGE_SAMD20_Initialize ( void );
  */
 
 void APP_STORAGE_SAMD20_Tasks( void );
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Interface Functions
+// *****************************************************************************
+// *****************************************************************************
+
+/*******************************************************************************
+  Function:
+    void APP_STORAGE_GetExtendedAddress(uint8_t* eui64)
+
+  Summary:
+    Gets extended address.
+
+  Description:
+    This function gets the extended address of the device, ensuring it is
+    unique for each device.
+
+  Precondition:
+    APP_STORAGE_PIC32CXMT_Initialize should be called before calling this
+    routine.
+
+  Parameters:
+    eui64 - Pointer to store extended address (8 bytes).
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    uint8_t eui64[8];
+    APP_STORAGE_GetExtendedAddress(eui64);
+    </code>
+
+  Remarks:
+    In this implementation the extended address is derived from UniqueID.
+*/
+
+void APP_STORAGE_GetExtendedAddress(uint8_t* eui64);
+
+/*******************************************************************************
+  Function:
+    ADP_NON_VOLATILE_DATA_IND_PARAMS* APP_STORAGE_GetNonVolatileData(void)
+
+  Summary:
+    Gets non-volatile data.
+
+  Description:
+    This function gets the G3 non-volatile data, if it is valid.
+
+  Precondition:
+    APP_STORAGE_PIC32CXMT_Initialize should be called before calling this
+    routine.
+
+  Parameters:
+    None.
+
+  Returns:
+    Pointer to non-volatile data, or NULL if there is no valid non-volatile
+    data.
+
+  Example:
+    <code>
+    ADP_NON_VOLATILE_DATA_IND_PARAMS* pNonVolatileData;
+    pNonVolatileData = APP_STORAGE_GetNonVolatileData();
+    if (pNonVolatileData != NULL)
+    {
+
+    }
+    </code>
+
+  Remarks:
+    In this implementation the non-volatile data is read from User Signature
+    (power-on reset) or GPBR (not power-on reset).
+*/
+
+ADP_NON_VOLATILE_DATA_IND_PARAMS* APP_STORAGE_GetNonVolatileData(void);
+
+/*******************************************************************************
+  Function:
+    void APP_STORAGE_UpdateNonVolatileData(ADP_NON_VOLATILE_DATA_IND_PARAMS* pNonVolatileData)
+
+  Summary:
+    Updates non-volatile data.
+
+  Description:
+    This function updates the G3 non-volatile data.
+
+  Precondition:
+    APP_STORAGE_PIC32CXMT_Initialize should be called before calling this
+    routine.
+
+  Parameters:
+    pNonVolatileData - Pointer to new non-volatile data.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    static void _ADP_NonVolatileDataIndication(ADP_NON_VOLATILE_DATA_IND_PARAMS* pNonVolatileData)
+    {
+        APP_STORAGE_UpdateNonVolatileData(pNonVolatileData);
+    }
+    </code>
+
+  Remarks:
+    In this implementation the non-volatile data is stored in GPBR each time it
+    is updated and in User Signature at power-down.
+*/
+
+void APP_STORAGE_UpdateNonVolatileData(ADP_NON_VOLATILE_DATA_IND_PARAMS* pNonVolatileData);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

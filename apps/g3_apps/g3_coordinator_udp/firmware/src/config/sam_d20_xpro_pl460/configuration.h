@@ -103,7 +103,7 @@ extern "C" {
 #define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
 #define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(1U)
 #define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(0U)
-#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(512U)
+#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(256U)
 
 
 
@@ -168,7 +168,7 @@ extern "C" {
 #define G3_ADP_FRAG_TRANSFER_TABLE_SIZE  1U
 #define G3_ADP_FRAGMENT_SIZE             400U
 
-#define G3_ADP_ROUTING_TABLE_SIZE        150U
+#define G3_ADP_ROUTING_TABLE_SIZE        50U
 #define G3_ADP_BLACKLIST_TABLE_SIZE      20U
 #define G3_ADP_ROUTING_SET_SIZE          30U
 #define G3_ADP_DESTINATION_ADDR_SET_SIZE 1U
@@ -336,31 +336,31 @@ extern "C" {
 // ---------- FUNCTIONAL CONFIGURATION START ----------
 #define WOLFSSL_AES_SMALL_TABLES
 #define NO_MD4
-#define WOLFSSL_SHA224
+#define NO_MD5
+#define NO_SHA // specifically, no SHA1 (legacy name)
+#define NO_SHA256
+#define NO_SHA224
+#define NO_HMAC
 #define WOLFSSL_AES_128
-#define WOLFSSL_AES_192
-#define WOLFSSL_AES_256
+#define NO_AES_192 // not supported by HW accelerator
+#define NO_AES_256 // not supported by HW accelerator
 #define WOLFSSL_AES_DIRECT
 #define HAVE_AES_DECRYPT
-#define HAVE_AES_ECB
-#define HAVE_AES_CBC
-#define WOLFSSL_AES_COUNTER
-#define WOLFSSL_AES_OFB
-#define HAVE_AESGCM
+#define NO_AES_CBC
 #define HAVE_AESCCM
 #define WOLFSSL_CMAC
 #define NO_RC4
 #define NO_HC128
 #define NO_RABBIT
-#define HAVE_ECC
 #define NO_DH
 #define NO_DSA
-#define FP_MAX_BITS 4096
-#define USE_CERT_BUFFERS_2048
+#define NO_RSA
 #define NO_DEV_RANDOM
-#define HAVE_HASHDRBG
+#define WC_NO_RNG
+#define WC_NO_HASHDRBG
 #define WC_NO_HARDEN
 #define SINGLE_THREADED
+#define NO_ASN
 #define NO_SIG_WRAPPER
 #define NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY

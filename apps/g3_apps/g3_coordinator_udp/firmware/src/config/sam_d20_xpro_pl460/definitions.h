@@ -85,7 +85,6 @@
 #include "peripheral/port/plib_port.h"
 #include "peripheral/clock/plib_clock.h"
 #include "peripheral/nvic/plib_nvic.h"
-#include "peripheral/wdt/plib_wdt.h"
 #include "peripheral/eic/plib_eic.h"
 #include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
 #include "service/pvddmon/srv_pvddmon.h"

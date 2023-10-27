@@ -54,15 +54,15 @@
 // ****************************************************************************
 // ****************************************************************************
 #pragma config NVMCTRL_BOOTPROT = SIZE_0BYTES
-#pragma config NVMCTRL_EEPROM_SIZE = SIZE_0BYTES
+#pragma config NVMCTRL_EEPROM_SIZE = SIZE_256BYTES
 #pragma config BOD33USERLEVEL = 0x7U // Enter Hexadecimal value
-#pragma config BOD33_EN = ENABLED
-#pragma config BOD33_ACTION = INT
+#pragma config BOD33_EN = DISABLED
+#pragma config BOD33_ACTION = RESET
 
 #pragma config BOD33_HYST = ENABLED
 #pragma config NVMCTRL_REGION_LOCKS = 0xffffU // Enter Hexadecimal value
 
-#pragma config WDT_ENABLE = ENABLED
+#pragma config WDT_ENABLE = DISABLED
 #pragma config WDT_ALWAYSON = DISABLED
 #pragma config WDT_PER = CYC16384
 
