@@ -112,10 +112,10 @@ static void _APP_TimeExpiredSetFlag(uintptr_t context)
     *((bool *) context) = true;
 }
 
-static void _APP_WDT_EarlyWarningCallback(uintptr_t context)
-{
-    (void) NVMCTRL_PageBufferCommit(appData.nonVolatileDataAddress);
-}
+//static void _APP_WDT_EarlyWarningCallback(uintptr_t context)
+//{
+//    (void) NVMCTRL_PageBufferCommit(appData.nonVolatileDataAddress);
+//}
 
 static void _APP_SYSCTRL_BOD33DETCalbback (SYSCTRL_INTERRUPT_MASK interruptMask, uintptr_t context)
 {
@@ -152,7 +152,7 @@ void APP_SAMD20_Initialize ( void )
     appData.nonVolatileDataAddress = NVMCTRL_EEPROM_START_ADDRESS;
 
     /* Register WDT callback to write non-volatile data EEPROM emulation */
-    WDT_CallbackRegister(_APP_WDT_EarlyWarningCallback, 0);
+//    WDT_CallbackRegister(_APP_WDT_EarlyWarningCallback, 0);
     
     /* Register BOD33 callback to write non-volatile data EEPROM emulation */
     SYSCTRL_CallbackRegister(_APP_SYSCTRL_BOD33DETCalbback, 0);

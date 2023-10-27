@@ -690,57 +690,9 @@
       <compileType>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../../../../../smartenergy_g3_libs/libs/g3_lib_adp/g3_lib_adp.X"
-                            CT="3"
-                            CN="Release_SAMD20"
-                            AC="true"
-                            BL="true"
-                            WD="../../../../../../smartenergy_g3_libs/libs/g3_lib_adp/g3_lib_adp.X"
-                            BC="${MAKE}  -f Makefile CONF=Release_SAMD20"
-                            DBC="${MAKE}  -f Makefile CONF=Release_SAMD20 TYPE_IMAGE=DEBUG_RUN"
-                            CC="rm -rf &quot;build/Release_SAMD20&quot; &quot;dist/Release_SAMD20&quot;"
-                            OP="dist/Release_SAMD20/production/g3_lib_adp.X.a"
-                            DOP="dist/Release_SAMD20/debug/g3_lib_adp.X.a"
-                            FL="dist/Release_SAMD20/production/g3_lib_adp.X.a"
-                            PD="dist/Release_SAMD20/production/g3_lib_adp.X."
-                            DD="dist/Release_SAMD20/debug/g3_lib_adp.X.">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../../../../../smartenergy_g3_libs/libs/g3_lib_loadng/g3_lib_loadng.X"
-                            CT="3"
-                            CN="Release_SAMD20"
-                            AC="false"
-                            BL="true"
-                            WD="../../../../../../smartenergy_g3_libs/libs/g3_lib_loadng/g3_lib_loadng.X"
-                            BC="${MAKE}  -f Makefile CONF=Release_SAMD20"
-                            DBC="${MAKE}  -f Makefile CONF=Release_SAMD20 TYPE_IMAGE=DEBUG_RUN"
-                            CC="rm -rf &quot;build/Release_SAMD20&quot; &quot;dist/Release_SAMD20&quot;"
-                            OP="dist/Release_SAMD20/production/g3_lib_loadng.X.a"
-                            DOP="dist/Release_SAMD20/debug/g3_lib_loadng.X.a"
-                            FL="dist/Release_SAMD20/production/g3_lib_loadng.X.a"
-                            PD="dist/Release_SAMD20/production/g3_lib_loadng.X."
-                            DD="dist/Release_SAMD20/debug/g3_lib_loadng.X.">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../../../../../smartenergy_g3_libs/libs/g3_lib_mac_plc/g3_lib_mac_plc.X"
-                            CT="3"
-                            CN="Release_SAMD20"
-                            AC="true"
-                            BL="true"
-                            WD="../../../../../../smartenergy_g3_libs/libs/g3_lib_mac_plc/g3_lib_mac_plc.X"
-                            BC="${MAKE}  -f Makefile CONF=Release_SAMD20"
-                            DBC="${MAKE}  -f Makefile CONF=Release_SAMD20 TYPE_IMAGE=DEBUG_RUN"
-                            CC="rm -rf &quot;build/Release_SAMD20&quot; &quot;dist/Release_SAMD20&quot;"
-                            OP="dist/Release_SAMD20/production/g3_lib_mac_plc.X.a"
-                            DOP="dist/Release_SAMD20/debug/g3_lib_mac_plc.X.a"
-                            FL="dist/Release_SAMD20/production/g3_lib_mac_plc.X.a"
-                            PD="dist/Release_SAMD20/production/g3_lib_mac_plc.X."
-                            DD="dist/Release_SAMD20/debug/g3_lib_mac_plc.X.">
-              </makeArtifact>
-            </linkerLibProjectItem>
+            <linkerLibFileItem>../src/config/sam_d20_xpro_pl460/stack/g3/mac/mac_plc/g3_lib_mac_plc_cm0.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/g3_lib_loadng_cm0.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/g3_lib_adp_cm0.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -766,6 +718,7 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -777,7 +730,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value=""/>
+        <property key="optimization-level" value="-O2"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -796,6 +749,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -824,6 +778,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -863,6 +818,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -912,7 +868,7 @@
         <property key="communication.speed" value="2,000"/>
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
-        <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="debugoptions.useswbreakpoints" value="true"/>
         <property key="event.recorder.enabled" value="false"/>
         <property key="event.recorder.scvd.files" value=""/>
         <property key="firmware.path"
@@ -969,7 +925,7 @@
         <property key="communication.speed" value="2,000"/>
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
-        <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="debugoptions.useswbreakpoints" value="true"/>
         <property key="event.recorder.enabled" value="false"/>
         <property key="event.recorder.scvd.files" value=""/>
         <property key="firmware.path"

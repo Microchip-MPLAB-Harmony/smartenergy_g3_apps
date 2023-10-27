@@ -32,25 +32,23 @@ extern "C" {
 // Section: User Configuration macros
 // *****************************************************************************
 // *****************************************************************************
-#define USER_BLINK_LED_On()           LED_On()
-#define USER_BLINK_LED_Off()          LED_Off()
-#define USER_BLINK_LED_Toggle()       LED_Toggle()
+#define USER_BLINK_LED_On()                  LED_On()
+#define USER_BLINK_LED_Off()                 LED_Off()
+#define USER_BLINK_LED_Toggle()              LED_Toggle()
 
 #define USER_PLC_IND_LED_On()         
 #define USER_PLC_IND_LED_Off()        
 #define USER_PLC_IND_LED_Toggle()     
 
-#define CLEAR_WATCHDOG()              WDT_Clear()
+#define CLEAR_WATCHDOG()                     WDT_Clear()
     
 #define PIO_PinInterruptCallbackRegister     EIC_CallbackRegister
     
 #define APP_PLC_DISABLE_PVDDMON
     
-#define TRNG_ReadData()          *(uint16_t *)0x0080A044
-    
-#define NVMCTRL_EEPROM_START_ADDRESS       (0x0003FF00U)
-#define NVMCTRL_EEPROM_PAGESIZE            (64U)
-#define NVMCTRL_EEPROM_SIZE                (256U)   
+#define NVMCTRL_EEPROM_START_ADDRESS         (0x0003FF00U)
+#define NVMCTRL_EEPROM_PAGESIZE              (64U)
+#define NVMCTRL_EEPROM_SIZE                  (256U)   
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
