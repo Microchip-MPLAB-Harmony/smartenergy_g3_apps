@@ -54,7 +54,7 @@ extern "C" {
 #define APP_CYCLES_TIME_WAIT_CYCLE_MS 120000
 
 /* Time between device cycles in ms */
-#define APP_CYCLES_TIME_BTW_DEVICE_CYCLES_MS 30
+#define APP_CYCLES_TIME_BTW_DEVICE_CYCLES_MS 1000
 
 /* Timeout in ms to consider echo reply not received */
 #define APP_CYCLES_TIMEOUT_MS 10000
