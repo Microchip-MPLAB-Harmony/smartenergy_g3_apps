@@ -68,7 +68,6 @@ static const APP_G3_MANAGEMENT_CONSTANTS app_g3_managementConst = {
     .shortAddress = APP_G3_MANAGEMENT_SHORT_ADDRESS,
     .routingTableEntryTTL = APP_G3_MANAGEMENT_ROUTING_TABLE_ENTRY_TTL,
     .maxHops = APP_G3_MANAGEMENT_MAX_HOPS,
-    .broadcastRouteAll = APP_G3_MANAGEMENT_BROADCAST_ROUTE_ALL,
     .dutyCycleLimitRF = APP_G3_MANAGEMENT_DUTY_CYCLE_LIMIT_RF,
 
     /* G3 Conformance parameters */
@@ -92,6 +91,7 @@ static const APP_G3_MANAGEMENT_CONSTANTS app_g3_managementConst = {
     .trickleLQIthresholdLowRFconformance = APP_G3_MANAGEMENT_TRICKLE_LQI_THRESHOLD_LOW_RF_CONFORMANCE,
     .trickleLQIthresholdHighRFconformance = APP_G3_MANAGEMENT_TRICKLE_LQI_THRESHOLD_HIGH_RF_CONFORMANCE,
     .clusterTrickleEnabledConformance = APP_G3_MANAGEMENT_CLUSTER_TRICKLE_ENABLED_CONFORMANCE,
+    .probingIntervalConformance = APP_G3_MANAGEMENT_PROBING_INTERVAL_CONFORMANCE,
     .tmrTTLconformance = APP_G3_MANAGEMENT_TMR_TTL_CONFORMANCE,
     .maxCSMAbackoffsConformance = APP_G3_MANAGEMENT_MAX_CSMA_BACKOFFS_CONFORMANCE,
     .maxCSMAbackoffsRFconformance = APP_G3_MANAGEMENT_MAX_CSMA_BACKOFFS_RF_CONFORMANCE,
@@ -242,7 +242,6 @@ void APP_SYS_TIME_CallbackSetFlag(uintptr_t context)
 static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
 {
     ADP_SET_CFM_PARAMS setConfirm;
-    ADP_MAC_GET_CFM_PARAMS macGetConfirm;
 
     /* Set ADP parameters needed for Conformance Test */
     ADP_SetRequestSync(ADP_IB_BLACKLIST_TABLE_ENTRY_TTL, 0, 2,
@@ -293,23 +292,17 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
             (const uint8_t*) &app_g3_managementConst.clusterTrickleIconformance,
             &setConfirm);
 
-    /* Check RF interface availability */
-    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_RF_IFACE_AVAILABLE, 0, &macGetConfirm);
-    if ((macGetConfirm.status != G3_SUCCESS) || (macGetConfirm.attributeValue[0] == 0))
-    {
-        /* RF interface not available. Set parameters for PLC-only device */
-        ADP_SetRequestSync(ADP_IB_DELAY_LOW_LQI, 0, 2,
-                (const uint8_t*) &app_g3_managementConst.delayLowLQIconformance,
-                &setConfirm);
+    ADP_SetRequestSync(ADP_IB_DELAY_LOW_LQI, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.delayLowLQIconformance,
+            &setConfirm);
 
-        ADP_SetRequestSync(ADP_IB_DELAY_HIGH_LQI, 0, 2,
-                (const uint8_t*) &app_g3_managementConst.delayHighLQIconformance,
-                &setConfirm);
+    ADP_SetRequestSync(ADP_IB_DELAY_HIGH_LQI, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.delayHighLQIconformance,
+            &setConfirm);
 
-        ADP_SetRequestSync(ADP_IB_CLUSTER_TRICKLE_I, 0, 2,
-                (const uint8_t*) &app_g3_managementConst.clusterTrickleIconformance,
-                &setConfirm);
-    }
+    ADP_SetRequestSync(ADP_IB_CLUSTER_TRICKLE_I, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.clusterTrickleIconformance,
+            &setConfirm);
 
     ADP_SetRequestSync(ADP_IB_MAX_HOPS, 0, 1,
             &app_g3_managementConst.maxHopsConformance, &setConfirm);
@@ -334,6 +327,9 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
 
     ADP_SetRequestSync(ADP_IB_CLUSTER_TRICKLE_ENABLED, 0, 1,
             &app_g3_managementConst.clusterTrickleEnabledConformance, &setConfirm);
+
+    ADP_SetRequestSync(ADP_IB_PROBING_INTERVAL, 0, 1,
+            &app_g3_managementConst.probingIntervalConformance, &setConfirm);
 
     ADP_SetRequestSync(ADP_IB_KR, 0, 1,
             &app_g3_managementConst.krConformance, &setConfirm);
@@ -402,9 +398,6 @@ static void _APP_G3_MANAGEMENT_InitializeParameters(void)
 
     ADP_SetRequestSync(ADP_IB_CONTEXT_INFORMATION_TABLE, 1, 10,
             app_g3_managementConst.contextInfoTable1, &setConfirm);
-
-    ADP_SetRequestSync(ADP_IB_MANUF_BROADCAST_ROUTE_ALL, 0, 1,
-            &app_g3_managementConst.broadcastRouteAll, &setConfirm);
 
     /* Set user-specific MAC parameters */
     ADP_MacSetRequestSync(MAC_WRP_PIB_DUTY_CYCLE_LIMIT_RF, 0, 2,

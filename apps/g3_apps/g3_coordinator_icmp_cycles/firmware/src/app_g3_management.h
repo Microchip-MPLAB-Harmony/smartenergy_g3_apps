@@ -73,9 +73,6 @@ extern "C" {
 /* Maximum Hops: 10 */
 #define APP_G3_MANAGEMENT_MAX_HOPS 10
 
-/* Retransmit all broadcast messages: True */
-#define APP_G3_MANAGEMENT_BROADCAST_ROUTE_ALL 1
-
 /* Duty Cycle Limit RF: 360 (10% out of 3600) */
 #define APP_G3_MANAGEMENT_DUTY_CYCLE_LIMIT_RF 360
 /* Duty Cycle Limit RF: 3600 (100% out of 3600) */
@@ -200,9 +197,6 @@ typedef struct
 
     /* ADP_IB_MAX_HOPS */
     const uint8_t maxHops;
-
-    /* ADP_IB_MANUF_BROADCAST_ROUTE_ALL */
-    const uint8_t broadcastRouteAll;
 
 } APP_G3_MANAGEMENT_CONSTANTS;
 

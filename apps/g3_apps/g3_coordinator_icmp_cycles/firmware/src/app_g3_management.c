@@ -67,7 +67,6 @@ static const APP_G3_MANAGEMENT_CONSTANTS app_g3_managementConst = {
     .shortAddress = APP_G3_MANAGEMENT_SHORT_ADDRESS,
     .routingTableEntryTTL = APP_G3_MANAGEMENT_ROUTING_TABLE_ENTRY_TTL,
     .maxHops = APP_G3_MANAGEMENT_MAX_HOPS,
-    .broadcastRouteAll = APP_G3_MANAGEMENT_BROADCAST_ROUTE_ALL,
     .dutyCycleLimitRF = APP_G3_MANAGEMENT_DUTY_CYCLE_LIMIT_RF
 
 };
@@ -213,9 +212,6 @@ static void _APP_G3_MANAGEMENT_InitializeParameters(void)
 
     ADP_SetRequestSync(ADP_IB_CONTEXT_INFORMATION_TABLE, 1, 10,
             app_g3_managementConst.contextInfoTable1, &setConfirm);
-
-    ADP_SetRequestSync(ADP_IB_MANUF_BROADCAST_ROUTE_ALL, 0, 1,
-            &app_g3_managementConst.broadcastRouteAll, &setConfirm);
 
     ADP_SetRequestSync(ADP_IB_ROUTING_TABLE_ENTRY_TTL, 0, 2,
             (const uint8_t*) &app_g3_managementConst.routingTableEntryTTL, &setConfirm);

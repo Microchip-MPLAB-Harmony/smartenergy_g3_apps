@@ -83,9 +83,6 @@ extern "C" {
 /* Maximum Hops for Conformance: 8 */
 #define APP_G3_MANAGEMENT_MAX_HOPS_CONFORMANCE 8
 
-/* Retransmit all broadcast messages: True */
-#define APP_G3_MANAGEMENT_BROADCAST_ROUTE_ALL 1
-
 /* Duty Cycle Limit RF: 360 (10% out of 3600) */
 #define APP_G3_MANAGEMENT_DUTY_CYCLE_LIMIT_RF 360
 /* Duty Cycle Limit RF: 3600 (100% out of 3600) */
@@ -124,8 +121,8 @@ extern "C" {
 /* Cluster Trickle Enabled for Conformance */
 #define APP_G3_MANAGEMENT_CLUSTER_TRICKLE_ENABLED_CONFORMANCE 1
 
-/* Cluster Trickle I for Conformance: 1200ms */
-#define APP_G3_MANAGEMENT_CLUSTER_TRICKLE_I_CONFORMANCE 1200
+/* Cluster Trickle I for Conformance: 1400ms */
+#define APP_G3_MANAGEMENT_CLUSTER_TRICKLE_I_CONFORMANCE 1400
 
 /* RF Trickle LQI Thresholds for Conformance: 100 and 120 */
 #define APP_G3_MANAGEMENT_TRICKLE_LQI_THRESHOLD_LOW_RF_CONFORMANCE 100
@@ -138,11 +135,14 @@ extern "C" {
 /* Cluster Min LQI for Conformance: 110 */
 #define APP_G3_MANAGEMENT_CLUSTER_MIN_LQI_RF_CONFORMANCE 110
 
-/* Tone-Map Response TTL for Conformance: 2 minutes */
-#define APP_G3_MANAGEMENT_TMR_TTL_CONFORMANCE 2
+/* Tone-Map Response TTL for Conformance: 3 minutes */
+#define APP_G3_MANAGEMENT_TMR_TTL_CONFORMANCE 3
 
 /* Destination Address Set index 0 for Conformance: address added */
 #define APP_G3_MANAGEMENT_DEST_ADDR_SET_0_CONFORMANCE 0x7FFF
+
+/* Media Probing Interval for Conformance: 2 minutes */
+#define APP_G3_MANAGEMENT_PROBING_INTERVAL_CONFORMANCE 2
 
 /* Maximum CSMA Back-offs for Conformance: 5 */
 #define APP_G3_MANAGEMENT_MAX_CSMA_BACKOFFS_CONFORMANCE 5
@@ -169,7 +169,7 @@ extern "C" {
 #define APP_G3_MANAGEMENT_KQ_CONFORMANCE     10
 #define APP_G3_MANAGEMENT_KH_CONFORMANCE     4
 #define APP_G3_MANAGEMENT_KRT_CONFORMANCE    0
-#define APP_G3_MANAGEMENT_KQ_RF_CONFORMANCE  0
+#define APP_G3_MANAGEMENT_KQ_RF_CONFORMANCE  5
 #define APP_G3_MANAGEMENT_KH_RF_CONFORMANCE  8
 #define APP_G3_MANAGEMENT_KRT_RF_CONFORMANCE 0
 #define APP_G3_MANAGEMENT_KDC_RF_CONFORMANCE 10
@@ -343,9 +343,6 @@ typedef struct
     /* ADP_IB_MAX_HOPS for Conformance */
     const uint8_t maxHopsConformance;
 
-    /* ADP_IB_MANUF_BROADCAST_ROUTE_ALL */
-    const uint8_t broadcastRouteAll;
-
     /* ADP_IB_WEAK_LQI_VALUE for Conformance */
     const uint8_t weakLQIvalueConformance;
 
@@ -366,6 +363,9 @@ typedef struct
 
     /* ADP_IB_CLUSTER_TRICKLE_ENABLED for Conformance */
     const uint8_t clusterTrickleEnabledConformance;
+
+    /* ADP_IB_PROBING_INTERVAL for Conformance */
+    const uint8_t probingIntervalConformance;
 
     /* MAC_WRP_PIB_TMR_TTL for Conformance */
     const uint8_t tmrTTLconformance;
