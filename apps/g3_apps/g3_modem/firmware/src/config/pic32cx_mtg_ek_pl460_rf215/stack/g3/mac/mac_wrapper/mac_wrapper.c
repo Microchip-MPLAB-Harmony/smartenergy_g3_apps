@@ -65,6 +65,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#pragma pack(push,2)
+
 typedef struct
 {
     /* State of the MAC Wrapper module */
@@ -163,6 +165,9 @@ typedef enum
     MAC_WRP_SERIAL_MSG_MAC_SNIFFER_INDICATION
 
 } MAC_WRP_SERIAL_MSG_ID;
+
+
+#pragma pack(pop)
 
 // *****************************************************************************
 // *****************************************************************************
@@ -748,13 +753,13 @@ static MAC_WRP_SERIAL_STATUS lMAC_WRP_ParseInitialize(uint8_t* pData)
 {
     if (macWrpData.state == MAC_WRP_STATE_NOT_READY)
     {
-        MAC_WRP_BAND plcBand;
+        MAC_WRP_BAND band;
 
         /* Parse initialize message */
-        plcBand = (MAC_WRP_BAND) *pData;
+        band = (MAC_WRP_BAND) *pData;
 
         /* Open MAC Wrapper if it has not been opened yet */
-        (void) MAC_WRP_Open(G3_MAC_WRP_INDEX_0, plcBand);
+        (void) MAC_WRP_Open(G3_MAC_WRP_INDEX_0, band);
 
         macWrpData.serialInitialize = true;
     }
@@ -1748,7 +1753,7 @@ SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index)
     return (SYS_MODULE_OBJ)0;
 }
 
-MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand)
+MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND band)
 {
     MAC_PLC_INIT plcInitData;
     MAC_RF_INIT rfInitData;
@@ -1780,7 +1785,7 @@ MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand)
     macPlcTables.macPlcDeviceTable = macPlcDeviceTable;
 
     plcInitData.macPlcTables = &macPlcTables;
-    plcInitData.plcBand = (MAC_PLC_BAND) plcBand;
+    plcInitData.plcBand = (MAC_PLC_BAND) band;
     /* Get PAL index from configuration header */
     plcInitData.palPlcIndex = PAL_PLC_PHY_INDEX;
 
@@ -2570,7 +2575,8 @@ uint8_t MAC_WRP_SerialStringifyGetConfirm (
                     case MAC_WRP_RF_PHY_PARAM_DEVICE_ID:
                     case MAC_WRP_RF_PHY_PARAM_PHY_BAND_OPERATING_MODE:
                     case MAC_WRP_RF_PHY_PARAM_PHY_CHANNEL_NUM:
-                    case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION:
+                    case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION_US:
+                    case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION_SYMBOLS:
                     case MAC_WRP_RF_PHY_PARAM_PHY_TURNAROUND_TIME:
                     case MAC_WRP_RF_PHY_PARAM_PHY_TX_PAY_SYMBOLS:
                     case MAC_WRP_RF_PHY_PARAM_PHY_RX_PAY_SYMBOLS:
@@ -2582,7 +2588,10 @@ uint8_t MAC_WRP_SerialStringifyGetConfirm (
                     case MAC_WRP_RF_PHY_PARAM_DEVICE_RESET:
                     case MAC_WRP_RF_PHY_PARAM_TRX_RESET:
                     case MAC_WRP_RF_PHY_PARAM_TRX_SLEEP:
-                    case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD:
+                    case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD_DBM:
+                    case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD_SENSITIVITY:
+                    case MAC_WRP_RF_PHY_PARAM_PHY_SENSITIVITY:
+                    case MAC_WRP_RF_PHY_PARAM_PHY_MAX_TX_POWER:
                     case MAC_WRP_RF_PHY_PARAM_PHY_STATS_RESET:
                     case MAC_WRP_RF_PHY_PARAM_TX_FSK_FEC:
                     case MAC_WRP_RF_PHY_PARAM_TX_OFDM_MCS:
@@ -2967,7 +2976,8 @@ MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
 
                 case MAC_WRP_RF_PHY_PARAM_PHY_BAND_OPERATING_MODE:
                 case MAC_WRP_RF_PHY_PARAM_PHY_CHANNEL_NUM:
-                case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION:
+                case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION_US:
+                case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION_SYMBOLS:
                 case MAC_WRP_RF_PHY_PARAM_PHY_TX_PAY_SYMBOLS:
                 case MAC_WRP_RF_PHY_PARAM_PHY_RX_PAY_SYMBOLS:
                     lMemcpyFromUsiEndianessUint16(pibValue->value, pData);
@@ -2976,7 +2986,8 @@ MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
                 case MAC_WRP_RF_PHY_PARAM_DEVICE_RESET:
                 case MAC_WRP_RF_PHY_PARAM_TRX_RESET:
                 case MAC_WRP_RF_PHY_PARAM_TRX_SLEEP:
-                case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD:
+                case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD_DBM:
+                case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD_SENSITIVITY:
                 case MAC_WRP_RF_PHY_PARAM_PHY_STATS_RESET:
                 case MAC_WRP_RF_PHY_PARAM_TX_FSK_FEC:
                 case MAC_WRP_RF_PHY_PARAM_TX_OFDM_MCS:
@@ -2987,6 +2998,8 @@ MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
                 case MAC_WRP_RF_PHY_PARAM_PHY_CHANNEL_FREQ_HZ:
                 case MAC_WRP_RF_PHY_PARAM_FW_VERSION:
                 case MAC_WRP_RF_PHY_PARAM_DEVICE_ID:
+                case MAC_WRP_RF_PHY_PARAM_PHY_SENSITIVITY:
+                case MAC_WRP_RF_PHY_PARAM_PHY_MAX_TX_POWER:
                 case MAC_WRP_RF_PHY_PARAM_PHY_TURNAROUND_TIME:
                 case MAC_WRP_RF_PHY_PARAM_MAC_UNIT_BACKOFF_PERIOD:
                     /* MAC_WRP_STATUS_READ_ONLY */

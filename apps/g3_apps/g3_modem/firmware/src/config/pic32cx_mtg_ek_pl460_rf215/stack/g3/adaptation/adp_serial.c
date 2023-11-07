@@ -380,7 +380,7 @@ static void lADP_SER_StringifyDiscoveryIndication(ADP_PAN_DESCRIPTOR* pPanDescri
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pPanDescriptor->lbaAddress >> 8);
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pPanDescriptor->lbaAddress;
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) (pPanDescriptor->rcCoord >> 8);
-    adpSerialRspBuffer[serialRspLen++] = (uint8_t) pPanDescriptor->rcCoord;    
+    adpSerialRspBuffer[serialRspLen++] = (uint8_t) pPanDescriptor->rcCoord;
     adpSerialRspBuffer[serialRspLen++] = pPanDescriptor->mediaType;
 
     /* Send through USI */
@@ -607,7 +607,7 @@ static void lADP_SER_StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
                 /* autonomousAddressConfigurationFlag */
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[2];
                 /* validTime */
-                lMemcpyToUsiEndianessUint32(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[3]); 
+                lMemcpyToUsiEndianessUint32(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[3]);
                 serialRspLen += 4U;
                 /* preferredTime */
                 lMemcpyToUsiEndianessUint32(&adpSerialRspBuffer[serialRspLen], &pGetCfm->attributeValue[7]);
@@ -806,10 +806,10 @@ static ADP_SERIAL_STATUS lADP_SER_ParseInitialize(uint8_t* pData)
 {
     LBP_NOTIFICATIONS_DEV lbpDevNotifications;
     LBP_NOTIFICATIONS_COORD lbpCoordNotifications;
-    ADP_PLC_BAND band;
+    ADP_BAND band;
 
     /* Parse initialize message */
-    band = (ADP_PLC_BAND) pData[0];
+    band = (ADP_BAND) pData[0];
     adpSerialAribBand = (bool) (band == ADP_BAND_ARIB);
     adpSerialCoord = (bool) (pData[1] != 0U);
 
@@ -975,10 +975,10 @@ static ADP_SERIAL_STATUS lADP_SER_ParseResetRequest(uint8_t* pData)
         /* ADP not initialized */
         return ADP_SERIAL_STATUS_NOT_ALLOWED;
     }
-    
+
     /* Send reset request to ADP */
     ADP_ResetRequest();
-    
+
     return ADP_SERIAL_STATUS_SUCCESS;
 }
 
@@ -1225,7 +1225,7 @@ static ADP_SERIAL_STATUS lADP_SER_ParseGetRequest(uint8_t* pData)
 {
     uint32_t attributeId;
     uint16_t attributeIndex;
-    
+
     if (ADP_Status() < ADP_STATUS_READY)
     {
         /* ADP not initialized */
@@ -1283,7 +1283,7 @@ static ADP_SERIAL_STATUS lADP_SER_ParseMacSetRequest(uint8_t* pData)
 
     /* Set MAC PIB */
     ADP_MacSetRequestSync((uint32_t) attributeId, attributeIndex, pibValue.length, pibValue.value, &setConfirm);
-    
+
     /* Fill serial response buffer */
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_MAC_SET_CONFIRM;
     setStatus = (MAC_WRP_STATUS) setConfirm.status;
@@ -1723,7 +1723,7 @@ SYS_MODULE_OBJ ADP_SERIAL_Initialize(const SYS_MODULE_INDEX index)
     adpMngNotifications.bufferIndication = lADP_SER_StringifyBufferIndication;
     ADP_SetManagementNotifications(&adpMngNotifications);
 
-    return (SYS_MODULE_OBJ) G3_ADP_SERIAL_INDEX_0; 
+    return (SYS_MODULE_OBJ) G3_ADP_SERIAL_INDEX_0;
 }
 
 void ADP_SERIAL_Tasks(SYS_MODULE_OBJ object)
