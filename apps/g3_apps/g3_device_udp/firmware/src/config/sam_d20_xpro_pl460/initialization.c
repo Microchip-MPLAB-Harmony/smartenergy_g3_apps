@@ -62,7 +62,7 @@
 #pragma config BOD33_HYST = ENABLED
 #pragma config NVMCTRL_REGION_LOCKS = 0xffffU // Enter Hexadecimal value
 
-#pragma config WDT_ENABLE = DISABLED //ENABLED
+#pragma config WDT_ENABLE = ENABLED
 #pragma config WDT_ALWAYSON = DISABLED
 #pragma config WDT_PER = CYC16384
 

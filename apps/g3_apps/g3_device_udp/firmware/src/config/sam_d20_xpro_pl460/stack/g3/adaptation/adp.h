@@ -103,11 +103,11 @@
 */
 typedef struct
 {
-    /* The status code (result) of a previous ADP Data Request */
-    uint8_t status;
-
     /* The handle of the NSDU confirmed by this primitive */
     uintptr_t nsduHandle;
+
+    /* The status code (result) of a previous ADP Data Request */
+    uint8_t status;
 
 } ADP_DATA_CFM_PARAMS;
 
@@ -200,7 +200,7 @@ typedef struct
     {
         if (params->linkQualityIndicator > 40)
         {
-            
+
         }
     }
     </code>
@@ -515,7 +515,7 @@ typedef struct
     {
         if (params->status == G3_SUCCESS)
         {
-            
+
         }
     }
     </code>
@@ -583,7 +583,7 @@ typedef struct
     {
         if (params->status == G3_SUCCESS)
         {
-            
+
         }
     }
     </code>
@@ -608,11 +608,11 @@ typedef void (*ADP_MAC_GET_CFM_CALLBACK)(ADP_MAC_GET_CFM_PARAMS* pGetCfm);
 */
 typedef struct
 {
-    /* The status code of a previous ADP LBP Request */
-    uint8_t status;
-
     /* The handle of the NSDU confirmed by this primitive */
     uintptr_t nsduHandle;
+
+    /* The status code of a previous ADP LBP Request */
+    uint8_t status;
 
 } ADP_LBP_CFM_PARAMS;
 
@@ -669,12 +669,12 @@ typedef struct
     /* The received NSDU */
     const uint8_t* pNsdu;
 
+    /* The size of the NSDU, in bytes; Up to ADP_LBP_MAX_NSDU_LENGTH bytes */
+    uint16_t nsduLength;
+
     /* Source Address of the LBP frame. Short Address for LBA or LBS frames,
      * extended for LBD. */
     ADP_ADDRESS srcAddr;
-
-    /* The size of the NSDU, in bytes; Up to ADP_LBP_MAX_NSDU_LENGTH bytes */
-    uint16_t nsduLength;
 
     /* The Security Level of the received frame */
     uint8_t securityLevel;
@@ -707,7 +707,7 @@ typedef struct
     {
         if (params->linkQualityIndicator > 40)
         {
-            
+
         }
     }
     </code>
@@ -861,6 +861,13 @@ typedef struct
     /* The security level used by the received frame */
     uint8_t securityLevel;
 
+    /* The index of the key used by the originator of the received
+     * frame */
+    uint8_t keyIndex;
+
+    /* The medium (PLC/RF) from which the frame was received */
+    uint8_t mediaType;
+
     /* The individual device address of the entity from which the frame causing
      * the error originated */
     ADP_ADDRESS srcDeviceAddress;
@@ -868,13 +875,6 @@ typedef struct
     /* The individual device address of the device for which the frame was
      * intended */
     ADP_ADDRESS dstDeviceAddress;
-
-    /* The index of the key used by the originator of the received
-     * frame */
-    uint8_t keyIndex;
-
-    /* The medium (PLC/RF) from which the frame was received */
-    uint8_t mediaType;
 
 } ADP_NETWORK_STATUS_IND_PARAMS;
 
@@ -903,7 +903,7 @@ typedef struct
     <code>
     App_NetworkStatusIndication(ADP_NETWORK_STATUS_IND_PARAMS *params)
     {
-        
+
     }
     </code>
 
@@ -982,17 +982,17 @@ typedef union
     {
         if (bufferInd->largeBuffersAvailable == 1)
         {
-            
+
         }
 
         if (bufferInd->mediumBuffersAvailable == 1)
         {
-            
+
         }
 
         if (bufferInd->smallBuffersAvailable == 1)
         {
-            
+
         }
     }
     </code>
@@ -1028,7 +1028,7 @@ typedef void (*ADP_BUFFER_IND_CALLBACK)(ADP_BUFFER_IND_PARAMS* bufferInd);
     <code>
     App_NetworkLeaveIndication(void)
     {
-        
+
     }
     </code>
 
@@ -1093,7 +1093,7 @@ typedef struct
     <code>
     App_NonVolatileDataIndication(ADP_NON_VOLATILE_DATA_IND_PARAMS *params)
     {
-        
+
     }
     </code>
 
@@ -1179,7 +1179,7 @@ typedef struct
     <code>
     App_RouteNotFoundIndication(ADP_ROUTE_NOT_FOUND_IND_PARAMS *params)
     {
-        
+
     }
     </code>
 
@@ -1359,7 +1359,7 @@ typedef struct
     sysObjAdp = ADP_Initialize(G3_ADP_INDEX_0, (SYS_MODULE_INIT *)&initData);
     if (sysObjAdp == SYS_MODULE_OBJ_INVALID)
     {
-        
+
     }
     </code>
 
@@ -1410,7 +1410,7 @@ void ADP_Tasks(SYS_MODULE_OBJ object);
 
 // *****************************************************************************
 /* Function:
-    void ADP_Open(ADP_PLC_BAND band)
+    void ADP_Open(ADP_BAND band)
 
   Summary:
     Opens the ADP module and starts the process that makes it ready for clients
@@ -1445,7 +1445,7 @@ void ADP_Tasks(SYS_MODULE_OBJ object);
     After calling this function, ADP_Status must be used to check if it is ready
     before calling any other ADP API function.
 */
-void ADP_Open(ADP_PLC_BAND band);
+void ADP_Open(ADP_BAND band);
 
 // *****************************************************************************
 /* Function:
@@ -1473,7 +1473,7 @@ void ADP_Open(ADP_PLC_BAND band);
     status = ADP_Status();
     if (status == ADP_STATUS_READY)
     {
-        
+
     }
     </code>
 
@@ -1665,15 +1665,15 @@ void ADP_SetNotificationsToLbp(ADP_NOTIFICATIONS_TO_LBP* pNotifications);
 
     if (availableLayers == ADP_AVAILABLE_MAC_PLC)
     {
-        
+
     }
     else if (availableLayers == ADP_AVAILABLE_MAC_RF)
     {
-        
+
     }
     else
     {
-        
+
     }
     </code>
 
@@ -1966,7 +1966,7 @@ void ADP_GetRequest(uint32_t attributeId, uint16_t attributeIndex);
 
     if (getConfirm->status == G3_SUCCESS)
     {
-        
+
     }
     </code>
 
@@ -2047,7 +2047,7 @@ void ADP_MacGetRequest(uint32_t attributeId, uint16_t attributeIndex);
 
     if (getConfirm->status == G3_SUCCESS)
     {
-        
+
     }
     </code>
 

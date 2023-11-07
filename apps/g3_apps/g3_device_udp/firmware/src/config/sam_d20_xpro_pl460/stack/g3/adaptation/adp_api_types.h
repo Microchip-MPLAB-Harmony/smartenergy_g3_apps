@@ -100,6 +100,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#pragma pack(push,2)
+
 // *****************************************************************************
 /* ADP Modulation Definition
 
@@ -175,10 +177,10 @@ typedef struct
 } ADP_ADDRESS;
 
 // *****************************************************************************
-/* ADP PLC Bands Definition
+/* ADP Bands Definition
 
    Summary:
-    Identifies the possible PLC bands.
+    Identifies the possible PLC bands, or if No PLC is used.
 
    Description:
     This enumeration identifies the list of Bands that can be used in PLC
@@ -191,9 +193,10 @@ typedef enum {
     ADP_BAND_CENELEC_A = 0,
     ADP_BAND_CENELEC_B = 1,
     ADP_BAND_FCC = 2,
-    ADP_BAND_ARIB = 3
+    ADP_BAND_ARIB = 3,
+    ADP_BAND_RF_ONLY = 255
 
-} ADP_PLC_BAND;
+} ADP_BAND;
 
 // *****************************************************************************
 /* ADP Available MAC layers
@@ -215,8 +218,6 @@ typedef enum
     ADP_AVAILABLE_MAC_BOTH = 0x02
 
 } ADP_AVAILABLE_MAC_LAYERS;
-
-#pragma pack(push,2)
 
 // *****************************************************************************
 /* ADP PAN Descriptior Definition

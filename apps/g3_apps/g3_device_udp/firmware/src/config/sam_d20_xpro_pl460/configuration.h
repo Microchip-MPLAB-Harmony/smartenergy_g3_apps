@@ -168,7 +168,7 @@ extern "C" {
 #define G3_ADP_FRAG_TRANSFER_TABLE_SIZE  1U
 #define G3_ADP_FRAGMENT_SIZE             400U
 
-#define G3_ADP_ROUTING_TABLE_SIZE        150U
+#define G3_ADP_ROUTING_TABLE_SIZE        64U
 #define G3_ADP_BLACKLIST_TABLE_SIZE      20U
 #define G3_ADP_ROUTING_SET_SIZE          30U
 #define G3_ADP_DESTINATION_ADDR_SET_SIZE 1U
@@ -251,7 +251,7 @@ extern "C" {
 
 /*** TCPIP Heap Configuration ***/
 #define TCPIP_STACK_USE_INTERNAL_HEAP
-#define TCPIP_STACK_DRAM_SIZE                       14336
+#define TCPIP_STACK_DRAM_SIZE                       8192
 #define TCPIP_STACK_DRAM_RUN_LIMIT                  2048
 
 #define TCPIP_STACK_MALLOC_FUNC                     malloc
@@ -336,6 +336,8 @@ extern "C" {
 // ---------- FUNCTIONAL CONFIGURATION START ----------
 #define WOLFSSL_AES_SMALL_TABLES
 #define NO_MD4
+#define NO_MD5
+#define NO_SHA // specifically, no SHA1 (legacy name)
 #define WOLFSSL_SHA224
 #define WOLFSSL_AES_128
 #define WOLFSSL_AES_192
@@ -359,8 +361,10 @@ extern "C" {
 #define USE_CERT_BUFFERS_2048
 #define NO_DEV_RANDOM
 #define HAVE_HASHDRBG
+#define NO_RNG_TEST
 #define WC_NO_HARDEN
 #define SINGLE_THREADED
+#define NO_ASN
 #define NO_SIG_WRAPPER
 #define NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY
