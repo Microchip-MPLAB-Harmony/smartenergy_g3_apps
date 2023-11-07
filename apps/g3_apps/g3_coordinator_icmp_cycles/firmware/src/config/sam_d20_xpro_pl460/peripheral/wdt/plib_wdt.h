@@ -1,20 +1,23 @@
 /*******************************************************************************
+  Watch Dog Timer PLIB.
+
   Company:
     Microchip Technology Inc.
 
   File Name:
-    pal_plc.h
+    plib_wdt.h
 
   Summary:
-    PLC Platform Abstraction Layer (PAL) Interface Local header file.
+    Interface definition of WDT PLIB.
 
   Description:
-    PLC Platform Abstraction Layer (PAL) Interface Local header file.
+    This file defines the interface for the WDT Plib.
+    It allows user to setup timeout duration and restart watch dog timer.
 *******************************************************************************/
 
-//DOM-IGNORE-BEGIN
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -35,21 +38,29 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-//DOM-IGNORE-END
+// DOM-IGNORE-END
 
-#ifndef PAL_PLC_LOCAL_H
-#define PAL_PLC_LOCAL_H
+#ifndef PLIB_WDT_H
+#define PLIB_WDT_H
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: File includes
+// Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
 
-#include <stdbool.h>
 #include <stdint.h>
-#include "stack/g3/pal/plc/pal_plc.h"
-#include "service/pcoup/srv_pcoup.h"
+#include <stdbool.h>
+#include <stddef.h>
+#include "device.h"
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus // Provide C++ Compatibility
+
+    extern "C" {
+
+#endif
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -57,53 +68,38 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#pragma pack(push,2)
+typedef void (*WDT_CALLBACK)(uintptr_t context);
+
+typedef struct
+{
+    WDT_CALLBACK      callback;
+
+    uintptr_t         context;
+
+} WDT_CALLBACK_OBJECT;
 
 // *****************************************************************************
-/* PAL PLC Data
+// *****************************************************************************
+// Section: Interface Routines
+// *****************************************************************************
+// *****************************************************************************
 
-  Summary:
-    Holds PAL PLC internal data.
+void WDT_Enable( void );
 
-  Description:
-    This data type defines the all data required to handle the PAL PLC module.
+void WDT_Disable( void );
 
-  Remarks:
-    None.
-*/
-typedef struct  
-{
-    DRV_HANDLE drvG3MacRtHandle;
+void WDT_Clear( void );
 
-    PAL_PLC_HANDLERS initHandlers;
+void WDT_ClearWithSync( void );
 
-    PAL_PLC_STATUS status;
+void WDT_CallbackRegister( WDT_CALLBACK callback, uintptr_t context );
 
-    MAC_RT_BAND plcBand;
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
 
-    SRV_PLC_PCOUP_BRANCH plcBranch;
+    }
 
-    MAC_RT_PIB_OBJ plcPIB;
+#endif
+// DOM-IGNORE-END
 
-    MAC_RT_MIB_INIT_OBJ mibInitData;
-
-    uint8_t statsErrorUnexpectedKey;
-
-    uint8_t statsErrorReset;
-
-    bool waitingTxCfm;
-
-    bool restartMib;
-
-    bool coordinator;
-
-    bool pvddMonTxEnable;
-
-} PAL_PLC_DATA;
-
-#pragma pack(pop)
-
-#endif // #ifndef PAL_PLC_LOCAL_H
-/*******************************************************************************
- End of File
-*/
+#endif /* PLIB_WDT_H */

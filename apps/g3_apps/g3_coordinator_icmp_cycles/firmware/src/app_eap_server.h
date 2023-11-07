@@ -32,6 +32,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
+#include "bsp/bsp.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -54,7 +55,11 @@ extern "C" {
 #define APP_EAP_SERVER_GMK_KEY {0xAF, 0x4D, 0x6D, 0xCC, 0xF1, 0x4D, 0xE7, 0xC1, 0xC4, 0x23, 0x5E, 0x6F, 0xEF, 0x6C, 0x15, 0x1F}
 
 /* Maximum number of devices that can join the network */
-#define APP_EAP_SERVER_MAX_DEVICES 500
+#if defined sam_d20_xpro
+    #define APP_EAP_SERVER_MAX_DEVICES 50
+#else
+    #define APP_EAP_SERVER_MAX_DEVICES 500
+#endif
 
 /* Initial short address to assign */
 #define APP_EAP_SERVER_INITIAL_SHORT_ADDRESS 0x0001

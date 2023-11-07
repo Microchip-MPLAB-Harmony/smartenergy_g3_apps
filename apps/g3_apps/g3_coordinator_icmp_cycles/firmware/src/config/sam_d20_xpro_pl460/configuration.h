@@ -251,7 +251,7 @@ extern "C" {
 
 /*** TCPIP Heap Configuration ***/
 #define TCPIP_STACK_USE_INTERNAL_HEAP
-#define TCPIP_STACK_DRAM_SIZE                       14336
+#define TCPIP_STACK_DRAM_SIZE                       4096
 #define TCPIP_STACK_DRAM_RUN_LIMIT                  2048
 
 #define TCPIP_STACK_MALLOC_FUNC                     malloc
@@ -324,7 +324,6 @@ extern "C" {
 #define NO_MD4
 #define NO_MD5
 #define NO_SHA // specifically, no SHA1 (legacy name)
-#define NO_SHA256
 #define NO_SHA224
 #define NO_HMAC
 #define WOLFSSL_AES_128
@@ -342,8 +341,8 @@ extern "C" {
 #define NO_DSA
 #define NO_RSA
 #define NO_DEV_RANDOM
-#define WC_NO_RNG
-#define WC_NO_HASHDRBG
+#define HAVE_HASHDRBG
+#define NO_RNG_TEST
 #define WC_NO_HARDEN
 #define SINGLE_THREADED
 #define NO_ASN
