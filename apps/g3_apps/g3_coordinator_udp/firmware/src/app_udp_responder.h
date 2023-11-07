@@ -34,6 +34,7 @@
 #include <stdlib.h>
 #include "configuration.h"
 #include "library/tcpip/tcpip.h"
+#include "user.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -50,7 +51,7 @@ extern "C" {
 // *****************************************************************************
 
 /* Port number for conformance UDP responder */
-#define APP_UDP_RESPONDER_SOCKET_PORT_CONFORMANCE 0xF0BF
+#define APP_UDP_RESPONDER_SOCKET_PORT_CONFORMANCE         APP_UDP_SOCKET
 
 // *****************************************************************************
 // *****************************************************************************

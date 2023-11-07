@@ -56,19 +56,19 @@
 #pragma config NVMCTRL_BOOTPROT = SIZE_0BYTES
 #pragma config NVMCTRL_EEPROM_SIZE = SIZE_256BYTES
 #pragma config BOD33USERLEVEL = 0x7U // Enter Hexadecimal value
-#pragma config BOD33_EN = DISABLED
-#pragma config BOD33_ACTION = RESET
+#pragma config BOD33_EN = ENABLED
+#pragma config BOD33_ACTION = INT
 
 #pragma config BOD33_HYST = ENABLED
 #pragma config NVMCTRL_REGION_LOCKS = 0xffffU // Enter Hexadecimal value
 
-#pragma config WDT_ENABLE = DISABLED
+#pragma config WDT_ENABLE = ENABLED
 #pragma config WDT_ALWAYSON = DISABLED
 #pragma config WDT_PER = CYC16384
 
 #pragma config WDT_WINDOW_0 = SET
 #pragma config WDT_WINDOW_1 = 0x4U // Enter Hexadecimal value
-#pragma config WDT_EWOFFSET = CYC16384
+#pragma config WDT_EWOFFSET = CYC8192
 #pragma config WDT_WEN = DISABLED
 
 
@@ -530,8 +530,8 @@ void SYS_Initialize ( void* data )
 	BSP_Initialize();
     SERCOM3_USART_Initialize();
 
-
     SERCOM0_SPI_Initialize();
+
 
     EIC_Initialize();
 
@@ -583,11 +583,10 @@ void SYS_Initialize ( void* data )
 
     /* MISRAC 2012 deviation block end */
     APP_G3_MANAGEMENT_Initialize();
-    APP_UDP_RESPONDER_Initialize();
-    APP_STORAGE_SAMD20_Initialize();
     APP_EAP_SERVER_Initialize();
-    APP_CYCLES_Initialize();
+    APP_STORAGE_SAMD20_Initialize();
     APP_TCPIP_MANAGEMENT_Initialize();
+    APP_CYCLES_Initialize();
 
 
     NVIC_Initialize();

@@ -79,24 +79,21 @@ static DRV_PLC_PLIB_INTERFACE *sPlcPlib;
 // *****************************************************************************
 // *****************************************************************************
 
-static void __attribute__((optimize("O0"))) lDRV_PLC_HAL_memcpyREV16 (void * pDst, void * pSrc, size_t size)
+static void lDRV_PLC_HAL_memcpyREV16 (uint8_t * pDst, uint8_t * pSrc, uint16_t size)
 {
-    /* R0=pDst; R1=pSrc; R2=size */
-    __asm volatile (
-        "PUSH {R4}\n"
-        "MOV R4, #0\n"
-
-    "COPY_DATA_LOOP:\n"
-        "CMP R2, R4\n"
-        "BLS COPY_DATA_END\n"
-        "LDR R3, [R1, R4]\n"
-        "REV16 R3, R3\n"
-        "STR R3, [R0, R4]\n"
-        "ADD R4, R4, #4\n"
-        "B COPY_DATA_LOOP\n"
-    "COPY_DATA_END:\n"
-        "POP {R4}\n"
-    );
+    uint16_t index;
+    
+    if (size & 0x0001U)
+    {
+        size++;
+    }
+    
+    for (index = 0; index < size - 1; index+=2)
+    {
+        pDst[index] = pSrc[index + 1];
+        pDst[index + 1] = pSrc[index];
+    }
+    
 }
 
 // *****************************************************************************

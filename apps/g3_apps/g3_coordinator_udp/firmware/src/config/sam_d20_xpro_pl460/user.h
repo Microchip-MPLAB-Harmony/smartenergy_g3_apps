@@ -40,13 +40,16 @@ extern "C" {
 #define USER_PLC_IND_LED_Off()        
 #define USER_PLC_IND_LED_Toggle()     
 
-#define CLEAR_WATCHDOG()              //WDT_Clear()
+#define CLEAR_WATCHDOG()              WDT_Clear()
     
 #define APP_PLC_DISABLE_PVDDMON
     
-#define NVMCTRL_EEPROM_START_ADDRESS       (0x0003FF00U)
-#define NVMCTRL_EEPROM_PAGESIZE            (64U)
-#define NVMCTRL_EEPROM_SIZE                (256U)    
+#define NVMCTRL_EEPROM_START_ADDRESS  (0x0003FF00U)
+#define NVMCTRL_EEPROM_PAGESIZE       (64U)
+#define NVMCTRL_EEPROM_SIZE           (256U)   
+    
+/* UDP Port number */
+#define APP_UDP_SOCKET                0xF0BF
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

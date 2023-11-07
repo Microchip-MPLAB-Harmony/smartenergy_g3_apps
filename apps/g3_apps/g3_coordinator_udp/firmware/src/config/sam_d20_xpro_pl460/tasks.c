@@ -101,20 +101,17 @@ void SYS_Tasks ( void )
         /* Call Application task APP_G3_MANAGEMENT. */
     APP_G3_MANAGEMENT_Tasks();
 
-    /* Call Application task APP_UDP_RESPONDER. */
-    APP_UDP_RESPONDER_Tasks();
+    /* Call Application task APP_EAP_SERVER. */
+    APP_EAP_SERVER_Tasks();
 
     /* Call Application task APP_STORAGE_SAMD20. */
     APP_STORAGE_SAMD20_Tasks();
 
-    /* Call Application task APP_EAP_SERVER. */
-    APP_EAP_SERVER_Tasks();
+    /* Call Application task APP_TCPIP_MANAGEMENT. */
+    APP_TCPIP_MANAGEMENT_Tasks();
 
     /* Call Application task APP_CYCLES. */
     APP_CYCLES_Tasks();
-
-    /* Call Application task APP_TCPIP_MANAGEMENT. */
-    APP_TCPIP_MANAGEMENT_Tasks();
 
 
 

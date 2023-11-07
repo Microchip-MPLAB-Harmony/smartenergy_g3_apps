@@ -39,6 +39,9 @@ extern "C" {
 
 #define CLEAR_WATCHDOG()              WDT_Clear()
     
+/* UDP Port number */
+#define APP_UDP_SOCKET                0xF0BF
+    
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

@@ -63,6 +63,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#pragma pack(push,2)
+
 typedef struct
 {
     /* State of the MAC Wrapper module */
@@ -87,6 +89,9 @@ typedef struct
 /* Data Request Queue size */
 #define MAC_WRP_DATA_REQ_QUEUE_SIZE   2U
 
+
+#pragma pack(pop)
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: File Scope Variables
@@ -99,7 +104,7 @@ static MAC_WRP_DATA macWrpData;
 // Data Service Control
 static MAC_WRP_DATA_REQ_ENTRY dataReqQueue[MAC_WRP_DATA_REQ_QUEUE_SIZE];
 
-#define MAC_MAX_DEVICE_TABLE_ENTRIES_PLC    32
+#define MAC_MAX_DEVICE_TABLE_ENTRIES_PLC    64
 
 static MAC_PLC_TABLES macPlcTables;
 static MAC_DEVICE_TABLE_ENTRY macPlcDeviceTable[MAC_MAX_DEVICE_TABLE_ENTRIES_PLC];
@@ -324,7 +329,7 @@ SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index)
     return (SYS_MODULE_OBJ)0;
 }
 
-MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand)
+MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND band)
 {
     MAC_PLC_INIT plcInitData;
 
@@ -351,7 +356,7 @@ MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand)
     macPlcTables.macPlcDeviceTable = macPlcDeviceTable;
 
     plcInitData.macPlcTables = &macPlcTables;
-    plcInitData.plcBand = (MAC_PLC_BAND) plcBand;
+    plcInitData.plcBand = (MAC_PLC_BAND) band;
     /* Get PAL index from configuration header */
     plcInitData.palPlcIndex = PAL_PLC_PHY_INDEX;
 

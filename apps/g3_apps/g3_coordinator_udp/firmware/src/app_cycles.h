@@ -34,7 +34,7 @@
 #include "configuration.h"
 #include "system/time/sys_time.h"
 #include "library/tcpip/tcpip.h"
-#include "app_udp_responder.h"
+#include "user.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -70,7 +70,7 @@ extern "C" {
     #define APP_CYCLES_PACKET_SIZE_3 1000
 
     /* UDP port for UDP responder (conformance) */
-    #define APP_CYCLES_SOCKET_PORT APP_UDP_RESPONDER_SOCKET_PORT_CONFORMANCE
+    #define APP_CYCLES_SOCKET_PORT   APP_UDP_SOCKET
 #else
     /* Port number for UDP metrology. This port can be compressed using 6LowPAN
      * (rfc4944, rfc6282) (0xF0B0 - 0xF0BF) */

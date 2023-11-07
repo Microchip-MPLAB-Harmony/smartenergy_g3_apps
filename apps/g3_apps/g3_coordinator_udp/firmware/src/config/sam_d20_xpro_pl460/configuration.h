@@ -168,9 +168,9 @@ extern "C" {
 #define G3_ADP_FRAG_TRANSFER_TABLE_SIZE  1U
 #define G3_ADP_FRAGMENT_SIZE             400U
 
-#define G3_ADP_ROUTING_TABLE_SIZE        50U
-#define G3_ADP_BLACKLIST_TABLE_SIZE      20U
-#define G3_ADP_ROUTING_SET_SIZE          30U
+#define G3_ADP_ROUTING_TABLE_SIZE        20U
+#define G3_ADP_BLACKLIST_TABLE_SIZE      5U
+#define G3_ADP_ROUTING_SET_SIZE          5U
 #define G3_ADP_DESTINATION_ADDR_SET_SIZE 1U
 
 /* Table sizes for Routing (LOADNG) */
@@ -251,7 +251,7 @@ extern "C" {
 
 /*** TCPIP Heap Configuration ***/
 #define TCPIP_STACK_USE_INTERNAL_HEAP
-#define TCPIP_STACK_DRAM_SIZE                       14336
+#define TCPIP_STACK_DRAM_SIZE                       8192
 #define TCPIP_STACK_DRAM_RUN_LIMIT                  2048
 
 #define TCPIP_STACK_MALLOC_FUNC                     malloc
@@ -338,26 +338,30 @@ extern "C" {
 #define NO_MD4
 #define NO_MD5
 #define NO_SHA // specifically, no SHA1 (legacy name)
-#define NO_SHA256
-#define NO_SHA224
-#define NO_HMAC
+#define WOLFSSL_SHA224
 #define WOLFSSL_AES_128
-#define NO_AES_192 // not supported by HW accelerator
-#define NO_AES_256 // not supported by HW accelerator
+#define WOLFSSL_AES_192
+#define WOLFSSL_AES_256
 #define WOLFSSL_AES_DIRECT
 #define HAVE_AES_DECRYPT
-#define NO_AES_CBC
+#define HAVE_AES_ECB
+#define HAVE_AES_CBC
+#define WOLFSSL_AES_COUNTER
+#define WOLFSSL_AES_OFB
+#define HAVE_AESGCM
 #define HAVE_AESCCM
 #define WOLFSSL_CMAC
 #define NO_RC4
 #define NO_HC128
 #define NO_RABBIT
+#define HAVE_ECC
 #define NO_DH
 #define NO_DSA
-#define NO_RSA
+#define FP_MAX_BITS 4096
+#define USE_CERT_BUFFERS_2048
 #define NO_DEV_RANDOM
-#define WC_NO_RNG
-#define WC_NO_HASHDRBG
+#define HAVE_HASHDRBG
+#define NO_RNG_TEST
 #define WC_NO_HARDEN
 #define SINGLE_THREADED
 #define NO_ASN

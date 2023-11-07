@@ -80,11 +80,12 @@
 #include "osal/osal.h"
 #include "system/debug/sys_debug.h"
 #include "peripheral/sercom/usart/plib_sercom3_usart.h"
-#include "peripheral/evsys/plib_evsys.h"
 #include "peripheral/sercom/spi_master/plib_sercom0_spi_master.h"
+#include "peripheral/evsys/plib_evsys.h"
 #include "peripheral/port/plib_port.h"
 #include "peripheral/clock/plib_clock.h"
 #include "peripheral/nvic/plib_nvic.h"
+#include "peripheral/wdt/plib_wdt.h"
 #include "peripheral/eic/plib_eic.h"
 #include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
 #include "service/pvddmon/srv_pvddmon.h"
@@ -92,11 +93,10 @@
 #include "system/console/src/sys_console_uart_definitions.h"
 #include "stack/g3/net/macg3adp/drv_mac_g3adp.h"
 #include "app_g3_management.h"
-#include "app_udp_responder.h"
-#include "app_storage_samd20.h"
 #include "app_eap_server.h"
-#include "app_cycles.h"
+#include "app_storage_samd20.h"
 #include "app_tcpip_management.h"
+#include "app_cycles.h"
 
 
 

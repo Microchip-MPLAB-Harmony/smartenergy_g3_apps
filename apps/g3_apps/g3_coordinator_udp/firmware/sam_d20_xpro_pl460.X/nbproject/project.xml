@@ -7,11 +7,7 @@
             <creation-uuid>2615a75c-c52f-4c1d-b3a0-719e7f6de3fd</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
-            <make-dep-projects>
-                <make-dep-project>../../../../../../smartenergy_g3_libs/libs/g3_lib_adp/g3_lib_adp.X</make-dep-project>
-                <make-dep-project>../../../../../../smartenergy_g3_libs/libs/g3_lib_mac_plc/g3_lib_mac_plc.X</make-dep-project>
-                <make-dep-project>../../../../../../smartenergy_g3_libs/libs/g3_lib_loadng/g3_lib_loadng.X</make-dep-project>
-            </make-dep-projects>
+            <make-dep-projects/>
             <sourceRootList/>
             <confList>
                 <confElem>
