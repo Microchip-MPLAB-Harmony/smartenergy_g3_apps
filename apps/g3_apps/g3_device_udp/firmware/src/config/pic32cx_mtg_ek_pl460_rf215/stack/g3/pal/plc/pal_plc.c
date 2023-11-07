@@ -93,19 +93,22 @@ static void lPAL_PLC_SetMibBackupInfo(void)
     
 }
 
-static void lPAL_PLC_UpdateMibBackupInfo(MAC_RT_PIB pib, void *pValue)
+static void lPAL_PLC_UpdateMibBackupInfo(MAC_RT_PIB pib, uint8_t *pValue)
 {
+    uint16_t value16 = ((uint16_t)pValue[1] << 8) + (uint16_t)pValue[0];
+    uint8_t value8 = (uint8_t)pValue[0];
+    
     switch (pib) {
         case MAC_RT_PIB_PAN_ID:
-            palPlcData.mibInitData.panId = *(uint16_t *)pValue;
+            palPlcData.mibInitData.panId = value16;
             break;
 
         case MAC_RT_PIB_SHORT_ADDRESS:
-            palPlcData.mibInitData.shortAddress = *(uint16_t *)pValue;
+            palPlcData.mibInitData.shortAddress = value16;
             break;
 
         case MAC_RT_PIB_RC_COORD:
-            palPlcData.mibInitData.rcCoord = *(uint16_t *)pValue;
+            palPlcData.mibInitData.rcCoord = value16;
             break;
 
         case MAC_RT_PIB_TONE_MASK:
@@ -129,115 +132,115 @@ static void lPAL_PLC_UpdateMibBackupInfo(MAC_RT_PIB pib, void *pValue)
             break;
 
         case MAC_RT_PIB_HIGH_PRIORITY_WINDOW_SIZE:
-            palPlcData.mibInitData.highPriorityWindowSize = *(uint8_t *)pValue;
+            palPlcData.mibInitData.highPriorityWindowSize = value8;
             break;
 
         case MAC_RT_PIB_CSMA_FAIRNESS_LIMIT:
-            palPlcData.mibInitData.csmaFairnessLimit = *(uint8_t *)pValue;
+            palPlcData.mibInitData.csmaFairnessLimit = value8;
             break;
 
         case MAC_RT_PIB_A:
-            palPlcData.mibInitData.A = *(uint8_t *)pValue;
+            palPlcData.mibInitData.A = value8;
             break;
 
         case MAC_RT_PIB_K:
-            palPlcData.mibInitData.K = *(uint8_t *)pValue;
+            palPlcData.mibInitData.K = value8;
             break;
 
         case MAC_RT_PIB_MIN_CW_ATTEMPTS:
-            palPlcData.mibInitData.minCwAttempts = *(uint8_t *)pValue;
+            palPlcData.mibInitData.minCwAttempts = value8;
             break;
 
         case MAC_RT_PIB_MAX_BE:
-            palPlcData.mibInitData.maxBe = *(uint8_t *)pValue;
+            palPlcData.mibInitData.maxBe = value8;
             break;
 
         case MAC_RT_PIB_BSN:
-            palPlcData.mibInitData.bsn = *(uint8_t *)pValue;
+            palPlcData.mibInitData.bsn = value8;
             break;
 
         case MAC_RT_PIB_DSN:
-            palPlcData.mibInitData.dsn = *(uint8_t *)pValue;
+            palPlcData.mibInitData.dsn = value8;
             break;
 
         case MAC_RT_PIB_MAX_CSMA_BACKOFFS:
-            palPlcData.mibInitData.maxCsmaBackoffs = *(uint8_t *)pValue;
+            palPlcData.mibInitData.maxCsmaBackoffs = value8;
             break;
 
         case MAC_RT_PIB_MAX_FRAME_RETRIES:
-            palPlcData.mibInitData.maxFrameRetries = *(uint8_t *)pValue;
+            palPlcData.mibInitData.maxFrameRetries = value8;
             break;
 
         case MAC_RT_PIB_MIN_BE:
-            palPlcData.mibInitData.minBe = *(uint8_t *)pValue;
+            palPlcData.mibInitData.minBe = value8;
             break;
 
         case MAC_RT_PIB_MANUF_FORCED_MOD_SCHEME:
-            palPlcData.mibInitData.forcedModScheme = *(uint8_t *)pValue;
+            palPlcData.mibInitData.forcedModScheme = value8;
             break;
 
         case MAC_RT_PIB_MANUF_FORCED_MOD_TYPE:
-            palPlcData.mibInitData.forcedModType = *(uint8_t *)pValue;
+            palPlcData.mibInitData.forcedModType = value8;
             break;
 
         case MAC_RT_PIB_MANUF_FORCED_MOD_SCHEME_ON_TMRESPONSE:
-            palPlcData.mibInitData.forcedModSchemeOnTMResponse = *(uint8_t *)pValue;
+            palPlcData.mibInitData.forcedModSchemeOnTMResponse = value8;
             break;
 
         case MAC_RT_PIB_MANUF_FORCED_MOD_TYPE_ON_TMRESPONSE:
-            palPlcData.mibInitData.forcedModTypeOnTMResponse = *(uint8_t *)pValue;
+            palPlcData.mibInitData.forcedModTypeOnTMResponse = value8;
             break;
 
         case MAC_RT_PIB_MANUF_RETRIES_LEFT_TO_FORCE_ROBO:
-            palPlcData.mibInitData.retriesToForceRobo = *(uint8_t *)pValue;
+            palPlcData.mibInitData.retriesToForceRobo = value8;
             break;
 
         case MAC_RT_PIB_TRANSMIT_ATTEN:
-            palPlcData.mibInitData.transmitAtten = *(uint8_t *)pValue;
+            palPlcData.mibInitData.transmitAtten = value8;
             break;
 
         case MAC_RT_PIB_POS_TABLE_ENTRY_TTL:
-            palPlcData.mibInitData.posTableEntryTtl = *(uint8_t *)pValue;
+            palPlcData.mibInitData.posTableEntryTtl = value8;
             break;
 
         case MAC_RT_PIB_POS_RECENT_ENTRY_THRESHOLD:
-            palPlcData.mibInitData.posRecentEntryThreshold = *(uint8_t *)pValue;
+            palPlcData.mibInitData.posRecentEntryThreshold = value8;
             break;
 
         case MAC_RT_PIB_MANUF_TRICKLE_MIN_LQI:
-            palPlcData.mibInitData.trickleMinLQI = *(uint8_t *)pValue;
+            palPlcData.mibInitData.trickleMinLQI = value8;
             break;
 
         case MAC_RT_PIB_DUPLICATE_DETECTION_TTL:
-            palPlcData.mibInitData.duplicateDetectionTtl = *(uint8_t *)pValue;
+            palPlcData.mibInitData.duplicateDetectionTtl = value8;
             break;
 
         case MAC_RT_PIB_TMR_TTL:
-            palPlcData.mibInitData.tmrTtl = *(uint8_t *)pValue;
+            palPlcData.mibInitData.tmrTtl = value8;
             break;
 
         case MAC_RT_PIB_BEACON_RANDOMIZATION_WINDOW_LENGTH:
-            palPlcData.mibInitData.beaconRandomizationWindowLength = *(uint8_t *)pValue;
+            palPlcData.mibInitData.beaconRandomizationWindowLength = value8;
             break;
 
         case MAC_RT_PIB_PREAMBLE_LENGTH:
-            palPlcData.mibInitData.preambleLength = *(uint8_t *)pValue;
+            palPlcData.mibInitData.preambleLength = value8;
             break;
 
         case MAC_RT_PIB_BROADCAST_MAX_CW_ENABLE:
-            palPlcData.mibInitData.broadcastMaxCwEnable = *(bool *)pValue;
+            palPlcData.mibInitData.broadcastMaxCwEnable = (bool)value8;
             break;
 
         case MAC_RT_PIB_PROMISCUOUS_MODE:
-            palPlcData.mibInitData.promiscuousMode = *(bool *)pValue;
+            palPlcData.mibInitData.promiscuousMode = (bool)value8;
             break;
 
         case MAC_RT_PIB_MANUF_ENABLE_MAC_SNIFFER:
-            palPlcData.mibInitData.macSniffer = *(bool *)pValue;
+            palPlcData.mibInitData.macSniffer = (bool)value8;
             break;
 
         case MAC_RT_PIB_TX_HIGH_PRIORITY:
-            palPlcData.mibInitData.txHighPriority = *(bool *)pValue;
+            palPlcData.mibInitData.txHighPriority = (bool)value8;
             break;
 
         case MAC_RT_PIB_GET_SET_ALL_MIB:
@@ -631,7 +634,7 @@ PAL_PLC_PIB_RESULT PAL_PLC_SetMacRtPib(PAL_PLC_HANDLE handle, MAC_RT_PIB_OBJ *pi
     if (result == PAL_PLC_PIB_SUCCESS)
     {
         /* Update Backup MIB info */
-        lPAL_PLC_UpdateMibBackupInfo(pibObj->pib, (void *)pibObj->pData);
+        lPAL_PLC_UpdateMibBackupInfo(pibObj->pib, pibObj->pData);
     }
             
     return result;
