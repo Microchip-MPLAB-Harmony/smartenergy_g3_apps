@@ -104,10 +104,10 @@ typedef uintptr_t MAC_WRP_HANDLE;
 #define MAC_WRP_HANDLE_INVALID   ((MAC_WRP_HANDLE) (-1))
 
 // *****************************************************************************
-/* MAC Wrapper PLC Bands definition
+/* MAC Wrapper Bands definition
 
    Summary:
-    Identifies the possible PLC band values.
+    Identifies the possible PLC band values, or if No PLC is used.
 
    Description:
     This enumeration identifies the possible PLC working band values.
@@ -121,6 +121,7 @@ typedef enum
     MAC_WRP_BAND_CENELEC_B = 1,
     MAC_WRP_BAND_FCC = 2,
     MAC_WRP_BAND_ARIB = 3,
+    MAC_WRP_BAND_RF_ONLY = 255,
 } MAC_WRP_BAND;
 
 // *****************************************************************************
@@ -377,6 +378,8 @@ typedef enum
     MAC_WRP_ADDRESS_MODE_EXTENDED = 0x03,
 } MAC_WRP_ADDRESS_MODE;
 
+#pragma pack(push,2)
+
 // *****************************************************************************
 /* MAC Wrapper Address definition
 
@@ -392,105 +395,12 @@ typedef enum
 */
 typedef struct
 {
-    MAC_WRP_ADDRESS_MODE addressMode;
     union {
         MAC_WRP_SHORT_ADDRESS shortAddress;
         MAC_WRP_EXTENDED_ADDRESS extendedAddress;
     };
+    MAC_WRP_ADDRESS_MODE addressMode;
 } MAC_WRP_ADDRESS;
-
-// *****************************************************************************
-/* MAC Wrapper Frame Control definition
-
-   Summary:
-    Defines the Frame Control fields of the MAC Header.
-
-   Description:
-    This structure contains the fields which define the Frame Control of a MAC
-    frame header, as defined in IEEE 802.15.4.
-
-   Remarks:
-    None.
-*/
-typedef struct
-{
-    uint16_t frameType : 3;
-    uint16_t securityEnabled : 1;
-    uint16_t framePending : 1;
-    uint16_t ackRequest : 1;
-    uint16_t panIdCompression : 1;
-    uint16_t reserved : 3;
-    uint16_t destAddressingMode : 2;
-    uint16_t frameVersion : 2;
-    uint16_t srcAddressingMode : 2;
-} MAC_WRP_FRAME_CONTROL;
-
-// *****************************************************************************
-/* MAC Wrapper Auxiliary Security Header definition
-
-   Summary:
-    Defines the Auxiliary Security Header fields of the MAC Header.
-
-   Description:
-    This structure contains the fields which define the Auxiliary Security Header
-    of a MAC frame header, as defined in IEEE 802.15.4.
-
-   Remarks:
-    None.
-*/
-typedef struct
-{
-    uint8_t securityLevel : 3;
-    uint8_t keyIdentifierMode : 2;
-    uint8_t reserved : 3;
-    uint32_t frameCounter;
-    uint8_t keyIdentifier;
-} MAC_WRP_AUXILIARY_SECURITY_HEADER;
-
-// *****************************************************************************
-/* MAC Wrapper Header definition
-
-   Summary:
-    Defines the fields of the MAC Header.
-
-   Description:
-    This structure contains the fields of a MAC frame header,
-    as defined in IEEE 802.15.4.
-
-   Remarks:
-    None.
-*/
-typedef struct __attribute__((packed, aligned(1)))
-{
-    MAC_WRP_FRAME_CONTROL frameControl;
-    uint8_t sequenceNumber;
-    MAC_WRP_PAN_ID destPanId;
-    MAC_WRP_ADDRESS destAddress;
-    MAC_WRP_PAN_ID srcPanId;
-    MAC_WRP_ADDRESS srcAddress;
-    MAC_WRP_AUXILIARY_SECURITY_HEADER securityHeader;
-} MAC_WRP_HEADER;
-
-// *****************************************************************************
-/* MAC Wrapper Frame definition
-
-   Summary:
-    Defines the fields of a MAC Frame.
-
-   Description:
-    This structure contains the fields which define a MAC Frame.
-
-   Remarks:
-    None.
-*/
-typedef struct
-{
-    MAC_WRP_HEADER header;
-    uint16_t payloadLength;
-    uint8_t *payload;
-    uint8_t padLength;
-    uint16_t fcs;
-} MAC_WRP_FRAME;
 
 // *****************************************************************************
 /* MAC Wrapper Timestamp definition
@@ -506,7 +416,6 @@ typedef struct
 */
 typedef uint32_t MAC_WRP_TIMESTAMP;
 
-// *****************************************************************************
 /* MAC Wrapper PAN Descriptor definition
 
    Summary:
@@ -522,12 +431,14 @@ typedef uint32_t MAC_WRP_TIMESTAMP;
 */
 typedef struct
 {
-    MAC_WRP_PAN_ID panId;
-    uint8_t linkQuality;
-    MAC_WRP_SHORT_ADDRESS lbaAddress;
     uint16_t rcCoord;
+    MAC_WRP_PAN_ID panId;
+    MAC_WRP_SHORT_ADDRESS lbaAddress;
+    uint8_t linkQuality;
     MAC_WRP_MEDIA_TYPE_INDICATION mediaType;
 } MAC_WRP_PAN_DESCRIPTOR;
+
+#pragma pack(pop)
 
 // *****************************************************************************
 /* MAC Wrapper Security Level definition
@@ -639,8 +550,8 @@ typedef enum
 */
 typedef struct
 {
-    bool valid;
     uint8_t key[MAC_WRP_SECURITY_KEY_LENGTH];
+    bool valid;
 } MAC_WRP_SECURITY_KEY;
 
 /* MISRA C-2012 deviation block start */
@@ -1040,9 +951,17 @@ typedef enum
     /* RF frequency in Hz used for transmission and reception. 32 bits (read-only) */
     MAC_WRP_RF_PHY_PARAM_PHY_CHANNEL_FREQ_HZ = 0x0121,
     /* Duration in us of Energy Detection for CCA. 16 bits */
-    MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION = 0x0141,
-    /* Threshold in dBm of for CCA with Energy Detection. 16 bits */
-    MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD = 0x0142,
+    MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION_US = 0x0141,
+    /* Threshold in dBm for CCA with Energy Detection. 16 bits */
+    MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD_DBM = 0x0142,
+    /* Duration in symbols of Energy Detection for CCA. 8 bits */
+    MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION_SYMBOLS = 0x0143,
+    /* Threshold in dB above sensitivity for CCA with Energy Detection. 8 bits */
+    MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD_SENSITIVITY = 0x0144,
+    /* Sensitivity in dBm (according to 802.15.4). 8 bits */
+    MAC_WRP_RF_PHY_PARAM_PHY_SENSITIVITY = 0x0150,
+    /* Maximum TX power in dBm. 8 bits */
+    MAC_WRP_RF_PHY_PARAM_PHY_MAX_TX_POWER = 0x0151,
     /* Turnaround time in us (aTurnaroundTime in IEEE 802.15.4). 16 bits (read-only) */
     MAC_WRP_RF_PHY_PARAM_PHY_TURNAROUND_TIME = 0x0160,
     /* Number of payload symbols in last transmitted message. 16 bits */
