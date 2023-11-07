@@ -348,6 +348,56 @@ typedef void (*PAL_PLC_RxParamsIndication)(MAC_RT_RX_PARAMETERS_OBJ *pParameters
 typedef void (*PAL_PLC_CommStatusIndication)(uint8_t *pData);
 
 // *****************************************************************************
+/* PLC PAL G3 MAC Sniffer Event Handler Function Pointer
+
+   Summary
+    Pointer to a PLC PAL G3 MAC Sniffer Reception Event handler function.
+
+   Description
+    This data type defines the required function signature for the PLC PAL G3
+    MAC sniffer event handling callback function. When PAL_PLC_Initialize is
+    called, a client must register a pointer whose function signature (parameter
+    and return value types) matches the types specified by this function pointer
+    in order to receive transfer related event calls back from the PLC PAL.
+
+    The parameters and return values are described here and a partial example
+    implementation is provided.
+
+  Parameters:
+    pData -             Pointer to the data content.
+ 
+    length -            Length of the received data in bytes.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    static void _plcMACSnifferIndication( uint8_t *pData, uint16_t length )
+    {
+        
+    }
+
+    PAL_PLC_INIT palPlcInitData;
+    SYS_MODULE_OBJ palPlcObj;
+
+    palPlcInitData.macRtBand = G3_FCC;
+    palPlcInitData.macRtHandlers.palPlcDataIndication = _plcDataIndication;
+    palPlcInitData.macRtHandlers.palPlcTxConfirm = _plcTxConfirm;
+    palPlcInitData.macRtHandlers.palPlcCommStatusIndication = _plcCommStatusIndication;
+    palPlcInitData.macRtHandlers.palPlcRxParamsIndication = _plcRxParamsIndication;
+    palPlcInitData.macRtHandlers.palPlcMacSnifferIndication = _plcMACSnifferIndication;
+    palPlcInitData.initMIB = true;    
+
+    palPlcObj = PAL_PLC_Initialize(PAL_PLC_PHY_INDEX, (const SYS_MODULE_INIT *) &palPlcInitData);
+    </code>
+
+  Remarks:
+    None.
+*/
+typedef void (*PAL_PLC_MacSnifferIndication)(uint8_t *pData, uint16_t length);
+
+// *****************************************************************************
 /* PLC PAL Handlers Data
 
   Summary:
@@ -365,6 +415,7 @@ typedef struct
     PAL_PLC_CommStatusIndication     palPlcCommStatusIndication;
     PAL_PLC_TxConfirm                palPlcTxConfirm;
     PAL_PLC_RxParamsIndication       palPlcRxParamsIndication;
+    PAL_PLC_MacSnifferIndication     palPlcMacSnifferIndication;
 } PAL_PLC_HANDLERS;
 
 // *****************************************************************************
@@ -381,11 +432,11 @@ typedef struct
 */
 typedef struct
 {
-    // G3 Phy band
-    MAC_RT_BAND                      macRtBand;
-
     // PLC PAL Handlers
     PAL_PLC_HANDLERS                 macRtHandlers;
+
+    // G3 Phy band
+    MAC_RT_BAND                      macRtBand;
 
     // Flag to indicate if MIB data should be reinitialized with the default values
     bool                             initMIB;

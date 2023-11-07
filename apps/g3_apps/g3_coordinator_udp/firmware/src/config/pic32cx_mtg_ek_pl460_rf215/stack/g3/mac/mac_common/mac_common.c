@@ -68,14 +68,14 @@ static uint32_t currentSecondCounter = 0;
 MAC_COMMON_MIB macMibCommon;
 
 static const MAC_COMMON_MIB macMibCommonDefaults = {
-    0xFFFF, // panId
-    {{0}}, // extendedAddress
-    0xFFFF, // shortAddress
-    false, // promiscuousMode
-    {{0}}, // keyTable
     0xFFFF, // rcCoord: set RC_COORD to its maximum value of 0xFFFF
+    0xFFFF, // panId
+    0xFFFF, // shortAddress
     255, // posTableEntryTtl
     120, // posRecentEntryThreshold
+    {{0}}, // extendedAddress
+    {{{0}, false}}, // keyTable
+    false, // promiscuousMode
     false, // coordinator
 };
 

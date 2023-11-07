@@ -87,26 +87,30 @@ typedef enum
 
 } LBP_SLOT_STATE;
 
+#pragma pack(push,2)
+
 typedef struct
 {
-    LBP_SLOT_STATE slotState;
-    ADP_EXTENDED_ADDRESS lbdAddress;
+    uint32_t timeout;
+    uint32_t nonce;
     uint16_t lbaAddress;
     uint16_t assignedShortAddress;
+    uint16_t lbpDataLength;
     uint8_t txHandle;
-    uint32_t timeout;
     uint8_t txAttempts;
-    EAP_PSK_RAND randS;
-    uint32_t nonce;
     uint8_t pendingConfirms;
     uint8_t pendingTxHandle;
-    uint8_t lbpData[ADP_LBP_MAX_NSDU_LENGTH];
-    uint16_t lbpDataLength;
-    EAP_PSK_CONTEXT pskContext;
     uint8_t mediaType;
     uint8_t disableBackupMedium;
+    EAP_PSK_RAND randS;
+    ADP_EXTENDED_ADDRESS lbdAddress;
+    LBP_SLOT_STATE slotState;
+    EAP_PSK_CONTEXT pskContext;
+    uint8_t lbpData[ADP_LBP_MAX_NSDU_LENGTH];
 
 } LBP_SLOT;
+
+#pragma pack(pop)
 
 // *****************************************************************************
 // *****************************************************************************

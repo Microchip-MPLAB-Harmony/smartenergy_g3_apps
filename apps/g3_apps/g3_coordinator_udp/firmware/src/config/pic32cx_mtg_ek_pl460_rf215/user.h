@@ -38,6 +38,9 @@ extern "C" {
 #define USER_BLINK_LED_Toggle()       LED_GREEN_Toggle()
     
 #define CLEAR_WATCHDOG()              DWDT_WDT0_Clear()
+    
+/* UDP Port number */
+#define APP_UDP_SOCKET                0xF0BF
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
