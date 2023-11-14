@@ -276,15 +276,15 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
             (const uint8_t*) &app_g3_managementConst.delayHighLQIconformance,
             &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_RREQ_JITTER_LOW_LQI_RF, 0, 2,
+    ADP_SetRequestSync(ADP_IB_RREQ_JITTER_LOW_LQI_RF, 0, 1,
             (const uint8_t*) &app_g3_managementConst.rreqJitterLowLQIRFconformance,
             &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_RREQ_JITTER_HIGH_LQI_RF, 0, 2,
+    ADP_SetRequestSync(ADP_IB_RREQ_JITTER_HIGH_LQI_RF, 0, 1,
             (const uint8_t*) &app_g3_managementConst.rreqJitterHighLQIRFconformance,
             &setConfirm);
 
-    ADP_SetRequestSync(ADP_IB_CLUSTER_MIN_LQI_RF, 0, 2,
+    ADP_SetRequestSync(ADP_IB_CLUSTER_MIN_LQI_RF, 0, 1,
             (const uint8_t*) &app_g3_managementConst.clusterMinLQIRFconformance,
             &setConfirm);
 
