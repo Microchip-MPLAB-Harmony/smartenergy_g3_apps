@@ -64,6 +64,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#pragma pack(push,2)
+
 // *****************************************************************************
 /* MAC PLC Tables Structure
 
@@ -100,6 +102,7 @@ typedef struct
 */
 typedef struct
 {
+    MAC_DEVICE_TABLE_ENTRY *deviceTable;
     uint32_t txDataPacketCount;
     uint32_t rxDataPacketCount;
     uint32_t txCmdPacketCount;
@@ -107,14 +110,7 @@ typedef struct
     uint32_t csmaFailCount;
     uint32_t rxDataBroadcastCount;
     uint32_t txDataBroadcastCount;
-    MAC_DEVICE_TABLE_ENTRY *deviceTable;
-    uint16_t deviceTableSize;
-    bool freqNotching;
     uint32_t frameCounter;
-    MAC_SHORT_ADDRESS coordShortAddress;
-    MAC_PLC_MODULATION_SCHEME lastRxModScheme;
-    MAC_PLC_MODULATION_TYPE lastRxModType;
-    bool bcnFrameReceived;
     uint32_t rxInvalidFrameLengthCount;
     uint32_t rxWrongAddrModeCount;
     uint32_t rxUnsupportedSecurityCount;
@@ -122,9 +118,17 @@ typedef struct
     uint32_t rxInvalidKeyCount;
     uint32_t rxWrongFCCount;
     uint32_t rxDecryptionErrorCount;
+    uint16_t deviceTableSize;
+    MAC_SHORT_ADDRESS coordShortAddress;
+    MAC_PLC_MODULATION_SCHEME lastRxModScheme;
+    MAC_PLC_MODULATION_TYPE lastRxModType;
+    bool bcnFrameReceived;
     bool plcDisable;
     bool plcAvailable;
+    bool freqNotching;
 } MAC_PLC_MIB;
+
+#pragma pack(pop)
 
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
@@ -274,6 +278,8 @@ typedef enum
     MAC_PIB_MANUF_PLC_IFACE_AVAILABLE = 0x0800002C,
     // Last PLC frame duration in ms. 16 bits.
     MAC_PIB_MANUF_LAST_FRAME_DURATION_PLC = 0x0800002D,
+    // Resets TMR TTL for the Short Address contained in Index. 8 bits.
+    MAC_PIB_MANUF_RESET_TMR_TTL = 0x0800002E,
     // Gets or sets a parameter in Phy layer. Index will be used to contain PHY parameter ID.
     // Check 'enum EPhyParam' in MacRtMib.h for available Phy parameter IDs
     MAC_PIB_MANUF_PHY_PARAM = 0x08000020

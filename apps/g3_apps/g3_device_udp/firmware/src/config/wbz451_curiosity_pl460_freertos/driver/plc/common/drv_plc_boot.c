@@ -300,9 +300,7 @@ static void lDRV_PLC_BOOT_DisableBootCmd(void)
 
     /* Disable Bootloader */
     sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_CMD_DIS_SPI_CLK_CTRL, 0, 0, NULL, NULL);
-    
-    /* Configure 16 bits transfer */
-    sDrvPlcHalObj->setup(true);
+
 }
 
 static bool lDRV_PLC_BOOT_CheckFirmware(void)
@@ -449,9 +447,6 @@ void DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_MODE mode)
         
         /* Disable Bootloader */
         sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_CMD_DIS_SPI_CLK_CTRL, 0, 0, NULL, NULL);
-
-        /* Configure 16 bits transfer */
-        sDrvPlcHalObj->setup(true);
 
         /* Wait to PLC startup */
         sDrvPlcHalObj->delay(200);

@@ -58,6 +58,9 @@
 // *****************************************************************************
 // *****************************************************************************
 
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 5.2 deviated twic. Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+
 // *****************************************************************************
 /* RF PAL PIB Attribute
 
@@ -102,12 +105,20 @@ typedef enum
      * (only available for WBZ45/PIC32CX-BZ2) */
     PAL_RF_PIB_PHY_CHANNELS_SUPPORTED = 0x0123,
     /* Duration in us of Energy Detection for CCA. 16 bits */
-    PAL_RF_PIB_PHY_CCA_ED_DURATION = 0x0141,
-    /* Threshold in dBm of for CCA with Energy Detection. 16 bits */
-    PAL_RF_PIB_PHY_CCA_ED_THRESHOLD = 0x0142,
+    PAL_RF_PIB_PHY_CCA_ED_DURATION_US = 0x0141,
+    /* Threshold in dBm for CCA with Energy Detection. 8 bits */
+    PAL_RF_PIB_PHY_CCA_ED_THRESHOLD_DBM = 0x0142,
+    /* Duration in symbols of Energy Detection for CCA. 16 bits */
+    PAL_RF_PIB_PHY_CCA_ED_DURATION_SYMBOLS = 0x0143,
+    /* Threshold in dB above sensitivity for CCA with Energy Detection. 8 bits */
+    PAL_RF_PIB_PHY_CCA_ED_THRESHOLD_SENSITIVITY = 0x0144,
     /* Perform a single ED measurement on current channel (dBm). 8 bits
      * (only available for WBZ45/PIC32CX-BZ2) */
-    PAL_RF_PIB_PHY_CCA_ED_SAMPLE = 0x0143,
+    PAL_RF_PIB_PHY_CCA_ED_SAMPLE = 0x0145,
+    /* Sensitivity in dBm (according to 802.15.4). 8 bits */
+    PAL_RF_PIB_PHY_SENSITIVITY = 0x0150,
+    /* Maximum TX power in dBm. 8 bits */
+    PAL_RF_PIB_PHY_MAX_TX_POWER = 0x0151,
     /* Turnaround time in us (aTurnaroundTime in IEEE 802.15.4).
      * 16 bits (read-only) */
     PAL_RF_PIB_PHY_TURNAROUND_TIME = 0x0160,
@@ -173,6 +184,8 @@ typedef enum
     PAL_RF_PIB_TX_OFDM_MCS = 0x8001,
 
 } PAL_RF_PIB_ATTRIBUTE;
+
+/* MISRA C-2012 deviation block end */
 
 // *****************************************************************************
 /* RF PAL PIB Result

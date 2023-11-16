@@ -506,7 +506,7 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBSet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
         lDRV_G3_MACRT_COMM_SpiWriteCmd(REG_RSP_ID, gG3RegResponse, (uint16_t)pibObj->length + 8U);
         
         /* Sync function: Wait to response from interrupt */
-        waitCounter = 100;
+        waitCounter = 100U;
         while (gG3MacRtObj->evRegRspLength == 0U)
         {
             /* Wait for event (interrupt). The CPU is in sleep mode until an interrupt occurs. */
@@ -715,6 +715,6 @@ void DRV_G3_MACRT_ExternalInterruptHandler(uintptr_t context)
         }
         
         /* Time guard */
-        gG3MacRtObj->plcHal->delay(50);
+        gG3MacRtObj->plcHal->delay(20);
     }
 }
