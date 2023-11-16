@@ -79,28 +79,21 @@ static DRV_PLC_PLIB_INTERFACE *sPlcPlib;
 // *****************************************************************************
 // *****************************************************************************
 
-static void __attribute__((optimize("O0"))) lDRV_PLC_HAL_memcpyREV16 (void * pDst, void * pSrc, size_t size)
+static void lDRV_PLC_HAL_memcpyREV16 (uint8_t * pDst, uint8_t * pSrc, uint16_t size)
 {
-    /* R0=pDst; R1=pSrc; R2=size */
-    __asm volatile (
-        "TST R2, #1\n"
-        "IT NE\n"
-            "ADDNE R2, R2, #1\n"
-
-    "COPY_DATA_LOOP:\n"
-        "CMP R2, #0\n"
-        "BEQ COPY_DATA_END\n"
-        "LDR R3, [R1], #4\n"
-        "REV16 R3, R3\n"
-        "CMP R2, #3\n"
-        "ITTT GT\n"
-            "STRGT R3, [R0], #4\n"
-            "SUBGT R2, R2, #4\n"
-            "BGT COPY_DATA_LOOP\n"
-
-        "STRH R3, [R0]\n"
-    "COPY_DATA_END:\n"
-    );
+    uint16_t index;
+    
+    if ((size & 0x0001U) != 0U)
+    {
+        size++;
+    }
+    
+    for (index = 0; index < size - 1U; index+=2U)
+    {
+        pDst[index] = pSrc[index + 1U];
+        pDst[index + 1U] = pSrc[index];
+    }
+    
 }
 
 // *****************************************************************************
@@ -274,7 +267,7 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
     dataLength = ((pCmd->length + 1U) >> 1) & 0x7FFFU;
     
     /* Protect length */
-    if ((dataLength == 0U) || (dataLength > (HAL_SPI_MSG_DATA_SIZE + HAL_SPI_MSG_PARAMS_SIZE)))
+    if ((dataLength == 0U) || (pCmd->length > (HAL_SPI_MSG_DATA_SIZE + HAL_SPI_MSG_PARAMS_SIZE)))
     {
         return;
     }
@@ -299,12 +292,11 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
 
     pTxData += pCmd->length;
 
-    totalLength = 4U + pCmd->length;
+    totalLength = HAL_SPI_HEADER_SIZE + pCmd->length;
     cmdSize = totalLength;
     
     if ((cmdSize % 2U) > 0U) {
         cmdSize++;
-        *pTxData++ = 0;
     }
        
     /* Assert CS pin */

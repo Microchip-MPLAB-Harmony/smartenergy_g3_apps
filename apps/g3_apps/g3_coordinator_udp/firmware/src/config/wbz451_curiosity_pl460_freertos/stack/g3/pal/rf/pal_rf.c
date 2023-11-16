@@ -543,9 +543,9 @@ PAL_RF_TX_HANDLE PAL_RF_TxRequest(PAL_RF_HANDLE handle, uint8_t *pData,
 
     /* Set Tx Power (Power value in dBm (-14dBm to 12dBm))*/
     pwrDbm = 12 - (int16_t)txParameters->txPowerAttenuation;
-    if (pwrDbm < 0) //-14)
+    if (pwrDbm < -14)
     {
-        pwrDbm = 0; //-14;
+        pwrDbm = -14;
     }
 
     (void) PHY_ConfigTxPwr(PWR_DBM_VALUE, (int8_t)pwrDbm);
@@ -717,9 +717,14 @@ PAL_RF_PIB_RESULT PAL_RF_GetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
         (void) PHY_PibGet(phyChannelsSupported, pibObj->pData);
         break;
 
-    case PAL_RF_PIB_PHY_CCA_ED_DURATION:
+    case PAL_RF_PIB_PHY_CCA_ED_DURATION_US:
         // 8 symbols(128us)
         *((uint16_t *)pData) = (uint16_t)8U << 4;
+        break;
+
+    case PAL_RF_PIB_PHY_CCA_ED_DURATION_SYMBOLS:
+        // 8 symbols
+        *((uint16_t *)pData) = (uint16_t)8U;
         break;
 
     case PAL_RF_PIB_PHY_CCA_ED_SAMPLE:
@@ -733,7 +738,13 @@ PAL_RF_PIB_RESULT PAL_RF_GetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
         break;
     }
 
-    case PAL_RF_PIB_PHY_CCA_ED_THRESHOLD:
+    case PAL_RF_PIB_PHY_CCA_ED_THRESHOLD_DBM:
+    {
+        *((int8_t *)pData) = -90;
+        break;
+    }
+
+    case PAL_RF_PIB_PHY_CCA_ED_THRESHOLD_SENSITIVITY:
     {
         uint8_t pdtLevel;
 
@@ -744,13 +755,42 @@ PAL_RF_PIB_RESULT PAL_RF_GetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
         (void) PHY_GetTrxConfig(RX_SENS, &pdtLevel);
 
         // THRS = RSSIBASE_VAL + 3 x (pdtLevel - 1)
-        pdtLevel = 3U * (pdtLevel - 1U);
+        if (pdtLevel > 0U)
+        {
+            pdtLevel = 3U * (pdtLevel - 1U);
+        }
+
+        *((int8_t *)pData) = -90 - (trxBaseRSSI + (int8_t)pdtLevel);
+        break;
+    }
+
+    case PAL_RF_PIB_PHY_SENSITIVITY:
+    {
+        uint8_t pdtLevel;
+
+        // Get RSSI base value of TRX
+        int8_t trxBaseRSSI = PHY_GetRSSIBaseVal();
+
+        // To get the PDT level configured
+        (void) PHY_GetTrxConfig(RX_SENS, &pdtLevel);
+
+        // THRS = RSSIBASE_VAL + 3 x (pdtLevel - 1)
+        if (pdtLevel > 0U)
+        {
+            pdtLevel = 3U * (pdtLevel - 1U);
+        }
+
         *((int8_t *)pData) = trxBaseRSSI + (int8_t)pdtLevel;
         break;
     }
 
+    case PAL_RF_PIB_PHY_MAX_TX_POWER:
+        *((int8_t *)pData) = 12;
+        break;
+
     case PAL_RF_PIB_PHY_TURNAROUND_TIME:
-        *((uint16_t *)pData) = (uint16_t)aTurnaroundTime;
+        /* aTurnaroundTime[symb] * 16 us/symb */
+        *((uint16_t *)pData) = (uint16_t)aTurnaroundTime << 4;
         break;
 
     case PAL_RF_PIB_PHY_TX_PAY_SYMBOLS:
@@ -988,45 +1028,11 @@ PAL_RF_PIB_RESULT PAL_RF_SetRfPhyPib(PAL_RF_HANDLE handle, PAL_RF_PIB_OBJ *pibOb
         break;
     }
 
-    case PAL_RF_PIB_PHY_CCA_ED_THRESHOLD:
-    {
-        int8_t edThreshold;
-        uint8_t pdtLevel;
-
-        // Get RSSI base value of TRX
-        int8_t trxBaseRSSI = PHY_GetRSSIBaseVal();
-
-        edThreshold = *(int8_t *)pData;
-        if (edThreshold >= trxBaseRSSI)
-        {
-            // THRS = RSSIBASE_VAL + 3 x (pdtLevel - 1)
-            pdtLevel = (uint8_t)edThreshold - (uint8_t)trxBaseRSSI;
-            pdtLevel = (pdtLevel / 3U) + 1U;
-
-            if (pdtLevel > 15U)
-            {
-                pdtLevel = 15U;
-            }
-
-            // Set the PDT level configured
-            if (PHY_ConfigRxSensitivity(pdtLevel) != PHY_SUCCESS)
-            {
-                result = PAL_RF_PIB_ERROR;
-            }
-
-            // THRS = RSSIBASE_VAL + 3 x (pdtLevel - 1)
-            pdtLevel = 3U * (pdtLevel - 1U);
-            *(int8_t *)pData = trxBaseRSSI + (int8_t)pdtLevel;
-        }
-        else
-        {
-            result = PAL_RF_PIB_INVALID_PARAM;
-        }
-        break;
-    }
-
+    case PAL_RF_PIB_PHY_CCA_ED_THRESHOLD_DBM:
+    case PAL_RF_PIB_PHY_CCA_ED_THRESHOLD_SENSITIVITY:
     case PAL_RF_PIB_PHY_CCA_ED_SAMPLE:
-    case PAL_RF_PIB_PHY_CCA_ED_DURATION:
+    case PAL_RF_PIB_PHY_CCA_ED_DURATION_US:
+    case PAL_RF_PIB_PHY_CCA_ED_DURATION_SYMBOLS:
     case PAL_RF_PIB_DEVICE_ID:
     case PAL_RF_PIB_FW_VERSION:
     case PAL_RF_PIB_PHY_TURNAROUND_TIME:
@@ -1109,7 +1115,8 @@ uint8_t PAL_RF_GetRfPhyPibLength(PAL_RF_HANDLE handle, PAL_RF_PIB_ATTRIBUTE attr
     case PAL_RF_PIB_DEVICE_RESET:
     case PAL_RF_PIB_TRX_RESET:
     case PAL_RF_PIB_TRX_SLEEP:
-    case PAL_RF_PIB_PHY_CCA_ED_THRESHOLD:
+    case PAL_RF_PIB_PHY_CCA_ED_THRESHOLD_DBM:
+    case PAL_RF_PIB_PHY_CCA_ED_THRESHOLD_SENSITIVITY:
     case PAL_RF_PIB_PHY_CCA_ED_SAMPLE:
     case PAL_RF_PIB_PHY_STATS_RESET:
     case PAL_RF_PIB_SET_CONTINUOUS_TX_MODE:
@@ -1119,7 +1126,8 @@ uint8_t PAL_RF_GetRfPhyPibLength(PAL_RF_HANDLE handle, PAL_RF_PIB_ATTRIBUTE attr
 
     case PAL_RF_PIB_DEVICE_ID:
     case PAL_RF_PIB_PHY_CHANNEL_NUM:
-    case PAL_RF_PIB_PHY_CCA_ED_DURATION:
+    case PAL_RF_PIB_PHY_CCA_ED_DURATION_US:
+    case PAL_RF_PIB_PHY_CCA_ED_DURATION_SYMBOLS:
     case PAL_RF_PIB_PHY_TURNAROUND_TIME:
     case PAL_RF_PIB_PHY_TX_PAY_SYMBOLS:
     case PAL_RF_PIB_PHY_RX_PAY_SYMBOLS:
