@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -96,103 +96,124 @@ static const SRV_PLC_PCOUP_DATA srvPlcCoup = {
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: File scope functions
+// Section: PLC PHY Coupling Service Interface Implementation
 // *****************************************************************************
 // *****************************************************************************
+
 SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch)
 {
-  if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
-  {
-    /* PLC PHY Coupling parameters for Main transmission branch */
-    return (SRV_PLC_PCOUP_DATA *)&srvPlcCoup;
-  }
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
-  /* Transmission branch not recognized */
-  return NULL;
+    if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
+    {
+        /* PLC PHY Coupling parameters for Main transmission branch */
+        return (SRV_PLC_PCOUP_DATA *)&srvPlcCoup;
+    }
+
+    /* MISRA C-2012 deviation block end */
+
+    /* Transmission branch not recognized */
+    return NULL;
 }
 
 bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch)
 {
-  SRV_PLC_PCOUP_DATA *pCoupValues;
-  DRV_PLC_PHY_PIB_OBJ pibObj;
-  bool result;  
+    SRV_PLC_PCOUP_DATA *pCoupValues;
+    bool result, resultOut;
+    DRV_PLC_PHY_PIB_OBJ pibObj;
 
-  /* Get PLC PHY Coupling parameters for the desired transmission branch */
-  pCoupValues = SRV_PCOUP_Get_Config(branch);
+    /* Get PLC PHY Coupling parameters for the desired transmission branch */
+    pCoupValues = SRV_PCOUP_Get_Config(branch);
 
-  if (pCoupValues == NULL)
-  {
-    /* Transmission branch not recognized */
-    return false;
-  }
+    if (pCoupValues == NULL)
+    {
+        /* Transmission branch not recognized */
+        return false;
+    }
 
-  /* Set PLC PHY Coupling parameters */
-  pibObj.id = PLC_ID_IC_DRIVER_CFG;
-  pibObj.length = 1;
-  pibObj.pData = &pCoupValues->lineDrvConf;
-  result = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    /* Set PLC PHY Coupling parameters */
+    pibObj.id = PLC_ID_IC_DRIVER_CFG;
+    pibObj.length = 1;
+    pibObj.pData = &pCoupValues->lineDrvConf;
+    result = DRV_PLC_PHY_PIBSet(handle, &pibObj);
 
-  pibObj.id = PLC_ID_NUM_TX_LEVELS;
-  pibObj.pData = &pCoupValues->numTxLevels;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_NUM_TX_LEVELS;
+    pibObj.pData = &pCoupValues->numTxLevels;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_DACC_TABLE_CFG;
-  pibObj.length = sizeof(pCoupValues->daccTable);
-  pibObj.pData = (uint8_t *)pCoupValues->daccTable;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);  
+    pibObj.id = PLC_ID_DACC_TABLE_CFG;
+    pibObj.length = (uint16_t)sizeof(pCoupValues->daccTable);
+    pibObj.pData = (uint8_t *)pCoupValues->daccTable;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_MAX_RMS_TABLE_HI;
-  pibObj.length = sizeof(pCoupValues->rmsHigh);
-  pibObj.pData = (uint8_t *)pCoupValues->rmsHigh;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_MAX_RMS_TABLE_HI;
+    pibObj.length = (uint16_t)sizeof(pCoupValues->rmsHigh);
+    pibObj.pData = (uint8_t *)pCoupValues->rmsHigh;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_MAX_RMS_TABLE_VLO;
-  pibObj.pData = (uint8_t *)pCoupValues->rmsVLow;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_MAX_RMS_TABLE_VLO;
+    pibObj.pData = (uint8_t *)pCoupValues->rmsVLow;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_THRESHOLDS_TABLE_HI;
-  pibObj.length = sizeof(pCoupValues->thrsHigh);
-  pibObj.pData = (uint8_t *)pCoupValues->thrsHigh;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_THRESHOLDS_TABLE_HI;
+    pibObj.length = (uint16_t)sizeof(pCoupValues->thrsHigh);
+    pibObj.pData = (uint8_t *)pCoupValues->thrsHigh;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_THRESHOLDS_TABLE_VLO;
-  pibObj.pData = (uint8_t *)pCoupValues->thrsVLow;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_THRESHOLDS_TABLE_VLO;
+    pibObj.pData = (uint8_t *)pCoupValues->thrsVLow;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_GAIN_TABLE_HI;
-  pibObj.length = sizeof(pCoupValues->gainHigh);
-  pibObj.pData = (uint8_t *)pCoupValues->gainHigh;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_GAIN_TABLE_HI;
+    pibObj.length = (uint16_t)sizeof(pCoupValues->gainHigh);
+    pibObj.pData = (uint8_t *)pCoupValues->gainHigh;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_GAIN_TABLE_VLO;
-  pibObj.pData = (uint8_t *)pCoupValues->gainVLow;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_GAIN_TABLE_VLO;
+    pibObj.pData = (uint8_t *)pCoupValues->gainVLow;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_PREDIST_COEF_TABLE_HI;
-  pibObj.length = pCoupValues->equSize;
-  pibObj.pData = (uint8_t *)pCoupValues->equHigh;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.8 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
-  pibObj.id = PLC_ID_PREDIST_COEF_TABLE_VLO;
-  pibObj.pData = (uint8_t *)pCoupValues->equVlow;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_PREDIST_COEF_TABLE_HI;
+    pibObj.length = pCoupValues->equSize;
+    pibObj.pData = (uint8_t *)pCoupValues->equHigh;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  return result;
+    pibObj.id = PLC_ID_PREDIST_COEF_TABLE_VLO;
+    pibObj.pData = (uint8_t *)pCoupValues->equVlow;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
+
+    /* MISRA C-2012 deviation block end */
+
+    return result;
 }
 
 SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void )
 {
-  return SRV_PCOUP_DEFAULT_BRANCH;
+    return SRV_PCOUP_DEFAULT_BRANCH;
 }
 
 uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch)
 {
-  if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
-  {
-    /* PHY band for Main transmission branch */
-    return G3_FCC;
-  }
+    if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
+    {
+        /* PHY band for Main transmission branch */
+       return (uint8_t)G3_FCC;
+   }
 
-  /* Transmission branch not recognized */
-  return G3_INVALID;
+    /* Transmission branch not recognized */
+    return (uint8_t)G3_INVALID;
 }

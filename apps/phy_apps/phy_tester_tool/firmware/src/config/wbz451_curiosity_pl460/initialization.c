@@ -165,15 +165,17 @@
 
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
 
+
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 /* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
 
 /* This routine must initialize the PL460 control pins as soon as possible */
-/* after a power up reset to avoid risks on starting up PL460 device when */
+/* after a power up reset to avoid risks on starting up PL460 device when */ 
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
+    __asm volatile ("NOP");
 }
 
 /* MISRA C-2012 deviation block end */
@@ -201,25 +203,25 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI Chip select pin */
     .spiCSPin = DRV_PLC_SPI_CS_PIN,
-
+    
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-
+    
     /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN,
-
+    .ldoPin = DRV_PLC_LDO_EN_PIN, 
+    
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
-
+       
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
-
+       
     /* PLC External Interrupt Pio */
     .extIntPio = DRV_PLC_EXT_INT_PIO,
 
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
-
+    
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -239,10 +241,10 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC Set TX Enable Pin */
     .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
-
+    
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
-
+    
     /* PLC HAL Enable/Disable external interrupt */
     .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
 
@@ -259,12 +261,6 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_PHY Initialization Data">
 
-/* PLC Binary file addressing */
-extern uint8_t plc_phy_bin_start;
-extern uint8_t plc_phy_bin_end;
-extern uint8_t plc_phy_bin2_start;
-extern uint8_t plc_phy_bin2_end;
-
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 
@@ -275,20 +271,20 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
     .plcHal = &drvPLCHalAPI,
 
     /* PLC PHY Number of clients */
-    .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,
+    .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,  
 
     /* PLC PHY profile */
     .plcProfile = DRV_PLC_PHY_PROFILE,
-
+ 
     /* PLC Binary start address */
     .binStartAddress = (uint32_t)&plc_phy_bin_start,
-
+    
     /* PLC Binary end address */
     .binEndAddress = (uint32_t)&plc_phy_bin_end,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
-
+    
 };
 
 /* MISRA C-2012 deviation block end */
@@ -299,32 +295,31 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
 static uint8_t CACHE_ALIGN srvUSI0ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
 static uint8_t CACHE_ALIGN srvUSI0WriteBuffer[SRV_USI0_WR_BUF_SIZE] = {0};
 
-/* Declared in USI USART service implementation (srv_usi_usart.c) */
-extern const SRV_USI_DEV_DESC srvUSIUSARTDevDesc;
 
-const SRV_USI_USART_INTERFACE srvUsi0InitDataSERCOM1 = {
+static const SRV_USI_USART_INTERFACE srvUsi0InitDataSERCOM1 = {
     .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)SERCOM1_USART_ReadCallbackRegister,
-    .read = (USI_USART_PLIB_WRRD)SERCOM1_USART_Read,
-    .write = (USI_USART_PLIB_WRRD)SERCOM1_USART_Write,
+    .readData = (USI_USART_PLIB_WRRD)SERCOM1_USART_Read,
+    .writeData = (USI_USART_PLIB_WRRD)SERCOM1_USART_Write,
     .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)SERCOM1_USART_WriteIsBusy,
     .intSource = SERCOM1_IRQn,
 };
 
-const USI_USART_INIT_DATA srvUsi0InitData = {
+static const USI_USART_INIT_DATA srvUsi0InitData = {
     .plib = (void*)&srvUsi0InitDataSERCOM1,
     .pRdBuffer = (void*)srvUSI0ReadBuffer,
     .rdBufferSize = SRV_USI0_RD_BUF_SIZE,
 };
 
-const SRV_USI_INIT srvUSI0Init =
+/* srvUSIUSARTDevDesc declared in USI USART service implementation (srv_usi_usart.c) */
+
+static const SRV_USI_INIT srvUSI0Init =
 {
-    .deviceInitData = (const void*)&srvUsi0InitData,
+    .deviceInitData = (const void * const)&srvUsi0InitData,
     .consDevDesc = &srvUSIUSARTDevDesc,
     .deviceIndex = 0,
     .pWrBuffer = srvUSI0WriteBuffer,
     .wrBufferSize = SRV_USI0_WR_BUF_SIZE
 };
-
 
 // </editor-fold>
 
@@ -396,7 +391,7 @@ void SYS_Initialize ( void* data )
     /* MISRAC 2012 deviation block start */
     /* MISRA C-2012 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2012_R_2_2_DR_1 */
 
-
+  
     CLK_Initialize();
     /* Configure Prefetch, Wait States */
     PCHE_REGS->PCHE_CHECON = (PCHE_REGS->PCHE_CHECON & (~(PCHE_CHECON_PFMWS_Msk | PCHE_CHECON_ADRWS_Msk | PCHE_CHECON_PREFEN_Msk)))
@@ -408,9 +403,9 @@ void SYS_Initialize ( void* data )
 
     SERCOM1_USART_Initialize();
 
-    SERCOM0_SPI_Initialize();
-
     EVSYS_Initialize();
+
+    SERCOM0_SPI_Initialize();
 
     DMAC_Initialize();
 
@@ -433,11 +428,11 @@ void SYS_Initialize ( void* data )
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-
+        
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
-
+    
     /* MISRAC 2012 deviation block end */
 
 

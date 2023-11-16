@@ -57,19 +57,23 @@
 // *****************************************************************************
 // *****************************************************************************
 
-static void _SRV_SERIAL_memcpyRev(uint8_t *pDataDst, uint8_t *pDataSrc, size_t length)
+static void lSRV_SERIAL_memcpyRev(uint8_t *pDataDst, uint8_t *pDataSrc, size_t length)
 {
     uint8_t *pMemDst, *pMemSrc;
     uint16_t indexRev;
 
-    if (length <= 4) {
+    if (length <= 4U)
+    {
         pMemDst = pDataDst + length - 1;
         pMemSrc = pDataSrc;
-        for (indexRev = 0; indexRev < length; indexRev++) {
+        for (indexRev = 0; indexRev < length; indexRev++)
+        {
             *pMemDst-- = (uint8_t)*pMemSrc++;
         }
-    } else {
-        memcpy(pDataDst, pDataSrc, length);
+    }
+    else
+    {
+        (void) memcpy(pDataDst, pDataSrc, length);
     }
 }
 
@@ -87,12 +91,15 @@ SRV_PSERIAL_COMMAND SRV_PSERIAL_GetCommand(uint8_t* pData)
 
 void SRV_PSERIAL_ParseGetPIB(DRV_PLC_PHY_PIB_OBJ* pDataDst, uint8_t* pDataSrc)
 {
+    uint16_t id;
+
     /* Skip command */
     pDataSrc++;
     /* Extract parameters of PIB */
-    pDataDst->id = (DRV_PLC_PHY_ID)(((uint16_t)*pDataSrc++) << 8);
-    pDataDst->id += (DRV_PLC_PHY_ID)((uint16_t)*pDataSrc++);
-    pDataDst->length = *pDataSrc;    
+    id = (uint16_t)*pDataSrc++ << 8;
+    id += (uint16_t)*pDataSrc++;
+    pDataDst->id = (DRV_PLC_PHY_ID)id;
+    pDataDst->length = *pDataSrc;
 }
 
 size_t SRV_PSERIAL_SerialGetPIB(uint8_t* pDataDst, DRV_PLC_PHY_PIB_OBJ* pDataSrc)
@@ -102,33 +109,29 @@ size_t SRV_PSERIAL_SerialGetPIB(uint8_t* pDataDst, DRV_PLC_PHY_PIB_OBJ* pDataSrc
     pData = pDataDst;
     
     /* Insert command */
-    *pData++ = SRV_PSERIAL_CMD_PHY_GET_CFG_RSP;
-    
+    *pData++ = (uint8_t)SRV_PSERIAL_CMD_PHY_GET_CFG_RSP;
+
     /* Serialize parameters of PIB */
-    *pData++ = (uint8_t)((pDataSrc->id) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->id);
-    *pData++ = (uint8_t)(pDataSrc->length);
-    
-    if (pDataSrc->length > 4) {
-        memcpy(pData, pDataSrc->pData, pDataSrc->length);
-    } else {
-        _SRV_SERIAL_memcpyRev(pData, pDataSrc->pData, pDataSrc->length);
-    }
-    
-    pData += pDataSrc->length;
-    
-    return (pData - pDataDst);
+    *pData++ = (uint8_t)((uint16_t)pDataSrc->id >> 8);
+    *pData++ = (uint8_t)pDataSrc->id;
+    *pData++ = (uint8_t)pDataSrc->length;
+    lSRV_SERIAL_memcpyRev(pData, pDataSrc->pData, pDataSrc->length);
+
+    return (size_t)pDataSrc->length + 4U;
 }
 
 void SRV_PSERIAL_ParseSetPIB(DRV_PLC_PHY_PIB_OBJ* pDataDst, uint8_t* pDataSrc)
 {
+    uint16_t id;
+
     /* Skip command */
     pDataSrc++;
     /* Extract parameters of PIB */
-    pDataDst->id = (DRV_PLC_PHY_ID)(((uint16_t)*pDataSrc++) << 8);
-    pDataDst->id += (DRV_PLC_PHY_ID)((uint16_t)*pDataSrc++);
-    pDataDst->length = *pDataSrc++;    
-    _SRV_SERIAL_memcpyRev(pDataDst->pData, pDataSrc, pDataDst->length);
+    id = (uint16_t)*pDataSrc++ << 8;
+    id += (uint16_t)*pDataSrc++;
+    pDataDst->id = (DRV_PLC_PHY_ID)id;
+    pDataDst->length = *pDataSrc++;
+    lSRV_SERIAL_memcpyRev(pDataDst->pData, pDataSrc, pDataDst->length);
 }
 
 size_t SRV_PSERIAL_SerialSetPIB(uint8_t* pDataDst, DRV_PLC_PHY_PIB_OBJ* pDataSrc)
@@ -138,15 +141,15 @@ size_t SRV_PSERIAL_SerialSetPIB(uint8_t* pDataDst, DRV_PLC_PHY_PIB_OBJ* pDataSrc
     pData = pDataDst;
     
     /* Insert command */
-    *pData++ = SRV_PSERIAL_CMD_PHY_SET_CFG_RSP;
+    *pData++ = (uint8_t)SRV_PSERIAL_CMD_PHY_SET_CFG_RSP;
 
     /* Serialize parameters of PIB */
-    *pData++ = (uint8_t)((pDataSrc->id) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->id);
-    *pData++ = (uint8_t)(pDataSrc->length);
-    *pData++ = true;
+    *pData++ = (uint8_t)((uint16_t)pDataSrc->id >> 8);
+    *pData++ = (uint8_t)pDataSrc->id;
+    *pData++ = (uint8_t)pDataSrc->length;
+    *pData = 1U;
     
-    return (pData - pDataDst);    
+    return 5U;
 }
 
 void SRV_PSERIAL_ParseTxMessage(DRV_PLC_PHY_TRANSMISSION_OBJ* pDataDst, uint8_t* pDataSrc)
@@ -163,17 +166,14 @@ void SRV_PSERIAL_ParseTxMessage(DRV_PLC_PHY_TRANSMISSION_OBJ* pDataDst, uint8_t*
     pDataDst->modScheme = (DRV_PLC_PHY_MOD_SCHEME)(*pDataSrc++);
     pDataDst->pdc = *pDataSrc++;
 
-    for (indexTM = 0; indexTM < PSERIAL_TONEMAP_SIZE; indexTM++) {
-        pDataDst->toneMap[PSERIAL_TONEMAP_SIZE - (indexTM + 1)] = *pDataSrc++;
+    for (indexTM = 0; indexTM < PSERIAL_TONEMAP_SIZE; indexTM++)
+    {
+        pDataDst->toneMap[PSERIAL_TONEMAP_SIZE - (indexTM + 1U)] = *pDataSrc++;
     }
 
-    if (PSERIAL_RS_2_BLOCKS) {
-        pDataDst->rs2Blocks = *pDataSrc++;
-    } else {
-        pDataDst->rs2Blocks = 0;
-    }
+    pDataDst->rs2Blocks = *pDataSrc++;
 
-    memcpy(pDataDst->preemphasis, pDataSrc, PSERIAL_SUBBANDS_SIZE);
+    (void) memcpy(pDataDst->preemphasis, pDataSrc, PSERIAL_SUBBANDS_SIZE);
     pDataSrc += PSERIAL_SUBBANDS_SIZE;
 
     pDataDst->delimiterType = (DRV_PLC_PHY_DEL_TYPE)(*pDataSrc++);
@@ -187,70 +187,73 @@ void SRV_PSERIAL_ParseTxMessage(DRV_PLC_PHY_TRANSMISSION_OBJ* pDataDst, uint8_t*
     if (pDataDst->dataLength <= PSERIAL_MAX_DATA_LEN)
     {
         /* copy data */
-        memcpy(pDataDst->pTransmitData, pDataSrc, pDataDst->dataLength);
+        (void) memcpy(pDataDst->pTransmitData, pDataSrc, pDataDst->dataLength);
     }
 }
 
 size_t SRV_PSERIAL_SerialRxMessage(uint8_t* pDataDst, DRV_PLC_PHY_RECEPTION_OBJ* pDataSrc)
 {
+    ptrdiff_t size;
     uint8_t* pData;
     uint8_t indexTM;
     
     pData = pDataDst;
     
     /* Insert command */
-    *pData++ = SRV_PSERIAL_CMD_PHY_RECEIVE_MSG; 
-    
-    /* Serialize parameters of PIB */
+    *pData++ = (uint8_t)SRV_PSERIAL_CMD_PHY_RECEIVE_MSG;
+
+    /* Serialize parameters of reception */
     *pData++ = (uint8_t)(pDataSrc->modType);
     *pData++ = (uint8_t)(pDataSrc->modScheme);
-   
-    for (indexTM = 0; indexTM < PSERIAL_TONEMAP_SIZE; indexTM++) {
-        *pData++ = pDataSrc->toneMap[PSERIAL_TONEMAP_SIZE - (indexTM + 1)];
+
+    for (indexTM = 0; indexTM < PSERIAL_TONEMAP_SIZE; indexTM++)
+    {
+        *pData++ = pDataSrc->toneMap[PSERIAL_TONEMAP_SIZE - (indexTM + 1U)];
     }
     
-    *pData++ = (uint8_t)((pDataSrc->snrFch) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->snrFch);
-    *pData++ = (uint8_t)((pDataSrc->snrPay) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->snrPay);
-    *pData++ = (uint8_t)((pDataSrc->rssi) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->rssi);
-    *pData++ = (uint8_t)((pDataSrc->agcFactor) >> 24);
-    *pData++ = (uint8_t)((pDataSrc->agcFactor) >> 16);
-    *pData++ = (uint8_t)((pDataSrc->agcFactor) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->agcFactor);
-    *pData++ = (uint8_t)(pDataSrc->zctDiff);
-    *pData++ = (uint8_t)(pDataSrc->delimiterType);
-    *pData++ = (uint8_t)(pDataSrc->lqi);
+    *pData++ = (uint8_t)((uint16_t)pDataSrc->snrFch >> 8);
+    *pData++ = (uint8_t)pDataSrc->snrFch;
+    *pData++ = (uint8_t)((uint16_t)pDataSrc->snrPay >> 8);
+    *pData++ = (uint8_t)pDataSrc->snrPay;
+    *pData++ = (uint8_t)(pDataSrc->rssi >> 8);
+    *pData++ = (uint8_t)pDataSrc->rssi;
+    *pData++ = (uint8_t)(pDataSrc->agcFactor >> 24);
+    *pData++ = (uint8_t)(pDataSrc->agcFactor >> 16);
+    *pData++ = (uint8_t)(pDataSrc->agcFactor >> 8);
+    *pData++ = (uint8_t)pDataSrc->agcFactor;
+    *pData++ = pDataSrc->zctDiff;
+    *pData++ = (uint8_t)pDataSrc->delimiterType;
+    *pData++ = pDataSrc->lqi;
     
-    memcpy(pData, pDataSrc->carrierSnr, PSERIAL_CARRIERS_SIZE);
+    (void) memcpy(pData, pDataSrc->carrierSnr, PSERIAL_CARRIERS_SIZE);
     pData += PSERIAL_CARRIERS_SIZE;
     
-    *pData++ = (uint8_t)(pDataSrc->payloadSnrWorstCarrier);
-    *pData++ = (uint8_t)((pDataSrc->payloadCorruptedCarriers) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->payloadCorruptedCarriers);
-    *pData++ = (uint8_t)((pDataSrc->payloadNoisedSymbols) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->payloadNoisedSymbols);
-    *pData++ = (uint8_t)(pDataSrc->payloadSnrWorstSymbol);
-    *pData++ = (uint8_t)(pDataSrc->payloadSnrImpulsive);
-    *pData++ = (uint8_t)(pDataSrc->payloadSnrBand);
-    *pData++ = (uint8_t)(pDataSrc->payloadSnrBackground);
-    *pData++ = (uint8_t)(pDataSrc->rsCorrectedErrors);
-    *pData++ = (uint8_t)((pDataSrc->dataLength) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->dataLength);
-    *pData++ = (uint8_t)((pDataSrc->timeEnd) >> 24);
-    *pData++ = (uint8_t)((pDataSrc->timeEnd) >> 16);
-    *pData++ = (uint8_t)((pDataSrc->timeEnd) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->timeEnd);
-    *pData++ = (uint8_t)((pDataSrc->frameDuration) >> 24);
-    *pData++ = (uint8_t)((pDataSrc->frameDuration) >> 16);
-    *pData++ = (uint8_t)((pDataSrc->frameDuration) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->frameDuration);
+    *pData++ = pDataSrc->payloadSnrWorstCarrier;
+    *pData++ = (uint8_t)(pDataSrc->payloadCorruptedCarriers >> 8);
+    *pData++ = (uint8_t)pDataSrc->payloadCorruptedCarriers;
+    *pData++ = (uint8_t)(pDataSrc->payloadNoisedSymbols >> 8);
+    *pData++ = (uint8_t)pDataSrc->payloadNoisedSymbols;
+    *pData++ = pDataSrc->payloadSnrWorstSymbol;
+    *pData++ = pDataSrc->payloadSnrImpulsive;
+    *pData++ = pDataSrc->payloadSnrBand;
+    *pData++ = pDataSrc->payloadSnrBackground;
+    *pData++ = pDataSrc->rsCorrectedErrors;
+    *pData++ = (uint8_t)(pDataSrc->dataLength >> 8);
+    *pData++ = (uint8_t)pDataSrc->dataLength;
+    *pData++ = (uint8_t)(pDataSrc->timeEnd >> 24);
+    *pData++ = (uint8_t)(pDataSrc->timeEnd >> 16);
+    *pData++ = (uint8_t)(pDataSrc->timeEnd >> 8);
+    *pData++ = (uint8_t)pDataSrc->timeEnd;
+    *pData++ = (uint8_t)(pDataSrc->frameDuration >> 24);
+    *pData++ = (uint8_t)(pDataSrc->frameDuration >> 16);
+    *pData++ = (uint8_t)(pDataSrc->frameDuration >> 8);
+    *pData++ = (uint8_t)pDataSrc->frameDuration;
     
-    memcpy(pData, pDataSrc->pReceivedData, pDataSrc->dataLength);
+    (void) memcpy(pData, pDataSrc->pReceivedData, pDataSrc->dataLength);
     pData += pDataSrc->dataLength;
-    
-    return (pData - pDataDst);    
+
+    size = pData - pDataDst;
+    return (size_t)size;
 }
 
 size_t SRV_PSERIAL_SerialCfmMessage(uint8_t* pDataDst, DRV_PLC_PHY_TRANSMISSION_CFM_OBJ* pDataSrc)
@@ -260,18 +263,18 @@ size_t SRV_PSERIAL_SerialCfmMessage(uint8_t* pDataDst, DRV_PLC_PHY_TRANSMISSION_
     pData = pDataDst;
     
     /* Insert command */
-    *pData++ = SRV_PSERIAL_CMD_PHY_SEND_MSG_RSP;
-    
-    /* Serialize parameters of Confirm Message */
-    *pData++ = (uint8_t)(pDataSrc->result);
-    *pData++ = (uint8_t)((pDataSrc->rmsCalc) >> 24);
-    *pData++ = (uint8_t)((pDataSrc->rmsCalc) >> 16);
-    *pData++ = (uint8_t)((pDataSrc->rmsCalc) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->rmsCalc);
-    *pData++ = (uint8_t)((pDataSrc->timeEnd) >> 24);
-    *pData++ = (uint8_t)((pDataSrc->timeEnd) >> 16);
-    *pData++ = (uint8_t)((pDataSrc->timeEnd) >> 8);
-    *pData++ = (uint8_t)(pDataSrc->timeEnd);
+    *pData++ = (uint8_t)SRV_PSERIAL_CMD_PHY_SEND_MSG_RSP;
 
-    return (pData - pDataDst);    
+    /* Serialize parameters of Confirm Message */
+    *pData++ = (uint8_t)pDataSrc->result;
+    *pData++ = (uint8_t)(pDataSrc->rmsCalc >> 24);
+    *pData++ = (uint8_t)(pDataSrc->rmsCalc >> 16);
+    *pData++ = (uint8_t)(pDataSrc->rmsCalc >> 8);
+    *pData++ = (uint8_t)pDataSrc->rmsCalc;
+    *pData++ = (uint8_t)(pDataSrc->timeEnd >> 24);
+    *pData++ = (uint8_t)(pDataSrc->timeEnd >> 16);
+    *pData++ = (uint8_t)(pDataSrc->timeEnd >> 8);
+    *pData = (uint8_t)pDataSrc->timeEnd;
+
+    return 10U;
 }

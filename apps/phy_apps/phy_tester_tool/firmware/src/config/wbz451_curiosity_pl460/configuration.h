@@ -96,10 +96,10 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 /* USI Service Common Configuration Options */
-#define SRV_USI_INSTANCES_NUMBER              1
-#define SRV_USI_USART_CONNECTIONS             1
-#define SRV_USI_CDC_CONNECTIONS               0
-#define SRV_USI_MSG_POOL_SIZE                 5
+#define SRV_USI_INSTANCES_NUMBER              1U
+#define SRV_USI_USART_CONNECTIONS             1U
+#define SRV_USI_CDC_CONNECTIONS               0U
+#define SRV_USI_MSG_POOL_SIZE                 5U
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_SPI_CS_PIN                    SYS_PORT_PIN_RA9
