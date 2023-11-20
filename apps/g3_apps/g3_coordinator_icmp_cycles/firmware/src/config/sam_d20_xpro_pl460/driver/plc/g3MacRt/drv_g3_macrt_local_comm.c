@@ -688,6 +688,6 @@ void DRV_G3_MACRT_ExternalInterruptHandler(uintptr_t context)
         }
         
         /* Time guard */
-        gG3MacRtObj->plcHal->delay(50);
+        gG3MacRtObj->plcHal->delay(20);
     }
 }

@@ -60,26 +60,26 @@
 
 uint8_t SRV_RANDOM_Get8bits(void)
 {
-    uint8_t retValue;
+    uint8_t retValue = 0;
 
     CRYPT_RNG_CTX rngCtx;
 
-    CRYPT_RNG_Initialize(&rngCtx);
-    CRYPT_RNG_Get(&rngCtx, (unsigned char*)&retValue);
-    CRYPT_RNG_Deinitialize(&rngCtx);
+    (void) CRYPT_RNG_Initialize(&rngCtx);
+    (void) CRYPT_RNG_Get(&rngCtx, (unsigned char*)&retValue);
+    (void) CRYPT_RNG_Deinitialize(&rngCtx);
 
     return retValue;
 }
 
 uint16_t SRV_RANDOM_Get16bits(void)
 {
-    uint16_t retValue;
+    uint16_t retValue = 0;
 
     CRYPT_RNG_CTX rngCtx;
 
-    CRYPT_RNG_Initialize(&rngCtx);
-    CRYPT_RNG_BlockGenerate(&rngCtx, (unsigned char*)&retValue, 2);
-    CRYPT_RNG_Deinitialize(&rngCtx);
+    (void) CRYPT_RNG_Initialize(&rngCtx);
+    (void) CRYPT_RNG_BlockGenerate(&rngCtx, (unsigned char*)&retValue, 2);
+    (void) CRYPT_RNG_Deinitialize(&rngCtx);
 
     return retValue;
 }
@@ -99,13 +99,13 @@ uint16_t  SRV_RANDOM_Get16bitsInRange(uint16_t min, uint16_t max)
 
 uint32_t SRV_RANDOM_Get32bits(void)
 {
-    uint32_t retValue;
+    uint32_t retValue = 0;
 
     CRYPT_RNG_CTX rngCtx;
 
-    CRYPT_RNG_Initialize(&rngCtx);
-    CRYPT_RNG_BlockGenerate(&rngCtx, (unsigned char*)&retValue, 4);
-    CRYPT_RNG_Deinitialize(&rngCtx);
+    (void) CRYPT_RNG_Initialize(&rngCtx);
+    (void) CRYPT_RNG_BlockGenerate(&rngCtx, (unsigned char*)&retValue, 4);
+    (void) CRYPT_RNG_Deinitialize(&rngCtx);
 
     return retValue;
 }
@@ -127,7 +127,7 @@ void SRV_RANDOM_Get128bits(uint8_t *rndValue)
 {
     CRYPT_RNG_CTX rngCtx;
 
-    CRYPT_RNG_Initialize(&rngCtx);
-    CRYPT_RNG_BlockGenerate(&rngCtx, (unsigned char*)rndValue, 16);
-    CRYPT_RNG_Deinitialize(&rngCtx);
+    (void) CRYPT_RNG_Initialize(&rngCtx);
+    (void) CRYPT_RNG_BlockGenerate(&rngCtx, (unsigned char*)rndValue, 16);
+    (void) CRYPT_RNG_Deinitialize(&rngCtx);
 }
