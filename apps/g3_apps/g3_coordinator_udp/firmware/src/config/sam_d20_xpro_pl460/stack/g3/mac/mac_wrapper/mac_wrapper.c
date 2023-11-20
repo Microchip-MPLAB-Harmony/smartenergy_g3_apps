@@ -82,7 +82,6 @@ typedef struct
 typedef struct
 {
     MAC_DATA_REQUEST_PARAMS dataReqParams;
-    MAC_WRP_MEDIA_TYPE_REQUEST dataReqMediaType;
     bool used;
 } MAC_WRP_DATA_REQ_ENTRY;
 
@@ -397,7 +396,7 @@ void MAC_WRP_Tasks(SYS_MODULE_OBJ object)
     macWrpData.nextTaskTimeMs += G3_STACK_TASK_RATE_MS;
 
     MAC_PLC_Tasks();
-    MAC_COMMON_GetMsCounter(); /* Just to avoid counter overflow */
+    (void) MAC_COMMON_GetMsCounter(); /* Just to avoid counter overflow */
 }
 
 SYS_STATUS MAC_WRP_Status(void)

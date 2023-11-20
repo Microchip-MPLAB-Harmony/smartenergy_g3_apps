@@ -83,15 +83,15 @@ static void lDRV_PLC_HAL_memcpyREV16 (uint8_t * pDst, uint8_t * pSrc, uint16_t s
 {
     uint16_t index;
     
-    if (size & 0x0001U)
+    if ((size & 0x0001U) != 0U)
     {
         size++;
     }
     
-    for (index = 0; index < size - 1; index+=2)
+    for (index = 0; index < size - 1U; index+=2U)
     {
-        pDst[index] = pSrc[index + 1];
-        pDst[index + 1] = pSrc[index];
+        pDst[index] = pSrc[index + 1U];
+        pDst[index + 1U] = pSrc[index];
     }
     
 }

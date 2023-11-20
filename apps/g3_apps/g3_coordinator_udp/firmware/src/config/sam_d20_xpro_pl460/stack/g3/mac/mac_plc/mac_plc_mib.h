@@ -278,6 +278,8 @@ typedef enum
     MAC_PIB_MANUF_PLC_IFACE_AVAILABLE = 0x0800002C,
     // Last PLC frame duration in ms. 16 bits.
     MAC_PIB_MANUF_LAST_FRAME_DURATION_PLC = 0x0800002D,
+    // Resets TMR TTL for the Short Address contained in Index. 8 bits.
+    MAC_PIB_MANUF_RESET_TMR_TTL = 0x0800002E,
     // Gets or sets a parameter in Phy layer. Index will be used to contain PHY parameter ID.
     // Check 'enum EPhyParam' in MacRtMib.h for available Phy parameter IDs
     MAC_PIB_MANUF_PHY_PARAM = 0x08000020

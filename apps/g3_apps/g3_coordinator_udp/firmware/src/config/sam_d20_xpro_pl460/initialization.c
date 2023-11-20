@@ -55,7 +55,7 @@
 // ****************************************************************************
 #pragma config NVMCTRL_BOOTPROT = SIZE_0BYTES
 #pragma config NVMCTRL_EEPROM_SIZE = SIZE_256BYTES
-#pragma config BOD33USERLEVEL = 0x7U // Enter Hexadecimal value
+#pragma config BOD33USERLEVEL = 0x2bU // Enter Hexadecimal value
 #pragma config BOD33_EN = ENABLED
 #pragma config BOD33_ACTION = INT
 
@@ -530,8 +530,8 @@ void SYS_Initialize ( void* data )
 	BSP_Initialize();
     SERCOM3_USART_Initialize();
 
-    SERCOM0_SPI_Initialize();
 
+    SERCOM0_SPI_Initialize();
 
     EIC_Initialize();
 

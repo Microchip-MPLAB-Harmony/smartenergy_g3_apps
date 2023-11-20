@@ -59,15 +59,21 @@ APP_STORAGE_SAMD20_DATA app_storage_samd20Data;
 // *****************************************************************************
 // *****************************************************************************
 
-//static void lWDT_EarlyWarningCallback(uintptr_t context)
-//{
-//    (void) NVMCTRL_PageBufferCommit(app_storage_samd20Data.nonVolatileDataAddress);
-//}
-//
-//static void lSYSCTRL_BOD33DETCalbback (SYSCTRL_INTERRUPT_MASK interruptMask, uintptr_t context)
-//{
-//    (void) NVMCTRL_PageBufferCommit(app_storage_samd20Data.nonVolatileDataAddress);
-//}
+static void lWDT_EarlyWarningCallback(uintptr_t context)
+{
+    NVMCTRL_RowErase(app_storage_samd20Data.nonVolatileDataAddress);
+    NVMCTRL_PageBufferCommit(app_storage_samd20Data.nonVolatileDataAddress);
+}
+
+static void lSYSCTRL_BOD33DETCallback (SYSCTRL_INTERRUPT_MASK interruptMask, uintptr_t context)
+{
+    NVIC_INT_Disable();
+    PLC_RST_Clear();
+    PLC_LDO_Clear();
+    NVMCTRL_RowErase(app_storage_samd20Data.nonVolatileDataAddress);
+    NVMCTRL_PageBufferCommit(app_storage_samd20Data.nonVolatileDataAddress);
+    NVIC_INT_Enable();
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -88,11 +94,11 @@ void APP_STORAGE_SAMD20_Initialize ( void )
     /* Set EEPROM emulation address */
     app_storage_samd20Data.nonVolatileDataAddress = NVMCTRL_EEPROM_START_ADDRESS;
 
-//    /* Register WDT callback to write non-volatile data EEPROM emulation */
-//    WDT_CallbackRegister(lWDT_EarlyWarningCallback, 0);
-//    
-//    /* Register BOD33 callback to write non-volatile data EEPROM emulation */
-//    SYSCTRL_CallbackRegister(lSYSCTRL_BOD33DETCalbback, 0);
+    /* Register WDT callback to write non-volatile data EEPROM emulation */
+    WDT_CallbackRegister(lWDT_EarlyWarningCallback, 0);
+    
+    /* Register BOD33 callback to write non-volatile data EEPROM emulation */
+    SYSCTRL_CallbackRegister(lSYSCTRL_BOD33DETCallback, 0);
     
     NVMCTRL_Read((uint32_t *)&app_storage_samd20Data.nonVolatileData, 
                  sizeof(app_storage_samd20Data.nonVolatileData), 
@@ -128,6 +134,8 @@ void APP_STORAGE_SAMD20_Initialize ( void )
             app_storage_samd20Data.validNonVolatileData = false;
         }
     }
+    
+    WDT_Enable();
 
     /* Create semaphore. It is used to suspend task. */
     OSAL_SEM_Create(&app_storage_samd20Data.semaphoreID, OSAL_SEM_TYPE_BINARY, 0, 0);
@@ -193,7 +201,7 @@ ADP_NON_VOLATILE_DATA_IND_PARAMS* APP_STORAGE_GetNonVolatileData(void)
 
 void APP_STORAGE_UpdateNonVolatileData(ADP_NON_VOLATILE_DATA_IND_PARAMS* pNonVolatileData)
 {
-    uint32_t *pData = (uint32_t *)&app_storage_samd20Data.nonVolatileData.data;
+    uint32_t *pData = (uint32_t *)&app_storage_samd20Data.nonVolatileData;
     /* Store non-volatile data to write it in EEPROM emulation at power-down */
     app_storage_samd20Data.nonVolatileData.key = APP_STORAGE_NON_VOLATILE_DATA_KEY;
     app_storage_samd20Data.nonVolatileData.data = *pNonVolatileData;
@@ -208,6 +216,9 @@ void APP_STORAGE_UpdateNonVolatileData(ADP_NON_VOLATILE_DATA_IND_PARAMS* pNonVol
     }
     
     app_storage_samd20Data.validNonVolatileData = true;
+    
+    SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_STORAGE: Update NVM fc: 0x%X\r\n", 
+                      app_storage_samd20Data.nonVolatileData.data.frameCounter);
 }
 
 
