@@ -242,6 +242,8 @@ static void lPAL_PLC_UpdateMibBackupInfo(MAC_RT_PIB pib, uint8_t *pValue)
             palPlcData.mibInitData.txHighPriority = (bool)value8;
             break;
 
+        /* MISRA C-2012 deviation block start */
+        /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
         case MAC_RT_PIB_GET_SET_ALL_MIB:
             palPlcData.mibInitData = *(MAC_RT_MIB_INIT_OBJ *)pValue;
             break;
