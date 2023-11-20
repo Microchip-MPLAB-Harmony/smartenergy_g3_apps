@@ -121,33 +121,6 @@ static void GCLK1_Initialize(void)
 
 
 
-static void BOD33_Initialize( void )
-{
-    uint32_t bodEnable = SYSCTRL_REGS->SYSCTRL_BOD33 & SYSCTRL_BOD33_ENABLE_Msk;
-
-    /* Configure BOD33. Mask the values loaded from NVM during reset. */
-    SYSCTRL_REGS->SYSCTRL_BOD33 &= ~SYSCTRL_BOD33_ENABLE_Msk;
-
-    SYSCTRL_REGS->SYSCTRL_BOD33 = (SYSCTRL_REGS->SYSCTRL_BOD33 & (SYSCTRL_BOD33_ENABLE_Msk | SYSCTRL_BOD33_HYST_Msk | SYSCTRL_BOD33_ACTION_Msk | SYSCTRL_BOD33_LEVEL_Msk)) | SYSCTRL_BOD33_RUNSTDBY_Msk ;
-
-    if (bodEnable != 0U)
-    {
-        SYSCTRL_REGS->SYSCTRL_BOD33 |= SYSCTRL_BOD33_ENABLE_Msk;
-
-        /* Wait for BOD33 Synchronization Ready */
-        while((SYSCTRL_REGS->SYSCTRL_PCLKSR & SYSCTRL_PCLKSR_B33SRDY_Msk) == 0U)
-        {
-        }
-
-        /* If BOD33 in continuous mode then wait for BOD33 Ready */
-        if((SYSCTRL_REGS->SYSCTRL_BOD33 & SYSCTRL_BOD33_MODE_Msk) == 0U)
-        {
-            while((SYSCTRL_REGS->SYSCTRL_PCLKSR & SYSCTRL_PCLKSR_BOD33RDY_Msk) == 0U)
-            {
-            }
-        }
-    }
-}
 
 void CLOCK_Initialize (void)
 {
@@ -182,7 +155,6 @@ void CLOCK_Initialize (void)
     PM_REGS->PM_APBCMASK = 0x10324U;
 
 
-    BOD33_Initialize();
 
 
     SYSCTRL_REGS->SYSCTRL_INTENSET = 0x400U;

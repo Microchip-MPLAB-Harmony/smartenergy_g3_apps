@@ -104,6 +104,8 @@ typedef struct
     MAC_WRP_SECURITY_LEVEL securityLevel;
     /* The Media Type to use on Request (only used if both PLC and RF MACs are present) */
     MAC_WRP_MEDIA_TYPE_REQUEST mediaType;
+    /* The interval in minutes between two media probing operations */
+    uint8_t probingInterval;
 } MAC_WRP_DATA_REQUEST_PARAMS;
 
 // *****************************************************************************

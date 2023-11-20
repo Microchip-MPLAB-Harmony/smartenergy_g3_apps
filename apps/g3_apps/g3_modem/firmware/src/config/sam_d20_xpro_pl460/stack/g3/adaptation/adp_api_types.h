@@ -428,6 +428,7 @@ typedef enum
     ADP_IB_CLUSTER_TRICKLE_K_RF = 0x000000DE, /* 8 bits */
     ADP_IB_CLUSTER_MIN_LQI_RF = 0x000000DF, /* 8 bits */
     ADP_IB_LAST_GASP = 0x000000E0, /* 8 bits (bool) */
+    ADP_IB_PROBING_INTERVAL = 0x000000E1, /* 8 bits */
     ADP_IB_TRICKLE_LQI_THRESHOLD_HIGH_RF = 0x000000E2, /* 8 bits */
     ADP_IB_DISABLE_DEFAULT_ROUTING = 0x000000F0, /* 8 bits (bool) */
 

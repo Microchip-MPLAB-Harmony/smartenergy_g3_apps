@@ -553,6 +553,7 @@ static void lADP_SER_StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
             case ADP_IB_WEAK_LQI_VALUE_RF:
             case ADP_IB_USE_BACKUP_MEDIA:
             case ADP_IB_LAST_GASP:
+            case ADP_IB_PROBING_INTERVAL:
                 adpSerialRspBuffer[serialRspLen++] = pGetCfm->attributeValue[0];
                 break;
 
@@ -1068,6 +1069,7 @@ static ADP_SERIAL_STATUS lADP_SER_ParseSetRequest(uint8_t* pData)
         case ADP_IB_USE_BACKUP_MEDIA:
         case ADP_IB_WEAK_LQI_VALUE_RF:
         case ADP_IB_LAST_GASP:
+        case ADP_IB_PROBING_INTERVAL:
             attributeValue[0] = *pData;
             break;
 

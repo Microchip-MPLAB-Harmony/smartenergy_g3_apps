@@ -1138,6 +1138,7 @@ typedef struct __attribute__((packed))
     uint8_t forwardTxPowerOffset;
     uint8_t reverseTxPowerOffset;
     uint16_t posValidTime;
+    uint16_t reverseLqiValidTime;
 } MAC_WRP_POS_ENTRY_RF;
 
 //DOM-IGNORE-BEGIN

@@ -88,7 +88,7 @@ static void _APP_SetEUI64NonVolatileDataCallback (
 
 static void _APP_UpdateNonVolatileDataCallback(ADP_NON_VOLATILE_DATA_IND_PARAMS* pNonVolatileData)
 {
-    uint32_t *pData = (uint32_t *)&appData.nonVolatileData.data;
+    uint32_t *pData = (uint32_t *)&appData.nonVolatileData;
     
     /* Store non-volatile data to write it in user signature at power-down */
     appData.nonVolatileData.data = *pNonVolatileData;
@@ -112,14 +112,20 @@ static void _APP_TimeExpiredSetFlag(uintptr_t context)
     *((bool *) context) = true;
 }
 
-//static void _APP_WDT_EarlyWarningCallback(uintptr_t context)
-//{
-//    (void) NVMCTRL_PageBufferCommit(appData.nonVolatileDataAddress);
-//}
-
-static void _APP_SYSCTRL_BOD33DETCalbback (SYSCTRL_INTERRUPT_MASK interruptMask, uintptr_t context)
+static void _APP_WDT_EarlyWarningCallback(uintptr_t context)
 {
+   (void) NVMCTRL_RowErase(appData.nonVolatileDataAddress);
+   (void) NVMCTRL_PageBufferCommit(appData.nonVolatileDataAddress);
+}
+
+static void _APP_SYSCTRL_BOD33DETCallback (SYSCTRL_INTERRUPT_MASK interruptMask, uintptr_t context)
+{
+    NVIC_INT_Disable();
+    PLC_RST_Clear();
+    PLC_LDO_Clear();
+    (void) NVMCTRL_RowErase(appData.nonVolatileDataAddress);
     (void) NVMCTRL_PageBufferCommit(appData.nonVolatileDataAddress);
+    NVIC_INT_Enable();
 }
 
 // *****************************************************************************
@@ -152,10 +158,10 @@ void APP_SAMD20_Initialize ( void )
     appData.nonVolatileDataAddress = NVMCTRL_EEPROM_START_ADDRESS;
 
     /* Register WDT callback to write non-volatile data EEPROM emulation */
-//    WDT_CallbackRegister(_APP_WDT_EarlyWarningCallback, 0);
+    WDT_CallbackRegister(_APP_WDT_EarlyWarningCallback, 0);
     
     /* Register BOD33 callback to write non-volatile data EEPROM emulation */
-    SYSCTRL_CallbackRegister(_APP_SYSCTRL_BOD33DETCalbback, 0);
+    SYSCTRL_CallbackRegister(_APP_SYSCTRL_BOD33DETCallback, 0);
     
     NVMCTRL_Read((uint32_t *)&appData.nonVolatileData, 
                  sizeof(appData.nonVolatileData), 
@@ -217,6 +223,8 @@ void APP_SAMD20_Initialize ( void )
     callbacks.setEUI64NonVolatileData = _APP_SetEUI64NonVolatileDataCallback;
     callbacks.nonVolatileDataIndication = _APP_UpdateNonVolatileDataCallback;
     ADP_SERIAL_SetNotifications(&callbacks);
+    
+    WDT_Enable();
 }
 
 

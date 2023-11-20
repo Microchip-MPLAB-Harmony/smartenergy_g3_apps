@@ -4195,7 +4195,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;DEVICE_BOD33USERLEVEL&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;6&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;43&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4208,6 +4208,30 @@
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1&quot;/&gt;
       &lt;User dnOrder=&quot;1&quot; value=&quot;2&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="DEVICE_BOD33_EN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;DEVICE_BOD33_EN&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="DEVICE_BOD33_HYST"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;DEVICE_BOD33_HYST&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4758,6 +4782,7 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_1_0_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4780,6 +4805,17 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_1_0_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_1_0_PRIORITY"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_1_0_PRIORITY&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6684,9 +6720,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SUPC_BOD33_RUNSTDBY"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SUPC_BOD33_RUNSTDBY&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -23193,7 +23227,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\clock\plib_clock.c</file>
-         <hash>543838aaa3d1e7b6f245881e7acca6874bcef7cfe764b79b2344b27d7062ee48</hash>
+         <hash>1ed60bc9ca06a29228584090e2aca86e0c5d0cfc742db198ad41aeb2e6a54ee7</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\sha.h</file>
@@ -23221,7 +23255,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\initialization.c</file>
-         <hash>ae70dba8db8faecd324917625de2900ea2756c7f9466fbebbd9b292e94fdadb6</hash>
+         <hash>111e5b27d18d1dd73aa4a5b6c5c250af883818cfccf75ffd70571bf006fa2b01</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\adaptation\adp_shared_types.h</file>
@@ -23233,7 +23267,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\mac\mac_plc\g3_lib_mac_plc_cm0.a</file>
-         <hash>3518304cc12a2b1413669a868703597f950c7956e2c4ab6bb324c1f5dd59b85a</hash>
+         <hash>98122ed96c0ae343b0bdf33bd77e23c7a96fc4bf12bb7a675872edf07ee1857e</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\wc_port.c</file>
@@ -23617,7 +23651,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\nvic\plib_nvic.c</file>
-         <hash>ee6d6ac76dfd74a4649fd13bc54fa1a01e8a6c091dab8a2e6dbc176a53ffabb0</hash>
+         <hash>c13f5d5df46baadb33755c2825a64ea66e6563f6cf00bcd05d40ad8ce0e58f9f</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\sp_c64.c</file>
@@ -23677,7 +23711,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\random\srv_random.c</file>
-         <hash>229c803717999b385ce371fde8ae2c715ec272db1962361a0e5dd350850f366b</hash>
+         <hash>4f90884d542f95ae843f957732a950c27f3c2ca9434a030ea51699abfa1029b9</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\sha3.h</file>
@@ -23801,7 +23835,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\common\drv_plc_hal.c</file>
-         <hash>a830a28fad7e2f9d04fb2d96dc808b2d7a9b32a8a5bd133c61d26f35de411152</hash>
+         <hash>3b70067cf04bf00a7b2fe17407be9fa252d48c82081d9bb6c4ca7b95d61f568e</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_RedMod_pb.h</file>
@@ -23837,7 +23871,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\mac\mac_wrapper\mac_wrapper.c</file>
-         <hash>f8e6a6786251d59c77ae25590a377f142254b2be1b1f664150a1c00c263da6a8</hash>
+         <hash>c3525940179967267b2c1b9cd0fb35c4cb56f5a832181d076670c3607df2ce95</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\ge_operations.c</file>
@@ -23849,7 +23883,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\g3MacRt\drv_g3_macrt_comm.h</file>
-         <hash>15ea6884740737642bdbee551f85f24a12e001c5b90c3486066e18e1da127f11</hash>
+         <hash>7578ee60bcd8ba5d04379c07ee49f2110c5f6d9a54e1ed8b666b2046452d6f01</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\mpi_superclass.h</file>
@@ -23857,7 +23891,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\mac\mac_wrapper\mac_wrapper.h</file>
-         <hash>f98eb2b2d187a832834534c5d332194fda7b49a00464837942545afd1fa0c6ce</hash>
+         <hash>17941948f986b5fa09310019a9a7da92dadeb9e6dddc6fe70df2213cf13ac995</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_Comp_pb.h</file>
@@ -24093,7 +24127,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\g3MacRt\bin\G3_MAC_RT_FCC.bin</file>
-         <hash>550d27499557e43397c871d03d2cafdfc6b7b4a48e051708e268ad47de4c4476</hash>
+         <hash>32f21b20b2f3912e4f64c2393dda4f3e84b31e040a6cbdeb1b839a8d437f54ff</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\driver.h</file>
@@ -24133,7 +24167,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\adaptation\adp_api_types.h</file>
-         <hash>0e71984125b66ae36d0391c6e3fb8e8946449b314d75ac9385236ce28205df8e</hash>
+         <hash>6bee9bfb6cb22e6a6becc01c24cbb08888169306c66bbcf0b85411df640e12b1</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\ed448.c</file>
@@ -24217,11 +24251,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\mac\mac_plc\mac_plc_mib.h</file>
-         <hash>56a612834c3ed828d7c69c431fbd718aef23d28d8fa694574b706687064b08d8</hash>
+         <hash>ed81aaa84dd2610310f4bffab9fead9be5856e42e984d266a3af2d98f837bff2</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\pal\plc\pal_plc.c</file>
-         <hash>5701247824ce8357de89c1c086383afbceae061530de61c002c12e8e04c598c5</hash>
+         <hash>9153c8248d90f1357b18e410b0b28baffca09649a2ed7002c92bbf30a73d2212</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\g3MacRt\drv_g3_macrt_local_comm.h</file>
@@ -24237,7 +24271,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\g3MacRt\drv_g3_macrt_local_comm.c</file>
-         <hash>924183977dd4f100b907950697f1c99d3a628cbf920b5c057ad08a38dd0dfbd0</hash>
+         <hash>574c393ece70d70276c42520cdea795c757e96a7ab870d5c63af8b891e263078</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\crypt_sha_sam6156.h</file>
@@ -24361,7 +24395,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\adaptation\g3_lib_adp_cm0.a</file>
-         <hash>5d4f67e585106ce6ab162d7cf988aa935b99d73f224809f4af2d97246a77dcc4</hash>
+         <hash>ba9936dbb982bc5dc061a200e35a966efd009ff7c581083c71d6b9cdd604e968</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAMD20J18_DFP\instance\tc3.h</file>
@@ -24413,7 +24447,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\mac\mac_wrapper\mac_wrapper_defs.h</file>
-         <hash>48e67720b1501acf45826d5698929f8ba9e9cb7fa3f9ce5c326857c7b2e5fa4b</hash>
+         <hash>1ce49052675448224e05119921b3e55d82796bbe2953bf3f7e585c2b4fdebac8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\adaptation\lbp_dev.c</file>
@@ -24497,7 +24531,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\adaptation\g3_lib_loadng_cm0.a</file>
-         <hash>2f20251b0962e2828317c405e38b596c7d3462a3434c03e6b4f1f0ca10e3b9bb</hash>
+         <hash>2b2d3cc2cb84fa9d3c54874c3089f3fcd419bc273ae3d65bff9b6094ef6805cb</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\system\time\sys_time_definitions.h</file>
@@ -24629,7 +24663,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\stack\g3\adaptation\adp_serial.c</file>
-         <hash>54393d549ebd24a5506605ed42eb9686569a8e4ea58dfef99ed1d9f14ca02b39</hash>
+         <hash>a934d093bbf7773c132c19fbcf5b365aaca5bef10dd810e48b90b11365caeb3a</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\ripemd.c</file>
