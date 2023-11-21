@@ -1355,6 +1355,8 @@
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="1000000-2001ffff"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/0_CHRIS/Proyectos/03_MCHP_Harmony_3/BitBucket/smartenergy_g3_apps/apps/g3_apps/g3_coordinator_udp/firmware/wbz451_curiosity_pl460_freertos.X/debug/wbz451_curiosity_pl460_freertos/wbz451_curiosity_pl460_freertos_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>
