@@ -3217,9 +3217,6 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
-    &lt;/Values&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
 </value>
@@ -6391,7 +6388,7 @@
    <generatedFileHashHistoryMap class="java.util.HashMap">
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\initialization.c</file>
-         <hash>aa8b9b66e1f6fc4d9eb1ba79c2ac9aa554e43e9ae479a89cc6368ad198b6349c</hash>
+         <hash>008fb3bcb1b61b13d5f38e652fd0a8dd67c63b33dae36093a7baef20678c7902</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\sercom0.h</file>
@@ -6419,7 +6416,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\definitions.h</file>
-         <hash>78cf25ccfd60a92459a790a630e4f6829e15aabbee3318bbc8f71e5cd9dfb7c8</hash>
+         <hash>362ea10476d3592fa060e562551c3d6608d6e151af991e6f161ab5f8c739d9ab</hash>
       </entry>
       <entry>
          <file>..\src\packs\WBZ451_DFP\instance\eic.h</file>
