@@ -520,9 +520,23 @@ static void _APP_G3_MANAGEMENT_InitializeParameters(void)
 static bool _APP_G3_MANAGEMENT_CheckBeaconLOADngLBPframes(void)
 {
     ADP_MAC_GET_CFM_PARAMS getConfirm;
+    MAC_WRP_PIB_ATTRIBUTE bcnAttribute, lngAttribute, lbpAttribute;
+
+    if (app_g3_managementData.bestNetwork.mediaType == MAC_WRP_MEDIA_TYPE_IND_PLC)
+    {
+        bcnAttribute = MAC_WRP_PIB_MANUF_BCN_FRAME_RECEIVED;
+        lngAttribute = MAC_WRP_PIB_MANUF_LNG_FRAME_RECEIVED;
+        lbpAttribute = MAC_WRP_PIB_MANUF_LBP_FRAME_RECEIVED;
+    }
+    else
+    {
+        bcnAttribute = MAC_WRP_PIB_MANUF_BCN_FRAME_RECEIVED_RF;
+        lngAttribute = MAC_WRP_PIB_MANUF_LNG_FRAME_RECEIVED_RF;
+        lbpAttribute = MAC_WRP_PIB_MANUF_LBP_FRAME_RECEIVED_RF;
+    }
 
     /* Check Beacon frame received */
-    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_BCN_FRAME_RECEIVED, 0, &getConfirm);
+    ADP_MacGetRequestSync(bcnAttribute, 0, &getConfirm);
     if ((getConfirm.status == G3_SUCCESS) && (getConfirm.attributeValue[0] != 0))
     {
         /* At least one Beacon frame has been received */
@@ -530,7 +544,7 @@ static bool _APP_G3_MANAGEMENT_CheckBeaconLOADngLBPframes(void)
     }
 
     /* Check LOADng frame received */
-    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_LNG_FRAME_RECEIVED, 0, &getConfirm);
+    ADP_MacGetRequestSync(lngAttribute, 0, &getConfirm);
     if ((getConfirm.status == G3_SUCCESS) && (getConfirm.attributeValue[0] != 0))
     {
         /* At least one LOADng frame has been received */
@@ -538,7 +552,7 @@ static bool _APP_G3_MANAGEMENT_CheckBeaconLOADngLBPframes(void)
     }
 
     /* Check LBP frame received */
-    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_LBP_FRAME_RECEIVED, 0, &getConfirm);
+    ADP_MacGetRequestSync(lbpAttribute, 0, &getConfirm);
     if ((getConfirm.status == G3_SUCCESS) && (getConfirm.attributeValue[0] != 0))
     {
         /* At least one LBP frame has been received */
@@ -561,6 +575,16 @@ static void _APP_G3_MANAGEMENT_ResetBeaconLOADngLBPframesReceived(void)
             (const uint8_t*) &resetFrameReceived, &setConfirm);
 
     ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_LBP_FRAME_RECEIVED, 0, 1,
+            (const uint8_t*) &resetFrameReceived, &setConfirm);
+
+    /* Reset Beacon, LOADng and LBP frames received indicators */
+    ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_BCN_FRAME_RECEIVED_RF, 0, 1,
+            (const uint8_t*) &resetFrameReceived, &setConfirm);
+
+    ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_LNG_FRAME_RECEIVED_RF, 0, 1,
+            (const uint8_t*) &resetFrameReceived, &setConfirm);
+
+    ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_LBP_FRAME_RECEIVED_RF, 0, 1,
             (const uint8_t*) &resetFrameReceived, &setConfirm);
 }
 
