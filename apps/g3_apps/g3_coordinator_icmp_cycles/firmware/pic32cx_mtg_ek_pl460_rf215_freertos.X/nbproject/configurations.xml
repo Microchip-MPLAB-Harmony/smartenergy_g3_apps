@@ -1025,9 +1025,9 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibFileItem>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/stack/g3/adaptation/g3_lib_loadng.a</linkerLibFileItem>
-            <linkerLibFileItem>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/stack/g3/mac/mac_plc/g3_lib_plc_mac.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/stack/g3/adaptation/g3_lib_adp.a</linkerLibFileItem>
-            <linkerLibFileItem>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/stack/g3/mac/mac_rf/g3_lib_rf_mac.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/stack/g3/mac/mac_plc/g3_lib_mac_plc.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/stack/g3/mac/mac_rf/g3_lib_mac_rf.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>

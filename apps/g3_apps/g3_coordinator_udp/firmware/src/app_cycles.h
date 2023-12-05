@@ -111,6 +111,11 @@ typedef enum
     /* State to wait for the next device UDP cycle */
     APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE,
 
+#if SYS_CONSOLE_DEVICE_MAX_INSTANCES > 0U
+    /* State to show cycle report */
+    APP_CYCLES_STATE_SHOW_REPORT,
+#endif
+
     /* Conformance state: Cycling disabled */
     APP_CYCLES_STATE_CONFORMANCE,
 

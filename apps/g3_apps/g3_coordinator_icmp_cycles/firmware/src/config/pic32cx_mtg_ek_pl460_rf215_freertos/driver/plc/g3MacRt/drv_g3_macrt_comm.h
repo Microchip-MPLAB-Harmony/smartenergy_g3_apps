@@ -228,6 +228,8 @@ typedef enum {
     MAC_RT_PIB_MANUF_BEST_LQI = 0x0800002A,
     /* Flag to indicate whether next transmission is in High Priority window. 8 bits. */
     MAC_RT_PIB_TX_HIGH_PRIORITY = 0x0800002B,
+    /* Resets TMR TTL for the Short Address contained in Index. */
+    MAC_RT_PIB_MANUF_RESET_TMR_TTL = 0x0800002E,
     /* IB used to set the complete MIB structure at once */
     MAC_RT_PIB_GET_SET_ALL_MIB = 0x08000100,
     /* Gets or sets a parameter in Phy layer. Index will be used to contain PHY parameter ID.

@@ -220,49 +220,28 @@ static void _APP_CYCLES_NextPacket(void)
         app_cyclesData.deviceIndex++;
         if (app_cyclesData.deviceIndex == app_cyclesData.numDevicesJoined)
         {
-            uint32_t numErrors;
-            uint8_t successRate;
             SYS_DEBUG_PRINT(SYS_ERROR_INFO, "APP_CYCLES: Cycle %u finished. Duration %u ms "
                     "(average total: %u ms; average device: %u ms)\r\n",
                     app_cyclesData.cycleIndex, SYS_TIME_CountToMS(app_cyclesData.timeCountTotalCycle),
                     SYS_TIME_CountToMS(app_cyclesData.timeCountTotal / (app_cyclesData.cycleIndex + 1)),
                     SYS_TIME_CountToMS(app_cyclesData.timeCountTotalCycle / app_cyclesData.numDevicesJoined));
 
+            /* Print summary of each device in tasks to avoid console buffer to
+             * be full */
             SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_CYCLES: Summary\r\n");
-
-            /* Print statistics */
-            for (uint16_t i = 0; i < APP_EAP_SERVER_MAX_DEVICES; i++)
-            {
-                if ((app_cyclesStatistics[i].shortAddress != 0xFFFF) && (app_cyclesStatistics[i].numEchoRequests > 0))
-                {
-                    numErrors = app_cyclesStatistics[i].numEchoRequests - app_cyclesStatistics[i].numEchoReplies;
-                    successRate = (app_cyclesStatistics[i].numEchoReplies * 100) / app_cyclesStatistics[i].numEchoRequests;
-                    SYS_DEBUG_PRINT(SYS_ERROR_INFO, "\tShort address 0x%04X: Sent %u, Success %u (%hhu %%), Errors %u,"
-                            " Average duration %u\r\n", app_cyclesStatistics[i].shortAddress,
-                            app_cyclesStatistics[i].numEchoRequests, app_cyclesStatistics[i].numEchoReplies,
-                            successRate, numErrors,
-                            SYS_TIME_CountToMS(app_cyclesStatistics[i].timeCountTotal / app_cyclesStatistics[i].numCycles));
-                }
-            }
-
-            numErrors = app_cyclesData.numEchoRequests - app_cyclesData.numEchoReplies;
-            successRate = (app_cyclesData.numEchoReplies * 100) / app_cyclesData.numEchoRequests;
-            SYS_DEBUG_PRINT(SYS_ERROR_INFO, "TOTAL: Sent %u, Success %u (%hhu %%), Errors %u\r\n",
-                    app_cyclesData.numEchoRequests, app_cyclesData.numEchoReplies, successRate, numErrors);
-
-            /* Start again with first device */
-            app_cyclesData.sequenceNumber++;
-            app_cyclesData.cycleIndex++;
-            _APP_CYCLES_StartCycle();
+            app_cyclesData.deviceIndex = 0;
+            app_cyclesData.state = APP_CYCLES_STATE_SHOW_REPORT;
         }
+        else
+        {
+            /* Start timer to wait before next device cycle */
+            app_cyclesData.timeExpired = false;
+            app_cyclesData.timeHandle = SYS_TIME_CallbackRegisterMS(APP_SYS_TIME_CallbackSetFlag,
+                    (uintptr_t) &app_cyclesData.timeExpired, APP_CYCLES_TIME_BTW_DEVICE_CYCLES_MS,
+                   SYS_TIME_SINGLE);
 
-        /* Start timer to wait before next device cycle */
-        app_cyclesData.timeExpired = false;
-        app_cyclesData.timeHandle = SYS_TIME_CallbackRegisterMS(APP_SYS_TIME_CallbackSetFlag,
-                (uintptr_t) &app_cyclesData.timeExpired, APP_CYCLES_TIME_BTW_DEVICE_CYCLES_MS,
-               SYS_TIME_SINGLE);
-
-        app_cyclesData.state = APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE;
+            app_cyclesData.state = APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE;
+        }        
 
         return;
     }
@@ -426,6 +405,62 @@ void APP_CYCLES_Tasks ( void )
                 /* Waiting time expired. Start next device cycle */
                 _APP_CYCLES_StartDeviceCycle();
                 app_cyclesData.state = APP_CYCLES_STATE_CYCLING;
+            }
+
+            break;
+        }
+
+        /* State to show cycle report */
+        case APP_CYCLES_STATE_SHOW_REPORT:
+        {
+            /* Check console status */
+            if (SYS_CONSOLE_WriteCountGet(SYS_CONSOLE_INDEX_0) <= 0)
+            {
+                uint32_t numErrors;
+                uint8_t successRate;
+                uint16_t idx = app_cyclesData.deviceIndex;
+                bool printed = false;
+
+                while((printed == false) && (idx < APP_EAP_SERVER_MAX_DEVICES))
+                {
+                    if ((app_cyclesStatistics[idx].shortAddress != 0xFFFF) && (app_cyclesStatistics[idx].numEchoRequests > 0))
+                    {
+                        /* Print statistics */
+                        numErrors = app_cyclesStatistics[idx].numEchoRequests - app_cyclesStatistics[idx].numEchoReplies;
+                        successRate = (app_cyclesStatistics[idx].numEchoReplies * 100) / app_cyclesStatistics[idx].numEchoRequests;
+                        SYS_DEBUG_PRINT(SYS_ERROR_INFO, "\tShort address 0x%04X: Sent %u, Success %u (%hhu %%), Errors %u,"
+                                " Average duration %u\r\n", app_cyclesStatistics[idx].shortAddress,
+                                app_cyclesStatistics[idx].numEchoRequests, app_cyclesStatistics[idx].numEchoReplies,
+                                successRate, numErrors,
+                                SYS_TIME_CountToMS(app_cyclesStatistics[idx].timeCountTotal / app_cyclesStatistics[idx].numCycles));
+                        printed = true;
+                    }
+
+                    idx++;
+                }
+
+                app_cyclesData.deviceIndex = idx;
+
+                if (idx == APP_EAP_SERVER_MAX_DEVICES)
+                {
+                    numErrors = app_cyclesData.numEchoRequests - app_cyclesData.numEchoReplies;
+                    successRate = (app_cyclesData.numEchoReplies * 100) / app_cyclesData.numEchoRequests;
+                    SYS_DEBUG_PRINT(SYS_ERROR_INFO, "TOTAL: Sent %u, Success %u (%hhu %%), Errors %u\r\n",
+                            app_cyclesData.numEchoRequests, app_cyclesData.numEchoReplies, successRate, numErrors);
+
+                    /* Start again with first device */
+                    app_cyclesData.sequenceNumber++;
+                    app_cyclesData.cycleIndex++;
+                    _APP_CYCLES_StartCycle();
+
+                    /* Start timer to wait before next device cycle */
+                    app_cyclesData.timeExpired = false;
+                    app_cyclesData.timeHandle = SYS_TIME_CallbackRegisterMS(APP_SYS_TIME_CallbackSetFlag,
+                            (uintptr_t) &app_cyclesData.timeExpired, APP_CYCLES_TIME_BTW_DEVICE_CYCLES_MS,
+                            SYS_TIME_SINGLE);
+
+                    app_cyclesData.state = APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE;
+                }
             }
 
             break;

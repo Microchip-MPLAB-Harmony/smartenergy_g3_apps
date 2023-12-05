@@ -98,6 +98,9 @@ typedef enum
     /* State to wait for the next device UDP cycle */
     APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE,
 
+    /* State to show cycle report */
+    APP_CYCLES_STATE_SHOW_REPORT,
+
     /* Error state */
     APP_CYCLES_STATE_ERROR,
 

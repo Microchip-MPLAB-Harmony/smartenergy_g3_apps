@@ -66,6 +66,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#pragma pack(push,2)
+
 // *****************************************************************************
 /* MAC PLC Modulation Type definition
 
@@ -148,13 +150,13 @@ typedef struct
 */
 typedef struct
 {
-    MAC_PLC_FRAME_CONTROL frameControl;
-    uint8_t sequenceNumber;
-    MAC_PAN_ID destPanId;
-    MAC_ADDRESS destAddress;
     MAC_PAN_ID srcPanId;
+    MAC_PAN_ID destPanId;
+    MAC_PLC_FRAME_CONTROL frameControl;
+    MAC_ADDRESS destAddress;
     MAC_ADDRESS srcAddress;
     MAC_AUXILIARY_SECURITY_HEADER securityHeader;
+    uint8_t sequenceNumber;
 } MAC_PLC_HEADER;
 
 // *****************************************************************************
@@ -171,12 +173,14 @@ typedef struct
 */
 typedef struct
 {
-    MAC_PLC_HEADER header;
-    uint16_t payloadLength;
     uint8_t *payload;
-    uint8_t padLength;
+    uint16_t payloadLength;
     uint16_t fcs;
+    MAC_PLC_HEADER header;
+    uint8_t padLength;
 } MAC_PLC_FRAME;
+
+#pragma pack(pop)
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

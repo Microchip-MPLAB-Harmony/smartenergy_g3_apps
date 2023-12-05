@@ -105,7 +105,7 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)FLEXCOM5_SPI_TransferSetup,
 
     /* SPI Is Busy */
-    .spiIsBusy = FLEXCOM5_SPI_IsTransmitterBusy,
+    .spiIsBusy = FLEXCOM5_SPI_IsBusy,
 
     /* SPI Write/Read */
     .spiWriteRead = FLEXCOM5_SPI_WriteRead,
@@ -536,9 +536,9 @@ void SYS_Initialize ( void* data )
 
 
 
-    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
+    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  

@@ -59,7 +59,7 @@
 
 uint8_t SRV_RANDOM_Get8bits(void)
 {
-    uint8_t retValue;
+    uint8_t retValue = 0;
 
     retValue = (uint8_t)TRNG_ReadData();
 
@@ -68,7 +68,7 @@ uint8_t SRV_RANDOM_Get8bits(void)
 
 uint16_t SRV_RANDOM_Get16bits(void)
 {
-    uint16_t retValue;
+    uint16_t retValue = 0;
 
     retValue = (uint16_t)TRNG_ReadData();
 
@@ -90,7 +90,7 @@ uint16_t  SRV_RANDOM_Get16bitsInRange(uint16_t min, uint16_t max)
 
 uint32_t SRV_RANDOM_Get32bits(void)
 {
-    uint32_t retValue;
+    uint32_t retValue = 0;
 
     retValue = TRNG_ReadData();
 

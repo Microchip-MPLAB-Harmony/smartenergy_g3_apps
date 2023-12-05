@@ -118,6 +118,7 @@ typedef struct __attribute__((packed))
     uint8_t forwardTxPowerOffset;
     uint8_t reverseTxPowerOffset;
     uint16_t posValidTime;
+    uint16_t reverseLqiValidTime;
 } MAC_RF_POS_TABLE_ENTRY;
 
 // *****************************************************************************

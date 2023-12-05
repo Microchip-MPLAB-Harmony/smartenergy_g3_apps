@@ -66,6 +66,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#pragma pack(push,2)
+
 // *****************************************************************************
 /* MAC PLC Bands definition
 
@@ -130,10 +132,10 @@ typedef struct
 */
 typedef struct
 {
-    /* Callbacks */
-    MAC_PLC_HANDLERS macPlcHandlers;
     /* Pointer to MAC Tables */
     MAC_PLC_TABLES *macPlcTables;
+    /* Callbacks */
+    MAC_PLC_HANDLERS macPlcHandlers;
     /* PLC working band */
     MAC_PLC_BAND plcBand;
     /* PLC PAL index from configuration */
@@ -175,18 +177,19 @@ typedef enum
 */
 typedef struct
 {
-    /* Flag to indicate this object is in use  */
-    bool inUse;
-    /* State of the MAC PLC module */
-    MAC_PLC_STATE state;
-    /* Callbacks */
-    MAC_PLC_HANDLERS macPlcHandlers;
     /* Pointer to MAC Tables */
     MAC_PLC_TABLES *macPlcTables;
+    /* Callbacks */
+    MAC_PLC_HANDLERS macPlcHandlers;
+    /* State of the MAC PLC module */
+    MAC_PLC_STATE state;
     /* PLC working band */
     MAC_PLC_BAND plcBand;
+    /* Flag to indicate this object is in use  */
+    bool inUse;
 } MAC_PLC_DATA;
 
+#pragma pack(pop)
 
 // *****************************************************************************
 // *****************************************************************************

@@ -143,7 +143,3 @@ int32_t CIPHER_Wrapper_EaxEnd(void)
 {
     return eax_end(&sEaxCtx);
 }
-
-#if defined(__cplusplus)
-}
-#endif
