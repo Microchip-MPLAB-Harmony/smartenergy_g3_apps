@@ -57,7 +57,7 @@ extern "C" {
 #define APP_CYCLES_TIME_BTW_DEVICE_CYCLES_MS 1000
 
 /* Timeout in ms to consider echo reply not received */
-#define APP_CYCLES_TIMEOUT_MS 10000
+#define APP_CYCLES_TIMEOUT_MS 30000
 
 /* ICMPv6 echo request packet size in bytes */
 #define APP_CYCLES_PACKET_SIZE_1 64

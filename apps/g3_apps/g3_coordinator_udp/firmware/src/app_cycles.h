@@ -61,7 +61,7 @@ extern "C" {
 #define APP_CYCLES_TIME_BTW_DEVICE_CYCLES_MS 1000
 
 /* Timeout in ms to consider reply not received */
-#define APP_CYCLES_TIMEOUT_MS 10000
+#define APP_CYCLES_TIMEOUT_MS 30000
 
 #ifndef APP_CYCLES_METROLOGY_DATA_REQUEST
     /* UDP packet size in bytes */

@@ -75,7 +75,9 @@ static void _APP_CYCLES_IcmpCallback (
     const IPV6_ADDR * remoteIP,
     void * header)
 {
-    if ((type == ICMPV6_INFO_ECHO_REPLY) && (memcmp(remoteIP, &app_cyclesData.targetAddress, sizeof(IPV6_ADDR)) == 0))
+    if ((app_cyclesData.state == APP_CYCLES_STATE_CYCLING) &&
+            (type == ICMPV6_INFO_ECHO_REPLY) &&
+            (memcmp(remoteIP, &app_cyclesData.targetAddress, sizeof(IPV6_ADDR)) == 0))
     {
         uint64_t elapsedTimeCount;
         uint64_t currentTimeCount = SYS_TIME_Counter64Get();
