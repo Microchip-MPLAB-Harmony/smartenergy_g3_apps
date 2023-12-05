@@ -57,6 +57,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#pragma pack(push,2)
+
 // *****************************************************************************
 /* PAL PLC Data
 
@@ -73,9 +75,9 @@ typedef struct
 {
     DRV_HANDLE drvG3MacRtHandle;
 
-    PAL_PLC_STATUS status;
-
     PAL_PLC_HANDLERS initHandlers;
+
+    PAL_PLC_STATUS status;
 
     MAC_RT_BAND plcBand;
 
@@ -98,6 +100,8 @@ typedef struct
     bool pvddMonTxEnable;
 
 } PAL_PLC_DATA;
+
+#pragma pack(pop)
 
 #endif // #ifndef PAL_PLC_LOCAL_H
 /*******************************************************************************

@@ -78,7 +78,7 @@
  * regulations.
  * From IEEE 802.15.4 section 20.5.3 Receiver sensitivity:
  * Table 20-21 - Sensitivity requirements for OFDM options and MCS levels
- * Sensitivity for highest MCS is selected (worst case) */
+ * Sensitivity for MCS6 is selected (worst case) */
 #define SUN_OFDM_OPT1_CCA_THRESHOLD             -75
 #define SUN_OFDM_OPT2_CCA_THRESHOLD             -78
 #define SUN_OFDM_OPT3_CCA_THRESHOLD             -81

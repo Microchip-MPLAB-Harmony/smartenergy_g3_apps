@@ -100,6 +100,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#pragma pack(push,2)
+
 // *****************************************************************************
 /* ADP Modulation Definition
 
@@ -175,10 +177,10 @@ typedef struct
 } ADP_ADDRESS;
 
 // *****************************************************************************
-/* ADP PLC Bands Definition
+/* ADP Bands Definition
 
    Summary:
-    Identifies the possible PLC bands.
+    Identifies the possible PLC bands, or if No PLC is used.
 
    Description:
     This enumeration identifies the list of Bands that can be used in PLC
@@ -191,9 +193,10 @@ typedef enum {
     ADP_BAND_CENELEC_A = 0,
     ADP_BAND_CENELEC_B = 1,
     ADP_BAND_FCC = 2,
-    ADP_BAND_ARIB = 3
+    ADP_BAND_ARIB = 3,
+    ADP_BAND_RF_ONLY = 255
 
-} ADP_PLC_BAND;
+} ADP_BAND;
 
 // *****************************************************************************
 /* ADP Available MAC layers
@@ -334,6 +337,8 @@ typedef struct
 
 } ADP_PATH_DESCRIPTOR;
 
+#pragma pack(pop)
+
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 5.2 deviated 4 times.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
 
@@ -423,6 +428,7 @@ typedef enum
     ADP_IB_CLUSTER_TRICKLE_K_RF = 0x000000DE, /* 8 bits */
     ADP_IB_CLUSTER_MIN_LQI_RF = 0x000000DF, /* 8 bits */
     ADP_IB_LAST_GASP = 0x000000E0, /* 8 bits (bool) */
+    ADP_IB_PROBING_INTERVAL = 0x000000E1, /* 8 bits */
     ADP_IB_TRICKLE_LQI_THRESHOLD_HIGH_RF = 0x000000E2, /* 8 bits */
     ADP_IB_DISABLE_DEFAULT_ROUTING = 0x000000F0, /* 8 bits (bool) */
 

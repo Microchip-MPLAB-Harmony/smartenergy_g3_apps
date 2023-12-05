@@ -87,6 +87,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#pragma pack(push,2)
+
 // *****************************************************************************
 /* ADP Data Common Send Event Handler Function Pointer
 
@@ -136,27 +138,27 @@ typedef void (*ADP_COMMON_DATA_SEND_CALLBACK)(uint8_t status);
 */
 typedef struct
 {
-    ADP_ADDRESS srcDeviceAddress;
-    ADP_ADDRESS dstDeviceAddress;
+    uintptr_t handle;
     ADP_COMMON_DATA_SEND_CALLBACK callback;
     uint16_t dataLength;
     uint16_t fragmentOffset;
     uint16_t lastFragmentSize;
     uint16_t datagramTag;
     uint16_t datagramSize;
-    bool discoverRoute;
-    uintptr_t handle;
     uint8_t maxHops;
     uint8_t dataType;
     uint8_t originalDataType;
     uint8_t qualityOfService;
     uint8_t security;
     uint8_t broadcastSeqNo;
-    bool meshHeaderNeeded;
-    bool multicast;
     uint8_t bufferOffset;
     uint8_t numRepairReSendAttemps;
     uint8_t mediaType;
+    bool meshHeaderNeeded;
+    bool multicast;
+    bool discoverRoute;
+    ADP_ADDRESS srcDeviceAddress;
+    ADP_ADDRESS dstDeviceAddress;
 
 } ADP_DATA_SEND_PARAMS;
 
@@ -326,14 +328,14 @@ typedef struct
     /* Datagram size in bytes */
     uint16_t datagramSize;
 
-    /* 1280 max IPv6 packet + 1 byte IPv6 6LowPAN header */
-    uint8_t data[1281];
-
     /* Flag to indicate if header was compressed */
     bool wasCompressed;
 
     /* Flag to indicate if fragmentation data buffer is used or not */
     bool used;
+
+    /* 1280 max IPv6 packet + 1 byte IPv6 6LowPAN header */
+    uint8_t data[1281];
 
 } ADP_LOWPAN_FRAGMENTED_DATA;
 
@@ -358,6 +360,8 @@ typedef struct
     uint8_t key[16];
 
 } ADP_GROUP_MASTER_KEY;
+
+#pragma pack(pop)
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

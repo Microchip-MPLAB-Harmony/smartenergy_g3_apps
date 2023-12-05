@@ -300,7 +300,7 @@ static void lDRV_PLC_BOOT_DisableBootCmd(void)
 
     /* Disable Bootloader */
     sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_CMD_DIS_SPI_CLK_CTRL, 0, 0, NULL, NULL);
-    
+
     /* Configure 16 bits transfer */
     sDrvPlcHalObj->setup(true);
 }

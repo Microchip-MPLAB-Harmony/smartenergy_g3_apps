@@ -125,7 +125,7 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)FLEXCOM1_SPI_TransferSetup,
 
     /* SPI Is Busy */
-    .spiIsBusy = FLEXCOM1_SPI_IsTransmitterBusy,
+    .spiIsBusy = FLEXCOM1_SPI_IsBusy,
 
     /* SPI Write/Read */
     .spiWriteRead = FLEXCOM1_SPI_WriteRead,

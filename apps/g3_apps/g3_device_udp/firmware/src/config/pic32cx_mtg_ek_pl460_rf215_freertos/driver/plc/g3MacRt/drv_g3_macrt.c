@@ -311,7 +311,7 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object )
         if ((gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_READY) ||
             (gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_WAITING_TX_CFM))
         {
-            waitMS = OSAL_WAIT_FOREVER;
+            waitMS = (uint16_t)OSAL_WAIT_FOREVER;
         }
 
         (void) OSAL_SEM_Pend(&gDrvG3MacRtObj.semaphoreID, waitMS);

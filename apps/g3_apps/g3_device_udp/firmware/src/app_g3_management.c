@@ -517,7 +517,62 @@ static void _APP_G3_MANAGEMENT_InitializeParameters(void)
     }
 }
 
-static bool _APP_G3_MANAGEMENT_CheckBeaconLOADngLBPframes(void)
+static bool _APP_G3_MANAGEMENT_CheckBeaconLOADngLBPframesDiscovery(void)
+{
+    ADP_MAC_GET_CFM_PARAMS getConfirm;
+
+    /* Check Beacon frame received (PLC) */
+    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_BCN_FRAME_RECEIVED, 0, &getConfirm);
+    if ((getConfirm.status == G3_SUCCESS) && (getConfirm.attributeValue[0] != 0))
+    {
+        /* At least one Beacon frame has been received through PLC */
+        return true;
+    }
+
+    /* Check LOADng frame received (PLC) */
+    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_LNG_FRAME_RECEIVED, 0, &getConfirm);
+    if ((getConfirm.status == G3_SUCCESS) && (getConfirm.attributeValue[0] != 0))
+    {
+        /* At least one LOADng frame has been received through PLC */
+        return true;
+    }
+
+    /* Check LBP frame received (PLC) */
+    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_LBP_FRAME_RECEIVED, 0, &getConfirm);
+    if ((getConfirm.status == G3_SUCCESS) && (getConfirm.attributeValue[0] != 0))
+    {
+        /* At least one LBP frame has been received through PLC */
+        return true;
+    }
+
+    /* Check Beacon frame received (RF) */
+    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_BCN_FRAME_RECEIVED_RF, 0, &getConfirm);
+    if ((getConfirm.status == G3_SUCCESS) && (getConfirm.attributeValue[0] != 0))
+    {
+        /* At least one Beacon frame has been received through RF */
+        return true;
+    }
+
+    /* Check LOADng frame received (RF) */
+    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_LNG_FRAME_RECEIVED_RF, 0, &getConfirm);
+    if ((getConfirm.status == G3_SUCCESS) && (getConfirm.attributeValue[0] != 0))
+    {
+        /* At least one LOADng frame has been received through RF */
+        return true;
+    }
+
+    /* Check LBP frame received (RF) */
+    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_LBP_FRAME_RECEIVED_RF, 0, &getConfirm);
+    if ((getConfirm.status == G3_SUCCESS) && (getConfirm.attributeValue[0] != 0))
+    {
+        /* At least one LBP frame has been received through RF */
+        return true;
+    }
+
+    return false;
+}
+
+static bool _APP_G3_MANAGEMENT_CheckBeaconLOADngLBPframesJoin(void)
 {
     ADP_MAC_GET_CFM_PARAMS getConfirm;
     MAC_WRP_PIB_ATTRIBUTE bcnAttribute, lngAttribute, lbpAttribute;
@@ -577,7 +632,7 @@ static void _APP_G3_MANAGEMENT_ResetBeaconLOADngLBPframesReceived(void)
     ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_LBP_FRAME_RECEIVED, 0, 1,
             (const uint8_t*) &resetFrameReceived, &setConfirm);
 
-    /* Reset Beacon, LOADng and LBP frames received indicators */
+    /* Reset Beacon, LOADng and LBP frames received indicators (RF) */
     ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_BCN_FRAME_RECEIVED_RF, 0, 1,
             (const uint8_t*) &resetFrameReceived, &setConfirm);
 
@@ -782,7 +837,7 @@ void APP_G3_MANAGEMENT_Tasks ( void )
             {
                 /* Back-off delay finished. Check if beacon, LoadNG or LBP
                  * frames have been received. */
-                if (_APP_G3_MANAGEMENT_CheckBeaconLOADngLBPframes() == false)
+                if (_APP_G3_MANAGEMENT_CheckBeaconLOADngLBPframesDiscovery() == false)
                 {
                     /* The channel is clean, start network discovery */
                     ADP_DiscoveryRequest(APP_G3_MANAGEMENT_DISCOVERY_DURATION);
@@ -860,7 +915,7 @@ void APP_G3_MANAGEMENT_Tasks ( void )
             {
                 /* Back-off delay finished. Check if beacon, LoadNG or LBP
                  * frames have been received. */
-                if (_APP_G3_MANAGEMENT_CheckBeaconLOADngLBPframes() == false)
+                if (_APP_G3_MANAGEMENT_CheckBeaconLOADngLBPframesJoin() == false)
                 {
                     /* The channel is clean, try to join to the network */
                     LBP_AdpNetworkJoinRequest(app_g3_managementData.bestNetwork.panId,
