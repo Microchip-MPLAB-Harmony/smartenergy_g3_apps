@@ -1,5 +1,5 @@
 /*******************************************************************************
-  Source for the cipher wrapper between G3 stack and Crypto 
+  Source for the cipher wrapper between G3 stack and Crypto
 
   Company:
     Microchip Technology Inc.
@@ -11,7 +11,7 @@
     Interface implementation of the wrapper between G3 and Crypto.
 
   Description:
-    This file implements the interface for the wrapper between G3 and Crypto. 
+    This file implements the interface for the wrapper between G3 and Crypto.
     It includes calls to handle CCM, CMAC and EAX.
 *******************************************************************************/
 
@@ -102,7 +102,7 @@ int32_t CIPHER_Wrapper_CcmAuthDecrypt(uint32_t length,
                                       const uint8_t *input, uint8_t *output,
                                       const uint8_t *tag, uint32_t tagLen)
 {
-    return wc_AesCcmDecrypt(&sCcmCtx, output, input, length, iv, ivLen, tag, 
+    return wc_AesCcmDecrypt(&sCcmCtx, output, input, length, iv, ivLen, tag,
                             tagLen, add, addLen);
 }
 
@@ -112,7 +112,7 @@ int32_t CIPHER_Wrapper_CcmEncryptAndTag(uint32_t length,
                                         const uint8_t *input, uint8_t *output,
                                         uint8_t *tag, uint32_t tagLen)
 {
-    return wc_AesCcmEncrypt(&sCcmCtx, output, input, length, iv, ivLen, tag, 
+    return wc_AesCcmEncrypt(&sCcmCtx, output, input, length, iv, ivLen, tag,
                             tagLen, add, addLen);
 }
 
@@ -126,7 +126,7 @@ int32_t CIPHER_Wrapper_EaxEncrypt(const uint8_t *iv, uint32_t ivLen,
                                   uint8_t *msg, uint32_t msgLen,
                                   uint8_t *tag, uint32_t tagLen)
 {
-    return eax_encrypt_message(iv, ivLen, hdr, hdrLen, msg, msgLen, tag, 
+    return eax_encrypt_message(iv, ivLen, hdr, hdrLen, msg, msgLen, tag,
                                tagLen, &sEaxCtx);
 }
 
@@ -135,15 +135,11 @@ int32_t CIPHER_Wrapper_EaxDecrypt(const uint8_t *iv, uint32_t ivLen,
                                   uint8_t *msg, uint32_t msgLen,
                                   const uint8_t *tag, uint32_t tagLen)
 {
-    return eax_decrypt_message(iv, ivLen, hdr, hdrLen, msg, msgLen, tag, 
+    return eax_decrypt_message(iv, ivLen, hdr, hdrLen, msg, msgLen, tag,
                                tagLen, &sEaxCtx);
 }
 
-int32_t CIPHER_Wrapper_EaxEnd(void) 
+int32_t CIPHER_Wrapper_EaxEnd(void)
 {
     return eax_end(&sEaxCtx);
 }
-
-#if defined(__cplusplus)
-}
-#endif

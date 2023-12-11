@@ -316,6 +316,28 @@ void DRV_RF215_AbortTxByPhyConfig(uint8_t trxIdx)
     }
 }
 
+DRV_RF215_TX_BUFFER_OBJ* DRV_RF215_TxHandleValidate(DRV_RF215_TX_HANDLE txHandle)
+{
+    DRV_RF215_TX_BUFFER_OBJ* txBufObj;
+    uint8_t bufIdx;
+
+    /* Extract the TX buffer index from the handle */
+    bufIdx = (uint8_t) txHandle;
+    if (bufIdx >= DRV_RF215_TX_BUFFERS_NUMBER)
+    {
+        return NULL;
+    }
+
+    /* Obtain the TX buffer object */
+    txBufObj = &drvRf215TxBufPool[bufIdx];
+    if ((txBufObj->txHandle != txHandle) || (txBufObj->inUse == false))
+    {
+        txBufObj = NULL;
+    }
+
+    return txBufObj;
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: RF215 Driver Common Interface Implementation
@@ -684,8 +706,8 @@ void DRV_RF215_TxCancel(DRV_HANDLE drvHandle, DRV_RF215_TX_HANDLE txHandle)
 {
     DRV_RF215_CLIENT_OBJ* clientObj;
     DRV_RF215_TX_BUFFER_OBJ* txBufObj;
-    uint8_t bufIdx;
 
+    /* Validate client handle */
     clientObj = lDRV_RF215_DrvHandleValidate(drvHandle);
     if (clientObj == NULL)
     {
@@ -693,28 +715,23 @@ void DRV_RF215_TxCancel(DRV_HANDLE drvHandle, DRV_RF215_TX_HANDLE txHandle)
     }
 
     /* Validate TX handle */
-    bufIdx = (uint8_t) txHandle;
-    if (bufIdx >= DRV_RF215_TX_BUFFERS_NUMBER)
+    txBufObj = DRV_RF215_TxHandleValidate(txHandle);
+    if (txBufObj == NULL)
     {
         return;
     }
 
-    /* Obtain the TX buffer object */
-    txBufObj = &drvRf215TxBufPool[bufIdx];
-    if ((txBufObj->txHandle == txHandle) && (txBufObj->inUse == true))
+    /* Critical region to avoid changes from interrupts */
+    RF215_HAL_EnterCritical();
+
+    /* Check that TX has not finished */
+    if (txBufObj->cfmPending == false)
     {
-        /* Critical region to avoid changes from interrupts */
-        RF215_HAL_EnterCritical();
-
-        /* Check that TX has not finished */
-        if (txBufObj->cfmPending == false)
-        {
-            RF215_PHY_TxCancel(txBufObj);
-        }
-
-        /* Leave critical region. TX confirm ready to be notified */
-        RF215_HAL_LeaveCritical();
+        RF215_PHY_TxCancel(txBufObj);
     }
+
+    /* Leave critical region */
+    RF215_HAL_LeaveCritical();
 }
 
 uint8_t DRV_RF215_GetPibSize(DRV_RF215_PIB_ATTRIBUTE attr)
@@ -727,7 +744,10 @@ uint8_t DRV_RF215_GetPibSize(DRV_RF215_PIB_ATTRIBUTE attr)
         case RF215_PIB_DEVICE_RESET:
         case RF215_PIB_TRX_RESET:
         case RF215_PIB_TRX_SLEEP:
-        case RF215_PIB_PHY_CCA_ED_THRESHOLD:
+        case RF215_PIB_PHY_CCA_ED_THRESHOLD_DBM:
+        case RF215_PIB_PHY_CCA_ED_THRESHOLD_SENSITIVITY:
+        case RF215_PIB_PHY_SENSITIVITY:
+        case RF215_PIB_PHY_MAX_TX_POWER:
         case RF215_PIB_PHY_TX_CONTINUOUS:
             len = 1U;
             break;
@@ -736,7 +756,8 @@ uint8_t DRV_RF215_GetPibSize(DRV_RF215_PIB_ATTRIBUTE attr)
         case RF215_PIB_PHY_CHANNEL_NUM:
         case RF215_PIB_PHY_TX_PAY_SYMBOLS:
         case RF215_PIB_PHY_RX_PAY_SYMBOLS:
-        case RF215_PIB_PHY_CCA_ED_DURATION:
+        case RF215_PIB_PHY_CCA_ED_DURATION_US:
+        case RF215_PIB_PHY_CCA_ED_DURATION_SYMBOLS:
         case RF215_PIB_PHY_TURNAROUND_TIME:
         case RF215_PIB_MAC_UNIT_BACKOFF_PERIOD:
             len = 2U;
@@ -818,6 +839,10 @@ DRV_RF215_PIB_RESULT DRV_RF215_GetPib (
             (void) memcpy(value, (const void *) &rf215FwVersion, sizeof(rf215FwVersion));
             break;
 
+        case RF215_PIB_PHY_MAX_TX_POWER:
+            *((int8_t *) value) = 14;
+            break;
+
         default:
             result = RF215_PHY_GetPib(clientObj->trxIndex, attr, value);
             break;
@@ -846,6 +871,8 @@ DRV_RF215_PIB_RESULT DRV_RF215_SetPib (
         case RF215_PIB_DEVICE_ID:
         case RF215_PIB_FW_VERSION:
         case RF215_PIB_PHY_CHANNEL_FREQ_HZ:
+        case RF215_PIB_PHY_SENSITIVITY:
+        case RF215_PIB_PHY_MAX_TX_POWER:
         case RF215_PIB_PHY_TURNAROUND_TIME:
         case RF215_PIB_PHY_TX_PAY_SYMBOLS:
         case RF215_PIB_PHY_RX_PAY_SYMBOLS:
