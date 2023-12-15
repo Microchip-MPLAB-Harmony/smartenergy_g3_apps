@@ -168,6 +168,12 @@ static uint32_t lSRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
 // *****************************************************************************
 // *****************************************************************************
 
+SRV_RSNIFFER_COMMAND SRV_RSNIFFER_GetCommand(uint8_t* pDataSrc)
+{
+    /* Extract Command */
+    return (SRV_RSNIFFER_COMMAND)*pDataSrc;
+}
+
 uint8_t* SRV_RSNIFFER_SerialRxMessage (
     DRV_RF215_RX_INDICATION_OBJ* pIndObj,
     DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
@@ -324,3 +330,17 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     *pMsgLen = (size_t) psduLen + RSNIFFER_MSG_HEADER_SIZE;
     return pMsgDest;
 }
+
+void SRV_RSNIFFER_ParseConfigCommand (
+    uint8_t* pDataSrc,
+    uint16_t* pBandOpMode,
+    uint16_t* pChannel
+)
+{
+    /* Extract Band and Operating Mode */
+    *pBandOpMode = ((uint16_t) pDataSrc[1] << 8) + pDataSrc[2];
+
+    /* Extract Channel */
+    *pChannel = ((uint16_t) pDataSrc[3] << 8) + pDataSrc[4];
+}
+

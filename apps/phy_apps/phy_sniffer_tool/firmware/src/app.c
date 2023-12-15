@@ -127,31 +127,30 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
 
 void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
 {
-    /* Message received from PLC Tool - USART */
-	uint8_t command;
+    SRV_PSNIFFER_COMMAND command;
 
-	/* Protection for invalid us_length */
-	if (!length)
+    /* Protection for invalid length */
+    if (!length)
     {
-		return;
-	}
+        return;
+    }
 
-	/* Process received message */
-	command = SRV_PSNIFFER_GetCommand(pData);
+    /* Process received command */
+    command = SRV_PSNIFFER_GetCommand(pData);
 
-	switch (command) {
-        case SRV_PSNIFFER_CMD_SET_TONE_MASK:
+    switch (command)
+    {
+        case SRV_PSNIFFER_CMD_SET_PLC_TONE_MASK:
         {
-            /* Convert ToneMask from Sniffer Tool to PLC phy layer */
-            SRV_PSNIFFER_ConvertToneMask(appData.plcPIB.pData, pData + 1);
+            /* Convert ToneMask from Sniffer Tool to PLC PHY layer */
+            SRV_PSNIFFER_ConvertToneMask(pData, appData.plcPIB.pData);
 
-            /* Send data to PLC */
+            /* Send data to PLC device */
             appData.plcPIB.id = PLC_ID_TONE_MASK;
             appData.plcPIB.length = PSNIFFER_CARRIERS_SIZE;
             DRV_PLC_PHY_PIBSet(appData.drvPlcHandle, &appData.plcPIB);
-
+            break;
         }
-        break;
 
         default:
             break;

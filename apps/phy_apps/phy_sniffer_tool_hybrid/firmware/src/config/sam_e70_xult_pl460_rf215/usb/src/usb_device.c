@@ -3,14 +3,14 @@
 
   Company:
     Microchip Technology Inc.
-    
+
   File Name:
     usb_device.c
-    
+
   Summary:
     This file contains implementations of both private and public functions
     of the USB Device Layer.
-    
+
   Description:
     This file contains the USB device layer implementation.
 **************************************************************************/
@@ -60,7 +60,7 @@
 static USB_DEVICE_OBJ usbDeviceInstance[USB_DEVICE_INSTANCES_NUMBER];
 
 /*************************************
- * Device layer endpoint constants. 
+ * Device layer endpoint constants.
  *************************************/
 static const USB_ENDPOINT controlEndpointTx = 0x80;
 static const USB_ENDPOINT controlEndpointRx  = 0x00;
@@ -75,7 +75,7 @@ static const USB_ENDPOINT controlEndpointRx  = 0x00;
 /* Function:
     SYS_MODULE_OBJ USB_DEVICE_Initialize
     (
-        const SYS_MODULE_INDEX index, 
+        const SYS_MODULE_INDEX index,
         const SYS_MODULE_INIT * const initData
     )
 
@@ -92,7 +92,7 @@ static const USB_ENDPOINT controlEndpointRx  = 0x00;
 
 SYS_MODULE_OBJ USB_DEVICE_Initialize
 (
-    const SYS_MODULE_INDEX index, 
+    const SYS_MODULE_INDEX index,
     const SYS_MODULE_INIT * const initData
 )
 {
@@ -103,63 +103,63 @@ SYS_MODULE_OBJ USB_DEVICE_Initialize
     uint8_t count;
     USB_DEVICE_FUNCTION_DRIVER * driver;
     USB_DEVICE_FUNCTION_REGISTRATION_TABLE * funcRegTable;
-         
+
     /* Copy init data to local variable. */
     deviceInit = (USB_DEVICE_INIT *)initData;
-    
+
     /* Make sure the index is with in range. */
     if(index >= USB_DEVICE_INSTANCES_NUMBER)
     {
         SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid index value");
         return (SYS_MODULE_OBJ_INVALID);
     }
-    
+
     /* Make sure that initData is not NULL. */
     if(deviceInit == NULL)
     {
         SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Initialization data is NULL");
         return (SYS_MODULE_OBJ_INVALID);
     }
-    
+
     /* Make sure that the USB Device Master Descriptor is valid */
     if(deviceInit->usbMasterDescriptor == NULL)
     {
         SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: USB Master Descriptor table is NULL");
         return (SYS_MODULE_OBJ_INVALID);
     }
-    
+
     /* Get this instance of USB device layer. */
     usbDeviceThisInstance = &usbDeviceInstance[index];
 
-    /* Initialize this instance */        
+    /* Initialize this instance */
     usbDeviceThisInstance->usbDeviceInstanceState = SYS_STATUS_BUSY;
 
-    /* Save the "self" index for future use */    
+    /* Save the "self" index for future use */
     usbDeviceThisInstance->usbDevLayerIndex = index;
-    
+
     /* Set the device state to detached.*/
     usbDeviceThisInstance->usbDeviceStatusStruct.usbDeviceState = USB_DEVICE_STATE_DETACHED;
-    
+
     /* Initialize the instance structure. */
     usbDeviceThisInstance->ptrMasterDescTable           = deviceInit->usbMasterDescriptor;
     usbDeviceThisInstance->registeredFuncDriverCount    = deviceInit->registeredFuncCount;
     usbDeviceThisInstance->registeredFuncDrivers        = deviceInit->registeredFunctions;
-    
+
     /* Get the user configured speed */
-    usbDeviceThisInstance->usbDeviceStatusStruct.usbConfiguredSpeed = deviceInit->deviceSpeed; 
+    usbDeviceThisInstance->usbDeviceStatusStruct.usbConfiguredSpeed = deviceInit->deviceSpeed;
 
     /* Initialize remote wakeup to disabled */
     usbDeviceThisInstance->remoteWakeupStatus = USB_DEVICE_REMOTE_WAKEUP_DISABLED;
 
     /* Initialize power source to bus power */
     usbDeviceThisInstance->usbDeviceStatusStruct.powerState = USB_DEVICE_POWER_STATE_BUS_POWERED;
-    
+
     /* Reset set address flag.*/
     usbDeviceThisInstance->usbDeviceStatusStruct.setAddressPending = false;
-    
+
     /* Reset Test mode flag.*/
     usbDeviceThisInstance->usbDeviceStatusStruct.testModePending = false;
-    
+
     /* Initialize the RX IRP */
     irpEp0Rx            = &usbDeviceThisInstance->irpEp0Rx;
     irpEp0Rx->data      = usbDeviceThisInstance->ep0RxBuffer;
@@ -185,7 +185,7 @@ SYS_MODULE_OBJ USB_DEVICE_Initialize
     usbDeviceThisInstance->driverInterface = (DRV_USB_DEVICE_INTERFACE *)(deviceInit->usbDriverInterface);
     usbDeviceThisInstance->driverIndex = deviceInit->driverIndex;
 
-    /* Initialize Endpoint Q size */ 
+    /* Initialize Endpoint Q size */
     _USB_DEVICE_Initialize_Endpoint_Q(index, deviceInit->queueSizeEndpointRead, deviceInit->queueSizeEndpointWrite);
 
     /* Create Mutex for Endpoint Read Write */
@@ -213,9 +213,9 @@ SYS_MODULE_OBJ USB_DEVICE_Initialize
     }
 
     /* Return the index as the system module object */
-    return index;  
-}  
-  
+    return index;
+}
+
 // *****************************************************************************
 /* Function:
     void USB_DEVICE_Attach( USB_DEVICE_HANDLE usbDeviceHandle )
@@ -251,11 +251,11 @@ void USB_DEVICE_Attach( USB_DEVICE_HANDLE usbDeviceHandle )
     else
     {
         /* Attach to Host */
-        usbClientHandle->driverInterface->deviceAttach(usbClientHandle->usbCDHandle); 
-    
+        usbClientHandle->driverInterface->deviceAttach(usbClientHandle->usbCDHandle);
+
         /* Update the USB Device state */
         usbClientHandle->usbDeviceStatusStruct.usbDeviceState = USB_DEVICE_STATE_POWERED;
-    } 
+    }
 }
 
 // *****************************************************************************
@@ -263,7 +263,7 @@ void USB_DEVICE_Attach( USB_DEVICE_HANDLE usbDeviceHandle )
     void USB_DEVICE_Detach( USB_DEVICE_HANDLE usbDeviceHandle );
 
   Summary:
-    This function will detach the device from the USB. 
+    This function will detach the device from the USB.
 
   Description:
     This function will detach the device from the USB. It does this by disabling
@@ -292,14 +292,14 @@ void USB_DEVICE_Detach( USB_DEVICE_HANDLE usbDeviceHandle )
     else
     {
         /* Detach from the Host */
-        usbClientHandle->driverInterface->deviceDetach(usbClientHandle->usbCDHandle); 
-    
+        usbClientHandle->driverInterface->deviceDetach(usbClientHandle->usbCDHandle);
+
         /* Clear the suspended state */
         usbClientHandle->usbDeviceStatusStruct.isSuspended = false;
-    
+
         /* Update the USB Device state */
         usbClientHandle->usbDeviceStatusStruct.usbDeviceState = USB_DEVICE_STATE_DETACHED;
-    }  
+    }
 }
 
 //******************************************************************************
@@ -312,7 +312,7 @@ void USB_DEVICE_Detach( USB_DEVICE_HANDLE usbDeviceHandle )
         USB_TRANSFER_TYPE transferType
         size_t size
     );
- 
+
   Summary:
     Enables a device endpoint.
 
@@ -323,13 +323,13 @@ void USB_DEVICE_Detach( USB_DEVICE_HANDLE usbDeviceHandle )
     will enable endpoints contained in Alternate Setting 0 of an interface, when
     the host configures the device. If there is only one alternate setting in an
     interface, the application may not need to call the
-    USB_DEVICE_EndpointEnable function. 
+    USB_DEVICE_EndpointEnable function.
 
     If the device supports multiple alternate settings in an Interface, the
     device application must then disable an endpoint (if it was enabled) before
     re-enabling it with the new settings.The application can use the
     USB_DEVICE_EndpointIsEnabled function to check the status of the endpoint and
-    USB_DEVICE_EndpointDisable function to disable the endpoint. 
+    USB_DEVICE_EndpointDisable function to disable the endpoint.
 
   Remarks:
     Refer to usb_device.h for usage information.
@@ -345,7 +345,7 @@ USB_DEVICE_RESULT USB_DEVICE_EndpointEnable
 )
 {
     USB_DEVICE_OBJ* usbClientHandle;
-    USB_DEVICE_RESULT result; 
+    USB_DEVICE_RESULT result;
 
     /* Validate the handle */
     usbClientHandle = _USB_DEVICE_ClientHandleValidate(usbDeviceHandle );
@@ -354,15 +354,15 @@ USB_DEVICE_RESULT USB_DEVICE_EndpointEnable
     {
         /* Handle is not valid */
         SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid handle");
-        result = USB_DEVICE_RESULT_ERROR_ENDPOINT_INVALID; 
+        result = USB_DEVICE_RESULT_ERROR_ENDPOINT_INVALID;
     }
     else
     {
         /* Enable the endpoint */
         result = (USB_DEVICE_RESULT)usbClientHandle->driverInterface->deviceEndpointEnable(usbClientHandle->usbCDHandle, endpoint, transferType, size);
     }
-    
-    return result; 
+
+    return result;
 }
 
 //******************************************************************************
@@ -372,7 +372,7 @@ USB_DEVICE_RESULT USB_DEVICE_EndpointEnable
         USB_DEVICE_HANDLE usbDeviceHandle,
         USB_ENDPOINT_ADDRESS endpoint,
     );
- 
+
   Summary:
     Disables a device endpoint.
 
@@ -385,7 +385,7 @@ USB_DEVICE_RESULT USB_DEVICE_EndpointEnable
     The device application must then disable the endpoint (if it was enabled)
     before re-enabling it with the new settings.The application can use the
     USB_DEVICE_EndpointIsEnabled function to check the status of the endpoint and
-    USB_DEVICE_EndpointEnable function to enable the endpoint. 
+    USB_DEVICE_EndpointEnable function to enable the endpoint.
 
   Remarks:
     Refer to usb_device.h for usage information.
@@ -398,7 +398,7 @@ USB_DEVICE_RESULT USB_DEVICE_EndpointDisable
 )
 {
     USB_DEVICE_OBJ* usbClientHandle;
-    USB_DEVICE_RESULT result; 
+    USB_DEVICE_RESULT result;
 
     /* Validate the handle */
     usbClientHandle = _USB_DEVICE_ClientHandleValidate(usbDeviceHandle );
@@ -407,15 +407,15 @@ USB_DEVICE_RESULT USB_DEVICE_EndpointDisable
     {
         /* Handle is not valid */
         SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid handle");
-        result = USB_DEVICE_RESULT_ERROR_ENDPOINT_INVALID; 
+        result = USB_DEVICE_RESULT_ERROR_ENDPOINT_INVALID;
     }
     else
     {
         /* Disable the Endpoint */
         result = (USB_DEVICE_RESULT)usbClientHandle->driverInterface->deviceEndpointDisable(usbClientHandle->usbCDHandle, endpoint);
     }
-    
-    return result; 
+
+    return result;
 }
 
 //******************************************************************************
@@ -425,7 +425,7 @@ USB_DEVICE_RESULT USB_DEVICE_EndpointDisable
         USB_DEVICE_HANDLE usbDeviceHandle,
         USB_ENDPOINT_ADDRESS endpoint,
     );
- 
+
   Summary:
     Returns true if the endpoint is enabled.
 
@@ -446,7 +446,7 @@ bool USB_DEVICE_EndpointIsEnabled
 {
     USB_DEVICE_OBJ* usbClientHandle;
     bool result;
-    
+
     /* Validate the handle */
     usbClientHandle = _USB_DEVICE_ClientHandleValidate(usbDeviceHandle );
 
@@ -454,15 +454,15 @@ bool USB_DEVICE_EndpointIsEnabled
     {
         /* Handle is not valid */
         SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid handle");
-        result = false; 
+        result = false;
     }
     else
     {
         /* Check if the endpoint is enabled */
-        result = usbClientHandle->driverInterface->deviceEndpointIsEnabled(usbClientHandle->usbCDHandle, endpoint); 
+        result = usbClientHandle->driverInterface->deviceEndpointIsEnabled(usbClientHandle->usbCDHandle, endpoint);
     }
-    
-    return result; 
+
+    return result;
 }
 
 // *****************************************************************************
@@ -483,9 +483,9 @@ bool USB_DEVICE_EndpointIsEnabled
     Refer to usb_device.h for usage information.
 */
 
-void USB_DEVICE_EndpointStall 
+void USB_DEVICE_EndpointStall
 (
-    USB_DEVICE_HANDLE usbDeviceHandle, 
+    USB_DEVICE_HANDLE usbDeviceHandle,
     USB_ENDPOINT_ADDRESS endpoint
 )
 {
@@ -502,7 +502,7 @@ void USB_DEVICE_EndpointStall
     else
     {
         /* Stall the endpoint */
-        usbClientHandle->driverInterface->deviceEndpointStall(usbClientHandle->usbCDHandle, endpoint); 
+        usbClientHandle->driverInterface->deviceEndpointStall(usbClientHandle->usbCDHandle, endpoint);
     }
 }
 
@@ -518,15 +518,15 @@ void USB_DEVICE_EndpointStall
     This function clears the stall on an endpoint in the specified direction.
 
   Description:
-    This function clear the stall on an endpoint in the specified direction. 
+    This function clear the stall on an endpoint in the specified direction.
 
   Remarks:
     Refer to usb_device.h for usage information.
 */
 
-void USB_DEVICE_EndpointStallClear 
+void USB_DEVICE_EndpointStallClear
 (
-    USB_DEVICE_HANDLE usbDeviceHandle, 
+    USB_DEVICE_HANDLE usbDeviceHandle,
     USB_ENDPOINT_ADDRESS endpoint
 )
 {
@@ -541,9 +541,9 @@ void USB_DEVICE_EndpointStallClear
         SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid handle");
     }
     else
-    { 
+    {
         /* Clear endpoint stall condition */
-        usbClientHandle->driverInterface->deviceEndpointStallClear(usbClientHandle->usbCDHandle, endpoint); 
+        usbClientHandle->driverInterface->deviceEndpointStallClear(usbClientHandle->usbCDHandle, endpoint);
     }
 }
 
@@ -574,7 +574,7 @@ bool USB_DEVICE_EndpointIsStalled
 )
 {
     USB_DEVICE_OBJ* usbClientHandle;
-    bool result; 
+    bool result;
 
     /* Validate the handle */
     usbClientHandle = _USB_DEVICE_ClientHandleValidate(usbDeviceHandle );
@@ -583,15 +583,15 @@ bool USB_DEVICE_EndpointIsStalled
     {
         /* Handle is not valid */
         SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid handle");
-        result = false; 
+        result = false;
     }
     else
     {
         /* Check if the endpoint is stalled */
-        result = usbClientHandle->driverInterface->deviceEndpointIsStalled(usbClientHandle->usbCDHandle, endpoint); 
+        result = usbClientHandle->driverInterface->deviceEndpointIsStalled(usbClientHandle->usbCDHandle, endpoint);
     }
-    
-    return result; 
+
+    return result;
 }
 
 // *****************************************************************************
@@ -638,7 +638,7 @@ SYS_STATUS USB_DEVICE_Status( SYS_MODULE_OBJ object )
 bool USB_DEVICE_IsSuspended( USB_DEVICE_HANDLE usbDeviceHandle )
 {
     USB_DEVICE_OBJ* usbClientHandle;
-    bool result; 
+    bool result;
 
     /* Validate the handle */
     usbClientHandle = _USB_DEVICE_ClientHandleValidate(usbDeviceHandle );
@@ -647,14 +647,14 @@ bool USB_DEVICE_IsSuspended( USB_DEVICE_HANDLE usbDeviceHandle )
     {
        /* Handle is not valid */
        SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid handle");
-       result = false; 
+       result = false;
     }
     else
     {
-        result = usbClientHandle->usbDeviceStatusStruct.isSuspended; 
+        result = usbClientHandle->usbDeviceStatusStruct.isSuspended;
     }
-    
-    return result;  
+
+    return result;
 }
 
 // *****************************************************************************
@@ -675,7 +675,7 @@ bool USB_DEVICE_IsSuspended( USB_DEVICE_HANDLE usbDeviceHandle )
 USB_DEVICE_STATE USB_DEVICE_StateGet( USB_DEVICE_HANDLE usbDeviceHandle )
 {
     USB_DEVICE_OBJ* usbClientHandle;
-    USB_DEVICE_STATE result; 
+    USB_DEVICE_STATE result;
 
     /* Validate the handle */
     usbClientHandle = _USB_DEVICE_ClientHandleValidate(usbDeviceHandle );
@@ -684,15 +684,15 @@ USB_DEVICE_STATE USB_DEVICE_StateGet( USB_DEVICE_HANDLE usbDeviceHandle )
     {
        /* Handle is not valid */
        SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid handle");
-       result = USB_DEVICE_STATE_DETACHED; 
+       result = USB_DEVICE_STATE_DETACHED;
     }
     else
     {
         result = usbClientHandle->usbDeviceStatusStruct.usbDeviceState;
     }
-    return result; 
+    return result;
 }
-    
+
 
 // *****************************************************************************
 /* Function:
@@ -731,7 +731,7 @@ void USB_DEVICE_Deinitialize ( SYS_MODULE_OBJ usbDeviceObj )
     /* Invalidate the object */
     usbDeviceThisInstance->usbDeviceInstanceState =  SYS_STATUS_UNINITIALIZED;
 }
- 
+
 // *****************************************************************************
 /* Function:
     void USB_DEVICE_Tasks( SYS_MODULE_OBJ devLayerObj )
@@ -764,7 +764,7 @@ void USB_DEVICE_Tasks( SYS_MODULE_OBJ devLayerObj )
     }
 
     /* Get this instance of USB device layer.*/
-    usbDeviceThisInstance = &usbDeviceInstance[devLayerObj];    
+    usbDeviceThisInstance = &usbDeviceInstance[devLayerObj];
 
     /* Proceed only if this instance is in initialized state. */
     if( usbDeviceThisInstance->usbDeviceInstanceState <= SYS_STATUS_UNINITIALIZED )
@@ -875,7 +875,7 @@ void USB_DEVICE_Tasks( SYS_MODULE_OBJ devLayerObj )
 
 USB_DEVICE_HANDLE USB_DEVICE_Open
 (
-    const SYS_MODULE_INDEX index, 
+    const SYS_MODULE_INDEX index,
     const DRV_IO_INTENT intent
 )
 {
@@ -888,7 +888,7 @@ USB_DEVICE_HANDLE USB_DEVICE_Open
         return(USB_DEVICE_HANDLE_INVALID);
     }
 
-    /* Check if the instance is initialized. */   
+    /* Check if the instance is initialized. */
     if(usbDeviceInstance[index].usbDeviceInstanceState != SYS_STATUS_READY)
     {
         SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Device Layer is not ready to be opened");
@@ -911,12 +911,12 @@ USB_DEVICE_HANDLE USB_DEVICE_Open
         /* Get the Client Handle */
         return((USB_DEVICE_HANDLE)usbDeviceThisClient);
     }
-      
+
     /* If we have reached here, then we did not find a free client object */
     SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: No free client objects");
 
-    return(USB_DEVICE_HANDLE_INVALID);   
-}    
+    return(USB_DEVICE_HANDLE_INVALID);
+}
 
 // *****************************************************************************
 /* Function:
@@ -936,21 +936,21 @@ USB_DEVICE_HANDLE USB_DEVICE_Open
 void USB_DEVICE_Close(USB_DEVICE_HANDLE hClient )
 {
     USB_DEVICE_OBJ* usbClientHandle;
-    
+
     /* Validate the handle */
-    
+
     usbClientHandle = _USB_DEVICE_ClientHandleValidate(hClient);
     if(usbClientHandle == NULL)
     {
        /* Handle is not valid */
        SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid handle");
-       return; 
+       return;
     }
-    
+
     /* Close this client */
     usbClientHandle->clientState = (USB_DEVICE_CLIENT_STATUS)DRV_CLIENT_STATUS_CLOSED;
     usbClientHandle->inUse = false;
-}    
+}
 
 // *****************************************************************************
 /* Function:
@@ -980,9 +980,9 @@ USB_DEVICE_CLIENT_STATUS USB_DEVICE_ClientStatusGet( USB_DEVICE_HANDLE hHandle )
     {
         return (USB_DEVICE_CLIENT_STATUS_CLOSED);
     }
-    
-    /* Return the state of the client. */  
-    return( devClientHandle->clientState ); 
+
+    /* Return the state of the client. */
+    return( devClientHandle->clientState );
 }
 // ******************************************************************************
 /* Function:
@@ -998,7 +998,7 @@ USB_DEVICE_CLIENT_STATUS USB_DEVICE_ClientStatusGet( USB_DEVICE_HANDLE hHandle )
     event from the USB device layer.
 
   Description:
-    This function sets up the callback function. This callback function 
+    This function sets up the callback function. This callback function
     will be called when an event occurs in the USB device layer.
 
   Remarks:
@@ -1007,7 +1007,7 @@ USB_DEVICE_CLIENT_STATUS USB_DEVICE_ClientStatusGet( USB_DEVICE_HANDLE hHandle )
 
 void USB_DEVICE_EventHandlerSet
 (
-    USB_DEVICE_HANDLE hHandle, 
+    USB_DEVICE_HANDLE hHandle,
     const USB_DEVICE_EVENT_HANDLER callBackFunc,
     uintptr_t context
 )
@@ -1030,7 +1030,7 @@ void USB_DEVICE_EventHandlerSet
 
     /* Register a callback with the driver. */
     devClientHandle->driverInterface->eventHandlerSet(devClientHandle->usbCDHandle, (uintptr_t)devClientHandle, &_USB_DEVICE_EventHandler);
-}   
+}
 
 // ******************************************************************************
 /* Function:
@@ -1047,7 +1047,7 @@ void USB_DEVICE_EventHandlerSet
     The USB Device Layer must have been initialized and opened before calling this
     function.
 
-  Remarks:  
+  Remarks:
     See usb_device.h for usage information.
 */
 
@@ -1064,7 +1064,7 @@ uint8_t USB_DEVICE_ActiveConfigurationGet(USB_DEVICE_HANDLE hHandle)
         SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid client handle");
         return(0);
     }
-    
+
     return(devClientHandle->activeConfiguration);
 }
 
@@ -1084,15 +1084,15 @@ uint8_t USB_DEVICE_ActiveConfigurationGet(USB_DEVICE_HANDLE hHandle)
   Precondition:
     The USB device layer must have been initialized and a valid handle
     to USB device layer must have been opened.
-  
-  Remarks:  
+
+  Remarks:
     See usb_device.h for usage information.
 */
 
 USB_SPEED USB_DEVICE_ActiveSpeedGet(USB_DEVICE_HANDLE hHandle)
 {
     USB_DEVICE_OBJ* devClientHandle;
-    
+
     /* Validate the handle */
     devClientHandle = _USB_DEVICE_ClientHandleValidate(hHandle);
 
@@ -1111,8 +1111,8 @@ USB_SPEED USB_DEVICE_ActiveSpeedGet(USB_DEVICE_HANDLE hHandle)
     USB_DEVICE_CONTROL_TRANSFER_RESULT USB_DEVICE_ControlSend
     (
         USB_DEVICE_HANDLE usbDeviceHandle,
-        uint8_t * data, 
-        size_t length 
+        uint8_t * data,
+        size_t length
     )
 
   Summary:
@@ -1128,12 +1128,12 @@ USB_SPEED USB_DEVICE_ActiveSpeedGet(USB_DEVICE_HANDLE hHandle)
 USB_DEVICE_CONTROL_TRANSFER_RESULT USB_DEVICE_ControlSend
 (
     USB_DEVICE_HANDLE hClient,
-    void * data, 
-    size_t length 
+    void * data,
+    size_t length
 )
 {
     USB_DEVICE_OBJ * usbDeviceThisInstance;
-    USB_DEVICE_IRP * irpHandle;   
+    USB_DEVICE_IRP * irpHandle;
 
     usbDeviceThisInstance = _USB_DEVICE_ClientHandleValidate(hClient);
 
@@ -1145,7 +1145,7 @@ USB_DEVICE_CONTROL_TRANSFER_RESULT USB_DEVICE_ControlSend
     }
 
     /* Get a handle to the TX IRP */
-    irpHandle = &usbDeviceThisInstance->irpEp0Tx;     
+    irpHandle = &usbDeviceThisInstance->irpEp0Tx;
     irpHandle->data = data;
     irpHandle->size = (unsigned int )length;
 
@@ -1180,7 +1180,7 @@ USB_DEVICE_CONTROL_TRANSFER_RESULT USB_DEVICE_ControlSend
     USB_DEVICE_CONTROL_TRANSFER_RESULT USB_DEVICE_ControlReceive
     (
         USB_DEVICE_HANDLE usbDeviceHandle,
-        void * data, 
+        void * data,
         size_t length
     )
 
@@ -1197,7 +1197,7 @@ USB_DEVICE_CONTROL_TRANSFER_RESULT USB_DEVICE_ControlSend
 USB_DEVICE_CONTROL_TRANSFER_RESULT USB_DEVICE_ControlReceive
 (
     USB_DEVICE_HANDLE handle,
-    void * data, 
+    void * data,
     size_t length
 )
 {
@@ -1231,7 +1231,7 @@ USB_DEVICE_CONTROL_TRANSFER_RESULT USB_DEVICE_ControlReceive
     USB_DEVICE_CONTROL_TRANSFER_RESULT USB_DEVICE_ControlStatus
     (
         USB_DEVICE_HANDLE hClient,
-        USB_DEVICE_CONTROL_STATUS status 
+        USB_DEVICE_CONTROL_STATUS status
     )
 
   Summary:
@@ -1267,7 +1267,7 @@ USB_DEVICE_CONTROL_TRANSFER_RESULT USB_DEVICE_ControlStatus
     {
         /* This means the control transfer should be stalled. We stall endpoint
          * 0 */
-        usbDeviceThisInstance->driverInterface->deviceEndpointStall(usbDeviceThisInstance->usbCDHandle , controlEndpointTx);        
+        usbDeviceThisInstance->driverInterface->deviceEndpointStall(usbDeviceThisInstance->usbCDHandle , controlEndpointTx);
     }
     else
     {
@@ -1295,7 +1295,7 @@ USB_DEVICE_CONTROL_TRANSFER_RESULT USB_DEVICE_ControlStatus
 
   Description:
     Sets the power state of the device.
-    
+
   Remarks:
     Refer to usb_device.h for usage information.
 */
@@ -1435,15 +1435,15 @@ void USB_DEVICE_RemoteWakeupStart( USB_DEVICE_HANDLE usbDeviceHandle )
 /* Function:
     USB_ERROR USB_DEVICE_IRPSubmit
     (
-        USB_DEVICE_HANDLE usbDeviceHandle, 
-        USB_ENDPOINT endpointAndDirection, 
+        USB_DEVICE_HANDLE usbDeviceHandle,
+        USB_ENDPOINT endpointAndDirection,
         USB_DEVICE_IRP * irp
     );
-    
+
   Summary:
     This function submits an I/O Request Packet (IRP) for processing to the
     Hi-Speed USB Driver.
-	
+
   Description:
     This function submits an I/O Request Packet (IRP) for processing to the USB
     Driver. The IRP allows a client to send and receive data from the USB Host.
@@ -1454,21 +1454,21 @@ void USB_DEVICE_RemoteWakeupStart( USB_DEVICE_HANDLE usbDeviceHandle )
     being processed on the endpoint, the subsequent IRP submit operation
     will be queued. The contents of the IRP (including the application buffers)
     should not be changed until the IRP has been processed.
-	
+
   Remarks:
-    Refer to usb_device_function_driver.h for usage information.                                                                          
+    Refer to usb_device_function_driver.h for usage information.
 */
 
 USB_ERROR USB_DEVICE_IRPSubmit
 (
-    USB_DEVICE_HANDLE usbDeviceHandle, 
-    USB_ENDPOINT endpointAndDirection, 
+    USB_DEVICE_HANDLE usbDeviceHandle,
+    USB_ENDPOINT endpointAndDirection,
     USB_DEVICE_IRP * irp
 )
 {
     USB_DEVICE_OBJ* usbClientHandle;
     USB_ERROR result;
-    
+
     /* Validate the handle */
     usbClientHandle = _USB_DEVICE_ClientHandleValidate(usbDeviceHandle );
 
@@ -1476,45 +1476,45 @@ USB_ERROR USB_DEVICE_IRPSubmit
     {
        /* Handle is not valid */
        SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid handle");
-       result = USB_ERROR_PARAMETER_INVALID; 
+       result = USB_ERROR_PARAMETER_INVALID;
     }
     else
     {
          /* Submit IRP */
-        result = usbClientHandle->driverInterface->deviceIRPSubmit(usbClientHandle->usbCDHandle,endpointAndDirection, irp ); 
+        result = usbClientHandle->driverInterface->deviceIRPSubmit(usbClientHandle->usbCDHandle,endpointAndDirection, irp );
     }
-    
-    return result; 
+
+    return result;
 }
 
 // **************************************************************************
 /* Function:
-    USB_ERROR USB_DEVICE_IRPCancelAll 
+    USB_ERROR USB_DEVICE_IRPCancelAll
     (
         USB_DEVICE_HANDLE usbDeviceHandle,
         USB_ENDPOINT endpointAndDirection
     );
-    
+
   Summary:
     This function cancels all IRPs that are queued and in progress at the
     specified endpoint.
-	
+
   Description:
     This function cancels all IRPs that are queued and in progress at the
     specified endpoint.
-	
+
   Remarks:
-    Refer to usb_device_function_driver.h for usage information.                                                               
+    Refer to usb_device_function_driver.h for usage information.
 */
 
-USB_ERROR USB_DEVICE_IRPCancelAll 
+USB_ERROR USB_DEVICE_IRPCancelAll
 (
     USB_DEVICE_HANDLE usbDeviceHandle,
     USB_ENDPOINT endpointAndDirection
 )
 {
     USB_DEVICE_OBJ* usbClientHandle;
-    USB_ERROR result; 
+    USB_ERROR result;
 
     /* Validate the handle */
     usbClientHandle = _USB_DEVICE_ClientHandleValidate(usbDeviceHandle );
@@ -1523,15 +1523,15 @@ USB_ERROR USB_DEVICE_IRPCancelAll
     {
        /* Handle is not valid */
        SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid handle");
-       result = USB_ERROR_PARAMETER_INVALID; 
+       result = USB_ERROR_PARAMETER_INVALID;
     }
     else
     {
         /* Cancel all IRPs pending on the Endpoint */
-        result = usbClientHandle->driverInterface->deviceIRPCancelAll(usbClientHandle->usbCDHandle,endpointAndDirection); 
+        result = usbClientHandle->driverInterface->deviceIRPCancelAll(usbClientHandle->usbCDHandle,endpointAndDirection);
     }
-    
-    return result;  
+
+    return result;
 }
 
 // **************************************************************************
@@ -1541,11 +1541,11 @@ USB_ERROR USB_DEVICE_IRPCancelAll
 		USB_DEVICE_HANDLE usbDeviceHandle,
 		USB_DEVICE_IRP * irp
 	)
-    
+
   Summary:
     This function cancels the specific IRP that are queued and in progress at the
     specified endpoint.
-	
+
   Description:
     This function attempts to cancel the processing of a queued IRP. An IRP that
     was in the queue but yet to be processed will be cancelled successfully and
@@ -1557,15 +1557,15 @@ USB_ERROR USB_DEVICE_IRPCancelAll
     completed. The IRP callback function will then be called in an interrupt
     context. The application should not release the related data buffer unless
     the IRP callback has occurred.
-	
+
   Remarks:
     Refer to usb_device_function_driver.h for usage information.
-                                                                  
+
 */
 
 USB_ERROR USB_DEVICE_IRPCancel
 (
-    USB_DEVICE_HANDLE usbDeviceHandle, 
+    USB_DEVICE_HANDLE usbDeviceHandle,
     USB_DEVICE_IRP * irp
 )
 {
@@ -1579,16 +1579,16 @@ USB_ERROR USB_DEVICE_IRPCancel
     {
        /* Handle is not valid */
        SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Invalid handle");
-       result = USB_ERROR_PARAMETER_INVALID; 
+       result = USB_ERROR_PARAMETER_INVALID;
     }
     else
     {
         /* Cancel IRP */
-        result = usbClientHandle->driverInterface->deviceIRPCancel(usbClientHandle->usbCDHandle,irp); 
-        
+        result = usbClientHandle->driverInterface->deviceIRPCancel(usbClientHandle->usbCDHandle,irp);
+
     }
-  
-    return result; 
+
+    return result;
 }
 // *****************************************************************************
 // *****************************************************************************
@@ -1614,7 +1614,7 @@ USB_ERROR USB_DEVICE_IRPCancel
 void _USB_DEVICE_Ep0ReceiveCompleteCallback( USB_DEVICE_IRP * handle )
 {
     USB_DEVICE_IRP * irpHandle = (USB_DEVICE_IRP *)handle;
-    USB_DEVICE_OBJ * usbDeviceThisInstance;  
+    USB_DEVICE_OBJ * usbDeviceThisInstance;
     USB_DEVICE_EVENT controlEvent = USB_DEVICE_EVENT_ERROR;
     USB_DEVICE_CONTROL_TRANSFER_STRUCT * controlTransfer;
     void * eventData = NULL;
@@ -1647,7 +1647,7 @@ void _USB_DEVICE_Ep0ReceiveCompleteCallback( USB_DEVICE_IRP * handle )
                      * for USB Device layer, then invoke the application
                      * callback function.  */
 
-                    usbDeviceThisInstance->callBackFunc(USB_DEVICE_EVENT_CONTROL_TRANSFER_ABORTED, NULL, usbDeviceThisInstance->context ); 
+                    usbDeviceThisInstance->callBackFunc(USB_DEVICE_EVENT_CONTROL_TRANSFER_ABORTED, NULL, usbDeviceThisInstance->context );
                 }
                 else
                 {
@@ -1670,7 +1670,7 @@ void _USB_DEVICE_Ep0ReceiveCompleteCallback( USB_DEVICE_IRP * handle )
          * device layer */
         controlTransfer->handler = &_USB_DEVICE_ControlTransferHandler;
         controlTransfer->handlerIndex = usbDeviceThisInstance->usbDevLayerIndex;
-        controlEvent = USB_DEVICE_EVENT_CONTROL_TRANSFER_SETUP_REQUEST; 
+        controlEvent = USB_DEVICE_EVENT_CONTROL_TRANSFER_SETUP_REQUEST;
         eventData = usbDeviceThisInstance->ep0RxBuffer;
 
     }
@@ -1694,7 +1694,7 @@ void _USB_DEVICE_Ep0ReceiveCompleteCallback( USB_DEVICE_IRP * handle )
             memcpy(&usbDeviceThisInstance->controlTransfer.rxBuffer[controlTransfer->rxDataCount], usbDeviceThisInstance->ep0RxBuffer, irpHandle->size );
             controlTransfer->rxDataCount += irpHandle->size;
         }
-        
+
         /* Now that we have received the data, check if the IRP is completed */
         if(controlTransfer->rxDataCount >=  controlTransfer->expectedRxDataCount)
         {
@@ -1718,7 +1718,7 @@ void _USB_DEVICE_Ep0ReceiveCompleteCallback( USB_DEVICE_IRP * handle )
         {
             /* If the Control transfer handler is Application callback for USB Device layer,
              * then invoke the application callback function.  */
-            usbDeviceThisInstance->callBackFunc(controlEvent, eventData, usbDeviceThisInstance->context ); 
+            usbDeviceThisInstance->callBackFunc(controlEvent, eventData, usbDeviceThisInstance->context );
         }
         else
         {
@@ -1756,7 +1756,7 @@ void _USB_DEVICE_Ep0TransmitCompleteCallback(USB_DEVICE_IRP * handle)
 
     usbDeviceThisInstance = (USB_DEVICE_OBJ *)irpHandle->userData;
     controlTransfer = &(usbDeviceThisInstance->controlTransfer);
-    
+
     if(irpHandle->status == USB_DEVICE_IRP_STATUS_ABORTED)
     {
         return;
@@ -1765,12 +1765,12 @@ void _USB_DEVICE_Ep0TransmitCompleteCallback(USB_DEVICE_IRP * handle)
     /* If the device layer had recieved the set address request from the host
      * and we have now recieved a transmit complete callback, then this means we
      * have completed the handshake stage of the callback function and now need
-     * to set the device address. */ 
+     * to set the device address. */
     if(usbDeviceThisInstance->usbDeviceStatusStruct.setAddressPending)
     {
         usbDeviceThisInstance->driverInterface->deviceAddressSet(usbDeviceThisInstance->usbCDHandle, usbDeviceThisInstance->deviceAddress);
         usbDeviceThisInstance->usbDeviceStatusStruct.setAddressPending = false;
-        
+
         /* Update the USB Device state */
         usbDeviceThisInstance->usbDeviceStatusStruct.usbDeviceState = USB_DEVICE_STATE_ADDRESSED;
     }
@@ -1842,7 +1842,7 @@ void _USB_DEVICE_DeInitializeAllFunctionDrivers
                     /* Call the function driver deInitialize routine */
                     driver->deInitialize( funcRegTable->funcDriverIndex );
                 }
-            }           
+            }
         }
 
         funcRegTable++;
@@ -1854,7 +1854,7 @@ void _USB_DEVICE_DeInitializeAllFunctionDrivers
     void _USB_DEVICE_EventHandler
     (
         uintptr_t referenceHandle,
-        DRV_USB_EVENT eventType, 
+        DRV_USB_EVENT eventType,
         void * eventData
     )
 
@@ -1865,7 +1865,7 @@ void _USB_DEVICE_DeInitializeAllFunctionDrivers
     This function is registered into the USB Controller driver as a callback
     function. The USB Controller driver calls this function in case of events
     from the USB Controller driver.
-    
+
   Remarks:
     This is a local function and should not be called directly by a client.
 */
@@ -1873,7 +1873,7 @@ void _USB_DEVICE_DeInitializeAllFunctionDrivers
 void _USB_DEVICE_EventHandler
 (
     uintptr_t referenceHandle,
-    DRV_USB_EVENT eventType, 
+    DRV_USB_EVENT eventType,
     void * eventData
 )
 {
@@ -1889,7 +1889,7 @@ void _USB_DEVICE_EventHandler
         /* The device should anyway not be attached when the device layer is
          * not initialized. If we receive driver event when the device layer is
          * not initialized, there is nothing we can do but ignore them. */
-        return;                
+        return;
     }
 
     switch(eventType)
@@ -1963,15 +1963,16 @@ void _USB_DEVICE_EventHandler
 
             /* USB Device is suspended */
             usbDeviceThisInstance->usbDeviceStatusStruct.isSuspended = true;
-            break;        
+            break;
 
         case DRV_USB_EVENT_SOF_DETECT:
 
-            /* The _USB_DEVICE_SOFEventEnable() macro resolves to eventType 
+            /* The _USB_DEVICE_SOFEventEnable() macro resolves to eventType
              * events are enabled in system_config.h. If enabled the event
              * will sent to the application. Else the event will not be
              * processed. */
-            eventType = _USB_DEVICE_SOFEventEnable(); 
+            usbDeviceThisInstance->usbDeviceStatusStruct.isSuspended = false;
+            eventType = _USB_DEVICE_SOFEventEnable();
             if (eventType)
             {
                 eventType = (DRV_USB_EVENT)USB_DEVICE_EVENT_SOF;
@@ -1990,8 +1991,8 @@ void _USB_DEVICE_EventHandler
 
         case DRV_USB_EVENT_DEVICE_SESSION_INVALID:
 
-            /* VBUS is not valid. */ 
-            usbDeviceThisInstance->usbDeviceStatusStruct.usbDeviceState = USB_DEVICE_STATE_DETACHED;  
+            /* VBUS is not valid. */
+            usbDeviceThisInstance->usbDeviceStatusStruct.usbDeviceState = USB_DEVICE_STATE_DETACHED;
             break;
 
         default:
@@ -2010,7 +2011,7 @@ void _USB_DEVICE_EventHandler
             usbDeviceThisInstance->callBackFunc((USB_DEVICE_EVENT)eventType, eventData, usbDeviceThisInstance->context);
         }
     }
-}    
+}
 
 // ******************************************************************************
 /* Function:
@@ -2018,22 +2019,22 @@ void _USB_DEVICE_EventHandler
     (
         SYS_MODULE_INDEX handlerIndex,
         USB_DEVICE_CONTROL_TRANSFER_EVENT transferEvent,
-        USB_DEVICE_CONTROL_TRANSFER_EVENT_DATA * eventData 
+        USB_DEVICE_CONTROL_TRANSFER_EVENT_DATA * eventData
     )
 
   Summary:
     Processes the SETUP packet received from the USB Controller driver.
 
   Description:
-    This function processes the SETUP packet received from the USB Controller 
+    This function processes the SETUP packet received from the USB Controller
     driver.
-   
+
   Remarks:
     This is a local function and should not be called directly by the client.
 */
 
 void  _USB_DEVICE_ControlTransferHandler
-(    
+(
     SYS_MODULE_INDEX handlerIndex,
     USB_DEVICE_EVENT transferEvent,
     void * eventData
@@ -2047,10 +2048,10 @@ void  _USB_DEVICE_ControlTransferHandler
     uint8_t interfaceNumber = 0;
     USB_ENDPOINT endpointNumber;
     bool enpointFoundInDescriptors = false;
-  
+
     if( transferEvent == USB_DEVICE_EVENT_CONTROL_TRANSFER_SETUP_REQUEST )
     {
-        /* Get pointer to Setup Packet */ 
+        /* Get pointer to Setup Packet */
         setupPkt = (USB_SETUP_PACKET *)(eventData);
 
         /* Get of Length of the Data Stage */
@@ -2058,13 +2059,13 @@ void  _USB_DEVICE_ControlTransferHandler
 
         /* Cancel any IRP that is in the pipe. */
         usbDeviceThisInstance->driverInterface->deviceIRPCancelAll( usbDeviceThisInstance->usbCDHandle, controlEndpointTx );
-        
+
         switch (setupPkt->Recipient)
         {
             case USB_SETUP_RECIPIENT_DEVICE:
                 if (setupPkt->RequestType == USB_SETUP_REQUEST_TYPE_STANDARD)
                 {
-                    /* This is a standard Device Request */ 
+                    /* This is a standard Device Request */
                     if (setupPkt->DataDir == USB_SETUP_REQUEST_DIRECTION_HOST_TO_DEVICE)
                     {
                         /* Serve standard Device SET requests */
@@ -2099,14 +2100,14 @@ void  _USB_DEVICE_ControlTransferHandler
                   * recipient is not "device". (Any request whose recipient is
                   * interface/endpoint must be handled by the function driver.
                   * This is because function driver has all the information
-                  * about endpoint and interface) */				
+                  * about endpoint and interface) */
 				if (setupPkt->RequestType == USB_SETUP_REQUEST_TYPE_VENDOR)
 				{
-					_USB_DEVICE_VendorInterfaceRequestProcess(usbDeviceThisInstance, setupPkt->bIntfID,setupPkt); 
+					_USB_DEVICE_VendorInterfaceRequestProcess(usbDeviceThisInstance, setupPkt->bIntfID,setupPkt);
 				}
 				else
 				{
-					_USB_DEVICE_ForwardControlXfrToFunction(usbDeviceThisInstance, setupPkt->bIntfID,setupPkt ); 
+					_USB_DEVICE_ForwardControlXfrToFunction(usbDeviceThisInstance, setupPkt->bIntfID,setupPkt );
 				}
                 break;
 
@@ -2118,7 +2119,7 @@ void  _USB_DEVICE_ControlTransferHandler
                 /* Any Control request to a Non Zero Endpoint should be Stalled
                  * if the Device is not in Configured State. The request will
                  * also be stalled if there is no descriptor available for this
-                 * Endpoint */ 
+                 * Endpoint */
 
                 if (endpointNumber != 0)
                 {
@@ -2146,35 +2147,35 @@ void  _USB_DEVICE_ControlTransferHandler
                     /* Standard Endpoint requests are handled by Device Layer */
                     _USB_DEVICE_ProcessStandardEndpointRequest( usbDeviceThisInstance, interfaceNumber, setupPkt);
                 }
-                else 
+                else
                 {
                     /* This is Class or Vendor request. Forward the request to
-                     * right Function driver or Client */ 
+                     * right Function driver or Client */
 
                     _USB_DEVICE_ForwardControlXfrToFunction (usbDeviceThisInstance, interfaceNumber,setupPkt );
-                   
+
                 }
                 break;
-            
+
             case USB_SETUP_RECIPIENT_OTHER:
-                
+
                 /* This is a SETUP request of Type Vendor to recipient Device.
                  * The device layer does not know how to Handle these requests.
                  * Forward this request to application. */
 
                 _USB_DEVICE_RedirectControlXfrToClient( usbDeviceThisInstance, USB_DEVICE_EVENT_CONTROL_TRANSFER_SETUP_REQUEST, setupPkt);
                 break;
-               
-            default: 
+
+            default:
                 SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Unknown Control Transfer received from Host" );
                 break;
         }
-    }   
+    }
 }
 
 // *****************************************************************************
 /* Function:
-    void _USB_DEVICE_ForwardControlXfrToFunction 
+    void _USB_DEVICE_ForwardControlXfrToFunction
     (
         USB_DEVICE_OBJ * usbDeviceThisInstance,
         uint8_t interfaceNumber,
@@ -2193,7 +2194,7 @@ void  _USB_DEVICE_ControlTransferHandler
     This is local function. It should not be used directly by the client.
 */
 
-void _USB_DEVICE_ForwardControlXfrToFunction 
+void _USB_DEVICE_ForwardControlXfrToFunction
 (
     USB_DEVICE_OBJ * usbDeviceThisInstance,
     uint8_t interfaceNumber,
@@ -2203,13 +2204,13 @@ void _USB_DEVICE_ForwardControlXfrToFunction
     USB_DEVICE_FUNCTION_REGISTRATION_TABLE * lFuncDriverRegTable;
     USB_DEVICE_CONTROL_TRANSFER_STRUCT * controlTransfer = &usbDeviceThisInstance->controlTransfer;
     USB_DEVICE_FUNCTION_DRIVER * driver;
-    
+
     /* This is a function driver /vendor specific setup packet. The recipient
      * field is either interface or other. Check which function driver has to
      * handle this setup packet. This function is called from Setup packet
      * handling function. We first find out which function driver owns this
      * interface.  */
-    
+
     lFuncDriverRegTable = _USB_DEVICE_GetFunctionDriverEntryByInterface( interfaceNumber, usbDeviceThisInstance);
     if (lFuncDriverRegTable != NULL)
     {
@@ -2276,7 +2277,7 @@ void _USB_DEVICE_ForwardControlXfrToFunction
     This function handles standard Endpoint requests.
 
   Description:
-    This function handles standard Endpoint requests. 
+    This function handles standard Endpoint requests.
 
   Remarks:
     This is local function. It should not be used directly by the client.
@@ -2334,34 +2335,34 @@ void _USB_DEVICE_ProcessStandardEndpointRequest
     void _USB_DEVICE_ProcessStandardGetRequests
     (
         USB_DEVICE_OBJ * usbDeviceThisInstance,
-        USB_SETUP_PACKET * setupPkt 
+        USB_SETUP_PACKET * setupPkt
     )
 
   Summary:
     Processes the standard "get" requests received from the USB Controller driver.
 
   Description:
-    This function processes the standard "get" requests received from the USB 
+    This function processes the standard "get" requests received from the USB
     Controller driver.
-   
+
   Remarks:
     This is local function and should not be called directly by the client.
 */
 void _USB_DEVICE_ProcessStandardDeviceGetRequests
 (
     USB_DEVICE_OBJ * usbDeviceThisInstance,
-    USB_SETUP_PACKET * setupPkt 
+    USB_SETUP_PACKET * setupPkt
 )
 {
     USB_CONFIGURATION_DESCRIPTOR * lConfigDescriptor = NULL;
     uint16_t size = 0;
     void*  pData = NULL;
     USB_DEVICE_MASTER_DESCRIPTOR * ptrMasterDescTable ;
-    bool serviceGetRequest = true; 
+    bool serviceGetRequest = true;
 
     /* Copy the Master descriptor table to a local pointer. */
     ptrMasterDescTable = usbDeviceThisInstance->ptrMasterDescTable ;
-    
+
     if(setupPkt->bRequest == USB_REQUEST_GET_DESCRIPTOR)
     {
         switch(setupPkt->bDescriptorType)
@@ -2382,7 +2383,7 @@ void _USB_DEVICE_ProcessStandardDeviceGetRequests
                 {
                     /* Full/low speed descriptor.*/
                     if( ptrMasterDescTable->deviceDescriptor == NULL )
-                    {   
+                    {
                         SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "\r\nUSB Device Layer: Full/Low speed device descriptor is NULL");
                     }
 
@@ -2394,7 +2395,7 @@ void _USB_DEVICE_ProcessStandardDeviceGetRequests
                 size = 18;
                 break;
 
-            case USB_DESCRIPTOR_CONFIGURATION:                
+            case USB_DESCRIPTOR_CONFIGURATION:
 
                 /* Get correct pointer to the descriptor based on config value.
                  * setupPkt->bDscIndex indicates the host requested
@@ -2420,31 +2421,31 @@ void _USB_DEVICE_ProcessStandardDeviceGetRequests
                 }
                 break;
 
-            case USB_DESCRIPTOR_OTHER_SPEED: 
-                /* Host has requested for the other speed descriptor. Other Speed 
-                * Descriptor requests are handled differently. Respond to Other 
-                * Speed configuration descriptor request only if USB peripheral is 
-                * configured for High Speed operation. If the USB peripheral is 
-                * configured for Full Speed operation then the request shall be 
+            case USB_DESCRIPTOR_OTHER_SPEED:
+                /* Host has requested for the other speed descriptor. Other Speed
+                * Descriptor requests are handled differently. Respond to Other
+                * Speed configuration descriptor request only if USB peripheral is
+                * configured for High Speed operation. If the USB peripheral is
+                * configured for Full Speed operation then the request shall be
                 * stalled.*/
                 if (usbDeviceThisInstance->usbDeviceStatusStruct.usbConfiguredSpeed == USB_SPEED_HIGH)
                 {
-                    /* Service Other Speed Configuration descriptor request. The 
+                    /* Service Other Speed Configuration descriptor request. The
                        function will respond to Host */
                     serviceGetRequest = false;
-                    _USB_DEVICE_OtherSpeedDescriptorRequestService(usbDeviceThisInstance, setupPkt); 
+                    _USB_DEVICE_OtherSpeedDescriptorRequestService(usbDeviceThisInstance, setupPkt);
                 }
                 else
                 {
-                    /* USB Peripheral is not configured for High Speed. The 
+                    /* USB Peripheral is not configured for High Speed. The
                      * request will be stalled. */
                     serviceGetRequest = true;
                 }
-                break; 
-    
+                break;
+
             case USB_DESCRIPTOR_DEVICE_QUALIFIER:
                 /* Respond to Device Qualifier request only if USB peripheral is
-                   configured for High Speed operation. If the peripheral is 
+                   configured for High Speed operation. If the peripheral is
                    configured for Full Speed operation request shall be stalled.
                  */
                 if (usbDeviceThisInstance->usbDeviceStatusStruct.usbConfiguredSpeed == USB_SPEED_HIGH)
@@ -2458,7 +2459,7 @@ void _USB_DEVICE_ProcessStandardDeviceGetRequests
                     {
                         /* For full speed, respond with the other speed (high speed) device_qualifier. */
                         pData = ((uint8_t*) ptrMasterDescTable->highSpeedDeviceQualifier );
-                    } 
+                    }
 
                     /* Size of device_qualifier descriptor is always 10. */
                     size = 10;
@@ -2475,11 +2476,11 @@ void _USB_DEVICE_ProcessStandardDeviceGetRequests
 
                 /* A BOS descriptor was requested */
                 _USB_DEVICE_GetBosDescriptorRequest(ptrMasterDescTable->bosDescriptor, pData, size );
-                break; 
+                break;
 
             default:
                 break;
-        } 
+        }
     }
     else if (setupPkt->bRequest == USB_REQUEST_GET_CONFIGURATION)
     {
@@ -2497,7 +2498,7 @@ void _USB_DEVICE_ProcessStandardDeviceGetRequests
         pData = (uint8_t *)&usbDeviceThisInstance->getStatusResponse;
         size = 2;
     }
-    
+
     if (serviceGetRequest == true)
     {
         if(pData == NULL)
@@ -2571,7 +2572,7 @@ USB_DEVICE_FUNCTION_REGISTRATION_TABLE * _USB_DEVICE_GetFunctionDriverEntryByInt
     void _USB_DEVICE_ConfigureDevice( USB_DEVICE_OBJ* usbDeviceThisInstance )
 
   Summary:
-    This function configures the device. 
+    This function configures the device.
 
   Description:
     The initialization of all the function drivers and opening of all endpoints
@@ -2592,7 +2593,7 @@ void _USB_DEVICE_ConfigureDevice( USB_DEVICE_OBJ* usbDeviceThisInstance )
     uint8_t alternateSetting = 0;
     USB_DEVICE_FUNCTION_REGISTRATION_TABLE * pFunctionRegTable = NULL;
     USB_DEVICE_FUNCTION_DRIVER * driver;
-   
+
     confTotalLength = ((USB_CONFIGURATION_DESCRIPTOR *)pDescriptor)->wTotalLength;
 
     /* Start parsing the configuration desciptor. For each interface descriptor
@@ -2605,17 +2606,17 @@ void _USB_DEVICE_ConfigureDevice( USB_DEVICE_OBJ* usbDeviceThisInstance )
         if(descriptorType == USB_DESCRIPTOR_INTERFACE)
         {
             /* If this descriptor was an interface, find out which function
-             * driver owns this interface */ 
+             * driver owns this interface */
             pFunctionRegTable = NULL;
             interfaceNumber = ((USB_INTERFACE_DESCRIPTOR * )pDescriptor)->bInterfaceNumber;
             alternateSetting = ((USB_INTERFACE_DESCRIPTOR * )pDescriptor)->bAlternateSetting;
             pFunctionRegTable = _USB_DEVICE_GetFunctionDriverEntryByInterface(interfaceNumber , usbDeviceThisInstance);
-        } 
+        }
 
         if( pFunctionRegTable != NULL )
         {
             driver = (USB_DEVICE_FUNCTION_DRIVER *)(pFunctionRegTable->driver);
-            
+
             if (driver != NULL)
             {
                 /* Call the driver intialize by descriptor function. This will
@@ -2634,9 +2635,9 @@ void _USB_DEVICE_ConfigureDevice( USB_DEVICE_OBJ* usbDeviceThisInstance )
 // ******************************************************************************
 /* Function:
     bool _USB_DEVICE_FindEndpoint
-    ( 
+    (
         USB_DEVICE_OBJ* usbDeviceThisInstance,
-        USB_ENDPOINT endpointNumber, 
+        USB_ENDPOINT endpointNumber,
         uint8_t* interfaceNumber
     )
 
@@ -2654,7 +2655,7 @@ void _USB_DEVICE_ConfigureDevice( USB_DEVICE_OBJ* usbDeviceThisInstance )
     usbDeviceThisInstance   - This instance of the USB device layer.
     endpointNumber          - Endpoint Number .
     interfaceNumber         - pointer to Interface Number. This is an out parameter.
-    
+
 
   Returns:
     true - Returns true if the Endpoint number belongs to any of the registered
@@ -2665,7 +2666,7 @@ void _USB_DEVICE_ConfigureDevice( USB_DEVICE_OBJ* usbDeviceThisInstance )
 
 bool _USB_DEVICE_FindEndpoint
 (
-    USB_DEVICE_OBJ* usbDeviceThisInstance, 
+    USB_DEVICE_OBJ* usbDeviceThisInstance,
     USB_ENDPOINT endpointNumber,
     uint8_t* interfaceNum
 )
@@ -2713,9 +2714,9 @@ bool _USB_DEVICE_FindEndpoint
     Processes the standard "set" requests received from the USB Controller driver.
 
   Description:
-    This function processes the standard "set" requests received from the USB 
+    This function processes the standard "set" requests received from the USB
     Controller driver.
-   
+
   Remarks:
     This is a local function and should not be called directly by the client.
 */
@@ -2725,30 +2726,30 @@ void _USB_DEVICE_ProcessStandardDeviceSetRequests
     USB_DEVICE_OBJ * usbDeviceThisInstance,
     USB_SETUP_PACKET * setupPkt
 )
-{   
+{
     uint8_t count;
     USB_DEVICE_EVENT_DATA_CONFIGURED configuredEventData;
     USB_DEVICE_CONTROL_STATUS controlStatus = USB_DEVICE_CONTROL_STATUS_ERROR;
     bool sendStatus = true;
-    
+
     switch(setupPkt->bRequest)
     {
         case USB_REQUEST_SET_ADDRESS:
 
             /* Got set address command. Change the address only after responding
                to the current request.*/
-            
+
             usbDeviceThisInstance->usbDeviceStatusStruct.setAddressPending = true;
             usbDeviceThisInstance->deviceAddress = setupPkt->bDevADR;
             controlStatus = USB_DEVICE_CONTROL_STATUS_OK;
-            
+
             break;
 
-        case USB_REQUEST_SET_CONFIGURATION: 
+        case USB_REQUEST_SET_CONFIGURATION:
 
             /* Device falls back to addressed state if configuration value is 0,
              * and if the device is already in configured state. */
-            
+
             if((setupPkt->wValue == 0) && (usbDeviceThisInstance->usbDeviceStatusStruct.usbDeviceState == USB_DEVICE_STATE_CONFIGURED))
             {
                 /* Configuration value 0 means, host is trying to de configure
@@ -2764,7 +2765,7 @@ void _USB_DEVICE_ProcessStandardDeviceSetRequests
 
                 /* Change the state to Addressed   */
                 usbDeviceThisInstance->usbDeviceStatusStruct.usbDeviceState = USB_DEVICE_STATE_ADDRESSED;
-            }  
+            }
             else
             {
                 /* Proceed only if new configuration value is different from
@@ -2820,7 +2821,7 @@ void _USB_DEVICE_ProcessStandardDeviceSetRequests
                     }
                 }
             }
-            
+
             controlStatus = USB_DEVICE_CONTROL_STATUS_OK;
             break;
 
@@ -2864,7 +2865,7 @@ void _USB_DEVICE_ProcessStandardDeviceSetRequests
             }
             break;
 
-        case USB_REQUEST_SET_DESCRIPTOR:      
+        case USB_REQUEST_SET_DESCRIPTOR:
 
             /* All SET_DESCRIPTOR requests are directly forwarded to application */
             _USB_DEVICE_Handle_Set_Descriptor_Request ( usbDeviceThisInstance, USB_DEVICE_EVENT_SET_DESCRIPTOR, setupPkt);
@@ -2912,7 +2913,7 @@ void _USB_DEVICE_RedirectControlXfrToClient
 )
 {
     USB_DEVICE_CONTROL_TRANSFER_STRUCT * controlTransfer = &usbDeviceThisInstance->controlTransfer;
-    
+
     /* This control transfer will be handled by the client */
     controlTransfer->handler = (void (*)(unsigned short, USB_DEVICE_EVENT, void *))usbDeviceThisInstance->callBackFunc;
 
@@ -2990,15 +2991,15 @@ USB_DEVICE_OBJ* _USB_DEVICE_ClientHandleValidate(USB_DEVICE_HANDLE deviceHandle)
 
 void _USB_DEVICE_EndpointMutexCreateFunction(USB_DEVICE_OBJ* usbDeviceThisInstance)
 {
-    
+
     OSAL_RESULT osalResult;
-    
+
     if (usbDeviceThisInstance->isMutexEndpointIrpInitialized == false)
     {
         /* Use the OSAL to create Mutex */
         osalResult = OSAL_MUTEX_Create(&(usbDeviceThisInstance->mutexEndpointIRP));
-    
-    
+
+
         if(osalResult != OSAL_RESULT_TRUE)
         {
             /* Mutex creation failed*/
@@ -3066,14 +3067,14 @@ void _USB_DEVICE_EndpointMutexDeleteFunction(USB_DEVICE_OBJ* usbDeviceThisInstan
     The USB Device Layer chooses this function when the macro
     USB_DEVICE_STRING_DESCRIPTOR_TABLE_ADVANCED_ENABLE is not defined.
 
-    This function is implemented based on the following String Descriptor 
-    Table structure. 
-    
-    Following example assumes the Device supports 3 String Descriptors in 3 
-    different Languages. 
-    
-        String Descriptor Index 0 -- Specifies Codes for all the Language 
-                                     supported. 
+    This function is implemented based on the following String Descriptor
+    Table structure.
+
+    Following example assumes the Device supports 3 String Descriptors in 3
+    different Languages.
+
+        String Descriptor Index 0 -- Specifies Codes for all the Language
+                                     supported.
         String -- Index 1 -- Language 1
         String -- Index 2 -- Language 1
         String -- Index 3 -- Language 1
@@ -3082,7 +3083,7 @@ void _USB_DEVICE_EndpointMutexDeleteFunction(USB_DEVICE_OBJ* usbDeviceThisInstan
         String -- Index 3 -- Language 2
         String -- Index 1 -- Language 3
         String -- Index 2 -- Language 3
-        String -- Index 3 -- Language 3 
+        String -- Index 3 -- Language 3
 
   Remarks:
     This is a local function and should not be called directly by the client.
@@ -3105,19 +3106,19 @@ uint16_t _USB_DEVICE_GetStringDescriptorRequestProcess
 
     /* Get the string descriptor index from setup packet*/
     stringIndex = setupPkt->bDscIndex;
-    uint8_t stringDescPerLang =0; 
-    
+    uint8_t stringDescPerLang =0;
+
     /* Find Number Languages supported from String Descriptor array index 0 */
-    NumberLangSupported = (uint8_t)((ptrMasterDescTable->stringDescriptorTable[0][0]) - 2)/2;   
-    
+    NumberLangSupported = (uint8_t)((ptrMasterDescTable->stringDescriptorTable[0][0]) - 2)/2;
+
     if (NumberLangSupported)
     {
         /* Get Number of Strings per Language */
-        stringDescPerLang = (ptrMasterDescTable->stringDescCount - 1)/NumberLangSupported; 
+        stringDescPerLang = (ptrMasterDescTable->stringDescCount - 1)/NumberLangSupported;
     }
-    
+
     /* Check if the String Index requested by Host is with in the String
-     * descriptor count specified in the Master descriptor Table */ 
+     * descriptor count specified in the Master descriptor Table */
 
     if(setupPkt->bDscIndex <= stringDescPerLang)
     {
@@ -3126,12 +3127,12 @@ uint16_t _USB_DEVICE_GetStringDescriptorRequestProcess
 
         if (stringIndex == 0)
         {
-            /* Get pointer to String Descriptor */ 
+            /* Get pointer to String Descriptor */
             stringDesc = (uint8_t*)(ptrMasterDescTable->stringDescriptorTable[0] );
             *pDescriptorString = (uint8_t *)stringDesc;
 
             /* Get Size of the String descriptor. Size is always the First
-             * element in the String descriptor structure  */  
+             * element in the String descriptor structure  */
             DescriptorStringSize = stringDesc[0];
         }
         else
@@ -3143,17 +3144,17 @@ uint16_t _USB_DEVICE_GetStringDescriptorRequestProcess
              * out Language ID Index*/
             for (langIndex = 1; langIndex <= NumberLangSupported; langIndex++)
             {
-                /* Get the Language ID from String Descriptor Index 0 */ 
+                /* Get the Language ID from String Descriptor Index 0 */
                 CurrentLangId = *((uint16_t*)ptrMasterDescTable->stringDescriptorTable[0] + langIndex);
 
-                /* Check if the requested Language ID same as Current Language ID */ 
+                /* Check if the requested Language ID same as Current Language ID */
                 if (CurrentLangId == langID)
                 {
                     /* The Requested String Descriptor and Language was found.
-                     * Get pointer to String Descriptor */ 
+                     * Get pointer to String Descriptor */
                     stringDesc = (uint8_t*)( ptrMasterDescTable->stringDescriptorTable[langIndex*stringIndex] );
                     *pDescriptorString = (uint8_t *)stringDesc;
-                    
+
                     /* Get Size of the String descriptor. Size is always the
                      * First element in the String descriptor structure  */
                     DescriptorStringSize = stringDesc[0];
@@ -3165,10 +3166,10 @@ uint16_t _USB_DEVICE_GetStringDescriptorRequestProcess
         return DescriptorStringSize;
     }
 
-    /* We could not find the requested String Descriptor in the String 
-       Descriptor Table. The request will be stalled. */  
-    
-    return 0; 
+    /* We could not find the requested String Descriptor in the String
+       Descriptor Table. The request will be stalled. */
+
+    return 0;
 }
 
 // ******************************************************************************
@@ -3188,9 +3189,9 @@ uint16_t _USB_DEVICE_GetStringDescriptorRequestProcess
     The USB Device Layer chooses this function when the macro
     USB_DEVICE_STRING_DESCRIPTOR_TABLE_ADVANCED_ENABLE is defined.
 
-    This function is implemented based on the following String Descriptor 
-    Table structure. 
-    
+    This function is implemented based on the following String Descriptor
+    Table structure.
+
             |Size(Byte)|Type(Byte)|String Index 0(Byte)|0(Word)|Language ID 1(Word)|Language ID 2(Word)|...|Language ID n(Word)|
             |Size(Byte)|Type(Byte)|String Index x(Byte)|Language ID 1(Word)|String |
             |Size(Byte)|Type(Byte)|String Index x(Byte)|Language ID 1(Word)|String |
@@ -3216,18 +3217,18 @@ uint16_t _USB_DEVICE_GetStringDescriptorRequestProcessAdvanced
     uint16_t DescriptorStringSize = 0;
     uint8_t count;
     uint8_t stringIndex;
-     
+
      /* Get the string descriptor index from setup packet*/
     stringIndexRequested = setupPkt->bDscIndex;
 
     if (stringIndexRequested == 0)
     {
-        /* Get pointer to String Descriptor */ 
+        /* Get pointer to String Descriptor */
         stringDesc = (uint8_t*)&(ptrMasterDescTable->stringDescriptorTable[0][3] );
         *pDescriptorString = (uint8_t *)stringDesc;
 
         /* Get Size of the String descriptor. Size is always the First element
-         * in the String descriptor structure  */ 
+         * in the String descriptor structure  */
 
         DescriptorStringSize = stringDesc[0];
     }
@@ -3236,27 +3237,27 @@ uint16_t _USB_DEVICE_GetStringDescriptorRequestProcessAdvanced
         for (count = 1; count < ptrMasterDescTable->stringDescCount; count++ )
         {
             /* Get the string index from the String Descriptor.  String Index is
-             * always the third element in the String Descriptor */  
-            
+             * always the third element in the String Descriptor */
+
             stringIndex = ptrMasterDescTable->stringDescriptorTable[count][0];
-            
+
             /* Get Language ID from the string descriptor. Language ID is always
-             * the Fourth element in the String Descriptor */ 
-            
+             * the Fourth element in the String Descriptor */
+
             langID = ((uint16_t)ptrMasterDescTable->stringDescriptorTable[count][2]<<8)
                                |ptrMasterDescTable->stringDescriptorTable[count][1];
 
             /* Check if the Requested String Index and Language ID matches with
-             * the values retrieved from String Descriptor */  
+             * the values retrieved from String Descriptor */
 
             if ((stringIndex == stringIndexRequested) && (langID == setupPkt->wLangID))
             {
                     /* The Requested String Descriptor and Language was found.
-                     * Get pointer to String Descriptor */ 
+                     * Get pointer to String Descriptor */
 
                     stringDesc = (uint8_t*)&( ptrMasterDescTable->stringDescriptorTable[count][3] );
                     *pDescriptorString = (uint8_t *)stringDesc;
-                    
+
                     /* Get Size of the String descriptor. Size is always the
                      * First element in the String descriptor structure  */
 
@@ -3269,7 +3270,7 @@ uint16_t _USB_DEVICE_GetStringDescriptorRequestProcessAdvanced
     /* Return String descriptor size. USB device layer would stall the request
      * if the requested string descriptor was not found. If requested string was
      * not found the DescriptorStringSize would be zero and pDescriptorString
-     * would be NULL.  */  
+     * would be NULL.  */
 
     return DescriptorStringSize;
 }
@@ -3278,7 +3279,7 @@ uint16_t _USB_DEVICE_GetStringDescriptorRequestProcessAdvanced
 /* Function:
     void _USB_DEVICE_Other_Speed_Descriptor_Request
     (
-        USB_DEVICE_OBJ * usbDeviceThisInstance, 
+        USB_DEVICE_OBJ * usbDeviceThisInstance,
         USB_SETUP_PACKET * setupPkt
     )
 
@@ -3288,33 +3289,33 @@ uint16_t _USB_DEVICE_GetStringDescriptorRequestProcessAdvanced
 
   Description:
     This function processes the Get Other Speed Configuration descriptor request
-    from Host. This function should be called only if the USB peripheral is 
-    configured for High Speed operation. 
- 
+    from Host. This function should be called only if the USB peripheral is
+    configured for High Speed operation.
+
   Remarks:
     This is a local function and should not be called directly by the client.
 */
 void _USB_DEVICE_Other_Speed_Descriptor_Request
 (
-    USB_DEVICE_OBJ * usbDeviceThisInstance, 
+    USB_DEVICE_OBJ * usbDeviceThisInstance,
     USB_SETUP_PACKET * setupPkt
 )
 {
     USB_CONFIGURATION_DESCRIPTOR * lConfigDescriptor = NULL;
     USB_DEVICE_MASTER_DESCRIPTOR * ptrMasterDescTable ;
-    uint32_t size; 
-    uint32_t pendingBytesOtherSpeedDescptr = 0; 
-    
+    uint32_t size;
+    uint32_t pendingBytesOtherSpeedDescptr = 0;
+
     /* Copy the Master descriptor table to a local pointer. */
     ptrMasterDescTable = usbDeviceThisInstance->ptrMasterDescTable ;
-    
+
     /* Find out whether device is operating at full speed or high speed */
     if( usbDeviceThisInstance->usbDeviceStatusStruct.usbSpeed == USB_SPEED_HIGH )
     {
         if (((setupPkt->bDscIndex) < ptrMasterDescTable->configDescriptorCount) && (ptrMasterDescTable->configDescriptorTable != NULL))
         {
-            /* If the Device is operating at High Speed, we send the full speed 
-             * configuration descriptor */ 
+            /* If the Device is operating at High Speed, we send the full speed
+             * configuration descriptor */
             lConfigDescriptor = (USB_CONFIGURATION_DESCRIPTOR *)ptrMasterDescTable->configDescriptorTable[setupPkt->bDscIndex];
         }
     }
@@ -3323,51 +3324,51 @@ void _USB_DEVICE_Other_Speed_Descriptor_Request
         if (((setupPkt->bDscIndex) < ptrMasterDescTable->highSpeedConfigDescriptorCount)
             && (ptrMasterDescTable->highSpeedConfigDescriptorTable != NULL))
         {
-            /* If the device is operating at full speed, then send the high speed 
+            /* If the device is operating at full speed, then send the high speed
              * configuration descriptor */
             lConfigDescriptor = (USB_CONFIGURATION_DESCRIPTOR *)ptrMasterDescTable->highSpeedConfigDescriptorTable[setupPkt->bDscIndex];
         }
     }
 
     if(lConfigDescriptor != NULL )
-    { 
+    {
         /* Get the descriptor size */
         size = lConfigDescriptor->wTotalLength;
-             
+
         /* Adjust data size as Host request */
         if( size > setupPkt->wLength )
         {
-            
-            size = setupPkt->wLength;  
+
+            size = setupPkt->wLength;
         }
-        
+
         /* Update IRP flag to complete the transfer initially */
         _USB_DEVICE_OtherSpeedDescriptorRequestIrpFlagsUpdate
         (
-            &(usbDeviceThisInstance->irpEp0TxOtherSpeedDescriptor), 
+            &(usbDeviceThisInstance->irpEp0TxOtherSpeedDescriptor),
             USB_DEVICE_IRP_FLAG_DATA_COMPLETE
-        ); 
-        
-        /* We may have to submit two IRPs for the Other Speed Configuration 
-           descriptor request. The Second IRP is only needed if the data size 
+        );
+
+        /* We may have to submit two IRPs for the Other Speed Configuration
+           descriptor request. The Second IRP is only needed if the data size
            requested by the Host is more than USB_DEVICE_EP0_BUFFER_SIZE. */
         if (size > USB_DEVICE_EP0_BUFFER_SIZE)
         {
             /* Update Pending Bytes. This data will go in the Second IRP */
             pendingBytesOtherSpeedDescptr = size - USB_DEVICE_EP0_BUFFER_SIZE;
-            
-            /* In the First IRP we will submit only EP0 Buffer Size worth of 
+
+            /* In the First IRP we will submit only EP0 Buffer Size worth of
              * data. Remaining Bytes will be sent in the Second IRP */
-            size = USB_DEVICE_EP0_BUFFER_SIZE; 
-            
+            size = USB_DEVICE_EP0_BUFFER_SIZE;
+
             /* Keep the IRP flags pending as we are going to submit another IRP. */
             _USB_DEVICE_OtherSpeedDescriptorRequestIrpFlagsUpdate
             (
-                &(usbDeviceThisInstance->irpEp0TxOtherSpeedDescriptor), 
+                &(usbDeviceThisInstance->irpEp0TxOtherSpeedDescriptor),
                 USB_DEVICE_IRP_FLAG_DATA_PENDING
-            );    
+            );
         }
-        
+
         /* Copy Data into the EP0 Transmit buffer */
         _USB_DEVICE_OtherSpeedDescriptorRequestCopyData
         (
@@ -3375,18 +3376,18 @@ void _USB_DEVICE_Other_Speed_Descriptor_Request
             lConfigDescriptor,
             size
         );
-        
+
         /* Edit Descriptor type to OTHER_SPEED */
         _USB_DEVICE_OtherSpeedDescriptorRequestEditDescriptorType
         (
             usbDeviceThisInstance->ep0TxBuffer,
             1,
             USB_DESCRIPTOR_OTHER_SPEED
-        ); 
-        
+        );
+
         if (pendingBytesOtherSpeedDescptr == 0)
         {
-            /* Fill in the Other Speed Descriptor IRP. */ 
+            /* Fill in the Other Speed Descriptor IRP. */
             _USB_DEVICE_OtherSpeedDescriptorRequestIrpFill
             (
                 &(usbDeviceThisInstance->irpEp0TxOtherSpeedDescriptor),
@@ -3394,33 +3395,33 @@ void _USB_DEVICE_Other_Speed_Descriptor_Request
                 size,
                 _USB_DEVICE_Ep0TransmitCompleteCallback,
                 (uintptr_t)usbDeviceThisInstance
-            ); 
-            
+            );
+
              /* Submit IRP */
-            _USB_DEVICE_OtherSpeedDescriptorRequestIrpSubmit(usbDeviceThisInstance->usbCDHandle, controlEndpointTx, &usbDeviceThisInstance->irpEp0TxOtherSpeedDescriptor ); 
+            _USB_DEVICE_OtherSpeedDescriptorRequestIrpSubmit(usbDeviceThisInstance->usbCDHandle, controlEndpointTx, &usbDeviceThisInstance->irpEp0TxOtherSpeedDescriptor );
         }
         else
         {
-            /* This means we have to submit two IRPs */   
+            /* This means we have to submit two IRPs */
             if (pendingBytesOtherSpeedDescptr % USB_DEVICE_EP0_BUFFER_SIZE == 0)
             {
                 _USB_DEVICE_OtherSpeedDescriptorRequestIrpFlagsUpdate
                 (
-                    &(usbDeviceThisInstance->irpEp0Tx), 
+                    &(usbDeviceThisInstance->irpEp0Tx),
                     USB_DEVICE_IRP_FLAG_DATA_PENDING
-                ); 
+                );
             }
             else
             {
                 _USB_DEVICE_OtherSpeedDescriptorRequestIrpFlagsUpdate
                 (
-                    &(usbDeviceThisInstance->irpEp0Tx), 
+                    &(usbDeviceThisInstance->irpEp0Tx),
                     USB_DEVICE_IRP_FLAG_DATA_COMPLETE
                 );
             }
-            
+
             /* Fill in the Other Speed Descriptor IRP. Callback is NULL here. We
-               do not want to be notified for first IRP */ 
+               do not want to be notified for first IRP */
             _USB_DEVICE_OtherSpeedDescriptorRequestIrpFill
             (
                 &(usbDeviceThisInstance->irpEp0TxOtherSpeedDescriptor),
@@ -3428,25 +3429,25 @@ void _USB_DEVICE_Other_Speed_Descriptor_Request
                 size,
                 NULL,
                 (uintptr_t)usbDeviceThisInstance
-            ); 
-            
+            );
+
             /* Submit the first IRP */
-            _USB_DEVICE_OtherSpeedDescriptorRequestIrpSubmit(usbDeviceThisInstance->usbCDHandle, controlEndpointTx, &usbDeviceThisInstance->irpEp0TxOtherSpeedDescriptor ); 
-            
+            _USB_DEVICE_OtherSpeedDescriptorRequestIrpSubmit(usbDeviceThisInstance->usbCDHandle, controlEndpointTx, &usbDeviceThisInstance->irpEp0TxOtherSpeedDescriptor );
+
             /* Fill in the Second IRP for the pending data */
             _USB_DEVICE_OtherSpeedDescriptorRequestIrpFill
             (
-                &(usbDeviceThisInstance->irpEp0Tx), 
+                &(usbDeviceThisInstance->irpEp0Tx),
                 ((uint8_t*)lConfigDescriptor + USB_DEVICE_EP0_BUFFER_SIZE),
                 pendingBytesOtherSpeedDescptr,
                 _USB_DEVICE_Ep0TransmitCompleteCallback,
                 (uintptr_t)usbDeviceThisInstance
-            );   
-       
+            );
+
             /* Submit second IRP */
-            _USB_DEVICE_OtherSpeedDescriptorRequestIrpSubmit(usbDeviceThisInstance->usbCDHandle, controlEndpointTx, &usbDeviceThisInstance->irpEp0Tx); 
+            _USB_DEVICE_OtherSpeedDescriptorRequestIrpSubmit(usbDeviceThisInstance->usbCDHandle, controlEndpointTx, &usbDeviceThisInstance->irpEp0Tx);
         }
-        
+
     }
     else
     {

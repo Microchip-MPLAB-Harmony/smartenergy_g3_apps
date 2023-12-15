@@ -96,28 +96,27 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 /* RF215 Driver Configuration Options */
-#define DRV_RF215_INDEX_0                     0
-#define DRV_RF215_CLIENTS_NUMBER              1
-#define DRV_RF215_TX_BUFFERS_NUMBER           1
-#define DRV_RF215_CSR_INDEX                   3
+#define DRV_RF215_INDEX_0                     0U
+#define DRV_RF215_CLIENTS_NUMBER              1U
+#define DRV_RF215_TX_BUFFERS_NUMBER           1U
 #define DRV_RF215_SPI_CHIP_SELECT             SPI_CHIP_SELECT_NPCS3
 #define DRV_RF215_SPI_TX_DMA_CH               SYS_DMA_CHANNEL_0
 #define DRV_RF215_SPI_RX_DMA_CH               SYS_DMA_CHANNEL_1
 #define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PA2
 #define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PC19
 #define DRV_RF215_LED_RX_PIN                  SYS_PORT_PIN_PA6
-#define DRV_RF215_NUM_TRX                     1
-#define DRV_RF215_FCS_LEN                     4
-#define DRV_RF215_MAX_PSDU_LEN                576
-#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000
-#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  70
-#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 660
+#define DRV_RF215_NUM_TRX                     1U
+#define DRV_RF215_FCS_LEN                     4U
+#define DRV_RF215_MAX_PSDU_LEN                576U
+#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000U
+#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  70U
+#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 660U
 
 /* USI Service Common Configuration Options */
-#define SRV_USI_INSTANCES_NUMBER              1
-#define SRV_USI_USART_CONNECTIONS             0
-#define SRV_USI_CDC_CONNECTIONS               1
-#define SRV_USI_MSG_POOL_SIZE                 5
+#define SRV_USI_INSTANCES_NUMBER              1U
+#define SRV_USI_USART_CONNECTIONS             0U
+#define SRV_USI_CDC_CONNECTIONS               1U
+#define SRV_USI_MSG_POOL_SIZE                 5U
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_D
@@ -133,16 +132,16 @@ extern "C" {
 #define DRV_PLC_SPI_CLK                       8000000
 
 /* PLC Driver Identification */
-#define DRV_PLC_PHY_INSTANCES_NUMBER          1
-#define DRV_PLC_PHY_INDEX                     0
-#define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1
-#define DRV_PLC_PHY_PROFILE                   2
+#define DRV_PLC_PHY_INSTANCES_NUMBER          1U
+#define DRV_PLC_PHY_INDEX                     0U
+#define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1U
+#define DRV_PLC_PHY_PROFILE                   2U
 #define DRV_PLC_PHY_NUM_CARRIERS              NUM_CARRIERS_FCC
-#define DRV_PLC_PHY_HOST_PRODUCT              0x3601
-#define DRV_PLC_PHY_HOST_VERSION              0x36010300
-#define DRV_PLC_PHY_HOST_PHY                  0x36020103
+#define DRV_PLC_PHY_HOST_PRODUCT              0x3601U
+#define DRV_PLC_PHY_HOST_VERSION              0x36010300UL
+#define DRV_PLC_PHY_HOST_PHY                  0x36020103UL
 #define DRV_PLC_PHY_HOST_DESC                 "ATSAME70Q21B"
-#define DRV_PLC_PHY_HOST_MODEL                3
+#define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
 /* USI Service Instance 0 Configuration Options */
 #define SRV_USI_INDEX_0                       0
@@ -188,11 +187,11 @@ extern "C" {
 
 /* Enables Device Support */
 #define DRV_USBHSV1_DEVICE_SUPPORT                          true
-	
+
 /* Disable Host Support */
 #define DRV_USBHSV1_HOST_SUPPORT                            false
 
-/* Alignment for buffers that are submitted to USB Driver*/ 
+/* Alignment for buffers that are submitted to USB Driver*/
 #define USB_ALIGN  CACHE_ALIGN
 
 

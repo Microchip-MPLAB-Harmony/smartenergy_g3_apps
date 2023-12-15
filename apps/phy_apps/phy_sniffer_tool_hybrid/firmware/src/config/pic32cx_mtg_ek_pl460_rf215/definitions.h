@@ -62,14 +62,14 @@
 #include "peripheral/tc/plib_tc0.h"
 #include "service/usi/srv_usi.h"
 #include "service/usi/srv_usi_usart.h"
-#include "service/pcrc/srv_pcrc.h"
 #include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
+#include "service/pcrc/srv_pcrc.h"
 #include "peripheral/sefc/plib_sefc0.h"
 #include "peripheral/sefc/plib_sefc1.h"
+#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
-#include "system/time/sys_time.h"
 #include "service/rsniffer/srv_rsniffer.h"
 #include "service/psniffer/srv_psniffer.h"
 #include "system/int/sys_int.h"
@@ -209,8 +209,8 @@ Remarks:
 typedef struct
 {
     SYS_MODULE_OBJ drvRf215;
-    SYS_MODULE_OBJ drvPlcPhy;
     SYS_MODULE_OBJ  sysTime;
+    SYS_MODULE_OBJ drvPlcPhy;
     SYS_MODULE_OBJ srvUSI0;
 
 } SYSTEM_OBJECTS;

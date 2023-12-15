@@ -234,7 +234,7 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
     dataLength = ((pCmd->length + 1U) >> 1) & 0x7FFFU;
     
     /* Protect length */
-    if ((dataLength == 0U) || (dataLength > (HAL_SPI_MSG_DATA_SIZE + HAL_SPI_MSG_PARAMS_SIZE)))
+    if ((dataLength == 0U) || (pCmd->length > (HAL_SPI_MSG_DATA_SIZE + HAL_SPI_MSG_PARAMS_SIZE)))
     {
         return;
     }
@@ -259,7 +259,7 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
 
     pTxData += pCmd->length;
 
-    totalLength = 4U + pCmd->length;
+    totalLength = HAL_SPI_HEADER_SIZE + pCmd->length;
     cmdSize = totalLength;
     
     if ((cmdSize % 2U) > 0U) {

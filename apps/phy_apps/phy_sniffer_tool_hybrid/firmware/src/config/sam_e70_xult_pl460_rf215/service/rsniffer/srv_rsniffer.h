@@ -19,7 +19,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -64,9 +64,66 @@
 
 // *****************************************************************************
 // *****************************************************************************
+// Section: Data Types
+// *****************************************************************************
+// *****************************************************************************
+
+/* Hybrid PHY Sniffer Tool command
+
+  Summary:
+    Hybrid Sniffer Tool Commands enumeration.
+
+  Description:
+    This enumeration defines the commands used by the Hybrid PHY Sniffer Tool
+    provided by Microchip.
+*/
+typedef enum
+{
+  /* Receive new PLC message */
+  SRV_RSNIFFER_CMD_RECEIVE_MSG = 0,
+  /* Set PLC Tone Mask */
+  SRV_RSNIFFER_CMD_SET_PLC_TONE_MASK,
+  /* Set RF Band, Operating Mode and Channel */
+  SRV_RSNIFFER_CMD_SET_RF_BAND_OPM_CHANNEL
+} SRV_RSNIFFER_COMMAND;
+
+// *****************************************************************************
+// *****************************************************************************
 // Section: RF PHY Sniffer Serialization Interface Routines
 // *****************************************************************************
 // *****************************************************************************
+
+// *****************************************************************************
+/* Function:
+    SRV_RSNIFFER_COMMAND SRV_RSNIFFER_GetCommand(uint8_t* pDataSrc)
+
+  Summary:
+    Extracts Command field from Sniffer frame.
+
+  Description:
+    Takes Sniffer frame as parameter and extracts the Command field from the
+    expected position in buffer.
+
+  Precondition:
+    None.
+
+  Parameters:
+    pDataSrc - Pointer to buffer containing Sniffer frame
+
+  Returns:
+    Command in the form of SRV_RSNIFFER_COMMAND Enum.
+
+  Example:
+    <code>
+    SRV_RSNIFFER_COMMAND command;
+
+    command = SRV_RSNIFFER_GetCommand(pData);
+    </code>
+
+  Remarks:
+    None.
+*/
+SRV_RSNIFFER_COMMAND SRV_RSNIFFER_GetCommand(uint8_t* pDataSrc);
 
 // *****************************************************************************
 /* Function:
@@ -100,8 +157,8 @@
 
   Example:
     <code>
-    DRV_HANDLE drvRf215Handle; // returned from DRV_RF215_Open
-    SRV_USI_HANDLE srvUSIHandle; // returned from SRV_USI_Open
+    DRV_HANDLE drvRf215Handle;
+    SRV_USI_HANDLE srvUSIHandle;
 
     static void _APP_RfRxIndCb(DRV_RF215_RX_INDICATION_OBJ* ind, uintptr_t ctxt)
     {
@@ -110,18 +167,14 @@
         size_t rfSnifferDataSize;
         uint16_t rfPayloadSymbols;
 
-        // Get payload symbols in the received message
         DRV_RF215_GetPib(drvRf215Handle, RF215_PIB_PHY_RX_PAY_SYMBOLS,
                 &rfPayloadSymbols);
 
-        // Get RF PHY configuration
         DRV_RF215_GetPib(drvRf215Handle, RF215_PIB_PHY_CONFIG, &rfPhyConfig);
 
-        // Serialize received RF message
         pRfSnifferData = SRV_RSNIFFER_SerialRxMessage(ind, &rfPhyConfig,
                 rfPayloadSymbols, &rfSnifferDataSize);
 
-        // Send through USI
         SRV_USI_Send_Message(srvUSIHandle, SRV_USI_PROT_ID_SNIF_G3,
                 pRfSnifferData, rfSnifferDataSize);
     }
@@ -166,7 +219,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
 
   Example:
     <code>
-    DRV_HANDLE drvRf215Handle // returned from DRV_RF215_Open
+    DRV_HANDLE drvRf215Handle;
     DRV_RF215_TX_REQUEST_OBJ txReqObj;
     DRV_RF215_TX_RESULT txReqResult;
     DRV_RF215_TX_HANDLE txReqHandle;
@@ -231,8 +284,8 @@ void SRV_RSNIFFER_SetTxMessage (
 
   Example:
     <code>
-    DRV_HANDLE drvRf215Handle; // returned from DRV_RF215_Open
-    SRV_USI_HANDLE srvUSIHandle; // returned from SRV_USI_Open
+    DRV_HANDLE drvRf215Handle;
+    SRV_USI_HANDLE srvUSIHandle;
 
     static void _APP_RF_TxCfmCb (
         DRV_RF215_TX_HANDLE txHandle,
@@ -245,18 +298,14 @@ void SRV_RSNIFFER_SetTxMessage (
         size_t rfSnifferDataSize;
         uint16_t rfPayloadSymbols;
 
-        // Get payload symbols in the received message
         DRV_RF215_GetPib(drvRf215Handle, RF215_PIB_PHY_TX_PAY_SYMBOLS,
                 &rfPayloadSymbols);
 
-        // Get RF PHY configuration
         DRV_RF215_GetPib(drvRf215Handle, RF215_PIB_PHY_CONFIG, &rfPhyConfig);
 
-        // Serialize received RF message
         pRfSnifferData = SRV_RSNIFFER_SerialCfmMessage(cfmObj, txHandle,
                 &rfPhyConfig, rfPayloadSymbols, &rfSnifferDataSize);
 
-        // Send through USI
         SRV_USI_Send_Message(srvUSIHandle, SRV_USI_PROT_ID_SNIF_G3,
                 pRfSnifferData, rfSnifferDataSize);
     }
@@ -272,6 +321,61 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
     uint16_t paySymbols,
     size_t* pMsgLen
+);
+
+// *****************************************************************************
+/* Function:
+    void SRV_RSNIFFER_ParseConfigCommand (
+        uint8_t* pDataSrc,
+        uint16_t* pBandOpMode,
+        uint16_t* pChannel
+    )
+
+  Summary:
+    Parses a RF configuration command coming from the Microchip Hybrid Sniffer
+    Tool.
+
+  Description:
+    This function takes a RF configuration command with the format coming from
+    the Microchip Hybrid Sniffer Tool and extracts the Band, Operating Mode
+    and Channel parameters to be configured in the RF PHY layer.
+    If misconfigured, no RF frames will be seen.
+
+  Precondition:
+    None.
+
+  Parameters:
+    pDataSrc    - Pointer to the data where the command is stored (USI)
+    pBandOpMode - Pointer to store the parsed Band and Operating Mode parameter
+                  (RF215_PIB_PHY_BAND_OPERATING_MODE)
+    pChannel    - Pointer to store the parsed Channel parameter
+                  (RF215_PIB_PHY_CHANNEL_NUM)
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    switch (command) {
+        case SRV_RSNIFFER_CMD_SET_RF_BAND_OPM_CHANNEL:
+        {
+            uint16_t rfBandOpMode, rfChannel;
+            SRV_RSNIFFER_ParseConfigCommand(pData, &rfBandOpMode, &rfChannel);
+
+            DRV_RF215_SetPib(appData.drvRf215Handle, RF215_PIB_PHY_BAND_OPERATING_MODE, &rfBandOpMode);
+            DRV_RF215_SetPib(appData.drvRf215Handle, RF215_PIB_PHY_CHANNEL_NUM, &rfChannel);
+            break;
+        }
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
+void SRV_RSNIFFER_ParseConfigCommand (
+    uint8_t* pDataSrc,
+    uint16_t* pBandOpMode,
+    uint16_t* pChannel
 );
 
 #endif //SRV_RSNIFFER_H

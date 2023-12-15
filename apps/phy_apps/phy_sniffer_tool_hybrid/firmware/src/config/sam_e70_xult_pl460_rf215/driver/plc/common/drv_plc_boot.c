@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -63,136 +63,138 @@ static DRV_PLC_BOOT_INFO sDrvPlcBootInfo = {0};
 
 /* This is the maximum size of the fragments to handle the upload task of binary
  file to PLC transceiver */
-#define MAX_FRAG_SIZE      512
+#define MAX_FRAG_SIZE      512U
 
 static DRV_PLC_BOOT_DATA_CALLBACK sDrvPlcBootCb = NULL;
-static uintptr_t sDrvPlcBootContext; 
+static uintptr_t sDrvPlcBootContext;
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: File scope functions
 // *****************************************************************************
 // *****************************************************************************
-static void _DRV_PLC_BOOT_Rev(uint8_t *pDataDst, uint8_t len)
+static void lDRV_PLC_BOOT_Rev(uint8_t *pDataDst, uint8_t len)
 {
     uint8_t pTemp[16];
 
-	for (uint8_t idx = 0; idx < len; idx++) {
-		pTemp[idx] = pDataDst[15 - idx];
-	}
+    for (uint8_t idx = 0; idx < len; idx++)
+    {
+        pTemp[idx] = pDataDst[15U - idx];
+    }
 
-	memcpy(pDataDst, pTemp, len);
+    (void) memcpy(pDataDst, pTemp, len);
 }
 
-static uint32_t _DRV_PLC_BOOT_CheckStatus(void)
+static uint32_t lDRV_PLC_BOOT_CheckStatus(void)
 {
     uint32_t regValue;
 
     /* Send Start Decryption */
-	regValue = 0;
-    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_READ_BOOT_STATUS, 0, 4, 
+    regValue = 0;
+    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_READ_BOOT_STATUS, 0, 4,
             (uint8_t *)&regValue, (uint8_t *)&regValue);
-    
+
     return regValue;
 }
 
-static void _DRV_PLC_BOOT_GetSecureInfo(uint8_t *pData)
+static void lDRV_PLC_BOOT_GetSecureInfo(uint8_t *pData)
 {
     /* Get Number of packets */
     sDrvPlcBootInfo.secNumPackets = ((uint16_t)*pData++) << 8;
     sDrvPlcBootInfo.secNumPackets += *pData;
     pData +=15;
-    
+
     /* Get Initial Vector */
-    memcpy(sDrvPlcBootInfo.secIV, pData, 16);
-    _DRV_PLC_BOOT_Rev(sDrvPlcBootInfo.secIV, 16);
+    (void) memcpy(sDrvPlcBootInfo.secIV, pData, 16);
+    lDRV_PLC_BOOT_Rev(sDrvPlcBootInfo.secIV, 16);
     pData +=16;
-    
+
     /* Get Signature */
-    memcpy(sDrvPlcBootInfo.secSN, pData, 16);
-    _DRV_PLC_BOOT_Rev(sDrvPlcBootInfo.secSN, 16);
+    (void) memcpy(sDrvPlcBootInfo.secSN, pData, 16);
+    lDRV_PLC_BOOT_Rev(sDrvPlcBootInfo.secSN, 16);
 }
 
-static void _DRV_PLC_BOOT_SetSecureInfo(void)
+static void lDRV_PLC_BOOT_SetSecureInfo(void)
 {
     uint32_t regValue;
-	uint8_t pValue[4];
+    uint8_t pValue[4];
 
     /* Set number of packets */
-	regValue = (uint32_t)sDrvPlcBootInfo.secNumPackets - 1;
-	pValue[3] = (uint8_t)(regValue >> 24);
-	pValue[2] = (uint8_t)(regValue >> 16);
-	pValue[1] = (uint8_t)(regValue >> 8);
-	pValue[0] = (uint8_t)(regValue);
-    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_SET_DEC_NUM_PKTS, 0, 4, pValue, 
+    regValue = (uint32_t)sDrvPlcBootInfo.secNumPackets - 1U;
+    pValue[3] = (uint8_t)(regValue >> 24);
+    pValue[2] = (uint8_t)(regValue >> 16);
+    pValue[1] = (uint8_t)(regValue >> 8);
+    pValue[0] = (uint8_t)(regValue);
+    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_SET_DEC_NUM_PKTS, 0, 4, pValue,
             NULL);
 
     /* Set Init Vector */
-    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_SET_DEC_INIT_VECT, 0, 16, 
+    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_SET_DEC_INIT_VECT, 0, 16,
             sDrvPlcBootInfo.secIV, NULL);
 
     /* Set Signature */
-    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_SET_DEC_SIGN, 0, 16, 
+    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_SET_DEC_SIGN, 0, 16,
             sDrvPlcBootInfo.secSN, NULL);
-    
+
 }
 
-static void _DRV_PLC_BOOT_SartDecryption(void)
+static void lDRV_PLC_BOOT_SartDecryption(void)
 {
     uint32_t regValue;
 
     /* Send Start Decryption */
-	regValue = 0;
-    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_START_DECRYPT, 0, 4, 
+    regValue = 0;
+    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_START_DECRYPT, 0, 4,
             (uint8_t *)&regValue, NULL);
 
     /* Test Bootloader status : wait to AES block */
-    uint32_t ul_boot_dbg = _DRV_PLC_BOOT_CheckStatus();
-	while (ul_boot_dbg & PLC_FUSES_BOOT_ST_AES_ACT) 
+    uint32_t ul_boot_dbg = lDRV_PLC_BOOT_CheckStatus();
+    while ((ul_boot_dbg & PLC_FUSES_BOOT_ST_AES_ACT) != 0U)
     {
-		regValue = 0xFFFF;
-        while(regValue--);
-        ul_boot_dbg = _DRV_PLC_BOOT_CheckStatus();
-	}
-    
-//    /* Only for debug purposes */
-//	ul_boot_dbg = _DRV_PLC_BOOT_CheckStatus();
-//	if (ul_boot_dbg & PLC_FUSES_BOOT_ST_SIGN_OK) {
-//		printf("SIGNATURE OK.\r\n");
-//	} else {
-//		printf("Error in SIGNATURE.\r\n");
-//	}
+        regValue = 0xFFFF;
+        while((regValue--) > 0U){}
+
+        ul_boot_dbg = lDRV_PLC_BOOT_CheckStatus();
+    }
+
+    /* Only for debug purposes */
+//    ul_boot_dbg = lDRV_PLC_BOOT_CheckStatus();
+//    if (ul_boot_dbg & PLC_FUSES_BOOT_ST_SIGN_OK) {
+//        printf("SIGNATURE OK.\r\n");
+//    } else {
+//        printf("Error in SIGNATURE.\r\n");
+//    }
 }
 
-static void _DRV_PLC_BOOT_FirmwareUploadTask(void)
+static void lDRV_PLC_BOOT_FirmwareUploadTask(void)
 {
     uint8_t *pData;
     uint32_t progAddr;
     uint16_t fragSize;
-    uint8_t padding;
-    
+    uint8_t padding = 0;
+
     /* Get next address to be programmed */
     progAddr = sDrvPlcBootInfo.pDst;
-    
-    if (sDrvPlcBootCb)
+
+    if (sDrvPlcBootCb != NULL)
     {
         /* Fragmented Bootloader from external interactions */
         uint32_t address;
-                
+
         /* Call function to get the next fragment of boot data */
         sDrvPlcBootCb(&address, &fragSize, sDrvPlcBootContext);
         pData = (uint8_t *)address;
-        
+
         /* Check Secure Mode */
-        if ((sDrvPlcBootInfo.secure) && (sDrvPlcBootInfo.secNumPackets == 0))
+        if ((sDrvPlcBootInfo.secure) && (sDrvPlcBootInfo.secNumPackets == 0U))
         {
             /* Catch meta-data from first fragment */
-            _DRV_PLC_BOOT_GetSecureInfo(pData);
-            pData += 48;
-            fragSize -= 48;
+            lDRV_PLC_BOOT_GetSecureInfo(pData);
+            pData += 48U;
+            fragSize -= 48U;
         }
-        
-        if (fragSize)
+
+        if (fragSize > 0U)
         {
             /* Write fragment data */
             sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_CMD_WRITE_BUF, progAddr, fragSize, pData, NULL);
@@ -206,52 +208,61 @@ static void _DRV_PLC_BOOT_FirmwareUploadTask(void)
     }
     else
     {
+        uint16_t fragSizeReal;
+
         /* Bootloader from internal FLASH memory */
         pData = (uint8_t *)sDrvPlcBootInfo.pSrc;
 
-        if (sDrvPlcBootInfo.pendingLength > MAX_FRAG_SIZE) {
-            fragSize = MAX_FRAG_SIZE;
-            padding = 0;
-        } else {
-            fragSize = sDrvPlcBootInfo.pendingLength;
-            padding = fragSize % 4;
-            fragSize += padding;
+        if (sDrvPlcBootInfo.pendingLength > MAX_FRAG_SIZE)
+        {
+            fragSizeReal = MAX_FRAG_SIZE;
         }
-        
+        else
+        {
+            fragSizeReal = (uint16_t)sDrvPlcBootInfo.pendingLength;
+            padding = (uint8_t)(fragSizeReal % 4U);
+            if (padding > 0U)
+            {
+                padding = 4U - padding;
+            }
+        }
+
+        fragSize = fragSizeReal + padding;
+
         /* Check Secure Mode */
-        if ((sDrvPlcBootInfo.secure) && (sDrvPlcBootInfo.secNumPackets == 0))
+        if ((sDrvPlcBootInfo.secure) && (sDrvPlcBootInfo.secNumPackets == 0U))
         {
             /* Catch meta-data from first fragment */
-            _DRV_PLC_BOOT_GetSecureInfo(pData);
-            pData += 48;
-            fragSize -= 48;
+            lDRV_PLC_BOOT_GetSecureInfo(pData);
+            pData += 48U;
+            fragSize -= 48U;
         }
 
         /* Write fragment data */
         sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_CMD_WRITE_BUF, progAddr, fragSize, pData, NULL);
 
         /* Update counters */
-        sDrvPlcBootInfo.pendingLength -= (fragSize - padding);
+        sDrvPlcBootInfo.pendingLength -= fragSizeReal;
         pData += fragSize;
         sDrvPlcBootInfo.pSrc = (uint32_t)pData;
     }
-    
+
     /* Update counters */
     progAddr += fragSize;
     sDrvPlcBootInfo.pDst = progAddr;
 }
 
-static void _DRV_PLC_BOOT_EnableBootCmd(void)
+static void lDRV_PLC_BOOT_EnableBootCmd(void)
 {
     uint32_t reg_value;
     uint8_t cmd_value[4];
-    
+
     /* Reset PLC transceiver */
     sDrvPlcHalObj->reset();
-    
+
     /* Configure 8 bits transfer */
     sDrvPlcHalObj->setup(false);
-    
+
     /* Enable Write operation in bootloader */
     cmd_value[3] = (uint8_t)(DRV_PLC_BOOT_WRITE_KEY >> 24);
     cmd_value[2] = (uint8_t)(DRV_PLC_BOOT_WRITE_KEY >> 16);
@@ -274,11 +285,11 @@ static void _DRV_PLC_BOOT_EnableBootCmd(void)
     sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_CMD_WRITE_WORD, PLC_MISCR, 4, cmd_value, NULL);
 }
 
-static void _DRV_PLC_BOOT_DisableBootCmd(void)
+static void lDRV_PLC_BOOT_DisableBootCmd(void)
 {
     uint32_t reg_value;
     uint8_t cmd_value[4];
-    
+
     /* Disable CPU Wait */
     reg_value = PLC_MISCR_PPM_CALIB_OFF | PLC_MISCR_MEM_96_96_CFG | PLC_MISCR_EN_ACCESS_ERROR | PLC_MISCR_SET_GPIO_12_ZC;
     cmd_value[3] = (uint8_t)(reg_value >> 24);
@@ -289,41 +300,41 @@ static void _DRV_PLC_BOOT_DisableBootCmd(void)
 
     /* Disable Bootloader */
     sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_CMD_DIS_SPI_CLK_CTRL, 0, 0, NULL, NULL);
-    
+
     /* Configure 16 bits transfer */
     sDrvPlcHalObj->setup(true);
 }
 
-static bool _DRV_PLC_BOOT_CheckFirmware(void)
+static bool lDRV_PLC_BOOT_CheckFirmware(void)
 {
     DRV_PLC_HAL_CMD halCmd;
     DRV_PLC_HAL_INFO halInfo;
     uint8_t status[8];
-    
+
     halCmd.cmd = DRV_PLC_HAL_CMD_RD;
     halCmd.memId = 0;
     halCmd.length = 8;
-    halCmd.pData = status;    
-    
+    halCmd.pData = status;
+
     sDrvPlcHalObj->sendWrRdCmd(&halCmd, &halInfo);
 
     if (halInfo.key == DRV_PLC_HAL_KEY_CORTEX)
     {
         return true;
     }
-    
+
     return false;
 }
 
-static void _DRV_PLC_BOOT_Restart(void)
-{  
+static void lDRV_PLC_BOOT_RestartProcess(void)
+{
     sDrvPlcBootInfo.pendingLength = sDrvPlcBootInfo.binSize;
-    sDrvPlcBootInfo.pSrc = sDrvPlcBootInfo.binStartAddress;  
+    sDrvPlcBootInfo.pSrc = sDrvPlcBootInfo.binStartAddress;
     sDrvPlcBootInfo.pDst = DRV_PLC_BOOT_PROGRAM_ADDR;
     sDrvPlcBootInfo.secNumPackets = 0;
-    
-    _DRV_PLC_BOOT_EnableBootCmd();
-    
+
+    lDRV_PLC_BOOT_EnableBootCmd();
+
     sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_PROCESING;
 }
 
@@ -334,26 +345,26 @@ static void _DRV_PLC_BOOT_Restart(void)
 // *****************************************************************************
 
 void DRV_PLC_BOOT_Start(DRV_PLC_BOOT_INFO *pBootInfo, DRV_PLC_HAL_INTERFACE *pHal)
-{  
+{
     sDrvPlcHalObj = pHal;
-    
+
     sDrvPlcBootInfo.binSize = pBootInfo->binSize;
     sDrvPlcBootInfo.binStartAddress = pBootInfo->binStartAddress;
     sDrvPlcBootInfo.pendingLength = pBootInfo->binSize;
-    sDrvPlcBootInfo.pSrc = pBootInfo->binStartAddress;  
+    sDrvPlcBootInfo.pSrc = pBootInfo->binStartAddress;
     sDrvPlcBootInfo.secure = pBootInfo->secure;
     sDrvPlcBootInfo.pDst = DRV_PLC_BOOT_PROGRAM_ADDR;
     sDrvPlcBootInfo.secNumPackets = 0;
-    
+
     /* Set Bootloader data callback to handle boot by external fragments */
-    if (pBootInfo->bootDataCallback)
+    if (pBootInfo->bootDataCallback != NULL)
     {
         sDrvPlcBootInfo.bootDataCallback = pBootInfo->bootDataCallback;
         sDrvPlcBootInfo.contextBoot = pBootInfo->contextBoot;
     }
 
-    _DRV_PLC_BOOT_EnableBootCmd();
-    
+    lDRV_PLC_BOOT_EnableBootCmd();
+
     sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_PROCESING;
 }
 
@@ -366,14 +377,14 @@ void DRV_PLC_BOOT_Tasks( void )
 {
     if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_PROCESING)
     {
-        _DRV_PLC_BOOT_FirmwareUploadTask();
-        if (sDrvPlcBootInfo.pendingLength == 0)
+        lDRV_PLC_BOOT_FirmwareUploadTask();
+        if (sDrvPlcBootInfo.pendingLength == 0U)
         {
             /* Check Secure Mode */
             if (sDrvPlcBootInfo.secure)
-            {   
-                _DRV_PLC_BOOT_SetSecureInfo();
-                _DRV_PLC_BOOT_SartDecryption();
+            {
+                lDRV_PLC_BOOT_SetSecureInfo();
+                lDRV_PLC_BOOT_SartDecryption();
             }
             /* Complete firmware upload */
             sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_SWITCHING;
@@ -382,14 +393,14 @@ void DRV_PLC_BOOT_Tasks( void )
     else if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_SWITCHING)
     {
         uint32_t counter = 0;
-        
+
         sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_STARTINGUP;
-        
-        _DRV_PLC_BOOT_DisableBootCmd();
-        while(sDrvPlcHalObj->getPinLevel(sDrvPlcHalObj->plcPlib->extIntPio) == 0)
+
+        lDRV_PLC_BOOT_DisableBootCmd();
+        while(sDrvPlcHalObj->getPinLevel(sDrvPlcHalObj->plcPlib->extIntPio) == false)
         {
             counter++;
-            if (counter > 0x1FF)
+            if (counter > 0x1FFU)
             {
                 sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_ERROR;
                 break;
@@ -398,29 +409,32 @@ void DRV_PLC_BOOT_Tasks( void )
     }
     else if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_STARTINGUP)
     {
-        if (sDrvPlcHalObj->getPinLevel(sDrvPlcHalObj->plcPlib->extIntPio) == 0)
+        if (sDrvPlcHalObj->getPinLevel(sDrvPlcHalObj->plcPlib->extIntPio) == false)
         {
             sDrvPlcBootInfo.validationCounter = 50;
             sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_VALIDATING;
         }
     }
-    else if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_VALIDATING)
+    else
     {
-        /* Check firmware */
-        if (_DRV_PLC_BOOT_CheckFirmware())
+        if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_VALIDATING)
         {
-            /* Update boot status */
-            sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_READY;
-        }
-        else
-        {
-            if (sDrvPlcBootInfo.validationCounter--)
+            /* Check firmware */
+            if (lDRV_PLC_BOOT_CheckFirmware())
             {
-                sDrvPlcHalObj->delay(200);
+                /* Update boot status */
+                sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_READY;
             }
             else
             {
-                sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_ERROR;
+                if ((sDrvPlcBootInfo.validationCounter--) > 0U)
+                {
+                    sDrvPlcHalObj->delay(200);
+                }
+                else
+                {
+                    sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_ERROR;
+                }
             }
         }
     }
@@ -432,7 +446,7 @@ void DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_MODE mode)
     {
         /* Configure 8 bits transfer */
         sDrvPlcHalObj->setup(false);
-        
+
         /* Disable Bootloader */
         sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_CMD_DIS_SPI_CLK_CTRL, 0, 0, NULL, NULL);
 
@@ -445,13 +459,13 @@ void DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_MODE mode)
     else if (mode == DRV_PLC_BOOT_RESTART_HARD)
     {
         /* Restart Boot process */
-        _DRV_PLC_BOOT_Restart();
+        lDRV_PLC_BOOT_RestartProcess();
     }
-    else if (mode == DRV_PLC_BOOT_RESTART_SLEEP)
+    else /* (mode == DRV_PLC_BOOT_RESTART_SLEEP) */
     {
         /* Enable Boot Command Mode */
-        _DRV_PLC_BOOT_EnableBootCmd();
-        _DRV_PLC_BOOT_DisableBootCmd();
+        lDRV_PLC_BOOT_EnableBootCmd();
+        lDRV_PLC_BOOT_DisableBootCmd();
         sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_VALIDATING;
     }
 }

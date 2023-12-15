@@ -141,7 +141,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI Write/Read */
     .spiWriteRead = FLEXCOM5_SPI_WriteRead,
 
-    
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
     

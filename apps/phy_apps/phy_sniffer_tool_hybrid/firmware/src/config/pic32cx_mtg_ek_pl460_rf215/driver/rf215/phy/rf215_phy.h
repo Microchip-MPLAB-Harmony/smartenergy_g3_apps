@@ -353,6 +353,13 @@ typedef struct
     uint8_t                         BBCn_FSKPE1;
     uint8_t                         BBCn_FSKPE2;
 
+    /* Receiver sensitivity for FSK in dBm.
+     * From IEEE 802.15.4 section 19.6.7 Receiver sensitivity:
+     * S = (S0 + 10log[R/R0]) dBm. Where S0 = -91 (without FEC) / -97 (with FEC);
+     * R0 = 50 kb/s; R = bit rate in kb/s
+     * Sensitivity without FEC is selected (worst case) */
+    int8_t                          sensitivityDBm;
+
 } RF215_FSK_SYM_RATE_CONST_OBJ;
 
 // *****************************************************************************
@@ -389,6 +396,12 @@ typedef struct
 
     /* Minimum MCS (lowest baud-rate, most robust) for the bandwidth option */
     DRV_RF215_PHY_MOD_SCHEME        minMCS;
+
+    /* Receiver sensitivity for OFDM in dBm.
+     * From IEEE 802.15.4 section 20.5.3 Receiver sensitivity:
+     * Table 20-21?Sensitivity requirements for OFDM options and MCS levels
+     * Sensitivity for MCS6 is selected (worst case) */
+    int8_t                          sensitivityDBm;
 
 } RF215_OFDM_BW_OPT_CONST_OBJ;
 

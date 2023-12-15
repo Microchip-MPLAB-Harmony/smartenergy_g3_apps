@@ -18,7 +18,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -69,10 +69,8 @@
 // Section: Macro definitions
 // *****************************************************************************
 // *****************************************************************************
-#define PSNIFFER_TONEMAP_SIZE     3
-#define PSNIFFER_SUBBANDS_SIZE    24   
-#define PSNIFFER_CARRIERS_SIZE    72        
-#define PSNIFFER_RS_2_BLOCKS      1
+
+#define PSNIFFER_CARRIERS_SIZE    72
 #define PSNIFFER_VERSION          0x02
 #define PSNIFFER_PROFILE          0x12
 
@@ -82,22 +80,24 @@
 // *****************************************************************************
 // *****************************************************************************
 
-/* PLC Phy Sniffer Tool command
+/* Hybrid PHY Sniffer Tool command
 
   Summary:
-    PLC Sniffer Commands enumeration
+    Hybrid Sniffer Tool Commands enumeration.
 
   Description:
-    This enumeration defines the PLC commands used by PLC Phy Sniffer Tool
+    This enumeration defines the commands used by the Hybrid PHY Sniffer Tool
     provided by Microchip.
 */
 typedef enum
 {
-  /* Receive new PLC message */
+  /* Receive new message */
   SRV_PSNIFFER_CMD_RECEIVE_MSG = 0,
-  /* Set Tone Mask request */ 
-  SRV_PSNIFFER_CMD_SET_TONE_MASK,
-} SRV_PSNIFFER_COMMAND;   
+  /* Set PLC Tone Mask */
+  SRV_PSNIFFER_CMD_SET_PLC_TONE_MASK,
+  /* Set RF Band, Operating Mode and Channel */
+  SRV_PSNIFFER_CMD_SET_RF_BAND_OPM_CHANNEL
+} SRV_PSNIFFER_COMMAND;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -132,7 +132,6 @@ typedef enum
     <code>
     SRV_PSNIFFER_COMMAND command;
 
-    // Process received message from Sniffer Tool
     command = SRV_PSNIFFER_GetCommand(pData);
     </code>
 
@@ -173,16 +172,13 @@ SRV_PSNIFFER_COMMAND SRV_PSNIFFER_GetCommand(uint8_t* pData);
     <code>
     static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
     {
-      // Report RX Symbols
       appData.plcPIB.id = PLC_ID_RX_PAY_SYMBOLS;
       appData.plcPIB.length = 2;
-      DRV_PLC_PHY_PIBGet(appData.drvPl360Handle, &appData.plcPIB);
+      DRV_PLC_PHY_PIBGet(appData.drvPlcHandle, &appData.plcPIB);
 
       SRV_PSNIFFER_SetRxPayloadSymbols(*(uint16_t *)appData.plcPIB.pData);
 
-      // Serialize received message
       length = SRV_PSNIFFER_SerialRxMessage(appData.pSerialData, indObj);
-      // Send through USI
       SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_SNIFF_G3,
               appData.pSerialData, length);
     }
@@ -227,16 +223,13 @@ size_t SRV_PSNIFFER_SerialRxMessage(uint8_t* pDataDst, DRV_PLC_PHY_RECEPTION_OBJ
     <code>
     static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj)
     {
-      // Report TX Symbols
       appData.plcPIB.id = PLC_ID_TX_PAY_SYMBOLS;
       appData.plcPIB.length = 2;
-      DRV_PLC_PHY_PIBGet(appData.drvPl360Handle, &appData.plcPIB);
+      DRV_PLC_PHY_PIBGet(appData.drvPlcHandle, &appData.plcPIB);
 
       SRV_PSNIFFER_SetTxPayloadSymbols(*(uint16_t *)appData.plcPIB.pData);
 
-      // Serialize transmitted message
       length = SRV_PSNIFFER_SerialCfmMessage(appData.pSerialData, pCfmObj);
-      // Send through USI
       SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_SNIFF_G3,
               appData.pSerialData, length);
     }
@@ -276,10 +269,7 @@ size_t SRV_PSNIFFER_SerialCfmMessage(uint8_t* pDataDst, DRV_PLC_PHY_TRANSMISSION
     <code>
     static void APP_PLCTxFrame(DRV_PLC_PHY_TRANSMISSION_OBJ* pTxObj)
     {
-      // Give transmission object to Sniffer
       SRV_PSNIFFER_SetTxMessage(pTxObj);
-      // Send PLC frame through PHY Driver
-      // DRV_PLC_PHY_xxx(pTxObj);
     }
     </code>
 
@@ -315,16 +305,13 @@ void SRV_PSNIFFER_SetTxMessage(DRV_PLC_PHY_TRANSMISSION_OBJ* pTxObj);
     <code>
     static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
     {
-      // Report RX Symbols
       appData.plcPIB.id = PLC_ID_RX_PAY_SYMBOLS;
       appData.plcPIB.length = 2;
-      DRV_PLC_PHY_PIBGet(appData.drvPl360Handle, &appData.plcPIB);
+      DRV_PLC_PHY_PIBGet(appData.drvPlcHandle, &appData.plcPIB);
 
       SRV_PSNIFFER_SetRxPayloadSymbols(*(uint16_t *)appData.plcPIB.pData);
 
-      // Serialize received message
       length = SRV_PSNIFFER_SerialRxMessage(appData.pSerialData, indObj);
-      // Send through USI
       SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_SNIFF_G3,
               appData.pSerialData, length);
     }
@@ -362,16 +349,13 @@ void SRV_PSNIFFER_SetRxPayloadSymbols(uint16_t payloadSym);
     <code>
     static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj)
     {
-      // Report TX Symbols
       appData.plcPIB.id = PLC_ID_TX_PAY_SYMBOLS;
       appData.plcPIB.length = 2;
-      DRV_PLC_PHY_PIBGet(appData.drvPl360Handle, &appData.plcPIB);
+      DRV_PLC_PHY_PIBGet(appData.drvPlcHandle, &appData.plcPIB);
 
       SRV_PSNIFFER_SetTxPayloadSymbols(*(uint16_t *)appData.plcPIB.pData);
 
-      // Serialize transmitted message
       length = SRV_PSNIFFER_SerialCfmMessage(appData.pSerialData, pCfmObj);
-      // Send through USI
       SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_SNIFF_G3,
               appData.pSerialData, length);
     }
@@ -385,55 +369,48 @@ void SRV_PSNIFFER_SetTxPayloadSymbols(uint16_t payloadSym);
 
 // *****************************************************************************
 /* Function:
-    void SRV_PSNIFFER_ConvertToneMask
-    (
-      uint8_t* pToneMaskDst,
-      uint8_t* pToneMaskSrc
-    )
+    void SRV_PSNIFFER_ConvertToneMask(uint8_t* pDataSrc, uint8_t* pToneMaskDst)
 
   Summary:
-    Converts a Tone Mask configuration coming from an external tool to the
-    right format to be configured on PLC PHY layer.
+    Converts a Tone Mask configuration command coming the Microchip Hybrid
+    Sniffer Tool to the right format to be configured on G3-PLC PHY layer.
 
   Description:
-    This function takes a Tone Mask configuration with the format coming from
-    MCHP PLC Sniffer Tool and converts it to a format to be configured on PLC PHY
-    layer to be used on further transmissions and receptions.
+    This function takes a Tone Mask configuration command with the format coming
+    from the Microchip Hybrid Sniffer Tool and converts it to a format to be
+    configured on G3-PLC PHY layer to be used on further transmissions and
+    receptions.
     If misconfigured, no PLC frames will be seen.
 
   Precondition:
     None.
 
   Parameters:
+    pDataSrc     - Pointer to the data where the command is stored (USI)
     pToneMaskDst - The Tone Mask converted to PHY format
-    pToneMaskSrc - The Tone Mask with format coming from external tool
 
   Returns:
     None.
 
   Example:
     <code>
-	  switch (command) {
-        case SRV_PSNIFFER_CMD_SET_TONE_MASK:
+    switch (command) {
+        case SRV_PSNIFFER_CMD_SET_PLC_TONE_MASK:
         {
-            // Convert ToneMask from Sniffer Tool to PLC phy layer
-            SRV_PSNIFFER_ConvertToneMask(appData.plcPIB.pData, pData + 1);
+            SRV_PSNIFFER_ConvertToneMask(pData, appData.plcPIB.pData);
 
-            // Send data to PLC
             appData.plcPIB.id = PLC_ID_TONE_MASK;
             appData.plcPIB.length = PSNIFFER_CARRIERS_SIZE;
-            DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
+            DRV_PLC_PHY_PIBSet(appData.drvPlcHandle, &appData.plcPIB);
+            break;
         }
-        break;
-
-        // ...
     }
     </code>
 
   Remarks:
-    This function is only available in G3 PLC profile.
+    This function is only available in G3-PLC profile.
 */
-void SRV_PSNIFFER_ConvertToneMask(uint8_t* pToneMaskDst, uint8_t* pToneMaskSrc);
+void SRV_PSNIFFER_ConvertToneMask(uint8_t* pDataSrc, uint8_t* pToneMaskDst);
 
 
 #endif //SRV_PSNIFFER_H

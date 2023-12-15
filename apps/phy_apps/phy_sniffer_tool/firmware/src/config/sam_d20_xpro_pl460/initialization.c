@@ -126,7 +126,7 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI Chip select pin */
     .spiCSPin = DRV_PLC_SPI_CS_PIN,
-    
+
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
     

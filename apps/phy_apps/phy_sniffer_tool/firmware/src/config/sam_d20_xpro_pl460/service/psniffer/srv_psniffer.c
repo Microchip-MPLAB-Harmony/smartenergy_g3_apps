@@ -234,15 +234,18 @@ size_t SRV_PSNIFFER_SerialCfmMessage(uint8_t* pDataDst, DRV_PLC_PHY_TRANSMISSION
     return (size_t)size;
 }
 
-void SRV_PSNIFFER_ConvertToneMask(uint8_t* pToneMaskDst, uint8_t* pToneMaskSrc)
+void SRV_PSNIFFER_ConvertToneMask(uint8_t* pDataSrc, uint8_t* pToneMaskDst)
 {
     int8_t i, j;
     uint8_t bitField;
 
+    /* Skip command */
+    pDataSrc++;
+
     /* Convert bit-field to byte-field, reversing order */
     for (i = 8; i >= 0; i--)
     {
-        bitField = pToneMaskSrc[i];
+        bitField = pDataSrc[i];
         for (j = 0; j < 8; j++) 
         {
             pToneMaskDst[(i * 8) + j] = ((bitField & 1U) != 0U)? 0U: 1U;
