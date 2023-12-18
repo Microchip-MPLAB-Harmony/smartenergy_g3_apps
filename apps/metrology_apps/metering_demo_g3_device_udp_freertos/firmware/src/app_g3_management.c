@@ -72,6 +72,7 @@ static const APP_G3_MANAGEMENT_CONSTANTS app_g3_managementConst = {
     .defaultCoordRouteEnabled = APP_G3_MANAGEMENT_DEFAULT_COORD_ROUTE_ENABLED,
 
     /* G3 Conformance parameters */
+    .pskConformance = APP_G3_MANAGEMENT_PSK_KEY_CONFORMANCE,
     .blacklistTableEntryTTLconformance = APP_G3_MANAGEMENT_BLACKLIST_TABLE_ENTRY_TTL_CONFORMANCE,
     .broadcastLogTableEntryTTLconformance = APP_G3_MANAGEMENT_BROADCAST_LOG_TABLE_ENTRY_TTL_CONFORMANCE,
     .gropTable0Conformance = APP_G3_MANAGEMENT_GROUP_TABLE_0_CONFORMANCE,
@@ -85,6 +86,7 @@ static const APP_G3_MANAGEMENT_CONSTANTS app_g3_managementConst = {
     .rreqJitterHighLQIRFconformance = APP_G3_MANAGEMENT_JITTER_HIGH_LQI_RF_CONFORMANCE,
     .clusterMinLQIRFconformance = APP_G3_MANAGEMENT_CLUSTER_MIN_LQI_RF_CONFORMANCE,
     .clusterTrickleIconformance = APP_G3_MANAGEMENT_CLUSTER_TRICKLE_I_CONFORMANCE,
+    .rfChannelNumberConformance = APP_G3_MANAGEMENT_RF_CHANNEL_NUM_CONFORMANCE,
     .maxHopsConformance = APP_G3_MANAGEMENT_MAX_HOPS_CONFORMANCE,
     .weakLQIvalueConformance = APP_G3_MANAGEMENT_WEAK_LQI_CONFORMANCE,
     .weakLQIvalueRFconformance = APP_G3_MANAGEMENT_WEAK_LQI_RF_CONFORMANCE,
@@ -439,10 +441,14 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
             &app_g3_managementConst.kdcRFconformance, &setConfirm);
 
     /* Set MAC parameters needed for Conformance Test */
+    ADP_MacSetRequestSync(MAC_WRP_PIB_CHANNEL_NUMBER_RF, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.rfChannelNumberConformance,
+            &setConfirm);
+
     ADP_MacSetRequestSync(MAC_WRP_PIB_TMR_TTL, 0, 1,
             &app_g3_managementConst.tmrTTLconformance, &setConfirm);
 
-   ADP_MacSetRequestSync(MAC_WRP_PIB_MAX_CSMA_BACKOFFS, 0, 1,
+    ADP_MacSetRequestSync(MAC_WRP_PIB_MAX_CSMA_BACKOFFS, 0, 1,
             &app_g3_managementConst.maxCSMAbackoffsConformance, &setConfirm);
 
     ADP_MacSetRequestSync(MAC_WRP_PIB_MAX_CSMA_BACKOFFS_RF, 0, 1,
@@ -678,7 +684,6 @@ static void _APP_G3_MANAGEMENT_ShowVersions(void)
     {
         SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: Error getting G3 stack version\r\n");
     }
-
 
     /* Get ADP version */
     ADP_GetRequestSync(ADP_IB_MANUF_ADP_INTERNAL_VERSION, 0, &getAdpConfirm);
@@ -919,8 +924,16 @@ void APP_G3_MANAGEMENT_Tasks ( void )
                 lbpDevNotifications.adpNetworkLeaveConfirm = NULL;
                 lbpDevNotifications.adpNetworkLeaveIndication = _LBP_ADP_NetworkLeaveIndication;
                 LBP_SetNotificationsDev(&lbpDevNotifications);
-                LBP_SetParamDev(LBP_IB_PSK, 0, 16,
-                        (const uint8_t*) &app_g3_managementConst.psk, &lbpSetConfirm);
+                if (app_g3_managementData.conformanceTest == false)
+                {
+                    LBP_SetParamDev(LBP_IB_PSK, 0, 16,
+                            (const uint8_t*) &app_g3_managementConst.psk, &lbpSetConfirm);
+                }
+                else
+                {
+                    LBP_SetParamDev(LBP_IB_PSK, 0, 16,
+                            (const uint8_t*) &app_g3_managementConst.pskConformance, &lbpSetConfirm);
+                }
 
                 /* Initialize back-off window for network discovery */
                 app_g3_managementData.backoffWindowLow = APP_G3_MANAGEMENT_DISCOVERY_BACKOFF_LOW_MIN;
@@ -1151,8 +1164,12 @@ void APP_G3_MANAGEMENT_SetConformanceConfig ( void )
 
     if (ADP_Status() >= ADP_STATUS_READY)
     {
+        LBP_SET_PARAM_CONFIRM lbpSetConfirm;
+
         /* ADP is ready: set conformance parameters */
         _APP_G3_MANAGEMENT_SetConformanceParameters();
+        LBP_SetParamDev(LBP_IB_PSK, 0, 16,
+                (const uint8_t*) &app_g3_managementConst.pskConformance, &lbpSetConfirm);
     }
 
     APP_TCPIP_MANAGEMENT_SetConformanceConfig();

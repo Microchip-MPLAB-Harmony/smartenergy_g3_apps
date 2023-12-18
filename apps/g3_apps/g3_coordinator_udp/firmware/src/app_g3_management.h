@@ -174,6 +174,9 @@ extern "C" {
 #define APP_G3_MANAGEMENT_KRT_RF_CONFORMANCE 0
 #define APP_G3_MANAGEMENT_KDC_RF_CONFORMANCE 10
 
+/* RF channel number for conformance */
+#define APP_G3_MANAGEMENT_RF_CHANNEL_NUM_CONFORMANCE 68
+
 /* Period to blink LED in milliseconds */
 #define APP_G3_MANAGEMENT_LED_BLINK_PERIOD_MS 500
 
@@ -336,6 +339,9 @@ typedef struct
 
     /* ADP_IB_CLUSTER_TRICKLE_I / ADP_IB_CLUSTER_TRICKLE_I_RF for Conformance */
     const uint16_t clusterTrickleIconformance;
+
+    /* MAC_WRP_PIB_CHANNEL_NUMBER_RF for Conformance */
+    const uint16_t rfChannelNumberConformance;
 
     /* ADP_IB_MAX_HOPS */
     const uint8_t maxHops;

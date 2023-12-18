@@ -57,6 +57,9 @@ extern "C" {
 /* PSK / Network authentication Key (16 bytes) */
 #define APP_G3_MANAGEMENT_PSK_KEY {0xAB, 0x10, 0x34, 0x11, 0x45, 0x11, 0x1B, 0xC3, 0xC1, 0x2D, 0xE8, 0xFF, 0x11, 0x14, 0x22, 0x04}
 
+/* PSK / Network authentication Key (16 bytes) for Conformance */
+#define APP_G3_MANAGEMENT_PSK_KEY_CONFORMANCE {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF}
+
 /* Context information table index 0:
  * Context 0 with value IPv6_PREFIX & PAN_ID (length = 80 bits) */
 #define APP_G3_MANAGEMENT_CONTEXT_INFO_TABLE_0 {0xFF, 0xFF, 0x01, 0x50, 0xFE, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x78, 0x1D}
@@ -176,6 +179,9 @@ extern "C" {
 #define APP_G3_MANAGEMENT_KH_RF_CONFORMANCE  8
 #define APP_G3_MANAGEMENT_KRT_RF_CONFORMANCE 0
 #define APP_G3_MANAGEMENT_KDC_RF_CONFORMANCE 10
+
+/* RF channel number for conformance */
+#define APP_G3_MANAGEMENT_RF_CHANNEL_NUM_CONFORMANCE 68
 
 /* Back-off delay times for network discovery in milliseconds */
 #define APP_G3_MANAGEMENT_DISCOVERY_BACKOFF_LOW_MIN  1000
@@ -338,6 +344,9 @@ typedef struct
     /* LBP_IB_PSK: PSK / Network authentication Key */
     const uint8_t psk[16];
 
+    /* LBP_IB_PSK: PSK / Network authentication Key for Conformance */
+    const uint8_t pskConformance[16];
+
     /* ADP_IB_CONTEXT_INFORMATION_TABLE: Context information table index 0 */
     const uint8_t contextInfoTable0[14];
 
@@ -392,6 +401,9 @@ typedef struct
 
     /* ADP_IB_CLUSTER_TRICKLE_I / ADP_IB_CLUSTER_TRICKLE_I_RF for Conformance */
     const uint16_t clusterTrickleIconformance;
+
+    /* MAC_WRP_PIB_CHANNEL_NUMBER_RF for Conformance */
+    const uint16_t rfChannelNumberConformance;
 
     /* ADP_IB_MAX_HOPS */
     const uint8_t maxHops;

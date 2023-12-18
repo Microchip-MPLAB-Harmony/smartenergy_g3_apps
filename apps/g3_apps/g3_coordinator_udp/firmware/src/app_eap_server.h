@@ -51,6 +51,9 @@ extern "C" {
 /* PSK / Network authentication Key (16 bytes) */
 #define APP_EAP_SERVER_PSK_KEY {0xAB, 0x10, 0x34, 0x11, 0x45, 0x11, 0x1B, 0xC3, 0xC1, 0x2D, 0xE8, 0xFF, 0x11, 0x14, 0x22, 0x04}
 
+/* PSK / Network authentication Key (16 bytes) for Conformance */
+#define APP_EAP_SERVER_PSK_KEY_CONFORMANCE {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF}
+
 /* GMK (Global Master Key) (16 bytes) */
 #define APP_EAP_SERVER_GMK_KEY {0xAF, 0x4D, 0x6D, 0xCC, 0xF1, 0x4D, 0xE7, 0xC1, 0xC4, 0x23, 0x5E, 0x6F, 0xEF, 0x6C, 0x15, 0x1F}
 
@@ -130,6 +133,9 @@ typedef struct
 
     /* Distribute re-key phase flag  */
     bool rekeyPhaseDistribute;
+
+    /* Conformance Test flag */
+    bool conformanceTest;
 
 } APP_EAP_SERVER_DATA;
 
@@ -367,6 +373,37 @@ uint16_t APP_EAP_SERVER_GetNumDevicesJoined(void);
 */
 
 uint16_t APP_EAP_SERVER_GetDeviceAddress(uint16_t index, uint8_t* pEUI64);
+
+/*******************************************************************************
+  Function:
+    void APP_EAP_SERVER_SetConformanceConfig ( void )
+
+  Summary:
+    Configures EAP Server for Conformance Test.
+
+  Description:
+    This function configures EAP Server parameters for Conformance Test.
+    The PSK key is set to a different value.
+
+  Precondition:
+    APP_EAP_SERVER_Initialize should be called before calling this routine.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    APP_EAP_SERVER_SetConformanceConfig();
+    </code>
+
+  Remarks:
+    None.
+*/
+
+void APP_EAP_SERVER_SetConformanceConfig ( void );
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

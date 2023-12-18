@@ -268,7 +268,6 @@ static void _APP_G3_MANAGEMENT_ShowVersions(void)
         SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: Error getting G3 stack version\r\n");
     }
 
-
     /* Get ADP version */
     ADP_GetRequestSync(ADP_IB_MANUF_ADP_INTERNAL_VERSION, 0, &getAdpConfirm);
     if (getAdpConfirm.status == G3_SUCCESS)

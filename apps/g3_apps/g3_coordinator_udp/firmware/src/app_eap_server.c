@@ -71,6 +71,7 @@ static ADP_EXTENDED_ADDRESS app_eap_serverBlacklist[APP_EAP_SERVER_MAX_DEVICES];
 
 /* Keys */
 static const uint8_t app_eap_serverPSK[16] = APP_EAP_SERVER_PSK_KEY;
+static const uint8_t app_eap_serverPSKconformance[16] = APP_EAP_SERVER_PSK_KEY_CONFORMANCE;
 static const uint8_t app_eap_serverGMK[16] = APP_EAP_SERVER_GMK_KEY;
 
 /* Null extended address, all 0's */
@@ -305,8 +306,15 @@ void APP_EAP_SERVER_Tasks ( void )
                 lbpCoordNotifications.joinCompleteIndication = _LBP_COORD_JoinCompleteIndication;
                 lbpCoordNotifications.leaveIndication = _LBP_COORD_LeaveIndication;
                 LBP_SetNotificationsCoord(&lbpCoordNotifications);
-                LBP_SetParamCoord(LBP_IB_PSK, 0, 16, app_eap_serverPSK, &lbpSetConfirm);
                 LBP_SetParamCoord(LBP_IB_GMK, 0, 16, app_eap_serverGMK, &lbpSetConfirm);
+                if (app_eap_serverData.conformanceTest == false)
+                {
+                    LBP_SetParamCoord(LBP_IB_PSK, 0, 16, app_eap_serverPSK, &lbpSetConfirm);
+                }
+                else
+                {
+                    LBP_SetParamCoord(LBP_IB_PSK, 0, 16, app_eap_serverPSKconformance, &lbpSetConfirm);
+                }
 
                 /* G3 network started in ADP */
                 app_eap_serverData.state = APP_EAP_SERVER_NETWORK_STARTED;
@@ -431,6 +439,20 @@ uint16_t APP_EAP_SERVER_GetDeviceAddress(uint16_t index, uint8_t* pEUI64)
     }
 
     return 0xFFFF;
+}
+
+void APP_EAP_SERVER_SetConformanceConfig ( void )
+{
+    app_eap_serverData.conformanceTest = true;
+
+    if ((app_eap_serverData.state > APP_EAP_SERVER_STATE_WAIT_NETWORK_STARTED) &&
+            (app_eap_serverData.state != APP_EAP_SERVER_STATE_ERROR))
+    {
+        LBP_SET_PARAM_CONFIRM lbpSetConfirm;
+
+        /* Network has been started: set PSK key for Conformance */
+        LBP_SetParamCoord(LBP_IB_PSK, 0, 16, app_eap_serverPSKconformance, &lbpSetConfirm);
+    }
 }
 
 /*******************************************************************************

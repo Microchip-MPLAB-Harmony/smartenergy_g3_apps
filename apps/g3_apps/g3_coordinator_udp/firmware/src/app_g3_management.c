@@ -19,7 +19,7 @@
     the modules in the system or make any assumptions about when those functions
     are called.  That is the responsibility of the configuration-specific system
     files.
- *******************************************************************************/
+ ******************************************************************************/
 
 // *****************************************************************************
 // *****************************************************************************
@@ -28,7 +28,6 @@
 // *****************************************************************************
 
 #include "definitions.h"
-#include "app_cycles.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -46,7 +45,8 @@
     This structure holds the application's data.
 
   Remarks:
-    This structure should be initialized by the APP_G3_MANAGEMENT_Initialize function.
+    This structure should be initialized by the APP_G3_MANAGEMENT_Initialize
+    function.
 
     Application strings and buffers are be defined outside this structure.
 */
@@ -83,6 +83,7 @@ static const APP_G3_MANAGEMENT_CONSTANTS app_g3_managementConst = {
     .rreqJitterHighLQIRFconformance = APP_G3_MANAGEMENT_JITTER_HIGH_LQI_RF_CONFORMANCE,
     .clusterMinLQIRFconformance = APP_G3_MANAGEMENT_CLUSTER_MIN_LQI_RF_CONFORMANCE,
     .clusterTrickleIconformance = APP_G3_MANAGEMENT_CLUSTER_TRICKLE_I_CONFORMANCE,
+    .rfChannelNumberConformance = APP_G3_MANAGEMENT_RF_CHANNEL_NUM_CONFORMANCE,
     .maxHopsConformance = APP_G3_MANAGEMENT_MAX_HOPS_CONFORMANCE,
     .weakLQIvalueConformance = APP_G3_MANAGEMENT_WEAK_LQI_CONFORMANCE,
     .weakLQIvalueRFconformance = APP_G3_MANAGEMENT_WEAK_LQI_RF_CONFORMANCE,
@@ -362,6 +363,10 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
             &app_g3_managementConst.kdcRFconformance, &setConfirm);
 
     /* Set MAC parameters needed for Conformance Test */
+    ADP_MacSetRequestSync(MAC_WRP_PIB_CHANNEL_NUMBER_RF, 0, 2,
+            (const uint8_t*) &app_g3_managementConst.rfChannelNumberConformance,
+            &setConfirm);
+
     ADP_MacSetRequestSync(MAC_WRP_PIB_TMR_TTL, 0, 1,
             &app_g3_managementConst.tmrTTLconformance, &setConfirm);
 
@@ -469,7 +474,6 @@ static void _APP_G3_MANAGEMENT_ShowVersions(void)
     {
         SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: Error getting G3 stack version\r\n");
     }
-
 
     /* Get ADP version */
     ADP_GetRequestSync(ADP_IB_MANUF_ADP_INTERNAL_VERSION, 0, &getAdpConfirm);
@@ -780,6 +784,7 @@ void APP_G3_MANAGEMENT_SetConformanceConfig ( void )
 
     APP_TCPIP_MANAGEMENT_SetConformanceConfig();
     APP_CYCLES_SetConformanceConfig();
+    APP_EAP_SERVER_SetConformanceConfig();
 }
 
 uint8_t APP_G3_MANAGEMENT_SetConformanceTrickleConfig(uint8_t trickleActivation)
