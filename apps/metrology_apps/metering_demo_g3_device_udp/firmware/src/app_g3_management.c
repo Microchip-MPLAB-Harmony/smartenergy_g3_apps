@@ -649,6 +649,138 @@ static void _APP_G3_MANAGEMENT_ResetBeaconLOADngLBPframesReceived(void)
             (const uint8_t*) &resetFrameReceived, &setConfirm);
 }
 
+static void _APP_G3_MANAGEMENT_ShowVersions(void)
+{
+    ADP_GET_CFM_PARAMS getAdpConfirm;
+    ADP_MAC_GET_CFM_PARAMS getMacConfirm;
+
+    /* Get G3 stack version */
+    ADP_GetRequestSync(ADP_IB_SOFT_VERSION, 0, &getAdpConfirm);
+    if (getAdpConfirm.status == G3_SUCCESS)
+    {
+        SYS_DEBUG_PRINT(SYS_ERROR_INFO, "APP_G3_MANAGEMENT: G3 stack version %hhu.%hhu.%hhu"
+            " (Date: 20%hhu-%hhu-%hhu)\r\n",
+            getAdpConfirm.attributeValue[0], getAdpConfirm.attributeValue[1],
+            getAdpConfirm.attributeValue[2], getAdpConfirm.attributeValue[3],
+            getAdpConfirm.attributeValue[4], getAdpConfirm.attributeValue[5]);
+    }
+    else
+    {
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: Error getting G3 stack version\r\n");
+    }
+
+
+    /* Get ADP version */
+    ADP_GetRequestSync(ADP_IB_MANUF_ADP_INTERNAL_VERSION, 0, &getAdpConfirm);
+    if (getAdpConfirm.status == G3_SUCCESS)
+    {
+        SYS_DEBUG_PRINT(SYS_ERROR_INFO, "APP_G3_MANAGEMENT: ADP version %hhu.%hhu.%hhu"
+            " (Date: 20%hhu-%hhu-%hhu)\r\n",
+            getAdpConfirm.attributeValue[0], getAdpConfirm.attributeValue[1],
+            getAdpConfirm.attributeValue[2], getAdpConfirm.attributeValue[3],
+            getAdpConfirm.attributeValue[4], getAdpConfirm.attributeValue[5]);
+    }
+    else
+    {
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: Error getting ADP version\r\n");
+    }
+
+    /* Check PLC interface availability */
+    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_PLC_IFACE_AVAILABLE, 0, &getMacConfirm);
+    if ((getMacConfirm.status != G3_SUCCESS) || (getMacConfirm.attributeValue[0] == 0))
+    {
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: PLC Interface not available\r\n");
+    }
+    else
+    {
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: PLC Interface available\r\n");
+
+        /* Get PLC MAC version */
+        ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_MAC_INTERNAL_VERSION, 0, &getMacConfirm);
+        if (getMacConfirm.status == G3_SUCCESS)
+        {
+            SYS_DEBUG_PRINT(SYS_ERROR_INFO, "\tPLC MAC version: %hhu.%hhu.%hhu"
+                " (Date: 20%hhu-%hhu-%hhu)\r\n",
+                getMacConfirm.attributeValue[0], getMacConfirm.attributeValue[1],
+                getMacConfirm.attributeValue[2], getMacConfirm.attributeValue[3],
+                getMacConfirm.attributeValue[4], getMacConfirm.attributeValue[5]);
+        }
+        else
+        {
+            SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: Error getting PLC MAC version\r\n");
+        }
+
+        /* Get PLC MAC version */
+        ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_MAC_RT_INTERNAL_VERSION, 0, &getMacConfirm);
+        if (getMacConfirm.status == G3_SUCCESS)
+        {
+            SYS_DEBUG_PRINT(SYS_ERROR_INFO, "\tPLC MAC-RT version: %hhu.%hhu.%hhu"
+                " (Date: 20%hhu-%hhu-%hhu)\r\n",
+                getMacConfirm.attributeValue[0], getMacConfirm.attributeValue[1],
+                getMacConfirm.attributeValue[2], getMacConfirm.attributeValue[3],
+                getMacConfirm.attributeValue[4], getMacConfirm.attributeValue[5]);
+        }
+        else
+        {
+            SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: Error getting PLC MAC-RT version\r\n");
+        }
+
+        /* Get PLC PHY version */
+        ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_PHY_PARAM, MAC_WRP_PHY_PARAM_VERSION, &getMacConfirm);
+        if (getMacConfirm.status == G3_SUCCESS)
+        {
+            SYS_DEBUG_PRINT(SYS_ERROR_INFO, "\tPLC PHY version: %02x.%02x.%02x.%02x\r\n",
+                getMacConfirm.attributeValue[3], getMacConfirm.attributeValue[2],
+                getMacConfirm.attributeValue[1], getMacConfirm.attributeValue[0]);
+        }
+        else
+        {
+            SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: Error getting PLC MAC-RT version\r\n");
+        }
+    }
+
+    /* Check RF interface availability */
+    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_RF_IFACE_AVAILABLE, 0, &getMacConfirm);
+    if ((getMacConfirm.status != G3_SUCCESS) || (getMacConfirm.attributeValue[0] == 0))
+    {
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: RF Interface not available\r\n");
+    }
+    else
+    {
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: RF Interface available\r\n");
+
+        /* Get RF MAC version */
+        ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_MAC_INTERNAL_VERSION_RF, 0, &getMacConfirm);
+        if (getMacConfirm.status == G3_SUCCESS)
+        {
+            SYS_DEBUG_PRINT(SYS_ERROR_INFO, "\tRF MAC version: %hhu.%hhu.%hhu"
+                " (Date: 20%hhu-%hhu-%hhu)\r\n",
+                getMacConfirm.attributeValue[0], getMacConfirm.attributeValue[1],
+                getMacConfirm.attributeValue[2], getMacConfirm.attributeValue[3],
+                getMacConfirm.attributeValue[4], getMacConfirm.attributeValue[5]);
+        }
+        else
+        {
+            SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: Error getting RF MAC version\r\n");
+        }
+
+        /* Get RF MAC version */
+        ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_PHY_PARAM_RF, MAC_WRP_RF_PHY_PARAM_FW_VERSION, &getMacConfirm);
+        if (getMacConfirm.status == G3_SUCCESS)
+        {
+            SYS_DEBUG_PRINT(SYS_ERROR_INFO, "\tRF PHY version: %hhu.%hhu.%hhu"
+                " (Date: 20%hhu-%hhu-%hhu)\r\n",
+                getMacConfirm.attributeValue[0], getMacConfirm.attributeValue[1],
+                getMacConfirm.attributeValue[2], getMacConfirm.attributeValue[3],
+                getMacConfirm.attributeValue[4], getMacConfirm.attributeValue[5]);
+        }
+        else
+        {
+            SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "APP_G3_MANAGEMENT: Error getting RF PHY version\r\n");
+        }
+    }
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Initialization and State Machine Functions
@@ -758,6 +890,7 @@ void APP_G3_MANAGEMENT_Tasks ( void )
                 LBP_SET_PARAM_CONFIRM lbpSetConfirm;
 
                 /* ADP is ready. We can set ADP/MAC parameters. */
+                _APP_G3_MANAGEMENT_ShowVersions();
                 _APP_G3_MANAGEMENT_InitializeParameters();
 
                 /* Initialize LoWPAN Bootstrapping Protocol (LBP) in Device,
