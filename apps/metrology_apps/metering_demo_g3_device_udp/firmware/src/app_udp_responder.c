@@ -62,21 +62,30 @@ APP_UDP_RESPONDER_DATA app_udp_responderData;
 
 void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TCPIP_UDP_SIGNAL_TYPE sigType, const void* param)
 {
+    UDP_SOCKET_INFO socketInfo;
     uint16_t rxPayloadSize;
     uint8_t payloadFragment[32];
     uint8_t udpProtocol;
+    char remoteAddrString[50 + 1];
 
     /* Get number of bytes received */
     rxPayloadSize = TCPIP_UDP_GetIsReady(hUDP);
 
+    /* Get socket info to know the source and destination addresses */
+    TCPIP_UDP_SocketInfoGet(hUDP, &socketInfo);
+    TCPIP_Helper_IPv6AddressToString(&socketInfo.remoteIPaddress.v6Add,
+            remoteAddrString, sizeof(remoteAddrString) - 1);
+
     if (rxPayloadSize == 0)
     {
         /* No data received */
-        SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_UDP_RESPONDER: UDP message without payload\r\n");
+        SYS_DEBUG_PRINT(SYS_ERROR_INFO, "APP_UDP_RESPONDER: UDP message without payload"
+                " from %s\r\n", remoteAddrString);
         return;
     }
 
-    SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_UDP_RESPONDER: %u bytes received\r\n", rxPayloadSize);
+    SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_UDP_RESPONDER: %u bytes received from %s\r\n",
+            rxPayloadSize, remoteAddrString);
 
     /* Read first received byte (protocol) */
     TCPIP_UDP_Get(hUDP, &udpProtocol);
@@ -130,6 +139,8 @@ void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TC
 
             /* Send the UDP reply */
             TCPIP_UDP_Flush(hUDP);
+            SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "\tUDP reply sent to %s\r\n",
+                    remoteAddrString);
             break;
         }
 
@@ -148,7 +159,6 @@ void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TC
              * "80 00 xxxx 0102 0304 0506070809" (where xxxx correspond to the
              * ICMP checksum). */
             IPV6_PACKET * pkt;
-            UDP_SOCKET_INFO socketInfo;
             uint16_t identifier, sequenceNumber, icmpPayloadSize, availableTxSize, chunkSize;
 
             /* Check payload length */
@@ -164,13 +174,10 @@ void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TC
             identifier = TCPIP_Helper_ntohs(identifier);
             sequenceNumber = TCPIP_Helper_ntohs(sequenceNumber);
 
-            /* Get socket info to know the source and destination addresses */
-            TCPIP_UDP_SocketInfoGet(hUDP, &socketInfo);
-
             /* Create ICMPv6 ECHO request packet */
             pkt = TCPIP_ICMPV6_HeaderEchoRequestPut (hNet,
-                    &socketInfo.destIPaddress.v6Add,
-                    &socketInfo.sourceIPaddress.v6Add,
+                    &socketInfo.localIPaddress.v6Add,
+                    &socketInfo.remoteIPaddress.v6Add,
                     ICMPV6_INFO_ECHO_REQUEST, identifier, sequenceNumber);
 
             /* Check available TX bytes in IPv6 packet */
@@ -199,6 +206,8 @@ void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TC
 
             /* Send the ICMPv6 packet */
             TCPIP_ICMPV6_Flush(pkt);
+            SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "\tICMPv6 Echo Request sent to %s\r\n",
+                    remoteAddrString);
             break;
         }
 
@@ -249,6 +258,8 @@ void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TC
 
             /* Send the UDP reply */
             TCPIP_UDP_Flush(hUDP);
+            SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "\tUDP reply sent to %s\r\n",
+                    APP_TCPIP_MANAGEMENT_IPV6_MULTICAST_0_CONFORMANCE);
             break;
         }
 
@@ -386,6 +397,8 @@ void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TC
                     APP_TCPIP_MANAGEMENT_IPV6_MULTICAST_0_CONFORMANCE, &multicastAddr);
             TCPIP_ICMPV6_EchoRequestSend(hNet, &multicastAddr, 0, 0, 10);
             SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_UDP_RESPONDER: Last Gasp activation request\r\n");
+            SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "\tICMPv6 Echo Request sent to %s\r\n",
+                    APP_TCPIP_MANAGEMENT_IPV6_MULTICAST_0_CONFORMANCE);
             break;
         }
 
