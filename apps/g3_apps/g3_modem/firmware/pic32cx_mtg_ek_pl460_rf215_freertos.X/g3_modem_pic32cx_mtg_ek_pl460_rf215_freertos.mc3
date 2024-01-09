@@ -26490,7 +26490,7 @@
          <hash>8faf4220ded25b00fd72424a2fa4e63e154713ae7b42f7270f1e3289362a6312</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\stack\g3\mac\mac_rf\g3_lib_rf_mac.a</file>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\stack\g3\mac\mac_rf\g3_lib_mac_rf.a</file>
          <hash>685ac383a9ca2db8c0cb603b324bef11ed070b97d519f7f2ff71ee7e2c3e8005</hash>
       </entry>
       <entry>
@@ -26630,7 +26630,7 @@
          <hash>e9cdf94a8788dff444368c9bba907b2648285394f1f76c998a8ab63793807706</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\stack\g3\mac\mac_plc\g3_lib_plc_mac.a</file>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\stack\g3\mac\mac_plc\g3_lib_mac_plc.a</file>
          <hash>555ceae5aaa188c526f2f8336367276dad7d47665d74f83adf23d8431fa52c5d</hash>
       </entry>
       <entry>
