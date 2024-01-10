@@ -86,7 +86,6 @@ static const APP_G3_MANAGEMENT_CONSTANTS app_g3_managementConst = {
     .rreqJitterHighLQIRFconformance = APP_G3_MANAGEMENT_JITTER_HIGH_LQI_RF_CONFORMANCE,
     .clusterMinLQIRFconformance = APP_G3_MANAGEMENT_CLUSTER_MIN_LQI_RF_CONFORMANCE,
     .clusterTrickleIconformance = APP_G3_MANAGEMENT_CLUSTER_TRICKLE_I_CONFORMANCE,
-    .rfChannelNumberConformance = APP_G3_MANAGEMENT_RF_CHANNEL_NUM_CONFORMANCE,
     .maxHopsConformance = APP_G3_MANAGEMENT_MAX_HOPS_CONFORMANCE,
     .weakLQIvalueConformance = APP_G3_MANAGEMENT_WEAK_LQI_CONFORMANCE,
     .weakLQIvalueRFconformance = APP_G3_MANAGEMENT_WEAK_LQI_RF_CONFORMANCE,
@@ -112,7 +111,8 @@ static const APP_G3_MANAGEMENT_CONSTANTS app_g3_managementConst = {
     .kqRFconformance = APP_G3_MANAGEMENT_KQ_RF_CONFORMANCE,
     .khRFconformance = APP_G3_MANAGEMENT_KH_RF_CONFORMANCE,
     .krtConformance = APP_G3_MANAGEMENT_KRT_RF_CONFORMANCE,
-    .kdcRFconformance = APP_G3_MANAGEMENT_KDC_RF_CONFORMANCE
+    .kdcRFconformance = APP_G3_MANAGEMENT_KDC_RF_CONFORMANCE,
+    .rfFreqBandConformance = APP_G3_MANAGEMENT_RF_FREQ_BAND_CONFORMANCE
 
 };
 
@@ -425,9 +425,8 @@ static void _APP_G3_MANAGEMENT_SetConformanceParameters(void)
             &app_g3_managementConst.kdcRFconformance, &setConfirm);
 
     /* Set MAC parameters needed for Conformance Test */
-    ADP_MacSetRequestSync(MAC_WRP_PIB_CHANNEL_NUMBER_RF, 0, 2,
-            (const uint8_t*) &app_g3_managementConst.rfChannelNumberConformance,
-            &setConfirm);
+    ADP_MacSetRequestSync(MAC_WRP_PIB_FREQUENCY_BAND_RF, 0, 1,
+            &app_g3_managementConst.rfFreqBandConformance, &setConfirm);
 
     ADP_MacSetRequestSync(MAC_WRP_PIB_TMR_TTL, 0, 1,
             &app_g3_managementConst.tmrTTLconformance, &setConfirm);
