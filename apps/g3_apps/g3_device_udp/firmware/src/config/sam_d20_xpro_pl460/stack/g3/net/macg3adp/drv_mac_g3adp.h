@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*****************************************************************************
- Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+ Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
 
 Microchip Technology Inc. and its subsidiaries.
 
