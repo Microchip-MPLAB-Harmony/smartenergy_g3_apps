@@ -169,9 +169,9 @@ extern "C" {
 #define G3_ADP_FRAG_TRANSFER_TABLE_SIZE  1U
 #define G3_ADP_FRAGMENT_SIZE             400U
 
-#define G3_ADP_ROUTING_TABLE_SIZE        64U
-#define G3_ADP_BLACKLIST_TABLE_SIZE      20U
-#define G3_ADP_ROUTING_SET_SIZE          30U
+#define G3_ADP_ROUTING_TABLE_SIZE        20U
+#define G3_ADP_BLACKLIST_TABLE_SIZE      10U
+#define G3_ADP_ROUTING_SET_SIZE          10U
 #define G3_ADP_DESTINATION_ADDR_SET_SIZE 1U
 
 /* Table sizes for Routing (LOADNG) */
@@ -252,7 +252,7 @@ extern "C" {
 
 /*** TCPIP Heap Configuration ***/
 #define TCPIP_STACK_USE_INTERNAL_HEAP
-#define TCPIP_STACK_DRAM_SIZE                       8192
+#define TCPIP_STACK_DRAM_SIZE                       4096
 #define TCPIP_STACK_DRAM_RUN_LIMIT                  2048
 
 #define TCPIP_STACK_MALLOC_FUNC                     malloc
@@ -310,8 +310,8 @@ extern "C" {
 /*** UDP Configuration ***/
 #define TCPIP_UDP_MAX_SOCKETS		                	2
 #define TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE		    	1200
-#define TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT    	 	3
-#define TCPIP_UDP_SOCKET_DEFAULT_RX_QUEUE_LIMIT			3
+#define TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT    	 	2
+#define TCPIP_UDP_SOCKET_DEFAULT_RX_QUEUE_LIMIT			2
 #define TCPIP_UDP_USE_POOL_BUFFERS   false
 #define TCPIP_UDP_USE_TX_CHECKSUM             			true
 #define TCPIP_UDP_USE_RX_CHECKSUM             			true

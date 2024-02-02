@@ -4282,7 +4282,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;309&quot; canvasWidth=&quot;623&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;GraphSettings canvasHeight=&quot;110&quot; canvasWidth=&quot;708&quot; dnOrder=&quot;0&quot;/&gt;
     &lt;PowerProfiles dnOrder=&quot;1&quot;&gt;
       &lt;Profile dnOrder=&quot;0&quot; id=&quot;profile0&quot; name=&quot;Main&quot;/&gt;
     &lt;/PowerProfiles&gt;
@@ -4319,7 +4319,7 @@
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BASIC CONFIGURATION&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;DATA LINK LAYER&quot; x=&quot;561&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;NETWORK LAYER&quot; x=&quot;400&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;TRANSPORT LAYER&quot; x=&quot;220&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;TRANSPORT LAYER&quot; x=&quot;220&quot; y=&quot;19&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;7&quot; id=&quot;TRANSPORT LAYER&quot;&gt;
@@ -7360,7 +7360,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;XC32_HEAP_SIZE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;10240&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;6144&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -9067,7 +9067,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_config" name="ADP_BLACKLIST_TABLE_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_config&gt;
   &lt;g3_config dnOrder=&quot;0&quot; id=&quot;ADP_BLACKLIST_TABLE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;10&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/g3_config&gt;
 &lt;/g3_config&gt;
 </value>
@@ -9141,7 +9143,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="g3_config" name="ADP_ROUTING_SET_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_config&gt;
   &lt;g3_config dnOrder=&quot;0&quot; id=&quot;ADP_ROUTING_SET_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;10&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/g3_config&gt;
 &lt;/g3_config&gt;
 </value>
@@ -9151,7 +9155,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;g3_config&gt;
   &lt;g3_config dnOrder=&quot;0&quot; id=&quot;ADP_ROUTING_TABLE_SIZE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;64&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;20&quot;/&gt;
     &lt;/Values&gt;
   &lt;/g3_config&gt;
 &lt;/g3_config&gt;
@@ -25197,7 +25201,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="tcpipStack" name="TCPIP_STACK_CALLOC_FUNC"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipStack&gt;
   &lt;tcpipStack dnOrder=&quot;0&quot; id=&quot;TCPIP_STACK_CALLOC_FUNC&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;calloc&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/tcpipStack&gt;
 &lt;/tcpipStack&gt;
 </value>
@@ -25245,7 +25251,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipStack&gt;
   &lt;tcpipStack dnOrder=&quot;0&quot; id=&quot;TCPIP_STACK_DRAM_SIZE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;8192&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;4096&quot;/&gt;
     &lt;/Values&gt;
   &lt;/tcpipStack&gt;
 &lt;/tcpipStack&gt;
@@ -25319,7 +25325,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipStack&gt;
   &lt;tcpipStack dnOrder=&quot;0&quot; id=&quot;TCPIP_STACK_HEAP_SIZE_RECOMMEND&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tcpipStack&quot; value=&quot;8&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tcpipStack&quot; value=&quot;6&quot;/&gt;
     &lt;/Values&gt;
   &lt;/tcpipStack&gt;
 &lt;/tcpipStack&gt;
@@ -25812,7 +25818,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipUdp&gt;
   &lt;tcpipUdp dnOrder=&quot;0&quot; id=&quot;TCPIP_UDP_HEAP_SIZE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tcpipUdp&quot; value=&quot;7400&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tcpipUdp&quot; value=&quot;5000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/tcpipUdp&gt;
 &lt;/tcpipUdp&gt;
@@ -25833,7 +25839,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="tcpipUdp" name="TCPIP_UDP_SOCKET_DEFAULT_RX_QUEUE_LIMIT"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipUdp&gt;
   &lt;tcpipUdp dnOrder=&quot;0&quot; id=&quot;TCPIP_UDP_SOCKET_DEFAULT_RX_QUEUE_LIMIT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;2&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/tcpipUdp&gt;
 &lt;/tcpipUdp&gt;
 </value>
@@ -25842,7 +25850,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="tcpipUdp" name="TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tcpipUdp&gt;
   &lt;tcpipUdp dnOrder=&quot;0&quot; id=&quot;TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;2&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/tcpipUdp&gt;
 &lt;/tcpipUdp&gt;
 </value>
@@ -25964,7 +25974,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\configuration.h</file>
-         <hash>f40de0bddd469c331655fed4d87790278fbad3e0ea9f9b2940487a95e49fa6a7</hash>
+         <hash>07772db8d0b2e4d4d80ed206207552c76b9f06bd443a8cc856afb1aa5aa5abae</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\crypto.h</file>
