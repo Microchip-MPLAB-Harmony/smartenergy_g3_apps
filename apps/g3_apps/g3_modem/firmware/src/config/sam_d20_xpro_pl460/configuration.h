@@ -98,6 +98,7 @@ extern "C" {
 /* PAL PLC Configuration Options */
 #define PAL_PLC_PHY_INDEX                     0U
 
+
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_SPI_CS_PIN                    SYS_PORT_PIN_PA05
@@ -115,11 +116,13 @@ extern "C" {
 #define DRV_G3_MACRT_INDEX                   0U
 #define DRV_G3_MACRT_INSTANCES_NUMBER        1U
 #define DRV_G3_MACRT_HOST_DESC               "ATSAMD20J18"
+
 /* USI Service Common Configuration Options */
 #define SRV_USI_INSTANCES_NUMBER              1U
 #define SRV_USI_USART_CONNECTIONS             1U
 #define SRV_USI_CDC_CONNECTIONS               0U
 #define SRV_USI_MSG_POOL_SIZE                 5U
+
 /* USI Service Instance 0 Configuration Options */
 #define SRV_USI_INDEX_0                       0
 #define SRV_USI0_RD_BUF_SIZE                  1024

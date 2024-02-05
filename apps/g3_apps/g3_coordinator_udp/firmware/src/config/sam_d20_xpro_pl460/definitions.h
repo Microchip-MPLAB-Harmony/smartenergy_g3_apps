@@ -227,6 +227,7 @@ Remarks:
 
 typedef struct
 {
+
     SYS_MODULE_OBJ  drvG3MacRt;
 
     SYS_MODULE_OBJ g3MacWrapper;

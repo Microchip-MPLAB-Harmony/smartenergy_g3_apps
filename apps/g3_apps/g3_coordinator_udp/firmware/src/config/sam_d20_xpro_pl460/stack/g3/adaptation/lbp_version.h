@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -44,9 +44,9 @@
 
 #define LBP_VERSION_MAJOR 4
 #define LBP_VERSION_MINOR 0
-#define LBP_VERSION_REVISION 0
+#define LBP_VERSION_REVISION 1
 #define LBP_VERSION_YEAR 23
-#define LBP_VERSION_MONTH 2
-#define LBP_VERSION_DAY 7
+#define LBP_VERSION_MONTH 3
+#define LBP_VERSION_DAY 16
 
 #endif // #ifndef _LBP_VERSION_H

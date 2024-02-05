@@ -116,6 +116,7 @@ extern "C" {
 /* PAL PLC Configuration Options */
 #define PAL_PLC_PHY_INDEX                     0U
 
+
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_SPI_CS_PIN                    SYS_PORT_PIN_PA05
@@ -251,7 +252,7 @@ extern "C" {
 
 /*** TCPIP Heap Configuration ***/
 #define TCPIP_STACK_USE_INTERNAL_HEAP
-#define TCPIP_STACK_DRAM_SIZE                       8192
+#define TCPIP_STACK_DRAM_SIZE                       4096
 #define TCPIP_STACK_DRAM_RUN_LIMIT                  2048
 
 #define TCPIP_STACK_MALLOC_FUNC                     malloc
@@ -309,8 +310,8 @@ extern "C" {
 /*** UDP Configuration ***/
 #define TCPIP_UDP_MAX_SOCKETS		                	2
 #define TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE		    	1200
-#define TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT    	 	3
-#define TCPIP_UDP_SOCKET_DEFAULT_RX_QUEUE_LIMIT			3
+#define TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT    	 	2
+#define TCPIP_UDP_SOCKET_DEFAULT_RX_QUEUE_LIMIT			2
 #define TCPIP_UDP_USE_POOL_BUFFERS   false
 #define TCPIP_UDP_USE_TX_CHECKSUM             			true
 #define TCPIP_UDP_USE_RX_CHECKSUM             			true

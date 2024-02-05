@@ -116,6 +116,7 @@ extern "C" {
 /* PAL PLC Configuration Options */
 #define PAL_PLC_PHY_INDEX                     0U
 
+
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_SPI_CS_PIN                    SYS_PORT_PIN_PA05
@@ -168,9 +169,9 @@ extern "C" {
 #define G3_ADP_FRAG_TRANSFER_TABLE_SIZE  1U
 #define G3_ADP_FRAGMENT_SIZE             400U
 
-#define G3_ADP_ROUTING_TABLE_SIZE        50U
-#define G3_ADP_BLACKLIST_TABLE_SIZE      20U
-#define G3_ADP_ROUTING_SET_SIZE          30U
+#define G3_ADP_ROUTING_TABLE_SIZE        20U
+#define G3_ADP_BLACKLIST_TABLE_SIZE      10U
+#define G3_ADP_ROUTING_SET_SIZE          10U
 #define G3_ADP_DESTINATION_ADDR_SET_SIZE 1U
 
 /* Table sizes for Routing (LOADNG) */

@@ -126,7 +126,7 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI Chip select pin */
     .spiCSPin = DRV_PLC_SPI_CS_PIN,
-    
+
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
     
@@ -194,6 +194,7 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 };
 
 // </editor-fold>
+
 // <editor-fold defaultstate="collapsed" desc="DRV_G3_MACRT Initialization Data">
 
 /* MISRA C-2012 deviation block start */
@@ -235,6 +236,7 @@ SYSTEM_OBJECTS sysObj;
 // Section: Library/Stack Initialization Data
 // *****************************************************************************
 // *****************************************************************************
+
 // <editor-fold defaultstate="collapsed" desc="G3 ADP Initialization Data">
 /* G3 ADP Buffers and Queues */
 static ADP_DATA_PARAMS_BUFFER_1280 g3Adp1280Buffers[G3_ADP_NUM_BUFFERS_1280];
@@ -523,8 +525,8 @@ void SYS_Initialize ( void* data )
 	BSP_Initialize();
     SERCOM3_USART_Initialize();
 
-
     SERCOM0_SPI_Initialize();
+
 
     EIC_Initialize();
 
@@ -535,9 +537,11 @@ void SYS_Initialize ( void* data )
     /* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     /* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
+
     /* Initialize G3 MAC RT Driver Instance */
     sysObj.drvG3MacRt = DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvG3MacRtInitData);
     EIC_CallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvG3MacRt);
+
 
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();

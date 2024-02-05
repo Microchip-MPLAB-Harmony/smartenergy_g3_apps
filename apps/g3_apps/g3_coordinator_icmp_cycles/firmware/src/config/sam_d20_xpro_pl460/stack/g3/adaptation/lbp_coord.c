@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -65,9 +65,13 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define LBP_NUM_SLOTS               5U
+#define LBP_NUM_SLOTS               2U
 #define BOOTSTRAP_MSG_MAX_RETRIES   1U
 #define INITIAL_KEY_INDEX           0U
+
+/* Set the following define to NOT store and send back hybrid bits,
+ * i.e. mediaType and disableBackupMedium, on legacy PLC mode */
+#define IGNORE_LBP_HYBRID_BITS_ON_LEGACY_PLC_MODE
 
 // *****************************************************************************
 // *****************************************************************************
@@ -191,7 +195,7 @@ static void lLBP_SetDeviceTypeCoord(void)
 
 static void lLBP_LogShowSlotStatus(LBP_SLOT *pSlot)
 {
-    SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, 
+    SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG,
             "[LBP] Updating slot with LBD_ADDR: %02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X, \
             state: %hu, handler: %hu  pending_cfrms: %hu  Timeout: %u, Current_Time: %u\r\n",
             pSlot->lbdAddress.value[0], pSlot->lbdAddress.value[1],
@@ -839,8 +843,14 @@ static void lLBP_AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
     /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
     msgType = pLbpIndication->pNsdu[0] >> 4;
+#ifdef IGNORE_LBP_HYBRID_BITS_ON_LEGACY_PLC_MODE
+    /* On legacy PLC mode, do not store and send back specific hybrid bits */
+    mediaType = 0U;
+    disableBackupMedium = 0U;
+#else
     mediaType = (pLbpIndication->pNsdu[0] & 0x08U) >> 3;
     disableBackupMedium = (pLbpIndication->pNsdu[0] & 0x04U) >> 2;
+#endif
     pLbpData = (uint8_t *)&pLbpIndication->pNsdu[10];
     lbpDataLength = pLbpIndication->nsduLength - 10U;
 
@@ -1224,7 +1234,7 @@ void LBP_ShortAddressAssign(uint8_t *pExtAddress, uint16_t assignedAddress)
 {
     LBP_SLOT *pSlot;
     ADP_ADDRESS dstAddr;
-    
+
     /* Get slot from extended address*/
     pSlot = lLBP_GetLbpSlotByAddress(pExtAddress);
 
@@ -1246,7 +1256,7 @@ void LBP_ShortAddressAssign(uint8_t *pExtAddress, uint16_t assignedAddress)
             pSlot->slotState = LBP_STATE_SENT_EAP_MSG_1;
             SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "[LBP] Slot updated to LBP_STATE_SENT_EAP_MSG_1\r\n");
         }
-        
+
         if (pSlot->lbpDataLength > 0U)
         {
             if (pSlot->lbaAddress == 0xFFFFU)

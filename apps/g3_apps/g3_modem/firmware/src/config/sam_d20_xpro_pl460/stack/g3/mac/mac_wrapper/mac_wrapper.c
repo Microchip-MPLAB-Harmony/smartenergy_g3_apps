@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -375,13 +375,13 @@ static void lMAC_WRP_StringifyDataIndication(MAC_WRP_DATA_INDICATION_PARAMS* diP
     (void) memcpy(&serialRspBuffer[serialRspLen], diParams->computedToneMap.toneMap, 3);
     serialRspLen += 3U;
 
+    serialRspBuffer[serialRspLen++] = (uint8_t)diParams->mediaType;
+
     serialRspBuffer[serialRspLen++] = (uint8_t) (diParams->msduLength >> 8);
     serialRspBuffer[serialRspLen++] = (uint8_t) diParams->msduLength;
 
     (void) memcpy(&serialRspBuffer[serialRspLen], diParams->msdu, diParams->msduLength);
     serialRspLen += diParams->msduLength;
-
-    serialRspBuffer[serialRspLen++] = (uint8_t)diParams->mediaType;
 
     /* Send through USI */
     SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
@@ -655,6 +655,8 @@ static MAC_WRP_SERIAL_STATUS lMAC_WRP_ParseDataRequest(uint8_t* pData)
     }
 
     drParams.mediaType = (MAC_WRP_MEDIA_TYPE_REQUEST) *pData++;
+    /* No probing on MAC Serial access */
+    drParams.probingInterval = 0;
 
     drParams.msduLength = ((uint16_t)*pData++) << 8;
     drParams.msduLength += (uint16_t)*pData++;
