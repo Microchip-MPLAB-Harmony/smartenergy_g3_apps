@@ -824,14 +824,6 @@ void APP_G3_MANAGEMENT_Initialize ( void )
     app_g3_managementData.timerLedExpired = false;
     app_g3_managementData.writeNonVolatileData = true;
     app_g3_managementData.configureParamsRF = false;
-#ifdef APP_G3_MANAGEMENT_CONFORMANCE_TEST
-    /* Conformance Test enabled at compilation time.
-     * APP_G3_MANAGEMENT_SetConformanceConfig could be used to enable Conformance
-     * configuration at execution time. */
-    APP_G3_MANAGEMENT_SetConformanceConfig();
-#else
-    app_g3_managementData.conformanceTest = false;
-#endif
 
     SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, APP_G3_MANAGEMENT_STRING_HEADER);
 }
@@ -882,6 +874,15 @@ void APP_G3_MANAGEMENT_Tasks ( void )
 
             /* Get Extended Address from storage application */
             APP_STORAGE_GetExtendedAddress(app_g3_managementData.eui64.value);
+
+#ifdef APP_G3_MANAGEMENT_CONFORMANCE_TEST
+            /* Conformance Test enabled at compilation time.
+             * APP_G3_MANAGEMENT_SetConformanceConfig could be used to enable Conformance
+             * configuration at execution time. */
+            APP_G3_MANAGEMENT_SetConformanceConfig();
+#else
+            app_g3_managementData.conformanceTest = false;
+#endif
 
             /* Next state: Wait for ADP to be ready.
              * Don't break, go directly to next state */
