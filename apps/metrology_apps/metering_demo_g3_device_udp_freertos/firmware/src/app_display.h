@@ -1,25 +1,25 @@
-/*******************************************************************************
-* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 /*******************************************************************************
   MPLAB Harmony Application Header File
@@ -90,8 +90,8 @@ typedef enum
 } APP_DISPLAY_STATES;
 
 // *****************************************************************************
-/* Display information 
- * 
+/* Display information
+ *
   Summary:
     Display information enumeration
 
@@ -99,7 +99,7 @@ typedef enum
     This enumeration defines the valid display information . These determines
     which information will be shown in the display.
 */
-typedef enum 
+typedef enum
 {
 	APP_DISPLAY_TOTAL_ENERGY = 0,
 	APP_DISPLAY_TOU1_ENERGY,
@@ -123,18 +123,18 @@ typedef enum
 	APP_DISPLAY_BOARD_ID,
 	APP_DISPLAY_DEMO_VERSION,
 	APP_DISPLAY_MAX_TYPE,
-            
+
 } APP_DISPLAY_INFO;
 
 // *****************************************************************************
 /* Circular display direction
- * 
+ *
   Summary:
     Circular display direction enumeration
 
   Description:
-    This enumeration defines the valid circular display directions. These 
-    determines the direction in which the information will be shown in the 
+    This enumeration defines the valid circular display directions. These
+    determines the direction in which the information will be shown in the
     display.
 */
 typedef enum
@@ -146,7 +146,7 @@ typedef enum
 
 // *****************************************************************************
 /* External communication signal status
- * 
+ *
   Summary:
     External communication signal enumeration
 
@@ -182,40 +182,40 @@ typedef struct
 
     /* Flag to indicate if the scroll up button has been pressed */
     bool scrup_pressed;
-    
+
     /* Flag to indicate if the scroll down button has been pressed */
     bool scrdown_pressed;
-    
+
     /* Application information */
     uint8_t app_info[8];
-    
+
     /* Flag to indicate if there is application information to show */
     bool app_info_en;
-    
+
     /* Reload time to display each information in the display (in seconds) */
-	uint32_t reload_display_time;    
-    
+	uint32_t reload_display_time;
+
     /* Time to display each information in the display (in seconds) */
-	uint32_t display_time;     
-    
+	uint32_t display_time;
+
     /* Information about the external communication signal */
-	APP_DISPLAY_COM_SIGNAL comm_signal;     
-    
+	APP_DISPLAY_COM_SIGNAL comm_signal;
+
     /* Information shown in display */
 	APP_DISPLAY_INFO display_info;
-    
+
     /* Direction of the circular information in the display */
 	APP_DISPLAY_DIRECTION direction;
-    
+
     /* Circular information loop */
     APP_DISPLAY_INFO loop_info[APP_DISPLAY_MAX_TYPE];
-    
+
     /* Maximum index in the information loop */
     uint8_t loop_max;
-    
+
     /* Current index in the information loop */
     uint8_t loop_idx;
-    
+
     /* Flag to indicate if DWDT0 should be reloaded */
     bool reloadDWDT0;
 
@@ -243,8 +243,8 @@ typedef struct
     MPLAB Harmony application initialization routine for the display.
 
   Description:
-    This function initializes the Harmony application for the display.  
-    It places the application in its initial state and prepares it to run 
+    This function initializes the Harmony application for the display.
+    It places the application in its initial state and prepares it to run
     so that the APP_DISPLAY_Tasks function can be called.
 
   Precondition:
@@ -277,11 +277,11 @@ void APP_DISPLAY_Initialize ( void );
     MPLAB Harmony Demo application tasks function for the display.
 
   Description:
-    This routine is the Harmony Demo application tasks function for the 
+    This routine is the Harmony Demo application tasks function for the
     display. It defines the application state machine and core logic.
 
   Precondition:
-    The system and application initialization ("SYS_Initialize" and 
+    The system and application initialization ("SYS_Initialize" and
     "APP_DISPLAY_Initialize") should be called before calling this.
 
   Parameters:
@@ -314,7 +314,7 @@ void APP_DISPLAY_Tasks( void );
     to be shown in the display.
 
   Precondition:
-    The system and application initialization ("SYS_Initialize" and 
+    The system and application initialization ("SYS_Initialize" and
     "APP_DISPLAY_Initialize") should be called before calling this.
 
   Parameters:
@@ -327,7 +327,7 @@ void APP_DISPLAY_Tasks( void );
   Example:
     <code>
     char version_info[3] = {'1', '2', '19'};
-  
+
     APP_DISPLAY_Initialize();
     APP_DISPLAY_Tasks();
     APP_DISPLAY_SetAppInfo(version_info, sizeof(version_info));
@@ -347,11 +347,11 @@ void APP_DISPLAY_SetAppInfo(const char *msg, uint8_t len);
     Function to set the serial communication icon in the display.
 
   Description:
-    This function set the serial communication icon in the display to indicate 
+    This function set the serial communication icon in the display to indicate
     that there is an ongoing communication through the console.
 
   Precondition:
-    The system and application initialization ("SYS_Initialize" and 
+    The system and application initialization ("SYS_Initialize" and
     "APP_DISPLAY_Initialize") should be called before calling this.
 
   Parameters:
@@ -379,7 +379,7 @@ void APP_DISPLAY_SetSerialCommunication(void);
     void APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL signal)
 
   Summary:
-    Function to set the status of the external communication signal using 
+    Function to set the status of the external communication signal using
     the specific signal icons of the display.
 
   Description:
@@ -387,7 +387,7 @@ void APP_DISPLAY_SetSerialCommunication(void);
     of the external communications signal.
 
   Precondition:
-    The system and application initialization ("SYS_Initialize" and 
+    The system and application initialization ("SYS_Initialize" and
     "APP_DISPLAY_Initialize") should be called before calling this.
 
   Parameters:
@@ -420,7 +420,7 @@ void APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL signal);
     This function clear the display and show low battery icon.
 
   Precondition:
-    The system and application initialization ("SYS_Initialize" and 
+    The system and application initialization ("SYS_Initialize" and
     "APP_DISPLAY_Initialize") should be called before calling this.
 
   Parameters:

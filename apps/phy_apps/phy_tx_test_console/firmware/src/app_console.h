@@ -1,25 +1,25 @@
-/*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2022, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 /*******************************************************************************
   MPLAB Harmony Application Header File
@@ -67,7 +67,7 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 #define SERIAL_BUFFER_SIZE        512
-    
+
 // *****************************************************************************
 /* Application states
 
@@ -117,20 +117,20 @@ typedef enum
 typedef struct
 {
     /* The application's current state */
-    SYS_TIME_HANDLE tmr1Handle;   
-    
+    SYS_TIME_HANDLE tmr1Handle;
+
     APP_CONSOLE_STATES state;
 
     char *pTransmitChar;
-    
+
     char *pReceivedChar;
 
     char* pNextChar;
-    
+
     size_t dataLength;
-    
+
     uint8_t numCharToReceive;
-    
+
     bool echoEnable;
 
 } APP_CONSOLE_DATA;
@@ -176,7 +176,7 @@ extern APP_CONSOLE_DATA appConsole;
 	"4: Coherent BPSK\n\r" \
 	"5: Coherent QPSK\n\r" \
 	"6: Coherent 8PSK\n\r" \
-	"7: Coherent Robust\n\r" 
+	"7: Coherent Robust\n\r"
 
 #define MENU_MODE "\n\r-- Transmission Mode --------------\r\n"	\
 	"0: Immediate and Not Forced\n\r" \
@@ -265,24 +265,24 @@ void APP_CONSOLE_Tasks( void );
 /* Function:
     void APP_CONSOLE_Print(const char *format, ...)
 
- 
+
 
   Summary:
     Formats and prints a message with a variable number of arguments to the
     console.
 
- 
+
 
   Description:
     This function formats and prints a message with a variable number of
     arguments to the console.
 
- 
+
 
   Precondition:
     APP_CONSOLE_Initialize must have returned a valid object handle.
 
- 
+
 
   Parameters:
     format          - Pointer to a buffer containing the format string for
@@ -290,19 +290,19 @@ void APP_CONSOLE_Tasks( void );
     ...             - Zero or more optional parameters to be formated as
                       defined by the format string.
 
- 
+
 
   Returns:
     None.
 
- 
+
 
   Example:
     <code>
     // In source code
     int result;
 
- 
+
 
     result = SomeOperation();
     if (result > MAX_VALUE)
@@ -311,16 +311,16 @@ void APP_CONSOLE_Tasks( void );
     }
     </code>
 
- 
+
 
   Remarks:
     The format string and arguments follow the printf convention.
 
- 
+
 
 */
 
- 
+
 
 void APP_CONSOLE_Print(const char *format, ...);
 

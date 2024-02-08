@@ -1,25 +1,25 @@
-/*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2022, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 /*******************************************************************************
   MPLAB Harmony Application Source File
@@ -130,7 +130,7 @@ static uint8_t APP_CONSOLE_ReadSerialChar( void )
                 appConsole.numCharToReceive = 0;
                 return appConsole.dataLength;
             }
-            
+
             if (*(appConsole.pNextChar) == CTRL_S_KEY)
             {
                 *appConsole.pReceivedChar = CTRL_S_KEY;
@@ -138,7 +138,7 @@ static uint8_t APP_CONSOLE_ReadSerialChar( void )
                 appConsole.dataLength = 1;
                 return appConsole.dataLength;
             }
-            
+
             if ((*(appConsole.pNextChar) == BACKSPACE_KEY) || (*(appConsole.pNextChar) == DELETE_KEY))
             {
                 /* Remove character from data buffer */
@@ -164,7 +164,7 @@ static uint8_t APP_CONSOLE_ReadSerialChar( void )
             }
         }
     }
-    
+
     return appConsole.dataLength;
 }
 
@@ -174,7 +174,7 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
     DRV_PLC_PHY_MOD_SCHEME modScheme;
     bool result = true;
     uint8_t version;
-    
+
     version = (uint8_t)(appPlcTx.pl360PhyVersion >> 16);
 
 	switch (*scheme)
@@ -270,7 +270,7 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
 		default:
 			result = false;
 	}
-    
+
     if (result)
     {
         APP_PLC_SetModScheme(modType, modScheme );
@@ -283,10 +283,10 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 {
     uint8_t schemeMenu = 0xFF;
     uint8_t index;
-    
+
     APP_CONSOLE_Print("\r\n--- Tx Modulation Configuration Menu ---\r\n");
     APP_CONSOLE_Print("Select Modulation:\r\n");
-    
+
     if (appPlcTx.pl360Tx.modScheme == MOD_SCHEME_DIFFERENTIAL)
     {
         if (appPlcTx.pl360Tx.modType == MOD_TYPE_BPSK_ROBO)
@@ -325,7 +325,7 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
             schemeMenu = 7;
         }
     }
-    
+
     for (index = 0; index < 8; index++)
     {
         if (index == schemeMenu)
@@ -336,7 +336,7 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
         {
             APP_CONSOLE_Print("\t");
         }
-        
+
         switch (index)
         {
             case 0:
@@ -380,12 +380,12 @@ static void APP_CONSOLE_ShowMultibandMenu( void )
     SRV_PLC_PCOUP_BRANCH currentBranch;
     SRV_PLC_PCOUP_BRANCH index;
     uint8_t band;
-    
+
     APP_CONSOLE_Print("\r\n--- Tx/Rx Coupling Band Configuration Menu ---\r\n");
     APP_CONSOLE_Print("Select PLC Coupling branch:\r\n");
-    
+
     currentBranch = appPlcTx.couplingBranch;
-    
+
     for (index = 0; index < 2; index++)
     {
         if (index == currentBranch)
@@ -396,7 +396,7 @@ static void APP_CONSOLE_ShowMultibandMenu( void )
         {
             APP_CONSOLE_Print("\t");
         }
-        
+
         if (index == SRV_PLC_PCOUP_MAIN_BRANCH)
         {
             APP_CONSOLE_Print("0: Main Branch ");
@@ -405,29 +405,29 @@ static void APP_CONSOLE_ShowMultibandMenu( void )
         {
             APP_CONSOLE_Print("1: Auxiliary ");
         }
-        
+
         band = SRV_PCOUP_Get_Phy_Band(index);
         switch (band)
         {
             case G3_CEN_A:
                 APP_CONSOLE_Print("(CENELEC-A band: 35 - 91 KHz)\r\n");
                 break;
-                
+
             case G3_CEN_B:
                 APP_CONSOLE_Print("(CENELEC-B band: 98 - 122 kHz)\r\n");
                 break;
-                
+
             case G3_FCC:
                 APP_CONSOLE_Print("(FCC band: 154 - 488 KHz)\r\n");
                 break;
-                
+
             case G3_ARIB:
                 APP_CONSOLE_Print("(ARIB band: 154 - 404 KHz)\r\n");
                 break;
-                
+
         }
     }
-        
+
     APP_CONSOLE_Print(MENU_CMD_PROMPT);
 }
 
@@ -484,7 +484,7 @@ void APP_CONSOLE_PL360_Initialize ( void )
     appConsole.pNextChar = pReceivedBuffer;
     appConsole.dataLength = 0;
     appConsole.numCharToReceive = 0;
-    
+
     /* Set ECHO ON by default */
     appConsole.echoEnable = true;
 
@@ -502,7 +502,7 @@ void APP_CONSOLE_PL360_Tasks ( void )
 {
     /* Refresh WDG */
     WDT_Clear();
-    
+
     /* Read console port */
     APP_CONSOLE_ReadSerialChar();
 
@@ -513,7 +513,7 @@ void APP_CONSOLE_PL360_Tasks ( void )
         case APP_CONSOLE_STATE_INIT:
         {
             char data;
-            
+
             /* Wait for any serial data to start Console application */
             if (SYS_CONSOLE_Read(SYS_CONSOLE_INDEX_0, &data, 1) > 0)
             {
@@ -529,12 +529,12 @@ void APP_CONSOLE_PL360_Tasks ( void )
             {
                 /* Show App Header */
                 APP_CONSOLE_Print(STRING_HEADER);
-            
+
                 /* Show PHY version */
-                APP_CONSOLE_Print("PL360 binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x", 
+                APP_CONSOLE_Print("PL360 binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x",
                         (uint8_t)(appPlcTx.pl360PhyVersion >> 24), (uint8_t)(appPlcTx.pl360PhyVersion >> 16),
                         (uint8_t)(appPlcTx.pl360PhyVersion >> 8), (uint8_t)(appPlcTx.pl360PhyVersion));
-                
+
                 /* Set PLC Phy Tone Map Size */
                 if (((appPlcTx.pl360PhyVersion >> 16) & 0xFF) == 0x01)
                 {
@@ -556,10 +556,10 @@ void APP_CONSOLE_PL360_Tasks ( void )
                     /* Show PHY Band */
                     APP_CONSOLE_Print("(CENELEC-B band: 98 - 122 kHz)\r\n");
                 }
-                
+
                 APP_CONSOLE_Print("\r\nPress 'CTRL+S' to enter configuration menu. " \
                     "Enter text and press 'ENTER' to trigger transmission\r\n>>> ");
-                
+
                 /* Set Console state */
                 appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
             }
@@ -574,7 +574,7 @@ void APP_CONSOLE_PL360_Tasks ( void )
             /* Waiting Console command */
             APP_CONSOLE_ReadRestart(SERIAL_BUFFER_SIZE);
             appConsole.state = APP_CONSOLE_STATE_CONSOLE;
-            
+
 
             break;
         }
@@ -596,7 +596,7 @@ void APP_CONSOLE_PL360_Tasks ( void )
                             APP_CONSOLE_Print("\t1: Tx/Rx Coupling Band\n\r");
                         }
                         break;
-                        
+
                     default:
                         if (appConsole.dataLength)
                         {
@@ -619,7 +619,7 @@ void APP_CONSOLE_PL360_Tasks ( void )
             }
         }
         break;
-        
+
         case APP_CONSOLE_STATE_MENU:
         {
             if (appConsole.numCharToReceive == 0)
@@ -645,7 +645,7 @@ void APP_CONSOLE_PL360_Tasks ( void )
             }
         }
         break;
-            
+
 
         case APP_CONSOLE_STATE_WAIT_PLC_TX_CFM:
         {
@@ -694,7 +694,7 @@ void APP_CONSOLE_PL360_Tasks ( void )
                         APP_CONSOLE_Print("  TX_RESULT_NO_TX\r\n");
                         break;
                 }
-                
+
                 appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
             }
         }
@@ -718,7 +718,7 @@ void APP_CONSOLE_PL360_Tasks ( void )
             }
             break;
         }
-        
+
         case APP_CONSOLE_STATE_SET_PLC_BAND:
         {
             if (appConsole.numCharToReceive == 0)
@@ -759,7 +759,7 @@ void APP_CONSOLE_Print(const char *format, ...)
 {
     size_t len = 0;
     uint32_t numRetries = 1000;
-    
+
     if (appConsole.state == APP_CONSOLE_STATE_INIT)
     {
         return;
@@ -781,12 +781,12 @@ void APP_CONSOLE_Print(const char *format, ...)
     va_start( sArgs, format );
     len = vsnprintf(appConsole.pTransmitChar, SERIAL_BUFFER_SIZE - 1, format, sArgs);
     va_end( sArgs );
-    
+
     if (len > SERIAL_BUFFER_SIZE - 1)
     {
         len = SERIAL_BUFFER_SIZE - 1;
     }
-    
+
     appConsole.pTransmitChar[len] = '\0';
     SYS_CONSOLE_Message(SYS_CONSOLE_INDEX_0, (const char *) appConsole.pTransmitChar);
 }

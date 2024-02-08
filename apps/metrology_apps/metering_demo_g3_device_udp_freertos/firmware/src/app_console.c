@@ -1,25 +1,25 @@
-/*******************************************************************************
-* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 /*******************************************************************************
   MPLAB Harmony Application Source File
@@ -201,16 +201,16 @@ static const SYS_CMD_DESCRIPTOR appCmdTbl[]=
 void _getSysTimeFromMonthIndex(struct tm *time, uint8_t index)
 {
     struct tm sysTime;
-    
+
     RTC_TimeGet(&sysTime);
-    
+
     if (sysTime.tm_mon < index)
     {
         sysTime.tm_mon += 12;
         sysTime.tm_year--;
     }
     sysTime.tm_mon -= index;
-    
+
     *time = sysTime;
 }
 
@@ -218,25 +218,25 @@ uint8_t _getMonthIndexFromSysTime(struct tm *time)
 {
     struct tm sysTime;
     int8_t index;
-    
+
     RTC_TimeGet(&sysTime);
-    
+
     index = sysTime.tm_mon - time->tm_mon;
     if (index < 0)
     {
         index += 12;
     }
-    
+
     return (uint8_t)index;
 }
 
-bool _preprocessorCallback ( const SYS_CMD_DESCRIPTOR* pCmdTbl, 
+bool _preprocessorCallback ( const SYS_CMD_DESCRIPTOR* pCmdTbl,
         SYS_CMD_DEVICE_NODE* pCmdIO, char* cmdBuff, size_t bufSize, void* hParam)
 {
     char *pBuff = cmdBuff;
     char cmdChar;
     size_t idx;
-    
+
     for(idx = 0; idx < bufSize; idx++, pBuff++)
     {
         cmdChar = *pBuff;
@@ -245,14 +245,14 @@ bool _preprocessorCallback ( const SYS_CMD_DESCRIPTOR* pCmdTbl,
             // Convert upper case
             *pBuff -= 32;
         }
-        else if ((cmdChar == '\t') || (cmdChar == ',') || (cmdChar == ';') || (cmdChar == '[') || 
+        else if ((cmdChar == '\t') || (cmdChar == ',') || (cmdChar == ';') || (cmdChar == '[') ||
                 (cmdChar == ']') || (cmdChar == '(') || (cmdChar == ')'))
         {
             // Replace command separator
             *pBuff = ' ';
         }
     }
-    
+
     return false;
 }
 
@@ -277,7 +277,7 @@ static void _monthlyEnergyCallback(struct tm * time, bool dataValid)
     {
         memset(&energyData, 0, sizeof(energyData));
     }
-    
+
     app_consoleData.timeRequest = *time;
     app_consoleData.state = APP_CONSOLE_STATE_PRINT_MONTHLY_ENERGY;
     // Post semaphore to wakeup task
@@ -290,7 +290,7 @@ static void _maxDemandCallback(struct tm * time, bool dataValid)
     {
         memset(&maxDemandLocalObject, 0, sizeof(maxDemandLocalObject));
     }
-    
+
     app_consoleData.timeRequest = *time;
     app_consoleData.state = APP_CONSOLE_STATE_PRINT_MAX_DEMAND;
 
@@ -327,43 +327,43 @@ static inline void _removePrompt(void)
 
 static void _commandHELP(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
-    if (argc == 2) 
+    if (argc == 2)
     {
         SYS_CMD_DESCRIPTOR *pCmd;
         uint8_t idx;
         size_t len;
-        
+
         // Show help for a single command
         pCmd = (SYS_CMD_DESCRIPTOR *)appCmdTbl;
         for (idx = 0; idx < app_consoleData.numCommands; idx++, pCmd++)
         {
             len = strlen(argv[1]);
-            
+
             if (strncmp(pCmd->cmdStr, argv[1], len) == 0)
             {
                 SYS_CMD_PRINT("%s\t%s\r\n", pCmd->cmdStr, pCmd->cmdDescr);
                 break;
             }
         }
-        
+
         if (idx == app_consoleData.numCommands)
         {
             SYS_CMD_MESSAGE("Command is not found.\r\n");
         }
     }
-    else 
+    else
     {
         app_consoleData.state = APP_CONSOLE_STATE_PRINT_HELP;
         app_consoleData.cmdNumToShowHelp = app_consoleData.numCommands;
         app_consoleData.pCmdDescToShowHelp = (SYS_CMD_DESCRIPTOR *)appCmdTbl;
-            
+
         // Remove Prompt symbol
         _removePrompt();
 
         // Post semaphore to wakeup task
         OSAL_SEM_Post(&appConsoleSemID);
     }
-    
+
     /* Show console communication icon */
     APP_DISPLAY_SetSerialCommunication();
 }
@@ -374,33 +374,33 @@ static void _commandBUF(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     size_t captureSize;
     uint8_t idxMax;
     uint8_t idx = 0xFF;
-    
+
     if (argc > 2)
     {
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
         return;
     }
 
-    if (argc == 2) 
+    if (argc == 2)
     {
         // Extract index from parameters
         idx = (uint8_t)strtol(argv[1], NULL, 10);
     }
-    
+
     // Store parameters in local variables and go to corresponding state
     captureSize = APP_METROLOGY_GetWaveformCaptureData(&captureAddress);
-    
+
     if ((captureSize == 0) || (captureAddress == 0))
     {
         SYS_CMD_MESSAGE("Waveform data is disabled.\r\n");
         return;
     }
-    
+
     app_consoleData.rawDataLen = captureSize;
     app_consoleData.rawData = (uint32_t *)captureAddress;
-    
+
     idxMax = (captureSize - 1) >> 9;
-    
+
     if (idx != 0xFF)
     {
         if (idx > idxMax)
@@ -408,7 +408,7 @@ static void _commandBUF(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             SYS_CMD_MESSAGE("Parameter is out of range.\r\n");
             return;
         }
-        
+
         if (captureSize > 512)
         {
             /* Check if it is the last fragment */
@@ -424,21 +424,21 @@ static void _commandBUF(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
         app_consoleData.rawData += (idx << 9);
     }
-    
+
     app_consoleData.rawDataFlag = true;
     app_consoleData.state = APP_CONSOLE_STATE_PRINT_WAVEFORM_DATA;
     // Post semaphore to wakeup task
     OSAL_SEM_Post(&appConsoleSemID);
-    
+
     /* Show console communication icon */
     APP_DISPLAY_SetSerialCommunication();
-    
+
 }
 
 static bool _getCalibrationValue(char * argv, char * substring, double * value)
 {
     char *p;
-    
+
     if (strncmp(argv, substring, 2) == 0) {
         // Get substring after '=' char
         p = strstr(argv, "=");
@@ -449,7 +449,7 @@ static bool _getCalibrationValue(char * argv, char * substring, double * value)
             return true;
         }
     }
-    
+
     return false;
 }
 
@@ -457,14 +457,14 @@ static void _commandCALA(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
     APP_METROLOGY_CALIBRATION newCalibration = {0};
     bool parseError = false;
-    
+
     if (argc != 4) {
         SYS_CMD_MESSAGE("Unsupported Command !\r\n");
         return;
     }
-    
+
     newCalibration.lineId = PHASE_A;
-    
+
     if(_getCalibrationValue(argv[1], "UA", &newCalibration.aimVA) == false)
     {
         parseError = true;
@@ -481,7 +481,7 @@ static void _commandCALA(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     if (parseError) {
         SYS_CMD_MESSAGE("Unsupported Command !\r\n");
     }
-    else 
+    else
     {
         SYS_CMD_MESSAGE("Calibrating...\r\n");
         APP_METROLOGY_StartCalibration(&newCalibration);
@@ -492,14 +492,14 @@ static void _commandCALB(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
     APP_METROLOGY_CALIBRATION newCalibration = {0};
     bool parseError = false;
-    
+
     if (argc != 4) {
         SYS_CMD_MESSAGE("Unsupported Command !\r\n");
         return;
     }
-    
+
     newCalibration.lineId = PHASE_B;
-    
+
     if(_getCalibrationValue(argv[1], "UB", &newCalibration.aimVB) == false)
     {
         parseError = true;
@@ -516,7 +516,7 @@ static void _commandCALB(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     if (parseError) {
         SYS_CMD_MESSAGE("Unsupported Command !\r\n");
     }
-    else 
+    else
     {
         SYS_CMD_MESSAGE("Calibrating...\r\n");
         APP_METROLOGY_StartCalibration(&newCalibration);
@@ -527,14 +527,14 @@ static void _commandCALC(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
     APP_METROLOGY_CALIBRATION newCalibration = {0};
     bool parseError = false;
-    
+
     if (argc != 4) {
         SYS_CMD_MESSAGE("Unsupported Command !\r\n");
         return;
     }
-    
+
     newCalibration.lineId = PHASE_C;
-    
+
     if(_getCalibrationValue(argv[1], "UC", &newCalibration.aimVC) == false)
     {
         parseError = true;
@@ -551,7 +551,7 @@ static void _commandCALC(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     if (parseError) {
         SYS_CMD_MESSAGE("Unsupported Command !\r\n");
     }
-    else 
+    else
     {
         SYS_CMD_MESSAGE("Calibrating...\r\n");
         APP_METROLOGY_StartCalibration(&newCalibration);
@@ -562,14 +562,14 @@ static void _commandCALT(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
     APP_METROLOGY_CALIBRATION newCalibration = {0};
     bool parseError = false;
-    
+
     if (argc != 10) {
         SYS_CMD_MESSAGE("Unsupported Command !\r\n");
         return;
     }
-    
+
     newCalibration.lineId = PHASE_T;
-    
+
     if(_getCalibrationValue(argv[1], "UA", &newCalibration.aimVA) == false)
     {
         parseError = true;
@@ -610,7 +610,7 @@ static void _commandCALT(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     if (parseError) {
         SYS_CMD_MESSAGE("Unsupported Command !\r\n");
     }
-    else 
+    else
     {
         SYS_CMD_MESSAGE("Calibrating...\r\n");
         APP_METROLOGY_StartCalibration(&newCalibration);
@@ -787,7 +787,7 @@ static void _commandCNF(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     {
         APP_METROLOGY_SetConfiguration(&newConf);
         SYS_CMD_MESSAGE("Configure Meter is Ok !\r\n");
-        
+
         /* Show console communication icon */
         APP_DISPLAY_SetSerialCommunication();
     }
@@ -804,7 +804,7 @@ static void _commandDAR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
         app_consoleData.state = APP_CONSOLE_STATE_READ_ALL_ACCUM_REGS;
         // Post semaphore to wakeup task
         OSAL_SEM_Post(&appConsoleSemID);
-        
+
         /* Show console communication icon */
         APP_DISPLAY_SetSerialCommunication();
     }
@@ -819,7 +819,7 @@ static void _commandDAR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             app_consoleData.state = APP_CONSOLE_STATE_READ_ACCUM_REG;
             // Post semaphore to wakeup task
             OSAL_SEM_Post(&appConsoleSemID);
-            
+
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
         }
@@ -843,7 +843,7 @@ static void _commandDCB(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
         app_consoleData.state = APP_CONSOLE_STATE_LOW_POWER_MODE;
         // Post semaphore to wakeup task
         OSAL_SEM_Post(&appConsoleSemID);
-        
+
         /* Show console communication icon */
         APP_DISPLAY_SetSerialCommunication();
     }
@@ -861,7 +861,7 @@ static void _commandDCD(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
         SYS_CMD_MESSAGE("Load Default Is Ok !\r\n");
         // Set default control register values
         APP_METROLOGY_SetControlByDefault();
-        
+
         /* Show console communication icon */
         APP_DISPLAY_SetSerialCommunication();
     }
@@ -912,7 +912,7 @@ static void _commandDCM(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             app_consoleData.state = APP_CONSOLE_STATE_WRITE_CONTROL_REG;
             // Post semaphore to wakeup task
             OSAL_SEM_Post(&appConsoleSemID);
-        
+
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
         }
@@ -947,7 +947,7 @@ static void _commandDCR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             app_consoleData.state = APP_CONSOLE_STATE_READ_CONTROL_REG;
             // Post semaphore to wakeup task
             OSAL_SEM_Post(&appConsoleSemID);
-        
+
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
         }
@@ -971,7 +971,7 @@ static void _commandDCS(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
         SYS_CMD_MESSAGE("Save Data Is Ok !\r\n");
         // Save Metrology Constants and configuration settings to NVM
         APP_METROLOGY_StoreMetrologyData();
-        
+
         /* Show console communication icon */
         APP_DISPLAY_SetSerialCommunication();
     }
@@ -1000,7 +1000,7 @@ static void _commandDCW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             {
                 // Show response on console
                 SYS_CMD_MESSAGE("Set Is Ok !\r\n");
-        
+
                 /* Show console communication icon */
                 APP_DISPLAY_SetSerialCommunication();
             }
@@ -1034,7 +1034,7 @@ static void _commandDSR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
         app_consoleData.state = APP_CONSOLE_STATE_READ_ALL_STATUS_REGS;
         // Post semaphore to wakeup task
         OSAL_SEM_Post(&appConsoleSemID);
-        
+
         /* Show console communication icon */
         APP_DISPLAY_SetSerialCommunication();
     }
@@ -1049,7 +1049,7 @@ static void _commandDSR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             app_consoleData.state = APP_CONSOLE_STATE_READ_STATUS_REG;
             // Post semaphore to wakeup task
             OSAL_SEM_Post(&appConsoleSemID);
-        
+
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
         }
@@ -1077,7 +1077,7 @@ static void _commandENC(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             APP_ENERGY_ClearEnergy(true);
             // Show response on console
             SYS_CMD_MESSAGE("Clear Energy is ok !\r\n");
-        
+
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
         }
@@ -1097,26 +1097,26 @@ static void _commandENC(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 static void _commandENR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
     uint8_t monthIndex;
-    
+
     if (argc > 2)
     {
         // Incorrect parameter number
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
     }
-    
-    if (argc == 2) {        
+
+    if (argc == 2) {
         // Extract month index from parameters
         monthIndex = (uint8_t)strtol(argv[1], NULL, 10);
         monthIndex %= 12;
         app_consoleData.requestCounter = 1;
-    } 
+    }
     else
     {
         monthIndex = 0;
         // Start process to get full Monthly energy data
         app_consoleData.requestCounter = 12;
     }
-    
+
     // Get SysTime
     _getSysTimeFromMonthIndex(&app_consoleData.sysTime, monthIndex);
 
@@ -1136,25 +1136,25 @@ static void _commandENR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
 static void _commandEVEC(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
-    if (argc == 2) 
+    if (argc == 2)
     {
         // Check password from parameters
-        if (strncmp(argv[1], metPwd, APP_CONSOLE_MET_PWD_SIZE) == 0) 
+        if (strncmp(argv[1], metPwd, APP_CONSOLE_MET_PWD_SIZE) == 0)
         {
             APP_EVENTS_ClearEvents();
             // Show response on console
             SYS_CMD_MESSAGE("Clear All Event is ok !\r\n");
-            
+
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
         }
-        else 
+        else
         {
             // Invalid password
             SYS_CMD_MESSAGE("Invalid password\r\n");
         }
     }
-    else 
+    else
     {
         // Incorrect parameter number
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
@@ -1165,54 +1165,54 @@ static void _commandEVER(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
     app_consoleData.eventIdRequest = EVENT_INVALID_ID;
 
-    if (argc == 3) 
+    if (argc == 3)
     {
         // Extract event id from parameters
-        if (strcmp(argv[1], "UA") == 0) 
+        if (strcmp(argv[1], "UA") == 0)
         {
             app_consoleData.eventIdRequest = SAG_UA_EVENT_ID;
         }
-        else if (strcmp(argv[1], "UB") == 0) 
+        else if (strcmp(argv[1], "UB") == 0)
         {
             app_consoleData.eventIdRequest = SAG_UB_EVENT_ID;
         }
-        else if (strcmp(argv[1], "UC") == 0) 
+        else if (strcmp(argv[1], "UC") == 0)
         {
             app_consoleData.eventIdRequest = SAG_UC_EVENT_ID;
         }
-        else if (strcmp(argv[1], "PA") == 0) 
+        else if (strcmp(argv[1], "PA") == 0)
         {
             app_consoleData.eventIdRequest = POW_UA_EVENT_ID;
         }
-        else if (strcmp(argv[1], "PB") == 0) 
+        else if (strcmp(argv[1], "PB") == 0)
         {
             app_consoleData.eventIdRequest = POW_UB_EVENT_ID;
         }
-        else if (strcmp(argv[1], "PC") == 0) 
+        else if (strcmp(argv[1], "PC") == 0)
         {
             app_consoleData.eventIdRequest = POW_UC_EVENT_ID;
         }
 
-        if (app_consoleData.eventIdRequest != EVENT_INVALID_ID) 
+        if (app_consoleData.eventIdRequest != EVENT_INVALID_ID)
         {
             // Extract last times from parameters
             app_consoleData.eventLastTimeRequest = (uint8_t)strtol(argv[2], NULL, 10);
-            
+
             app_consoleData.state = APP_CONSOLE_STATE_PRINT_EVENT;
-            
+
             // Post semaphore to wakeup task
             OSAL_SEM_Post(&appConsoleSemID);
-            
+
             /* Show console communication icon */
-            APP_DISPLAY_SetSerialCommunication();            
+            APP_DISPLAY_SetSerialCommunication();
         }
-        else 
+        else
         {
             // Invalid Command
             SYS_CMD_MESSAGE("Unsupported Command !\r\n");
         }
     }
-    else 
+    else
     {
         // Incorrect parameter number
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
@@ -1223,7 +1223,7 @@ static void _commandHAR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
     uint8_t idx;
 
-    if (argc == 1) 
+    if (argc == 1)
     {
         // Read all metrology harmonics registers
         app_consoleData.harRegToRead = 0;
@@ -1231,28 +1231,28 @@ static void _commandHAR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
         // Post semaphore to wakeup task
         OSAL_SEM_Post(&appConsoleSemID);
     }
-    else if (argc == 2) 
+    else if (argc == 2)
     {
         // Extract register index from parameters
         idx = (uint8_t)strtol(argv[1], NULL, 10);
-        if (idx < HARMONICS_REG_NUM) 
+        if (idx < HARMONICS_REG_NUM)
         {
             // Read register value
             app_consoleData.harRegToRead = idx;
             app_consoleData.state = APP_CONSOLE_STATE_READ_HARMONICS_REG;
             // Post semaphore to wakeup task
             OSAL_SEM_Post(&appConsoleSemID);
-            
+
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
         }
-        else 
+        else
         {
             // Invalid index
             SYS_CMD_MESSAGE("Invalid register index\r\n");
         }
     }
-    else 
+    else
     {
         // Incorrect parameter number
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
@@ -1263,7 +1263,7 @@ static void _commandHRR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
     uint8_t harmonicNum;
 
-    if (argc == 2) 
+    if (argc == 2)
     {
         // Extract harmonic number from parameters
         harmonicNum = (uint8_t)strtol(argv[1], NULL, 10);
@@ -1280,7 +1280,7 @@ static void _commandHRR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
         }
         // Response will be provided on _harmonicAnalysisCallback function
     }
-    else 
+    else
     {
         // Incorrect parameter number
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
@@ -1289,17 +1289,17 @@ static void _commandHRR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
 static void _commandIDR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
-    if (argc == 1) 
+    if (argc == 1)
     {
         // Read Meter ID
         app_consoleData.state = APP_CONSOLE_STATE_READ_METER_ID;
         // Post semaphore to wakeup task
-        OSAL_SEM_Post(&appConsoleSemID);  
-        
+        OSAL_SEM_Post(&appConsoleSemID);
+
         /* Show console communication icon */
         APP_DISPLAY_SetSerialCommunication();
     }
-    else 
+    else
     {
         // Incorrect parameter number
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
@@ -1308,10 +1308,10 @@ static void _commandIDR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
 static void _commandIDW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
-    if (argc == 3) 
+    if (argc == 3)
     {
         // Check password from parameters
-        if (strncmp(argv[1], metPwd, APP_CONSOLE_MET_PWD_SIZE) == 0) 
+        if (strncmp(argv[1], metPwd, APP_CONSOLE_MET_PWD_SIZE) == 0)
         {
             // Correct password, write Meter ID
             memcpy(&app_consoleStorageData.meterID, argv[2], sizeof(app_consoleStorageData.meterID));
@@ -1326,17 +1326,17 @@ static void _commandIDW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             // Put it in queue
             xQueueSend(appDatalogQueueID, &datalogQueueElement, (TickType_t)0);
             SYS_CMD_MESSAGE("Set Meter ID is Ok\r\n");
-        
+
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
         }
-        else 
+        else
         {
             // Invalid password
             SYS_CMD_MESSAGE("Invalid password\r\n");
         }
     }
-    else 
+    else
     {
         // Incorrect parameter number
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
@@ -1345,26 +1345,26 @@ static void _commandIDW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
 static void _commandMDC(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
-    if (argc == 2) 
+    if (argc == 2)
     {
         // Check password from parameters
-        if (strncmp(argv[1], metPwd, APP_CONSOLE_MET_PWD_SIZE) == 0) 
+        if (strncmp(argv[1], metPwd, APP_CONSOLE_MET_PWD_SIZE) == 0)
         {
             // Correct password, Clear Max Demand records
             APP_ENERGY_ClearMaxDemand(true);
             // Show response on console
             SYS_CMD_MESSAGE("Clear MaxDemand is ok !\r\n");
-        
+
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
         }
-        else 
+        else
         {
             // Invalid password
             SYS_CMD_MESSAGE("Invalid password\r\n");
         }
     }
-    else 
+    else
     {
         // Incorrect parameter number
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
@@ -1374,26 +1374,26 @@ static void _commandMDC(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 static void _commandMDR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
     uint8_t monthIndex;
-    
+
     if (argc >2)
     {
         // Incorrect parameter number
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
     }
-    
-    if (argc == 2) {        
+
+    if (argc == 2) {
         // Extract month index from parameters
         monthIndex = (uint8_t)strtol(argv[1], NULL, 10);
         monthIndex %= 12;
         app_consoleData.requestCounter = 1;
-    } 
+    }
     else
     {
         monthIndex = 0;
         // Start process to get full Monthly energy data
         app_consoleData.requestCounter = 12;
     }
-    
+
     // Get SysTime
     _getSysTimeFromMonthIndex(&app_consoleData.sysTime, monthIndex);
 
@@ -1463,7 +1463,7 @@ static void _commandPAR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
         {
             // Post semaphore to wakeup task
             OSAL_SEM_Post(&appConsoleSemID);
-            
+
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
         }
@@ -1477,17 +1477,17 @@ static void _commandPAR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
 static void _commandRTCR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
-    if (argc == 1) 
+    if (argc == 1)
     {
         // Read RTC
         app_consoleData.state = APP_CONSOLE_STATE_READ_RTC;
         // Post semaphore to wakeup task
         OSAL_SEM_Post(&appConsoleSemID);
-        
+
         /* Show console communication icon */
         APP_DISPLAY_SetSerialCommunication();
     }
-    else 
+    else
     {
         // Incorrect parameter number
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
@@ -1508,14 +1508,14 @@ static void _commandRTCW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             app_consoleData.sysTime.tm_year = (uint8_t)strtol(p, NULL, 10) + 2000 - 1900;
             // Look for "-" char and advance to next char
             p = strstr(p, "-");
-            if (p != NULL) 
+            if (p != NULL)
             {
                 p++;
                 // Month
                 app_consoleData.sysTime.tm_mon = (uint8_t)strtol(p, NULL, 10) - 1;
                 // Look for "-" char and advance to next char
                 p = strstr(p, "-");
-                if (p != NULL) 
+                if (p != NULL)
                 {
                     p++;
                     // Day
@@ -1533,14 +1533,14 @@ static void _commandRTCW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             app_consoleData.sysTime.tm_hour = (uint8_t)strtol(p, NULL, 10);
             // Look for ":" char and advance to next char
             p = strstr(p, ":");
-            if (p != NULL) 
+            if (p != NULL)
             {
                 p++;
                 // Minute
                 app_consoleData.sysTime.tm_min = (uint8_t)strtol(p, NULL, 10);
                 // Look for ":" char and advance to next char
                 p = strstr(p, ":");
-                if (p != NULL) 
+                if (p != NULL)
                 {
                     p++;
                     // Second
@@ -1560,13 +1560,13 @@ static void _commandRTCW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
                 datalogQueueElement.pData = (uint8_t*)&app_consoleData.sysTime;
                 // Put it in queue
                 xQueueSend(appDatalogQueueID, &datalogQueueElement, (TickType_t)0);
-            
+
                 // Clear No-persistent energy/demand data
                 APP_ENERGY_ClearEnergy(false);
                 APP_ENERGY_ClearMaxDemand(false);
-        
+
                 SYS_CMD_MESSAGE("Set RTC is ok!\r\n");
-        
+
                 /* Show console communication icon */
                 APP_DISPLAY_SetSerialCommunication();
             }
@@ -1588,17 +1588,17 @@ static void _commandRTCW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
 static void _commandTOUR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
-    if (argc == 1) 
+    if (argc == 1)
     {
         // Go to state to read TOU
         app_consoleData.state = APP_CONSOLE_STATE_READ_TOU;
         // Post semaphore to wakeup task
         OSAL_SEM_Post(&appConsoleSemID);
-        
+
         /* Show console communication icon */
         APP_DISPLAY_SetSerialCommunication();
     }
-    else 
+    else
     {
         // Incorrect param number
         SYS_CMD_MESSAGE("Unsupported Command !\r\n");
@@ -1622,7 +1622,7 @@ static void _commandTOUW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
              {
                 // Check whether there are arguments left to write
                 argIdx = ((idx << 1) + 2);
-                if (argc > argIdx) 
+                if (argc > argIdx)
                 {
                     // Extract hour, minute and rate
                     p = argv[argIdx];
@@ -1630,7 +1630,7 @@ static void _commandTOUW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
                     timeZone[idx].hour = (uint8_t)strtol(p, NULL, 10);
                     // Look for ":" char and advance to next char
                     p = strstr(p, ":");
-                    if (p != NULL) 
+                    if (p != NULL)
                     {
                         p++;
                         // Extract minute from argument
@@ -1638,21 +1638,21 @@ static void _commandTOUW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
                         // Extract rate from next argument
                         timeZone[idx].tariff = (uint8_t)strtol(argv[argIdx + 1], NULL, 10);
                     }
-                    else 
+                    else
                     {
                         parseError = true;
                         break;
                     }
-                    
+
                     if ((timeZone[idx].hour > 23) ||
                         (timeZone[idx].minute > 59) ||
-                        (timeZone[idx].tariff > TARIFF_4)) 
+                        (timeZone[idx].tariff > TARIFF_4))
                     {
                             parseError = true;
                             break;
                     }
                 }
-                else 
+                else
                 {
                     // No more arguments, fill TOU index with invalid data
                     timeZone[idx].hour = 0;
@@ -1680,13 +1680,13 @@ static void _commandTOUW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     else
     {
         APP_ENERGY_SetTOUTimeZone(timeZone);
-        
+
         // Clear No-persistent energy/demand data
         APP_ENERGY_ClearEnergy(false);
         APP_ENERGY_ClearMaxDemand(false);
-        
+
         SYS_CMD_MESSAGE("Set TOU is Ok !\r\n");
-        
+
         /* Show console communication icon */
         APP_DISPLAY_SetSerialCommunication();
     }
@@ -1694,10 +1694,10 @@ static void _commandTOUW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
 static void _commandRST(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
-    if (argc == 2) 
+    if (argc == 2)
     {
         // Check password from parameters
-        if (strncmp(argv[1], metPwd, APP_CONSOLE_MET_PWD_SIZE) == 0) 
+        if (strncmp(argv[1], metPwd, APP_CONSOLE_MET_PWD_SIZE) == 0)
         {
             // Correct password, Reset System
             SYS_CMD_MESSAGE("Reset Command is Ok !\r\n");
@@ -1705,17 +1705,17 @@ static void _commandRST(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             app_consoleData.state = APP_CONSOLE_STATE_SW_RESET;
             // Post semaphore to wakeup task
             OSAL_SEM_Post(&appConsoleSemID);
-        
+
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
         }
-        else 
+        else
         {
             // Invalid password
             SYS_CMD_MESSAGE("Invalid password\r\n");
         }
     }
-    else 
+    else
     {
         // Incorrect parameter number
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
@@ -1724,26 +1724,26 @@ static void _commandRST(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
 static void _commandRLD(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
-    if (argc == 2) 
+    if (argc == 2)
     {
         // Check password from parameters
-        if (strncmp(argv[1], metPwd, APP_CONSOLE_MET_PWD_SIZE) == 0) 
+        if (strncmp(argv[1], metPwd, APP_CONSOLE_MET_PWD_SIZE) == 0)
         {
             // Correct password, Reset System
             SYS_CMD_MESSAGE("Reloading Metrology...\r\n\r\n");
             // Reload Metrology coprocessor
             APP_METROLOGY_Restart();
-        
+
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
         }
-        else 
+        else
         {
             // Invalid password
             SYS_CMD_MESSAGE("Invalid password\r\n");
         }
     }
-    else 
+    else
     {
         // Incorrect parameter number
         SYS_CMD_MESSAGE("Incorrect param number\r\n");
@@ -1808,13 +1808,13 @@ void APP_CONSOLE_Tasks ( void )
                 /* Initialize Energy App callbacks */
                 APP_ENERGY_SetMonthEnergyCallback(_monthlyEnergyCallback, &energyData);
                 APP_ENERGY_SetMaxDemandCallback(_maxDemandCallback, &maxDemandLocalObject);
-                
+
                 /* Initialize Metrology App callbacks */
                 APP_METROLOGY_SetHarmonicAnalysisCallback(_harmonicAnalysisCallback, &harmonicAnalysisRMSData);
                 APP_METROLOGY_SetCalibrationCallback(_calibrationCallback);
 
                 if ((OSAL_SEM_Create(&appConsoleSemID, OSAL_SEM_TYPE_BINARY, 1, 0) == OSAL_RESULT_TRUE) &&
-                    (OSAL_SEM_Create(&appConsoleStorageSemID, OSAL_SEM_TYPE_BINARY, 1, 0) == OSAL_RESULT_TRUE)) 
+                    (OSAL_SEM_Create(&appConsoleStorageSemID, OSAL_SEM_TYPE_BINARY, 1, 0) == OSAL_RESULT_TRUE))
                 {
                     app_consoleData.currentWaitForDatalogReady = 0;
                     app_consoleData.state = APP_CONSOLE_STATE_WAIT_STORAGE_READY;
@@ -1827,11 +1827,11 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_WAIT_STORAGE_READY:
         {
-            if (APP_DATALOG_GetStatus() == APP_DATALOG_STATE_READY) 
+            if (APP_DATALOG_GetStatus() == APP_DATALOG_STATE_READY)
             {
                app_consoleData.state = APP_CONSOLE_STATE_READ_STORAGE;
             }
-            
+
             vTaskDelay(100 / portTICK_PERIOD_MS);
             break;
         }
@@ -1890,13 +1890,13 @@ void APP_CONSOLE_Tasks ( void )
         {
             // Remove Prompt symbol
             _removePrompt();
-            
+
             // Read register value
-            if (APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead, &regValue32[0], regName[0])) 
+            if (APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead, &regValue32[0], regName[0]))
             {
                 SYS_CMD_PRINT("%s\r\n%X\r\n", regName[0], regValue32[0]);
             }
-            else 
+            else
             {
                 // Cannot read register
                 SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.ctrlRegToRead);
@@ -1909,43 +1909,43 @@ void APP_CONSOLE_Tasks ( void )
         case APP_CONSOLE_STATE_WRITE_CONTROL_REG:
         {
             uint8_t idx;
-            
+
             // Remove Prompt symbol
             _removePrompt();
-            
-            for (idx = 0; idx < APP_CONSOLE_MAX_REGS; idx++) 
+
+            for (idx = 0; idx < APP_CONSOLE_MAX_REGS; idx++)
             {
-                if (app_consoleData.regsToModify[idx].index != 0xFF) 
+                if (app_consoleData.regsToModify[idx].index != 0xFF)
                 {
-                    if (app_consoleData.regsToModify[idx].index < CONTROL_REG_NUM) 
+                    if (app_consoleData.regsToModify[idx].index < CONTROL_REG_NUM)
                     {
                         // Write register value
-                        if (APP_METROLOGY_SetControlRegister((CONTROL_REG_ID)app_consoleData.regsToModify[idx].index, 
-                                app_consoleData.regsToModify[idx].value)) 
+                        if (APP_METROLOGY_SetControlRegister((CONTROL_REG_ID)app_consoleData.regsToModify[idx].index,
+                                app_consoleData.regsToModify[idx].value))
                         {
                             // Show response on console
                             SYS_CMD_PRINT("Set %02d Is Ok !\r\n", app_consoleData.regsToModify[idx].index);
                         }
-                        else 
+                        else
                         {
                             // Cannot write register
                             SYS_CMD_PRINT("Could not write register %02d\r\n", app_consoleData.regsToModify[idx].index);
                         }
                     }
-                    else 
+                    else
                     {
                         // Invalid index
                         SYS_CMD_PRINT("Invalid register index %02d\r\n", app_consoleData.regsToModify[idx].index);
                     }
                 }
-                else 
+                else
                 {
                     // All registers have been written
                     app_consoleData.state = APP_CONSOLE_STATE_IDLE;
                     break;
                 }
-                
-                if ((idx % 10) == 0) 
+
+                if ((idx % 10) == 0)
                 {
                     vTaskDelay(CONSOLE_TASK_DEFAULT_DELAY_MS_BETWEEN_STATES / portTICK_PERIOD_MS);
                 }
@@ -1971,12 +1971,12 @@ void APP_CONSOLE_Tasks ( void )
                     if ((APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead, &regValue32[0], regName[0])) &&
                         (APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead + 1, &regValue32[1], regName[1])) &&
                         (APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead + 2, &regValue32[2], regName[2])) &&
-                        (APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead + 3, &regValue32[3], regName[3]))) 
+                        (APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead + 3, &regValue32[3], regName[3])))
                     {
                         SYS_CMD_PRINT("%-19s%-19s%-19s%-19s\r\n", regName[0], regName[1], regName[2], regName[3]);
                         SYS_CMD_PRINT("%-19X%-19X%-19X%-19X\r\n", regValue32[0], regValue32[1], regValue32[2], regValue32[3]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.ctrlRegToRead);
@@ -1988,12 +1988,12 @@ void APP_CONSOLE_Tasks ( void )
                 {
                     if ((APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead, &regValue32[0], regName[0])) &&
                         (APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead + 1, &regValue32[1], regName[1])) &&
-                        (APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead + 2, &regValue32[2], regName[2]))) 
+                        (APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead + 2, &regValue32[2], regName[2])))
                     {
                         SYS_CMD_PRINT("%-19s%-19s%-19s\r\n", regName[0], regName[1], regName[2]);
                         SYS_CMD_PRINT("%-19X%-19X%-19X\r\n", regValue32[0], regValue32[1], regValue32[2]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.ctrlRegToRead);
@@ -2004,12 +2004,12 @@ void APP_CONSOLE_Tasks ( void )
                 else if (numRegsPending == 2)
                 {
                     if ((APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead, &regValue32[0], regName[0])) &&
-                        (APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead + 1, &regValue32[1], regName[1]))) 
+                        (APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead + 1, &regValue32[1], regName[1])))
                     {
                         SYS_CMD_PRINT("%-19s%-19s\r\n", regName[0], regName[1]);
                         SYS_CMD_PRINT("%-19X%-19X\r\n", regValue32[0], regValue32[1]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.ctrlRegToRead);
@@ -2019,12 +2019,12 @@ void APP_CONSOLE_Tasks ( void )
                 }
                 else if (numRegsPending == 1)
                 {
-                    if ((APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead, &regValue32[0], regName[0]))) 
+                    if ((APP_METROLOGY_GetControlRegister((CONTROL_REG_ID)app_consoleData.ctrlRegToRead, &regValue32[0], regName[0])))
                     {
                         SYS_CMD_PRINT("%-19s\r\n", regName[0]);
                         SYS_CMD_PRINT("%-19X\r\n", regValue32[0]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.ctrlRegToRead);
@@ -2045,13 +2045,13 @@ void APP_CONSOLE_Tasks ( void )
         {
             // Remove Prompt symbol
             _removePrompt();
-            
+
             // Read register value
-            if (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead, &regValue64[0], regName[0])) 
+            if (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead, &regValue64[0], regName[0]))
             {
                 SYS_CMD_PRINT("%s\r\n%llX\r\n", regName[0], regValue64[0]);
             }
-            else 
+            else
             {
                 // Cannot read register
                 SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.accumRegToRead);
@@ -2063,7 +2063,7 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_READ_ALL_ACCUM_REGS:
         {
-            if (app_consoleData.accumRegToRead < ACCUMULATOR_REG_NUM) 
+            if (app_consoleData.accumRegToRead < ACCUMULATOR_REG_NUM)
             {
                 if (app_consoleData.accumRegToRead == 0)
                 {
@@ -2079,12 +2079,12 @@ void APP_CONSOLE_Tasks ( void )
                     if ((APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead, &regValue64[0], regName[0])) &&
                         (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 1, &regValue64[1], regName[1])) &&
                         (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 2, &regValue64[2], regName[2])) &&
-                        (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 3, &regValue64[3], regName[3]))) 
+                        (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 3, &regValue64[3], regName[3])))
                     {
                         SYS_CMD_PRINT("%-19s%-19s%-19s%-19s\r\n", regName[0], regName[1], regName[2], regName[3]);
                         SYS_CMD_PRINT("%-19llX%-19llX%-19llX%-19llX\r\n", regValue64[0], regValue64[1], regValue64[2], regValue64[3]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.accumRegToRead);
@@ -2096,12 +2096,12 @@ void APP_CONSOLE_Tasks ( void )
                 {
                     if ((APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead, &regValue64[0], regName[0])) &&
                         (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 1, &regValue64[1], regName[1])) &&
-                        (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 2, &regValue64[2], regName[2]))) 
+                        (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 2, &regValue64[2], regName[2])))
                     {
                         SYS_CMD_PRINT("%-19s%-19s%-19s\r\n", regName[0], regName[1], regName[2]);
                         SYS_CMD_PRINT("%-19llX%-19llX%-19llX\r\n", regValue64[0], regValue64[1], regValue64[2]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.accumRegToRead);
@@ -2112,12 +2112,12 @@ void APP_CONSOLE_Tasks ( void )
                 else if (numRegsPending == 2)
                 {
                     if ((APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead, &regValue64[0], regName[0])) &&
-                        (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 1, &regValue64[1], regName[1]))) 
+                        (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 1, &regValue64[1], regName[1])))
                     {
                         SYS_CMD_PRINT("%-19s%-19s\r\n", regName[0], regName[1]);
                         SYS_CMD_PRINT("%-19llX%-19llX\r\n", regValue64[0], regValue64[1]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.accumRegToRead);
@@ -2131,7 +2131,7 @@ void APP_CONSOLE_Tasks ( void )
                         SYS_CMD_PRINT("%-19s\r\n", regName[0]);
                         SYS_CMD_PRINT("%-19llX\r\n", regValue64[0]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.accumRegToRead);
@@ -2140,7 +2140,7 @@ void APP_CONSOLE_Tasks ( void )
                     app_consoleData.accumRegToRead += 1;
                 }
             }
-            else 
+            else
             {
                 // All registers have been read
                 app_consoleData.state = APP_CONSOLE_STATE_IDLE;
@@ -2153,13 +2153,13 @@ void APP_CONSOLE_Tasks ( void )
         {
             // Remove Prompt symbol
             _removePrompt();
-            
+
             // Read register value
-            if (APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead, &regValue32[0], regName[0])) 
+            if (APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead, &regValue32[0], regName[0]))
             {
                 SYS_CMD_PRINT("%s\r\n%X\r\n", regName[0], regValue32[0]);
             }
-            else 
+            else
             {
                 // Cannot read register
                 SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.statusRegToRead);
@@ -2171,7 +2171,7 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_READ_ALL_STATUS_REGS:
         {
-            if (app_consoleData.statusRegToRead < STATUS_REG_NUM) 
+            if (app_consoleData.statusRegToRead < STATUS_REG_NUM)
             {
                 if (app_consoleData.statusRegToRead == 0)
                 {
@@ -2187,7 +2187,7 @@ void APP_CONSOLE_Tasks ( void )
                     if ((APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead, &regValue32[0], regName[0])) &&
                         (APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead + 1, &regValue32[1], regName[1])) &&
                         (APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead + 2, &regValue32[2], regName[2])) &&
-                        (APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead + 3, &regValue32[3], regName[3]))) 
+                        (APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead + 3, &regValue32[3], regName[3])))
                     {
                         SYS_CMD_PRINT("%-19s%-19s%-19s%-19s\r\n", regName[0], regName[1], regName[2], regName[3]);
                         SYS_CMD_PRINT("%-19X%-19X%-19X%-19X\r\n", regValue32[0], regValue32[1], regValue32[2], regValue32[3]);
@@ -2203,12 +2203,12 @@ void APP_CONSOLE_Tasks ( void )
                 {
                     if ((APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead, &regValue32[0], regName[0])) &&
                         (APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead + 1, &regValue32[1], regName[1])) &&
-                        (APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead + 2, &regValue32[2], regName[2]))) 
+                        (APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead + 2, &regValue32[2], regName[2])))
                     {
                         SYS_CMD_PRINT("%-19s%-19s%-19s\r\n", regName[0], regName[1], regName[2]);
                         SYS_CMD_PRINT("%-19X%-19X%-19X\r\n", regValue32[0], regValue32[1], regValue32[2]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.statusRegToRead);
@@ -2219,12 +2219,12 @@ void APP_CONSOLE_Tasks ( void )
                 else if (numRegsPending == 2)
                 {
                     if ((APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead, &regValue32[0], regName[0])) &&
-                        (APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead + 1, &regValue32[1], regName[1]))) 
+                        (APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead + 1, &regValue32[1], regName[1])))
                     {
                         SYS_CMD_PRINT("%-19s%-19s\r\n", regName[0], regName[1]);
                         SYS_CMD_PRINT("%-19X%-19X\r\n", regValue32[0], regValue32[1]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.statusRegToRead);
@@ -2234,12 +2234,12 @@ void APP_CONSOLE_Tasks ( void )
                 }
                 else if (numRegsPending == 1)
                 {
-                    if ((APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead, &regValue32[0], regName[0]))) 
+                    if ((APP_METROLOGY_GetStatusRegister((STATUS_REG_ID)app_consoleData.statusRegToRead, &regValue32[0], regName[0])))
                     {
                         SYS_CMD_PRINT("%-19s\r\n", regName[0]);
                         SYS_CMD_PRINT("%-19X\r\n", regValue32[0]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.statusRegToRead);
@@ -2248,7 +2248,7 @@ void APP_CONSOLE_Tasks ( void )
                     app_consoleData.statusRegToRead += 1;
                 }
             }
-            else 
+            else
             {
                 // All registers have been read
                 app_consoleData.state = APP_CONSOLE_STATE_IDLE;
@@ -2261,13 +2261,13 @@ void APP_CONSOLE_Tasks ( void )
         {
             // Remove Prompt symbol
             _removePrompt();
-            
+
             // Read register value
-            if (APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead, &regValue32[0], regName[0])) 
+            if (APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead, &regValue32[0], regName[0]))
             {
                 SYS_CMD_PRINT("%s\r\n%X\r\n", regName[0], regValue32[0]);
             }
-            else 
+            else
             {
                 // Cannot read register
                 SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.harRegToRead);
@@ -2279,7 +2279,7 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_READ_ALL_HARMONICS_REGS:
         {
-            if (app_consoleData.harRegToRead < HARMONICS_REG_NUM) 
+            if (app_consoleData.harRegToRead < HARMONICS_REG_NUM)
             {
                 if (app_consoleData.harRegToRead == 0)
                 {
@@ -2295,12 +2295,12 @@ void APP_CONSOLE_Tasks ( void )
                     if ((APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead, &regValue32[0], regName[0])) &&
                         (APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead + 1, &regValue32[1], regName[1])) &&
                         (APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead + 2, &regValue32[2], regName[2])) &&
-                        (APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead + 3, &regValue32[3], regName[3]))) 
+                        (APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead + 3, &regValue32[3], regName[3])))
                     {
                         SYS_CMD_PRINT("%-19s%-19s%-19s%-19s\r\n", regName[0], regName[1], regName[2], regName[3]);
                         SYS_CMD_PRINT("%-19X%-19X%-19X%-19X\r\n", regValue32[0], regValue32[1], regValue32[2], regValue32[3]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.harRegToRead);
@@ -2312,12 +2312,12 @@ void APP_CONSOLE_Tasks ( void )
                 {
                     if ((APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead, &regValue32[0], regName[0])) &&
                         (APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead + 1, &regValue32[1], regName[1])) &&
-                        (APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead + 2, &regValue32[2], regName[2]))) 
+                        (APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead + 2, &regValue32[2], regName[2])))
                     {
                         SYS_CMD_PRINT("%-19s%-19s%-19s\r\n", regName[0], regName[1], regName[2]);
                         SYS_CMD_PRINT("%-19X%-19X%-19X\r\n", regValue32[0], regValue32[1], regValue32[2]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.harRegToRead);
@@ -2328,12 +2328,12 @@ void APP_CONSOLE_Tasks ( void )
                 else if (numRegsPending == 2)
                 {
                     if ((APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead, &regValue32[0], regName[0])) &&
-                        (APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead + 1, &regValue32[1], regName[1]))) 
+                        (APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead + 1, &regValue32[1], regName[1])))
                     {
                         SYS_CMD_PRINT("%-19s%-19s\r\n", regName[0], regName[1]);
                         SYS_CMD_PRINT("%-19X%-19X\r\n", regValue32[0], regValue32[1]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.harRegToRead);
@@ -2343,12 +2343,12 @@ void APP_CONSOLE_Tasks ( void )
                 }
                 else if (numRegsPending == 1)
                 {
-                    if ((APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead, &regValue32[0], regName[0]))) 
+                    if ((APP_METROLOGY_GetHarmonicsRegister((HARMONICS_REG_ID)app_consoleData.harRegToRead, &regValue32[0], regName[0])))
                     {
                         SYS_CMD_PRINT("%-19s\r\n", regName[0]);
                         SYS_CMD_PRINT("%-19X\r\n", regValue32[0]);
                     }
-                    else 
+                    else
                     {
                         // Cannot read register
                         SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.harRegToRead);
@@ -2357,7 +2357,7 @@ void APP_CONSOLE_Tasks ( void )
                     app_consoleData.harRegToRead += 1;
                 }
             }
-            else 
+            else
             {
                 // All registers have been read
                 app_consoleData.state = APP_CONSOLE_STATE_IDLE;
@@ -2370,7 +2370,7 @@ void APP_CONSOLE_Tasks ( void )
         {
             // Remove Prompt symbol
             _removePrompt();
-            
+
             // Show response on console
             SYS_CMD_MESSAGE("Meter ID is:\r\n");
             SYS_CMD_PRINT("%s\r\n", app_consoleStorageData.meterID);
@@ -2383,7 +2383,7 @@ void APP_CONSOLE_Tasks ( void )
         {
             // Remove Prompt symbol
             _removePrompt();
-            
+
             // Read and print RTC
             RTC_TimeGet(&app_consoleData.sysTime);
             SYS_CMD_MESSAGE("Present RTC is(yy-mm-dd w hh:mm:ss):\r\n");
@@ -2401,7 +2401,7 @@ void APP_CONSOLE_Tasks ( void )
             uint8_t idx;
 
             timeZone = APP_ENERGY_GetTOUTimeZone();
-            
+
             // Remove Prompt symbol
             _removePrompt();
 
@@ -2425,22 +2425,22 @@ void APP_CONSOLE_Tasks ( void )
         {
             // Remove Prompt symbol
             _removePrompt();
-            
+
             // Show received data on console
             SYS_CMD_MESSAGE("The calculated harmonic Irms/Vrms:\r\n");
 
             SYS_CMD_MESSAGE("Irms_Har_A(A)      Irms_Har_B(A)      Irms_Har_C(A)\r\n");
-            SYS_CMD_PRINT("%-19.3f%-19.3f%-19.3f\r\n", harmonicAnalysisRMSData.Irms_A_m, 
+            SYS_CMD_PRINT("%-19.3f%-19.3f%-19.3f\r\n", harmonicAnalysisRMSData.Irms_A_m,
                     harmonicAnalysisRMSData.Irms_B_m, harmonicAnalysisRMSData.Irms_C_m);
-            
+
             vTaskDelay(CONSOLE_TASK_DELAY_MS_UNTIL_DATALOG_READY / portTICK_PERIOD_MS);
-            
+
             SYS_CMD_MESSAGE("Irms_Har_N(A)      Vrms_Har_A(V)      Vrms_Har_B(V)\r\n");
-            SYS_CMD_PRINT("%-19.3f%-19.3f%-19.3f\r\n", harmonicAnalysisRMSData.Irms_N_m, 
+            SYS_CMD_PRINT("%-19.3f%-19.3f%-19.3f\r\n", harmonicAnalysisRMSData.Irms_N_m,
                     harmonicAnalysisRMSData.Vrms_A_m, harmonicAnalysisRMSData.Vrms_B_m);
-            
+
             vTaskDelay(CONSOLE_TASK_DELAY_MS_UNTIL_DATALOG_READY / portTICK_PERIOD_MS);
-            
+
             SYS_CMD_MESSAGE("Vrms_Har_C(V)\r\n");
             SYS_CMD_PRINT("%-19.3f\r\n", harmonicAnalysisRMSData.Vrms_C_m);
 
@@ -2453,24 +2453,24 @@ void APP_CONSOLE_Tasks ( void )
         {
             uint64_t total = 0;
             int8_t idx;
-            
+
             for (idx = 0; idx < TARIFF_NUM_TYPE; idx ++)
             {
                 total += energyData.tariff[idx];
             }
-            
+
             // Remove Prompt symbol
             _removePrompt();
-                
+
             // Show received data on console
             idx = _getMonthIndexFromSysTime(&app_consoleData.timeRequest);
             SYS_CMD_PRINT("Last %d Month Energy is:\r\n", idx);
 
             SYS_CMD_PRINT("TT=%.2fkWh T1=%.2fkWh T2=%.2fkWh T3=%.2fkWh T4=%.2fkWh\r\n",
-                (float)total/10000000, (float)energyData.tariff[0]/10000000, (float)energyData.tariff[1]/10000000, 
+                (float)total/10000000, (float)energyData.tariff[0]/10000000, (float)energyData.tariff[1]/10000000,
                     (float)energyData.tariff[2]/10000000, (float)energyData.tariff[3]/10000000);
-            
-            // Check pending monthly requests 
+
+            // Check pending monthly requests
             app_consoleData.requestCounter--;
             if (app_consoleData.requestCounter > 0)
             {
@@ -2488,35 +2488,35 @@ void APP_CONSOLE_Tasks ( void )
             APP_EVENTS_EVENT_INFO eventInfo;
             uint8_t numEvents;
             struct tm invalidTime = {0};
-            
+
             // Remove Prompt symbol
             _removePrompt();
-            
+
             APP_EVENTS_GetNumEvents(app_consoleData.eventIdRequest, &numEvents);
             if (APP_EVENTS_GetEventInfo(app_consoleData.eventIdRequest, app_consoleData.eventLastTimeRequest, &eventInfo))
             {
                 // Print Event ID and requested Times
-                if (app_consoleData.eventIdRequest == SAG_UA_EVENT_ID) 
+                if (app_consoleData.eventIdRequest == SAG_UA_EVENT_ID)
                 {
                     SYS_CMD_PRINT("Last %d Times Ua Sag is:\r\n", app_consoleData.eventLastTimeRequest);
                 }
-                else if (app_consoleData.eventIdRequest == SAG_UB_EVENT_ID) 
+                else if (app_consoleData.eventIdRequest == SAG_UB_EVENT_ID)
                 {
                     SYS_CMD_PRINT("Last %d Times Ub Sag is:\r\n", app_consoleData.eventLastTimeRequest);
                 }
-                else if (app_consoleData.eventIdRequest == SAG_UC_EVENT_ID) 
+                else if (app_consoleData.eventIdRequest == SAG_UC_EVENT_ID)
                 {
                     SYS_CMD_PRINT("Last %d Times Uc Sag is:\r\n", app_consoleData.eventLastTimeRequest);
                 }
-                else if (app_consoleData.eventIdRequest == POW_UA_EVENT_ID) 
+                else if (app_consoleData.eventIdRequest == POW_UA_EVENT_ID)
                 {
                     SYS_CMD_PRINT("Last %d Times Pa reverse is:\r\n", app_consoleData.eventLastTimeRequest);
                 }
-                else if (app_consoleData.eventIdRequest == POW_UB_EVENT_ID) 
+                else if (app_consoleData.eventIdRequest == POW_UB_EVENT_ID)
                 {
                     SYS_CMD_PRINT("Last %d Times Pb reverse is:\r\n", app_consoleData.eventLastTimeRequest);
                 }
-                else if (app_consoleData.eventIdRequest == POW_UC_EVENT_ID) 
+                else if (app_consoleData.eventIdRequest == POW_UC_EVENT_ID)
                 {
                     SYS_CMD_PRINT("Last %d Times Pc reverse is:\r\n", app_consoleData.eventLastTimeRequest);
                 }
@@ -2565,10 +2565,10 @@ void APP_CONSOLE_Tasks ( void )
             APP_ENERGY_DEMAND_DATA *pDataMax;
             APP_ENERGY_DEMAND_DATA *pDataTariff;
             int8_t idx;
-            
+
             // Remove Prompt symbol
             _removePrompt();
-            
+
             // Show received data on console
             idx = _getMonthIndexFromSysTime(&app_consoleData.timeRequest);
             SYS_CMD_PRINT("Last %d Month MaxDemand is:\r\n", idx);
@@ -2581,8 +2581,8 @@ void APP_CONSOLE_Tasks ( void )
                     (float)(pDataTariff + 1)->value/1000, (pDataTariff + 1)->month + 1, (pDataTariff + 1)->day, (pDataTariff + 1)->hour, (pDataTariff + 1)->minute,
                     (float)(pDataTariff + 2)->value/1000, (pDataTariff + 2)->month + 1, (pDataTariff + 2)->day, (pDataTariff + 2)->hour, (pDataTariff + 2)->minute,
                     (float)(pDataTariff + 3)->value/1000, (pDataTariff + 3)->month + 1, (pDataTariff + 3)->day, (pDataTariff + 3)->hour, (pDataTariff + 3)->minute);
-            
-            // Check pending monthly requests 
+
+            // Check pending monthly requests
             app_consoleData.requestCounter--;
             if (app_consoleData.requestCounter > 0)
             {
@@ -2590,7 +2590,7 @@ void APP_CONSOLE_Tasks ( void )
                 _getSysTimeFromMonthIndex(&app_consoleData.timeRequest, idx + 1);
                 APP_ENERGY_GetMonthMaxDemand(&app_consoleData.timeRequest);
             }
-            
+
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_IDLE;
             break;
@@ -2599,7 +2599,7 @@ void APP_CONSOLE_Tasks ( void )
         case APP_CONSOLE_STATE_PRINT_VOLTAGE:
         {
             uint32_t va, vb, vc;
-            
+
             // Remove Prompt symbol
             _removePrompt();
 
@@ -2618,7 +2618,7 @@ void APP_CONSOLE_Tasks ( void )
         {
             uint32_t ia, ib, ic;
             uint32_t ini, inm, inmi;
-            
+
             // Remove Prompt symbol
             _removePrompt();
 
@@ -2642,7 +2642,7 @@ void APP_CONSOLE_Tasks ( void )
         {
             uint32_t pt, pa, pb, pc;
             DRV_METROLOGY_RMS_SIGN signt, signa, signb, signc;
-            
+
             // Remove Prompt symbol
             _removePrompt();
 
@@ -2664,7 +2664,7 @@ void APP_CONSOLE_Tasks ( void )
         {
             uint32_t qt, qa, qb, qc;
             DRV_METROLOGY_RMS_SIGN signt, signa, signb, signc;
-            
+
             // Remove Prompt symbol
             _removePrompt();
 
@@ -2685,7 +2685,7 @@ void APP_CONSOLE_Tasks ( void )
         case APP_CONSOLE_STATE_PRINT_APARENT_POWER:
         {
             uint32_t st, sa, sb, sc;
-            
+
             // Remove Prompt symbol
             _removePrompt();
 
@@ -2705,7 +2705,7 @@ void APP_CONSOLE_Tasks ( void )
         case APP_CONSOLE_STATE_PRINT_FREQUENCY:
         {
             uint32_t freq;
-            
+
             // Remove Prompt symbol
             _removePrompt();
 
@@ -2722,7 +2722,7 @@ void APP_CONSOLE_Tasks ( void )
         {
             uint32_t aa, ab, ac, an;
             DRV_METROLOGY_RMS_SIGN signa, signb, signc, signn;
-            
+
             // Remove Prompt symbol
             _removePrompt();
 
@@ -2743,15 +2743,15 @@ void APP_CONSOLE_Tasks ( void )
         case APP_CONSOLE_STATE_PRINT_WAVEFORM_DATA:
         {
             uint8_t idx;
-            
+
             if (app_consoleData.rawDataFlag)
             {
                 _removePrompt();
                 app_consoleData.rawDataFlag = false;
             }
-            
+
             for (idx = 0; idx < 10; idx++) {
-                if (app_consoleData.rawDataLen > 0) 
+                if (app_consoleData.rawDataLen > 0)
                 {
                     // Print value
                     SYS_CMD_PRINT("%08X\r\n", *(app_consoleData.rawData));
@@ -2759,7 +2759,7 @@ void APP_CONSOLE_Tasks ( void )
                     app_consoleData.rawData++;
                     app_consoleData.rawDataLen--;
                 }
-                else 
+                else
                 {
                     // All registers have been read
                     app_consoleData.state = APP_CONSOLE_STATE_IDLE;
@@ -2774,7 +2774,7 @@ void APP_CONSOLE_Tasks ( void )
         {
             // Remove Prompt symbol
             _removePrompt();
-            
+
             // Show calibration result
             if (app_consoleData.calibrationResult)
             {
@@ -2801,10 +2801,10 @@ void APP_CONSOLE_Tasks ( void )
                 {
                     idxMax = app_consoleData.cmdNumToShowHelp;
                 }
-                
+
                 for (idx = 0; idx < idxMax; idx++, app_consoleData.pCmdDescToShowHelp++)
                 {
-                    SYS_CMD_PRINT("%s\t%s\r\n", app_consoleData.pCmdDescToShowHelp->cmdStr, 
+                    SYS_CMD_PRINT("%s\t%s\r\n", app_consoleData.pCmdDescToShowHelp->cmdStr,
                             app_consoleData.pCmdDescToShowHelp->cmdDescr);
                     app_consoleData.cmdNumToShowHelp--;
                 }
@@ -2813,24 +2813,24 @@ void APP_CONSOLE_Tasks ( void )
             {
                 // All commands have been represented
                 app_consoleData.state = APP_CONSOLE_STATE_IDLE;
-                break;                
+                break;
             }
-        
+
             vTaskDelay(CONSOLE_TASK_DEFAULT_DELAY_MS_BETWEEN_STATES / portTICK_PERIOD_MS);
             break;
         }
-        
+
         case APP_CONSOLE_STATE_LOW_POWER_MODE:
         {
             // Remove Prompt symbol
             _removePrompt();
-            
+
             SYS_CMD_MESSAGE("Entering Low Power... Press FWUP/TAMPER switch to wake up.\r\n");
-            
+
             // Update display info
             APP_DISPLAY_ShowLowPowerMode();
-            
-            // Wait time to show message through the Console 
+
+            // Wait time to show message through the Console
             vTaskDelay(100 / portTICK_PERIOD_MS);
 
             // Go to Low Power mode

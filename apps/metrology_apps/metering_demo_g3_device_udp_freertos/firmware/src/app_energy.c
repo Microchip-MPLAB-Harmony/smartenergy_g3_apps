@@ -1,25 +1,25 @@
-/*******************************************************************************
-* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 /*******************************************************************************
   MPLAB Harmony Application Source File
@@ -167,7 +167,7 @@ static uint8_t _APP_ENERGY_getTOUIndex(struct tm * time)
 
     counterZones = app_energyData.tou.usedZones;
     result = counterZones - 1;
-    
+
     value = (time->tm_hour * 100) + time->tm_min;
     for (index = 0; index < counterZones; index++)
     {
@@ -178,12 +178,12 @@ static uint8_t _APP_ENERGY_getTOUIndex(struct tm * time)
             {
                 result = index - 1;
             }
-            
+
             break;
         }
     }
 
-    if ((app_energyData.tou.timeZone[result].hour == time->tm_hour) && 
+    if ((app_energyData.tou.timeZone[result].hour == time->tm_hour) &&
         (app_energyData.tou.timeZone[result].minute == time->tm_min))
     {
         if (result == 0)
@@ -194,9 +194,9 @@ static uint8_t _APP_ENERGY_getTOUIndex(struct tm * time)
         {
             result--;
         }
-        
+
     }
-    
+
     return result;
 }
 
@@ -211,7 +211,7 @@ static APP_ENERGY_TARIFF_TYPE _APP_ENERGY_getTariffIndex(struct tm * time)
 static bool _APP_ENERGY_CheckRTCFromReset(void)
 {
     uint32_t enabledInterrupts = RTC_REGS->RTC_IMR;
-    
+
     if (enabledInterrupts & (RTC_INT_TIME | RTC_INT_CALENDAR))
     {
         return false;
@@ -256,14 +256,14 @@ static bool _APP_ENERGY_InitializeRTC(bool dataValid)
 {
     bool rtcBuildValue = false;
     bool rtcResult;
-    
+
     if (!dataValid)
     {
         /* Set Build Time */
         _APP_ENERGY_SetBuildTimeRTC(&app_energyData.time);
         rtcBuildValue = true;
     }
-    
+
     /* Set RTC Time to current system time. */
     rtcResult = RTC_TimeSet(&app_energyData.time);
     while (rtcResult == false)
@@ -315,9 +315,9 @@ static bool _APP_ENERGY_UpdateDemand(uint32_t demand, struct tm * time)
     uint8_t winStartOffset = 0;
     uint8_t minIndex = 0;
     bool update = false;
-    
+
     demandPeriod = demand / app_energyData.counterIntegrationPeriods;
-    
+
     // Update Min index to fill previous minute data
     if (time->tm_min == 0)
     {
@@ -327,9 +327,9 @@ static bool _APP_ENERGY_UpdateDemand(uint32_t demand, struct tm * time)
     {
         minIndex = time->tm_min - 1;
     }
-    
+
     app_energyData.demand.window[minIndex] = demandPeriod;
-    
+
     /* Get Max Demand : averaged over 15 minutes window */
     if (minIndex >= 45)
     {
@@ -343,15 +343,15 @@ static bool _APP_ENERGY_UpdateDemand(uint32_t demand, struct tm * time)
     {
         winStartOffset = 15;
     }
-    
+
     for (index = 0; index < 15; index++)
     {
         demandMax += app_energyData.demand.window[winStartOffset + index];
     }
-    
+
     /* Divided by 15. Units are 0.1W, so divided by 10 */
-    demandMax /= 150; 
-    
+    demandMax /= 150;
+
     /* Update Demand Max according TOU Zone */
     if (app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].value < demandMax)
     {
@@ -375,13 +375,13 @@ static bool _APP_ENERGY_UpdateDemand(uint32_t demand, struct tm * time)
 
         update = true;
     }
-    
+
     // Clean Demand Window
     if (time->tm_min == 0)
     {
         memset(app_energyData.demand.window, 0, sizeof(app_energyData.demand.window));
     }
-    
+
     return update;
 }
 
@@ -495,7 +495,7 @@ static void _APP_ENERGY_CheckTamperDetection(void)
     if (RTC_REGS->RTC_SUB0[0].RTC_FSTR & RTC_FSTR_TEVCNT_Msk)
     {
         struct tm tamperTime;
-        
+
         RTC_LastTimeStampGet(&tamperTime, 0);
         SYS_CMD_PRINT("\bDetected TAMPER event: [%02u/%02u/%04u %02u:%02u:%02u]\r\n>",
 				  tamperTime.tm_mon + 1, tamperTime.tm_mday, tamperTime.tm_year + 1900,
@@ -529,7 +529,7 @@ void APP_ENERGY_Initialize (void)
     /* Clear RTC TIME & CALENDAR events */
     app_energyData.eventMinute = false;
     app_energyData.eventMonth = false;
-    
+
     /* Set time to store RTC time in external memory as backup */
     app_energyData.minRtcBackup = APP_ENERGY_MIN_RTC_BACKUP;
 
@@ -538,7 +538,7 @@ void APP_ENERGY_Initialize (void)
 
     /* Clear Demand data */
     memset(&app_energyData.demand, 0, sizeof(APP_ENERGY_DEMAND));
-    
+
     /* Clear the counter of integration periods */
     app_energyData.counterIntegrationPeriods = 0;
 
@@ -588,7 +588,7 @@ void APP_ENERGY_Tasks (void)
         {
             /* Reset flag to request data to datalog app */
             app_energyData.dataIsRdy = false;
-            
+
             if (_APP_ENERGY_CheckRTCFromReset())
             {
                 /* Check if there are RTC data in memory */
@@ -605,7 +605,7 @@ void APP_ENERGY_Tasks (void)
                     /* Update RTC Data in memory. */
                     _APP_ENERGY_StoreRTCDataInMemory();
                 }
-                    
+
                 app_energyData.state = APP_ENERGY_STATE_INIT_TOU;
             }
             else
@@ -616,7 +616,7 @@ void APP_ENERGY_Tasks (void)
                     /* Update RTC Data in memory. */
                     _APP_ENERGY_StoreRTCDataInMemory();
                 }
-                
+
                 app_energyData.state = APP_ENERGY_STATE_INIT_TOU;
             }
 
@@ -628,7 +628,7 @@ void APP_ENERGY_Tasks (void)
         {
             /* Reset flag to request data to datalog app */
             app_energyData.dataIsRdy = false;
-            
+
             /* Check if there are TOU data in memory */
             if (APP_DATALOG_FileExists(APP_DATALOG_USER_TOU, NULL))
             {
@@ -655,10 +655,10 @@ void APP_ENERGY_Tasks (void)
         case APP_ENERGY_STATE_INIT_ENERGY:
         {
             APP_DATALOG_DATE date;
-            
+
             /* Reset flag to request data to datalog app */
             app_energyData.dataIsRdy = false;
-            
+
             date.month = app_energyData.time.tm_mon + 1;
             date.year = app_energyData.time.tm_year - 100;
             /* Check if there are ENERGY data in memory */
@@ -684,10 +684,10 @@ void APP_ENERGY_Tasks (void)
         case APP_ENERGY_STATE_INIT_DEMAND:
         {
             APP_DATALOG_DATE date;
-            
+
             /* Reset flag to request data to datalog app */
             app_energyData.dataIsRdy = false;
-            
+
             date.month = app_energyData.time.tm_mon + 1;
             date.year = app_energyData.time.tm_year - 100;
             /* Check if there are DEMAND data in memory */
@@ -722,16 +722,16 @@ void APP_ENERGY_Tasks (void)
 
                 /* Update current Tariff type */
                 app_energyData.currentTariffIndex = _APP_ENERGY_getTariffIndex(&app_energyData.time);
-                
+
                 /* Update counter of integration periods */
                 app_energyData.counterIntegrationPeriods++;
-                
+
                 /* Update Energy Accumulator */
                 app_energyData.energyAccumulator.tariff[app_energyData.currentTariffIndex] += app_energyData.newQueuedData.energy;
 
                 /* Update Demand Accumulator */
                 app_energyData.demandAccumulator += app_energyData.newQueuedData.Pt;
-    
+
                 /* Check TIME Event (minute) */
                 /* Update the RTC at the end of this routine because we need to handle the energy accumulated in the previous minute */
                 if (app_energyData.eventMinute)
@@ -745,23 +745,23 @@ void APP_ENERGY_Tasks (void)
                         /* Update maximum demand */
                         _APP_ENERGY_StoreDemandDataInMemory(&app_energyData.time, &app_energyData.demand.maxDemand);
                     }
-                    
+
                     // Restart demand accumulator and counter of integration periods
                     app_energyData.demandAccumulator = 0;
                     app_energyData.counterIntegrationPeriods = 0;
 
                     /* Update ENERGY DATALOG once per hour. Ensure SST endurance. */
-                    if (app_energyData.time.tm_min == 0) 
+                    if (app_energyData.time.tm_min == 0)
                     {
                         _APP_ENERGY_StoreEnergyDataInMemory(&app_energyData.time, &app_energyData.energyAccumulator);
                     }
-                    
+
                     /* Check Counter to store a RTC backup */
                     if (!app_energyData.minRtcBackup--)
                     {
                         app_energyData.minRtcBackup = APP_ENERGY_MIN_RTC_BACKUP;
 
-                        
+
                         /* Update RTC data in memory */
                         _APP_ENERGY_StoreRTCDataInMemory();
                     }
@@ -789,10 +789,10 @@ void APP_ENERGY_Tasks (void)
         case APP_ENERGY_STATE_GET_MAX_DEMAND:
         {
             APP_DATALOG_DATE date;
-            
+
             /* Reset flag to request data to datalog app */
             app_energyData.dataIsRdy = false;
-            
+
             date.month = app_energyData.timeResponse.tm_mon + 1;
             date.year = app_energyData.timeResponse.tm_year - 100;
             /* Check if there are ENERGY data in memory */
@@ -803,9 +803,9 @@ void APP_ENERGY_Tasks (void)
                 /* Wait for the semaphore to load data from memory */
                 OSAL_SEM_Pend(&appEnergySemID, OSAL_WAIT_FOREVER);
             }
-            
+
             app_energyData.maxDemandCallback(&app_energyData.timeResponse, app_energyData.dataIsRdy);
-            
+
             app_energyData.state = APP_ENERGY_STATE_RUNNING;
 
             vTaskDelay(10 / portTICK_PERIOD_MS);
@@ -816,10 +816,10 @@ void APP_ENERGY_Tasks (void)
         {
             APP_DATALOG_DATE date;
             struct tm sysTime;
-    
+
             RTC_TimeGet(&sysTime);
-            
-            if ((sysTime.tm_mon == app_energyData.timeResponse.tm_mon) && 
+
+            if ((sysTime.tm_mon == app_energyData.timeResponse.tm_mon) &&
                     (sysTime.tm_year == app_energyData.timeResponse.tm_year))
             {
                 /* return current accumulated value */
@@ -842,7 +842,7 @@ void APP_ENERGY_Tasks (void)
                     OSAL_SEM_Pend(&appEnergySemID, OSAL_WAIT_FOREVER);
                 }
             }
-            
+
             app_energyData.monthEnergyCallback(&app_energyData.timeResponse, app_energyData.dataIsRdy);
 
             app_energyData.state = APP_ENERGY_STATE_RUNNING;

@@ -1,25 +1,25 @@
-/*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2022, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 /*******************************************************************************
   MPLAB Harmony Application Source File
@@ -174,7 +174,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
 {
     /* Avoid warning */
     (void)context;
-    
+
     if (indObj->dataLength)
     {
         /* Turn on indication LED and start timer to turn it off */
@@ -188,7 +188,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
 static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     (void)context;
-    
+
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
@@ -231,29 +231,29 @@ void APP_PLC_Initialize ( void )
 
     /* Init PLC TX Buffer */
     appPlcTx.plcPhyTx.pTransmitData = appPlcTxDataBuffer;
-    
+
     /* Set PLC Multiband flag */
     if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == NULL) {
         appPlc.plcMultiband = false;
     } else {
         appPlc.plcMultiband = true;
     }
-    
+
     /* Init Timer handler */
     appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr2Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr1Expired = false;
     appPlc.tmr2Expired = false;
-    
+
     /* Init signalling */
     appPlc.signalResetCounter = LED_RESET_BLINK_COUNTER;
-    
+
     /* Set PVDD Monitor tracking data */
     appPlc.pvddMonTxEnable = true;
-    
+
     /* Init PLC TX status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
-    
+
 }
 
 /******************************************************************************
@@ -265,19 +265,19 @@ void APP_PLC_Initialize ( void )
  */
 
 void APP_PLC_Tasks ( void )
-{    
+{
     /* Signalling: LED Toggle */
     if (appPlc.tmr1Expired)
     {
         appPlc.tmr1Expired = false;
         USER_BLINK_LED_Toggle();
-        
+
         if (appPlc.signalResetCounter)
         {
             appPlc.signalResetCounter--;
         }
     }
-    
+
     /* Signalling: PLC RX */
     if (appPlc.tmr2Expired)
     {
@@ -303,13 +303,13 @@ void APP_PLC_Tasks ( void )
             {
                 SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
                 appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
-                
+
                 /* Read configuration from NVM memory */
                 appPlc.state = APP_PLC_STATE_READ_CONFIG;
             }
             break;
         }
-        
+
         case APP_PLC_STATE_READ_CONFIG:
         {
             if (appNvm.state == APP_NVM_STATE_CMD_WAIT)
@@ -407,7 +407,7 @@ void APP_PLC_Tasks ( void )
 
             /* Set Coupling branch by default */
             appPlcTx.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
-            
+
             /* Select PLC Binary file for multi-band solution */
             if (appPlc.plcMultiband == true)
             {
@@ -432,7 +432,7 @@ void APP_PLC_Tasks ( void )
                     PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
                 }
             }
-            
+
             /* Open PLC driver */
             appPlc.drvPlcHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
 
@@ -473,11 +473,11 @@ void APP_PLC_Tasks ( void )
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPlcHandle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
-                
+
                 /* Apply PLC coupling configuration */
                 SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlcTx.couplingBranch);
 
-#ifndef APP_PLC_DISABLE_PVDDMON                
+#ifndef APP_PLC_DISABLE_PVDDMON
                 /* Disable TX Enable at the beginning */
                 DRV_PLC_PHY_EnableTX(appPlc.drvPlcHandle, false);
                 appPlc.pvddMonTxEnable = false;
@@ -488,11 +488,11 @@ void APP_PLC_Tasks ( void )
                 /* Enable TX Enable at the beginning */
                 DRV_PLC_PHY_EnableTX(appPlc.drvPlcHandle, true);
                 appPlc.pvddMonTxEnable = true;
-#endif                
-                
+#endif
+
                 /* Init Timer to handle blinking led */
                 appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
-                
+
                 /* Get PLC PHY version */
                 pibObj.id = PLC_ID_VERSION_NUM;
                 pibObj.length = 4;
@@ -600,7 +600,7 @@ void APP_PLC_Tasks ( void )
                     else
                     {
                         DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmData;
-                        
+
                         cfmData.timeEnd = 0;
                         cfmData.rmsCalc = 0;
                         cfmData.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
@@ -644,7 +644,7 @@ void APP_PLC_Tasks ( void )
 
             /* Close PLC Driver */
             DRV_PLC_PHY_Close(appPlc.drvPlcHandle);
-            
+
             /* Destroy Blink Timer */
             SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
             appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;

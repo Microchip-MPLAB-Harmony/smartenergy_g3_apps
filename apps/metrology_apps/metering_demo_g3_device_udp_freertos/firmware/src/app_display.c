@@ -1,25 +1,25 @@
-/*******************************************************************************
-* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 /*******************************************************************************
   MPLAB Harmony Application Source File
@@ -119,14 +119,14 @@ static status_code_t APP_DISPLAY_InitLCD(void)
 
     /* Initialize the CL010 LCD glass component */
     status = cl010_init();
-    if (status != STATUS_OK) 
+    if (status != STATUS_OK)
     {
         return STATUS_ERR_BUSY;
     }
 
     /* Show all symbols */
     cl010_show_all();
-   
+
     return STATUS_OK;
 }
 
@@ -148,12 +148,12 @@ static void _APP_DISPLAY_UpdateComSignal (APP_DISPLAY_COM_SIGNAL signal)
         {
             cl010_show_icon(CL010_ICON_COMM_SIGNAL_LOW);
         }
-        
+
         if (signal >= APP_DISPLAY_COM_SIGNAL_MED)
         {
             cl010_show_icon(CL010_ICON_COMM_SIGNAL_MED);
         }
-        
+
         if (signal == APP_DISPLAY_COM_SIGNAL_HIGH)
         {
             cl010_show_icon(CL010_ICON_COMM_SIGNAL_HIG);
@@ -168,7 +168,7 @@ static void _APP_DISPLAY_UpdateComSignal (APP_DISPLAY_COM_SIGNAL signal)
 
 static void APP_DISPLAY_SetTimerLoop(uint32_t time_sec)
 {
-    if (time_sec) 
+    if (time_sec)
     {
         /* Set the new time for loop mode */
         app_displayData.reload_display_time = time_sec;
@@ -182,7 +182,7 @@ static void APP_DISPLAY_SetTimerLoop(uint32_t time_sec)
 
 static void APP_DISPLAY_AddLoopInfo(APP_DISPLAY_INFO info)
 {
-    if ((info < APP_DISPLAY_MAX_TYPE) && (app_displayData.loop_max < APP_DISPLAY_MAX_TYPE)) 
+    if ((info < APP_DISPLAY_MAX_TYPE) && (app_displayData.loop_max < APP_DISPLAY_MAX_TYPE))
     {
         /* Add info to display */
         app_displayData.loop_info[app_displayData.loop_max++] = info;
@@ -196,23 +196,23 @@ static void APP_DISPLAY_AddLoopInfo(APP_DISPLAY_INFO info)
 
 static void APP_DISPLAY_ChangeInfo(void)
 {
-    if (app_displayData.loop_max <= APP_DISPLAY_MAX_TYPE) 
+    if (app_displayData.loop_max <= APP_DISPLAY_MAX_TYPE)
     {
-        if ((app_displayData.direction & APP_DISPLAY_FORWARD) == APP_DISPLAY_FORWARD) 
+        if ((app_displayData.direction & APP_DISPLAY_FORWARD) == APP_DISPLAY_FORWARD)
         {
-            if (++app_displayData.loop_idx >= app_displayData.loop_max) 
+            if (++app_displayData.loop_idx >= app_displayData.loop_max)
             {
                 app_displayData.loop_idx = 0;
             }
-        } 
-        else if ((app_displayData.direction & APP_DISPLAY_BACKWARD) == APP_DISPLAY_BACKWARD) 
+        }
+        else if ((app_displayData.direction & APP_DISPLAY_BACKWARD) == APP_DISPLAY_BACKWARD)
         {
-            if (--app_displayData.loop_idx >= app_displayData.loop_max) 
+            if (--app_displayData.loop_idx >= app_displayData.loop_max)
             {
                 app_displayData.loop_idx = app_displayData.loop_max - 1;
             }
         }
-        
+
         app_displayData.display_info = app_displayData.loop_info[app_displayData.loop_idx];
     }
 }
@@ -225,22 +225,22 @@ static void APP_DISPLAY_ChangeInfo(void)
 static void APP_DISPLAY_ShowEnergyDataUnits(uint64_t value)
 {
     uint8_t buff1[9];
-    
+
     /* Check magnitude to select units to show */
     if (value > 999999999) {
         /* Format: xxxxxx.xx kWh */
         cl010_show_units(CL010_UNIT_kWh);
         value = value/100000;
-        sprintf((char *)buff1, "%6u%02u", (unsigned int)(value/100), 
+        sprintf((char *)buff1, "%6u%02u", (unsigned int)(value/100),
                  (unsigned int)(value%100));
         cl010_show_icon(CL010_ICON_DOT_2);
-    } 
-    else 
+    }
+    else
     {
         /* Format: xxxxx.xxx Wh */
         cl010_show_units(CL010_UNIT_Wh);
         value = value/10;
-        sprintf((char *)buff1, "%5u%03u", (unsigned int)(value/1000), 
+        sprintf((char *)buff1, "%5u%03u", (unsigned int)(value/1000),
                  (unsigned int)(value%1000));
         cl010_show_icon(CL010_ICON_DOT_1);
     }
@@ -263,8 +263,8 @@ static void APP_DISPLAY_Process(void)
     struct tm current_time;
     APP_ENERGY_ACCUMULATORS EnergyAcc;
     APP_ENERGY_MAX_DEMAND MaxDemand;
-    
-    if (app_displayData.display_info != 0xFF) 
+
+    if (app_displayData.display_info != 0xFF)
     {
         cl010_clear_all();
     }
@@ -286,10 +286,10 @@ static void APP_DISPLAY_Process(void)
             cl010_show_icon(CL010_ICON_CUM);
             sprintf((char *)buff1, "   1234");
             cl010_show_numeric_string(CL010_LINE_DOWN, buff1);
-                
+
             break;
         }
-        
+
         case APP_DISPLAY_TOU1_ENERGY:
         {
             APP_ENERGY_GetCurrentEnergy(&EnergyAcc);
@@ -298,10 +298,10 @@ static void APP_DISPLAY_Process(void)
             cl010_show_icon(CL010_ICON_CUM);
             sprintf((char *)buff1, "      1");
             cl010_show_numeric_string(CL010_LINE_DOWN, buff1);
-            
+
             break;
         }
-         
+
         case APP_DISPLAY_TOU2_ENERGY:
         {
             APP_ENERGY_GetCurrentEnergy(&EnergyAcc);
@@ -310,10 +310,10 @@ static void APP_DISPLAY_Process(void)
             cl010_show_icon(CL010_ICON_CUM);
             sprintf((char *)buff1, "      2");
             cl010_show_numeric_string(CL010_LINE_DOWN, buff1);
-            
+
             break;
         }
-          
+
         case APP_DISPLAY_TOU3_ENERGY:
         {
             APP_ENERGY_GetCurrentEnergy(&EnergyAcc);
@@ -322,10 +322,10 @@ static void APP_DISPLAY_Process(void)
             cl010_show_icon(CL010_ICON_CUM);
             sprintf((char *)buff1, "      3");
             cl010_show_numeric_string(CL010_LINE_DOWN, buff1);
-           
+
             break;
         }
-        
+
         case APP_DISPLAY_TOU4_ENERGY:
         {
             APP_ENERGY_GetCurrentEnergy(&EnergyAcc);
@@ -334,99 +334,99 @@ static void APP_DISPLAY_Process(void)
             cl010_show_icon(CL010_ICON_CUM);
             sprintf((char *)buff1, "      4");
             cl010_show_numeric_string(CL010_LINE_DOWN, buff1);
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_VA_RMS:
         {
             APP_METROLOGY_GetRMS(RMS_UA, &rmsValue, NULL);
-            sprintf((char *)buff1, "%5u%03u", 
-                    (unsigned int)(rmsValue/10000), 
+            sprintf((char *)buff1, "%5u%03u",
+                    (unsigned int)(rmsValue/10000),
                     (unsigned int)((rmsValue%10000)/10));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_units(CL010_UNIT_V);
             cl010_show_icon(CL010_ICON_DOT_1);
             cl010_show_icon(CL010_ICON_L1);
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_VB_RMS:
         {
             APP_METROLOGY_GetRMS(RMS_UB, &rmsValue, NULL);
-            sprintf((char *)buff1, "%5u%03u", 
-                    (unsigned int)(rmsValue/10000), 
+            sprintf((char *)buff1, "%5u%03u",
+                    (unsigned int)(rmsValue/10000),
                     (unsigned int)((rmsValue%10000)/10));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_units(CL010_UNIT_V);
             cl010_show_icon(CL010_ICON_DOT_1);
             cl010_show_icon(CL010_ICON_L2);
-            
+
             break;
         }
-      
+
         case APP_DISPLAY_VC_RMS:
         {
             APP_METROLOGY_GetRMS(RMS_UC, &rmsValue, NULL);
-            sprintf((char *)buff1, "%5u%03u", 
-                    (unsigned int)(rmsValue/10000), 
+            sprintf((char *)buff1, "%5u%03u",
+                    (unsigned int)(rmsValue/10000),
                     (unsigned int)((rmsValue%10000)/10));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_units(CL010_UNIT_V);
             cl010_show_icon(CL010_ICON_DOT_1);
             cl010_show_icon(CL010_ICON_L3);
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_IA_RMS:
         {
             APP_METROLOGY_GetRMS(RMS_IA, &rmsValue, NULL);
-            sprintf((char *)buff1, "%5u%03u", 
-                    (unsigned int)(rmsValue/10000), 
+            sprintf((char *)buff1, "%5u%03u",
+                    (unsigned int)(rmsValue/10000),
                     (unsigned int)((rmsValue%10000)/10));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_units(CL010_UNIT_A);
             cl010_show_icon(CL010_ICON_DOT_1);
             cl010_show_icon(CL010_ICON_L1);
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_IB_RMS:
         {
             APP_METROLOGY_GetRMS(RMS_IB, &rmsValue, NULL);
-            sprintf((char *)buff1, "%5u%03u", 
-                    (unsigned int)(rmsValue/10000), 
+            sprintf((char *)buff1, "%5u%03u",
+                    (unsigned int)(rmsValue/10000),
                     (unsigned int)((rmsValue%10000)/10));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_units(CL010_UNIT_A);
             cl010_show_icon(CL010_ICON_DOT_1);
             cl010_show_icon(CL010_ICON_L2);
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_IC_RMS:
         {
             APP_METROLOGY_GetRMS(RMS_IC, &rmsValue, NULL);
-            sprintf((char *)buff1, "%5u%03u", 
-                    (unsigned int)(rmsValue/10000), 
+            sprintf((char *)buff1, "%5u%03u",
+                    (unsigned int)(rmsValue/10000),
                     (unsigned int)((rmsValue%10000)/10));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_units(CL010_UNIT_A);
             cl010_show_icon(CL010_ICON_DOT_1);
             cl010_show_icon(CL010_ICON_L3);
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_RTC_TIME:
         {
             RTC_TimeGet(&current_time);
-            sprintf((char *)buff1, "%02d%02d%02d  ", 
-                    (uint8_t)current_time.tm_hour, 
+            sprintf((char *)buff1, "%02d%02d%02d  ",
+                    (uint8_t)current_time.tm_hour,
                     (uint8_t)current_time.tm_min,
                     (uint8_t)current_time.tm_sec);
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
@@ -434,26 +434,26 @@ static void APP_DISPLAY_Process(void)
             cl010_show_icon(CL010_ICON_COL_1);
             cl010_show_icon(CL010_ICON_COL_2);
             upd_symbols = 0;
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_RTC_DATE:
         {
             RTC_TimeGet(&current_time);
-            sprintf((char *)buff1, "%02d%02d%02d  ", 
+            sprintf((char *)buff1, "%02d%02d%02d  ",
                     (uint8_t)(current_time.tm_year - 100),
-                    (uint8_t)(current_time.tm_mon + 1), 
+                    (uint8_t)(current_time.tm_mon + 1),
                     (uint8_t)(current_time.tm_mday));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_icon(CL010_ICON_DATE);
             cl010_show_icon(CL010_ICON_COL_1);
             cl010_show_icon(CL010_ICON_COL_2);
             upd_symbols = 0;
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_TOTAL_MAX_DEMAND:
         {
             APP_ENERGY_GetCurrentMaxDemand(&MaxDemand);
@@ -463,10 +463,10 @@ static void APP_DISPLAY_Process(void)
             cl010_show_icon(CL010_ICON_MD);
             sprintf((char *)buff1, "   1234");
             cl010_show_numeric_string(CL010_LINE_DOWN, buff1);
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_TOU1_MAX_DEMAND:
         {
             APP_ENERGY_GetCurrentMaxDemand(&MaxDemand);
@@ -476,10 +476,10 @@ static void APP_DISPLAY_Process(void)
             cl010_show_icon(CL010_ICON_MD);
             sprintf((char *)buff1, "     01");
             cl010_show_numeric_string(CL010_LINE_DOWN, buff1);
-              
+
             break;
         }
-        
+
         case APP_DISPLAY_TOU2_MAX_DEMAND:
         {
             APP_ENERGY_GetCurrentMaxDemand(&MaxDemand);
@@ -489,10 +489,10 @@ static void APP_DISPLAY_Process(void)
             cl010_show_icon(CL010_ICON_MD);
             sprintf((char *)buff1, "     02");
             cl010_show_numeric_string(CL010_LINE_DOWN, buff1);
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_TOU3_MAX_DEMAND:
         {
             APP_ENERGY_GetCurrentMaxDemand(&MaxDemand);
@@ -502,10 +502,10 @@ static void APP_DISPLAY_Process(void)
             cl010_show_icon(CL010_ICON_MD);
             sprintf((char *)buff1, "     03");
             cl010_show_numeric_string(CL010_LINE_DOWN, buff1);
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_TOU4_MAX_DEMAND:
         {
             APP_ENERGY_GetCurrentMaxDemand(&MaxDemand);
@@ -515,45 +515,45 @@ static void APP_DISPLAY_Process(void)
             cl010_show_icon(CL010_ICON_MD);
             sprintf((char *)buff1, "     04");
             cl010_show_numeric_string(CL010_LINE_DOWN, buff1);
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_APP_INFO:
         {
             cl010_show_numeric_string(CL010_LINE_UP, app_displayData.app_info);
             upd_symbols = 0;
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_BOARD_ID:
         {
             sprintf((char *)buff1, "%08x", APP_DISPLAY_BOARD_VERSION);
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             upd_symbols = 0;
-            
+
             break;
         }
-        
+
         case APP_DISPLAY_DEMO_VERSION:
         {
             sprintf((char *)buff1, "%d", DEMO_APP_VERSION);
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             upd_symbols = 0;
-            
+
             break;
         }
-        
+
         default:
             break;
     }
-    
-    if (upd_symbols) 
+
+    if (upd_symbols)
     {
         APP_EVENTS_FLAGS eventFlags;
         APP_EVENTS_GetLastEventFlags(&eventFlags);
-        
+
         if (APP_METROLOGY_CheckPhaseEnabled(APP_METROLOGY_PHASE_A) && (eventFlags.sagA))
         {
             /* "A alarm" phase */
@@ -565,46 +565,46 @@ static void APP_DISPLAY_Process(void)
             /* "A alarm" phase */
             cl010_show_icon(CL010_ICON_PHASE_2);
         }
-        
+
         if (APP_METROLOGY_CheckPhaseEnabled(APP_METROLOGY_PHASE_C) && (eventFlags.sagC))
         {
             /* "A alarm" phase */
             cl010_show_icon(CL010_ICON_PHASE_3);
         }
-        
-        if (eventFlags.ptDir) 
+
+        if (eventFlags.ptDir)
         {
             /* active power is reverse */
             cl010_show_icon(CL010_ICON_P_MINUS);
-        } 
-        else 
+        }
+        else
         {
             /* active power is forward */
             cl010_show_icon(CL010_ICON_P_PLUS);
         }
-        
-        if (eventFlags.qtDir) 
+
+        if (eventFlags.qtDir)
         {
             /* reactive power is reverse */
             cl010_show_icon(CL010_ICON_Q_MINUS);
-        } 
-        else 
+        }
+        else
         {
             /* reactive power is forward */
             cl010_show_icon(CL010_ICON_Q_PLUS);
         }
-        
+
     }
 
     /* Display MCHP logo */
     cl010_show_icon(CL010_ICON_MICROCHIP);
-    
+
     /* Update External Communication signal status */
     if (app_displayData.comm_signal > APP_DISPLAY_COM_SIGNAL_OFF)
     {
         _APP_DISPLAY_UpdateComSignal(app_displayData.comm_signal);
     }
-                
+
 }
 
 // *****************************************************************************
@@ -629,10 +629,10 @@ void APP_DISPLAY_Initialize ( void )
     /* No buttons pressed */
     app_displayData.scrdown_pressed = false;
     app_displayData.scrup_pressed = false;
-     
+
     /* Init LCD */
     APP_DISPLAY_InitLCD();
-    
+
     /* Set startup display information */
     app_displayData.loop_max = 0;
     app_displayData.loop_idx = 0;
@@ -646,23 +646,23 @@ void APP_DISPLAY_Initialize ( void )
 
     /* Init display info */
     app_displayData.display_info = (APP_DISPLAY_INFO)0xFF;
-    
+
     /* Disable external communication signal */
     app_displayData.comm_signal = APP_DISPLAY_COM_SIGNAL_OFF;
-    
+
     /* Set display time */
     app_displayData.display_time = 2;
-    
+
     /* Configure display timer loop */
     APP_DISPLAY_SetTimerLoop(3);
-    
+
     /* Configure Switches */
-    PIO_PinInterruptCallbackRegister(SWITCH_SCRUP_PIN, 
+    PIO_PinInterruptCallbackRegister(SWITCH_SCRUP_PIN,
             APP_DISPLAY_ScrollUp_Callback, (uintptr_t)NULL);
 
-    PIO_PinInterruptCallbackRegister(SWITCH_SCRDOWN_PIN, 
+    PIO_PinInterruptCallbackRegister(SWITCH_SCRDOWN_PIN,
             APP_DISPLAY_ScrollDown_Callback, (uintptr_t)NULL);
-    
+
     /* Create the Display Semaphore */
     if (OSAL_SEM_Create(&appDisplaySemID, OSAL_SEM_TYPE_BINARY, 0, 0) == OSAL_RESULT_FALSE)
     {
@@ -688,7 +688,7 @@ void APP_DISPLAY_Tasks ( void )
     {
         DWDT_WDT0_Clear();
     }
-    
+
     switch ( app_displayData.state )
     {
         case APP_DISPLAY_STATE_INIT:
@@ -741,14 +741,14 @@ void APP_DISPLAY_Tasks ( void )
                 APP_DISPLAY_AddLoopInfo(APP_DISPLAY_TOU2_MAX_DEMAND);
                 APP_DISPLAY_AddLoopInfo(APP_DISPLAY_TOU3_MAX_DEMAND);
                 APP_DISPLAY_AddLoopInfo(APP_DISPLAY_TOU4_MAX_DEMAND);
-    
+
                 /* Enable Switches interrupts */
                 PIO_PinInterruptEnable(SWITCH_SCRUP_PIN);
                 PIO_PinInterruptEnable(SWITCH_SCRDOWN_PIN);
 
                 app_displayData.state = APP_DISPLAY_STATE_SERVICE_TASKS;
             }
-            
+
             vTaskDelay(100 / portTICK_PERIOD_MS);
             break;
         }
@@ -764,11 +764,11 @@ void APP_DISPLAY_Tasks ( void )
                     if (SWITCH_SCRUP_Get() == 0)
                     {
                         SYS_CMD_MESSAGE("Entering Low Power... Press FWUP/TAMPER switch to wake up.\r\n");
-            
+
                         // Update display info
                         APP_DISPLAY_ShowLowPowerMode();
 
-                        // Wait time to show message through the Console 
+                        // Wait time to show message through the Console
                         vTaskDelay(100 / portTICK_PERIOD_MS);
 
                         // Go to Low Power mode
@@ -776,42 +776,42 @@ void APP_DISPLAY_Tasks ( void )
 
                         // Execution should not come here during normal operation
                     }
-                    
+
                     app_displayData.scrdown_pressed = false;
                     app_displayData.direction = APP_DISPLAY_BACKWARD;
                 }
-                
+
                 if (app_displayData.scrup_pressed)
                 {
                     if (SWITCH_SCRDOWN_Get() == 0)
                     {
                         SYS_CMD_MESSAGE("Emulating application holds ... Resetting by DWDT0.\r\n");
-            
-                        // Forcing no reload DWDT0 
+
+                        // Forcing no reload DWDT0
                         app_displayData.reloadDWDT0 = false;
                     }
-                    
+
                     app_displayData.scrup_pressed = false;
                     app_displayData.direction = APP_DISPLAY_FORWARD;
                 }
-                
+
                 APP_DISPLAY_ChangeInfo();
                 APP_DISPLAY_Process();
-                
+
                 /* Reload time */
                 app_displayData.display_time = app_displayData.reload_display_time;
             }
-            else 
+            else
             {
                 /* Show information in display */
                 if (app_displayData.display_time != 0)
                 {
                     --app_displayData.display_time;
-                } 
-                else 
+                }
+                else
                 {
-                    APP_DISPLAY_ChangeInfo();  
-                    APP_DISPLAY_Process();  
+                    APP_DISPLAY_ChangeInfo();
+                    APP_DISPLAY_Process();
 
                     /* Reload time */
                     app_displayData.display_time = app_displayData.reload_display_time;
@@ -840,14 +840,14 @@ void APP_DISPLAY_Tasks ( void )
 
 void APP_DISPLAY_SetAppInfo(const char *msg, uint8_t len)
 {
-    if (len > sizeof(app_displayData.app_info)) 
+    if (len > sizeof(app_displayData.app_info))
     {
         len = sizeof(app_displayData.app_info);
     }
-    
+
     memcpy(app_displayData.app_info, msg, len);
 
-    if (!app_displayData.app_info_en) 
+    if (!app_displayData.app_info_en)
     {
         /* Set enable flag */
         app_displayData.app_info_en = true;
@@ -885,7 +885,7 @@ void APP_DISPLAY_SetSerialCommunication(void)
 void APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL signal)
 {
     app_displayData.comm_signal = signal;
-    
+
     _APP_DISPLAY_UpdateComSignal(signal);
 }
 
