@@ -1,7 +1,7 @@
 ﻿![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
-# Harmony 3 Smart Energy G3 application examples
+# MPLAB® Harmony 3 Smart Energy G3 application examples
 
 MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating embedded firmware solutions for Microchip 32-bit SAM and PIC® microcontroller and microprocessor devices. Refer to the following links for more information.
 
@@ -11,24 +11,26 @@ MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating embedded
 - [Microchip MPLAB® Harmony](https://www.microchip.com/mplab/mplab-harmony)
 - [Microchip MPLAB® Harmony Pages](https://microchip-mplab-harmony.github.io/)
 
-This repository contains the MPLAB® Harmony 3 Smart Energy G3-PLC (and G3-Hybrid) application examples.
+This repository contains the MPLAB® Harmony 3 Smart Energy G3-PLC and G3-Hybrid application examples.
 
-- [Release Notes](release_notes.md)
-- [MPLAB® Harmony License](mplab_harmony_license.md)
+- [Release Notes](./release_notes.md)
+- [MPLAB® Harmony License](Microchip_SLA001.md)
+- [MPLAB® Harmony 3 Smart Energy Examples Help](https://microchip-mplab-harmony.github.io/smartenergy_g3_apps/)
+
 
 To clone or download these applications from Github, go to the [main page of this repository](https://github.com/Microchip-MPLAB-Harmony/smartenergy_g3_apps) and then click **Clone** button to clone this repository or download as zip file.
 This content can also be downloaded using content manager by following these [instructions](https://github.com/Microchip-MPLAB-Harmony/contentmanager/wiki).
 
-## Contents Summary
+# Contents Summary
 
 | Folder     | Description                             |
 | ---        | ---                                     |
 | apps       | Contains G3 PHY, MAC-RT and full-stack example applications. |
 | docs       | Contains documentation in html format for offline viewing (to be used only after cloning this repository onto a local machine). Use [github pages](https://microchip-mplab-harmony.github.io/smartenergy_g3_apps/) of this repository for viewing it online. |
 
-## Code Examples
+# Code Examples
 
-The following applications are provided to demonstrate the typical or interesting usage models of one or more peripheral libraries.
+The following applications are provided to demonstrate the typical use cases of G3 at both PHY and full stack levels.
 
 | Name               | Description |
 | ----               | ----------- |
@@ -48,7 +50,7 @@ The following applications are provided to demonstrate the typical or interestin
 
 ____
 
-[![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_g3_apps/blob/master/mplab_harmony_license.md)
+[![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_g3_apps/blob/master/Microchip_SLA001.md)
 [![Latest release](https://img.shields.io/github/release/Microchip-MPLAB-Harmony/smartenergy_g3_apps.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_g3_apps/releases/latest)
 [![Latest release date](https://img.shields.io/github/release-date/Microchip-MPLAB-Harmony/smartenergy_g3_apps.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_g3_apps/releases/latest)
 [![Commit activity](https://img.shields.io/github/commit-activity/y/Microchip-MPLAB-Harmony/smartenergy_g3_apps.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_g3_apps/graphs/commit-activity)
