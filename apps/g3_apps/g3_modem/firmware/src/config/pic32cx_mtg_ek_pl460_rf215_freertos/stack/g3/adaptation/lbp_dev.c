@@ -15,28 +15,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 /* ***************************************************************************** */
@@ -91,42 +91,45 @@
 /* Section: Data Types */
 /* ***************************************************************************** */
 /* ***************************************************************************** */
+#pragma pack(push,2)
 
 typedef struct {
+    /* Upper layer notifications */
+    LBP_NOTIFICATIONS_DEV lbpNotifications;
     /* Timer to control the join or rekey process if no response is received */
     SYS_TIME_HANDLE joinTimer;
-    bool joinTimerExpired;
-    bool rekeyTimerExpired;
     /* Timer to control the delay to reset G3 stack after a Kick is received */
     SYS_TIME_HANDLE kickTimer;
-    bool kickTimerExpired;
-    /* information related to joining */
-    uint16_t lbaAddress;
-    uint16_t joiningShortAddress;
-    /* keeps authentication context */
-    EAP_PSK_CONTEXT pskContext;
-    /* Media Type to use between LBD and LBA. It is encoded in LBP frames */
-    uint8_t mediaType;
-    /* Disable Backup Flag, used to precise Media Type. It is encoded in LBP frames */
-    uint8_t disableBackupFlag;
-    /* Available MAC layers */
-    ADP_AVAILABLE_MAC_LAYERS availableMacLayers;
-    /* State of the bootstrap process */
-    uint8_t bootstrapState;
-    /* Number of pending message confirms */
-    uint8_t pendingConfirms;
-    /* EUI64 address of the device */
-    ADP_EXTENDED_ADDRESS EUI64Address;
     /* This parameter specifies the PAN ID: 0xFFFF means not connected to PAN */
     uint16_t panId;
     /* 16-bit address for new device which is unique inside the PAN */
     uint16_t shortAddress;
+    /* information related to joining */
+    uint16_t lbaAddress;
+    uint16_t joiningShortAddress;
+    /* Media Type to use between LBD and LBA. It is encoded in LBP frames */
+    uint8_t mediaType;
+    /* Disable Backup Flag, used to precise Media Type. It is encoded in LBP frames */
+    uint8_t disableBackupFlag;
+    /* State of the bootstrap process */
+    uint8_t bootstrapState;
+    /* Number of pending message confirms */
+    uint8_t pendingConfirms;
+    bool joinTimerExpired;
+    bool rekeyTimerExpired;
+    bool kickTimerExpired;
+    /* Available MAC layers */
+    ADP_AVAILABLE_MAC_LAYERS availableMacLayers;
+    /* EUI64 address of the device */
+    ADP_EXTENDED_ADDRESS EUI64Address;
     /* Holds the GMK keys */
     ADP_GROUP_MASTER_KEY groupMasterKey[2];
-    /* Upper layer notifications */
-    LBP_NOTIFICATIONS_DEV lbpNotifications;
+    /* keeps authentication context */
+    EAP_PSK_CONTEXT pskContext;
 
 } LBP_CONTEXT_DEV;
+
+#pragma pack(pop)
 
 typedef enum {
     LBP_JOIN_CALLBACK = 0,
@@ -1539,8 +1542,8 @@ void LBP_SetParamDev(uint32_t attributeId, uint16_t attributeIndex,
     switch ((LBP_ATTRIBUTE)attributeId)
     {
     case LBP_IB_IDP:
-        if ((attributeLen == LBP_NETWORK_ACCESS_ID_SIZE_P_ARIB) || 
-                (attributeLen == LBP_NETWORK_ACCESS_ID_SIZE_P_CENELEC_FCC) || 
+        if ((attributeLen == LBP_NETWORK_ACCESS_ID_SIZE_P_ARIB) ||
+                (attributeLen == LBP_NETWORK_ACCESS_ID_SIZE_P_CENELEC_FCC) ||
                 (attributeLen == 0U)) /* 0 to invalidate value */
         {
             sIdP.size = attributeLen;
@@ -1604,7 +1607,7 @@ void LBP_ForceRegister(ADP_EXTENDED_ADDRESS *pEUI64Address,
 void LBP_AdpNetworkJoinRequest(uint16_t panId, uint16_t lbaAddress, uint8_t mediaType)
 {
     ADP_EXTENDED_ADDRESS extendedAddress;
-    
+
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO,
         "AdpNetworkJoinRequest() PanID %04X Lba %04X MediaType %02X\r\n",
         panId, lbaAddress, mediaType);

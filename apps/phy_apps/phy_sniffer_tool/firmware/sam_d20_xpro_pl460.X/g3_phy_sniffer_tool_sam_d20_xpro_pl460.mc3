@@ -1,4 +1,4 @@
-<config configName="sam_d20_xpro_pl460" projectName="g3_phy_sniffer_tool_sam_d20_xpro_pl460" configVersion="1.1" device="ATSAMD20J18" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.0">
+<config configName="sam_d20_xpro_pl460" projectName="g3_phy_sniffer_tool_sam_d20_xpro_pl460" configVersion="1.1" device="ATSAMD20J18" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.6.1">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -71,7 +71,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.5.1"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.4.1"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -10411,11 +10411,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\configuration.h</file>
-         <hash>890baa6b4aea2c8e92ffb0d3eabc58c5c5056ee3f0c01f513e715b06c1b703ca</hash>
+         <hash>fd3755f5416a16ee98876526f5c05e62f972329ff675c8cb5baced623f6aeb3f</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\definitions.h</file>
-         <hash>459b3c6217668454a39411151eb9a703f69438ae1506458fada2c527bc11d0c6</hash>
+         <hash>25579efb5037bf2e6a0c379f307f6ee35b82ee50a625506f413b1de8af0a0d65</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\device.h</file>
@@ -10439,19 +10439,19 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\common\drv_plc_boot.c</file>
-         <hash>1492fdf46de033ab7e6b99b17f10ca27d1bb05fa5ba14b6b74f35a603f3e08aa</hash>
+         <hash>66b32b8744c0538f197c084c8c96a01978e21cacce6b352cb1a63092ee3e5ae6</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\common\drv_plc_boot.h</file>
-         <hash>c92aea753376d937a2bf6a91f52701e888a00371358f10e0ff974db401ab14b0</hash>
+         <hash>4f91187cb22a27ddf0400d5b14f63c248a3b0327929268b67da78e884004df54</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\common\drv_plc_hal.c</file>
-         <hash>1aa3bc30de9f83e45b9f43256c68ce973b8905626a2e1a4b21060cb993105ac1</hash>
+         <hash>622c38b93747bea40c31409b9414d7820af2928658f9a564598b2bee71727938</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\common\drv_plc_hal.h</file>
-         <hash>47a68687c724fd17bdb5fd4c7d62ee761bcecf155eb24258e5d0dc7315630dd5</hash>
+         <hash>b9f93ee726b177a4d80e159fe97ce4473ef5a7b869abdd03deef457eaabd9141</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\bin\PLC_PHY_G3_FCC.bin</file>
@@ -10459,35 +10459,35 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\bin\plc_phy_bin.S</file>
-         <hash>6a663b67236263d2691d4a6ee60bfde84c91b6abffb0fffe6a76f12862895def</hash>
+         <hash>0fc5151d89891b4e5d22626a73178131c44d5599f1a04afc6bba051172bca34f</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy.c</file>
-         <hash>bb588bae13b4660d45f15a98bc721ba9ec0d760cc64a88177891cae5b7fd186c</hash>
+         <hash>f33d2e0a6e002d22f3bd51b2df9454383f028369412e4cfed8c260ee280230ee</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy.h</file>
-         <hash>5a1ffc58b3efd2e1154b0ab6eb45b64b1df8c0477237e6d41b25534a7e9186bf</hash>
+         <hash>23f68d5c831824ce3dcbc192cb08d982ef50a8014c393f9142a49ac8d4dff3d8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>7ea5ed8729c7ecaad3243602d9a153ccaada883befa1637a008bdaa21beccefd</hash>
+         <hash>413447464aa723490584682b51fac89ad1ddf2bc6b1d30942c36269e514b27c9</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_comm.h</file>
-         <hash>3cc0d0e40c96cae5acebdd0851dd7672148f7883351471925983e8a91f152f82</hash>
+         <hash>07110c4f2ebec5f4c07ecf190295b217d4e9abdd6fd67633655981780dc29eb2</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_definitions.h</file>
-         <hash>a7f0461a9e2f3bef2aee860b810b69097003d20b6eae5f44ca5bb9561ca5b6cc</hash>
+         <hash>97bc7e4ab4509638c4fdd93092a496b95d5fbebd1d47c8958d9fbd40578dc182</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_local.h</file>
-         <hash>dd3bbee4e798dabad4d36d66038e176b637e9a8757a6c3feaf31cc76c5ac028d</hash>
+         <hash>8b5e43186d22a05e3a091598a332f11b8f71f60336ebf7ef4f0601dff5608c6b</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_local_comm.h</file>
-         <hash>7a320bdbac75ee8518cf246ca435dd3812af90dd7dcb71a221331c839b8a668a</hash>
+         <hash>b4c23ca35d5019e027f3c4b790094a1af065da35db09de5089fc6407db0ddd84</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\exceptions.c</file>
@@ -10495,7 +10495,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\initialization.c</file>
-         <hash>2de37551783183d647439d668b4c43d60b73ac36e63039972fcce63607fa09d0</hash>
+         <hash>ac68fab92c94b8e545860266d00582d7ef7a9aca4dc7ea0eb8fd2b7bf0a18bd5</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\interrupts.c</file>
@@ -10619,43 +10619,43 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\pcrc\srv_pcrc.c</file>
-         <hash>762e50d75c4fd43d27499c74d00920eed30fc8e835445ca3b3e44484fa270813</hash>
+         <hash>cee2a40fb67c8c165cdb9ffbd8ecb62c2314ed98cb1afbb6428e0eb19483ee30</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\pcrc\srv_pcrc.h</file>
-         <hash>62d24a8cb764e96d8b27bccf1c872d6d1ac0474406e66dbc0d855f74cc54af49</hash>
+         <hash>7904842354daf6416d6953acf74ed4e9a8d5471690edd688b0965e7c334ab1e6</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\psniffer\srv_psniffer.c</file>
-         <hash>5c1e43347173dc965ea861704e73db60558165a2d2815e3a911e8bf9d3452143</hash>
+         <hash>811c8f8c8e3f11415065ec2dda9c11114b397f7aae14234daf4092be54832c5e</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\psniffer\srv_psniffer.h</file>
-         <hash>73ab6265edf6883a39e3f4cbea13f2988549ee2af08e3b1bbcecb40d00bee38d</hash>
+         <hash>cba3d6748d4ce20dcdd9cd8eb699f8526ebc4a8aca89ce20b00b4404d0b62134</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi.c</file>
-         <hash>179f9b70f76f9ebde9cb2c23843a1e57a3b00a41f5757a6407a8a5fe5fe2c365</hash>
+         <hash>ca24c5f10fae659cae9d293c0eb6915f9319771d8dac8c1c1ec5c55f3b0701e1</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi.h</file>
-         <hash>b9525755e313007c92e42cfd7f5a7cd18e34f136afa1e99601c39651fcb64011</hash>
+         <hash>a61029a933d71216dd2ccc706219c621dcf6ea3856438b508956ecff12be7b28</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_definitions.h</file>
-         <hash>2efeaeab634b466c6679c17fb8534861c614c5b39970d52a2cc047412d3372d9</hash>
+         <hash>660aeea82ed1d88e6e998264c504c48bbefc478fd0151e91d323acd8f4634392</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_local.h</file>
-         <hash>a8f935fba66ffae91780e6f8a9504ef816741d901cc72523dbd3ccacbcc5d2ba</hash>
+         <hash>cbd80d3ecb1d78130ce3d61bdbf0b6f37e524666f24299dd8eb4037162a0a503</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_usart.c</file>
-         <hash>90643eef3e52b8291f31c4933399ba7d2364c811ed4a1c07571f5747bf6aa7c6</hash>
+         <hash>fa697b6e16fc5428856e1166762e89057b09680143e20885bf7711fa3eba4240</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_usart.h</file>
-         <hash>487f0cb90608502bb412bf4149fe61625e504dea01d660267a9524828ddbf782</hash>
+         <hash>45cb9174e8b10bd9fd4e2ceca0823bf18cd7da49f3573609961022c834c1cded</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\startup_xc32.c</file>
@@ -10671,7 +10671,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\system\debug\sys_debug.h</file>
-         <hash>bc6fa321b0be542d074e4564065b7fd69f52556486ac3d892d315b51c434f9ec</hash>
+         <hash>9ee0362649aa389b355ecff1ce0e64d124f8f83eda7e40a0c5195ee099c1a0ff</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\system\int\src\sys_int.c</file>
@@ -10975,7 +10975,7 @@
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_version.h</file>
-         <hash>2de01ae2556a38eb82c389de23c701805ec63308cfbcf3f84cb12141589b0858</hash>
+         <hash>8cda7ac3ff6f0eb5e83c4fe613dd195151b24da54167f5c3c007e599a03f1edc</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\core_cm0plus.h</file>

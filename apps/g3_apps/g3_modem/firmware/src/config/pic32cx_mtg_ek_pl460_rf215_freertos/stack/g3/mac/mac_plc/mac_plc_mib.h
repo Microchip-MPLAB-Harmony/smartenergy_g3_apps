@@ -15,28 +15,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef MAC_PLC_MIB_H
@@ -63,6 +63,8 @@
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
+
+#pragma pack(push,2)
 
 // *****************************************************************************
 /* MAC PLC Tables Structure
@@ -100,6 +102,7 @@ typedef struct
 */
 typedef struct
 {
+    MAC_DEVICE_TABLE_ENTRY *deviceTable;
     uint32_t txDataPacketCount;
     uint32_t rxDataPacketCount;
     uint32_t txCmdPacketCount;
@@ -107,14 +110,7 @@ typedef struct
     uint32_t csmaFailCount;
     uint32_t rxDataBroadcastCount;
     uint32_t txDataBroadcastCount;
-    MAC_DEVICE_TABLE_ENTRY *deviceTable;
-    uint16_t deviceTableSize;
-    bool freqNotching;
     uint32_t frameCounter;
-    MAC_SHORT_ADDRESS coordShortAddress;
-    MAC_PLC_MODULATION_SCHEME lastRxModScheme;
-    MAC_PLC_MODULATION_TYPE lastRxModType;
-    bool bcnFrameReceived;
     uint32_t rxInvalidFrameLengthCount;
     uint32_t rxWrongAddrModeCount;
     uint32_t rxUnsupportedSecurityCount;
@@ -122,9 +118,17 @@ typedef struct
     uint32_t rxInvalidKeyCount;
     uint32_t rxWrongFCCount;
     uint32_t rxDecryptionErrorCount;
+    uint16_t deviceTableSize;
+    MAC_SHORT_ADDRESS coordShortAddress;
+    MAC_PLC_MODULATION_SCHEME lastRxModScheme;
+    MAC_PLC_MODULATION_TYPE lastRxModType;
+    bool bcnFrameReceived;
     bool plcDisable;
     bool plcAvailable;
+    bool freqNotching;
 } MAC_PLC_MIB;
+
+#pragma pack(pop)
 
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
@@ -274,6 +278,8 @@ typedef enum
     MAC_PIB_MANUF_PLC_IFACE_AVAILABLE = 0x0800002C,
     // Last PLC frame duration in ms. 16 bits.
     MAC_PIB_MANUF_LAST_FRAME_DURATION_PLC = 0x0800002D,
+    // Resets TMR TTL for the Short Address contained in Index. 8 bits.
+    MAC_PIB_MANUF_RESET_TMR_TTL = 0x0800002E,
     // Gets or sets a parameter in Phy layer. Index will be used to contain PHY parameter ID.
     // Check 'enum EPhyParam' in MacRtMib.h for available Phy parameter IDs
     MAC_PIB_MANUF_PHY_PARAM = 0x08000020
@@ -325,7 +331,7 @@ typedef enum
     status = MAC_PLC_MIB_SetAttributeSync(MAC_COMMON_PIB_PROMISCUOUS_MODE, 0, &value);
     if (status == MAC_STATUS_SUCCESS)
     {
-        
+
     }
     </code>
 

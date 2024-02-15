@@ -115,6 +115,7 @@ extern "C" {
 #define DRV_SST26_PAGE_SIZE             (256U)
 #define DRV_SST26_ERASE_BUFFER_SIZE     (4096U)
 
+
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A

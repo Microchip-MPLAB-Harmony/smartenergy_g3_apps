@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef DRV_RF215_DEFINITIONS_H
@@ -506,6 +506,9 @@ typedef enum
 
 } DRV_RF215_TX_RESULT;
 
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 5.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+
 // *****************************************************************************
 /* RF215 Driver PIB Attributes
 
@@ -524,132 +527,146 @@ typedef enum
 typedef enum
 {
     /* RF device identifier (read-only). 16 bits */
-    RF215_PIB_DEVICE_ID                 = 0x0000,
+    RF215_PIB_DEVICE_ID                        = 0x0000,
 
     /* RF PHY layer firmware version number (read-only).
      * 6 bytes (see DRV_RF215_FW_VERSION) */
-    RF215_PIB_FW_VERSION                = 0x0001,
+    RF215_PIB_FW_VERSION                       = 0x0001,
 
     /* RF device reset (write-only). 8 bits */
-    RF215_PIB_DEVICE_RESET              = 0x0002,
+    RF215_PIB_DEVICE_RESET                     = 0x0002,
 
     /* RF transceiver reset (write-only). 8 bits */
-    RF215_PIB_TRX_RESET                 = 0x0080,
+    RF215_PIB_TRX_RESET                        = 0x0080,
 
     /* RF transceiver sleep. 8 bits */
-    RF215_PIB_TRX_SLEEP                 = 0x0081,
+    RF215_PIB_TRX_SLEEP                        = 0x0081,
 
     /* RF PHY configuration. 19 bytes (see DRV_RF215_PHY_CFG_OBJ) */
-    RF215_PIB_PHY_CONFIG                = 0x0100,
+    RF215_PIB_PHY_CONFIG                       = 0x0100,
 
     /* RF PHY band and operating mode. 16 bits (see DRV_RF215_PHY_BAND_OPM) */
-    RF215_PIB_PHY_BAND_OPERATING_MODE   = 0x0101,
+    RF215_PIB_PHY_BAND_OPERATING_MODE          = 0x0101,
 
     /* RF channel number used for transmission and reception. 16 bits */
-    RF215_PIB_PHY_CHANNEL_NUM           = 0x0120,
+    RF215_PIB_PHY_CHANNEL_NUM                  = 0x0120,
 
     /* RF frequency in Hz used for transmit and receive (read-only). 32 bits */
-    RF215_PIB_PHY_CHANNEL_FREQ_HZ       = 0x0121,
+    RF215_PIB_PHY_CHANNEL_FREQ_HZ              = 0x0121,
 
     /* Duration in us of Energy Detection for CCA. 16 bits */
-    RF215_PIB_PHY_CCA_ED_DURATION       = 0x0141,
+    RF215_PIB_PHY_CCA_ED_DURATION_US           = 0x0141,
 
     /* Threshold in dBm for CCA with Energy Detection. 8 bits */
-    RF215_PIB_PHY_CCA_ED_THRESHOLD      = 0x0142,
+    RF215_PIB_PHY_CCA_ED_THRESHOLD_DBM         = 0x0142,
+
+    /* Duration in symbols of Energy Detection for CCA. 16 bits */
+    RF215_PIB_PHY_CCA_ED_DURATION_SYMBOLS      = 0x0143,
+
+    /* Threshold in dB above sensitivity for CCA with Energy Detection. 8 bits */
+    RF215_PIB_PHY_CCA_ED_THRESHOLD_SENSITIVITY = 0x0144,
+
+    /* Sensitivity in dBm (according to 802.15.4). 8 bits */
+    RF215_PIB_PHY_SENSITIVITY = 0x0150,
+
+    /* Maximum TX power in dBm. 8 bits */
+    RF215_PIB_PHY_MAX_TX_POWER = 0x0151,
 
     /* Turnaround time in us (aTurnaroundTime in IEEE 802.15.4).
      * 16 bits (read-only) */
-    RF215_PIB_PHY_TURNAROUND_TIME       = 0x0160,
+    RF215_PIB_PHY_TURNAROUND_TIME              = 0x0160,
 
     /* Number of payload symbols in last transmitted message (read-only).
      * 16 bits */
-    RF215_PIB_PHY_TX_PAY_SYMBOLS        = 0x0180,
+    RF215_PIB_PHY_TX_PAY_SYMBOLS               = 0x0180,
 
     /* Number of payload symbols in last received message (read-only).
      * 16 bits */
-    RF215_PIB_PHY_RX_PAY_SYMBOLS        = 0x0181,
+    RF215_PIB_PHY_RX_PAY_SYMBOLS               = 0x0181,
 
     /* Successfully transmitted messages count (read-only). 32 bits */
-    RF215_PIB_PHY_TX_TOTAL              = 0x01A0,
+    RF215_PIB_PHY_TX_TOTAL                     = 0x01A0,
 
     /* Successfully transmitted bytes count (read-only). 32 bits */
-    RF215_PIB_PHY_TX_TOTAL_BYTES        = 0x01A1,
+    RF215_PIB_PHY_TX_TOTAL_BYTES               = 0x01A1,
 
     /* Transmission errors count (read-only). 32 bits */
-    RF215_PIB_PHY_TX_ERR_TOTAL          = 0x01A2,
+    RF215_PIB_PHY_TX_ERR_TOTAL                 = 0x01A2,
 
     /* Transmission errors count due to already in transmission (read-only).
      * 32 bits */
-    RF215_PIB_PHY_TX_ERR_BUSY_TX        = 0x01A3,
+    RF215_PIB_PHY_TX_ERR_BUSY_TX               = 0x01A3,
 
     /* Transmission errors count due to already in reception (read-only).
      * 32 bits */
-    RF215_PIB_PHY_TX_ERR_BUSY_RX        = 0x01A4,
+    RF215_PIB_PHY_TX_ERR_BUSY_RX               = 0x01A4,
 
     /* Transmission errors count due to busy channel (read-only). 32 bits */
-    RF215_PIB_PHY_TX_ERR_BUSY_CHN       = 0x01A5,
+    RF215_PIB_PHY_TX_ERR_BUSY_CHN              = 0x01A5,
 
     /* Transmission errors count due to bad message length (read-only).
      * 32 bits */
-    RF215_PIB_PHY_TX_ERR_BAD_LEN        = 0x01A6,
+    RF215_PIB_PHY_TX_ERR_BAD_LEN               = 0x01A6,
 
     /* Transmission errors count due to bad format (read-only). 32 bits */
-    RF215_PIB_PHY_TX_ERR_BAD_FORMAT     = 0x01A7,
+    RF215_PIB_PHY_TX_ERR_BAD_FORMAT            = 0x01A7,
 
     /* Transmission errors count due to timeout (read-only). 32 bits */
-    RF215_PIB_PHY_TX_ERR_TIMEOUT        = 0x01A8,
+    RF215_PIB_PHY_TX_ERR_TIMEOUT               = 0x01A8,
 
     /* Transmission aborted count (read-only). 32 bits */
-    RF215_PIB_PHY_TX_ERR_ABORTED        = 0x01A9,
+    RF215_PIB_PHY_TX_ERR_ABORTED               = 0x01A9,
 
     /* Transmission confirms not handled by upper layer count (read-only).
      * 32 bits */
-    RF215_PIB_PHY_TX_CFM_NOT_HANDLED    = 0x01AA,
+    RF215_PIB_PHY_TX_CFM_NOT_HANDLED           = 0x01AA,
 
     /* Successfully received messages count (read-only). 32 bits */
-    RF215_PIB_PHY_RX_TOTAL              = 0x01B0,
+    RF215_PIB_PHY_RX_TOTAL                     = 0x01B0,
 
     /* Successfully received bytes count (read-only). 32 bits */
-    RF215_PIB_PHY_RX_TOTAL_BYTES        = 0x01B1,
+    RF215_PIB_PHY_RX_TOTAL_BYTES               = 0x01B1,
 
     /* Reception errors count (read-only). 32 bits */
-    RF215_PIB_PHY_RX_ERR_TOTAL          = 0x01B2,
+    RF215_PIB_PHY_RX_ERR_TOTAL                 = 0x01B2,
 
     /* Reception false positive count (read-only). 32 bits */
-    RF215_PIB_PHY_RX_ERR_FALSE_POSITIVE = 0x01B3,
+    RF215_PIB_PHY_RX_ERR_FALSE_POSITIVE        = 0x01B3,
 
     /* Reception errors count due to bad message length (read-only). 32 bits */
-    RF215_PIB_PHY_RX_ERR_BAD_LEN        = 0x01B4,
+    RF215_PIB_PHY_RX_ERR_BAD_LEN               = 0x01B4,
 
     /* Reception errors count due to bad format or bad FCS in header
      * (read-only). 32 bits */
-    RF215_PIB_PHY_RX_ERR_BAD_FORMAT     = 0x01B5,
+    RF215_PIB_PHY_RX_ERR_BAD_FORMAT            = 0x01B5,
 
     /* Reception errors count due to bad FCS in payload (read-only). 32 bits */
-    RF215_PIB_PHY_RX_ERR_BAD_FCS_PAY    = 0x01B6,
+    RF215_PIB_PHY_RX_ERR_BAD_FCS_PAY           = 0x01B6,
 
     /* Reception aborted count (read-only). 32 bits */
-    RF215_PIB_PHY_RX_ERR_ABORTED        = 0x01B7,
+    RF215_PIB_PHY_RX_ERR_ABORTED               = 0x01B7,
 
     /* Reception override (another message with higher signal level) count
      * (read-only). 32 bits */
-    RF215_PIB_PHY_RX_OVERRIDE           = 0x01B8,
+    RF215_PIB_PHY_RX_OVERRIDE                  = 0x01B8,
 
     /* Reception indications not handled by upper layer count (read-only).
      * 32 bits */
-    RF215_PIB_PHY_RX_IND_NOT_HANDLED    = 0x01B9,
+    RF215_PIB_PHY_RX_IND_NOT_HANDLED           = 0x01B9,
 
     /* Reset PHY Statistics (write-only) */
-    RF215_PIB_PHY_STATS_RESET           = 0x01C0,
+    RF215_PIB_PHY_STATS_RESET                  = 0x01C0,
 
     /* Continuous LO Carrier Tx Mode. 8 bits */
-    RF215_PIB_PHY_TX_CONTINUOUS         = 0x01C1,
+    RF215_PIB_PHY_TX_CONTINUOUS                = 0x01C1,
 
     /* Back-off period unit in us (aUnitBackoffPeriod in IEEE 802.15.4) used for
      * CSMA-CA . 16 bits (read-only) */
-    RF215_PIB_MAC_UNIT_BACKOFF_PERIOD   = 0x0200,
+    RF215_PIB_MAC_UNIT_BACKOFF_PERIOD          = 0x0200,
 
 } DRV_RF215_PIB_ATTRIBUTE;
+
+/* MISRA C-2012 deviation block end */
 
 // *****************************************************************************
 /* RF215 Driver PIB Results

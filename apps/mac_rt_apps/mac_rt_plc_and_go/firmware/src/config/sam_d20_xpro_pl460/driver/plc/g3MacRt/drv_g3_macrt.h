@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef DRV_G3_MACRT_H
@@ -123,7 +123,7 @@ typedef enum
     /* Device has been reseted */
     DRV_G3_MACRT_EXCEPTION_RESET
 
-} DRV_G3_MACRT_EXCEPTION; 
+} DRV_G3_MACRT_EXCEPTION;
 
 // *****************************************************************************
 /* G3 MAC RT Driver Initialization Event Handler Function Pointer
@@ -197,9 +197,9 @@ typedef void ( *DRV_G3_MACRT_INIT_CALLBACK )( bool initResult );
         switch(cfmObj->status)
         {
             case MAC_RT_STATUS_SUCCESS:
-                break;   
+                break;
             case MAC_RT_STATUS_CHANNEL_ACCESS_FAILURE:
-                break;   
+                break;
             case MAC_RT_STATUS_NO_ACK:
                 break;
         }
@@ -235,7 +235,7 @@ typedef void ( *DRV_G3_MACRT_TX_CFM_CALLBACK )( MAC_RT_TX_CFM_OBJ *cfmObj );
 
   Parameters:
     pData  - Pointer to the data content.
- 
+
     length - Length of the received data.
 
   Returns:
@@ -278,7 +278,7 @@ typedef void ( *DRV_G3_MACRT_DATA_IND_CALLBACK )( uint8_t *pData, uint16_t lengt
   Parameters:
     pParameters - Pointer to the characterization parameters of the last
                   received message.
- 
+
   Returns:
     None.
 
@@ -313,7 +313,7 @@ typedef void ( *DRV_G3_MACRT_RX_PARAMS_IND_CALLBACK )( MAC_RT_RX_PARAMETERS_OBJ 
 
   Parameters:
     pData  - Pointer to the data content.
- 
+
     length - Length of the received data.
 
   Returns:
@@ -388,7 +388,7 @@ typedef void ( *DRV_G3_MACRT_COMM_STATUS_IND_CALLBACK )( uint8_t *pData );
 
   Parameters:
     pData  - Pointer to the data content.
- 
+
     length - Length of the received data.
 
   Returns:
@@ -400,7 +400,7 @@ typedef void ( *DRV_G3_MACRT_COMM_STATUS_IND_CALLBACK )( uint8_t *pData );
     {
         if (length > 0U)
         {
-            SRV_USI_Send_Message(appData.usiHandler, SRV_USI_PROT_ID_SNIFF_G3, 
+            SRV_USI_Send_Message(appData.usiHandler, SRV_USI_PROT_ID_SNIFF_G3,
                 (uint8_t *)&appData.phySnifferData, length);
         }
     }
@@ -438,7 +438,7 @@ typedef void ( *DRV_G3_MACRT_PHY_SNIFFER_IND_CALLBACK )( uint16_t length );
     <code>
     void APP_MyExceptionEventHandler( DRV_G3_MACRT_EXCEPTION exception )
     {
-        switch (exception) 
+        switch (exception)
         {
             case DRV_G3_MACRT_EXCEPTION_UNEXPECTED_KEY:
                 break;
@@ -541,7 +541,7 @@ typedef void ( *DRV_G3_MACRT_SLEEP_IND_CALLBACK )( void );
         .spiAddressTx =  (void *)&(SPI0_REGS->SPI_TDR),
         .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
         .spiClockFrequency = DRV_PLC_SPI_CLK,
-        .ldoPin = DRV_PLC_LDO_EN_PIN, 
+        .ldoPin = DRV_PLC_LDO_EN_PIN,
         .resetPin = DRV_PLC_RESET_PIN,
         .extIntPin = DRV_PLC_EXT_INT_PIN,
         .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
@@ -600,7 +600,7 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize( const SYS_MODULE_INDEX index, const SYS_
   Description:
     This routine opens the specified G3 MAC RT driver instance and provides a
     handle that must be provided to all other client-level operations to
-    identify the caller and the instance of the driver. 
+    identify the caller and the instance of the driver.
 
     This driver is a single client driver, so DRV_G3_MACRT_Open API should be
     called only once until driver is closed.
@@ -612,8 +612,8 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize( const SYS_MODULE_INDEX index, const SYS_
   Parameters:
     index    - Identifier for the object instance to be opened.
 
-    callback - Boot Data Callback Function Pointer. In case of use NULL, 
-               .binStartAddress and .binEndAddress fields must be configured 
+    callback - Boot Data Callback Function Pointer. In case of use NULL,
+               .binStartAddress and .binEndAddress fields must be configured
                in initialization data DRV_G3_MACRT_INIT.
 
   Returns:
@@ -632,7 +632,7 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize( const SYS_MODULE_INDEX index, const SYS_
     handle = DRV_G3_MACRT_Open(DRV_G3_MACRT_INDEX_0, NULL);
     if (handle == DRV_HANDLE_INVALID)
     {
-        
+
     }
     </code>
 
@@ -640,7 +640,7 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize( const SYS_MODULE_INDEX index, const SYS_
     The handle returned is valid until the DRV_G3_MACRT_Close routine is called.
     This routine will NEVER block waiting for hardware.
 */
-DRV_HANDLE DRV_G3_MACRT_Open(const SYS_MODULE_INDEX index, 
+DRV_HANDLE DRV_G3_MACRT_Open(const SYS_MODULE_INDEX index,
         const DRV_PLC_BOOT_DATA_CALLBACK callback);
 
 // *****************************************************************************
@@ -746,14 +746,14 @@ void DRV_G3_MACRT_TxRequest(const DRV_HANDLE handle, uint8_t *pData, uint16_t le
     MAC_RT_PIB_OBJ pibObj;
     uint32_t phyVersion;
     uint8_t macRtVersion[6];
-    
+
     pibObj.pib = MAC_RT_PIB_MANUF_PHY_PARAM;
     pibObj.index = PHY_PARAM_VERSION;
     pibObj.pData = &phyVersion;
     pibObj.length = 4;
 
     DRV_G3_MACRT_PIBGet(handle, &pibObj);
-    
+
     pibObj.pib = MAC_RT_PIB_MANUF_MAC_RT_INTERNAL_VERSION;
     pibObj.index = 0;
     pibObj.pData = &macRtVersion;
@@ -797,27 +797,27 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBGet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
     uint8_t autoMode
     uint8_t impedance;
     uint8_t forcedRobo;
- 
+
     autoMode = 0;
- 
-    impedance = VLO_STATE; 
-    
+
+    impedance = VLO_STATE;
+
     pibObj.pib = MAC_RT_PIB_MANUF_PHY_PARAM;
-    pibObj.index = PHY_PARAM_CFG_AUTODETECT_BRANCH; 
+    pibObj.index = PHY_PARAM_CFG_AUTODETECT_BRANCH;
     pibObj.pData = &autoMode;
     pibObj.length = 1;
     DRV_G3_MACRT_PIBSet(handle, &pibObj);
- 
+
     pibObj.pib = MAC_RT_PIB_MANUF_PHY_PARAM;
-    pibObj.index = PHY_PARAM_CFG_IMPEDANCE; 
+    pibObj.index = PHY_PARAM_CFG_IMPEDANCE;
     pibObj.pData = &impedance;
     pibObj.length = 1;
     DRV_G3_MACRT_PIBSet(handle, &pibObj);
- 
-    forcedRobo = 1; 
- 
+
+    forcedRobo = 1;
+
     pibObj.pib = MAC_RT_PIB_MANUF_FORCED_MOD_TYPE;
-    pibObj.index = 0; 
+    pibObj.index = 0;
     pibObj.pData = &forcedRobo;
     pibObj.length = 1;
     DRV_G3_MACRT_PIBSet(handle, &pibObj);
@@ -841,9 +841,9 @@ MAC_RT_STATUS DRV_G3_MACRT_PIBSet(const DRV_HANDLE handle, MAC_RT_PIB_OBJ *pibOb
     counter is internally configured to be increased each microsecond. This
     function allows to use this counter as an accurate time reference for upper
     layers.
-    
+
   Precondition:
-    DRV_G3_MACRT_Open must have been called to obtain a valid opened device 
+    DRV_G3_MACRT_Open must have been called to obtain a valid opened device
     handle.
 
   Parameters:
@@ -870,8 +870,8 @@ uint32_t DRV_G3_MACRT_GetTimerReference(const DRV_HANDLE handle);
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3_MACRT_InitCallbackRegister( 
-        const SYS_MODULE_INDEX index, 
+    void DRV_G3_MACRT_InitCallbackRegister(
+        const SYS_MODULE_INDEX index,
         const DRV_G3_MACRT_INIT_CALLBACK callback
     );
 
@@ -893,7 +893,7 @@ uint32_t DRV_G3_MACRT_GetTimerReference(const DRV_HANDLE handle);
   Precondition:
     Function DRV_G3_MACRT_Initialize must have been called before calling this
     function.
-    
+
 
   Parameters:
     index    - Identifier for the object instance to be opened.
@@ -916,7 +916,7 @@ uint32_t DRV_G3_MACRT_GetTimerReference(const DRV_HANDLE handle);
 
         }
     }
-      
+
     DRV_HANDLE handle;
 
     DRV_G3_MACRT_initCallbackRegister( DRV_G3_MACRT_INDEX_0, APP_PLC_Init_callback );
@@ -930,15 +930,15 @@ uint32_t DRV_G3_MACRT_GetTimerReference(const DRV_HANDLE handle);
 
 */
 
-void DRV_G3_MACRT_InitCallbackRegister( 
-    const SYS_MODULE_INDEX index, 
+void DRV_G3_MACRT_InitCallbackRegister(
+    const SYS_MODULE_INDEX index,
     const DRV_G3_MACRT_INIT_CALLBACK callback
 );
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3_MACRT_DataCfmCallbackRegister( 
-        const DRV_HANDLE handle, 
+    void DRV_G3_MACRT_DataCfmCallbackRegister(
+        const DRV_HANDLE handle,
         const DRV_G3_MACRT_TX_CFM_CALLBACK callback
     );
 
@@ -982,7 +982,7 @@ void DRV_G3_MACRT_InitCallbackRegister(
 
         }
     }
-      
+
     MY_APP_OBJ myAppObj;
 
     DRV_G3_MACRT_TxCfmCallbackRegister( myAppObj.myHandle, APP_PLC_Tx_Cfm_callback );
@@ -992,15 +992,15 @@ void DRV_G3_MACRT_InitCallbackRegister(
 
 */
 
-void DRV_G3_MACRT_TxCfmCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_TxCfmCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_TX_CFM_CALLBACK callback
 );
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3_MACRT_DataIndCallbackRegister( 
-        const DRV_HANDLE handle, 
+    void DRV_G3_MACRT_DataIndCallbackRegister(
+        const DRV_HANDLE handle,
         const DRV_G3_MACRT_DATA_IND_CALLBACK callback
     );
 
@@ -1043,7 +1043,7 @@ void DRV_G3_MACRT_TxCfmCallbackRegister(
         }
 
     }
-      
+
     MY_APP_OBJ myAppObj;
 
     DRV_G3_MACRT_DataIndCallbackRegister( myAppObj.myHandle, APP_PLC_Data_Ind_callback );
@@ -1051,15 +1051,15 @@ void DRV_G3_MACRT_TxCfmCallbackRegister(
 
 */
 
-void DRV_G3_MACRT_DataIndCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_DataIndCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_DATA_IND_CALLBACK callback
 );
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3_MACRT_RxParamsIndCallbackRegister( 
-        const DRV_HANDLE handle, 
+    void DRV_G3_MACRT_RxParamsIndCallbackRegister(
+        const DRV_HANDLE handle,
         const DRV_G3_MACRT_RX_PARAMS_IND_CALLBACK callback
     );
 
@@ -1095,9 +1095,9 @@ void DRV_G3_MACRT_DataIndCallbackRegister(
 
     void APP_PLC_Params_Ind_callback(MAC_RT_RX_PARAMETERS_OBJ *pParameters)
     {
-        
+
     }
-      
+
     MY_APP_OBJ myAppObj;
 
     DRV_G3_MACRT_RxParamsIndCallbackRegister( myAppObj.myHandle, APP_PLC_Params_Ind_callback );
@@ -1105,16 +1105,16 @@ void DRV_G3_MACRT_DataIndCallbackRegister(
 
 */
 
-void DRV_G3_MACRT_RxParamsIndCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_RxParamsIndCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_RX_PARAMS_IND_CALLBACK callback
 );
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3_MACRT_MacSnifferCallbackRegister( 
-        const DRV_HANDLE handle, 
-        const DRV_G3_MACRT_MAC_SNIFFER_CALLBACK callback, 
+    void DRV_G3_MACRT_MacSnifferCallbackRegister(
+        const DRV_HANDLE handle,
+        const DRV_G3_MACRT_MAC_SNIFFER_CALLBACK callback,
         uint8_t* pDataBuffer
     );
 
@@ -1131,7 +1131,7 @@ void DRV_G3_MACRT_RxParamsIndCallbackRegister(
     A MAC Sniffer will receive any frame in the PLC medium, regardless of
     addressing or frame type.
 
-    The callback once set, persists until the client closes the driver or sets 
+    The callback once set, persists until the client closes the driver or sets
     another callback (which could be a "NULL" pointer to indicate no callback).
 
   Precondition:
@@ -1158,10 +1158,10 @@ void DRV_G3_MACRT_RxParamsIndCallbackRegister(
     {
         if (length)
         {
-            
+
         }
     }
-      
+
     MY_APP_OBJ myAppObj;
 
     DRV_G3_MACRT_MacSnifferCallbackRegister( myAppObj.myHandle, APP_G3_MAC_RT_Mac_Sniffer_callback,
@@ -1170,16 +1170,16 @@ void DRV_G3_MACRT_RxParamsIndCallbackRegister(
 
 */
 
-void DRV_G3_MACRT_MacSnifferCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_MacSnifferCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_MAC_SNIFFER_IND_CALLBACK callback,
     uint8_t* pDataBuffer
 );
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3_MACRT_CommStatusCallbackRegister( 
-        const DRV_HANDLE handle, 
+    void DRV_G3_MACRT_CommStatusCallbackRegister(
+        const DRV_HANDLE handle,
         const DRV_G3_MACRT_COMM_STATUS_IND_CALLBACK callback
     );
 
@@ -1214,9 +1214,9 @@ void DRV_G3_MACRT_MacSnifferCallbackRegister(
 
     void APP_G3_MAC_RT_Comm_Status_callback(uint8_t *pData)
     {
-        
+
     }
-      
+
     MY_APP_OBJ myAppObj;
 
     DRV_G3_MACRT_CommStatusCallbackRegister( myAppObj.myHandle, APP_G3_MAC_RT_Comm_Status_callback );
@@ -1224,15 +1224,15 @@ void DRV_G3_MACRT_MacSnifferCallbackRegister(
 
 */
 
-void DRV_G3_MACRT_CommStatusCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_CommStatusCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_COMM_STATUS_IND_CALLBACK callback
 );
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3_MACRT_PhySnifferCallbackRegister( 
-        const DRV_HANDLE handle, 
+    void DRV_G3_MACRT_PhySnifferCallbackRegister(
+        const DRV_HANDLE handle,
         const DRV_G3_MACRT_PHY_SNIFFER_CALLBACK callback,
         uint8_t* pDataBuffer
     );
@@ -1250,7 +1250,7 @@ void DRV_G3_MACRT_CommStatusCallbackRegister(
     The content of the sniffer data is compliant with Microchip Hybrid Sniffer
     tool.
 
-    The callback once set, persists until the client closes the driver or sets 
+    The callback once set, persists until the client closes the driver or sets
     another callback (which could be a "NULL" pointer to indicate no callback).
 
   Precondition:
@@ -1277,10 +1277,10 @@ void DRV_G3_MACRT_CommStatusCallbackRegister(
     {
         if (length)
         {
-            
+
         }
     }
-      
+
     MY_APP_OBJ myAppObj;
 
     DRV_G3_MACRT_PhySnifferCallbackRegister( myAppObj.myHandle, APP_G3_MAC_RT_Phy_Sniffer_callback,
@@ -1289,16 +1289,16 @@ void DRV_G3_MACRT_CommStatusCallbackRegister(
 
 */
 
-void DRV_G3_MACRT_PhySnifferCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_PhySnifferCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_PHY_SNIFFER_IND_CALLBACK callback,
     uint8_t* pDataBuffer
 );
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3_MACRT_ExceptionCallbackRegister( 
-        const DRV_HANDLE handle, 
+    void DRV_G3_MACRT_ExceptionCallbackRegister(
+        const DRV_HANDLE handle,
         const DRV_G3_MACRT_EXCEPTION_CALLBACK callback
     );
 
@@ -1307,7 +1307,7 @@ void DRV_G3_MACRT_PhySnifferCallbackRegister(
     to call back when some error occurs through PLC transceiver communication.
 
   Description:
-    This function allows a client to register a PLC exception event handling 
+    This function allows a client to register a PLC exception event handling
     function for the driver to call back when a communication SPI error occurs.
 
     The event handler should be set before using the PLC transceiver in order
@@ -1335,7 +1335,7 @@ void DRV_G3_MACRT_PhySnifferCallbackRegister(
     {
 
     }
-      
+
     MY_APP_OBJ myAppObj;
 
     DRV_G3_MACRT_ExceptionCallbackRegister( myAppObj.myHandle, APP_PLC_Exception_callback );
@@ -1343,15 +1343,15 @@ void DRV_G3_MACRT_PhySnifferCallbackRegister(
 
 */
 
-void DRV_G3_MACRT_ExceptionCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_ExceptionCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_EXCEPTION_CALLBACK callback
 );
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3_MACRT_ExternalInterruptHandler( 
-        const uintptr_t context 
+    void DRV_G3_MACRT_ExternalInterruptHandler(
+        const uintptr_t context
     );
 
   Summary:
@@ -1360,7 +1360,7 @@ void DRV_G3_MACRT_ExceptionCallbackRegister(
   Description:
     This function allows a client to register a callback function to handle
     G3 MAC RT interrupt.
-    
+
   Precondition:
     Function DRV_G3_MACRT_Initialize must have been called before calling this
     function.
@@ -1407,15 +1407,15 @@ void DRV_G3_MACRT_ExternalInterruptHandler( uintptr_t context );
 
     DRV_G3_MACRT_STATE_UNINITIALIZED: Indicates the driver is not
     initialized.
-  
+
     DRV_G3_MACRT_STATE_ERROR: Indicates the driver is not initialized
     correctly.
-  
+
     DRV_G3_MACRT_STATE_BUSY: Indicates the driver is initializing.
- 
+
     DRV_G3_MACRT_STATE_WAITING_TX_CFM: Indicates the driver is waiting a
     confirmation of the last transmission.
-  
+
   Example:
     <code>
     DRV_G3_MACRT_STATE state;
@@ -1431,7 +1431,7 @@ DRV_G3_MACRT_STATE DRV_G3_MACRT_Status( const SYS_MODULE_INDEX index );
 //***************************************************************************
 /* Function:
     void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object )
-    
+
   Summary:
     Maintains the driver's state machine.
 
@@ -1451,7 +1451,7 @@ DRV_G3_MACRT_STATE DRV_G3_MACRT_Status( const SYS_MODULE_INDEX index );
   Example:
     <code>
     SYS_MODULE_OBJ      object;
-    
+
     while (true)
     {
         DRV_G3_MACRT_Tasks (object);
@@ -1469,8 +1469,8 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object );
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3_MACRT_SleepIndCallbackRegister( 
-      const DRV_HANDLE handle, 
+    void DRV_G3_MACRT_SleepIndCallbackRegister(
+      const DRV_HANDLE handle,
       const DRV_G3_MACRT_SLEEP_IND_CALLBACK callback
     );
 
@@ -1489,7 +1489,7 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object );
     a "NULL" pointer to indicate no callback).
 
   Precondition:
-    DRV_G3_MACRT_Open must have been called to obtain a valid opened device 
+    DRV_G3_MACRT_Open must have been called to obtain a valid opened device
     handle.
 
   Parameters:
@@ -1508,7 +1508,7 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object );
     {
 
     }
-      
+
     MY_APP_OBJ myAppObj;
 
     DRV_G3_MACRT_SleepDisableCallbackRegister( myAppObj.myHandle, APP_PLC_SleepModeDisableCb );
@@ -1516,15 +1516,15 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object );
 
 */
 
-void DRV_G3_MACRT_SleepIndCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_SleepIndCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_SLEEP_IND_CALLBACK callback
 );
 
 //***************************************************************************
 /* Function:
     void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable )
-    
+
   Summary:
     Allows to manage the PLC Sleep mode.
 
@@ -1537,7 +1537,7 @@ void DRV_G3_MACRT_SleepIndCallbackRegister(
     mode it is not needed to load the PLC binary again.
 
   Precondition:
-    DRV_G3_MACRT_Open must have been called to obtain a valid opened device 
+    DRV_G3_MACRT_Open must have been called to obtain a valid opened device
     handle.
 
   Parameters:
@@ -1552,7 +1552,7 @@ void DRV_G3_MACRT_SleepIndCallbackRegister(
   Example:
     <code>
     DRV_HANDLE handle;
-    
+
     while (true)
     {
       if (sleep_condition)
@@ -1572,7 +1572,7 @@ void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable );
 //***************************************************************************
 /* Function:
     void DRV_G3_MACRT_EnableTX( const DRV_HANDLE handle, bool enable )
-    
+
   Summary:
     Enables/Disables PLC transmission.
 
@@ -1582,7 +1582,7 @@ void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable );
     through the TX confirmation callback.
 
   Precondition:
-    DRV_G3_MACRT_Open must have been called to obtain a valid opened device 
+    DRV_G3_MACRT_Open must have been called to obtain a valid opened device
     handle.
 
   Parameters:
@@ -1597,7 +1597,7 @@ void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable );
   Example:
     <code>
     DRV_HANDLE handle;
-    
+
     while (true)
     {
         ...
@@ -1621,15 +1621,15 @@ void DRV_G3_MACRT_EnableTX( const DRV_HANDLE handle, bool enable );
 /*
   Function:
     void DRV_G3_MACRT_SetCoordinator( const DRV_HANDLE handle )
-    
+
   Summary:
     Enables G3-PLC coordinator capabilities.
 
   Description:
     This function allows a client to enable G3-PLC coordinator capabilities.
-    
+
   Precondition:
-    DRV_G3_MACRT_Open must have been called to obtain a valid opened device 
+    DRV_G3_MACRT_Open must have been called to obtain a valid opened device
     handle.
 
   Parameters:
@@ -1642,9 +1642,9 @@ void DRV_G3_MACRT_EnableTX( const DRV_HANDLE handle, bool enable );
   Example:
     <code>
     DRV_HANDLE drvHandler;
-    
+
     DRV_G3_MACRT_SetCoordinator(drvHandler);
- 
+
     </code>
 
 */
@@ -1655,15 +1655,15 @@ void DRV_G3_MACRT_SetCoordinator(const DRV_HANDLE handle);
 /*
   Function:
     void DRV_G3_MACRT_EnablePhySniffer( const DRV_HANDLE handle )
-    
+
   Summary:
     Enables G3-PLC PHY Sniffer capabilities.
 
   Description:
     This function allows a client to enable G3-PLC PHY Sniffer capabilities.
-    
+
   Precondition:
-    DRV_G3_MACRT_Open must have been called to obtain a valid opened device 
+    DRV_G3_MACRT_Open must have been called to obtain a valid opened device
     handle.
 
   Parameters:
@@ -1676,8 +1676,8 @@ void DRV_G3_MACRT_SetCoordinator(const DRV_HANDLE handle);
   Example:
     <code>
     DRV_HANDLE drvHandler;
-    
-    DRV_G3_MACRT_EnablePhySniffer(drvHandler); 
+
+    DRV_G3_MACRT_EnablePhySniffer(drvHandler);
     </code>
 
 */

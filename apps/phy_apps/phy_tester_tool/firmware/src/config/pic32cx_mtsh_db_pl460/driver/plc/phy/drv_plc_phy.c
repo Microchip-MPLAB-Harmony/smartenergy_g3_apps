@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -70,7 +70,10 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize(
     const SYS_MODULE_INIT * const init
 )
 {
-    const DRV_PLC_PHY_INIT* const plcPhyInit = (DRV_PLC_PHY_INIT *)init;
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    const DRV_PLC_PHY_INIT * const plcPhyInit = (const DRV_PLC_PHY_INIT * const)init;
+    /* MISRA C-2012 deviation block end */
 
     /* Validate the request */
     if(index >= DRV_PLC_PHY_INSTANCES_NUMBER)
@@ -94,7 +97,7 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize(
     gDrvPlcPhyObj.binSize               = plcPhyInit->binEndAddress - plcPhyInit->binStartAddress;
     gDrvPlcPhyObj.binStartAddress       = plcPhyInit->binStartAddress;
     gDrvPlcPhyObj.secure                = plcPhyInit->secure;
-    
+
     /* Callbacks initialization */
     gDrvPlcPhyObj.txCfmCallback         = NULL;
     gDrvPlcPhyObj.dataIndCallback       = NULL;
@@ -126,7 +129,7 @@ DRV_HANDLE DRV_PLC_PHY_Open(
 )
 {
     DRV_PLC_BOOT_INFO bootInfo;
-    
+
     /* Validate the request */
     if (index >= DRV_PLC_PHY_INSTANCES_NUMBER)
     {
@@ -138,8 +141,8 @@ DRV_HANDLE DRV_PLC_PHY_Open(
     {
         return DRV_HANDLE_INVALID;
     }
-    
-    /* Launch boot start process */  
+
+    /* Launch boot start process */
     bootInfo.binSize = gDrvPlcPhyObj.binSize;
     bootInfo.binStartAddress = gDrvPlcPhyObj.binStartAddress;
     bootInfo.pendingLength = gDrvPlcPhyObj.binSize;
@@ -155,9 +158,9 @@ DRV_HANDLE DRV_PLC_PHY_Open(
         bootInfo.bootDataCallback = NULL;
         bootInfo.contextBoot = 0;
     }
-    
+
     DRV_PLC_BOOT_Start(&bootInfo, gDrvPlcPhyObj.plcHal);
-    
+
     gDrvPlcPhyObj.nClients++;
 
     return ((DRV_HANDLE)0);
@@ -173,10 +176,10 @@ void DRV_PLC_PHY_Close( const DRV_HANDLE handle )
     }
 }
 
-void DRV_PLC_PHY_TxCfmCallbackRegister( 
-    const DRV_HANDLE handle, 
-    const DRV_PLC_PHY_TX_CFM_CALLBACK callback, 
-    const uintptr_t context 
+void DRV_PLC_PHY_TxCfmCallbackRegister(
+    const DRV_HANDLE handle,
+    const DRV_PLC_PHY_TX_CFM_CALLBACK callback,
+    const uintptr_t context
 )
 {
     if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
@@ -186,10 +189,10 @@ void DRV_PLC_PHY_TxCfmCallbackRegister(
     }
 }
 
-void DRV_PLC_PHY_DataIndCallbackRegister( 
-    const DRV_HANDLE handle, 
-    const DRV_PLC_PHY_DATA_IND_CALLBACK callback, 
-    const uintptr_t context 
+void DRV_PLC_PHY_DataIndCallbackRegister(
+    const DRV_HANDLE handle,
+    const DRV_PLC_PHY_DATA_IND_CALLBACK callback,
+    const uintptr_t context
 )
 {
     if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
@@ -199,10 +202,10 @@ void DRV_PLC_PHY_DataIndCallbackRegister(
     }
 }
 
-void DRV_PLC_PHY_ExceptionCallbackRegister( 
-    const DRV_HANDLE handle, 
-    const DRV_PLC_PHY_EXCEPTION_CALLBACK callback, 
-    const uintptr_t context 
+void DRV_PLC_PHY_ExceptionCallbackRegister(
+    const DRV_HANDLE handle,
+    const DRV_PLC_PHY_EXCEPTION_CALLBACK callback,
+    const uintptr_t context
 )
 {
     if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
@@ -222,13 +225,13 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
     else if (gDrvPlcPhyObj.status == SYS_STATUS_BUSY)
     {
         DRV_PLC_BOOT_STATUS state;
-        
+
         /* Check bootloader process */
         state = DRV_PLC_BOOT_Status();
         if (state < DRV_PLC_BOOT_STATUS_READY)
         {
             DRV_PLC_BOOT_Tasks();
-        } 
+        }
         else if (state == DRV_PLC_BOOT_STATUS_READY)
         {
             DRV_PLC_PHY_Init(&gDrvPlcPhyObj);
@@ -240,20 +243,18 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
             gDrvPlcPhyObj.status = SYS_STATUS_ERROR;
             gDrvPlcPhyObj.state[0] = DRV_PLC_PHY_STATE_IDLE;
         }
-    } 
+    }
     else
     {
         /* SYS_STATUS_ERROR: Nothing to do */
     }
 }
 
-
 void DRV_PLC_PHY_EnableTX( const DRV_HANDLE handle, bool enable )
 {
-     if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
+    if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
     {
         /* Set Tx Enable pin */
         gDrvPlcPhyObj.plcHal->setTxEnable(enable);
     }
 }
-   

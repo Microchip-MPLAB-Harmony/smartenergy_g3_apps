@@ -12,33 +12,33 @@
 
   Description:
     This file contains the source code for the implementation of the
-    PLC PHY Coupling service. It helps to configure the PLC PHY Coupling 
+    PLC PHY Coupling service. It helps to configure the PLC PHY Coupling
     parameters through PLC Driver PIB interface.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -58,12 +58,12 @@
     Holds the Tx equalization coefficients tables.
 
   Description:
-    Pre-distorsion applies specific gain factor for each carrier, compensating 
-    the frequency response of the external analog filter, and equalizing the 
+    Pre-distorsion applies specific gain factor for each carrier, compensating
+    the frequency response of the external analog filter, and equalizing the
     the transmitted signal.
 
   Remarks:
-    Values are defined in srv_pcoup.h file. Different values for HIGH and VLOW 
+    Values are defined in srv_pcoup.h file. Different values for HIGH and VLOW
     modes
  */
 
@@ -77,7 +77,7 @@ static const uint16_t srvPlcCoupPredistCoefVLow[SRV_PCOUP_EQU_NUM_COEF] = SRV_PC
     PLC PHY Coupling data.
 
   Description:
-    This structure(s) contains all the data required to set the PLC PHY 
+    This structure(s) contains all the data required to set the PLC PHY
     Coupling parameters, for each transmission branch.
 
   Remarks:
@@ -97,104 +97,125 @@ static const SRV_PLC_PCOUP_DATA srvPlcCoup = {
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: File scope functions
+// Section: PLC PHY Coupling Service Interface Implementation
 // *****************************************************************************
 // *****************************************************************************
+
 SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch)
 {
-  if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
-  {
-    /* PLC PHY Coupling parameters for Main transmission branch */
-    return (SRV_PLC_PCOUP_DATA *)&srvPlcCoup;
-  }
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
-  /* Transmission branch not recognized */
-  return NULL;
+    if (branch == SRV_PLC_PCOUP_MAIN_BRANCH)
+    {
+        /* PLC PHY Coupling parameters for Main transmission branch */
+        return (SRV_PLC_PCOUP_DATA *)&srvPlcCoup;
+    }
+
+    /* MISRA C-2012 deviation block end */
+
+    /* Transmission branch not recognized */
+    return NULL;
 }
 
 bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch)
 {
-  SRV_PLC_PCOUP_DATA *pCoupValues;
-  MAC_RT_PIB_OBJ pibObj;
-  MAC_RT_STATUS result;
+    SRV_PLC_PCOUP_DATA *pCoupValues;
+    bool result, resultOut;
+    MAC_RT_PIB_OBJ pibObj;
 
-  /* Get PLC PHY Coupling parameters for the desired transmission branch */
-  pCoupValues = SRV_PCOUP_Get_Config(branch);
+    /* Get PLC PHY Coupling parameters for the desired transmission branch */
+    pCoupValues = SRV_PCOUP_Get_Config(branch);
 
-  if (pCoupValues == NULL)
-  {
-    /* Transmission branch not recognized */
-    return false;
-  }
+    if (pCoupValues == NULL)
+    {
+        /* Transmission branch not recognized */
+        return false;
+    }
 
-  /* Set PLC PHY Coupling parameters */
-  pibObj.pib = MAC_RT_PIB_MANUF_PHY_PARAM;
-  pibObj.index = PHY_PIB_PLC_IC_DRIVER_CFG;
-  pibObj.length = 1;
-  pibObj.pData[0] = pCoupValues->lineDrvConf;
-  result = DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    /* Set PLC PHY Coupling parameters */
+    pibObj.pib = MAC_RT_PIB_MANUF_PHY_PARAM;
+    pibObj.index = (uint16_t)PHY_PIB_PLC_IC_DRIVER_CFG;
+    pibObj.length = 1;
+    pibObj.pData[0] = pCoupValues->lineDrvConf;
+    result = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
 
-  pibObj.index = PHY_PIB_NUM_TX_LEVELS;
-  pibObj.pData[0] = pCoupValues->numTxLevels;
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_NUM_TX_LEVELS;
+    pibObj.pData[0] = pCoupValues->numTxLevels;
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_DACC_TABLE_CFG;
-  pibObj.length = sizeof(pCoupValues->daccTable);
-  memcpy(pibObj.pData, pCoupValues->daccTable, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);  
+    pibObj.index = (uint16_t)PHY_PIB_DACC_TABLE_CFG;
+    pibObj.length = (uint8_t)sizeof(pCoupValues->daccTable);
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->daccTable, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_MAX_RMS_TABLE_HI;
-  pibObj.length = sizeof(pCoupValues->rmsHigh);
-  memcpy(pibObj.pData, pCoupValues->rmsHigh, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_MAX_RMS_TABLE_HI;
+    pibObj.length = (uint8_t)sizeof(pCoupValues->rmsHigh);
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->rmsHigh, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_MAX_RMS_TABLE_VLO;
-  memcpy(pibObj.pData, pCoupValues->rmsVLow, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_MAX_RMS_TABLE_VLO;
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->rmsVLow, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_THRESHOLDS_TABLE_HI;
-  pibObj.length = sizeof(pCoupValues->thrsHigh);
-  memcpy(pibObj.pData, pCoupValues->thrsHigh, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_THRESHOLDS_TABLE_HI;
+    pibObj.length = (uint8_t)sizeof(pCoupValues->thrsHigh);
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->thrsHigh, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_THRESHOLDS_TABLE_VLO;
-  memcpy(pibObj.pData, pCoupValues->thrsVLow, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_THRESHOLDS_TABLE_VLO;
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->thrsVLow, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_GAIN_TABLE_HI;
-  pibObj.length = sizeof(pCoupValues->gainHigh);
-  memcpy(pibObj.pData, pCoupValues->gainHigh, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_GAIN_TABLE_HI;
+    pibObj.length = (uint8_t)sizeof(pCoupValues->gainHigh);
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->gainHigh, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_GAIN_TABLE_VLO;
-  memcpy(pibObj.pData, pCoupValues->gainVLow, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_GAIN_TABLE_VLO;
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->gainVLow, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  pibObj.index = PHY_PIB_PREDIST_COEF_TABLE_HI;
-  pibObj.length = pCoupValues->equSize;
-  memcpy(pibObj.pData, pCoupValues->equHigh, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.8 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
-  pibObj.index = PHY_PIB_PREDIST_COEF_TABLE_VLO;
-  memcpy(pibObj.pData, pCoupValues->equVlow, pibObj.length);
-  result |= DRV_G3_MACRT_PIBSet(handle, &pibObj);
+    pibObj.index = (uint16_t)PHY_PIB_PREDIST_COEF_TABLE_HI;
+    pibObj.length = pCoupValues->equSize;
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->equHigh, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
 
-  return (bool)(result == MAC_RT_STATUS_SUCCESS);
+    pibObj.index = (uint16_t)PHY_PIB_PREDIST_COEF_TABLE_VLO;
+    (void) memcpy(pibObj.pData, (uint8_t *)pCoupValues->equVlow, pibObj.length);
+    resultOut = (DRV_G3_MACRT_PIBSet(handle, &pibObj) == MAC_RT_STATUS_SUCCESS);
+    result = result && resultOut;
+
+    /* MISRA C-2012 deviation block end */
+
+    return result;
 }
 
 SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void )
 {
-  return SRV_PCOUP_DEFAULT_BRANCH;
+    return SRV_PCOUP_DEFAULT_BRANCH;
 }
 
 uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch)
 {
-  if (branch == SRV_PLC_PCOUP_MAIN_BRANCH) 
-  {
-    /* PHY band for Main transmission branch */
-    return G3_FCC;
-  }
+    if (branch == SRV_PLC_PCOUP_MAIN_BRANCH)
+    {
+        /* PHY band for Main transmission branch */
+       return (uint8_t)G3_FCC;
+   }
 
-  /* Transmission branch not recognized */
-  return G3_INVALID;
+    /* Transmission branch not recognized */
+    return (uint8_t)G3_INVALID;
 }

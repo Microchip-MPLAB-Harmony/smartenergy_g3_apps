@@ -17,30 +17,28 @@
   ***********************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*****************************************************************************
- Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
-Microchip Technology Inc. and its subsidiaries.
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
 
-Subject to your compliance with these terms, you may use Microchip software
-and any derivatives exclusively with Microchip products. It is your
-responsibility to comply with third party license terms applicable to your
-use of third party software (including open source software) that may
-accompany Microchip software.
-
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR
-PURPOSE.
-
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*****************************************************************************/
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 //DOM-IGNORE-END
 
@@ -76,13 +74,13 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 // *****************************************************************************
 
 // *****************************************************************************
-/* Ethernet Driver Module Index Count
+/* G3 ADP MAC Driver Module Index Count
 
   Summary:
-    Number of valid Ethernet driver indices.
+    Number of valid G3 ADP MAC driver index.
 
   Description:
-    This constant identifies number of valid Ethernet driver indices.
+    This constant identifies number of valid G3 ADP MAC driver indices.
 
   Remarks:
     This constant should be used in place of hard-coded numeric literals.
@@ -101,47 +99,60 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 
 // *****************************************************************************
 /* Function:
-    SYS_MODULE_OBJ      DRV_G3ADP_MAC_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE_INIT * const init);
+    SYS_MODULE_OBJ DRV_G3ADP_MAC_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE_INIT * const init);
 
   Summary:
-    Initializes the PIC32 Ethernet MAC.
-    <p><b>Implementation:</b> Dynamic</p>
+    Initializes the G3 ADP MAC.
 
   Description:
-    This function supports the initialization of the PIC32 Ethernet MAC.  Used by tcpip_module_manager.
+    This function supports the initialization of the G3 ADP MAC.  Used by tcpip_module_manager.
 
   Precondition:
     None
 
   Parameters:
-    - index - index of the ETH MAC driver to be initialized
-    - init  - Pointer to initialization data
+    - index     - Index of the G3 ADP MAC driver to be initialized
+    - init      - Pointer to TCPIP_MAC_INIT initialization data containing: moduleInit, macControl,moduleData.
+                  moduleInit and moduleData are not used in this implementation.
 
   Returns:
-    - a valid handle to a driver object, if successful.
-    - SYS_MODULE_OBJ_INVALID if initialization failed.
+    - If successful, returns a valid handle to a module instance object. Otherwise, returns _SYS_MODULE_OBJ_INVALID_.
 
   Example:
     <code>
+    TCPIP_MAC_INIT macInit =
+    {
+        { 0 }, // SYS_MODULE_INIT not currently used
+        &macCtrl,
+        macConfig,
+    };
+
+    pNetIf->macObjHandle = DRV_G3ADP_MAC_Initialize(pMacObj->macId, &macInit.moduleInit);
+
+    if( pNetIf->macObjHandle == SYS_MODULE_OBJ_INVALID)
+    {
+        pNetIf->macObjHandle = 0;
+        SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "%s MAC initialization failed\r\n", pMacObj->macName);
+        netUpFail = 1;
+        break;
+    }
     </code>
 
   Remarks:
-    This function initializes the Ethernet controller, the MAC and the associated PHY.
-    It should be called to be able to schedule any Ethernet transmit or receive operation.
+    This routine must be called before any other G3 ADP MAC routine is called.
 
 */
 SYS_MODULE_OBJ DRV_G3ADP_MAC_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE_INIT * const init);
 
 // *****************************************************************************
 /* Function:
-    void                DRV_G3ADP_MAC_Deinitialize(SYS_MODULE_OBJ object);
+    void DRV_G3ADP_MAC_Deinitialize(SYS_MODULE_OBJ object);
 
   Summary:
-    Deinitializes the PIC32 Ethernet MAC.
-    <p><b>Implementation:</b> Dynamic</p>
+    Deinitializes the G3 ADP MAC.
 
   Description:
-    This function supports teardown of the PIC32 Ethernet MAC (opposite of set up).  Used by tcpip_module_manager.
+    This function supports teardown of the G3 ADP MAC (opposite of set up).  Used by tcpip_module_manager.
 
   Precondition:
     DRV_G3ADP_MAC_Initialize must have been called to set up the driver.
@@ -154,54 +165,25 @@ SYS_MODULE_OBJ DRV_G3ADP_MAC_Initialize(const SYS_MODULE_INDEX index, const SYS_
 
   Example:
     <code>
+    if(pNetIf->macObjHandle != 0)
+    {
+        DRV_G3ADP_MAC_Deinitialize(pNetIf->macObjHandle);
+    }
     </code>
 
   Remarks:
-    This function deinitializes the Ethernet controller, the MAC and the associated PHY.
-    It should be called to be release any resources allocated by the initialization
-    and return the MAC and the PHY to the idle/power down state.
+    It should be called to release any resources allocated by the initialization
+    and disables callback functions with the G3 ADP layer.
 
 */
 void DRV_G3ADP_MAC_Deinitialize(SYS_MODULE_OBJ object);
 
 // *****************************************************************************
 /* Function:
-    void DRV_G3ADP_MAC_Reinitialize(SYS_MODULE_OBJ object, const SYS_MODULE_INIT * const init);
-
-  Summary:
-    Reinitializes the PIC32 Ethernet MAC.
-    <p><b>Implementation:</b> Dynamic</p>
-
-  Description:
-    This function supports re-initialization of the PIC32 Ethernet MAC (opposite of set up).
-
-  Precondition:
-    DRV_G3ADP_MAC_Initialize must have been called to set up the driver.
-
-  Parameters:
-    - object    - Driver object handle, returned from DRV_G3ADP_MAC_Initialize
-    - init      - Pointer to initialization data
-
-  Returns:
-     None.
-
-  Example:
-    <code>
-    </code>
-
-  Remarks:
-    This function is not supported yet.
-
-*/
-void DRV_G3ADP_MAC_Reinitialize(SYS_MODULE_OBJ object, const SYS_MODULE_INIT * const init);
-
-// *****************************************************************************
-/* Function:
     SYS_STATUS DRV_G3ADP_MAC_Status ( SYS_MODULE_OBJ object )
 
   Summary:
-    Provides the current status of the MAC driver module.
-    <p><b>Implementation:</b> Dynamic</p>
+    Provides the current status of the G3 ADP MAC driver.
 
   Description:
     This function provides the current status of the MAC driver
@@ -223,6 +205,16 @@ void DRV_G3ADP_MAC_Reinitialize(SYS_MODULE_OBJ object, const SYS_MODULE_INIT * c
 
   Example:
     <code>
+    SYS_STATUS macStat = DRV_G3ADP_MAC_Status(pNetIf->macObjHandle);
+    if(macStat < 0)
+    {   // failed; kill the interface
+        TCPIP_STACK_BringNetDown(&tcpip_stack_ctrl_data, pNetIf, TCPIP_STACK_ACTION_IF_DOWN, TCPIP_MAC_POWER_DOWN);
+        pNetIf->Flags.bMacInitDone = true;
+    }
+    else if(macStat == SYS_STATUS_READY)
+    {   // get the MAC address and MAC processing flags
+        ...
+    }
     </code>
 
   Remarks:
@@ -235,8 +227,7 @@ SYS_STATUS DRV_G3ADP_MAC_Status ( SYS_MODULE_OBJ object );
     void DRV_G3ADP_MAC_Tasks( SYS_MODULE_OBJ object )
 
   Summary:
-    Maintains the EThernet MAC driver's state machine.
-    <p><b>Implementation:</b> Dynamic</p>
+    Maintains the G3 ADP MAC driver's state machine.
 
   Description:
     This function is used to maintain the driver's internal state machine
@@ -253,6 +244,11 @@ SYS_STATUS DRV_G3ADP_MAC_Status ( SYS_MODULE_OBJ object );
 
   Example:
     <code>
+    if(pNetIf->macObjHandle != 0)
+    {
+        // process the underlying MAC module tasks
+        DRV_G3ADP_MAC_Tasks(pNetIf->macObjHandle);
+    }
     </code>
 
   Remarks:
@@ -266,11 +262,10 @@ void DRV_G3ADP_MAC_Tasks( SYS_MODULE_OBJ object );
     DRV_HANDLE DRV_G3ADP_MAC_Open(const SYS_MODULE_INDEX drvIndex, const DRV_IO_INTENT intent);
 
   Summary:
-    Opens a client instance of the PIC32 MAC Driver.
-    <p><b>Implementation:</b> Dynamic</p>
+    Opens a client instance of the G3 ADP MAC Driver. This driver is single instance.
 
   Description:
-    This function opens a client instance of the PIC32 MAC Driver.
+    This function opens a client instance of the G3 ADP MAC Driver.
     Used by tcpip_module_manager.
 
   Precondition:
@@ -288,6 +283,15 @@ void DRV_G3ADP_MAC_Tasks( SYS_MODULE_OBJ object );
 
   Example:
     <code>
+    pNetIf->hIfMac = DRV_G3ADP_MAC_Open(pMacObj->macId, DRV_IO_INTENT_READWRITE);
+    if(pNetIf->hIfMac == DRV_HANDLE_INVALID)
+    {
+        pNetIf->hIfMac = 0;
+        pNetIf->macObjHandle = 0;
+        SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "%s MAC Open failed\r\n", pMacObj->macName);
+        netUpFail = 1;
+        break;
+    }
     </code>
 
   Remarks:
@@ -302,11 +306,10 @@ DRV_HANDLE DRV_G3ADP_MAC_Open(const SYS_MODULE_INDEX index, const DRV_IO_INTENT 
     void DRV_G3ADP_MAC_Close( DRV_HANDLE hMac )
 
   Summary:
-    Closes a client instance of the PIC32 MAC Driver.
-    <p><b>Implementation:</b> Dynamic</p>
+    Closes a client instance of the G3 ADP MAC Driver.
 
   Description:
-    This function closes a client instance of the PIC32 MAC Driver.
+    This function closes a client instance of the G3 ADP MAC Driver.
 
   Precondition:
     DRV_G3ADP_MAC_Open() should have been called.
@@ -319,6 +322,11 @@ DRV_HANDLE DRV_G3ADP_MAC_Open(const SYS_MODULE_INDEX index, const DRV_IO_INTENT 
 
   Example:
     <code>
+    if(pNetIf->hIfMac != 0)
+    {
+        DRV_G3ADP_MAC_Close(pNetIf->hIfMac);
+    }
+
     </code>
   Remarks:
     None
@@ -331,7 +339,6 @@ void DRV_G3ADP_MAC_Close( DRV_HANDLE hMac );
 
   Summary:
     Checks current link status.
-    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function checks the link status of the associated network interface.
@@ -341,7 +348,7 @@ void DRV_G3ADP_MAC_Close( DRV_HANDLE hMac );
     DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    hMac - Ethernet MAC client handle
+    hMac - MAC client handle
 
   Returns:
     - true  - If the link is up
@@ -349,12 +356,20 @@ void DRV_G3ADP_MAC_Close( DRV_HANDLE hMac );
 
   Example:
 <code>
+    bool linkCurr;
+    bool linkStatusChanged = false;
+
+    linkCurr = DRV_G3ADP_MAC_LinkCheck(pNetIf->hIfMac);
+    if(linkPrev != linkCurr)
+    {
+        linkStatusChanged = true;
+        linkPrev = linkCurr;
+
+    }
 </code>
 
   Remarks:
-    The function will automatically perform a MAC reconfiguration if
-    the link went up after being down and the PHY auto negotiation
-    is enabled.
+    None.
 
 */
 bool DRV_G3ADP_MAC_LinkCheck( DRV_HANDLE hMac );
@@ -364,31 +379,24 @@ bool DRV_G3ADP_MAC_LinkCheck( DRV_HANDLE hMac );
     bool DRV_G3ADP_MAC_PowerMode( DRV_HANDLE hMac, TCPIP_MAC_POWER_MODE pwrMode )
 
   Summary:
-    Selects the current power mode for the Ethernet MAC.
-    <p><b>Implementation:</b> Dynamic</p>
+    Selects the current power mode for the MAC.
 
   Description:
-    This function sets the power mode for the Ethernet MAC.
+    This function has not been implemented.
 
   Precondition:
     DRV_G3ADP_MAC_Initialize must have been called to set up the driver.
     DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    - hMac      - Ethernet MAC client handle
+    - hMac      - Handle identifying the MAC driver client
     - pwrMode   - required power mode
 
   Returns:
-    - true if the call succeeded.
-    - false if the call failed
-
-  Example:
-<code>
-</code>
+    Current implementation always returns true.
 
   Remarks:
-    This function is not currently supported by the Ethernet MAC and
-    will always return true.
+    None.
 */
 bool DRV_G3ADP_MAC_PowerMode( DRV_HANDLE hMac, TCPIP_MAC_POWER_MODE pwrMode );
 
@@ -397,52 +405,27 @@ bool DRV_G3ADP_MAC_PowerMode( DRV_HANDLE hMac, TCPIP_MAC_POWER_MODE pwrMode );
     TCPIP_MAC_RES DRV_G3ADP_MAC_RxFilterHashTableEntrySet(DRV_HANDLE hMac, const TCPIP_MAC_ADDR* DestMACAddr)
 
   Summary:
-    Sets the current MAC hash table receive filter.
-    <p><b>Implementation:</b> Dynamic</p>
+    Sets the current MAC hash table receive filter. Not implemented.
 
   Description:
-    This function sets the MAC hash table filtering to allow
-    packets sent to DestMACAddr to be received.
-    It calculates a CRC-32 using polynomial 0x4C11DB7 over the 6 byte MAC address
-    and then, using bits 28:23 of the CRC, will set the appropriate bits in
-    the hash table filter registers ( ETHHT0-ETHHT1).
-
-    The function will enable/disable the Hash Table receive filter if needed.
+    This function has not been implemented.
 
   Precondition:
     DRV_G3ADP_MAC_Initialize() should have been called.
     DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    - hMac        -  Ethernet MAC client handle
+    - hMac        - Handle identifying the MAC driver client
     - DestMACAddr - destination MAC address (6 bytes) to allow
                     through the Hash Table Filter.
                     If DestMACAddr is set to 00-00-00-00-00-00,
                     then the hash table will be cleared of all entries
                     and the filter will be disabled.
   Return:
-    - TCPIP_MAC_RES_OK if success
-    - a TCPIP_MAC_RES error value if failed
-
-  Example:
-    <code>
-
-    </code>
+    - Current implementation always returns TCPIP_MAC_RES_OK.
 
   Remarks:
-    - Sets the appropriate bit in the ETHHT0/1 registers to allow packets
-      sent to DestMACAddr to be received and enabled the Hash Table receive
-      filter.
-    - There is no way to individually remove destination MAC
-      addresses from the hash table since it is possible to have
-      a hash collision and therefore multiple MAC addresses
-      relying on the same hash table bit.
-    - A workaround is to have the stack store each enabled MAC address
-      and to perform the comparison at run time.
-    - A call to DRV_G3ADP_MAC_RxFilterHashTableEntrySet() using a
-      00-00-00-00-00-00 destination MAC address, which will clear
-      the entire hash table and disable the hash table filter.
-      This will allow the receive of all packets, regardless of their destination
+    None.
 
 */
 TCPIP_MAC_RES DRV_G3ADP_MAC_RxFilterHashTableEntrySet(DRV_HANDLE hMac, const TCPIP_MAC_ADDR* DestMACAddr);
@@ -453,19 +436,18 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_RxFilterHashTableEntrySet(DRV_HANDLE hMac, const TCP
 
   Summary:
     MAC driver transmit function.
-    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This is the MAC transmit function.
-    Using this function a packet is submitted to the MAC driver for transmission.
+    Using this function a packet is submitted to the G3 ADP stack for transmission.
 
   Precondition:
     DRV_G3ADP_MAC_Initialize() should have been called.
     DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    - hMac      - Ethernet MAC client handle
-    - ptrPacket - pointer to a TCPIP_MAC_PACKET that's completely formatted
+    - hMac      - Handle identifying the MAC driver client
+    - ptrPacket - Pointer to a TCPIP_MAC_PACKET that's completely formatted
                   and ready to be transmitted over the network
 
   Return:
@@ -474,15 +456,23 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_RxFilterHashTableEntrySet(DRV_HANDLE hMac, const TCP
 
   Example:
     <code>
+    TCPIP_MAC_RES res;
+    TCPIP_MAC_PACKET * ptrPacket;
+
+    // The content of the packet must be built accordingly to TCPIP_MAC_PACKET
+    if(pNetIf->hIfMac != 0)
+    {
+        res = DRV_G3ADP_MAC_PacketTx(pNetIf->hIfMac, ptrPacket);
+    }
 
     </code>
 
   Remarks:
-    - The MAC driver supports internal queuing.
+    - The G3 ADP MAC driver supports internal queuing.
       A packet is rejected only if it's not properly formatted.
       Otherwise it will be scheduled for transmission and queued internally if needed.
 
-    - Once the packet is scheduled for transmission the MAC driver will set
+    - Once the packet is scheduled for transmission the G3 ADP MAC driver will set
       the TCPIP_MAC_PKT_FLAG_QUEUED flag so that the stack is aware that this
       packet is under processing and cannot be modified.
 
@@ -498,8 +488,7 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_PacketTx(DRV_HANDLE hMac, TCPIP_MAC_PACKET * ptrPack
     TCPIP_MAC_PACKET* DRV_G3ADP_MAC_PacketRx (DRV_HANDLE hMac, TCPIP_MAC_RES* pRes, TCPIP_MAC_PACKET_RX_STAT* pPktStat);
 
   Summary:
-    This is the MAC receive function.
-    <p><b>Implementation:</b> Dynamic</p>
+    This is the G3 ADP MAC receive function.
 
   Description:
     This function will return a packet if such a pending packet exists.
@@ -512,7 +501,7 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_PacketTx(DRV_HANDLE hMac, TCPIP_MAC_PACKET * ptrPack
     DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    - hMac        - Ethernet MAC client handle
+    - hMac        - Handle identifying the MAC driver client
     - pRes        - optional pointer to an address that will receive an additional
                     result associated with the operation.
                     Can be 0 if not needed.
@@ -526,25 +515,24 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_PacketTx(DRV_HANDLE hMac, TCPIP_MAC_PACKET * ptrPack
 
   Example:
 <code>
+    TCPIP_MAC_PACKET* pRxPkt;
+
+    // get all the new MAC packets
+    while((pRxPkt = DRV_G3ADP_MAC_PacketRx(pNetIf->hIfMac, 0, 0)) != 0)
+    {
+        // process or queue RX packet
+    }
 </code>
 
   Remarks:
     - Once a pending packet is available in the MAC driver internal RX queues
       this function will dequeue the packet and hand it over to the
-      MAC driver's client - i.e., the stack - for further processing.
+      G3 ADP MAC driver's client - i.e., the TCPIP stack - for further processing.
 
-    - The flags for a RX packet are updated by the MAC driver:
-        - TCPIP_MAC_PKT_FLAG_RX will be set
-        - TCPIP_MAC_PKT_FLAG_UNICAST is set if that packet is a unicast packet
-        - TCPIP_MAC_PKT_FLAG_BCAST is set if that packet is a broadcast packet
-        - TCPIP_MAC_PKT_FLAG_MCAST is set if that packet is a multicast packet
-        - TCPIP_MAC_PKT_FLAG_QUEUED is set
-        - TCPIP_MAC_PKT_FLAG_SPLIT is set if the packet has multiple data segments
-
-    - The MAC driver dequeues and return to the caller just one single packet.
+    - The G3 ADP MAC driver dequeues and return to the caller just one single packet.
       That is the packets are not chained.
 
-    - The packet buffers are allocated by the Ethernet MAC driver itself,
+    - The packet buffers are allocated by the G3 ADP MAC driver itself,
       Once the higher level layers in the stack are done with processing the RX packet,
       they have to call the corresponding packet acknowledgment function
       that tells the MAC driver that it can resume control of that packet.
@@ -552,7 +540,7 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_PacketTx(DRV_HANDLE hMac, TCPIP_MAC_PACKET * ptrPack
     - Once the stack modules are done processing the RX packets and the acknowledge function is called
       the MAC driver will reuse the RX packets.
 
-    - The MAC driver may use the DRV_G3ADP_MAC_Process() for obtaining new RX packets if needed.
+    - The G3 ADP MAC driver may use the DRV_G3ADP_MAC_Process() for obtaining new RX packets if needed.
 
 */
 TCPIP_MAC_PACKET* DRV_G3ADP_MAC_PacketRx (DRV_HANDLE hMac, TCPIP_MAC_RES* pRes, TCPIP_MAC_PACKET_RX_STAT* pPktStat);
@@ -563,7 +551,6 @@ TCPIP_MAC_PACKET* DRV_G3ADP_MAC_PacketRx (DRV_HANDLE hMac, TCPIP_MAC_RES* pRes, 
 
   Summary:
     MAC periodic processing function.
-    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This is a function that allows for internal processing by the MAC
@@ -578,7 +565,7 @@ TCPIP_MAC_PACKET* DRV_G3ADP_MAC_PacketRx (DRV_HANDLE hMac, TCPIP_MAC_RES* pRes, 
     DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    hMac -  Ethernet MAC client handle
+    hMac -  MAC client handle
 
   Return:
     - TCPIP_MAC_RES_OK if all processing went on OK
@@ -586,33 +573,28 @@ TCPIP_MAC_PACKET* DRV_G3ADP_MAC_PacketRx (DRV_HANDLE hMac, TCPIP_MAC_RES* pRes, 
 
   Example:
     <code>
-
+    if(pNetIf->Flags.bMacProcessOnEvent != 0)
+    {   // MAC internal processing
+        DRV_G3ADP_MAC_Process(pNetIf->hIfMac);
+    }
     </code>
 
   Remarks:
-    - The MAC driver may use the DRV_G3ADP_MAC_Process() for:
-      * Processing its pending TX queues
-      * RX buffers replenishing functionality.
-        If the number of packets in the RX queue falls below a
-        specified limit, the MAC driver may use this function to
-        allocate some extra RX packets.
-        Similarly, if there are too many allocated RX packets,
-        the MAC driver can free some of them.
+    - Upper layers may use the DRV_G3ADP_MAC_Process() for processing its pending TX queues
 
 */
 TCPIP_MAC_RES DRV_G3ADP_MAC_Process(DRV_HANDLE hMac);
 
 // *****************************************************************************
 /* Function:
-    TCPIP_MAC_RES       DRV_G3ADP_MAC_StatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_RX_STATISTICS* pRxStatistics, TCPIP_MAC_TX_STATISTICS* pTxStatistics);
+    TCPIP_MAC_RES DRV_G3ADP_MAC_StatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_RX_STATISTICS* pRxStatistics, TCPIP_MAC_TX_STATISTICS* pTxStatistics);
 
   Summary:
-    Gets the current MAC statistics.
-    <p><b>Implementation:</b> Dynamic</p>
+    Gets the current G3 ADP MAC statistics.
 
   Description:
     This function will get the current value of the statistic counters
-    maintained by the MAC driver.
+    maintained by the G3 ADP MAC driver.
 
 
   Precondition:
@@ -620,7 +602,7 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_Process(DRV_HANDLE hMac);
    DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    - hMac          - handle identifying the MAC driver client
+    - hMac          - Handle identifying the MAC driver client
 
     - pRxStatistics - pointer to a TCPIP_MAC_RX_STATISTICS that will receive the current
                       RX statistics counters
@@ -636,50 +618,73 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_Process(DRV_HANDLE hMac);
 
   Example:
     <code>
+    TCPIP_MAC_RX_STATISTICS rxStatistics;
+    TCPIP_MAC_TX_STATISTICS txStatistics;
+
+    TCPIP_MAC_RES res = DRV_G3ADP_MAC_StatisticsGet(pNetIf->hIfMac, &rxStatistics, &txStatistics);
     </code>
 
   Remarks:
     - The reported values are info only and change dynamically.
 
 */
-TCPIP_MAC_RES       DRV_G3ADP_MAC_StatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_RX_STATISTICS* pRxStatistics, TCPIP_MAC_TX_STATISTICS* pTxStatistics);
+TCPIP_MAC_RES DRV_G3ADP_MAC_StatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_RX_STATISTICS* pRxStatistics, TCPIP_MAC_TX_STATISTICS* pTxStatistics);
 
 // *****************************************************************************
 /* MAC Parameter Get function
-    TCPIP_MAC_RES     DRV_G3ADP_MAC_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMETERS* pMacParams);
+    TCPIP_MAC_RES DRV_G3ADP_MAC_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMETERS* pMacParams);
 
   Summary:
-    MAC parameter get function.
-    <p><b>Implementation:</b> Dynamic</p>
+    G3 ADP MAC parameter get function.
 
   Description:
-    This is a function that returns the run time parameters of the MAC driver.
+    This function returns the run time parameters of the G3 ADP MAC driver.
 
   Precondition:
    DRV_G3ADP_MAC_Initialize() should have been called.
    DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    - hMac        - handle identifying the MAC driver client
-    - pMacParams  - address to store the MAC parameters
+    - hMac        - Handle identifying the G3 ADPMAC driver client
+    - pMacParams  - Address to store the MAC parameters
 
   Returns:
     - TCPIP_MAC_RES_OK if pMacParams updated properly
     - a TCPIP_MAC_RES error code if processing failed for some reason
 
+  Example:
+    <code>
+    SYS_STATUS macStat = DRV_G3ADP_MAC_Status(pNetIf->macObjHandle);
+    if(macStat == SYS_STATUS_READY)
+    {   // get the MAC address and MAC processing flags
+        // set the default MTU; MAC driver will override if needed
+        TCPIP_MAC_PARAMETERS macParams = {{{0}}};
+
+        macParams.linkMtu = TCPIP_MAC_LINK_MTU_DEFAULT;
+        DRV_G3ADP_MAC_ParametersGet(pNetIf->hIfMac, &macParams);
+        memcpy(pNetIf->netMACAddr.v, macParams.ifPhyAddress.v, sizeof(pNetIf->netMACAddr));
+        pNetIf->Flags.bMacProcessOnEvent = macParams.processFlags != TCPIP_MAC_PROCESS_FLAG_NONE;
+        pNetIf->linkMtu = macParams.linkMtu;
+
+        // enable the interface
+        pNetIf->Flags.bInterfaceEnabled = true;
+        pNetIf->Flags.bMacInitialize = false;
+        pNetIf->Flags.bMacInitDone = true;
+    }
+    </code>
+
   Remarks:
     None.
 
 */
-TCPIP_MAC_RES     DRV_G3ADP_MAC_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMETERS* pMacParams);
+TCPIP_MAC_RES DRV_G3ADP_MAC_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMETERS* pMacParams);
 
 // *****************************************************************************
 /* Function:
-    TCPIP_MAC_RES       DRV_G3ADP_MAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, int nEntries, int* pHwEntries);
+    TCPIP_MAC_RES DRV_G3ADP_MAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, int nEntries, int* pHwEntries);
 
   Summary:
     Gets the current MAC hardware statistics registers.
-    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function will get the current value of the statistic registers
@@ -691,7 +696,7 @@ TCPIP_MAC_RES     DRV_G3ADP_MAC_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMET
    DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    - hMac          - handle identifying the MAC driver client
+    - hMac          - Handle identifying the MAC driver client
 
     - pRegEntries   - pointer to an array of TCPIP_MAC_STATISTICS_REG_ENTRY that will receive the current
                       hardware statistics registers
@@ -714,26 +719,24 @@ TCPIP_MAC_RES     DRV_G3ADP_MAC_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMET
     - The reported values are info only and change dynamically.
 
 */
-TCPIP_MAC_RES       DRV_G3ADP_MAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, int nEntries, int* pHwEntries);
+TCPIP_MAC_RES DRV_G3ADP_MAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, int nEntries, int* pHwEntries);
 
 // *****************************************************************************
 /* Function:
-    size_t      DRV_G3ADP_MAC_ConfigGet(DRV_HANDLE hMac, void* configBuff, size_t buffSize, size_t* pConfigSize);
+    size_t DRV_G3ADP_MAC_ConfigGet(DRV_HANDLE hMac, void* configBuff, size_t buffSize, size_t* pConfigSize);
 
   Summary:
-    Gets the current MAC driver configuration.
-    <p><b>Implementation:</b> Dynamic</p>
+    G3 ADP MAC driver does not required any additional configuration.
 
   Description:
-    This function will get the current MAC driver configuration and store it into
-    a supplied buffer.
+    This function is not necessary, it only satisfies the compatibility with tcpip manager's API.
 
   Precondition:
    DRV_G3ADP_MAC_Initialize() should have been called.
    DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    - hMac          - handle identifying the MAC driver client
+    - hMac          - Handle identifying the MAC driver client
 
     - configBuff    - pointer to a buffer to store the configuration
                       Can be NULL if not needed
@@ -744,29 +747,24 @@ TCPIP_MAC_RES       DRV_G3ADP_MAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_M
                       Can be NULL if not needed
 
   Returns:
-    - number of bytes copied into the supplied storage buffer
-
-  Example:
-    <code>
-    </code>
+    - Number of bytes copied into the supplied storage buffer. This implementation returns 0 bytes.
 
   Remarks:
     - None
 
 */
-size_t      DRV_G3ADP_MAC_ConfigGet(DRV_HANDLE hMac, void* configBuff, size_t buffSize, size_t* pConfigSize);
+size_t DRV_G3ADP_MAC_ConfigGet(DRV_HANDLE hMac, void* configBuff, size_t buffSize, size_t* pConfigSize);
 
 // *****************************************************************************
 /* Function:
     bool DRV_G3ADP_MAC_EventMaskSet(DRV_HANDLE hMac, TCPIP_MAC_EVENT macEvMask, bool enable);
 
   Summary:
-    Enables/disables the MAC events.
-    <p><b>Implementation:</b> Dynamic</p>
+    Enables/disables the G3 ADP MAC events.
 
   Description:
     This is a function that enables or disables the events to be reported
-    to the Ethernet MAC client (TCP/IP stack).
+    to the MAC client (TCP/IP stack).
 
      All events that are to be enabled will be added to the notification process.
      All events that are to be disabled will be removed from the notification process.
@@ -784,7 +782,7 @@ size_t      DRV_G3ADP_MAC_ConfigGet(DRV_HANDLE hMac, void* configBuff, size_t bu
     DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    - hMac      - Ethernet MAC client handle
+    - hMac      - Handle identifying the MAC driver client
     - macEvMask - events the user of the stack wants to add/delete for
                   notification
     - enable    - if true, the events will be enabled, else disabled
@@ -801,24 +799,15 @@ size_t      DRV_G3ADP_MAC_ConfigGet(DRV_HANDLE hMac, void* configBuff, size_t bu
     - The event notification system enables the user of the TCP/IP stack to
       call into the stack for processing only when there are relevant events
       rather than being forced to periodically call from within a loop.
-
-    - If the notification events are nil, the interrupt processing will be
-      disabled. Otherwise, the event notification will be enabled and the
-      interrupts relating to the requested events will be enabled.
-
-    - Note that once an event has been caught by the stack ISR (and reported
-      if a notification handler is in place) it will be disabled until the
-      DRV_G3ADP_MAC_EventAcknowledge() is called.
 */
 bool DRV_G3ADP_MAC_EventMaskSet(DRV_HANDLE hMac, TCPIP_MAC_EVENT macEvMask, bool enable);
 
 // *****************************************************************************
 /* Function:
-    bool    DRV_G3ADP_MAC_EventAcknowledge(DRV_HANDLE hMac, TCPIP_MAC_EVENT tcpAckEv);
+    bool DRV_G3ADP_MAC_EventAcknowledge(DRV_HANDLE hMac, TCPIP_MAC_EVENT tcpAckEv);
 
   Summary:
     Acknowledges and re-enables processed events.
-    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function acknowledges and re-enables processed events. Multiple
@@ -833,7 +822,7 @@ bool DRV_G3ADP_MAC_EventMaskSet(DRV_HANDLE hMac, TCPIP_MAC_EVENT macEvMask, bool
     DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    - hMac      - Ethernet MAC client handle
+    - hMac      - Handle identifying the MAC driver client
     - tcpAckEv  - the events that the user processed and need to be re-enabled
 
   Return:
@@ -842,7 +831,14 @@ bool DRV_G3ADP_MAC_EventMaskSet(DRV_HANDLE hMac, TCPIP_MAC_EVENT macEvMask, bool
 
   Example:
     <code>
-        DRV_G3ADP_MAC_EventAcknowledge( hMac, stackNewEvents );
+    TCPIP_MAC_EVENT activeEvents;
+
+    // Get Pending events
+    activeEvents = DRV_G3ADP_MAC_EventPendingGet(pNetIf->hIfMac);
+    // Process events
+    (...)
+    // Acknowledge events
+    DRV_G3ADP_MAC_EventAcknowledge( hMac, activeEvents );
     </code>
 
   Remarks:
@@ -856,16 +852,12 @@ bool DRV_G3ADP_MAC_EventMaskSet(DRV_HANDLE hMac, TCPIP_MAC_EVENT macEvMask, bool
       only as simple info (TCPIP_MAC_EV_RX_OVFLOW, TCPIP_MAC_EV_RX_BUFNA,
       TCPIP_MAC_EV_TX_ABORT, TCPIP_MAC_EV_RX_ACT).
 
-    - The TCPIP_MAC_EV_RX_FWMARK and TCPIP_MAC_EV_RX_EWMARK events are part
-      of the normal flow control operation (if auto flow control was
-      enabled). They should be enabled alternatively, if needed.
-
     - The events are persistent. They shouldn't be re-enabled unless they
       have been processed and the condition that generated them was removed.
       Re-enabling them immediately without proper processing will have
       dramatic effects on system performance.
 */
-bool    DRV_G3ADP_MAC_EventAcknowledge(DRV_HANDLE hMac, TCPIP_MAC_EVENT tcpAckEv);
+bool DRV_G3ADP_MAC_EventAcknowledge(DRV_HANDLE hMac, TCPIP_MAC_EVENT tcpAckEv);
 
 // *****************************************************************************
 /* Function:
@@ -873,10 +865,9 @@ bool    DRV_G3ADP_MAC_EventAcknowledge(DRV_HANDLE hMac, TCPIP_MAC_EVENT tcpAckEv
 
   Summary:
     Returns the currently pending events.
-    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
-    This function returns the currently pending Ethernet MAC events.
+    This function returns the currently pending G3 ADP MAC events.
     Multiple events will be ORed together as they accumulate.
     The stack should perform processing whenever a transmission related
     event (TCPIP_MAC_EV_RX_PKTPEND, TCPIP_MAC_EV_TX_DONE) is present.
@@ -889,7 +880,7 @@ bool    DRV_G3ADP_MAC_EventAcknowledge(DRV_HANDLE hMac, TCPIP_MAC_EVENT tcpAckEv
     DRV_G3ADP_MAC_Open() should have been called to obtain a valid handle.
 
   Parameters:
-    - hMac -  parameter identifying the intended MAC client
+    - hMac -  Handle identifying the MAC driver client
 
   Return:
     The currently stack pending events.
@@ -900,8 +891,8 @@ bool    DRV_G3ADP_MAC_EventAcknowledge(DRV_HANDLE hMac, TCPIP_MAC_EVENT tcpAckEv
     </code>
 
   Remarks:
-    - This is the preferred method to get the current pending MAC events. The
-      stack maintains a proper image of the events from their occurrence to
+    - This is the preferred method to get the current pending G3 ADP MAC events.
+      The stack maintains a proper image of the events from their occurrence to
       their acknowledgment.
 
     - Even with a notification handler in place it's better to use this

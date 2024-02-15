@@ -112,11 +112,13 @@ extern "C" {
 #define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  70U
 #define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 660U
 
+
 /* USI Service Common Configuration Options */
 #define SRV_USI_INSTANCES_NUMBER              1U
 #define SRV_USI_USART_CONNECTIONS             0U
 #define SRV_USI_CDC_CONNECTIONS               1U
 #define SRV_USI_MSG_POOL_SIZE                 5U
+
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_D
@@ -143,6 +145,7 @@ extern "C" {
 #define DRV_PLC_PHY_HOST_DESC                 "ATSAME70Q21B"
 #define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
+
 /* USI Service Instance 0 Configuration Options */
 #define SRV_USI_INDEX_0                       0
 #define SRV_USI0_RD_BUF_SIZE                  1024
@@ -156,42 +159,42 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 /* Number of Endpoints used */
-#define DRV_USBHSV1_ENDPOINTS_NUMBER                        4
+#define DRV_USBHSV1_ENDPOINTS_NUMBER                        4U
 
 /* The USB Device Layer will not initialize the USB Driver */
 #define USB_DEVICE_DRIVER_INITIALIZE_EXPLICIT
 
 /* Maximum device layer instances */
-#define USB_DEVICE_INSTANCES_NUMBER                         1
+#define USB_DEVICE_INSTANCES_NUMBER                         1U
 
 /* EP0 size in bytes */
-#define USB_DEVICE_EP0_BUFFER_SIZE                          64
+#define USB_DEVICE_EP0_BUFFER_SIZE                          64U
 
 
 /* Maximum instances of CDC function driver */
-#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1
+#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1U
 
 
 /* CDC Transfer Queue Size for both read and
    write. Applicable to all instances of the
    function driver */
-#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3
+#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3U
 
 /*** USB Driver Configuration ***/
 
 /* Maximum USB driver instances */
-#define DRV_USBHSV1_INSTANCES_NUMBER                        1
+#define DRV_USBHSV1_INSTANCES_NUMBER                        1U
 
 /* Interrupt mode enabled */
 #define DRV_USBHSV1_INTERRUPT_MODE                          true
 
 /* Enables Device Support */
 #define DRV_USBHSV1_DEVICE_SUPPORT                          true
-
+    
 /* Disable Host Support */
 #define DRV_USBHSV1_HOST_SUPPORT                            false
 
-/* Alignment for buffers that are submitted to USB Driver*/
+/* Alignment for buffers that are submitted to USB Driver*/ 
 #define USB_ALIGN  CACHE_ALIGN
 
 

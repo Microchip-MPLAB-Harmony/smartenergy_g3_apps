@@ -14,7 +14,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -730,6 +730,82 @@ PAL_Status_t PAL_GetTrxAntennaGain(int8_t *antGain);
     Transmit Power Max value as per Regulatory region
 */
 int8_t PAL_GetTrxTransmitPowerMax(void);
+
+/*
+  Function:
+    bool PAL_GetDeviceType(void)
+
+  Summary:
+    Gets device type
+
+  Description:
+    This function gets device type
+  
+  Precondition:
+    None
+
+  Parameters:
+    None
+
+  Returns:
+    None
+ 
+  Example:
+    <code>  
+    bool isHpaEnabled = false;
+    isHpaEnabled = PAL_GetDeviceType();
+    return isHpaEnabled;
+    </code>
+
+  Remarks:
+    None
+*/
+
+bool PAL_GetDeviceType(void);
+
+/*
+  Function:
+    void PAL_HpaSetCps(bool bypass)
+
+  Summary:
+    Sets CPS pin bit for WBZ451 HPA device
+
+  Description:
+    This function sets CPS bit as per WBZ451 HPA device tx power table
+  
+  Precondition:
+    None
+
+  Parameters:
+    bypass - Boolean value if true - set CPS bit, false- clear CPS bit.
+
+  Returns:
+    None
+ 
+  Example:
+    <code>  
+    bool isHpaEnabled = false;
+    isHpaEnabled = PAL_GetDeviceType();
+    int8_t txPowerDbm = -5;
+    if(isHpaEnabled){
+        if(txPowerDbm < -3)
+        {
+          PAL_HpaSetCps(true);
+        }
+        else
+        {
+          PAL_HpaSetCps(false);
+        }
+    }
+    else{
+      PAL_HpaSetCps(false);
+    } 
+    </code>
+  Remarks:
+    None
+*/
+
+void PAL_HpaSetCps(bool bypass);
 
 /* ! @} */
 #ifdef __cplusplus

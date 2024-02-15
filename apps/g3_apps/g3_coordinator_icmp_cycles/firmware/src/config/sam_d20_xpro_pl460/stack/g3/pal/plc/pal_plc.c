@@ -14,28 +14,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -84,19 +84,19 @@ static void lPAL_PLC_SetMibBackupInfo(void)
 {
     (void) memcpy(palPlcData.plcPIB.pData, (uint8_t *)&palPlcData.mibInitData,
             sizeof(MAC_RT_MIB_INIT_OBJ));
-    
+
     palPlcData.plcPIB.pib = MAC_RT_PIB_GET_SET_ALL_MIB;
     palPlcData.plcPIB.index = 0;
     palPlcData.plcPIB.length = (uint8_t)sizeof(MAC_RT_MIB_INIT_OBJ);
     (void) DRV_G3_MACRT_PIBSet(palPlcData.drvG3MacRtHandle, &palPlcData.plcPIB);
-    
+
 }
 
 static void lPAL_PLC_UpdateMibBackupInfo(MAC_RT_PIB pib, uint8_t *pValue)
 {
     uint16_t value16 = ((uint16_t)pValue[1] << 8) + (uint16_t)pValue[0];
     uint8_t value8 = (uint8_t)pValue[0];
-    
+
     switch (pib) {
         case MAC_RT_PIB_PAN_ID:
             palPlcData.mibInitData.panId = value16;
@@ -289,7 +289,7 @@ static void lPAL_PLC_ExceptionCb( DRV_G3_MACRT_EXCEPTION exceptionObj )
 static void lPAL_PLC_DataCfmCb( MAC_RT_TX_CFM_OBJ *cfmObj )
 {
     palPlcData.waitingTxCfm = false;
-    
+
     if (palPlcData.initHandlers.palPlcTxConfirm != NULL)
     {
         palPlcData.initHandlers.palPlcTxConfirm(cfmObj->status, cfmObj->updateTimestamp);
@@ -299,7 +299,7 @@ static void lPAL_PLC_DataCfmCb( MAC_RT_TX_CFM_OBJ *cfmObj )
 static void lPAL_PLC_DataIndCb( uint8_t *pData, uint16_t length )
 {
     /* TBD : Led handling. Led On -> Timer Callback : Led Off (Timer dependencies) ? */
-    
+
     if (palPlcData.initHandlers.palPlcDataIndication != NULL)
     {
         palPlcData.initHandlers.palPlcDataIndication(pData, length);
@@ -308,7 +308,7 @@ static void lPAL_PLC_DataIndCb( uint8_t *pData, uint16_t length )
 
 static void lPAL_PLC_InitCallback(bool initResult)
 {
-    if (initResult == true) 
+    if (initResult == true)
     {
         /* Configure PLC callbacks */
         DRV_G3_MACRT_ExceptionCallbackRegister(palPlcData.drvG3MacRtHandle,
@@ -335,7 +335,7 @@ static void lPAL_PLC_InitCallback(bool initResult)
         {
             /* Get MIB backup info by default from the MAC RT driver */
             lPAL_PLC_GetMibBackupInfo();
-            
+
             /* Clear restart Mib flag */
             palPlcData.restartMib = false;
         }
@@ -349,18 +349,18 @@ static void lPAL_PLC_InitCallback(bool initResult)
         DRV_G3_MACRT_EnableTX(palPlcData.drvG3MacRtHandle, true);
 
         palPlcData.status = PAL_PLC_STATUS_READY;
-        
+
         /* Check pending PLC transmissions */
         if (palPlcData.waitingTxCfm)
         {
             MAC_RT_TX_CFM_OBJ cfmObj;
-            
+
             cfmObj.updateTimestamp = false;
             cfmObj.status = MAC_RT_STATUS_CHANNEL_ACCESS_FAILURE;
             lPAL_PLC_DataCfmCb(&cfmObj);
         }
-    } 
-    else 
+    }
+    else
     {
         palPlcData.status = PAL_PLC_STATUS_ERROR;
     }
@@ -375,7 +375,7 @@ static void lPAL_PLC_InitCallback(bool initResult)
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 11.3 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
 
-SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index, 
+SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
         const SYS_MODULE_INIT * const init)
 {
     const PAL_PLC_INIT * const palInit = (const PAL_PLC_INIT * const)init;
@@ -383,30 +383,30 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
     MAC_RT_BAND plcBandMain;
     MAC_RT_BAND plcBandAux;
     DRV_G3_MACRT_STATE drvG3MacRtStatus;
-    
+
     /* Check Single instance */
     if (index != PAL_PLC_PHY_INDEX)
     {
         return SYS_MODULE_OBJ_INVALID;
     }
-    
+
     /* Check previously initialized */
     if (palPlcData.status != PAL_PLC_STATUS_UNINITIALIZED)
     {
         return SYS_MODULE_OBJ_INVALID;
     }
-        
+
     palPlcData.initHandlers = palInit->macRtHandlers;
     palPlcData.plcBand = palInit->macRtBand;
     palPlcData.restartMib = palInit->initMIB;
     palPlcData.coordinator = false;
-    
+
     /* Clear exceptions statistics */
     palPlcData.statsErrorUnexpectedKey = 0;
     palPlcData.statsErrorReset = 0;
 
     palPlcData.waitingTxCfm = false;
-    
+
     /* Manage G3 PLC Band */
     plcBandMain = (MAC_RT_BAND)SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_MAIN_BRANCH);
     plcBandAux = (MAC_RT_BAND)SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_AUXILIARY_BRANCH);
@@ -420,7 +420,7 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
             updateBin = true;
         }
     }
-    else if (plcBandAux == palPlcData.plcBand) 
+    else if (plcBandAux == palPlcData.plcBand)
     {
         palPlcData.plcBranch = SRV_PLC_PCOUP_AUXILIARY_BRANCH;
         if (drvG3MacRtInitData.binStartAddress != (uint32_t)&g3_mac_rt_bin2_start)
@@ -441,9 +441,9 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
         /* Initialize PLC Driver Instance */
         (void) DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvG3MacRtInitData);
     }
-    
+
     DRV_G3_MACRT_InitCallbackRegister(DRV_G3_MACRT_INDEX, lPAL_PLC_InitCallback);
-    
+
     /* Open PLC driver */
     palPlcData.drvG3MacRtHandle = DRV_G3_MACRT_Open(DRV_G3_MACRT_INDEX, NULL);
 
@@ -462,7 +462,7 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
 /* MISRA C-2012 deviation block end */
 
 PAL_PLC_HANDLE PAL_PLC_HandleGet(const SYS_MODULE_INDEX index)
-{    
+{
     /* Check Single instance */
     if (index != PAL_PLC_PHY_INDEX)
     {
@@ -478,36 +478,36 @@ PAL_PLC_STATUS PAL_PLC_Status(SYS_MODULE_OBJ object)
     {
         return PAL_PLC_STATUS_INVALID_OBJECT;
     }
-    
+
     return palPlcData.status;
 }
- 
+
 void PAL_PLC_Deinitialize(SYS_MODULE_OBJ object)
 {
     if (object != (SYS_MODULE_OBJ)PAL_PLC_PHY_INDEX)
     {
         return;
     }
-    
+
     palPlcData.status = PAL_PLC_STATUS_UNINITIALIZED;
-    
+
     DRV_G3_MACRT_InitCallbackRegister(DRV_G3_MACRT_INDEX, NULL);
     DRV_G3_MACRT_Close(palPlcData.drvG3MacRtHandle);
 }
- 
-void PAL_PLC_TxRequest(PAL_PLC_HANDLE handle, uint8_t *pData, 
+
+void PAL_PLC_TxRequest(PAL_PLC_HANDLE handle, uint8_t *pData,
         uint16_t length)
 {
     MAC_RT_TX_CFM_OBJ cfmObj;
-    
+
     cfmObj.updateTimestamp = true;
-    
+
     if (handle != (PAL_PLC_HANDLE)&palPlcData)
     {
         cfmObj.status = MAC_RT_STATUS_DENIED;
         cfmObj.updateTimestamp = false;
     }
-    
+
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
         cfmObj.status = MAC_RT_STATUS_DENIED;
@@ -525,16 +525,16 @@ void PAL_PLC_TxRequest(PAL_PLC_HANDLE handle, uint8_t *pData,
         lPAL_PLC_DataCfmCb(&cfmObj);
     }
 }
- 
+
 void PAL_PLC_Reset(PAL_PLC_HANDLE handle, bool resetMib)
 {
     PAL_PLC_INIT palInit;
-    
+
     if (handle != (PAL_PLC_HANDLE)&palPlcData)
     {
         return;
     }
-    
+
     palInit.macRtHandlers = palPlcData.initHandlers;
     palInit.macRtBand = palPlcData.plcBand;
     palInit.initMIB = resetMib;
@@ -547,19 +547,19 @@ void PAL_PLC_Reset(PAL_PLC_HANDLE handle, bool resetMib)
     (void) PAL_PLC_Initialize(PAL_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&palInit);
 
 }
- 
+
 uint32_t PAL_PLC_GetPhyTime(PAL_PLC_HANDLE handle)
 {
     if (handle != (PAL_PLC_HANDLE)&palPlcData)
     {
         return 0;
     }
-    
+
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
         return 0;
     }
-    
+
     return DRV_G3_MACRT_GetTimerReference(handle);
 }
 
@@ -569,40 +569,40 @@ PAL_PLC_PIB_RESULT PAL_PLC_GetMacRtPib(PAL_PLC_HANDLE handle, MAC_RT_PIB_OBJ *pi
     {
         return PAL_PLC_PIB_INVALID_PARAMETER;
     }
-    
+
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
         /* Ignore request */
         return PAL_PLC_PIB_DENIED;
     }
-    
+
     return (PAL_PLC_PIB_RESULT)DRV_G3_MACRT_PIBGet(palPlcData.drvG3MacRtHandle, pibObj);
 }
 
 PAL_PLC_PIB_RESULT PAL_PLC_SetMacRtPib(PAL_PLC_HANDLE handle, MAC_RT_PIB_OBJ *pibObj)
 {
-    PAL_PLC_PIB_RESULT result; 
-    
+    PAL_PLC_PIB_RESULT result;
+
     if (handle != (PAL_PLC_HANDLE)&palPlcData)
     {
         return PAL_PLC_PIB_INVALID_PARAMETER;
     }
-    
+
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
         /* Ignore request */
         return PAL_PLC_PIB_DENIED;
     }
-    
+
     result = (PAL_PLC_PIB_RESULT)DRV_G3_MACRT_PIBSet(palPlcData.drvG3MacRtHandle,
             pibObj);
-    
+
     if (result == PAL_PLC_PIB_SUCCESS)
     {
         /* Update Backup MIB info */
         lPAL_PLC_UpdateMibBackupInfo(pibObj->pib, pibObj->pData);
     }
-            
+
     return result;
 }
 

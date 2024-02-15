@@ -116,6 +116,7 @@ extern "C" {
 /* PAL PLC Configuration Options */
 #define PAL_PLC_PHY_INDEX                     0U
 
+
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A
@@ -239,7 +240,7 @@ extern "C" {
                                                     (TCPIP_NETWORK_CONFIG_IPV6_G3_NET | TCPIP_NETWORK_CONFIG_IPV6_NO_DAD) |\
                                                     TCPIP_NETWORK_CONFIG_IPV6_UNICAST_RS |\
                                                     TCPIP_NETWORK_CONFIG_IP_STATIC
-
+                                                    
 #define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0         DRV_G3ADP_MACObject
 
 

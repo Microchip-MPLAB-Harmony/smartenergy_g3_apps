@@ -60,6 +60,7 @@
 // Section: RTOS "Tasks" Routine
 // *****************************************************************************
 // *****************************************************************************
+
 static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
 {
     while(true)
@@ -69,6 +70,7 @@ static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
     }
 }
 
+
 static void lDRV_RF215_Tasks(  void *pvParameters  )
 {
     while(true)
@@ -77,6 +79,7 @@ static void lDRV_RF215_Tasks(  void *pvParameters  )
         DRV_RF215_Tasks(sysObj.drvRf215);
     }
 }
+
 
 static void lG3_STACK_Tasks(  void *pvParameters  )
 {
@@ -100,6 +103,7 @@ static void lDRV_MEMORY_0_Tasks(  void *pvParameters  )
         vTaskDelay(DRV_MEMORY_RTOS_DELAY_IDX0 / portTICK_PERIOD_MS);
     }
 }
+
 
 static void lDRV_METROLOGY_Tasks(  void *pvParameters  )
 {

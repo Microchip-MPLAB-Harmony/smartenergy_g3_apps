@@ -261,6 +261,7 @@ Remarks:
 
 typedef struct
 {
+
     SYS_MODULE_OBJ  drvG3MacRt;
 
     SYS_MODULE_OBJ drvRf215;
@@ -269,6 +270,7 @@ typedef struct
 
     SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  drvMemory0;
+
     SYS_MODULE_OBJ drvMet;
     SYS_MODULE_OBJ  sysConsole0;
 

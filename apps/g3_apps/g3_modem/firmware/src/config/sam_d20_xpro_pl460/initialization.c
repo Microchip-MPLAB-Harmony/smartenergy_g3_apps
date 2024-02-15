@@ -83,7 +83,6 @@
 /* MISRA C-2012 Rule 11.1 */
 /* MISRA C-2012 Rule 11.3 */
 /* MISRA C-2012 Rule 11.8 */
-
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
 
 
@@ -92,7 +91,7 @@
 /* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
 
 /* This routine must initialize the PL460 control pins as soon as possible */
-/* after a power up reset to avoid risks on starting up PL460 device when */ 
+/* after a power up reset to avoid risks on starting up PL460 device when */
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
@@ -129,28 +128,28 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-    
+
     /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN, 
-    
+    .ldoPin = DRV_PLC_LDO_EN_PIN,
+
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
-       
+
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
-       
+
     /* PLC External Interrupt Pio */
     .extIntPio = DRV_PLC_EXT_INT_PIO,
 
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
-    
+
     /* PLC StandBy Pin */
     .stByPin = DRV_PLC_STBY_PIN,
-    
+
     /* PLC External Interrupt Pin */
     .thMonPin = DRV_PLC_THMON_PIN,
-    
+
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -170,16 +169,16 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC Set StandBy Mode */
     .setStandBy = (DRV_PLC_HAL_SET_STBY)DRV_PLC_HAL_SetStandBy,
-    
+
     /* PLC Get Thermal Monitor value */
     .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,
-    
+
     /* PLC Set TX Enable Pin */
     .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
 

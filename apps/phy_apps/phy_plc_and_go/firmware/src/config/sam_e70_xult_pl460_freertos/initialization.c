@@ -69,7 +69,6 @@
 /* MISRA C-2012 Rule 11.1 */
 /* MISRA C-2012 Rule 11.3 */
 /* MISRA C-2012 Rule 11.8 */
-
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
 
 
@@ -78,7 +77,7 @@
 /* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
 
 /* This routine must initialize the PL460 control pins as soon as possible */
-/* after a power up reset to avoid risks on starting up PL460 device when */ 
+/* after a power up reset to avoid risks on starting up PL460 device when */
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
@@ -118,31 +117,30 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI Receive Register */
     .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
 
-    
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-    
+
     /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN, 
-    
+    .ldoPin = DRV_PLC_LDO_EN_PIN,
+
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
-       
+
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
-       
+
     /* PLC External Interrupt Pio */
     .extIntPio = DRV_PLC_EXT_INT_PIO,
 
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
-    
+
     /* PLC StandBy Pin */
     .stByPin = DRV_PLC_STBY_PIN,
-    
+
     /* PLC External Interrupt Pin */
     .thMonPin = DRV_PLC_THMON_PIN,
-    
+
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -162,16 +160,16 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC Set StandBy Mode */
     .setStandBy = (DRV_PLC_HAL_SET_STBY)DRV_PLC_HAL_SetStandBy,
-    
+
     /* PLC Get Thermal Monitor value */
     .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,
-    
+
     /* PLC Set TX Enable Pin */
     .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
 
@@ -186,6 +184,7 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 };
 
 // </editor-fold>
+
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_PHY Initialization Data">
 
 /* MISRA C-2012 deviation block start */
@@ -239,38 +238,38 @@ SYSTEM_OBJECTS sysObj;
  
 /*  When designing a Self-powered USB Device, the application should make sure
     that USB_DEVICE_Attach() function is called only when VBUS is actively powered.
-	Therefore, the firmware needs some means to detect when the Host is powering 
-	the VBUS. A 5V tolerant I/O pin can be connected to VBUS (through a resistor)
-	and can be used to detect when VBUS is high or low. The application can specify
-	a VBUS Detect function through the USB Driver Initialize data structure. 
-	The USB device stack will periodically call this function. If the VBUS is 
-	detected, the USB_DEVICE_EVENT_POWER_DETECTED event is generated. If the VBUS 
-	is removed (i.e., the device is physically detached from Host), the USB stack 
-	will generate the event USB_DEVICE_EVENT_POWER_REMOVED. The application should 
-	call USB_DEVICE_Detach() when VBUS is removed. 
+    Therefore, the firmware needs some means to detect when the Host is powering 
+    the VBUS. A 5V tolerant I/O pin can be connected to VBUS (through a resistor)
+    and can be used to detect when VBUS is high or low. The application can specify
+    a VBUS Detect function through the USB Driver Initialize data structure. 
+    The USB device stack will periodically call this function. If the VBUS is 
+    detected, the USB_DEVICE_EVENT_POWER_DETECTED event is generated. If the VBUS 
+    is removed (i.e., the device is physically detached from Host), the USB stack 
+    will generate the event USB_DEVICE_EVENT_POWER_REMOVED. The application should 
+    call USB_DEVICE_Detach() when VBUS is removed. 
     
     The following are the steps to generate the VBUS_SENSE Function through MHC     
         1) Navigate to MHC->Tools->Pin Configuration and Configure the pin used 
-		   as VBUS_SENSE. Set this pin Function as "GPIO" and set as "Input". 
-		   Provide a custom name to the pin.
+           as VBUS_SENSE. Set this pin Function as "GPIO" and set as "Input". 
+           Provide a custom name to the pin.
         2) Select the USB Driver Component in MHC Project Graph and enable the  
-		   "Enable VBUS Sense" Check-box.     
+           "Enable VBUS Sense" Check-box.     
         3) Specify the custom name of the VBUS SENSE pin in the "VBUS SENSE Pin Name" box.  
 */
-	  
-	
+      
+    
 static DRV_USB_VBUS_LEVEL DRV_USBHSV1_VBUS_Comparator(void)
 {
     DRV_USB_VBUS_LEVEL retVal = DRV_USB_VBUS_LEVEL_INVALID;
-    if(true == USB_VBUS_SENSE_Get())
+    if(1U == USB_VBUS_SENSE_Get())
     {
         retVal = DRV_USB_VBUS_LEVEL_VALID;
     }
-	return (retVal);
+    return (retVal);
 
 }
 
-const DRV_USBHSV1_INIT drvUSBInit =
+static const DRV_USBHSV1_INIT drvUSBInit =
 {
     /* Interrupt Source for USB module */
     .interruptSource = USBHS_IRQn,
@@ -282,11 +281,11 @@ const DRV_USBHSV1_INIT drvUSBInit =
     .operationMode = DRV_USBHSV1_OPMODE_DEVICE,
 
     /* To operate in USB Normal Mode */
-	.operationSpeed = DRV_USBHSV1_DEVICE_SPEEDCONF_LOW_POWER,
+    .operationSpeed = DRV_USBHSV1_DEVICE_SPEEDCONF_LOW_POWER,
 
     /* Identifies peripheral (PLIB-level) ID */
     .usbID = USBHS_REGS,
-	
+    
     /* Function to check for VBUS */
     .vbusComparator = DRV_USBHSV1_VBUS_Comparator
 };
@@ -410,9 +409,11 @@ void SYS_Initialize ( void* data )
     /* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     /* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
+
     /* Initialize PLC Phy Driver Instance */
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
     (void) PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+
 
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
@@ -433,8 +434,8 @@ void SYS_Initialize ( void* data )
     sysObj.usbDevObject0 = USB_DEVICE_Initialize (USB_DEVICE_INDEX_0 , ( SYS_MODULE_INIT* ) & usbDevInitData);
 
 
-	/* Initialize USB Driver */ 
-    sysObj.drvUSBHSV1Object = DRV_USBHSV1_Initialize(DRV_USBHSV1_INDEX_0, (SYS_MODULE_INIT *) &drvUSBInit);	
+    /* Initialize USB Driver */ 
+    sysObj.drvUSBHSV1Object = DRV_USBHSV1_Initialize(DRV_USBHSV1_INDEX_0, (SYS_MODULE_INIT *) &drvUSBInit);    
 
 
     /* MISRAC 2012 deviation block end */

@@ -1,26 +1,3 @@
-/*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
-
-The software and documentation is provided by microchip and its contributors
-"as is" and any express, implied or statutory warranties, including, but not
-limited to, the implied warranties of merchantability, fitness for a particular
-purpose and non-infringement of third party intellectual property rights are
-disclaimed to the fullest extent permitted by law. In no event shall microchip
-or its contributors be liable for any direct, indirect, incidental, special,
-exemplary, or consequential damages (including, but not limited to, procurement
-of substitute goods or services; loss of use, data, or profits; or business
-interruption) however caused and on any theory of liability, whether in contract,
-strict liability, or tort (including negligence or otherwise) arising in any way
-out of the use of the software and documentation, even if advised of the
-possibility of such damage.
-
-Except as expressly permitted hereunder and subject to the applicable license terms
-for any third-party software incorporated in the software and any applicable open
-source software license terms, no license or other rights, whether express or
-implied, are granted under any patent or other intellectual property rights of
-Microchip or any third party.
-*/
-
 /*******************************************************************************
   MPLAB Harmony Application Header File
 
@@ -55,7 +32,6 @@ Microchip or any third party.
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
-#include "app_events.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -70,12 +46,6 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-
-/* Default password for Console commands */
-#define APP_CONSOLE_DEFAULT_PWD                   "PIC"
-/* Max time (in ms) to wait for datalog to be ready.
- * Once time expires, console app continues without storaga capabilities */
-#define CONSOLE_MAX_WAIT_MS_UNTIL_DATALOG_READY   2000
 
 // *****************************************************************************
 /* Application states
@@ -92,49 +62,11 @@ typedef enum
 {
     /* Application's state machine's initial state. */
     APP_CONSOLE_STATE_INIT=0,
-    APP_CONSOLE_STATE_IDLE,
-    APP_CONSOLE_STATE_WAIT_STORAGE_READY,
-    APP_CONSOLE_STATE_READ_STORAGE,
-    APP_CONSOLE_STATE_READ_STORAGE_ERROR,
-    APP_CONSOLE_STATE_DATALOG_NOT_READY,
-    APP_CONSOLE_STATE_READ_CONTROL_REG,
-    APP_CONSOLE_STATE_WRITE_CONTROL_REG,
-    APP_CONSOLE_STATE_READ_ALL_CONTROL_REGS,
-    APP_CONSOLE_STATE_READ_ACCUM_REG,
-    APP_CONSOLE_STATE_READ_ALL_ACCUM_REGS,
-    APP_CONSOLE_STATE_READ_STATUS_REG,
-    APP_CONSOLE_STATE_READ_ALL_STATUS_REGS,
-    APP_CONSOLE_STATE_READ_HARMONICS_REG,
-    APP_CONSOLE_STATE_READ_ALL_HARMONICS_REGS,
-    APP_CONSOLE_STATE_READ_METER_ID,
-    APP_CONSOLE_STATE_READ_TOU,
-    APP_CONSOLE_STATE_READ_RTC,
-    APP_CONSOLE_STATE_PRINT_HARMONIC_ANALYSIS,
-    APP_CONSOLE_STATE_PRINT_MONTHLY_ENERGY,
-    APP_CONSOLE_STATE_PRINT_EVENT,
-    APP_CONSOLE_STATE_PRINT_MAX_DEMAND,
-    APP_CONSOLE_STATE_PRINT_VOLTAGE,
-    APP_CONSOLE_STATE_PRINT_CURRENT,
-    APP_CONSOLE_STATE_PRINT_ACTIVE_POWER,
-    APP_CONSOLE_STATE_PRINT_REACTIVE_POWER,
-    APP_CONSOLE_STATE_PRINT_APARENT_POWER,
-    APP_CONSOLE_STATE_PRINT_FREQUENCY,
-    APP_CONSOLE_STATE_PRINT_ANGLE,
-    APP_CONSOLE_STATE_PRINT_WAVEFORM_DATA,
-    APP_CONSOLE_STATE_PRINT_CALIBRATION_RESULT,
-    APP_CONSOLE_STATE_PRINT_HELP,
-    APP_CONSOLE_STATE_LOW_POWER_MODE,
-    APP_CONSOLE_STATE_SW_RESET,
+    APP_CONSOLE_STATE_SERVICE_TASKS,
+    /* TODO: Define states used by the application state machine. */
+
 } APP_CONSOLE_STATES;
 
-
-#define APP_CONSOLE_MAX_REGS   64
-
-typedef struct
-{
-    uint32_t value;
-    uint8_t index;
-} APP_CONSOLE_REG;
 
 // *****************************************************************************
 /* Application Data
@@ -151,26 +83,11 @@ typedef struct
 
 typedef struct
 {
+    /* The application's current state */
     APP_CONSOLE_STATES state;
-    uint8_t ctrlRegToRead;
-    uint8_t accumRegToRead;
-    uint8_t statusRegToRead;
-    uint8_t harRegToRead;
-    uint32_t *rawData;
-    size_t rawDataLen;
-    bool rawDataFlag;
-    APP_CONSOLE_REG regsToModify[APP_CONSOLE_MAX_REGS];
-    struct tm timeRequest;
-    struct tm sysTime;
-    APP_EVENTS_EVENT_ID eventIdRequest;
-    uint8_t eventLastTimeRequest;
-    uint32_t currentWaitForDatalogReady;
-    uint8_t harmonicNumRequest;
-    bool calibrationResult;
-    int8_t numCommands;
-    int8_t cmdNumToShowHelp;
-    SYS_CMD_DESCRIPTOR *pCmdDescToShowHelp;
-    uint8_t requestCounter;
+
+    /* TODO: Define any additional data used by the application. */
+
 } APP_CONSOLE_DATA;
 
 // *****************************************************************************

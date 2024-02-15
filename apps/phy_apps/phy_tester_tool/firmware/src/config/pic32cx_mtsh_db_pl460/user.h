@@ -33,15 +33,6 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-#define USER_BLINK_LED_On()           LED_RED_On()
-#define USER_BLINK_LED_Off()          LED_RED_Off()
-#define USER_BLINK_LED_Toggle()       LED_RED_Toggle()
-
-#define USER_PLC_IND_LED_On()         LED_IR_On()
-#define USER_PLC_IND_LED_Off()        LED_IR_Off()
-#define USER_PLC_IND_LED_Toggle()     LED_IR_Toggle()
-
-#define CLEAR_WATCHDOG()              DWDT_WDT0_Clear()
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

@@ -17,28 +17,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -105,7 +105,8 @@ static const RF215_FSK_SYM_RATE_CONST_OBJ fskSymRateConst[6] = {
         .RFn_TXCUT_PARAMP = RF215_RFn_TXCUTC_PARAMP_32us,
         .BBCn_FSKPE0 = 0x02U,
         .BBCn_FSKPE1 = 0x03U,
-        .BBCn_FSKPE2 = 0xFCU
+        .BBCn_FSKPE2 = 0xFCU,
+        .sensitivityDBm = -91
     },
 
     /* 100 kHz */
@@ -121,7 +122,8 @@ static const RF215_FSK_SYM_RATE_CONST_OBJ fskSymRateConst[6] = {
         .RFn_TXCUT_PARAMP = RF215_RFn_TXCUTC_PARAMP_16us,
         .BBCn_FSKPE0 = 0x0EU,
         .BBCn_FSKPE1 = 0x0FU,
-        .BBCn_FSKPE2 = 0xF0U
+        .BBCn_FSKPE2 = 0xF0U,
+        .sensitivityDBm = -88
     },
 
     /* 150 kHz */
@@ -137,7 +139,8 @@ static const RF215_FSK_SYM_RATE_CONST_OBJ fskSymRateConst[6] = {
         .RFn_TXCUT_PARAMP = RF215_RFn_TXCUTC_PARAMP_16us,
         .BBCn_FSKPE0 = 0x3CU,
         .BBCn_FSKPE1 = 0x3FU,
-        .BBCn_FSKPE2 = 0xC0U
+        .BBCn_FSKPE2 = 0xC0U,
+        .sensitivityDBm = -86
     },
 
     /* 200 kHz */
@@ -153,7 +156,8 @@ static const RF215_FSK_SYM_RATE_CONST_OBJ fskSymRateConst[6] = {
         .RFn_TXCUT_PARAMP = RF215_RFn_TXCUTC_PARAMP_16us,
         .BBCn_FSKPE0 = 0x74U,
         .BBCn_FSKPE1 = 0x7FU,
-        .BBCn_FSKPE2 = 0x80U
+        .BBCn_FSKPE2 = 0x80U,
+        .sensitivityDBm = -85
     },
 
     /* 300 kHz */
@@ -169,7 +173,8 @@ static const RF215_FSK_SYM_RATE_CONST_OBJ fskSymRateConst[6] = {
         .RFn_TXCUT_PARAMP = RF215_RFn_TXCUTC_PARAMP_8us,
         .BBCn_FSKPE0 = 0x05U,
         .BBCn_FSKPE1 = 0x3CU,
-        .BBCn_FSKPE2 = 0xC3U
+        .BBCn_FSKPE2 = 0xC3U,
+        .sensitivityDBm = -83
     },
 
     /* 400 kHz */
@@ -185,7 +190,8 @@ static const RF215_FSK_SYM_RATE_CONST_OBJ fskSymRateConst[6] = {
         .RFn_TXCUT_PARAMP = RF215_RFn_TXCUTC_PARAMP_8us,
         .BBCn_FSKPE0 = 0x13U,
         .BBCn_FSKPE1 = 0x29U,
-        .BBCn_FSKPE2 = 0xC7U
+        .BBCn_FSKPE2 = 0xC7U,
+        .sensitivityDBm = -82
     }
 };
 
@@ -1202,6 +1208,24 @@ static uint32_t lRF215_PHY_PpduDuration (
             psduLen, pSymbolsPayload);
 }
 
+static uint16_t lRF215_PHY_SymbolDurationUSq5(uint8_t trxIdx)
+{
+    DRV_RF215_PHY_CFG_OBJ* phyCfg = &rf215PhyObj[trxIdx].phyConfig;
+
+    /* Symbol rate in kHz */
+    uint16_t symbRateKHz = fskSymRateConst[phyCfg->phyTypeCfg.fsk.symRate].kHz;
+
+    /* Compute symbol duration in us [uQ14.5] */
+    return DIV_ROUND(1000U << 5, symbRateKHz);
+}
+
+static int8_t lRF215_PHY_SensitivityDBm(uint8_t trxIdx)
+{
+    DRV_RF215_PHY_CFG_OBJ* phyCfg = &rf215PhyObj[trxIdx].phyConfig;
+
+    return fskSymRateConst[phyCfg->phyTypeCfg.fsk.symRate].sensitivityDBm;
+}
+
 static bool lRF215_PHY_BandOpModeToPhyCfg (
     DRV_RF215_PHY_BAND_OPM bandOpMode,
     DRV_RF215_PHY_CFG_OBJ* phyConfig
@@ -1732,7 +1756,7 @@ static bool lRF215_TRX_SwitchTxPrep(uint8_t trxIdx)
 static void lRF215_TRX_EnableTxContinuousMode(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
-    
+
     /* Swith to TRXOFF state before to configure continuous transmission */
     if (pObj->txAutoInProgress == false)
     {
@@ -1837,7 +1861,7 @@ static void lRF215_TRX_Reset(uint8_t trxIdx)
         lRF215_TRX_CommandReset(trxIdx);
         pObj->trxResetPending = false;
         pObj->resetInProgress = true;
-    }    
+    }
 }
 
 static void lRF215_TRX_Sleep(uint8_t trxIdx)
@@ -2460,7 +2484,7 @@ static void lRF215_TX_ReadCaptureTimeExpired(uintptr_t context)
             if (SYS_TIME_TimerStart(timeHandle) != SYS_TIME_SUCCESS)
             {
                 (void) SYS_TIME_TimerDestroy(timeHandle);
-            }            
+            }
         }
     }
 
@@ -2848,18 +2872,23 @@ static void lRF215_TX_StartTimeExpired(uintptr_t context)
     uint64_t currentTime, txCommandTime;
     uint32_t txCommandDelay;
     bool spiFree;
-    uint8_t trxIdx = (uint8_t) context;
-    RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
-    DRV_RF215_TX_BUFFER_OBJ* txBufObj = pObj->txBufObj;
+    uint8_t trxIdx;
+    RF215_PHY_OBJ* pObj;
+    DRV_RF215_TX_BUFFER_OBJ* txBufObj;
+    uint64_t txTime;
     uint32_t startDelayUSq5 = 0;
-    uint64_t txTime = txBufObj->reqObj.timeCount;
     SYS_TIME_HANDLE timeHandle = SYS_TIME_HANDLE_INVALID;
 
-    /* Check if TX buffer is still in use */
-    if (txBufObj->inUse == false)
+    /* Validate TX handle and obtain pointer to TX buffer object */
+    txBufObj = DRV_RF215_TxHandleValidate(context);
+    if (txBufObj == NULL)
     {
         return;
     }
+
+    trxIdx = txBufObj->clientObj->trxIndex;
+    txTime = txBufObj->reqObj.timeCount;
+    pObj = &rf215PhyObj[trxIdx];
 
     /* Critical region to avoid new SPI transfers */
     spiFree = RF215_HAL_SpiLock();
@@ -2990,15 +3019,19 @@ static void lRF215_TX_StartTimeExpired(uintptr_t context)
 static void lRF215_TX_PrepareTimeExpired(uintptr_t context)
 {
     DRV_RF215_TX_RESULT result;
-    DRV_RF215_TX_BUFFER_OBJ* txBufObj = (DRV_RF215_TX_BUFFER_OBJ *) context;
-    uint8_t trxIdx = txBufObj->clientObj->trxIndex;
-    RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
+    uint8_t trxIdx;
+    RF215_PHY_OBJ* pObj;
+    DRV_RF215_TX_BUFFER_OBJ* txBufObj;
 
-    /* Check if TX buffer is still in use */
-    if (txBufObj->inUse == false)
+    /* Validate TX handle and obtain pointer to TX buffer object */
+    txBufObj = DRV_RF215_TxHandleValidate(context);
+    if (txBufObj == NULL)
     {
         return;
     }
+
+    trxIdx = txBufObj->clientObj->trxIndex;
+    pObj = &rf215PhyObj[trxIdx];
 
     /* Critical region to avoid conflicts in PHY object data */
     RF215_HAL_EnterCritical();
@@ -3055,7 +3088,7 @@ static void lRF215_TX_PrepareTimeExpired(uintptr_t context)
 
             /* Schedule timer for TX start */
             timeHandle = lRF215_TX_TimeSchedule(interruptTime, true,
-                    lRF215_TX_StartTimeExpired, (uintptr_t) trxIdx);
+                    lRF215_TX_StartTimeExpired, context);
         }
 
         if (timeHandle == SYS_TIME_HANDLE_INVALID)
@@ -3273,7 +3306,6 @@ static void lRF215_RX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t timeRead)
     /* Compute SYS_TIME counter associated to RX event */
     timeIni = (int64_t) timeRead - lRF215_PHY_USq5ToSysTimeCount(trxCountDiff);
     pObj->rxInd.timeIniCount = (uint64_t) timeIni;
-    pObj->rxTimeValid = true;
 }
 
 static void lRF215_RX_ReadPHR(uintptr_t context, void* pData, uint64_t timeRead)
@@ -3456,7 +3488,6 @@ bool RF215_PHY_Initialize (
     pObj->ledRxStatus = false;
     pObj->txStarted = false;
     pObj->txAutoInProgress = false;
-    pObj->rxTimeValid = false;
     pObj->trxResetPending = false;
     pObj->trxSleepPending = false;
     pObj->txContinuousPending = false;
@@ -3809,7 +3840,7 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 
         /* Schedule timer for the specified time */
         timeHandle = lRF215_TX_TimeSchedule(interruptTime, true,
-                lRF215_TX_PrepareTimeExpired, (uintptr_t) txBufObj);
+                lRF215_TX_PrepareTimeExpired, txBufObj->txHandle);
 
         if (timeHandle == SYS_TIME_HANDLE_INVALID)
         {
@@ -3867,7 +3898,6 @@ void RF215_PHY_TxCancel(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     if (txCancel == true)
     {
         RF215_PHY_SetTxCfm(txBufObj, RF215_TX_CANCELLED);
-        (void) SYS_TIME_TimerDestroy(txBufObj->timeHandle);
 
         /* Free TX buffer. TX confirm will not be notified */
         txBufObj->inUse = false;
@@ -3884,6 +3914,7 @@ void RF215_PHY_SetTxCfm (
     /* Set 0 duration if not successful transmission */
     if ((result != RF215_TX_SUCCESS) && (result != RF215_TX_ERROR_UNDERRUN))
     {
+        (void) SYS_TIME_TimerDestroy(txBufObj->timeHandle);
         txBufObj->cfmObj.ppduDurationCount = 0;
     }
 
@@ -3932,12 +3963,28 @@ DRV_RF215_PIB_RESULT RF215_PHY_GetPib (
             *((uint32_t *) value) = pObj->pllParams.chnFreq;
             break;
 
-        case RF215_PIB_PHY_CCA_ED_DURATION:
+        case RF215_PIB_PHY_CCA_ED_DURATION_US:
             *((uint16_t *) value) = pObj->phyConfig.ccaEdDurationUS;
             break;
 
-        case RF215_PIB_PHY_CCA_ED_THRESHOLD:
+        case RF215_PIB_PHY_CCA_ED_THRESHOLD_DBM:
             *((int8_t *) value) = pObj->phyConfig.ccaEdThresholdDBm;
+            break;
+
+        case RF215_PIB_PHY_CCA_ED_DURATION_SYMBOLS:
+        {
+            uint16_t symbDurationUSq5 = lRF215_PHY_SymbolDurationUSq5(trxIndex);
+            uint32_t ccaEdDurationSymbols = DIV_ROUND((uint32_t) pObj->phyConfig.ccaEdDurationUS << 5, symbDurationUSq5);
+            *((uint16_t *) value) = (uint16_t) ccaEdDurationSymbols;
+            break;
+        }
+
+        case RF215_PIB_PHY_CCA_ED_THRESHOLD_SENSITIVITY:
+            *((int8_t *) value) = pObj->phyConfig.ccaEdThresholdDBm - lRF215_PHY_SensitivityDBm(trxIndex);
+            break;
+
+        case RF215_PIB_PHY_SENSITIVITY:
+            *((int8_t *) value) = lRF215_PHY_SensitivityDBm(trxIndex);
             break;
 
         case RF215_PIB_PHY_TURNAROUND_TIME:
@@ -4136,14 +4183,41 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
             break;
         }
 
-        case RF215_PIB_PHY_CCA_ED_DURATION:
+        case RF215_PIB_PHY_CCA_ED_DURATION_US:
             pObj->phyConfig.ccaEdDurationUS = *((uint16_t *) value);
             lRF215_RXFE_AdjustEDD(trxIndex);
             break;
 
-        case RF215_PIB_PHY_CCA_ED_THRESHOLD:
+        case RF215_PIB_PHY_CCA_ED_THRESHOLD_DBM:
             pObj->phyConfig.ccaEdThresholdDBm = *((int8_t *) value);
             break;
+
+        case RF215_PIB_PHY_CCA_ED_DURATION_SYMBOLS:
+        {
+            uint16_t symbDurationUSq5 = lRF215_PHY_SymbolDurationUSq5(trxIndex);
+            uint32_t ccaEdDurationUSq5 = (uint32_t) symbDurationUSq5 * (*((uint16_t *) value));
+            uint32_t ccaEdDurationUS = (ccaEdDurationUSq5 + 16U) >> 5;
+            if (ccaEdDurationUS > 0xFFFFU)
+            {
+                ccaEdDurationUS = 0xFFFFU;
+            }
+
+            pObj->phyConfig.ccaEdDurationUS = (uint16_t) ccaEdDurationUS;
+            lRF215_RXFE_AdjustEDD(trxIndex);
+            break;
+        }
+
+        case RF215_PIB_PHY_CCA_ED_THRESHOLD_SENSITIVITY:
+        {
+            int16_t ccaEdThresholdDBm = (int16_t) lRF215_PHY_SensitivityDBm(trxIndex) + (*((int8_t *) value));
+            if (ccaEdThresholdDBm < -128)
+            {
+                ccaEdThresholdDBm = -128;
+            }
+
+            pObj->phyConfig.ccaEdThresholdDBm = (int8_t) ccaEdThresholdDBm;
+            break;
+        }
 
         case RF215_PIB_PHY_STATS_RESET:
             (void) memset(&pObj->phyStatistics, 0, sizeof(RF215_PHY_STATISTICS_OBJ));

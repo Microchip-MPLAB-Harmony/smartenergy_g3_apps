@@ -150,6 +150,7 @@ extern "C" {
 
 /* Memory Driver Global Configuration Options */
 #define DRV_MEMORY_INSTANCES_NUMBER          (1U)
+
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A
@@ -197,6 +198,7 @@ extern "C" {
 #define DRV_MEMORY_STACK_SIZE_IDX0               1024
 #define DRV_MEMORY_PRIORITY_IDX0                 1
 #define DRV_MEMORY_RTOS_DELAY_IDX0               10U
+
 
 /* Metrology Configuration Options */
 #define DRV_METROLOGY_REG_BASE_ADDRESS        0x20088000UL

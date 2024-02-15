@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -93,35 +93,35 @@ static SRV_USI_CALLBACK_INDEX lSRV_USI_GetCallbackIndexFromProtocol(SRV_USI_PROT
         case SRV_USI_PROT_ID_SNIF_PRIME:
             callbackIndex = 1;
             break;
-            
+
         case SRV_USI_PROT_ID_PHY_SERIAL_PRIME:
             callbackIndex = 2;
             break;
-            
+
         case SRV_USI_PROT_ID_PHY:
             callbackIndex = 3;
             break;
-            
+
         case SRV_USI_PROT_ID_SNIFF_G3:
             callbackIndex = 4;
             break;
-            
+
         case SRV_USI_PROT_ID_MAC_G3:
             callbackIndex = 5;
             break;
-            
+
         case SRV_USI_PROT_ID_ADP_G3:
             callbackIndex = 6;
             break;
-            
+
         case SRV_USI_PROT_ID_COORD_G3:
             callbackIndex = 7;
             break;
-            
+
         case SRV_USI_PROT_ID_PHY_MICROPLC:
             callbackIndex = 8;
             break;
-            
+
         case SRV_USI_PROT_ID_PRIME_API:
             callbackIndex = 9;
             break;
@@ -166,7 +166,7 @@ static PCRC_CRC_TYPE lSRV_USI_GetCRCTypeFromProtocol(SRV_USI_PROTOCOL_ID protoco
         case SRV_USI_PROT_ID_COORD_G3:
             crcType = PCRC_CRC16;
             break;
-            
+
         case SRV_USI_PROT_ID_PRIME_API:
         case SRV_USI_PROT_ID_PHY_MICROPLC:
         case SRV_USI_PROT_ID_INVALID:
@@ -175,12 +175,12 @@ static PCRC_CRC_TYPE lSRV_USI_GetCRCTypeFromProtocol(SRV_USI_PROTOCOL_ID protoco
             break;
     }
 
-    return crcType;    
+    return crcType;
 }
 
 static SRV_USI_HANDLE lSRV_USI_HandleValidate(SRV_USI_HANDLE handle)
 {
-    /* This function returns the same handle if the handle is valid. Returns 
+    /* This function returns the same handle if the handle is valid. Returns
        SRV_USI_HANDLE_INVALID otherwise. */
 
     uint8_t srvIndex;
@@ -200,7 +200,7 @@ static SRV_USI_HANDLE lSRV_USI_HandleValidate(SRV_USI_HANDLE handle)
 }
 
 static void lSRV_USI_Callback_Handle ( uint8_t *pData, uint16_t length, uintptr_t context )
-{    
+{
     SRV_USI_OBJ* dObj;
     uint32_t crcGetValue;
     uint32_t crcRcvValue;
@@ -210,7 +210,7 @@ static void lSRV_USI_Callback_Handle ( uint8_t *pData, uint16_t length, uintptr_
     PCRC_CRC_TYPE crcType;
     uint16_t dataLength;
     SRV_USI_CALLBACK_INDEX cbIndex;
-    
+
     /* Check valid context : the driver handle */
     if (lSRV_USI_HandleValidate((SRV_USI_HANDLE)context) == SRV_USI_HANDLE_INVALID)
     {
@@ -218,17 +218,17 @@ static void lSRV_USI_Callback_Handle ( uint8_t *pData, uint16_t length, uintptr_
     }
 
     dObj = (SRV_USI_OBJ*)context;
-    
-    if (length > 0U) 
-    {      
+
+    if (length > 0U)
+    {
         /* New received message */
         /* Extract Protocol */
         protocolValue = USI_TYPE_PROTOCOL(pData[1]);
         protocol = (SRV_USI_PROTOCOL_ID)protocolValue;
-        
+
         /* Get CRC type from Protocol */
         crcType = lSRV_USI_GetCRCTypeFromProtocol(protocol);
-        
+
         /* Extract data length */
         dataLength = USI_LEN_PROTOCOL(pData[USI_LEN_HI_OFFSET], pData[USI_LEN_LO_OFFSET]);
 
@@ -247,34 +247,34 @@ static void lSRV_USI_Callback_Handle ( uint8_t *pData, uint16_t length, uintptr_
             /* Discard message */
             return;
         }
-        
+
         /* Check CRC */
         crcGetValue = SRV_PCRC_GetValue(pData, lengthWithoutCrc,
                 PCRC_HT_USI, crcType, 0);
- 
+
         if (crcType == PCRC_CRC8)
         {
             crcRcvValue = (uint32_t)(pData[length - 1U]);
-        } 
+        }
         else if (crcType == PCRC_CRC16)
         {
             crcRcvValue = (((uint32_t)(pData[length - 2U])) << 8) +
                           (uint32_t)(pData[length - 1U]);
         }
         else
-        {            
+        {
             crcRcvValue = (((uint32_t)(pData[length - 4U])) << 24) +
                           (((uint32_t)(pData[length - 3U])) << 16) +
                           (((uint32_t)(pData[length - 2U])) << 8) +
                           (uint32_t)(pData[length - 1U]);
         }
-        
-        if (crcGetValue != crcRcvValue) 
+
+        if (crcGetValue != crcRcvValue)
         {
             /* Discard message */
             return;
         }
-    
+
         /* Launch USI callback */
         cbIndex = lSRV_USI_GetCallbackIndexFromProtocol(protocol);
         if (dObj->callback[cbIndex] != NULL)
@@ -293,12 +293,12 @@ static uint8_t* lSRV_USI_EscapeData( uint8_t *pDstData, uint8_t *pSrcData,
         {
             *pDstData++ = USI_ESC_KEY_7D;
             *pDstData++ = USI_ESC_KEY_5D;
-        } 
+        }
         else if (*pSrcData == USI_ESC_KEY_7E)
         {
             *pDstData++ = USI_ESC_KEY_7D;
             *pDstData++ = USI_ESC_KEY_5E;
-        } 
+        }
         else
         {
             *pDstData++ = *pSrcData;
@@ -309,16 +309,16 @@ static uint8_t* lSRV_USI_EscapeData( uint8_t *pDstData, uint8_t *pSrcData,
             /* Escaped Message can't fit in Write buffer */
             return NULL;
         }
-        
+
         pSrcData++;
         length--;
     }
-    
+
     return pDstData;
 }
 
-static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength, 
-                                     SRV_USI_PROTOCOL_ID protocol, 
+static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
+                                     SRV_USI_PROTOCOL_ID protocol,
                                      uint8_t *pData, uint16_t length )
 {
     ptrdiff_t size;
@@ -328,19 +328,19 @@ static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
     uint8_t command;
     uint32_t valueTmp32;
     PCRC_CRC_TYPE crcType;
-    
+
     /* Get CRC type from Protocol */
     crcType = lSRV_USI_GetCRCTypeFromProtocol(protocol);
-    
+
     /* Build new message */
     pNewData = pDstData;
     pEndData = pNewData + (maxDstLength - 3U);
-    
+
     /* Build header message */
     *pNewData++ = USI_ESC_KEY_7E;
     valueTmp[0] = USI_LEN_HI_PROTOCOL(length);
     valueTmp[1] = USI_LEN_LO_PROTOCOL(length) + USI_TYPE_PROTOCOL((uint8_t)protocol);
-    
+
     /* Get CRC from USI header: 2 bytes */
     valueTmp32 = SRV_PCRC_GetValue(&valueTmp[0], 2, PCRC_HT_USI, crcType, 0);
     /* Escape USI header */
@@ -369,7 +369,7 @@ static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
         /* Error in Escape Data: can't fit in destination buffer */
         return 0;
     }
-    
+
     /* Escape CRC value */
     valueTmp[0] = (uint8_t)(valueTmp32 >> 24);
     valueTmp[1] = (uint8_t)(valueTmp32 >> 16);
@@ -378,7 +378,7 @@ static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
     if (crcType == PCRC_CRC8)
     {
         pNewData = lSRV_USI_EscapeData(pNewData, &valueTmp[3], 1, pEndData);
-    } 
+    }
     else if (crcType == PCRC_CRC16)
     {
         pNewData = lSRV_USI_EscapeData(pNewData, &valueTmp[2], 2, pEndData);
@@ -387,13 +387,13 @@ static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
     {
         pNewData = lSRV_USI_EscapeData(pNewData, valueTmp, 4, pEndData);
     }
-    
+
     if (pNewData == NULL)
     {
         /* Error in Escape Data: can't fit in destination buffer */
         return 0;
     }
-    
+
     *pNewData++ = USI_ESC_KEY_7E;
 
     size = pNewData - pDstData;
@@ -407,8 +407,8 @@ static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
 // *****************************************************************************
 
 SYS_MODULE_OBJ SRV_USI_Initialize(
-    const SYS_MODULE_INDEX index, 
-    const SYS_MODULE_INIT * const init 
+    const SYS_MODULE_INDEX index,
+    const SYS_MODULE_INIT * const init
 )
 {
     /* MISRA C-2012 deviation block start */
@@ -425,7 +425,7 @@ SYS_MODULE_OBJ SRV_USI_Initialize(
 
     /* Allocate the service object */
     dObj = &gSrvUSIOBJ[index];
-    
+
    if ((dObj->status == SRV_USI_STATUS_UNINITIALIZED) && (usiInit != NULL))
     {
         dObj->status                = SRV_USI_STATUS_NOT_CONFIGURED;
@@ -437,11 +437,11 @@ SYS_MODULE_OBJ SRV_USI_Initialize(
         (void) memset(gSrvUSICallbackOBJ[index], 0, sizeof(gSrvUSICallbackOBJ[index]));
 
         dObj->devDesc->init(dObj->devIndex, usiInit->deviceInitData);
-        
+
         /* Return the object structure */
         return ( (SYS_MODULE_OBJ)index );
     }
-    
+
     /* Return the invalid object */
     return SYS_MODULE_OBJ_INVALID;
 }
@@ -474,7 +474,7 @@ SRV_USI_HANDLE SRV_USI_Open(
 
     /* Update USI status */
     dObj->status = SRV_USI_STATUS_CONFIGURED;
-    
+
     return ((SRV_USI_HANDLE)dObj);
 }
 
@@ -511,7 +511,7 @@ SRV_USI_STATUS SRV_USI_Status( SRV_USI_HANDLE handle )
     }
 
     dObj = (SRV_USI_OBJ*)handle;
-    
+
     /* Check USI device status */
     return dObj->devDesc->status(dObj->devIndex);
 }
@@ -542,11 +542,11 @@ void SRV_USI_CallbackRegister ( SRV_USI_HANDLE handle,
     {
         return;
     }
-    
+
     /* Register callback to the USI protocol */
     cb = &(dObj->callback[callbackIndex]);
     *cb = callback;
-    
+
     /* Register reception callback */
     dObj->devDesc->setReadCallback(dObj->devIndex, lSRV_USI_Callback_Handle, (uintptr_t)dObj);
 
@@ -555,7 +555,7 @@ void SRV_USI_CallbackRegister ( SRV_USI_HANDLE handle,
 void SRV_USI_Tasks( SYS_MODULE_OBJ object )
 {
     SRV_USI_OBJ* dObj = &gSrvUSIOBJ[object];
-    
+
     /* Validate the request */
     if(object >= SRV_USI_INSTANCES_NUMBER)
     {
@@ -567,9 +567,9 @@ void SRV_USI_Tasks( SYS_MODULE_OBJ object )
     {
         return;
     }
-    
+
     dObj->devDesc->task(dObj->devIndex);
-    
+
 }
 
 void SRV_USI_Send_Message( SRV_USI_HANDLE handle,
@@ -583,7 +583,7 @@ void SRV_USI_Send_Message( SRV_USI_HANDLE handle,
     {
         return;
     }
-    
+
     /* Check length */
     if ((length == 0U) || (length > dObj->wrBufferSize))
     {
@@ -595,7 +595,7 @@ void SRV_USI_Send_Message( SRV_USI_HANDLE handle,
 
     /* Build USI message */
     writeLength = lSRV_USI_BuildMessage(dObj->pWrBuffer, dObj->wrBufferSize, protocol, data, (uint16_t)length);
-    
+
     /* Send message */
     dObj->devDesc->writeData(dObj->devIndex, dObj->pWrBuffer, writeLength);
 }

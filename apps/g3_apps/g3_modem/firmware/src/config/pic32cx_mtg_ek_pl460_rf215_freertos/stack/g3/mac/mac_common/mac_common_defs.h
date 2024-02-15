@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef MAC_COMMON_DEFS_H
@@ -129,8 +129,8 @@ typedef enum
 */
 typedef struct
 {
-    bool valid;
     uint8_t key[MAC_SECURITY_KEY_LENGTH];
+    bool valid;
 } MAC_SECURITY_KEY;
 
 // *****************************************************************************
@@ -179,6 +179,8 @@ typedef struct
     uint8_t address[8];
 } MAC_EXTENDED_ADDRESS;
 
+#pragma pack(push,2)
+
 // *****************************************************************************
 /* MAC MIB Common definition
 
@@ -194,15 +196,15 @@ typedef struct
 */
 typedef struct
 {
-    MAC_PAN_ID panId;
-    MAC_EXTENDED_ADDRESS extendedAddress;
-    MAC_SHORT_ADDRESS shortAddress;
-    bool promiscuousMode;
-    MAC_SECURITY_KEY keyTable[MAC_KEY_TABLE_ENTRIES];
     uint16_t rcCoord;
+    MAC_PAN_ID panId;
+    MAC_SHORT_ADDRESS shortAddress;
     uint8_t posTableEntryTtl;
     uint8_t posRecentEntryThreshold;
+    MAC_EXTENDED_ADDRESS extendedAddress;
+    MAC_SECURITY_KEY keyTable[MAC_KEY_TABLE_ENTRIES];
     bool coordinator;
+    bool promiscuousMode;
 } MAC_COMMON_MIB;
 
 // *****************************************************************************
@@ -240,11 +242,11 @@ typedef enum
 */
 typedef struct
 {
-    MAC_ADDRESS_MODE addressMode;
     union {
         MAC_SHORT_ADDRESS shortAddress;
         MAC_EXTENDED_ADDRESS extendedAddress;
     };
+    MAC_ADDRESS_MODE addressMode;
 } MAC_ADDRESS;
 
 // *****************************************************************************
@@ -262,10 +264,10 @@ typedef struct
 */
 typedef struct
 {
+    uint32_t frameCounter;
     uint8_t securityLevel : 3;
     uint8_t keyIdentifierMode : 2;
     uint8_t reserved : 3;
-    uint32_t frameCounter;
     uint8_t keyIdentifier;
 } MAC_AUXILIARY_SECURITY_HEADER;
 
@@ -376,10 +378,10 @@ typedef struct
 */
 typedef struct
 {
-    MAC_PAN_ID panId;
-    uint8_t linkQuality;
-    MAC_SHORT_ADDRESS lbaAddress;
     uint16_t rcCoord;
+    MAC_PAN_ID panId;
+    MAC_SHORT_ADDRESS lbaAddress;
+    uint8_t linkQuality;
 } MAC_PAN_DESCRIPTOR;
 
 // *****************************************************************************
@@ -415,26 +417,26 @@ typedef struct
 */
 typedef struct
 {
-    /* Source address mode 0, 16, 64 bits */
-    MAC_ADDRESS_MODE srcAddressMode;
-    /* The PAN identifier of the entity to which the MSDU is being transferred */
-    MAC_PAN_ID destPanId;
-    /* The device address of the entity to which the MSDU is being transferred */
-    MAC_ADDRESS destAddress;
-    /* The number of octets contained in the MSDU to be transmitted */
-    uint16_t msduLength;
     /* Pointer to the set of octets forming the MSDU to be transmitted */
     const uint8_t *msdu;
+    /* The PAN identifier of the entity to which the MSDU is being transferred */
+    MAC_PAN_ID destPanId;
+    /* The number of octets contained in the MSDU to be transmitted */
+    uint16_t msduLength;
+    /* Source address mode 0, 16, 64 bits */
+    MAC_ADDRESS_MODE srcAddressMode;
+    /* The device address of the entity to which the MSDU is being transferred */
+    MAC_ADDRESS destAddress;
     /* The handle associated with the MSDU to be transmitted */
     uint8_t msduHandle;
     /* Transmission options for this MSDU: 0 unacknowledged, 1 acknowledged */
     uint8_t txOptions;
-    /* The security level to be used: 0x00 unecrypted, 0x05 encrypted */
-    MAC_SECURITY_LEVEL securityLevel;
     /* The index of the encryption key to be used */
     uint8_t keyIndex;
     /* The QOS of the MSDU: 0x00 normal priority, 0x01 high priority */
     MAC_QUALITY_OF_SERVICE qualityOfService;
+    /* The security level to be used: 0x00 unecrypted, 0x05 encrypted */
+    MAC_SECURITY_LEVEL securityLevel;
 } MAC_DATA_REQUEST_PARAMS;
 
 // *****************************************************************************
@@ -475,44 +477,44 @@ typedef struct
 */
 typedef struct
 {
-    /* The PAN identifier of the device from which the frame was received */
-    MAC_PAN_ID srcPanId;
-    /* The address of the device which sent the frame */
-    MAC_ADDRESS srcAddress;
-    /* The PAN identifier of the entity to which the MSDU is being transferred */
-    MAC_PAN_ID destPanId;
-    /* The address of the entity to which the MSDU is being transferred */
-    MAC_ADDRESS destAddress;
-    /* The number of octets of the MSDU to be indicated to the upper layer */
-    uint16_t msduLength;
     /* Pointer to the set of octets forming the received MSDU */
     uint8_t *msdu;
+    /* Reception time, refered to MAC milliseconds counter */
+    MAC_TIMESTAMP timestamp;
+    /* The PAN identifier of the device from which the frame was received */
+    MAC_PAN_ID srcPanId;
+    /* The PAN identifier of the entity to which the MSDU is being transferred */
+    MAC_PAN_ID destPanId;
+    /* The number of octets of the MSDU to be indicated to the upper layer */
+    uint16_t msduLength;
+    /* The address of the device which sent the frame */
+    MAC_ADDRESS srcAddress;
+    /* The address of the entity to which the MSDU is being transferred */
+    MAC_ADDRESS destAddress;
     /* The LQI value measured during reception of the frame */
     uint8_t linkQuality;
     /* The Data Sequence Number of the received frame */
     uint8_t dsn;
-    /* Reception time, refered to MAC milliseconds counter */
-    MAC_TIMESTAMP timestamp;
-    /* Security level of the received frame: 0x00 unecrypted, 0x05 encrypted */
-    MAC_SECURITY_LEVEL securityLevel;
     /* The index of the key used for decryption */
     uint8_t keyIndex;
-    /* The QOS of the MSDU: 0x00 normal priority, 0x01 high priority */
-    MAC_QUALITY_OF_SERVICE qualityOfService;
     /* Modulation Type of the received frame */
     uint8_t rxModulation;
     /* Modulation scheme of the received frame */
     uint8_t rxModulationScheme;
-    /* Tone Map of the received frame */
-    MAC_TONE_MAP rxToneMap;
     /* Weakest Modulation Type in which the frame could have been received */
     uint8_t computedModulation;
     /* Weakest Modulation Scheme in which the frame could have been received */
     uint8_t computedModulationScheme;
-    /* Weakest Tone Map with which the frame could have been received */
-    MAC_TONE_MAP computedToneMap;
     /* Phase Differential compared to Node that sent the frame */
     uint8_t phaseDifferential;
+    /* Security level of the received frame: 0x00 unecrypted, 0x05 encrypted */
+    MAC_SECURITY_LEVEL securityLevel;
+    /* The QOS of the MSDU: 0x00 normal priority, 0x01 high priority */
+    MAC_QUALITY_OF_SERVICE qualityOfService;
+    /* Tone Map of the received frame */
+    MAC_TONE_MAP rxToneMap;
+    /* Weakest Tone Map with which the frame could have been received */
+    MAC_TONE_MAP computedToneMap;
 } MAC_DATA_INDICATION_PARAMS;
 
 // *****************************************************************************
@@ -530,46 +532,46 @@ typedef struct
 */
 typedef struct
 {
-    /* Frame Type as defined in IEEE 802.15.4 standard */
-    uint8_t frameType;
-    /* The PAN identifier of the device from which the frame was received */
-    MAC_PAN_ID srcPanId;
-    /* The address of the device which sent the frame */
-    MAC_ADDRESS srcAddress;
-    /* The PAN identifier of the entity to which the MSDU is being transferred */
-    MAC_PAN_ID destPanId;
-    /* The address of the entity to which the MSDU is being transferred */
-    MAC_ADDRESS destAddress;
-    /* The number of octets of the MSDU to be indicated to the upper layer */
-    uint16_t msduLength;
     /* Pointer to the set of octets forming the received MSDU */
     uint8_t *msdu;
+    /* Reception time, refered to MAC milliseconds counter */
+    MAC_TIMESTAMP timestamp;
+    /* The PAN identifier of the device from which the frame was received */
+    MAC_PAN_ID srcPanId;
+    /* The PAN identifier of the entity to which the MSDU is being transferred */
+    MAC_PAN_ID destPanId;
+    /* The number of octets of the MSDU to be indicated to the upper layer */
+    uint16_t msduLength;
+    /* The address of the device which sent the frame */
+    MAC_ADDRESS srcAddress;
+    /* The address of the entity to which the MSDU is being transferred */
+    MAC_ADDRESS destAddress;
     /* The LQI value measured during reception of the frame */
     uint8_t linkQuality;
     /* The Data Sequence Number of the received frame */
     uint8_t dsn;
-    /* Reception time, refered to MAC milliseconds counter */
-    MAC_TIMESTAMP timestamp;
-    /* Security level of the received frame: 0x00 unecrypted, 0x05 encrypted */
-    MAC_SECURITY_LEVEL securityLevel;
     /* The index of the key used for decryption */
     uint8_t keyIndex;
-    /* The QOS of the MSDU: 0x00 normal priority, 0x01 high priority */
-    MAC_QUALITY_OF_SERVICE qualityOfService;
     /* Modulation Type of the received frame */
     uint8_t rxModulation;
     /* Modulation scheme of the received frame */
     uint8_t rxModulationScheme;
-    /* Tone Map of the received frame */
-    MAC_TONE_MAP rxToneMap;
     /* Weakest Modulation Type in which the frame could have been received */
     uint8_t computedModulation;
     /* Weakest Modulation Scheme in which the frame could have been received */
     uint8_t computedModulationScheme;
-    /* Weakest Tone Map with which the frame could have been received */
-    MAC_TONE_MAP computedToneMap;
     /* Phase Differential compared to Node that sent the frame */
     uint8_t phaseDifferential;
+    /* Frame Type as defined in IEEE 802.15.4 standard */
+    uint8_t frameType;
+    /* Security level of the received frame: 0x00 unecrypted, 0x05 encrypted */
+    MAC_SECURITY_LEVEL securityLevel;
+    /* The QOS of the MSDU: 0x00 normal priority, 0x01 high priority */
+    MAC_QUALITY_OF_SERVICE qualityOfService;
+    /* Tone Map of the received frame */
+    MAC_TONE_MAP rxToneMap;
+    /* Weakest Tone Map with which the frame could have been received */
+    MAC_TONE_MAP computedToneMap;
 } MAC_SNIFFER_INDICATION_PARAMS;
 
 // *****************************************************************************
@@ -699,6 +701,8 @@ typedef struct
     uint8_t keyIndex;
 } MAC_COMM_STATUS_INDICATION_PARAMS;
 
+#pragma pack(pop)
+
 // *****************************************************************************
 /* MAC Network Start Request Parameters
 
@@ -796,14 +800,14 @@ typedef void (*MAC_DataConfirm)(MAC_DATA_CONFIRM_PARAMS *dcParams);
             {
                 if (params->destAddress.shortAddress == myShortAddress)
                 {
-                    
+
                 }
             }
             else if (params->destAddress.addressMode == MAC_ADDRESS_MODE_EXTENDED)
             {
                 if (params->destAddress.extendedAddress == myExtendedAddress)
                 {
-                    
+
                 }
             }
         }
@@ -866,11 +870,11 @@ typedef void (*MAC_SnifferIndication)(MAC_SNIFFER_INDICATION_PARAMS *siParams);
     {
         if (params->status != MAC_STATUS_SUCCESS)
         {
-            
+
         }
         else
         {
-            
+
         }
     }
     </code>
@@ -941,11 +945,11 @@ typedef void (*MAC_BeaconNotifyIndication)(MAC_BEACON_NOTIFY_INDICATION_PARAMS *
     {
         if (params->status != MAC_STATUS_SUCCESS)
         {
-            
+
         }
         else
         {
-            
+
         }
     }
     </code>
@@ -977,11 +981,11 @@ typedef void (*MAC_ScanConfirm)(MAC_SCAN_CONFIRM_PARAMS *scParams);
     {
         if (params->status != MAC_STATUS_SUCCESS)
         {
-            
+
         }
         else
         {
-            
+
         }
     }
     </code>

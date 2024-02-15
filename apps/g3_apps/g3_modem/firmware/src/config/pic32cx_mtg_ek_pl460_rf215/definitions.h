@@ -232,6 +232,7 @@ Remarks:
 
 typedef struct
 {
+
     SYS_MODULE_OBJ  drvG3MacRt;
 
     SYS_MODULE_OBJ drvRf215;
@@ -240,6 +241,7 @@ typedef struct
     SYS_MODULE_OBJ g3AdpSerial;
 
     SYS_MODULE_OBJ  sysTime;
+
     SYS_MODULE_OBJ srvUSI0;
 
 } SYSTEM_OBJECTS;

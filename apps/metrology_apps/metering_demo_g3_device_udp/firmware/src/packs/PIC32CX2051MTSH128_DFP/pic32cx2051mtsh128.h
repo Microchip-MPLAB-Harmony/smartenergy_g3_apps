@@ -3,33 +3,30 @@
  *
  * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
- * Subject to your compliance with these terms, you may use Microchip software and any derivatives
- * exclusively with Microchip products. It is your responsibility to comply with third party license
- * terms applicable to your use of third party software (including open source software) that may
- * accompany Microchip software.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY,
- * APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND
- * FITNESS FOR A PARTICULAR PURPOSE.
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
- * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF
- * MICROCHIP HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE FULLEST EXTENT
- * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT
- * EXCEED THE AMOUNT OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  */
 
-/* File generated from device description version 2023-01-20T11:01:04Z */
+/* File generated from device description file (ATDF) version 2023-12-19T08:59:30Z */
 #ifndef _PIC32CX2051MTSH128_H_
 #define _PIC32CX2051MTSH128_H_
 
 /* Header version uses Semantic Versioning 2.0.0 (https://semver.org/) */
-#define HEADER_FORMAT_VERSION "2.1.0"
+#define HEADER_FORMAT_VERSION "2.1.1"
 
 #define HEADER_FORMAT_VERSION_MAJOR (2)
 #define HEADER_FORMAT_VERSION_MINOR (1)
-#define HEADER_FORMAT_VERSION_PATCH (0)
+#define HEADER_FORMAT_VERSION_PATCH (1)
 
 /* PIC32CX2051MTSH128 definitions
   This file defines all structures and symbols for PIC32CX2051MTSH128:
@@ -770,7 +767,7 @@ void MATRIX3_Handler               ( void );
 #define IRAM0_SIZE                     _UINT32_(0x00080000)    /*  512kB Memory segment type: ram */
 #define IRAM1_SIZE                     _UINT32_(0x00008000)    /*   32kB Memory segment type: ram */
 #define IRAM2_SIZE                     _UINT32_(0x00004000)    /*   16kB Memory segment type: ram */
-#define CORTEXM_PRIVATE_PB_SIZE        _UINT32_(0x00100000)    /* 1024kB Memory segment type: other */
+#define PPB_SIZE                       _UINT32_(0x00100000)    /* 1024kB Memory segment type: io */
 
 #define PERIPHERALS_ADDR               _UINT32_(0x40000000)    /* PERIPHERALS base address (type: io)*/
 #define IFLASH0_ADDR                   _UINT32_(0x01000000)    /* IFLASH0 base address (type: flash)*/
@@ -788,7 +785,7 @@ void MATRIX3_Handler               ( void );
 #define IRAM0_ADDR                     _UINT32_(0x20000000)    /* IRAM0 base address (type: ram)*/
 #define IRAM1_ADDR                     _UINT32_(0x20080000)    /* IRAM1 base address (type: ram)*/
 #define IRAM2_ADDR                     _UINT32_(0x20088000)    /* IRAM2 base address (type: ram)*/
-#define CORTEXM_PRIVATE_PB_ADDR        _UINT32_(0xe0000000)    /* CORTEXM_PRIVATE_PB base address (type: other)*/
+#define PPB_ADDR                       _UINT32_(0xe0000000)    /* PPB base address (type: io)*/
 
 /* ************************************************************************** */
 /*   DEVICE SIGNATURES FOR PIC32CX2051MTSH128                                 */

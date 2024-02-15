@@ -14,7 +14,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -134,8 +134,8 @@ static PAL_Status_t PAL_TimerInit(void)
     PAL_Status_t status = PAL_SUCCESS;
     SYS_TIME_RESULT sysStatus = SYS_TIME_ERROR;
     numOfTimers = 0;
-	/* Variable holding the status of Timer initialization*/
-	static bool palTimerInitialized = false;
+    /* Variable holding the status of Timer initialization*/
+    static bool palTimerInitialized = false;
     
     for (uint8_t i = 0; i < numMaxTimers; i++)
     {
@@ -177,28 +177,27 @@ static PAL_Status_t PAL_TimerInit(void)
  * range.
  */
 PAL_Status_t PAL_TimerStart(TimerId_t timerId,
-		uint32_t timerCount,
-		TimeoutType_t timeoutType,
-		appCallback_t timerCb,
-		void *paramCb, CallbackType_t callbackType)
+        uint32_t timerCount,
+        TimeoutType_t timeoutType,
+        appCallback_t timerCb,
+        void *paramCb, CallbackType_t callbackType)
 {
-	
+
     SYS_TIME_RESULT status = SYS_TIME_ERROR;
     SYS_TIME_HANDLE timerHandle  = SYS_TIME_HANDLE_INVALID;
     SYS_TIME_CALLBACK_TYPE type = (SYS_TIME_CALLBACK_TYPE)callbackType;
-	
-	PAL_Status_t retStatus = PAL_FAILURE;
 
+    PAL_Status_t retStatus = PAL_FAILURE;
     
     if (timeoutType == TIMEOUT_RELATIVE)
     {
         timerHandle = SYS_TIME_TimerCreate(0, SYS_TIME_USToCount(timerCount), 
-			&palTimerCallback, (uintptr_t)&palTimers[timerId].timerId, type );
+            &palTimerCallback, (uintptr_t)&palTimers[timerId].timerId, type );
     }
     else
     {
         timerHandle = SYS_TIME_TimerCreate(SYS_TIME_USToCount(timerCount), 0, 
-			&palTimerCallback, (uintptr_t)&palTimers[timerId].timerId, type );
+            &palTimerCallback, (uintptr_t)&palTimers[timerId].timerId, type );
     }
     
      
@@ -215,16 +214,15 @@ PAL_Status_t PAL_TimerStart(TimerId_t timerId,
         retStatus = PAL_FAILURE;
     }
 
-	if (SYS_TIME_SUCCESS == status) {       
+    if (SYS_TIME_SUCCESS == status) {       
         palTimers[timerId].isTimerStarted = true; 
-		retStatus = PAL_SUCCESS;		
+        retStatus = PAL_SUCCESS;
     }
     else{
         palTimers[timerId].isTimerStarted = false;
         retStatus = PAL_FAILURE;
     }
-    
-	return retStatus;
+    return retStatus;
     
 }
 
@@ -241,7 +239,7 @@ PAL_Status_t PAL_TimerStart(TimerId_t timerId,
  */
 PAL_Status_t PAL_TimerStop(TimerId_t timerId)
 {
-	PAL_Status_t status = PAL_SUCCESS;
+    PAL_Status_t status = PAL_SUCCESS;
     SYS_TIME_RESULT sysStatus = SYS_TIME_ERROR;
         
     if(timerId <= numOfTimers)
@@ -255,7 +253,7 @@ PAL_Status_t PAL_TimerStop(TimerId_t timerId)
     }
     
     (void)sysStatus;
-	return status;
+    return status;
 }
 
 /**
@@ -264,15 +262,15 @@ PAL_Status_t PAL_TimerStop(TimerId_t timerId)
  */
 PAL_Status_t PAL_TimerGetId(TimerId_t *timerId)
 {
-	PAL_Status_t status = PAL_FAILURE;
+    PAL_Status_t status = PAL_FAILURE;
 
     if (numOfTimers < numMaxTimers) {
         *timerId = numOfTimers;
         numOfTimers++;
         status = PAL_SUCCESS;
     
-	} 
-	return status;
+    } 
+    return status;
 }
 
 /**
@@ -295,7 +293,7 @@ bool PAL_TimerIsRunning(TimerId_t timerId)
         isRunning = !SYS_TIME_TimerPeriodHasExpired(palTimers[timerId].timerId);
     }
          
-	return isRunning;
+    return isRunning;
 }
 
 /**
@@ -314,12 +312,12 @@ void PAL_TimerDelay(uint32_t delay)
     if(delay_timer != SYS_TIME_HANDLE_INVALID && (sysStatus != SYS_TIME_ERROR))
     {
         while (SYS_TIME_DelayIsComplete(delay_timer) == false)
-		{
-			;
-	    }
+        {
+           ;
+        }
     }
     
-    return;                                   
+    return;
 }
 
 /**
@@ -331,10 +329,10 @@ void PAL_TimerDelay(uint32_t delay)
  */
 uint32_t PAL_GetCurrentTime(void)
 {
-	uint32_t countVal; 
+    uint32_t countVal; 
 
-	/* This will avoid the hard faults, due to aligned nature of access */
-	countVal = SYS_TIME_CounterGet();
+    /* This will avoid the hard faults, due to aligned nature of access */
+    countVal = SYS_TIME_CounterGet();
     
     return SYS_TIME_CountToUS(countVal);
 }
@@ -345,11 +343,11 @@ uint32_t PAL_GetCurrentTime(void)
  */
 static bool palTimerIsStarted(TimerId_t timerId)
 {
-	bool isTimerStarted = false;
+    bool isTimerStarted = false;
     
     isTimerStarted = palTimers[timerId].isTimerStarted;
    
-	return isTimerStarted;
+    return isTimerStarted;
 }
 
 /* 
@@ -448,4 +446,27 @@ int8_t PAL_GetTrxTransmitPowerMax(void)
     txPwrMax = PHY_TX_PWR_MAX;
     
     return txPwrMax;
+}
+
+/**
+ * @brief Gets device type
+  * @param[out] retrun boolean value for device type
+ */
+
+bool PAL_GetDeviceType(void)
+{
+    bool isHpaEnabled = false;
+    
+    return isHpaEnabled;
+
+}
+
+/**
+ * @brief Sets CPS pin for WBZ451 HPA device
+ * @param[bypass] holding CPS need to set or not
+ */
+
+void PAL_HpaSetCps(bool bypass)
+{
+    (void)bypass;
 }

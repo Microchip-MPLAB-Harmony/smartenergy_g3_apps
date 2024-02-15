@@ -17,28 +17,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef RF215_PHY_H
@@ -353,6 +353,13 @@ typedef struct
     uint8_t                         BBCn_FSKPE1;
     uint8_t                         BBCn_FSKPE2;
 
+    /* Receiver sensitivity for FSK in dBm.
+     * From IEEE 802.15.4 section 19.6.7 Receiver sensitivity:
+     * S = (S0 + 10log[R/R0]) dBm. Where S0 = -91 (without FEC) / -97 (with FEC);
+     * R0 = 50 kb/s; R = bit rate in kb/s
+     * Sensitivity without FEC is selected (worst case) */
+    int8_t                          sensitivityDBm;
+
 } RF215_FSK_SYM_RATE_CONST_OBJ;
 
 // *****************************************************************************
@@ -389,6 +396,12 @@ typedef struct
 
     /* Minimum MCS (lowest baud-rate, most robust) for the bandwidth option */
     DRV_RF215_PHY_MOD_SCHEME        minMCS;
+
+    /* Receiver sensitivity for OFDM in dBm.
+     * From IEEE 802.15.4 section 20.5.3 Receiver sensitivity:
+     * Table 20-21?Sensitivity requirements for OFDM options and MCS levels
+     * Sensitivity for MCS6 is selected (worst case) */
+    int8_t                          sensitivityDBm;
 
 } RF215_OFDM_BW_OPT_CONST_OBJ;
 
@@ -704,9 +717,6 @@ typedef struct
     /* CCATX/TX2RX auto procedure in progress */
     bool                            txAutoInProgress;
 
-    /* Flag to indicate that RX time is valid (at least one frame received) */
-    bool                            rxTimeValid;
-
     /* Flag to indicate that TRX reset is pending */
     bool                            trxResetPending;
 
@@ -715,7 +725,7 @@ typedef struct
 
     /* Flag to indicate that TX continuous is pending */
     bool                            txContinuousPending;
-    
+
     /* Flag to indicate that PHY configuration is pending */
     bool                            phyCfgPending;
 

@@ -4,19 +4,22 @@
 
 
 project: mac_rt_plc_and_go
-creation_date: 2023-10-19T14:07:15.025+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2024-02-15T13:48:26.709+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
-mcc_mode: IDE            # [IDE|Standalone|Headless]
-mcc_version: v5.3.7
-mcc_core_version: v5.5.7
-mplabx_version: v6.15        # if MPLAB X plugin only
-harmony_version: v1.3.2
-compiler: XC32 (v4.35) 
+mcc_mode: Headless            # [IDE|Standalone|Headless]
+mcc_version: v5.4.1
+mcc_core_version: v5.6.1
+mplabx_version: NA        # if MPLAB X plugin only
+harmony_version: v1.4.1
+compiler: NA
 
 modules:
-    - {name: "csp", version: "v3.18.0"}
-    - {name: "core", version: "v3.13.1"}
-    - {name: "dev_packs", version: "v3.18.0"}
-    - {name: "smartenergy", version: "v1.1.0-144-gf8c6837"}
-    - {name: "bsp", version: "v3.17.0"}
+    - {name: "csp", version: "master"}
+    - {name: "core", version: "master"}
+    - {name: "CMSIS_5", version: "5.9.0"}
+    - {name: "smartenergy", version: "SMS-3818-check-headers-readmes-and-release-notes"}
+    - {name: "bsp", version: "master"}
+
+packs:
+    - {name: "SAMD20_DFP", version: "3.6.112"}
 

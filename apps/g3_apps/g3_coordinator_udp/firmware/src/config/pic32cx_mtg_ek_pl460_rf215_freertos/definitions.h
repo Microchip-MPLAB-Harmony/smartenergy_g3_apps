@@ -54,8 +54,8 @@
 #include "driver/plc/g3MacRt/drv_g3_macrt_definitions.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt_comm.h"
-#include "peripheral/flexcom/spi/master/plib_flexcom3_spi_master.h"
 #include "peripheral/adc/plib_adc.h"
+#include "peripheral/flexcom/spi/master/plib_flexcom3_spi_master.h"
 #include "driver/rf215/drv_rf215.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h"
 #include "stack/g3/mac/mac_common/mac_common.h"
@@ -240,6 +240,7 @@ Remarks:
 
 typedef struct
 {
+
     SYS_MODULE_OBJ  drvG3MacRt;
 
     SYS_MODULE_OBJ drvRf215;

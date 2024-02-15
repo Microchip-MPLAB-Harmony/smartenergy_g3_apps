@@ -208,6 +208,7 @@ Remarks:
 typedef struct
 {
     SYS_MODULE_OBJ  sysTime;
+
     SYS_MODULE_OBJ drvPlcPhy;
     SYS_MODULE_OBJ  sysConsole0;
 

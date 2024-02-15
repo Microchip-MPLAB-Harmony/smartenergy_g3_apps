@@ -18,28 +18,28 @@
 *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 // DOM-IGNORE-END
 
 #ifndef SRV_PSERIAL_H    // Guards against multiple inclusion
@@ -70,11 +70,10 @@
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
-#define PSERIAL_TONEMAP_SIZE     3
-#define PSERIAL_SUBBANDS_SIZE    24
-#define PSERIAL_CARRIERS_SIZE    72
-#define PSERIAL_RS_2_BLOCKS      1
-#define PSERIAL_MAX_DATA_LEN     494
+#define PSERIAL_TONEMAP_SIZE     3U
+#define PSERIAL_SUBBANDS_SIZE    24U
+#define PSERIAL_CARRIERS_SIZE    72U
+#define PSERIAL_MAX_DATA_LEN     494U
 
 /* PLC Phy Tester Tool command
 
@@ -87,34 +86,25 @@
 */
 typedef enum
 {
-  /* Get data configuration request */
-  SRV_PSERIAL_CMD_PHY_GET_CFG = 0,
-  /* Get data configuration response */
-  SRV_PSERIAL_CMD_PHY_GET_CFG_RSP,
-  /* Set data configuration request */
-  SRV_PSERIAL_CMD_PHY_SET_CFG,
-  /* Set data configuration response */
-  SRV_PSERIAL_CMD_PHY_SET_CFG_RSP,
-  /* Get command request */
-  SRV_PSERIAL_CMD_PHY_CMD_CFG,
-  /* Get command response */
-  SRV_PSERIAL_CMD_PHY_CMD_CFG_RSP,
-  /* Send message data */
-  SRV_PSERIAL_CMD_PHY_SEND_MSG,
-  /* Send message data response */
-  SRV_PSERIAL_CMD_PHY_SEND_MSG_RSP,
-  /* Receive message data */
-  SRV_PSERIAL_CMD_PHY_RECEIVE_MSG,
-  /* Noise capture request */
-  SRV_PSERIAL_CMD_PHY_NOISE_REQ,
-  /* Noise capture response */
-  SRV_PSERIAL_CMD_PHY_NOISE_RSP,
-  /* Get parameter list */
-  SRV_PSERIAL_CMD_PHY_GET_CFG_LIST,
-  /* Parameter list response */
-  SRV_PSERIAL_CMD_PHY_GET_CFG_LIST_RSP,
-  /* Reset PHY layer */
-  SRV_PSERIAL_CMD_PHY_RESET_PHY_LAYER
+    /* Get data configuration request */
+    SRV_PSERIAL_CMD_PHY_GET_CFG = 0,
+    /* Get data configuration response */
+    SRV_PSERIAL_CMD_PHY_GET_CFG_RSP,
+    /* Set data configuration request */
+    SRV_PSERIAL_CMD_PHY_SET_CFG,
+    /* Set data configuration response */
+    SRV_PSERIAL_CMD_PHY_SET_CFG_RSP,
+    /* Get command request */
+    SRV_PSERIAL_CMD_PHY_CMD_CFG,
+    /* Get command response */
+    SRV_PSERIAL_CMD_PHY_CMD_CFG_RSP,
+    /* Send message data */
+    SRV_PSERIAL_CMD_PHY_SEND_MSG,
+    /* Send message data response */
+    SRV_PSERIAL_CMD_PHY_SEND_MSG_RSP,
+    /* Receive message data */
+    SRV_PSERIAL_CMD_PHY_RECEIVE_MSG
+
 } SRV_PSERIAL_COMMAND;
 
 // *****************************************************************************
@@ -150,7 +140,6 @@ typedef enum
     <code>
     SRV_PSERIAL_COMMAND command;
 
-    // Process received message from USI
     command = SRV_PSERIAL_GetCommand(pData);
     </code>
 
@@ -189,11 +178,9 @@ SRV_PSERIAL_COMMAND SRV_PSERIAL_GetCommand(uint8_t* pData);
     SRV_PSERIAL_COMMAND command;
     DRV_PLC_PHY_PIB_OBJ pibObj;
 
-    // Process received message from USI
     command = SRV_PSERIAL_GetCommand(pData);
     if (command == SRV_PSERIAL_CMD_PHY_GET_CFG) {
       SRV_PSERIAL_ParseGetPIB(&pibObj, pData);
-      // Get PIB object from PLC Driver
     }
     </code>
 
@@ -232,16 +219,13 @@ void SRV_PSERIAL_ParseGetPIB(DRV_PLC_PHY_PIB_OBJ* pDataDst, uint8_t* pDataSrc);
     SRV_PSERIAL_COMMAND command;
     DRV_PLC_PHY_PIB_OBJ pibObj;
 
-    // Process received message from USI
     command = SRV_PSERIAL_GetCommand(pData);
     if (command == SRV_PSERIAL_CMD_PHY_GET_CFG) {
       SRV_PSERIAL_ParseGetPIB(&pibObj, pData);
       if (DRV_PLC_PHY_PIBGet(appData.drvPlcHandle, &pibObj))
       {
         size_t len;
-        // Serialize PIB data
         len = SRV_PSERIAL_SerialGetPIB(appData.pSerialData, &pibObj);
-        // Send through USI
         SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_PHY,
                 appData.pSerialData, len);
       }
@@ -283,11 +267,9 @@ size_t SRV_PSERIAL_SerialGetPIB(uint8_t* pDataDst, DRV_PLC_PHY_PIB_OBJ* pDataSrc
     SRV_PSERIAL_COMMAND command;
     DRV_PLC_PHY_PIB_OBJ pibObj;
 
-    // Process received message from USI
     command = SRV_PSERIAL_GetCommand(pData);
     if (command == SRV_PSERIAL_CMD_PHY_SET_CFG) {
       SRV_PSERIAL_ParseSetPIB(&pibObj, pData);
-      // Set PIB object on PLC Driver
     }
     </code>
 
@@ -326,16 +308,13 @@ void SRV_PSERIAL_ParseSetPIB(DRV_PLC_PHY_PIB_OBJ* pDataDst, uint8_t* pDataSrc);
     SRV_PSERIAL_COMMAND command;
     DRV_PLC_PHY_PIB_OBJ pibObj;
 
-    // Process received message from USI
     command = SRV_PSERIAL_GetCommand(pData);
     if (command == SRV_PSERIAL_CMD_PHY_SET_CFG) {
       SRV_PSERIAL_ParseSetPIB(&pibObj, pData);
       if (DRV_PLC_PHY_PIBSet(appData.drvPlcHandle, &pibObj))
       {
         size_t len;
-        // Serialize PIB data
         len = SRV_PSERIAL_SerialSetPIB(appData.pSerialData, &pibObj);
-        // Send through USI
         SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_PHY,
                 appData.pSerialData, len);
       }
@@ -379,11 +358,9 @@ size_t SRV_PSERIAL_SerialSetPIB(uint8_t* pDataDst, DRV_PLC_PHY_PIB_OBJ* pDataSrc
     SRV_PSERIAL_COMMAND command;
     DRV_PLC_PHY_TRANSMISSION_OBJ plcTxObj;
 
-    // Process received message from USI
     command = SRV_PSERIAL_GetCommand(pData);
     if (command == SRV_PSERIAL_CMD_PHY_SEND_MSG) {
       SRV_PSERIAL_ParseTxMessage(&plcTxObj, pData);
-      // Send Message through PLC
       DRV_PLC_PHY_Send(appData.drvPlcHandle, &plcTxObj);
     }
     </code>
@@ -422,14 +399,11 @@ void SRV_PSERIAL_ParseTxMessage(DRV_PLC_PHY_TRANSMISSION_OBJ* pDataDst, uint8_t*
     <code>
     static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
     {
-      // Send Received PLC message through USI
       if (indObj->dataLength)
       {
           size_t length;
 
-          // Serialize received message
           length = SRV_PSERIAL_SerialRxMessage(appData.pSerialData, indObj);
-          // Send through USI
           SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_PHY,
                   appData.pSerialData, length);
       }
@@ -473,9 +447,7 @@ size_t SRV_PSERIAL_SerialRxMessage(uint8_t* pDataDst, DRV_PLC_PHY_RECEPTION_OBJ*
     {
       size_t length;
 
-      // Serialize received message
       length = SRV_PSERIAL_SerialCfmMessage(appData.pSerialData, cfmObj);
-      // Send through USI
       SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_PHY,
               appData.pSerialData, length);
     }

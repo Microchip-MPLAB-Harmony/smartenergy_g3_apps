@@ -95,6 +95,7 @@ extern "C" {
 // Section: Driver Configuration
 // *****************************************************************************
 // *****************************************************************************
+
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A
@@ -110,8 +111,8 @@ extern "C" {
 #define DRV_PLC_SPI_CLK                       8000000
 
 /* PLC MAC RT Driver Identification */
-#define DRV_G3_MACRT_INDEX                   0
-#define DRV_G3_MACRT_INSTANCES_NUMBER        1
+#define DRV_G3_MACRT_INDEX                   0U
+#define DRV_G3_MACRT_INSTANCES_NUMBER        1U
 #define DRV_G3_MACRT_HOST_DESC               "PIC32CX2051MTG128"
 
 

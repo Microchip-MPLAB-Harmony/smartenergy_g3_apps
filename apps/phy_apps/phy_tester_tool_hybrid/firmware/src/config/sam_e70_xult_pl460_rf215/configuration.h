@@ -96,10 +96,9 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 /* RF215 Driver Configuration Options */
-#define DRV_RF215_INDEX_0                     0
-#define DRV_RF215_CLIENTS_NUMBER              2
-#define DRV_RF215_TX_BUFFERS_NUMBER           2
-#define DRV_RF215_CSR_INDEX                   3
+#define DRV_RF215_INDEX_0                     0U
+#define DRV_RF215_CLIENTS_NUMBER              2U
+#define DRV_RF215_TX_BUFFERS_NUMBER           2U
 #define DRV_RF215_SPI_CHIP_SELECT             SPI_CHIP_SELECT_NPCS3
 #define DRV_RF215_SPI_TX_DMA_CH               SYS_DMA_CHANNEL_0
 #define DRV_RF215_SPI_RX_DMA_CH               SYS_DMA_CHANNEL_1
@@ -107,18 +106,20 @@ extern "C" {
 #define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PC19
 #define DRV_RF215_LED_TX_PIN                  SYS_PORT_PIN_PD11
 #define DRV_RF215_LED_RX_PIN                  SYS_PORT_PIN_PA6
-#define DRV_RF215_NUM_TRX                     2
-#define DRV_RF215_FCS_LEN                     4
-#define DRV_RF215_MAX_PSDU_LEN                576
-#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000
-#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  70
-#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 660
+#define DRV_RF215_NUM_TRX                     2U
+#define DRV_RF215_FCS_LEN                     4U
+#define DRV_RF215_MAX_PSDU_LEN                576U
+#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000U
+#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  70U
+#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 660U
+
 
 /* USI Service Common Configuration Options */
-#define SRV_USI_INSTANCES_NUMBER              2
-#define SRV_USI_USART_CONNECTIONS             1
-#define SRV_USI_CDC_CONNECTIONS               1
-#define SRV_USI_MSG_POOL_SIZE                 5
+#define SRV_USI_INSTANCES_NUMBER              2U
+#define SRV_USI_USART_CONNECTIONS             1U
+#define SRV_USI_CDC_CONNECTIONS               1U
+#define SRV_USI_MSG_POOL_SIZE                 5U
+
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_D
@@ -146,10 +147,12 @@ extern "C" {
 #define DRV_PLC_PHY_HOST_DESC                 "ATSAME70Q21B"
 #define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
+
 /* USI Service Instance 1 Configuration Options */
 #define SRV_USI_INDEX_1                       1
 #define SRV_USI1_RD_BUF_SIZE                  1024
 #define SRV_USI1_WR_BUF_SIZE                  1024
+
 
 /* USI Service Instance 0 Configuration Options */
 #define SRV_USI_INDEX_0                       0
@@ -164,38 +167,38 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 /* Number of Endpoints used */
-#define DRV_USBHSV1_ENDPOINTS_NUMBER                        4
+#define DRV_USBHSV1_ENDPOINTS_NUMBER                        4U
 
 /* The USB Device Layer will not initialize the USB Driver */
 #define USB_DEVICE_DRIVER_INITIALIZE_EXPLICIT
 
 /* Maximum device layer instances */
-#define USB_DEVICE_INSTANCES_NUMBER                         1
+#define USB_DEVICE_INSTANCES_NUMBER                         1U
 
 /* EP0 size in bytes */
-#define USB_DEVICE_EP0_BUFFER_SIZE                          64
+#define USB_DEVICE_EP0_BUFFER_SIZE                          64U
 
 
 /* Maximum instances of CDC function driver */
-#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1
+#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1U
 
 
 /* CDC Transfer Queue Size for both read and
    write. Applicable to all instances of the
    function driver */
-#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3
+#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3U
 
 /*** USB Driver Configuration ***/
 
 /* Maximum USB driver instances */
-#define DRV_USBHSV1_INSTANCES_NUMBER                        1
+#define DRV_USBHSV1_INSTANCES_NUMBER                        1U
 
 /* Interrupt mode enabled */
 #define DRV_USBHSV1_INTERRUPT_MODE                          true
 
 /* Enables Device Support */
 #define DRV_USBHSV1_DEVICE_SUPPORT                          true
-	
+    
 /* Disable Host Support */
 #define DRV_USBHSV1_HOST_SUPPORT                            false
 

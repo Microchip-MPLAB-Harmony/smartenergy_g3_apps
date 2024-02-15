@@ -138,8 +138,8 @@ const IPV6_ADDRESS_POLICY gPolicyTable[] = {
     {{{0x20, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},  32,  5,  5},            // 2001::/32 - Teredo tunneling
     {{{0xfc, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},   7,  3, 13},            // ULA
     {{{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},  96,  1,  3},            //
-    {{{0xfe, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},  10,  1, 11},            //
-    {{{0x3f, 0xfe, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},  16,  1, 12},            //
+    {{{0xfe, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},  10,  1, 11},            // 
+    {{{0x3f, 0xfe, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},  16,  1, 12},            // 
 
     {{{0}},0xFF,0,0},
 };
@@ -194,7 +194,7 @@ static void                 TCPIP_IPV6_MacPacketTxAck(TCPIP_MAC_PACKET* pkt,  co
 static void                 TCPIP_IPV6_MacPacketTxAddSegments(IPV6_PACKET* ptrPacket, TCPIP_MAC_PACKET* pMacPkt, uint16_t segFlags);
 
 // MAC API RX functions
-typedef uint8_t*    TCPIP_MAC_PTR_TYPE;
+typedef uint8_t*    TCPIP_MAC_PTR_TYPE; 
 static TCPIP_MAC_PTR_TYPE   MACSetBaseReadPtr(TCPIP_MAC_PACKET* pRxPkt, TCPIP_MAC_PTR_TYPE address);
 static void                 MACSetReadPtrInRx(TCPIP_MAC_PACKET* pRxPkt, uint16_t offset);
 static TCPIP_MAC_PTR_TYPE   MACSetReadPtr(TCPIP_MAC_PACKET* pRxPkt, TCPIP_MAC_PTR_TYPE address);
@@ -321,7 +321,7 @@ bool TCPIP_IPV6_Initialize(const TCPIP_STACK_MODULE_CTRL* const pStackInit, cons
         pIpv6Config->curHopLimit = TCPIP_IPV6_DEFAULT_CUR_HOP_LIMIT;
 
         pIpv6Config->policyPreferTempOrPublic = IPV6_PREFER_PUBLIC_ADDRESSES;
-
+        
         ipv6InitCount++;
     }
 
@@ -368,26 +368,26 @@ static void TCPIP_IPV6_ProtectedSingleListFree (PROTECTED_SINGLE_LIST * list)
 
 /*****************************************************************************
   Function:
-	void TCPIP_IPV6_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
+    void TCPIP_IPV6_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
 
   Summary:
-	Disables IPv6 functionality on the specified interface.
+    Disables IPv6 functionality on the specified interface.
 
   Description:
-	This function will disable IPv6 functionality on a specified interface.
+    This function will disable IPv6 functionality on a specified interface. 
     It will free any dynamically allocated structures.
 
   Precondition:
-	None
+    None
 
   Parameters:
-	stackCtrl - Stack initialization parameters
+    stackCtrl - Stack initialization parameters
 
   Returns:
-  	None
-
+    None
+    
   Remarks:
-	None
+    None
   ***************************************************************************/
 #if (TCPIP_STACK_DOWN_OPERATION != 0)
 void TCPIP_IPV6_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
@@ -490,7 +490,7 @@ static void TCPIP_IPV6_InitializeTask (void)
                             break;
                         }
                     }
-
+                    
                     // Enable IPv6 functionality for now so we can process ICMPv6 messages for stateless address autoconfiguration
                     pNetIf->Flags.bIPv6Enabled = true;
                     pIpv6Config->initState = IPV6_INIT_STATE_DAD;
@@ -521,7 +521,7 @@ static void TCPIP_IPV6_InitializeTask (void)
                         TCPIP_NDP_RouterSolicitStart(pNetIf);
                     }
                     pIpv6Config->initState = IPV6_INIT_STATE_DONE;
-                    /* FALLTHROUGH! */
+                    /* FALLTHROUGH! */ 
                 case IPV6_INIT_STATE_DONE:
                     TCPIP_IPV6_InitializeStop (pNetIf);
                     break;
@@ -1240,9 +1240,16 @@ int TCPIP_IPV6_Flush (IPV6_PACKET * ptrPacket)
         checksumPointer = TCPIP_IPV6_DataSegmentContentsGetByType (ptrPacket, TYPE_IPV6_UPPER_LAYER_HEADER);
         if (checksumPointer != NULL)
         {
-            checksumPointer = (uint16_t *)(((uint8_t *)checksumPointer) + ptrPacket->upperLayerChecksumOffset);
-            *checksumPointer = ~TCPIP_IPV6_PseudoHeaderChecksumGet (ptrPacket);
-            *checksumPointer = TCPIP_IPV6_PayloadChecksumCalculate (ptrPacket);
+            if((((TCPIP_NET_IF*)ptrPacket->netIfH)->txOffload & TCPIP_MAC_CHECKSUM_IPV6) == 0)
+            {
+                checksumPointer = (uint16_t *)(((uint8_t *)checksumPointer) + ptrPacket->upperLayerChecksumOffset);
+                *checksumPointer = ~TCPIP_IPV6_PseudoHeaderChecksumGet (ptrPacket);
+                *checksumPointer = TCPIP_IPV6_PayloadChecksumCalculate (ptrPacket);
+            }
+            else
+            {
+                *checksumPointer = 0;
+            }
         }
     }
 
@@ -1387,7 +1394,7 @@ bool TCPIP_IPV6_PacketTransmit (IPV6_PACKET * pkt)
     }
 
     ipv6PktLoad = TCPIP_IPV6_PacketPayload(pkt);
-    TCPIP_MAC_PACKET* pMacPkt = TCPIP_IPV6_MacPacketTxAllocate(pkt, ipv6PktLoad, 0);
+    TCPIP_MAC_PACKET* pMacPkt = TCPIP_IPV6_MacPacketTxAllocate(pkt, ipv6PktLoad, 0); 
     if (pMacPkt == 0)
     {
         return false;
@@ -1540,7 +1547,7 @@ bool TCPIP_IPV6_PacketTransmitInFragments (IPV6_PACKET * pkt, uint16_t mtu)
         // Calculate new payload length
         pkt->ipv6Header.PayloadLength = TCPIP_Helper_htons(currentPayloadLen - sizeof (IPV6_HEADER));
 
-        TCPIP_MAC_PACKET* pMacPkt = TCPIP_IPV6_MacPacketTxAllocate(pkt, currentPayloadLen, 0);
+        TCPIP_MAC_PACKET* pMacPkt = TCPIP_IPV6_MacPacketTxAllocate(pkt, currentPayloadLen, 0); 
         if (pMacPkt == 0)
         {
             pkt->offsetInSegment = sentPayloadLen;
@@ -2396,7 +2403,7 @@ TCPIP_IPV6_FragmentationHeaderProcess(
 
     // Set fragment buffer pointer to the head of the linked list of fragmented packets
     ptrFragment = (IPV6_RX_FRAGMENT_BUFFER *)pIpv6Config->rxFragments.head;
-
+    
     // Find a packet being reassembled that matches this fragmented packet
     while (ptrFragment != NULL)
     {
@@ -2450,9 +2457,9 @@ TCPIP_IPV6_FragmentationHeaderProcess(
             ptrFragment->ptrPacket[headerLen - previousHeaderLen] = fragmentHeader.nextHeader;
 
         TCPIP_Helper_SingleListTailAdd(&pIpv6Config->rxFragments, (SGL_LIST_NODE *)ptrFragment);
-
+        
     }
-
+    
     if (dataCount)
     {
         if (fragmentHeader.offsetM.bits.fragmentOffset == 0)
@@ -2476,7 +2483,7 @@ TCPIP_IPV6_FragmentationHeaderProcess(
             // More fragments
             // Check to ensure the packet's payload length is a multiple of eight bytes.
             if (((headerLen + dataCount) % 8) != 0)
-            {
+            {            
                 TCPIP_IPV6_ErrorSend (pNetIf, pRxPkt, localIP, remoteIP, ICMPV6_ERR_PP_ERRONEOUS_HEADER, ICMPV6_ERROR_PARAMETER_PROBLEM, TCPIP_Helper_htonl(IPV6_HEADER_OFFSET_PAYLOAD_LENGTH), dataCount + headerLen + sizeof (IPV6_FRAGMENT_HEADER));
                 if(ptrFragment != NULL)
                 {
@@ -2519,7 +2526,7 @@ TCPIP_IPV6_FragmentationHeaderProcess(
         MACSetReadPtr (pRxPkt, tempReadPtr);
         MACSetBaseReadPtr (pRxPkt, tempBaseReadPtr);
 
-
+        
         ptrFragment->firstFragmentLength = 0;
 
         TCPIP_Helper_SingleListNodeRemove(&pIpv6Config->rxFragments, (SGL_LIST_NODE *)ptrFragment);
@@ -2761,7 +2768,7 @@ IPV6_ADDR_STRUCT * TCPIP_IPV6_DASSourceAddressSelect (TCPIP_NET_HANDLE hNetIf, c
     uint8_t ruleCounter = ADDR_SEL_RULE_8;
     IPV6_INTERFACE_CONFIG*  pIpv6Config;
 
-	TCPIP_NET_IF * pNetIf = _TCPIPStackHandleToNetUp(hNetIf);
+    TCPIP_NET_IF * pNetIf = _TCPIPStackHandleToNetUp(hNetIf);
     if (pNetIf == NULL)
     {
         return NULL;
@@ -3152,20 +3159,20 @@ static void TCPIP_IPV6_Process (TCPIP_NET_IF * pNetIf, TCPIP_MAC_PACKET* pRxPkt)
     // Break out of this processing function is IPv6 is not enabled on this node
     if (!pNetIf->Flags.bIPv6Enabled)
     {
-        TCPIP_PKT_PacketAcknowledge(pRxPkt, TCPIP_MAC_PKT_ACK_NET_DOWN);
+        TCPIP_PKT_PacketAcknowledge(pRxPkt, TCPIP_MAC_PKT_ACK_NET_DOWN); 
         return;
     }
 
     if((pRxPkt->pktFlags & TCPIP_MAC_PKT_FLAG_SPLIT) != 0)
     {   // MAC fragmented packets not supported yet
-        TCPIP_PKT_PacketAcknowledge(pRxPkt, TCPIP_MAC_PKT_ACK_FRAGMENT_ERR);
+        TCPIP_PKT_PacketAcknowledge(pRxPkt, TCPIP_MAC_PKT_ACK_FRAGMENT_ERR); 
         return;
     }
 
     // Get the relevant IPv6 header parameters
     if (!TCPIP_IPV6_HeaderGet(pRxPkt, &tempLocalIPv6Addr, &tempRemoteIPv6Addr, &cIPFrameType, &dataCount, &hopLimit))
     {
-        TCPIP_PKT_PacketAcknowledge(pRxPkt, TCPIP_MAC_PKT_ACK_STRUCT_ERR);
+        TCPIP_PKT_PacketAcknowledge(pRxPkt, TCPIP_MAC_PKT_ACK_STRUCT_ERR); 
         return;
     }
 
@@ -3174,7 +3181,7 @@ static void TCPIP_IPV6_Process (TCPIP_NET_IF * pNetIf, TCPIP_MAC_PACKET* pRxPkt)
 
     // set a valid ack result; could be overridden by processing tasks
     pRxPkt->ipv6PktData = TCPIP_MAC_PKT_ACK_RX_OK;
-
+    
     currentOffset += sizeof (IPV6_HEADER);
 
     // Determine if the address corresponds to one of the addresses used by our node
@@ -3219,7 +3226,7 @@ static void TCPIP_IPV6_Process (TCPIP_NET_IF * pNetIf, TCPIP_MAC_PACKET* pRxPkt)
         }
         else
         {
-            TCPIP_PKT_PacketAcknowledge(pRxPkt, TCPIP_MAC_PKT_ACK_PROTO_DEST_ERR);
+            TCPIP_PKT_PacketAcknowledge(pRxPkt, TCPIP_MAC_PKT_ACK_PROTO_DEST_ERR); 
             return;
         }
     }
@@ -3279,7 +3286,7 @@ static void TCPIP_IPV6_Process (TCPIP_NET_IF * pNetIf, TCPIP_MAC_PACKET* pRxPkt)
                 {   // failed to insert
                     cIPFrameType = IPV6_PROT_NONE;
                     action = 0;
-                    pRxPkt->ipv6PktData = TCPIP_MAC_PKT_ACK_PROTO_DEST_ERR;
+                    pRxPkt->ipv6PktData = TCPIP_MAC_PKT_ACK_PROTO_DEST_ERR; 
                     break;
                 }
 #else
@@ -3309,7 +3316,7 @@ static void TCPIP_IPV6_Process (TCPIP_NET_IF * pNetIf, TCPIP_MAC_PACKET* pRxPkt)
                 {   // failed to insert
                     cIPFrameType = IPV6_PROT_NONE;
                     action = 0;
-                    pRxPkt->ipv6PktData = TCPIP_MAC_PKT_ACK_PROTO_DEST_ERR;
+                    pRxPkt->ipv6PktData = TCPIP_MAC_PKT_ACK_PROTO_DEST_ERR; 
                     break;
                 }
 #else
@@ -3320,7 +3327,7 @@ static void TCPIP_IPV6_Process (TCPIP_NET_IF * pNetIf, TCPIP_MAC_PACKET* pRxPkt)
             // Process the frame's ICMPv6 header and payload
             case IPV6_PROT_ICMPV6:
                 // Process the ICMPv6 packet
-                TCPIP_ICMPV6_Process(pNetIf, pRxPkt, localAddressPointer, constLocalIPv6Addr, constRemoteIPv6Addr, dataCount, extensionHeaderLen, hopLimit, addrType);
+                TCPIP_ICMPV6_Process(pNetIf, pRxPkt, localAddressPointer, constLocalIPv6Addr, constRemoteIPv6Addr, dataCount, extensionHeaderLen, hopLimit, addrType); 
                 cIPFrameType = IPV6_PROT_NONE;
                 action = 0;
                 break;
@@ -3390,7 +3397,7 @@ static void TCPIP_IPV6_Process (TCPIP_NET_IF * pNetIf, TCPIP_MAC_PACKET* pRxPkt)
         }
     }
 
-    TCPIP_PKT_PacketAcknowledge(pRxPkt, pRxPkt->ipv6PktData);
+    TCPIP_PKT_PacketAcknowledge(pRxPkt, pRxPkt->ipv6PktData); 
  }
 
 
@@ -3596,7 +3603,7 @@ IPV6_ULA_RESULT TCPIP_IPV6_UniqueLocalUnicastAddressAdd (TCPIP_NET_HANDLE netH, 
     {
         return IPV6_ULA_RES_IF_ERR;
     }
-
+    
     // clear the error status
     TCPIP_SNTP_LastErrorGet();
     ulaNetIf = pNetIf;
@@ -3723,7 +3730,7 @@ static void TCPIP_IPV6_UlaTask (void)
         default:
             // shouldn't happen
             ulaState = TCPIP_IPV6_ULA_IDLE;
-            return;
+            return; 
     }
 
     if(genRes == IPV6_ULA_RES_OK)
@@ -3800,9 +3807,9 @@ static TCPIP_IPV6_RESULT TCPIP_IPV6_NewRouterEntry(TCPIP_NET_IF* pNetIf, const I
     if(pGwAddr == 0)
     {
         return TCPIP_IPV6_RES_BAD_ARG;
-    }
+    }   
 
-    bool isPerm = (flags & TCPIP_IPV6_NEIGHBOR_FLAG_PERM) != 0;
+    bool isPerm = (flags & TCPIP_IPV6_NEIGHBOR_FLAG_PERM) != 0; 
     NEIGHBOR_UNREACHABILITY_DETECT_STATE nState = isPerm ? NDP_STATE_REACHABLE : NDP_STATE_INCOMPLETE;
 
     pGwNbor = NULL;
@@ -3814,7 +3821,7 @@ static TCPIP_IPV6_RESULT TCPIP_IPV6_NewRouterEntry(TCPIP_NET_IF* pNetIf, const I
 
         if(pGwEntry != NULL)
         {   // already existent
-            pGwNbor = pGwEntry->neighborInfo;
+            pGwNbor = pGwEntry->neighborInfo; 
             _TCPIPStack_Assert(pGwNbor != NULL, __FILE__, __func__, __LINE__);
             if(pGwNbor == NULL)
             {
@@ -3897,7 +3904,7 @@ static uint16_t TCPIP_IPV6_PacketPayload(IPV6_PACKET* pkt)
     return pktLen;
 }
 
-// tries to allocate an associated TCPIP_MAC_PACKET for the IPV6_PACKET
+// tries to allocate an associated TCPIP_MAC_PACKET for the IPV6_PACKET 
 static TCPIP_MAC_PACKET* TCPIP_IPV6_MacPacketTxAllocate(IPV6_PACKET* pkt, uint16_t segLoadLen, TCPIP_MAC_PACKET_FLAGS flags)
 {
     TCPIP_MAC_PACKET* pMacPkt;
@@ -3916,7 +3923,7 @@ static TCPIP_MAC_PACKET* TCPIP_IPV6_MacPacketTxAllocate(IPV6_PACKET* pkt, uint16
 }
 
 
-// adds contiguous IPV6_PACKET segments to a TCPIP_MAC_PACKET
+// adds contiguous IPV6_PACKET segments to a TCPIP_MAC_PACKET 
 static void TCPIP_IPV6_MacPacketTxAddSegments(IPV6_PACKET* ptrPacket, TCPIP_MAC_PACKET* pMacPkt, uint16_t segFlags)
 {
     IPV6_DATA_SEGMENT_HEADER * segmentHeader;
@@ -3941,7 +3948,7 @@ static void TCPIP_IPV6_MacPacketTxAddSegments(IPV6_PACKET* ptrPacket, TCPIP_MAC_
     {
         pSeg->segFlags |= segFlags;
     }
-
+    
 }
 
 
@@ -3970,38 +3977,38 @@ static void TCPIP_IPV6_MacPacketTxPutHeader(IPV6_PACKET* pkt, TCPIP_MAC_PACKET* 
 
 static TCPIP_MAC_PTR_TYPE MACSetBaseReadPtr(TCPIP_MAC_PACKET* pRxPkt, TCPIP_MAC_PTR_TYPE address)
 {
-	unsigned char* oldPtr;
+    unsigned char* oldPtr;
 
-	oldPtr = pRxPkt->pMacLayer;
-	pRxPkt->pMacLayer = (unsigned char*)address;
-	return (TCPIP_MAC_PTR_TYPE)oldPtr;
+    oldPtr = pRxPkt->pMacLayer;
+    pRxPkt->pMacLayer = (unsigned char*)address;
+    return (TCPIP_MAC_PTR_TYPE)oldPtr;
 }
 
 static void MACSetReadPtrInRx(TCPIP_MAC_PACKET* pRxPkt, uint16_t offset)
 {
-	pRxPkt->pNetLayer = pRxPkt->pMacLayer + sizeof(TCPIP_MAC_ETHERNET_HEADER) + offset;
+    pRxPkt->pNetLayer = pRxPkt->pMacLayer + sizeof(TCPIP_MAC_ETHERNET_HEADER) + offset;
 }
 
 static TCPIP_MAC_PTR_TYPE MACSetReadPtr(TCPIP_MAC_PACKET* pRxPkt, TCPIP_MAC_PTR_TYPE address)
 {
-	unsigned char* oldPtr;
+    unsigned char* oldPtr;
 
-	oldPtr = pRxPkt->pNetLayer;
-	pRxPkt->pNetLayer = (unsigned char*)address;
-	return (TCPIP_MAC_PTR_TYPE)oldPtr;
+    oldPtr = pRxPkt->pNetLayer;
+    pRxPkt->pNetLayer = (unsigned char*)address;
+    return (TCPIP_MAC_PTR_TYPE)oldPtr;
 }
 
 static uint16_t MACGetArray(TCPIP_MAC_PACKET* pRxPkt, uint8_t *address, uint16_t len)
 {
-	if(address)
-	{
-		memcpy(address, pRxPkt->pNetLayer, len);
-	}
+    if(address)
+    {
+        memcpy(address, pRxPkt->pNetLayer, len);
+    }
 
-	pRxPkt->pNetLayer += len;
-	pRxPkt->pTransportLayer = pRxPkt->pNetLayer;    // update transport layer pointer
+    pRxPkt->pNetLayer += len;
+    pRxPkt->pTransportLayer = pRxPkt->pNetLayer;    // update transport layer pointer
 
-	return len;
+    return len;
 }
 
 
@@ -4086,7 +4093,7 @@ bool TCPIP_IPV6_PacketHandlerDeregister(TCPIP_IPV6_PROCESS_HANDLE pktHandle)
     {
         ipv6PktHandler = 0;
         res = true;
-    }
+    } 
 
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
     return res;
@@ -4113,13 +4120,13 @@ TCPIP_IPV6_RESULT TCPIP_IPV6_NeighborAddressAdd(TCPIP_NET_HANDLE netH, const IPV
         return TCPIP_IPV6_RES_MCAST_ERR;
     }
 
-    if((flags & TCPIP_IPV6_NEIGHBOR_FLAG_ROUTER) != 0)
+    if((flags & TCPIP_IPV6_NEIGHBOR_FLAG_ROUTER) != 0) 
     {   // router added
         return TCPIP_IPV6_NewRouterEntry(pNetIf, nAddress, nMacAddr, flags, 0xffffffffU);
     }
 
     // new neighbor state
-    bool isPerm = (flags & TCPIP_IPV6_NEIGHBOR_FLAG_PERM) != 0;
+    bool isPerm = (flags & TCPIP_IPV6_NEIGHBOR_FLAG_PERM) != 0; 
     NEIGHBOR_UNREACHABILITY_DETECT_STATE nState = isPerm ? NDP_STATE_REACHABLE : NDP_STATE_INCOMPLETE;
     IPV6_INTERFACE_CONFIG* pIpv6Config = TCPIP_IPV6_InterfaceConfigGet(pNetIf);
 
@@ -4133,7 +4140,7 @@ TCPIP_IPV6_RESULT TCPIP_IPV6_NeighborAddressAdd(TCPIP_NET_HANDLE netH, const IPV
     TCPIP_IPV6_RESULT result = TCPIP_IPV6_RES_OK;
 
     while(true)
-    {
+    {        
         // check if we have this destination
         dcEntry = (IPV6_HEAP_NDP_DC_ENTRY*)TCPIP_NDP_RemoteNodeFind (pNetIf, nAddress, IPV6_HEAP_NDP_DC_ID);
         if(dcEntry != NULL)
@@ -4224,7 +4231,7 @@ TCPIP_IPV6_RESULT TCPIP_IPV6_NeighborAddressDelete(TCPIP_NET_HANDLE netH, const 
     {
         return TCPIP_IPV6_RES_ADDRESS_ERR;
     }
-
+    
     // valid neighbor
 
 
@@ -4252,7 +4259,7 @@ TCPIP_IPV6_RESULT TCPIP_IPV6_G3PLC_PanIdSet(TCPIP_NET_HANDLE netH, uint16_t panI
     pIpv6Config->g3PanId = panId;
     pIpv6Config->g3PanIdSet = 1;
 
-    return TCPIP_IPV6_RES_OK;
+    return TCPIP_IPV6_RES_OK; 
 }
 
 #endif  // defined(TCPIP_IPV6_G3_PLC_SUPPORT) && (TCPIP_IPV6_G3_PLC_SUPPORT != 0)

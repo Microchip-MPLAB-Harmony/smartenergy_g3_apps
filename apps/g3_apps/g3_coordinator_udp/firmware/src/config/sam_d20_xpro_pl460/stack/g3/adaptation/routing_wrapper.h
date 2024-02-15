@@ -17,28 +17,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef ROUTING_WRAPPER_H
@@ -119,7 +119,7 @@ void ROUTING_WRP_Reset(MAC_WRP_HANDLE macWrpHandle);
     <code>
     if (ROUTING_WRP_IsDisabled() == false)
     {
-        
+
     }
     else
     {
@@ -155,7 +155,7 @@ bool ROUTING_WRP_IsDisabled(void);
     <code>
     if (ROUTING_WRP_IsAutoRReqDisabled() == false)
     {
-        
+
     }
     else
     {
@@ -192,7 +192,7 @@ bool ROUTING_WRP_IsAutoRReqDisabled(void);
     <code>
     if (ROUTING_WRP_IsDefaultCoordRouteEnabled() == true)
     {
-        
+
     }
     else
     {
@@ -311,7 +311,7 @@ void ROUTING_WRP_SetDiscoverRouteGlobalSeqNo(uint16_t seqNo);
   Parameters:
     dstAddr    - Path destination address
 
-    metricType - 
+    metricType -
 
     callback   - Pointer to function to call back when path discovery finishes
 
@@ -323,7 +323,7 @@ void ROUTING_WRP_SetDiscoverRouteGlobalSeqNo(uint16_t seqNo);
     static void _PathDiscovery_Callback(uint8_t status,
         ADP_PATH_DESCRIPTOR *pPathDescriptor)
     {
-      
+
     }
 
     ROUTING_WRP_DiscoverPath(0x0001, 1, _PathDiscovery_Callback);
@@ -442,9 +442,9 @@ void ROUTING_WRP_ProcessMessage(uint16_t macSrcAddr, uint8_t mediaType,
     None.
 
   Parameters:
-    dstAddr            - 
+    dstAddr            -
 
-    unreachableAddress - 
+    unreachableAddress -
 
     errorCode          -
 
@@ -552,7 +552,7 @@ void ROUTING_WRP_RefreshRoute(uint16_t dstAddr);
     None.
 
   Parameters:
-    lastCircularRouteAddress - 
+    lastCircularRouteAddress -
 
   Returns:
     None.
@@ -615,7 +615,7 @@ void ROUTING_WRP_DeleteRoute(uint16_t dstAddr);
 
   Returns:
     Returns true if route is known and false otherwise.
-  
+
   Example:
     <code>
     static void _RouteDiscovery_Callback(uint8_t status, uint16_t dstAddr,
@@ -626,7 +626,7 @@ void ROUTING_WRP_DeleteRoute(uint16_t dstAddr);
 
     if (ROUTING_WRP_RouteExists(0x0001) == true)
     {
-        
+
     }
     else
     {
@@ -662,7 +662,7 @@ bool ROUTING_WRP_RouteExists(uint16_t destinationAddress);
 
   Returns:
     Returns the next hop address.
-  
+
   Example:
     <code>
     uint16_t nextHopAddr;
@@ -695,7 +695,7 @@ uint16_t ROUTING_WRP_GetRouteAndMediaType(uint16_t destinationAddress,
     None.
 
   Parameters:
-    dstAddr     - 
+    dstAddr     -
 
     nextHopAddr -
 
@@ -705,7 +705,7 @@ uint16_t ROUTING_WRP_GetRouteAndMediaType(uint16_t destinationAddress,
 
   Returns:
     .
-  
+
   Example:
     <code>
     </code>
@@ -735,7 +735,7 @@ ROUTING_TABLE_ENTRY* ROUTING_WRP_AddRoute(uint16_t dstAddr,
 
   Returns:
     .
-  
+
   Example:
     <code>
     </code>
@@ -763,7 +763,7 @@ ROUTING_TABLE_ENTRY* ROUTING_WRP_GetRouteEntry(uint16_t destinationAddress);
 
   Returns:
     .
-  
+
   Example:
     <code>
     </code>
@@ -797,7 +797,7 @@ bool ROUTING_WRP_IsInDestinationAddressSet(uint16_t addr);
 
   Returns:
     None.
-  
+
   Example:
     <code>
     ADP_GET_CFM_PARAMS getConfirm;
@@ -840,7 +840,7 @@ void ROUTING_WRP_GetMib(uint32_t attributeId, uint16_t attributeIndex,
 
   Returns:
     None.
-  
+
   Example:
     <code>
     uint8_t lowLqiValue = 44;
@@ -906,7 +906,7 @@ void ROUTING_WRP_AddBlacklistOnMedium(uint16_t addr, uint8_t mediaType);
 
   Returns:
     None.
-  
+
   Example:
     <code>
     ROUTING_WRP_RemoveBlacklistOnMedium(0x0001, MAC_WRP_MEDIA_TYPE_IND_PLC);
@@ -935,21 +935,21 @@ void ROUTING_WRP_RemoveBlacklistOnMedium(uint16_t addr, uint8_t mediaType);
 
   Returns:
     True if node acts as a Router to addr. Otherwise False.
-  
+
   Example:
     <code>
     destAddr = extractDestinationFromPacket(pkt);
 
     if (ROUTING_WRP_IsRouterTo(destAddr))
     {
-        
+
     }
     </code>
 
   Remarks:
     None.
 */
- 
+
 /**********************************************************************************************************************/
 /** Returns true if node has a Route to u16Addr, to its next hop, and to any other node
  **********************************************************************************************************************/

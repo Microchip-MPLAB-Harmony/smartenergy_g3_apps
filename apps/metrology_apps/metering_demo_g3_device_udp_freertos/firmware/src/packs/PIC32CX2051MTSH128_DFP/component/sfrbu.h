@@ -3,60 +3,27 @@
  *
  * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
- * Subject to your compliance with these terms, you may use Microchip software and any derivatives
- * exclusively with Microchip products. It is your responsibility to comply with third party license
- * terms applicable to your use of third party software (including open source software) that may
- * accompany Microchip software.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY,
- * APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND
- * FITNESS FOR A PARTICULAR PURPOSE.
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
- * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF
- * MICROCHIP HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE FULLEST EXTENT
- * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT
- * EXCEED THE AMOUNT OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  */
 
-/* file generated from device description version 2023-01-20T11:01:06Z */
+/* file generated from device description file (ATDF) version 2023-12-19T08:59:38Z */
 #ifndef _PIC32CXMTSH_SFRBU_COMPONENT_H_
 #define _PIC32CXMTSH_SFRBU_COMPONENT_H_
 
 /* ************************************************************************** */
 /*   SOFTWARE API DEFINITION FOR SFRBU                                        */
 /* ************************************************************************** */
-
-/* -------- SFRBU_XTAL_TRIM : (SFRBU Offset: 0x10) (R/W 32) XTAL Oscillator Trimming Register -------- */
-#define SFRBU_XTAL_TRIM_XTAL_TRIM_Pos         _UINT32_(0)                                          /* (SFRBU_XTAL_TRIM) 32 kHz Crystal Oscillator Trimming Value Position */
-#define SFRBU_XTAL_TRIM_XTAL_TRIM_Msk         (_UINT32_(0x3) << SFRBU_XTAL_TRIM_XTAL_TRIM_Pos)     /* (SFRBU_XTAL_TRIM) 32 kHz Crystal Oscillator Trimming Value Mask */
-#define SFRBU_XTAL_TRIM_XTAL_TRIM(value)      (SFRBU_XTAL_TRIM_XTAL_TRIM_Msk & (_UINT32_(value) << SFRBU_XTAL_TRIM_XTAL_TRIM_Pos)) /* Assigment of value for XTAL_TRIM in the SFRBU_XTAL_TRIM register */
-#define SFRBU_XTAL_TRIM_Msk                   _UINT32_(0x00000003)                                 /* (SFRBU_XTAL_TRIM) Register Mask  */
-
-
-/* -------- SFRBU_TRIM : (SFRBU Offset: 0x14) ( R/ 32) Trimming Bits Register -------- */
-#define SFRBU_TRIM_RC32_Pos                   _UINT32_(0)                                          /* (SFRBU_TRIM) RC Oscillator Trimming Value Position */
-#define SFRBU_TRIM_RC32_Msk                   (_UINT32_(0x3F) << SFRBU_TRIM_RC32_Pos)              /* (SFRBU_TRIM) RC Oscillator Trimming Value Mask */
-#define SFRBU_TRIM_RC32(value)                (SFRBU_TRIM_RC32_Msk & (_UINT32_(value) << SFRBU_TRIM_RC32_Pos)) /* Assigment of value for RC32 in the SFRBU_TRIM register */
-#define SFRBU_TRIM_CONVBG_Pos                 _UINT32_(8)                                          /* (SFRBU_TRIM) Conversion IP Bandgap Trimming Value Position */
-#define SFRBU_TRIM_CONVBG_Msk                 (_UINT32_(0xF) << SFRBU_TRIM_CONVBG_Pos)             /* (SFRBU_TRIM) Conversion IP Bandgap Trimming Value Mask */
-#define SFRBU_TRIM_CONVBG(value)              (SFRBU_TRIM_CONVBG_Msk & (_UINT32_(value) << SFRBU_TRIM_CONVBG_Pos)) /* Assigment of value for CONVBG in the SFRBU_TRIM register */
-#define SFRBU_TRIM_LDO_Pos                    _UINT32_(16)                                         /* (SFRBU_TRIM) Power Management IP LDO Trimming Value Position */
-#define SFRBU_TRIM_LDO_Msk                    (_UINT32_(0xF) << SFRBU_TRIM_LDO_Pos)                /* (SFRBU_TRIM) Power Management IP LDO Trimming Value Mask */
-#define SFRBU_TRIM_LDO(value)                 (SFRBU_TRIM_LDO_Msk & (_UINT32_(value) << SFRBU_TRIM_LDO_Pos)) /* Assigment of value for LDO in the SFRBU_TRIM register */
-#define SFRBU_TRIM_LCD_Pos                    _UINT32_(24)                                         /* (SFRBU_TRIM) LDO Internal Bandgap Trimming for LCD Driver Position */
-#define SFRBU_TRIM_LCD_Msk                    (_UINT32_(0xF) << SFRBU_TRIM_LCD_Pos)                /* (SFRBU_TRIM) LDO Internal Bandgap Trimming for LCD Driver Mask */
-#define SFRBU_TRIM_LCD(value)                 (SFRBU_TRIM_LCD_Msk & (_UINT32_(value) << SFRBU_TRIM_LCD_Pos)) /* Assigment of value for LCD in the SFRBU_TRIM register */
-#define SFRBU_TRIM_Msk                        _UINT32_(0x0F0F0F3F)                                 /* (SFRBU_TRIM) Register Mask  */
-
-
-/* -------- SFRBU_BOOT : (SFRBU Offset: 0x20) (R/W 32) Boot Register -------- */
-#define SFRBU_BOOT_SOURCE_Pos                 _UINT32_(0)                                          /* (SFRBU_BOOT) Source for Booting Sequence Position */
-#define SFRBU_BOOT_SOURCE_Msk                 (_UINT32_(0x1) << SFRBU_BOOT_SOURCE_Pos)             /* (SFRBU_BOOT) Source for Booting Sequence Mask */
-#define SFRBU_BOOT_SOURCE(value)              (SFRBU_BOOT_SOURCE_Msk & (_UINT32_(value) << SFRBU_BOOT_SOURCE_Pos)) /* Assigment of value for SOURCE in the SFRBU_BOOT register */
-#define SFRBU_BOOT_Msk                        _UINT32_(0x00000001)                                 /* (SFRBU_BOOT) Register Mask  */
-
 
 /* -------- SFRBU_IO_RETENTION : (SFRBU Offset: 0x30) (R/W 32) IO Retention Register -------- */
 #define SFRBU_IO_RETENTION_PA_7_0_Pos         _UINT32_(0)                                          /* (SFRBU_IO_RETENTION) Keep Function on PA0 to PA7 Position */
@@ -162,13 +129,6 @@
 #define SFRBU_BODCORE_Msk                     _UINT32_(0x00000001)                                 /* (SFRBU_BODCORE) Register Mask  */
 
 
-/* -------- SFRBU_PWS_CNTRL : (SFRBU Offset: 0x50) (R/W 32) Power Switch Control Register -------- */
-#define SFRBU_PWS_CNTRL_UNMASK_Pos            _UINT32_(0)                                          /* (SFRBU_PWS_CNTRL) Unmask Power Switch Control Signals Position */
-#define SFRBU_PWS_CNTRL_UNMASK_Msk            (_UINT32_(0x1) << SFRBU_PWS_CNTRL_UNMASK_Pos)        /* (SFRBU_PWS_CNTRL) Unmask Power Switch Control Signals Mask */
-#define SFRBU_PWS_CNTRL_UNMASK(value)         (SFRBU_PWS_CNTRL_UNMASK_Msk & (_UINT32_(value) << SFRBU_PWS_CNTRL_UNMASK_Pos)) /* Assigment of value for UNMASK in the SFRBU_PWS_CNTRL register */
-#define SFRBU_PWS_CNTRL_Msk                   _UINT32_(0x00000001)                                 /* (SFRBU_PWS_CNTRL) Register Mask  */
-
-
 /* -------- SFRBU_WPMR : (SFRBU Offset: 0xE4) (R/W 32) Write Protection Mode Register -------- */
 #define SFRBU_WPMR_WPEN_Pos                   _UINT32_(0)                                          /* (SFRBU_WPMR) Write Protection Enable Position */
 #define SFRBU_WPMR_WPEN_Msk                   (_UINT32_(0x1) << SFRBU_WPMR_WPEN_Pos)               /* (SFRBU_WPMR) Write Protection Enable Mask */
@@ -191,44 +151,23 @@
 #define SFRBU_WPSR_Msk                        _UINT32_(0x00FFFF01)                                 /* (SFRBU_WPSR) Register Mask  */
 
 
-/* -------- SFRBU_SPARE : (SFRBU Offset: 0xF0) (R/W 32) Spare Register -------- */
-#define SFRBU_SPARE_VALUE_Pos                 _UINT32_(0)                                          /* (SFRBU_SPARE) Spare Position */
-#define SFRBU_SPARE_VALUE_Msk                 (_UINT32_(0xFFFFFFFF) << SFRBU_SPARE_VALUE_Pos)      /* (SFRBU_SPARE) Spare Mask */
-#define SFRBU_SPARE_VALUE(value)              (SFRBU_SPARE_VALUE_Msk & (_UINT32_(value) << SFRBU_SPARE_VALUE_Pos)) /* Assigment of value for VALUE in the SFRBU_SPARE register */
-#define SFRBU_SPARE_Msk                       _UINT32_(0xFFFFFFFF)                                 /* (SFRBU_SPARE) Register Mask  */
-
-
 /** \brief SFRBU register offsets definitions */
-#define SFRBU_XTAL_TRIM_REG_OFST       _UINT32_(0x10)      /* (SFRBU_XTAL_TRIM) XTAL Oscillator Trimming Register Offset */
-#define SFRBU_TRIM_REG_OFST            _UINT32_(0x14)      /* (SFRBU_TRIM) Trimming Bits Register Offset */
-#define SFRBU_BOOT_REG_OFST            _UINT32_(0x20)      /* (SFRBU_BOOT) Boot Register Offset */
 #define SFRBU_IO_RETENTION_REG_OFST    _UINT32_(0x30)      /* (SFRBU_IO_RETENTION) IO Retention Register Offset */
 #define SFRBU_BODCORE_REG_OFST         _UINT32_(0x40)      /* (SFRBU_BODCORE) BOD Core Register Offset */
-#define SFRBU_PWS_CNTRL_REG_OFST       _UINT32_(0x50)      /* (SFRBU_PWS_CNTRL) Power Switch Control Register Offset */
 #define SFRBU_WPMR_REG_OFST            _UINT32_(0xE4)      /* (SFRBU_WPMR) Write Protection Mode Register Offset */
 #define SFRBU_WPSR_REG_OFST            _UINT32_(0xE8)      /* (SFRBU_WPSR) Write Protection Status Register Offset */
-#define SFRBU_SPARE_REG_OFST           _UINT32_(0xF0)      /* (SFRBU_SPARE) Spare Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief SFRBU register API structure */
 typedef struct
 {
-  __I   uint8_t                        Reserved1[0x10];
-  __IO  uint32_t                       SFRBU_XTAL_TRIM;    /**< Offset: 0x10 (R/W  32) XTAL Oscillator Trimming Register */
-  __I   uint32_t                       SFRBU_TRIM;         /**< Offset: 0x14 (R/   32) Trimming Bits Register */
-  __I   uint8_t                        Reserved2[0x08];
-  __IO  uint32_t                       SFRBU_BOOT;         /**< Offset: 0x20 (R/W  32) Boot Register */
-  __I   uint8_t                        Reserved3[0x0C];
+  __I   uint8_t                        Reserved1[0x30];
   __IO  uint32_t                       SFRBU_IO_RETENTION; /**< Offset: 0x30 (R/W  32) IO Retention Register */
-  __I   uint8_t                        Reserved4[0x0C];
+  __I   uint8_t                        Reserved2[0x0C];
   __IO  uint32_t                       SFRBU_BODCORE;      /**< Offset: 0x40 (R/W  32) BOD Core Register */
-  __I   uint8_t                        Reserved5[0x0C];
-  __IO  uint32_t                       SFRBU_PWS_CNTRL;    /**< Offset: 0x50 (R/W  32) Power Switch Control Register */
-  __I   uint8_t                        Reserved6[0x90];
+  __I   uint8_t                        Reserved3[0xA0];
   __IO  uint32_t                       SFRBU_WPMR;         /**< Offset: 0xE4 (R/W  32) Write Protection Mode Register */
   __IO  uint32_t                       SFRBU_WPSR;         /**< Offset: 0xE8 (R/W  32) Write Protection Status Register */
-  __I   uint8_t                        Reserved7[0x04];
-  __IO  uint32_t                       SFRBU_SPARE;        /**< Offset: 0xF0 (R/W  32) Spare Register */
 } sfrbu_registers_t;
 
 

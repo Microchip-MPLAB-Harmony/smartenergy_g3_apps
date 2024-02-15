@@ -95,11 +95,13 @@ extern "C" {
 // Section: Driver Configuration
 // *****************************************************************************
 // *****************************************************************************
+
 /* USI Service Common Configuration Options */
 #define SRV_USI_INSTANCES_NUMBER              1U
 #define SRV_USI_USART_CONNECTIONS             1U
 #define SRV_USI_CDC_CONNECTIONS               0U
 #define SRV_USI_MSG_POOL_SIZE                 5U
+
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_SPI_CS_PIN                    SYS_PORT_PIN_PA05
@@ -123,6 +125,7 @@ extern "C" {
 #define DRV_PLC_PHY_HOST_DESC                 "ATSAMD20J18"
 #define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
+
 /* USI Service Instance 0 Configuration Options */
 #define SRV_USI_INDEX_0                       0
 #define SRV_USI0_RD_BUF_SIZE                  1024

@@ -1,5 +1,5 @@
 /*******************************************************************************
-  Header for the queue management module 
+  Header for the queue management module
 
   Company:
     Microchip Technology Inc.
@@ -15,28 +15,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef SRV_QUEUE_H
@@ -75,7 +75,7 @@
     None.
 */
 
-typedef enum 
+typedef enum
 {
     SRV_QUEUE_TYPE_SINGLE     = 0,
     SRV_QUEUE_TYPE_PRIORITY   = 1,
@@ -94,7 +94,7 @@ typedef enum
     None.
 */
 
-typedef enum 
+typedef enum
 {
     SRV_QUEUE_MODE_REMOVE   = 0,
     SRV_QUEUE_MODE_READ     = 1,
@@ -113,7 +113,7 @@ typedef enum
     None.
 */
 
-typedef enum 
+typedef enum
 {
     SRV_QUEUE_POSITION_HEAD   = 0,
     SRV_QUEUE_POSITION_TAIL   = 1,
@@ -159,16 +159,16 @@ typedef struct
 {
     /* Pointer to the head of the queue */
     SRV_QUEUE_ELEMENT *head;
-    
+
     /* Pointer to the tail of the queue */
     SRV_QUEUE_ELEMENT *tail;
-    
+
     /* Queue capacity */
     uint16_t capacity;
-    
+
     /* Queue size */
     uint16_t size;
-    
+
     /* Queue mode (single or priority queue) */
     SRV_QUEUE_TYPE type;
 } SRV_QUEUE;
@@ -182,10 +182,10 @@ typedef struct
 /***************************************************************************
   Function:
     void SRV_QUEUE_Init(SRV_QUEUE *queue, uint16_t capacity, SRV_QUEUE_TYPE type)
-    
+
   Summary:
     Initializes a queue.
-    
+
   Description:
     This function initializes a queue.
 
@@ -204,12 +204,12 @@ typedef struct
     <code>
     #define NUM_MAX_NODES    750
     static SRV_QUEUE nodeQueue;
-   
+
     SRV_QUEUE_Init(&nodeQueue, NUM_MAX_NODES, SRV_QUEUE_TYPE_SINGLE);
     </code>
 
   Remarks:
-    This function must be called before invoking any other functionality of 
+    This function must be called before invoking any other functionality of
     the queue management module.
 */
 void SRV_QUEUE_Init(SRV_QUEUE *queue, uint16_t capacity, SRV_QUEUE_TYPE type);
@@ -217,15 +217,15 @@ void SRV_QUEUE_Init(SRV_QUEUE *queue, uint16_t capacity, SRV_QUEUE_TYPE type);
 /***************************************************************************
   Function:
     void SRV_QUEUE_Append(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element)
-    
+
   Summary:
     Appends an element into a queue.
-    
+
   Description:
     This function appends an element into a queue.
 
   Precondition:
-    The queue must have been initialized previously with 
+    The queue must have been initialized previously with
     function SRV_QUEUE_Init.
 
   Parameters:
@@ -260,17 +260,17 @@ void SRV_QUEUE_Append(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
 
 /***************************************************************************
   Function:
-    void SRV_QUEUE_Append_With_Priority(SRV_QUEUE *queue, uint32_t priority, 
+    void SRV_QUEUE_Append_With_Priority(SRV_QUEUE *queue, uint32_t priority,
                                         SRV_QUEUE_ELEMENT *element)
-    
+
   Summary:
     Appends an element into a priority queue.
-    
+
   Description:
     This function appends an element into a priority queue.
 
   Precondition:
-    The queue must have been initialized previously with 
+    The queue must have been initialized previously with
     function SRV_QUEUE_Init.
 
   Parameters:
@@ -301,23 +301,23 @@ void SRV_QUEUE_Append(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
   Remarks:
     None.
 */
-void SRV_QUEUE_Append_With_Priority(SRV_QUEUE *queue, uint32_t priority, 
+void SRV_QUEUE_Append_With_Priority(SRV_QUEUE *queue, uint32_t priority,
                                     SRV_QUEUE_ELEMENT *element);
 
 /***************************************************************************
   Function:
-    void SRV_QUEUE_Insert_Before(SRV_QUEUE *queue, 
-                                 SRV_QUEUE_ELEMENT *currentElement, 
+    void SRV_QUEUE_Insert_Before(SRV_QUEUE *queue,
+                                 SRV_QUEUE_ELEMENT *currentElement,
                                  SRV_QUEUE_ELEMENT *element)
-    
+
   Summary:
     Inserts an element into a queue before a given element.
-    
+
   Description:
     This function inserts an element into a queue before a given element.
 
   Precondition:
-    The queue must have been initialized previously with 
+    The queue must have been initialized previously with
     function SRV_QUEUE_Init.
 
   Parameters:
@@ -346,31 +346,31 @@ void SRV_QUEUE_Append_With_Priority(SRV_QUEUE *queue, uint32_t priority,
     memset(nodeInfo1.macAddress, 0xFF, 8);
     SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1);
     memset(nodeInfo2.macAddress, 0xEE, 8);
-    SRV_QUEUE_Insert_Before(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1, 
+    SRV_QUEUE_Insert_Before(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1,
                             (SRV_QUEUE_ELEMENT *)&nodeInfo2);
     </code>
 
   Remarks:
     None.
 */
-void SRV_QUEUE_Insert_Before(SRV_QUEUE *queue, 
-                             SRV_QUEUE_ELEMENT *currentElement, 
+void SRV_QUEUE_Insert_Before(SRV_QUEUE *queue,
+                             SRV_QUEUE_ELEMENT *currentElement,
                              SRV_QUEUE_ELEMENT *element);
 
 /***************************************************************************
   Function:
-    void SRV_QUEUE_Insert_After(SRV_QUEUE *queue, 
-                                SRV_QUEUE_ELEMENT *currentElement, 
+    void SRV_QUEUE_Insert_After(SRV_QUEUE *queue,
+                                SRV_QUEUE_ELEMENT *currentElement,
                                 SRV_QUEUE_ELEMENT *element)
-    
+
   Summary:
     Inserts an element into a queue after a given element.
-    
+
   Description:
     This function inserts an element into a queue after a given element.
 
   Precondition:
-    The queue must have been initialized previously with 
+    The queue must have been initialized previously with
     function SRV_QUEUE_Init.
 
   Parameters:
@@ -399,31 +399,31 @@ void SRV_QUEUE_Insert_Before(SRV_QUEUE *queue,
     memset(nodeInfo1.macAddress, 0xFF, 8);
     SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1);
     memset(nodeInfo2.macAddress, 0xEE, 8);
-    SRV_QUEUE_Insert_After(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1, 
+    SRV_QUEUE_Insert_After(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1,
                            (SRV_QUEUE_ELEMENT *)&nodeInfo2);
     </code>
 
   Remarks:
     None.
 */
-void SRV_QUEUE_Insert_After(SRV_QUEUE *queue, 
-                            SRV_QUEUE_ELEMENT *currentElement, 
+void SRV_QUEUE_Insert_After(SRV_QUEUE *queue,
+                            SRV_QUEUE_ELEMENT *currentElement,
                             SRV_QUEUE_ELEMENT *element);
 
 /***************************************************************************
   Function:
-    SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Or_Remove(SRV_QUEUE *queue, 
-                                                SRV_QUEUE_MODE accessMode, 
+    SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Or_Remove(SRV_QUEUE *queue,
+                                                SRV_QUEUE_MODE accessMode,
                                                 SRV_QUEUE_POSITION position)
-    
+
   Summary:
     Reads or removes an element from a queue.
-    
+
   Description:
     This function reads or removes an element from a queue.
 
   Precondition:
-    The queue must have been initialized previously with 
+    The queue must have been initialized previously with
     function SRV_QUEUE_Init.
 
   Parameters:
@@ -433,8 +433,8 @@ void SRV_QUEUE_Insert_After(SRV_QUEUE *queue,
     position   - Position in the queue to read or remove (head or tail).
 
   Returns:
-    In case of remove, the element will be removed from queue and returned. 
-    In case of read, the element will be returned without removing it from 
+    In case of remove, the element will be removed from queue and returned.
+    In case of read, the element will be returned without removing it from
     the queue.
     If the queue is empty, NULL is returned.
 
@@ -455,30 +455,30 @@ void SRV_QUEUE_Insert_After(SRV_QUEUE *queue,
     SRV_QUEUE_Init(&nodeQueue, NUM_MAX_NODES, SRV_QUEUE_TYPE_SINGLE);
     memset(nodeInfo.macAddress, 0xFF, 8);
     SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo);
-    removedNode = SRV_QUEUE_Read_Or_Remove(&nodeQueue, SRV_QUEUE_MODE_REMOVE, 
+    removedNode = SRV_QUEUE_Read_Or_Remove(&nodeQueue, SRV_QUEUE_MODE_REMOVE,
                                            SRV_QUEUE_POSITION_HEAD);
     </code>
 
   Remarks:
     None.
 */
-SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Or_Remove(SRV_QUEUE *queue, 
-                                            SRV_QUEUE_MODE accessMode, 
+SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Or_Remove(SRV_QUEUE *queue,
+                                            SRV_QUEUE_MODE accessMode,
                                             SRV_QUEUE_POSITION position);
 
 /***************************************************************************
   Function:
-    SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Element(SRV_QUEUE *queue, 
+    SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Element(SRV_QUEUE *queue,
                                               uint16_t elementIndex)
-    
+
   Summary:
     Reads an element from a queue at the given index.
-    
+
   Description:
     This function reads an element from a queue at the given index.
 
   Precondition:
-    The queue must have been initialized previously with 
+    The queue must have been initialized previously with
     function SRV_QUEUE_Init.
 
   Parameters:
@@ -508,7 +508,7 @@ SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Or_Remove(SRV_QUEUE *queue,
     memset(nodeInfo1.macAddress, 0xFF, 8);
     SRV_QUEUE_Append(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1);
     memset(nodeInfo2.macAddress, 0xEE, 8);
-    SRV_QUEUE_Insert_After(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1, 
+    SRV_QUEUE_Insert_After(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo1,
                            (SRV_QUEUE_ELEMENT *)&nodeInfo2);
     nodeInfo3 = SRV_QUEUE_Read_Element(&nodeQueue, 2);
     </code>
@@ -516,21 +516,21 @@ SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Or_Remove(SRV_QUEUE *queue,
   Remarks:
     None.
 */
-SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Element(SRV_QUEUE *queue, 
+SRV_QUEUE_ELEMENT *SRV_QUEUE_Read_Element(SRV_QUEUE *queue,
                                           uint16_t elementIndex);
 
 /***************************************************************************
   Function:
     void SRV_QUEUE_Remove_Element(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element)
-    
+
   Summary:
     Removes the given element from a queue.
-    
+
   Description:
     This function removes a given element from a queue.
 
   Precondition:
-    The queue must have been initialized previously with 
+    The queue must have been initialized previously with
     function SRV_QUEUE_Init.
 
   Parameters:
@@ -567,15 +567,15 @@ void SRV_QUEUE_Remove_Element(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
 /***************************************************************************
   Function:
     void SRV_QUEUE_Flush(SRV_QUEUE *queue)
-    
+
   Summary:
     Flushes the given queue.
-    
+
   Description:
     This function flushes the given queue.
 
   Precondition:
-    The queue must have been initialized previously with 
+    The queue must have been initialized previously with
     function SRV_QUEUE_Init.
 
   Parameters:
@@ -611,15 +611,15 @@ void SRV_QUEUE_Flush(SRV_QUEUE *queue);
 /***************************************************************************
   Function:
     void SRV_QUEUE_Set_Capacity(SRV_QUEUE *queue, uint16_t capacity)
-    
+
   Summary:
     Modifies the total capacity of a queue.
-    
+
   Description:
     This function modifies the total capacity of a queue.
 
   Precondition:
-    The queue must have been initialized previously with 
+    The queue must have been initialized previously with
     function SRV_QUEUE_Init.
 
   Parameters:

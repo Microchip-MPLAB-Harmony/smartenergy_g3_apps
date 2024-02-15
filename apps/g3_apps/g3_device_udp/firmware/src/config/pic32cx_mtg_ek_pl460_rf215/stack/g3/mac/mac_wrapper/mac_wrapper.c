@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -328,7 +328,7 @@ static bool lMAC_WRP_CheckRFMediaProbing(uint8_t probingInterval, MAC_ADDRESS ds
     uint8_t lqiValidTime;
 
     /* Probing interval has to be greater than 0 */
-    if (probingInterval == 0)
+    if (probingInterval == 0U)
     {
         return false;
     }
@@ -345,14 +345,14 @@ static bool lMAC_WRP_CheckRFMediaProbing(uint8_t probingInterval, MAC_ADDRESS ds
 
     if (status == MAC_WRP_STATUS_SUCCESS)
     {
-        (void) memcpy((void *) &posEntry, pibValue.value, sizeof(MAC_WRP_POS_ENTRY_RF));
+        (void) memcpy((void *) &posEntry, (void *) pibValue.value, sizeof(MAC_WRP_POS_ENTRY_RF));
         status = (MAC_WRP_STATUS) MAC_COMMON_GetRequestSync(MAC_COMMON_PIB_POS_TABLE_ENTRY_TTL,
             0, &pibValue);
 
         if (status == MAC_WRP_STATUS_SUCCESS)
         {
             posTableEntryTtl = pibValue.value[0];
-            lqiValidTime = (posEntry.reverseLqiValidTime + 59) / 60;
+            lqiValidTime = (uint8_t)((posEntry.reverseLqiValidTime + 59U) / 60U);
             if ((posTableEntryTtl > lqiValidTime) && ((posTableEntryTtl - lqiValidTime) >= probingInterval))
             {
                 /* Conditions met to perform the media probing */
@@ -375,7 +375,7 @@ static bool lMAC_WRP_CheckPLCMediaProbing(uint8_t probingInterval, MAC_ADDRESS d
     uint8_t tmrValidTime;
 
     /* Probing interval has to be greater than 0 */
-    if (probingInterval == 0)
+    if (probingInterval == 0U)
     {
         return false;
     }
@@ -392,7 +392,7 @@ static bool lMAC_WRP_CheckPLCMediaProbing(uint8_t probingInterval, MAC_ADDRESS d
 
     if (status == MAC_WRP_STATUS_SUCCESS)
     {
-        (void) memcpy((void *) &posEntry, pibValue.value, sizeof(MAC_WRP_POS_ENTRY));
+        (void) memcpy((void *) &posEntry, (void *) pibValue.value, sizeof(MAC_WRP_POS_ENTRY));
 
         /* Look for entry in Neighbour Table to fill TMR Valid time */
         tmrValidTime = 0;
@@ -401,8 +401,8 @@ static bool lMAC_WRP_CheckPLCMediaProbing(uint8_t probingInterval, MAC_ADDRESS d
 
         if (status == MAC_WRP_STATUS_SUCCESS)
         {
-            (void) memcpy((void *) &nbEntry, pibValue.value, sizeof(MAC_WRP_NEIGHBOUR_ENTRY));
-            tmrValidTime = (nbEntry.tmrValidTime + 59) / 60;
+            (void) memcpy((void *) &nbEntry, (void *) pibValue.value, sizeof(MAC_WRP_NEIGHBOUR_ENTRY));
+            tmrValidTime = (uint8_t)((nbEntry.tmrValidTime + 59U) / 60U);
         }
 
         status = (MAC_WRP_STATUS) MAC_PLC_GetRequestSync(MAC_PIB_TMR_TTL, 0, &pibValue);

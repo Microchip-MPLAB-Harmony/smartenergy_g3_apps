@@ -32,7 +32,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
-#include "definitions.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -41,19 +40,6 @@ extern "C" {
 
 #endif
 // DOM-IGNORE-END
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Macro definitions
-// *****************************************************************************
-// *****************************************************************************
-
-#define APP_PLC_DATA_BUFFER_SIZE        512
-#define APP_PLC_SERIAL_DATA_BUFFER_SIZE (APP_PLC_DATA_BUFFER_SIZE + 128)
-#define APP_PLC_PIB_BUFFER_SIZE         (PROTOCOL_CARRIERS_MAX * 2)
-
-#define APP_PLC_LED_BLINK_RATE_MS       500
-#define APP_PLC_LED_BLINK_PLC_MSG_MS    100
 
 // *****************************************************************************
 // *****************************************************************************
@@ -76,13 +62,11 @@ typedef enum
 {
     /* Application's state machine's initial state. */
     APP_PLC_STATE_INIT=0,
-    APP_PLC_STATE_REGISTER,
-    APP_PLC_STATE_CONFIG_USI,
-    APP_PLC_STATE_READY,
-    APP_PLC_STATE_EXCEPTION,
-    APP_PLC_STATE_ERROR
+    APP_PLC_STATE_SERVICE_TASKS,
+    /* TODO: Define states used by the application state machine. */
 
 } APP_PLC_STATES;
+
 
 // *****************************************************************************
 /* Application Data
@@ -102,35 +86,17 @@ typedef struct
     /* The application's current state */
     APP_PLC_STATES state;
 
-    SYS_TIME_HANDLE tmr1Handle;
-
-    volatile bool tmr1Expired;
-
-    SYS_TIME_HANDLE tmr2Handle;
-
-    volatile bool tmr2Expired;
-
-    DRV_HANDLE drvPlcHandle;
-
-    SRV_USI_HANDLE srvUSIHandle;
-
-    bool plc_phy_exception;
-
-    uint32_t plc_phy_err_unexpected;
-
-    uint32_t plc_phy_err_critical;
-
-    uint32_t plc_phy_err_reset;
-
-    uint32_t plc_phy_err_unknow;
-
-    DRV_PLC_PHY_TRANSMISSION_OBJ plcTxObj;
-
-    DRV_PLC_PHY_PIB_OBJ plcPIB;
-
-    bool pvddMonTxEnable;
+    /* TODO: Define any additional data used by the application. */
 
 } APP_PLC_DATA;
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Callback Routines
+// *****************************************************************************
+// *****************************************************************************
+/* These routines are called by drivers when certain events occur.
+*/
 
 // *****************************************************************************
 // *****************************************************************************

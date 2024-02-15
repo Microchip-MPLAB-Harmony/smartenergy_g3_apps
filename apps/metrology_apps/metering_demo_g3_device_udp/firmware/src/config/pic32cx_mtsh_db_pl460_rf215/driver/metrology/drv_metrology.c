@@ -15,28 +15,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -182,7 +182,7 @@ void IPC1_InterruptHandler (void)
     }
 
     IPC1_REGS->IPC_ICCR = status;
-    
+
     gDrvMetObj.ipcInterruptFlag = true;
 
 }
@@ -191,7 +191,7 @@ static double lDRV_Metrology_GetHarmonicRMS(int32_t real, int32_t imag)
 {
     double res, dre, dim;
     uint32_t measure, intPart, decPart;
-    
+
     /* Get Real contribution */
     if (real < 0)
     {
@@ -201,14 +201,14 @@ static double lDRV_Metrology_GetHarmonicRMS(int32_t real, int32_t imag)
     {
         measure = (uint32_t)real;
     }
-    
+
     /* sQ25.6 */
     intPart = measure >> 6;
     decPart = measure & 63U;
     dre = (double)decPart / 64.0;
     dre += (double)intPart;
     dre *= dre;
-    
+
     /* Get Imaginary contribution */
     if (imag < 0)
     {
@@ -218,21 +218,21 @@ static double lDRV_Metrology_GetHarmonicRMS(int32_t real, int32_t imag)
     {
         measure = (uint32_t)imag;
     }
-    
+
     /* sQ25.6 */
     intPart = measure >> 6;
     decPart = measure & 63U;
     dim = (double)decPart / 64.0;
     dim += (double)intPart;
     dim *= dim;
-    
+
     res = (dre + dim) * 2.0;
     if (res > 0.0)
     {
         res = sqrt(res);
         res /= (double)gDrvMetObj.metRegisters->MET_STATUS.N;
     }
-    
+
     return res;
 }
 
@@ -342,8 +342,8 @@ static uint32_t lDRV_Metrology_GetAngleRMS(int64_t p, int64_t q)
     int32_t n;
     uint32_t angle;
 
-    pd = lDRV_Metrology_GetDouble(p);
-    qd = lDRV_Metrology_GetDouble(q);
+    pd = (double)p;
+    qd = (double)q;
     m = atan2(qd, pd);
     m = 180.0 * m;
     m = m * 100000.0;
@@ -433,7 +433,7 @@ static void lDRV_Metrology_IpcInitialize (void)
     /* Clear interrupts */
     IPC1_REGS->IPC_ICCR = 0xFFFFFFFFUL;
     /* Enable interrupts */
-    IPC1_REGS->IPC_IECR = DRV_METROLOGY_IPC_INIT_IRQ_MSK | 
+    IPC1_REGS->IPC_IECR = DRV_METROLOGY_IPC_INIT_IRQ_MSK |
         DRV_METROLOGY_IPC_INTEGRATION_IRQ_MSK;
 }
 
@@ -472,10 +472,10 @@ static uint32_t lDRV_Metrology_CorrectCalibrationAngle (uint32_t measured, doubl
     bams = (double)correction_angle;
     bams = bams * (60.00 / gDrvMetObj.calibrationData.freq);
     bams = bams / 18000000.00; /* get bams and remove precision adjust */
-    
+
     phase_correction = bams * 2147483648.00; /* sQ0.31 */
     correction_angle = (int64_t)phase_correction;
-    
+
     return (uint32_t)correction_angle;
 }
 
@@ -724,7 +724,7 @@ static bool lDRV_METROLOGY_UpdateHarmonicAnalysisValues(void)
         pHarmonicsRsp->Vrms_A_m = lDRV_Metrology_GetHarmonicRMS(harTemp[1], harTemp[8]);
         pHarmonicsRsp->Vrms_B_m = lDRV_Metrology_GetHarmonicRMS(harTemp[3], harTemp[10]);
         pHarmonicsRsp->Vrms_C_m = lDRV_Metrology_GetHarmonicRMS(harTemp[5], harTemp[12]);
-                
+
         /* Disable Harmonic Analysis */
         gDrvMetObj.metRegisters->MET_CONTROL.FEATURE_CTRL1 &= ~FEATURE_CTRL1_HARMONIC_EN_Msk;
         /* Clear Number of Harmonic for Analysis */
@@ -1026,7 +1026,7 @@ void DRV_METROLOGY_Tasks(SYS_MODULE_OBJ object)
     if (gDrvMetObj.integrationFlag == true)
     {
         gDrvMetObj.integrationFlag = false;
-        
+
         if (gDrvMetObj.harmonicAnalysisData.integrationPeriods > 0U)
         {
             gDrvMetObj.harmonicAnalysisData.integrationPeriods--;
@@ -1056,13 +1056,13 @@ void DRV_METROLOGY_Tasks(SYS_MODULE_OBJ object)
             }
 
             /* Check if there is a harmonic analysis process running */
-            if ((gDrvMetObj.harmonicAnalysisData.running == true) && 
+            if ((gDrvMetObj.harmonicAnalysisData.running == true) &&
                 (gDrvMetObj.harmonicAnalysisData.integrationPeriods == 0U) )
             {
                 if (lDRV_METROLOGY_UpdateHarmonicAnalysisValues() == true)
                 {
                     gDrvMetObj.harmonicAnalysisData.running = false;
-                    
+
                     /* Launch calibration callback */
                     if (gDrvMetObj.harmonicAnalysisCallback != NULL)
                     {
@@ -1086,7 +1086,7 @@ DRV_METROLOGY_REGS_CONTROL * DRV_METROLOGY_GetControlData (void)
 
 DRV_METROLOGY_REGS_CONTROL * DRV_METROLOGY_GetControlByDefault (void)
 {
-    /* MISRA C-2012 Rule 11.8 deviated below. Deviation record ID -  
+    /* MISRA C-2012 Rule 11.8 deviated below. Deviation record ID -
       H3_MISRAC_2012_R_11_8_DR_1*/
     return (DRV_METROLOGY_REGS_CONTROL *)&gDrvMetControlDefault;
    /* MISRAC 2012 deviation block end */
@@ -1109,7 +1109,7 @@ DRV_METROLOGY_CALIBRATION_REFS * DRV_METROLOGY_GetCalibrationReferences (void)
 
 void DRV_METROLOGY_SetControl (DRV_METROLOGY_REGS_CONTROL * pControl)
 {
-    /* MISRA C-2012 Rule 11.8 deviated below. Deviation record ID -  
+    /* MISRA C-2012 Rule 11.8 deviated below. Deviation record ID -
       H3_MISRAC_2012_R_11_8_DR_1*/
     /* Keep State Control Register value */
     (void) memcpy((void *)&gDrvMetObj.metRegisters->MET_CONTROL.FEATURE_CTRL0,

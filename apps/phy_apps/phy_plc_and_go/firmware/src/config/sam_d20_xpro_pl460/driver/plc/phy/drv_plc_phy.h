@@ -15,28 +15,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef DRV_PLC_PHY_H
@@ -98,7 +98,7 @@ typedef enum
     /* Device has been reseted */
     DRV_PLC_PHY_EXCEPTION_RESET
 
-} DRV_PLC_PHY_EXCEPTION; 
+} DRV_PLC_PHY_EXCEPTION;
 
 // *****************************************************************************
 /* PLC Driver Transmission Confirm Event Handler Function Pointer
@@ -187,9 +187,9 @@ typedef void ( *DRV_PLC_PHY_TX_CFM_CALLBACK )( DRV_PLC_PHY_TRANSMISSION_CFM_OBJ 
 
   Description:
     This data type defines the required function signature for the PLC driver
-    reception event handling callback function. A client must register a pointer 
-    using the callback register function whose function signature (parameter 
-    and return value types) match the types specified by this function pointer 
+    reception event handling callback function. A client must register a pointer
+    using the callback register function whose function signature (parameter
+    and return value types) match the types specified by this function pointer
     in order to receive transfer related event calls back from the driver.
 
     The parameters and return values are described here and a partial example
@@ -219,7 +219,7 @@ typedef void ( *DRV_PLC_PHY_TX_CFM_CALLBACK )( DRV_PLC_PHY_TRANSMISSION_CFM_OBJ 
     </code>
 
   Remarks:
-    - Check DRV_PLC_PHY_RECEPTION_OBJ struct to identify other intereseting 
+    - Check DRV_PLC_PHY_RECEPTION_OBJ struct to identify other intereseting
       parameters about reception such as LQI, Tonemap, Modulation scheme, etc.
 
     - The context parameter contains a handle to the client context, provided at
@@ -268,7 +268,7 @@ typedef void ( *DRV_PLC_PHY_DATA_IND_CALLBACK )( DRV_PLC_PHY_RECEPTION_OBJ *indO
     {
         MY_APP_DATA_STRUCT* pAppData = (MY_APP_DATA_STRUCT*) context;
 
-        switch (exceptionObj) 
+        switch (exceptionObj)
         {
             case DRV_PLC_PHY_EXCEPTION_UNEXPECTED_KEY:
                 break;
@@ -311,8 +311,8 @@ typedef void ( *DRV_PLC_PHY_EXCEPTION_CALLBACK )( DRV_PLC_PHY_EXCEPTION exceptio
 
   Description:
     This data type defines the required function signature for the PLC driver
-    sleep mode disable event handling callback function. A client must register 
-    a pointer using the callback register function whose function signature 
+    sleep mode disable event handling callback function. A client must register
+    a pointer using the callback register function whose function signature
     (parameter and return value types) match the types specified by this
     function pointer in order to receive transfer related event calls back from
     the driver.
@@ -397,7 +397,7 @@ typedef void ( *DRV_PLC_PHY_SLEEP_CALLBACK )( uintptr_t context );
         .spiAddressTx =  (void *)&(SPI0_REGS->SPI_TDR),
         .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
         .spiClockFrequency = DRV_PLC_SPI_CLK,
-        .ldoPin = DRV_PLC_LDO_EN_PIN, 
+        .ldoPin = DRV_PLC_LDO_EN_PIN,
         .resetPin = DRV_PLC_RESET_PIN,
         .extIntPin = DRV_PLC_EXT_INT_PIN,
         .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
@@ -469,7 +469,7 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize( const SYS_MODULE_INDEX index, const SYS_M
   Parameters:
     index    - Identifier for the object instance to be opened.
 
-    callback - Boot Data Callback Function Pointer. In case of use NULL, 
+    callback - Boot Data Callback Function Pointer. In case of use NULL,
                .binStartAddress and .binEndAddress fields must be configured in
                initialization data DRV_PLC_PHY_INIT.
 
@@ -497,7 +497,7 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize( const SYS_MODULE_INDEX index, const SYS_M
     The handle returned is valid until the DRV_PLC_PHY_Close routine is called.
     This routine will NEVER block waiting for hardware.
 */
-DRV_HANDLE DRV_PLC_PHY_Open(const SYS_MODULE_INDEX index, 
+DRV_HANDLE DRV_PLC_PHY_Open(const SYS_MODULE_INDEX index,
         const DRV_PLC_BOOT_DATA_CALLBACK callback);
 
 // *****************************************************************************
@@ -562,7 +562,7 @@ void DRV_PLC_PHY_Close(const DRV_HANDLE handle);
     DRV_PLC_PHY_TRANSMISSION_OBJ transmitObj;
 
     _setupTransmissionParameters();
-    
+
     memcpy(transmitObj.data, txBuf, dataLen);
     transmitObj.length = dataLen;
 
@@ -602,7 +602,7 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
     <code>
     DRV_PLC_PHY_PIB_OBJ pibObj;
     uint32_t version;
-    
+
     pibObj.pData = &version;
     pibObj.length = 4;
     pibObj.id = PLC_ID_VERSION_NUM;
@@ -647,7 +647,7 @@ bool DRV_PLC_PHY_PIBGet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj);
 
     autoMode = 0;
 
-    impedance = VLO_STATE; 
+    impedance = VLO_STATE;
 
     pibObj.pData = &autoMode;
     pibObj.length = 1;
@@ -667,10 +667,10 @@ bool DRV_PLC_PHY_PIBSet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj);
 
 // *****************************************************************************
 /* Function:
-    void DRV_PLC_PHY_TxCfmCallbackRegister( 
-        const DRV_HANDLE handle, 
-        const DRV_PLC_PHY_TX_CFM_CALLBACK callback, 
-        const uintptr_t context 
+    void DRV_PLC_PHY_TxCfmCallbackRegister(
+        const DRV_HANDLE handle,
+        const DRV_PLC_PHY_TX_CFM_CALLBACK callback,
+        const uintptr_t context
     );
 
   Summary:
@@ -678,7 +678,7 @@ bool DRV_PLC_PHY_PIBSet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj);
     to call back when the requested transmission has finished.
 
   Description:
-    This function allows a client to register a PLC data confirm event handling 
+    This function allows a client to register a PLC data confirm event handling
     function for the driver to call back when a data confirmation PLC event
     occurs.
 
@@ -698,7 +698,7 @@ bool DRV_PLC_PHY_PIBSet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj);
     callback - Pointer to the callback function.
 
     context - The value of this parameter will be passed back to the client
-              unchanged, when the callback function is called. 
+              unchanged, when the callback function is called.
 
   Returns:
     None.
@@ -718,7 +718,7 @@ bool DRV_PLC_PHY_PIBSet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj);
 
         }
     }
-      
+
     MY_APP_OBJ myAppObj;
 
     DRV_PLC_PHY_TRANSMISSION_OBJ myTransmissionObj;
@@ -730,18 +730,18 @@ bool DRV_PLC_PHY_PIBSet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj);
 
 */
 
-void DRV_PLC_PHY_TxCfmCallbackRegister( 
-    const DRV_HANDLE handle, 
-    const DRV_PLC_PHY_TX_CFM_CALLBACK callback, 
-    const uintptr_t context 
+void DRV_PLC_PHY_TxCfmCallbackRegister(
+    const DRV_HANDLE handle,
+    const DRV_PLC_PHY_TX_CFM_CALLBACK callback,
+    const uintptr_t context
 );
 
 // *****************************************************************************
 /* Function:
-    void DRV_PLC_PHY_DataIndCallbackRegister( 
-        const DRV_HANDLE handle, 
-        const DRV_PLC_PHY_DATA_IND_CALLBACK callback, 
-        const uintptr_t context 
+    void DRV_PLC_PHY_DataIndCallbackRegister(
+        const DRV_HANDLE handle,
+        const DRV_PLC_PHY_DATA_IND_CALLBACK callback,
+        const uintptr_t context
     );
 
   Summary:
@@ -781,7 +781,7 @@ void DRV_PLC_PHY_TxCfmCallbackRegister(
         MY_APP_OBJ* myAppObj = (MY_APP_OBJ *) context;
 
     }
-      
+
     MY_APP_OBJ myAppObj;
 
     DRV_PLC_PHY_DataIndCallbackRegister( myHandle, APP_PLC_Data_Ind_callback, (uintptr_t)&myAppObj );
@@ -789,18 +789,18 @@ void DRV_PLC_PHY_TxCfmCallbackRegister(
 
 */
 
-void DRV_PLC_PHY_DataIndCallbackRegister( 
-    const DRV_HANDLE handle, 
-    const DRV_PLC_PHY_DATA_IND_CALLBACK callback, 
-    const uintptr_t context 
+void DRV_PLC_PHY_DataIndCallbackRegister(
+    const DRV_HANDLE handle,
+    const DRV_PLC_PHY_DATA_IND_CALLBACK callback,
+    const uintptr_t context
 );
 
 // *****************************************************************************
 /* Function:
-    void DRV_PLC_PHY_ExceptionCallbackRegister( 
-        const DRV_HANDLE handle, 
-        const DRV_PLC_PHY_EXCEPTION_CALLBACK callback, 
-        const uintptr_t context 
+    void DRV_PLC_PHY_ExceptionCallbackRegister(
+        const DRV_HANDLE handle,
+        const DRV_PLC_PHY_EXCEPTION_CALLBACK callback,
+        const uintptr_t context
     );
 
   Summary:
@@ -808,7 +808,7 @@ void DRV_PLC_PHY_DataIndCallbackRegister(
     to call back when some error occurs through PLC transceiver communication.
 
   Description:
-    This function allows a client to register a PLC exception event handling 
+    This function allows a client to register a PLC exception event handling
     function for the driver to call back when a communication SPI error occurs.
 
     The event handler should be set before using the PLC transceiver in order
@@ -839,7 +839,7 @@ void DRV_PLC_PHY_DataIndCallbackRegister(
         MY_APP_OBJ* myAppObj = (MY_APP_OBJ *) context;
 
     }
-      
+
     MY_APP_OBJ myAppObj;
 
     DRV_PLC_PHY_ExceptionCallbackRegister( myHandle, APP_PLC_Exception_callback, (uintptr_t)&myAppObj );
@@ -847,18 +847,18 @@ void DRV_PLC_PHY_DataIndCallbackRegister(
 
 */
 
-void DRV_PLC_PHY_ExceptionCallbackRegister( 
-    const DRV_HANDLE handle, 
-    const DRV_PLC_PHY_EXCEPTION_CALLBACK callback, 
-    const uintptr_t context 
+void DRV_PLC_PHY_ExceptionCallbackRegister(
+    const DRV_HANDLE handle,
+    const DRV_PLC_PHY_EXCEPTION_CALLBACK callback,
+    const uintptr_t context
 );
 
 // *****************************************************************************
 /* Function:
-    void DRV_PLC_PHY_SleepDisableCallbackRegister( 
-        const DRV_HANDLE handle, 
-        const DRV_PLC_PHY_SLEEP_CALLBACK callback, 
-        const uintptr_t context 
+    void DRV_PLC_PHY_SleepDisableCallbackRegister(
+        const DRV_HANDLE handle,
+        const DRV_PLC_PHY_SLEEP_CALLBACK callback,
+        const uintptr_t context
     );
 
   Summary:
@@ -906,25 +906,25 @@ void DRV_PLC_PHY_ExceptionCallbackRegister(
 
 */
 
-void DRV_PLC_PHY_SleepDisableCallbackRegister( 
-    const DRV_HANDLE handle, 
-    const DRV_PLC_PHY_SLEEP_CALLBACK callback, 
-    const uintptr_t context 
+void DRV_PLC_PHY_SleepDisableCallbackRegister(
+    const DRV_HANDLE handle,
+    const DRV_PLC_PHY_SLEEP_CALLBACK callback,
+    const uintptr_t context
 );
 
 // *****************************************************************************
 /* Function:
-    void DRV_PLC_PHY_ExternalInterruptHandler( 
-        const uintptr_t context 
+    void DRV_PLC_PHY_ExternalInterruptHandler(
+        const uintptr_t context
     );
 
   Summary:
     Allows application to register callback for PLC Interrupt pin.
 
   Description:
-    This function allows a client to register a callback function to handle 
+    This function allows a client to register a callback function to handle
     PLC interrupt.
-    
+
   Precondition:
     DRV_PLC_PHY_Initialize must have been called before calling this function.
 
@@ -969,9 +969,9 @@ void DRV_PLC_PHY_ExternalInterruptHandler( uintptr_t context );
     requests for new operations.
 
     SYS_STATUS_UNINITIALIZED: Indicates the driver is not initialized.
-  
+
     SYS_STATUS_ERROR: Indicates the driver is not initialized correctly.
-  
+
     SYS_STATUS_BUSY: Indicates the driver is initializing.
 
   Example:
@@ -990,7 +990,7 @@ SYS_STATUS DRV_PLC_PHY_Status( const SYS_MODULE_INDEX index );
 /***************************************************************************
   Function:
     void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
-    
+
   Summary:
     Maintains the driver's state machine.
 
@@ -1011,7 +1011,7 @@ SYS_STATUS DRV_PLC_PHY_Status( const SYS_MODULE_INDEX index );
   Example:
     <code>
     SYS_MODULE_OBJ      object;
-    
+
     while (true)
     {
         DRV_PLC_PHY_Tasks (object);
@@ -1030,7 +1030,7 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object );
 /***************************************************************************
   Function:
        void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable )
-    
+
   Summary:
     Allows to manage the PLC Sleep mode.
 
@@ -1074,10 +1074,6 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object );
 */
 
 void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable );
-
-#ifdef __cplusplus
-}
-#endif
 
 /***************************************************************************
   Function:

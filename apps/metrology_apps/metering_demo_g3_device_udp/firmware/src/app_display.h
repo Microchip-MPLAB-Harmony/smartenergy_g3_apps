@@ -1,26 +1,3 @@
-/*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
-
-The software and documentation is provided by microchip and its contributors
-"as is" and any express, implied or statutory warranties, including, but not
-limited to, the implied warranties of merchantability, fitness for a particular
-purpose and non-infringement of third party intellectual property rights are
-disclaimed to the fullest extent permitted by law. In no event shall microchip
-or its contributors be liable for any direct, indirect, incidental, special,
-exemplary, or consequential damages (including, but not limited to, procurement
-of substitute goods or services; loss of use, data, or profits; or business
-interruption) however caused and on any theory of liability, whether in contract,
-strict liability, or tort (including negligence or otherwise) arising in any way
-out of the use of the software and documentation, even if advised of the
-possibility of such damage.
-
-Except as expressly permitted hereunder and subject to the applicable license terms
-for any third-party software incorporated in the software and any applicable open
-source software license terms, no license or other rights, whether express or
-implied, are granted under any patent or other intellectual property rights of
-Microchip or any third party.
-*/
-
 /*******************************************************************************
   MPLAB Harmony Application Header File
 
@@ -55,7 +32,6 @@ Microchip or any third party.
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
-#include "system/time/sys_time.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -78,7 +54,7 @@ extern "C" {
     Application states enumeration
 
   Description:
-    This enumeration defines the valid application states. These states
+    This enumeration defines the valid application states.  These states
     determine the behavior of the application at various times.
 */
 
@@ -87,82 +63,10 @@ typedef enum
     /* Application's state machine's initial state. */
     APP_DISPLAY_STATE_INIT=0,
     APP_DISPLAY_STATE_SERVICE_TASKS,
-    APP_DISPLAY_STATE_DELAY_LOW_POWER,
+    /* TODO: Define states used by the application state machine. */
 
 } APP_DISPLAY_STATES;
 
-// *****************************************************************************
-/* Display information
- *
-  Summary:
-    Display information enumeration
-
-  Description:
-    This enumeration defines the valid display information . These determines
-    which information will be shown in the display.
-*/
-typedef enum
-{
-	APP_DISPLAY_TOTAL_ENERGY = 0,
-	APP_DISPLAY_TOU1_ENERGY,
-	APP_DISPLAY_TOU2_ENERGY,
-	APP_DISPLAY_TOU3_ENERGY,
-	APP_DISPLAY_TOU4_ENERGY,
-	APP_DISPLAY_RTC_TIME,
-	APP_DISPLAY_RTC_DATE,
-	APP_DISPLAY_VA_RMS,
-	APP_DISPLAY_VB_RMS,
-	APP_DISPLAY_VC_RMS,
-	APP_DISPLAY_IA_RMS,
-	APP_DISPLAY_IB_RMS,
-	APP_DISPLAY_IC_RMS,
-	APP_DISPLAY_TOTAL_MAX_DEMAND,
-	APP_DISPLAY_TOU1_MAX_DEMAND,
-	APP_DISPLAY_TOU2_MAX_DEMAND,
-	APP_DISPLAY_TOU3_MAX_DEMAND,
-	APP_DISPLAY_TOU4_MAX_DEMAND,
-	APP_DISPLAY_APP_INFO,
-	APP_DISPLAY_BOARD_ID,
-	APP_DISPLAY_DEMO_VERSION,
-	APP_DISPLAY_MAX_TYPE,
-
-} APP_DISPLAY_INFO;
-
-// *****************************************************************************
-/* Circular display direction
- *
-  Summary:
-    Circular display direction enumeration
-
-  Description:
-    This enumeration defines the valid circular display directions. These
-    determines the direction in which the information will be shown in the
-    display.
-*/
-typedef enum
-{
-    APP_DISPLAY_FORWARD = 0x05,
-    APP_DISPLAY_BACKWARD = 0x50,
-
-} APP_DISPLAY_DIRECTION;
-
-// *****************************************************************************
-/* External communication signal status
- *
-  Summary:
-    External communication signal enumeration
-
-  Description:
-    This enumeration defines the status of the signal of external communications.
-*/
-typedef enum
-{
-    APP_DISPLAY_COM_SIGNAL_OFF = 0,
-    APP_DISPLAY_COM_SIGNAL_LOW,
-    APP_DISPLAY_COM_SIGNAL_MED,
-    APP_DISPLAY_COM_SIGNAL_HIGH,
-
-} APP_DISPLAY_COM_SIGNAL;
 
 // *****************************************************************************
 /* Application Data
@@ -182,50 +86,7 @@ typedef struct
     /* The application's current state */
     APP_DISPLAY_STATES state;
 
-    /* Flag to indicate if the scroll up button has been pressed */
-    volatile bool scrup_pressed;
-
-    /* Flag to indicate if the scroll down button has been pressed */
-    volatile bool scrdown_pressed;
-
-    /* Application information */
-    uint8_t app_info[8];
-
-    /* Flag to indicate if there is application information to show */
-    bool app_info_en;
-
-    /* Reload time to display each information in the display (in seconds) */
-	uint32_t reload_display_time;
-
-    /* Time to display each information in the display (in seconds) */
-	uint32_t display_time;
-
-    /* Information about the external communication signal */
-	APP_DISPLAY_COM_SIGNAL comm_signal;
-
-    /* Information shown in display */
-	APP_DISPLAY_INFO display_info;
-
-    /* Direction of the circular information in the display */
-	APP_DISPLAY_DIRECTION direction;
-
-    /* Circular information loop */
-    APP_DISPLAY_INFO loop_info[APP_DISPLAY_MAX_TYPE];
-
-    /* Maximum index in the information loop */
-    uint8_t loop_max;
-
-    /* Current index in the information loop */
-    uint8_t loop_idx;
-
-    /* Flag to indicate if DWDT0 should be reloaded */
-    bool reloadDWDT0;
-
-    /* Timer to handle delays */
-    SYS_TIME_HANDLE timer;
-
-    /* Flag to handle the display task */
-    volatile bool timerFlag;
+    /* TODO: Define any additional data used by the application. */
 
 } APP_DISPLAY_DATA;
 
@@ -248,12 +109,12 @@ typedef struct
     void APP_DISPLAY_Initialize ( void )
 
   Summary:
-    MPLAB Harmony application initialization routine for the display.
+     MPLAB Harmony application initialization routine.
 
   Description:
-    This function initializes the Harmony application for the display.
-    It places the application in its initial state and prepares it to run
-    so that the APP_DISPLAY_Tasks function can be called.
+    This function initializes the Harmony application.  It places the
+    application in its initial state and prepares it to run so that its
+    APP_DISPLAY_Tasks function can be called.
 
   Precondition:
     All other system initialization routines should be called before calling
@@ -282,15 +143,15 @@ void APP_DISPLAY_Initialize ( void );
     void APP_DISPLAY_Tasks ( void )
 
   Summary:
-    MPLAB Harmony Demo application tasks function for the display.
+    MPLAB Harmony Demo application tasks function
 
   Description:
-    This routine is the Harmony Demo application tasks function for the
-    display. It defines the application state machine and core logic.
+    This routine is the Harmony Demo application's tasks function.  It
+    defines the application's state machine and core logic.
 
   Precondition:
-    The system and application initialization ("SYS_Initialize" and
-    "APP_DISPLAY_Initialize") should be called before calling this.
+    The system and application initialization ("SYS_Initialize") should be
+    called before calling this.
 
   Parameters:
     None.
@@ -300,7 +161,6 @@ void APP_DISPLAY_Initialize ( void );
 
   Example:
     <code>
-    APP_DISPLAY_Initialize();
     APP_DISPLAY_Tasks();
     </code>
 
@@ -309,147 +169,6 @@ void APP_DISPLAY_Initialize ( void );
  */
 
 void APP_DISPLAY_Tasks( void );
-
-/*******************************************************************************
-  Function:
-    void APP_DISPLAY_SetAppInfo(const char *msg, uint8_t len)
-
-  Summary:
-    Function to include application information in the display.
-
-  Description:
-    This function includes application information in the circular loop
-    to be shown in the display.
-
-  Precondition:
-    The system and application initialization ("SYS_Initialize" and
-    "APP_DISPLAY_Initialize") should be called before calling this.
-
-  Parameters:
-    msg       - Pointer to the application message to show (only digits 0-9)
-    len       - Length of the message (maximum 8 digits)
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    char version_info[3] = {'1', '2', '19'};
-
-    APP_DISPLAY_Initialize();
-    APP_DISPLAY_Tasks();
-    APP_DISPLAY_SetAppInfo(version_info, sizeof(version_info));
-    </code>
-
-  Remarks:
-    None.
- */
-
-void APP_DISPLAY_SetAppInfo(const char *msg, uint8_t len);
-
-/*******************************************************************************
-  Function:
-    void APP_DISPLAY_SetSerialCommunication(void)
-
-  Summary:
-    Function to set the serial communication icon in the display.
-
-  Description:
-    This function set the serial communication icon in the display to indicate
-    that there is an ongoing communication through the console.
-
-  Precondition:
-    The system and application initialization ("SYS_Initialize" and
-    "APP_DISPLAY_Initialize") should be called before calling this.
-
-  Parameters:
-    None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    static void Command_xx(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
-    {
-        APP_DISPLAY_SetSerialCommunication(void);
-    }
-    </code>
-
-  Remarks:
-    This routine is called from the console application.
- */
-
-void APP_DISPLAY_SetSerialCommunication(void);
-
-/*******************************************************************************
-  Function:
-    void APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL signal)
-
-  Summary:
-    Function to set the status of the external communication signal using
-    the specific signal icons of the display.
-
-  Description:
-    This function set the signal icons in the display to indicate the status
-    of the external communications signal.
-
-  Precondition:
-    The system and application initialization ("SYS_Initialize" and
-    "APP_DISPLAY_Initialize") should be called before calling this.
-
-  Parameters:
-    signal - External communication signal status.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    if (ext_com_enable == True)
-    {
-        APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL_HIGH);
-    }
-    </code>
-
-  Remarks:
-    None.
- */
-void APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL signal);
-
-/*******************************************************************************
-  Function:
-    void APP_DISPLAY_ShowLowPowerMode(void)
-
-  Summary:
-    Function to show low power mode indicator.
-
-  Description:
-    This function clear the display and show low battery icon.
-
-  Precondition:
-    The system and application initialization ("SYS_Initialize" and
-    "APP_DISPLAY_Initialize") should be called before calling this.
-
-  Parameters:
-    None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    static void Command_xx(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
-    {
-        APP_DISPLAY_ShowLowPowerMode(void);
-    }
-    </code>
-
-  Remarks:
-    None.
- */
-
-void APP_DISPLAY_ShowLowPowerMode(void);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

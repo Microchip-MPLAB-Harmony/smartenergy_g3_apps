@@ -18,33 +18,8 @@
     are defined here for convenience.
 *******************************************************************************/
 
-// DOM-IGNORE-BEGIN
-/*
-Copyright (C) 2022, Microchip Technology Inc., and its subsidiaries. All rights reserved.
-
-The software and documentation is provided by microchip and its contributors
-"as is" and any express, implied or statutory warranties, including, but not
-limited to, the implied warranties of merchantability, fitness for a particular
-purpose and non-infringement of third party intellectual property rights are
-disclaimed to the fullest extent permitted by law. In no event shall microchip
-or its contributors be liable for any direct, indirect, incidental, special,
-exemplary, or consequential damages (including, but not limited to, procurement
-of substitute goods or services; loss of use, data, or profits; or business
-interruption) however caused and on any theory of liability, whether in contract,
-strict liability, or tort (including negligence or otherwise) arising in any way
-out of the use of the software and documentation, even if advised of the
-possibility of such damage.
-
-Except as expressly permitted hereunder and subject to the applicable license terms
-for any third-party software incorporated in the software and any applicable open
-source software license terms, no license or other rights, whether express or
-implied, are granted under any patent or other intellectual property rights of
-Microchip or any third party.
-*/
-// DOM-IGNORE-END
-
-#ifndef APP_NVM_H
-#define APP_NVM_H
+#ifndef _APP_NVM_H
+#define _APP_NVM_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -52,8 +27,11 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdlib.h>
 #include "configuration.h"
-#include "definitions.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -69,15 +47,6 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-/* Will Erase, Write and Read 1KB of Data */
-#define NVM_BUFFER_SIZE                 (1024U)
-
-#define NVM_GEOMETRY_TABLE_READ_ENTRY   (0)
-#define NVM_GEOMETRY_TABLE_WRITE_ENTRY  (1)
-#define NVM_GEOMETRY_TABLE_ERASE_ENTRY  (2)
-
-#define BLOCK_START                     0x0
-
 // *****************************************************************************
 /* Application states
 
@@ -91,34 +60,13 @@ extern "C" {
 
 typedef enum
 {
-    /* Open the flash driver */
-    APP_NVM_STATE_OPEN_DRIVER,
-
-    /* Get the geometry details */
-    APP_NVM_STATE_GEOMETRY_GET,
-
-    /* Write to Memory */
-    APP_NVM_STATE_WRITE_MEMORY,
-
-    /* Read From Memory */
-    APP_NVM_STATE_READ_MEMORY,
-
-    /* Erase Flash */
-    APP_NVM_STATE_ERASE_FLASH,
-
-    /* Wait for transfer to complete */
-    APP_NVM_STATE_XFER_WAIT,
-
-    /* Transfer success */
-    APP_NVM_STATE_SUCCESS,
-
-    /* Wait for commands */
-    APP_NVM_STATE_CMD_WAIT,
-
-    /* An app error has occurred */
-    APP_NVM_STATE_ERROR
+    /* Application's state machine's initial state. */
+    APP_NVM_STATE_INIT=0,
+    APP_NVM_STATE_SERVICE_TASKS,
+    /* TODO: Define states used by the application state machine. */
 
 } APP_NVM_STATES;
+
 
 // *****************************************************************************
 /* Application Data
@@ -135,44 +83,12 @@ typedef enum
 
 typedef struct
 {
-    /* Application's current state */
+    /* The application's current state */
     APP_NVM_STATES state;
 
-    /* Driver Handle */
-    DRV_HANDLE memoryHandle;
-
-    /* Application transfer status */
-    volatile bool xfer_done;
-
-    /* Application transfer status */
-    bool erase_done;
-
-    /* Erase/Write/Read Command Handles */
-    DRV_MEMORY_COMMAND_HANDLE eraseHandle;
-    DRV_MEMORY_COMMAND_HANDLE writeHandle;
-    DRV_MEMORY_COMMAND_HANDLE readHandle;
-
-    /* Number of Read blocks */
-    uint32_t numReadBlocks;
-
-    /* Number of Write blocks */
-    uint32_t numWriteBlocks;
-
-    /* Number of Erase blocks */
-    uint32_t numEraseBlocks;
-
-    /* Pointer to store Data */
-    uint8_t* pData;
-
-    /* Pointer to NVM Data buffer */
-    uint8_t* pNVMData;
-
-    /* Length of data to store */
-    size_t dataLength;
+    /* TODO: Define any additional data used by the application. */
 
 } APP_NVM_DATA;
-
-extern APP_NVM_DATA appNvm;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -254,11 +170,15 @@ void APP_NVM_Initialize ( void );
 
 void APP_NVM_Tasks( void );
 
-
-#endif /* APP_NVM_H */
-
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
 #endif
 //DOM-IGNORE-END
+
+#endif /* _APP_NVM_H */
+
+/*******************************************************************************
+ End of File
+ */
+

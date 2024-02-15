@@ -70,8 +70,8 @@
 #include "stack/g3/adaptation/lbp_defs.h"
 #include "stack/g3/adaptation/lbp_coord.h"
 #include "peripheral/tc/plib_tc0.h"
-#include "peripheral/nvm/plib_nvm.h"
 #include "system/time/sys_time.h"
+#include "peripheral/nvm/plib_nvm.h"
 #include "service/log_report/srv_log_report.h"
 #include "driver/IEEE_802154_PHY/phy/inc/phy.h"
 #include "driver/IEEE_802154_PHY/phy/inc/phy_tasks.h"
@@ -115,6 +115,7 @@
 #include "osal/osal.h"
 #include "system/debug/sys_debug.h"
 #include "peripheral/sercom/usart/plib_sercom1_usart.h"
+#include "peripheral/sercom/spi_master/plib_sercom0_spi_master.h"
 /*******************************************************************************
 * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
 *
@@ -139,7 +140,6 @@
 *******************************************************************************/
 #include "driver/pds/include/pds.h"
 #include "driver/pds/include/pds_config.h"
-#include "peripheral/sercom/spi_master/plib_sercom0_spi_master.h"
 #include "peripheral/evsys/plib_evsys.h"
 #include "peripheral/clk/plib_clk.h"
 #include "peripheral/gpio/plib_gpio.h"
@@ -292,6 +292,7 @@ Remarks:
 
 typedef struct
 {
+
     SYS_MODULE_OBJ  drvG3MacRt;
 
     SYS_MODULE_OBJ g3MacWrapper;

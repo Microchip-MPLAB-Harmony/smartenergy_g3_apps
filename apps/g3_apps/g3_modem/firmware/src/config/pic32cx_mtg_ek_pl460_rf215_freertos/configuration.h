@@ -98,6 +98,7 @@ extern "C" {
 /* PAL PLC Configuration Options */
 #define PAL_PLC_PHY_INDEX                     0U
 
+
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A
@@ -136,6 +137,7 @@ extern "C" {
 #define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  180U
 #define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 1400U
 
+
 /* USI Service Common Configuration Options */
 #define SRV_USI_INSTANCES_NUMBER              1U
 #define SRV_USI_USART_CONNECTIONS             1U
@@ -143,6 +145,7 @@ extern "C" {
 #define SRV_USI_MSG_POOL_SIZE                 5U
 /* PAL RF Configuration Options */
 #define PAL_RF_PHY_INDEX                      0U
+
 
 
 /* USI Service Instance 0 Configuration Options */

@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -64,6 +64,8 @@
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
+
+#pragma pack(push,2)
 
 typedef struct
 {
@@ -101,6 +103,7 @@ typedef struct
     uint8_t backupBuffer[HYAL_BACKUP_BUF_SIZE];
     MAC_STATUS firstConfirmStatus;
     bool waitingSecondConfirm;
+    uint8_t probingInterval;
     bool serialDataRequest;
     bool used;
 } MAC_WRP_DATA_REQ_ENTRY;
@@ -124,6 +127,7 @@ typedef struct
     bool waitingSecondResetConfirm;
     MAC_STATUS firstStartConfirmStatus;
     bool waitingSecondStartConfirm;
+    bool mediaProbing;
 } HYAL_DATA;
 
 typedef enum
@@ -161,6 +165,9 @@ typedef enum
     MAC_WRP_SERIAL_MSG_MAC_SNIFFER_INDICATION
 
 } MAC_WRP_SERIAL_MSG_ID;
+
+
+#pragma pack(pop)
 
 // *****************************************************************************
 // *****************************************************************************
@@ -234,6 +241,7 @@ static const HYAL_DATA hyalDataDefaults = {
   false, // waitingSecondResetConfirm
   MAC_STATUS_SUCCESS, // firstStartConfirmStatus
   false, // waitingSecondStartConfirm
+  false, // mediaProbing
 };
 
 static HYAL_DATA hyalData;
@@ -361,6 +369,111 @@ static bool lMAC_WRP_IsAttributeInPLCRange(MAC_WRP_PIB_ATTRIBUTE attribute)
         /* Manufacturer RF MAC IB */
         return false;
     }
+}
+
+static bool lMAC_WRP_CheckRFMediaProbing(uint8_t probingInterval, MAC_ADDRESS dstAddress)
+{
+    MAC_WRP_POS_ENTRY_RF posEntry;
+    MAC_PIB_VALUE pibValue;
+    MAC_WRP_STATUS status;
+    uint8_t posTableEntryTtl;
+    uint8_t lqiValidTime;
+
+    /* Probing interval has to be greater than 0 */
+    if (probingInterval == 0U)
+    {
+        return false;
+    }
+
+    /* Destination addressing has to be Short Addressing */
+    if (dstAddress.addressMode != MAC_ADDRESS_MODE_SHORT)
+    {
+        return false;
+    }
+
+    /* Look for entry in RF POS Table */
+    status = (MAC_WRP_STATUS) MAC_RF_GetRequestSync(MAC_PIB_MANUF_POS_TABLE_ELEMENT_RF,
+        dstAddress.shortAddress, &pibValue);
+
+    if (status == MAC_WRP_STATUS_SUCCESS)
+    {
+        (void) memcpy((void *) &posEntry, (void *) pibValue.value, sizeof(MAC_WRP_POS_ENTRY_RF));
+        status = (MAC_WRP_STATUS) MAC_COMMON_GetRequestSync(MAC_COMMON_PIB_POS_TABLE_ENTRY_TTL,
+            0, &pibValue);
+
+        if (status == MAC_WRP_STATUS_SUCCESS)
+        {
+            posTableEntryTtl = pibValue.value[0];
+            lqiValidTime = (uint8_t)((posEntry.reverseLqiValidTime + 59U) / 60U);
+            if ((posTableEntryTtl > lqiValidTime) && ((posTableEntryTtl - lqiValidTime) >= probingInterval))
+            {
+                /* Conditions met to perform the media probing */
+                return true;
+            }
+        }
+    }
+
+    /* If this point is reached, no probing is done */
+    return false;
+}
+
+static bool lMAC_WRP_CheckPLCMediaProbing(uint8_t probingInterval, MAC_ADDRESS dstAddress)
+{
+    MAC_WRP_POS_ENTRY posEntry;
+    MAC_WRP_NEIGHBOUR_ENTRY nbEntry;
+    MAC_PIB_VALUE pibValue;
+    MAC_WRP_STATUS status;
+    uint8_t tmrTtl;
+    uint8_t tmrValidTime;
+
+    /* Probing interval has to be greater than 0 */
+    if (probingInterval == 0U)
+    {
+        return false;
+    }
+
+    /* Destination addressing has to be Short Addressing */
+    if (dstAddress.addressMode != MAC_ADDRESS_MODE_SHORT)
+    {
+        return false;
+    }
+
+    /* Look for entry in POS Table */
+    status = (MAC_WRP_STATUS) MAC_PLC_GetRequestSync(MAC_PIB_MANUF_POS_TABLE_ELEMENT,
+        dstAddress.shortAddress, &pibValue);
+
+    if (status == MAC_WRP_STATUS_SUCCESS)
+    {
+        (void) memcpy((void *) &posEntry, (void *) pibValue.value, sizeof(MAC_WRP_POS_ENTRY));
+
+        /* Look for entry in Neighbour Table to fill TMR Valid time */
+        tmrValidTime = 0;
+        status = (MAC_WRP_STATUS) MAC_PLC_GetRequestSync(MAC_PIB_MANUF_NEIGHBOUR_TABLE_ELEMENT,
+            dstAddress.shortAddress, &pibValue);
+
+        if (status == MAC_WRP_STATUS_SUCCESS)
+        {
+            (void) memcpy((void *) &nbEntry, (void *) pibValue.value, sizeof(MAC_WRP_NEIGHBOUR_ENTRY));
+            tmrValidTime = (uint8_t)((nbEntry.tmrValidTime + 59U) / 60U);
+        }
+
+        status = (MAC_WRP_STATUS) MAC_PLC_GetRequestSync(MAC_PIB_TMR_TTL, 0, &pibValue);
+        if (status == MAC_WRP_STATUS_SUCCESS)
+        {
+            tmrTtl = pibValue.value[0];
+            if ((tmrTtl > tmrValidTime) && ((tmrTtl - tmrValidTime) >= probingInterval))
+            {
+                /* Conditions met to perform the media probing */
+                /* Reset TMR TTL for entry before probing, so TMR is exchanged */
+                /* (pibValue is not used, same variable as prevoius can be used) */
+                (void) MAC_PLC_SetRequestSync(MAC_PIB_MANUF_RESET_TMR_TTL, dstAddress.shortAddress, &pibValue);
+                return true;
+            }
+        }
+    }
+
+    /* If this point is reached, no probing is done */
+    return false;
 }
 
 static bool lMAC_WRP_IsSharedAttribute(MAC_WRP_PIB_ATTRIBUTE attribute)
@@ -532,13 +645,13 @@ static void lMAC_WRP_StringifyDataIndication(MAC_WRP_DATA_INDICATION_PARAMS* diP
     (void) memcpy(&serialRspBuffer[serialRspLen], diParams->computedToneMap.toneMap, 3);
     serialRspLen += 3U;
 
+    serialRspBuffer[serialRspLen++] = (uint8_t)diParams->mediaType;
+
     serialRspBuffer[serialRspLen++] = (uint8_t) (diParams->msduLength >> 8);
     serialRspBuffer[serialRspLen++] = (uint8_t) diParams->msduLength;
 
     (void) memcpy(&serialRspBuffer[serialRspLen], diParams->msdu, diParams->msduLength);
     serialRspLen += diParams->msduLength;
-
-    serialRspBuffer[serialRspLen++] = (uint8_t)diParams->mediaType;
 
     /* Send through USI */
     SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
@@ -746,13 +859,13 @@ static MAC_WRP_SERIAL_STATUS lMAC_WRP_ParseInitialize(uint8_t* pData)
 {
     if (macWrpData.state == MAC_WRP_STATE_NOT_READY)
     {
-        MAC_WRP_BAND plcBand;
+        MAC_WRP_BAND band;
 
         /* Parse initialize message */
-        plcBand = (MAC_WRP_BAND) *pData;
+        band = (MAC_WRP_BAND) *pData;
 
         /* Open MAC Wrapper if it has not been opened yet */
-        (void) MAC_WRP_Open(G3_MAC_WRP_INDEX_0, plcBand);
+        (void) MAC_WRP_Open(G3_MAC_WRP_INDEX_0, band);
 
         macWrpData.serialInitialize = true;
     }
@@ -812,6 +925,8 @@ static MAC_WRP_SERIAL_STATUS lMAC_WRP_ParseDataRequest(uint8_t* pData)
     }
 
     drParams.mediaType = (MAC_WRP_MEDIA_TYPE_REQUEST) *pData++;
+    /* No probing on MAC Serial access */
+    drParams.probingInterval = 0;
 
     drParams.msduLength = ((uint16_t)*pData++) << 8;
     drParams.msduLength += (uint16_t)*pData++;
@@ -1038,10 +1153,24 @@ static void lMAC_WRP_CallbackMacPlcDataConfirm(MAC_DATA_CONFIRM_PARAMS *dcParams
         case MAC_WRP_MEDIA_TYPE_REQ_PLC_BACKUP_RF:
             if (dcParams->status == MAC_STATUS_SUCCESS)
             {
-                /* Fill Media Type */
-                dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_PLC;
-                /* Send confirm to upper layer */
-                sendConfirm = true;
+                /* Check Media Probing */
+                if (lMAC_WRP_CheckRFMediaProbing(matchingDataReq->probingInterval, matchingDataReq->dataReqParams.destAddress))
+                {
+                    /* Perform Media probing */
+                    hyalData.mediaProbing = true;
+                    SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "RF Media Probing\r\n");
+                    /* Set Msdu pointer to backup buffer, as current pointer is no longer valid */
+                    matchingDataReq->dataReqParams.msdu = matchingDataReq->backupBuffer;
+                    MAC_RF_DataRequest(&matchingDataReq->dataReqParams);
+                }
+                else
+                {
+                    hyalData.mediaProbing = false;
+                    /* Fill Media Type */
+                    dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_PLC;
+                    /* Send confirm to upper layer */
+                    sendConfirm = true;
+                }
             }
             else
             {
@@ -1078,8 +1207,26 @@ static void lMAC_WRP_CallbackMacPlcDataConfirm(MAC_DATA_CONFIRM_PARAMS *dcParams
             }
             break;
         case MAC_WRP_MEDIA_TYPE_REQ_RF_BACKUP_PLC:
-            /* PLC was used as backup medium. Send confirm to upper layer */
-            dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_PLC_AS_BACKUP;
+            if (hyalData.mediaProbing)
+            {
+                /* PLC was probed after RF success. Send confirm to upper layer. */
+                hyalData.mediaProbing = false;
+                dataConfirmParams.status = MAC_WRP_STATUS_SUCCESS;
+                if (dcParams->status == MAC_STATUS_SUCCESS)
+                {
+                    dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_RF;
+                }
+                else
+                {
+                    dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_RF_AS_BACKUP;
+                }
+            }
+            else
+            {
+                /* PLC was used as backup medium. Send confirm to upper layer. */
+                dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_PLC_AS_BACKUP;
+            }
+
             sendConfirm = true;
             break;
         case MAC_WRP_MEDIA_TYPE_REQ_BOTH:
@@ -1388,17 +1535,48 @@ static void lMAC_WRP_CallbackMacRfDataConfirm(MAC_DATA_CONFIRM_PARAMS *dcParams)
     switch (matchingDataReq->dataReqMediaType)
     {
         case MAC_WRP_MEDIA_TYPE_REQ_PLC_BACKUP_RF:
-            /* RF was used as backup medium. Send confirm to upper layer */
-            dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_RF_AS_BACKUP;
+            if (hyalData.mediaProbing)
+            {
+                /* RF was probed after PLC success. Send confirm to upper layer. */
+                hyalData.mediaProbing = false;
+                dataConfirmParams.status = MAC_WRP_STATUS_SUCCESS;
+                if (dcParams->status == MAC_STATUS_SUCCESS)
+                {
+                    dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_PLC;
+                }
+                else
+                {
+                    dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_PLC_AS_BACKUP;
+                }
+            }
+            else
+            {
+                /* RF was used as backup medium. Send confirm to upper layer */
+                dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_RF_AS_BACKUP;
+            }
+
             sendConfirm = true;
             break;
         case MAC_WRP_MEDIA_TYPE_REQ_RF_BACKUP_PLC:
             if (dcParams->status == MAC_STATUS_SUCCESS)
             {
-                /* Fill Media Type */
-                dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_RF;
-                /* Send confirm to upper layer */
-                sendConfirm = true;
+                /* Check Media Probing */
+                if (lMAC_WRP_CheckPLCMediaProbing(matchingDataReq->probingInterval, matchingDataReq->dataReqParams.destAddress))
+                {
+                    /* Perform Media probing */
+                    hyalData.mediaProbing = true;
+                    SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, "PLC Media Probing\r\n");
+                    /* Set Msdu pointer to backup buffer, as current pointer is no longer valid */
+                    matchingDataReq->dataReqParams.msdu = matchingDataReq->backupBuffer;
+                    MAC_PLC_DataRequest(&matchingDataReq->dataReqParams);
+                }
+                else
+                {
+                    /* Fill Media Type */
+                    dataConfirmParams.mediaType = MAC_WRP_MEDIA_TYPE_CONF_RF;
+                    /* Send confirm to upper layer */
+                    sendConfirm = true;
+                }
             }
             else
             {
@@ -1746,7 +1924,7 @@ SYS_MODULE_OBJ MAC_WRP_Initialize(const SYS_MODULE_INDEX index)
     return (SYS_MODULE_OBJ)0;
 }
 
-MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand)
+MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND band)
 {
     MAC_PLC_INIT plcInitData;
     MAC_RF_INIT rfInitData;
@@ -1778,7 +1956,7 @@ MAC_WRP_HANDLE MAC_WRP_Open(SYS_MODULE_INDEX index, MAC_WRP_BAND plcBand)
     macPlcTables.macPlcDeviceTable = macPlcDeviceTable;
 
     plcInitData.macPlcTables = &macPlcTables;
-    plcInitData.plcBand = (MAC_PLC_BAND) plcBand;
+    plcInitData.plcBand = (MAC_PLC_BAND) band;
     /* Get PAL index from configuration header */
     plcInitData.palPlcIndex = PAL_PLC_PHY_INDEX;
 
@@ -1938,6 +2116,8 @@ void MAC_WRP_DataRequest(MAC_WRP_HANDLE handle, MAC_WRP_DATA_REQUEST_PARAMS *drP
 
     /* Copy MediaType */
     dataReqEntry->dataReqMediaType = drParams->mediaType;
+    /* Copy Probing Interval */
+    dataReqEntry->probingInterval = drParams->probingInterval;
     /* Copy data to backup buffer, just in case backup media has to be used, current pointer will not be valid later */
     if (drParams->msduLength <= HYAL_BACKUP_BUF_SIZE)
     {
@@ -2444,7 +2624,7 @@ uint8_t MAC_WRP_SerialStringifyGetConfirm (
                 serialRspLen += 4U;
                 break;
 
-            case MAC_WRP_PIB_POS_TABLE_RF: /* 9 Byte entries. */
+            case MAC_WRP_PIB_POS_TABLE_RF: /* 11 Byte entries. */
             case MAC_WRP_PIB_MANUF_POS_TABLE_ELEMENT_RF:
                 pPosEntryRF = (void*) pibValue;
                 serialData[serialRspLen++] = (uint8_t) (pPosEntryRF->shortAddress >> 8);
@@ -2456,6 +2636,8 @@ uint8_t MAC_WRP_SerialStringifyGetConfirm (
                 serialData[serialRspLen++] = (uint8_t) pPosEntryRF->reverseTxPowerOffset;
                 serialData[serialRspLen++] = (uint8_t) (pPosEntryRF->posValidTime >> 8);
                 serialData[serialRspLen++] = (uint8_t) pPosEntryRF->posValidTime;
+                serialData[serialRspLen++] = (uint8_t) (pPosEntryRF->reverseLqiValidTime >> 8);
+                serialData[serialRspLen++] = (uint8_t) pPosEntryRF->reverseLqiValidTime;
                 break;
 
             case MAC_WRP_PIB_KEY_TABLE:
@@ -2557,7 +2739,8 @@ uint8_t MAC_WRP_SerialStringifyGetConfirm (
                     case MAC_WRP_RF_PHY_PARAM_DEVICE_ID:
                     case MAC_WRP_RF_PHY_PARAM_PHY_BAND_OPERATING_MODE:
                     case MAC_WRP_RF_PHY_PARAM_PHY_CHANNEL_NUM:
-                    case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION:
+                    case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION_US:
+                    case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION_SYMBOLS:
                     case MAC_WRP_RF_PHY_PARAM_PHY_TURNAROUND_TIME:
                     case MAC_WRP_RF_PHY_PARAM_PHY_TX_PAY_SYMBOLS:
                     case MAC_WRP_RF_PHY_PARAM_PHY_RX_PAY_SYMBOLS:
@@ -2569,7 +2752,10 @@ uint8_t MAC_WRP_SerialStringifyGetConfirm (
                     case MAC_WRP_RF_PHY_PARAM_DEVICE_RESET:
                     case MAC_WRP_RF_PHY_PARAM_TRX_RESET:
                     case MAC_WRP_RF_PHY_PARAM_TRX_SLEEP:
-                    case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD:
+                    case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD_DBM:
+                    case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD_SENSITIVITY:
+                    case MAC_WRP_RF_PHY_PARAM_PHY_SENSITIVITY:
+                    case MAC_WRP_RF_PHY_PARAM_PHY_MAX_TX_POWER:
                     case MAC_WRP_RF_PHY_PARAM_PHY_STATS_RESET:
                     case MAC_WRP_RF_PHY_PARAM_TX_FSK_FEC:
                     case MAC_WRP_RF_PHY_PARAM_TX_OFDM_MCS:
@@ -2592,7 +2778,7 @@ uint8_t MAC_WRP_SerialStringifyGetConfirm (
         }
     }
 
-	return serialRspLen;
+    return serialRspLen;
 }
 
 MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
@@ -2687,6 +2873,7 @@ MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
         case MAC_WRP_PIB_RC_COORD:
         case MAC_WRP_PIB_POS_RECENT_ENTRIES:
         case MAC_WRP_PIB_MANUF_LAST_FRAME_DURATION_PLC:
+        case MAC_WRP_PIB_CHANNEL_NUMBER_RF:
         case MAC_WRP_PIB_DUTY_CYCLE_PERIOD_RF:
         case MAC_WRP_PIB_DUTY_CYCLE_LIMIT_RF:
         case MAC_WRP_PIB_MANUF_POS_TABLE_COUNT_RF:
@@ -2814,7 +3001,7 @@ MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
             break;
         }
 
-        case MAC_WRP_PIB_POS_TABLE_RF: /* 9 Byte entries. */
+        case MAC_WRP_PIB_POS_TABLE_RF: /* 11 Byte entries. */
             pPosEntryRF.shortAddress = ((uint16_t) *pData++) << 8;
             pPosEntryRF.shortAddress += (uint16_t) *pData++;
             pPosEntryRF.forwardLqi  = *pData++;
@@ -2823,7 +3010,9 @@ MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
             pPosEntryRF.forwardTxPowerOffset = *pData++;
             pPosEntryRF.reverseTxPowerOffset = *pData++;
             pPosEntryRF.posValidTime = ((uint16_t) *pData++) << 8;
-            pPosEntryRF.posValidTime += (uint16_t) *pData;
+            pPosEntryRF.posValidTime += (uint16_t) *pData++;
+            pPosEntryRF.reverseLqiValidTime = ((uint16_t) *pData++) << 8;
+            pPosEntryRF.reverseLqiValidTime += (uint16_t) *pData;
             (void) memcpy((void *) pibValue->value, (void *) &pPosEntryRF, sizeof(MAC_WRP_POS_ENTRY_RF));
             break;
 
@@ -2954,7 +3143,8 @@ MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
 
                 case MAC_WRP_RF_PHY_PARAM_PHY_BAND_OPERATING_MODE:
                 case MAC_WRP_RF_PHY_PARAM_PHY_CHANNEL_NUM:
-                case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION:
+                case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION_US:
+                case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_DURATION_SYMBOLS:
                 case MAC_WRP_RF_PHY_PARAM_PHY_TX_PAY_SYMBOLS:
                 case MAC_WRP_RF_PHY_PARAM_PHY_RX_PAY_SYMBOLS:
                     lMemcpyFromUsiEndianessUint16(pibValue->value, pData);
@@ -2963,7 +3153,8 @@ MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
                 case MAC_WRP_RF_PHY_PARAM_DEVICE_RESET:
                 case MAC_WRP_RF_PHY_PARAM_TRX_RESET:
                 case MAC_WRP_RF_PHY_PARAM_TRX_SLEEP:
-                case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD:
+                case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD_DBM:
+                case MAC_WRP_RF_PHY_PARAM_PHY_CCA_ED_THRESHOLD_SENSITIVITY:
                 case MAC_WRP_RF_PHY_PARAM_PHY_STATS_RESET:
                 case MAC_WRP_RF_PHY_PARAM_TX_FSK_FEC:
                 case MAC_WRP_RF_PHY_PARAM_TX_OFDM_MCS:
@@ -2974,6 +3165,8 @@ MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
                 case MAC_WRP_RF_PHY_PARAM_PHY_CHANNEL_FREQ_HZ:
                 case MAC_WRP_RF_PHY_PARAM_FW_VERSION:
                 case MAC_WRP_RF_PHY_PARAM_DEVICE_ID:
+                case MAC_WRP_RF_PHY_PARAM_PHY_SENSITIVITY:
+                case MAC_WRP_RF_PHY_PARAM_PHY_MAX_TX_POWER:
                 case MAC_WRP_RF_PHY_PARAM_PHY_TURNAROUND_TIME:
                 case MAC_WRP_RF_PHY_PARAM_MAC_UNIT_BACKOFF_PERIOD:
                     /* MAC_WRP_STATUS_READ_ONLY */

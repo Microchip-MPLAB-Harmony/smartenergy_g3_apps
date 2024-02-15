@@ -63,68 +63,68 @@
 
 
 /*** Macros for PLC_LDO pin ***/
-#define PLC_LDO_Set()               (PIOC_REGS->PIO_SODR = (1<<30))
-#define PLC_LDO_Clear()             (PIOC_REGS->PIO_CODR = (1<<30))
-#define PLC_LDO_Toggle()            (PIOC_REGS->PIO_ODSR ^= (1<<30))
-#define PLC_LDO_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<30))
-#define PLC_LDO_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<30))
-#define PLC_LDO_Get()               ((PIOC_REGS->PIO_PDSR >> 30) & 0x1)
+#define PLC_LDO_Set()               (PIOC_REGS->PIO_SODR = ((uint32_t)1U<<30U))
+#define PLC_LDO_Clear()             (PIOC_REGS->PIO_CODR = ((uint32_t)1U<<30U))
+#define PLC_LDO_Toggle()            (PIOC_REGS->PIO_ODSR ^= ((uint32_t)1U<<30U))
+#define PLC_LDO_OutputEnable()      (PIOC_REGS->PIO_OER = ((uint32_t)1U<<30U))
+#define PLC_LDO_InputEnable()       (PIOC_REGS->PIO_ODR = ((uint32_t)1U<<30U))
+#define PLC_LDO_Get()               ((PIOC_REGS->PIO_PDSR >> 30U) & 0x1U)
 #define PLC_LDO_PIN                  PIO_PIN_PC30
 
 /*** Macros for PLC_INT pin ***/
-#define PLC_INT_Set()               (PIOD_REGS->PIO_SODR = (1<<28))
-#define PLC_INT_Clear()             (PIOD_REGS->PIO_CODR = (1<<28))
-#define PLC_INT_Toggle()            (PIOD_REGS->PIO_ODSR ^= (1<<28))
-#define PLC_INT_OutputEnable()      (PIOD_REGS->PIO_OER = (1<<28))
-#define PLC_INT_InputEnable()       (PIOD_REGS->PIO_ODR = (1<<28))
-#define PLC_INT_Get()               ((PIOD_REGS->PIO_PDSR >> 28) & 0x1)
+#define PLC_INT_Set()               (PIOD_REGS->PIO_SODR = ((uint32_t)1U<<28U))
+#define PLC_INT_Clear()             (PIOD_REGS->PIO_CODR = ((uint32_t)1U<<28U))
+#define PLC_INT_Toggle()            (PIOD_REGS->PIO_ODSR ^= ((uint32_t)1U<<28U))
+#define PLC_INT_OutputEnable()      (PIOD_REGS->PIO_OER = ((uint32_t)1U<<28U))
+#define PLC_INT_InputEnable()       (PIOD_REGS->PIO_ODR = ((uint32_t)1U<<28U))
+#define PLC_INT_Get()               ((PIOD_REGS->PIO_PDSR >> 28U) & 0x1U)
 #define PLC_INT_PIN                  PIO_PIN_PD28
 #define PLC_INT_InterruptEnable()   (PIOD_REGS->PIO_IER = (1<<28))
 #define PLC_INT_InterruptDisable()  (PIOD_REGS->PIO_IDR = (1<<28))
 
 /*** Macros for PLC_TX_ENABLE pin ***/
-#define PLC_TX_ENABLE_Set()               (PIOA_REGS->PIO_SODR = (1<<4))
-#define PLC_TX_ENABLE_Clear()             (PIOA_REGS->PIO_CODR = (1<<4))
-#define PLC_TX_ENABLE_Toggle()            (PIOA_REGS->PIO_ODSR ^= (1<<4))
-#define PLC_TX_ENABLE_OutputEnable()      (PIOA_REGS->PIO_OER = (1<<4))
-#define PLC_TX_ENABLE_InputEnable()       (PIOA_REGS->PIO_ODR = (1<<4))
-#define PLC_TX_ENABLE_Get()               ((PIOA_REGS->PIO_PDSR >> 4) & 0x1)
+#define PLC_TX_ENABLE_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<4U))
+#define PLC_TX_ENABLE_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<4U))
+#define PLC_TX_ENABLE_Toggle()            (PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<4U))
+#define PLC_TX_ENABLE_OutputEnable()      (PIOA_REGS->PIO_OER = ((uint32_t)1U<<4U))
+#define PLC_TX_ENABLE_InputEnable()       (PIOA_REGS->PIO_ODR = ((uint32_t)1U<<4U))
+#define PLC_TX_ENABLE_Get()               ((PIOA_REGS->PIO_PDSR >> 4U) & 0x1U)
 #define PLC_TX_ENABLE_PIN                  PIO_PIN_PA4
 
 /*** Macros for PLC_STBY pin ***/
-#define PLC_STBY_Set()               (PIOA_REGS->PIO_SODR = (1<<3))
-#define PLC_STBY_Clear()             (PIOA_REGS->PIO_CODR = (1<<3))
-#define PLC_STBY_Toggle()            (PIOA_REGS->PIO_ODSR ^= (1<<3))
-#define PLC_STBY_OutputEnable()      (PIOA_REGS->PIO_OER = (1<<3))
-#define PLC_STBY_InputEnable()       (PIOA_REGS->PIO_ODR = (1<<3))
-#define PLC_STBY_Get()               ((PIOA_REGS->PIO_PDSR >> 3) & 0x1)
+#define PLC_STBY_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<3U))
+#define PLC_STBY_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<3U))
+#define PLC_STBY_Toggle()            (PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<3U))
+#define PLC_STBY_OutputEnable()      (PIOA_REGS->PIO_OER = ((uint32_t)1U<<3U))
+#define PLC_STBY_InputEnable()       (PIOA_REGS->PIO_ODR = ((uint32_t)1U<<3U))
+#define PLC_STBY_Get()               ((PIOA_REGS->PIO_PDSR >> 3U) & 0x1U)
 #define PLC_STBY_PIN                  PIO_PIN_PA3
 
 /*** Macros for PLC_RST pin ***/
-#define PLC_RST_Set()               (PIOA_REGS->PIO_SODR = (1<<0))
-#define PLC_RST_Clear()             (PIOA_REGS->PIO_CODR = (1<<0))
-#define PLC_RST_Toggle()            (PIOA_REGS->PIO_ODSR ^= (1<<0))
-#define PLC_RST_OutputEnable()      (PIOA_REGS->PIO_OER = (1<<0))
-#define PLC_RST_InputEnable()       (PIOA_REGS->PIO_ODR = (1<<0))
-#define PLC_RST_Get()               ((PIOA_REGS->PIO_PDSR >> 0) & 0x1)
+#define PLC_RST_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<0U))
+#define PLC_RST_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<0U))
+#define PLC_RST_Toggle()            (PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<0U))
+#define PLC_RST_OutputEnable()      (PIOA_REGS->PIO_OER = ((uint32_t)1U<<0U))
+#define PLC_RST_InputEnable()       (PIOA_REGS->PIO_ODR = ((uint32_t)1U<<0U))
+#define PLC_RST_Get()               ((PIOA_REGS->PIO_PDSR >> 0U) & 0x1U)
 #define PLC_RST_PIN                  PIO_PIN_PA0
 
 /*** Macros for PLC_THMON pin ***/
-#define PLC_THMON_Set()               (PIOC_REGS->PIO_SODR = (1<<17))
-#define PLC_THMON_Clear()             (PIOC_REGS->PIO_CODR = (1<<17))
-#define PLC_THMON_Toggle()            (PIOC_REGS->PIO_ODSR ^= (1<<17))
-#define PLC_THMON_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<17))
-#define PLC_THMON_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<17))
-#define PLC_THMON_Get()               ((PIOC_REGS->PIO_PDSR >> 17) & 0x1)
+#define PLC_THMON_Set()               (PIOC_REGS->PIO_SODR = ((uint32_t)1U<<17U))
+#define PLC_THMON_Clear()             (PIOC_REGS->PIO_CODR = ((uint32_t)1U<<17U))
+#define PLC_THMON_Toggle()            (PIOC_REGS->PIO_ODSR ^= ((uint32_t)1U<<17U))
+#define PLC_THMON_OutputEnable()      (PIOC_REGS->PIO_OER = ((uint32_t)1U<<17U))
+#define PLC_THMON_InputEnable()       (PIOC_REGS->PIO_ODR = ((uint32_t)1U<<17U))
+#define PLC_THMON_Get()               ((PIOC_REGS->PIO_PDSR >> 17U) & 0x1U)
 #define PLC_THMON_PIN                  PIO_PIN_PC17
 
 /*** Macros for USB_VBUS_SENSE pin ***/
-#define USB_VBUS_SENSE_Set()               (PIOB_REGS->PIO_SODR = (1<<8))
-#define USB_VBUS_SENSE_Clear()             (PIOB_REGS->PIO_CODR = (1<<8))
-#define USB_VBUS_SENSE_Toggle()            (PIOB_REGS->PIO_ODSR ^= (1<<8))
-#define USB_VBUS_SENSE_OutputEnable()      (PIOB_REGS->PIO_OER = (1<<8))
-#define USB_VBUS_SENSE_InputEnable()       (PIOB_REGS->PIO_ODR = (1<<8))
-#define USB_VBUS_SENSE_Get()               ((PIOB_REGS->PIO_PDSR >> 8) & 0x1)
+#define USB_VBUS_SENSE_Set()               (PIOB_REGS->PIO_SODR = ((uint32_t)1U<<8U))
+#define USB_VBUS_SENSE_Clear()             (PIOB_REGS->PIO_CODR = ((uint32_t)1U<<8U))
+#define USB_VBUS_SENSE_Toggle()            (PIOB_REGS->PIO_ODSR ^= ((uint32_t)1U<<8U))
+#define USB_VBUS_SENSE_OutputEnable()      (PIOB_REGS->PIO_OER = ((uint32_t)1U<<8U))
+#define USB_VBUS_SENSE_InputEnable()       (PIOB_REGS->PIO_ODR = ((uint32_t)1U<<8U))
+#define USB_VBUS_SENSE_Get()               ((PIOB_REGS->PIO_PDSR >> 8U) & 0x1U)
 #define USB_VBUS_SENSE_PIN                  PIO_PIN_PB8
 
 

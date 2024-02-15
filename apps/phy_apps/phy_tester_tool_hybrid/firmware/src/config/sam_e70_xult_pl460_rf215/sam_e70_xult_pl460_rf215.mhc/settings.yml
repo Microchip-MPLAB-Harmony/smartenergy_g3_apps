@@ -1,6 +1,6 @@
-format_version: v1.0
 configName: sam_e70_xult_pl460_rf215
 folderName: sam_e70_xult_pl460_rf215
+format_version: v1.0
 frameworkPath: C:\WORK\GIT\mh3
 processor: ATSAME70Q21B
 projectName: g3_phy_tester_tool_hybrid_sam_e70_xult
@@ -11,4 +11,4 @@ settings:
   TRUSTZONE: 'false'
   CMSISPath: dev_packs\arm\CMSIS\5.8.0
   MERGE_STRATEGY: USER_ALL
-  DFPPath: dev_packs\Microchip\SAME70_DFP\4.9.129\same70b\atdf\ATSAME70Q21B.atdf
+  DFPPath: SAME70_DFP\4.10.248

@@ -17,28 +17,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef DRV_PLC_BOOT_H
@@ -65,7 +65,7 @@
 // *****************************************************************************
 // Section: Macro Definitions
 // *****************************************************************************
-// ***************************************************************************** 
+// *****************************************************************************
 
 #define DRV_PLC_BOOT_CMD_DIS_SPI_CTRL      0xA55AU
 
@@ -91,26 +91,26 @@
 
    Description
     This data type defines the required function signature for the PLC driver
-    boot data callback function. A client must register a pointer 
-    using the PLC open function whose function signature (parameter 
-    and return value types) match the types specified by this function pointer 
-    in order to be notified when more data will be necessary while bootloader 
+    boot data callback function. A client must register a pointer
+    using the PLC open function whose function signature (parameter
+    and return value types) match the types specified by this function pointer
+    in order to be notified when more data will be necessary while bootloader
     process.
 
     The parameters and return values are described here and a partial example
     implementation is provided.
 
   Parameters:
-    address -           Address where new block of the binary data image is 
+    address -           Address where new block of the binary data image is
                         ready to be transfered.
 
-    length -            Length of the new block to be transfered. Maximum size 
+    length -            Length of the new block to be transfered. Maximum size
                         is 634 bytes. If length is set to 0, it means that
                         binary data image transfer has finished and PLC transceiver
                         is ready to start up.
 
     context -           Value identifying the context of the application that
-                        registered the event handling function. In this case, 
+                        registered the event handling function. In this case,
                         this value is fixed to the SYS_MODULE_INDEX passed in
                         open function.
 
@@ -119,21 +119,21 @@
 
   Example:
     <code>
-    #define APP_BOOT_DATA_FRAG_SIZE    512  
+    #define APP_BOOT_DATA_FRAG_SIZE    512
 
     static uint32_t gBootDataNextAddr = 0x00450000;
     static uint16_t gBootDataPending = 64000;
 
     static void APP_PLCBootDataCb(uint32_t *address, uint16_t *length, uintptr_t context)
-    {   
+    {
         (void)context;
-        
+
         if (gBootDataPending)
         {
             *address = gBootDataNextAddr;
-            
+
             gBootDataNextAddr += APP_BOOT_DATA_FRAG_SIZE;
-            
+
             if (gBootDataPending > APP_BOOT_DATA_FRAG_SIZE)
             {
                 *length = APP_BOOT_DATA_FRAG_SIZE;
@@ -148,7 +148,7 @@
         else
         {
             *length = 0;
-        }    
+        }
     }
 
     DRV_HANDLE handle;
@@ -161,9 +161,9 @@
     </code>
 
   Remarks:
-    - The context parameter contains the SYS_MODULE_INDEX provided at the time 
-      the open function was called. This SYS_MODULE_INDEX value is passed back 
-      to the client as the "context" parameter.  
+    - The context parameter contains the SYS_MODULE_INDEX provided at the time
+      the open function was called. This SYS_MODULE_INDEX value is passed back
+      to the client as the "context" parameter.
 
     - Length parameter is used to notify that all binary image has been transfered
       to PLC Driver and it should be ready to start up. This is indicated using
@@ -175,7 +175,7 @@
 
 */
 
-typedef void ( *DRV_PLC_BOOT_DATA_CALLBACK )( uint32_t *address, 
+typedef void ( *DRV_PLC_BOOT_DATA_CALLBACK )( uint32_t *address,
         uint16_t *length, uintptr_t context );
 
 // *****************************************************************************
@@ -275,14 +275,14 @@ typedef struct
 {
     uint32_t                   binSize;
     uint32_t                   binStartAddress;
-    bool                       secure;   
+    bool                       secure;
     DRV_PLC_BOOT_STATUS        status;
     uint32_t                   pendingLength;
     uint32_t                   pSrc;
     uint32_t                   pDst;
     uint16_t                   secNumPackets;
     uint8_t                    secIV[16];
-    uint8_t                    secSN[16]; 
+    uint8_t                    secSN[16];
     DRV_PLC_BOOT_DATA_CALLBACK bootDataCallback;
     uintptr_t                  contextBoot;
     uint8_t                    validationCounter;
@@ -309,7 +309,7 @@ typedef struct
 #define PLC_MISCR_SET_GPIO_12_ZC                (0x0UL << 25)  /**< (PLC_MISCR) Change GPIO ZeroCross: ZC by GPIO_12 */
 #define PLC_MISCR_SET_GPIO_2_ZC                 (0x1UL << 25)  /**< (PLC_MISCR) Change GPIO ZeroCross: ZC by GPIO_2 */
 #define PLC_MISCR_SIGN_FAIL                     (0x1UL << 26)  /**< (PLC_MISCR) Check fail in Signature check */
-  
+
 /* -------- PLC_RSTR : Reset Register ------------------------------------- */
 #define PLC_RSTR_EN_PROC_RESET                  (0x1UL << 0)   /**< (PLC_RSTR) Enable Processor Reset */
 #define PLC_RSTR_EN_PER_RESET                   (0x1UL << 1)   /**< (PLC_RSTR) Enable Peripheral Reset */

@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -66,7 +66,7 @@ static DRV_PLC_BOOT_INFO sDrvPlcBootInfo = {0};
 #define MAX_FRAG_SIZE      512U
 
 static DRV_PLC_BOOT_DATA_CALLBACK sDrvPlcBootCb = NULL;
-static uintptr_t sDrvPlcBootContext; 
+static uintptr_t sDrvPlcBootContext;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -91,9 +91,9 @@ static uint32_t lDRV_PLC_BOOT_CheckStatus(void)
 
     /* Send Start Decryption */
     regValue = 0;
-    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_READ_BOOT_STATUS, 0, 4, 
+    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_READ_BOOT_STATUS, 0, 4,
             (uint8_t *)&regValue, (uint8_t *)&regValue);
-    
+
     return regValue;
 }
 
@@ -103,12 +103,12 @@ static void lDRV_PLC_BOOT_GetSecureInfo(uint8_t *pData)
     sDrvPlcBootInfo.secNumPackets = ((uint16_t)*pData++) << 8;
     sDrvPlcBootInfo.secNumPackets += *pData;
     pData +=15;
-    
+
     /* Get Initial Vector */
     (void) memcpy(sDrvPlcBootInfo.secIV, pData, 16);
     lDRV_PLC_BOOT_Rev(sDrvPlcBootInfo.secIV, 16);
     pData +=16;
-    
+
     /* Get Signature */
     (void) memcpy(sDrvPlcBootInfo.secSN, pData, 16);
     lDRV_PLC_BOOT_Rev(sDrvPlcBootInfo.secSN, 16);
@@ -125,17 +125,17 @@ static void lDRV_PLC_BOOT_SetSecureInfo(void)
     pValue[2] = (uint8_t)(regValue >> 16);
     pValue[1] = (uint8_t)(regValue >> 8);
     pValue[0] = (uint8_t)(regValue);
-    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_SET_DEC_NUM_PKTS, 0, 4, pValue, 
+    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_SET_DEC_NUM_PKTS, 0, 4, pValue,
             NULL);
 
     /* Set Init Vector */
-    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_SET_DEC_INIT_VECT, 0, 16, 
+    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_SET_DEC_INIT_VECT, 0, 16,
             sDrvPlcBootInfo.secIV, NULL);
 
     /* Set Signature */
-    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_SET_DEC_SIGN, 0, 16, 
+    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_SET_DEC_SIGN, 0, 16,
             sDrvPlcBootInfo.secSN, NULL);
-    
+
 }
 
 static void lDRV_PLC_BOOT_SartDecryption(void)
@@ -144,7 +144,7 @@ static void lDRV_PLC_BOOT_SartDecryption(void)
 
     /* Send Start Decryption */
     regValue = 0;
-    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_START_DECRYPT, 0, 4, 
+    sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_START_DECRYPT, 0, 4,
             (uint8_t *)&regValue, NULL);
 
     /* Test Bootloader status : wait to AES block */
@@ -172,19 +172,19 @@ static void lDRV_PLC_BOOT_FirmwareUploadTask(void)
     uint32_t progAddr;
     uint16_t fragSize;
     uint8_t padding = 0;
-    
+
     /* Get next address to be programmed */
     progAddr = sDrvPlcBootInfo.pDst;
-    
+
     if (sDrvPlcBootCb != NULL)
     {
         /* Fragmented Bootloader from external interactions */
         uint32_t address;
-                
+
         /* Call function to get the next fragment of boot data */
         sDrvPlcBootCb(&address, &fragSize, sDrvPlcBootContext);
         pData = (uint8_t *)address;
-        
+
         /* Check Secure Mode */
         if ((sDrvPlcBootInfo.secure) && (sDrvPlcBootInfo.secNumPackets == 0U))
         {
@@ -193,7 +193,7 @@ static void lDRV_PLC_BOOT_FirmwareUploadTask(void)
             pData += 48U;
             fragSize -= 48U;
         }
-        
+
         if (fragSize > 0U)
         {
             /* Write fragment data */
@@ -246,7 +246,7 @@ static void lDRV_PLC_BOOT_FirmwareUploadTask(void)
         pData += fragSize;
         sDrvPlcBootInfo.pSrc = (uint32_t)pData;
     }
-    
+
     /* Update counters */
     progAddr += fragSize;
     sDrvPlcBootInfo.pDst = progAddr;
@@ -256,13 +256,13 @@ static void lDRV_PLC_BOOT_EnableBootCmd(void)
 {
     uint32_t reg_value;
     uint8_t cmd_value[4];
-    
+
     /* Reset PLC transceiver */
     sDrvPlcHalObj->reset();
-    
+
     /* Configure 8 bits transfer */
     sDrvPlcHalObj->setup(false);
-    
+
     /* Enable Write operation in bootloader */
     cmd_value[3] = (uint8_t)(DRV_PLC_BOOT_WRITE_KEY >> 24);
     cmd_value[2] = (uint8_t)(DRV_PLC_BOOT_WRITE_KEY >> 16);
@@ -289,7 +289,7 @@ static void lDRV_PLC_BOOT_DisableBootCmd(void)
 {
     uint32_t reg_value;
     uint8_t cmd_value[4];
-    
+
     /* Disable CPU Wait */
     reg_value = PLC_MISCR_PPM_CALIB_OFF | PLC_MISCR_MEM_96_96_CFG | PLC_MISCR_EN_ACCESS_ERROR | PLC_MISCR_SET_GPIO_12_ZC;
     cmd_value[3] = (uint8_t)(reg_value >> 24);
@@ -300,7 +300,7 @@ static void lDRV_PLC_BOOT_DisableBootCmd(void)
 
     /* Disable Bootloader */
     sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_CMD_DIS_SPI_CLK_CTRL, 0, 0, NULL, NULL);
-    
+
 }
 
 static bool lDRV_PLC_BOOT_CheckFirmware(void)
@@ -308,31 +308,31 @@ static bool lDRV_PLC_BOOT_CheckFirmware(void)
     DRV_PLC_HAL_CMD halCmd;
     DRV_PLC_HAL_INFO halInfo;
     uint8_t status[8];
-    
+
     halCmd.cmd = DRV_PLC_HAL_CMD_RD;
     halCmd.memId = 0;
     halCmd.length = 8;
     halCmd.pData = status;
-    
+
     sDrvPlcHalObj->sendWrRdCmd(&halCmd, &halInfo);
 
     if (halInfo.key == DRV_PLC_HAL_KEY_CORTEX)
     {
         return true;
     }
-    
+
     return false;
 }
 
 static void lDRV_PLC_BOOT_RestartProcess(void)
-{  
+{
     sDrvPlcBootInfo.pendingLength = sDrvPlcBootInfo.binSize;
     sDrvPlcBootInfo.pSrc = sDrvPlcBootInfo.binStartAddress;
     sDrvPlcBootInfo.pDst = DRV_PLC_BOOT_PROGRAM_ADDR;
     sDrvPlcBootInfo.secNumPackets = 0;
-    
+
     lDRV_PLC_BOOT_EnableBootCmd();
-    
+
     sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_PROCESING;
 }
 
@@ -343,9 +343,9 @@ static void lDRV_PLC_BOOT_RestartProcess(void)
 // *****************************************************************************
 
 void DRV_PLC_BOOT_Start(DRV_PLC_BOOT_INFO *pBootInfo, DRV_PLC_HAL_INTERFACE *pHal)
-{  
+{
     sDrvPlcHalObj = pHal;
-    
+
     sDrvPlcBootInfo.binSize = pBootInfo->binSize;
     sDrvPlcBootInfo.binStartAddress = pBootInfo->binStartAddress;
     sDrvPlcBootInfo.pendingLength = pBootInfo->binSize;
@@ -353,7 +353,7 @@ void DRV_PLC_BOOT_Start(DRV_PLC_BOOT_INFO *pBootInfo, DRV_PLC_HAL_INTERFACE *pHa
     sDrvPlcBootInfo.secure = pBootInfo->secure;
     sDrvPlcBootInfo.pDst = DRV_PLC_BOOT_PROGRAM_ADDR;
     sDrvPlcBootInfo.secNumPackets = 0;
-    
+
     /* Set Bootloader data callback to handle boot by external fragments */
     if (pBootInfo->bootDataCallback != NULL)
     {
@@ -362,7 +362,7 @@ void DRV_PLC_BOOT_Start(DRV_PLC_BOOT_INFO *pBootInfo, DRV_PLC_HAL_INTERFACE *pHa
     }
 
     lDRV_PLC_BOOT_EnableBootCmd();
-    
+
     sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_PROCESING;
 }
 
@@ -391,9 +391,9 @@ void DRV_PLC_BOOT_Tasks( void )
     else if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_SWITCHING)
     {
         uint32_t counter = 0;
-        
+
         sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_STARTINGUP;
-        
+
         lDRV_PLC_BOOT_DisableBootCmd();
         while(sDrvPlcHalObj->getPinLevel(sDrvPlcHalObj->plcPlib->extIntPio) == false)
         {
@@ -444,7 +444,7 @@ void DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_MODE mode)
     {
         /* Configure 8 bits transfer */
         sDrvPlcHalObj->setup(false);
-        
+
         /* Disable Bootloader */
         sDrvPlcHalObj->sendBootCmd(DRV_PLC_BOOT_CMD_DIS_SPI_CLK_CTRL, 0, 0, NULL, NULL);
 

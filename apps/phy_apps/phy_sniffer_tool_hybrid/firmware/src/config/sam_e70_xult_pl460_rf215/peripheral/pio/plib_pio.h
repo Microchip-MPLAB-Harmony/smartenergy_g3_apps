@@ -63,117 +63,117 @@
 
 
 /*** Macros for PL460_LDO_ENABLE pin ***/
-#define PL460_LDO_ENABLE_Set()               (PIOC_REGS->PIO_SODR = (1<<30))
-#define PL460_LDO_ENABLE_Clear()             (PIOC_REGS->PIO_CODR = (1<<30))
-#define PL460_LDO_ENABLE_Toggle()            (PIOC_REGS->PIO_ODSR ^= (1<<30))
-#define PL460_LDO_ENABLE_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<30))
-#define PL460_LDO_ENABLE_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<30))
-#define PL460_LDO_ENABLE_Get()               ((PIOC_REGS->PIO_PDSR >> 30) & 0x1)
+#define PL460_LDO_ENABLE_Set()               (PIOC_REGS->PIO_SODR = ((uint32_t)1U<<30U))
+#define PL460_LDO_ENABLE_Clear()             (PIOC_REGS->PIO_CODR = ((uint32_t)1U<<30U))
+#define PL460_LDO_ENABLE_Toggle()            (PIOC_REGS->PIO_ODSR ^= ((uint32_t)1U<<30U))
+#define PL460_LDO_ENABLE_OutputEnable()      (PIOC_REGS->PIO_OER = ((uint32_t)1U<<30U))
+#define PL460_LDO_ENABLE_InputEnable()       (PIOC_REGS->PIO_ODR = ((uint32_t)1U<<30U))
+#define PL460_LDO_ENABLE_Get()               ((PIOC_REGS->PIO_PDSR >> 30U) & 0x1U)
 #define PL460_LDO_ENABLE_PIN                  PIO_PIN_PC30
 
 /*** Macros for LED_EXT1_Pin4 pin ***/
-#define LED_EXT1_Pin4_Set()               (PIOB_REGS->PIO_SODR = (1<<2))
-#define LED_EXT1_Pin4_Clear()             (PIOB_REGS->PIO_CODR = (1<<2))
-#define LED_EXT1_Pin4_Toggle()            (PIOB_REGS->PIO_ODSR ^= (1<<2))
-#define LED_EXT1_Pin4_OutputEnable()      (PIOB_REGS->PIO_OER = (1<<2))
-#define LED_EXT1_Pin4_InputEnable()       (PIOB_REGS->PIO_ODR = (1<<2))
-#define LED_EXT1_Pin4_Get()               ((PIOB_REGS->PIO_PDSR >> 2) & 0x1)
+#define LED_EXT1_Pin4_Set()               (PIOB_REGS->PIO_SODR = ((uint32_t)1U<<2U))
+#define LED_EXT1_Pin4_Clear()             (PIOB_REGS->PIO_CODR = ((uint32_t)1U<<2U))
+#define LED_EXT1_Pin4_Toggle()            (PIOB_REGS->PIO_ODSR ^= ((uint32_t)1U<<2U))
+#define LED_EXT1_Pin4_OutputEnable()      (PIOB_REGS->PIO_OER = ((uint32_t)1U<<2U))
+#define LED_EXT1_Pin4_InputEnable()       (PIOB_REGS->PIO_ODR = ((uint32_t)1U<<2U))
+#define LED_EXT1_Pin4_Get()               ((PIOB_REGS->PIO_PDSR >> 2U) & 0x1U)
 #define LED_EXT1_Pin4_PIN                  PIO_PIN_PB2
 
 /*** Macros for RF215_CS pin ***/
-#define RF215_CS_Get()               ((PIOD_REGS->PIO_PDSR >> 27) & 0x1)
+#define RF215_CS_Get()               ((PIOD_REGS->PIO_PDSR >> 27U) & 0x1U)
 #define RF215_CS_PIN                  PIO_PIN_PD27
 
 /*** Macros for PL460_CS pin ***/
-#define PL460_CS_Get()               ((PIOD_REGS->PIO_PDSR >> 25) & 0x1)
+#define PL460_CS_Get()               ((PIOD_REGS->PIO_PDSR >> 25U) & 0x1U)
 #define PL460_CS_PIN                  PIO_PIN_PD25
 
 /*** Macros for RF215_PL460_SPCK pin ***/
-#define RF215_PL460_SPCK_Get()               ((PIOD_REGS->PIO_PDSR >> 22) & 0x1)
+#define RF215_PL460_SPCK_Get()               ((PIOD_REGS->PIO_PDSR >> 22U) & 0x1U)
 #define RF215_PL460_SPCK_PIN                  PIO_PIN_PD22
 
 /*** Macros for RF215_PL460_MOSI pin ***/
-#define RF215_PL460_MOSI_Get()               ((PIOD_REGS->PIO_PDSR >> 21) & 0x1)
+#define RF215_PL460_MOSI_Get()               ((PIOD_REGS->PIO_PDSR >> 21U) & 0x1U)
 #define RF215_PL460_MOSI_PIN                  PIO_PIN_PD21
 
 /*** Macros for RF215_PL460_MISO pin ***/
-#define RF215_PL460_MISO_Get()               ((PIOD_REGS->PIO_PDSR >> 20) & 0x1)
+#define RF215_PL460_MISO_Get()               ((PIOD_REGS->PIO_PDSR >> 20U) & 0x1U)
 #define RF215_PL460_MISO_PIN                  PIO_PIN_PD20
 
 /*** Macros for PL460_IRQ pin ***/
-#define PL460_IRQ_Set()               (PIOD_REGS->PIO_SODR = (1<<28))
-#define PL460_IRQ_Clear()             (PIOD_REGS->PIO_CODR = (1<<28))
-#define PL460_IRQ_Toggle()            (PIOD_REGS->PIO_ODSR ^= (1<<28))
-#define PL460_IRQ_OutputEnable()      (PIOD_REGS->PIO_OER = (1<<28))
-#define PL460_IRQ_InputEnable()       (PIOD_REGS->PIO_ODR = (1<<28))
-#define PL460_IRQ_Get()               ((PIOD_REGS->PIO_PDSR >> 28) & 0x1)
+#define PL460_IRQ_Set()               (PIOD_REGS->PIO_SODR = ((uint32_t)1U<<28U))
+#define PL460_IRQ_Clear()             (PIOD_REGS->PIO_CODR = ((uint32_t)1U<<28U))
+#define PL460_IRQ_Toggle()            (PIOD_REGS->PIO_ODSR ^= ((uint32_t)1U<<28U))
+#define PL460_IRQ_OutputEnable()      (PIOD_REGS->PIO_OER = ((uint32_t)1U<<28U))
+#define PL460_IRQ_InputEnable()       (PIOD_REGS->PIO_ODR = ((uint32_t)1U<<28U))
+#define PL460_IRQ_Get()               ((PIOD_REGS->PIO_PDSR >> 28U) & 0x1U)
 #define PL460_IRQ_PIN                  PIO_PIN_PD28
 #define PL460_IRQ_InterruptEnable()   (PIOD_REGS->PIO_IER = (1<<28))
 #define PL460_IRQ_InterruptDisable()  (PIOD_REGS->PIO_IDR = (1<<28))
 
 /*** Macros for PL460_STBY pin ***/
-#define PL460_STBY_Set()               (PIOA_REGS->PIO_SODR = (1<<3))
-#define PL460_STBY_Clear()             (PIOA_REGS->PIO_CODR = (1<<3))
-#define PL460_STBY_Toggle()            (PIOA_REGS->PIO_ODSR ^= (1<<3))
-#define PL460_STBY_OutputEnable()      (PIOA_REGS->PIO_OER = (1<<3))
-#define PL460_STBY_InputEnable()       (PIOA_REGS->PIO_ODR = (1<<3))
-#define PL460_STBY_Get()               ((PIOA_REGS->PIO_PDSR >> 3) & 0x1)
+#define PL460_STBY_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<3U))
+#define PL460_STBY_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<3U))
+#define PL460_STBY_Toggle()            (PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<3U))
+#define PL460_STBY_OutputEnable()      (PIOA_REGS->PIO_OER = ((uint32_t)1U<<3U))
+#define PL460_STBY_InputEnable()       (PIOA_REGS->PIO_ODR = ((uint32_t)1U<<3U))
+#define PL460_STBY_Get()               ((PIOA_REGS->PIO_PDSR >> 3U) & 0x1U)
 #define PL460_STBY_PIN                  PIO_PIN_PA3
 
 /*** Macros for RF215_IRQ pin ***/
-#define RF215_IRQ_Set()               (PIOA_REGS->PIO_SODR = (1<<2))
-#define RF215_IRQ_Clear()             (PIOA_REGS->PIO_CODR = (1<<2))
-#define RF215_IRQ_Toggle()            (PIOA_REGS->PIO_ODSR ^= (1<<2))
-#define RF215_IRQ_OutputEnable()      (PIOA_REGS->PIO_OER = (1<<2))
-#define RF215_IRQ_InputEnable()       (PIOA_REGS->PIO_ODR = (1<<2))
-#define RF215_IRQ_Get()               ((PIOA_REGS->PIO_PDSR >> 2) & 0x1)
+#define RF215_IRQ_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<2U))
+#define RF215_IRQ_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<2U))
+#define RF215_IRQ_Toggle()            (PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<2U))
+#define RF215_IRQ_OutputEnable()      (PIOA_REGS->PIO_OER = ((uint32_t)1U<<2U))
+#define RF215_IRQ_InputEnable()       (PIOA_REGS->PIO_ODR = ((uint32_t)1U<<2U))
+#define RF215_IRQ_Get()               ((PIOA_REGS->PIO_PDSR >> 2U) & 0x1U)
 #define RF215_IRQ_PIN                  PIO_PIN_PA2
 #define RF215_IRQ_InterruptEnable()   (PIOA_REGS->PIO_IER = (1<<2))
 #define RF215_IRQ_InterruptDisable()  (PIOA_REGS->PIO_IDR = (1<<2))
 
 /*** Macros for RF215_LED_TX pin ***/
-#define RF215_LED_TX_Set()               (PIOD_REGS->PIO_SODR = (1<<11))
-#define RF215_LED_TX_Clear()             (PIOD_REGS->PIO_CODR = (1<<11))
-#define RF215_LED_TX_Toggle()            (PIOD_REGS->PIO_ODSR ^= (1<<11))
-#define RF215_LED_TX_OutputEnable()      (PIOD_REGS->PIO_OER = (1<<11))
-#define RF215_LED_TX_InputEnable()       (PIOD_REGS->PIO_ODR = (1<<11))
-#define RF215_LED_TX_Get()               ((PIOD_REGS->PIO_PDSR >> 11) & 0x1)
+#define RF215_LED_TX_Set()               (PIOD_REGS->PIO_SODR = ((uint32_t)1U<<11U))
+#define RF215_LED_TX_Clear()             (PIOD_REGS->PIO_CODR = ((uint32_t)1U<<11U))
+#define RF215_LED_TX_Toggle()            (PIOD_REGS->PIO_ODSR ^= ((uint32_t)1U<<11U))
+#define RF215_LED_TX_OutputEnable()      (PIOD_REGS->PIO_OER = ((uint32_t)1U<<11U))
+#define RF215_LED_TX_InputEnable()       (PIOD_REGS->PIO_ODR = ((uint32_t)1U<<11U))
+#define RF215_LED_TX_Get()               ((PIOD_REGS->PIO_PDSR >> 11U) & 0x1U)
 #define RF215_LED_TX_PIN                  PIO_PIN_PD11
 
 /*** Macros for PL460_NRST pin ***/
-#define PL460_NRST_Set()               (PIOA_REGS->PIO_SODR = (1<<0))
-#define PL460_NRST_Clear()             (PIOA_REGS->PIO_CODR = (1<<0))
-#define PL460_NRST_Toggle()            (PIOA_REGS->PIO_ODSR ^= (1<<0))
-#define PL460_NRST_OutputEnable()      (PIOA_REGS->PIO_OER = (1<<0))
-#define PL460_NRST_InputEnable()       (PIOA_REGS->PIO_ODR = (1<<0))
-#define PL460_NRST_Get()               ((PIOA_REGS->PIO_PDSR >> 0) & 0x1)
+#define PL460_NRST_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<0U))
+#define PL460_NRST_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<0U))
+#define PL460_NRST_Toggle()            (PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<0U))
+#define PL460_NRST_OutputEnable()      (PIOA_REGS->PIO_OER = ((uint32_t)1U<<0U))
+#define PL460_NRST_InputEnable()       (PIOA_REGS->PIO_ODR = ((uint32_t)1U<<0U))
+#define PL460_NRST_Get()               ((PIOA_REGS->PIO_PDSR >> 0U) & 0x1U)
 #define PL460_NRST_PIN                  PIO_PIN_PA0
 
 /*** Macros for RF215_LED_RX pin ***/
-#define RF215_LED_RX_Set()               (PIOA_REGS->PIO_SODR = (1<<6))
-#define RF215_LED_RX_Clear()             (PIOA_REGS->PIO_CODR = (1<<6))
-#define RF215_LED_RX_Toggle()            (PIOA_REGS->PIO_ODSR ^= (1<<6))
-#define RF215_LED_RX_OutputEnable()      (PIOA_REGS->PIO_OER = (1<<6))
-#define RF215_LED_RX_InputEnable()       (PIOA_REGS->PIO_ODR = (1<<6))
-#define RF215_LED_RX_Get()               ((PIOA_REGS->PIO_PDSR >> 6) & 0x1)
+#define RF215_LED_RX_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<6U))
+#define RF215_LED_RX_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<6U))
+#define RF215_LED_RX_Toggle()            (PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<6U))
+#define RF215_LED_RX_OutputEnable()      (PIOA_REGS->PIO_OER = ((uint32_t)1U<<6U))
+#define RF215_LED_RX_InputEnable()       (PIOA_REGS->PIO_ODR = ((uint32_t)1U<<6U))
+#define RF215_LED_RX_Get()               ((PIOA_REGS->PIO_PDSR >> 6U) & 0x1U)
 #define RF215_LED_RX_PIN                  PIO_PIN_PA6
 
 /*** Macros for RF215_NRST pin ***/
-#define RF215_NRST_Set()               (PIOC_REGS->PIO_SODR = (1<<19))
-#define RF215_NRST_Clear()             (PIOC_REGS->PIO_CODR = (1<<19))
-#define RF215_NRST_Toggle()            (PIOC_REGS->PIO_ODSR ^= (1<<19))
-#define RF215_NRST_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<19))
-#define RF215_NRST_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<19))
-#define RF215_NRST_Get()               ((PIOC_REGS->PIO_PDSR >> 19) & 0x1)
+#define RF215_NRST_Set()               (PIOC_REGS->PIO_SODR = ((uint32_t)1U<<19U))
+#define RF215_NRST_Clear()             (PIOC_REGS->PIO_CODR = ((uint32_t)1U<<19U))
+#define RF215_NRST_Toggle()            (PIOC_REGS->PIO_ODSR ^= ((uint32_t)1U<<19U))
+#define RF215_NRST_OutputEnable()      (PIOC_REGS->PIO_OER = ((uint32_t)1U<<19U))
+#define RF215_NRST_InputEnable()       (PIOC_REGS->PIO_ODR = ((uint32_t)1U<<19U))
+#define RF215_NRST_Get()               ((PIOC_REGS->PIO_PDSR >> 19U) & 0x1U)
 #define RF215_NRST_PIN                  PIO_PIN_PC19
 
 /*** Macros for USB_VBUS_SENSE pin ***/
-#define USB_VBUS_SENSE_Set()               (PIOB_REGS->PIO_SODR = (1<<8))
-#define USB_VBUS_SENSE_Clear()             (PIOB_REGS->PIO_CODR = (1<<8))
-#define USB_VBUS_SENSE_Toggle()            (PIOB_REGS->PIO_ODSR ^= (1<<8))
-#define USB_VBUS_SENSE_OutputEnable()      (PIOB_REGS->PIO_OER = (1<<8))
-#define USB_VBUS_SENSE_InputEnable()       (PIOB_REGS->PIO_ODR = (1<<8))
-#define USB_VBUS_SENSE_Get()               ((PIOB_REGS->PIO_PDSR >> 8) & 0x1)
+#define USB_VBUS_SENSE_Set()               (PIOB_REGS->PIO_SODR = ((uint32_t)1U<<8U))
+#define USB_VBUS_SENSE_Clear()             (PIOB_REGS->PIO_CODR = ((uint32_t)1U<<8U))
+#define USB_VBUS_SENSE_Toggle()            (PIOB_REGS->PIO_ODSR ^= ((uint32_t)1U<<8U))
+#define USB_VBUS_SENSE_OutputEnable()      (PIOB_REGS->PIO_OER = ((uint32_t)1U<<8U))
+#define USB_VBUS_SENSE_InputEnable()       (PIOB_REGS->PIO_ODR = ((uint32_t)1U<<8U))
+#define USB_VBUS_SENSE_Get()               ((PIOB_REGS->PIO_PDSR >> 8U) & 0x1U)
 #define USB_VBUS_SENSE_PIN                  PIO_PIN_PB8
 
 

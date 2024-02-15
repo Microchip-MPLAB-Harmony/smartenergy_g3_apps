@@ -107,7 +107,6 @@ static const DRV_RF215_INIT drvRf215InitData = {
 };
 
 // </editor-fold>
-
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
 
 
@@ -146,7 +145,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI Write/Read */
     .spiWriteRead = FLEXCOM5_SPI_WriteRead,
-
 
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
@@ -209,6 +207,7 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 };
 
 // </editor-fold>
+
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_PHY Initialization Data">
 
 /* MISRA C-2012 deviation block start */
@@ -221,25 +220,26 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
     .plcHal = &drvPLCHalAPI,
 
     /* PLC PHY Number of clients */
-    .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,
+    .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,  
 
     /* PLC PHY profile */
     .plcProfile = DRV_PLC_PHY_PROFILE,
-
+ 
     /* PLC Binary start address */
     .binStartAddress = (uint32_t)&plc_phy_bin_start,
-
+    
     /* PLC Binary end address */
     .binEndAddress = (uint32_t)&plc_phy_bin_end,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
-
+    
 };
 
 /* MISRA C-2012 deviation block end */
 
 // </editor-fold>
+
 // <editor-fold defaultstate="collapsed" desc="SRV_USI Instance 0 Initialization Data">
 
 static uint8_t CACHE_ALIGN srvUSI0ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
@@ -345,7 +345,7 @@ void SYS_Initialize ( void* data )
     SEFC0_Initialize();
 
     SEFC1_Initialize();
-
+  
     DWDT_Initialize();
     CLK_Initialize();
     RSTC_Initialize();
@@ -362,10 +362,10 @@ void SYS_Initialize ( void* data )
     ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
-
-    TC0_CH0_TimerInitialize();
-
-
+ 
+    TC0_CH0_TimerInitialize(); 
+     
+    
     FLEXCOM0_USART_Initialize();
 
 
@@ -377,20 +377,23 @@ void SYS_Initialize ( void* data )
 
     /* Initialize RF215 Driver Instance */
     sysObj.drvRf215 = DRV_RF215_Initialize(DRV_RF215_INDEX_0, (SYS_MODULE_INIT *)&drvRf215InitData);
+
     /* Initialize PLC Phy Driver Instance */
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
     (void) PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
 
+
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
+
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-
+        
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
-
+    
     /* MISRAC 2012 deviation block end */
 
 

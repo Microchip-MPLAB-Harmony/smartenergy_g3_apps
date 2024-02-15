@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef DRV_PLC_PHY_COMM_H
@@ -62,28 +62,41 @@
 
 // *****************************************************************************
 // *****************************************************************************
+// Section: External Data
+// *****************************************************************************
+// *****************************************************************************
+
+/* PLC Binary file addressing */
+extern uint8_t plc_phy_bin_start;
+extern uint8_t plc_phy_bin_end;
+extern uint8_t plc_phy_bin2_start;
+extern uint8_t plc_phy_bin2_end;
+
+// *****************************************************************************
+// *****************************************************************************
 // Section: Macro Definitions
 // *****************************************************************************
 // *****************************************************************************
-/* G3 Bandplan */
+
+/* G3-PLC Bandplan */
 #define G3_CEN_A                                   0U
 #define G3_CEN_B                                   1U
 #define G3_FCC                                     2U
 #define G3_ARIB                                    3U
 #define G3_INVALID                                 0xFFU
 
-/* Number of carriers for Cenelec-A bandplan */
+/* Number of carriers for CENELEC-A bandplan */
 #define NUM_CARRIERS_CENELEC_A                     36U
-/* Number of carriers for Cenelec-B bandplan */
+/* Number of carriers for CENELEC-B bandplan */
 #define NUM_CARRIERS_CENELEC_B                     16U
 /* Number of carriers for FCC bandplan */
 #define NUM_CARRIERS_FCC                           72U
 /* Number of carriers for ARIB bandplan */
 #define NUM_CARRIERS_ARIB                          54U
 
-/* Subbands for Cenelec-A bandplan */
+/* Subbands for CENELEC-A bandplan */
 #define NUM_SUBBANDS_CENELEC_A                     6U
-/* Subbands for Cenelec-B bandplan */
+/* Subbands for CENELEC-B bandplan */
 #define NUM_SUBBANDS_CENELEC_B                     4U
 /* Subbands for FCC bandplan */
 #define NUM_SUBBANDS_FCC                           24U
@@ -98,8 +111,8 @@
 #define PLC_FCC                                    2U
 /* ARIB Band Plan (155 - 404 Khz) */
 #define PLC_ARIB                                   3U
-      
-/* Tone Map size for Cenelec(A,B) bandplan */
+
+/* Tone Map size for CENELEC-A/B bandplan */
 #define TONE_MAP_SIZE_CENELEC                      1U
 /* Tone Map size for FCC bandplan */
 #define TONE_MAP_SIZE_FCC                          3U
@@ -130,7 +143,7 @@
 /* Impedance Configuration: Low mode */
 #define LOW_STATE                                  0x01U
 /* Impedance Configuration: Very Low mode */
-#define VLO_STATE                                  0x02U  
+#define VLO_STATE                                  0x02U
 
 // *****************************************************************************
 // *****************************************************************************
@@ -139,19 +152,21 @@
 // *****************************************************************************
 
 // *****************************************************************************
-/* G3 PHY Information Base (PIBs)
+/* G3-PLC PHY Information Base (PIBs)
 
-   Summary
+  Summary:
     The list of all available PIB attributes.
 
-   Description
-    The G3 FW stack supports all the mandatory attributes of the PLC Information 
-    Base (PIB) defined in the G3 specification. In addition, Microchip has added 
-    several proprietary PIB attributes to support extra functionalities. 
-    The list of all available PIB attributes can be found in this file.
+  Description:
+    The G3-PLC PHY layer supports all the mandatory attributes of the PHY
+    Information Base (PIB) defined in the G3-PLC specification. In addition,
+    Microchip has added several proprietary PIB attributes to support extra
+    functionalities.
 
-   Remarks:
-    None
+    The list of all available PIB attributes can be found in this data type.
+
+  Remarks:
+    None.
 */
 
 typedef enum {
@@ -246,13 +261,13 @@ typedef enum {
 } DRV_PLC_PHY_ID;
 
 // *****************************************************************************
-/* G3 Modulation types
+/* G3-PLC Modulation types
 
-   Summary
-    The list of all types of modulation supported by G3 spec.
+  Summary:
+    The list of all types of modulation supported by G3-PLC spec.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef enum {
   MOD_TYPE_BPSK = 0,
@@ -262,13 +277,13 @@ typedef enum {
 }DRV_PLC_PHY_MOD_TYPE;
 
 // *****************************************************************************
-/* G3 Modulation schemes
+/* G3-PLC Modulation schemes
 
-   Summary
-    The list of all modulation schemes supported by G3 spec.
+  Summary:
+    The list of all modulation schemes supported by G3-PLC spec.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef enum {
   MOD_SCHEME_DIFFERENTIAL = 0,
@@ -276,13 +291,13 @@ typedef enum {
 }DRV_PLC_PHY_MOD_SCHEME;
 
 // *****************************************************************************
-/* G3 Frame Delimiter Types
+/* G3-PLC Frame Delimiter Types
 
-   Summary
-    The list of all delimiter types supported by G3 spec.
+  Summary:
+    The list of all delimiter types supported by G3-PLC spec.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef enum {
   DT_SOF_NO_RESP = 0,
@@ -292,16 +307,17 @@ typedef enum {
 }DRV_PLC_PHY_DEL_TYPE;
 
 /* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID -  H3_MISRAC_2012_R_5_2_DR_1 */
+/* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
 
 // *****************************************************************************
-/* G3 Result values of a previous transmission
+/* G3-PLC Result values of a previous transmission
 
-   Summary
-    This list involves all available results from MCHP implementation
+  Summary:
+    This list provides all available transimission results in MCHP
+    implementation.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef enum {
   /* Transmission result: already in process */
@@ -339,14 +355,14 @@ typedef enum {
 /* MISRA C-2012 deviation block end */
 
 // *****************************************************************************
-/* G3 Tone map response data
+/* G3-PLC Tone map response data
 
-   Summary
-    This struct includes modulation type, modulation scheme and Tone Map data
+  Summary:
+    This struct includes modulation type, modulation scheme and Tone Map data.
 
-   Remarks:
+  Remarks:
     For more information about Tone Map Response functionality, please refer to
-    G3 Specification
+    G3-PLC Specification.
 */
 typedef struct {
   /* Modulation type */
@@ -358,14 +374,14 @@ typedef struct {
 } DRV_PLC_PHY_TONE_MAP_RSP;
 
 // *****************************************************************************
-/* G3 maximum PSDU length parameters data
+/* G3-PLC maximum PSDU length parameters data
 
-   Summary
+  Summary:
     This struct includes the parameters used for the maximum PSDU length
     computation.
 
-   Remarks:
-    This struct is related to PLC_ID_MAX_PSDU_LEN_PARAMS
+  Remarks:
+    This struct is related to PLC_ID_MAX_PSDU_LEN_PARAMS.
 */
 typedef struct {
   /* Modulation type */
@@ -379,13 +395,14 @@ typedef struct {
 } DRV_PLC_PHY_MAX_PSDU_LEN_PARAMS;
 
 // *****************************************************************************
-/* G3 Transmission setup data
+/* G3-PLC Transmission parameters data
 
-   Summary
-    This struct includes all information to describe any transmissions.
+  Summary:
+    This struct includes all the parameters needed to request a G3-PLC PHY
+    transmission.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef struct __attribute__((packed, aligned(1))) {
   /* Pointer to data buffer to transmit */
@@ -397,7 +414,7 @@ typedef struct __attribute__((packed, aligned(1))) {
   /* Preemphasis for transmission */
   uint8_t preemphasis[NUM_SUBBANDS_MAX];
   /* Tone Map to use on transmission */
-  uint8_t toneMap[TONE_MAP_SIZE_MAX]; 
+  uint8_t toneMap[TONE_MAP_SIZE_MAX];
   /* Transmission Mode (absolute, relative, forced, continuous, cancel). Constants above */
   uint8_t mode;
   /* Power to transmit */
@@ -415,14 +432,13 @@ typedef struct __attribute__((packed, aligned(1))) {
 } DRV_PLC_PHY_TRANSMISSION_OBJ;
 
 // *****************************************************************************
-/* G3 Result of a transmission
+/* G3-PLC Result of a transmission
 
-   Summary
-    This struct includes all information to describe any result of a previous 
-    transmission.
+  Summary:
+    This struct includes all the parameters provided in transmission confirm.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef struct {
   /* Instant when frame transmission ended referred to 1us PHY counter */
@@ -434,13 +450,13 @@ typedef struct {
 } DRV_PLC_PHY_TRANSMISSION_CFM_OBJ;
 
 // *****************************************************************************
-/* G3 Reception parameters
+/* G3-PLC Reception parameters
 
-   Summary
-    This struct includes all information to describe any new received message.
+  Summary:
+    This struct includes all the parameters provided for a received message.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef struct __attribute__((packed, aligned(1))) {
    /* Pointer to received data buffer */
@@ -468,7 +484,7 @@ typedef struct __attribute__((packed, aligned(1))) {
   /* Test data information */
   uint16_t agcFine;
   /* Test data information */
-  uint32_t agcFactor;  
+  uint32_t agcFactor;
   /* Test data information */
   int16_t agcOffsetMeas;
   /* Test data information */
@@ -489,7 +505,7 @@ typedef struct __attribute__((packed, aligned(1))) {
   uint8_t payloadSnrWorstSymbol;
   /* SNR of impulsive noise */
   uint8_t payloadSnrImpulsive;
-   /* SNR of Narrowband noise */ 
+   /* SNR of Narrowband noise */
   uint8_t payloadSnrBand;
   /* Background SNR */
   uint8_t payloadSnrBackground;
@@ -502,13 +518,13 @@ typedef struct __attribute__((packed, aligned(1))) {
 } DRV_PLC_PHY_RECEPTION_OBJ;
 
 // *****************************************************************************
-/* G3 PHY Information Base (PIB)
+/* G3-PLC PHY Information Base (PIB)
 
-   Summary
+  Summary:
     This struct includes all information to access any defined PIB.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef struct {
   /* Pointer to PIB data */

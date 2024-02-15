@@ -148,7 +148,7 @@ bool TCPIP_NDP_Initialize (const TCPIP_STACK_MODULE_CTRL* const stackCtrl,
     {
         ndpAsyncHandle =_TCPIPStackSignalHandlerRegister(TCPIP_THIS_MODULE_ID, TCPIP_NDP_Task, TCPIP_IPV6_NDP_TASK_TIMER_RATE);
     }
-
+    
     if (ndpAsyncHandle == 0 )
     {
         _TCPIP_NDP_Cleanup();
@@ -1019,7 +1019,7 @@ static void TCPIP_NDP_RouterSolicitTask (void)
     int netIx;
     TCPIP_NET_IF * pNetIf;
     RS_STATIC_VARS* pRs;
-    IPV6_ADDR_STRUCT* pRsStruct;
+    IPV6_ADDR_STRUCT* pRsStruct; 
     IPV6_ADDR* pRsAdd;
     const IPV6_ADDR* remSolicitAdd;
 
@@ -1041,7 +1041,7 @@ static void TCPIP_NDP_RouterSolicitTask (void)
                     {   // cannot send the RS w/o an address
                         break;
                     }
-                }
+                } 
                 else
                 {
                     remSolicitAdd = &IPV6_FIXED_ADDR_ALL_ROUTER_MULTICAST;
@@ -1070,7 +1070,7 @@ static void TCPIP_NDP_RouterSolicitTask (void)
                         sllaOption.vLength = 1;
                         memcpy(&sllaOption.mLinkLayerAddr , &(pNetIf->netMACAddr), sizeof (TCPIP_MAC_ADDR));
 
-                        pRsStruct = pRs->address;
+                        pRsStruct = pRs->address; 
                         pRsAdd = (IPV6_ADDR*)((uint8_t*)pRsStruct + offsetof(struct _IPV6_ADDR_STRUCT, address));
                         pkt = TCPIP_ICMPV6_HeaderRouterSolicitationPut (pNetIf, pRsAdd, remSolicitAdd);
                         if (pkt == NULL)
@@ -1093,7 +1093,7 @@ static void TCPIP_NDP_RouterSolicitTask (void)
                     sllaOption.vLength = 1;
                     memcpy(&sllaOption.mLinkLayerAddr , &(pNetIf->netMACAddr), sizeof (TCPIP_MAC_ADDR));
                     // The previously selected IP address is still valid; use it
-                    pRsStruct = pRs->address;
+                    pRsStruct = pRs->address; 
                     pRsAdd = (IPV6_ADDR*)((uint8_t*)pRsStruct + offsetof(struct _IPV6_ADDR_STRUCT, address));
                     pkt = TCPIP_ICMPV6_HeaderRouterSolicitationPut (pNetIf, pRsAdd, remSolicitAdd);
                     if (pkt == NULL)
@@ -2095,19 +2095,19 @@ static void TCPIP_NDP_NborUnreachDetectTask (void)
 
     - Rather than iterating everytime through the unicast list,
       the LL and global unicast addresses could be memorated.
-      However this is a low frequency event
+      However this is a low frequency event   
   ***************************************************************************/
 #if defined(TCPIP_IPV6_G3_PLC_BORDER_ROUTER) && (TCPIP_IPV6_G3_PLC_BORDER_ROUTER != 0)
 // set the advertisement timeout
 static void TCPIP_NDP_AdvTimeSet(TCPIP_NET_IF* pNetIf, bool advCount)
 {
-    uint16_t advTmo = TCPIP_IPV6_MIN_RTR_ADV_INTERVAL + SYS_RANDOM_PseudoGet() % (TCPIP_IPV6_MAX_RTR_ADV_INTERVAL + 1 - TCPIP_IPV6_MIN_RTR_ADV_INTERVAL);
+    uint16_t advTmo = TCPIP_IPV6_MIN_RTR_ADV_INTERVAL + SYS_RANDOM_PseudoGet() % (TCPIP_IPV6_MAX_RTR_ADV_INTERVAL + 1 - TCPIP_IPV6_MIN_RTR_ADV_INTERVAL); 
     if(pNetIf->advInitCount < TCPIP_IPV6_MAX_INITIAL_RTR_ADVERTISEMENTS)
     {
         if(advTmo > TCPIP_IPV6_MAX_INITIAL_RTR_ADVERT_INTERVAL)
         {
             advTmo = TCPIP_IPV6_MAX_INITIAL_RTR_ADVERT_INTERVAL;
-        }
+        } 
     }
 
     pNetIf->advTmo = advTmo;
@@ -2139,8 +2139,8 @@ static void TCPIP_NDP_G3RouterAdvertiseTask (void)
             continue;
         }
 
-        // interface needs to advertise
-        uint32_t currSec = _TCPIP_SecCountGet();
+        // interface needs to advertise 
+        uint32_t currSec = _TCPIP_SecCountGet(); 
         if(pNetIf->advInitCount == 0 && pNetIf->advTmo == 0)
         {   // this is the 1st time; just set the timeouts
             pNetIf->advLastSec = currSec;
@@ -2150,7 +2150,7 @@ static void TCPIP_NDP_G3RouterAdvertiseTask (void)
 
         // check if it's time to advertise
         deltaTmo.Val = currSec - pNetIf->advLastSec;
-        // should be < than 65535 seconds!
+        // should be < than 65535 seconds!  
         _TCPIPStack_Assert(deltaTmo.word.HW == 0U, __FILE__, __func__, __LINE__);
         pNetIf->advLastSec = currSec;   // update the last eval time
         if(pNetIf->advTmo > deltaTmo.word.LW)

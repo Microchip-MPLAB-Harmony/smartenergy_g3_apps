@@ -106,6 +106,7 @@ extern "C" {
 // Section: Driver Configuration
 // *****************************************************************************
 // *****************************************************************************
+
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A
@@ -121,7 +122,7 @@ extern "C" {
 #define DRV_PLC_SPI_CLK                       8000000
 
 /* PLC MAC RT Driver RTOS Configuration Options */
-#define DRV_PLC_RTOS_STACK_SIZE               256
+#define DRV_PLC_RTOS_STACK_SIZE               320
 #define DRV_PLC_RTOS_TASK_PRIORITY            1
 
 /* PLC MAC RT Driver Identification */

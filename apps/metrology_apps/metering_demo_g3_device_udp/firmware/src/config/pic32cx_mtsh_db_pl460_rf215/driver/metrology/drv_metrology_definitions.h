@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef DRV_METROLOGY_DEFINITIONS_H
@@ -155,15 +155,15 @@ typedef enum {
     - lineID identifies the phase/phases to calibrate
 */
 typedef struct {
-    double aimVA;  
-    double aimIA;  
-    double angleA; 
-    double aimVB;  
-    double aimIB;  
-    double angleB; 
-    double aimVC;  
-    double aimIC;  
-    double angleC; 
+    double aimVA;
+    double aimIA;
+    double angleA;
+    double aimVB;
+    double aimIB;
+    double angleB;
+    double aimVC;
+    double aimIC;
+    double angleC;
     DRV_METROLOGY_PHASE_ID lineId;
 } DRV_METROLOGY_CALIBRATION_REFS;
 
@@ -185,7 +185,7 @@ typedef struct {
     DRV_METROLOGY_REGS_CONTROL metControlConf;
     DRV_METROLOGY_CALIBRATION_REFS references;
     uint32_t featureCtrl0Backup;
-    double freq;                     
+    double freq;
     uint32_t numIntegrationPeriods;
     uint64_t dspAccIa;
     uint64_t dspAccIb;
@@ -342,7 +342,7 @@ typedef struct {
   Description:
     - mc. Meter Constant (amount of energy signified by one output pulse). Units: pulses/kWh (active energy), pulses/kVARh (reactive energy), or pulses/kAmp2-h (amp square)
     - freq. Mains frequency. Units: Hz.
-    - tr. 
+    - tr.
       - In the case of a current transformer, this is the current transformer ratio
       - In the case of a Rogowski Coil, this is the current sensitivity (units: uV/A) at the main frequency specified in ?Frequency? parameter.
     - rl.
@@ -372,11 +372,11 @@ typedef struct {
         - DRV_METROLOGY_STATUS_UNINITIALIZED: Metrology driver has not been initialized.
         - DRV_METROLOGY_STATUS_READY: Metrology driver is ready to be used.
         - DRV_METROLOGY_STATUS_HALT: Metrology driver has been initialized but not opened.
-        - DRV_METROLOGY_STATUS_WAITING_IPC: Metrology driver is waiting the init IPC interrupt 
+        - DRV_METROLOGY_STATUS_WAITING_IPC: Metrology driver is waiting the init IPC interrupt
         from the metrology lib as part of the opening routine.
-        - DRV_METROLOGY_STATUS_INIT_DSP: IPC interrupt has been triggered indicating that DSP 
+        - DRV_METROLOGY_STATUS_INIT_DSP: IPC interrupt has been triggered indicating that DSP
         filters has been stabilized to full accuracy.
-        - DRV_METROLOGY_STATUS_RUNNING: Metrology library is running and periodic data 
+        - DRV_METROLOGY_STATUS_RUNNING: Metrology library is running and periodic data
         acquisition is performed.
 
   Remarks:

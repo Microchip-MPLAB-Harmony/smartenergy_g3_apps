@@ -546,9 +546,9 @@ IPV6_PACKET * TCPIP_ICMPV6_HeaderRouterSolicitationPut (TCPIP_NET_IF * pNetIf, c
 #if defined(TCPIP_IPV6_G3_PLC_BORDER_ROUTER) && (TCPIP_IPV6_G3_PLC_BORDER_ROUTER != 0)
 // searches for proper address structures to be used for a G3-PLC router advertisement message
 // populates pLclStruct with a local IP struct to be used (unicast, link local scope)
-// populates pAdvStruct with a local IP struct to be used (unicast, global scope)
+// populates pAdvStruct with a local IP struct to be used (unicast, global scope) 
 void TCPIP_ICMPV6_G3AdvertisementSelect(TCPIP_NET_IF * pNetIf, const IPV6_ADDR_STRUCT** pLclStruct, const IPV6_ADDR_STRUCT** pAdvStruct)
-{
+{   
     IPV6_ADDR_STRUCT* llNode;   // link local address of the interface
     IPV6_ADDR_STRUCT* advNode;  // address to be advertised
     IPV6_ADDR_STRUCT* addrNode; // node pointer
@@ -629,7 +629,7 @@ void TCPIP_ICMPV6_G3AdvertisementSelect(TCPIP_NET_IF * pNetIf, const IPV6_ADDR_S
         //      Cur Hop Limit  8-bit unsigned integer.  The default value that should be placed in the Hop Count field of the IP
         //                     header for outgoing IP packets.  A value of zero means unspecified (by this router).
         //
-
+    
   ***************************************************************************/
 bool TCPIP_ICMPV6_G3RouterAdvertisementPut (const TCPIP_NET_IF * pNetIf, const IPV6_ADDR * localIP, const IPV6_ADDR * remoteIP, const IPV6_ADDR_STRUCT* advIP)
 {
@@ -646,7 +646,7 @@ bool TCPIP_ICMPV6_G3RouterAdvertisementPut (const TCPIP_NET_IF * pNetIf, const I
 
     memset(&header, 0, sizeof(header));
     header.vType = ICMPV6_INFO_ROUTER_ADVERTISEMENT;
-
+    
     header.routerLifetime = 0xffff; // max value allowed by RFC 6775
 
     TCPIP_IPV6_HeaderPut(pkt, IPV6_PROT_ICMPV6);
@@ -676,8 +676,8 @@ bool TCPIP_ICMPV6_G3RouterAdvertisementPut (const TCPIP_NET_IF * pNetIf, const I
         // set the NDP_OPTION_6LoWPAN_CONTEXT
         memset(&wpanContext, 0, sizeof(wpanContext));
         wpanContext.vType = NDP_OPTION_TYPE_6LOWPAN_CONTEXT;
-        wpanContext.vLength = sizeof(wpanContext) / 8;     // == 2 for G3-PLC
-        wpanContext.vContextLen = advIP->prefixLen;
+        wpanContext.vLength = sizeof(wpanContext) / 8;     // == 2 for G3-PLC 
+        wpanContext.vContextLen = advIP->prefixLen; 
         wpanContext.flags.bC = 1;
         // wpanContext.flags.bCID = 0;
         wpanContext.dValidLifetime = 0xFFFF;
@@ -962,7 +962,7 @@ void TCPIP_ICMPV6_Process(TCPIP_NET_IF * pNetIf, TCPIP_MAC_PACKET* pRxPkt, IPV6_
     IPV6_ADDR* pTargetAdd, *pDestAdd;
 
     pRxPkt->ipv6PktData = TCPIP_MAC_PKT_ACK_RX_OK;
-
+    
     if (pNetIf == NULL)
         return;
 
@@ -980,7 +980,7 @@ void TCPIP_ICMPV6_Process(TCPIP_NET_IF * pNetIf, TCPIP_MAC_PACKET* pRxPkt, IPV6_
     checksums.w[0] = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHeader,
                                     sizeof(pseudoHeader), 0);
 
-    checksums.w[1] = TCPIP_Helper_CalcIPChecksum(pRxPkt->pNetLayer, dataLen, 0);
+    checksums.w[1] = TCPIP_Helper_CalcIPChecksum(pRxPkt->pNetLayer, dataLen, 0); 
 
     if(checksums.w[0] != checksums.w[1])
     {
@@ -1223,7 +1223,7 @@ void TCPIP_ICMPV6_Process(TCPIP_NET_IF * pNetIf, TCPIP_MAC_PACKET* pRxPkt, IPV6_
                     {
                         TCPIP_ICMPV6_G3RouterAdvertisementPut(pNetIf, localIP, remoteIP, advNode);
                     }
-                }
+                } 
             }
 #endif  // defined(TCPIP_IPV6_G3_PLC_BORDER_ROUTER) && (TCPIP_IPV6_G3_PLC_BORDER_ROUTER != 0)
             break;

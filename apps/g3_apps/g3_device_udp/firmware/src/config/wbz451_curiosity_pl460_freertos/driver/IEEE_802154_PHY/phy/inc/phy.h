@@ -16,7 +16,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -442,7 +442,7 @@ typedef union
    Remarks:
     None 
  */
-#define MINOR_NUM                 "0"
+#define MINOR_NUM                 "2"
 
 /* Patch Number
  
@@ -487,9 +487,9 @@ typedef union
 
 
 Example:
-  802.15.4-PHY v1.0.0 is represented as 0x01040000
+  802.15.4-PHY v1.2.0 is represented as 0x01240000
 
-|0000       |0001        | 0000        | 01        | 0000           | 00000000000000|
+|0000       |0001        | 0010        | 01        | 0000           | 00000000000000|
 |-----------|------------|-------------|-----------|----------------|---------------|
 |Reserved   | Stack Major| Stack Minor | Qualifier | Build Iteration| Reserved      |
 */
@@ -504,7 +504,7 @@ Example:
    Remarks:
     None 
 */
-#define PHY_VERSION_VALUE      (0x01040000)
+#define PHY_VERSION_VALUE      (0x01240000)
 
 // *****************************************************************************
 // *****************************************************************************
@@ -1938,14 +1938,14 @@ PHY_Retval_t PHY_ConvertTxPwrRegValToDbm(uint8_t regValue, int8_t *dbmValue);
     addrMode - Either FCF_SHORT_ADDR or FCF_LONG_ADDR  
 
   Returns:
-    PHY_SUCCESS -  If reg value can be converted into dBm value
-    PHY_FAILURE -  If regVaue is holding the invalid value
+    bool - true - If Frame is pending for the RFD 
+         - false - Otherwise
 
   Example:
     <code>
         bool PHY_IsFramePendingFromNextLayer(PHY_Addr_t *addr, uint8_t *addrMode)
         {
-            bool isFramePening = false;
+            bool isFramePending = true;
             return isFramePending;
         }  
     </code>
@@ -1953,7 +1953,7 @@ PHY_Retval_t PHY_ConvertTxPwrRegValToDbm(uint8_t regValue, int8_t *dbmValue);
   Remarks:
     This function is invloked by phy layer on thereception of Datarequest frame in ISR context.
     The higher layer has to implement this function approprietely to set the framepending bit in Acknoewledgement frame.
-    This function is weak by default with FramePending bit set to false. 
+    This function is weak by default with FramePending bit set to true. 
 */
 
 bool PHY_IsFramePendingFromNextLayer(PHY_Addr_t *addr, uint8_t *addrMode);

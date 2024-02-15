@@ -64,10 +64,10 @@
 #include "peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h"
 #include "peripheral/tc/plib_tc0.h"
 #include "peripheral/sefc/plib_sefc0.h"
-#include "system/time/sys_time.h"
 #include "peripheral/sefc/plib_sefc1.h"
-#include "service/pvddmon/srv_pvddmon.h"
+#include "system/time/sys_time.h"
 #include "peripheral/trng/plib_trng.h"
+#include "service/pvddmon/srv_pvddmon.h"
 #include "system/int/sys_int.h"
 #include "system/ports/sys_ports.h"
 #include "system/cache/sys_cache.h"
@@ -204,6 +204,7 @@ Remarks:
 
 typedef struct
 {
+
     SYS_MODULE_OBJ  drvG3MacRt;
 
     SYS_MODULE_OBJ  sysTime;

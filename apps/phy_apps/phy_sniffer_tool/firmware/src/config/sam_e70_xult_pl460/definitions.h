@@ -64,10 +64,10 @@
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
 #include "system/time/sys_time.h"
-#include "bsp/bsp.h"
-#include "driver/usb/usbhsv1/drv_usbhsv1.h"
 #include "usb/usb_device_cdc.h"
 #include "usb/usb_cdc.h"
+#include "driver/usb/usbhsv1/drv_usbhsv1.h"
+#include "bsp/bsp.h"
 #include "peripheral/spi/spi_master/plib_spi0_master.h"
 #include "service/psniffer/srv_psniffer.h"
 #include "system/int/sys_int.h"
@@ -209,9 +209,11 @@ typedef struct
 {
     SYS_MODULE_OBJ  usbDevObject0;
 
+
     SYS_MODULE_OBJ drvPlcPhy;
     SYS_MODULE_OBJ  sysTime;
-	SYS_MODULE_OBJ  drvUSBHSV1Object;
+    SYS_MODULE_OBJ  drvUSBHSV1Object;
+
 
     SYS_MODULE_OBJ srvUSI0;
 

@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef ADP_API_TYPES_H
@@ -99,6 +99,8 @@
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
+
+#pragma pack(push,2)
 
 // *****************************************************************************
 /* ADP Modulation Definition
@@ -175,10 +177,10 @@ typedef struct
 } ADP_ADDRESS;
 
 // *****************************************************************************
-/* ADP PLC Bands Definition
+/* ADP Bands Definition
 
    Summary:
-    Identifies the possible PLC bands.
+    Identifies the possible PLC bands, or if No PLC is used.
 
    Description:
     This enumeration identifies the list of Bands that can be used in PLC
@@ -191,9 +193,10 @@ typedef enum {
     ADP_BAND_CENELEC_A = 0,
     ADP_BAND_CENELEC_B = 1,
     ADP_BAND_FCC = 2,
-    ADP_BAND_ARIB = 3
+    ADP_BAND_ARIB = 3,
+    ADP_BAND_RF_ONLY = 255
 
-} ADP_PLC_BAND;
+} ADP_BAND;
 
 // *****************************************************************************
 /* ADP Available MAC layers
@@ -334,6 +337,8 @@ typedef struct
 
 } ADP_PATH_DESCRIPTOR;
 
+#pragma pack(pop)
+
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 5.2 deviated 4 times.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
 
@@ -423,6 +428,7 @@ typedef enum
     ADP_IB_CLUSTER_TRICKLE_K_RF = 0x000000DE, /* 8 bits */
     ADP_IB_CLUSTER_MIN_LQI_RF = 0x000000DF, /* 8 bits */
     ADP_IB_LAST_GASP = 0x000000E0, /* 8 bits (bool) */
+    ADP_IB_PROBING_INTERVAL = 0x000000E1, /* 8 bits */
     ADP_IB_TRICKLE_LQI_THRESHOLD_HIGH_RF = 0x000000E2, /* 8 bits */
     ADP_IB_DISABLE_DEFAULT_ROUTING = 0x000000F0, /* 8 bits (bool) */
 

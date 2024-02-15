@@ -60,6 +60,7 @@
 // Section: RTOS "Tasks" Routine
 // *****************************************************************************
 // *****************************************************************************
+
 static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
 {
     while(true)
@@ -68,6 +69,7 @@ static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
         DRV_G3_MACRT_Tasks(sysObj.drvG3MacRt);
     }
 }
+
 
 static void lG3_STACK_Tasks(  void *pvParameters  )
 {
@@ -82,6 +84,8 @@ static void lG3_STACK_Tasks(  void *pvParameters  )
         vTaskDelay(G3_STACK_RTOS_TASK_DELAY_MS / portTICK_PERIOD_MS);
     }
 }
+
+#define PHY_RTOS_TASK_PRIORITY            1
 
 /* Handle for the APP_Tasks. */
 TaskHandle_t xPHY_Tasks;
@@ -151,6 +155,7 @@ static void lAPP_TCPIP_MANAGEMENT_Tasks(  void *pvParameters  )
     }
 }
 
+
 static void lPAL_RF_Tasks(  void *pvParameters  )
 {
     while(true)
@@ -209,7 +214,7 @@ void SYS_Tasks ( void )
                 "PHY_Tasks",
                 1024,
                 NULL,
-                1,
+                PHY_RTOS_TASK_PRIORITY,
                 &xPHY_Tasks);
 
 

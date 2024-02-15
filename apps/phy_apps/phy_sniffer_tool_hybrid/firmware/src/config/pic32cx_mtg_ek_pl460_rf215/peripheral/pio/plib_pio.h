@@ -91,167 +91,167 @@
 
 
 /*** Macros for RF215_LED_TX pin ***/
-#define RF215_LED_TX_Set()               (PIOA_REGS->PIO_SODR = (1<<8))
-#define RF215_LED_TX_Clear()             (PIOA_REGS->PIO_CODR = (1<<8))
+#define RF215_LED_TX_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<8U))
+#define RF215_LED_TX_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<8U))
 #define RF215_LED_TX_Toggle()            do {\
-                                            PIOA_REGS->PIO_MSKR = (1<<8); \
-                                            PIOA_REGS->PIO_ODSR ^= (1<<8);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<8U); \
+                                            PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<8U);\
                                         } while (0)
 #define RF215_LED_TX_OutputEnable()      do {\
-                                            PIOA_REGS->PIO_MSKR = (1<<8); \
-                                            PIOA_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<8U); \
+                                            PIOA_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         }while(0)
 #define RF215_LED_TX_InputEnable()       do { \
-                                            PIOA_REGS->PIO_MSKR = (1<<8); \
-                                            PIOA_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<8U); \
+                                            PIOA_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         } while (0)
-#define RF215_LED_TX_Get()               ((PIOA_REGS->PIO_PDSR >> 8) & 0x1)
+#define RF215_LED_TX_Get()               ((PIOA_REGS->PIO_PDSR >> 8U) & 0x1U)
 #define RF215_LED_TX_PIN                  PIO_PIN_PA8
 
 /*** Macros for RF215_LED_RX pin ***/
-#define RF215_LED_RX_Set()               (PIOA_REGS->PIO_SODR = (1<<9))
-#define RF215_LED_RX_Clear()             (PIOA_REGS->PIO_CODR = (1<<9))
+#define RF215_LED_RX_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<9U))
+#define RF215_LED_RX_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<9U))
 #define RF215_LED_RX_Toggle()            do {\
-                                            PIOA_REGS->PIO_MSKR = (1<<9); \
-                                            PIOA_REGS->PIO_ODSR ^= (1<<9);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<9U); \
+                                            PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<9U);\
                                         } while (0)
 #define RF215_LED_RX_OutputEnable()      do {\
-                                            PIOA_REGS->PIO_MSKR = (1<<9); \
-                                            PIOA_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<9U); \
+                                            PIOA_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         }while(0)
 #define RF215_LED_RX_InputEnable()       do { \
-                                            PIOA_REGS->PIO_MSKR = (1<<9); \
-                                            PIOA_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<9U); \
+                                            PIOA_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         } while (0)
-#define RF215_LED_RX_Get()               ((PIOA_REGS->PIO_PDSR >> 9) & 0x1)
+#define RF215_LED_RX_Get()               ((PIOA_REGS->PIO_PDSR >> 9U) & 0x1U)
 #define RF215_LED_RX_PIN                  PIO_PIN_PA9
 
 /*** Macros for PL460_STBY pin ***/
-#define PL460_STBY_Set()               (PIOA_REGS->PIO_SODR = (1<<0))
-#define PL460_STBY_Clear()             (PIOA_REGS->PIO_CODR = (1<<0))
+#define PL460_STBY_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<0U))
+#define PL460_STBY_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<0U))
 #define PL460_STBY_Toggle()            do {\
-                                            PIOA_REGS->PIO_MSKR = (1<<0); \
-                                            PIOA_REGS->PIO_ODSR ^= (1<<0);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<0U); \
+                                            PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<0U);\
                                         } while (0)
 #define PL460_STBY_OutputEnable()      do {\
-                                            PIOA_REGS->PIO_MSKR = (1<<0); \
-                                            PIOA_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<0U); \
+                                            PIOA_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         }while(0)
 #define PL460_STBY_InputEnable()       do { \
-                                            PIOA_REGS->PIO_MSKR = (1<<0); \
-                                            PIOA_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<0U); \
+                                            PIOA_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         } while (0)
-#define PL460_STBY_Get()               ((PIOA_REGS->PIO_PDSR >> 0) & 0x1)
+#define PL460_STBY_Get()               ((PIOA_REGS->PIO_PDSR >> 0U) & 0x1U)
 #define PL460_STBY_PIN                  PIO_PIN_PA0
 
 /*** Macros for PL460_TXEN pin ***/
-#define PL460_TXEN_Set()               (PIOA_REGS->PIO_SODR = (1<<1))
-#define PL460_TXEN_Clear()             (PIOA_REGS->PIO_CODR = (1<<1))
+#define PL460_TXEN_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<1U))
+#define PL460_TXEN_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<1U))
 #define PL460_TXEN_Toggle()            do {\
-                                            PIOA_REGS->PIO_MSKR = (1<<1); \
-                                            PIOA_REGS->PIO_ODSR ^= (1<<1);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<1U); \
+                                            PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<1U);\
                                         } while (0)
 #define PL460_TXEN_OutputEnable()      do {\
-                                            PIOA_REGS->PIO_MSKR = (1<<1); \
-                                            PIOA_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<1U); \
+                                            PIOA_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         }while(0)
 #define PL460_TXEN_InputEnable()       do { \
-                                            PIOA_REGS->PIO_MSKR = (1<<1); \
-                                            PIOA_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<1U); \
+                                            PIOA_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         } while (0)
-#define PL460_TXEN_Get()               ((PIOA_REGS->PIO_PDSR >> 1) & 0x1)
+#define PL460_TXEN_Get()               ((PIOA_REGS->PIO_PDSR >> 1U) & 0x1U)
 #define PL460_TXEN_PIN                  PIO_PIN_PA1
 
 /*** Macros for PL460_NRST pin ***/
-#define PL460_NRST_Set()               (PIOD_REGS->PIO_SODR = (1<<15))
-#define PL460_NRST_Clear()             (PIOD_REGS->PIO_CODR = (1<<15))
+#define PL460_NRST_Set()               (PIOD_REGS->PIO_SODR = ((uint32_t)1U<<15U))
+#define PL460_NRST_Clear()             (PIOD_REGS->PIO_CODR = ((uint32_t)1U<<15U))
 #define PL460_NRST_Toggle()            do {\
-                                            PIOD_REGS->PIO_MSKR = (1<<15); \
-                                            PIOD_REGS->PIO_ODSR ^= (1<<15);\
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<15U); \
+                                            PIOD_REGS->PIO_ODSR ^= ((uint32_t)1U<<15U);\
                                         } while (0)
 #define PL460_NRST_OutputEnable()      do {\
-                                            PIOD_REGS->PIO_MSKR = (1<<15); \
-                                            PIOD_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<15U); \
+                                            PIOD_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         }while(0)
 #define PL460_NRST_InputEnable()       do { \
-                                            PIOD_REGS->PIO_MSKR = (1<<15); \
-                                            PIOD_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<15U); \
+                                            PIOD_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         } while (0)
-#define PL460_NRST_Get()               ((PIOD_REGS->PIO_PDSR >> 15) & 0x1)
+#define PL460_NRST_Get()               ((PIOD_REGS->PIO_PDSR >> 15U) & 0x1U)
 #define PL460_NRST_PIN                  PIO_PIN_PD15
 
 /*** Macros for PL460_ENABLE pin ***/
-#define PL460_ENABLE_Set()               (PIOD_REGS->PIO_SODR = (1<<19))
-#define PL460_ENABLE_Clear()             (PIOD_REGS->PIO_CODR = (1<<19))
+#define PL460_ENABLE_Set()               (PIOD_REGS->PIO_SODR = ((uint32_t)1U<<19U))
+#define PL460_ENABLE_Clear()             (PIOD_REGS->PIO_CODR = ((uint32_t)1U<<19U))
 #define PL460_ENABLE_Toggle()            do {\
-                                            PIOD_REGS->PIO_MSKR = (1<<19); \
-                                            PIOD_REGS->PIO_ODSR ^= (1<<19);\
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<19U); \
+                                            PIOD_REGS->PIO_ODSR ^= ((uint32_t)1U<<19U);\
                                         } while (0)
 #define PL460_ENABLE_OutputEnable()      do {\
-                                            PIOD_REGS->PIO_MSKR = (1<<19); \
-                                            PIOD_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<19U); \
+                                            PIOD_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         }while(0)
 #define PL460_ENABLE_InputEnable()       do { \
-                                            PIOD_REGS->PIO_MSKR = (1<<19); \
-                                            PIOD_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<19U); \
+                                            PIOD_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         } while (0)
-#define PL460_ENABLE_Get()               ((PIOD_REGS->PIO_PDSR >> 19) & 0x1)
+#define PL460_ENABLE_Get()               ((PIOD_REGS->PIO_PDSR >> 19U) & 0x1U)
 #define PL460_ENABLE_PIN                  PIO_PIN_PD19
 
 /*** Macros for PL460_EXTINT pin ***/
-#define PL460_EXTINT_Set()               (PIOA_REGS->PIO_SODR = (1<<2))
-#define PL460_EXTINT_Clear()             (PIOA_REGS->PIO_CODR = (1<<2))
+#define PL460_EXTINT_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<2U))
+#define PL460_EXTINT_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<2U))
 #define PL460_EXTINT_Toggle()            do {\
-                                            PIOA_REGS->PIO_MSKR = (1<<2); \
-                                            PIOA_REGS->PIO_ODSR ^= (1<<2);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<2U); \
+                                            PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<2U);\
                                         } while (0)
 #define PL460_EXTINT_OutputEnable()      do {\
-                                            PIOA_REGS->PIO_MSKR = (1<<2); \
-                                            PIOA_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<2U); \
+                                            PIOA_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         }while(0)
 #define PL460_EXTINT_InputEnable()       do { \
-                                            PIOA_REGS->PIO_MSKR = (1<<2); \
-                                            PIOA_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<2U); \
+                                            PIOA_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         } while (0)
-#define PL460_EXTINT_Get()               ((PIOA_REGS->PIO_PDSR >> 2) & 0x1)
+#define PL460_EXTINT_Get()               ((PIOA_REGS->PIO_PDSR >> 2U) & 0x1U)
 #define PL460_EXTINT_PIN                  PIO_PIN_PA2
 #define PL460_EXTINT_InterruptEnable()   (PIOA_REGS->PIO_IER = (1<<2))
 #define PL460_EXTINT_InterruptDisable()  (PIOA_REGS->PIO_IDR = (1<<2))
 
 /*** Macros for RF215_RSTN pin ***/
-#define RF215_RSTN_Set()               (PIOA_REGS->PIO_SODR = (1<<25))
-#define RF215_RSTN_Clear()             (PIOA_REGS->PIO_CODR = (1<<25))
+#define RF215_RSTN_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<25U))
+#define RF215_RSTN_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<25U))
 #define RF215_RSTN_Toggle()            do {\
-                                            PIOA_REGS->PIO_MSKR = (1<<25); \
-                                            PIOA_REGS->PIO_ODSR ^= (1<<25);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<25U); \
+                                            PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<25U);\
                                         } while (0)
 #define RF215_RSTN_OutputEnable()      do {\
-                                            PIOA_REGS->PIO_MSKR = (1<<25); \
-                                            PIOA_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<25U); \
+                                            PIOA_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         }while(0)
 #define RF215_RSTN_InputEnable()       do { \
-                                            PIOA_REGS->PIO_MSKR = (1<<25); \
-                                            PIOA_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<25U); \
+                                            PIOA_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         } while (0)
-#define RF215_RSTN_Get()               ((PIOA_REGS->PIO_PDSR >> 25) & 0x1)
+#define RF215_RSTN_Get()               ((PIOA_REGS->PIO_PDSR >> 25U) & 0x1U)
 #define RF215_RSTN_PIN                  PIO_PIN_PA25
 
 /*** Macros for RF215_IRQ pin ***/
-#define RF215_IRQ_Set()               (PIOC_REGS->PIO_SODR = (1<<7))
-#define RF215_IRQ_Clear()             (PIOC_REGS->PIO_CODR = (1<<7))
+#define RF215_IRQ_Set()               (PIOC_REGS->PIO_SODR = ((uint32_t)1U<<7U))
+#define RF215_IRQ_Clear()             (PIOC_REGS->PIO_CODR = ((uint32_t)1U<<7U))
 #define RF215_IRQ_Toggle()            do {\
-                                            PIOC_REGS->PIO_MSKR = (1<<7); \
-                                            PIOC_REGS->PIO_ODSR ^= (1<<7);\
+                                            PIOC_REGS->PIO_MSKR = ((uint32_t)1U<<7U); \
+                                            PIOC_REGS->PIO_ODSR ^= ((uint32_t)1U<<7U);\
                                         } while (0)
 #define RF215_IRQ_OutputEnable()      do {\
-                                            PIOC_REGS->PIO_MSKR = (1<<7); \
-                                            PIOC_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOC_REGS->PIO_MSKR = ((uint32_t)1U<<7U); \
+                                            PIOC_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         }while(0)
 #define RF215_IRQ_InputEnable()       do { \
-                                            PIOC_REGS->PIO_MSKR = (1<<7); \
-                                            PIOC_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOC_REGS->PIO_MSKR = ((uint32_t)1U<<7U); \
+                                            PIOC_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
                                         } while (0)
-#define RF215_IRQ_Get()               ((PIOC_REGS->PIO_PDSR >> 7) & 0x1)
+#define RF215_IRQ_Get()               ((PIOC_REGS->PIO_PDSR >> 7U) & 0x1U)
 #define RF215_IRQ_PIN                  PIO_PIN_PC7
 #define RF215_IRQ_InterruptEnable()   (PIOC_REGS->PIO_IER = (1<<7))
 #define RF215_IRQ_InterruptDisable()  (PIOC_REGS->PIO_IDR = (1<<7))

@@ -116,6 +116,7 @@ extern "C" {
 /* PAL PLC Configuration Options */
 #define PAL_PLC_PHY_INDEX                     0U
 
+
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_SPI_CS_PIN                    SYS_PORT_PIN_RA9
@@ -140,7 +141,7 @@ extern "C" {
 
 /* PAL RF RTOS Configuration */
 #define PAL_RF_RTOS_STACK_SIZE                256U
-#define PAL_RF_RTOS_TASK_PRIORITY             5
+#define PAL_RF_RTOS_TASK_PRIORITY             2
 
 
 

@@ -11,41 +11,41 @@
     PLC PHY Coupling service library interface.
 
   Description
-    The Microchip G3-PLC and PRIME implementations include default PHY layer 
-    configuration values optimized for the Evaluation Kits. With the help of 
-    the PHY Calibration Tool it is possible to obtain the optimal configuration 
+    The Microchip G3-PLC and PRIME implementations include default PHY layer
+    configuration values optimized for the Evaluation Kits. With the help of
+    the PHY Calibration Tool it is possible to obtain the optimal configuration
     values for the customer's hardware implementation. Refer to the online
-    documentation for more details about the available configuration values and 
+    documentation for more details about the available configuration values and
     their purpose.
 
   Remarks:
-    This service provides the required information to be included on PLC 
+    This service provides the required information to be included on PLC
     projects for PL360/PL460 in order to apply the custom calibration.
 *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 // DOM-IGNORE-END
 
 #ifndef SRV_PCOUP_H    // Guards against multiple inclusion
@@ -74,16 +74,16 @@
 #define SRV_PCOUP_DEFAULT_BRANCH                 SRV_PLC_PCOUP_MAIN_BRANCH
 
 /* Equalization number of coefficients (number of carriers) for Main branch */
-#define SRV_PCOUP_EQU_NUM_COEF                   72
+#define SRV_PCOUP_EQU_NUM_COEF                   72U
 
 /* PLC PHY Coupling parameters for Main branch */
 #define SRV_PCOUP_RMS_HIGH_TBL                   {1313, 937, 667, 477, 342, 247, 180, 131}
 #define SRV_PCOUP_RMS_VLOW_TBL                   {4329, 3314, 2387, 1692, 1201, 853, 608, 432}
 #define SRV_PCOUP_THRS_HIGH_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 1025, 729, 519, 372, 265, 191, 140, 101}
 #define SRV_PCOUP_THRS_VLOW_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 10242, 7302, 5197, 3708, 2649, 1906, 1366, 979}
-#define SRV_PCOUP_DACC_TBL                       {0x0, 0x0, 0x100, 0x100, 0x0, 0x0, \
-                                                 0x4f5000ff, 0x1b1b1b1b, 0x0, 0x0, 0x6, 0x355, \
-                                                 0x0, 0x1020f0, 0x355, 0x0, 0x1020ff}
+#define SRV_PCOUP_DACC_TBL                       {0x0UL, 0x0UL, 0x100UL, 0x100UL, 0x0UL, 0x0UL, \
+                                                 0x4f5000ffUL, 0x1b1b1b1bUL, 0x0UL, 0x0UL, 0x6UL, 0x355UL, \
+                                                 0x0UL, 0x1020f0UL, 0x355UL, 0x0UL, 0x1020ffUL}
 #define SRV_PCOUP_GAIN_HIGH_TBL                  {49, 20, 256}
 #define SRV_PCOUP_GAIN_VLOW_TBL                  {364, 180, 408}
 #define SRV_PCOUP_NUM_TX_LEVELS                  8
@@ -100,7 +100,7 @@
                                                   0x6024, 0x608F, 0x615F, 0x61D9, 0x61E3, 0x6265, 0x6372, 0x6414, 0x6464, 0x6519, 0x6647, 0x672B, 0x679F, 0x6834, \
                                                   0x6959, 0x6A44, 0x6A93, 0x6B1F, 0x6C52, 0x6D4F, 0x6D98, 0x6E0E, 0x6F43, 0x7047, 0x70A5, 0x7136, 0x7258, 0x732C, \
                                                   0x7348, 0x7371, 0x7453, 0x7566, 0x75C8, 0x764F, 0x77A2, 0x78F2, 0x7929, 0x7990, 0x7AB0, 0x7B90, 0x7B35, 0x7C1E, \
-                                                  0x7DE6, 0x7FFF}  
+                                                  0x7DE6, 0x7FFF}
 
 
 // *****************************************************************************
@@ -129,7 +129,7 @@ typedef enum
     /* Auxiliary Transmission Branch */
     SRV_PLC_PCOUP_AUXILIARY_BRANCH,
 
-} SRV_PLC_PCOUP_BRANCH;     
+} SRV_PLC_PCOUP_BRANCH;
 
 // *****************************************************************************
 /* PLC PHY Coupling data
@@ -138,18 +138,18 @@ typedef enum
     PLC PHY Coupling data.
 
   Description:
-    This structure contains all the data required to set the PLC PHY Coupling 
-    parameters, for a specific transmission branch (associated to a G3-PLC 
+    This structure contains all the data required to set the PLC PHY Coupling
+    parameters, for a specific transmission branch (associated to a G3-PLC
     PHY band).
 
   Remarks:
-    Equalization coefficients are not stored in the structure, just pointers to 
-    arrays were they are actually stored. This allows to use the same type for 
+    Equalization coefficients are not stored in the structure, just pointers to
+    arrays were they are actually stored. This allows to use the same type for
     different G3-PLC PHY bands.
 */
 
 typedef struct
-{  
+{
     /* Target RMS values in HIGH mode for dynamic Tx gain */
     uint32_t                         rmsHigh[8];
 
@@ -162,15 +162,15 @@ typedef struct
     /* Threshold RMS values in VLOW mode for dynamic Tx mode */
     uint32_t                         thrsVLow[16];
 
-    /* Values for configuration of PLC DACC peripheral, according to hardware 
+    /* Values for configuration of PLC DACC peripheral, according to hardware
        coupling design and PLC device (PL360/PL460) */
     uint32_t                         daccTable[17];
 
-    /* Pointer to Tx equalization coefficients table in HIGH mode. 
+    /* Pointer to Tx equalization coefficients table in HIGH mode.
        There is one coefficient for each carrier in the used band */
     const uint16_t *                 equHigh;
 
-    /* Pointer to Tx equalization coefficients table in VLOW mode. 
+    /* Pointer to Tx equalization coefficients table in VLOW mode.
        There is one coefficient for each carrier in the used band */
     const uint16_t *                 equVlow;
 
@@ -186,7 +186,7 @@ typedef struct
     /* Size of Tx equalization coefficients table in bytes */
     uint8_t                          equSize;
 
-    /* Configuration of the PLC Tx Line Driver, according to hardware coupling 
+    /* Configuration of the PLC Tx Line Driver, according to hardware coupling
        design and PLC device (PL360/PL460) */
     uint8_t                          lineDrvConf;
 
@@ -201,13 +201,13 @@ typedef struct
 /***************************************************************************
   Function:
     SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch)
-    
+
   Summary:
     Get the PLC PHY Coupling parameters for the specified transmission branch.
 
   Description:
-    This function allows to get the PLC PHY Coupling parameters for the 
-    specified transmission branch. These parameters can be sent to the PLC 
+    This function allows to get the PLC PHY Coupling parameters for the
+    specified transmission branch. These parameters can be sent to the PLC
     device through PLC Driver PIB interface (DRV_PLC_PHY_PIBSet).
 
   Precondition:
@@ -230,7 +230,7 @@ typedef struct
     </code>
 
   Remarks:
-    If SRV_PCOUP_Set_Config is used to set the PLC PHY Coupling parameters, 
+    If SRV_PCOUP_Set_Config is used to set the PLC PHY Coupling parameters,
     this function is not needed.
   ***************************************************************************/
 
@@ -239,17 +239,17 @@ SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch);
 /***************************************************************************
   Function:
     bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
-    
+
   Summary:
     Set the PLC PHY Coupling parameters for the specified transmission branch.
 
   Description:
-    This function allows to set the PLC PHY Coupling parameters for the 
-    specified transmission branch, using the PLC Driver PIB 
+    This function allows to set the PLC PHY Coupling parameters for the
+    specified transmission branch, using the PLC Driver PIB
     interface (DRV_PLC_PHY_PIBSet).
 
   Precondition:
-    DRV_PLC_PHY_Open must have been called to obtain a valid 
+    DRV_PLC_PHY_Open must have been called to obtain a valid
     opened device handle.
 
   Parameters:
@@ -265,7 +265,6 @@ SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch);
 
   Example:
     <code>
-    // 'handle', returned from DRV_PLC_PHY_Open
     bool result;
 
     result = SRV_PCOUP_Set_Config(handle, SRV_PLC_PCOUP_MAIN_BRANCH);
@@ -280,7 +279,7 @@ bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
 /***************************************************************************
   Function:
     SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void )
-    
+
   Summary:
     Get the default branch of the PLC transmission coupling.
 
@@ -313,12 +312,12 @@ SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void );
 /***************************************************************************
   Function:
     uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch)
-    
+
   Summary:
     Get the G3-PLC PHY band associated to the specified transmission branch.
 
   Description:
-    This function allows to get the G3-PLC PHY band associated to the 
+    This function allows to get the G3-PLC PHY band associated to the
     specified transmission branch.
 
   Precondition:
@@ -342,7 +341,7 @@ SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void );
 
     if (phyBand == G3_CEN_A)
     {
-        // G3 CEN-A band
+
     }
     </code>
 

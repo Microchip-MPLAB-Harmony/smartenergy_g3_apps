@@ -70,26 +70,46 @@
 /* MISRA C-2012 Rule 11.1 */
 /* MISRA C-2012 Rule 11.3 */
 /* MISRA C-2012 Rule 11.8 */
-
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
+
 
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 /* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
 
 /* This routine must initialize the PL460 control pins as soon as possible */
-/* after a power up reset to avoid risks on starting up PL460 device when */ 
+/* after a power up reset to avoid risks on starting up PL460 device when */
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-    PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
-    while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == false)
-    {
-        /* Wait for clock to be initialized */
-    }
-    /* Disable STBY Pin */
-    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA16);
-    SYS_PORT_PinClear(SYS_PORT_PIN_PA16);
+   /* Enable co-processor bus clock  */
+   PMC_REGS->PMC_SCER = (PMC_SCER_CPKEY_PASSWD | PMC_SCER_CPBMCK_Msk);
+   /* Coprocessor Peripheral Enable */
+   RSTC_REGS->RSTC_MR |= (RSTC_MR_KEY_PASSWD | RSTC_MR_CPEREN_Msk);
+   /* Program PMC_CPU_CKR.CPPRES and wait for PMC_SR.CPMCKRDY to be set   */
+   uint32_t reg = (PMC_REGS->PMC_CPU_CKR & ~PMC_CPU_CKR_CPPRES_Msk);
+   reg |= PMC_CPU_CKR_CPPRES_CLK_2;
+   PMC_REGS->PMC_CPU_CKR = reg;
+   PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
+   while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
+   {
+       /* Wait for clock to be initialized */
+   }
+   /* Disable STBY Pin */
+   SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA16);
+   SYS_PORT_PinClear(SYS_PORT_PIN_PA16);
+   while ((PMC_REGS->PMC_SR & PMC_SR_CPMCKRDY_Msk) != PMC_SR_CPMCKRDY_Msk)
+   {
+       /* Wait for status CPMCKRDY */
+   }
+   PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOD);
+   while((PMC_REGS->PMC_CSR2 & PMC_CSR2_PID85_Msk) == 0U)
+   {
+       /* Wait for clock to be initialized */
+   }
+   /* Enable Reset Pin */
+   SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
+   SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -109,28 +129,27 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI Write/Read */
     .spiWriteRead = FLEXCOM1_SPI_WriteRead,
 
-    
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-    
+
     /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN, 
-    
+    .ldoPin = DRV_PLC_LDO_EN_PIN,
+
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
-       
+
     /* PLC External Interrupt Pin */
     .extIntPin = DRV_PLC_EXT_INT_PIN,
-       
+
     /* PLC External Interrupt Pio */
     .extIntPio = DRV_PLC_EXT_INT_PIO,
 
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
-    
+
     /* PLC External Interrupt Pin */
     .thMonPin = DRV_PLC_THMON_PIN,
-    
+
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -150,13 +169,13 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC Get Thermal Monitor value */
     .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,
-    
+
     /* PLC Set TX Enable Pin */
     .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
-    
+
     /* PLC HAL Enable/Disable external interrupt */
     .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
 
@@ -171,13 +190,8 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 };
 
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="DRV_PLC_PHY Initialization Data">
 
-/* PLC Binary file addressing */
-extern uint8_t plc_phy_bin_start;
-extern uint8_t plc_phy_bin_end;
-extern uint8_t plc_phy_bin2_start;
-extern uint8_t plc_phy_bin2_end;
+// <editor-fold defaultstate="collapsed" desc="DRV_PLC_PHY Initialization Data">
 
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
@@ -208,37 +222,37 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
 /* MISRA C-2012 deviation block end */
 
 // </editor-fold>
+
 // <editor-fold defaultstate="collapsed" desc="SRV_USI Instance 0 Initialization Data">
 
 static uint8_t CACHE_ALIGN srvUSI0ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
 static uint8_t CACHE_ALIGN srvUSI0WriteBuffer[SRV_USI0_WR_BUF_SIZE] = {0};
 
-/* Declared in USI USART service implementation (srv_usi_usart.c) */
-extern const SRV_USI_DEV_DESC srvUSIUSARTDevDesc;
 
-const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM0 = {
+static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM0 = {
     .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM0_USART_ReadCallbackRegister,
-    .read = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Read,
-    .write = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Write,
+    .readData = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Read,
+    .writeData = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Write,
     .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)FLEXCOM0_USART_WriteIsBusy,
     .intSource = FLEXCOM0_IRQn,
 };
 
-const USI_USART_INIT_DATA srvUsi0InitData = {
+static const USI_USART_INIT_DATA srvUsi0InitData = {
     .plib = (void*)&srvUsi0InitDataFLEXCOM0,
     .pRdBuffer = (void*)srvUSI0ReadBuffer,
     .rdBufferSize = SRV_USI0_RD_BUF_SIZE,
 };
 
-const SRV_USI_INIT srvUSI0Init =
+/* srvUSIUSARTDevDesc declared in USI USART service implementation (srv_usi_usart.c) */
+
+static const SRV_USI_INIT srvUSI0Init =
 {
-    .deviceInitData = (const void*)&srvUsi0InitData,
+    .deviceInitData = (const void * const)&srvUsi0InitData,
     .consDevDesc = &srvUSIUSARTDevDesc,
     .deviceIndex = 0,
     .pWrBuffer = srvUSI0WriteBuffer,
     .wrBufferSize = SRV_USI0_WR_BUF_SIZE
 };
-
 
 // </editor-fold>
 
@@ -342,12 +356,15 @@ void SYS_Initialize ( void* data )
     /* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     /* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
+
     /* Initialize PLC Phy Driver Instance */
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
-    (void)PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+    (void) PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
+
 
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
+
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
     DRV_SLCDC_Initialize();

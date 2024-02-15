@@ -1,26 +1,3 @@
-/*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
-
-The software and documentation is provided by microchip and its contributors
-"as is" and any express, implied or statutory warranties, including, but not
-limited to, the implied warranties of merchantability, fitness for a particular
-purpose and non-infringement of third party intellectual property rights are
-disclaimed to the fullest extent permitted by law. In no event shall microchip
-or its contributors be liable for any direct, indirect, incidental, special,
-exemplary, or consequential damages (including, but not limited to, procurement
-of substitute goods or services; loss of use, data, or profits; or business
-interruption) however caused and on any theory of liability, whether in contract,
-strict liability, or tort (including negligence or otherwise) arising in any way
-out of the use of the software and documentation, even if advised of the
-possibility of such damage.
-
-Except as expressly permitted hereunder and subject to the applicable license terms
-for any third-party software incorporated in the software and any applicable open
-source software license terms, no license or other rights, whether express or
-implied, are granted under any patent or other intellectual property rights of
-Microchip or any third party.
-*/
-
 /*******************************************************************************
   MPLAB Harmony Application Header File
 
@@ -70,77 +47,6 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-#define EVENT_LOG_MAX_NUMBER                 10
-#define EVENT_HOLDING_START_COUNTER          10//60
-#define EVENT_HOLDING_END_COUNTER            10//60
-
-typedef enum
-{
-	NO_EVENT = 0,
-	EVENT_HOLDING_START,
-	EVENT_START,
-	EVENT_HOLDING_END
-} APP_EVENTS_EVENT_STATUS;
-
-typedef enum
-{
-	SAG_UA_EVENT_ID = 0,
-	SAG_UB_EVENT_ID,
-	SAG_UC_EVENT_ID,
-	POW_UA_EVENT_ID,
-	POW_UB_EVENT_ID,
-	POW_UC_EVENT_ID,
-    EVENTS_NUM_ID,
-    EVENT_INVALID_ID = 0xFF,
-} APP_EVENTS_EVENT_ID;
-
-typedef struct
-{
-    struct tm startTime;
-    struct tm endTime;
-} APP_EVENTS_EVENT_INFO;
-
-typedef struct
-{
-	APP_EVENTS_EVENT_STATUS status;
-	APP_EVENTS_EVENT_INFO data[EVENT_LOG_MAX_NUMBER];
-	uint16_t counter;
-	uint8_t holdingCounter;
-	uint8_t dataIndex;
-} APP_EVENTS_EVENT_DATA;
-
-typedef struct
-{
-    APP_EVENTS_EVENT_DATA event[EVENTS_NUM_ID];
-} APP_EVENTS_EVENTS;
-
-typedef struct
-{
-    // Metrology AFE Events
-    DRV_METROLOGY_AFE_EVENTS eventFlags;
-
-    // Time stamp when events have been detected
-    struct tm eventTime;
-
-} APP_EVENTS_QUEUE_DATA;
-
-typedef struct {
-    uint32_t paDir : 1;
-    uint32_t pbDir : 1;
-    uint32_t pcDir : 1;
-    uint32_t ptDir : 1;
-    uint32_t qaDir : 1;
-    uint32_t qbDir : 1;
-    uint32_t qcDir : 1;
-    uint32_t qtDir : 1;
-    uint32_t sagA : 1;
-    uint32_t sagB : 1;
-    uint32_t sagC : 1;
-    uint32_t swellA : 1;
-    uint32_t swellB : 1;
-    uint32_t swellC : 1;
-} APP_EVENTS_FLAGS;
-
 // *****************************************************************************
 /* Application states
 
@@ -154,10 +60,10 @@ typedef struct {
 
 typedef enum
 {
-    APP_EVENTS_STATE_WAITING_DATALOG = 0,
-    APP_EVENTS_STATE_INIT,
-    APP_EVENTS_STATE_RUNNING,
-    APP_EVENTS_STATE_ERROR
+    /* Application's state machine's initial state. */
+    APP_EVENTS_STATE_INIT=0,
+    APP_EVENTS_STATE_SERVICE_TASKS,
+    /* TODO: Define states used by the application state machine. */
 
 } APP_EVENTS_STATES;
 
@@ -177,15 +83,10 @@ typedef enum
 
 typedef struct
 {
+    /* The application's current state */
     APP_EVENTS_STATES state;
 
-    APP_EVENTS_QUEUE_DATA newEvent;
-
-    APP_EVENTS_EVENTS events;
-
-    APP_EVENTS_FLAGS flags;
-
-    bool dataIsRdy;
+    /* TODO: Define any additional data used by the application. */
 
 } APP_EVENTS_DATA;
 
@@ -268,12 +169,6 @@ void APP_EVENTS_Initialize ( void );
  */
 
 void APP_EVENTS_Tasks( void );
-
-
-void APP_EVENTS_ClearEvents(void);
-bool APP_EVENTS_GetNumEvents(APP_EVENTS_EVENT_ID eventId, uint8_t * counter);
-bool APP_EVENTS_GetEventInfo(APP_EVENTS_EVENT_ID eventId, uint8_t offset, APP_EVENTS_EVENT_INFO *eventInfo);
-void APP_EVENTS_GetLastEventFlags(APP_EVENTS_FLAGS *eventFlags);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

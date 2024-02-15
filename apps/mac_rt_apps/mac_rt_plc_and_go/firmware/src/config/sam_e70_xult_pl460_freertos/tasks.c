@@ -60,15 +60,16 @@
 // Section: RTOS "Tasks" Routine
 // *****************************************************************************
 // *****************************************************************************
-void _USB_DEVICE_Tasks(  void *pvParameters  )
+static void F_USB_DEVICE_Tasks(  void *pvParameters  )
 {
-    while(1)
+    while(true)
     {
                 /* USB Device layer tasks routine */
         USB_DEVICE_Tasks(sysObj.usbDevObject0);
-        vTaskDelay(10 / portTICK_PERIOD_MS);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
+
 
 static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
 {
@@ -79,13 +80,13 @@ static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
     }
 }
 
-void _DRV_USBHSV1_Tasks(  void *pvParameters  )
+static void F_DRV_USBHSV1_Tasks(  void *pvParameters  )
 {
-    while(1)
+    while(true)
     {
-				 /* USB HS Driver Task Routine */
+                 /* USB HS Driver Task Routine */
         DRV_USBHSV1_Tasks(sysObj.drvUSBHSV1Object);
-        vTaskDelay(10 / portTICK_PERIOD_MS);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 
@@ -103,7 +104,7 @@ void lSYS_CONSOLE_0_Tasks(  void *pvParameters  )
 TaskHandle_t xAPP_PLC_Tasks;
 
 static void lAPP_PLC_Tasks(  void *pvParameters  )
-{
+{   
     while(true)
     {
         APP_PLC_Tasks();
@@ -114,7 +115,7 @@ static void lAPP_PLC_Tasks(  void *pvParameters  )
 TaskHandle_t xAPP_CONSOLE_Tasks;
 
 static void lAPP_CONSOLE_Tasks(  void *pvParameters  )
-{
+{   
     while(true)
     {
         APP_CONSOLE_Tasks();
@@ -152,7 +153,7 @@ void SYS_Tasks ( void )
 
 
     /* Maintain Device Drivers */
-
+    
     (void) xTaskCreate( lDRV_G3_MACRT_Tasks,
         "DRV_G3_MACRT_TASKS",
         DRV_PLC_RTOS_STACK_SIZE,
@@ -165,7 +166,7 @@ void SYS_Tasks ( void )
 
     /* Maintain Middleware & Other Libraries */
         /* Create OS Thread for USB_DEVICE_Tasks. */
-    xTaskCreate( _USB_DEVICE_Tasks,
+    (void) xTaskCreate( F_USB_DEVICE_Tasks,
         "USB_DEVICE_TASKS",
         1024,
         (void*)NULL,
@@ -173,8 +174,8 @@ void SYS_Tasks ( void )
         (TaskHandle_t*)NULL
     );
 
-	/* Create OS Thread for USB Driver Tasks. */
-    xTaskCreate( _DRV_USBHSV1_Tasks,
+    /* Create OS Thread for USB Driver Tasks. */
+    (void) xTaskCreate( F_DRV_USBHSV1_Tasks,
         "DRV_USBHSV1_TASKS",
         1024,
         (void*)NULL,
@@ -205,7 +206,7 @@ void SYS_Tasks ( void )
 
 
     /* Start RTOS Scheduler. */
-
+    
      /**********************************************************************
      * Create all Threads for APP Tasks before starting FreeRTOS Scheduler *
      ***********************************************************************/

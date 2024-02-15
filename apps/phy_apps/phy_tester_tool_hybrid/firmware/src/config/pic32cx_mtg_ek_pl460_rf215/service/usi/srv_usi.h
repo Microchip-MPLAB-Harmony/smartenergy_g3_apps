@@ -12,10 +12,10 @@
 
   Description
     This file defines the interface to the USI service library. This
-    library provides a function that packs the data into USI frame format and 
-    sends the message through serial interface to the external application. 
-    For serial receptions from the serial interface, the service unpacks the 
-    data and passes it through callback (SRV_USI_CallbackRegister) to the 
+    library provides a function that packs the data into USI frame format and
+    sends the message through serial interface to the external application.
+    For serial receptions from the serial interface, the service unpacks the
+    data and passes it through callback (SRV_USI_CallbackRegister) to the
     corresponding client depending on the USI protocol.
 
   Remarks:
@@ -23,28 +23,28 @@
 *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 // DOM-IGNORE-END
 
 #ifndef SRV_USI_H    // Guards against multiple inclusion
@@ -83,8 +83,8 @@
     Handle to an opened instance of the USI service.
 
   Description:
-    This handle identifies an opened instance of the USI service. It is 
-    returned from SRV_USI_Open and it has to be passed to all other USI 
+    This handle identifies an opened instance of the USI service. It is
+    returned from SRV_USI_Open and it has to be passed to all other USI
     routines (except SRV_USI_Initialize and SRV_USI_Tasks).
 
   Remarks:
@@ -101,16 +101,16 @@ typedef uintptr_t SRV_USI_HANDLE;
     Definition of invalid USI handle.
 
  Description:
-    This definition is used to indicate that an USI handle 
+    This definition is used to indicate that an USI handle
     (SRV_USI_HANDLE) is invalid. SRV_USI_Open returns this value if:
       - the specified instance has been already opened.
       - the instance being opened is not initialized or is invalid.
-      - if there is an error opening the serial interface (USB CDC instances 
+      - if there is an error opening the serial interface (USB CDC instances
       only)
 
  Remarks:
-    The handle returned from SRV_USI_Open should be checked to ensure it is 
-    different to SRV_USI_HANDLE_INVALID before attempting to call any other USI 
+    The handle returned from SRV_USI_Open should be checked to ensure it is
+    different to SRV_USI_HANDLE_INVALID before attempting to call any other USI
     routine using the handle.
 */
 
@@ -124,16 +124,16 @@ typedef uintptr_t SRV_USI_HANDLE;
     Pointer to an USI service callback function.
 
    Description:
-    This data type defines a pointer to an USI service callback function, thus 
-    defining the function signature. Clients of the USI service can register 
-    callback functions for a specific USI protocol with 
-    SRV_USI_CallbackRegister function. That function will be called back when 
+    This data type defines a pointer to an USI service callback function, thus
+    defining the function signature. Clients of the USI service can register
+    callback functions for a specific USI protocol with
+    SRV_USI_CallbackRegister function. That function will be called back when
     a new message is received and it belongs to the specified USI protocol.
 
    Parameters:
     pData      - Pointer to data payload of the received USI message
     length     - Length in bytes of data payload of the received USI message
-    
+
 
    Returns:
     None.
@@ -168,7 +168,7 @@ typedef void ( * SRV_USI_CALLBACK ) ( uint8_t *pData, size_t length );
     None.
 */
 
-typedef void (*USI_READ_CALLBACK) (uint8_t *data, uint16_t length, uintptr_t context); 
+typedef void (*USI_READ_CALLBACK) (uint8_t *data, uint16_t length, uintptr_t context);
 
 typedef void (*SRV_USI_INIT_FPTR) (uint32_t index, const void * const initData);
 
@@ -190,17 +190,17 @@ typedef void (*SRV_USI_CLOSE) (uint32_t index);
 /*  USI device descriptor
 
   Summary:
-    Contains the API required by the USI service to abstract from the hardware 
+    Contains the API required by the USI service to abstract from the hardware
     peripheral used.
 
   Description:
-    This structure contains pointers to functions required by the USI service 
-    to abstract from the hardware peripheral used. The USI service implements 
-    these functions for UART peripherals (see srv_usi_usart.c) and USB CDC 
+    This structure contains pointers to functions required by the USI service
+    to abstract from the hardware peripheral used. The USI service implements
+    these functions for UART peripherals (see srv_usi_usart.c) and USB CDC
     Function Driver (see srv_usi_cdc.c).
 
   Remarks:
-    The generated code will include srv_usi_usart.c and/or srv_usi_cdc.c files 
+    The generated code will include srv_usi_usart.c and/or srv_usi_cdc.c files
     depending on the USI instance(s) MCC configuration.
 */
 typedef struct
@@ -230,23 +230,23 @@ typedef struct
     Contains the data required to initialize an instance of the USI service.
 
   Description:
-    This structure contains the data needed to initialize an instance of the 
-    USI service. It is passed as parameter (casted as SYS_MODULE_INIT) to 
+    This structure contains the data needed to initialize an instance of the
+    USI service. It is passed as parameter (casted as SYS_MODULE_INIT) to
     SRV_USI_Initialize function.
 
     Field description:
-      - deviceInitData: Pointer to data initialization struct for the specific 
-      USI instance type; UART (see srv_usi_usart.h) or USB CDC 
+      - deviceInitData: Pointer to data initialization struct for the specific
+      USI instance type; UART (see srv_usi_usart.h) or USB CDC
       (see srv_usi_cdc.h)
       - consDevDesc: Pointer to SRV_USI_DEV_DESC Struct
-      - deviceIndex: USI instance index for the specific USI instance type 
+      - deviceIndex: USI instance index for the specific USI instance type
       (UART or USB CDC)
       - pWrBuffer: Pointer to buffer to encode transmitted USI messages
-      - wrBufferSize: Size in bytes of buffer to encode transmitted USI 
+      - wrBufferSize: Size in bytes of buffer to encode transmitted USI
       messages
 
   Remarks:
-    This initialization data struct is automatically generated for each USI 
+    This initialization data struct is automatically generated for each USI
     instance depending on MCC configuration (see initialization.c).
 */
 
@@ -257,9 +257,9 @@ typedef struct
     const SRV_USI_DEV_DESC* consDevDesc;
 
     uint32_t deviceIndex;
-    
+
     void* pWrBuffer;
-    
+
     size_t wrBufferSize;
 
 } SRV_USI_INIT;
@@ -386,12 +386,12 @@ SYS_MODULE_OBJ SRV_USI_Initialize(
     Opens the specified USI service instance and returns a handle to it.
 
   Description:
-    This routine opens the specified USI service instance and provides a handle 
-    that must be provided to all other client-level operations to identify the 
+    This routine opens the specified USI service instance and provides a handle
+    that must be provided to all other client-level operations to identify the
     caller and the instance of the service.
 
   Precondition:
-    Function SRV_USI_Initialize must have been called before calling this 
+    Function SRV_USI_Initialize must have been called before calling this
     function.
 
   Parameters:
@@ -403,7 +403,7 @@ SYS_MODULE_OBJ SRV_USI_Initialize(
     If an error occurs, the return value is SRV_USI_HANDLE_INVALID. Error can occur
       - if the specified instance has been already opened.
       - if the instance being opened is not initialized or is invalid.
-      - if there is an error opening the serial interface (USB CDC instances 
+      - if there is an error opening the serial interface (USB CDC instances
       only)
 
   Example:
@@ -431,10 +431,10 @@ SRV_USI_HANDLE SRV_USI_Open( const SYS_MODULE_INDEX index );
     Closes an opened-instance of the USI service.
 
   Description:
-    This routine closes an opened-instance of the USI service, invalidating 
+    This routine closes an opened-instance of the USI service, invalidating
     the handle.
 
-    A new handle must be obtained by calling SRV_USI_Open before the caller 
+    A new handle must be obtained by calling SRV_USI_Open before the caller
     uses the service again.
 
   Precondition:
@@ -479,7 +479,7 @@ void SRV_USI_Close( SRV_USI_HANDLE handle );
     SRV_USI_STATUS_NOT_CONFIGURED - Indicates that the USI instance is not configured.
 
     SRV_USI_STATUS_CONFIGURED - Indicates that the USI instance is properly configured
-  
+
     SRV_USI_STATUS_ERROR - Indicates that there is an error with the handler
 
   Example:
@@ -491,7 +491,7 @@ void SRV_USI_Close( SRV_USI_HANDLE handle );
     </code>
 
   Remarks:
-    After opening an USI instance, before any other operation, the client must 
+    After opening an USI instance, before any other operation, the client must
     use this function to check the instance is ready.
   */
 
@@ -499,24 +499,24 @@ SRV_USI_STATUS SRV_USI_Status( SRV_USI_HANDLE handle );
 
 // *****************************************************************************
 /* Function:
-  void SRV_USI_CallbackRegister( 
+  void SRV_USI_CallbackRegister(
     SRV_USI_HANDLE handle,
-    SRV_USI_PROTOCOL_ID protocol, 
+    SRV_USI_PROTOCOL_ID protocol,
     SRV_USI_CALLBACK callback)
 
   Summary:
-    Registers a function to be called back when a new message is received and 
+    Registers a function to be called back when a new message is received and
     it belongs to the specified USI protocol.
 
   Description:
-    This function allows a client to register an event handling function to be 
-    called back when a new message is received and it belongs to the specified 
+    This function allows a client to register an event handling function to be
+    called back when a new message is received and it belongs to the specified
     USI protocol.
 
     One USI instance can have different callbacks for different USI protocols.
 
-    The callback once set, persists until the client closes the USI service 
-    instance or sets another callback (which could be a NULL pointer to 
+    The callback once set, persists until the client closes the USI service
+    instance or sets another callback (which could be a NULL pointer to
     indicate no callback).
 
   Precondition:
@@ -524,12 +524,12 @@ SRV_USI_STATUS SRV_USI_Status( SRV_USI_HANDLE handle );
 
   Parameters:
     handle      - A valid open-instance handle, returned from SRV_USI_Open
-    protocol    - Identifier of the protocol for which callback function will 
+    protocol    - Identifier of the protocol for which callback function will
                   be registered
     callback    - Pointer to the callback function
 
   Returns:
-    None. 
+    None.
 
   Example:
     <code>
@@ -542,9 +542,9 @@ SRV_USI_STATUS SRV_USI_Status( SRV_USI_HANDLE handle );
     </code>
 */
 
-void SRV_USI_CallbackRegister( 
+void SRV_USI_CallbackRegister(
     SRV_USI_HANDLE handle,
-    SRV_USI_PROTOCOL_ID protocol, 
+    SRV_USI_PROTOCOL_ID protocol,
     SRV_USI_CALLBACK callback);
 
 // *****************************************************************************
@@ -588,15 +588,15 @@ void SRV_USI_Tasks( SYS_MODULE_OBJ object );
 
 // *****************************************************************************
 /* Function:
-      void SRV_USI_Send_Message( SRV_USI_HANDLE handle, 
+      void SRV_USI_Send_Message( SRV_USI_HANDLE handle,
         SRV_USI_PROTOCOL_ID protocol, uint8_t *data, size_t length )
-    
+
   Summary:
     Sends a message through serial interface (USI).
 
   Description:
-    This function is used to send a message through USI. The message will be 
-    formated depending on the specified Protocol and will be sent using the 
+    This function is used to send a message through USI. The message will be
+    formated depending on the specified Protocol and will be sent using the
     serial interface associated to the corresponding USI instance.
 
   Precondition:
@@ -622,7 +622,7 @@ void SRV_USI_Tasks( SYS_MODULE_OBJ object );
     None.
   */
 
-void SRV_USI_Send_Message( SRV_USI_HANDLE handle, 
+void SRV_USI_Send_Message( SRV_USI_HANDLE handle,
         SRV_USI_PROTOCOL_ID protocol, uint8_t *data, size_t length );
 
 // DOM-IGNORE-BEGIN

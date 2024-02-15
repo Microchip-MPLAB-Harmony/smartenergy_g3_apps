@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -93,7 +93,7 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize(
     gDrvG3MacRtObj.binStartAddress       = g3MacRtInit->binStartAddress;
     gDrvG3MacRtObj.secure                = g3MacRtInit->secure;
     gDrvG3MacRtObj.sleep                 = false;
-    
+
     /* Callbacks initialization */
     gDrvG3MacRtObj.initCallback          = NULL;
     gDrvG3MacRtObj.bootDataCallback      = NULL;
@@ -104,7 +104,7 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize(
     gDrvG3MacRtObj.commStatusIndCallback = NULL;
     gDrvG3MacRtObj.phySnifferIndCallback = NULL;
     gDrvG3MacRtObj.exceptionCallback     = NULL;
-    
+
     /* Clear PHY Sniffer Data Buffer */
     gDrvG3MacRtObj.pPhyDataSniffer       = NULL;
 
@@ -137,7 +137,7 @@ DRV_G3_MACRT_STATE DRV_G3_MACRT_Status( const SYS_MODULE_INDEX index )
     {
         return DRV_G3_MACRT_STATE_ERROR;
     }
-    
+
     /* Return the driver status */
     return (gDrvG3MacRtObj.state);
 }
@@ -148,7 +148,7 @@ DRV_HANDLE DRV_G3_MACRT_Open(
 )
 {
     DRV_PLC_BOOT_INFO bootInfo;
-    
+
     /* Validate the request */
     if (index >= DRV_G3_MACRT_INSTANCES_NUMBER)
     {
@@ -159,7 +159,7 @@ DRV_HANDLE DRV_G3_MACRT_Open(
     {
         return DRV_HANDLE_INVALID;
     }
-    
+
     /* Launch boot start process */
     bootInfo.binSize = gDrvG3MacRtObj.binSize;
     bootInfo.binStartAddress = gDrvG3MacRtObj.binStartAddress;
@@ -176,9 +176,9 @@ DRV_HANDLE DRV_G3_MACRT_Open(
         bootInfo.bootDataCallback = NULL;
         bootInfo.contextBoot = 0;
     }
-    
+
     DRV_PLC_BOOT_Start(&bootInfo, gDrvG3MacRtObj.plcHal);
-    
+
     gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_BUSY;
 
     /* Post semaphore to resume task */
@@ -195,13 +195,13 @@ void DRV_G3_MACRT_Close( const DRV_HANDLE handle )
     if ((handle != DRV_HANDLE_INVALID) && (handle == 0U))
     {
         gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_UNINITIALIZED;
-        
+
         gDrvG3MacRtObj.plcHal->enableExtInt(false);
     }
 }
 
-void DRV_G3_MACRT_InitCallbackRegister( 
-    const SYS_MODULE_INDEX index, 
+void DRV_G3_MACRT_InitCallbackRegister(
+    const SYS_MODULE_INDEX index,
     const DRV_G3_MACRT_INIT_CALLBACK callback
 )
 {
@@ -212,8 +212,8 @@ void DRV_G3_MACRT_InitCallbackRegister(
     }
 }
 
-void DRV_G3_MACRT_TxCfmCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_TxCfmCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_TX_CFM_CALLBACK callback
 )
 {
@@ -223,8 +223,8 @@ void DRV_G3_MACRT_TxCfmCallbackRegister(
     }
 }
 
-void DRV_G3_MACRT_DataIndCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_DataIndCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_DATA_IND_CALLBACK callback
 )
 {
@@ -234,8 +234,8 @@ void DRV_G3_MACRT_DataIndCallbackRegister(
     }
 }
 
-void DRV_G3_MACRT_RxParamsIndCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_RxParamsIndCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_RX_PARAMS_IND_CALLBACK callback
 )
 {
@@ -245,13 +245,13 @@ void DRV_G3_MACRT_RxParamsIndCallbackRegister(
     }
 }
 
-void DRV_G3_MACRT_MacSnifferCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_MacSnifferCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_MAC_SNIFFER_IND_CALLBACK callback,
     uint8_t* pDataBuffer
 )
 {
-    if ((handle != DRV_HANDLE_INVALID) && (handle == 0U) && 
+    if ((handle != DRV_HANDLE_INVALID) && (handle == 0U) &&
             (pDataBuffer != NULL))
     {
         gDrvG3MacRtObj.macSnifferIndCallback = callback;
@@ -259,8 +259,8 @@ void DRV_G3_MACRT_MacSnifferCallbackRegister(
     }
 }
 
-void DRV_G3_MACRT_CommStatusCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_CommStatusCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_COMM_STATUS_IND_CALLBACK callback
 )
 {
@@ -270,13 +270,13 @@ void DRV_G3_MACRT_CommStatusCallbackRegister(
     }
 }
 
-void DRV_G3_MACRT_PhySnifferCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_PhySnifferCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_PHY_SNIFFER_IND_CALLBACK callback,
     uint8_t* pDataBuffer
 )
 {
-    if ((handle != DRV_HANDLE_INVALID) && (handle == 0U) && 
+    if ((handle != DRV_HANDLE_INVALID) && (handle == 0U) &&
             (pDataBuffer != NULL))
     {
         gDrvG3MacRtObj.phySnifferIndCallback = callback;
@@ -284,8 +284,8 @@ void DRV_G3_MACRT_PhySnifferCallbackRegister(
     }
 }
 
-void DRV_G3_MACRT_ExceptionCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_ExceptionCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_EXCEPTION_CALLBACK callback
 )
 {
@@ -312,7 +312,7 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object )
         if ((gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_READY) ||
             (gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_WAITING_TX_CFM))
         {
-            waitMS = OSAL_WAIT_FOREVER;
+            waitMS = (uint16_t)OSAL_WAIT_FOREVER;
         }
 
         (void) OSAL_SEM_Pend(&gDrvG3MacRtObj.semaphoreID, waitMS);
@@ -327,13 +327,13 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object )
     else if (gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_BUSY)
     {
         DRV_PLC_BOOT_STATUS state;
-        
+
         /* Check bootloader process */
         state = DRV_PLC_BOOT_Status();
         if (state < DRV_PLC_BOOT_STATUS_READY)
         {
             DRV_PLC_BOOT_Tasks();
-        } 
+        }
         else if (state == DRV_PLC_BOOT_STATUS_READY)
         {
             DRV_G3_MACRT_Init(&gDrvG3MacRtObj);
@@ -356,15 +356,15 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object )
                 gDrvG3MacRtObj.initCallback(false);
             }
         }
-    } 
+    }
     else
     {
         /* DRV_G3_MACRT_STATE_ERROR: Nothing to do */
     }
 }
 
-void DRV_G3_MACRT_SleepIndCallbackRegister( 
-    const DRV_HANDLE handle, 
+void DRV_G3_MACRT_SleepIndCallbackRegister(
+    const DRV_HANDLE handle,
     const DRV_G3_MACRT_SLEEP_IND_CALLBACK callback
 )
 {
@@ -394,7 +394,7 @@ void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable )
             {
                 /* Clear Stand By pin */
                 gDrvG3MacRtObj.plcHal->setStandBy(false);
-                
+
                 /* Restart from Sleep mode */
                 gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_BUSY;
                 DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_SLEEP);
@@ -411,10 +411,9 @@ void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable )
 
 void DRV_G3_MACRT_EnableTX( const DRV_HANDLE handle, bool enable )
 {
-     if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
+    if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
     {
         /* Set Tx Enable pin */
         gDrvG3MacRtObj.plcHal->setTxEnable(enable);
     }
 }
-   
