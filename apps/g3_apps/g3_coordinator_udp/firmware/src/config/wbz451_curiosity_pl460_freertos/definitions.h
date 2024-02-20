@@ -48,7 +48,6 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "crypto/crypto.h"
 #include "service/pcoup/srv_pcoup.h"
 #include "stack/g3/pal/plc/pal_plc.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt_definitions.h"
@@ -70,8 +69,8 @@
 #include "stack/g3/adaptation/lbp_defs.h"
 #include "stack/g3/adaptation/lbp_coord.h"
 #include "peripheral/tc/plib_tc0.h"
-#include "system/time/sys_time.h"
 #include "peripheral/nvm/plib_nvm.h"
+#include "system/time/sys_time.h"
 #include "service/log_report/srv_log_report.h"
 #include "driver/IEEE_802154_PHY/phy/inc/phy.h"
 #include "driver/IEEE_802154_PHY/phy/inc/phy_tasks.h"
@@ -149,10 +148,12 @@
 #include "peripheral/cmcc/plib_cmcc.h"
 #include "peripheral/eic/plib_eic.h"
 #include "service/pcrc/srv_pcrc.h"
-#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
 #include "stack/g3/pal/rf/pal_rf.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
+//KEEP THIS - Not used for now
+//#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
+//#include "crypto/crypto.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "stack/g3/net/macg3adp/drv_mac_g3adp.h"

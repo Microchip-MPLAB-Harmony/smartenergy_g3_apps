@@ -153,6 +153,12 @@ extern "C" {
 #define PAL_RF_PHY_INDEX                      0U
 
 
+/*** Crypto Library Configuration ***/
+
+//Crypto V4 Common Crypto API - WolfCrypt Library Support
+#define CRYPTO_V4_API
+#define CRYPTO_WOLFCRYPT_SUPPORT_ENABLE
+
 
 
 // *****************************************************************************
@@ -209,7 +215,7 @@ extern "C" {
 
 
 #define TCPIP_IPV6_NDP_MAX_RTR_SOLICITATION_DELAY 	1
-#define TCPIP_IPV6_NDP_RTR_SOLICITATION_INTERVAL 	20
+#define TCPIP_IPV6_NDP_RTR_SOLICITATION_INTERVAL 	4
 #define TCPIP_IPV6_NDP_MAX_RTR_SOLICITATIONS 		3
 #define TCPIP_IPV6_NDP_MAX_MULTICAST_SOLICIT 		3
 #define TCPIP_IPV6_NDP_MAX_UNICAST_SOLICIT 			3
@@ -344,6 +350,13 @@ extern "C" {
 
 
 /*** wolfCrypt Library Configuration ***/
+
+//configuration.h included in config.h and user_settings.h allowing these
+//files to configure WolfSSL library
+//--WolfSSL project defines to use these files are WOLFSSL_USER_SETTINGS and
+//  HAVE_CONFIG_H
+
+/*** wolfCrypt Library Configuration ***/
 #define MICROCHIP_PIC32
 #define MICROCHIP_MPLAB_HARMONY
 #define MICROCHIP_MPLAB_HARMONY_3
@@ -353,14 +366,35 @@ extern "C" {
 #define NO_WRITEV
 #define NO_FILESYSTEM
 #define USE_FAST_MATH
+#define NO_INLINE 
+
+
+//Math Model Defines
+#define WOLFSSL_SP_MAT   H   //Using this to declare wolfmath functions: 
+                                  //mp_reverse used by fp_to_unsigned_bin (tfm.c)
+                                  //get_digit_count,get_digit in ecc.c 
+#define WOLFSSL_HAVE_SP_RSA  //Needed when WOFSSL_SP_MATH defined
+#define WOLFSSL_SP_NO_256    //To prevent usage of SP functions defined by this: 
+                                  //    #if defined(HAVE_FIPS_VERSION) && HAVE_FIPS_VERSION == 2 
+                                  //    && ( defined(WOLFSSL_SP_ARM32_ASM) || defined(WOLFSSL_SP_ARM64_ASM) ) 
+//#define WOLFSSL_SP_ARM32_ASM   //Dependent on MCU Arch.
+
+
 #define NO_PWDBASED
-#define HAVE_MCAPI
-#define WOLF_CRYPTO_CB  // provide call-back support
+//#define WOLF_CRYPTO_CB  // provide call-back support if this is disable then its does not use callback from Wolfcrypt
 #define WOLFCRYPT_ONLY
+
 // ---------- FUNCTIONAL CONFIGURATION START ----------
 #define WOLFSSL_AES_SMALL_TABLES
 #define NO_MD4
 #define WOLFSSL_SHA224
+#define WOLFSSL_SHA384
+#define WOLFSSL_SHA512
+#define HAVE_SHA512
+#define WOLFSSL_SHA3
+#define HAVE_BLAKE2
+#define WOLFSSL_RIPEMD
+#define NO_HMAC
 #define WOLFSSL_AES_128
 #define WOLFSSL_AES_192
 #define WOLFSSL_AES_256
@@ -369,25 +403,70 @@ extern "C" {
 #define HAVE_AES_ECB
 #define HAVE_AES_CBC
 #define WOLFSSL_AES_COUNTER
+#define WOLFSSL_AES_CFB
 #define WOLFSSL_AES_OFB
 #define HAVE_AESGCM
+#define WOLFSSL_AES_XTS
 #define HAVE_AESCCM
 #define WOLFSSL_CMAC
-#define NO_RC4
-#define NO_HC128
-#define NO_RABBIT
+#define HAVE_CAMELLIA
+#define HAVE_IDEA
+#define HAVE_HC128
+#define HAVE_RABBIT
+
 #define HAVE_ECC
-#define NO_DH
+#define HAVE_ECC_KEY_EXPORT    //Required for WOLFCRYPT_HAVE_ECCSI
+#define HAVE_X963_KDF
+#define ECC_SHAMIR
+#define WOLFSSL_CUSTOM_CURVES
+#define HAVE_CURVE25519
+#define HAVE_ED25519
+#define FP_ECC
+#define HAVE_ECC521    //ECC_MAX_BITS
+
+
+//#define HAVE_DH
+//#define WOLFSSL_HAVE_SP_DH
+    
+#define HAVE_ANON
+#define WOLFSSL_OLD_PRIME_CHECK
 #define NO_DSA
 #define FP_MAX_BITS 4096
 #define USE_CERT_BUFFERS_2048
+#define WOLFSSL_RSA_PUBLIC_ONLY
+#define WC_RSA_PSS
+#define WOLFSSL_STATIC_RSA
 #define NO_DEV_RANDOM
 #define HAVE_HASHDRBG
-#define WC_NO_HARDEN
+#define WC_NO_HARDEN //why this is used
 #define SINGLE_THREADED
-#define NO_SIG_WRAPPER
 #define NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY
+// ---------- FUNCTIONAL CONFIGURATION END ----------
+//********************************************************
+//#define WOLFSSL_SHAKE128  //Manually Commented, Not supported by Wolfcrypt
+#define WOLFSSL_SHAKE256 //Manually Added
+#define HAVE_BLAKE2S     //manually added
+#define HAVE_BLAKE2B     //manually added
+#define HAVE_CHACHA      //manually Added   
+#define HAVE_AES_KEYWRAP //manually added
+#define HAVE_ECC_DHE     //manually added
+#define WOLFCRYPT_HAVE_ECCSI //manually added
+#define WOLFSSL_AES_EAX //manually added
+//*********************************************************
+
+
+//*********************************************************
+//#define WC_NO_RNG //when using RNG
+//#define WC_NO_HASHDRBG
+//#define HAVE_ECC_ENCRYPT
+//#define NO_RSA
+//#define NO_DH
+//#define NO_SIG_WRAPPER
+//#define NO_RSA  
+//**********************************************************
+
+
 // ---------- FUNCTIONAL CONFIGURATION END ----------
 
 #define TCPIP_STACK_NETWORK_INTERAFCE_COUNT  	1

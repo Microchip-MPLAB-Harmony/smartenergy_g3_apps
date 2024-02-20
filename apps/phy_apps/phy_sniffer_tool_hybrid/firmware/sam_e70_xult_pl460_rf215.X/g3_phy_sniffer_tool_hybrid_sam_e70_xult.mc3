@@ -1,4 +1,4 @@
-<config configName="sam_e70_xult_pl460_rf215" projectName="g3_phy_sniffer_tool_hybrid_sam_e70_xult" configVersion="1.1" device="ATSAME70Q21B" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.6.1">
+<config configName="sam_e70_xult_pl460_rf215" projectName="g3_phy_sniffer_tool_hybrid_sam_e70_xult" configVersion="1.1" device="ATSAME70Q21B" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.0">
    <usedPackages class="java.util.ArrayList">
       <package packageName="bsp" version="3.13.0" contentType="HARMONY">
          <modules class="java.util.ArrayList"/>
@@ -106,7 +106,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.4.1"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.5.1"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -4719,11 +4719,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\configuration.h</file>
-         <hash>3a232bee6f32db17940f66b40f34420bbe68782e62381242ac9e9b9530dc7955</hash>
+         <hash>83ae3e1442ffc30a5b8bfce8954f609aaf43b0f6d9e8e51ed04f3981131173c8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\definitions.h</file>
-         <hash>0675babe495770fe042620461822bf9cc9a6806041c0fe669afcc6951f4a1972</hash>
+         <hash>5b403f92219c9373817eb5d61334539f95eb9725e1f5204fbc2eccdb0ebab235</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\device.h</file>

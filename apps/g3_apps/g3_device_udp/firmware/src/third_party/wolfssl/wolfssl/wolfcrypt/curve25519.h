@@ -1,6 +1,6 @@
 /* curve25519.h
  *
- * Copyright (C) 2006-2021 wolfSSL Inc.
+ * Copyright (C) 2006-2023 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
@@ -61,9 +61,9 @@ typedef struct {
 /* ECC point, the internal structure is Little endian
  * the mathematical functions used the endianness */
 typedef struct ECPoint {
-    byte point[CURVE25519_KEYSIZE];
+    ALIGN16 byte point[CURVE25519_KEYSIZE];
 #ifdef FREESCALE_LTC_ECC
-    byte pointY[CURVE25519_KEYSIZE];
+    ALIGN16 byte pointY[CURVE25519_KEYSIZE];
 #endif
     byte pointSz;
 } ECPoint;
@@ -80,18 +80,20 @@ struct curve25519_key {
                            curve in dp */
     const curve25519_set_type* dp;   /* domain parameters, either points to
                                    curves (idx >= 0) or user supplied */
-    ECPoint   p;                     /* public point for key  */
-    byte      k[CURVE25519_KEYSIZE]; /* private scaler for key */
+    ECPoint      p;                     /* public point for key  */
+    ALIGN16 byte k[CURVE25519_KEYSIZE]; /* private scaler for key */
 
 #ifdef WOLFSSL_ASYNC_CRYPT
     WC_ASYNC_DEV asyncDev;
 #endif
 #if defined(WOLF_CRYPTO_CB)
+    void* devCtx;
     int devId;
 #endif
 
 #ifdef WOLFSSL_SE050
-    int keyId;
+    word32 keyId;
+    byte   keyIdSet;
 #endif
 
     /* bit fields */

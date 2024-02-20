@@ -1,6 +1,6 @@
 /* error-crypt.h
  *
- * Copyright (C) 2006-2021 wolfSSL Inc.
+ * Copyright (C) 2006-2023 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
@@ -33,11 +33,6 @@ the error status.
 
 #include <wolfssl/wolfcrypt/types.h>
 
-#if defined(HAVE_FIPS) && \
-    (!defined(HAVE_FIPS_VERSION) || (HAVE_FIPS_VERSION < 2))
-    #include <cyassl/ctaocrypt/error-crypt.h>
-#endif /* HAVE_FIPS V1 */
-
 #ifdef __cplusplus
     extern "C" {
 #endif
@@ -54,7 +49,7 @@ enum {
     BAD_MUTEX_E        = -106,  /* Bad mutex operation */
     WC_TIMEOUT_E       = -107,  /* timeout error */
     WC_PENDING_E       = -108,  /* wolfCrypt operation pending (would block) */
-    WC_NOT_PENDING_E   = -109,  /* wolfCrypt operation not pending */
+    WC_NO_PENDING_E    = -109,  /* no asynchronous operation pending */
 
     MP_INIT_E          = -110,  /* mp_init error state */
     MP_READ_E          = -111,  /* mp_read error state */
@@ -69,8 +64,17 @@ enum {
     MP_CMP_E           = -120,  /* mp_cmp error state */
     MP_ZERO_E          = -121,  /* got a mp zero result, not expected */
 
+    AES_EAX_AUTH_E     = -122, /* AES-EAX Authentication check failure */
+    KEY_EXHAUSTED_E    = -123, /* No longer usable for operation. */
+
+    /* -124 unused. */
+
     MEMORY_E           = -125,  /* out of memory error */
     VAR_STATE_CHANGE_E = -126,  /* var state modified by different thread */
+    FIPS_DEGRADED_E    = -127,  /* FIPS Module in degraded mode */
+
+    /* -128 unused. */
+    /* -129 unused. */
 
     RSA_WRONG_TYPE_E   = -130,  /* RSA wrong block type for RSA function */
     RSA_BUFFER_E       = -131,  /* RSA buffer error, output too small or
@@ -103,9 +107,12 @@ enum {
     ASN_SIG_HASH_E     = -156,  /* ASN sig error, unsupported hash type */
     ASN_SIG_KEY_E      = -157,  /* ASN sig error, unsupported key type */
     ASN_DH_KEY_E       = -158,  /* ASN key init error, invalid input */
+    /* -159 unused. */
     ASN_CRIT_EXT_E     = -160,  /* ASN unsupported critical extension */
     ASN_ALT_NAME_E     = -161,  /* ASN alternate name error */
     ASN_NO_PEM_HEADER  = -162,  /* ASN no PEM header found */
+
+    /* -163..-169 unused. */
 
     ECC_BAD_ARG_E      = -170,  /* ECC input argument of wrong type */
     ASN_ECC_KEY_E      = -171,  /* ASN ECC bad input */
@@ -184,6 +191,8 @@ enum {
     SIG_TYPE_E          = -231,  /* Signature Type not enabled/available */
     HASH_TYPE_E         = -232,  /* Hash Type not enabled/available */
 
+    /* -233 unused. */
+
     WC_KEY_SIZE_E       = -234,  /* Key size error, either too small or large */
     ASN_COUNTRY_SIZE_E  = -235,  /* ASN Cert Gen, invalid country code size */
     MISSING_RNG_E       = -236,  /* RNG required but not provided */
@@ -240,17 +249,30 @@ enum {
     BAD_LENGTH_E        = -279,  /* Value of length parameter is invalid. */
     ECDSA_KAT_FIPS_E    = -280,  /* ECDSA KAT failure */
     RSA_PAT_FIPS_E      = -281,  /* RSA Pairwise failure */
-    KDF_TLS12_KAT_FIPS_E = -282,  /* TLS12 KDF KAT failure */
-    KDF_TLS13_KAT_FIPS_E = -283,  /* TLS13 KDF KAT failure */
+    KDF_TLS12_KAT_FIPS_E = -282, /* TLS12 KDF KAT failure */
+    KDF_TLS13_KAT_FIPS_E = -283, /* TLS13 KDF KAT failure */
     KDF_SSH_KAT_FIPS_E  = -284,  /* SSH KDF KAT failure */
     DHE_PCT_E           = -285,  /* DHE Pairwise Consistency Test failure */
     ECC_PCT_E           = -286,  /* ECDHE Pairwise Consistency Test failure */
     FIPS_PRIVATE_KEY_LOCKED_E = -287, /* Cannot export private key. */
     PROTOCOLCB_UNAVAILABLE  = -288, /* Protocol callback unavailable */
-    AES_SIV_AUTH_E = -289, /* AES-SIV authentication failed */
-    NO_VALID_DEVID = -290, /* no valid device ID */
+    AES_SIV_AUTH_E      = -289,  /* AES-SIV authentication failed */
+    NO_VALID_DEVID      = -290,  /* no valid device ID */
 
-    WC_LAST_E           = -290,  /* Update this to indicate last error */
+    IO_FAILED_E         = -291,  /* Input/output failure */
+    SYSLIB_FAILED_E     = -292,  /* System/library call failed */
+    USE_HW_PSK          = -293,  /* Callback return to indicate HW has PSK */
+
+    ENTROPY_RT_E        = -294,  /* Entropy Repetition Test failed */
+    ENTROPY_APT_E       = -295,  /* Entropy Adaptive Proportion Test failed */
+
+    ASN_DEPTH_E         = -296,  /* Invalid ASN.1 - depth check */
+    ASN_LEN_E           = -297,  /* ASN.1 length invalid */
+
+    SM4_GCM_AUTH_E      = -298,  /* SM4-GCM Authentication check failure */
+    SM4_CCM_AUTH_E      = -299,  /* SM4-CCM Authentication check failure */
+
+    WC_LAST_E           = -299,  /* Update this to indicate last error */
     MIN_CODE_E          = -300   /* errors -101 - -299 */
 
     /* add new companion error id strings for any new error codes
@@ -266,7 +288,7 @@ enum {
 
 #else
 WOLFSSL_API void wc_ErrorString(int err, char* buff);
-WOLFSSL_API const char* wc_GetErrorString(int error);
+WOLFSSL_ABI WOLFSSL_API const char* wc_GetErrorString(int error);
 #endif
 
 #ifdef __cplusplus

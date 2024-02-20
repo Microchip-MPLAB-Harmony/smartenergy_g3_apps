@@ -4,13 +4,13 @@
 
 
 project: phy_sniffer_tool
-creation_date: 2024-02-15T14:03:16.333+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2024-02-19T17:18:52.513+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: Headless            # [IDE|Standalone|Headless]
-mcc_version: v5.4.1
-mcc_core_version: v5.6.1
+mcc_version: v5.5.0
+mcc_core_version: v5.7.0
 mplabx_version: NA        # if MPLAB X plugin only
-harmony_version: v1.4.1
+harmony_version: v1.5.1
 compiler: NA
 
 modules:
@@ -18,7 +18,7 @@ modules:
     - {name: "core", version: "master"}
     - {name: "CMSIS_5", version: "5.9.0"}
     - {name: "usb", version: "dev"}
-    - {name: "smartenergy", version: "SMS-3818-check-headers-readmes-and-release-notes"}
+    - {name: "smartenergy", version: "SMS-3793-adapt-security-service-to-crypto-v4"}
     - {name: "bsp", version: "master"}
 
 packs:

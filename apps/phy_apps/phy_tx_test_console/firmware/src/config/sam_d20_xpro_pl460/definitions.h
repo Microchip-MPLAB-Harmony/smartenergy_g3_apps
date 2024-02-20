@@ -48,8 +48,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "peripheral/sercom/usart/plib_sercom3_usart.h"
 #include "service/pcoup/srv_pcoup.h"
+#include "peripheral/sercom/usart/plib_sercom3_usart.h"
 #include "peripheral/nvmctrl/plib_nvmctrl.h"
 #include "peripheral/sercom/spi_master/plib_sercom0_spi_master.h"
 #include "peripheral/evsys/plib_evsys.h"
@@ -61,10 +61,10 @@
 #include "peripheral/adc/plib_adc.h"
 #include "peripheral/eic/plib_eic.h"
 #include "peripheral/tc/plib_tc0.h"
-#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
+#include "system/time/sys_time.h"
 #include "driver/memory/drv_memory_nvmctrl.h"
 #include "bsp/bsp.h"
 #include "service/pvddmon/srv_pvddmon.h"
@@ -207,9 +207,9 @@ Remarks:
 
 typedef struct
 {
-    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ drvPlcPhy;
+    SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  drvMemory0;
     SYS_MODULE_OBJ  sysConsole0;
 

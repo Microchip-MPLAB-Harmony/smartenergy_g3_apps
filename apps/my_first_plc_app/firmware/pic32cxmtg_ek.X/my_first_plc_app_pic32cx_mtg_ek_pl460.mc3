@@ -1,4 +1,4 @@
-<config configName="pic32cxmtg" projectName="my_first_plc_app_pic32cx_mtg_ek_pl460" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.6.1">
+<config configName="pic32cxmtg" projectName="my_first_plc_app_pic32cx_mtg_ek_pl460" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.0">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -63,7 +63,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.4.1"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.5.1"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -18774,7 +18774,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\definitions.h</file>
-         <hash>2e47915b335a8b0ddbe0568cd7398a5ac8b13924c962142674c919da4cea70e8</hash>
+         <hash>6ac4833c58f3b0f4e97ee60064239e0ca4d0566477c3281bfba0fa3ff69b9af1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\device.h</file>

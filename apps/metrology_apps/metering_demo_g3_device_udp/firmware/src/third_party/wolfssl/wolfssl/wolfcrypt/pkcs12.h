@@ -1,6 +1,6 @@
 /* pkcs12.h
  *
- * Copyright (C) 2006-2021 wolfSSL Inc.
+ * Copyright (C) 2006-2023 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
@@ -43,7 +43,7 @@ typedef struct WC_DerCertList { /* dereferenced in ssl.c */
 enum {
     WC_PKCS12_ITT_DEFAULT = 2048,
     WC_PKCS12_VERSION_DEFAULT = 3,
-    WC_PKCS12_MAC_DEFAULT = 1,
+    WC_PKCS12_MAC_DEFAULT = 1
 };
 
 WOLFSSL_API WC_PKCS12* wc_PKCS12_new(void);

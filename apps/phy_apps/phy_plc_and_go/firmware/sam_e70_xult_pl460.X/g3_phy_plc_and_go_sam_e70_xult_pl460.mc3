@@ -1,4 +1,4 @@
-<config configName="sam_e70_xult_pl460" projectName="g3_phy_plc_and_go_sam_e70_xult_pl460" configVersion="1.1" device="ATSAME70Q21B" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.6.1">
+<config configName="sam_e70_xult_pl460" projectName="g3_phy_plc_and_go_sam_e70_xult_pl460" configVersion="1.1" device="ATSAME70Q21B" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.0">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -79,7 +79,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.4.1"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.5.1"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -6090,11 +6090,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\configuration.h</file>
-         <hash>fe906d988919e790dfb3b4e4cef718e816d9de0aa2304df826aac4e641bc6e38</hash>
+         <hash>f291eb8bb1f00ff82e0cf3feee763b958a8b4fcebb8c3291e9247804add72e71</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\definitions.h</file>
-         <hash>111d8fc52605a40b936aa556b8c659e9e8b717f767b45e6dc8b8c360997ad11e</hash>
+         <hash>d910e0baf8e8f3425a78589004954b2b071b2a10b08360b3cdf5bc2f47bc2b56</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\device.h</file>

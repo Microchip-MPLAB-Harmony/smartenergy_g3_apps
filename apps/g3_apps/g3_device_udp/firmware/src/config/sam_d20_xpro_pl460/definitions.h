@@ -48,7 +48,6 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "crypto/crypto.h"
 #include "service/pcoup/srv_pcoup.h"
 #include "peripheral/nvmctrl/plib_nvmctrl.h"
 #include "stack/g3/pal/plc/pal_plc.h"
@@ -87,10 +86,12 @@
 #include "peripheral/nvic/plib_nvic.h"
 #include "peripheral/wdt/plib_wdt.h"
 #include "peripheral/eic/plib_eic.h"
-#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
 #include "service/pvddmon/srv_pvddmon.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
+//KEEP THIS - Not used for now
+//#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
+//#include "crypto/crypto.h"
 #include "stack/g3/net/macg3adp/drv_mac_g3adp.h"
 #include "app_g3_management.h"
 #include "app_udp_responder.h"

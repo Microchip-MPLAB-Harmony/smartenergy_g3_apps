@@ -1,6 +1,6 @@
 /* arc4.h
  *
- * Copyright (C) 2006-2021 wolfSSL Inc.
+ * Copyright (C) 2006-2023 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
@@ -39,7 +39,7 @@
 enum {
     ARC4_ENC_TYPE   = 4,    /* cipher unique type */
     ARC4_STATE_SIZE = 256,
-    RC4_KEY_SIZE    = 16,   /* always 128bit */
+    RC4_KEY_SIZE    = 16    /* always 128bit */
 };
 
 /* ARC4 encryption and decryption */

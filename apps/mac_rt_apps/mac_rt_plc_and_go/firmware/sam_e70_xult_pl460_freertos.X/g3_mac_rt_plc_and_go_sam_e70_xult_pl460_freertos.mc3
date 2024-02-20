@@ -1,4 +1,4 @@
-<config configName="sam_e70_xult_pl460_freertos" projectName="g3_mac_rt_plc_and_go_sam_e70_xult_pl460_freertos" configVersion="1.1" device="ATSAME70Q21B" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.6.1">
+<config configName="sam_e70_xult_pl460_freertos" projectName="g3_mac_rt_plc_and_go_sam_e70_xult_pl460_freertos" configVersion="1.1" device="ATSAME70Q21B" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.0">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -87,7 +87,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.4.1"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.5.1"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -7527,11 +7527,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\configuration.h</file>
-         <hash>4de731e297f16ef9b019ea5becad06c6ccf2b81c53f2311d8369e0a79eaa34ed</hash>
+         <hash>11fcff983c5cabe9d72188983c828b72c87dc29f2f9c7d5dbd73d8547e7492bc</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\definitions.h</file>
-         <hash>b20eecf606462237ff6ab336ac2d409039aed5855e800f8aac645759f7fa414c</hash>
+         <hash>259c448cb21cad0b6480da317a740a3f5442f963cbdda7a077bb6dd980fca595</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\device.h</file>

@@ -1,6 +1,6 @@
 /* poly1305.h
  *
- * Copyright (C) 2006-2021 wolfSSL Inc.
+ * Copyright (C) 2006-2023 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
@@ -48,7 +48,7 @@
 #define WC_HAS_GCC_4_4_64BIT
 #endif
 
-#ifdef USE_INTEL_SPEEDUP
+#if defined(WOLFSSL_X86_64_BUILD) && defined(USE_INTEL_SPEEDUP)
 #elif (defined(WC_HAS_SIZEOF_INT128_64BIT) || defined(WC_HAS_MSVC_64BIT) ||  \
        defined(WC_HAS_GCC_4_4_64BIT))
 #define POLY130564
@@ -59,7 +59,7 @@
 enum {
     POLY1305 = 7,
     POLY1305_BLOCK_SIZE = 16,
-    POLY1305_DIGEST_SIZE = 16,
+    POLY1305_DIGEST_SIZE = 16
 };
 
 #define WC_POLY1305_PAD_SZ 16
@@ -67,7 +67,7 @@ enum {
 
 /* Poly1305 state */
 typedef struct Poly1305 {
-#ifdef USE_INTEL_SPEEDUP
+#if defined(WOLFSSL_X86_64_BUILD) && defined(USE_INTEL_SPEEDUP)
     word64 r[3];
     word64 h[3];
     word64 pad[2];

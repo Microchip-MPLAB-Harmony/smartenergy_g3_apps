@@ -395,9 +395,9 @@ void SYS_Initialize ( void* data )
 
 
 
-    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
+    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  
@@ -428,6 +428,10 @@ void SYS_Initialize ( void* data )
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
+    /* Crypto Callback initialize */
+    //CRYPT_WCCB_Initialize();
+
+
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
         
@@ -445,7 +449,6 @@ void SYS_Initialize ( void* data )
     /* Initialize G3 ADP Serialization Instance */
     sysObj.g3AdpSerial = ADP_SERIAL_Initialize(G3_ADP_SERIAL_INDEX_0);
 
-    CRYPT_WCCB_Initialize();
 
     /* MISRAC 2012 deviation block end */
     APP_Initialize();

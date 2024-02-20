@@ -48,7 +48,6 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "crypto/crypto.h"
 #include "service/pcoup/srv_pcoup.h"
 #include "stack/g3/pal/plc/pal_plc.h"
 #include "driver/memory/drv_memory.h"
@@ -104,7 +103,6 @@
 #include "driver/sst26/drv_sst26.h"
 #include "peripheral/sefc/plib_sefc0.h"
 #include "peripheral/sefc/plib_sefc1.h"
-#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
 #include "peripheral/qspi/plib_qspi.h"
 #include "stack/g3/pal/rf/pal_rf.h"
 #include "system/fs/sys_fs.h"
@@ -116,6 +114,9 @@
 #include "service/pvddmon/srv_pvddmon.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
+//KEEP THIS - Not used for now
+//#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
+//#include "crypto/crypto.h"
 #include "gfx/driver/controller/slcdc/cl010.h"
 #include "FreeRTOS.h"
 #include "task.h"

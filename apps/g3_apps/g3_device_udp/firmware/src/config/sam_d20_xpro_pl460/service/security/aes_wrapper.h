@@ -62,90 +62,48 @@ Microchip or any third party.
 
 //******************************************************************************
 /* Function:
-    void AES_Wrapper_ContextInit(void)
+    void AES_Wrapper_SetEncryptEcbKey(uint8_t *key)
 
   Summary:
-    Initializes AES context.
+    Sets the key for further AES ECB encryption.
 
   Description:
-    This function intializes AES context setting it to all zeros.
+    This function sets the 16-byte key for further AES ECB encryption.
 
   Precondition:
     None.
 
   Parameters:
-    None.
+    key - Pointer to buffer holding the 16-byte key itself.
 
   Returns:
     None.
 
   Example:
     <code>
-    uint8_t in1[CRYPT_AES_BLOCK_SIZE];
-    uint8_t out1[CRYPT_AES_BLOCK_SIZE];
-    uint8_t key[] = { some 16, 24, or 32 byte key };
-
-    AES_Wrapper_ContextInit();
-    AES_Wrapper_KeySet(key, sizeof(key));
-    AES_Wrapper_Encrypt(in1, out1);
-    AES_Wrapper_ContextFree();
+    uint8_t key[16];
+    AES_Wrapper_SetEncryptEcbKey(key);
     </code>
 
   Remarks:
     None.
 */
 
-void AES_Wrapper_ContextInit(void);
+void AES_Wrapper_SetEncryptEcbKey(uint8_t *key);
 
 //******************************************************************************
 /* Function:
-    void AES_Wrapper_ContextFree(void)
+    void AES_Wrapper_EncryptEcb(uint8_t *in, uint8_t *out)
 
   Summary:
-    Frees AES context.
+    Encrypts one block of data in AES ECB mode.
 
   Description:
-    This function frees AES context setting it to all zeros.
+    This function encrypts one block of data, equal to the AES block size (16
+    bytes), in ECB mode.
 
   Precondition:
-    None.
-
-  Parameters:
-    None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    uint8_t in1[CRYPT_AES_BLOCK_SIZE];
-    uint8_t out1[CRYPT_AES_BLOCK_SIZE];
-    uint8_t key[] = { some 16, 24, or 32 byte key };
-
-    AES_Wrapper_ContextInit();
-    AES_Wrapper_KeySet(key, sizeof(key));
-    AES_Wrapper_Encrypt(in1, out1);
-    AES_Wrapper_ContextFree();
-    </code>
-
-  Remarks:
-    None.
-*/
-
-void AES_Wrapper_ContextFree(void);
-
-//******************************************************************************
-/* Function:
-    void AES_Wrapper_Encrypt(const uint8_t *in, uint8_t *out)
-
-  Summary:
-    Encrypts one block of data.
-
-  Description:
-    This function encrypts one block of data, equal to the AES block size.
-
-  Precondition:
-    Key must be set earlier with a call to AES_Wrapper_KeySet.
+    Key must be set earlier with a call to AES_Wrapper_SetEncryptEcbKey.
 
   Parameters:
     in  - Pointer to buffer where the data to encrypt is located.
@@ -156,158 +114,19 @@ void AES_Wrapper_ContextFree(void);
 
   Example:
     <code>
-    uint8_t in1[CRYPT_AES_BLOCK_SIZE];
-    uint8_t out1[CRYPT_AES_BLOCK_SIZE];
-    uint8_t key[] = { some 16, 24, or 32 byte key };
+    uint8_t in1[16];
+    uint8_t out1[16];
+    uint8_t key[16];
 
-    AES_Wrapper_KeySet(key, sizeof(key));
-    AES_Wrapper_Encrypt(in1, out1);
-    </code>
-
-  Remarks:
-    Input and output buffers must be equal in size (CRYPT_AES_BLOCK_SIZE).
-*/
-
-void AES_Wrapper_Encrypt(const uint8_t *in, uint8_t *out);
-
-//******************************************************************************
-/* Function:
-    void AES_Wrapper_Decrypt(const uint8_t *in, uint8_t *out)
-
-  Summary:
-    Decrypts one block of data.
-
-  Description:
-    This function decrypts one block of data, equal to the AES block size.
-
-  Precondition:
-    Key must be set earlier with a call to AES_Wrapper_KeySet.
-
-  Parameters:
-    in  - Pointer to buffer where the data to decrypt is located.
-    out - Pointer to buffer to store the results of the decryption.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    uint8_t in1[CRYPT_AES_BLOCK_SIZE];
-    uint8_t out1[CRYPT_AES_BLOCK_SIZE];
-    uint8_t key[] = { some 16, 24, or 32 byte key };
-
-    AES_Wrapper_KeySet(key, sizeof(key));
-    AES_Wrapper_Decrypt(in1, out1);
-    </code>
-
-  Remarks:
-    Input and output buffers must be equal in size (CRYPT_AES_BLOCK_SIZE).
-*/
-
-void AES_Wrapper_Decrypt(const uint8_t *in, uint8_t *out);
-
-//******************************************************************************
-/* Function:
-    void AES_Wrapper_KeySet(const uint8_t *key, uint32_t keyLen)
-
-  Summary:
-    Sets the key for further encryption and decryption.
-
-  Description:
-    This function sets the key for further encryption and decryption.
-
-  Precondition:
-    The crypto initialization routines should be called before calling this
-    routine (in "SYS_Initialize").
-
-  Parameters:
-    key    - Pointer to buffer holding the key itself.
-    keyLen - Length of key in bytes.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    uint8_t key[] = { some 16, 24, or 32 byte key };
-    AES_Wrapper_KeySet(key, sizeof(key));
-    </code>
-
-  Remarks:
-    None.
-*/
-
-void AES_Wrapper_KeySet(const uint8_t *key, uint32_t keyLen);
-
-//******************************************************************************
-/* Function:
-    void AES_Wrapper_SetEncryptKey(const uint8_t *key, uint32_t keyLen)
-
-  Summary:
-    Sets the key for further encryption.
-
-  Description:
-    This function sets the key for further encryption.
-
-  Precondition:
-    The crypto initialization routines should be called before calling this
-    routine (in "SYS_Initialize").
-
-  Parameters:
-    key     - Pointer to buffer holding the key itself.
-    keyBits - Length of key in bytes.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    uint8_t key[] = { some 16, 24, or 32 byte key };
-    AES_Wrapper_SetEncryptKey(key, sizeof(key));
-    </code>
-
-  Remarks:
-    None.
-*/
-
-void AES_Wrapper_SetEncryptKey(const uint8_t *key, uint32_t keyLen);
-
-//******************************************************************************
-/* Function:
-    void AES_Wrapper_EncryptEcb(const uint8_t *in, uint8_t *out)
-
-  Summary:
-    Encrypts one block of data in ECB mode.
-
-  Description:
-    This function encrypts one block of data, equal to the AES block size,
-    in ECB mode.
-
-  Precondition:
-    Key must be set earlier with a call to AES_Wrapper_SetEncryptKey.
-
-  Parameters:
-    in  - Pointer to buffer where the data to encrypt is located.
-    out - Pointer to buffer to store the results of the encryption.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    uint8_t in1[CRYPT_AES_BLOCK_SIZE];
-    uint8_t out1[CRYPT_AES_BLOCK_SIZE];
-    uint8_t key[] = { some 16, 24, or 32 byte key };
-
-    AES_Wrapper_SetEncryptKey(key, sizeof(key));
+    AES_Wrapper_SetEncryptEcbKey(key);
     AES_Wrapper_EncryptEcb(in1, out1);
     </code>
 
   Remarks:
-    Input and output buffers must be equal in size (CRYPT_AES_BLOCK_SIZE).
+    Input and output buffers must be equal in size (16 bytes).
 */
 
-void AES_Wrapper_EncryptEcb(const uint8_t *in, uint8_t *out);
+void AES_Wrapper_EncryptEcb(uint8_t *in, uint8_t *out);
 
 #ifdef __cplusplus // Provide C++ Compatibility
 }

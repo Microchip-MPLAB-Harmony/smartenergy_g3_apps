@@ -1,6 +1,6 @@
 /* rsa.h
  *
- * Copyright (C) 2006-2021 wolfSSL Inc.
+ * Copyright (C) 2006-2023 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
@@ -58,22 +58,9 @@ RSA keys can be used to encrypt, decrypt, sign and verify data.
     #define NO_RSA_BOUNDS_CHECK
 #endif
 
-/* allow for user to plug in own crypto */
-#if !defined(HAVE_FIPS) && (defined(HAVE_USER_RSA) || defined(HAVE_FAST_RSA))
-    #include "user_rsa.h"
-#else
+#include <wolfssl/wolfcrypt/wolfmath.h>
+#include <wolfssl/wolfcrypt/random.h>
 
-#if defined(HAVE_FIPS) && \
-        (!defined(HAVE_FIPS_VERSION) || (HAVE_FIPS_VERSION < 2))
-/* for fips @wc_fips */
-#include <cyassl/ctaocrypt/rsa.h>
-#if defined(CYASSL_KEY_GEN) && !defined(WOLFSSL_KEY_GEN)
-    #define WOLFSSL_KEY_GEN
-#endif
-#else
-    #include <wolfssl/wolfcrypt/integer.h>
-    #include <wolfssl/wolfcrypt/random.h>
-#endif /* HAVE_FIPS && HAVE_FIPS_VERION 1 */
 #if defined(HAVE_FIPS) && \
         defined(HAVE_FIPS_VERSION) && (HAVE_FIPS_VERSION >= 2)
 #include <wolfssl/wolfcrypt/fips.h>
@@ -83,7 +70,11 @@ RSA keys can be used to encrypt, decrypt, sign and verify data.
 #include <wolfssl/wolfcrypt/hash.h>
 
 #ifdef WOLFSSL_XILINX_CRYPT
-#include "xsecure_rsa.h"
+#ifdef WOLFSSL_XILINX_CRYPT_VERSAL
+#include <wolfssl/wolfcrypt/port/xilinx/xil-versal-glue.h>
+#else
+#include <xsecure_rsa.h>
+#endif
 #endif
 
 #if defined(WOLFSSL_CRYPTOCELL)
@@ -98,6 +89,10 @@ RSA keys can be used to encrypt, decrypt, sign and verify data.
     #include <wolfssl/wolfcrypt/port/devcrypto/wc_devcrypto.h>
 #endif
 
+#if defined(WOLFSSL_RENESAS_FSPSM)
+    #include <wolfssl/wolfcrypt/port/renesas/renesas-fspsm-crypt.h>
+#endif
+
 #ifdef __cplusplus
     extern "C" {
 #endif
@@ -107,7 +102,27 @@ RSA keys can be used to encrypt, decrypt, sign and verify data.
 #endif
 
 #ifndef RSA_MAX_SIZE
-#define RSA_MAX_SIZE 4096
+    #ifdef USE_FAST_MATH
+        /* FP implementation support numbers up to FP_MAX_BITS / 2 bits. */
+        #define RSA_MAX_SIZE    (FP_MAX_BITS / 2)
+        #if defined(WOLFSSL_MYSQL_COMPATIBLE) && RSA_MAX_SIZE < 8192
+            #error "MySQL needs FP_MAX_BITS at least at 16384"
+        #endif
+    #elif defined(WOLFSSL_SP_MATH_ALL) || defined(WOLFSSL_SP_MATH)
+        /* SP implementation supports numbers of SP_INT_BITS bits. */
+        #define RSA_MAX_SIZE    (((SP_INT_BITS + 7) / 8) * 8)
+        #if defined(WOLFSSL_MYSQL_COMPATIBLE) && RSA_MAX_SIZE < 8192
+            #error "MySQL needs SP_INT_BITS at least at 8192"
+        #endif
+    #else
+        #ifdef WOLFSSL_MYSQL_COMPATIBLE
+            /* Integer maths is dynamic but we only go up to 8192 bits. */
+            #define RSA_MAX_SIZE 8192
+        #else
+            /* Integer maths is dynamic but we only go up to 4096 bits. */
+            #define RSA_MAX_SIZE 4096
+        #endif
+    #endif
 #endif
 
 /* avoid redefinition of structs */
@@ -156,6 +171,8 @@ enum {
     RSA_MAX_ID_LEN      = 32,
     RSA_MAX_LABEL_LEN   = 32,
 #endif
+
+    WOLF_ENUM_DUMMY_LAST_ELEMENT(RSA)
 };
 
 #ifdef WC_RSA_NONBLOCK
@@ -182,8 +199,16 @@ struct RsaKey {
 #ifdef WC_RSA_BLINDING
     WC_RNG* rng;                              /* for PrivateDecrypt blinding */
 #endif
+#ifdef WOLFSSL_SE050
+    word32 keyId;
+    byte   keyIdSet;
+#endif
 #ifdef WOLF_CRYPTO_CB
+    void* devCtx;
     int   devId;
+#endif
+#if defined(HAVE_PKCS11)
+    byte isPkcs11 : 1; /* indicate if PKCS11 is preferred */
 #endif
 #ifdef WOLFSSL_ASYNC_CRYPT
     WC_ASYNC_DEV asyncDev;
@@ -194,7 +219,12 @@ struct RsaKey {
 #ifdef WOLFSSL_XILINX_CRYPT
     word32 pubExp; /* to keep values in scope they are here in struct */
     byte*  mod;
+#if defined(WOLFSSL_XILINX_CRYPT_VERSAL)
+    int mSz;
+    wc_Xsecure xSec;
+#else
     XSecure_Rsa xRsa;
+#endif
 #endif
 #if defined(WOLFSSL_KCAPI_RSA)
     struct kcapi_handle* handle;
@@ -225,6 +255,9 @@ struct RsaKey {
 #if defined(WOLFSSL_DEVCRYPTO_RSA)
     WC_CRYPTODEV ctx;
 #endif
+#if defined(WOLFSSL_RENESAS_FSPSM)
+    FSPSM_RSA_CTX ctx;
+#endif
 };
 
 #ifndef WC_RSAKEY_TYPE_DEFINED
@@ -247,6 +280,10 @@ WOLFSSL_API int  wc_CheckRsaKey(RsaKey* key);
 #ifdef WOLFSSL_XILINX_CRYPT
 WOLFSSL_LOCAL int wc_InitRsaHw(RsaKey* key);
 #endif /* WOLFSSL_XILINX_CRYPT */
+#ifdef WOLFSSL_SE050
+WOLFSSL_API int wc_RsaUseKeyId(RsaKey* key, word32 keyId, word32 flags);
+WOLFSSL_API int wc_RsaGetKeyId(RsaKey* key, word32* keyId);
+#endif /* WOLFSSL_SE050 */
 
 WOLFSSL_API int  wc_RsaFunction(const byte* in, word32 inLen, byte* out,
                            word32* outLen, int type, RsaKey* key, WC_RNG* rng);
@@ -315,12 +352,17 @@ WOLFSSL_API int  wc_RsaEncryptSize(const RsaKey* key);
 /* to avoid asn duplicate symbols @wc_fips */
 WOLFSSL_API int  wc_RsaPrivateKeyDecode(const byte* input, word32* inOutIdx,
                                         RsaKey* key, word32 inSz);
+#if !defined(HAVE_FIPS) || \
+        (defined(HAVE_FIPS_VERSION) && (HAVE_FIPS_VERSION > 2))
+WOLFSSL_API int  wc_RsaPrivateKeyValidate(const byte* input, word32* inOutIdx,
+                                          int* keySz, word32 inSz);
+#endif
 WOLFSSL_API int  wc_RsaPublicKeyDecode(const byte* input, word32* inOutIdx,
                                        RsaKey* key, word32 inSz);
 WOLFSSL_API int  wc_RsaPublicKeyDecodeRaw(const byte* n, word32 nSz,
                                         const byte* e, word32 eSz, RsaKey* key);
 #if defined(WOLFSSL_KEY_GEN) || defined(OPENSSL_EXTRA) || \
-        defined(WOLFSSL_KCAPI_RSA)
+        defined(WOLFSSL_KCAPI_RSA) || defined(WOLFSSL_SE050)
     WOLFSSL_API int wc_RsaKeyToDer(RsaKey* key, byte* output, word32 inLen);
 #endif
 
@@ -402,8 +444,8 @@ WOLFSSL_LOCAL int wc_RsaUnPad_ex(byte* pkcsBlock, word32 pkcsBlockLen, byte** ou
                                    int bits, void* heap);
 
 WOLFSSL_LOCAL int wc_hash2mgf(enum wc_HashType hType);
-
-#endif /* HAVE_USER_RSA */
+WOLFSSL_LOCAL int RsaFunctionCheckIn(const byte* in, word32 inLen, RsaKey* key,
+    int checkSmallCt);
 
 #ifdef __cplusplus
     } /* extern "C" */

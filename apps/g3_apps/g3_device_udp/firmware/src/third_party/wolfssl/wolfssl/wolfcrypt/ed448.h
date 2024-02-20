@@ -1,6 +1,6 @@
 /* ed448.h
  *
- * Copyright (C) 2006-2021 wolfSSL Inc.
+ * Copyright (C) 2006-2023 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
@@ -69,7 +69,7 @@
 
 enum {
     Ed448    = 0,
-    Ed448ph  = 1,
+    Ed448ph  = 1
 };
 
 #ifndef WC_ED448KEY_TYPE_DEFINED
@@ -80,7 +80,7 @@ enum {
 /* An ED448 Key */
 struct ed448_key {
     byte    p[ED448_PUB_KEY_SIZE]; /* compressed public key */
-    byte    k[ED448_PRV_KEY_SIZE]; /* private key : 56 secret -- 56 public */
+    byte    k[ED448_PRV_KEY_SIZE]; /* private key : 57 secret -- 57 public */
 #ifdef FREESCALE_LTC_ECC
     /* uncompressed point coordinates */
     byte pointX[ED448_KEY_SIZE]; /* recovered X coordinate */
@@ -92,6 +92,7 @@ struct ed448_key {
     WC_ASYNC_DEV asyncDev;
 #endif
 #if defined(WOLF_CRYPTO_CB)
+    void* devCtx;
     int devId;
 #endif
     void *heap;

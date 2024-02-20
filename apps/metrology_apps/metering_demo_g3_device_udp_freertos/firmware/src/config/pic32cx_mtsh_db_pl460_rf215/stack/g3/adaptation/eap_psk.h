@@ -216,10 +216,7 @@ typedef struct
 
 // *****************************************************************************
 /* Function:
-    void EAP_PSK_Initialize(
-        const EAP_PSK_KEY *pKey,
-        EAP_PSK_CONTEXT *pPskContext
-        )
+    void EAP_PSK_Initialize(EAP_PSK_KEY *pKey, EAP_PSK_CONTEXT *pPskContext)
 
   Summary:
     Initializes EAP-PSK module.
@@ -249,15 +246,12 @@ typedef struct
   Remarks:
     None.
 */
-void EAP_PSK_Initialize(
-    const EAP_PSK_KEY *pKey,
-    EAP_PSK_CONTEXT *pPskContext
-    );
+void EAP_PSK_Initialize(EAP_PSK_KEY *pKey, EAP_PSK_CONTEXT *pPskContext);
 
 // *****************************************************************************
 /* Function:
     void EAP_PSK_InitializeTEKMSK(
-        const EAP_PSK_RAND *pRandP,
+        EAP_PSK_RAND *pRandP,
         EAP_PSK_CONTEXT *pPskContext
         )
 
@@ -292,7 +286,7 @@ void EAP_PSK_Initialize(
     None.
 */
 void EAP_PSK_InitializeTEKMSK(
-    const EAP_PSK_RAND *pRandP,
+    EAP_PSK_RAND *pRandP,
     EAP_PSK_CONTEXT *pPskContext
     );
 
@@ -424,12 +418,12 @@ bool EAP_PSK_DecodeMessage1(
 // *****************************************************************************
 /* Function:
     uint16_t EAP_PSK_EncodeMessage2(
-        const EAP_PSK_CONTEXT *pPskContext,
+        EAP_PSK_CONTEXT *pPskContext,
         uint8_t identifier,
-        const EAP_PSK_RAND *pRandS,
-        const EAP_PSK_RAND *pRandP,
-        const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
-        const EAP_PSK_NETWORK_ACCESS_ID_P *pIdP,
+        EAP_PSK_RAND *pRandS,
+        EAP_PSK_RAND *pRandP,
+        EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
+        EAP_PSK_NETWORK_ACCESS_ID_P *pIdP,
         uint16_t memoryBufferLength,
         uint8_t *pMemoryBuffer
         )
@@ -495,12 +489,12 @@ bool EAP_PSK_DecodeMessage1(
     None.
 */
 uint16_t EAP_PSK_EncodeMessage2(
-    const EAP_PSK_CONTEXT *pPskContext,
+    EAP_PSK_CONTEXT *pPskContext,
     uint8_t identifier,
-    const EAP_PSK_RAND *pRandS,
-    const EAP_PSK_RAND *pRandP,
-    const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
-    const EAP_PSK_NETWORK_ACCESS_ID_P *pIdP,
+    EAP_PSK_RAND *pRandS,
+    EAP_PSK_RAND *pRandP,
+    EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
+    EAP_PSK_NETWORK_ACCESS_ID_P *pIdP,
     uint16_t memoryBufferLength,
     uint8_t *pMemoryBuffer
     );
@@ -510,7 +504,7 @@ uint16_t EAP_PSK_EncodeMessage2(
     bool EAP_PSK_DecodeMessage3(
         uint16_t messageLength,
         uint8_t *pMessage,
-        const EAP_PSK_CONTEXT *pPskContext,
+        EAP_PSK_CONTEXT *pPskContext,
         uint16_t headerLength,
         uint8_t *pHeader,
         EAP_PSK_RAND *pRandS,
@@ -581,7 +575,7 @@ uint16_t EAP_PSK_EncodeMessage2(
 bool EAP_PSK_DecodeMessage3(
     uint16_t messageLength,
     uint8_t *pMessage,
-    const EAP_PSK_CONTEXT *pPskContext,
+    EAP_PSK_CONTEXT *pPskContext,
     uint16_t headerLength,
     uint8_t *pHeader,
     EAP_PSK_RAND *pRandS,
@@ -594,9 +588,9 @@ bool EAP_PSK_DecodeMessage3(
 // *****************************************************************************
 /* Function:
     uint16_t EAP_PSK_EncodeMessage4(
-        const EAP_PSK_CONTEXT *pPskContext,
+        EAP_PSK_CONTEXT *pPskContext,
         uint8_t identifier,
-        const EAP_PSK_RAND *pRandS,
+        EAP_PSK_RAND *pRandS,
         uint32_t nonce,
         uint8_t PChannelResult,
         uint16_t PChannelDataLength,
@@ -671,9 +665,9 @@ bool EAP_PSK_DecodeMessage3(
     None.
 */
 uint16_t EAP_PSK_EncodeMessage4(
-    const EAP_PSK_CONTEXT *pPskContext,
+    EAP_PSK_CONTEXT *pPskContext,
     uint8_t identifier,
-    const EAP_PSK_RAND *pRandS,
+    EAP_PSK_RAND *pRandS,
     uint32_t nonce,
     uint8_t PChannelResult,
     uint16_t PChannelDataLength,
@@ -742,8 +736,8 @@ uint16_t EAP_PSK_EncodeMessage1(
         bool aribBand,
         uint16_t messageLength,
         uint8_t *pMessage,
-        const EAP_PSK_CONTEXT *pPskContext,
-        const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
+        EAP_PSK_CONTEXT *pPskContext,
+        EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
         EAP_PSK_RAND *pRandS,
         EAP_PSK_RAND *pRandP
         )
@@ -809,8 +803,8 @@ bool EAP_PSK_DecodeMessage2(
     bool aribBand,
     uint16_t messageLength,
     uint8_t *pMessage,
-    const EAP_PSK_CONTEXT *pPskContext,
-    const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
+    EAP_PSK_CONTEXT *pPskContext,
+    EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
     EAP_PSK_RAND *pRandS,
     EAP_PSK_RAND *pRandP
     );
@@ -818,11 +812,11 @@ bool EAP_PSK_DecodeMessage2(
 // *****************************************************************************
 /* Function:
     uint16_t EAP_PSK_EncodeMessage3(
-        const EAP_PSK_CONTEXT *pPskContext,
+        EAP_PSK_CONTEXT *pPskContext,
         uint8_t identifier,
-        const EAP_PSK_RAND *pRandS,
-        const EAP_PSK_RAND *pRandP,
-        const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
+        EAP_PSK_RAND *pRandS,
+        EAP_PSK_RAND *pRandP,
+        EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
         uint32_t nonce,
         uint8_t PChannelResult,
         uint16_t PChannelDataLength,
@@ -936,11 +930,11 @@ bool EAP_PSK_DecodeMessage2(
     None.
 */
 uint16_t EAP_PSK_EncodeMessage3(
-    const EAP_PSK_CONTEXT *pPskContext,
+    EAP_PSK_CONTEXT *pPskContext,
     uint8_t identifier,
-    const EAP_PSK_RAND *pRandS,
-    const EAP_PSK_RAND *pRandP,
-    const EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
+    EAP_PSK_RAND *pRandS,
+    EAP_PSK_RAND *pRandP,
+    EAP_PSK_NETWORK_ACCESS_ID_S *pIdS,
     uint32_t nonce,
     uint8_t PChannelResult,
     uint16_t PChannelDataLength,
@@ -954,7 +948,7 @@ uint16_t EAP_PSK_EncodeMessage3(
     bool EAP_PSK_DecodeMessage4(
         uint16_t messageLength,
         uint8_t *pMessage,
-        const EAP_PSK_CONTEXT *pPskContext,
+        EAP_PSK_CONTEXT *pPskContext,
         uint16_t headerLength,
         uint8_t *pHeader,
         EAP_PSK_RAND *pRandS,
@@ -1026,7 +1020,7 @@ uint16_t EAP_PSK_EncodeMessage3(
 bool EAP_PSK_DecodeMessage4(
     uint16_t messageLength,
     uint8_t *pMessage,
-    const EAP_PSK_CONTEXT *pPskContext,
+    EAP_PSK_CONTEXT *pPskContext,
     uint16_t headerLength,
     uint8_t *pHeader,
     EAP_PSK_RAND *pRandS,

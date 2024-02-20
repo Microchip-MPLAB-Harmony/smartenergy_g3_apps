@@ -48,14 +48,13 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "crypto/crypto.h"
 #include "service/pcoup/srv_pcoup.h"
 #include "stack/g3/pal/plc/pal_plc.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt_definitions.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt.h"
 #include "driver/plc/g3MacRt/drv_g3_macrt_comm.h"
-#include "peripheral/adc/plib_adc.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom3_spi_master.h"
+#include "peripheral/adc/plib_adc.h"
 #include "driver/rf215/drv_rf215.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h"
 #include "stack/g3/mac/mac_common/mac_common.h"
@@ -96,11 +95,13 @@
 #include "bsp/bsp.h"
 #include "peripheral/sefc/plib_sefc0.h"
 #include "peripheral/sefc/plib_sefc1.h"
-#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
 #include "stack/g3/pal/rf/pal_rf.h"
 #include "service/pvddmon/srv_pvddmon.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
+//KEEP THIS - Not used for now
+//#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
+//#include "crypto/crypto.h"
 #include "stack/g3/net/macg3adp/drv_mac_g3adp.h"
 #include "app_g3_management.h"
 #include "app_eap_server.h"

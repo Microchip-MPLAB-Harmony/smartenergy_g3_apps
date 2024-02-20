@@ -1,4 +1,4 @@
-<config configName="sam_d20_xpro_pl460_freertos" projectName="g3_mac_rt_plc_and_go_sam_d20_xpro_pl460_freertos" configVersion="1.1" device="ATSAMD20J18" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.6.1">
+<config configName="sam_d20_xpro_pl460_freertos" projectName="g3_mac_rt_plc_and_go_sam_d20_xpro_pl460_freertos" configVersion="1.1" device="ATSAMD20J18" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.0">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -79,7 +79,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.4.1"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.5.1"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -22123,7 +22123,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460_freertos\definitions.h</file>
-         <hash>2df60902efe60212fd5df107c1d9c89d50597d4f02141ba1c63fbf8dda67bd8c</hash>
+         <hash>502d671fce69a0779a7da5889d9e0f4bad95d86cd12f7e7cb211456e0d7cc6d0</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460_freertos\device.h</file>
@@ -22211,7 +22211,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460_freertos\initialization.c</file>
-         <hash>c6506b4be7112f36ac1d8402cb227951deea231c463635a7534a7ded6ef1dd7c</hash>
+         <hash>07204257d013f025255c487d2ef9da3f75502d7a4a31ad991b5402c60654bcd8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460_freertos\interrupts.c</file>

@@ -1,4 +1,4 @@
-<config configName="pic32cx_mtg_ek_pl460_freertos" projectName="g3_mac_rt_plc_and_go_pic32cx_mtg_ek_pl460_freertos" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.6.1">
+<config configName="pic32cx_mtg_ek_pl460_freertos" projectName="g3_mac_rt_plc_and_go_pic32cx_mtg_ek_pl460_freertos" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.0">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -79,7 +79,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.4.1"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.5.1"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -21835,7 +21835,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\definitions.h</file>
-         <hash>519c8c52fc4d1fcd42690aea9caeda7fb940ac64dec1f44618a45624062d852f</hash>
+         <hash>b78f8015e97b4143ae53fdee3755a475b31581628a7752758ef5d9424fa1078b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_freertos\device.h</file>

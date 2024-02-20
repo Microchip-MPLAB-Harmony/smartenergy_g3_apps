@@ -1,4 +1,4 @@
-<config configName="wbz451_curiosity_pl460_freertos" projectName="g3_mac_rt_plc_and_go_wbz451_curiosity_pl460_freertos" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.6.1">
+<config configName="wbz451_curiosity_pl460_freertos" projectName="g3_mac_rt_plc_and_go_wbz451_curiosity_pl460_freertos" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.0">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -71,7 +71,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.4.1"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.5.1"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -6932,7 +6932,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\definitions.h</file>
-         <hash>57fe63bf3d76e0fee017d7b68dc706dfd2fbc158111db8df8a37daa8dab4f9ba</hash>
+         <hash>827e4b4dbaf4ad3811bd2fffaafe6f400d681cc83f69807fe2fa4e703bbf5552</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\device.h</file>
@@ -7020,7 +7020,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\initialization.c</file>
-         <hash>daafac1b8c620033f097b6700e46944ac7f20c3eead476c2c2b6a69c349c4994</hash>
+         <hash>5732c56a8768208498526d29d03ec0948e3c0b0df8eda9e236cc297563259924</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\interrupts.c</file>

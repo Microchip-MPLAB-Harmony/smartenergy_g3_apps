@@ -524,8 +524,8 @@ void SYS_Initialize ( void* data )
 	BSP_Initialize();
     SERCOM3_USART_Initialize();
 
-
     SERCOM0_SPI_Initialize();
+
 
     EIC_Initialize();
 
@@ -544,6 +544,10 @@ void SYS_Initialize ( void* data )
 
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
+
+    /* Crypto Callback initialize */
+    //CRYPT_WCCB_Initialize();
+
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
@@ -575,7 +579,6 @@ void SYS_Initialize ( void* data )
    SYS_ASSERT(sysObj.tcpip != SYS_MODULE_OBJ_INVALID, "TCPIP_STACK_Init Failed" );
 
 
-    CRYPT_WCCB_Initialize();
 
     /* MISRAC 2012 deviation block end */
     APP_G3_MANAGEMENT_Initialize();

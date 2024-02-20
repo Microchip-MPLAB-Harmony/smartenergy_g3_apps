@@ -48,7 +48,6 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "crypto/crypto.h"
 #include "service/pcoup/srv_pcoup.h"
 #include "peripheral/nvmctrl/plib_nvmctrl.h"
 #include "stack/g3/pal/plc/pal_plc.h"
@@ -89,8 +88,10 @@
 #include "peripheral/wdt/plib_wdt.h"
 #include "peripheral/eic/plib_eic.h"
 #include "service/pcrc/srv_pcrc.h"
-#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
 #include "service/pvddmon/srv_pvddmon.h"
+//KEEP THIS - Not used for now
+//#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
+//#include "crypto/crypto.h"
 #include "app_samd20.h"
 
 

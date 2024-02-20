@@ -1,6 +1,6 @@
 /* siphash.h
  *
- * Copyright (C) 2006-2021 wolfSSL Inc.
+ * Copyright (C) 2006-2023 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
@@ -59,7 +59,7 @@ enum {
     SIPHASH_KEY_SIZE    = 16,   /* Key size of SipHash. */
     SIPHASH_BLOCK_SIZE  = 8,    /* Block size of SipHash. */
     SIPHASH_MAC_SIZE_8  = 8,    /* Output an 8 byte MAC. */
-    SIPHASH_MAC_SIZE_16 = 16,   /* Output a 16 byte MAC. */
+    SIPHASH_MAC_SIZE_16 = 16    /* Output a 16 byte MAC. */
 };
 
 typedef struct SipHash SipHash;

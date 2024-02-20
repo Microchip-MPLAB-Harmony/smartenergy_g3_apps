@@ -49,7 +49,7 @@ Microchip or any third party.
 #include <stdbool.h>
 #include <stdint.h>
 #include "definitions.h"
-#include "crypto/crypto.h"
+#include "wolfssl/wolfcrypt/random.h"
 #include "srv_random.h"
 
 // *****************************************************************************
@@ -62,11 +62,11 @@ uint8_t SRV_RANDOM_Get8bits(void)
 {
     uint8_t retValue = 0;
 
-    CRYPT_RNG_CTX rngCtx;
+    WC_RNG rngCtx;
 
-    (void) CRYPT_RNG_Initialize(&rngCtx);
-    (void) CRYPT_RNG_Get(&rngCtx, (unsigned char*)&retValue);
-    (void) CRYPT_RNG_Deinitialize(&rngCtx);
+    (void) wc_InitRng(&rngCtx);
+    (void) wc_RNG_GenerateByte(&rngCtx, (byte*)&retValue);
+    (void) wc_FreeRng(&rngCtx);
 
     return retValue;
 }
@@ -75,11 +75,11 @@ uint16_t SRV_RANDOM_Get16bits(void)
 {
     uint16_t retValue = 0;
 
-    CRYPT_RNG_CTX rngCtx;
+    WC_RNG rngCtx;
 
-    (void) CRYPT_RNG_Initialize(&rngCtx);
-    (void) CRYPT_RNG_BlockGenerate(&rngCtx, (unsigned char*)&retValue, 2);
-    (void) CRYPT_RNG_Deinitialize(&rngCtx);
+    (void) wc_InitRng(&rngCtx);
+    (void) wc_RNG_GenerateBlock(&rngCtx, (byte*)&retValue, 2);
+    (void) wc_FreeRng(&rngCtx);
 
     return retValue;
 }
@@ -101,11 +101,11 @@ uint32_t SRV_RANDOM_Get32bits(void)
 {
     uint32_t retValue = 0;
 
-    CRYPT_RNG_CTX rngCtx;
+    WC_RNG rngCtx;
 
-    (void) CRYPT_RNG_Initialize(&rngCtx);
-    (void) CRYPT_RNG_BlockGenerate(&rngCtx, (unsigned char*)&retValue, 4);
-    (void) CRYPT_RNG_Deinitialize(&rngCtx);
+    (void) wc_InitRng(&rngCtx);
+    (void) wc_RNG_GenerateBlock(&rngCtx, (byte*)&retValue, 4);
+    (void) wc_FreeRng(&rngCtx);
 
     return retValue;
 }
@@ -125,9 +125,9 @@ uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t min, uint32_t max)
 
 void SRV_RANDOM_Get128bits(uint8_t *rndValue)
 {
-    CRYPT_RNG_CTX rngCtx;
+    WC_RNG rngCtx;
 
-    (void) CRYPT_RNG_Initialize(&rngCtx);
-    (void) CRYPT_RNG_BlockGenerate(&rngCtx, (unsigned char*)rndValue, 16);
-    (void) CRYPT_RNG_Deinitialize(&rngCtx);
+    (void) wc_InitRng(&rngCtx);
+    (void) wc_RNG_GenerateBlock(&rngCtx, (byte*)rndValue, 16);
+    (void) wc_FreeRng(&rngCtx);
 }

@@ -43,25 +43,17 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-#include <string.h>
-#include <stdbool.h>
-#include "definitions.h"
 #include "aes_wrapper.h"
+#include "crypto/common_crypto/MCHP_Crypto_Sym_Cipher.h"
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Static Data
+// Section: File Scope Data
 // *****************************************************************************
 // *****************************************************************************
-
-/* Key in byte format */
-static uint8_t sKey[256];
-
-/* Key size in bytes */
-static uint32_t sKeyLen;
 
 /* AES context used in this wrapper */
-static CRYPT_AES_CTX sAesCtx;
+static st_Crypto_Sym_BlockCtx aesWrapperContext;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -69,49 +61,14 @@ static CRYPT_AES_CTX sAesCtx;
 // *****************************************************************************
 // *****************************************************************************
 
-void AES_Wrapper_ContextInit(void)
+void AES_Wrapper_SetEncryptEcbKey(uint8_t *key)
 {
-    (void) memset(&sAesCtx, 0, sizeof(sAesCtx));
+    (void) Crypto_Sym_Aes_Init(&aesWrapperContext, CRYPTO_HANDLER_SW_WOLFCRYPT,
+            CRYPTO_CIOP_ENCRYPT, CRYPTO_SYM_OPMODE_ECB,
+            key, CRYPTO_AESKEYSIZE_128, NULL, 1);
 }
 
-void AES_Wrapper_ContextFree(void)
+void AES_Wrapper_EncryptEcb(uint8_t *in, uint8_t *out)
 {
-    (void) memset(&sAesCtx, 0, sizeof(sAesCtx));
-}
-
-void AES_Wrapper_Encrypt(const uint8_t *in, uint8_t *out)
-{
-    /* Set the AES key */
-    (void) CRYPT_AES_KeySet(&sAesCtx, sKey, sKeyLen, NULL, CRYPT_AES_ENCRYPTION);
-
-    /* Trigger the AES */
-    (void) CRYPT_AES_DIRECT_Encrypt(&sAesCtx, out, in);
-}
-
-void AES_Wrapper_Decrypt(const uint8_t *in, uint8_t *out)
-{
-    /* Set the AES key */
-    (void) CRYPT_AES_KeySet(&sAesCtx, sKey, sKeyLen, NULL, CRYPT_AES_DECRYPTION);
-
-    /* Trigger the AES */
-    (void) CRYPT_AES_DIRECT_Decrypt(&sAesCtx, out, in);
-}
-
-void AES_Wrapper_KeySet(const uint8_t *key, uint32_t keyLen)
-{
-    /* Store the key */
-    (void) memcpy(sKey, key, keyLen);
-
-    /* Store the key size */
-    sKeyLen = keyLen;
-}
-
-void AES_Wrapper_SetEncryptKey(const uint8_t *key, uint32_t keyLen)
-{
-    (void) CRYPT_AES_KeySet(&sAesCtx, key, keyLen, NULL, CRYPT_AES_ENCRYPTION);
-}
-
-void AES_Wrapper_EncryptEcb(const uint8_t *in, uint8_t *out)
-{
-    (void) CRYPT_AES_DIRECT_Encrypt(&sAesCtx, out, in);
+    (void) Crypto_Sym_Aes_Cipher(&aesWrapperContext, in, 16, out);
 }

@@ -1,6 +1,6 @@
 /* random.h
  *
- * Copyright (C) 2006-2021 wolfSSL Inc.
+ * Copyright (C) 2006-2023 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
@@ -34,12 +34,6 @@
     defined(HAVE_FIPS_VERSION) && (HAVE_FIPS_VERSION >= 2)
     #include <wolfssl/wolfcrypt/fips.h>
 #endif /* HAVE_FIPS_VERSION >= 2 */
-
-/* included for fips @wc_fips */
-#if defined(HAVE_FIPS) && \
-        (!defined(HAVE_FIPS_VERSION) || (HAVE_FIPS_VERSION < 2))
-#include <cyassl/ctaocrypt/random.h>
-#endif
 
 #ifdef __cplusplus
     extern "C" {
@@ -113,6 +107,8 @@
      /* allow whitewood as direct RNG source using wc_GenerateSeed directly */
 #elif defined(HAVE_INTEL_RDRAND)
     /* Intel RDRAND or RDSEED */
+#elif defined(WOLF_CRYPTO_CB)
+    /* Requires registered Crypto Callback to service RNG, with devId set */
 #elif !defined(WC_NO_RNG)
     #error No RNG source defined!
 #endif
@@ -159,14 +155,12 @@ struct OS_Seed {
 #ifdef HAVE_HASHDRBG
 struct DRBG_internal {
     word32 reseedCtr;
-    word32 lastBlock;
     byte V[DRBG_SEED_LEN];
     byte C[DRBG_SEED_LEN];
-#if defined(WOLFSSL_ASYNC_CRYPT) || defined(WOLF_CRYPTO_CB)
     void* heap;
+#if defined(WOLFSSL_ASYNC_CRYPT) || defined(WOLF_CRYPTO_CB)
     int devId;
 #endif
-    byte   matchCount;
 #ifdef WOLFSSL_SMALL_STACK_CACHE
     wc_Sha256 sha256;
 #endif
@@ -216,7 +210,7 @@ WOLFSSL_ABI WOLFSSL_API void wc_rng_free(WC_RNG* rng);
 
 
 #ifndef WC_NO_RNG
-WOLFSSL_API int  wc_InitRng(WC_RNG* rng);
+WOLFSSL_ABI WOLFSSL_API int  wc_InitRng(WC_RNG* rng);
 WOLFSSL_API int  wc_InitRng_ex(WC_RNG* rng, void* heap, int devId);
 WOLFSSL_API int  wc_InitRngNonce(WC_RNG* rng, byte* nonce, word32 nonceSz);
 WOLFSSL_API int  wc_InitRngNonce_ex(WC_RNG* rng, byte* nonce, word32 nonceSz,
@@ -259,6 +253,19 @@ WOLFSSL_API int  wc_FreeRng(WC_RNG* rng);
                                         byte* output, word32 outputSz,
                                         void* heap, int devId);
 #endif /* HAVE_HASHDRBG */
+
+#ifdef HAVE_ENTROPY_MEMUSE
+/* Maximum entropy bits that can be produced. */
+#define MAX_ENTROPY_BITS    256
+
+/* For generating data for assessment. */
+WOLFSSL_API int wc_Entropy_GetRawEntropy(unsigned char* raw, int cnt);
+WOLFSSL_API int wc_Entropy_Get(int bits, unsigned char* entropy, word32 len);
+WOLFSSL_API int wc_Entropy_OnDemandTest(void);
+
+WOLFSSL_LOCAL int Entropy_Init(void);
+WOLFSSL_LOCAL void Entropy_Final(void);
+#endif
 
 #ifdef __cplusplus
     } /* extern "C" */

@@ -727,6 +727,10 @@ void SYS_Initialize ( void* data )
 
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
+
+    /* Crypto Callback initialize */
+    //CRYPT_WCCB_Initialize();
+
     DRV_SLCDC_Initialize();
 
 
@@ -756,7 +760,6 @@ void SYS_Initialize ( void* data )
    SYS_ASSERT(sysObj.tcpip != SYS_MODULE_OBJ_INVALID, "TCPIP_STACK_Init Failed" );
 
 
-    CRYPT_WCCB_Initialize();
     /*** File System Service Initialization Code ***/
     (void) SYS_FS_Initialize( (const void *) sysFSInit );
 

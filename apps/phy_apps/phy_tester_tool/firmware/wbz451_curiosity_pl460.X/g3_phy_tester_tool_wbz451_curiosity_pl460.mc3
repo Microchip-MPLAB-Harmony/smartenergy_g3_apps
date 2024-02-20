@@ -1,4 +1,4 @@
-<config configName="default" projectName="g3_phy_tester_tool_wbz451_curiosity_pl460" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.6.1">
+<config configName="default" projectName="g3_phy_tester_tool_wbz451_curiosity_pl460" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.0">
    <usedPackages class="java.util.ArrayList">
       <package packageName="bsp" version="3.16.0" contentType="HARMONY">
          <modules class="java.util.ArrayList"/>
@@ -87,7 +87,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.4.1"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.5.1"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -6412,7 +6412,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\definitions.h</file>
-         <hash>ada1cea5d89033bb38c0c9521c8d740b3cc21df6ad57059aeeb1d283ef032e15</hash>
+         <hash>6d4c16403075eef0d39bd13cc11d0c6e3faa6b4b47ff4c71c5f3b7961ad26ce3</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\device.h</file>
@@ -6492,7 +6492,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\initialization.c</file>
-         <hash>fcd0bca545b33e5bb46c19f83b794dd436d859a17d3071bd0d92c514226fb7aa</hash>
+         <hash>60737adbe7cf108472e018880e6f762706720d80b98f732c2c051ce30e3413fe</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\interrupts.c</file>
