@@ -223,7 +223,7 @@ extern "C" {
                                                     (TCPIP_NETWORK_CONFIG_IPV6_G3_NET | TCPIP_NETWORK_CONFIG_IPV6_NO_DAD) |\
                                                     (TCPIP_NETWORK_CONFIG_IPV6_ROUTER | TCPIP_NETWORK_CONFIG_IPV6_NO_RS) |\
                                                     TCPIP_NETWORK_CONFIG_IP_STATIC
-                                                    
+
 #define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0         DRV_G3ADP_MACObject
 
 
@@ -329,17 +329,17 @@ extern "C" {
 #define NO_WRITEV
 #define NO_FILESYSTEM
 #define USE_FAST_MATH
-#define NO_INLINE 
+#define NO_INLINE
 
 
 //Math Model Defines
-#define WOLFSSL_SP_MAT   H   //Using this to declare wolfmath functions: 
+#define WOLFSSL_SP_MATH   //Using this to declare wolfmath functions:
                                   //mp_reverse used by fp_to_unsigned_bin (tfm.c)
-                                  //get_digit_count,get_digit in ecc.c 
+                                  //get_digit_count,get_digit in ecc.c
 #define WOLFSSL_HAVE_SP_RSA  //Needed when WOFSSL_SP_MATH defined
-#define WOLFSSL_SP_NO_256    //To prevent usage of SP functions defined by this: 
-                                  //    #if defined(HAVE_FIPS_VERSION) && HAVE_FIPS_VERSION == 2 
-                                  //    && ( defined(WOLFSSL_SP_ARM32_ASM) || defined(WOLFSSL_SP_ARM64_ASM) ) 
+#define WOLFSSL_SP_NO_256    //To prevent usage of SP functions defined by this:
+                                  //    #if defined(HAVE_FIPS_VERSION) && HAVE_FIPS_VERSION == 2
+                                  //    && ( defined(WOLFSSL_SP_ARM32_ASM) || defined(WOLFSSL_SP_ARM64_ASM) )
 //#define WOLFSSL_SP_ARM32_ASM   //Dependent on MCU Arch.
 
 
@@ -390,7 +390,7 @@ extern "C" {
 
 //#define HAVE_DH
 //#define WOLFSSL_HAVE_SP_DH
-    
+
 #define HAVE_ANON
 #define WOLFSSL_OLD_PRIME_CHECK
 #define NO_DSA
@@ -411,7 +411,7 @@ extern "C" {
 #define WOLFSSL_SHAKE256 //Manually Added
 #define HAVE_BLAKE2S     //manually added
 #define HAVE_BLAKE2B     //manually added
-#define HAVE_CHACHA      //manually Added   
+#define HAVE_CHACHA      //manually Added
 #define HAVE_AES_KEYWRAP //manually added
 #define HAVE_ECC_DHE     //manually added
 #define WOLFCRYPT_HAVE_ECCSI //manually added
@@ -426,7 +426,7 @@ extern "C" {
 //#define NO_RSA
 //#define NO_DH
 //#define NO_SIG_WRAPPER
-//#define NO_RSA  
+//#define NO_RSA
 //**********************************************************
 
 

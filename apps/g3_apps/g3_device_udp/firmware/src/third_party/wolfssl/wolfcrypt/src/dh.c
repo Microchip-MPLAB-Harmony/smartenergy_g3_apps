@@ -1982,8 +1982,8 @@ static int wc_DhAgree_Sync(DhKey* key, byte* agree, word32* agreeSz,
     mp_int* z = NULL;
 #endif
 #else
-    mp_int y[1];
 #if !defined(WOLFSSL_SP_MATH)
+    mp_int y[1];
     mp_int x[1];
     mp_int z[1];
 #endif
