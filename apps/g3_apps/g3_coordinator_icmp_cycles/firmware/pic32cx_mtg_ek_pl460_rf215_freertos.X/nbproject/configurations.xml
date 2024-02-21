@@ -12,7 +12,31 @@
             <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/bsp/bsp.h</itemPath>
           </logicalFolder>
           <logicalFolder name="crypto" displayName="crypto" projectFiles="true">
-            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/crypto.h</itemPath>
+            <logicalFolder name="common_crypto"
+                           displayName="common_crypto"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Hash.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Common.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_DigSign_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Sym_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Aead_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Sym_Cipher.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Mac_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Kas_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Aead_Cipher.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/user_settings.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Kas_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Kas.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Hash_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_DigSign.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Sym_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Aead_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Hash_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Mac_Cipher.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_DigSign_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Mac_WolfcryptWrapper.h</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="plc" displayName="plc" projectFiles="true">
@@ -255,11 +279,7 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/service/random/srv_random.h</itemPath>
             </logicalFolder>
             <logicalFolder name="security" displayName="security" projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/service/security/brg_endian.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/service/security/mode_hdr.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/service/security/cipher_wrapper.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/service/security/eax.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/service/security/brg_types.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/service/security/aes_wrapper.h</itemPath>
             </logicalFolder>
           </logicalFolder>
@@ -355,7 +375,6 @@
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/device_cache.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/definitions.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/device.h</itemPath>
-          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/config.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/sys_tasks.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/FreeRTOSConfig.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/user.h</itemPath>
@@ -512,149 +531,113 @@
           <itemPath>../src/packs/PIC32CX2051MTG128_DFP/pic32cx2051mtg128.h</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <logicalFolder name="system" displayName="system" projectFiles="true">
-        <logicalFolder name="tmr" displayName="tmr" projectFiles="true">
-          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/system/tmr/sys_tmr.h</itemPath>
+      <logicalFolder name="third_party" displayName="third_party" projectFiles="true">
+        <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
+          <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+            <logicalFolder name="port" displayName="port" projectFiles="true">
+              <logicalFolder name="pic32" displayName="pic32" projectFiles="true">
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
+            <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sm4.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_xmss.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sm3.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sm2.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_lms.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sphincs.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_lms.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/lms.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hpke.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dilithium.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_xmss.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kyber.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/xmss.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_kyber.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_kyber.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
         <logicalFolder name="port" displayName="port" projectFiles="true">
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha512_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_sam11105.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_ecc_ba414e.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_sam6149.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Services_pb.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/pic32mz-crypt.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_sam6156.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_SelfTest_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_u2238.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_hwInt.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_JumpTable_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha384_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_PrimeGen_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_mapping_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccAddSub_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_rng_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Headers_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEcDsa_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ClearFlags_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccConv_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ExpMod_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccConv_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Square_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Smult_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccDbl_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_rsa_pukcl.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_CRT_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Rng_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Rc_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Div_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GCD_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_ecc_pukcl.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Swap_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_cf_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_CondCopy_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_crya_saml11.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccMul_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha256_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha1_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccQuickDualMul_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Comp_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEcDsa_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Fill_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccAdd_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccMul_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Hardware_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha224_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_hwInt.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_FastCopy_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccAdd_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_sam6150.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_pukcl_functions.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_pukcl_definitions.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Fmult_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_RedMod_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_typedef_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccDbl_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h</itemPath>
         </logicalFolder>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hmac.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ripemd.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hash.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/memory.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/selftest.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/logging.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfmath.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cryptocb.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/camellia.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/settings.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_class.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sakke.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/tfm.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fips_test.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed448.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/poly1305.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_pkcs11.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/srp.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_encrypt.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cpuid.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_port.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha20_poly1305.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/aes.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_448.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mem_track.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_operations.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/arc4.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dsa.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/eccsi.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dh.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_superclass.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/types.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs7.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/certs_test.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/error-crypt.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/integer.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha256.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/signature.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve448.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-int.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-impl.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ecc.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp_int.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md2.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfevent.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/random.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_448.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md5.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_operations.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/coding.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md4.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/falcon.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rc2.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pwdbased.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/compress.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/camellia.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve25519.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rsa.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/visibility.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha3.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/des3.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed25519.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/asn.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/settings.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cryptocb.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/arc4.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/memory.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/types.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/poly1305.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/selftest.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/srp.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hmac.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/logging.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha256.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_class.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cmac.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rsa.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ripemd.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_superclass.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/certs_test.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/misc.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kdf.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs12.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha512.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/asn.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed25519.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dh.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/coding.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cmac.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/asn_public.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/siphash.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/error-crypt.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/visibility.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ecc.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha20_poly1305.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/des3.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/random.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md2.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_operations.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-impl.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfevent.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_port.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp_int.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mem_track.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fips_test.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md4.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs7.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha3.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs12.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rc2.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_pkcs11.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md5.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs11.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hash.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/compress.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cpuid.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha512.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_encrypt.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dsa.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_operations.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/aes.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-int.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pwdbased.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/integer.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/signature.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/eccsi.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/siphash.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/falcon.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kdf.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sakke.h</itemPath>
       </logicalFolder>
       <itemPath>../src/app_storage_pic32cxmt.h</itemPath>
       <itemPath>../src/app_eap_server.h</itemPath>
@@ -684,7 +667,23 @@
             <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/bsp/bsp.c</itemPath>
           </logicalFolder>
           <logicalFolder name="crypto" displayName="crypto" projectFiles="true">
-            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/src/crypto.c</itemPath>
+            <logicalFolder name="common_crypto"
+                           displayName="common_crypto"
+                           projectFiles="true">
+              <logicalFolder name="src" displayName="src" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Sym_WolfcryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Hash_WolfcryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Sym_Cipher.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Mac_Cipher.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Aead_WolfCryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Hash.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Kas_WolfcryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Aead_Cipher.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Mac_WolfCryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_DigSign_WolfcryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_DigSign.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="plc" displayName="plc" projectFiles="true">
@@ -797,7 +796,6 @@
             </logicalFolder>
             <logicalFolder name="security" displayName="security" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/service/security/cipher_wrapper.c</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/service/security/eax.c</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/service/security/aes_wrapper.c</itemPath>
             </logicalFolder>
           </logicalFolder>
@@ -888,104 +886,124 @@
           <itemPath>../src/third_party/rtos/FreeRTOS/Source/timers.c</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
-        <logicalFolder name="port" displayName="port" projectFiles="true">
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_aes_u2238.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha384_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_ecc_pukcl.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rng_sam6334.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_tdes_sam6150.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_wolfcryptcb.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha224_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/pic32mz-crypt.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_aes_sam6149.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha1_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha1_sam11105.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha224_sam11105.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_ecc_ba414e.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha256_sam11105.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha256_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sam_u2803.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha512_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rng_u2242.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rsa_pukcl.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_pukcl_functions.c</itemPath>
+      <logicalFolder name="third_party" displayName="third_party" projectFiles="true">
+        <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
+          <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+            <logicalFolder name="port" displayName="port" projectFiles="true">
+              <logicalFolder name="pic32" displayName="pic32" projectFiles="true">
+                <itemPath>../src/third_party/wolfssl/wolfcrypt/src/port/pic32/pic32mz-crypt.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="src" displayName="src" projectFiles="true">
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/asn.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_xmss.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/cryptocb.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wolfmath.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_arm32.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/eccsi.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/arc4.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/cmac.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_c64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_dsp.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_x86_64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_kyber_poly.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_cortexm.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_c32.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_armthumb.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/fe_448.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/rc2.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_xmss.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/error.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_dsp32.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sha256.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/dilithium.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ecc_fp.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_lms.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_c64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/fe_low_mem.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sphincs.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/dh.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/kdf.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_arm32.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ed25519.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ge_low_mem.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ripemd.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/hash.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/curve25519.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/curve448.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/signature.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sm2.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/chacha20_poly1305.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wolfevent.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/coding.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sm3.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/md2.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/falcon.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/hpke.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/asm.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_arm64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_armthumb.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sm4.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_kyber.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/siphash.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_arm64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_x86_64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/pkcs12.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/des3.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_pkcs11.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/md4.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_xmss_impl.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sha512.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/rsa.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ecc.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/aes.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ge_448.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_cortexm.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/logging.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/pkcs7.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_lms.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_port.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sha.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_encrypt.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/srp.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/md5.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/integer.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/tfm.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ge_operations.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_kyber.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/random.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/blake2b.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/poly1305.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/memory.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/blake2s.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_c32.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/fe_operations.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_int.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sha3.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/dsa.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ed448.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sakke.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/cpuid.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/compress.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/chacha.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/hmac.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/camellia.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
+            <logicalFolder name="src" displayName="src" projectFiles="true">
+              <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+            </logicalFolder>
+          </logicalFolder>
         </logicalFolder>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_pkcs11.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md4.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_cortexm.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_dsp.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md5.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/evp.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ecc.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ecc_fp.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/eccsi.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_armthumb.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_448.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_x86_64.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/error.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/coding.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cmac.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/falcon.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_low_mem.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/srp.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/curve25519.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/tfm.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/kdf.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sakke.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md2.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/arc4.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ed25519.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_448.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rsa.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/camellia.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/compress.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_c64.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cpuid.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/logging.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha256.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/poly1305.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/chacha20_poly1305.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_encrypt.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cryptocb.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pkcs12.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wolfmath.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pkcs7.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_arm32.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha3.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ed448.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/siphash.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/asm.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/asn.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/des3.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_c32.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/signature.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/misc.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/chacha.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/dh.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_dsp32.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_low_mem.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/blake2b.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/curve448.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_port.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_int.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/hmac.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/hash.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/memory.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/integer.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/dsa.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ripemd.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/random.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wolfevent.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_arm64.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rc2.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_operations.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha512.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/blake2s.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_operations.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/aes.c</itemPath>
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/app_storage_pic32cxmt.c</itemPath>
@@ -1060,7 +1078,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/library;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/library/tcpip/src;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/library/tcpip/src/common;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl"/>
+                  value="../src;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/library;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/library/tcpip/src;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/library/tcpip/src/common;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl;../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/wolfcrypt;../src/third_party/wolfcrypt;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -1070,7 +1088,7 @@
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros"
-                  value="HAVE_CONFIG_H;WOLFSSL_IGNORE_FILE_WARN"/>
+                  value="HAVE_CONFIG_H;WOLFSSL_IGNORE_FILE_WARN;WOLFSSL_USER_SETTINGS"/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
         <property key="tentative-definitions" value="-fno-common"/>
