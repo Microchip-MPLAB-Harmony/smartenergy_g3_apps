@@ -925,7 +925,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_d20_xpro_pl460;../src/config/sam_d20_xpro_pl460/library;../src/config/sam_d20_xpro_pl460/library/tcpip/src;../src/config/sam_d20_xpro_pl460/library/tcpip/src/common;../src/packs/ATSAMD20J18_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl;../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/wolfcrypt;../src/third_party/wolfcrypt;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
+                  value="../src;../src/config/sam_d20_xpro_pl460;../src/config/sam_d20_xpro_pl460/library;../src/config/sam_d20_xpro_pl460/library/tcpip/src;../src/config/sam_d20_xpro_pl460/library/tcpip/src/common;../src/packs/ATSAMD20J18_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl;../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt;../src/third_party/wolfcrypt;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
