@@ -36,6 +36,9 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_DigSign_Config.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/config.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Mac_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_RNG.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_RNG_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_RNG_Config.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
@@ -644,6 +647,12 @@
       <itemPath>../src/app_udp_responder.h</itemPath>
       <itemPath>../src/app_tcpip_management.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>g3_device_udp_pic32cx_mtg_ek_freertos.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -681,6 +690,9 @@
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Mac_WolfCryptWrapper.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_DigSign_WolfcryptWrapper.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_DigSign.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Kas.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_RNG.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_RNG_WolfcryptWrapper.c</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -1012,12 +1024,6 @@
       <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/pin_configurations.csv</itemPath>
       <itemPath>../src/app_tcpip_management.c</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>g3_device_udp_pic32cx_mtg_ek_freertos.mc3</itemPath>
-    </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -1077,7 +1083,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/library;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/library/tcpip/src;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/library/tcpip/src/common;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt;../src/third_party/wolfcrypt;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
+                  value="../src;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/library;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/library/tcpip/src;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/library/tcpip/src/common;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F;../src/third_party/wolfcrypt;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
