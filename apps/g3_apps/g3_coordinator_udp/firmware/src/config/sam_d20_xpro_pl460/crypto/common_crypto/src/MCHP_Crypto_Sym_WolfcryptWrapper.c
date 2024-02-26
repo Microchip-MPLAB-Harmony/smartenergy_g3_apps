@@ -172,6 +172,10 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Aes_Encrypt(void *ptr_aesCtx, crypto_Sym_OpMod
                 ret_aesStatus_en  = CRYPTO_SYM_ERROR_CIPFAIL;
             }
         }
+        else
+        {
+            //do nothing
+        }
     } //end of if of argument checking
     else
     {
@@ -254,6 +258,10 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Aes_Decrypt(void *ptr_aesCtx, crypto_Sym_OpMod
                 ret_aesStatus_En  = CRYPTO_SYM_ERROR_CIPFAIL;
             }
         }
+        else
+        {
+            //do nothing
+        }
     } //end of if of argument checking
     
     return ret_aesStatus_En;
@@ -282,7 +290,7 @@ crypto_Sym_Status_E Crypto_Sym_Wc_AesXts_Init(void *ptr_aesCtx, crypto_CipherOpe
         
         if(ret_aesStatus_en != CRYPTO_SYM_ERROR_CIPOPER)
         {
-            wcAesStatus = wc_AesXtsSetKey( (XtsAes*)ptr_aesCtx, (const byte*)ptr_key, (word32)(keySize*2), dir, NULL, 0); //jk //need to analyze key size
+            wcAesStatus = wc_AesXtsSetKey( (XtsAes*)ptr_aesCtx, (const byte*)ptr_key, (word32)keySize, dir, NULL, 0); 
 
             if(wcAesStatus == 0)
             {
@@ -315,7 +323,7 @@ crypto_Sym_Status_E Crypto_Sym_Wc_AesXts_Encrypt(void *ptr_aesXtsCtx, uint8_t *p
     crypto_Sym_Status_E ret_aesXtsStatus_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
 #ifdef WOLFSSL_AES_XTS    
     int wcAesXtsStatus = BAD_FUNC_ARG;
-    if( (ptr_aesXtsCtx!= NULL) && (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) && (ptr_tweak != NULL) )
+    if( (ptr_aesXtsCtx!= NULL) && (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) && (ptr_tweak != NULL) )
     {
         wcAesXtsStatus = wc_AesXtsEncrypt( (XtsAes*)ptr_aesXtsCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen, (const byte*)ptr_tweak, AES_BLOCK_SIZE);
         if(wcAesXtsStatus == 0)
@@ -344,7 +352,7 @@ crypto_Sym_Status_E Crypto_Sym_Wc_AesXts_Decrypt(void *ptr_aesXtsCtx, uint8_t *p
     crypto_Sym_Status_E ret_aesXtsStatus_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
 #ifdef WOLFSSL_AES_XTS      
     int wcAesXtsStatus = BAD_FUNC_ARG;
-    if( (ptr_aesXtsCtx!= NULL) && (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) && (ptr_tweak != NULL) )
+    if( (ptr_aesXtsCtx!= NULL) && (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) && (ptr_tweak != NULL) )
     {
         wcAesXtsStatus = wc_AesXtsDecrypt( (XtsAes*)ptr_aesXtsCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen, (const byte*)ptr_tweak, AES_BLOCK_SIZE);
         
@@ -381,7 +389,7 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Aes_EncryptDirect(crypto_Sym_OpModes_E symAlgo
     {
 #ifdef WOLFSSL_AES_XTS            
         XtsAes aesXtsCtx[1];
-        wcAesStatus = wc_AesXtsSetKey(aesXtsCtx, (const byte*)ptr_key, (word32)keySize,AES_ENCRYPTION, NULL, 0);
+        wcAesStatus = wc_AesXtsSetKey(aesXtsCtx, (const byte*)ptr_key, (word32)keySize, AES_ENCRYPTION, NULL, 0);
         if(wcAesStatus == 0)
         {
             wcAesStatus = wc_AesXtsEncrypt(aesXtsCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen, (const byte*)ptr_initVect, AES_BLOCK_SIZE);
@@ -452,7 +460,11 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Aes_EncryptDirect(crypto_Sym_OpModes_E symAlgo
     {
         ret_aesStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
     }
-    else if(ret_aesStat_en != CRYPTO_SYM_ERROR_OPMODE)
+    else if(ret_aesStat_en == CRYPTO_SYM_ERROR_OPMODE)
+    {
+        //do nothing
+    }
+    else
     {
         if(wcAesStatus == BAD_FUNC_ARG)
         {
@@ -473,7 +485,7 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Aes_DecryptDirect(crypto_Sym_OpModes_E symAlgo
     crypto_Sym_Status_E ret_aesStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;    
 #ifdef HAVE_AES_DECRYPT    
     int wcAesStatus = BAD_FUNC_ARG;
-    if( (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) && (ptr_key != NULL) && (keySize > 0) )
+    if( (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) && (ptr_key != NULL) && (keySize > 0u) )
     {
 #ifdef CRYPTO_SYM_AESXTS_EN        
         if(symAlgoMode_en == CRYTPO_SYM_OPMODE_XTS)
@@ -562,6 +574,10 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Aes_DecryptDirect(crypto_Sym_OpModes_E symAlgo
                 ret_aesStat_en  = CRYPTO_SYM_ERROR_CIPFAIL;
             }
         }
+        else
+        {
+         //do nothing   
+        }
     } //end of if of argument checking
     else
     {
@@ -609,20 +625,21 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Camellia_Encrypt(void *ptr_camCtx, crypto_Sym_
     int wcCamStatus = BAD_FUNC_ARG;
 #ifdef CRYPTO_SYM_CAMECB_EN      
     uint32_t dataBlocks = 0;
-    uint32_t dataindex = 0;
+    uint32_t dataIndex = 0;
 #endif /* CRYPTO_SYM_CAMECB_EN */    
-    if( (ptr_camCtx != NULL) && (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) )
+    if( (ptr_camCtx != NULL) && (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) )
     {
         switch(symAlgoMode_en)
         {
 #ifdef CRYPTO_SYM_CAMECB_EN           
             case CRYPTO_SYM_OPMODE_ECB:
-                dataBlocks = (dataLen / CAMELLIA_BLOCK_SIZE);
-                dataindex = 0;
-                while(dataBlocks--) 
+                dataBlocks = (dataLen / (uint32_t)CAMELLIA_BLOCK_SIZE);
+                dataIndex = 0;
+                while(dataBlocks > 0u) 
                 {
-                    wcCamStatus = wc_CamelliaEncryptDirect( (Camellia*)ptr_camCtx, (byte*)&ptr_outData[dataindex], (const byte*)&ptr_inputData[dataindex]);
-                    dataindex += CAMELLIA_BLOCK_SIZE;
+                    wcCamStatus = wc_CamelliaEncryptDirect( (Camellia*)ptr_camCtx, (byte*)&ptr_outData[dataIndex], (const byte*)&ptr_inputData[dataIndex]);
+                    dataIndex = dataIndex + (uint32_t)CAMELLIA_BLOCK_SIZE;
+                    dataBlocks = dataBlocks - 1u;
                 }
                 break;
 #endif /* CRYPTO_SYM_CAMECB_EN */
@@ -642,7 +659,11 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Camellia_Encrypt(void *ptr_camCtx, crypto_Sym_
         {
             ret_camStatus_en = CRYPTO_SYM_CIPHER_SUCCESS;
         }
-        else if(ret_camStatus_en != CRYPTO_SYM_ERROR_OPMODE)
+        else if(ret_camStatus_en == CRYPTO_SYM_ERROR_OPMODE)
+        {
+            //do nothing
+        }
+        else
         {
             if(wcCamStatus == BAD_FUNC_ARG)
             {
@@ -664,20 +685,21 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Camellia_Decrypt(void *ptr_camCtx, crypto_Sym_
     int wcCamStatus = BAD_FUNC_ARG;
 #ifdef CRYPTO_SYM_CAMECB_EN    
     uint32_t dataBlocks = 0;
-    uint32_t dataindex = 0;
+    uint32_t dataIndex = 0;
 #endif /* CRYPTO_SYM_CAMECB_EN */    
-    if( (ptr_camCtx != NULL) && (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) )
+    if( (ptr_camCtx != NULL) && (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) )
     {
         switch(symAlgoMode_en)
         {    
 #ifdef CRYPTO_SYM_CAMECB_EN 
             case CRYPTO_SYM_OPMODE_ECB:
-                dataBlocks = (dataLen / CAMELLIA_BLOCK_SIZE);
-                dataindex = 0;
-                while(dataBlocks--) 
+                dataBlocks = (dataLen / (uint32_t)CAMELLIA_BLOCK_SIZE);
+                dataIndex = 0;
+                while(dataBlocks > 0u) 
                 {
-                    wcCamStatus = wc_CamelliaDecryptDirect( (Camellia*)ptr_camCtx, (byte*)&ptr_outData[dataindex], (const byte*)&ptr_inputData[dataindex]);
-                    dataindex += CAMELLIA_BLOCK_SIZE;
+                    wcCamStatus = wc_CamelliaDecryptDirect( (Camellia*)ptr_camCtx, (byte*)&ptr_outData[dataIndex], (const byte*)&ptr_inputData[dataIndex]);
+                    dataIndex = dataIndex + (uint32_t)CAMELLIA_BLOCK_SIZE;
+                    dataBlocks = dataBlocks - 1u;
                 }
                 break;
 #endif /* CRYPTO_SYM_CAMECB_EN */
@@ -688,7 +710,7 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Camellia_Decrypt(void *ptr_camCtx, crypto_Sym_
                 break;
 #endif /* CRYPTO_SYM_CAMCBC_EN */                
             default:
-                wcCamStatus = CRYPTO_SYM_ERROR_OPMODE;
+                ret_camStatus_en = CRYPTO_SYM_ERROR_OPMODE;
                 break;
         } //end of switch
             
@@ -696,7 +718,11 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Camellia_Decrypt(void *ptr_camCtx, crypto_Sym_
         {
             ret_camStatus_en = CRYPTO_SYM_CIPHER_SUCCESS;
         }
-        else if(ret_camStatus_en != CRYPTO_SYM_ERROR_OPMODE)
+        else if(ret_camStatus_en == CRYPTO_SYM_ERROR_OPMODE)
+        {
+          //Do nothing   
+        }
+        else
         {
             if(wcCamStatus == BAD_FUNC_ARG)
             {
@@ -719,12 +745,12 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Camellia_EncryptDirect(crypto_Sym_OpModes_E sy
     crypto_Sym_Status_E ret_camStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     int wcCamStatus = BAD_FUNC_ARG;
 #ifdef HAVE_CAMELLIA    
-    if( (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) && (ptr_key != NULL) && (keySize > 0) )
+    if( (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) && (ptr_key != NULL) && (keySize > 0u) )
     {
         Camellia camCtx[1];
 #ifdef CRYPTO_SYM_CAMECB_EN        
-        uint32_t dataBlocks;
-        uint32_t dataindex = 0;
+        uint32_t dataBlocks = 0;
+        uint32_t dataIndex = 0;
 #endif /* CRYPTO_SYM_CAMECB_EN */        
         wcCamStatus = wc_CamelliaSetKey(camCtx,(const byte*)ptr_key, (word32)keySize, (const byte*)ptr_initVect);
         if(wcCamStatus == 0)
@@ -733,16 +759,17 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Camellia_EncryptDirect(crypto_Sym_OpModes_E sy
             {
 #ifdef CRYPTO_SYM_CAMECB_EN             
                 case CRYPTO_SYM_OPMODE_ECB:
-                    dataBlocks = (dataLen / CAMELLIA_BLOCK_SIZE);
-                    while(dataBlocks--) 
+                    dataBlocks = (dataLen / (uint32_t)CAMELLIA_BLOCK_SIZE);
+                    while(dataBlocks > 0u) 
                     {
-                        wcCamStatus = wc_CamelliaEncryptDirect(camCtx, (byte*)&ptr_outData[dataindex], (const byte*)&ptr_inputData[dataindex]);
+                        wcCamStatus = wc_CamelliaEncryptDirect(camCtx, (byte*)&ptr_outData[dataIndex], (const byte*)&ptr_inputData[dataIndex]);
 
                         if(wcCamStatus != 0)
                         {
                             break;
                         }
-                        dataindex += CAMELLIA_BLOCK_SIZE;
+                        dataIndex = dataIndex + (uint32_t)CAMELLIA_BLOCK_SIZE;
+                        dataBlocks = dataBlocks - 1u;
                     }
                     break;
 #endif /* CRYPTO_SYM_CAMECB_EN */
@@ -761,7 +788,11 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Camellia_EncryptDirect(crypto_Sym_OpModes_E sy
         {
             ret_camStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
         }
-        else if(ret_camStat_en != CRYPTO_SYM_ERROR_OPMODE)
+        else if(ret_camStat_en == CRYPTO_SYM_ERROR_OPMODE)
+        {
+         //do nothing   
+        }
+        else
         {
             if(wcCamStatus == BAD_FUNC_ARG)
             {
@@ -787,12 +818,12 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Camellia_DecryptDirect(crypto_Sym_OpModes_E sy
     crypto_Sym_Status_E ret_camStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     int wcCamStatus = BAD_FUNC_ARG;
 #ifdef HAVE_CAMELLIA    
-    if( (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) && (ptr_key != NULL) && (keySize > 0) )
+    if( (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) && (ptr_key != NULL) && (keySize > 0u) )
     {
         Camellia camCtx[1];
 #ifdef CRYPTO_SYM_CAMECB_EN        
         uint32_t dataBlocks;
-        uint32_t dataindex = 0;
+        uint32_t dataIndex = 0;
 #endif /* CRYPTO_SYM_CAMECB_EN */        
         wcCamStatus = wc_CamelliaSetKey(camCtx,(const byte*)ptr_key, (word32)keySize, (const byte*)ptr_initVect);
         if(wcCamStatus == 0)
@@ -801,16 +832,17 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Camellia_DecryptDirect(crypto_Sym_OpModes_E sy
             {
 #ifdef CRYPTO_SYM_CAMECB_EN                
                 case CRYPTO_SYM_OPMODE_ECB:
-                    dataBlocks = (dataLen / CAMELLIA_BLOCK_SIZE);
-                    while(dataBlocks--) 
+                    dataBlocks = (dataLen / (uint32_t)CAMELLIA_BLOCK_SIZE);
+                    while(dataBlocks > 0u) 
                     {
-                        wcCamStatus = wc_CamelliaDecryptDirect(camCtx, (byte*)&ptr_outData[dataindex], (const byte*)&ptr_inputData[dataindex]);
+                        wcCamStatus = wc_CamelliaDecryptDirect(camCtx, (byte*)&ptr_outData[dataIndex], (const byte*)&ptr_inputData[dataIndex]);
 
                         if(wcCamStatus != 0)
                         {
                             break;
                         }
-                        dataindex += CAMELLIA_BLOCK_SIZE;
+                        dataIndex = dataIndex + (uint32_t)CAMELLIA_BLOCK_SIZE;
+                        dataBlocks = dataBlocks - 1u;
                     }
                     break;
 #endif /* CRYPTO_SYM_CAMECB_EN */
@@ -825,12 +857,20 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Camellia_DecryptDirect(crypto_Sym_OpModes_E sy
                     ret_camStat_en = CRYPTO_SYM_ERROR_OPMODE;
                     break;
             } //end of switch
-        }    
+        }
+        else
+        {
+            //do nothing
+        }
         if(wcCamStatus == 0)
         {
             ret_camStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
         }
-        else if(ret_camStat_en != CRYPTO_SYM_ERROR_OPMODE)
+        else if(ret_camStat_en == CRYPTO_SYM_ERROR_OPMODE)
+        {
+          //do nothing   
+        }
+        else
         {
             if(wcCamStatus == BAD_FUNC_ARG)
             {
@@ -902,7 +942,7 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Tdes_Encrypt(void *ptr_tdesCtx, crypto_Sym_OpM
 {
     crypto_Sym_Status_E ret_tdesStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     int wcTdesStat = BAD_FUNC_ARG;
-    if( (ptr_tdesCtx != NULL) && (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) )
+    if( (ptr_tdesCtx != NULL) && (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) )
     {
         switch(symAlgoMode_en)
         { 
@@ -938,6 +978,10 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Tdes_Encrypt(void *ptr_tdesCtx, crypto_Sym_OpM
                 ret_tdesStat_en  = CRYPTO_SYM_ERROR_CIPFAIL;
             }
         }
+        else
+        {
+            //do nothing
+        }
     } //end of if of argument checking
     
     return ret_tdesStat_en;
@@ -947,7 +991,7 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Tdes_Decrypt(void *ptr_tdesCtx, crypto_Sym_OpM
 {
     crypto_Sym_Status_E ret_tdesStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     int wcTdesStat = BAD_FUNC_ARG;
-    if( (ptr_tdesCtx != NULL) && (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) )
+    if( (ptr_tdesCtx != NULL) && (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) )
     {
         switch(symAlgoMode_en)
         {
@@ -971,7 +1015,11 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Tdes_Decrypt(void *ptr_tdesCtx, crypto_Sym_OpM
         {
             ret_tdesStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
         }
-        else if(ret_tdesStat_en != CRYPTO_SYM_ERROR_OPMODE)
+        else if(ret_tdesStat_en == CRYPTO_SYM_ERROR_OPMODE)
+        {
+            //do nothing
+        }
+        else
         {
             if(wcTdesStat == BAD_FUNC_ARG)
             {
@@ -983,6 +1031,10 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Tdes_Decrypt(void *ptr_tdesCtx, crypto_Sym_OpM
             }
         }
     } //end of if of argument checking
+    else
+    {
+        ret_tdesStat_en = CRYPTO_SYM_ERROR_ARG;
+    }
     
     return ret_tdesStat_en;
 }
@@ -993,23 +1045,23 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Tdes_EncryptDirect(crypto_Sym_OpModes_E symAlg
     crypto_Sym_Status_E ret_tdesStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     int wcTdesStat = BAD_FUNC_ARG;
     
-    if( (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) && (ptr_key != NULL) )
+    if( (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) && (ptr_key != NULL) )
     {
-        Des ptr_tdesCtx[1];
-        wcTdesStat = wc_Des3_SetKey( (Des3*)ptr_tdesCtx, (const byte*)ptr_key, (const byte*)ptr_initVect, DES_ENCRYPTION);
+        Des3 ptr_tdesCtx[1];
+        wcTdesStat = wc_Des3_SetKey(ptr_tdesCtx, (const byte*)ptr_key, (const byte*)ptr_initVect, DES_ENCRYPTION);
         if(wcTdesStat == 0)
         {
             switch(symAlgoMode_en)
             {
 #ifdef CRYPTO_SYM_TDESECB_EN                
                 case CRYPTO_SYM_OPMODE_ECB:
-                    wcTdesStat = wc_Des3_EcbEncrypt( (Des3*)ptr_tdesCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen);
+                    wcTdesStat = wc_Des3_EcbEncrypt(ptr_tdesCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen);
                     break;
 #endif /* CRYPTO_SYM_TDESECB_EN */
 
 #ifdef CRYPTO_SYM_TDESCBC_EN                    
                 case CRYPTO_SYM_OPMODE_CBC:
-                    wcTdesStat = wc_Des3_CbcEncrypt( (Des3*)ptr_tdesCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen);
+                    wcTdesStat = wc_Des3_CbcEncrypt(ptr_tdesCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen);
                     break; 
 #endif /* CRYPTO_SYM_TDESCBC_EN */
                     
@@ -1017,12 +1069,20 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Tdes_EncryptDirect(crypto_Sym_OpModes_E symAlg
                     ret_tdesStat_en = CRYPTO_SYM_ERROR_OPMODE;
                     break;
             } //end of switch
-        }    
+        }
+        else
+        {
+            ret_tdesStat_en = CRYPTO_SYM_ERROR_KEY;
+        }
         if(wcTdesStat == 0)
         {
             ret_tdesStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
         }
-        else if(ret_tdesStat_en != CRYPTO_SYM_ERROR_OPMODE)
+        else if(ret_tdesStat_en == CRYPTO_SYM_ERROR_OPMODE)
+        {
+            //do nothing
+        }
+        else
         {
             if(wcTdesStat == BAD_FUNC_ARG)
             {
@@ -1048,23 +1108,23 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Tdes_DecryptDirect(crypto_Sym_OpModes_E symAlg
     crypto_Sym_Status_E ret_tdesStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     int wcTdesStat = BAD_FUNC_ARG;
     
-    if( (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) && (ptr_key != NULL) )
+    if( (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) && (ptr_key != NULL) )
     {
-        Des ptr_tdesCtx[1];
-        wcTdesStat = wc_Des3_SetKey( (Des3*)ptr_tdesCtx, (const byte*)ptr_key, (const byte*)ptr_initVect, DES_DECRYPTION);
+        Des3 ptr_tdesCtx[1];
+        wcTdesStat = wc_Des3_SetKey(ptr_tdesCtx, (const byte*)ptr_key, (const byte*)ptr_initVect, DES_DECRYPTION);
         if(wcTdesStat == 0)
         {
             switch(symAlgoMode_en)
             {
 #ifdef CRYPTO_SYM_TDESECB_EN                
                 case CRYPTO_SYM_OPMODE_ECB:
-                    wcTdesStat = wc_Des3_EcbDecrypt( (Des3*)ptr_tdesCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen);
+                    wcTdesStat = wc_Des3_EcbDecrypt(ptr_tdesCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen);
                     break;
 #endif /* CRYPTO_SYM_TDESECB_EN */
                     
 #ifdef CRYPTO_SYM_TDESCBC_EN                    
                 case CRYPTO_SYM_OPMODE_CBC:
-                    wcTdesStat = wc_Des3_CbcDecrypt( (Des3*)ptr_tdesCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen);
+                    wcTdesStat = wc_Des3_CbcDecrypt(ptr_tdesCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen);
                     break; 
 #endif  /* CRYPTO_SYM_TDESCBC_EN */
                     
@@ -1077,7 +1137,11 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Tdes_DecryptDirect(crypto_Sym_OpModes_E symAlg
         {
             ret_tdesStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
         }
-        else if(ret_tdesStat_en != CRYPTO_SYM_ERROR_OPMODE)
+        else if(ret_tdesStat_en == CRYPTO_SYM_ERROR_OPMODE)
+        {
+            //do nothing   
+        }
+        else
         {
             if(wcTdesStat == BAD_FUNC_ARG)
             {
@@ -1116,26 +1180,26 @@ crypto_Sym_Status_E Crypto_Sym_Wc_AesKeyWrap(void *ptr_aesCtx, uint8_t *ptr_inpu
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_CTX;
     }
-    else if( (ptr_inputData == NULL) || (ptr_outData == NULL) || (inputLen == 0) || (outputLen == 0) )
+    else if( (ptr_inputData == NULL) || (ptr_outData == NULL) || (inputLen == 0u) || (outputLen == 0u) )
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_ARG;
     }
     else
     {
         wcAesKwStat = wc_AesKeyWrap_ex( (Aes*)ptr_aesCtx, (const byte*)ptr_inputData, (word32)inputLen, (byte*)ptr_outData, (word32)outputLen, (const byte*)ptr_initVect);
-    }
    
-    if(wcAesKwStat == (inputLen + KEYWRAP_BLOCK_SIZE) )
-    {
-        ret_aesKwStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
-    }
-    else if(wcAesKwStat == BAD_FUNC_ARG)
-    {
-        ret_aesKwStat_en = CRYPTO_SYM_ERROR_ARG;
-    }
-    else
-    {
-        ret_aesKwStat_en = CRYPTO_SYM_ERROR_CIPFAIL;
+        if(wcAesKwStat == (int)((int)inputLen + (int)KEYWRAP_BLOCK_SIZE) )
+        {
+            ret_aesKwStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
+        }
+        else if(wcAesKwStat == BAD_FUNC_ARG)
+        {
+            ret_aesKwStat_en = CRYPTO_SYM_ERROR_ARG;
+        }
+        else
+        {
+            ret_aesKwStat_en = CRYPTO_SYM_ERROR_CIPFAIL;
+        }
     }
     
     return ret_aesKwStat_en;
@@ -1149,26 +1213,26 @@ crypto_Sym_Status_E Crypto_Sym_Wc_AesKeyUnWrap(void *ptr_aesCtx, uint8_t *ptr_in
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_CTX;
     }
-    else if( (ptr_inputData == NULL) || (ptr_outData == NULL) || (inputLen == 0) || (outputLen == 0) || (outputLen < inputLen) )
+    else if( (ptr_inputData == NULL) || (ptr_outData == NULL) || (inputLen == 0u) || (outputLen == 0u) || (outputLen < inputLen) )
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_ARG;
     }
     else
     {
         wcAesKwStat = wc_AesKeyUnWrap_ex( (Aes*)ptr_aesCtx, (const byte*)ptr_inputData, (word32)inputLen, (byte*)ptr_outData, (word32)outputLen, (const byte*)ptr_initVect);
-    }
    
-    if(wcAesKwStat == (inputLen + KEYWRAP_BLOCK_SIZE) )
-    {
-        ret_aesKwStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
-    }
-    else if(wcAesKwStat == BAD_FUNC_ARG)
-    {
-        ret_aesKwStat_en = CRYPTO_SYM_ERROR_ARG;
-    }
-    else
-    {
-        ret_aesKwStat_en = CRYPTO_SYM_ERROR_CIPFAIL;
+        if(wcAesKwStat == (int)((int)inputLen + (int)KEYWRAP_BLOCK_SIZE) )
+        {
+            ret_aesKwStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
+        }
+        else if(wcAesKwStat == BAD_FUNC_ARG)
+        {
+            ret_aesKwStat_en = CRYPTO_SYM_ERROR_ARG;
+        }
+        else
+        {
+            ret_aesKwStat_en = CRYPTO_SYM_ERROR_CIPFAIL;
+        }
     }
     return ret_aesKwStat_en;
 }
@@ -1178,31 +1242,31 @@ crypto_Sym_Status_E Crypto_Sym_Wc_AesKeyWrapDirect(uint8_t *ptr_inputData, uint3
 {
     crypto_Sym_Status_E ret_aesKwStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;    
     int wcAesKwStat = -1;
-    if( (ptr_inputData != NULL) && (inputLen > 0) && (ptr_outData != NULL)  && (outputLen > 0) )
+    if( (ptr_inputData != NULL) && (inputLen > 0u) && (ptr_outData != NULL)  && (outputLen > 0u) )
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_ARG;
     }
-    else if( (ptr_key == NULL) && (keySize > 0) )
+    else if( (ptr_key == NULL) && (keySize > 0u) )
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_KEY;
     }
     else
     {
         wcAesKwStat = wc_AesKeyWrap( (const byte*)ptr_key, (word32)keySize, (const byte*)ptr_inputData, (word32)inputLen, (byte*)ptr_outData, (word32)outputLen, (const byte*)ptr_initVect);
-    }
     
-    if(wcAesKwStat == (inputLen + KEYWRAP_BLOCK_SIZE) )
-    {
-        ret_aesKwStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
+        if(wcAesKwStat == (int)((int)inputLen + (int)KEYWRAP_BLOCK_SIZE) )
+        {
+            ret_aesKwStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
+        }
+        else if(wcAesKwStat == BAD_FUNC_ARG)
+        {
+            ret_aesKwStat_en = CRYPTO_SYM_ERROR_ARG;
+        }
+        else
+        {
+            ret_aesKwStat_en = CRYPTO_SYM_ERROR_CIPFAIL;
+        }     
     }
-    else if(wcAesKwStat == BAD_FUNC_ARG)
-    {
-        ret_aesKwStat_en = CRYPTO_SYM_ERROR_ARG;
-    }
-    else
-    {
-        ret_aesKwStat_en = CRYPTO_SYM_ERROR_CIPFAIL;
-    }     
     return ret_aesKwStat_en;
 }
 
@@ -1212,31 +1276,31 @@ crypto_Sym_Status_E Crypto_Sym_Wc_AesKeyUnWrapDirect(uint8_t *ptr_inputData, uin
     crypto_Sym_Status_E ret_aesKwStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     
     int wcAesKwStat = -1;
-    if( (ptr_inputData != NULL) && (inputLen > 0) && (ptr_outData != NULL)  && (outputLen > 0) )
+    if( (ptr_inputData != NULL) && (inputLen > 0u) && (ptr_outData != NULL)  && (outputLen > 0u) )
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_ARG;
     }
-    else if( (ptr_key == NULL) && (keySize > 0) )
+    else if( (ptr_key == NULL) && (keySize > 0u) )
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_KEY;
     }
     else
     {
         wcAesKwStat = wc_AesKeyUnWrap( (const byte*)ptr_key, (word32)keySize, (const byte*)ptr_inputData, (word32)inputLen, (byte*)ptr_outData, (word32)outputLen, (const byte*)ptr_initVect);
-    }
     
-    if(wcAesKwStat == (inputLen + KEYWRAP_BLOCK_SIZE) )
-    {
-        ret_aesKwStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
+        if(wcAesKwStat == (int)((int)inputLen + (int)KEYWRAP_BLOCK_SIZE) )
+        {
+            ret_aesKwStat_en = CRYPTO_SYM_CIPHER_SUCCESS;
+        }
+        else if(wcAesKwStat == BAD_FUNC_ARG)
+        {
+            ret_aesKwStat_en = CRYPTO_SYM_ERROR_ARG;
+        }
+        else
+        {
+            ret_aesKwStat_en = CRYPTO_SYM_ERROR_CIPFAIL;
+        }
     }
-    else if(wcAesKwStat == BAD_FUNC_ARG)
-    {
-        ret_aesKwStat_en = CRYPTO_SYM_ERROR_ARG;
-    }
-    else
-    {
-        ret_aesKwStat_en = CRYPTO_SYM_ERROR_CIPFAIL;
-    }   
     return ret_aesKwStat_en;
 }
 #endif /* CRYPTO_SYM_WC_AESKW_EN && HAVE_AES_KEYWRAP */
@@ -1252,9 +1316,11 @@ crypto_Sym_Status_E Crypto_Sym_Wc_ChaCha_Init(void *ptr_chaChaCtx, uint8_t *ptr_
         wcChaChaStatus = wc_Chacha_SetKey( (ChaCha*)ptr_chaChaCtx, (const byte*)ptr_key, (word32)keySize);
         if(wcChaChaStatus == 0)
         {
-            word32 *counter = (word32*)&ptr_initVect[12];
+            word32 counter = 0;
             
-            wcChaChaStatus = wc_Chacha_SetIV( (ChaCha*)ptr_chaChaCtx, (const byte*) ptr_initVect, *counter);
+            counter = (word32)( ((word32)ptr_initVect[12]<<24u) | ((word32)ptr_initVect[13]<<16u) | ((word32)ptr_initVect[14] << 8u) | ((word32)ptr_initVect[15]));
+            
+            wcChaChaStatus = wc_Chacha_SetIV( (ChaCha*)ptr_chaChaCtx, (const byte*) ptr_initVect, counter);
         }
         if(wcChaChaStatus == 0)
         {
@@ -1284,7 +1350,7 @@ crypto_Sym_Status_E Crypto_Sym_Wc_ChaChaUpdate(void *ptr_chaChaCtx, uint8_t *ptr
 {
     crypto_Sym_Status_E ret_chaChaStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD; 
     int wcChaChaStatus = BAD_FUNC_ARG;
-    if( (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) )
+    if( (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) )
     {
         //This function processes the text from the buffer input, encrypts or decrypts it, and stores the result in the buffer output
         wcChaChaStatus = wc_Chacha_Process(ptr_chaChaCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32) dataLen);
@@ -1312,14 +1378,15 @@ crypto_Sym_Status_E Crypto_Sym_Wc_ChaChaDirect(uint8_t *ptr_inputData, uint32_t 
 {
     crypto_Sym_Status_E ret_chaChaStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;    
     int wcChaChaStatus = BAD_FUNC_ARG;
-    if( ( (keySize >= 16) && (keySize <= 32) ) && (ptr_inputData != NULL) && (dataLen > 0) && (ptr_outData != NULL) && (ptr_key != NULL) && (ptr_initVect != NULL))
+    if( ( (keySize >= 16u) && (keySize <= 32u) ) && (ptr_inputData != NULL) && (dataLen > 0u) && (ptr_outData != NULL) && (ptr_key != NULL) && (ptr_initVect != NULL))
     {
         ChaCha chaChaCtx[1];
         wcChaChaStatus = wc_Chacha_SetKey(chaChaCtx, (const byte*)ptr_key, (word32)keySize);
         if(wcChaChaStatus == 0)
         {
-            word32 *counter = (word32*)&ptr_initVect[12];
-            wcChaChaStatus = wc_Chacha_SetIV(chaChaCtx, (const byte*) ptr_initVect, *counter);
+            word32 counter = 0;
+            counter = (word32) (((word32)ptr_initVect[12]<<24u) | ((word32)ptr_initVect[13]<<16u) | ((word32)ptr_initVect[14] << 8u) | ((word32)ptr_initVect[15]));
+            wcChaChaStatus = wc_Chacha_SetIV(chaChaCtx, (const byte*) ptr_initVect, counter);
             if(wcChaChaStatus == 0)
             {
                 //This function processes the text from the buffer input, encrypts or decrypts it, and stores the result in the buffer output

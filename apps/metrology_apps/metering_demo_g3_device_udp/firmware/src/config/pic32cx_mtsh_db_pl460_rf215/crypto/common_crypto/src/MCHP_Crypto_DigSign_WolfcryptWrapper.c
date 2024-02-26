@@ -39,11 +39,12 @@
 
 #ifdef CRYPTO_DIGISIGN_WC_ECDSA_EN
 static const int arr_EccCurveWcMap[CRYPTO_ECC_CURVE_MAX][2] =  {
-                                                            {CRYPTO_ECC_CURVE_SECP256R1, ECC_SECP256R1},
-                                                            {CRYPTO_ECC_CURVE_SECP384R1, ECC_SECP384R1},
-                                                            {CRYPTO_ECC_CURVE_SECP256K1, ECC_SECP256K1},
-                                                            {CRYPTO_ECC_CURVE_BRAINPOOLP256R1, ECC_BRAINPOOLP256R1},
-                                                            {CRYPTO_ECC_CURVE_BRAINPOOLP384R1, ECC_BRAINPOOLP384R1},
+                                                            {(int)CRYPTO_ECC_CURVE_INVALID, (int)ECC_CURVE_INVALID},
+                                                            {(int)CRYPTO_ECC_CURVE_SECP256R1, (int)ECC_SECP256R1},
+                                                            {(int)CRYPTO_ECC_CURVE_SECP384R1, (int)ECC_SECP384R1},
+                                                            {(int)CRYPTO_ECC_CURVE_SECP256K1, (int)ECC_SECP256K1},
+                                                            {(int)CRYPTO_ECC_CURVE_BRAINPOOLP256R1, (int)ECC_BRAINPOOLP256R1},
+                                                            {(int)CRYPTO_ECC_CURVE_BRAINPOOLP384R1, (int)ECC_BRAINPOOLP384R1},
                                                         };
 #endif /* CRYPTO_DIGISIGN_WC_ECDSA_EN */
 
@@ -54,8 +55,9 @@ crypto_DigiSign_Status_E Crypto_DigiSign_Wc_Ecdsa_Sign(uint8_t *ptr_wcInputHash,
     crypto_DigiSign_Status_E ret_wcEcdsaStat_en;
     ecc_key wcEccPrivKey_st;
     WC_RNG wcRng_st;
-    int wcEccCurveId = ECC_CURVE_INVALID;
+    int wcEccCurveId = (int)ECC_CURVE_INVALID;
     int wcEcdsaStat = BAD_FUNC_ARG;
+    word32 signLen = wcSigLen;
     
     wcEccCurveId = arr_EccCurveWcMap[wcEccCurveType_en][1];
     
@@ -77,7 +79,7 @@ crypto_DigiSign_Status_E Crypto_DigiSign_Wc_Ecdsa_Sign(uint8_t *ptr_wcInputHash,
                                                         );
             if(wcEcdsaStat == 0)
             {
-                wcEcdsaStat = wc_ecc_sign_hash(ptr_wcInputHash, wcHashLen, ptr_wcSig, (word32*)&wcSigLen, &wcRng_st, &wcEccPrivKey_st);
+                wcEcdsaStat = wc_ecc_sign_hash(ptr_wcInputHash, wcHashLen, ptr_wcSig, &signLen, &wcRng_st, &wcEccPrivKey_st);
             }
         }
         if(wcEcdsaStat == 0)
@@ -106,12 +108,13 @@ crypto_DigiSign_Status_E Crypto_DigiSign_Wc_Ecdsa_Sign(uint8_t *ptr_wcInputHash,
 }
 
 crypto_DigiSign_Status_E Crypto_DigiSign_Wc_Ecdsa_Verify(uint8_t *ptr_wcInputHash, uint32_t wcHashLen, uint8_t *ptr_wcInputSig, uint32_t wcSigLen, uint8_t *ptr_wcPubKey, uint32_t wcPubKeyLen, 
-                                                         int8_t *ptr_wcHashVerifyStat, uint32_t wcEccCurveType_en)
+                                                         int8_t *ptr_wcHashVerifyStat, crypto_EccCurveType_E wcEccCurveType_en)
 {
     crypto_DigiSign_Status_E ret_wcEcdsaStat_en;
     ecc_key wcEccPubKey_st;
-    int wcEccCurveId = ECC_CURVE_INVALID;
+    int wcEccCurveId = (int)ECC_CURVE_INVALID;
     int wcEcdsaStat = BAD_FUNC_ARG;
+    int ptr_verifyStat = 0;
     
     wcEccCurveId = arr_EccCurveWcMap[wcEccCurveType_en][1];
     
@@ -125,8 +128,13 @@ crypto_DigiSign_Status_E Crypto_DigiSign_Wc_Ecdsa_Verify(uint8_t *ptr_wcInputHas
         if(wcEcdsaStat == 0)
         {
             //If Verify status value is 1 then verification is successfully
-            ret_wcEcdsaStat_en = wc_ecc_verify_hash(ptr_wcInputSig, wcSigLen, ptr_wcInputHash, wcHashLen, (int*)ptr_wcHashVerifyStat, &wcEccPubKey_st);
+            wcEcdsaStat = wc_ecc_verify_hash(ptr_wcInputSig, wcSigLen, ptr_wcInputHash, wcHashLen, &ptr_verifyStat, &wcEccPubKey_st);
+            *ptr_wcHashVerifyStat = (int8_t)ptr_verifyStat;
         }
+    }
+    else
+    {
+       //do nothing 
     }
     if(wcEcdsaStat == 0)
     {

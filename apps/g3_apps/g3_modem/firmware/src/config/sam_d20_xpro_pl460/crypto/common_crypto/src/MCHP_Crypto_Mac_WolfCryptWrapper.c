@@ -54,7 +54,7 @@ crypto_Mac_Status_E Crypto_Mac_Wc_AesCmac_Init(void *ptr_aesCmacCtx, uint8_t *pt
     
     if(ptr_aesCmacCtx != NULL)
     {
-        wcAesStatus =  wc_InitCmac( (Cmac*) ptr_aesCmacCtx, (const byte*)ptr_key, (word32)keySize, WC_CMAC_AES, NULL);
+        wcAesStatus =  wc_InitCmac( (Cmac*) ptr_aesCmacCtx, (const byte*)ptr_key, (word32)keySize, (int)WC_CMAC_AES, NULL);
         
         if(wcAesStatus == 0)
         {
@@ -89,16 +89,13 @@ crypto_Mac_Status_E Crypto_Mac_Wc_AesCmac_Cipher(void *ptr_aesCmacCtx, uint8_t *
         {
             ret_aesStat_en = CRYPTO_MAC_CIPHER_SUCCESS;
         }
-        else if(ret_aesStat_en != CRYPTO_MAC_ERROR_CIPOPER)
+        else if(wcAesStatus == BAD_FUNC_ARG)
         {
-            if(wcAesStatus == BAD_FUNC_ARG)
-            {
-                ret_aesStat_en = CRYPTO_MAC_ERROR_ARG;
-            }
-            else
-            {
-                ret_aesStat_en  = CRYPTO_MAC_ERROR_CIPFAIL;
-            }
+            ret_aesStat_en = CRYPTO_MAC_ERROR_ARG;
+        }
+        else
+        {
+            ret_aesStat_en  = CRYPTO_MAC_ERROR_CIPFAIL;
         }
     } //end of if of argument checking
     else
@@ -112,23 +109,21 @@ crypto_Mac_Status_E Crypto_Mac_Wc_AesCmac_Final(void *ptr_aesCmacCtx, uint8_t *p
 {
     crypto_Mac_Status_E ret_aesStat_en = CRYPTO_MAC_ERROR_CIPNOTSUPPTD;
     int wcAesStatus = BAD_FUNC_ARG;
+    word32 wcMacLen = macLen;
     if( (ptr_aesCmacCtx != NULL ) && (ptr_outMac != NULL) )
     {
-        wcAesStatus = wc_CmacFinal( (Cmac*)ptr_aesCmacCtx, (byte*)ptr_outMac, (word32*)&macLen);
+        wcAesStatus = wc_CmacFinal( (Cmac*)ptr_aesCmacCtx, (byte*)ptr_outMac, &wcMacLen);
         if(wcAesStatus == 0)
         {
             ret_aesStat_en = CRYPTO_MAC_CIPHER_SUCCESS;
         }
-        else if(ret_aesStat_en != CRYPTO_MAC_ERROR_CIPOPER)
+        else if(wcAesStatus == BAD_FUNC_ARG)
         {
-            if(wcAesStatus == BAD_FUNC_ARG)
-            {
-                ret_aesStat_en = CRYPTO_MAC_ERROR_ARG;
-            }
-            else
-            {
-                ret_aesStat_en  = CRYPTO_MAC_ERROR_CIPFAIL;
-            }
+            ret_aesStat_en = CRYPTO_MAC_ERROR_ARG;
+        }
+        else
+        {
+            ret_aesStat_en  = CRYPTO_MAC_ERROR_CIPFAIL;
         }
     } //end of if of argument checking
     else
@@ -142,25 +137,22 @@ crypto_Mac_Status_E Crypto_Mac_Wc_AesCmac_Direct(uint8_t *ptr_inputData, uint32_
 {
     crypto_Mac_Status_E ret_aesStat_en = CRYPTO_MAC_ERROR_CIPNOTSUPPTD;
     int wcAesStatus = BAD_FUNC_ARG;
-  
+    word32 wcMacLen = macLen;
     if( (ptr_inputData != NULL ) && (ptr_outMac != NULL) )
     {
-        wcAesStatus = wc_AesCmacGenerate( (byte*)ptr_outMac, (word32*)&macLen, (const byte*)ptr_inputData, inuptLen, (const byte*)ptr_key, keyLen);
+        wcAesStatus = wc_AesCmacGenerate( (byte*)ptr_outMac, &wcMacLen, (const byte*)ptr_inputData, inuptLen, (const byte*)ptr_key, keyLen);
         
         if(wcAesStatus == 0)
         {
             ret_aesStat_en = CRYPTO_MAC_CIPHER_SUCCESS;
         }
-        else if(ret_aesStat_en != CRYPTO_MAC_ERROR_CIPOPER)
+        else if(wcAesStatus == BAD_FUNC_ARG)
         {
-            if(wcAesStatus == BAD_FUNC_ARG)
-            {
-                ret_aesStat_en = CRYPTO_MAC_ERROR_ARG;
-            }
-            else
-            {
-                ret_aesStat_en  = CRYPTO_MAC_ERROR_CIPFAIL;
-            }
+            ret_aesStat_en = CRYPTO_MAC_ERROR_ARG;
+        }
+        else
+        {
+            ret_aesStat_en  = CRYPTO_MAC_ERROR_CIPFAIL;
         }
     } //end of if of argument checking
     else

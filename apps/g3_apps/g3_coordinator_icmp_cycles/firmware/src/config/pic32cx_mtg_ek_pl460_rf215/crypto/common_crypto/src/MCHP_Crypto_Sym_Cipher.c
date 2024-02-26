@@ -44,10 +44,6 @@ crypto_Sym_Status_E Crypto_Sym_Aes_Init(st_Crypto_Sym_BlockCtx *ptr_aesCtx_st, c
     {
         ret_aesStatus_en = CRYPTO_SYM_ERROR_CTX;
     }
-    else if( (ptr_key == NULL) || (keyLen < CRYPTO_AESKEYSIZE_128) || (keyLen > CRYPTO_AESKEYSIZE_256)  ) //Key length check for XTS mode?? 
-    {
-       ret_aesStatus_en =  CRYPTO_SYM_ERROR_KEY;
-    }
     else if( (cipherOpType_en <= CRYPTO_CIOP_INVALID) || (cipherOpType_en >= CRYPTO_CIOP_MAX) )
     {
        ret_aesStatus_en =  CRYPTO_SYM_ERROR_CIPOPER; 
@@ -56,7 +52,19 @@ crypto_Sym_Status_E Crypto_Sym_Aes_Init(st_Crypto_Sym_BlockCtx *ptr_aesCtx_st, c
     {
         ret_aesStatus_en = CRYPTO_SYM_ERROR_OPMODE;
     }
-    else if(sessionID > CRYPTO_SYM_SESSION_MAX)
+#ifdef CRYPTO_SYM_AESXTS_EN            
+    else if( (opMode_en != CRYPTO_SYM_OPMODE_XTS) && 
+                    ( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256) )  ) //key length check other than XTS mode 
+    {
+       ret_aesStatus_en =  CRYPTO_SYM_ERROR_KEY;
+    }
+    else if( (opMode_en == CRYPTO_SYM_OPMODE_XTS) && 
+                    ( (ptr_key == NULL) || ((keyLen != (uint32_t)((uint32_t)CRYPTO_AESKEYSIZE_128*2Lu)) && (keyLen != (uint32_t)((uint32_t)CRYPTO_AESKEYSIZE_256*2Lu))) ) ) //key length check for XTS mode 
+    {
+        ret_aesStatus_en =  CRYPTO_SYM_ERROR_KEY;;
+    }
+#endif /* CRYPTO_SYM_AESXTS_EN */            
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_aesStatus_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -66,7 +74,7 @@ crypto_Sym_Status_E Crypto_Sym_Aes_Init(st_Crypto_Sym_BlockCtx *ptr_aesCtx_st, c
 #endif /* CRYPTO_SYM_AESECB_EN */
             
 #ifdef CRYPTO_SYM_AESXTS_EN            
-            && (opMode_en != CRYTPO_SYM_OPMODE_XTS)
+            && (opMode_en != CRYPTO_SYM_OPMODE_XTS)
 #endif /* CRYPTO_SYM_AESXTS_EN */            
             )
     {
@@ -87,7 +95,7 @@ crypto_Sym_Status_E Crypto_Sym_Aes_Init(st_Crypto_Sym_BlockCtx *ptr_aesCtx_st, c
 #ifdef CRYPTO_SYM_WC_AES_EN               
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
 #ifdef CRYPTO_SYM_AESXTS_EN                
-                if(ptr_aesCtx_st->symAlgoMode_en == CRYTPO_SYM_OPMODE_XTS)
+                if(ptr_aesCtx_st->symAlgoMode_en == CRYPTO_SYM_OPMODE_XTS)
                 {
                     ret_aesStatus_en = Crypto_Sym_Wc_AesXts_Init((void*)ptr_aesCtx_st->arr_symDataCtx, ptr_aesCtx_st->symCipherOper_en, 
                                                                       ptr_aesCtx_st->ptr_key, ptr_aesCtx_st->symKeySize);
@@ -121,7 +129,7 @@ crypto_Sym_Status_E Crypto_Sym_Aes_Cipher(st_Crypto_Sym_BlockCtx *ptr_aesCtx_st,
     {
         ret_aesStatus_en = CRYPTO_SYM_ERROR_CTX;
     }
-    else if( (ptr_inputData == NULL) || (dataLen == 0) )
+    else if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_aesStatus_en = CRYPTO_SYM_ERROR_INPUTDATA; 
     }
@@ -169,7 +177,7 @@ crypto_Sym_Status_E Crypto_Sym_AesXts_Cipher(st_Crypto_Sym_BlockCtx *ptr_aesCtx_
     {
         ret_aesXtsStat_en = CRYPTO_SYM_ERROR_CTX;
     }
-    else if( (ptr_inputData == NULL) || (dataLen == 0) )
+    else if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_aesXtsStat_en = CRYPTO_SYM_ERROR_INPUTDATA; 
     }
@@ -218,7 +226,7 @@ crypto_Sym_Status_E Crypto_Sym_Aes_EncryptDirect(crypto_HandlerType_E handlerTyp
 {
     crypto_Sym_Status_E ret_aesStatus_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     
-    if( (ptr_inputData == NULL) || (dataLen == 0) )
+    if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_aesStatus_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -226,15 +234,23 @@ crypto_Sym_Status_E Crypto_Sym_Aes_EncryptDirect(crypto_HandlerType_E handlerTyp
     {
         ret_aesStatus_en = CRYPTO_SYM_ERROR_OUTPUTDATA;
     }
-    else if( (opMode_en > CRYPTO_SYM_OPMODE_INVALID) && (opMode_en < CRYPTO_SYM_OPMODE_MAX) )
+    else if( (opMode_en <= CRYPTO_SYM_OPMODE_INVALID) || (opMode_en >= CRYPTO_SYM_OPMODE_MAX) )
     {
         ret_aesStatus_en = CRYPTO_SYM_ERROR_OPMODE;
     }
-    else if( (ptr_key == NULL) || (keyLen < CRYPTO_AESKEYSIZE_128) || (keyLen > CRYPTO_AESKEYSIZE_256)  ) 
+#if (defined( CRYPTO_SYM_AESXTS_EN) || defined(CRYPTO_SYM_CAMXTS_EN))            
+    else if( (opMode_en != CRYPTO_SYM_OPMODE_XTS) &&
+                    ( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  )  ) //key length check for other than XTS mode
     {
        ret_aesStatus_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if(sessionID > CRYPTO_SYM_SESSION_MAX)
+    else if( (opMode_en == CRYPTO_SYM_OPMODE_XTS) &&
+                    ( (ptr_key == NULL) ||  ( (keyLen != ((uint32_t)CRYPTO_AESKEYSIZE_128*2u)) && (keyLen != ((uint32_t)CRYPTO_AESKEYSIZE_256*2u) )  )  ) ) //key length check for XTS mode 
+    {
+       ret_aesStatus_en =  CRYPTO_SYM_ERROR_KEY;
+    }
+#endif
+    else if( (sessionID <= 0u ) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_aesStatus_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -252,7 +268,7 @@ crypto_Sym_Status_E Crypto_Sym_Aes_EncryptDirect(crypto_HandlerType_E handlerTyp
         {
 #ifdef CRYPTO_SYM_WC_AES_EN            
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_aesStatus_en = Crypto_Sym_Wc_Aes_EncryptDirect(opMode_en, ptr_inputData, dataLen, ptr_outData, ptr_key, (keyLen/8), ptr_initVect);
+                ret_aesStatus_en = Crypto_Sym_Wc_Aes_EncryptDirect(opMode_en, ptr_inputData, dataLen, ptr_outData, ptr_key, (keyLen/8u), ptr_initVect);
                 break;
 #endif /* CRYPTO_SYM_WC_AES_EN */                
             case CRYPTO_HANDLER_HW_INTERNAL:
@@ -271,7 +287,7 @@ crypto_Sym_Status_E Crypto_Sym_Aes_DecryptDirect(crypto_HandlerType_E handlerTyp
 {
     crypto_Sym_Status_E ret_aesStatus_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     
-    if( (ptr_inputData == NULL) || (dataLen == 0) )
+    if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_aesStatus_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -279,15 +295,15 @@ crypto_Sym_Status_E Crypto_Sym_Aes_DecryptDirect(crypto_HandlerType_E handlerTyp
     {
         ret_aesStatus_en = CRYPTO_SYM_ERROR_OUTPUTDATA;
     }
-    else if( (opMode_en > CRYPTO_SYM_OPMODE_INVALID) && (opMode_en < CRYPTO_SYM_OPMODE_MAX) )
+    else if( (opMode_en <= CRYPTO_SYM_OPMODE_INVALID) || (opMode_en >= CRYPTO_SYM_OPMODE_MAX) )
     {
         ret_aesStatus_en = CRYPTO_SYM_ERROR_OPMODE;
     }
-    else if( (ptr_key == NULL) || (keyLen < CRYPTO_AESKEYSIZE_128) || (keyLen > CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  ) 
     {
        ret_aesStatus_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if(sessionID > CRYPTO_SYM_SESSION_MAX)
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_aesStatus_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -305,7 +321,7 @@ crypto_Sym_Status_E Crypto_Sym_Aes_DecryptDirect(crypto_HandlerType_E handlerTyp
         {
 #ifdef CRYPTO_SYM_WC_AES_EN            
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_aesStatus_en = Crypto_Sym_Wc_Aes_DecryptDirect(opMode_en, ptr_inputData, dataLen, ptr_outData, ptr_key, (keyLen/8), ptr_initVect);
+                ret_aesStatus_en = Crypto_Sym_Wc_Aes_DecryptDirect(opMode_en, ptr_inputData, dataLen, ptr_outData, ptr_key, (keyLen/8u), ptr_initVect);
                 break;
 #endif /* CRYPTO_SYM_WC_AES_EN */                
             case CRYPTO_HANDLER_HW_INTERNAL:
@@ -331,19 +347,19 @@ crypto_Sym_Status_E Crypto_Sym_Camellia_Init(st_Crypto_Sym_BlockCtx *ptr_camCtx_
     {
         ret_camStatus_en = CRYPTO_SYM_ERROR_CTX;
     }
-    else if( (ptr_key == NULL) || ( (keyLen < CRYPTO_AESKEYSIZE_128) && (keyLen > CRYPTO_AESKEYSIZE_256) ) ) 
+    else if( (ptr_key == NULL) || ( (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256) ) ) 
     {
        ret_camStatus_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (cipherOpType_en > CRYPTO_CIOP_INVALID) && (cipherOpType_en < CRYPTO_CIOP_MAX) )
+    else if( (cipherOpType_en <= CRYPTO_CIOP_INVALID) || (cipherOpType_en >= CRYPTO_CIOP_MAX) )
     {
        ret_camStatus_en =  CRYPTO_SYM_ERROR_CIPOPER; 
     }
-    else if( (opMode_en > CRYPTO_SYM_OPMODE_INVALID) && (opMode_en < CRYPTO_SYM_OPMODE_MAX) )
+    else if( (opMode_en <= CRYPTO_SYM_OPMODE_INVALID) || (opMode_en >= CRYPTO_SYM_OPMODE_MAX) )
     {
         ret_camStatus_en = CRYPTO_SYM_ERROR_OPMODE;
     }
-    else if(sessionID > CRYPTO_SYM_SESSION_MAX)
+    else if((sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_camStatus_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -392,7 +408,7 @@ crypto_Sym_Status_E Crypto_Sym_Camellia_Cipher(st_Crypto_Sym_BlockCtx *ptr_camCt
     {
         ret_camStatus_en = CRYPTO_SYM_ERROR_CTX;
     }
-    else if( (ptr_inputData == NULL) || (dataLen == 0) )
+    else if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_camStatus_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -412,7 +428,7 @@ crypto_Sym_Status_E Crypto_Sym_Camellia_Cipher(st_Crypto_Sym_BlockCtx *ptr_camCt
                 }
                 else if(ptr_camCtx_st->symCipherOper_en == CRYPTO_CIOP_DECRYPT)
                 {
-                    ret_camStatus_en = Crypto_Sym_Wc_Camellia_Encrypt(ptr_camCtx_st->arr_symDataCtx, ptr_camCtx_st->symAlgoMode_en, ptr_inputData, dataLen, ptr_outData);
+                    ret_camStatus_en = Crypto_Sym_Wc_Camellia_Decrypt(ptr_camCtx_st->arr_symDataCtx, ptr_camCtx_st->symAlgoMode_en, ptr_inputData, dataLen, ptr_outData);
                 }
                 else
                 {
@@ -437,7 +453,7 @@ crypto_Sym_Status_E Crypto_Sym_Camellia_EncryptDirect(crypto_HandlerType_E handl
 {
     crypto_Sym_Status_E ret_camStatus_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     
-    if( (ptr_inputData == NULL) || (dataLen == 0) )
+    if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_camStatus_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -445,15 +461,15 @@ crypto_Sym_Status_E Crypto_Sym_Camellia_EncryptDirect(crypto_HandlerType_E handl
     {
         ret_camStatus_en = CRYPTO_SYM_ERROR_OUTPUTDATA;
     }
-    else if( (opMode_en > CRYPTO_SYM_OPMODE_INVALID) && (opMode_en < CRYPTO_SYM_OPMODE_MAX) )
+    else if( (opMode_en <= CRYPTO_SYM_OPMODE_INVALID) || (opMode_en >= CRYPTO_SYM_OPMODE_MAX) )
     {
         ret_camStatus_en = CRYPTO_SYM_ERROR_OPMODE;
     }
-    else if( (ptr_key == NULL) || (keyLen < CRYPTO_AESKEYSIZE_128) || (keyLen > CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  ) 
     {
        ret_camStatus_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (sessionID > 0) && (sessionID <= CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_camStatus_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -471,7 +487,7 @@ crypto_Sym_Status_E Crypto_Sym_Camellia_EncryptDirect(crypto_HandlerType_E handl
         {
 #ifdef CRYPTO_SYM_WC_CAMELLIA_EN            
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_camStatus_en = Crypto_Sym_Wc_Camellia_EncryptDirect(opMode_en, ptr_inputData, dataLen, ptr_outData, ptr_key, (keyLen/8), ptr_initVect);
+                ret_camStatus_en = Crypto_Sym_Wc_Camellia_EncryptDirect(opMode_en, ptr_inputData, dataLen, ptr_outData, ptr_key, (keyLen/8u), ptr_initVect);
                 break;
 #endif /* CRYPTO_SYM_WC_CAMELLIA_EN */                
             case CRYPTO_HANDLER_HW_INTERNAL:
@@ -490,7 +506,7 @@ crypto_Sym_Status_E Crypto_Sym_Camellia_DecryptDirect(crypto_HandlerType_E handl
 {
     crypto_Sym_Status_E ret_camStatus_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     
-    if( (ptr_inputData == NULL) || (dataLen == 0) )
+    if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_camStatus_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -498,15 +514,15 @@ crypto_Sym_Status_E Crypto_Sym_Camellia_DecryptDirect(crypto_HandlerType_E handl
     {
         ret_camStatus_en = CRYPTO_SYM_ERROR_OUTPUTDATA;
     }
-    else if( (opMode_en > CRYPTO_SYM_OPMODE_INVALID) && (opMode_en < CRYPTO_SYM_OPMODE_MAX) )
+    else if( (opMode_en <= CRYPTO_SYM_OPMODE_INVALID) || (opMode_en >= CRYPTO_SYM_OPMODE_MAX) )
     {
         ret_camStatus_en = CRYPTO_SYM_ERROR_OPMODE;
     }
-    else if( (ptr_key == NULL) || (keyLen < CRYPTO_AESKEYSIZE_128) || (keyLen > CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  ) 
     {
        ret_camStatus_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (sessionID > 0) && (sessionID <= CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_camStatus_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -524,7 +540,7 @@ crypto_Sym_Status_E Crypto_Sym_Camellia_DecryptDirect(crypto_HandlerType_E handl
         {
 #ifdef CRYPTO_SYM_WC_CAMELLIA_EN            
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_camStatus_en = Crypto_Sym_Wc_Camellia_EncryptDirect(opMode_en, ptr_inputData, dataLen, ptr_outData, ptr_key, (keyLen/8), ptr_initVect);
+                ret_camStatus_en = Crypto_Sym_Wc_Camellia_EncryptDirect(opMode_en, ptr_inputData, dataLen, ptr_outData, ptr_key, (keyLen/8u), ptr_initVect);
                 break;
 #endif /* CRYPTO_SYM_WC_CAMELLIA_EN */                
             case CRYPTO_HANDLER_HW_INTERNAL:
@@ -553,15 +569,15 @@ crypto_Sym_Status_E Crypto_Sym_Tdes_Init(st_Crypto_Sym_BlockCtx *ptr_tdesCtx_st,
     {
        ret_tdesStat_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (cipherOpType_en > CRYPTO_CIOP_INVALID) && (cipherOpType_en < CRYPTO_CIOP_MAX) )
+    else if( (cipherOpType_en <= CRYPTO_CIOP_INVALID) || (cipherOpType_en >= CRYPTO_CIOP_MAX) )
     {
        ret_tdesStat_en =  CRYPTO_SYM_ERROR_CIPOPER; 
     }
-    else if( (opMode_en > CRYPTO_SYM_OPMODE_INVALID) && (opMode_en < CRYPTO_SYM_OPMODE_MAX) )
+    else if( (opMode_en <= CRYPTO_SYM_OPMODE_INVALID) || (opMode_en >= CRYPTO_SYM_OPMODE_MAX) )
     {
         ret_tdesStat_en = CRYPTO_SYM_ERROR_OPMODE;
     }
-    else if( (sessionID > 0) && (sessionID <= CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_tdesStat_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -609,7 +625,7 @@ crypto_Sym_Status_E Crypto_Sym_Tdes_Cipher(st_Crypto_Sym_BlockCtx *ptr_tdesCtx_s
     {
         ret_tdesStat_en = CRYPTO_SYM_ERROR_CTX;
     }
-    else if( (ptr_inputData == NULL) || (dataLen == 0) )
+    else if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_tdesStat_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -653,7 +669,7 @@ crypto_Sym_Status_E Crypto_Sym_Tdes_EncryptDirect(crypto_HandlerType_E handlerTy
 {
     crypto_Sym_Status_E ret_tdesStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     
-    if( (ptr_inputData == NULL) || (dataLen == 0) )
+    if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_tdesStat_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -661,11 +677,11 @@ crypto_Sym_Status_E Crypto_Sym_Tdes_EncryptDirect(crypto_HandlerType_E handlerTy
     {
         ret_tdesStat_en = CRYPTO_SYM_ERROR_OUTPUTDATA;
     }
-    else if( (opMode_en > CRYPTO_SYM_OPMODE_INVALID) && (opMode_en < CRYPTO_SYM_OPMODE_MAX) )
+    else if( (opMode_en <= CRYPTO_SYM_OPMODE_INVALID) || (opMode_en >= CRYPTO_SYM_OPMODE_MAX) )
     {
         ret_tdesStat_en = CRYPTO_SYM_ERROR_OPMODE;
     }
-    else if( (sessionID > 0) && (sessionID <= CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_tdesStat_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -703,7 +719,7 @@ crypto_Sym_Status_E Crypto_Sym_Tdes_DecryptDirect(crypto_HandlerType_E handlerTy
 {
     crypto_Sym_Status_E ret_tdesStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     
-    if( (ptr_inputData == NULL) || (dataLen == 0) )
+    if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_tdesStat_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -711,11 +727,11 @@ crypto_Sym_Status_E Crypto_Sym_Tdes_DecryptDirect(crypto_HandlerType_E handlerTy
     {
         ret_tdesStat_en = CRYPTO_SYM_ERROR_OUTPUTDATA;
     }
-    else if( (opMode_en > CRYPTO_SYM_OPMODE_INVALID) && (opMode_en < CRYPTO_SYM_OPMODE_MAX) )
+    else if( (opMode_en <= CRYPTO_SYM_OPMODE_INVALID) || (opMode_en >= CRYPTO_SYM_OPMODE_MAX) )
     {
         ret_tdesStat_en = CRYPTO_SYM_ERROR_OPMODE;
     }
-    else if( (sessionID > 0) && (sessionID <= CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_tdesStat_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -758,15 +774,15 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyWrap_Init(st_Crypto_Sym_BlockCtx *ptr_aesCt
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_CTX;
     }
-    else if( (ptr_key == NULL) || (keyLen < CRYPTO_AESKEYSIZE_128) || (keyLen > CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  ) 
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (cipherOpType_en > CRYPTO_CIOP_INVALID) && (cipherOpType_en < CRYPTO_CIOP_MAX) )
+    else if( (cipherOpType_en <= CRYPTO_CIOP_INVALID) || (cipherOpType_en >= CRYPTO_CIOP_MAX) )
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_CIPOPER; 
     }
-    else if( (sessionID > 0) && (sessionID <= CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -807,7 +823,7 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyWrap_Cipher(st_Crypto_Sym_BlockCtx *ptr_aes
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_CTX;
     }
-    else if( (ptr_inputData == NULL) || (dataLen == 0) )
+    else if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -823,11 +839,11 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyWrap_Cipher(st_Crypto_Sym_BlockCtx *ptr_aes
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
                 if(ptr_aesCtx_st->symCipherOper_en == CRYPTO_CIOP_ENCRYPT)
                 {
-                    ret_aesKwStat_en = Crypto_Sym_Wc_AesKeyWrap(ptr_aesCtx_st->arr_symDataCtx, ptr_inputData, dataLen, ptr_outData, (dataLen+8), ptr_aesCtx_st->ptr_initVect);
+                    ret_aesKwStat_en = Crypto_Sym_Wc_AesKeyWrap(ptr_aesCtx_st->arr_symDataCtx, ptr_inputData, dataLen, ptr_outData, (dataLen+8u), ptr_aesCtx_st->ptr_initVect);
                 }
                 else if(ptr_aesCtx_st->symCipherOper_en == CRYPTO_CIOP_DECRYPT)
                 {
-                    ret_aesKwStat_en = Crypto_Sym_Wc_AesKeyUnWrap(ptr_aesCtx_st->arr_symDataCtx, ptr_inputData, dataLen, ptr_outData, (dataLen+8), ptr_aesCtx_st->ptr_initVect);
+                    ret_aesKwStat_en = Crypto_Sym_Wc_AesKeyUnWrap(ptr_aesCtx_st->arr_symDataCtx, ptr_inputData, dataLen, ptr_outData, (dataLen+8u), ptr_aesCtx_st->ptr_initVect);
                 }
                 else
                 {
@@ -852,7 +868,7 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyWrapDirect(crypto_HandlerType_E handlerType
 {
     crypto_Sym_Status_E ret_aesKwStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     
-    if( (ptr_inputData == NULL) || (inputLen == 0) || (inputLen < (64*2)) )
+    if( (ptr_inputData == NULL) || (inputLen == 0u) || (inputLen < (uint32_t)((64Lu)*(2Lu)) ) )
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -860,11 +876,11 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyWrapDirect(crypto_HandlerType_E handlerType
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_OUTPUTDATA;
     }
-    else if( (ptr_key == NULL) || (keyLen < CRYPTO_AESKEYSIZE_128) || (keyLen > CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  ) 
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (sessionID > 0) && (sessionID <= CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -874,7 +890,7 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyWrapDirect(crypto_HandlerType_E handlerType
         {
 #ifdef CRYPTO_SYM_WC_AESKW_EN            
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_aesKwStat_en = Crypto_Sym_Wc_AesKeyWrapDirect(ptr_inputData, inputLen, ptr_outData, (inputLen + 8), ptr_key, keyLen, ptr_initVect);
+                ret_aesKwStat_en = Crypto_Sym_Wc_AesKeyWrapDirect(ptr_inputData, inputLen, ptr_outData, (inputLen + 8u), ptr_key, keyLen, ptr_initVect);
                 break;
 #endif /* CRYPTO_SYM_WC_AESKW_EN */                
             case CRYPTO_HANDLER_HW_INTERNAL:
@@ -893,7 +909,7 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyUnWrapDirect(crypto_HandlerType_E handlerTy
 {
     crypto_Sym_Status_E ret_aesKwStat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     
-    if( (ptr_inputData == NULL) || (inputLen == 0) || (inputLen < (64*2)) )
+    if( (ptr_inputData == NULL) || (inputLen == 0u) || (inputLen < (uint32_t)((64Lu)*(2Lu))) )
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -901,11 +917,11 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyUnWrapDirect(crypto_HandlerType_E handlerTy
     {
         ret_aesKwStat_en = CRYPTO_SYM_ERROR_OUTPUTDATA;
     }
-    else if( (ptr_key == NULL) || (keyLen < CRYPTO_AESKEYSIZE_128) || (keyLen > CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256) ) 
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (sessionID > 0) && (sessionID <= CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -915,7 +931,7 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyUnWrapDirect(crypto_HandlerType_E handlerTy
         {
 #ifdef CRYPTO_SYM_WC_AESKW_EN            
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_aesKwStat_en = Crypto_Sym_Wc_AesKeyUnWrapDirect(ptr_inputData, inputLen, ptr_outData, (inputLen + 8), ptr_key, keyLen, ptr_initVect);
+                ret_aesKwStat_en = Crypto_Sym_Wc_AesKeyUnWrapDirect(ptr_inputData, inputLen, ptr_outData, (inputLen + 8u), ptr_key, keyLen, ptr_initVect);
                 break;
 #endif /* CRYPTO_SYM_WC_AESKW_EN */                
             case CRYPTO_HANDLER_HW_INTERNAL:
@@ -944,7 +960,7 @@ crypto_Sym_Status_E Crypto_Sym_ChaCha20_Init(st_Crypto_Sym_StreamCtx *ptr_chaCha
     {
        ret_chaCha20Stat_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (sessionID > 0) && (sessionID <= CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_chaCha20Stat_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -986,7 +1002,7 @@ crypto_Sym_Status_E Crypto_Sym_ChaCha20_Cipher(st_Crypto_Sym_StreamCtx *ptr_chaC
     {
         ret_chaCha20Stat_en = CRYPTO_SYM_ERROR_CTX;
     }
-    else if( (ptr_inputData == NULL) || (dataLen == 0) )
+    else if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_chaCha20Stat_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -1019,7 +1035,7 @@ crypto_Sym_Status_E Crypto_Sym_ChaCha20Direct(crypto_HandlerType_E handlerType_e
 {
     crypto_Sym_Status_E ret_chaCha20Stat_en = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
     
-    if( (ptr_inputData == NULL) || (dataLen == 0) )
+    if( (ptr_inputData == NULL) || (dataLen == 0u) )
     {
         ret_chaCha20Stat_en = CRYPTO_SYM_ERROR_INPUTDATA;
     }
@@ -1031,7 +1047,7 @@ crypto_Sym_Status_E Crypto_Sym_ChaCha20Direct(crypto_HandlerType_E handlerType_e
     {
         ret_chaCha20Stat_en = CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (sessionID > 0) && (sessionID <= CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_chaCha20Stat_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -1045,7 +1061,7 @@ crypto_Sym_Status_E Crypto_Sym_ChaCha20Direct(crypto_HandlerType_E handlerType_e
         {
 #ifdef CRYPTO_SYM_WC_CHACHA20_EN            
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_chaCha20Stat_en = Crypto_Sym_Wc_ChaChaDirect(ptr_inputData, dataLen, ptr_outData, ptr_key, 32, ptr_initVect); //key size is 32 bytes for chacha20
+                ret_chaCha20Stat_en = Crypto_Sym_Wc_ChaChaDirect(ptr_inputData, dataLen, ptr_outData, ptr_key, 32u, ptr_initVect); //key size is 32 bytes for chacha20
                 break;
 #endif /* CRYPTO_SYM_WC_CHACHA20_EN */                
             case CRYPTO_HANDLER_HW_INTERNAL:

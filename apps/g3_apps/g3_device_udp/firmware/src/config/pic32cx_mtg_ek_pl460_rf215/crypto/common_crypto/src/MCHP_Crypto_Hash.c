@@ -47,7 +47,7 @@ crypto_Hash_Status_E Crypto_Hash_Md5_Digest(crypto_HandlerType_E md5Handler_en, 
 {
    	crypto_Hash_Status_E ret_md5Stat_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
 
-    if( (ptr_data == NULL) || (dataLen == 0) )
+    if( (ptr_data == NULL) || (dataLen == 0u) )
     {
         ret_md5Stat_en = CRYPTO_HASH_ERROR_INPUTDATA;
     }
@@ -55,7 +55,7 @@ crypto_Hash_Status_E Crypto_Hash_Md5_Digest(crypto_HandlerType_E md5Handler_en, 
     {      
         ret_md5Stat_en = CRYPTO_HASH_ERROR_OUTPUTDATA;
     }
-    else if( (md5SessionId <= 0) || (md5SessionId > CRYPTO_HASH_SESSION_MAX) )
+    else if( (md5SessionId <= 0u) || (md5SessionId > (uint32_t)CRYPTO_HASH_SESSION_MAX) )
     {
         ret_md5Stat_en = CRYPTO_HASH_ERROR_SID;
     }
@@ -65,7 +65,7 @@ crypto_Hash_Status_E Crypto_Hash_Md5_Digest(crypto_HandlerType_E md5Handler_en, 
         {
 #ifdef CRYPTO_HASH_WC_MD5_EN            
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_md5Stat_en = Crypto_Hash_WolfCryptWrapper_Md5Digest(ptr_data, dataLen, ptr_digest);
+                ret_md5Stat_en = Crypto_Hash_Wc_Md5Digest(ptr_data, dataLen, ptr_digest);
                 break;
 #endif /* CRYPTO_HASH_WC_MD5_EN */
             case CRYPTO_HANDLER_HW_INTERNAL:
@@ -88,7 +88,7 @@ crypto_Hash_Status_E Crypto_Hash_Md5_Init(st_Crypto_Hash_Md5_Ctx *ptr_md5Ctx_st,
     {
         ret_md5Stat_en = CRYPTO_HASH_ERROR_CTX;
     }
-    else if( (md5SessionId <= 0) || (md5SessionId > CRYPTO_HASH_SESSION_MAX) )
+    else if( (md5SessionId <= 0u) || (md5SessionId > (uint32_t)CRYPTO_HASH_SESSION_MAX) )
     {
         ret_md5Stat_en = CRYPTO_HASH_ERROR_SID;
     }
@@ -101,7 +101,7 @@ crypto_Hash_Status_E Crypto_Hash_Md5_Init(st_Crypto_Hash_Md5_Ctx *ptr_md5Ctx_st,
         {
 #ifdef CRYPTO_HASH_WC_MD5_EN            
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_md5Stat_en = Crypto_Hash_WolfCryptWrapper_Md5Init((void*)ptr_md5Ctx_st->arr_md5DataCtx);
+                ret_md5Stat_en = Crypto_Hash_Wc_Md5Init((void*)ptr_md5Ctx_st->arr_md5DataCtx);
                 break;
 #endif /* CRYPTO_HASH_WC_MD5_EN */
             case CRYPTO_HANDLER_HW_INTERNAL:
@@ -124,7 +124,7 @@ crypto_Hash_Status_E Crypto_Hash_Md5_Update(st_Crypto_Hash_Md5_Ctx * ptr_md5Ctx_
     {
         ret_md5Stat_en = CRYPTO_HASH_ERROR_CTX;
     }
-    else if( (ptr_data == NULL) || (dataLen == 0) )
+    else if( (ptr_data == NULL) || (dataLen == 0u) )
     {
         ret_md5Stat_en = CRYPTO_HASH_ERROR_INPUTDATA;
     }
@@ -134,7 +134,7 @@ crypto_Hash_Status_E Crypto_Hash_Md5_Update(st_Crypto_Hash_Md5_Ctx * ptr_md5Ctx_
         {
 #ifdef CRYPTO_HASH_WC_MD5_EN            
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_md5Stat_en = Crypto_Hash_WolfCryptWrapper_Md5Update((void*)ptr_md5Ctx_st->arr_md5DataCtx, ptr_data, dataLen);
+                ret_md5Stat_en = Crypto_Hash_Wc_Md5Update((void*)ptr_md5Ctx_st->arr_md5DataCtx, ptr_data, dataLen);
                 break;
 #endif /* CRYPTO_HASH_WC_MD5_EN */
             case CRYPTO_HANDLER_HW_INTERNAL:
@@ -166,7 +166,7 @@ crypto_Hash_Status_E Crypto_Hash_Md5_Final(st_Crypto_Hash_Md5_Ctx * ptr_md5Ctx_s
         {
 #ifdef CRYPTO_HASH_WC_MD5_EN            
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_md5Stat_en = Crypto_Hash_WolfCryptWrapper_Md5Final((void*)ptr_md5Ctx_st->arr_md5DataCtx, ptr_digest);
+                ret_md5Stat_en = Crypto_Hash_Wc_Md5Final((void*)ptr_md5Ctx_st->arr_md5DataCtx, ptr_digest);
                 break;
 #endif /* CRYPTO_HASH_WC_MD5_EN */
             case CRYPTO_HANDLER_HW_INTERNAL:
@@ -187,7 +187,7 @@ crypto_Hash_Status_E Crypto_Hash_Ripemd160_Digest(crypto_HandlerType_E ripedmd16
 {
    	crypto_Hash_Status_E ret_ripemdStat_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
     
-    if( (ptr_data == NULL) || (dataLen == 0) )
+    if( (ptr_data == NULL) || (dataLen == 0u) )
     {
         ret_ripemdStat_en = CRYPTO_HASH_ERROR_INPUTDATA;
     }
@@ -195,7 +195,7 @@ crypto_Hash_Status_E Crypto_Hash_Ripemd160_Digest(crypto_HandlerType_E ripedmd16
     {      
         ret_ripemdStat_en = CRYPTO_HASH_ERROR_OUTPUTDATA;
     }
-    else if( (ripemdSessionId <= 0) || (ripemdSessionId > CRYPTO_HASH_SESSION_MAX))
+    else if( (ripemdSessionId <= 0u) || (ripemdSessionId > (uint32_t)CRYPTO_HASH_SESSION_MAX))
     {
         ret_ripemdStat_en = CRYPTO_HASH_ERROR_SID;
     }
@@ -205,7 +205,7 @@ crypto_Hash_Status_E Crypto_Hash_Ripemd160_Digest(crypto_HandlerType_E ripedmd16
         {
 #ifdef CRYPTO_HASH_WC_RIPEMD160_EN
             case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_ripemdStat_en = Crypto_Hash_WolfCryptWrapper_Ripemd160Digest(ptr_data, dataLen, ptr_digest);
+                ret_ripemdStat_en = Crypto_Hash_Wc_Ripemd160Digest(ptr_data, dataLen, ptr_digest);
                 break;
 #endif /* CRYPTO_HASH_WC_RIPEMD160_EN */
             case CRYPTO_HANDLER_HW_INTERNAL:
@@ -229,7 +229,7 @@ crypto_Hash_Status_E Crypto_Hash_Ripemd160_Init(st_Crypto_Hash_Ripemd160_Ctx *pt
     {
         ret_ripemdStat_en = CRYPTO_HASH_ERROR_CTX;
     }
-    else if( (ripemdSessionId <= 0) || (ripemdSessionId > CRYPTO_HASH_SESSION_MAX) )
+    else if( (ripemdSessionId <= 0u) || (ripemdSessionId > (uint32_t)CRYPTO_HASH_SESSION_MAX) )
     {
         ret_ripemdStat_en = CRYPTO_HASH_ERROR_SID;
     }

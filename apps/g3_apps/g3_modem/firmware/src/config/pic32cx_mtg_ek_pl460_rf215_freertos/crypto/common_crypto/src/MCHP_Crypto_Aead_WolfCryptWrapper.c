@@ -86,8 +86,8 @@ crypto_Aead_Status_E Crypto_Aead_Wc_AesCcm_Cipher(crypto_CipherOper_E cipherOper
     int wcAesCcmStatus = BAD_FUNC_ARG;
   
     if( (ptr_aesCcmCtx != NULL ) && (ptr_inputData != NULL) && (ptr_outData != NULL)
-            &&(ptr_nonce != NULL) && (nonceLen >= 7) && (nonceLen <= 13)
-            && (ptr_authTag != NULL) && (authTagLen >= 4) && (authTagLen <= 16) ) //aad may be empty as per NIST 800-38C and also AAD is optional
+            &&(ptr_nonce != NULL) && (nonceLen >= 7u) && (nonceLen <= 13u)
+            && (ptr_authTag != NULL) && (authTagLen >= 4u) && (authTagLen <= 16u) ) //aad may be empty as per NIST 800-38C and also AAD is optional
     {
         if( cipherOper_en == CRYPTO_CIOP_ENCRYPT)
         {
@@ -107,7 +107,11 @@ crypto_Aead_Status_E Crypto_Aead_Wc_AesCcm_Cipher(crypto_CipherOper_E cipherOper
         {
             ret_aesCcmStat_en = CRYPTO_AEAD_CIPHER_SUCCESS;
         }
-        else if(ret_aesCcmStat_en != CRYPTO_AEAD_ERROR_CIPOPER)
+        else if(ret_aesCcmStat_en == CRYPTO_AEAD_ERROR_CIPOPER)
+        {
+            //do nothing
+        }
+        else
         {
             if(wcAesCcmStatus == BAD_FUNC_ARG)
             {
@@ -168,7 +172,7 @@ crypto_Aead_Status_E Crypto_Aead_Wc_AesEax_Cipher(crypto_CipherOper_E cipherOper
     crypto_Aead_Status_E ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_CIPNOTSUPPTD;
     int wcAesStatus = BAD_FUNC_ARG;
     
-    if( (ptr_aesEaxCtx != NULL ) && (ptr_inputData != NULL) && (ptr_outData != NULL) && (dataLen > 0) )
+    if( (ptr_aesEaxCtx != NULL ) && (ptr_inputData != NULL) && (ptr_outData != NULL) && (dataLen > 0u) )
     {
         if( cipherOper_en == CRYPTO_CIOP_ENCRYPT)
         {
@@ -189,7 +193,11 @@ crypto_Aead_Status_E Crypto_Aead_Wc_AesEax_Cipher(crypto_CipherOper_E cipherOper
         {
             ret_aesEaxStat_en = CRYPTO_AEAD_CIPHER_SUCCESS;
         }
-        else if(ret_aesEaxStat_en != CRYPTO_AEAD_ERROR_CIPOPER)
+        else if(ret_aesEaxStat_en == CRYPTO_AEAD_ERROR_CIPOPER)
+        {
+            //do nothing
+        }
+        else
         {
             if(wcAesStatus == BAD_FUNC_ARG)
             {
@@ -212,7 +220,7 @@ crypto_Aead_Status_E Crypto_Aead_Wc_AesEax_Final(crypto_CipherOper_E cipherOper_
 {
     crypto_Aead_Status_E ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_CIPNOTSUPPTD;
     int wcAesStatus = BAD_FUNC_ARG;
-    if( (ptr_aesEaxCtx != NULL) && (authTagLen <= AES_BLOCK_SIZE) )
+    if( (ptr_aesEaxCtx != NULL) && (authTagLen <= (uint32_t)AES_BLOCK_SIZE) )
     {
         if( cipherOper_en == CRYPTO_CIOP_ENCRYPT)
         {
@@ -231,7 +239,11 @@ crypto_Aead_Status_E Crypto_Aead_Wc_AesEax_Final(crypto_CipherOper_E cipherOper_
         {
             ret_aesEaxStat_en = CRYPTO_AEAD_CIPHER_SUCCESS;
         }
-        else if(ret_aesEaxStat_en != CRYPTO_AEAD_ERROR_CIPOPER)
+        else if(ret_aesEaxStat_en == CRYPTO_AEAD_ERROR_CIPOPER)
+        {
+           //do nothing 
+        }
+        else
         {
             if(wcAesStatus == BAD_FUNC_ARG)
             {
@@ -261,7 +273,11 @@ crypto_Aead_Status_E Crypto_Aead_Wc_AesEax_AddAadData(void *ptr_aesEaxCtx, uint8
         {
             ret_aesEaxStat_en = CRYPTO_AEAD_CIPHER_SUCCESS;
         }
-        else if(ret_aesEaxStat_en != CRYPTO_AEAD_ERROR_CIPOPER)
+        else if(ret_aesEaxStat_en == CRYPTO_AEAD_ERROR_CIPOPER)
+        {
+            //Do nothing    
+        }
+        else
         {
             if(wcAesStatus == BAD_FUNC_ARG)
             {
@@ -306,7 +322,11 @@ crypto_Aead_Status_E Crypto_Aead_Wc_AesEax_EncDecAuthDirect(crypto_CipherOper_E 
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_CIPHER_SUCCESS;
     }
-    else if(ret_aesEaxStat_en != CRYPTO_AEAD_ERROR_CIPOPER)
+    else if(ret_aesEaxStat_en == CRYPTO_AEAD_ERROR_CIPOPER)
+    {
+        //do nothing
+    }
+    else
     {
         if(wcAesEaxStatus == BAD_FUNC_ARG)
         {
@@ -321,10 +341,7 @@ crypto_Aead_Status_E Crypto_Aead_Wc_AesEax_EncDecAuthDirect(crypto_CipherOper_E 
             ret_aesEaxStat_en  = CRYPTO_AEAD_ERROR_CIPFAIL;
         }
     }
-    else
-    {
-        
-    }
+    
     return ret_aesEaxStat_en;
 }        
 #endif /* WOLFSSL_AES_EAX */

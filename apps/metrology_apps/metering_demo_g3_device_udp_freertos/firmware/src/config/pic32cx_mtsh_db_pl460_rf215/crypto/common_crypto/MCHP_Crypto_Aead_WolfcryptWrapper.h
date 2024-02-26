@@ -32,7 +32,7 @@
 // *****************************************************************************
 // Section: Type Definitions
 // *****************************************************************************
-#if (defined(HAVE_AESCCM) && defined(CRYPTO_AEAD_AESCCM_EN))
+#if (defined(HAVE_AESCCM) && defined(CRYPTO_AEAD_WC_AESCCM_EN))
 crypto_Aead_Status_E Crypto_Aead_Wc_AesCcm_Init(void *ptr_aesCcmCtx, uint8_t *ptr_key, uint32_t keySize);
 crypto_Aead_Status_E Crypto_Aead_Wc_AesCcm_Cipher(crypto_CipherOper_E cipherOper_en, void *ptr_aesCcmCtx, uint8_t *ptr_inputData, uint32_t dataLen, 
                                                     uint8_t *ptr_outData, uint8_t *ptr_nonce, uint32_t nonceLen, uint8_t *ptr_authTag,

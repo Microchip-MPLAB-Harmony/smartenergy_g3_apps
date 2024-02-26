@@ -36,6 +36,9 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_DigSign_Config.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/config.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Mac_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_RNG.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_RNG_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_RNG_Config.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
@@ -683,6 +686,9 @@
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Mac_WolfCryptWrapper.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_DigSign_WolfcryptWrapper.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_DigSign.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Kas.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_RNG.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_RNG_WolfcryptWrapper.c</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>

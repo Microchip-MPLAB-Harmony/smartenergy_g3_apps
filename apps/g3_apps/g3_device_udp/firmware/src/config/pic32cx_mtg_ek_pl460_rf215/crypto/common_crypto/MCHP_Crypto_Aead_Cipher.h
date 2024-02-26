@@ -26,9 +26,8 @@
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-
-#include "MCHP_Crypto_Common.h" 
-#include "MCHP_Crypto_Aead_Config.h" 
+#include "MCHP_Crypto_Common.h"
+#include "MCHP_Crypto_Aead_Config.h"
 
 typedef enum
 {
@@ -61,7 +60,7 @@ typedef struct
     crypto_HandlerType_E aeadHandlerType_en;
     uint8_t *ptr_key;
     uint32_t aeadKeySize;
-    uint8_t arr_aeadDataCtx[70];
+    uint8_t arr_aeadDataCtx[512];
 }st_Crypto_Aead_AesCcm_ctx;
 
 typedef struct

@@ -72,20 +72,20 @@ typedef enum
 /* Curve Types */
 typedef enum 
 {
-    CRYPTO_ECC_CURVE_INVALID = -1,
+    CRYPTO_ECC_CURVE_INVALID = 0,
 
     /* NIST Prime Curves */
-    CRYPTO_ECC_CURVE_SECP256R1 = 0, //also called as NIST P-912 or prime192v1
+    CRYPTO_ECC_CURVE_SECP256R1 = 1, //also called as NIST P-912 or prime192v1
 
     /* SECP Curves */
-    CRYPTO_ECC_CURVE_SECP384R1 = 1, //also called as NIST P-384
+    CRYPTO_ECC_CURVE_SECP384R1 = 2, //also called as NIST P-384
 
     /* Koblitz */
-    CRYPTO_ECC_CURVE_SECP256K1 = 2,
+    CRYPTO_ECC_CURVE_SECP256K1 = 3,
             
     /* Brainpool Curves */
-    CRYPTO_ECC_CURVE_BRAINPOOLP256R1 = 3,
-    CRYPTO_ECC_CURVE_BRAINPOOLP384R1 = 4,
+    CRYPTO_ECC_CURVE_BRAINPOOLP256R1 = 4,
+    CRYPTO_ECC_CURVE_BRAINPOOLP384R1 = 5,
             
     /* Twisted Edwards Curves */
 

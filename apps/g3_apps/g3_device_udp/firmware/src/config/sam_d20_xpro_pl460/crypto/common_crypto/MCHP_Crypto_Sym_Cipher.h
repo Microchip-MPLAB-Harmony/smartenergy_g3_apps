@@ -26,8 +26,8 @@
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-#include "MCHP_Crypto_Common.h"
-#include "MCHP_Crypto_Sym_Config.h"
+#include "crypto/common_crypto/MCHP_Crypto_Common.h"
+#include "crypto/common_crypto/MCHP_Crypto_Sym_Config.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -89,7 +89,7 @@ typedef enum
 #endif
             
 #if (defined( CRYPTO_SYM_AESXTS_EN) || defined(CRYPTO_SYM_CAMXTS_EN))            
-    CRYTPO_SYM_OPMODE_XTS = 9,
+    CRYPTO_SYM_OPMODE_XTS = 9,
 #endif
             
     CRYPTO_SYM_OPMODE_MAX

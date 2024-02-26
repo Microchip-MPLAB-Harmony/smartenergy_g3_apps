@@ -4,7 +4,7 @@
 
 
 project: g3_modem
-creation_date: 2024-02-20T13:16:53.876+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2024-02-26T20:15:24.027+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: Headless            # [IDE|Standalone|Headless]
 mcc_version: v5.5.0
@@ -21,7 +21,7 @@ modules:
     - {name: "wolfssl", version: "master"}
     - {name: "smartenergy", version: "SMS-3793-adapt-security-service-to-crypto-v4"}
     - {name: "bsp", version: "master"}
-    - {name: "crypto", version: "MH3-83087_Crypto_v4_0_0_Development_230724_CAL"}
+    - {name: "crypto", version: "MH3-83087_Crypto_v4_0_0_Development_240221_CAL"}
 
 packs:
     - {name: "SAMD20_DFP", version: "3.6.112"}

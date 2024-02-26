@@ -212,7 +212,6 @@ extern "C" {
 
 
 /*** wolfCrypt Library Configuration ***/
-
 //configuration.h included in config.h and user_settings.h allowing these
 //files to configure WolfSSL library
 //--WolfSSL project defines to use these files are WOLFSSL_USER_SETTINGS and
@@ -228,19 +227,25 @@ extern "C" {
 #define NO_WRITEV
 #define NO_FILESYSTEM
 #define USE_FAST_MATH
-#define NO_INLINE
-
+#define NO_INLINE 
 
 //Math Model Defines
-#define WOLFSSL_SP_MATH   //Using this to declare wolfmath functions:
-                                  //mp_reverse used by fp_to_unsigned_bin (tfm.c)
-                                  //get_digit_count,get_digit in ecc.c
-#define WOLFSSL_HAVE_SP_RSA  //Needed when WOFSSL_SP_MATH defined
-#define WOLFSSL_SP_NO_256    //To prevent usage of SP functions defined by this:
-                                  //    #if defined(HAVE_FIPS_VERSION) && HAVE_FIPS_VERSION == 2
-                                  //    && ( defined(WOLFSSL_SP_ARM32_ASM) || defined(WOLFSSL_SP_ARM64_ASM) )
-//#define WOLFSSL_SP_ARM32_ASM   //Dependent on MCU Arch.
+//#define WOLFSSL_SP_MATH_ALL  //As recommended by WolfSSL (Garski)
+#define WOLFSSL_SP_SMALL
+//Using this to declare wolfmath functions:
+//mp_reverse used by fp_to_unsigned_bin (tfm.c)unctions: 
+//get_digit_count,get_digit in ecc.c 
+#define WOLFSSL_SP_MATH   
 
+//Needed when WOFSSL_SP_MATH defined
+#define WOLFSSL_HAVE_SP_RSA  
+
+//To prevent usage of SP functions defined by this: 
+//#if defined(HAVE_FIPS_VERSION) && HAVE_FIPS_VERSION == 2 
+//&& ( defined(WOLFSSL_SP_ARM32_ASM) || defined(WOLFSSL_SP_ARM64_ASM) ) 
+#define WOLFSSL_SP_NO_256   
+
+//#define WOLFSSL_SP_ARM32_ASM   //Dependent on MCU Arch.
 
 #define NO_PWDBASED
 //#define WOLF_CRYPTO_CB  // provide call-back support if this is disable then its does not use callback from Wolfcrypt
@@ -286,10 +291,9 @@ extern "C" {
 #define FP_ECC
 #define HAVE_ECC521    //ECC_MAX_BITS
 
-
 //#define HAVE_DH
 //#define WOLFSSL_HAVE_SP_DH
-
+    
 #define HAVE_ANON
 #define WOLFSSL_OLD_PRIME_CHECK
 #define NO_DSA
@@ -305,18 +309,18 @@ extern "C" {
 #define NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY
 // ---------- FUNCTIONAL CONFIGURATION END ----------
+
 //********************************************************
 //#define WOLFSSL_SHAKE128  //Manually Commented, Not supported by Wolfcrypt
-#define WOLFSSL_SHAKE256 //Manually Added
-#define HAVE_BLAKE2S     //manually added
-#define HAVE_BLAKE2B     //manually added
-#define HAVE_CHACHA      //manually Added
-#define HAVE_AES_KEYWRAP //manually added
-#define HAVE_ECC_DHE     //manually added
-#define WOLFCRYPT_HAVE_ECCSI //manually added
-#define WOLFSSL_AES_EAX //manually added
+#define WOLFSSL_SHAKE256 
+#define HAVE_BLAKE2S    
+#define HAVE_BLAKE2B   
+#define HAVE_CHACHA      
+#define HAVE_AES_KEYWRAP
+#define HAVE_ECC_DHE   
+#define WOLFCRYPT_HAVE_ECCSI 
+#define WOLFSSL_AES_EAX 
 //*********************************************************
-
 
 //*********************************************************
 //#define WC_NO_RNG //when using RNG
@@ -325,9 +329,8 @@ extern "C" {
 //#define NO_RSA
 //#define NO_DH
 //#define NO_SIG_WRAPPER
-//#define NO_RSA
+//#define NO_RSA  
 //**********************************************************
-
 
 // ---------- FUNCTIONAL CONFIGURATION END ----------
 

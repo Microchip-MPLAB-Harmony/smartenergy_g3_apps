@@ -8367,6 +8367,7 @@ static void sp_3072_norm_56(sp_digit* a)
     a[55] += a[54] >> 28; a[54] &= 0xfffffff;
 }
 
+#endif /* (WOLFSSL_HAVE_SP_RSA && !WOLFSSL_RSA_PUBLIC_ONLY) || WOLFSSL_HAVE_SP_DH */
 /* Normalize the values in each word to 28 bits.
  *
  * a  Array of sp_digit to normalize.
@@ -8392,7 +8393,6 @@ static void sp_3072_norm_55(sp_digit* a)
     a[54] += a[53] >> 28; a[53] &= 0xfffffff;
 }
 
-#endif /* (WOLFSSL_HAVE_SP_RSA && !WOLFSSL_RSA_PUBLIC_ONLY) || WOLFSSL_HAVE_SP_DH */
 /* Normalize the values in each word to 28 bits.
  *
  * a  Array of sp_digit to normalize.
@@ -8788,11 +8788,6 @@ static void sp_3072_norm_14(sp_digit* a)
     a[11] += a[10] >> 28; a[10] &= 0xfffffff;
     a[12] += a[11] >> 28; a[11] &= 0xfffffff;
     a[13] += a[12] >> 28; a[12] &= 0xfffffff;
-}
-
-static void sp_3072_norm_56(sp_digit* a)
-{
-    (void)a;
 }
 
 /* Multiply a and b into r. (r = a * b)

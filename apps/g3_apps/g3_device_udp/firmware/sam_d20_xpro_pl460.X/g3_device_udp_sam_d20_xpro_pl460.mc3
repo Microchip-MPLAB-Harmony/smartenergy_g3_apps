@@ -9677,15 +9677,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="crypto_sym_aes_eax_en"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
-  &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_sym_aes_eax_en&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/lib_crypto&gt;
-&lt;/lib_crypto&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot;/&gt;
@@ -25061,11 +25052,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\configuration.h</file>
-         <hash>59a7417d4f341a307205c15d68143201a517a847e0c2a5c95c91e1d750ec48f2</hash>
+         <hash>1f1f6a68f63e29559b78a9d54ee60f5de653e408421d9327e1feda7096672cca</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Aead_Cipher.h</file>
-         <hash>6ec6ccb16fb23bdf2cbaa3e01d26c511534a25c0528b41e58bccd17dad48fbc2</hash>
+         <hash>1b8141e7ecec2ffc578b52bdacd7f6cd1cd7be109b03490cefcb142e64ebdb84</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Aead_Config.h</file>
@@ -25073,11 +25064,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Aead_WolfcryptWrapper.h</file>
-         <hash>c189da15bbd3a32d1d8e0ec366a12d4568ff5be8bade85061a4c2c4ca8b30a23</hash>
+         <hash>0445dc1c15733ca137a5768f4612cded0acc3e603f1fc949271dafc633c36d21</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Common.h</file>
-         <hash>f94b49a85493383ec35503e032bc4efbf7cd885c0d0abd7c25502511424a9ac3</hash>
+         <hash>4c32b13f94b4fcfc3cba42b61da1ca7288ce823e2c9384d7bfa3bb8a33e11eed</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_DigSign.h</file>
@@ -25089,11 +25080,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_DigSign_WolfcryptWrapper.h</file>
-         <hash>6301f05e34cf6ae8c30ef3477121b0df3311fe41244ac65d8690bcd2273befdc</hash>
+         <hash>e87d377b6b3093c759af75af9dec99891dbdca8affc4b2b5482744e046fe2c1c</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Hash.h</file>
-         <hash>c781c80c6c1fccb93b2f2e648328c40c8773593eb2eef78ff38414d80d972ef7</hash>
+         <hash>044b3f206112217216991c8a1d09fa0bbc8a9c3345196b353a829b8215641ab0</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Hash_Config.h</file>
@@ -25101,11 +25092,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Hash_WolfcryptWrapper.h</file>
-         <hash>577fda4dcf1c9f3193e6ddb3dbd8326cb1900d2c1565643243fcd693c060b3c0</hash>
+         <hash>f627d2a361dda63fcd17bf5653a6f3b5c3965eebb91b313f0186ba59a9db7561</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Kas.h</file>
-         <hash>595d313fae62b79b3ec6d92eec591c2dde1605983da7313637d25333e873086b</hash>
+         <hash>2a17962db3803c93bcfd714c1d92e9c459f811e438074081eca2543756bfc8ec</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Kas_Config.h</file>
@@ -25117,7 +25108,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Mac_Cipher.h</file>
-         <hash>726225fa90b28ddd5d99921dd05c1cacb3da79b0073955502059be640d99d298</hash>
+         <hash>a197523566e315276a28506b82e06f0a5bd3c0748dd0522767fb5f9b56965f48</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Mac_Config.h</file>
@@ -25128,12 +25119,24 @@
          <hash>4c4db35ecc895fef60a7df97a5314a5049816fad5ff08beab85c684ed2d3c164</hash>
       </entry>
       <entry>
+         <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_RNG.h</file>
+         <hash>766dffa39dd8985d2047fe717d808d1bba231a240164a91dbdffd5fa1cbc435a</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_RNG_Config.h</file>
+         <hash>2674eb899756422801e020df1fdfa92d49d527513eab3fc0e3ba1802b4651c4c</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_RNG_WolfcryptWrapper.h</file>
+         <hash>f57e6f211638c5e4db93c1b85cb470e5ace0b806ebdefcbf75ccd49c008eeebf</hash>
+      </entry>
+      <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Sym_Cipher.h</file>
-         <hash>89ea68b5759cebc250ce971c150d5dd4e683e00c02e6997cded74b2d65be7e15</hash>
+         <hash>0dc54dfed00082bf51132e64da3b4ca9c0a1f80f25cd07f1f27df11d25d00993</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Sym_Config.h</file>
-         <hash>2f567461c3d98805cce9b7bc60214e90eea9e030164921c2fdf5b1b03a9bddcc</hash>
+         <hash>09f19bf358b3b33c25e64e09cb9c63927098644a715ef34333600dab5ec8ca49</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\MCHP_Crypto_Sym_WolfcryptWrapper.h</file>
@@ -25141,47 +25144,59 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_Aead_Cipher.c</file>
-         <hash>56105657625d2fb6fea38f56ac0fcdac0a4b4229cd682c4a68fe57face366bd1</hash>
+         <hash>33ac9006951647cca9e582b032874bb5f4afc418b97d53b9be6e8f9618f983dc</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_Aead_WolfCryptWrapper.c</file>
-         <hash>a1e8344cda099c0a25cd9a212b5879abffd4dcca332243f8554fad196272f705</hash>
+         <hash>bd313a7f813a4d332c6879a0fb85f53e7aa6ce18b909934d8af037b071a2fc37</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_DigSign.c</file>
-         <hash>e8b58926219709b72a0ac76fcaafb1dfc445c207b99ed7bf94af7dad67c5b286</hash>
+         <hash>8d4ab3eb91422b2fc6b11dd7430e05ad3f5a8540cce5c7ae2e4e32f29522d91c</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_DigSign_WolfcryptWrapper.c</file>
-         <hash>fc6139f3cf17d45f6cc90bbeaa1fb679db86b27d294cdd40591af3f4e95c7d54</hash>
+         <hash>9f96582d2cdd9d6a598ada918df5e194068a2e99e027c0805371294b5fee3419</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_Hash.c</file>
-         <hash>2cba91c9287e597def5dc6c69b6c75fee2ff4e624d99910904d7ea61198e785e</hash>
+         <hash>66c144ad4961875b6f5e6acf1a6db81c0ba65a542cf9c9da82b9b28df3f7506d</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_Hash_WolfcryptWrapper.c</file>
-         <hash>3e472512b6f6b73db8556bc023fe3f2f14c5791e81542d2854bb6cf59a659dfc</hash>
+         <hash>f95d3b7aaa3eca9f881d25eec14095f7e8735ccc62daf32e50423da30026ab16</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_Kas.c</file>
+         <hash>e1e78d4257623b2b413f737e061ced72e10e8718b2c024e8e574bb332c6980f8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_Kas_WolfcryptWrapper.c</file>
-         <hash>9db0f6e4f563f020bb9e3a9dd298c8e4117455e6682f85ed8e514edda6474c62</hash>
+         <hash>621eb127c7aab21c9630193dd25d5a01b01f8f8f8bf56712c63f4501c061efc3</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_Mac_Cipher.c</file>
-         <hash>ba62889e48497172ef534cca35b5b0d86d1142fa976a0dcd149bc85af00b0289</hash>
+         <hash>3504ae92b4b2d799b8e5e4d3ac7f3f3d7257fa9b921f9935eeb6c7efe3e2752e</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_Mac_WolfCryptWrapper.c</file>
-         <hash>181d578fe9f1be9edeed5c31d42f69f7fe24e49ced43c5ca28b9b5ca41c5fe95</hash>
+         <hash>1a94e29e3637a77d5801d9bfd39fe8028e43baba276c6de012927cdc5eeb2615</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_RNG.c</file>
+         <hash>3660f7850823a8ce9ed382b3c61d0587e71e5a5175c2a228addc94420c3d9fee</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_RNG_WolfcryptWrapper.c</file>
+         <hash>0541f66c0dc5b94f49089223bd93f3dbf5c4db3a44f7d6df940d694215e5d998</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_Sym_Cipher.c</file>
-         <hash>892eb96ed42bef223fd526790b59f420a000894e7322e736faf1e51e43fcbf12</hash>
+         <hash>bbde833c8b618b584f7435292d2b787d2bb58d5e0d36948d6b33b56a99aaed91</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\src\MCHP_Crypto_Sym_WolfcryptWrapper.c</file>
-         <hash>650b0d69e2e38b886bb76c9744d2bbc1e8428ab7ecfef516323a5ce5a5ad6bab</hash>
+         <hash>9f798e5a89c71c3f298c1d4f582d6c1129d76a16a5e1d2a2e9b6ee50e5b2e375</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\crypto\wolfcrypt\config.h</file>
@@ -25997,7 +26012,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\random\srv_random.c</file>
-         <hash>c7847af6e1e86a35d5967c9c62396b79bf6282fdc189cb391c71159956ed9efc</hash>
+         <hash>fd9d0cb90ff869c5238c0dbdfbed9757d429249b0787543b8160df07afd1bcac</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\random\srv_random.h</file>

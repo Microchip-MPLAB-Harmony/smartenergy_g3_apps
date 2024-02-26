@@ -26,9 +26,8 @@
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-
-#include "MCHP_Crypto_Common.h" 
-#include "MCHP_Crypto_Mac_Config.h" 
+#include "MCHP_Crypto_Common.h"
+#include "MCHP_Crypto_Mac_Config.h"
 
 typedef enum
 {
@@ -68,5 +67,7 @@ crypto_Mac_Status_E Crypto_Mac_AesCmac_Final(st_Crypto_Mac_Aes_ctx *ptr_aesCmacC
 
 crypto_Mac_Status_E Crypto_Mac_AesCmac_Direct(crypto_HandlerType_E macHandlerType_en, uint8_t *ptr_inputData, uint32_t dataLen, 
                                                 uint8_t *ptr_outMac, uint32_t macLen, uint8_t *ptr_key, uint32_t keyLen, uint32_t sessionID);
-#endif /* #ifdef CRYPTO_MAC_AESCMAC_EN */
-#endif //MCHP_CRYPTO_MAC_CIPHER_H
+#endif /* CRYPTO_MAC_AESCMAC_EN */
+
+
+#endif /* MCHP_CRYPTO_MAC_CIPHER_H */

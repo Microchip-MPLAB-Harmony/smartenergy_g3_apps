@@ -41,11 +41,12 @@
 
 #ifdef CRYPTO_KAS_WC_ECDH_EN
 static const int arr_EcdhEccCurveWcMap[CRYPTO_ECC_CURVE_MAX][2] =  {
-                                                            {CRYPTO_ECC_CURVE_SECP256R1, ECC_SECP256R1},
-                                                            {CRYPTO_ECC_CURVE_SECP384R1, ECC_SECP384R1},
-                                                            {CRYPTO_ECC_CURVE_SECP256K1, ECC_SECP256K1},
-                                                            {CRYPTO_ECC_CURVE_BRAINPOOLP256R1, ECC_BRAINPOOLP256R1},
-                                                            {CRYPTO_ECC_CURVE_BRAINPOOLP384R1, ECC_BRAINPOOLP384R1},
+                                                            {(int)CRYPTO_ECC_CURVE_INVALID, (int)ECC_CURVE_INVALID},        
+                                                            {(int)CRYPTO_ECC_CURVE_SECP256R1, (int)ECC_SECP256R1},
+                                                            {(int)CRYPTO_ECC_CURVE_SECP384R1, (int)ECC_SECP384R1},
+                                                            {(int)CRYPTO_ECC_CURVE_SECP256K1, (int)ECC_SECP256K1},
+                                                            {(int)CRYPTO_ECC_CURVE_BRAINPOOLP256R1,(int)ECC_BRAINPOOLP256R1},
+                                                            {(int)CRYPTO_ECC_CURVE_BRAINPOOLP384R1, (int)ECC_BRAINPOOLP384R1},
                                                         };
 #endif /* CRYPTO_KAS_WC_ECDH_EN */
 
@@ -57,8 +58,9 @@ crypto_Kas_Status_E Crypto_Kas_Wc_Ecdh_SharedSecret(uint8_t *ptr_wcPrivKey, uint
     ecc_key wcEccPrivKey_st;
     ecc_key wcEccPubKey_st;
     int wcEcdhStatus = BAD_FUNC_ARG;
-    int wcEccCurveId = ECC_CURVE_INVALID;
-
+    int wcEccCurveId = (int)ECC_CURVE_INVALID;
+    word32 sharedSecretLen = wcSharedSecretLen;
+    
     wcEccCurveId = arr_EcdhEccCurveWcMap[wcEccCurveType_en][1];
         
     //Process ECC Private Key 
@@ -83,7 +85,7 @@ crypto_Kas_Status_E Crypto_Kas_Wc_Ecdh_SharedSecret(uint8_t *ptr_wcPrivKey, uint
                 if(wcEcdhStatus == 0)
                 {
                     /* Generate Shared Secret using ECDH*/
-                    wcEcdhStatus = wc_ecc_shared_secret(&wcEccPrivKey_st, &wcEccPubKey_st, ptr_wcSharedSecret, (word32 *) &wcSharedSecretLen);
+                    wcEcdhStatus = wc_ecc_shared_secret(&wcEccPrivKey_st, &wcEccPubKey_st, ptr_wcSharedSecret, &sharedSecretLen);
                 }
             }
         }

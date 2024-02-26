@@ -28,11 +28,12 @@
 // *****************************************************************************
 
 #ifdef CRYPTO_DIGISIGN_WC_ECDSA_EN
+
 crypto_DigiSign_Status_E Crypto_DigiSign_Wc_Ecdsa_Sign(uint8_t *ptr_wcInputHash, uint32_t wcHashLen, uint8_t *ptr_wcSig, uint32_t wcSigLen, uint8_t *ptr_wcPrivKey, 
                                                        uint32_t wcPrivKeyLen, crypto_EccCurveType_E wcEccCurveType_en);
 
 crypto_DigiSign_Status_E Crypto_DigiSign_Wc_Ecdsa_Verify(uint8_t *ptr_wcInputHash, uint32_t wcHashLen, uint8_t *ptr_wcInputSig, uint32_t wcSigLen, uint8_t *ptr_wcPubKey, uint32_t wcPubKeyLen, 
-                                                        int8_t *ptr_wcHashVerifyStat, uint32_t wcEccCurveType_en);
+                                                        int8_t *ptr_wcHashVerifyStat, crypto_EccCurveType_E wcEccCurveType_en);
 #endif /* CRYPTO_DIGISIGN_WC_ECDSA_EN */
 
 

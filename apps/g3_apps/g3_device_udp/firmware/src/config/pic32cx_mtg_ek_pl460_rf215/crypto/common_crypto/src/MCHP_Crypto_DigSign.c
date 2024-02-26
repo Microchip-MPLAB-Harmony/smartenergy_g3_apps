@@ -51,11 +51,11 @@ crypto_DigiSign_Status_E Crypto_DigiSign_Ecdsa_Sign(crypto_HandlerType_E ecdsaHa
 {
     crypto_DigiSign_Status_E ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_ALGONOTSUPPTD;
     
-    if( (ptr_inputHash == NULL) || (hashLen == 0) )
+    if( (ptr_inputHash == NULL) || (hashLen == 0u) )
     {
         ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_INPUTHASH;
     }
-    else if( (ptr_outSig == NULL) || (sigLen == 0) )
+    else if( (ptr_outSig == NULL) || (sigLen == 0u) )
     {
          ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_SIGNATURE;
     }
@@ -67,14 +67,14 @@ crypto_DigiSign_Status_E Crypto_DigiSign_Ecdsa_Sign(crypto_HandlerType_E ecdsaHa
     {
         ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_PRIVKEY;
     }
-    else if(privKeyLen <= 0)
+    else if(privKeyLen <= 0u)
 //    else if( (privKeyLen <= 0) || (privKeyLen != (EccCurveData_st[eccCurveType_En].curvePrivKeyLen)) )
 //    //else if( (privKeyLen <= 0) || (privKeyLen != (arr_EccCurveWcMap2[eccCurveType_En][1])) )
 //    //else if( (privKeyLen <= 0) || (privKeyLen > CRYPTO_ECC_MAX_KEY_LENGTH) )
     {
          ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_PRIVKEY;
     }
-    else if((ecdsaSessionId <= 0) || (ecdsaSessionId > CRYPTO_DIGISIGN_SESSION_MAX) )
+    else if((ecdsaSessionId <= 0u) || (ecdsaSessionId > (uint32_t)CRYPTO_DIGISIGN_SESSION_MAX) )
     {
         ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_SID;
     }
@@ -105,11 +105,11 @@ crypto_DigiSign_Status_E Crypto_DigiSign_Ecdsa_Verify(crypto_HandlerType_E ecdsa
 {
     crypto_DigiSign_Status_E ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_ALGONOTSUPPTD;
     
-    if( (ptr_inputHash == NULL) || (hashLen == 0) )
+    if( (ptr_inputHash == NULL) || (hashLen == 0u) )
     {
         ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_INPUTHASH;
     }
-    else if( (ptr_inputSig == NULL) || (sigLen == 0) )
+    else if( (ptr_inputSig == NULL) || (sigLen == 0u) )
     {
          ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_SIGNATURE;
     }
@@ -117,12 +117,12 @@ crypto_DigiSign_Status_E Crypto_DigiSign_Ecdsa_Verify(crypto_HandlerType_E ecdsa
     {
          ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_CURVE;
     }
-    else if( (ptr_pubKey == NULL) || (pubKeyLen <= 0) )
+    else if( (ptr_pubKey == NULL) || (pubKeyLen <= 0u) )
     {
         ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_PUBKEY;
     }
     //Check the Key compression Type, 0x04 for uncompressed, 0x02 for Even compressed and 0x03 for Odd compressed
-    else if( !( (ptr_pubKey[0] == 0x04) || ((ptr_pubKey[0] == 0x02) || (ptr_pubKey[0] == 0x03)) ) )
+    else if( !( (ptr_pubKey[0] == 0x04u) || ((ptr_pubKey[0] == 0x02u) || (ptr_pubKey[0] == 0x03u)) ) )
     {
         ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_PUBKEYCOMPRESS;
     }
@@ -131,7 +131,7 @@ crypto_DigiSign_Status_E Crypto_DigiSign_Ecdsa_Verify(crypto_HandlerType_E ecdsa
 //    {
 //         ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_PUBKEYLEN;
 //    }
-    else if((ecdsaSessionId <= 0) || (ecdsaSessionId > CRYPTO_DIGISIGN_SESSION_MAX) )
+    else if((ecdsaSessionId <= 0u) || (ecdsaSessionId > (uint32_t)CRYPTO_DIGISIGN_SESSION_MAX) )
     {
         ret_ecdsaStat_en = CRYPTO_DIGISIGN_ERROR_SID;
     }

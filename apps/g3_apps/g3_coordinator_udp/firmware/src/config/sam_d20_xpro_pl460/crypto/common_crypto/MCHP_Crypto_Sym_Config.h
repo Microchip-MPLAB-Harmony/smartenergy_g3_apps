@@ -78,7 +78,7 @@ extern "C" {
 // Section: Driver Configuration
 // *****************************************************************************
 // *****************************************************************************
-#define CRYPTO_SYM_SESSION_MAX (1)      //Always define this macro to mention max. session allowed for Symmetric Algorithm
+#define CRYPTO_SYM_SESSION_MAX (1)      //Max. session allowed 
 
 // *****************************************************************************
 // *****************************************************************************

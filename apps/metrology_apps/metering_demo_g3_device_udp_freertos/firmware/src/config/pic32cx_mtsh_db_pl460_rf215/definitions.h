@@ -114,10 +114,10 @@
 #include "service/pvddmon/srv_pvddmon.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
+#include "gfx/driver/controller/slcdc/cl010.h"
 //KEEP THIS - Not used for now
 //#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
 //#include "crypto/crypto.h"
-#include "gfx/driver/controller/slcdc/cl010.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "stack/g3/net/macg3adp/drv_mac_g3adp.h"

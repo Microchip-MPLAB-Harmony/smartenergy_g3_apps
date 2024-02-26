@@ -9609,15 +9609,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="crypto_sym_aes_eax_en"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
-  &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_sym_aes_eax_en&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/lib_crypto&gt;
-&lt;/lib_crypto&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot;/&gt;
@@ -25746,11 +25737,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\configuration.h</file>
-         <hash>a699b5bb7afd3ab91cdffa6aaf31c71640b10054f011fec5b0b842edf5dacfa3</hash>
+         <hash>b0bf3cc0ba498b4b8999175ea3e77604ae545c444a130da3ff99d7c26cccea69</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Aead_Cipher.h</file>
-         <hash>6ec6ccb16fb23bdf2cbaa3e01d26c511534a25c0528b41e58bccd17dad48fbc2</hash>
+         <hash>1b8141e7ecec2ffc578b52bdacd7f6cd1cd7be109b03490cefcb142e64ebdb84</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Aead_Config.h</file>
@@ -25758,11 +25749,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Aead_WolfcryptWrapper.h</file>
-         <hash>c189da15bbd3a32d1d8e0ec366a12d4568ff5be8bade85061a4c2c4ca8b30a23</hash>
+         <hash>0445dc1c15733ca137a5768f4612cded0acc3e603f1fc949271dafc633c36d21</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Common.h</file>
-         <hash>f94b49a85493383ec35503e032bc4efbf7cd885c0d0abd7c25502511424a9ac3</hash>
+         <hash>4c32b13f94b4fcfc3cba42b61da1ca7288ce823e2c9384d7bfa3bb8a33e11eed</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_DigSign.h</file>
@@ -25774,11 +25765,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_DigSign_WolfcryptWrapper.h</file>
-         <hash>6301f05e34cf6ae8c30ef3477121b0df3311fe41244ac65d8690bcd2273befdc</hash>
+         <hash>e87d377b6b3093c759af75af9dec99891dbdca8affc4b2b5482744e046fe2c1c</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Hash.h</file>
-         <hash>c781c80c6c1fccb93b2f2e648328c40c8773593eb2eef78ff38414d80d972ef7</hash>
+         <hash>044b3f206112217216991c8a1d09fa0bbc8a9c3345196b353a829b8215641ab0</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Hash_Config.h</file>
@@ -25786,11 +25777,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Hash_WolfcryptWrapper.h</file>
-         <hash>577fda4dcf1c9f3193e6ddb3dbd8326cb1900d2c1565643243fcd693c060b3c0</hash>
+         <hash>f627d2a361dda63fcd17bf5653a6f3b5c3965eebb91b313f0186ba59a9db7561</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Kas.h</file>
-         <hash>595d313fae62b79b3ec6d92eec591c2dde1605983da7313637d25333e873086b</hash>
+         <hash>2a17962db3803c93bcfd714c1d92e9c459f811e438074081eca2543756bfc8ec</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Kas_Config.h</file>
@@ -25802,7 +25793,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Mac_Cipher.h</file>
-         <hash>726225fa90b28ddd5d99921dd05c1cacb3da79b0073955502059be640d99d298</hash>
+         <hash>a197523566e315276a28506b82e06f0a5bd3c0748dd0522767fb5f9b56965f48</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Mac_Config.h</file>
@@ -25813,12 +25804,24 @@
          <hash>4c4db35ecc895fef60a7df97a5314a5049816fad5ff08beab85c684ed2d3c164</hash>
       </entry>
       <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_RNG.h</file>
+         <hash>766dffa39dd8985d2047fe717d808d1bba231a240164a91dbdffd5fa1cbc435a</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_RNG_Config.h</file>
+         <hash>2674eb899756422801e020df1fdfa92d49d527513eab3fc0e3ba1802b4651c4c</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_RNG_WolfcryptWrapper.h</file>
+         <hash>f57e6f211638c5e4db93c1b85cb470e5ace0b806ebdefcbf75ccd49c008eeebf</hash>
+      </entry>
+      <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Sym_Cipher.h</file>
-         <hash>89ea68b5759cebc250ce971c150d5dd4e683e00c02e6997cded74b2d65be7e15</hash>
+         <hash>0dc54dfed00082bf51132e64da3b4ca9c0a1f80f25cd07f1f27df11d25d00993</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Sym_Config.h</file>
-         <hash>2f567461c3d98805cce9b7bc60214e90eea9e030164921c2fdf5b1b03a9bddcc</hash>
+         <hash>09f19bf358b3b33c25e64e09cb9c63927098644a715ef34333600dab5ec8ca49</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\MCHP_Crypto_Sym_WolfcryptWrapper.h</file>
@@ -25826,47 +25829,59 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_Aead_Cipher.c</file>
-         <hash>56105657625d2fb6fea38f56ac0fcdac0a4b4229cd682c4a68fe57face366bd1</hash>
+         <hash>33ac9006951647cca9e582b032874bb5f4afc418b97d53b9be6e8f9618f983dc</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_Aead_WolfCryptWrapper.c</file>
-         <hash>a1e8344cda099c0a25cd9a212b5879abffd4dcca332243f8554fad196272f705</hash>
+         <hash>bd313a7f813a4d332c6879a0fb85f53e7aa6ce18b909934d8af037b071a2fc37</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_DigSign.c</file>
-         <hash>e8b58926219709b72a0ac76fcaafb1dfc445c207b99ed7bf94af7dad67c5b286</hash>
+         <hash>8d4ab3eb91422b2fc6b11dd7430e05ad3f5a8540cce5c7ae2e4e32f29522d91c</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_DigSign_WolfcryptWrapper.c</file>
-         <hash>fc6139f3cf17d45f6cc90bbeaa1fb679db86b27d294cdd40591af3f4e95c7d54</hash>
+         <hash>9f96582d2cdd9d6a598ada918df5e194068a2e99e027c0805371294b5fee3419</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_Hash.c</file>
-         <hash>2cba91c9287e597def5dc6c69b6c75fee2ff4e624d99910904d7ea61198e785e</hash>
+         <hash>66c144ad4961875b6f5e6acf1a6db81c0ba65a542cf9c9da82b9b28df3f7506d</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_Hash_WolfcryptWrapper.c</file>
-         <hash>3e472512b6f6b73db8556bc023fe3f2f14c5791e81542d2854bb6cf59a659dfc</hash>
+         <hash>f95d3b7aaa3eca9f881d25eec14095f7e8735ccc62daf32e50423da30026ab16</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_Kas.c</file>
+         <hash>e1e78d4257623b2b413f737e061ced72e10e8718b2c024e8e574bb332c6980f8</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_Kas_WolfcryptWrapper.c</file>
-         <hash>9db0f6e4f563f020bb9e3a9dd298c8e4117455e6682f85ed8e514edda6474c62</hash>
+         <hash>621eb127c7aab21c9630193dd25d5a01b01f8f8f8bf56712c63f4501c061efc3</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_Mac_Cipher.c</file>
-         <hash>ba62889e48497172ef534cca35b5b0d86d1142fa976a0dcd149bc85af00b0289</hash>
+         <hash>3504ae92b4b2d799b8e5e4d3ac7f3f3d7257fa9b921f9935eeb6c7efe3e2752e</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_Mac_WolfCryptWrapper.c</file>
-         <hash>181d578fe9f1be9edeed5c31d42f69f7fe24e49ced43c5ca28b9b5ca41c5fe95</hash>
+         <hash>1a94e29e3637a77d5801d9bfd39fe8028e43baba276c6de012927cdc5eeb2615</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_RNG.c</file>
+         <hash>3660f7850823a8ce9ed382b3c61d0587e71e5a5175c2a228addc94420c3d9fee</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_RNG_WolfcryptWrapper.c</file>
+         <hash>0541f66c0dc5b94f49089223bd93f3dbf5c4db3a44f7d6df940d694215e5d998</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_Sym_Cipher.c</file>
-         <hash>892eb96ed42bef223fd526790b59f420a000894e7322e736faf1e51e43fcbf12</hash>
+         <hash>bbde833c8b618b584f7435292d2b787d2bb58d5e0d36948d6b33b56a99aaed91</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\common_crypto\src\MCHP_Crypto_Sym_WolfcryptWrapper.c</file>
-         <hash>650b0d69e2e38b886bb76c9744d2bbc1e8428ab7ecfef516323a5ce5a5ad6bab</hash>
+         <hash>9f798e5a89c71c3f298c1d4f582d6c1129d76a16a5e1d2a2e9b6ee50e5b2e375</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\crypto\wolfcrypt\config.h</file>
@@ -25878,7 +25893,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\definitions.h</file>
-         <hash>6924146b204c02d2a94783146f132e1f71bf40c09a1c32fb3bd5a47ebe62edcc</hash>
+         <hash>426113beb069e58f1bdc8137153c15971505ef75cbda60af8eec840b86136798</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460_freertos\device.h</file>
@@ -27523,6 +27538,110 @@
       <entry>
          <file>..\src\stack_config.h</file>
          <hash>4b3825dd8d8146be0942e744559661bd69106ee5f7491e13ee5adbcea0b3b80d</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\FreeRTOS_tasks.c</file>
+         <hash>14020d617b96dd2814e1211f6e3b645bcf5e2bd3179c23fe7dd16bc666fe9463</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\croutine.c</file>
+         <hash>ebf0cdce261dc4a256c06c0d4ad2582e6026a6da0e973d4cb92092e94ce8f370</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\event_groups.c</file>
+         <hash>76e967b14d231e4f31f014f1564f359a7bfd36bfa263ee6f437afa8c056df657</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\FreeRTOS.h</file>
+         <hash>03e9c94aba57e3cf7f4f73bc2d3eb4a96ae38f3425eedb5450622ca286475a0b</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\croutine.h</file>
+         <hash>cf52c15fa26a8d4f82b55909b75ebfe2aab25468ba7780748912ddead9812b4e</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\deprecated_definitions.h</file>
+         <hash>35000a143464bbbd8df7c9a6f066a64598a24da5174a7be33972e62bfbd75f4d</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\event_groups.h</file>
+         <hash>7b3dd12a50d649c124c1af8be742671b9965b6f924310bda7984fe1b65c7f54a</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\list.h</file>
+         <hash>dc572f54391c0407fc25db360d912fca9118cddae7bd2e3099eb13f18804e5a9</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\message_buffer.h</file>
+         <hash>9a8141d3d6c8044a57d7e448180c9bd2ed32e45ded32be288d095a39dced91ab</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\mpu_prototypes.h</file>
+         <hash>2b46a2511ce5d23a56bc83079333d8d0a2e33763e5829c9383252806887a3dc0</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\mpu_wrappers.h</file>
+         <hash>5014408cc33f0f616215f2b48c67b0d47ccc35bfd5f0044ac653b5bbc6cf5778</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\portable.h</file>
+         <hash>7ade8f368002778c723b3c4e14084910b7225cd36363ed0c948e9ea36c6f251f</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\projdefs.h</file>
+         <hash>8faf4220ded25b00fd72424a2fa4e63e154713ae7b42f7270f1e3289362a6312</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\queue.h</file>
+         <hash>1b61c1669091e59798a34c32c0f1e234d3f6a645f47641753eceeb7e1d9ce628</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\semphr.h</file>
+         <hash>c624e8cdfc07844d4cf35382f3cc908c872375c7a3048482bdc110bda88cc4f2</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\stack_macros.h</file>
+         <hash>3cddf2b3d47ae387e376ac75eb468f9d8ffb575d68c143e08d54af4087474cce</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\stream_buffer.h</file>
+         <hash>b876d839460197d94d0f95fb93c6aeb457f6fc572d32258480fed7d4de686b6b</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\task.h</file>
+         <hash>45f2245c914ed25ab26a1ea78ddd4ac74cb6522e1b26ac5c44b614ca4c8cee99</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\timers.h</file>
+         <hash>ee0f596a54137e26ca806ebf067c4c6219a61348f1cbae8861a43d2d4891e1f9</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\list.c</file>
+         <hash>db5c169cf3efd68da1c6a923ac84eebc724d602c940bde0b9b5f01f05028fde4</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\portable\GCC\SAM\ARM_CM4F\port.c</file>
+         <hash>11f2202099ed9a73f5ae5ef9dac414f6d9b257d6480bd9c9a1e38a71b3ee8d41</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\portable\GCC\SAM\ARM_CM4F\portmacro.h</file>
+         <hash>d569e2a29af1c742b69cb16e15d256611fa7979bda2b355e03426d3c40369e42</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\portable\MemMang\heap_4.c</file>
+         <hash>d48a51e34caed771e6650d95f6c2527e52fde2a6ebc6f83b49d003aef0135e05</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\queue.c</file>
+         <hash>5cdf4fa35fe059446effff5bf20deaf83ddffb08921bc198fda106b1d17dd894</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\stream_buffer.c</file>
+         <hash>0ec303ba296caca5de955dc470bcadd134fb15b192ddf61c9afc92070bc1039a</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\timers.c</file>
+         <hash>24962ef361f396aaa5e6e33776eeeddaf2fb251c87b6fe50602acc56c537b093</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfcrypt\src\aes.c</file>
