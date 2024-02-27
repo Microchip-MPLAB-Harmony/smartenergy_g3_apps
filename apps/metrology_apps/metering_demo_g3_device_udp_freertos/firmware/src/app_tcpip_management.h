@@ -32,6 +32,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
+#include "library/tcpip/tcpip.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -40,6 +41,23 @@ extern "C" {
 
 #endif
 // DOM-IGNORE-END
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Macro Definitions
+// *****************************************************************************
+// *****************************************************************************
+
+/* Generic G3 IPv6 local-link address */
+#define APP_TCPIP_MANAGEMENT_IPV6_LINK_LOCAL_ADDRESS_G3   "FE80:0:0:0:781D:FF:FE00:0001"
+
+/* Network prefix for G3 unique local address (ULA) */
+#define APP_TCPIP_MANAGEMENT_IPV6_NETWORK_PREFIX_G3       "FD00:0:2:781D:0:0:0:0"
+#define APP_TCPIP_MANAGEMENT_IPV6_NETWORK_PREFIX_G3_LEN   64
+
+/* IPv6 Multi-cast groups required in Conformance Test */
+#define APP_TCPIP_MANAGEMENT_IPV6_MULTICAST_0_CONFORMANCE "ff02:0:0:0:0:0:0:1"
+#define APP_TCPIP_MANAGEMENT_IPV6_MULTICAST_1_CONFORMANCE "ff12:30:1122:3344:5566:0:123:4567"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -60,10 +78,14 @@ extern "C" {
 
 typedef enum
 {
-    /* Application's state machine's initial state. */
-    APP_TCPIP_MANAGEMENT_STATE_INIT=0,
-    APP_TCPIP_MANAGEMENT_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
+    /* Application's state machine's initial state */
+    APP_TCPIP_MANAGEMENT_STATE_WAIT_TCPIP_READY = 0,
+
+    /* TCP/IP stack configured and IPv6 addresses set */
+    APP_TCPIP_MANAGEMENT_STATE_CONFIGURED,
+
+    /* Error state */
+    APP_TCPIP_MANAGEMENT_STATE_ERROR,
 
 } APP_TCPIP_MANAGEMENT_STATES;
 
@@ -83,10 +105,26 @@ typedef enum
 
 typedef struct
 {
+    /* IPv6 link-local address */
+    IPV6_ADDR linkLocalAddress;
+
+    /* IPv6 unique local address (ULA) */
+    IPV6_ADDR uniqueLocalAddress;
+
+    /* Coordinator IPv6 link-local address */
+    IPV6_ADDR coordLinkLocalAddress;
+
+    /* TCP/IP Network handle */
+    TCPIP_NET_HANDLE netHandle;
+
+    /* Semaphore identifier. Used to suspend task */
+    OSAL_SEM_DECLARE(semaphoreID);
+
     /* The application's current state */
     APP_TCPIP_MANAGEMENT_STATES state;
 
-    /* TODO: Define any additional data used by the application. */
+    /* Conformance Test flag */
+    bool conformanceTest;
 
 } APP_TCPIP_MANAGEMENT_DATA;
 
@@ -169,6 +207,98 @@ void APP_TCPIP_MANAGEMENT_Initialize ( void );
  */
 
 void APP_TCPIP_MANAGEMENT_Tasks( void );
+
+/*******************************************************************************
+  Function:
+    void APP_TCPIP_MANAGEMENT_SetConformanceConfig ( void )
+
+  Summary:
+    Configures TCP/IP stack for Conformance Test.
+
+  Description:
+    This function configures TCP/IP stack parameters for Conformance Test.
+    IPv6 multi-cast groups needed for Conformance are configured.
+
+  Precondition:
+    APP_TCPIP_MANAGEMENT_Initialize should be called before calling this routine.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    APP_TCPIP_MANAGEMENT_SetConformanceConfig();
+    </code>
+
+  Remarks:
+    None.
+*/
+
+void APP_TCPIP_MANAGEMENT_SetConformanceConfig ( void );
+
+/*******************************************************************************
+  Function:
+    void APP_TCPIP_MANAGEMENT_NetworkJoined()
+
+  Summary:
+    Configures IPv6 addresses once the device is joined to the network.
+
+  Description:
+    This function configures IPv6 addresses once the device is joined to the
+    network.
+
+  Precondition:
+    APP_TCPIP_MANAGEMENT_Initialize should be called before calling this routine.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    APP_TCPIP_MANAGEMENT_NetworkJoined();
+    </code>
+
+  Remarks:
+    None.
+*/
+
+void APP_TCPIP_MANAGEMENT_NetworkJoined();
+
+/*******************************************************************************
+  Function:
+    void APP_TCPIP_MANAGEMENT_NetworkDisconnected(void)
+
+  Summary:
+    Removes IPv6 addresses once the device leaves the network.
+
+  Description:
+    This function removes IPv6 addresses once the device leaves the network.
+
+  Precondition:
+    APP_TCPIP_MANAGEMENT_Initialize should be called before calling this routine.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    APP_TCPIP_MANAGEMENT_NetworkDisconnected();
+    </code>
+
+  Remarks:
+    None.
+*/
+
+void APP_TCPIP_MANAGEMENT_NetworkDisconnected(void);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

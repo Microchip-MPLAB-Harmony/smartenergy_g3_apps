@@ -32,6 +32,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
+#include "definitions.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -40,6 +41,16 @@ extern "C" {
 
 #endif
 // DOM-IGNORE-END
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Macro definitions
+// *****************************************************************************
+// *****************************************************************************
+
+#define APP_RF_PIB_BUFFER_SIZE          sizeof(DRV_RF215_PHY_CFG_OBJ)
+
+#define APP_RF_LED_BLINK_RATE_MS        500
 
 // *****************************************************************************
 // *****************************************************************************
@@ -62,8 +73,9 @@ typedef enum
 {
     /* Application's state machine's initial state. */
     APP_RF_STATE_INIT=0,
-    APP_RF_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
+    APP_RF_STATE_CONFIG_USI,
+    APP_RF_STATE_READY,
+    APP_RF_STATE_ERROR
 
 } APP_RF_STATES;
 
@@ -86,17 +98,15 @@ typedef struct
     /* The application's current state */
     APP_RF_STATES state;
 
-    /* TODO: Define any additional data used by the application. */
+    DRV_HANDLE rf215HandleRF09;
+    DRV_HANDLE rf215HandleRF24;
+
+    SYS_TIME_HANDLE tmr1Handle;
+    bool tmr1Expired;
+
+    SRV_USI_HANDLE srvUSIHandle;
 
 } APP_RF_DATA;
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Callback Routines
-// *****************************************************************************
-// *****************************************************************************
-/* These routines are called by drivers when certain events occur.
-*/
 
 // *****************************************************************************
 // *****************************************************************************

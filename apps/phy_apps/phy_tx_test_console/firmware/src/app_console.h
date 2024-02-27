@@ -1,3 +1,26 @@
+/*
+Copyright (C) 2022, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+
 /*******************************************************************************
   MPLAB Harmony Application Header File
 
@@ -27,11 +50,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdlib.h>
 #include "configuration.h"
+#include "definitions.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -46,6 +66,7 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
+#define SERIAL_BUFFER_SIZE        512
 
 // *****************************************************************************
 /* Application states
@@ -61,12 +82,24 @@ extern "C" {
 typedef enum
 {
     /* Application's state machine's initial state. */
-    APP_CONSOLE_STATE_INIT=0,
-    APP_CONSOLE_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
+    APP_CONSOLE_STATE_IDLE=0,
+    APP_CONSOLE_STATE_INIT,
+    APP_CONSOLE_STATE_WAIT_PLC,
+    APP_CONSOLE_STATE_SHOW_MENU,
+    APP_CONSOLE_STATE_CONSOLE,
+    APP_CONSOLE_STATE_SET_ATT_LEVEL,
+    APP_CONSOLE_STATE_SET_SCHEME,
+    APP_CONSOLE_STATE_SET_TIME_PERIOD,
+    APP_CONSOLE_STATE_SET_DATA_LEN,
+    APP_CONSOLE_STATE_SET_DATA,
+    APP_CONSOLE_STATE_SET_TONE_MAP,
+    APP_CONSOLE_STATE_SET_BRANCH_MODE,
+    APP_CONSOLE_STATE_SET_PLC_BAND,
+    APP_CONSOLE_STATE_VIEW_CONFIG,
+    APP_CONSOLE_STATE_TX,
+    APP_CONSOLE_STATE_ERROR,
 
 } APP_CONSOLE_STATES;
-
 
 // *****************************************************************************
 /* Application Data
@@ -84,11 +117,25 @@ typedef enum
 typedef struct
 {
     /* The application's current state */
+    SYS_TIME_HANDLE tmr1Handle;
+
     APP_CONSOLE_STATES state;
 
-    /* TODO: Define any additional data used by the application. */
+    char *pTransmitChar;
+
+    char *pReceivedChar;
+
+    char* pNextChar;
+
+    size_t dataLength;
+
+    uint8_t numCharToReceive;
+
+    bool echoEnable;
 
 } APP_CONSOLE_DATA;
+
+extern APP_CONSOLE_DATA appConsole;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -100,9 +147,53 @@ typedef struct
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Application Initialization and State Machine Functions
+// Section: Console Interface Definition
 // *****************************************************************************
 // *****************************************************************************
+#define STRING_EOL    "\r"
+#define STRING_HEADER "\r\n-- MCHP PLC Tx Console Application --\r\n" \
+	"-- Compiled: "__DATE__ " "__TIME__ " --\r\n" \
+	"-- HOST version: "DRV_PLC_PHY_HOST_DESC " --\r\n"
+
+#define MENU_HEADER "\n\r-- Menu Configuration --------------\n\r" \
+	"0: Select Attenuation Level\n\r" \
+	"1: Select Modulation/Scheme\n\r" \
+	"2: Select Time period between messages to transmit(us.)\n\r" \
+	"3: Select Data to transmit\n\r" \
+	"4: Select TX tone Map\n\r" \
+	"5: Select Branch Mode\n\r" \
+	"6: Select PLC band (only for multiband boards)\n\r" \
+	"v: View TX configuration values\n\r" \
+	"e: Execute transmission application\n\r" \
+	"c: Enable/Disable ECHO console\n\r" \
+	"otherwise: Display this main menu\n\n\r"
+
+#define MENU_SCHEME "\n\r-- Modulation Scheme --------------\r\n" \
+	"0: DBPSK\n\r" \
+	"1: DQPSK\n\r" \
+	"2: D8PSK\n\r" \
+	"3: Differential Robust\n\r" \
+	"4: Coherent BPSK\n\r" \
+	"5: Coherent QPSK\n\r" \
+	"6: Coherent 8PSK\n\r" \
+	"7: Coherent Robust\n\r"
+
+#define MENU_MODE "\n\r-- Transmission Mode --------------\r\n"	\
+	"0: Immediate and Not Forced\n\r" \
+	"1: Immediate and Forced\n\r" \
+	"2: Delayed and Not Forced\n\r"	\
+	"3: Delayed and Forced\n\r"
+
+#define MENU_DATA_MODE "\n\r-- Select Data Mode --------------\r\n" \
+	"0: Random Data\n\r" \
+	"1: Fixed Data\n\r"
+
+#define MENU_BRANCH_MODE "\n\r-- Select Branch Mode --------------\r\n"	\
+	"0: Autodetect\n\r" \
+	"1: High Impedance\n\r"	\
+	"2: Very Low Impedance\n\r"
+
+#define MENU_PROMPT "\n\rPHY-Console>"
 
 /*******************************************************************************
   Function:
@@ -170,13 +261,76 @@ void APP_CONSOLE_Initialize ( void );
 
 void APP_CONSOLE_Tasks( void );
 
+// *****************************************************************************
+/* Function:
+    void APP_CONSOLE_Print(const char *format, ...)
+
+
+
+  Summary:
+    Formats and prints a message with a variable number of arguments to the
+    console.
+
+
+
+  Description:
+    This function formats and prints a message with a variable number of
+    arguments to the console.
+
+
+
+  Precondition:
+    APP_CONSOLE_Initialize must have returned a valid object handle.
+
+
+
+  Parameters:
+    format          - Pointer to a buffer containing the format string for
+                      the message to be displayed.
+    ...             - Zero or more optional parameters to be formated as
+                      defined by the format string.
+
+
+
+  Returns:
+    None.
+
+
+
+  Example:
+    <code>
+    // In source code
+    int result;
+
+
+
+    result = SomeOperation();
+    if (result > MAX_VALUE)
+    {
+        APP_CONSOLE_Print("Result of %d exceeds max value\r\n", result);
+    }
+    </code>
+
+
+
+  Remarks:
+    The format string and arguments follow the printf convention.
+
+
+
+*/
+
+
+
+void APP_CONSOLE_Print(const char *format, ...);
+
+#endif /* _APP_CONSOLE_H */
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
 #endif
 //DOM-IGNORE-END
-
-#endif /* _APP_CONSOLE_H */
 
 /*******************************************************************************
  End of File

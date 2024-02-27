@@ -1,3 +1,26 @@
+/*
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+
 /*******************************************************************************
   MPLAB Harmony Application Header File
 
@@ -31,7 +54,6 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "configuration.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -46,6 +68,211 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
+typedef enum
+{
+    APP_METROLOGY_PHASE_A = 1 << 8,
+    APP_METROLOGY_PHASE_B = 1 << 9,
+    APP_METROLOGY_PHASE_C = 1 << 10,
+} APP_METROLOGY_PHASE_ID;
+
+typedef enum
+{
+    CONTROL_STATE_CTRL = 0,
+    CONTROL_FEATURE_CTRL0_ID,
+    CONTROL_FEATURE_CTRL1_ID,
+    CONTROL_METER_TYPE_ID,
+    CONTROL_M_ID,
+    CONTROL_N_MAX_ID,
+    CONTROL_PULSE0_CTRL_ID,
+    CONTROL_PULSE1_CTRL_ID,
+    CONTROL_PULSE2_CTRL_ID,
+    CONTROL_P_K_t_ID,
+    CONTROL_Q_K_t_ID,
+    CONTROL_I_K_t_ID,
+    CONTROL_CREEP_THRESHOLD_P_ID,
+    CONTROL_CREEP_THRESHOLD_Q_ID,
+    CONTROL_CREEP_THRESHOLD_I_ID,
+    CONTROL_POWER_OFFSET_CTRL_ID,
+    CONTROL_POWER_OFFSET_P_ID,
+    CONTROL_POWER_OFFSET_Q_ID,
+    CONTROL_SWELL_THRESHOLD_VA_ID,
+    CONTROL_SWELL_THRESHOLD_VB_ID,
+    CONTROL_SWELL_THRESHOLD_VC_ID,
+    CONTROL_SAG_THRESHOLD_VA_ID,
+    CONTROL_SAG_THRESHOLD_VB_ID,
+    CONTROL_SAG_THRESHOLD_VC_ID,
+    CONTROL_K_IA_ID,
+    CONTROL_K_VA_ID,
+    CONTROL_K_IB_ID,
+    CONTROL_K_VB_ID,
+    CONTROL_K_IC_ID,
+    CONTROL_K_VC_ID,
+    CONTROL_K_IN_ID,
+    CONTROL_CAL_M_IA_ID,
+    CONTROL_CAL_M_VA_ID,
+    CONTROL_CAL_M_IB_ID,
+    CONTROL_CAL_M_VB_ID,
+    CONTROL_CAL_M_IC_ID,
+    CONTROL_CAL_M_VC_ID,
+    CONTROL_CAL_M_IN_ID,
+    CONTROL_CAL_PH_IA_ID,
+    CONTROL_CAL_PH_VA_ID,
+    CONTROL_CAL_PH_IB_ID,
+    CONTROL_CAL_PH_VB_ID,
+    CONTROL_CAL_PH_IC_ID,
+    CONTROL_CAL_PH_VC_ID,
+    CONTROL_CAL_PH_IN_ID,
+    CONTROL_CAPTURE_CTRL_ID,
+    CONTROL_CAPTURE_BUFF_SIZE_ID,
+    CONTROL_CAPTURE_ADDR_ID,
+    CONTROL_RES1_ID,
+    CONTROL_RES2_ID,
+    CONTROL_RES3_ID,
+    CONTROL_ATSENSE_CTRL_20_23_ID,
+    CONTROL_ATSENSE_CTRL_24_27_ID,
+    CONTROL_ATSENSE_CTRL_28_2B_ID,
+    CONTROL_RES4_ID,
+    CONTROL_POWER_OFFSET_P_A_ID,
+    CONTROL_POWER_OFFSET_P_B_ID,
+    CONTROL_POWER_OFFSET_P_C_ID,
+    CONTROL_POWER_OFFSET_Q_A_ID,
+    CONTROL_POWER_OFFSET_Q_B_ID,
+    CONTROL_POWER_OFFSET_Q_C_ID,
+    CONTROL_REG_NUM,
+} CONTROL_REG_ID;
+
+typedef enum
+{
+    STATUS_VERSION_ID = 0,
+    STATUS_STATUS_ID,
+    STATUS_STATE_FLAG_ID,
+    STATUS_CAPTURE_STATUS_ID,
+    STATUS_INTERVAL_NUM_ID,
+    STATUS_N_ID,
+    STATUS_PH_OFFSET_ID,
+    STATUS_FREQ_ID,
+    STATUS_FREQ_VA_ID,
+    STATUS_FREQ_VB_ID,
+    STATUS_FREQ_VC_ID,
+    STATUS_RES1_ID,
+    STATUS_TEMPERATURE_ID,
+    STATUS_I_A_MAX_ID,
+    STATUS_I_B_MAX_ID,
+    STATUS_I_C_MAX_ID,
+    STATUS_I_Ni_MAX_ID,
+    STATUS_I_Nm_MAX_ID,
+    STATUS_V_A_MAX_ID,
+    STATUS_V_B_MAX_ID,
+    STATUS_V_C_MAX_ID,
+    STATUS_FEATURES_ID,
+    STATUS_RES2_ID,
+    STATUS_RES3_ID,
+    STATUS_RES4_ID,
+    STATUS_RES5_ID,
+    STATUS_RES6_ID,
+    STATUS_RES7_ID,
+    STATUS_RES8_ID,
+    STATUS_RES9_ID,
+    STATUS_ZC_N_VA_ID,
+    STATUS_ZC_N_VB_ID,
+    STATUS_ZC_N_VC_ID,
+    STATUS_ATSENSE_CAL_41_44_ID,
+    STATUS_ATSENSE_CAL_45_48_ID,
+    STATUS_REG_NUM,
+} STATUS_REG_ID;
+
+typedef enum
+{
+    ACCUMULATOR_I_A_ID = 0,
+    ACCUMULATOR_I_B_ID,
+    ACCUMULATOR_I_C_ID,
+    ACCUMULATOR_I_Ni_ID,
+    ACCUMULATOR_I_Nm_ID,
+    ACCUMULATOR_I_A_F_ID,
+    ACCUMULATOR_I_B_F_ID,
+    ACCUMULATOR_I_C_F_ID,
+    ACCUMULATOR_I_Nmi_ID,
+    ACCUMULATOR_RES1_ID,
+    ACCUMULATOR_RES2_ID,
+    ACCUMULATOR_RES3_ID,
+    ACCUMULATOR_RES4_ID,
+    ACCUMULATOR_RES5_ID,
+    ACCUMULATOR_RES6_ID,
+    ACCUMULATOR_P_A_ID,
+    ACCUMULATOR_P_B_ID,
+    ACCUMULATOR_P_C_ID,
+    ACCUMULATOR_P_A_F_ID,
+    ACCUMULATOR_P_B_F_ID,
+    ACCUMULATOR_P_C_F_ID,
+    ACCUMULATOR_P_N_ID,
+    ACCUMULATOR_P_N_F_ID,
+    ACCUMULATOR_RES7_ID,
+    ACCUMULATOR_Q_A_ID,
+    ACCUMULATOR_Q_B_ID,
+    ACCUMULATOR_Q_C_ID,
+    ACCUMULATOR_Q_A_F_ID,
+    ACCUMULATOR_Q_B_F_ID,
+    ACCUMULATOR_Q_C_F_ID,
+    ACCUMULATOR_Q_N_ID,
+    ACCUMULATOR_Q_N_F_ID,
+    ACCUMULATOR_RES8_ID,
+    ACCUMULATOR_V_A_ID,
+    ACCUMULATOR_V_B_ID,
+    ACCUMULATOR_V_C_ID,
+    ACCUMULATOR_RES9_ID,
+    ACCUMULATOR_V_A_F_ID,
+    ACCUMULATOR_V_B_F_ID,
+    ACCUMULATOR_V_C_F_ID,
+    ACCUMULATOR_RES10_ID,
+    ACCUMULATOR_V_AB_ID,
+    ACCUMULATOR_V_BC_ID,
+    ACCUMULATOR_V_CA_ID,
+    ACCUMULATOR_V_AB_F_ID,
+    ACCUMULATOR_V_BC_F_ID,
+    ACCUMULATOR_V_CA_F_ID,
+    ACCUMULATOR_RES11_ID,
+    ACCUMULATOR_RES12_ID,
+    ACCUMULATOR_RES13_ID,
+    ACCUMULATOR_ACC_T0_ID,
+    ACCUMULATOR_ACC_T1_ID,
+    ACCUMULATOR_ACC_T2_ID,
+    ACCUMULATOR_RES14_ID,
+    ACCUMULATOR_RES15_ID,
+    ACCUMULATOR_REG_NUM,
+} ACCUMULATOR_REG_ID;
+
+typedef enum
+{
+    HARMONICS_I_A_m_R_ID = 0,
+    HARMONICS_V_A_m_R_ID,
+    HARMONICS_I_B_m_R_ID,
+    HARMONICS_V_B_m_R_ID,
+    HARMONICS_I_C_m_R_ID,
+    HARMONICS_V_C_m_R_ID,
+    HARMONICS_I_N_m_R_ID,
+    HARMONICS_I_A_m_I_ID,
+    HARMONICS_V_A_m_I_ID,
+    HARMONICS_I_B_m_I_ID,
+    HARMONICS_V_B_m_I_ID,
+    HARMONICS_I_C_m_I_ID,
+    HARMONICS_V_C_m_I_ID,
+    HARMONICS_I_N_m_I_ID,
+    HARMONICS_REG_NUM,
+} HARMONICS_REG_ID;
+
+typedef struct
+{
+    double aimVA;
+    double aimIA;
+    double angleA;
+    double aimVB;
+    double aimIB;
+    double angleB;
+    double aimVC;
+    double aimIC;
+    double angleC;
+    DRV_METROLOGY_PHASE_ID lineId;
+} APP_METROLOGY_CALIBRATION;
 
 // *****************************************************************************
 /* Application states
@@ -61,12 +288,14 @@ extern "C" {
 typedef enum
 {
     /* Application's state machine's initial state. */
-    APP_METROLOGY_STATE_INIT=0,
-    APP_METROLOGY_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
+    APP_METROLOGY_STATE_WAITING_DATALOG = 0,
+    APP_METROLOGY_STATE_INIT,
+    APP_METROLOGY_STATE_START,
+    APP_METROLOGY_STATE_RUNNING,
+    APP_METROLOGY_STATE_CHECK_CALIBRATION,
+    APP_METROLOGY_STATE_ERROR
 
-} APP_METROLOGY_STATES;
-
+} APP_METROLOGY_STATE;
 
 // *****************************************************************************
 /* Application Data
@@ -84,9 +313,27 @@ typedef enum
 typedef struct
 {
     /* The application's current state */
-    APP_METROLOGY_STATES state;
+    APP_METROLOGY_STATE state;
 
-    /* TODO: Define any additional data used by the application. */
+    DRV_METROLOGY_START_MODE startMode;
+    DRV_METROLOGY_REGS_CONTROL configuration;
+
+    DRV_METROLOGY_REGS_CONTROL * pMetControl;
+    DRV_METROLOGY_REGS_STATUS * pMetStatus;
+    DRV_METROLOGY_REGS_ACCUMULATORS * pMetAccData;
+    DRV_METROLOGY_REGS_HARMONICS * pMetHarData;
+
+    bool harmonicAnalysisPending;
+    DRV_METROLOGY_HARMONICS_RMS * pHarmonicAnalysisResponse;
+    DRV_METROLOGY_HARMONICS_CALLBACK pHarmonicAnalysisCallback;
+
+    DRV_METROLOGY_CALIBRATION_CALLBACK pCalibrationCallback;
+
+    uint32_t queueFree;
+
+    bool setConfiguration;
+
+    bool dataIsRdy;
 
 } APP_METROLOGY_DATA;
 
@@ -106,7 +353,7 @@ typedef struct
 
 /*******************************************************************************
   Function:
-    void APP_METROLOGY_Initialize ( void )
+    void APP_METROLOGY_Initialize (void)
 
   Summary:
      MPLAB Harmony application initialization routine.
@@ -135,12 +382,12 @@ typedef struct
     This routine must be called from the SYS_Initialize function.
 */
 
-void APP_METROLOGY_Initialize ( void );
+void APP_METROLOGY_Initialize (void);
 
 
 /*******************************************************************************
   Function:
-    void APP_METROLOGY_Tasks ( void )
+    void APP_METROLOGY_Tasks (void)
 
   Summary:
     MPLAB Harmony Demo application tasks function
@@ -168,7 +415,26 @@ void APP_METROLOGY_Initialize ( void );
     This routine must be called from SYS_Tasks() routine.
  */
 
-void APP_METROLOGY_Tasks( void );
+void APP_METROLOGY_Tasks(void);
+APP_METROLOGY_STATE APP_METROLOGY_GetState(void);
+bool APP_METROLOGY_GetControlRegister(CONTROL_REG_ID regId, uint32_t * regValue, char *regName);
+bool APP_METROLOGY_SetControlRegister(CONTROL_REG_ID regId, uint32_t value);
+bool APP_METROLOGY_GetStatusRegister(STATUS_REG_ID regId, uint32_t * regValue, char *regName);
+bool APP_METROLOGY_GetAccumulatorRegister(ACCUMULATOR_REG_ID regId, uint64_t * regValue, char *regName);
+bool APP_METROLOGY_GetHarmonicsRegister(HARMONICS_REG_ID regId, uint32_t * regValue, char *regName);
+bool APP_METROLOGY_GetRMS(DRV_METROLOGY_RMS_TYPE rmsId, uint32_t * rmsValue, DRV_METROLOGY_RMS_SIGN * sign);
+void APP_METROLOGY_SetControlByDefault(void);
+void APP_METROLOGY_StoreMetrologyData(void);
+void APP_METROLOGY_SetConfiguration(DRV_METROLOGY_CONFIGURATION * config);
+void APP_METROLOGY_StartCalibration(APP_METROLOGY_CALIBRATION * calibration);
+void APP_METROLOGY_SetCalibrationCallback(DRV_METROLOGY_CALIBRATION_CALLBACK callback);
+size_t APP_METROLOGY_GetWaveformCaptureData(uint32_t *pData);
+bool APP_METROLOGY_StartHarmonicAnalysis(uint8_t harmonicNum);
+void APP_METROLOGY_SetHarmonicAnalysisCallback(DRV_METROLOGY_HARMONICS_CALLBACK callback,
+        DRV_METROLOGY_HARMONICS_RMS * pHarmonicAnalysisResponse);
+void APP_METROLOGY_Restart(void);
+void APP_METROLOGY_SetLowPowerMode (void);
+bool APP_METROLOGY_CheckPhaseEnabled (APP_METROLOGY_PHASE_ID phase);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

@@ -13,9 +13,10 @@
   Description:
     This header file provides function prototypes and data type definitions for
     the application.  Some of these are required by the system (such as the
-    "APP_UDP_RESPONDER_Initialize" and "APP_UDP_RESPONDER_Tasks" prototypes) and some of them are only used
-    internally by the application (such as the "APP_UDP_RESPONDER_STATES" definition).  Both
-    are defined here for convenience.
+    "APP_UDP_RESPONDER_Initialize" and "APP_UDP_RESPONDER_Tasks" prototypes) and
+    some of them are only used internally by the application (such as the
+    "APP_UDP_RESPONDER_STATES" definition). Both are defined here for
+    convenience.
 *******************************************************************************/
 
 #ifndef _APP_UDP_RESPONDER_H
@@ -32,6 +33,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
+#include "library/tcpip/tcpip.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -40,6 +42,15 @@ extern "C" {
 
 #endif
 // DOM-IGNORE-END
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Macro Definitions
+// *****************************************************************************
+// *****************************************************************************
+
+/* Port number for conformance UDP responder */
+#define APP_UDP_RESPONDER_SOCKET_PORT_CONFORMANCE 0xF0BF
 
 // *****************************************************************************
 // *****************************************************************************
@@ -60,10 +71,17 @@ extern "C" {
 
 typedef enum
 {
-    /* Application's state machine's initial state. */
-    APP_UDP_RESPONDER_STATE_INIT=0,
-    APP_UDP_RESPONDER_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
+    /* Application's state machine's initial state */
+    APP_UDP_RESPONDER_STATE_WAIT_TCPIP_READY = 0,
+
+    /* Opening UDP server */
+    APP_UDP_RESPONDER_STATE_OPENING_SERVER,
+
+    /* Serving connection on UDP port */
+    APP_UDP_RESPONDER_STATE_SERVING_CONNECTION,
+
+    /* Error state */
+    APP_UDP_RESPONDER_STATE_ERROR,
 
 } APP_UDP_RESPONDER_STATES;
 
@@ -86,17 +104,7 @@ typedef struct
     /* The application's current state */
     APP_UDP_RESPONDER_STATES state;
 
-    /* TODO: Define any additional data used by the application. */
-
 } APP_UDP_RESPONDER_DATA;
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Callback Routines
-// *****************************************************************************
-// *****************************************************************************
-/* These routines are called by drivers when certain events occur.
-*/
 
 // *****************************************************************************
 // *****************************************************************************
@@ -136,7 +144,6 @@ typedef struct
 */
 
 void APP_UDP_RESPONDER_Initialize ( void );
-
 
 /*******************************************************************************
   Function:
@@ -181,4 +188,3 @@ void APP_UDP_RESPONDER_Tasks( void );
 /*******************************************************************************
  End of File
  */
-

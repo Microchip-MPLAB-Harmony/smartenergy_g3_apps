@@ -43,6 +43,16 @@ extern "C" {
 
 // *****************************************************************************
 // *****************************************************************************
+// Section: Macro Definitions
+// *****************************************************************************
+// *****************************************************************************
+
+/* Port number for UDP metrology. This port can be compressed using 6LowPAN
+ * (rfc4944, rfc6282) (0xF0B0 - 0xF0BF) */
+#define APP_UDP_METROLOGY_SOCKET_PORT 0xF0B0
+
+// *****************************************************************************
+// *****************************************************************************
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
@@ -60,10 +70,17 @@ extern "C" {
 
 typedef enum
 {
-    /* Application's state machine's initial state. */
-    APP_UDP_METROLOGY_STATE_INIT=0,
-    APP_UDP_METROLOGY_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
+    /* Application's state machine's initial state */
+    APP_UDP_METROLOGY_STATE_WAIT_TCPIP_READY = 0,
+
+    /* Opening UDP server */
+    APP_UDP_METROLOGY_STATE_OPENING_SERVER,
+
+    /* Serving connection on UDP port */
+    APP_UDP_METROLOGY_STATE_SERVING_CONNECTION,
+
+    /* Error state */
+    APP_UDP_METROLOGY_STATE_ERROR,
 
 } APP_UDP_METROLOGY_STATES;
 
@@ -86,9 +103,104 @@ typedef struct
     /* The application's current state */
     APP_UDP_METROLOGY_STATES state;
 
-    /* TODO: Define any additional data used by the application. */
-
 } APP_UDP_METROLOGY_DATA;
+
+// *****************************************************************************
+/* Metrology RMS Data
+
+  Summary:
+    Holds metrology data.
+
+  Description:
+    This structure holds the metrology data to be sent through UDP
+    (RMS instantaneous values).
+
+  Remarks:
+    None.
+ */
+
+typedef struct
+{
+    /* RMS voltage for phase A */
+    uint32_t rmsUA;
+
+    /* RMS voltage for phase B */
+    uint32_t rmsUB;
+
+    /* RMS voltage for phase C */
+    uint32_t rmsUC;
+
+    /* RMS current for phase A */
+    uint32_t rmsIA;
+
+    /* RMS current for phase B */
+    uint32_t rmsIB;
+
+    /* RMS current for phase C */
+    uint32_t rmsIC;
+
+    /* RMS current for neutral */
+    uint32_t rmsINI;
+
+    /* RMS current for neutral */
+    uint32_t rmsINM;
+
+    /* RMS current for neutral */
+    uint32_t rmsINMI;
+
+    /* RMS active power total */
+    int32_t rmsPT;
+
+    /* RMS active power for phase A */
+    int32_t rmsPA;
+
+    /* RMS active power for phase B */
+    int32_t rmsPB;
+
+    /* RMS active power for phase C */
+    int32_t rmsPC;
+
+    /* RMS reactive power total */
+    int32_t rmsQT;
+
+    /* RMS reactive power for phase A */
+    int32_t rmsQA;
+
+    /* RMS reactive power for phase B */
+    int32_t rmsQB;
+
+    /* RMS reactive power for phase C */
+    int32_t rmsQC;
+
+    /* RMS aparent power total */
+    uint32_t rmsST;
+
+    /* RMS aparent power for phase A */
+    uint32_t rmsSA;
+
+    /* RMS aparent power for phase B */
+    uint32_t rmsSB;
+
+    /* RMS aparent power for phase C */
+    uint32_t rmsSC;
+
+    /* Frequency of the line voltage fundamental harmonic component determined
+     * by the Metrology library using the dominant phase */
+    uint32_t freq;
+
+    /* Angle between the voltage and current vectors for phase A */
+    int32_t angleA;
+
+    /* Angle between the voltage and current vectors for phase B */
+    int32_t angleB;
+
+    /* Angle between the voltage and current vectors for phase C */
+    int32_t angleC;
+
+    /* Angle between the voltage and current vectors for neutral */
+    int32_t angleN;
+
+} APP_UDP_METROLOGY_RESPONSE_DATA;
 
 // *****************************************************************************
 // *****************************************************************************

@@ -28,6 +28,9 @@
 // *****************************************************************************
 
 #include "app_display.h"
+#include "definitions.h"
+
+extern APP_PLC_DATA appPlc;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -88,14 +91,19 @@ APP_DISPLAY_DATA app_displayData;
 
 void APP_DISPLAY_Initialize ( void )
 {
-    /* Place the App state machine in its initial state. */
-    app_displayData.state = APP_DISPLAY_STATE_INIT;
+    status_code_t status;
 
-
-
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
+    /* Initialize the CL010 LCD glass component */
+    status = cl010_init();
+    if (status != STATUS_OK) 
+    {
+        app_displayData.state = APP_DISPLAY_STATE_ERROR;
+    }
+    else
+    {
+        /* Place the App state machine in its initial state. */
+        app_displayData.state = APP_DISPLAY_STATE_INIT;
+    }
 }
 
 
@@ -116,25 +124,38 @@ void APP_DISPLAY_Tasks ( void )
         /* Application's initial state. */
         case APP_DISPLAY_STATE_INIT:
         {
-            bool appInitialized = true;
-
-
-            if (appInitialized)
-            {
-
-                app_displayData.state = APP_DISPLAY_STATE_SERVICE_TASKS;
-            }
+            cl010_clear_all();
+            cl010_show_numeric_string(CL010_LINE_DOWN, (const uint8_t *)"0000460");
+            
+            cl010_show_icon(CL010_ICON_P_PLUS);
+            cl010_show_icon(CL010_ICON_P_MINUS);
+            
+            cl010_show_icon(CL010_ICON_MICROCHIP);
+            
+            app_displayData.state = APP_DISPLAY_STATE_SERVICE_TASKS;
             break;
         }
 
         case APP_DISPLAY_STATE_SERVICE_TASKS:
         {
-
+            if (appPlc.pvddMonTxEnable)
+            {
+                cl010_clear_icon(CL010_ICON_SWITCH_OPEN);
+                cl010_show_icon(CL010_ICON_PHASE_1);
+            }
+            else
+            {
+                cl010_show_icon(CL010_ICON_SWITCH_OPEN);
+                cl010_clear_icon(CL010_ICON_PHASE_1);
+            }
             break;
         }
 
-        /* TODO: implement your application state machine.*/
-
+        case APP_DISPLAY_STATE_ERROR:
+        {
+            cl010_show_all();
+            break;
+        }
 
         /* The default state should never be executed. */
         default:
