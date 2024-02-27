@@ -30,7 +30,7 @@ package:
       version: "v3.12.0"
     - name: "crypto"
       type: "package"
-      version: "v3.8.0"
+      version: "dev"
     - name: "wolfssl"
       type: "package"
       version: "v5.4.0"

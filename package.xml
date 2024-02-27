@@ -8,7 +8,7 @@
         <Dependency name="smartenergy" version="dev"/>
         <Dependency name="smartenergy_g3" version="dev"/>
         <Dependency name="usb" version="v3.12.0"/>
-        <Dependency name="crypto" version="v3.8.0"/>
+        <Dependency name="crypto" version="dev"/>
         <Dependency name="wolfssl" version="v5.4.0"/>
         <Dependency name="net" version="v3.11.0"/>
         <Dependency name="gfx" version="v3.13.0"/>
