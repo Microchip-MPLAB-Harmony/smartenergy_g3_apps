@@ -63,6 +63,9 @@ extern "C" {
 /* Coordinator short address */
 #define APP_G3_MANAGEMENT_SHORT_ADDRESS 0x0000
 
+/* PSK / Network authentication Key (16 bytes) for Conformance */
+#define APP_G3_MANAGEMENT_PSK_KEY_CONFORMANCE {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF}
+
 /* Context information table index 0:
  * Context 0 with value IPv6_PREFIX & PAN_ID (length = 80 bits) */
 #define APP_G3_MANAGEMENT_CONTEXT_INFO_TABLE_0 {0xFF, 0xFF, 0x01, 0x50, 0xFE, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x78, 0x1D}
@@ -288,6 +291,9 @@ typedef struct
 
 typedef struct
 {
+    /* LBP_IB_PSK: PSK / Network authentication Key for Conformance */
+    const uint8_t pskConformance[16];
+
     /* ADP_IB_CONTEXT_INFORMATION_TABLE: Context information table index 0 */
     const uint8_t contextInfoTable0[14];
 

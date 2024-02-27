@@ -71,6 +71,7 @@ static const APP_G3_MANAGEMENT_CONSTANTS app_g3_managementConst = {
     .dutyCycleLimitRF = APP_G3_MANAGEMENT_DUTY_CYCLE_LIMIT_RF,
 
     /* G3 Conformance parameters */
+    .pskConformance = APP_G3_MANAGEMENT_PSK_KEY_CONFORMANCE,
     .blacklistTableEntryTTLconformance = APP_G3_MANAGEMENT_BLACKLIST_TABLE_ENTRY_TTL_CONFORMANCE,
     .broadcastLogTableEntryTTLconformance = APP_G3_MANAGEMENT_BROADCAST_LOG_TABLE_ENTRY_TTL_CONFORMANCE,
     .gropTable0Conformance = APP_G3_MANAGEMENT_GROUP_TABLE_0_CONFORMANCE,
@@ -696,6 +697,8 @@ void APP_G3_MANAGEMENT_Tasks ( void )
             ADP_STATUS adpStatus = ADP_Status();
             if (adpStatus >= ADP_STATUS_READY)
             {
+                LBP_SET_PARAM_CONFIRM lbpSetConfirm;
+
                 /* ADP is ready. We can set ADP/MAC parameters. */
                 _APP_G3_MANAGEMENT_ShowVersions();
                 _APP_G3_MANAGEMENT_InitializeParameters();
@@ -704,6 +707,12 @@ void APP_G3_MANAGEMENT_Tasks ( void )
                 ADP_DiscoveryRequest(15);
                 app_g3_managementData.numNetworksFound = 0;
                 app_g3_managementData.state = APP_G3_MANAGEMENT_STATE_SCANNING;
+
+                if (app_g3_managementData.conformanceTest)
+                {
+                    LBP_SetParamCoord(LBP_IB_PSK, 0, 16,
+                            (const uint8_t*) &app_g3_managementConst.pskConformance, &lbpSetConfirm);
+                }
 
                 if (app_g3_managementData.timerLedHandle == SYS_TIME_HANDLE_INVALID)
                 {
@@ -778,8 +787,12 @@ void APP_G3_MANAGEMENT_SetConformanceConfig ( void )
 
     if (ADP_Status() >= ADP_STATUS_READY)
     {
+        LBP_SET_PARAM_CONFIRM lbpSetConfirm;
+
         /* ADP is ready: set conformance parameters */
         _APP_G3_MANAGEMENT_SetConformanceParameters();
+        LBP_SetParamCoord(LBP_IB_PSK, 0, 16,
+                (const uint8_t*) &app_g3_managementConst.pskConformance, &lbpSetConfirm);
     }
 
     APP_TCPIP_MANAGEMENT_SetConformanceConfig();
