@@ -29,6 +29,7 @@
 // *****************************************************************************
 #include "crypto/common_crypto/MCHP_Crypto_DigSign.h"
 #include "crypto/common_crypto/MCHP_Crypto_Common.h"
+#include "crypto/common_crypto/MCHP_Crypto_DigSign_WolfcryptWrapper.h"
 
 #include "wolfssl/wolfcrypt/error-crypt.h"
 

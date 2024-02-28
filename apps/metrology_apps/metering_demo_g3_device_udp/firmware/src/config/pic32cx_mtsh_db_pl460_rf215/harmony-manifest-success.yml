@@ -4,7 +4,7 @@
 
 
 project: metering_demo_g3_device_udp
-creation_date: 2024-02-26T15:57:16.945+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2024-02-28T10:01:01.466+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: Headless            # [IDE|Standalone|Headless]
 mcc_version: v5.5.0
@@ -18,7 +18,7 @@ modules:
     - {name: "smartenergy_g3", version: "SMS-3793-adapt-security-service-to-crypto-v4"}
     - {name: "wolfssl", version: "master"}
     - {name: "smartenergy", version: "SMS-3793-adapt-security-service-to-crypto-v4"}
-    - {name: "crypto", version: "MH3-83087_Crypto_v4_0_0_Development_240221_CAL"}
+    - {name: "crypto", version: "master"}
     - {name: "core", version: "master"}
     - {name: "CMSIS_5", version: "5.9.0"}
     - {name: "gfx", version: "dev"}
