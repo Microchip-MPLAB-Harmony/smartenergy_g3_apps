@@ -558,6 +558,10 @@ typedef struct w64wrapper {
                 #endif
                 #define XREALLOC(p, n, h, t) wolfSSL_Realloc((p), (n), (h), (t))
             #endif /* WOLFSSL_DEBUG_MEMORY */
+        #elif  defined(WOLFSSL_EMBOS) && !defined(XMALLOC_USER) \
+                && !defined(NO_WOLFSSL_MEMORY) \
+                && !defined(WOLFSSL_STATIC_MEMORY)
+            /* settings.h solve this case already. Avoid redefinition. */
         #elif (!defined(FREERTOS) && !defined(FREERTOS_TCP)) || defined(WOLFSSL_TRACK_MEMORY)
             #ifdef WOLFSSL_DEBUG_MEMORY
                 #define XMALLOC(s, h, t)     ((void)(h), (void)(t), wolfSSL_Malloc((s), __func__, __LINE__))
@@ -587,6 +591,8 @@ typedef struct w64wrapper {
     #define WC_DECLARE_HEAP_ARRAY(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE, HEAP) \
         VAR_TYPE* VAR_NAME[VAR_ITEMS]; \
         int idx##VAR_NAME = 0, inner_idx_##VAR_NAME
+    #define WC_HEAP_ARRAY_ARG(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE) \
+        VAR_TYPE* VAR_NAME[VAR_ITEMS]
     #define WC_ALLOC_HEAP_ARRAY(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE, HEAP) \
         for (idx##VAR_NAME=0; idx##VAR_NAME<(VAR_ITEMS); idx##VAR_NAME++) { \
             (VAR_NAME)[idx##VAR_NAME] = (VAR_TYPE*)XMALLOC(VAR_SIZE, (HEAP), DYNAMIC_TYPE_TMP_BUFFER); \
@@ -641,6 +647,8 @@ typedef struct w64wrapper {
             XFREE(VAR_NAME, (HEAP), DYNAMIC_TYPE_WOLF_BIGINT)
         #define WC_DECLARE_ARRAY(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE, HEAP) \
             WC_DECLARE_HEAP_ARRAY(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE, HEAP)
+        #define WC_ARRAY_ARG(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE) \
+            WC_HEAP_ARRAY_ARG(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE)
         #define WC_ALLOC_ARRAY(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE, HEAP) \
             WC_ALLOC_HEAP_ARRAY(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE, HEAP)
         #define WC_CALLOC_ARRAY(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE, HEAP) \
@@ -657,6 +665,8 @@ typedef struct w64wrapper {
             XMEMSET(VAR_NAME, 0, sizeof(var))
         #define WC_FREE_VAR(VAR_NAME, HEAP) WC_DO_NOTHING /* nothing to free, its stack */
         #define WC_DECLARE_ARRAY(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE, HEAP) \
+            VAR_TYPE VAR_NAME[VAR_ITEMS][(VAR_SIZE) / sizeof(VAR_TYPE)] /* // NOLINT(bugprone-sizeof-expression) */
+        #define WC_ARRAY_ARG(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE) \
             VAR_TYPE VAR_NAME[VAR_ITEMS][(VAR_SIZE) / sizeof(VAR_TYPE)] /* // NOLINT(bugprone-sizeof-expression) */
         #define WC_ALLOC_ARRAY(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE, HEAP) WC_DO_NOTHING
         #define WC_CALLOC_ARRAY(VAR_NAME, VAR_TYPE, VAR_ITEMS, VAR_SIZE, HEAP) XMEMSET(VAR_NAME, 0, sizeof(VAR_NAME))
@@ -901,8 +911,12 @@ typedef struct w64wrapper {
 
     #if !defined(NO_FILESYSTEM) && !defined(NO_STDIO_FILESYSTEM)
         #ifndef XGETENV
-            #include <stdlib.h>
-            #define XGETENV getenv
+            #ifdef NO_GETENV
+                #define XGETENV(x) (NULL)
+            #else
+                #include <stdlib.h>
+                #define XGETENV getenv
+            #endif
         #endif
     #endif /* !NO_FILESYSTEM && !NO_STDIO_FILESYSTEM */
 
@@ -917,7 +931,11 @@ typedef struct w64wrapper {
         #endif
         #if defined(OPENSSL_ALL) || defined(OPENSSL_EXTRA) || defined(OPENSSL_EXTRA_X509_SMALL)
         #define XISALNUM(c)     isalnum((c))
-        #define XISASCII(c)     isascii((c))
+        #ifdef NO_STDLIB_ISASCII
+            #define XISASCII(c) (((c) >= 0 && (c) <= 127) ? 1 : 0)
+        #else
+            #define XISASCII(c) isascii((c))
+        #endif
         #define XISSPACE(c)     isspace((c))
         #endif
         /* needed by wolfSSL_check_domain_name() */
