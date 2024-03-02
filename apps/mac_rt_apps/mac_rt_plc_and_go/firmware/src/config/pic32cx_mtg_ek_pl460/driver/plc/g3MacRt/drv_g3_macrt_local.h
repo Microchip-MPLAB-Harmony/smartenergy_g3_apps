@@ -150,7 +150,7 @@ typedef struct
     DRV_G3_MACRT_EXCEPTION_CALLBACK           exceptionCallback;
 
     /* Event detection flag: data of new reception */
-    volatile uint16_t                         evDataIndLength;
+    volatile uint16_t                         evDataIndLength[2];
 
     /* Event detection flag: length of the response with register content */
     volatile uint16_t                         evRegRspLength;
@@ -171,7 +171,11 @@ typedef struct
     volatile bool                             evCommStatus;
 
     /* Event detection flag: RX parameters */
-    volatile bool                             evRxParams;
+    volatile bool                             evRxParams[2];
+
+    /* Indices to control in which buffer to receive data and parameters */
+    uint8_t                                   evDataIndLengthIndex;
+    uint8_t                                   evRxParamsIndex;
 
     /* Pointer to MAC Sniffer Data Buffer */
     uint8_t                                   *pMacDataSniffer;
