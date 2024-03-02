@@ -163,6 +163,8 @@ bool SERCOM0_SPI_TransferSetup(SPI_TRANSFER_SETUP *setup, uint32_t spiSourceCloc
 
     /* Disable the SPI Module */
     SERCOM0_REGS->SPIM.SERCOM_CTRLA &= ~(SERCOM_SPIM_CTRLA_ENABLE_Msk);
+    sercom0SPIObj.rxSize = 0U;
+    sercom0SPIObj.txSize = 0U;
 
     /* Wait for synchronization */
     while((SERCOM0_REGS->SPIM.SERCOM_STATUS & (uint16_t)SERCOM_SPIM_STATUS_SYNCBUSY_Msk) == (uint16_t)SERCOM_SPIM_STATUS_SYNCBUSY_Msk)
