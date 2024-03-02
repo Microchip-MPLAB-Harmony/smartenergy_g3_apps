@@ -1,3 +1,26 @@
+/*
+Copyright (C) 2022, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+
 /*******************************************************************************
   MPLAB Harmony Application Header File
 
@@ -14,12 +37,12 @@
     This header file provides function prototypes and data type definitions for
     the application.  Some of these are required by the system (such as the
     "APP_Initialize" and "APP_Tasks" prototypes) and some of them are only used
-    internally by the application (such as the "APP_STATES" definition).  Both
+    internally by the application (such as the "APP_STATE" definition).  Both
     are defined here for convenience.
 *******************************************************************************/
 
-#ifndef _APP_H
-#define _APP_H
+#ifndef _APP_PLC_H
+#define _APP_PLC_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -32,6 +55,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
+#include "definitions.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -46,6 +70,12 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
+#define APP_PLC_DATA_BUFFER_SIZE      512
+#define APP_SERIAL_DATA_BUFFER_SIZE   (APP_PLC_DATA_BUFFER_SIZE + 128)
+#define APP_PLC_PIB_BUFFER_SIZE       (PROTOCOL_CARRIERS_MAX * 2)
+
+#define LED_BLINK_RATE_MS             500
+#define LED_BLINK_PLC_MSG_MS          100
 
 // *****************************************************************************
 /* Application states
@@ -61,12 +91,35 @@ extern "C" {
 typedef enum
 {
     /* Application's state machine's initial state. */
-    APP_STATE_INIT=0,
-    APP_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
+    APP_STATE_IDLE=0,
+    APP_STATE_INIT,
+    APP_STATE_REGISTER,
+    APP_STATE_CONFIG_PLC,
+    APP_STATE_CONFIG_USI,
+    APP_STATE_SEND_PLC_MSG,
+    APP_STATE_SEND_USI_MSG,
+    APP_STATE_READY,
+    APP_STATE_EXCEPTION,
+    APP_STATE_ERROR
 
-} APP_STATES;
+} APP_STATE;
 
+/* PLC Transmission Status
+
+  Summary:
+    PLC Transmission states enumeration
+
+  Description:
+    This structure holds the PLC transmission's status.
+ */
+
+typedef enum
+{
+    APP_PLC_TX_STATE_IDLE=0,
+    APP_PLC_TX_STATE_WAIT_TX_CFM,
+    APP_PLC_TX_STATE_WAIT_TX_CANCEL
+
+} APP_PLC_TX_STATE;
 
 // *****************************************************************************
 /* Application Data
@@ -83,20 +136,41 @@ typedef enum
 
 typedef struct
 {
-    /* The application's current state */
-    APP_STATES state;
+    APP_STATE state;
 
-    /* TODO: Define any additional data used by the application. */
+    SYS_TIME_HANDLE tmr1Handle;
+
+    volatile bool tmr1Expired;
+
+    SYS_TIME_HANDLE tmr2Handle;
+
+    volatile bool tmr2Expired;
+
+    DRV_HANDLE drvPlcHandle;
+
+    SRV_USI_HANDLE srvUSIHandle;
+
+    bool plc_phy_exception;
+
+    uint32_t plc_phy_err_unexpected;
+
+    uint32_t plc_phy_err_critical;
+
+    uint32_t plc_phy_err_reset;
+
+    uint32_t plc_phy_err_unknow;
+
+    uint8_t *pSerialData;
+
+    DRV_PLC_PHY_TRANSMISSION_OBJ plcTxObj;
+
+    DRV_PLC_PHY_PIB_OBJ plcPIB;
+
+    bool pvddMonTxEnable;
+
+    APP_PLC_TX_STATE plcTxState;
 
 } APP_DATA;
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Callback Routines
-// *****************************************************************************
-// *****************************************************************************
-/* These routines are called by drivers when certain events occur.
-*/
 
 // *****************************************************************************
 // *****************************************************************************
@@ -106,7 +180,7 @@ typedef struct
 
 /*******************************************************************************
   Function:
-    void APP_Initialize ( void )
+    void APP_PLC_Initialize ( void )
 
   Summary:
      MPLAB Harmony application initialization routine.
@@ -128,7 +202,7 @@ typedef struct
 
   Example:
     <code>
-    APP_Initialize();
+    APP_PLC_Initialize();
     </code>
 
   Remarks:
@@ -140,7 +214,7 @@ void APP_Initialize ( void );
 
 /*******************************************************************************
   Function:
-    void APP_Tasks ( void )
+    void APP_PLC_Tasks ( void )
 
   Summary:
     MPLAB Harmony Demo application tasks function
@@ -161,7 +235,7 @@ void APP_Initialize ( void );
 
   Example:
     <code>
-    APP_Tasks();
+    APP_PLC_Tasks();
     </code>
 
   Remarks:
@@ -170,13 +244,15 @@ void APP_Initialize ( void );
 
 void APP_Tasks( void );
 
+
+
+#endif /* _APP_PLC_H */
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
 #endif
 //DOM-IGNORE-END
-
-#endif /* _APP_H */
 
 /*******************************************************************************
  End of File
