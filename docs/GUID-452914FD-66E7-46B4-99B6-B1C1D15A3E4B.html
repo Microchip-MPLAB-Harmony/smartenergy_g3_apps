@@ -1,275 +1,337 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
-<meta name="DC.rights.owner" content="(C) Copyright 2022" />
-<meta name="DC.type" content="concept" />
-<meta name="DC.title" content="Transmission" />
-<meta name="DC.relation" scheme="URI" content="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F.html" />
-<meta name="DC.format" content="XHTML" />
-<meta name="DC.identifier" content="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B" />
-<meta name="DC.language" content="en-US" />
-<link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
-<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
-<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>Transmission</title>
-<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B" />
-<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F" />
-<meta name="Microsoft.Help.TocOrder" content="0" />
-<meta name="Microsoft.Help.Locale" content="en-US" />
-<meta name="Microsoft.Help.TopicLocale" content="en-US" />
-<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Smart Energy G3 Applications Reference A 02/2022" />
-<script language="javascript">
-       
-       if (window.parent.location.protocol != 'file:') {
-				document.addEventListener('click', function(e) {
-				    if (e.target) {
-               if (e.target.nodeName == "A" ) {
-                    if (!e.target.target) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                              
-                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
-                      if (origUrl.length === 0) {
-                          origUrl = window.parent.location.href;
-                      }
-                      var href= e.target.getAttribute("href");
-                      var parts = href.split("#");
-          
-                      var url = "";
-                      if (parts.length == 2 ) {
-                        if (!parts[0].length) {
-                            url = window.parent.location.search.replace('?','')
-                        } else {
-                            url = parts[0].replace('.html','');
-                        }
-                      } else {
-                        url = parts[0].replace('.html','');
-                      }
-
-                      if (parts.length == 2) {
-                          url += "#" + parts[1];
-                      }
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us" data-whc_version="24.1">
+    <head><link rel="shortcut icon" href="oxygen-webhelp\template\resources/images/favicon.ico"/><link rel="icon" href="oxygen-webhelp\template\resources/images/favicon.ico"/><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="description" content="In the MAC-RT PLC &amp; Go application, to transmit a message it is only needed to call the function APP_PLC_SendData() , passing as parameters the pointer to the data buffer and the data length. The data ..."/><meta name="copyright" content="(C) Copyright 2024"/><meta name="generator" content="DITA-OT"/><title>1.5.1.2 Transmission</title><!--  Generated with Oxygen version 24.1, build number 2022062014.  --><meta name="wh-path2root" content=""/><meta name="wh-toc-id" content="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B-d927e299"/><meta name="wh-source-relpath" content="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B.xml"/><meta name="wh-out-relpath" content="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B.html"/>
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="./oxygen-webhelp/lib/bootstrap/css/bootstrap.min.css"/>
     
-                      window.parent.location.href = origUrl + "?" + url;
+    <link rel="stylesheet" href="./oxygen-webhelp/lib/jquery-ui/jquery-ui.min.css"/>
+    
+    <!-- Template default styles  -->
+    <link rel="stylesheet" type="text/css" href="./oxygen-webhelp/app/topic-page.css?buildId=2022062014"/>
+    
+    
+    <script src="./oxygen-webhelp/lib/jquery/jquery-3.5.1.min.js"></script>
+    
+    <script data-main="./oxygen-webhelp/app/topic-page.js" src="./oxygen-webhelp/lib/requirejs/require.js"></script>
+<link rel="stylesheet" type="text/css" href="oxygen-webhelp/template/microchip.css?buildId=2022062014"/><link rel="stylesheet" type="text/css" href="oxygen-webhelp/template/notes.css?buildId=2022062014"/>
+<script src="mchp-context-help.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async="" type="text/javascript"></script>
+    <script src="https://assets.adobedtm.com/6a72a357eb48/a636c708c7fe/launch-0b0023397020.min.js"></script><!-- Adobe Analytics -->
+</head>
 
-                      return false;
-                    }
-               }
-            }
-				});
-			}
+    <body id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B" class="wh_topic_page frmBody">
+        <a href="#wh_topic_body" class="sr-only sr-only-focusable">
+            Jump to main content
+        </a>
+        
+        
+        
+        
+        <header class="navbar navbar-default wh_header">
+    <div class="container-fluid">
+        <div class="wh_header_flex_container navbar-nav navbar-expand-md navbar-dark">
+            <div class="wh_logo_and_publication_title_container">
+                <div class="wh_logo_and_publication_title">
+                    
+                    <a href="index.html" class=" wh_logo d-none d-sm-block "><img src="oxygen-webhelp\template\resources/images/microchip.png" alt="MPLAB Harmony Smart Energy G3 Applications "/></a>
+                    <div class=" wh_publication_title "><a href="index.html">MPLAB Harmony Smart Energy G3 Applications </a></div>
+                    
+                </div>
+                
+                
+            </div>
 
-		</script><script language="javascript">
-        function cpy(id, button) {
-        
-            var element = document.getElementById(id);
-            var content = element.getAttribute("content");
-            var textArea = document.createElement("textarea");
-            
-            // Place in the top-left corner of screen regardless of scroll position.
-            textArea.style.position = 'fixed';
-            textArea.style.top = 0;
-            textArea.style.left = 0;
-            
-            // Ensure it has a small width and height. Setting to 1px / 1em
-            // doesn't work as this gives a negative w/h on some browsers.
-            textArea.style.width = '2em';
-            textArea.style.height = '2em';
-            
-            // We don't need padding, reducing the size if it does flash render.
-            textArea.style.padding = 0;
-            
-            // Clean up any borders.
-            textArea.style.border = 'none';
-            textArea.style.outline = 'none';
-            textArea.style.boxShadow = 'none';
-            
-            // Avoid flash of the white box if rendered for any reason.
-            textArea.style.background = 'transparent';
-            
-            
-            textArea.value = content;
-            
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-               var successful = document.execCommand('copy');
-               var msg = successful ? 'successful' : 'unsuccessful';
-               if (!button.classList.contains("copied")){
-                  button.textContent = "Copied";
-                  button.classList.add("copied");
-                  setTimeout(function(){
-                    button.textContent = "Copy";
-                    button.classList.remove("copied");
-                  },1000);
-               }
-            } catch (err) {
-              console.log('Oops, unable to copy');
-            }
-            
-            document.body.removeChild(textArea);
-        }
-      </script><script language="javascript">
-          
-          // Add the MathML namespace to html
-          var html = document.getElementsByTagName("html")[0],
-          head = document.getElementsByTagName("head")[0];
-          
-          var mathJax = document.createElement("script");
-          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
-          head.appendChild(mathJax);
-          
-          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
-          
-          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
-          
-          if (!inIframe()) { 
-          
-          var Default = "index.html?GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B"; 
-          
-          var displaylocation = "value" + window.location.href;
-          
-          var GUIDS = displaylocation.split('GUID');          
-          
-          if (displaylocation.indexOf('#GUID') != -1) {            
-          var First = GUIDS[1].split('.html');  
-          if (GUIDS[3]){First = GUIDS[2].split('.html');}
-          if (GUIDS[4]){First = GUIDS[3].split('.html');}
-          if (GUIDS[5]){First = GUIDS[4].split('.html');}
-          
-          var Second = GUIDS[2].split('#');   
-          if (GUIDS[3]){Second = GUIDS[3].split('#');}
-          if (GUIDS[4]){Second = GUIDS[4].split('#');}
-          if (GUIDS[5]){Second = GUIDS[5].split('#');}
-          
-          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
-          }                    
-          window.top.location = Default;
-          }       
-          
-        </script><style xml:space="">
-        
-          button.copy-code{
-            display:none;
-            padding:0.7em 1.4em;
-            margin:0 0.3em 0.3em 0;
-            border-radius:0.15em;
-            box-sizing: border-box;
-            text-decoration:none;
-            font-family:'Roboto',sans-serif;
-            text-transform:uppercase;
-            font-weight:400;
-            color:#FFFFFF;
-            background-color:#9c9c9c;
-            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
-            text-align:center;
-            position:relative;
-            border: 0;
-            float: right;
-            border-radius: .5em;
-            cursor: pointer;
-          }
-          button.copy-code:active{
-            top:0.1em;
-          }
-          
-          pre:hover button.copy-code{
-            display: inline-block !important;
-          }
-          button.copy-code.copied {
-            cursor: default !important;
-          }
-          
-          
-          @media all and (max-width:30em){
-            button.copy-code{
-              display:block;
-              margin:0.4em auto;
-            }
-          }
+            <div class="wh_top_menu_and_indexterms_link collapse navbar-collapse" id="wh_top_menu_and_indexterms_link">
+                
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</header>
         
         
-      </style></head>
-<body id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B">
+         
+        
+        <div class=" wh_search_input navbar-form wh_topic_page_search search " role="form">
+            
+            
+            
+            <form id="searchForm" method="get" role="search" action="search.html"><div class="d-flex justify-contents-around"><div class="flex-grow-1"></div><div class="position-relative flex-grow-1"><input type="search" placeholder="Search " class="wh_search_textfield" id="textToSearch" name="searchQuery" aria-label="Search query" required="required"/><button type="submit" class="wh_search_button" aria-label="Search"><span class="search_input_text">Search</span></button></div><div class="align-self-center flex-grow-1 ml-2"></div></div></form>
+            
+            <div class="mchp-color-stripe-grid-container">
+  <div class="mchp-main-bar mchp-orange-bar"></div>
+  <div class="mchp-main-bar mchp-blue-bar"></div>
+  <div class="mchp-main-bar mchp-green-bar"></div>
+</div>
+            
+        </div>
+        
+        <div class="container-fluid" id="wh_topic_container">
+            <div class="row">
 
-<h1 class="title topictitle1" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-98AFA0B5-AA07-43C7-BC95-BAEE9B898E92">Transmission</h1>
-<div class="body conbody">
-        <p class="p">In the MACrt PLC &amp; Go application, to transmit a message, it is only needed to call
-            the function <code class="ph codeph">APP_PLC_SendData()</code> passing as parameters the pointer to
+                <nav class="wh_tools d-print-none navbar-expand-md" aria-label="Tools">
+                    
+                    <div data-tooltip-position="bottom" class=" wh_breadcrumb "><ol class="d-print-none"><li><span class="home"><a href="index.html"><span>Home</span></a></span></li><li><div class="topicref" data-id="mplab-harmony-3-smart-energy-g3-application-examples"><div class="title"><a href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1</ph>
+MPLAB® Harmony 3 Smart Energy G3 application examples</a></div></div></li><li><div class="topicref" data-id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1"><div class="title"><a href="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5</ph>
+MAC-RT PLC &amp; Go</a></div></div></li><li><div class="topicref" data-id="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F"><div class="title"><a href="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.1</ph>
+Application Example</a></div></div></li><li class="active"><div class="topicref" data-id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B"><div class="title"><a href="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.1.2</ph>
+Transmission</a></div></div></li></ol></div>
+                    
+                    
+                    
+                    <div class="wh_right_tools">
+                        <button class="wh_hide_highlight" aria-label="Toggle search highlights" title="Toggle search highlights"></button>
+                        <button class="webhelp_expand_collapse_sections" data-next-state="collapsed" aria-label="Collapse sections" title="Collapse sections"></button>
+                        
+                        
+                        
+                        
+                        <div class=" wh_print_link print d-none d-md-inline-block "><button onClick="window.print()" title="Print this page" aria-label="Print this page"></button></div>
+                        
+                        <button type="button" id="wh_toc_button" class="custom-toggler navbar-toggler collapsed wh_toggle_button navbar-light" aria-expanded="false" aria-label="Toggle publishing table of content" aria-controls="wh_publication_toc">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    
+                </nav>
+            </div>
+            
+            
+            
+            
+            <div class="wh_content_area">
+                <div class="row">
+                    
+                        <nav id="wh_publication_toc" class="col-lg-3 col-md-3 col-sm-12 d-md-block d-none d-print-none" aria-label="Table of Contents Container">
+                            <div id="wh_publication_toc_content">
+		                        
+                            	<div class=" wh_publication_toc " data-tooltip-position="right"><span class="expand-button-action-labels"><span id="button-expand-action" role="button" aria-label="Expand"></span><span id="button-collapse-action" role="button" aria-label="Collapse"></span><span id="button-pending-action" role="button" aria-label="Pending"></span></span><ul role="tree" aria-label="Table of Contents"><li role="treeitem" aria-expanded="true"><div data-tocid="mplab-harmony-3-smart-energy-g3-application-examples-d927e11" class="topicref" data-id="mplab-harmony-3-smart-energy-g3-application-examples" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action mplab-harmony-3-smart-energy-g3-application-examples-d927e11-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html" id="mplab-harmony-3-smart-energy-g3-application-examples-d927e11-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1</ph>
+MPLAB® Harmony 3 Smart Energy G3 application examples</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19" class="topicref" data-id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E.html" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.1</ph>
+PHY Sniffer Tool</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67" class="topicref" data-id="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0.html" id="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.2</ph>
+PHY Tester Tool</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139" class="topicref" data-id="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1.html" id="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.3</ph>
+PLC PHY TX Test Console</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195" class="topicref" data-id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8.html" id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4</ph>
+PHY PLC &amp; Go</a></div></div></li><li role="treeitem" aria-expanded="true"><div data-tocid="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275" class="topicref" data-id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1.html" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5</ph>
+MAC-RT PLC &amp; Go</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem" aria-expanded="true"><div data-tocid="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F-d927e283" class="topicref" data-id="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F-d927e283-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F.html" id="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F-d927e283-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.1</ph>
+Application Example</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem"><div data-tocid="GUID-369581E4-E1C7-4395-8F38-B175B9EAD9C1-d927e291" class="topicref" data-id="GUID-369581E4-E1C7-4395-8F38-B175B9EAD9C1" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-369581E4-E1C7-4395-8F38-B175B9EAD9C1.html" id="GUID-369581E4-E1C7-4395-8F38-B175B9EAD9C1-d927e291-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.1.1</ph>
+Initialization</a></div></div></li><li role="treeitem" class="active"><div data-tocid="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B-d927e299" class="topicref" data-id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B.html" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B-d927e299-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.1.2</ph>
+Transmission</a></div></div></li><li role="treeitem"><div data-tocid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5-d927e307" class="topicref" data-id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5.html" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5-d927e307-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.1.3</ph>
+Reception</a></div></div></li></ul></li><li role="treeitem"><div data-tocid="GUID-31136C87-3CB1-420B-8A63-5B58ECBED5EC-d927e315" class="topicref" data-id="GUID-31136C87-3CB1-420B-8A63-5B58ECBED5EC" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-31136C87-3CB1-420B-8A63-5B58ECBED5EC.html" id="GUID-31136C87-3CB1-420B-8A63-5B58ECBED5EC-d927e315-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.2</ph>
+MCC Project Configuration</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-5C604792-D6C2-45F8-A0F3-D526B2D69363-d927e323" class="topicref" data-id="GUID-5C604792-D6C2-45F8-A0F3-D526B2D69363" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-5C604792-D6C2-45F8-A0F3-D526B2D69363-d927e323-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-5C604792-D6C2-45F8-A0F3-D526B2D69363.html" id="GUID-5C604792-D6C2-45F8-A0F3-D526B2D69363-d927e323-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.3</ph>
+Hardware Configuration</a></div></div></li></ul></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355" class="topicref" data-id="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B.html" id="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.6</ph>
+G3 Modem</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403" class="topicref" data-id="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A.html" id="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.7</ph>
+G3 Device UDP/ICMPv6 Responder</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491" class="topicref" data-id="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3.html" id="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8</ph>
+G3 Coordinator UDP Cycles/Responder</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595" class="topicref" data-id="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442.html" id="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.9</ph>
+G3 Coordinator ICMPv6 Cycles</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683" class="topicref" data-id="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44.html" id="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.10</ph>
+Metering Demo G3 Device UDP/ICMPv6 Responder</a></div></div></li></ul></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723" class="topicref backmatter backmatter_parent" data-id="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B.html" id="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723-link">Microchip Information</a></div></div></li></ul></div>
+		                        
+                            </div>
+                        </nav>
+                    
+                    
+                    <div class="col-lg-9 col-md-9 col-sm-12" id="wh_topic_body">
+                        <button id="wh_close_publication_toc_button" class="close-toc-button d-none" aria-label="Toggle publishing table of content" aria-controls="wh_publication_toc" aria-expanded="true">
+                            <span class="close-toc-icon-container">
+                                <span class="close-toc-icon"></span>     
+                            </span>
+                        </button>
+                        
+                        
+                        <div class=" wh_topic_content body "><main role="main"><article role="article" aria-labelledby="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-98AFA0B5-AA07-43C7-BC95-BAEE9B898E92">
+<h1 class="- topic/title title topictitle1" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-98AFA0B5-AA07-43C7-BC95-BAEE9B898E92" style="">1.5.1.2 Transmission</h1>
+<div class="- topic/body concept/conbody body conbody">
+        <p class="- topic/p p">In the MAC-RT PLC &amp; Go application, to transmit a message it is only needed to call
+            the function <code class="+ topic/ph pr-d/codeph ph codeph">APP_PLC_SendData()</code>, passing as parameters the pointer to
             the data buffer and the data length. The data buffer corresponds with the characters
             received through the console.</p>
+        <p class="- topic/p p">The G3-PLC MAC-RT driver sets everything concerning specific implementation for G3-PLC
+            respecting the MAC 802.15.4 frame format. Thus, any message transmitted by the G3-PLC
+            MAC-RT module must be a standard MAC 802.15.4 frame where the MAC header configures the
+            parameters in the transmission at MAC level. The standard MAC 802.15.4 frame check
+            sequence (FCS, CRC) is also calculated by the G3-PLC MAC-RT driver.</p>
+        <div class="- topic/p p">The MAC-RT PLC &amp; Go application configures the default values of the MAC 802.15.4
+            header frame, updating the contents of the corresponding structure <a class="- topic/xref xref" href="#GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-FD496811-F1AF-4D56-81F4-814F66EAEB58"><code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_HEADER</code></a> (defined in <span class="+ topic/ph hi-d/tt ph tt">drv_g3_macrt_comm.h</span>
+            file), during the initialization stage in the function
+                <code class="+ topic/ph pr-d/codeph ph codeph">APP_PLC_SetInitialConfiguration</code>. Furthermore, the function
+                <code class="+ topic/ph pr-d/codeph ph codeph">APP_PLC_SetSourceAddress</code> allows to set the source address (own
+            short address), the function <code class="+ topic/ph pr-d/codeph ph codeph">APP_PLC_SetDestinationAddress</code> allows to
+            set the destination address (unicast or broadcast short address) and the function
+                <code class="+ topic/ph pr-d/codeph ph codeph">APP_PLC_SetPANID</code> allows to set the PAN
+            ID.<pre class="+ topic/pre pr-d/codeblock pre codeblock"><code>static void APP_PLC_SetInitialConfiguration ( void )
+{
+    /* Apply PLC coupling configuration */
+    SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlc.couplingBranch);
 
-        <p class="p">G3_MAC_RT module sets everything concerning specific implementation for G3-PLC respecting
-            the MAC 802.15.4 frame format, so, any message transmitted by the G3_MAC_RT module
-            requires receiving a standard MAC 802.15.4 frame where the MAC header configures the
-            parameters in the transmission at MAC level. </p>
+    /* Force Transmission to VLO mode by default in order to maximize signal level in any case */
+    /* Disable auto-detect mode */
+    appPlc.plcPIB.pib = MAC_RT_PIB_MANUF_PHY_PARAM;
+    appPlc.plcPIB.index = PHY_PIB_CFG_AUTODETECT_IMPEDANCE;
+    appPlc.plcPIB.length = 1;
+    appPlc.plcPIB.pData[0] = 0;
+    DRV_G3_MACRT_PIBSet(appPlc.drvPlcHandle, &amp;appPlc.plcPIB);
 
-        <p class="p">The standard MAC 802.15.4 frame check sequence is also calculated by the G3_MAC_RT
-            module. If some specific behavior (MAC or PHY) needs to be modified (like force the
-            modulation, force a tonemap or modify the power transmission) or obtained, it must be
-            done through get/set PIBs primitives
-                (<code class="ph codeph">DRV_G3_MACRT_PIBGet()</code>/<code class="ph codeph">DRV_G3_MACRT_PIBSet()</code>). The
-            PIB list are detailed by the enumeration type definitions <code class="ph codeph">MAC_RT_PIB</code>
-            and <code class="ph codeph">MAC_RT_PHY_PIB</code>.</p>
+    /* Set VLO mode */
+    appPlc.plcPIB.index = PHY_PIB_CFG_IMPEDANCE;
+    appPlc.plcPIB.length = 1;
+    appPlc.plcPIB.pData[0] = 2;
+    DRV_G3_MACRT_PIBSet(appPlc.drvPlcHandle, &amp;appPlc.plcPIB);
 
-        <p class="p">The MACrt PLC &amp; Go application configures the default values of the MAC 802.15.4
-            header frame updating the contents of the corresponding structure
-                <code class="ph codeph">MAC_RT_HEADER</code> (defined in <tt class="ph tt">drv_g3_macrt_comm.h</tt> file) during
-            the initialization stage in the function
-                <code class="ph codeph">APP_PLC_SetInitialConfiguration()</code> in the state
-                <code class="ph codeph">APP_PLC_STATE_OPEN</code>.</p>
+    /* Get PLC PHY version */
+    appPlc.plcPIB.index = PHY_PIB_VERSION_NUM;
+    appPlc.plcPIB.length = 4;
+    DRV_G3_MACRT_PIBGet(appPlc.drvPlcHandle, &amp;appPlc.plcPIB);
+    memcpy((uint8_t *)&amp;appPlc.phyVersion, appPlc.plcPIB.pData, 4);
+    
+    /* Fill MAC RT Header */
+    appPlcTx.txHeader.frameControl.frameType = MAC_RT_FRAME_TYPE_DATA;
+    appPlcTx.txHeader.frameControl.securityEnabled = 0;
+    appPlcTx.txHeader.frameControl.framePending = 0;
+    appPlcTx.txHeader.frameControl.ackRequest = 0; // No en Broadcast
+    appPlcTx.txHeader.frameControl.frameVersion = 1;
+    appPlcTx.txHeader.sequenceNumber = 0;
+    
+    /* Set PAN_ID */
+    APP_PLC_SetPANID(CONF_PAN_ID);
+    
+    /* Set Addresses */
+    APP_PLC_SetDestinationAddress(MAC_RT_SHORT_ADDRESS_BROADCAST);
+    APP_PLC_SetSourceAddress((uint16_t)TRNG_ReadData());
 
-        <p class="p"></p>
+    if (appPlc.staticNotchingEnable)
+    {
+        /* Set Tone Mask (Static Notching) */
+        appPlc.plcPIB.pib = MAC_RT_PIB_TONE_MASK;
+        appPlc.plcPIB.index = 0;
+        appPlc.plcPIB.length = sizeof(MAC_RT_TONE_MASK);
+        memcpy(appPlc.plcPIB.pData, appPlcToneMask.toneMask, sizeof(MAC_RT_TONE_MASK));
+        DRV_G3_MACRT_PIBSet(appPlc.drvPlcHandle, &amp;appPlc.plcPIB);
+    }
+}
 
-        <p class="p">The function <code class="ph codeph">APP_PLC_SetInitialConfiguration()</code> configures additionally
-            some transmission parameters related to physical layer like the transmision and
-            impedance detection modes using the <code class="ph codeph">DRV_G3_MACRT_PIBSet()</code> primitve with
-            the corresponding PIBs.</p>
+void APP_PLC_SetSourceAddress ( uint16_t address )
+{
+    /* Set Short Address in TX header */
+    appPlcTx.txHeader.frameControl.srcAddressingMode = MAC_RT_SHORT_ADDRESS;
+    appPlcTx.txHeader.sourceAddress.addressMode = MAC_RT_SHORT_ADDRESS;
+    appPlcTx.txHeader.sourceAddress.shortAddress = address;
+    
+    /* Set Short Address in G3 MAC RT device */
+    appPlc.plcPIB.pib = MAC_RT_PIB_SHORT_ADDRESS;
+    appPlc.plcPIB.index = 0;
+    appPlc.plcPIB.length = 2;
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)&amp;address, 2);
+    DRV_G3_MACRT_PIBSet(appPlc.drvPlcHandle, &amp;appPlc.plcPIB);
+}
 
-        <p class="p">Once the transmission is configured, the function <code class="ph codeph">APP_PLC_SendData()</code>
-            prepares the data to be sent by PLC, storing the data in the transmission buffer
-                (<code class="ph codeph">appPlcTx.pTxFrame</code>). When all the information is in the
-            transmission buffer, the function <code class="ph codeph">DRV_G3_MACRT_TxRequest()</code> sends the
-            PLC message. </p>
+void APP_PLC_SetDestinationAddress ( uint16_t address )
+{
+    /* Set Short Address in TX header */
+    appPlcTx.txHeader.frameControl.destAddressingMode = MAC_RT_SHORT_ADDRESS;
+    appPlcTx.txHeader.destinationAddress.addressMode = MAC_RT_SHORT_ADDRESS;
+    appPlcTx.txHeader.destinationAddress.shortAddress = address;
+}
 
-        <p class="p">After sending the message to be transmitted to the G3_MAC_RT module, a TX data confirm
-            event is triggered indicating the result of the transmission. This event is managed by
-            the <code class="ph codeph">APP_PLC_DataCfmCb()</code> callback function. This callback receives as
-            parameter a data structure of type <a class="xref" href="#GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-5FBF00EB-BA0A-4BB9-A15C-21A80FC044E4"><code class="ph codeph">MAC_RT_TX_CFM_OBJ</code></a>. </p>
-
-        <ol class="ol" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-6AA49BE0-33FC-46DC-9E1F-BBAFA5157BC5">
-            <li class="li" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-FD496811-F1AF-4D56-81F4-814F66EAEB58"><span class="indent-level-default">1.</span><strong class="ph b">Structure
-                        <code class="ph codeph">MAC_RT_HEADER</code> and the corresponding elements</strong><div class="p">
-                    <pre class="pre codeblock" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__CODEBLOCK_KG3_4ZS_CTB"><button title="Copy Code" class="copy-code" onclick="cpy('d7812e100', this);">Copy</button><code id="d7812e100" content="// *****************************************************************************&#xA;/* G3-PLC MAC RT header&#xA;   Summary&#xA;    This struct includes information related to MAC header&#xA;   Remarks:&#xA;    For more information, please refer to G3-PLC Specification&#xA;*/&#xA;typedef struct __attribute__((packed, aligned(1))) {&#xA;    /* Frame Control Information */&#xA;    MAC_RT_FRAME_CONTROL frameControl;&#xA;    /* Sequence Number */&#xA;    uint8_t sequenceNumber;&#xA;    /* Destination PAN Identifier */&#xA;    uint16_t destinationPAN;&#xA;    /* Destination Address */&#xA;    MAC_RT_ADDRESS destinationAddress;&#xA;    /* Source PAN Identifier */&#xA;    uint16_t sourcePAN;&#xA;    /* Source Address */&#xA;    MAC_RT_ADDRESS sourceAddress;&#xA;    /* Security Header */&#xA;    MAC_RT_AUX_SECURITY_HEADER securityHeader;&#xA;} MAC_RT_HEADER;&#xA;&#xA;// *****************************************************************************&#xA;/* G3-PLC Frame Control information&#xA;   Summary&#xA;    This struct includes information related to frame control&#xA;   Remarks:&#xA;    For more information, please refer to G3-PLC Specification    &#xA;*/&#xA;typedef struct {&#xA;    /* Frame Type */&#xA;    uint16_t frameType : 3;&#xA;    /* Security Enable */&#xA;    uint16_t securityEnabled : 1;&#xA;    /* Frame pending */&#xA;    uint16_t framePending : 1;&#xA;    /* Ack Request */&#xA;    uint16_t ackRequest : 1;&#xA;    /* PAN ID Compression */&#xA;    uint16_t panIdCompression : 1;&#xA;    /* Reserved */&#xA;    uint16_t reserved : 3;&#xA;    /* Destination Addressing Mode */&#xA;    uint16_t destAddressingMode : 2;&#xA;    /* Frame Version  */&#xA;    uint16_t frameVersion : 2;&#xA;    /* Source Addressing Mode */&#xA;    uint16_t srcAddressingMode : 2;  &#xA;} MAC_RT_FRAME_CONTROL;&#xA;&#xA;// *****************************************************************************&#xA;/* G3-PLC MAC RT Auxiliary Security Header&#xA;   Summary&#xA;    This struct includes information related to auxiliary security header&#xA;   Remarks:&#xA;    For more information, please refer to G3-PLC Specification&#xA;*/&#xA;typedef struct {&#xA;    /* Security Level */&#xA;    uint8_t securityLevel : 3;&#xA;    /* Key Identifier Mode */&#xA;    uint8_t keyIdentifierMode : 2;&#xA;    /* Reserved */&#xA;    uint8_t reserved : 3;&#xA;    /* Frame Counter */&#xA;    uint32_t frameCounter;&#xA;    /* Key Identifier */&#xA;    uint8_t keyIdentifier;&#xA;} MAC_RT_AUX_SECURITY_HEADER;&#xA;&#xA;">// *****************************************************************************
-/* G3-PLC MAC RT header
-   Summary
-    This struct includes information related to MAC header
-   Remarks:
-    For more information, please refer to G3-PLC Specification
-*/
-typedef struct __attribute__((packed, aligned(1))) {
-    /* Frame Control Information */
-    MAC_RT_FRAME_CONTROL frameControl;
-    /* Sequence Number */
-    uint8_t sequenceNumber;
-    /* Destination PAN Identifier */
-    uint16_t destinationPAN;
-    /* Destination Address */
-    MAC_RT_ADDRESS destinationAddress;
-    /* Source PAN Identifier */
-    uint16_t sourcePAN;
+void APP_PLC_SetPANID ( uint16_t panid )
+{
+    /* Set Short Address in TX header */
+    appPlcTx.txHeader.frameControl.panIdCompression = 1;
+    appPlcTx.txHeader.destinationPAN = panid;
+    appPlcTx.txHeader.sourcePAN = panid;
+    
+    /* Set Short Address in G3 MAC RT device */
+    appPlc.plcPIB.pib = MAC_RT_PIB_PAN_ID;
+    appPlc.plcPIB.index = 0;
+    appPlc.plcPIB.length = 2;
+    memcpy(appPlc.plcPIB.pData, (uint8_t *)&amp;panid, 2);
+    DRV_G3_MACRT_PIBSet(appPlc.drvPlcHandle, &amp;appPlc.plcPIB);
+}</code></pre></div>
+        <div class="- topic/p p">Once the transmission is configured, the function <code class="+ topic/ph pr-d/codeph ph codeph">APP_PLC_SendData</code>
+            prepares the data to be sent through PLC, storing the MAC header and the data in the
+            transmission buffer (<code class="+ topic/ph pr-d/codeph ph codeph">appPlcTxFrameBuffer</code>). The function
+                <code class="+ topic/ph pr-d/codeph ph codeph">APP_PLC_BuildMacRTHeader</code> is used to build the MAC header and store
+            it in the transmission buffer. When all the information is in the transmission buffer,
+            the function <code class="+ topic/ph pr-d/codeph ph codeph">DRV_G3_MACRT_TxRequest()</code> is called to request the
+            transmission of the PLC
+            message.<pre class="+ topic/pre pr-d/codeblock pre codeblock"><code>static uint8_t APP_PLC_BuildMacRTHeader ( uint8_t *pFrame, MAC_RT_HEADER *pHeader )
+{
+    uint8_t *pData;
+    
+    pData = pFrame;
+    
+    /* Copy Frame Control and Sequence number */
+    memcpy(pData, pHeader, 3);
+    pData += 3;
+    /* Build Header to use MAC_RT_SHORT_ADDRESS mode */
+    /* Destination PAN ID */
+    *pData++ = (uint8_t)(pHeader-&gt;destinationPAN);
+    *pData++ = (uint8_t)(pHeader-&gt;destinationPAN &gt;&gt; 8);
+    /* Destination address */
+    *pData++ = (uint8_t)(pHeader-&gt;destinationAddress.shortAddress);
+    *pData++ = (uint8_t)(pHeader-&gt;destinationAddress.shortAddress &gt;&gt; 8);
+    /* panIdCompression = 1 -&gt; No Source PAN ID */
     /* Source Address */
-    MAC_RT_ADDRESS sourceAddress;
-    /* Security Header */
-    MAC_RT_AUX_SECURITY_HEADER securityHeader;
-} MAC_RT_HEADER;
+    *pData++ = (uint8_t)(pHeader-&gt;sourceAddress.shortAddress);
+    *pData++ = (uint8_t)(pHeader-&gt;sourceAddress.shortAddress &gt;&gt; 8);
+    
+    /* Return Header length */
+    return (uint8_t)(pData - pFrame);
+}
 
-// *****************************************************************************
+bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
+{
+    if (appPlc.state == APP_PLC_STATE_WAITING)
+    {
+        if (appPlc.pvddMonTxEnable)
+        {
+            uint8_t *pFrame;
+            uint8_t headerLen;
+            
+            if (length &gt; MAC_RT_MAX_PAYLOAD_SIZE) {
+                return false;
+            }
+            
+            appPlc.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CFM;
+            
+            pFrame = appPlcTx.pTxFrame;
+            
+            /* Build MAC RT Frame */
+            headerLen = APP_PLC_BuildMacRTHeader(pFrame, &amp;appPlcTx.txHeader);
+            pFrame += headerLen;
+            
+            /* Fill Payload */
+            memcpy(pFrame, pData, length);
+            pFrame += length;
+
+            /* Send MAC RT Frame */
+            DRV_G3_MACRT_TxRequest(appPlc.drvPlcHandle, appPlcTx.pTxFrame, 
+                    pFrame - appPlcTx.pTxFrame);
+
+            /* Set PLC state */
+            if (appPlc.plcTxState == APP_PLC_TX_STATE_WAIT_TX_CFM)
+            {
+                appPlc.state = APP_PLC_STATE_WAITING_TX_CFM;
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}</code></pre></div>
+        <p class="- topic/p p">Once the G3-PLC MAC-RT finishes the PLC transmission (successfully or not), a
+            transmission data confirm event is triggered indicating the result of the transmission.
+            This event is managed by the <code class="+ topic/ph pr-d/codeph ph codeph">APP_PLC_DataCfmCb</code> callback function. This
+            callback receives as parameter a data structure of type <a class="- topic/xref xref" href="#GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-5FBF00EB-BA0A-4BB9-A15C-21A80FC044E4"><code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_TX_CFM_OBJ</code></a>. </p>
+        <p class="- topic/p p"> If some specific behavior (MAC or PHY) needs to be modified (like force the modulation,
+            force a Tone Map or modify the power transmission) or obtained, it must be done through
+            get/set PIBs primitives
+                (<code class="+ topic/ph pr-d/codeph ph codeph">DRV_G3_MACRT_PIBGet</code>/<code class="+ topic/ph pr-d/codeph ph codeph">DRV_G3_MACRT_PIBSet</code>). The PIB
+            list are detailed by the enumeration type definitions <code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_PIB</code> and
+                <code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_PHY_PIB</code>.</p>
+        <ol class="- topic/ol ol" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-6AA49BE0-33FC-46DC-9E1F-BBAFA5157BC5" data-ofbid="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-6AA49BE0-33FC-46DC-9E1F-BBAFA5157BC5">
+            <li class="- topic/li li" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-FD496811-F1AF-4D56-81F4-814F66EAEB58" data-ofbid="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-FD496811-F1AF-4D56-81F4-814F66EAEB58"><strong class="+ topic/ph hi-d/b ph b">Structure
+                        <code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_HEADER</code> and the corresponding
+                elements</strong><pre class="+ topic/pre pr-d/codeblock pre codeblock" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__CODEBLOCK_KG3_4ZS_CTB" data-ofbid="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__CODEBLOCK_KG3_4ZS_CTB"><code>// *****************************************************************************
 /* G3-PLC Frame Control information
    Summary
     This struct includes information related to frame control
@@ -317,14 +379,32 @@ typedef struct {
     uint8_t keyIdentifier;
 } MAC_RT_AUX_SECURITY_HEADER;
 
-</code></pre>
-                </div>
-</li>
-
-            <li class="li" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-5FBF00EB-BA0A-4BB9-A15C-21A80FC044E4"><span class="indent-level-default">2.</span><strong class="ph b">Structure
-                        <code class="ph codeph">MAC_RT_TX_CFM_OBJ</code></strong><div class="p">
-                    <pre class="pre codeblock" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__CODEBLOCK_MG3_4ZS_CTB"><button title="Copy Code" class="copy-code" onclick="cpy('d7812e111', this);">Copy</button><code id="d7812e111" content="// *****************************************************************************&#xA;/* G3 MAC RT Transmission result&#xA;&#xA;   Summary&#xA;    This struct includes a transmission result and timestamp.&#xA;&#xA;   Remarks:&#xA;    None&#xA;*/&#xA;typedef struct {&#xA;    /* MAC RT Status */&#xA;    MAC_RT_STATUS status;&#xA;    /* Flag to indicate Timestamp should be updated */&#xA;    bool updateTimestamp;&#xA;} MAC_RT_TX_CFM_OBJ;">// *****************************************************************************
-/* G3 MAC RT Transmission result
+// *****************************************************************************
+/* G3-PLC MAC RT header
+   Summary
+    This struct includes information related to MAC header
+   Remarks:
+    For more information, please refer to G3-PLC Specification
+*/
+typedef struct __attribute__((packed, aligned(1))) {
+    /* Frame Control Information */
+    MAC_RT_FRAME_CONTROL frameControl;
+    /* Sequence Number */
+    uint8_t sequenceNumber;
+    /* Destination PAN Identifier */
+    uint16_t destinationPAN;
+    /* Destination Address */
+    MAC_RT_ADDRESS destinationAddress;
+    /* Source PAN Identifier */
+    uint16_t sourcePAN;
+    /* Source Address */
+    MAC_RT_ADDRESS sourceAddress;
+    /* Security Header */
+    MAC_RT_AUX_SECURITY_HEADER securityHeader;
+} MAC_RT_HEADER;</code></pre></li>
+            <li class="- topic/li li" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-5FBF00EB-BA0A-4BB9-A15C-21A80FC044E4" data-ofbid="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__GUID-5FBF00EB-BA0A-4BB9-A15C-21A80FC044E4"><strong class="+ topic/ph hi-d/b ph b">Structure
+                        <code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_TX_CFM_OBJ</code></strong><pre class="+ topic/pre pr-d/codeblock pre codeblock" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__CODEBLOCK_MG3_4ZS_CTB" data-ofbid="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__CODEBLOCK_MG3_4ZS_CTB"><code>// *****************************************************************************
+/* G3-PLC MAC RT Transmission result
 
    Summary
     This struct includes a transmission result and timestamp.
@@ -337,11 +417,10 @@ typedef struct {
     MAC_RT_STATUS status;
     /* Flag to indicate Timestamp should be updated */
     bool updateTimestamp;
-} MAC_RT_TX_CFM_OBJ;</code></pre>
-                </div>
-<div class="p">The event returns one of the following transmission result status:
-                    <pre class="pre codeblock" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__CODEBLOCK_NG3_4ZS_CTB"><button title="Copy Code" class="copy-code" onclick="cpy('d7812e116', this);">Copy</button><code id="d7812e116" content="// *****************************************************************************&#xA;/* G3 MAC RT Status&#xA;&#xA;   Summary&#xA;    The list of status values.&#xA;&#xA;   Remarks:&#xA;    None&#xA;*/&#xA;typedef enum {&#xA;    MAC_RT_STATUS_SUCCESS = 0x00,&#xA;    MAC_RT_STATUS_CHANNEL_ACCESS_FAILURE = 0xE1,&#xA;    MAC_RT_STATUS_DENIED = 0xE2,&#xA;    MAC_RT_STATUS_INVALID_INDEX = 0xF9,&#xA;    MAC_RT_STATUS_INVALID_PARAMETER = 0xE8,&#xA;    MAC_RT_STATUS_NO_ACK = 0xE9,&#xA;    MAC_RT_STATUS_READ_ONLY = 0xFB,&#xA;    MAC_RT_STATUS_TRANSACTION_OVERFLOW = 0xF1,&#xA;    MAC_RT_STATUS_UNSUPPORTED_ATTRIBUTE = 0xF4&#xA;} MAC_RT_STATUS;">// *****************************************************************************
-/* G3 MAC RT Status
+} MAC_RT_TX_CFM_OBJ;</code></pre><div class="- topic/p p">The transmission result can have one of
+                    the following
+                    values:<pre class="+ topic/pre pr-d/codeblock pre codeblock" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__CODEBLOCK_NG3_4ZS_CTB" data-ofbid="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B__CODEBLOCK_NG3_4ZS_CTB"><code>// *****************************************************************************
+/* G3-PLC MAC RT Status
 
    Summary
     The list of status values.
@@ -359,16 +438,152 @@ typedef enum {
     MAC_RT_STATUS_READ_ONLY = 0xFB,
     MAC_RT_STATUS_TRANSACTION_OVERFLOW = 0xF1,
     MAC_RT_STATUS_UNSUPPORTED_ATTRIBUTE = 0xF4
-} MAC_RT_STATUS;</code></pre></div>
-</li>
-
+} MAC_RT_STATUS;</code></pre></div></li>
         </ol>
-
     </div>
-
-<div class="related-links">
-<div class="familylinks">
-<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F.html">Application Example</a></div>
+</article></main></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            
+            
+        </div> 
+        <footer class="navbar navbar-default wh_footer">
+  <div class=" footer-container mx-auto ">
+    <div class="footer">
+  <div class="mchp-wh-footer">
+    <div class="mchp-footer">
+      <div class="mchp-footer-tier1">
+        <div class="spacer"></div>
+        <div class="mchp-footer-container">
+          <div class="mchp-footer-links mchp-social-media-links">
+            <div class="mchp-component-items">
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.facebook.com/pages/Microchip-Technology-Inc/20320981741" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Facebook" src="oxygen-webhelp/template/resources/images/201016-corp-facebook.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.linkedin.com/company/microchip-technology" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip LinkedIn" src="oxygen-webhelp/template/resources/images/201016-corp-linkedin.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://twitter.com/MicrochipTech" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Twitter" src="oxygen-webhelp/template/resources/images/201016-corp-twitter.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.youtube.com/user/MicrochipTechnology" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip YouTube" src="oxygen-webhelp/template/resources/images/201016-corp-youtube.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.instagram.com/microchiptechnologyinc/" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Instagram" src="oxygen-webhelp/template/resources/images/201016-corp-instagram.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.weibo.com/microchiptech" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Weibo" src="oxygen-webhelp/template/resources/images/201016-corp-weibo.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.microchip.com/en-us/about/blog" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Blog" src="oxygen-webhelp/template/resources/images/201016-corp-blog.png"/>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="mchp-footer-links">
+            <div class="mchp-component-items">
+              <div class="mchp-component-item">
+                <div class="link">
+                  <a href="https://www.microchip.com/about-us/contact-us" class="mchp-link__link">Contact</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information" class="mchp-link__link">Legal</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information/privacy-policy" class="mchp-link__link">Privacy Policy</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information/microchip-cookie-statement" class="mchp-link__link">Cookies</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item">
+                <div class="link">
+                  <a href="https://careers.microchip.com/" class="mchp-link__link">Careers</a>
+                  <span class="mchp-link__separator"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mchp-footer-newsletter">
+            <div class="cmp-text">
+              <p>Stay on the leading edge with our blog</p>
+            </div>
+            <div class="mchp-button-wrapper">
+              <a role="button" href="https://www.microchip.com/en-us/about/blog" class="mchp-button mchp-button-regular solid">
+                <span class="mchp-button__span">MicroSolutions</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="graphic">
+          <img src="oxygen-webhelp/template/resources/images/footer-graphic.png"/>
+        </div>
+      </div>
+      <div class="mchp-footer-tier2">
+        <p class="mchp-copyright">© Copyright 1998-2022 Microchip Technology Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="true" src="https://www.googletagmanager.com/gtag/js?id=UA-2724382-19"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];  
+    function gtag(){dataLayer.push(arguments);}  
+    gtag('js', new Date());   
+    gtag('config', 'UA-2724382-19');
+  </script>
+  
+  <script type="text/javascript">_satellite.pageBottom();</script><!-- Adobe Analytics -->
+  
 </div>
-</div></body>
+  </div>
+</footer>
+        
+        <div id="go2top" class="d-print-none">
+            <span class="oxy-icon oxy-icon-up"></span>
+        </div>
+        
+        <div id="modal_img_large" class="modal">
+            <span class="close oxy-icon oxy-icon-remove"></span>
+            <div id="modal_img_container"></div>
+            <div id="caption"></div>
+        </div>
+        
+        
+        
+       
+        </body>
 </html>

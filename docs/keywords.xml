@@ -6,7 +6,7 @@
           pubtype="Online Reference"
           pubsubtype=""
           pubuserguidesubtype=""
-          pubproductheirarchy=""
+          pubproducthierarchy=""
           devices=""
           revisiondate="16/02/2022 00:00:00"
           revisionletter="A"
@@ -14,5 +14,6 @@
           pubid=""
           reachid=""
           description=""
-          lastmodified="27/05/2022 15:06:41"
-          covertitle="MPLAB Harmony Smart Energy G3 Applications"/>
+          lastmodified="04/03/2024 12:18:35"
+          covertitle="MPLAB Harmony Smart Energy G3 Applications"
+          frontcover=""/>

@@ -1,0 +1,339 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us" data-whc_version="24.1">
+    <head><link rel="shortcut icon" href="oxygen-webhelp\template\resources/images/favicon.ico"/><link rel="icon" href="oxygen-webhelp\template\resources/images/favicon.ico"/><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="description" content="The Extensible Authentication Protocol (EAP) server application file ( app_eap_server.c ) manages the LBP Coordinator module, accepting the join requests by devices and maintaining the list of joined ..."/><meta name="copyright" content="(C) Copyright 2024"/><meta name="generator" content="DITA-OT"/><title>1.8.1.4 EAP Server</title><!--  Generated with Oxygen version 24.1, build number 2022062014.  --><meta name="wh-path2root" content=""/><meta name="wh-toc-id" content="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29-d927e531"/><meta name="wh-source-relpath" content="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29.xml"/><meta name="wh-out-relpath" content="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29.html"/>
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="./oxygen-webhelp/lib/bootstrap/css/bootstrap.min.css"/>
+    
+    <link rel="stylesheet" href="./oxygen-webhelp/lib/jquery-ui/jquery-ui.min.css"/>
+    
+    <!-- Template default styles  -->
+    <link rel="stylesheet" type="text/css" href="./oxygen-webhelp/app/topic-page.css?buildId=2022062014"/>
+    
+    
+    <script src="./oxygen-webhelp/lib/jquery/jquery-3.5.1.min.js"></script>
+    
+    <script data-main="./oxygen-webhelp/app/topic-page.js" src="./oxygen-webhelp/lib/requirejs/require.js"></script>
+<link rel="stylesheet" type="text/css" href="oxygen-webhelp/template/microchip.css?buildId=2022062014"/><link rel="stylesheet" type="text/css" href="oxygen-webhelp/template/notes.css?buildId=2022062014"/>
+<script src="mchp-context-help.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async="" type="text/javascript"></script>
+    <script src="https://assets.adobedtm.com/6a72a357eb48/a636c708c7fe/launch-0b0023397020.min.js"></script><!-- Adobe Analytics -->
+</head>
+
+    <body id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29" class="wh_topic_page frmBody">
+        <a href="#wh_topic_body" class="sr-only sr-only-focusable">
+            Jump to main content
+        </a>
+        
+        
+        
+        
+        <header class="navbar navbar-default wh_header">
+    <div class="container-fluid">
+        <div class="wh_header_flex_container navbar-nav navbar-expand-md navbar-dark">
+            <div class="wh_logo_and_publication_title_container">
+                <div class="wh_logo_and_publication_title">
+                    
+                    <a href="index.html" class=" wh_logo d-none d-sm-block "><img src="oxygen-webhelp\template\resources/images/microchip.png" alt="MPLAB Harmony Smart Energy G3 Applications "/></a>
+                    <div class=" wh_publication_title "><a href="index.html">MPLAB Harmony Smart Energy G3 Applications </a></div>
+                    
+                </div>
+                
+                
+            </div>
+
+            <div class="wh_top_menu_and_indexterms_link collapse navbar-collapse" id="wh_top_menu_and_indexterms_link">
+                
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</header>
+        
+        
+         
+        
+        <div class=" wh_search_input navbar-form wh_topic_page_search search " role="form">
+            
+            
+            
+            <form id="searchForm" method="get" role="search" action="search.html"><div class="d-flex justify-contents-around"><div class="flex-grow-1"></div><div class="position-relative flex-grow-1"><input type="search" placeholder="Search " class="wh_search_textfield" id="textToSearch" name="searchQuery" aria-label="Search query" required="required"/><button type="submit" class="wh_search_button" aria-label="Search"><span class="search_input_text">Search</span></button></div><div class="align-self-center flex-grow-1 ml-2"></div></div></form>
+            
+            <div class="mchp-color-stripe-grid-container">
+  <div class="mchp-main-bar mchp-orange-bar"></div>
+  <div class="mchp-main-bar mchp-blue-bar"></div>
+  <div class="mchp-main-bar mchp-green-bar"></div>
+</div>
+            
+        </div>
+        
+        <div class="container-fluid" id="wh_topic_container">
+            <div class="row">
+
+                <nav class="wh_tools d-print-none navbar-expand-md" aria-label="Tools">
+                    
+                    <div data-tooltip-position="bottom" class=" wh_breadcrumb "><ol class="d-print-none"><li><span class="home"><a href="index.html"><span>Home</span></a></span></li><li><div class="topicref" data-id="mplab-harmony-3-smart-energy-g3-application-examples"><div class="title"><a href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1</ph>
+MPLAB® Harmony 3 Smart Energy G3 application examples</a></div></div></li><li><div class="topicref" data-id="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3"><div class="title"><a href="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8</ph>
+G3 Coordinator UDP Cycles/Responder</a></div></div></li><li><div class="topicref" data-id="GUID-A3C17873-3635-4E20-80A6-0E0EE3C92369"><div class="title"><a href="GUID-A3C17873-3635-4E20-80A6-0E0EE3C92369.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8.1</ph>
+Application Example</a></div></div></li><li class="active"><div class="topicref" data-id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29"><div class="title"><a href="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8.1.4</ph>
+EAP Server</a></div></div></li></ol></div>
+                    
+                    
+                    
+                    <div class="wh_right_tools">
+                        <button class="wh_hide_highlight" aria-label="Toggle search highlights" title="Toggle search highlights"></button>
+                        <button class="webhelp_expand_collapse_sections" data-next-state="collapsed" aria-label="Collapse sections" title="Collapse sections"></button>
+                        
+                        
+                        
+                        
+                        <div class=" wh_print_link print d-none d-md-inline-block "><button onClick="window.print()" title="Print this page" aria-label="Print this page"></button></div>
+                        
+                        <button type="button" id="wh_toc_button" class="custom-toggler navbar-toggler collapsed wh_toggle_button navbar-light" aria-expanded="false" aria-label="Toggle publishing table of content" aria-controls="wh_publication_toc">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    
+                </nav>
+            </div>
+            
+            
+            
+            
+            <div class="wh_content_area">
+                <div class="row">
+                    
+                        <nav id="wh_publication_toc" class="col-lg-3 col-md-3 col-sm-12 d-md-block d-none d-print-none" aria-label="Table of Contents Container">
+                            <div id="wh_publication_toc_content">
+		                        
+                            	<div class=" wh_publication_toc " data-tooltip-position="right"><span class="expand-button-action-labels"><span id="button-expand-action" role="button" aria-label="Expand"></span><span id="button-collapse-action" role="button" aria-label="Collapse"></span><span id="button-pending-action" role="button" aria-label="Pending"></span></span><ul role="tree" aria-label="Table of Contents"><li role="treeitem" aria-expanded="true"><div data-tocid="mplab-harmony-3-smart-energy-g3-application-examples-d927e11" class="topicref" data-id="mplab-harmony-3-smart-energy-g3-application-examples" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action mplab-harmony-3-smart-energy-g3-application-examples-d927e11-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html" id="mplab-harmony-3-smart-energy-g3-application-examples-d927e11-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1</ph>
+MPLAB® Harmony 3 Smart Energy G3 application examples</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19" class="topicref" data-id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E.html" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.1</ph>
+PHY Sniffer Tool</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67" class="topicref" data-id="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0.html" id="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.2</ph>
+PHY Tester Tool</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139" class="topicref" data-id="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1.html" id="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.3</ph>
+PLC PHY TX Test Console</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195" class="topicref" data-id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8.html" id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4</ph>
+PHY PLC &amp; Go</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275" class="topicref" data-id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1.html" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5</ph>
+MAC-RT PLC &amp; Go</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355" class="topicref" data-id="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B.html" id="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.6</ph>
+G3 Modem</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403" class="topicref" data-id="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A.html" id="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.7</ph>
+G3 Device UDP/ICMPv6 Responder</a></div></div></li><li role="treeitem" aria-expanded="true"><div data-tocid="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491" class="topicref" data-id="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3.html" id="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8</ph>
+G3 Coordinator UDP Cycles/Responder</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem" aria-expanded="true"><div data-tocid="GUID-A3C17873-3635-4E20-80A6-0E0EE3C92369-d927e499" class="topicref" data-id="GUID-A3C17873-3635-4E20-80A6-0E0EE3C92369" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action GUID-A3C17873-3635-4E20-80A6-0E0EE3C92369-d927e499-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-A3C17873-3635-4E20-80A6-0E0EE3C92369.html" id="GUID-A3C17873-3635-4E20-80A6-0E0EE3C92369-d927e499-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8.1</ph>
+Application Example</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem"><div data-tocid="GUID-3955B8C2-961C-4399-9A4E-9A4FAC633AF0-d927e507" class="topicref" data-id="GUID-3955B8C2-961C-4399-9A4E-9A4FAC633AF0" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-3955B8C2-961C-4399-9A4E-9A4FAC633AF0.html" id="GUID-3955B8C2-961C-4399-9A4E-9A4FAC633AF0-d927e507-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8.1.1</ph>
+G3 Management</a></div></div></li><li role="treeitem"><div data-tocid="GUID-AE875CA0-B784-4197-81B5-B0078A8331F2-d927e515" class="topicref" data-id="GUID-AE875CA0-B784-4197-81B5-B0078A8331F2" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-AE875CA0-B784-4197-81B5-B0078A8331F2.html" id="GUID-AE875CA0-B784-4197-81B5-B0078A8331F2-d927e515-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8.1.2</ph>
+TCP/IP Management</a></div></div></li><li role="treeitem"><div data-tocid="GUID-C3BC82A8-3D0C-4DE4-A0C2-A297AAE103B3-d927e523" class="topicref" data-id="GUID-C3BC82A8-3D0C-4DE4-A0C2-A297AAE103B3" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-C3BC82A8-3D0C-4DE4-A0C2-A297AAE103B3.html" id="GUID-C3BC82A8-3D0C-4DE4-A0C2-A297AAE103B3-d927e523-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8.1.3</ph>
+UDP Responder</a></div></div></li><li role="treeitem" class="active"><div data-tocid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29-d927e531" class="topicref" data-id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29.html" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29-d927e531-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8.1.4</ph>
+EAP Server</a></div></div></li><li role="treeitem"><div data-tocid="GUID-EA08B41B-819A-4D71-9B2F-1721E1026DB8-d927e539" class="topicref" data-id="GUID-EA08B41B-819A-4D71-9B2F-1721E1026DB8" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-EA08B41B-819A-4D71-9B2F-1721E1026DB8.html" id="GUID-EA08B41B-819A-4D71-9B2F-1721E1026DB8-d927e539-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8.1.5</ph>
+Cycles</a></div></div></li><li role="treeitem"><div data-tocid="GUID-088EB230-179A-4FBB-8D3F-796498C483F0-d927e547" class="topicref" data-id="GUID-088EB230-179A-4FBB-8D3F-796498C483F0" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-088EB230-179A-4FBB-8D3F-796498C483F0.html" id="GUID-088EB230-179A-4FBB-8D3F-796498C483F0-d927e547-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8.1.6</ph>
+Storage</a></div></div></li></ul></li><li role="treeitem"><div data-tocid="GUID-C00A2A8D-24F1-4D22-A0FC-296BFB9C3EEE-d927e555" class="topicref" data-id="GUID-C00A2A8D-24F1-4D22-A0FC-296BFB9C3EEE" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-C00A2A8D-24F1-4D22-A0FC-296BFB9C3EEE.html" id="GUID-C00A2A8D-24F1-4D22-A0FC-296BFB9C3EEE-d927e555-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8.2</ph>
+MCC Project Configuration</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-06B433EA-135D-4AA5-9C31-70E960DEE251-d927e563" class="topicref" data-id="GUID-06B433EA-135D-4AA5-9C31-70E960DEE251" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-06B433EA-135D-4AA5-9C31-70E960DEE251-d927e563-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-06B433EA-135D-4AA5-9C31-70E960DEE251.html" id="GUID-06B433EA-135D-4AA5-9C31-70E960DEE251-d927e563-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8.3</ph>
+Hardware Configuration</a></div></div></li></ul></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595" class="topicref" data-id="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442.html" id="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.9</ph>
+G3 Coordinator ICMPv6 Cycles</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683" class="topicref" data-id="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44.html" id="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.10</ph>
+Metering Demo G3 Device UDP/ICMPv6 Responder</a></div></div></li></ul></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723" class="topicref backmatter backmatter_parent" data-id="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B.html" id="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723-link">Microchip Information</a></div></div></li></ul></div>
+		                        
+                            </div>
+                        </nav>
+                    
+                    
+                    <div class="col-lg-9 col-md-9 col-sm-12" id="wh_topic_body">
+                        <button id="wh_close_publication_toc_button" class="close-toc-button d-none" aria-label="Toggle publishing table of content" aria-controls="wh_publication_toc" aria-expanded="true">
+                            <span class="close-toc-icon-container">
+                                <span class="close-toc-icon"></span>     
+                            </span>
+                        </button>
+                        
+                        
+                        <div class=" wh_topic_content body "><main role="main"><article role="article" aria-labelledby="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-C7389C5B-55D3-4DC9-9184-898A79630013">
+<h1 class="- topic/title title topictitle1" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-C7389C5B-55D3-4DC9-9184-898A79630013" style="">1.8.1.4 EAP Server</h1>
+<div class="- topic/body concept/conbody body conbody">
+        <p class="- topic/p p">The Extensible Authentication Protocol (EAP) server application file
+                (<span class="+ topic/ph hi-d/tt ph tt">app_eap_server.c</span>) manages the LBP Coordinator module, accepting the join
+            requests by devices and maintaining the list of joined devices.</p>
+        <div class="- topic/p p">The state machine is implemented in the <code class="+ topic/ph pr-d/codeph ph codeph">APP_EAP_SERVER_Tasks()</code> function.
+            The different states are:<ul class="- topic/ul ul" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__UL_DNN_LKQ_NYB" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__UL_DNN_LKQ_NYB">
+                <li class="- topic/li li" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-CB378991-8778-4C71-9ECB-57153B3E7C61" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-CB378991-8778-4C71-9ECB-57153B3E7C61"><code class="+ topic/ph pr-d/codeph ph codeph">APP_EAP_SERVER_STATE_WAIT_NETWORK_STARTED</code>: ADP status is
+                    checked and when the G3 network has been started
+                        (<code class="+ topic/ph pr-d/codeph ph codeph">ADP_STATUS_LBP_CONNECTED</code>), the LBP Coordinator module is
+                    initialized, including callback configuration and parameters configuration (PSK
+                    and GMK).</li>
+                <li class="- topic/li li" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-1A032B03-475C-47A3-AB05-FF344C752567" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-1A032B03-475C-47A3-AB05-FF344C752567"><code class="+ topic/ph pr-d/codeph ph codeph">APP_EAP_SERVER_NETWORK_STARTED</code>: The G3 network is started
+                        (<code class="+ topic/ph pr-d/codeph ph codeph">ADP_STATUS_LBP_CONNECTED</code>). The
+                        <code class="+ topic/ph pr-d/codeph ph codeph">LBP_UpdateLbpSlots()</code> function is called to maintain the
+                    state machine of the LBP Coordinator module.</li>
+                <li class="- topic/li li" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-B7B11CF6-CFDE-4821-8C4B-B21D8E30BF12" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-B7B11CF6-CFDE-4821-8C4B-B21D8E30BF12"><code class="+ topic/ph pr-d/codeph ph codeph">APP_EAP_SERVER_STATE_ERROR</code>: There was an error during G3
+                    stack initialization, probably because neither PLC nor RF transceivers are
+                    available.</li>
+            </ul></div>
+        <div class="- topic/p p">Three LBP Coordinator callbacks are registered:<ul class="- topic/ul ul" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__UL_RDM_W4Q_NYB" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__UL_RDM_W4Q_NYB">
+                <li class="- topic/li li" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-A57A805A-6A54-48A5-A2C3-0871BA63C0AF" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-A57A805A-6A54-48A5-A2C3-0871BA63C0AF"><code class="+ topic/ph pr-d/codeph ph codeph">_LBP_COORD_JoinRequestIndication()</code>: It indicates that a
+                    device wants to join to the network. If it is not in the blacklist and the
+                    maximum number of devices has not been reached, a valid short address is
+                    assigned so the join request is accepted.</li>
+                <li class="- topic/li li" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-14A75115-2C3D-42D4-80F1-EB138AC748FE" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-14A75115-2C3D-42D4-80F1-EB138AC748FE"><code class="+ topic/ph pr-d/codeph ph codeph">_LBP_COORD_JoinCompleteIndication()</code>: It indicates the
+                    completion of a device’s join process. The device is added to the list of joined
+                    devices.</li>
+                <li class="- topic/li li" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-B65C0AEA-D0B2-4B96-9CC1-8F3220050976" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-B65C0AEA-D0B2-4B96-9CC1-8F3220050976"><code class="+ topic/ph pr-d/codeph ph codeph">_LBP_COORD_LeaveIndication()</code>: It indicates that a device
+                    has left the network. The device is removed from the list of joined
+                    devices.</li>
+            </ul></div>
+        <div class="- topic/p p">There are two functions that are called from cycles application:<ul class="- topic/ul ul" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__UL_M2W_M3Y_NYB" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__UL_M2W_M3Y_NYB">
+                <li class="- topic/li li" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-C082A556-8A83-4ED3-BB4F-75B4C8D07DD7" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-C082A556-8A83-4ED3-BB4F-75B4C8D07DD7"><code class="+ topic/ph pr-d/codeph ph codeph">APP_EAP_SERVER_GetNumDevicesJoined()</code>: Returns the number of
+                    devices joined to the network.</li>
+                <li class="- topic/li li" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-55CB4CFE-1F43-406B-9746-62AFA71D6F01" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-55CB4CFE-1F43-406B-9746-62AFA71D6F01"><code class="+ topic/ph pr-d/codeph ph codeph">APP_EAP_SERVER_GetDeviceAddress()</code>: Returns the Extended
+                    Address (EUI64) and Short Address of the requested device.</li>
+            </ul></div>
+        <div class="- topic/p p">There are another functions that not used, but are implemented as an example for the
+                user:<ul class="- topic/ul ul" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__UL_PS3_WTQ_NYB" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__UL_PS3_WTQ_NYB">
+                <li class="- topic/li li" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-51897BF5-AC7E-40B6-98C7-0E9A97CA766F" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-51897BF5-AC7E-40B6-98C7-0E9A97CA766F"><code class="+ topic/ph pr-d/codeph ph codeph">APP_EAP_SERVER_LaunchRekeying()</code>: Launches the re-keying
+                    process .</li>
+                <li class="- topic/li li" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-7E3AD696-DE23-41FE-97F0-BAD6B72832D5" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-7E3AD696-DE23-41FE-97F0-BAD6B72832D5"><code class="+ topic/ph pr-d/codeph ph codeph">APP_EAP_SERVER_KickDevice()</code>: Kicks a device from the
+                    network, giving its Short Address.</li>
+                <li class="- topic/li li" id="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-3C83E19E-8E74-489C-B651-FECD3939E145" data-ofbid="GUID-EEEAD6D2-837A-48EE-AEEF-F08739FBFC29__GUID-3C83E19E-8E74-489C-B651-FECD3939E145"><code class="+ topic/ph pr-d/codeph ph codeph">APP_EAP_SERVER_AddToBlacklist()</code>: Adds a device to the
+                    blacklist, giving its Extended Address (EUI64). If that device tries to join, it
+                    will be denied.</li>
+            </ul></div>
+    </div>
+</article></main></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            
+            
+        </div> 
+        <footer class="navbar navbar-default wh_footer">
+  <div class=" footer-container mx-auto ">
+    <div class="footer">
+  <div class="mchp-wh-footer">
+    <div class="mchp-footer">
+      <div class="mchp-footer-tier1">
+        <div class="spacer"></div>
+        <div class="mchp-footer-container">
+          <div class="mchp-footer-links mchp-social-media-links">
+            <div class="mchp-component-items">
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.facebook.com/pages/Microchip-Technology-Inc/20320981741" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Facebook" src="oxygen-webhelp/template/resources/images/201016-corp-facebook.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.linkedin.com/company/microchip-technology" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip LinkedIn" src="oxygen-webhelp/template/resources/images/201016-corp-linkedin.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://twitter.com/MicrochipTech" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Twitter" src="oxygen-webhelp/template/resources/images/201016-corp-twitter.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.youtube.com/user/MicrochipTechnology" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip YouTube" src="oxygen-webhelp/template/resources/images/201016-corp-youtube.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.instagram.com/microchiptechnologyinc/" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Instagram" src="oxygen-webhelp/template/resources/images/201016-corp-instagram.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.weibo.com/microchiptech" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Weibo" src="oxygen-webhelp/template/resources/images/201016-corp-weibo.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.microchip.com/en-us/about/blog" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Blog" src="oxygen-webhelp/template/resources/images/201016-corp-blog.png"/>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="mchp-footer-links">
+            <div class="mchp-component-items">
+              <div class="mchp-component-item">
+                <div class="link">
+                  <a href="https://www.microchip.com/about-us/contact-us" class="mchp-link__link">Contact</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information" class="mchp-link__link">Legal</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information/privacy-policy" class="mchp-link__link">Privacy Policy</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information/microchip-cookie-statement" class="mchp-link__link">Cookies</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item">
+                <div class="link">
+                  <a href="https://careers.microchip.com/" class="mchp-link__link">Careers</a>
+                  <span class="mchp-link__separator"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mchp-footer-newsletter">
+            <div class="cmp-text">
+              <p>Stay on the leading edge with our blog</p>
+            </div>
+            <div class="mchp-button-wrapper">
+              <a role="button" href="https://www.microchip.com/en-us/about/blog" class="mchp-button mchp-button-regular solid">
+                <span class="mchp-button__span">MicroSolutions</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="graphic">
+          <img src="oxygen-webhelp/template/resources/images/footer-graphic.png"/>
+        </div>
+      </div>
+      <div class="mchp-footer-tier2">
+        <p class="mchp-copyright">© Copyright 1998-2022 Microchip Technology Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="true" src="https://www.googletagmanager.com/gtag/js?id=UA-2724382-19"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];  
+    function gtag(){dataLayer.push(arguments);}  
+    gtag('js', new Date());   
+    gtag('config', 'UA-2724382-19');
+  </script>
+  
+  <script type="text/javascript">_satellite.pageBottom();</script><!-- Adobe Analytics -->
+  
+</div>
+  </div>
+</footer>
+        
+        <div id="go2top" class="d-print-none">
+            <span class="oxy-icon oxy-icon-up"></span>
+        </div>
+        
+        <div id="modal_img_large" class="modal">
+            <span class="close oxy-icon oxy-icon-remove"></span>
+            <div id="modal_img_container"></div>
+            <div id="caption"></div>
+        </div>
+        
+        
+        
+       
+        </body>
+</html>

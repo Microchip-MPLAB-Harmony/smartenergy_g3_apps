@@ -1,518 +1,536 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
-<meta name="DC.rights.owner" content="(C) Copyright 2022" />
-<meta name="DC.type" content="concept" />
-<meta name="DC.title" content="Reception" />
-<meta name="DC.relation" scheme="URI" content="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8.html" />
-<meta name="DC.format" content="XHTML" />
-<meta name="DC.identifier" content="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED" />
-<meta name="DC.language" content="en-US" />
-<link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
-<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
-<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>Reception</title>
-<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED" />
-<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-E87515D0-BD4F-4456-8D21-13BD460238A8" />
-<meta name="Microsoft.Help.TocOrder" content="0" />
-<meta name="Microsoft.Help.Locale" content="en-US" />
-<meta name="Microsoft.Help.TopicLocale" content="en-US" />
-<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Smart Energy G3 Applications Reference A 02/2022" />
-<script language="javascript">
-       
-       if (window.parent.location.protocol != 'file:') {
-				document.addEventListener('click', function(e) {
-				    if (e.target) {
-               if (e.target.nodeName == "A" ) {
-                    if (!e.target.target) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                              
-                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
-                      if (origUrl.length === 0) {
-                          origUrl = window.parent.location.href;
-                      }
-                      var href= e.target.getAttribute("href");
-                      var parts = href.split("#");
-          
-                      var url = "";
-                      if (parts.length == 2 ) {
-                        if (!parts[0].length) {
-                            url = window.parent.location.search.replace('?','')
-                        } else {
-                            url = parts[0].replace('.html','');
-                        }
-                      } else {
-                        url = parts[0].replace('.html','');
-                      }
-
-                      if (parts.length == 2) {
-                          url += "#" + parts[1];
-                      }
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us" data-whc_version="24.1">
+    <head><link rel="shortcut icon" href="oxygen-webhelp\template\resources/images/favicon.ico"/><link rel="icon" href="oxygen-webhelp\template\resources/images/favicon.ico"/><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="description" content="When a PLC message is received, it is processed in the callback function APP_PLC_DataIndCb . This callback receives as parameter a data structure of type DRV_PLC_PHY_RECEPTION_OBJ , containing all the ..."/><meta name="copyright" content="(C) Copyright 2024"/><meta name="generator" content="DITA-OT"/><title>1.4.1.3 Reception</title><!--  Generated with Oxygen version 24.1, build number 2022062014.  --><meta name="wh-path2root" content=""/><meta name="wh-toc-id" content="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED-d927e227"/><meta name="wh-source-relpath" content="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED.xml"/><meta name="wh-out-relpath" content="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED.html"/>
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="./oxygen-webhelp/lib/bootstrap/css/bootstrap.min.css"/>
     
-                      window.parent.location.href = origUrl + "?" + url;
+    <link rel="stylesheet" href="./oxygen-webhelp/lib/jquery-ui/jquery-ui.min.css"/>
+    
+    <!-- Template default styles  -->
+    <link rel="stylesheet" type="text/css" href="./oxygen-webhelp/app/topic-page.css?buildId=2022062014"/>
+    
+    
+    <script src="./oxygen-webhelp/lib/jquery/jquery-3.5.1.min.js"></script>
+    
+    <script data-main="./oxygen-webhelp/app/topic-page.js" src="./oxygen-webhelp/lib/requirejs/require.js"></script>
+<link rel="stylesheet" type="text/css" href="oxygen-webhelp/template/microchip.css?buildId=2022062014"/><link rel="stylesheet" type="text/css" href="oxygen-webhelp/template/notes.css?buildId=2022062014"/>
+<script src="mchp-context-help.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async="" type="text/javascript"></script>
+    <script src="https://assets.adobedtm.com/6a72a357eb48/a636c708c7fe/launch-0b0023397020.min.js"></script><!-- Adobe Analytics -->
+</head>
 
-                      return false;
-                    }
-               }
-            }
-				});
-			}
-
-		</script><script language="javascript">
-        function cpy(id, button) {
-        
-            var element = document.getElementById(id);
-            var content = element.getAttribute("content");
-            var textArea = document.createElement("textarea");
-            
-            // Place in the top-left corner of screen regardless of scroll position.
-            textArea.style.position = 'fixed';
-            textArea.style.top = 0;
-            textArea.style.left = 0;
-            
-            // Ensure it has a small width and height. Setting to 1px / 1em
-            // doesn't work as this gives a negative w/h on some browsers.
-            textArea.style.width = '2em';
-            textArea.style.height = '2em';
-            
-            // We don't need padding, reducing the size if it does flash render.
-            textArea.style.padding = 0;
-            
-            // Clean up any borders.
-            textArea.style.border = 'none';
-            textArea.style.outline = 'none';
-            textArea.style.boxShadow = 'none';
-            
-            // Avoid flash of the white box if rendered for any reason.
-            textArea.style.background = 'transparent';
-            
-            
-            textArea.value = content;
-            
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-               var successful = document.execCommand('copy');
-               var msg = successful ? 'successful' : 'unsuccessful';
-               if (!button.classList.contains("copied")){
-                  button.textContent = "Copied";
-                  button.classList.add("copied");
-                  setTimeout(function(){
-                    button.textContent = "Copy";
-                    button.classList.remove("copied");
-                  },1000);
-               }
-            } catch (err) {
-              console.log('Oops, unable to copy');
-            }
-            
-            document.body.removeChild(textArea);
-        }
-      </script><script language="javascript">
-          
-          // Add the MathML namespace to html
-          var html = document.getElementsByTagName("html")[0],
-          head = document.getElementsByTagName("head")[0];
-          
-          var mathJax = document.createElement("script");
-          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
-          head.appendChild(mathJax);
-          
-          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
-          
-          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
-          
-          if (!inIframe()) { 
-          
-          var Default = "index.html?GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED"; 
-          
-          var displaylocation = "value" + window.location.href;
-          
-          var GUIDS = displaylocation.split('GUID');          
-          
-          if (displaylocation.indexOf('#GUID') != -1) {            
-          var First = GUIDS[1].split('.html');  
-          if (GUIDS[3]){First = GUIDS[2].split('.html');}
-          if (GUIDS[4]){First = GUIDS[3].split('.html');}
-          if (GUIDS[5]){First = GUIDS[4].split('.html');}
-          
-          var Second = GUIDS[2].split('#');   
-          if (GUIDS[3]){Second = GUIDS[3].split('#');}
-          if (GUIDS[4]){Second = GUIDS[4].split('#');}
-          if (GUIDS[5]){Second = GUIDS[5].split('#');}
-          
-          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
-          }                    
-          window.top.location = Default;
-          }       
-          
-        </script><style xml:space="">
-        
-          button.copy-code{
-            display:none;
-            padding:0.7em 1.4em;
-            margin:0 0.3em 0.3em 0;
-            border-radius:0.15em;
-            box-sizing: border-box;
-            text-decoration:none;
-            font-family:'Roboto',sans-serif;
-            text-transform:uppercase;
-            font-weight:400;
-            color:#FFFFFF;
-            background-color:#9c9c9c;
-            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
-            text-align:center;
-            position:relative;
-            border: 0;
-            float: right;
-            border-radius: .5em;
-            cursor: pointer;
-          }
-          button.copy-code:active{
-            top:0.1em;
-          }
-          
-          pre:hover button.copy-code{
-            display: inline-block !important;
-          }
-          button.copy-code.copied {
-            cursor: default !important;
-          }
-          
-          
-          @media all and (max-width:30em){
-            button.copy-code{
-              display:block;
-              margin:0.4em auto;
-            }
-          }
+    <body id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED" class="wh_topic_page frmBody">
+        <a href="#wh_topic_body" class="sr-only sr-only-focusable">
+            Jump to main content
+        </a>
         
         
-      </style></head>
-<body id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED">
+        
+        
+        <header class="navbar navbar-default wh_header">
+    <div class="container-fluid">
+        <div class="wh_header_flex_container navbar-nav navbar-expand-md navbar-dark">
+            <div class="wh_logo_and_publication_title_container">
+                <div class="wh_logo_and_publication_title">
+                    
+                    <a href="index.html" class=" wh_logo d-none d-sm-block "><img src="oxygen-webhelp\template\resources/images/microchip.png" alt="MPLAB Harmony Smart Energy G3 Applications "/></a>
+                    <div class=" wh_publication_title "><a href="index.html">MPLAB Harmony Smart Energy G3 Applications </a></div>
+                    
+                </div>
+                
+                
+            </div>
 
-<h1 class="title topictitle1" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-248BAFBC-A803-47F9-9177-D57908AE96BF">Reception</h1>
-<div class="body conbody">
-        <p class="p">When a PLC message is received, it is processed in the callback function
-				<code class="ph codeph">APP_PLC_DataIndCb()</code>. This function receives a structure of type
-				<code class="ph codeph">DRV_PLC_PHY_RECEPTION_OBJ</code> as a parameter containing all the
-			available data from the message.</p>
+            <div class="wh_top_menu_and_indexterms_link collapse navbar-collapse" id="wh_top_menu_and_indexterms_link">
+                
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</header>
+        
+        
+         
+        
+        <div class=" wh_search_input navbar-form wh_topic_page_search search " role="form">
+            
+            
+            
+            <form id="searchForm" method="get" role="search" action="search.html"><div class="d-flex justify-contents-around"><div class="flex-grow-1"></div><div class="position-relative flex-grow-1"><input type="search" placeholder="Search " class="wh_search_textfield" id="textToSearch" name="searchQuery" aria-label="Search query" required="required"/><button type="submit" class="wh_search_button" aria-label="Search"><span class="search_input_text">Search</span></button></div><div class="align-self-center flex-grow-1 ml-2"></div></div></form>
+            
+            <div class="mchp-color-stripe-grid-container">
+  <div class="mchp-main-bar mchp-orange-bar"></div>
+  <div class="mchp-main-bar mchp-blue-bar"></div>
+  <div class="mchp-main-bar mchp-green-bar"></div>
+</div>
+            
+        </div>
+        
+        <div class="container-fluid" id="wh_topic_container">
+            <div class="row">
 
-        <p class="p">The callback function checks if CRC validation was OK, extracts some data about the
-			modulation and signal received. The  function checks the length of the message and sends
-			the content and information about the signal quality to the host console.</p>
-
-		<p class="p"><strong class="ph b">Structure <code class="ph codeph">DRV_PLC_PHY_RECEPTION_OBJ</code></strong></p>
-
-		<pre class="pre codeblock" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__CODEBLOCK_SNB_VCT_CTB"><button title="Copy Code" class="copy-code" onclick="cpy('d7101e34', this);">Copy</button><code id="d7101e34" content="// *****************************************************************************&#xA;/* G3 Reception parameters&#xA;   Summary:    This struct includes all information to describe any new received message.&#xA;   Remarks:    None&#xA;*/&#xA;typedef struct __attribute__((packed, aligned(1))) {&#xA;  uint8_t *pReceivedData;       &#x9;&#x9;/* Pointer to received data buffer */&#xA;  uint32_t time;  &#x9;&#x9;&#x9;&#x9;/* Instant when frame was received (end of message) referred to 1us PHY counter */&#xA;  uint32_t frameDuration;       &#x9;&#x9;/* Frame duration referred to 1us PHY counter (Preamble + FCH + Payload) */&#xA;  uint16_t dataLength;          &#x9;&#x9;/* Length of the received data in bytes */&#xA;  uint16_t rssi;  &#x9;&#x9;&#x9;&#x9;/* Reception RSSI in dBuV */&#xA;  uint8_t zctDiff;&#x9;&#x9;&#x9;&#x9;/* ZCT info */&#xA;  uint8_t rsCorrectedErrors;    &#x9;&#x9;/* Errors corrected by Reed-Solomon */&#xA;  DRV_PLC_PHY_MOD_TYPE modType; &#x9;&#x9;/* Modulation type */&#xA;  DRV_PLC_PHY_MOD_SCHEME modScheme;&#x9;&#x9;/* Modulation scheme */&#xA;  DRV_PLC_PHY_DEL_TYPE delimiterType;&#x9;&#x9;/* DT field coming in header */&#xA;  uint8_t crcOk;  &#x9;/* MAC CRC. 1: OK; 0: BAD; 0xFE: Timeout Error; 0xFF: CRC capability disabled (PLC_ID_CRC_TX_RX_CAPABILITY) */&#xA;  uint16_t agcFine;      &#x9;&#x9;&#x9;/* Test data information */&#xA;  uint32_t agcFactor;    &#x9;&#x9;&#x9;/* Test data information */&#xA;  int16_t agcOffsetMeas; &#x9;&#x9;&#x9;/* Test data information */&#xA;  uint8_t agcActive;     &#x9;&#x9;&#x9;/* Test data information */&#xA;  uint8_t agcPgaValue;   &#x9;&#x9;&#x9;/* Test data information */&#xA;  int16_t snrFch;        &#x9;&#x9;&#x9;/* Test data information */&#xA;  int16_t snrPay;        &#x9;&#x9;&#x9;/* Test data information */&#xA;  uint16_t payloadCorruptedCarriers;&#x9;&#x9;/* Number of corrupted carriers */&#xA;  uint16_t payloadNoisedSymbols;&#x9;&#x9;/* Number of noised symbols */&#xA;  uint8_t payloadSnrWorstCarrier;&#x9;&#x9;/* SNR of the worst carrier */&#xA;  uint8_t payloadSnrWorstSymbol;&#x9;&#x9;/* SNR of the worst symbol */&#xA;  uint8_t payloadSnrImpulsive;&#x9;&#x9;&#x9;/* SNR of impulsive noise */&#xA;  uint8_t payloadSnrBand;             &#x9; &#x9;/* SNR of Narrowband noise */ &#xA;  uint8_t payloadSnrBackground;&#x9;&#x9;&#x9;/* Background SNR */&#xA;  uint8_t lqi;&#x9;&#x9;&#x9;&#x9;&#x9;/* Link Quality Indicator */&#xA;  uint8_t toneMap[TONE_MAP_SIZE_MAX];&#x9;&#x9;/* Reception Tone Map */&#xA;  uint8_t carrierSnr[PROTOCOL_CARRIERS_MAX];&#x9;/* SNR per carrier */&#xA;} DRV_PLC_PHY_RECEPTION_OBJ;&#xA; ">// *****************************************************************************
+                <nav class="wh_tools d-print-none navbar-expand-md" aria-label="Tools">
+                    
+                    <div data-tooltip-position="bottom" class=" wh_breadcrumb "><ol class="d-print-none"><li><span class="home"><a href="index.html"><span>Home</span></a></span></li><li><div class="topicref" data-id="mplab-harmony-3-smart-energy-g3-application-examples"><div class="title"><a href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1</ph>
+MPLAB® Harmony 3 Smart Energy G3 application examples</a></div></div></li><li><div class="topicref" data-id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8"><div class="title"><a href="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4</ph>
+PHY PLC &amp; Go</a></div></div></li><li><div class="topicref" data-id="GUID-CB22CEE4-8CC0-4FE4-BE82-CAFC9A5F41E2"><div class="title"><a href="GUID-CB22CEE4-8CC0-4FE4-BE82-CAFC9A5F41E2.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4.1</ph>
+Application Example</a></div></div></li><li class="active"><div class="topicref" data-id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED"><div class="title"><a href="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4.1.3</ph>
+Reception</a></div></div></li></ol></div>
+                    
+                    
+                    
+                    <div class="wh_right_tools">
+                        <button class="wh_hide_highlight" aria-label="Toggle search highlights" title="Toggle search highlights"></button>
+                        <button class="webhelp_expand_collapse_sections" data-next-state="collapsed" aria-label="Collapse sections" title="Collapse sections"></button>
+                        
+                        
+                        
+                        
+                        <div class=" wh_print_link print d-none d-md-inline-block "><button onClick="window.print()" title="Print this page" aria-label="Print this page"></button></div>
+                        
+                        <button type="button" id="wh_toc_button" class="custom-toggler navbar-toggler collapsed wh_toggle_button navbar-light" aria-expanded="false" aria-label="Toggle publishing table of content" aria-controls="wh_publication_toc">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    
+                </nav>
+            </div>
+            
+            
+            
+            
+            <div class="wh_content_area">
+                <div class="row">
+                    
+                        <nav id="wh_publication_toc" class="col-lg-3 col-md-3 col-sm-12 d-md-block d-none d-print-none" aria-label="Table of Contents Container">
+                            <div id="wh_publication_toc_content">
+		                        
+                            	<div class=" wh_publication_toc " data-tooltip-position="right"><span class="expand-button-action-labels"><span id="button-expand-action" role="button" aria-label="Expand"></span><span id="button-collapse-action" role="button" aria-label="Collapse"></span><span id="button-pending-action" role="button" aria-label="Pending"></span></span><ul role="tree" aria-label="Table of Contents"><li role="treeitem" aria-expanded="true"><div data-tocid="mplab-harmony-3-smart-energy-g3-application-examples-d927e11" class="topicref" data-id="mplab-harmony-3-smart-energy-g3-application-examples" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action mplab-harmony-3-smart-energy-g3-application-examples-d927e11-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html" id="mplab-harmony-3-smart-energy-g3-application-examples-d927e11-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1</ph>
+MPLAB® Harmony 3 Smart Energy G3 application examples</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19" class="topicref" data-id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E.html" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.1</ph>
+PHY Sniffer Tool</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67" class="topicref" data-id="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0.html" id="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.2</ph>
+PHY Tester Tool</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139" class="topicref" data-id="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1.html" id="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.3</ph>
+PLC PHY TX Test Console</a></div></div></li><li role="treeitem" aria-expanded="true"><div data-tocid="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195" class="topicref" data-id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8.html" id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4</ph>
+PHY PLC &amp; Go</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem" aria-expanded="true"><div data-tocid="GUID-CB22CEE4-8CC0-4FE4-BE82-CAFC9A5F41E2-d927e203" class="topicref" data-id="GUID-CB22CEE4-8CC0-4FE4-BE82-CAFC9A5F41E2" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action GUID-CB22CEE4-8CC0-4FE4-BE82-CAFC9A5F41E2-d927e203-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-CB22CEE4-8CC0-4FE4-BE82-CAFC9A5F41E2.html" id="GUID-CB22CEE4-8CC0-4FE4-BE82-CAFC9A5F41E2-d927e203-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4.1</ph>
+Application Example</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem"><div data-tocid="GUID-7776C4FC-5833-4CB1-9BAF-C01556DDBFCE-d927e211" class="topicref" data-id="GUID-7776C4FC-5833-4CB1-9BAF-C01556DDBFCE" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-7776C4FC-5833-4CB1-9BAF-C01556DDBFCE.html" id="GUID-7776C4FC-5833-4CB1-9BAF-C01556DDBFCE-d927e211-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4.1.1</ph>
+Initialization</a></div></div></li><li role="treeitem"><div data-tocid="GUID-70689C32-0169-48F9-804C-90A895A3902E-d927e219" class="topicref" data-id="GUID-70689C32-0169-48F9-804C-90A895A3902E" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-70689C32-0169-48F9-804C-90A895A3902E.html" id="GUID-70689C32-0169-48F9-804C-90A895A3902E-d927e219-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4.1.2</ph>
+Transmission</a></div></div></li><li role="treeitem" class="active"><div data-tocid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED-d927e227" class="topicref" data-id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED.html" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED-d927e227-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4.1.3</ph>
+Reception</a></div></div></li></ul></li><li role="treeitem"><div data-tocid="GUID-B5CC3820-C9A5-4DE4-A18F-6AD122E4C568-d927e235" class="topicref" data-id="GUID-B5CC3820-C9A5-4DE4-A18F-6AD122E4C568" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-B5CC3820-C9A5-4DE4-A18F-6AD122E4C568.html" id="GUID-B5CC3820-C9A5-4DE4-A18F-6AD122E4C568-d927e235-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4.2</ph>
+MCC Project Configuration</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-3BB7D55D-6472-4D4F-9029-C51404D79D1C-d927e243" class="topicref" data-id="GUID-3BB7D55D-6472-4D4F-9029-C51404D79D1C" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-3BB7D55D-6472-4D4F-9029-C51404D79D1C-d927e243-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-3BB7D55D-6472-4D4F-9029-C51404D79D1C.html" id="GUID-3BB7D55D-6472-4D4F-9029-C51404D79D1C-d927e243-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4.3</ph>
+Hardware Configuration</a></div></div></li></ul></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275" class="topicref" data-id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1.html" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5</ph>
+MAC-RT PLC &amp; Go</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355" class="topicref" data-id="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B.html" id="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.6</ph>
+G3 Modem</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403" class="topicref" data-id="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A.html" id="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.7</ph>
+G3 Device UDP/ICMPv6 Responder</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491" class="topicref" data-id="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3.html" id="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8</ph>
+G3 Coordinator UDP Cycles/Responder</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595" class="topicref" data-id="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442.html" id="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.9</ph>
+G3 Coordinator ICMPv6 Cycles</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683" class="topicref" data-id="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44.html" id="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.10</ph>
+Metering Demo G3 Device UDP/ICMPv6 Responder</a></div></div></li></ul></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723" class="topicref backmatter backmatter_parent" data-id="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B.html" id="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723-link">Microchip Information</a></div></div></li></ul></div>
+		                        
+                            </div>
+                        </nav>
+                    
+                    
+                    <div class="col-lg-9 col-md-9 col-sm-12" id="wh_topic_body">
+                        <button id="wh_close_publication_toc_button" class="close-toc-button d-none" aria-label="Toggle publishing table of content" aria-controls="wh_publication_toc" aria-expanded="true">
+                            <span class="close-toc-icon-container">
+                                <span class="close-toc-icon"></span>     
+                            </span>
+                        </button>
+                        
+                        
+                        <div class=" wh_topic_content body "><main role="main"><article role="article" aria-labelledby="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-248BAFBC-A803-47F9-9177-D57908AE96BF">
+<h1 class="- topic/title title topictitle1" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-248BAFBC-A803-47F9-9177-D57908AE96BF" style="">1.4.1.3 Reception</h1>
+<div class="- topic/body concept/conbody body conbody">
+        <p class="- topic/p p">When a PLC message is received, it is processed in the callback function
+				<code class="+ topic/ph pr-d/codeph ph codeph">APP_PLC_DataIndCb</code>. This callback receives as parameter a data
+			structure of type <code class="+ topic/ph pr-d/codeph ph codeph">DRV_PLC_PHY_RECEPTION_OBJ</code>, containing all the
+			available information from the message.</p>
+        <p class="- topic/p p">The callback function checks if CRC validation was OK (CRC computation enabled by PIB
+				<code class="+ topic/ph pr-d/codeph ph codeph">PLC_ID_CRC_TX_RX_CAPABILITY</code>) and extracts some data about the
+			modulation and signal received. The function checks the length of the message and prints
+			the content and information about signal level and signal quality through the
+			console.</p>
+		<p class="- topic/p p"><strong class="+ topic/ph hi-d/b ph b">Structure <code class="+ topic/ph pr-d/codeph ph codeph">DRV_PLC_PHY_RECEPTION_OBJ</code></strong></p>
+		<div class="- topic/p p">The reception parameters are stored in the data structure
+				<code class="+ topic/ph pr-d/codeph ph codeph">DRV_PLC_PHY_RECEPTION_OBJ</code>, defined in
+				<span class="+ topic/ph hi-d/tt ph tt">drv_plc_phy_comm.h</span>:<pre class="+ topic/pre pr-d/codeblock pre codeblock" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__CODEBLOCK_SNB_VCT_CTB" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__CODEBLOCK_SNB_VCT_CTB"><code>// *****************************************************************************
 /* G3 Reception parameters
-   Summary:    This struct includes all information to describe any new received message.
-   Remarks:    None
+
+   Summary
+    This struct includes all information to describe any new received message.
+
+   Remarks:
+    None
 */
 typedef struct __attribute__((packed, aligned(1))) {
-  uint8_t *pReceivedData;       		/* Pointer to received data buffer */
-  uint32_t time;  				/* Instant when frame was received (end of message) referred to 1us PHY counter */
-  uint32_t frameDuration;       		/* Frame duration referred to 1us PHY counter (Preamble + FCH + Payload) */
-  uint16_t dataLength;          		/* Length of the received data in bytes */
-  uint16_t rssi;  				/* Reception RSSI in dBuV */
-  uint8_t zctDiff;				/* ZCT info */
-  uint8_t rsCorrectedErrors;    		/* Errors corrected by Reed-Solomon */
-  DRV_PLC_PHY_MOD_TYPE modType; 		/* Modulation type */
-  DRV_PLC_PHY_MOD_SCHEME modScheme;		/* Modulation scheme */
-  DRV_PLC_PHY_DEL_TYPE delimiterType;		/* DT field coming in header */
-  uint8_t crcOk;  	/* MAC CRC. 1: OK; 0: BAD; 0xFE: Timeout Error; 0xFF: CRC capability disabled (PLC_ID_CRC_TX_RX_CAPABILITY) */
-  uint16_t agcFine;      			/* Test data information */
-  uint32_t agcFactor;    			/* Test data information */
-  int16_t agcOffsetMeas; 			/* Test data information */
-  uint8_t agcActive;     			/* Test data information */
-  uint8_t agcPgaValue;   			/* Test data information */
-  int16_t snrFch;        			/* Test data information */
-  int16_t snrPay;        			/* Test data information */
-  uint16_t payloadCorruptedCarriers;		/* Number of corrupted carriers */
-  uint16_t payloadNoisedSymbols;		/* Number of noised symbols */
-  uint8_t payloadSnrWorstCarrier;		/* SNR of the worst carrier */
-  uint8_t payloadSnrWorstSymbol;		/* SNR of the worst symbol */
-  uint8_t payloadSnrImpulsive;			/* SNR of impulsive noise */
-  uint8_t payloadSnrBand;             	 	/* SNR of Narrowband noise */ 
-  uint8_t payloadSnrBackground;			/* Background SNR */
-  uint8_t lqi;					/* Link Quality Indicator */
-  uint8_t toneMap[TONE_MAP_SIZE_MAX];		/* Reception Tone Map */
-  uint8_t carrierSnr[PROTOCOL_CARRIERS_MAX];	/* SNR per carrier */
+   /* Pointer to received data buffer */
+  uint8_t *pReceivedData;
+  /* Instant when frame was received (end of message) referred to 1us PHY counter */
+  uint32_t time;
+  /* Frame duration referred to 1us PHY counter (Preamble + FCH + Payload) */
+  uint32_t frameDuration;
+  /* Length of the received data in bytes */
+  uint16_t dataLength;
+  /* Reception RSSI in dBuV */
+  uint16_t rssi;
+  /* ZCT info */
+  uint8_t zctDiff;
+  /* Errors corrected by Reed-Solomon */
+  uint8_t rsCorrectedErrors;
+  /* Modulation type */
+  DRV_PLC_PHY_MOD_TYPE modType;
+  /* Modulation scheme */
+  DRV_PLC_PHY_MOD_SCHEME modScheme;
+  /* DT field coming in header */
+  DRV_PLC_PHY_DEL_TYPE delimiterType;
+  /* MAC CRC. 1: OK; 0: BAD; 0xFE: Timeout Error; 0xFF: CRC capability disabled (PLC_ID_CRC_TX_RX_CAPABILITY) */
+  uint8_t crcOk;
+  /* Test data information */
+  uint16_t agcFine;
+  /* Test data information */
+  uint32_t agcFactor;  
+  /* Test data information */
+  int16_t agcOffsetMeas;
+  /* Test data information */
+  uint8_t agcActive;
+  /* Test data information */
+  uint8_t agcPgaValue;
+  /* Test data information */
+  int16_t snrFch;
+  /* Test data information */
+  int16_t snrPay;
+  /* Number of corrupted carriers */
+  uint16_t payloadCorruptedCarriers;
+  /* Number of noised symbols */
+  uint16_t payloadNoisedSymbols;
+  /* SNR of the worst carrier */
+  uint8_t payloadSnrWorstCarrier;
+  /* SNR of the worst symbol */
+  uint8_t payloadSnrWorstSymbol;
+  /* SNR of impulsive noise */
+  uint8_t payloadSnrImpulsive;
+   /* SNR of Narrowband noise */ 
+  uint8_t payloadSnrBand;
+  /* Background SNR */
+  uint8_t payloadSnrBackground;
+  /* Link Quality Indicator */
+  uint8_t lqi;
+  /* Reception Tone Map */
+  uint8_t toneMap[TONE_MAP_SIZE_MAX];
+  /* SNR per carrier */
+  uint8_t carrierSnr[PROTOCOL_CARRIERS_MAX];
 } DRV_PLC_PHY_RECEPTION_OBJ;
- </code></pre>
-		<p class="p">The structure contains all the information available about the message received. The
-			fields of the structure are: </p>
-
-		
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_YVK_M22_PFB" class="table nocolor" frame="void" border="0" rules="none">
-				<col style="width:" />
-				<col style="width:" />
-				<tbody class="tbody">
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">pReceivedData</code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Pointer to data buffer containing received
-							frame. The received frame includes padding (if needed). CRC is included
-							if the CRC capability in the PL360 is disabled</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">time </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Instant when frame was received (end of frame)
-							referred to 1µs PHY counter </span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">frameDuration </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Frame duration in µs (Preamble + FCH + Payload)
-						</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">dataLength </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Length of received frame in bytes</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">rssi </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Received Signal Strength Indicator in
-							dBµV</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">zctDiff </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Phase difference with transmitting node in
-							multiples of 60 degrees</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">rsCorrectedErrors </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Number of errors corrected by
-							Reed-Solomon</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">modType </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Modulation type of the last received frame.
-							Related constants defined in section <a class="xref" href=""></a>
-						</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">modScheme </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Modulation scheme of the last received frame.
-							Related Constants defined in section <a class="xref" href=""></a></span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">delimiterType </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>DT field coming in header. Related Constants
-							defined in section <a class="xref" href=""></a></span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">crcOk </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>CRC verification result (1: OK; 0: BAD; 0xFE:
-							unexpected error; 0xFF: CRC capability disabled. See PIB
-							ATPL360_REG_CRC_TX_RX_CAPABILITY (0x401C))</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">agcFine </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Factor that multiplies the digital input signal
-							(13 bits)</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">agcFactor </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Global amplifying factor of the main branch (21
-							bits)</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">agcOffsetMeas </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>DC offset after the ADC that will be removed in
-							case the DC Blocker is enabled (10 bits)</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">agcActive </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Flag to indicate if AGC is active</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">agcPgaValue </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Gain value applied to the PGA (3 bits)</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">snrFch </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>SNR of the header in quarters of dBs</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">snrPay </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>SNR of the payload in quarters of dBs</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">payloadCorruptedCarriers
-							</code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Number of corrupted carriers in payload due to
-							narrow/broad-band noise</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">payloadNoisedSymbols </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Number of corrupted symbols in payload due to
-							impulsive noise</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">payloadSnrWorstCarrier
-							</code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>SNR for the worst case carrier of the payload
-							in quarters of dBs</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">payloadSnrWorstSymbol </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>SNR for the worst case symbol of the payload in
-							quarters of dBs</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">payloadSnrImpulsive </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>SNR of corrupted symbols in payload due to
-							impulsive noise in quarters of dBs </span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">payloadSnrBand </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>SNR of corrupted carriers in payload due to
-							narrow/broad-band noise in quarters of dBs </span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">payloadSnrBackground </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>SNR without taking into account corrupted
-							carriers and symbols in quarters of dBs </span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">lqi </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Link Quality Indicator. SNR in quarters of dBs
-							with offset of 10 dB (value 0 means -10 dB) </span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">toneMap </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Tone Map in received frame. Related constants
-							explained below</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">carrierSnr </code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>SNR for each carrier in dBs (with offset of
-							10dB, i.e. value 0 means -10dB). Related constants explained
-							below</span></td>
-
-					</tr>
-
-				</tbody>
-
-			</table>
-</div>
-
-		<p class="p">Related symbolic constants affecting <code class="ph codeph">toneMap</code> parameter:</p>
-
-		<pre class="pre codeblock" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__CODEBLOCK_TNB_VCT_CTB"><button title="Copy Code" class="copy-code" onclick="cpy('d7101e348', this);">Copy</button><code id="d7101e348" content="&#xA;#define NUM_SUBBANDS_CENELEC_A                     6       /* Subbands for Cenelec-A bandplan */&#xA;#define NUM_SUBBANDS_CENELEC_B                     4       /* Subbands for Cenelec-B bandplan */&#xA;#define NUM_SUBBANDS_FCC                           24      /* Subbands for FCC bandplan */&#xA;#define NUM_SUBBANDS_ARIB                          16      /* Subbands for ARIB bandplan */&#xA;[…]&#xA;#define TONE_MAP_SIZE_CENELEC                      1       /* Tone Map size for Cenelec(A,B) bandplan */&#xA;#define TONE_MAP_SIZE_FCC                          3       /* Tone Map size for FCC bandplan */&#xA;#define TONE_MAP_SIZE_ARIB                         3       /* Tone Map size for ARIB bandplan */&#xA;[…]&#xA;#define TONE_MAP_SIZE_MAX                          TONE_MAP_SIZE_FCC     &#xA;#define NUM_SUBBANDS_MAX                           NUM_SUBBANDS_FCC&#x9;/* Maximum number of subbands */&#xA;">
-#define NUM_SUBBANDS_CENELEC_A                     6       /* Subbands for Cenelec-A bandplan */
-#define NUM_SUBBANDS_CENELEC_B                     4       /* Subbands for Cenelec-B bandplan */
-#define NUM_SUBBANDS_FCC                           24      /* Subbands for FCC bandplan */
-#define NUM_SUBBANDS_ARIB                          16      /* Subbands for ARIB bandplan */
-[…]
-#define TONE_MAP_SIZE_CENELEC                      1       /* Tone Map size for Cenelec(A,B) bandplan */
-#define TONE_MAP_SIZE_FCC                          3       /* Tone Map size for FCC bandplan */
-#define TONE_MAP_SIZE_ARIB                         3       /* Tone Map size for ARIB bandplan */
-[…]
-#define TONE_MAP_SIZE_MAX                          TONE_MAP_SIZE_FCC     
-#define NUM_SUBBANDS_MAX                           NUM_SUBBANDS_FCC	/* Maximum number of subbands */
-</code></pre>
-		<p class="p">Related constants affecting <code class="ph codeph">carrierSnr</code> parameter:</p>
-
-		<pre class="pre codeblock" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__CODEBLOCK_UNB_VCT_CTB"><button title="Copy Code" class="copy-code" onclick="cpy('d7101e357', this);">Copy</button><code id="d7101e357" content="#define NUM_CARRIERS_CENELEC_A                     36       /* Number of carriers for Cenelec-A bandplan */&#xA;#define NUM_CARRIERS_CENELEC_B                     16       /* Number of carriers for Cenelec-B bandplan */&#xA;#define NUM_CARRIERS_FCC                           72       /* Number of carriers for FCC bandplan */&#xA;#define NUM_CARRIERS_ARIB                          54       /* Number of carriers for ARIB bandplan */&#xA;[…]&#xA;#define PROTOCOL_CARRIERS_MAX        NUM_CARRIERS_FCC&#x9;/* Maximum number of protocol carriers */&#xA;">#define NUM_CARRIERS_CENELEC_A                     36       /* Number of carriers for Cenelec-A bandplan */
-#define NUM_CARRIERS_CENELEC_B                     16       /* Number of carriers for Cenelec-B bandplan */
-#define NUM_CARRIERS_FCC                           72       /* Number of carriers for FCC bandplan */
-#define NUM_CARRIERS_ARIB                          54       /* Number of carriers for ARIB bandplan */
-[…]
-#define PROTOCOL_CARRIERS_MAX        NUM_CARRIERS_FCC	/* Maximum number of protocol carriers */
-</code></pre>
+ </code></pre>Where:<ul class="- topic/ul ul" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__UL_AW5_Y4R_SXB" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__UL_AW5_Y4R_SXB">
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-93A24B5E-B4F5-45B6-88DB-5AC552CA0E16" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-93A24B5E-B4F5-45B6-88DB-5AC552CA0E16"><code class="+ topic/ph pr-d/codeph ph codeph">pReceivedData</code>: Pointer to
+					the buffer containing the data of the received frame.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-5524B3F8-7F64-40A8-A1D2-51461C0D31E4" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-5524B3F8-7F64-40A8-A1D2-51461C0D31E4"><code class="+ topic/ph pr-d/codeph ph codeph">time</code>: Instant when frame was
+					received (end of frame), referred to the 32-bit 1µs PHY time counter.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-EC6DAF1A-E907-484D-BD1B-B63DE7672E52" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-EC6DAF1A-E907-484D-BD1B-B63DE7672E52"><code class="+ topic/ph pr-d/codeph ph codeph">frameDuration</code>: Frame duration in µs (Preamble + FCH +
+					Payload).</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-544BB282-9E93-4A7D-91FE-D3028D68E927" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-544BB282-9E93-4A7D-91FE-D3028D68E927"><code class="+ topic/ph pr-d/codeph ph codeph">dataLength</code>: Length of received frame in bytes. It includes
+					padding (if needed). If CRC computation is enabled (PIB
+						<code class="+ topic/ph pr-d/codeph ph codeph">PLC_ID_CRC_TX_RX_CAPABILITY</code>), the CRC length (two bytes) is
+					not included.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-5964CD8B-E216-4F58-90E3-95DDA7C042E9" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-5964CD8B-E216-4F58-90E3-95DDA7C042E9"><code class="+ topic/ph pr-d/codeph ph codeph">rssi</code>: Received Signal Strength Indicator in dBµV.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-EC38214B-0FDB-49EF-84A4-E589C7AF0C8D" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-EC38214B-0FDB-49EF-84A4-E589C7AF0C8D"><code class="+ topic/ph pr-d/codeph ph codeph">zctDiff</code>: Phase difference with transmitting node in multiples
+					of 60 degrees (values from 0 to 5). Derived from PDC field in PHY header (FCH)
+					and zero-crossing time. Value 6 indicates that zero-crossing time is not
+					available.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-6314C34D-BB7A-4990-95C6-FC7BECBF5E68" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-6314C34D-BB7A-4990-95C6-FC7BECBF5E68"><code class="+ topic/ph pr-d/codeph ph codeph">rsCorrectedErrors</code>: Number of errors (bytes) corrected by
+					Reed-Solomon decoder.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-4428260C-F589-46DA-9DCB-A26AA7D657B8" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-4428260C-F589-46DA-9DCB-A26AA7D657B8"><code class="+ topic/ph pr-d/codeph ph codeph">modType</code>: Modulation type of
+					the received frame.<div class="table-container"><table class="- topic/table table" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C" data-cols="3"><caption></caption><colgroup><col style="width:33.33333333333333%"/><col style="width:16.666666666666664%"/><col style="width:50%"/></colgroup><thead class="- topic/thead thead">
+								<tr class="- topic/row">
+									<th class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__1"><code class="+ topic/ph pr-d/codeph ph codeph">modType</code></th>
+									<th class="- topic/entry entry align-center colsep-0 rowsep-0 valign-middle" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__2">Value</th>
+									<th class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__3">Description</th>
+								</tr>
+							</thead><tbody class="- topic/tbody tbody">
+								<tr class="- topic/row">
+									<td class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__1">MOD_TYPE_BPSK </td>
+									<td class="- topic/entry entry align-center colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__2">0 </td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__3">BPSK Modulation Type</td>
+								</tr>
+								<tr class="- topic/row">
+									<td class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__1">MOD_TYPE_QPSK </td>
+									<td class="- topic/entry entry align-center colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__2">1 </td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__3">QPSK Modulation Type</td>
+								</tr>
+								<tr class="- topic/row">
+									<td class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__1">MOD_TYPE_8PSK </td>
+									<td class="- topic/entry entry align-center colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__2">2 </td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__3">8PSK Modulation Type</td>
+								</tr>
+								<tr class="- topic/row">
+									<td class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__1">MOD_TYPE_BPSK_ROBO </td>
+									<td class="- topic/entry entry align-center colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__2">4</td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-50576544-7BF9-4010-9E54-22721DDF5D7C__entry__3">BPSK Robust (4 repetitions)
+										Modulation Type</td>
+								</tr>
+							</tbody></table></div></li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-A02E0798-BFF9-4EEB-8195-A7E7FE5A9235" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-A02E0798-BFF9-4EEB-8195-A7E7FE5A9235"><code class="+ topic/ph pr-d/codeph ph codeph">modScheme</code>: Modulation scheme
+					of the received frame.<div class="table-container"><table class="- topic/table table frame-all" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_YXW_Z2H_QFB" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_YXW_Z2H_QFB" data-cols="3"><caption></caption><colgroup><col style="width:33.33333333333333%"/><col style="width:16.666666666666664%"/><col style="width:50%"/></colgroup><thead class="- topic/thead thead">
+								<tr class="- topic/row">
+									<th class="- topic/entry entry align-left colsep-1 rowsep-1 valign-middle" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_YXW_Z2H_QFB__entry__1"><code class="+ topic/ph pr-d/codeph ph codeph">modScheme</code></th>
+									<th class="- topic/entry entry align-center colsep-1 rowsep-1 valign-middle" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_YXW_Z2H_QFB__entry__2">Value</th>
+									<th class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_YXW_Z2H_QFB__entry__3">Description</th>
+								</tr>
+							</thead><tbody class="- topic/tbody tbody">
+								<tr class="- topic/row">
+									<td class="- topic/entry entry align-left colsep-1 rowsep-1 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_YXW_Z2H_QFB__entry__1">MOD_SCHEME_DIFFERENTIAL </td>
+									<td class="- topic/entry entry align-center colsep-1 rowsep-1 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_YXW_Z2H_QFB__entry__2">0 </td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_YXW_Z2H_QFB__entry__3">Differential Modulation
+										Scheme</td>
+								</tr>
+								<tr class="- topic/row">
+									<td class="- topic/entry entry align-left colsep-1 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_YXW_Z2H_QFB__entry__1">MOD_SCHEME_COHERENT </td>
+									<td class="- topic/entry entry align-center colsep-1 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_YXW_Z2H_QFB__entry__2">1 </td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_YXW_Z2H_QFB__entry__3">Coherent Modulation
+										Scheme</td>
+								</tr>
+							</tbody></table></div></li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-16D73AD6-1944-41D3-BECC-B5C72603C0DB" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-16D73AD6-1944-41D3-BECC-B5C72603C0DB"><code class="+ topic/ph pr-d/codeph ph codeph">delimiterType</code>: DT field
+					coming in FCH of the received frame.<div class="table-container"><table class="- topic/table table frame-all" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB" data-cols="3"><caption></caption><colgroup><col style="width:33.33333333333333%"/><col style="width:16.666666666666664%"/><col style="width:50%"/></colgroup><thead class="- topic/thead thead">
+								<tr class="- topic/row">
+									<th class="- topic/entry entry align-left colsep-1 rowsep-1 valign-middle" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__1"><code class="+ topic/ph pr-d/codeph ph codeph">delimiterType</code></th>
+									<th class="- topic/entry entry align-center colsep-1 rowsep-1 valign-middle" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__2">Value</th>
+									<th class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__3">Description</th>
+								</tr>
+							</thead><tbody class="- topic/tbody tbody">
+								<tr class="- topic/row">
+									<td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__1">DT_SOF_NO_RESP</td>
+									<td class="- topic/entry entry align-center colsep-1 rowsep-1 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__2">0 </td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__3">Acknowledgment is not
+										requested</td>
+								</tr>
+								<tr class="- topic/row">
+									<td class="- topic/entry entry align-left colsep-1 rowsep-1 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__1">DT_SOF_RESP</td>
+									<td class="- topic/entry entry align-center colsep-1 rowsep-1 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__2">1 </td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__3">Acknowledgment is
+										requested</td>
+								</tr>
+								<tr class="- topic/row">
+									<td class="- topic/entry entry align-left colsep-1 rowsep-1 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__1">DT_ACK </td>
+									<td class="- topic/entry entry align-center colsep-1 rowsep-1 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__2">2 </td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__3">Positive
+										acknowledgment</td>
+								</tr>
+								<tr class="- topic/row">
+									<td class="- topic/entry entry align-left colsep-1 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__1">DT_NACK </td>
+									<td class="- topic/entry entry align-center colsep-1 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__2">3</td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" headers="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__TABLE_MYR_DFH_QFB__entry__3">Negative
+										acknowledgment</td>
+								</tr>
+							</tbody></table></div></li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-2537993B-A3E4-483D-ADEB-A9B5A255E8D0" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-2537993B-A3E4-483D-ADEB-A9B5A255E8D0"><code class="+ topic/ph pr-d/codeph ph codeph">crcOk</code>: CRC verification result (1: OK; 0: BAD; 0xFE: unexpected
+					error; 0xFF: CRC capability disabled). CRC computation enabled by PIB
+						<code class="+ topic/ph pr-d/codeph ph codeph">PLC_ID_CRC_TX_RX_CAPABILITY</code>.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-C9ACDEA1-8863-4E05-B72D-BE710C512A11" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-C9ACDEA1-8863-4E05-B72D-BE710C512A11"><code class="+ topic/ph pr-d/codeph ph codeph">agcFine</code>: Factor that multiplies the digital input signal (13
+					bits).</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-D6D156F5-A4EF-402F-A71A-2B3B91D22559" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-D6D156F5-A4EF-402F-A71A-2B3B91D22559"><code class="+ topic/ph pr-d/codeph ph codeph">agcFactor</code>: Global amplifying
+					factor of the main branch (21 bits).</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-C0D3B35F-5F87-4E02-A494-952B1104FA45" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-C0D3B35F-5F87-4E02-A494-952B1104FA45"><code class="+ topic/ph pr-d/codeph ph codeph">agcOffsetMeas</code>: DC offset after the ADC that will be removed in
+					case the DC Blocker is enabled (10 bits).</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-3E7B5736-52B2-4D30-A683-EA5711B3D954" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-3E7B5736-52B2-4D30-A683-EA5711B3D954"><code class="+ topic/ph pr-d/codeph ph codeph">agcActive</code>: Flag to indicate
+					if AGC attenuation resistor is active.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-31657D62-DDC1-4983-A543-EE832CA6BE13" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-31657D62-DDC1-4983-A543-EE832CA6BE13"><code class="+ topic/ph pr-d/codeph ph codeph">agcPgaValue</code>: Gain value applied to the PGA (3 bits).</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-FB259675-480E-4059-91E9-20D56CB7BCA1" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-FB259675-480E-4059-91E9-20D56CB7BCA1"><code class="+ topic/ph pr-d/codeph ph codeph">snrFch</code>: SNR of  FCH symbols in dB with sQ13.2 format (0x0000:
+					0dB; 0x0001: 0.25dB; 0xFFFF: -0.25dB).</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-52D5D499-9FB4-45F8-BB75-EB7F4CF03803" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-52D5D499-9FB4-45F8-BB75-EB7F4CF03803"><code class="+ topic/ph pr-d/codeph ph codeph">snrPay</code>: SNR of  payload symbols in dB with sQ13.2 format.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-2C5A7B7D-D6B6-4F40-83EB-2C17AA0B01A1" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-2C5A7B7D-D6B6-4F40-83EB-2C17AA0B01A1"><code class="+ topic/ph pr-d/codeph ph codeph">payloadCorruptedCarriers</code>: Number of corrupted carriers in
+					payload due to narrow/broad-band noise.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-A20BD897-3A81-49B8-9EE4-44CCF0D7B304" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-A20BD897-3A81-49B8-9EE4-44CCF0D7B304"><code class="+ topic/ph pr-d/codeph ph codeph">payloadNoisedSymbols</code>: Number of corrupted symbols in payload
+					due to impulsive noise.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-2E25A91B-2D49-4D59-A501-813ED9AE96B3" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-2E25A91B-2D49-4D59-A501-813ED9AE96B3"><code class="+ topic/ph pr-d/codeph ph codeph">payloadSnrWorstCarrier</code>: SNR of the worst carrier within payload
+					symbols in dB with sQ5.2 format (0x00: 0dB; 0x01: 0.25dB; 0xFF: -0.25dB).</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-8D6DD530-8575-4758-8690-ED617DCED082" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-8D6DD530-8575-4758-8690-ED617DCED082"><code class="+ topic/ph pr-d/codeph ph codeph">payloadSnrWorstSymbol</code>: SNR of the worst payload symbol in dB
+					with sQ5.2 format.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-D715A95E-1D73-462A-B325-EFFA72D94265" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-D715A95E-1D73-462A-B325-EFFA72D94265"><code class="+ topic/ph pr-d/codeph ph codeph">payloadSnrImpulsive</code>: SNR of payload symbols corrupted by
+					impulsive noise in dB with sQ5.2 format.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-A2DA87D5-77A0-4483-B3D0-897BB95F04C3" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-A2DA87D5-77A0-4483-B3D0-897BB95F04C3"><code class="+ topic/ph pr-d/codeph ph codeph">payloadSnrBand</code>: SNR of carriers corrupted by narrow/broad-band
+					noise within payload symbols in dB with sQ5.2 format.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-89FB1754-5572-403F-A519-8762A81A5BD5" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-89FB1754-5572-403F-A519-8762A81A5BD5"><code class="+ topic/ph pr-d/codeph ph codeph">payloadSnrBackground:</code> SNR of payload symbols without taking
+					into account corrupted carriers/symbols in dB with sQ5.2 format.</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-F6DA8BAC-61F8-4396-9FCC-7162EA29878C" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-F6DA8BAC-61F8-4396-9FCC-7162EA29878C"><code class="+ topic/ph pr-d/codeph ph codeph">lqi</code>: Link Quality Indicator. SNR of payload symbols in dB with
+					uQ6.2 format and -10 dB offset (0x00: -10 dB; 0x01: -9.75 dB; 0xFF: 53.75
+					dB).</li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-0E6B2FC4-A654-4DF3-B6C0-09D180076B41" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-0E6B2FC4-A654-4DF3-B6C0-09D180076B41"><code class="+ topic/ph pr-d/codeph ph codeph">toneMap</code>: Tone Map (Dynamic
+					Notching) in received frame. Each bit corresponds to a sub-band of carriers and
+					it indicates if such carriers carry message data (1) or pseudo-random data
+					(0).<pre class="+ topic/pre pr-d/codeblock pre codeblock" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__CODEBLOCK_C5H_25R_SXB" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__CODEBLOCK_C5H_25R_SXB"><code>/* Tone Map size for Cenelec(A,B) bandplan */
+#define TONE_MAP_SIZE_CENELEC                      1
+/* Tone Map size for FCC bandplan */
+#define TONE_MAP_SIZE_FCC                          3
+/* Tone Map size for ARIB bandplan */
+#define TONE_MAP_SIZE_ARIB                         3
+/* Maximum number of tone map */
+#define TONE_MAP_SIZE_MAX                          TONE_MAP_SIZE_FCC
+
+/* Subbands for Cenelec-A bandplan */
+#define NUM_SUBBANDS_CENELEC_A                     6
+/* Subbands for Cenelec-B bandplan */
+#define NUM_SUBBANDS_CENELEC_B                     4
+/* Subbands for FCC bandplan */
+#define NUM_SUBBANDS_FCC                           24
+/* Subbands for ARIB bandplan */
+#define NUM_SUBBANDS_ARIB                          16</code></pre></li>
+				<li class="- topic/li li" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-7A468B9F-7634-4CFC-BB29-2E3964506570" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__GUID-7A468B9F-7634-4CFC-BB29-2E3964506570"><code class="+ topic/ph pr-d/codeph ph codeph">carrierSnr</code>: Array containing the SNR of each carrier within
+					payload symbols in dB with -10 dB offset (0x00: -10 dB; 0x01: -9 dB; 0xFF: 245
+					dB).<pre class="+ topic/pre pr-d/codeblock pre codeblock" id="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__CODEBLOCK_RWP_P5R_SXB" data-ofbid="GUID-E0EBAD62-17FF-4DD7-8C0D-FD842C97ACED__CODEBLOCK_RWP_P5R_SXB"><code>/* Number of carriers for Cenelec-A bandplan */
+#define NUM_CARRIERS_CENELEC_A                     36
+/* Number of carriers for Cenelec-B bandplan */      
+#define NUM_CARRIERS_CENELEC_B                     16
+/* Number of carriers for FCC bandplan */      
+#define NUM_CARRIERS_FCC                           72
+/* Number of carriers for ARIB bandplan */      
+#define NUM_CARRIERS_ARIB                          54
+/* Maximum number of protocol carriers */
+#define PROTOCOL_CARRIERS_MAX                      NUM_CARRIERS_FCC</code></pre></li>
+			</ul></div>
     </div>
-
-<div class="related-links">
-<div class="familylinks">
-<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8.html">PHY PLC &amp; Go</a></div>
+</article></main></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            
+            
+        </div> 
+        <footer class="navbar navbar-default wh_footer">
+  <div class=" footer-container mx-auto ">
+    <div class="footer">
+  <div class="mchp-wh-footer">
+    <div class="mchp-footer">
+      <div class="mchp-footer-tier1">
+        <div class="spacer"></div>
+        <div class="mchp-footer-container">
+          <div class="mchp-footer-links mchp-social-media-links">
+            <div class="mchp-component-items">
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.facebook.com/pages/Microchip-Technology-Inc/20320981741" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Facebook" src="oxygen-webhelp/template/resources/images/201016-corp-facebook.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.linkedin.com/company/microchip-technology" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip LinkedIn" src="oxygen-webhelp/template/resources/images/201016-corp-linkedin.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://twitter.com/MicrochipTech" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Twitter" src="oxygen-webhelp/template/resources/images/201016-corp-twitter.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.youtube.com/user/MicrochipTechnology" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip YouTube" src="oxygen-webhelp/template/resources/images/201016-corp-youtube.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.instagram.com/microchiptechnologyinc/" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Instagram" src="oxygen-webhelp/template/resources/images/201016-corp-instagram.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.weibo.com/microchiptech" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Weibo" src="oxygen-webhelp/template/resources/images/201016-corp-weibo.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.microchip.com/en-us/about/blog" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Blog" src="oxygen-webhelp/template/resources/images/201016-corp-blog.png"/>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="mchp-footer-links">
+            <div class="mchp-component-items">
+              <div class="mchp-component-item">
+                <div class="link">
+                  <a href="https://www.microchip.com/about-us/contact-us" class="mchp-link__link">Contact</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information" class="mchp-link__link">Legal</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information/privacy-policy" class="mchp-link__link">Privacy Policy</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information/microchip-cookie-statement" class="mchp-link__link">Cookies</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item">
+                <div class="link">
+                  <a href="https://careers.microchip.com/" class="mchp-link__link">Careers</a>
+                  <span class="mchp-link__separator"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mchp-footer-newsletter">
+            <div class="cmp-text">
+              <p>Stay on the leading edge with our blog</p>
+            </div>
+            <div class="mchp-button-wrapper">
+              <a role="button" href="https://www.microchip.com/en-us/about/blog" class="mchp-button mchp-button-regular solid">
+                <span class="mchp-button__span">MicroSolutions</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="graphic">
+          <img src="oxygen-webhelp/template/resources/images/footer-graphic.png"/>
+        </div>
+      </div>
+      <div class="mchp-footer-tier2">
+        <p class="mchp-copyright">© Copyright 1998-2022 Microchip Technology Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="true" src="https://www.googletagmanager.com/gtag/js?id=UA-2724382-19"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];  
+    function gtag(){dataLayer.push(arguments);}  
+    gtag('js', new Date());   
+    gtag('config', 'UA-2724382-19');
+  </script>
+  
+  <script type="text/javascript">_satellite.pageBottom();</script><!-- Adobe Analytics -->
+  
 </div>
-</div></body>
+  </div>
+</footer>
+        
+        <div id="go2top" class="d-print-none">
+            <span class="oxy-icon oxy-icon-up"></span>
+        </div>
+        
+        <div id="modal_img_large" class="modal">
+            <span class="close oxy-icon oxy-icon-remove"></span>
+            <div id="modal_img_container"></div>
+            <div id="caption"></div>
+        </div>
+        
+        
+        
+       
+        </body>
 </html>

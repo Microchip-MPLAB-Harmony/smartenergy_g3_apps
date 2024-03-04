@@ -1,320 +1,373 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
-<meta name="DC.rights.owner" content="(C) Copyright 2022" />
-<meta name="DC.type" content="concept" />
-<meta name="DC.title" content="PHY Sniffer" />
-<meta name="DC.relation" scheme="URI" content="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html" />
-<meta name="DC.relation" scheme="URI" content="GUID-7309C013-31A6-4049-BC95-7429CEB65293.html" />
-<meta name="DC.relation" scheme="URI" content="GUID-F7A45B4F-41B2-4AF9-84AA-839C4328E4A8.html" />
-<meta name="DC.relation" scheme="URI" content="GUID-02A0409B-737D-4B57-BADB-0ECC8AF4714C.html" />
-<meta name="DC.relation" scheme="URI" content="GUID-65C1065C-E3CA-40BE-BB5B-0E8E7B074563.html" />
-<meta name="DC.relation" scheme="URI" content="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286.html" />
-<meta name="DC.relation" scheme="URI" content="GUID-B1D36D7B-7A26-4B4E-B5DB-E314EF9CEF9F.html" />
-<meta name="DC.relation" scheme="URI" content="GUID-373ECDE6-AFFD-44B5-AE97-7CF1A8FCC4AD.html" />
-<meta name="DC.format" content="XHTML" />
-<meta name="DC.identifier" content="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E" />
-<meta name="DC.language" content="en-US" />
-<link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
-<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
-<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>PHY Sniffer</title>
-<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E" />
-<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D" />
-<meta name="Microsoft.Help.TocOrder" content="0" />
-<meta name="Microsoft.Help.Locale" content="en-US" />
-<meta name="Microsoft.Help.TopicLocale" content="en-US" />
-<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Smart Energy G3 Applications Reference A 02/2022" />
-<script language="javascript">
-       
-       if (window.parent.location.protocol != 'file:') {
-				document.addEventListener('click', function(e) {
-				    if (e.target) {
-               if (e.target.nodeName == "A" ) {
-                    if (!e.target.target) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                              
-                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
-                      if (origUrl.length === 0) {
-                          origUrl = window.parent.location.href;
-                      }
-                      var href= e.target.getAttribute("href");
-                      var parts = href.split("#");
-          
-                      var url = "";
-                      if (parts.length == 2 ) {
-                        if (!parts[0].length) {
-                            url = window.parent.location.search.replace('?','')
-                        } else {
-                            url = parts[0].replace('.html','');
-                        }
-                      } else {
-                        url = parts[0].replace('.html','');
-                      }
-
-                      if (parts.length == 2) {
-                          url += "#" + parts[1];
-                      }
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us" data-whc_version="24.1">
+    <head><link rel="shortcut icon" href="oxygen-webhelp\template\resources/images/favicon.ico"/><link rel="icon" href="oxygen-webhelp\template\resources/images/favicon.ico"/><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="description" content="The Microchip Hybrid Sniffer PC Tool has been developed to monitor data traffic on PLC-RF hybrid networks. Installer and user guide can be found in the previous link. This tool focuses on PRIME ..."/><meta name="copyright" content="(C) Copyright 2024"/><meta name="generator" content="DITA-OT"/><title>1.1 PHY Sniffer Tool</title><!--  Generated with Oxygen version 24.1, build number 2022062014.  --><meta name="wh-path2root" content=""/><meta name="wh-toc-id" content="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19"/><meta name="wh-source-relpath" content="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E.xml"/><meta name="wh-out-relpath" content="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E.html"/>
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="./oxygen-webhelp/lib/bootstrap/css/bootstrap.min.css"/>
     
-                      window.parent.location.href = origUrl + "?" + url;
+    <link rel="stylesheet" href="./oxygen-webhelp/lib/jquery-ui/jquery-ui.min.css"/>
+    
+    <!-- Template default styles  -->
+    <link rel="stylesheet" type="text/css" href="./oxygen-webhelp/app/topic-page.css?buildId=2022062014"/>
+    
+    
+    <script src="./oxygen-webhelp/lib/jquery/jquery-3.5.1.min.js"></script>
+    
+    <script data-main="./oxygen-webhelp/app/topic-page.js" src="./oxygen-webhelp/lib/requirejs/require.js"></script>
+<link rel="stylesheet" type="text/css" href="oxygen-webhelp/template/microchip.css?buildId=2022062014"/><link rel="stylesheet" type="text/css" href="oxygen-webhelp/template/notes.css?buildId=2022062014"/>
+<script src="mchp-context-help.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async="" type="text/javascript"></script>
+    <script src="https://assets.adobedtm.com/6a72a357eb48/a636c708c7fe/launch-0b0023397020.min.js"></script><!-- Adobe Analytics -->
+</head>
 
-                      return false;
-                    }
-               }
-            }
-				});
-			}
-
-		</script><script language="javascript">
-        function cpy(id, button) {
-        
-            var element = document.getElementById(id);
-            var content = element.getAttribute("content");
-            var textArea = document.createElement("textarea");
-            
-            // Place in the top-left corner of screen regardless of scroll position.
-            textArea.style.position = 'fixed';
-            textArea.style.top = 0;
-            textArea.style.left = 0;
-            
-            // Ensure it has a small width and height. Setting to 1px / 1em
-            // doesn't work as this gives a negative w/h on some browsers.
-            textArea.style.width = '2em';
-            textArea.style.height = '2em';
-            
-            // We don't need padding, reducing the size if it does flash render.
-            textArea.style.padding = 0;
-            
-            // Clean up any borders.
-            textArea.style.border = 'none';
-            textArea.style.outline = 'none';
-            textArea.style.boxShadow = 'none';
-            
-            // Avoid flash of the white box if rendered for any reason.
-            textArea.style.background = 'transparent';
-            
-            
-            textArea.value = content;
-            
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-               var successful = document.execCommand('copy');
-               var msg = successful ? 'successful' : 'unsuccessful';
-               if (!button.classList.contains("copied")){
-                  button.textContent = "Copied";
-                  button.classList.add("copied");
-                  setTimeout(function(){
-                    button.textContent = "Copy";
-                    button.classList.remove("copied");
-                  },1000);
-               }
-            } catch (err) {
-              console.log('Oops, unable to copy');
-            }
-            
-            document.body.removeChild(textArea);
-        }
-      </script><script language="javascript">
-          
-          // Add the MathML namespace to html
-          var html = document.getElementsByTagName("html")[0],
-          head = document.getElementsByTagName("head")[0];
-          
-          var mathJax = document.createElement("script");
-          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
-          head.appendChild(mathJax);
-          
-          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
-          
-          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
-          
-          if (!inIframe()) { 
-          
-          var Default = "index.html?GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E"; 
-          
-          var displaylocation = "value" + window.location.href;
-          
-          var GUIDS = displaylocation.split('GUID');          
-          
-          if (displaylocation.indexOf('#GUID') != -1) {            
-          var First = GUIDS[1].split('.html');  
-          if (GUIDS[3]){First = GUIDS[2].split('.html');}
-          if (GUIDS[4]){First = GUIDS[3].split('.html');}
-          if (GUIDS[5]){First = GUIDS[4].split('.html');}
-          
-          var Second = GUIDS[2].split('#');   
-          if (GUIDS[3]){Second = GUIDS[3].split('#');}
-          if (GUIDS[4]){Second = GUIDS[4].split('#');}
-          if (GUIDS[5]){Second = GUIDS[5].split('#');}
-          
-          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
-          }                    
-          window.top.location = Default;
-          }       
-          
-        </script><style xml:space="">
-        
-          button.copy-code{
-            display:none;
-            padding:0.7em 1.4em;
-            margin:0 0.3em 0.3em 0;
-            border-radius:0.15em;
-            box-sizing: border-box;
-            text-decoration:none;
-            font-family:'Roboto',sans-serif;
-            text-transform:uppercase;
-            font-weight:400;
-            color:#FFFFFF;
-            background-color:#9c9c9c;
-            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
-            text-align:center;
-            position:relative;
-            border: 0;
-            float: right;
-            border-radius: .5em;
-            cursor: pointer;
-          }
-          button.copy-code:active{
-            top:0.1em;
-          }
-          
-          pre:hover button.copy-code{
-            display: inline-block !important;
-          }
-          button.copy-code.copied {
-            cursor: default !important;
-          }
-          
-          
-          @media all and (max-width:30em){
-            button.copy-code{
-              display:block;
-              margin:0.4em auto;
-            }
-          }
+    <body id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E" class="wh_topic_page frmBody">
+        <a href="#wh_topic_body" class="sr-only sr-only-focusable">
+            Jump to main content
+        </a>
         
         
-      </style></head>
-<body id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E">
+        
+        
+        <header class="navbar navbar-default wh_header">
+    <div class="container-fluid">
+        <div class="wh_header_flex_container navbar-nav navbar-expand-md navbar-dark">
+            <div class="wh_logo_and_publication_title_container">
+                <div class="wh_logo_and_publication_title">
+                    
+                    <a href="index.html" class=" wh_logo d-none d-sm-block "><img src="oxygen-webhelp\template\resources/images/microchip.png" alt="MPLAB Harmony Smart Energy G3 Applications "/></a>
+                    <div class=" wh_publication_title "><a href="index.html">MPLAB Harmony Smart Energy G3 Applications </a></div>
+                    
+                </div>
+                
+                
+            </div>
 
-   <h1 class="title topictitle1" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-9BC57115-C63E-4502-88D6-67EF735B0059">PHY Sniffer</h1>
-   <div class="body conbody">
-      <p class="p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-00000085">The PLC Sniffer has been developed to monitor data traffic on power line
-         networks. This tool focuses on PRIME (versions 1.3 and 1.4) and G3-PLC standards. It
-         requires a hardware probe device physically connected to the power line to snoop. This
-         hardware device will send the packet sent on the network through a serial link or a TCP/IP
-         connection to a PC host running this software. Hardware probes are passive elements inside
-         the network. Thus, they do not interfere either physically or logically with the
-         network.</p>
-
-      <div class="p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-00000087">The sniffer tool can be used to:<ul class="ul" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__UL_QMB_PJM_SCB">
-            <li class="li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-BF033C3B-EB88-4252-94A6-942409DFD092">Analyze network problems</li>
-
-            <li class="li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-C4C26DE9-B4E1-4DDA-86A6-BB0546212E4F">Gather and report network
-               statistics</li>
-
-            <li class="li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-81894B8A-38C5-4883-8F17-5A5B292D642D">Monitor network usage</li>
-
-            <li class="li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-07A09CE7-8924-4D13-B249-39222682104D">Debug network protocols</li>
-
-            <li class="li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-7AEA80AD-780C-4741-85AD-F76FCE35DD41">Improve network understanding</li>
-
-         </ul>
-</div>
-
-      <div class="fig fignone" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-FIG-00000001"><div class="figcap"><span class="fig--title-label">Figure 1. </span>Sniffer Scheme</div>
+            <div class="wh_top_menu_and_indexterms_link collapse navbar-collapse" id="wh_top_menu_and_indexterms_link">
+                
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</header>
+        
+        
          
-         <img class="image" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-00000096" src="GUID-9D088A0C-568C-481C-9F98-558309A69291-low.png" width="560" height="120" />
-         <div class="p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-00000099">The various messages received from the sniffer hardware are properly
-            processed and displayed in the different existing windows:<ul class="ul" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__UL_O5K_RJM_SCB">
-               <li class="li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-36CFE494-ACD8-4E64-B330-A320CA4A5D2C"><strong class="ph b">Packet view.</strong> This is the
-                  basic presentation. It is made on the main application window and it is always
-                  visible. Each message is decoded and split in its different fields. These fields
-                  are selectively shown in the windows, in a sample per line basis. Color codes are
-                  applied depending on the packet type</li>
-
-               <li class="li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-F9805118-DD90-4C2F-A120-BDBB49A32F96"><strong class="ph b">PDU view.</strong> This window
-                  displays detailed information associated with a certain message, which has been
-                  selected by the user from the message list</li>
-
-               <li class="li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-260FAB49-617B-4DBE-8BB4-B4999162D4B7"><strong class="ph b">Hexadecimal view.</strong> This view
-                  allows inspecting packet data in raw mode. Data is shown in hexadecimal
-                  format</li>
-
-               <li class="li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-A8EEB175-E33C-4578-BAA0-3FC52CF92320"><strong class="ph b">Network structure view.</strong>
-                  This view displays the logical network structure. This information is inferred
-                  analyzing in real time all the packets received from the sniffer. Selecting a
-                  packet in the Packet View will update this view accordingly. It is recommended to
-                  use this feature with a sniffer connected nearby a concentrator. This view is only
-                  available for PRIME standard</li>
-
-            </ul>
+        
+        <div class=" wh_search_input navbar-form wh_topic_page_search search " role="form">
+            
+            
+            
+            <form id="searchForm" method="get" role="search" action="search.html"><div class="d-flex justify-contents-around"><div class="flex-grow-1"></div><div class="position-relative flex-grow-1"><input type="search" placeholder="Search " class="wh_search_textfield" id="textToSearch" name="searchQuery" aria-label="Search query" required="required"/><button type="submit" class="wh_search_button" aria-label="Search"><span class="search_input_text">Search</span></button></div><div class="align-self-center flex-grow-1 ml-2"></div></div></form>
+            
+            <div class="mchp-color-stripe-grid-container">
+  <div class="mchp-main-bar mchp-orange-bar"></div>
+  <div class="mchp-main-bar mchp-blue-bar"></div>
+  <div class="mchp-main-bar mchp-green-bar"></div>
 </div>
+            
+        </div>
+        
+        <div class="container-fluid" id="wh_topic_container">
+            <div class="row">
 
-         <p class="p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-000000A2">On the acquired packets, we can also apply a set of filtering rules, so we can remove unnecessary information in the samples or highlight the desired portions of them. The application of these filters does not affect the sample database, so that we can reverse their action at any time.</p>
-
-         <p class="p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-000000A3">The PLC Sniffer stores all the acquired frames in a SQLite database.
-            Using a SQL database allows performing of complex analysis of the data, even if the
-            database is being updated at the same time. SQL also helps to handle the complexity of
-            large log files.</p>
-
-      </div>
-
-      <p class="p"><strong class="ph b">Disclaimer</strong></p>
-
-      <p class="p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-000000A7">It should be kept in mind that the traffic analysis could include
+                <nav class="wh_tools d-print-none navbar-expand-md" aria-label="Tools">
+                    
+                    <div data-tooltip-position="bottom" class=" wh_breadcrumb "><ol class="d-print-none"><li><span class="home"><a href="index.html"><span>Home</span></a></span></li><li><div class="topicref" data-id="mplab-harmony-3-smart-energy-g3-application-examples"><div class="title"><a href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1</ph>
+MPLAB® Harmony 3 Smart Energy G3 application examples</a></div></div></li><li class="active"><div class="topicref" data-id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E"><div class="title"><a href="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.1</ph>
+PHY Sniffer Tool</a></div></div></li></ol></div>
+                    
+                    
+                    
+                    <div class="wh_right_tools">
+                        <button class="wh_hide_highlight" aria-label="Toggle search highlights" title="Toggle search highlights"></button>
+                        <button class="webhelp_expand_collapse_sections" data-next-state="collapsed" aria-label="Collapse sections" title="Collapse sections"></button>
+                        
+                        
+                        
+                        
+                        <div class=" wh_print_link print d-none d-md-inline-block "><button onClick="window.print()" title="Print this page" aria-label="Print this page"></button></div>
+                        
+                        <button type="button" id="wh_toc_button" class="custom-toggler navbar-toggler collapsed wh_toggle_button navbar-light" aria-expanded="false" aria-label="Toggle publishing table of content" aria-controls="wh_publication_toc">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    
+                </nav>
+            </div>
+            
+            
+            
+            
+            <div class="wh_content_area">
+                <div class="row">
+                    
+                        <nav id="wh_publication_toc" class="col-lg-3 col-md-3 col-sm-12 d-md-block d-none d-print-none" aria-label="Table of Contents Container">
+                            <div id="wh_publication_toc_content">
+		                        
+                            	<div class=" wh_publication_toc " data-tooltip-position="right"><span class="expand-button-action-labels"><span id="button-expand-action" role="button" aria-label="Expand"></span><span id="button-collapse-action" role="button" aria-label="Collapse"></span><span id="button-pending-action" role="button" aria-label="Pending"></span></span><ul role="tree" aria-label="Table of Contents"><li role="treeitem" aria-expanded="true"><div data-tocid="mplab-harmony-3-smart-energy-g3-application-examples-d927e11" class="topicref" data-id="mplab-harmony-3-smart-energy-g3-application-examples" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action mplab-harmony-3-smart-energy-g3-application-examples-d927e11-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html" id="mplab-harmony-3-smart-energy-g3-application-examples-d927e11-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1</ph>
+MPLAB® Harmony 3 Smart Energy G3 application examples</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem" aria-expanded="true" class="active"><div data-tocid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19" class="topicref" data-id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E.html" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.1</ph>
+PHY Sniffer Tool</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem"><div data-tocid="GUID-2D31684A-EB43-4C61-9383-9F02FD8BBFDF-d927e27" class="topicref" data-id="GUID-2D31684A-EB43-4C61-9383-9F02FD8BBFDF" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-2D31684A-EB43-4C61-9383-9F02FD8BBFDF.html" id="GUID-2D31684A-EB43-4C61-9383-9F02FD8BBFDF-d927e27-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.1.1</ph>
+MCC Project Configuration</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-D3C25849-1ADD-4C31-AF54-EB677FA080BC-d927e35" class="topicref" data-id="GUID-D3C25849-1ADD-4C31-AF54-EB677FA080BC" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-D3C25849-1ADD-4C31-AF54-EB677FA080BC-d927e35-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-D3C25849-1ADD-4C31-AF54-EB677FA080BC.html" id="GUID-D3C25849-1ADD-4C31-AF54-EB677FA080BC-d927e35-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.1.2</ph>
+Hardware Configuration</a></div></div></li></ul></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67" class="topicref" data-id="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0.html" id="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.2</ph>
+PHY Tester Tool</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139" class="topicref" data-id="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1.html" id="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.3</ph>
+PLC PHY TX Test Console</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195" class="topicref" data-id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8.html" id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4</ph>
+PHY PLC &amp; Go</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275" class="topicref" data-id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1.html" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5</ph>
+MAC-RT PLC &amp; Go</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355" class="topicref" data-id="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B.html" id="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.6</ph>
+G3 Modem</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403" class="topicref" data-id="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A.html" id="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.7</ph>
+G3 Device UDP/ICMPv6 Responder</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491" class="topicref" data-id="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3.html" id="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8</ph>
+G3 Coordinator UDP Cycles/Responder</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595" class="topicref" data-id="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442.html" id="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.9</ph>
+G3 Coordinator ICMPv6 Cycles</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683" class="topicref" data-id="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44.html" id="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.10</ph>
+Metering Demo G3 Device UDP/ICMPv6 Responder</a></div></div></li></ul></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723" class="topicref backmatter backmatter_parent" data-id="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B.html" id="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723-link">Microchip Information</a></div></div></li></ul></div>
+		                        
+                            </div>
+                        </nav>
+                    
+                    
+                    <div class="col-lg-9 col-md-9 col-sm-12" id="wh_topic_body">
+                        <button id="wh_close_publication_toc_button" class="close-toc-button d-none" aria-label="Toggle publishing table of content" aria-controls="wh_publication_toc" aria-expanded="true">
+                            <span class="close-toc-icon-container">
+                                <span class="close-toc-icon"></span>     
+                            </span>
+                        </button>
+                        
+                        
+                        <div class=" wh_topic_content body "><main role="main"><article role="article" aria-labelledby="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-9BC57115-C63E-4502-88D6-67EF735B0059">
+   <h1 class="- topic/title title topictitle1" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-9BC57115-C63E-4502-88D6-67EF735B0059" style="">1.1 PHY Sniffer Tool</h1>
+   <div class="- topic/body concept/conbody body conbody">
+      <p class="- topic/p p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-00000085" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-00000085">The <a class="- topic/xref xref" href="https://www.microchip.com/en-us/software-library/se_plc_sniffer" target="_blank" rel="external noopener">Microchip Hybrid Sniffer PC Tool</a> has been developed to monitor
+         data traffic on PLC-RF hybrid networks. Installer and user guide can be found in the
+         previous link.</p>
+      <p class="- topic/p p">This tool focuses on PRIME (versions 1.3 and 1.4) and G3-PLC standards. It requires a
+         hardware probe device (flashed with PHY Sniffer Tool embedded application) physically
+         connected to the power line to snoop. This hardware device will send the packet sent on the
+         network through a serial link or a TCP/IP connection to a PC host running this software.
+         Hardware probes are passive elements inside the network. Thus, they do not interfere either
+         physically or logically with the network.</p>
+      <div class="- topic/p p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-00000087" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-00000087">The sniffer tool can be used to:<ul class="- topic/ul ul" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__UL_QMB_PJM_SCB" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__UL_QMB_PJM_SCB">
+            <li class="- topic/li li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-BF033C3B-EB88-4252-94A6-942409DFD092" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-BF033C3B-EB88-4252-94A6-942409DFD092">Analyze network problems</li>
+            <li class="- topic/li li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-C4C26DE9-B4E1-4DDA-86A6-BB0546212E4F" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-C4C26DE9-B4E1-4DDA-86A6-BB0546212E4F">Gather and report network
+               statistics</li>
+            <li class="- topic/li li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-81894B8A-38C5-4883-8F17-5A5B292D642D" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-81894B8A-38C5-4883-8F17-5A5B292D642D">Monitor network usage</li>
+            <li class="- topic/li li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-07A09CE7-8924-4D13-B249-39222682104D" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-07A09CE7-8924-4D13-B249-39222682104D">Debug network protocols</li>
+            <li class="- topic/li li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-7AEA80AD-780C-4741-85AD-F76FCE35DD41" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-7AEA80AD-780C-4741-85AD-F76FCE35DD41">Improve network understanding</li>
+         </ul></div>
+      <figure class="- topic/fig fig fignone" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-FIG-00000001" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-FIG-00000001"><figcaption class="- topic/title title figcap"><span class="figtitleprefix fig--title-label">Figure 1-1. <span id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-00000092" class="fig--title">Sniffer Scheme</span></span></figcaption>
+         
+         <div class=""><img class="- topic/image image" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-00000096" src="GUID-9D088A0C-568C-481C-9F98-558309A69291-high.png" width="560" height="120"/></div>
+      </figure>
+      <p class="- topic/p p">There is a PLC-only application and a PLC-RF hybrid application. The hybrid application can
+         monitor both PLC and RF channels or only one of them. The following table shows the
+         available PHY Sniffer Tool projects:</p>
+      <div class="table-container"><table class="- topic/table table frame-all" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB" data-cols="3"><caption class="- topic/title title tablecap" data-caption-side="top" data-is-repeated="true"><span class="table--title-label"><span class="table--title-label">Table 1-1. </span></span><span class="table--title" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-C64EC2B2-0283-41F7-ACB1-C9852CFACE0E">PHY Sniffer Tool projects</span></caption><colgroup><col style="width:33.33333333333333%"/><col style="width:33.33333333333333%"/><col style="width:33.33333333333333%"/></colgroup><thead class="- topic/thead thead">
+               <tr class="- topic/row">
+                  <th class="- topic/entry entry colsep-1 rowsep-1" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__1">PLC-only / PLC-RF Hybrid</th>
+                  <th class="- topic/entry entry colsep-1 rowsep-1" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__2">Path</th>
+                  <th class="- topic/entry entry colsep-0 rowsep-1" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__3">Boards</th>
+               </tr>
+            </thead><tbody class="- topic/tbody tbody">
+               <tr class="- topic/row">
+                  <td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__1">PLC-only</td>
+                  <td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__2">smartenergy_g3_apps\apps\phy_apps\phy_sniffer_tool\firmware\pic32cx_mtg_ek_pl460.X</td>
+                  <td class="- topic/entry entry colsep-0 rowsep-1" headers="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__3"><a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/EV11K09A" target="_blank" rel="external noopener">PIC32CXMTG-EK</a> + <a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/EV13L63A" target="_blank" rel="external noopener">PL460-EK</a></td>
+               </tr>
+               <tr class="- topic/row">
+                  <td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__1">PLC-only</td>
+                  <td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__2">smartenergy_g3_apps\apps\phy_apps\phy_sniffer_tool\firmware\sam_e70_xult_pl460.X</td>
+                  <td class="- topic/entry entry colsep-0 rowsep-1" headers="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__3"><a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/DM320113" target="_blank" rel="external noopener">SAME70 Xplained Ultra</a> + <a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/EV13L63A" target="_blank" rel="external noopener">PL460-EK</a></td>
+               </tr>
+               <tr class="- topic/row">
+                  <td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__1">PLC-RF Hybrid</td>
+                  <td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__2">smartenergy_g3_apps\apps\phy_apps\phy_sniffer_tool_hybrid\firmware\pic32cx_mtg_ek_pl460_rf215.X</td>
+                  <td class="- topic/entry entry colsep-0 rowsep-1" headers="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__3"><a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/EV11K09A" target="_blank" rel="external noopener">PIC32CXMTG-EK</a> + <a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/EV13L63A" target="_blank" rel="external noopener">PL460-EK</a> + <a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/ATREB215-XPRO-A" target="_blank" rel="external noopener">REB215-XPRO</a></td>
+               </tr>
+               <tr class="- topic/row">
+                  <td class="- topic/entry entry colsep-1 rowsep-0" headers="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__1">PLC-RF Hybrid</td>
+                  <td class="- topic/entry entry colsep-1 rowsep-0" headers="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__2">smartenergy_g3_apps\apps\phy_apps\phy_sniffer_tool_hybrid\firmware\sam_e70_xult_pl460_rf215.X</td>
+                  <td class="- topic/entry entry colsep-0 rowsep-0" headers="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__TABLE_VV3_3BC_SXB__entry__3"><a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/DM320113" target="_blank" rel="external noopener">SAME70 Xplained Ultra</a> + <a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/EV13L63A" target="_blank" rel="external noopener">PL460-EK</a> + <a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/ATREB215-XPRO-A" target="_blank" rel="external noopener">REB215-XPRO</a></td>
+               </tr>
+            </tbody></table></div>
+      <div class="- topic/p p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-00000099" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-00000099">The various messages received from the sniffer hardware are properly
+         processed and displayed in the different existing windows:<ul class="- topic/ul ul" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__UL_O5K_RJM_SCB" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__UL_O5K_RJM_SCB">
+            <li class="- topic/li li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-36CFE494-ACD8-4E64-B330-A320CA4A5D2C" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-36CFE494-ACD8-4E64-B330-A320CA4A5D2C"><strong class="+ topic/ph hi-d/b ph b">Frames view.</strong> This is the basic
+               presentation. It is shown on the main application window and is always visible. Each
+               message is decoded and split in its different fields. These fields are selectively
+               shown in the window, in a sample per line basis. Color codes are applied depending on
+               the packet type.</li>
+            <li class="- topic/li li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-F9805118-DD90-4C2F-A120-BDBB49A32F96" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-F9805118-DD90-4C2F-A120-BDBB49A32F96"><strong class="+ topic/ph hi-d/b ph b">Packet view.</strong> This window
+               displays detailed information associated with a certain message, which has been
+               selected by the user from the message list.</li>
+            <li class="- topic/li li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-260FAB49-617B-4DBE-8BB4-B4999162D4B7" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-260FAB49-617B-4DBE-8BB4-B4999162D4B7"><strong class="+ topic/ph hi-d/b ph b">Hexadecimal view.</strong> This view
+               allows inspecting packet data in raw mode associated with a certain  message, which
+               has been selected by the user from the message list. Data is shown in hexadecimal
+               format.</li>
+            <li class="- topic/li li" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-A8EEB175-E33C-4578-BAA0-3FC52CF92320" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__GUID-A8EEB175-E33C-4578-BAA0-3FC52CF92320"><strong class="+ topic/ph hi-d/b ph b">Network structure view.</strong> This
+               view displays the logical network structure. This information is inferred analyzing
+               in real time all the packets received from the sniffer. Selecting a packet in the
+               Frames View will update this view accordingly. It is recommended to use this feature
+               with a sniffer connected nearby the coordinator (G3-PLC) or base node (PRIME).</li>
+         </ul></div>
+      <p class="- topic/p p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-000000A3" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-000000A3">The sniffer tool stores all the acquired frames in a SQLite database.
+         Using a SQL database allows to perform complex analysis of the data, even if the database
+         is being updated at the same time. SQL also helps to apply a set of filtering rules, so we
+         can remove unnecessary information in the samples or highlight the desired portions of
+         them. The application of these filters does not affect the sample database, so we can
+         reverse their action at any time.</p>
+      <p class="- topic/p p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-000000A7" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-000000A7">It should be kept in mind that the traffic analysis could include
          discrepancies with reality. Traffic seen by the hardware sniffer device may differ from
-         what other devices on the network see due to the nature of the PLC channel. Recording
-         information nearby the concentrator will produce the best results.</p>
-
-      <p class="p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-000000A9">It also should be noted that the database stores the events to build the
+         what other devices on the network see due to the nature of the PLC/RF channel. Recording
+         information nearby the coordinator (G3-PLC) or base node (PRIME) will produce the best
+         results.</p>
+      <p class="- topic/p p" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-000000A9" data-ofbid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__ID-000000A9">It should also be noted that the database stores the events to build the
          logical structure of the network. These events may or may not have a full representation of
          a network depending on when the sniffer has started to collect data and the point where the
          hardware device is connected. Best results are obtained when the sniffer session is started
-         right after the Base Node starts operating in the network.</p>
-
-      <p class="p"><strong class="ph b">PLC Frequency Band Configuration</strong></p>
-
-      <p class="p">The PHY Sniffer application loads by default the configuration to use the default coupling
-         stage of the evaluation kit (CENELEC-A for the ATPL360-EK and FCC + CENELEC-A Multiband for
-         the PL460-EK). If other coupling configuration is required, it can be easily modified in
-         PLC_PHY module of the project graph in MPLAB Code Configurator:</p>
-
-      <div class="fig fignone" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__FIG_JWB_LTK_CTB"><div class="figcap"><span class="fig--title-label">Figure 2. </span>Coupling Configuration in PLC_PHY
-            Module</div>
-         
-         <br /><div class="imagecenter"><img class="image imagecenter" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E__IMAGE_KWB_LTK_CTB" src="GUID-6A63ADFF-73E9-4D62-BAED-4A45D9747189-low.png" /></div><br />
-      </div>
-
+         right after the coordinator (G3-PLC) or base node (PRIME) starts operating in the
+         network.</p>
    </div>
-
-<div class="related-links">
-<ul class="ullinks">
-<li class="link ulchildlink"><strong><a href="GUID-7309C013-31A6-4049-BC95-7429CEB65293.html">Initial Steps</a></strong><br />
-</li>
-<li class="link ulchildlink"><strong><a href="GUID-F7A45B4F-41B2-4AF9-84AA-839C4328E4A8.html">Capture Window</a></strong><br />
-</li>
-<li class="link ulchildlink"><strong><a href="GUID-02A0409B-737D-4B57-BADB-0ECC8AF4714C.html">Log View</a></strong><br />
-</li>
-<li class="link ulchildlink"><strong><a href="GUID-65C1065C-E3CA-40BE-BB5B-0E8E7B074563.html">Import and Export Databases</a></strong><br />
-</li>
-<li class="link ulchildlink"><strong><a href="GUID-E1CA9326-26B7-4E63-85F7-0DB2EEAED286.html">Appendix A. PRIME SQLite Log Database</a></strong><br />
-</li>
-<li class="link ulchildlink"><strong><a href="GUID-B1D36D7B-7A26-4B4E-B5DB-E314EF9CEF9F.html">Appendix B. G3 SQLite Log Database</a></strong><br />
-</li>
-<li class="link ulchildlink"><strong><a href="GUID-373ECDE6-AFFD-44B5-AE97-7CF1A8FCC4AD.html">Appendix C. PRIMEv1.3 Use Case Examples</a></strong><br />
-</li>
-</ul>
-
-<div class="familylinks">
-<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html">MPLAB® Harmony 3 Smart Energy G3 application examples</a></div>
+</article></main></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            
+            
+        </div> 
+        <footer class="navbar navbar-default wh_footer">
+  <div class=" footer-container mx-auto ">
+    <div class="footer">
+  <div class="mchp-wh-footer">
+    <div class="mchp-footer">
+      <div class="mchp-footer-tier1">
+        <div class="spacer"></div>
+        <div class="mchp-footer-container">
+          <div class="mchp-footer-links mchp-social-media-links">
+            <div class="mchp-component-items">
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.facebook.com/pages/Microchip-Technology-Inc/20320981741" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Facebook" src="oxygen-webhelp/template/resources/images/201016-corp-facebook.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.linkedin.com/company/microchip-technology" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip LinkedIn" src="oxygen-webhelp/template/resources/images/201016-corp-linkedin.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://twitter.com/MicrochipTech" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Twitter" src="oxygen-webhelp/template/resources/images/201016-corp-twitter.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.youtube.com/user/MicrochipTechnology" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip YouTube" src="oxygen-webhelp/template/resources/images/201016-corp-youtube.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.instagram.com/microchiptechnologyinc/" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Instagram" src="oxygen-webhelp/template/resources/images/201016-corp-instagram.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.weibo.com/microchiptech" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Weibo" src="oxygen-webhelp/template/resources/images/201016-corp-weibo.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.microchip.com/en-us/about/blog" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Blog" src="oxygen-webhelp/template/resources/images/201016-corp-blog.png"/>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="mchp-footer-links">
+            <div class="mchp-component-items">
+              <div class="mchp-component-item">
+                <div class="link">
+                  <a href="https://www.microchip.com/about-us/contact-us" class="mchp-link__link">Contact</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information" class="mchp-link__link">Legal</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information/privacy-policy" class="mchp-link__link">Privacy Policy</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information/microchip-cookie-statement" class="mchp-link__link">Cookies</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item">
+                <div class="link">
+                  <a href="https://careers.microchip.com/" class="mchp-link__link">Careers</a>
+                  <span class="mchp-link__separator"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mchp-footer-newsletter">
+            <div class="cmp-text">
+              <p>Stay on the leading edge with our blog</p>
+            </div>
+            <div class="mchp-button-wrapper">
+              <a role="button" href="https://www.microchip.com/en-us/about/blog" class="mchp-button mchp-button-regular solid">
+                <span class="mchp-button__span">MicroSolutions</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="graphic">
+          <img src="oxygen-webhelp/template/resources/images/footer-graphic.png"/>
+        </div>
+      </div>
+      <div class="mchp-footer-tier2">
+        <p class="mchp-copyright">© Copyright 1998-2022 Microchip Technology Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="true" src="https://www.googletagmanager.com/gtag/js?id=UA-2724382-19"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];  
+    function gtag(){dataLayer.push(arguments);}  
+    gtag('js', new Date());   
+    gtag('config', 'UA-2724382-19');
+  </script>
+  
+  <script type="text/javascript">_satellite.pageBottom();</script><!-- Adobe Analytics -->
+  
 </div>
-</div></body>
+  </div>
+</footer>
+        
+        <div id="go2top" class="d-print-none">
+            <span class="oxy-icon oxy-icon-up"></span>
+        </div>
+        
+        <div id="modal_img_large" class="modal">
+            <span class="close oxy-icon oxy-icon-remove"></span>
+            <div id="modal_img_container"></div>
+            <div id="caption"></div>
+        </div>
+        
+        
+        
+       
+        </body>
 </html>

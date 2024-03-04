@@ -1,240 +1,195 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
-<meta name="DC.rights.owner" content="(C) Copyright 2022" />
-<meta name="DC.type" content="concept" />
-<meta name="DC.title" content="Reception" />
-<meta name="DC.relation" scheme="URI" content="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F.html" />
-<meta name="DC.format" content="XHTML" />
-<meta name="DC.identifier" content="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5" />
-<meta name="DC.language" content="en-US" />
-<link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
-<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
-<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>Reception</title>
-<meta name="Microsoft.Help.Id" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5" />
-<meta name="Microsoft.Help.TocParent" content="GUID-B127057F-C502-44FE-A992-E011A3AF104D-GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F" />
-<meta name="Microsoft.Help.TocOrder" content="0" />
-<meta name="Microsoft.Help.Locale" content="en-US" />
-<meta name="Microsoft.Help.TopicLocale" content="en-US" />
-<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Smart Energy G3 Applications Reference A 02/2022" />
-<script language="javascript">
-       
-       if (window.parent.location.protocol != 'file:') {
-				document.addEventListener('click', function(e) {
-				    if (e.target) {
-               if (e.target.nodeName == "A" ) {
-                    if (!e.target.target) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                              
-                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
-                      if (origUrl.length === 0) {
-                          origUrl = window.parent.location.href;
-                      }
-                      var href= e.target.getAttribute("href");
-                      var parts = href.split("#");
-          
-                      var url = "";
-                      if (parts.length == 2 ) {
-                        if (!parts[0].length) {
-                            url = window.parent.location.search.replace('?','')
-                        } else {
-                            url = parts[0].replace('.html','');
-                        }
-                      } else {
-                        url = parts[0].replace('.html','');
-                      }
-
-                      if (parts.length == 2) {
-                          url += "#" + parts[1];
-                      }
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us" data-whc_version="24.1">
+    <head><link rel="shortcut icon" href="oxygen-webhelp\template\resources/images/favicon.ico"/><link rel="icon" href="oxygen-webhelp\template\resources/images/favicon.ico"/><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="description" content="When G3 MAC-RT layer receives a PLC message, first it checks the Frame Check Sequence (FCS, CRC), so it is not needed to check it in upper layers. If the FCS is correct, the frame is decoded and ..."/><meta name="copyright" content="(C) Copyright 2024"/><meta name="generator" content="DITA-OT"/><title>1.5.1.3 Reception</title><!--  Generated with Oxygen version 24.1, build number 2022062014.  --><meta name="wh-path2root" content=""/><meta name="wh-toc-id" content="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5-d927e307"/><meta name="wh-source-relpath" content="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5.xml"/><meta name="wh-out-relpath" content="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5.html"/>
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="./oxygen-webhelp/lib/bootstrap/css/bootstrap.min.css"/>
     
-                      window.parent.location.href = origUrl + "?" + url;
+    <link rel="stylesheet" href="./oxygen-webhelp/lib/jquery-ui/jquery-ui.min.css"/>
+    
+    <!-- Template default styles  -->
+    <link rel="stylesheet" type="text/css" href="./oxygen-webhelp/app/topic-page.css?buildId=2022062014"/>
+    
+    
+    <script src="./oxygen-webhelp/lib/jquery/jquery-3.5.1.min.js"></script>
+    
+    <script data-main="./oxygen-webhelp/app/topic-page.js" src="./oxygen-webhelp/lib/requirejs/require.js"></script>
+<link rel="stylesheet" type="text/css" href="oxygen-webhelp/template/microchip.css?buildId=2022062014"/><link rel="stylesheet" type="text/css" href="oxygen-webhelp/template/notes.css?buildId=2022062014"/>
+<script src="mchp-context-help.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async="" type="text/javascript"></script>
+    <script src="https://assets.adobedtm.com/6a72a357eb48/a636c708c7fe/launch-0b0023397020.min.js"></script><!-- Adobe Analytics -->
+</head>
 
-                      return false;
-                    }
-               }
-            }
-				});
-			}
-
-		</script><script language="javascript">
-        function cpy(id, button) {
-        
-            var element = document.getElementById(id);
-            var content = element.getAttribute("content");
-            var textArea = document.createElement("textarea");
-            
-            // Place in the top-left corner of screen regardless of scroll position.
-            textArea.style.position = 'fixed';
-            textArea.style.top = 0;
-            textArea.style.left = 0;
-            
-            // Ensure it has a small width and height. Setting to 1px / 1em
-            // doesn't work as this gives a negative w/h on some browsers.
-            textArea.style.width = '2em';
-            textArea.style.height = '2em';
-            
-            // We don't need padding, reducing the size if it does flash render.
-            textArea.style.padding = 0;
-            
-            // Clean up any borders.
-            textArea.style.border = 'none';
-            textArea.style.outline = 'none';
-            textArea.style.boxShadow = 'none';
-            
-            // Avoid flash of the white box if rendered for any reason.
-            textArea.style.background = 'transparent';
-            
-            
-            textArea.value = content;
-            
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-               var successful = document.execCommand('copy');
-               var msg = successful ? 'successful' : 'unsuccessful';
-               if (!button.classList.contains("copied")){
-                  button.textContent = "Copied";
-                  button.classList.add("copied");
-                  setTimeout(function(){
-                    button.textContent = "Copy";
-                    button.classList.remove("copied");
-                  },1000);
-               }
-            } catch (err) {
-              console.log('Oops, unable to copy');
-            }
-            
-            document.body.removeChild(textArea);
-        }
-      </script><script language="javascript">
-          
-          // Add the MathML namespace to html
-          var html = document.getElementsByTagName("html")[0],
-          head = document.getElementsByTagName("head")[0];
-          
-          var mathJax = document.createElement("script");
-          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
-          head.appendChild(mathJax);
-          
-          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
-          
-          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
-          
-          if (!inIframe()) { 
-          
-          var Default = "index.html?GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5"; 
-          
-          var displaylocation = "value" + window.location.href;
-          
-          var GUIDS = displaylocation.split('GUID');          
-          
-          if (displaylocation.indexOf('#GUID') != -1) {            
-          var First = GUIDS[1].split('.html');  
-          if (GUIDS[3]){First = GUIDS[2].split('.html');}
-          if (GUIDS[4]){First = GUIDS[3].split('.html');}
-          if (GUIDS[5]){First = GUIDS[4].split('.html');}
-          
-          var Second = GUIDS[2].split('#');   
-          if (GUIDS[3]){Second = GUIDS[3].split('#');}
-          if (GUIDS[4]){Second = GUIDS[4].split('#');}
-          if (GUIDS[5]){Second = GUIDS[5].split('#');}
-          
-          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
-          }                    
-          window.top.location = Default;
-          }       
-          
-        </script><style xml:space="">
-        
-          button.copy-code{
-            display:none;
-            padding:0.7em 1.4em;
-            margin:0 0.3em 0.3em 0;
-            border-radius:0.15em;
-            box-sizing: border-box;
-            text-decoration:none;
-            font-family:'Roboto',sans-serif;
-            text-transform:uppercase;
-            font-weight:400;
-            color:#FFFFFF;
-            background-color:#9c9c9c;
-            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
-            text-align:center;
-            position:relative;
-            border: 0;
-            float: right;
-            border-radius: .5em;
-            cursor: pointer;
-          }
-          button.copy-code:active{
-            top:0.1em;
-          }
-          
-          pre:hover button.copy-code{
-            display: inline-block !important;
-          }
-          button.copy-code.copied {
-            cursor: default !important;
-          }
-          
-          
-          @media all and (max-width:30em){
-            button.copy-code{
-              display:block;
-              margin:0.4em auto;
-            }
-          }
+    <body id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5" class="wh_topic_page frmBody">
+        <a href="#wh_topic_body" class="sr-only sr-only-focusable">
+            Jump to main content
+        </a>
         
         
-      </style></head>
-<body id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5">
+        
+        
+        <header class="navbar navbar-default wh_header">
+    <div class="container-fluid">
+        <div class="wh_header_flex_container navbar-nav navbar-expand-md navbar-dark">
+            <div class="wh_logo_and_publication_title_container">
+                <div class="wh_logo_and_publication_title">
+                    
+                    <a href="index.html" class=" wh_logo d-none d-sm-block "><img src="oxygen-webhelp\template\resources/images/microchip.png" alt="MPLAB Harmony Smart Energy G3 Applications "/></a>
+                    <div class=" wh_publication_title "><a href="index.html">MPLAB Harmony Smart Energy G3 Applications </a></div>
+                    
+                </div>
+                
+                
+            </div>
 
-<h1 class="title topictitle1" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-248BAFBC-A803-47F9-9177-D57908AE96BF">Reception</h1>
-<div class="body conbody">
-        <p class="p">In a normal situation, when a PLC message is received, it is processed by the G3_MAC_RT
-			module so that if the Destination PANid is not the Broadcast PANid 0xFFFF) and is
-			different than the PANid configured by the application, the callback function run is the
-				<code class="ph codeph">DRV_G3_MACRT_COMM_STATUS_IND_CALLBACK</code> where the only parameter is a
-			pointer to the MAC frame without the length. It’s not configured on this example.</p>
-
-		<div class="p">Any other frame addressed to the PANid and any of the addresses (short or extended) configured,
-			up to the host application in two steps: <ul class="ul" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__UL_RTL_FVZ_QTB">
-				<li class="li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-B49931D7-214B-4C91-A41D-C219A5105F4B">Reception of parameters: specific
-					to G3-PLC MAC implementation which callback is set to
-						<code class="ph codeph">APP_PLC_RxParamsIndCb()</code> and where the information is stored
-					on a <code class="ph codeph">MAC_RT_RX_PARAMETERS_OBJ</code> structure pointer.</li>
-
-				<li class="li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-FCFE4BF0-D22F-42EF-A1AD-E83A8DFE0789">Reception of standard 802.15.4
-					MAC data frame: handled by callback <code class="ph codeph">APP_PLC_DataIndCb()</code> where
-					the information (a common 802.15.4 MAC data frame) is stored in the buffer
-					pointer <code class="ph codeph">pData</code> with <code class="ph codeph">length</code> length.</li>
-
-			</ul>
+            <div class="wh_top_menu_and_indexterms_link collapse navbar-collapse" id="wh_top_menu_and_indexterms_link">
+                
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</header>
+        
+        
+         
+        
+        <div class=" wh_search_input navbar-form wh_topic_page_search search " role="form">
+            
+            
+            
+            <form id="searchForm" method="get" role="search" action="search.html"><div class="d-flex justify-contents-around"><div class="flex-grow-1"></div><div class="position-relative flex-grow-1"><input type="search" placeholder="Search " class="wh_search_textfield" id="textToSearch" name="searchQuery" aria-label="Search query" required="required"/><button type="submit" class="wh_search_button" aria-label="Search"><span class="search_input_text">Search</span></button></div><div class="align-self-center flex-grow-1 ml-2"></div></div></form>
+            
+            <div class="mchp-color-stripe-grid-container">
+  <div class="mchp-main-bar mchp-orange-bar"></div>
+  <div class="mchp-main-bar mchp-blue-bar"></div>
+  <div class="mchp-main-bar mchp-green-bar"></div>
 </div>
+            
+        </div>
+        
+        <div class="container-fluid" id="wh_topic_container">
+            <div class="row">
 
-		<p class="p">The <code class="ph codeph">APP_PLC_DataIndCb()</code> callback function doesn’t check any FCS, so, all the
-			received frames has been validated previously on the G3_MAC_RT.</p>
-
-		<p class="p">For any frame addressed to the device, the G3_MAC_RT handles the acknowledge if it is requested
-			on the MAC header (<code class="ph codeph">ackRequest</code> bit on the
-				<code class="ph codeph">MAC_RT_FRAME_CONTROL</code> structure) and the reception of duplicated
-			frames.</p>
-
-		<p class="p">On this application the content of the MAC frame as well as the modulation and the LQI is
-			shown on the console.</p>
-
-		<p class="p">The <code class="ph codeph">MAC_RT_RX_PARAMETERS_OBJ</code> structure definition is defined on
-				<tt class="ph tt">drv_g3_macrt_comm.h</tt>:</p>
-
-		<pre class="pre codeblock" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__CODEBLOCK_SNB_VCT_CTB"><button title="Copy Code" class="copy-code" onclick="cpy('d10043e76', this);">Copy</button><code id="d10043e76" content="// *****************************************************************************&#xA;/* G3 MAC RT Reception parameters&#xA;&#xA;   Summary&#xA;    This struct includes information to describe any new received message.&#xA;&#xA;   Remarks:&#xA;    None&#xA;*/&#xA;typedef struct __attribute__((packed, aligned(1))) {&#xA;    /* High Priority */&#xA;    bool highPriority;&#xA;    /* PDU Link Quality */&#xA;    uint8_t pduLinkQuality;&#xA;    /* Phase Differential */&#xA;    uint8_t phaseDifferential;&#xA;    /* Modulation Type */&#xA;    MAC_RT_MOD_TYPE modType;&#xA;    /* Modulation Scheme */&#xA;    MAC_RT_MOD_SCHEME modScheme;&#xA;    /* Tone map */&#xA;    MAC_RT_TONE_MAP toneMap;&#xA;    /* Tone map Response */&#xA;    MAC_RT_TONE_MAP_RSP_DATA toneMapRsp;&#xA;} MAC_RT_RX_PARAMETERS_OBJ;&#xA;">// *****************************************************************************
+                <nav class="wh_tools d-print-none navbar-expand-md" aria-label="Tools">
+                    
+                    <div data-tooltip-position="bottom" class=" wh_breadcrumb "><ol class="d-print-none"><li><span class="home"><a href="index.html"><span>Home</span></a></span></li><li><div class="topicref" data-id="mplab-harmony-3-smart-energy-g3-application-examples"><div class="title"><a href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1</ph>
+MPLAB® Harmony 3 Smart Energy G3 application examples</a></div></div></li><li><div class="topicref" data-id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1"><div class="title"><a href="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5</ph>
+MAC-RT PLC &amp; Go</a></div></div></li><li><div class="topicref" data-id="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F"><div class="title"><a href="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.1</ph>
+Application Example</a></div></div></li><li class="active"><div class="topicref" data-id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5"><div class="title"><a href="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.1.3</ph>
+Reception</a></div></div></li></ol></div>
+                    
+                    
+                    
+                    <div class="wh_right_tools">
+                        <button class="wh_hide_highlight" aria-label="Toggle search highlights" title="Toggle search highlights"></button>
+                        <button class="webhelp_expand_collapse_sections" data-next-state="collapsed" aria-label="Collapse sections" title="Collapse sections"></button>
+                        
+                        
+                        
+                        
+                        <div class=" wh_print_link print d-none d-md-inline-block "><button onClick="window.print()" title="Print this page" aria-label="Print this page"></button></div>
+                        
+                        <button type="button" id="wh_toc_button" class="custom-toggler navbar-toggler collapsed wh_toggle_button navbar-light" aria-expanded="false" aria-label="Toggle publishing table of content" aria-controls="wh_publication_toc">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    
+                </nav>
+            </div>
+            
+            
+            
+            
+            <div class="wh_content_area">
+                <div class="row">
+                    
+                        <nav id="wh_publication_toc" class="col-lg-3 col-md-3 col-sm-12 d-md-block d-none d-print-none" aria-label="Table of Contents Container">
+                            <div id="wh_publication_toc_content">
+		                        
+                            	<div class=" wh_publication_toc " data-tooltip-position="right"><span class="expand-button-action-labels"><span id="button-expand-action" role="button" aria-label="Expand"></span><span id="button-collapse-action" role="button" aria-label="Collapse"></span><span id="button-pending-action" role="button" aria-label="Pending"></span></span><ul role="tree" aria-label="Table of Contents"><li role="treeitem" aria-expanded="true"><div data-tocid="mplab-harmony-3-smart-energy-g3-application-examples-d927e11" class="topicref" data-id="mplab-harmony-3-smart-energy-g3-application-examples" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action mplab-harmony-3-smart-energy-g3-application-examples-d927e11-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-E7088925-2B61-4F0B-A288-229317BC6841.html" id="mplab-harmony-3-smart-energy-g3-application-examples-d927e11-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1</ph>
+MPLAB® Harmony 3 Smart Energy G3 application examples</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19" class="topicref" data-id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E.html" id="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E-d927e19-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.1</ph>
+PHY Sniffer Tool</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67" class="topicref" data-id="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0.html" id="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0-d927e67-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.2</ph>
+PHY Tester Tool</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139" class="topicref" data-id="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1.html" id="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1-d927e139-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.3</ph>
+PLC PHY TX Test Console</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195" class="topicref" data-id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8.html" id="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8-d927e195-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.4</ph>
+PHY PLC &amp; Go</a></div></div></li><li role="treeitem" aria-expanded="true"><div data-tocid="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275" class="topicref" data-id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1.html" id="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1-d927e275-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5</ph>
+MAC-RT PLC &amp; Go</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem" aria-expanded="true"><div data-tocid="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F-d927e283" class="topicref" data-id="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F-d927e283-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F.html" id="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F-d927e283-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.1</ph>
+Application Example</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem"><div data-tocid="GUID-369581E4-E1C7-4395-8F38-B175B9EAD9C1-d927e291" class="topicref" data-id="GUID-369581E4-E1C7-4395-8F38-B175B9EAD9C1" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-369581E4-E1C7-4395-8F38-B175B9EAD9C1.html" id="GUID-369581E4-E1C7-4395-8F38-B175B9EAD9C1-d927e291-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.1.1</ph>
+Initialization</a></div></div></li><li role="treeitem"><div data-tocid="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B-d927e299" class="topicref" data-id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B.html" id="GUID-452914FD-66E7-46B4-99B6-B1C1D15A3E4B-d927e299-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.1.2</ph>
+Transmission</a></div></div></li><li role="treeitem" class="active"><div data-tocid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5-d927e307" class="topicref" data-id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5.html" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5-d927e307-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.1.3</ph>
+Reception</a></div></div></li></ul></li><li role="treeitem"><div data-tocid="GUID-31136C87-3CB1-420B-8A63-5B58ECBED5EC-d927e315" class="topicref" data-id="GUID-31136C87-3CB1-420B-8A63-5B58ECBED5EC" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-31136C87-3CB1-420B-8A63-5B58ECBED5EC.html" id="GUID-31136C87-3CB1-420B-8A63-5B58ECBED5EC-d927e315-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.2</ph>
+MCC Project Configuration</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-5C604792-D6C2-45F8-A0F3-D526B2D69363-d927e323" class="topicref" data-id="GUID-5C604792-D6C2-45F8-A0F3-D526B2D69363" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-5C604792-D6C2-45F8-A0F3-D526B2D69363-d927e323-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-5C604792-D6C2-45F8-A0F3-D526B2D69363.html" id="GUID-5C604792-D6C2-45F8-A0F3-D526B2D69363-d927e323-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.5.3</ph>
+Hardware Configuration</a></div></div></li></ul></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355" class="topicref" data-id="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B.html" id="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B-d927e355-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.6</ph>
+G3 Modem</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403" class="topicref" data-id="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A.html" id="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A-d927e403-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.7</ph>
+G3 Device UDP/ICMPv6 Responder</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491" class="topicref" data-id="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3.html" id="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3-d927e491-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.8</ph>
+G3 Coordinator UDP Cycles/Responder</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595" class="topicref" data-id="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442.html" id="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442-d927e595-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.9</ph>
+G3 Coordinator ICMPv6 Cycles</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683" class="topicref" data-id="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44.html" id="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44-d927e683-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.10</ph>
+Metering Demo G3 Device UDP/ICMPv6 Responder</a></div></div></li></ul></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723" class="topicref backmatter backmatter_parent" data-id="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B.html" id="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d927e723-link">Microchip Information</a></div></div></li></ul></div>
+		                        
+                            </div>
+                        </nav>
+                    
+                    
+                    <div class="col-lg-9 col-md-9 col-sm-12" id="wh_topic_body">
+                        <button id="wh_close_publication_toc_button" class="close-toc-button d-none" aria-label="Toggle publishing table of content" aria-controls="wh_publication_toc" aria-expanded="true">
+                            <span class="close-toc-icon-container">
+                                <span class="close-toc-icon"></span>     
+                            </span>
+                        </button>
+                        
+                        
+                        <div class=" wh_topic_content body "><main role="main"><article role="article" aria-labelledby="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-248BAFBC-A803-47F9-9177-D57908AE96BF">
+<h1 class="- topic/title title topictitle1" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-248BAFBC-A803-47F9-9177-D57908AE96BF" style="">1.5.1.3 Reception</h1>
+<div class="- topic/body concept/conbody body conbody">
+		<div class="- topic/p p">When G3 MAC-RT layer receives a PLC message, first it checks the Frame Check Sequence
+			(FCS, CRC), so it is not needed to check it in upper layers. If the FCS is correct, the
+			frame is decoded and depending on the destination PAN identifier and destination address
+			it is reported to the upper layer:<ul class="- topic/ul ul" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__UL_YC5_LQV_TXB" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__UL_YC5_LQV_TXB">
+				<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-9C96231C-8793-440E-9AA4-F5CA1CD939B7" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-9C96231C-8793-440E-9AA4-F5CA1CD939B7">If the PAN ID is different to the PAN ID configured by the upper layer
+						(<code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_PIB_PAN_ID</code>) and is not the Broadcast PAN ID
+					(0xFFFF), a communication status indication event is reported through
+						<code class="+ topic/ph pr-d/codeph ph codeph">DRV_G3_MACRT_COMM_STATUS_IND_CALLBACK</code>. The only parameter
+					is a pointer to the received MAC header. This callback is not set in this
+					example. For more information about the usage of this event, refer to the G3-PLC
+					specification.</li>
+				<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-7DC4DCE1-429D-45CF-A06A-80DFC1473FC4" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-7DC4DCE1-429D-45CF-A06A-80DFC1473FC4">If the frame type is beacon, it is always processed. Otherwise, if the
+					destination PAN ID is the Broadcast PAN ID or is the same as the PAN ID
+					configured by the upper layer, and the destination address is the Broadcast
+					Address (0xFFFF) or is the same as the address configured by the upper layer
+						(<code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_PIB_SHORT_ADDRESS</code>,
+						<code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_PIB_MANUF_EXTENDED_ADDRESS</code>), the frame is processed
+					and acknowledgment (ACK) is sent if requested in the MAC header
+						(<code class="+ topic/ph pr-d/codeph ph codeph">ackRequest</code> bit on the
+						<code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_FRAME_CONTROL</code> structure). If the frame is processed
+					and it is not duplicated or repetition:<ul class="- topic/ul ul" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__UL_QJH_BTV_TXB" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__UL_QJH_BTV_TXB">
+						<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-53906524-2A13-4861-A3F6-2BAB771AAE0B" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-53906524-2A13-4861-A3F6-2BAB771AAE0B">If  the frame type is MAC command (Beacon Request or Tone Map Response)
+							it is automatically handled by MAC-RT and is not reported to the upper
+								layer.<ul class="- topic/ul ul" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__UL_XJX_DTV_TXB" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__UL_XJX_DTV_TXB">
+								<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-E1D4F7AE-B88C-438A-AB36-5E3FD885D95F" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-E1D4F7AE-B88C-438A-AB36-5E3FD885D95F">Beacon Request: Beacon frame is sent as response.</li>
+								<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-960C3383-9200-4F05-ADD2-D3ADF5F982A6" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-960C3383-9200-4F05-ADD2-D3ADF5F982A6">Tone Map Response: Neighbor table is updated with modulation and
+									Tone Map information for the transmitter node.</li>
+							</ul></li>
+						<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-2D136D39-109A-4DE7-A6D9-C430CAEF5F8C" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-2D136D39-109A-4DE7-A6D9-C430CAEF5F8C">If the frame type is Beacon or Data, it is reported to the upper layer
+							in two steps:<ol class="- topic/ol ol" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__OL_Q2C_PTV_TXB" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__OL_Q2C_PTV_TXB">
+								<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-B49931D7-214B-4C91-A41D-C219A5105F4B" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-B49931D7-214B-4C91-A41D-C219A5105F4B">Reception
+									parameters indication event: Specific to G3-PLC MAC
+									implementation. It is processed in the callback function
+										<code class="+ topic/ph pr-d/codeph ph codeph">APP_PLC_RxParamsIndCallback</code>. This callback
+									receives as parameter a data structure of type
+										<code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_RX_PARAMETERS_OBJ</code>, containing all
+									the available information from the message.</li>
+								<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-FCFE4BF0-D22F-42EF-A1AD-E83A8DFE0789" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-FCFE4BF0-D22F-42EF-A1AD-E83A8DFE0789">Reception data
+									indication event: Reception of standard 802.15.4 MAC data frame,
+									handled by callback <code class="+ topic/ph pr-d/codeph ph codeph">APP_PLC_DataIndCallback</code>
+									where the pointer to received data (<code class="+ topic/ph pr-d/codeph ph codeph">pData</code>) and
+									length in bytes (<code class="+ topic/ph pr-d/codeph ph codeph">length</code>) are given.</li>
+							</ol></li>
+					</ul></li>
+			</ul></div>
+		<p class="- topic/p p"><strong class="+ topic/ph hi-d/b ph b">Structure <code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_RX_PARAMETERS_OBJ</code></strong></p>
+		<div class="- topic/p p">The reception parameters are stored in the data structure
+				<code class="+ topic/ph pr-d/codeph ph codeph">MAC_RT_RX_PARAMETERS_OBJ</code>, defined in
+				<span class="+ topic/ph hi-d/tt ph tt">drv_g3_macrt_comm.h</span>:<pre class="+ topic/pre pr-d/codeblock pre codeblock" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__CODEBLOCK_SNB_VCT_CTB" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__CODEBLOCK_SNB_VCT_CTB"><code>// *****************************************************************************
 /* G3 MAC RT Reception parameters
 
    Summary
@@ -259,165 +214,259 @@ typedef struct __attribute__((packed, aligned(1))) {
     /* Tone map Response */
     MAC_RT_TONE_MAP_RSP_DATA toneMapRsp;
 } MAC_RT_RX_PARAMETERS_OBJ;
-</code></pre>
-		<p class="p">The structure contains all the G3-PLC MAC specific information available about the received
-			message. The fields of the structure are: </p>
+</code></pre>Where:<ul class="- topic/ul ul" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__UL_QLJ_4WV_TXB" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__UL_QLJ_4WV_TXB">
+				<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-4B7FC22B-475B-4D7B-ABC5-588891CE8693" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-4B7FC22B-475B-4D7B-ABC5-588891CE8693"><code class="+ topic/ph pr-d/codeph ph codeph">highPriority</code>: Indicates if the frame was sent with high
+					priority.</li>
+				<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-CBCF66E9-B8BD-4200-953D-E4145EE7E291" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-CBCF66E9-B8BD-4200-953D-E4145EE7E291"><code class="+ topic/ph pr-d/codeph ph codeph">pduLinkQuality</code>: PDU Link Quality (LQI).</li>
+				<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-B12AA5B3-6169-43FA-AB12-6E1583EAA0AF" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-B12AA5B3-6169-43FA-AB12-6E1583EAA0AF"><code class="+ topic/ph pr-d/codeph ph codeph">phaseDifferential</code>: Phase difference with transmitting node in
+					multiples of 60 degrees (values from 0 to 5). Derived from PDC field in PHY
+					header (FCH) and zero-crossing time. Value 6 indicates that zero-crossing time
+					is not available.</li>
+				<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-003609A1-7C9A-4CCA-B2D2-8F4D17AEE58F" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-003609A1-7C9A-4CCA-B2D2-8F4D17AEE58F"><code class="+ topic/ph pr-d/codeph ph codeph">modType</code>: Modulation type of the received frame.<div class="table-container"><table class="- topic/table table nocolor frame-all" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB" data-cols="3"><caption></caption><colgroup><col style="width:28.57142857142857%"/><col style="width:28.57142857142857%"/><col style="width:42.857142857142854%"/></colgroup><thead class="- topic/thead thead">
+								<tr class="- topic/row">
+									<th class="- topic/entry entry align-left colsep-1 rowsep-1 valign-middle" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__1"><code class="+ topic/ph pr-d/codeph ph codeph">modType</code></th>
+									<th class="- topic/entry entry colsep-1 rowsep-1" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__2">Value</th>
+									<th class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__3">Description</th>
+								</tr>
+							</thead><tbody class="- topic/tbody tbody">
+								<tr class="- topic/row">
+									<td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__1">MAC_RT_MOD_ROBUST</td>
+									<td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__2">0</td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__3">BPSK Robust (4 repetitions)
+										Modulation Type</td>
+								</tr>
+								<tr class="- topic/row">
+									<td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__1">MAC_RT_MOD_BPSK</td>
+									<td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__2">1</td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__3">BPSK Modulation Type</td>
+								</tr>
+								<tr class="- topic/row">
+									<td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__1">MAC_RT_MOD_QPSK</td>
+									<td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__2">2</td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__3">QPSK Modulation Type</td>
+								</tr>
+								<tr class="- topic/row">
+									<td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__1">MAC_RT_MOD_8PSK</td>
+									<td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__2">3</td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__3">8PSK Modulation Type</td>
+								</tr>
+								<tr class="- topic/row">
+									<td class="- topic/entry entry colsep-1 rowsep-0" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__1">MAC_RT_MOD_16QAM</td>
+									<td class="- topic/entry entry colsep-1 rowsep-0" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__2">4</td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB__entry__3">16QAM Modulation Type. Not
+										supported.</td>
+								</tr>
+							</tbody></table></div></li>
+				<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-2444C15B-AC49-4A5F-B489-6DE432E1F1BE" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-2444C15B-AC49-4A5F-B489-6DE432E1F1BE"><code class="+ topic/ph pr-d/codeph ph codeph">modScheme</code>: Modulation scheme of the received frame.<div class="table-container"><table class="- topic/table table nocolor frame-all" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB" data-cols="3"><caption></caption><colgroup><col style="width:33.993399339933994%"/><col style="width:33.003300330033%"/><col style="width:33.003300330033%"/></colgroup><thead class="- topic/thead thead">
+								<tr class="- topic/row">
+									<th class="- topic/entry entry align-left colsep-1 rowsep-1 valign-middle" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB__entry__1"><code class="+ topic/ph pr-d/codeph ph codeph">modScheme</code></th>
+									<th class="- topic/entry entry colsep-1 rowsep-1" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB__entry__2">Value</th>
+									<th class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB__entry__3">Description</th>
+								</tr>
+							</thead><tbody class="- topic/tbody tbody">
+								<tr class="- topic/row">
+									<td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB__entry__1">MAC_RT_MOD_SCHEME_DIFFERENTIAL</td>
+									<td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB__entry__2">0</td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-1 valign-middle" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB__entry__3">Differential Modulation
+										Scheme</td>
+								</tr>
+								<tr class="- topic/row">
+									<td class="- topic/entry entry colsep-1 rowsep-0" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB__entry__1">MAC_RT_MOD_SCHEME_COHERENT</td>
+									<td class="- topic/entry entry colsep-1 rowsep-0" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB__entry__2">1</td>
+									<td class="- topic/entry entry align-left colsep-0 rowsep-0 valign-middle" headers="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB__entry__3">Coherent Modulation
+										Scheme</td>
+								</tr>
+							</tbody></table></div></li>
+				<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-3EDDD9B6-DB01-48E9-BD3B-BEB07748C443" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-3EDDD9B6-DB01-48E9-BD3B-BEB07748C443"><code class="+ topic/ph pr-d/codeph ph codeph">toneMap</code>: Tone Map (Dynamic Notching) in received frame. Each
+					bit corresponds to a sub-band of carriers and it indicates if such carriers
+					carry message data (1) or pseudo-random data
+					(0).<pre class="+ topic/pre pr-d/codeblock pre codeblock" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__CODEBLOCK_BMY_NXV_TXB" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__CODEBLOCK_BMY_NXV_TXB"><code>/* Tone Map size for Cenelec(A,B) bandplan */
+#define TONE_MAP_SIZE_CENELEC           1
+/* Tone Map size for FCC bandplan */
+#define TONE_MAP_SIZE_FCC               3
+/* Tone Map size for ARIB bandplan */
+#define TONE_MAP_SIZE_ARIB              3
 
-		
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_YVK_M22_PFB" class="table nocolor" frame="void" border="0" rules="none">
-				<col style="width:" />
-				<col style="width:" />
-				<tbody class="tbody">
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">highPriority</code></span></td>
+#define MAX_PHY_TONE_GROUPS             24
 
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Indicates if the frame was sent in the High Priority</span></td>
+// *****************************************************************************
+/* G3 Tone Map
 
-					</tr>
+   Summary
+    Tone Map definition supported by G3 spec.
 
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">pduLinkQuality</code></span></td>
+   Remarks:
+    None
+*/
+typedef struct {
+    uint8_t toneMap[(MAX_PHY_TONE_GROUPS + 7) / 8];
+} MAC_RT_TONE_MAP;</code></pre></li>
+				<li class="- topic/li li" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-D0F418BB-C546-4F77-8003-9FAD263C11B2" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__GUID-D0F418BB-C546-4F77-8003-9FAD263C11B2"><code class="+ topic/ph pr-d/codeph ph codeph">toneMapRsp</code>: Tone Map Response data. It contains the most
+					optimal modulation and Tone Map for the transmitter node, in terms of data-rate
+					and
+					robustness.<pre class="+ topic/pre pr-d/codeblock pre codeblock" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__CODEBLOCK_A4T_TXV_TXB" data-ofbid="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__CODEBLOCK_A4T_TXV_TXB"><code>// *****************************************************************************
+/* G3 Tone map response data
 
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>PDU Link Quality</span></td>
+   Summary
+    This struct includes modulation type, modulation scheme and Tone Map data
 
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">phaseDifferential</code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Phase Differential</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">modType</code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Modulation Type</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">modScheme</code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Modulation Scheme</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">toneMap</code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Tone Map</span></td>
-
-					</tr>
-
-					<tr class="row">
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span><code class="ph codeph">toneMapRsp</code></span></td>
-
-						<td class="entry nocellnorowborder" style="vertical-align:middle;"><span>Tone Map Response</span></td>
-
-					</tr>
-
-				</tbody>
-
-			</table>
-</div>
-
-		<div class="p">Related symbolic constants affecting <code class="ph codeph">modType</code> parameter:
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_OSN_PV4_3TB" class="table nocolor" frame="border" border="1" rules="all">
-					<col style="width:40%" />
-					<col style="width:60%" />
-					<thead class="thead" style="text-align:left;">
-						<tr class="row">
-							<th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d10043e183"><span>MAC_RT_MOD_TYPE</span></th>
-
-							<th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d10043e186"><span>Description</span></th>
-
-						</tr>
-
-					</thead>
-
-					<tbody class="tbody">
-						<tr class="row">
-							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e183 "><span>MAC_RT_MOD_ROBUST</span></td>
-
-							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e186 "><span>ROBO-4 Modulation</span></td>
-
-						</tr>
-
-						<tr class="row">
-							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e183 "><span>MAC_RT_MOD_BPSK</span></td>
-
-							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e186 "><span>BPSK Modulation</span></td>
-
-						</tr>
-
-						<tr class="row">
-							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e183 "><span>MAC_RT_MOD_QPSK</span></td>
-
-							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e186 "><span>QPSK Modulation</span></td>
-
-						</tr>
-
-						<tr class="row">
-							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e183 "><span>MAC_RT_MOD_8PSK</span></td>
-
-							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e186 "><span>8PSK Modulation</span></td>
-
-						</tr>
-
-						<tr class="row">
-							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e183 "><span>MAC_RT_MOD_16QAM</span></td>
-
-							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e186 "><span>16QAM Modulation</span></td>
-
-						</tr>
-
-					</tbody>
-
-				</table>
-</div>
-</div>
-
-		<div class="p">Related symbolic constants affecting <code class="ph codeph">modScheme</code> parameter:
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="GUID-BA1CD773-8303-4C77-B4C0-23BCD41231C5__TABLE_TGN_DRG_RTB" class="table nocolor" frame="border" border="1" rules="all">
-					<col style="width:50.73891625615763%" />
-					<col style="width:49.26108374384236%" />
-					<thead class="thead" style="text-align:left;">
-						<tr class="row">
-							<th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d10043e258"><span>MAC_RT_MOD_SCHEME</span></th>
-
-							<th class="entry cellrowborder" style="text-align:left;vertical-align:middle;" id="d10043e261"><span>Description</span></th>
-
-						</tr>
-
-					</thead>
-
-					<tbody class="tbody">
-						<tr class="row">
-							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e258 "><span>MAC_RT_MOD_SCHEME_DIFFERENTIAL</span></td>
-
-							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e261 "><span>Differential Modulation</span></td>
-
-						</tr>
-
-						<tr class="row">
-							<td class="entry cellrowborder" style="vertical-align:middle;" headers="d10043e258 "><span>MAC_RT_MOD_SCHEME_COHERENT</span></td>
-
-							<td class="entry cellrowborder" style="text-align:left;vertical-align:middle;" headers="d10043e261 "><span>Coherent Modulation</span></td>
-
-						</tr>
-
-					</tbody>
-
-				</table>
-</div>
-</div>
-
+   Remarks:
+    For more information about Tone Map Response functionality, please refer to
+    G3 Specification
+*/
+typedef struct {
+    /* Modulation type */
+    MAC_RT_MOD_TYPE modType;       
+    /* Modulation scheme */             
+    MAC_RT_MOD_SCHEME modScheme;   
+    /* Tone Map */             
+    MAC_RT_TONE_MAP toneMap;           
+} MAC_RT_TONE_MAP_RSP_DATA;</code></pre></li>
+			</ul></div>
     </div>
-
-<div class="related-links">
-<div class="familylinks">
-<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-6A361F7F-55F2-4965-AED4-AEE549D5550F.html">Application Example</a></div>
+</article></main></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            
+            
+        </div> 
+        <footer class="navbar navbar-default wh_footer">
+  <div class=" footer-container mx-auto ">
+    <div class="footer">
+  <div class="mchp-wh-footer">
+    <div class="mchp-footer">
+      <div class="mchp-footer-tier1">
+        <div class="spacer"></div>
+        <div class="mchp-footer-container">
+          <div class="mchp-footer-links mchp-social-media-links">
+            <div class="mchp-component-items">
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.facebook.com/pages/Microchip-Technology-Inc/20320981741" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Facebook" src="oxygen-webhelp/template/resources/images/201016-corp-facebook.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.linkedin.com/company/microchip-technology" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip LinkedIn" src="oxygen-webhelp/template/resources/images/201016-corp-linkedin.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://twitter.com/MicrochipTech" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Twitter" src="oxygen-webhelp/template/resources/images/201016-corp-twitter.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.youtube.com/user/MicrochipTechnology" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip YouTube" src="oxygen-webhelp/template/resources/images/201016-corp-youtube.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.instagram.com/microchiptechnologyinc/" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Instagram" src="oxygen-webhelp/template/resources/images/201016-corp-instagram.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.weibo.com/microchiptech" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Weibo" src="oxygen-webhelp/template/resources/images/201016-corp-weibo.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.microchip.com/en-us/about/blog" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Blog" src="oxygen-webhelp/template/resources/images/201016-corp-blog.png"/>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="mchp-footer-links">
+            <div class="mchp-component-items">
+              <div class="mchp-component-item">
+                <div class="link">
+                  <a href="https://www.microchip.com/about-us/contact-us" class="mchp-link__link">Contact</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information" class="mchp-link__link">Legal</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information/privacy-policy" class="mchp-link__link">Privacy Policy</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information/microchip-cookie-statement" class="mchp-link__link">Cookies</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item">
+                <div class="link">
+                  <a href="https://careers.microchip.com/" class="mchp-link__link">Careers</a>
+                  <span class="mchp-link__separator"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mchp-footer-newsletter">
+            <div class="cmp-text">
+              <p>Stay on the leading edge with our blog</p>
+            </div>
+            <div class="mchp-button-wrapper">
+              <a role="button" href="https://www.microchip.com/en-us/about/blog" class="mchp-button mchp-button-regular solid">
+                <span class="mchp-button__span">MicroSolutions</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="graphic">
+          <img src="oxygen-webhelp/template/resources/images/footer-graphic.png"/>
+        </div>
+      </div>
+      <div class="mchp-footer-tier2">
+        <p class="mchp-copyright">© Copyright 1998-2022 Microchip Technology Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="true" src="https://www.googletagmanager.com/gtag/js?id=UA-2724382-19"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];  
+    function gtag(){dataLayer.push(arguments);}  
+    gtag('js', new Date());   
+    gtag('config', 'UA-2724382-19');
+  </script>
+  
+  <script type="text/javascript">_satellite.pageBottom();</script><!-- Adobe Analytics -->
+  
 </div>
-</div></body>
+  </div>
+</footer>
+        
+        <div id="go2top" class="d-print-none">
+            <span class="oxy-icon oxy-icon-up"></span>
+        </div>
+        
+        <div id="modal_img_large" class="modal">
+            <span class="close oxy-icon oxy-icon-remove"></span>
+            <div id="modal_img_container"></div>
+            <div id="caption"></div>
+        </div>
+        
+        
+        
+       
+        </body>
 </html>

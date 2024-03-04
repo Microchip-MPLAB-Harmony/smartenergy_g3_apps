@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="197.37917mm"
+   height="82.549995mm"
+   viewBox="0 0 197.37917 82.549995"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="MACrt_plc_and_go_architecture.svg">
+  <defs
+     id="defs2">
+    <clipPath
+       id="clip0">
+      <rect
+         id="rect4485"
+         height="317"
+         width="746"
+         y="185"
+         x="95" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="1040.1429"
+     inkscape:cy="127.42858"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1137"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(292.21339,-99.99881)">
+    <g
+       id="g4598"
+       transform="matrix(0.26458333,0,0,0.26458333,-317.34881,51.050894)"
+       clip-path="url(#clip0)">
+      <rect
+         id="rect4490"
+         height="203"
+         width="338"
+         y="240"
+         x="95"
+         style="fill:#d5d7d8" />
+      <rect
+         id="rect4492"
+         height="109"
+         width="310"
+         y="251"
+         x="109"
+         style="fill:#404041" />
+      <text
+         id="text4496"
+         transform="translate(118.784,302)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">MCU<tspan
+   id="tspan4494"
+   y="19"
+   x="0"
+   font-size="16"
+   style="font-size:16px">host</tspan>
+</text>
+      <rect
+         id="rect4498"
+         height="23"
+         width="208"
+         y="293"
+         x="200"
+         style="fill:#ba9565" />
+      <text
+         id="text4500"
+         transform="translate(240.654,311)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">APP_PLC_Tasks</text>
+      <rect
+         id="rect4502"
+         height="22"
+         width="208"
+         y="326"
+         x="200"
+         style="fill:#a9acae" />
+      <text
+         id="text4504"
+         transform="translate(246.977,343)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">Host controller</text>
+      <rect
+         id="rect4506"
+         height="50"
+         width="310"
+         y="383"
+         x="109"
+         style="fill:#ee1b2e" />
+      <text
+         id="text4510"
+         transform="translate(118.784,404)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">PLC <tspan
+   id="tspan4508"
+   y="19"
+   x="0"
+   font-size="16"
+   style="font-size:16px">modem</tspan>
+</text>
+      <rect
+         id="rect4512"
+         height="33"
+         width="208"
+         y="390"
+         x="200"
+         style="fill:#223655" />
+      <text
+         id="text4516"
+         transform="translate(224.393,413)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">G3 MAC RT <tspan
+   id="tspan4514"
+   y="0"
+   x="92.5"
+   font-size="16"
+   style="font-size:16px">firmware</tspan>
+</text>
+      <rect
+         id="rect4518"
+         height="38"
+         width="338"
+         y="185"
+         x="95"
+         style="fill:#385258" />
+      <text
+         id="text4520"
+         transform="translate(105.058,211)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">PC</text>
+      <rect
+         id="rect4522"
+         height="22"
+         width="208"
+         y="193"
+         x="200"
+         style="fill:#d5d7d8" />
+      <text
+         id="text4524"
+         transform="translate(250.727,210)"
+         font-size="16"
+         font-weight="400"
+         style="font-weight:400;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif">Serial interface</text>
+      <rect
+         id="rect4526"
+         height="32"
+         width="746"
+         y="465"
+         x="95"
+         style="fill:#d5d7d8" />
+      <text
+         id="text4528"
+         transform="translate(447.145,488)"
+         font-size="16"
+         font-weight="400"
+         style="font-weight:400;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif">Mains</text>
+      <path
+         id="path4530"
+         d="m 305.167,222.167 v 32.021 h -1.334 v -32.021 z m -4.667,1.333 4,-8 4,8 z m 8,29.354 -4,8 -4,-8 z"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path4532"
+         d="m 305.167,430.167 v 29.285 h -1.334 v -29.285 z m -4.667,1.333 4,-8 4,8 z m 8,26.618 -4,8 -4,-8 z"
+         inkscape:connector-curvature="0" />
+      <rect
+         id="rect4534"
+         height="22"
+         width="208"
+         y="261"
+         x="200"
+         style="fill:#ba9565" />
+      <text
+         id="text4536"
+         transform="translate(217.07,278)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">APP_CONSOLE_Tasks</text>
+      <path
+         id="path4538"
+         transform="matrix(1,0,0,-1,304.5,390.098)"
+         d="m 0.666683,6.66666 7.2e-5,28.26464 H -0.666578 L -0.66665,6.66667 Z M -3.99998,8.00001 0,0 4.00002,7.99999 Z m 8.00006,25.59799 -3.999975013,8 -4.000014987,-8 z"
+         inkscape:connector-curvature="0" />
+      <text
+         id="text4542"
+         transform="translate(313.494,236)"
+         font-size="13"
+         font-weight="700"
+         style="font-weight:700;font-size:13px;font-family:Calibri, Calibri_MSFontService, sans-serif">UART<tspan
+   id="tspan4540"
+   y="220"
+   x="-0.205017"
+   font-size="13"
+   style="font-size:13px">PLC</tspan>
+</text>
+      <rect
+         id="rect4544"
+         height="203"
+         width="337"
+         y="240"
+         x="504"
+         style="fill:#d5d7d8" />
+      <rect
+         id="rect4546"
+         height="109"
+         width="310"
+         y="251"
+         x="518"
+         style="fill:#404041" />
+      <text
+         id="text4550"
+         transform="translate(527.289,302)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">MCU<tspan
+   id="tspan4548"
+   y="19"
+   x="0"
+   font-size="16"
+   style="font-size:16px">host</tspan>
+</text>
+      <rect
+         id="rect4552"
+         height="23"
+         width="209"
+         y="293"
+         x="608"
+         style="fill:#ba9565" />
+      <text
+         id="text4554"
+         transform="translate(649.159,311)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">APP_PLC_Tasks</text>
+      <rect
+         id="rect4556"
+         height="22"
+         width="209"
+         y="326"
+         x="608"
+         style="fill:#a9acae" />
+      <text
+         id="text4558"
+         transform="translate(655.482,343)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">Host controller</text>
+      <rect
+         id="rect4560"
+         height="50"
+         width="310"
+         y="383"
+         x="518"
+         style="fill:#ee1b2e" />
+      <text
+         id="text4564"
+         transform="translate(527.289,404)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">PLC <tspan
+   id="tspan4562"
+   y="19"
+   x="0"
+   font-size="16"
+   style="font-size:16px">modem</tspan>
+</text>
+      <rect
+         id="rect4566"
+         height="33"
+         width="209"
+         y="390"
+         x="608"
+         style="fill:#223655" />
+      <text
+         id="text4574"
+         transform="translate(632.899,413)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">G3<tspan
+   id="tspan4568"
+   y="0"
+   x="25.8333"
+   font-size="16"
+   style="font-size:16px">MAC</tspan>
+<tspan
+   id="tspan4570"
+   y="0"
+   x="66.666702"
+   font-size="16"
+   style="font-size:16px">R</tspan>
+T<tspan
+   id="tspan4572"
+   y="0"
+   x="92.5"
+   font-size="16"
+   style="font-size:16px">firmware</tspan>
+</text>
+      <rect
+         id="rect4576"
+         height="38"
+         width="337"
+         y="185"
+         x="504"
+         style="fill:#385258" />
+      <text
+         id="text4578"
+         transform="translate(513.563,211)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">PC</text>
+      <rect
+         id="rect4580"
+         height="22"
+         width="209"
+         y="193"
+         x="608"
+         style="fill:#d5d7d8" />
+      <text
+         id="text4582"
+         transform="translate(659.232,210)"
+         font-size="16"
+         font-weight="400"
+         style="font-weight:400;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif">Serial interface</text>
+      <path
+         id="path4584"
+         d="m 713.167,222.167 v 32.021 h -1.334 v -32.021 z m -4.667,1.333 4,-8 4,8 z m 8,29.354 -4,8 -4,-8 z"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path4586"
+         d="m 713.167,430.167 v 29.285 h -1.334 v -29.285 z m -4.667,1.333 4,-8 4,8 z m 8,26.618 -4,8 -4,-8 z"
+         inkscape:connector-curvature="0" />
+      <rect
+         id="rect4588"
+         height="22"
+         width="209"
+         y="261"
+         x="608"
+         style="fill:#ba9565" />
+      <text
+         id="text4590"
+         transform="translate(625.576,278)"
+         font-size="16"
+         font-weight="700"
+         style="font-weight:700;font-size:16px;font-family:Arial, Arial_MSFontService, sans-serif;fill:#ffffff">APP_CONSOLE_Tasks</text>
+      <path
+         id="path4592"
+         transform="matrix(1,0,0,-1,712.5,390.098)"
+         d="m 0.666683,6.66666 7.2e-5,28.26464 H -0.666578 L -0.66665,6.66667 Z M -3.99998,8.00001 0,0 4.00002,7.99999 Z m 8.00006,25.59799 -3.999975013,8 -4.000014987,-8 z"
+         inkscape:connector-curvature="0" />
+      <text
+         id="text4596"
+         transform="translate(721.999,236)"
+         font-size="13"
+         font-weight="700"
+         style="font-weight:700;font-size:13px;font-family:Calibri, Calibri_MSFontService, sans-serif">UART<tspan
+   id="tspan4594"
+   y="220"
+   x="-0.205017"
+   font-size="13"
+   style="font-size:13px">PLC</tspan>
+</text>
+    </g>
+  </g>
+</svg>
