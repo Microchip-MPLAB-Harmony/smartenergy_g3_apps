@@ -15,7 +15,7 @@ This repository contains the MPLAB® Harmony 3 Smart Energy G3-PLC and G3-Hybrid
 
 - [Release Notes](./release_notes.md)
 - [MPLAB® Harmony License](Microchip_SLA001.md)
-- [MPLAB® Harmony 3 Smart Energy Examples Help](https://microchip-mplab-harmony.github.io/smartenergy_g3_apps/)
+- [MPLAB® Harmony 3 Smart Energy Examples Help](https://onlinedocs.microchip.com/g/GUID-B127057F-C502-44FE-A992-E011A3AF104D-en-US-1/index.html?output=oxygen)
 
 
 To clone or download these applications from Github, go to the [main page of this repository](https://github.com/Microchip-MPLAB-Harmony/smartenergy_g3_apps) and then click **Clone** button to clone this repository or download as zip file.
@@ -26,7 +26,7 @@ This content can also be downloaded using content manager by following these [in
 | Folder     | Description                             |
 | ---        | ---                                     |
 | apps       | Contains G3 PHY, MAC-RT and full-stack example applications. |
-| docs       | Contains documentation in html format for offline viewing (to be used only after cloning this repository onto a local machine). Use [github pages](https://microchip-mplab-harmony.github.io/smartenergy_g3_apps/) of this repository for viewing it online. |
+| docs       | Contains documentation in html format for offline viewing (to be used only after cloning this repository onto a local machine). Use [onlinedocs](https://onlinedocs.microchip.com/g/GUID-B127057F-C502-44FE-A992-E011A3AF104D-en-US-1/index.html?output=oxygen) of this repository for viewing it online. |
 
 # Code Examples
 
