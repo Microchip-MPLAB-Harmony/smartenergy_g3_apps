@@ -34,10 +34,11 @@ The following table provides a list of available applications, supported platfor
 | G3 Coordinator UDP | PIC32CX-MTG + PL460-EK + ATREB215-XPRO-A, [SAMD20, WBZ451] + PL460-EK | G3 Full PAN-Coordinator implementation including IPv6 layer, with an application which sends periodic UDP frames to every G3 Node registered to its PAN, and an application implementing a UDP responder as defined for G3 Conformance testing |
 | G3 Device UDP | PIC32CX-MTG + PL460-EK + ATREB215-XPRO-A, [SAMD20, WBZ451] + PL460-EK | G3 PAN-Device implementation including IPv6 layer, with an application implementing a UDP responder as defined for G3 Conformance testing |
 | G3 Modem | PIC32CX-MTG + PL460-EK + ATREB215-XPRO-A, SAMD20 + PL460-EK | G3 Node serialized on top of G3 Adaptation Layer, which can be initialized as G3 PAN-Coordinator or G3 Device, and further controlled via serialization |
+| Metering Demo G3 Device UDP | PIC32CX-MTSH + PL460-EK + ATREB215-XPRO-A | A complete example of the most common functionalities included in an electricity meter running on PIC32CX-MTSH device, including PLC and RF communication capabilities by implementing a complete G3 PAN-Device |
 
 ### Known Issues
 
-- None
+- On example applications using Cryptography, file *\src\third_party\wolfssl\wolfcrypt\src\dh.c* has to be reverted after regeneration, to avoid a warning from compiler which throws a compilation error.
 
 ### Development Tools
 
@@ -56,13 +57,12 @@ In order to regenerate source code for any of the applications, you will also ne
 - Harmony dev\_packs repository, v3.18.1
 - Harmony smartenergy repository, v1.2.0
 - Harmony smartenergy\_g3 repository, v1.0.0
-- Harmony crypto repository, v3.8.1
+- Harmony crypto repository, v4.0.0-E1
 - Harmony net repository, v3.11.0
 - Harmony gfx repository, v3.13.0
 - Harmony wireless\_15\_4\_phy repository, v1.1.0
 - Harmony wireless\_pic32cxbz\_wbz repository, v1.2.0
 - Harmony usb repository, 3.12.0 for demos requiring USB
-- wolfSSL v5.4.0 (https://github.com/Microchip-MPLAB-Harmony/wolfssl/tree/v5.4.0) for demos requiring wolfSSL encryption
 - CMSIS-FreeRTOS v10.5.1 (https://github.com/ARM-software/CMSIS-FreeRTOS/tree/v10.5.1) for demos requiring FreeRTOS support
 
 ## Harmony 3 Smart Energy G3 application examples v1.0.0
