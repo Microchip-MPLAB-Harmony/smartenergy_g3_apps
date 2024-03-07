@@ -39,6 +39,7 @@ The following table provides a list of available applications, supported platfor
 ### Known Issues
 
 - On example applications using Cryptography, file *\src\third_party\wolfssl\wolfcrypt\src\dh.c* has to be reverted after regeneration, to avoid a warning from compiler which throws a compilation error.
+- Case mismatch between #include statements and filenames throw compilation errors on non-Windows environments. They have to be manually fixed by user.
 
 ### Development Tools
 
