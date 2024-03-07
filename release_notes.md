@@ -55,7 +55,6 @@ In order to regenerate source code for any of the applications, you will also ne
 - Harmony core repository, v3.13.2
 - Harmony csp repository, v3.18.2
 - Harmony bsp repository, v3.17.0
-- Harmony dev\_packs repository, v3.18.1
 - Harmony smartenergy repository, v1.2.0
 - Harmony smartenergy\_g3 repository, v1.0.0
 - Harmony crypto repository, v4.0.0-E1
