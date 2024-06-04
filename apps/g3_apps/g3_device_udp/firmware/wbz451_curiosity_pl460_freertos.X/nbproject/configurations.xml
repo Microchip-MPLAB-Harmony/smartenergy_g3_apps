@@ -1096,7 +1096,7 @@
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/driver/pds/pds.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/adaptation/g3_lib_loadng.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/adaptation/g3_lib_adp.a</linkerLibFileItem>
-            <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/driver/lib/lib-ieee802154_phy_pic32cxbz-v1.1.0.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/driver/lib/lib-ieee802154_phy_pic32cxbz-v1.2.0.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_rf/g3_lib_mac_rf.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/wbz451_curiosity_pl460_freertos/stack/g3/mac/mac_plc/g3_lib_mac_plc.a</linkerLibFileItem>
           </linkerLibItems>
