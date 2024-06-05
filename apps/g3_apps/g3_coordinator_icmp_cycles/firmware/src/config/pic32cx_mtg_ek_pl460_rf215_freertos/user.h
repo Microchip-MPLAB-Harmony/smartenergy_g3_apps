@@ -39,6 +39,9 @@ extern "C" {
 
 #define CLEAR_WATCHDOG()              DWDT_WDT0_Clear()
 
+/* Number of supported devices at EAP level */
+#define EAP_SUPPORTED_DEVICES         500U
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

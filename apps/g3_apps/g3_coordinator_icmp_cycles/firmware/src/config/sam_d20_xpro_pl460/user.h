@@ -48,6 +48,9 @@ extern "C" {
 #define NVMCTRL_EEPROM_PAGESIZE            (64U)
 #define NVMCTRL_EEPROM_SIZE                (256U)    
 
+/* Number of supported devices at EAP level */
+#define EAP_SUPPORTED_DEVICES         50U
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

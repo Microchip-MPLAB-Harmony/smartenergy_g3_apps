@@ -42,6 +42,9 @@ extern "C" {
 /* UDP Port number */
 #define APP_UDP_SOCKET                0xF0BF
 
+/* Number of supported devices at EAP level */
+#define EAP_SUPPORTED_DEVICES         500U
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
