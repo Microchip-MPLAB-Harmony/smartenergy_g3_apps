@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Package name="smartenergy_g3_apps">
     <Dependencies>
-        <Dependency name="core" version="v3.13.5"/>
         <Dependency name="smartenergy_g3" version="v1.0.1"/>
         <Dependency name="usb" version="v3.12.0"/>
-        <Dependency name="crypto" version="v4.0.0-E1"/>
-        <Dependency name="net" version="v3.12.0"/>
         <Dependency name="gfx" version="v3.13.0"/>
         <Dependency name="wireless_15_4_phy" version="v1.1.0"/>
         <Dependency name="wireless_pic32cxbz_wbz" version="v1.2.0"/>

@@ -7,19 +7,10 @@ package:
   required: false
 
   dependencies:
-    - name: "core"
-      type: "package"
-      version: "v3.13.5"
     - name: "smartenergy_g3"
       type: "package"
       version: "v1.0.1"
     - name: "usb"
-      type: "package"
-      version: "v3.12.0"
-    - name: "crypto"
-      type: "package"
-      version: "v4.0.0-E1"
-    - name: "net"
       type: "package"
       version: "v3.12.0"
     - name: "gfx"
