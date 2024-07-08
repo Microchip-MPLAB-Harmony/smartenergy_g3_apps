@@ -1,4 +1,4 @@
-<config configName="pic32cx_mtg_ek_pl460_rf215" projectName="g3_device_udp_pic32cx_mtg_ek" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.0">
+<config configName="pic32cx_mtg_ek_pl460_rf215" projectName="g3_device_udp_pic32cx_mtg_ek" configVersion="1.1" device="PIC32CX2051MTG128" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.1">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>

@@ -1,4 +1,4 @@
-<config configName="default" projectName="g3_phy_tester_tool_wbz451_curiosity_pl460" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.0">
+<config configName="default" projectName="g3_phy_tester_tool_wbz451_curiosity_pl460" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.1">
    <usedPackages class="java.util.ArrayList">
       <package packageName="bsp" version="3.16.0" contentType="HARMONY">
          <modules class="java.util.ArrayList"/>

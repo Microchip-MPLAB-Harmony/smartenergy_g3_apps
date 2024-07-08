@@ -1,4 +1,4 @@
-<config configName="wbz451_curiosity_pl460" projectName="mac_rt_plc_and_go_wbz451_curiosity_pl460" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.0">
+<config configName="wbz451_curiosity_pl460" projectName="mac_rt_plc_and_go_wbz451_curiosity_pl460" configVersion="1.1" device="WBZ451" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.1">
    <usedPackages class="java.util.ArrayList">
       <package packageName="bsp" version="unknown" contentType="HARMONY">
          <modules class="java.util.ArrayList"/>
