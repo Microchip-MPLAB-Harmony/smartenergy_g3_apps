@@ -1,19 +1,131 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <keywords publicationid="GUID-B127057F-C502-44FE-A992-E011A3AF104D"
           language="en-US"
-          version="1"
+          version="2"
           documenttitle="MPLAB® Harmony Smart Energy G3 Applications"
           pubtype="Online Reference"
           pubsubtype=""
           pubuserguidesubtype=""
           pubproducthierarchy=""
           devices=""
-          revisiondate="16/02/2022 00:00:00"
-          revisionletter="A"
+          revisiondate="27/05/2024 00:00:00"
+          revisionletter="B"
           isbn=""
           pubid=""
           reachid=""
           description=""
-          lastmodified="04/03/2024 12:18:35"
+          lastmodified="08/07/2024 11:27:05"
           covertitle="MPLAB Harmony Smart Energy G3 Applications"
-          frontcover=""/>
+          frontcover="">
+   <keyworditem topicid="GUID-A2A3C4CF-8C73-4F62-9809-2B710A7783A0"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>PHY Tester Tool</register>
+      <title>PHY Tester Tool</title>
+      <bitfield/>
+      <keyword>SE_PHY_Tester_Tool</keyword>
+   </keyworditem>
+   <keyworditem topicid="GUID-77B23EFD-7164-495F-9C75-4BE5D27443B1"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>PLC PHY TX Test Console</register>
+      <title>PLC PHY TX Test Console</title>
+      <bitfield/>
+      <keyword>SE_PLC_PHY_TX_Test_console</keyword>
+   </keyworditem>
+   <keyworditem topicid="GUID-3F71506A-1159-481C-A1D4-ECC27EAB7A6B"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>G3 Modem</register>
+      <title>G3 Modem</title>
+      <bitfield/>
+      <keyword>SE_G3_Modem</keyword>
+   </keyworditem>
+   <keyworditem topicid="GUID-CE3EF484-E886-4378-90B5-20C2BC7A43D1"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>MAC-RT PLC &amp; Go</register>
+      <title>MAC-RT PLC &amp; Go</title>
+      <bitfield/>
+      <keyword>SE_MAC_RT_PLC_Go</keyword>
+   </keyworditem>
+   <keyworditem topicid="GUID-E87515D0-BD4F-4456-8D21-13BD460238A8"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>PHY PLC &amp; Go</register>
+      <title>PHY PLC &amp; Go</title>
+      <bitfield/>
+      <keyword>SE_PHY_PLC_Go</keyword>
+   </keyworditem>
+   <keyworditem topicid="GUID-BFCA859E-7CCD-47B6-9145-9FACBA1A06C3"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>G3 Coordinator UDP Cycles/Responder</register>
+      <title>G3 Coordinator UDP Cycles/Responder</title>
+      <bitfield/>
+      <keyword>SE_G3_Coordinator_UDP</keyword>
+   </keyworditem>
+   <keyworditem topicid="GUID-F2A5447D-AEF1-4720-B1FA-506CC0819442"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>G3 Coordinator ICMPv6 Cycles</register>
+      <title>G3 Coordinator ICMPv6 Cycles</title>
+      <bitfield/>
+      <keyword>SE_G3_Coordinator_ICMP</keyword>
+   </keyworditem>
+   <keyworditem topicid="GUID-DE964FB2-4D50-4330-8A62-08DDE4711A8E"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>PHY Sniffer Tool</register>
+      <title>PHY Sniffer Tool</title>
+      <bitfield/>
+      <keyword>SE_PHY_Sniffer_Tool</keyword>
+   </keyworditem>
+   <keyworditem topicid="GUID-584FC808-FADD-4FBF-9DED-E84D5271738A"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>G3 Device UDP/ICMPv6 Responder</register>
+      <title>G3 Device UDP/ICMPv6 Responder</title>
+      <bitfield/>
+      <keyword>SE_G3_Device_UDP</keyword>
+   </keyworditem>
+   <keyworditem topicid="GUID-2EF71D08-349B-41D7-8AD9-8395EE243D44"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>Metering Demo G3 Device UDP/ICMPv6
+      Responder</register>
+      <title>Metering Demo G3 Device UDP/ICMPv6 Responder</title>
+      <bitfield/>
+      <keyword>SE_Metering_Demo_G3_Device_UDP</keyword>
+   </keyworditem>
+</keywords>
