@@ -49,8 +49,8 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include "service/pcoup/srv_pcoup.h"
-#include "peripheral/sercom/usart/plib_sercom1_usart.h"
 #include "service/pserial/srv_pserial.h"
+#include "peripheral/sercom/usart/plib_sercom1_usart.h"
 #include "peripheral/evsys/plib_evsys.h"
 #include "peripheral/sercom/spi_master/plib_sercom0_spi_master.h"
 #include "peripheral/clk/plib_clk.h"

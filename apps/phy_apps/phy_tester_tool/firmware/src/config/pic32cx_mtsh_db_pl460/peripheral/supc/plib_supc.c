@@ -155,8 +155,8 @@ void SUPC_WaitModeEnter(WAITMODE_FLASH_STATE flash_lpm, WAITMODE_WKUP_SOURCE sou
     PMC_REGS->PMC_FSMR = ((uint32_t) flash_lpm | (uint32_t) source);
 
     /* Set Flash Wait State at 0 */
-    SEFC0_REGS->SEFC_EEFC_FMR = SEFC_EEFC_FMR_FWS(0) | SEFC_EEFC_FMR_CLOE_Msk;
-    SEFC1_REGS->SEFC_EEFC_FMR = SEFC_EEFC_FMR_FWS(0) | SEFC_EEFC_FMR_CLOE_Msk;
+    SEFC0_REGS->SEFC_EEFC_FMR = SEFC_EEFC_FMR_FWS(0) | SEFC_EEFC_FMR_CLOE_Msk | SEFC_EEFC_FMR_ALWAYS1_Msk;
+    SEFC1_REGS->SEFC_EEFC_FMR = SEFC_EEFC_FMR_FWS(0) | SEFC_EEFC_FMR_CLOE_Msk | SEFC_EEFC_FMR_ALWAYS1_Msk;
 
     /* Set the WAITMODE bit */
     PMC_REGS->CKGR_MOR |= (CKGR_MOR_KEY_PASSWD | CKGR_MOR_WAITMODE_Msk);
@@ -199,7 +199,7 @@ void SUPC_BackupModeEnter(void)
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 
     /* Switch off voltage regulator */
-    SUPC_REGS->SUPC_CR |= SUPC_CR_KEY_PASSWD | SUPC_CR_VROFF_Msk;
+    SUPC_REGS->SUPC_CR = SUPC_CR_KEY_PASSWD | SUPC_CR_VROFF_Msk;
 
     /* Enable CPU Interrupt */
     __DMB();
