@@ -524,8 +524,8 @@ void SYS_Initialize ( void* data )
 	BSP_Initialize();
     SERCOM3_USART_Initialize();
 
-    SERCOM0_SPI_Initialize();
 
+    SERCOM0_SPI_Initialize();
 
     EIC_Initialize();
 

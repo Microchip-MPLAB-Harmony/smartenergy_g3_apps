@@ -4,7 +4,7 @@
 
 
 project: g3_coordinator_icmp_cycles
-creation_date: 2024-07-09T15:21:33.978+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2024-07-09T15:20:37.896+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: Headless            # [IDE|Standalone|Headless]
 mcc_version: v5.5.1
@@ -23,7 +23,8 @@ modules:
     - {name: "smartenergy", version: "v1.2.1"}
     - {name: "bsp", version: "v3.20.1"}
     - {name: "crypto", version: "v4.0.0-E1"}
+    - {name: "CMSIS-FreeRTOS", version: "v10.5.1"}
 
 packs:
-    - {name: "SAMD20_DFP", version: "3.6.112"}
+    - {name: "PIC32CX-MT_DFP", version: "1.3.132"}
 
