@@ -141,7 +141,7 @@ extern "C" {
 
 /* PAL RF RTOS Configuration */
 #define PAL_RF_RTOS_STACK_SIZE                256U
-#define PAL_RF_RTOS_TASK_PRIORITY             5
+#define PAL_RF_RTOS_TASK_PRIORITY             2
 
 
 /*** Crypto Library Configuration ***/
