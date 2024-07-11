@@ -195,6 +195,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
 /* Function:
     void SRV_RSNIFFER_SetTxMessage (
         DRV_RF215_TX_REQUEST_OBJ* pReqObj,
+        DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
         DRV_RF215_TX_HANDLE txHandle
     )
 
@@ -212,6 +213,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
 
   Parameters:
     pReqObj  - Pointer to the RF TX request object
+    pPhyCfgObj - Pointer to RF PHY configuration object
     txHandle - TX handle returned from DRV_RF215_TxRequest
 
   Returns:
@@ -220,6 +222,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
   Example:
     <code>
     DRV_HANDLE drvRf215Handle;
+    DRV_RF215_PHY_CFG_OBJ rfPhyConfig;
     DRV_RF215_TX_REQUEST_OBJ txReqObj;
     DRV_RF215_TX_RESULT txReqResult;
     DRV_RF215_TX_HANDLE txReqHandle;
@@ -237,7 +240,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
     txReqHandle = DRV_RF215_TxRequest(drvRf215Handle, &txReqObj, &txReqResult);
     if (txReqHandle != DRV_RF215_TX_HANDLE_INVALID)
     {
-        SRV_RSNIFFER_SetTxMessage(&txReqObj, txReqHandle);
+        SRV_RSNIFFER_SetTxMessage(&txReqObj, &rfPhyConfig, txReqHandle);
     }
     </code>
 
@@ -247,6 +250,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
 
 void SRV_RSNIFFER_SetTxMessage (
     DRV_RF215_TX_REQUEST_OBJ* pReqObj,
+    DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
     DRV_RF215_TX_HANDLE txHandle
 );
 

@@ -236,6 +236,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
 
 void SRV_RSNIFFER_SetTxMessage (
     DRV_RF215_TX_REQUEST_OBJ* pReqObj,
+    DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
     DRV_RF215_TX_HANDLE txHandle
 )
 {
@@ -254,6 +255,7 @@ void SRV_RSNIFFER_SetTxMessage (
     pMsgDest = srvRsnifferTxMsg[txBufIndex];
 
     /* Modulation scheme */
+    (void)pPhyCfgObj;
     pMsgDest[3] = (uint8_t) pReqObj->modScheme + RSNIFFER_MODSCHEME_RF_FSK_FECOFF;
 
     /* RSSI */
