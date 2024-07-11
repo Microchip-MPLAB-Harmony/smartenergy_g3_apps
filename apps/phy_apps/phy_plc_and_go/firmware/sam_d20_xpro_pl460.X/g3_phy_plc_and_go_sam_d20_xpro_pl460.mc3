@@ -21328,7 +21328,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\definitions.h</file>
-         <hash>663fa3705e7ee0e01aaedcd8da249ce28c8c514895c6da856e59afe9bdb36b58</hash>
+         <hash>595ab11ef0c681e53d74266480293b758977774c5c7d043c83281cb767b3b765</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\device.h</file>
@@ -21412,7 +21412,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\initialization.c</file>
-         <hash>8d167313c84bfb9363fb830af2ba060d0e577e22f5014b39e0f14ab740121cba</hash>
+         <hash>27ad5059b3f2189e6679e5255a094768056edd9fc30b78e1e6a5f40e8bef4d21</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\interrupts.c</file>
@@ -21476,11 +21476,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\nvic\plib_nvic.c</file>
-         <hash>5f05d6cc04388d4d4466da7345b4991abd6878334bdec29e4a2a2d21550bb008</hash>
+         <hash>d4d1f82e71a77d459877f8a27661ab142bca2ae83a243185cf6d6c2a57d8f39d</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\nvic\plib_nvic.h</file>
-         <hash>81e813a093101d546799e00723cbf7245e2d18471fa51c8d130c5809cecca03e</hash>
+         <hash>9936ac782115af41003255283fa2f603f4ff2212d16275b7c80ea8d067a9e208</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\nvmctrl\plib_nvmctrl.c</file>
@@ -21592,7 +21592,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\system\debug\sys_debug.h</file>
-         <hash>9ee0362649aa389b355ecff1ce0e64d124f8f83eda7e40a0c5195ee099c1a0ff</hash>
+         <hash>4162d9e1fab93b8b33f6c8a24726f5dc287ea05c31e3ab984c3c920c725d0882</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\system\int\src\sys_int.c</file>
@@ -21896,7 +21896,7 @@
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_version.h</file>
-         <hash>8cda7ac3ff6f0eb5e83c4fe613dd195151b24da54167f5c3c007e599a03f1edc</hash>
+         <hash>2de01ae2556a38eb82c389de23c701805ec63308cfbcf3f84cb12141589b0858</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\core_cm0plus.h</file>

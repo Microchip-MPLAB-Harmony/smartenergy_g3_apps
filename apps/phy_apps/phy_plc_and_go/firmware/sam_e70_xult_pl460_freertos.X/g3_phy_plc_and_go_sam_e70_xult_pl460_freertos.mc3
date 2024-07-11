@@ -7152,11 +7152,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\configuration.h</file>
-         <hash>c7e9cfb316d156081bb06b4aa6d892f8c06381528699cd7aede7a3cc7c9d6041</hash>
+         <hash>62b4e6ae8198b13c4faa38f3bfc76ec0419ba097566fb49734ee08033a68601b</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\definitions.h</file>
-         <hash>218b2339d3441e280287bec554671ee4ec9515dab2407c0f8bf350f3b33d342a</hash>
+         <hash>de4ba286286d2f1b2d88f24d23ea484179c5f22279a576b2217504374b8b4e16</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\device.h</file>
@@ -7332,11 +7332,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\peripheral\nvic\plib_nvic.c</file>
-         <hash>ff117241f59b0b843fbb9ed9d3b417abf0f2a63b74a43f307da3f4521fd71b23</hash>
+         <hash>1dd42d163f4dcd40a03d22287c54ee131911f459cfb1b3a19ce283715dc7f081</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\peripheral\nvic\plib_nvic.h</file>
-         <hash>81e813a093101d546799e00723cbf7245e2d18471fa51c8d130c5809cecca03e</hash>
+         <hash>9936ac782115af41003255283fa2f603f4ff2212d16275b7c80ea8d067a9e208</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\peripheral\pio\plib_pio.c</file>
@@ -7456,7 +7456,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\system\debug\sys_debug.h</file>
-         <hash>9ee0362649aa389b355ecff1ce0e64d124f8f83eda7e40a0c5195ee099c1a0ff</hash>
+         <hash>4162d9e1fab93b8b33f6c8a24726f5dc287ea05c31e3ab984c3c920c725d0882</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\system\dma\sys_dma.c</file>
@@ -8012,7 +8012,7 @@
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_version.h</file>
-         <hash>8cda7ac3ff6f0eb5e83c4fe613dd195151b24da54167f5c3c007e599a03f1edc</hash>
+         <hash>2de01ae2556a38eb82c389de23c701805ec63308cfbcf3f84cb12141589b0858</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\core_cm7.h</file>

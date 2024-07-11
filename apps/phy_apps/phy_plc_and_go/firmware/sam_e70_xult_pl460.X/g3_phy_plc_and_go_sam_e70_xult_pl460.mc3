@@ -6090,11 +6090,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\configuration.h</file>
-         <hash>f291eb8bb1f00ff82e0cf3feee763b958a8b4fcebb8c3291e9247804add72e71</hash>
+         <hash>fe906d988919e790dfb3b4e4cef718e816d9de0aa2304df826aac4e641bc6e38</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\definitions.h</file>
-         <hash>d910e0baf8e8f3425a78589004954b2b071b2a10b08360b3cdf5bc2f47bc2b56</hash>
+         <hash>8a66d948aa97feb49c03ea577c31ff611ba0f4a2da9d8335ccca446d6202292e</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\device.h</file>
@@ -6262,11 +6262,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\nvic\plib_nvic.c</file>
-         <hash>6a0aedef076b571a279ac85b042162c1258146209515efe1f91ccae7dbd00533</hash>
+         <hash>2c57e889e2fd280614dab1327ee4714db6a05ad899079278b88d8dd67b676d59</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\nvic\plib_nvic.h</file>
-         <hash>81e813a093101d546799e00723cbf7245e2d18471fa51c8d130c5809cecca03e</hash>
+         <hash>9936ac782115af41003255283fa2f603f4ff2212d16275b7c80ea8d067a9e208</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\pio\plib_pio.c</file>
@@ -6386,7 +6386,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\debug\sys_debug.h</file>
-         <hash>9ee0362649aa389b355ecff1ce0e64d124f8f83eda7e40a0c5195ee099c1a0ff</hash>
+         <hash>4162d9e1fab93b8b33f6c8a24726f5dc287ea05c31e3ab984c3c920c725d0882</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\system\dma\sys_dma.c</file>
@@ -6942,7 +6942,7 @@
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_version.h</file>
-         <hash>8cda7ac3ff6f0eb5e83c4fe613dd195151b24da54167f5c3c007e599a03f1edc</hash>
+         <hash>2de01ae2556a38eb82c389de23c701805ec63308cfbcf3f84cb12141589b0858</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\core_cm7.h</file>
