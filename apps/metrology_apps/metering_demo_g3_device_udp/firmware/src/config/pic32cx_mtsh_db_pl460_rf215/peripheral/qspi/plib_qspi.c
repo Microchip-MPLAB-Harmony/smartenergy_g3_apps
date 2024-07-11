@@ -592,7 +592,7 @@ QSPI_MemoryRead(
         {
             qspi_memcpy_8bit( pRxBuffer, qspi_mem, numSrcPostWordBytes );
         }
-        
+
         if((numWordTransferBytes + numSrcPostWordBytes) > 0U)
         {
             // Shift the data to right to its final destination buffer location
