@@ -718,6 +718,12 @@
       <itemPath>../src/app_udp_metrology.h</itemPath>
       <itemPath>../src/app_tcpip_management.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>metering_demo_g3_device_udp_freertos_pic32cx_mtsh_db.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -1141,12 +1147,6 @@
       <itemPath>../src/app_udp_responder.c</itemPath>
       <itemPath>../src/app_udp_metrology.c</itemPath>
       <itemPath>../src/app_tcpip_management.c</itemPath>
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>metering_demo_g3_device_udp_freertos_pic32cx_mtsh_db.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
