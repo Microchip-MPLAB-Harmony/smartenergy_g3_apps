@@ -354,7 +354,7 @@ typedef struct
     bool diskFormatRequired;
 
     /* Path File Name Buffer used in clear data routine */
-    char filePath[32];
+    char filePath[257];
 
     /* SYS FS File status structure used in clear data routine */
     SYS_FS_FSTAT stat;

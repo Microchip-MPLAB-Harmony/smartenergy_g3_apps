@@ -307,7 +307,7 @@ static void APP_DISPLAY_Process(void)
     uint64_t total;
     uint64_t upd_symbols = 1;
     uint32_t rmsValue;
-    uint8_t buff1[9];
+    uint8_t buff1[12];
     uint8_t idx;
     struct tm current_time;
     APP_ENERGY_ACCUMULATORS EnergyAcc;
