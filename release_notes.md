@@ -72,12 +72,13 @@ To achieve the functionality required for Certification, some changes have to be
 In order to regenerate source code for any of the applications, you will also need to use the following versions of the dependent modules (see smartenergy_g3_apps/package.yml):
 
 - Harmony smartenergy repository, v1.2.1
-  - Harmony core repository, v3.13.5
-  - Harmony csp repository, v3.19.1
   - Harmony gfx repository, v3.13.0
 - Harmony smartenergy\_g3 repository, v1.0.1
   - Harmony crypto repository, v4.0.0-E1
   - Harmony net repository, v3.12.0
+- Harmony core repository, v3.13.5
+- Harmony csp repository, v3.19.1
+- Harmony wolfssl repository, v5.6.7-E1
 - Harmony wireless\_15\_4\_phy repository, v1.2.0
 - Harmony wireless\_pic32cxbz\_wbz repository, v1.2.0
 - Harmony usb repository, 3.12.0 for demos requiring USB
