@@ -57,24 +57,24 @@
 #include "peripheral/cmcc/plib_cmcc.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/supc/plib_supc.h"
-#include "bsp/bsp.h"
-#include "peripheral/adc/plib_adc.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom3_spi_master.h"
+#include "peripheral/adc/plib_adc.h"
 #include "driver/rf215/drv_rf215.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h"
 #include "peripheral/tc/plib_tc0.h"
 #include "service/usi/srv_usi.h"
 #include "service/usi/srv_usi_usart.h"
-#include "service/pcrc/srv_pcrc.h"
 #include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
+#include "service/pcrc/srv_pcrc.h"
 #include "peripheral/sefc/plib_sefc0.h"
+#include "system/time/sys_time.h"
 #include "peripheral/sefc/plib_sefc1.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
-#include "system/time/sys_time.h"
 #include "service/rserial/srv_rserial.h"
 #include "service/pvddmon/srv_pvddmon.h"
+#include "bsp/bsp.h"
 #include "system/int/sys_int.h"
 #include "system/ports/sys_ports.h"
 #include "system/cache/sys_cache.h"
@@ -94,13 +94,13 @@ extern "C" {
 // DOM-IGNORE-END
 
 /* Device Information */
-#define DEVICE_NAME			 "PIC32CX2051MTG128"
-#define DEVICE_ARCH			 "CORTEX-M4"
-#define DEVICE_FAMILY		 "PIC32CX_MT"
-#define DEVICE_SERIES		 "PIC32CXMTG"
+#define DEVICE_NAME          "PIC32CX2051MTG128"
+#define DEVICE_ARCH          "CORTEX-M4"
+#define DEVICE_FAMILY        "PIC32CX_MT"
+#define DEVICE_SERIES        "PIC32CXMTG"
 
 /* CPU clock frequency */
-#define CPU_CLOCK_FREQUENCY 200000000
+#define CPU_CLOCK_FREQUENCY 200000000U
 
 // *****************************************************************************
 // *****************************************************************************
@@ -213,9 +213,9 @@ Remarks:
 typedef struct
 {
     SYS_MODULE_OBJ drvRf215;
+    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ drvPlcPhy;
-    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ srvUSI0;
 

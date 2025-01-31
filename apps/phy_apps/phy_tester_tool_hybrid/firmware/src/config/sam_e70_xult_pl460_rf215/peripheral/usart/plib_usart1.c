@@ -48,167 +48,21 @@
 // *****************************************************************************
 // *****************************************************************************
 
-static void USART1_ErrorClear( void )
-{
-    uint32_t dummyData = 0U;
+#define USART1_READ_BUFFER_SIZE      128U
+#define USART1_READ_BUFFER_SIZE_9BIT        (128U >> 1)
+/* Disable Read, Overrun, Parity and Framing error interrupts */
+#define USART1_RX_INT_DISABLE()      USART1_REGS->US_IDR = (US_IDR_USART_RXRDY_Msk | US_IDR_USART_FRAME_Msk | US_IDR_USART_PARE_Msk | US_IDR_USART_OVRE_Msk);
+/* Enable Read, Overrun, Parity and Framing error interrupts */
+#define USART1_RX_INT_ENABLE()       USART1_REGS->US_IER = (US_IER_USART_RXRDY_Msk | US_IER_USART_FRAME_Msk | US_IER_USART_PARE_Msk | US_IER_USART_OVRE_Msk);
 
-   if ((USART1_REGS->US_CSR & (US_CSR_USART_OVRE_Msk | US_CSR_USART_PARE_Msk | US_CSR_USART_FRAME_Msk)) != 0U)
-   {
-        /* Clear the error flags */
-        USART1_REGS->US_CR = US_CR_USART_RSTSTA_Msk;
+#define USART1_WRITE_BUFFER_SIZE     128U
+#define USART1_WRITE_BUFFER_SIZE_9BIT       (128U >> 1)
+#define USART1_TX_INT_DISABLE()      USART1_REGS->US_IDR = US_IDR_USART_TXRDY_Msk;
+#define USART1_TX_INT_ENABLE()       USART1_REGS->US_IER = US_IER_USART_TXRDY_Msk;
 
-        /* Flush existing error bytes from the RX FIFO */
-        while ((USART1_REGS->US_CSR & US_CSR_USART_RXRDY_Msk) != 0U)
-        {
-            dummyData = USART1_REGS->US_RHR & US_RHR_RXCHR_Msk;
-        }
-   }
-
-    /* Ignore the warning */
-    (void)dummyData;
-}
-
-
-volatile static USART_OBJECT usart1Obj;
-
-static void __attribute__((used)) USART1_ISR_RX_Handler( void )
-{
-    uint32_t rxData = 0U;
-    uint8_t* pu8Data = (uint8_t *)usart1Obj.rxBuffer;
-    uint16_t* pu16Data = (uint16_t*)usart1Obj.rxBuffer;
-
-    if(usart1Obj.rxBusyStatus == true)
-    {
-        size_t rxSize = usart1Obj.rxSize;
-        size_t rxProcessedSize = usart1Obj.rxProcessedSize;
-
-        while(((USART1_REGS->US_CSR & US_CSR_USART_RXRDY_Msk) != 0U) && (rxSize > rxProcessedSize))
-        {
-            rxData = (USART1_REGS->US_RHR & US_RHR_RXCHR_Msk);
-            if ((USART1_REGS->US_MR & US_MR_USART_MODE9_Msk) != 0U)
-            {
-                pu16Data[rxProcessedSize] = (uint16_t)rxData;
-                rxProcessedSize++;
-            }
-            else
-            {
-                pu8Data[rxProcessedSize] = (uint8_t)rxData;
-                rxProcessedSize++;
-            }
-        }
-
-        usart1Obj.rxProcessedSize = rxProcessedSize;
-
-        /* Check if the buffer is done */
-        if(usart1Obj.rxProcessedSize >= rxSize)
-        {
-            usart1Obj.rxBusyStatus = false;
-
-            /* Disable Read, Overrun, Parity and Framing error interrupts */
-            USART1_REGS->US_IDR = (US_IDR_USART_RXRDY_Msk | US_IDR_USART_FRAME_Msk | US_IDR_USART_PARE_Msk | US_IDR_USART_OVRE_Msk);
-
-            if(usart1Obj.rxCallback != NULL)
-            {
-                uintptr_t rxContext = usart1Obj.rxContext;
-
-                usart1Obj.rxCallback(rxContext);
-            }
-        }
-    }
-    else
-    {
-        /* Nothing to process */
-    }
-}
-
-static void __attribute__((used)) USART1_ISR_TX_Handler( void )
-{
-    uint32_t txData = 0U;
-    uint8_t* pu8Data = (uint8_t *)usart1Obj.txBuffer;
-    uint16_t* pu16Data = (uint16_t*)usart1Obj.txBuffer;
-
-    if(usart1Obj.txBusyStatus == true)
-    {
-        size_t txSize = usart1Obj.txSize;
-        size_t txProcessedSize = usart1Obj.txProcessedSize;
-
-        while(((USART1_REGS->US_CSR & US_CSR_USART_TXRDY_Msk) != 0U) && (txSize > txProcessedSize))
-        {
-            if ((USART1_REGS->US_MR & US_MR_USART_MODE9_Msk) != 0U)
-            {
-                txData = pu16Data[txProcessedSize];
-            }
-            else
-            {
-                txData = pu8Data[txProcessedSize];
-            }
-            USART1_REGS->US_THR = txData & US_THR_TXCHR_Msk;
-            txProcessedSize++;
-        }
-
-        usart1Obj.txProcessedSize = txProcessedSize;
-
-        /* Check if the buffer is done */
-        if(usart1Obj.txProcessedSize >= txSize)
-        {
-            usart1Obj.txBusyStatus = false;
-
-            USART1_REGS->US_IDR = US_IDR_USART_TXRDY_Msk;
-
-            if(usart1Obj.txCallback != NULL)
-            {
-                uintptr_t txContext = usart1Obj.txContext;
-
-                usart1Obj.txCallback(txContext);
-            }
-        }
-    }
-    else
-    {
-        /* Nothing to process */
-    }
-}
-
-void __attribute__((used)) USART1_InterruptHandler( void )
-{
-    /* Error status */
-    uint32_t errorStatus = (USART1_REGS->US_CSR & (US_CSR_USART_OVRE_Msk | US_CSR_USART_FRAME_Msk | US_CSR_USART_PARE_Msk));
-
-    if(errorStatus != 0U)
-    {
-        /* Save the error to be reported later */
-        usart1Obj.errorStatus = (USART_ERROR)errorStatus;
-
-        /* Clear error flags and flush the error data */
-        USART1_ErrorClear();
-
-        /* Disable Read, Overrun, Parity and Framing error interrupts */
-        USART1_REGS->US_IDR = (US_IDR_USART_RXRDY_Msk | US_IDR_USART_FRAME_Msk | US_IDR_USART_PARE_Msk | US_IDR_USART_OVRE_Msk);
-
-        usart1Obj.rxBusyStatus = false;
-
-        /* USART errors are normally associated with the receiver, hence calling
-         * receiver callback */
-        if( usart1Obj.rxCallback != NULL )
-        {
-            uintptr_t rxContext = usart1Obj.rxContext;
-
-            usart1Obj.rxCallback(rxContext);
-        }
-    }
-
-    /* Receiver status */
-    if ((USART1_REGS->US_CSR & US_CSR_USART_RXRDY_Msk) != 0U)
-    {
-        USART1_ISR_RX_Handler();
-    }
-
-    /* Transmitter status */
-    if ( ((USART1_REGS->US_CSR & US_CSR_USART_TXRDY_Msk) != 0U) && ((USART1_REGS->US_IMR & US_IMR_USART_TXRDY_Msk) != 0U) )
-    {
-        USART1_ISR_TX_Handler();
-    }
-}
+volatile static uint8_t USART1_ReadBuffer[USART1_READ_BUFFER_SIZE];
+volatile static USART_RING_BUFFER_OBJECT usart1Obj;
+volatile static uint8_t USART1_WriteBuffer[USART1_WRITE_BUFFER_SIZE];
 
 void USART1_Initialize( void )
 {
@@ -225,27 +79,33 @@ void USART1_Initialize( void )
     USART1_REGS->US_BRGR = US_BRGR_CD(40U);
 
     /* Initialize instance object */
-    usart1Obj.rxBuffer = NULL;
-    usart1Obj.rxSize = 0;
-    usart1Obj.rxProcessedSize = 0;
-    usart1Obj.rxBusyStatus = false;
-    usart1Obj.rxCallback = NULL;
-    usart1Obj.txBuffer = NULL;
-    usart1Obj.txSize = 0;
-    usart1Obj.txProcessedSize = 0;
-    usart1Obj.txBusyStatus = false;
-    usart1Obj.txCallback = NULL;
+    usart1Obj.rdCallback = NULL;
+    usart1Obj.rdInIndex = 0;
+    usart1Obj.rdOutIndex = 0;
+    usart1Obj.isRdNotificationEnabled = false;
+    usart1Obj.isRdNotifyPersistently = false;
+    usart1Obj.rdThreshold = 0;
     usart1Obj.errorStatus = USART_ERROR_NONE;
-}
+    usart1Obj.wrCallback = NULL;
+    usart1Obj.wrInIndex = 0;
+    usart1Obj.wrOutIndex = 0;
+    usart1Obj.isWrNotificationEnabled = false;
+    usart1Obj.isWrNotifyPersistently = false;
+    usart1Obj.wrThreshold = 0;
 
-USART_ERROR USART1_ErrorGet( void )
-{
-    USART_ERROR errors = usart1Obj.errorStatus;
+    if((USART1_REGS->US_MR & US_MR_USART_MODE9_Msk) != 0U)
+    {
+        usart1Obj.rdBufferSize = USART1_READ_BUFFER_SIZE_9BIT;
+        usart1Obj.wrBufferSize = USART1_WRITE_BUFFER_SIZE_9BIT;
+    }
+    else
+    {
+        usart1Obj.rdBufferSize = USART1_READ_BUFFER_SIZE;
+        usart1Obj.wrBufferSize = USART1_WRITE_BUFFER_SIZE;
+    }
 
-    usart1Obj.errorStatus = USART_ERROR_NONE;
-
-    /* All errors are cleared, but send the previous error state */
-    return errors;
+    /* Enable Read, Overrun, Parity and Framing error interrupts */
+    USART1_RX_INT_ENABLE();
 }
 
 bool USART1_SerialSetup( USART_SERIAL_SETUP *setup, uint32_t srcClkFreq )
@@ -254,23 +114,11 @@ bool USART1_SerialSetup( USART_SERIAL_SETUP *setup, uint32_t srcClkFreq )
     uint32_t brgVal = 0;
     uint32_t overSampVal = 0;
     uint32_t usartMode;
-    bool status = false;
-
-    if(usart1Obj.rxBusyStatus == true)
-    {
-        /* Transaction is in progress, so return without updating settings */
-        return false;
-    }
-    if(usart1Obj.txBusyStatus == true)
-    {
-        /* Transaction is in progress, so return without updating settings */
-        return false;
-    }
-
-    if (setup != NULL)
+    bool status = (setup != NULL);
+    /*Valid pointer */
+    if(status)
     {
         baud = setup->baudRate;
-
         if(srcClkFreq == 0U)
         {
             srcClkFreq = USART1_FrequencyGet();
@@ -288,154 +136,559 @@ bool USART1_SerialSetup( USART_SERIAL_SETUP *setup, uint32_t srcClkFreq )
         }
         else
         {
-            return false;
+           /* Invalid clock */
+           status = false;
         }
 
-        if (brgVal > 65535U)
+        status = status && (brgVal <= 65535U);
+        /* Target baud is achievable */
+        if(status)
         {
-            /* The requested baud is so low that the ratio of srcClkFreq to baud exceeds the 16-bit register value of CD register */
-            return false;
-        }
+            /* Configure USART1 mode */
+            usartMode = USART1_REGS->US_MR;
+            usartMode &= ~(US_MR_USART_CHRL_Msk | US_MR_USART_MODE9_Msk | US_MR_USART_PAR_Msk | US_MR_USART_NBSTOP_Msk | US_MR_USART_OVER_Msk);
+            USART1_REGS->US_MR = usartMode | ((uint32_t)setup->dataWidth | (uint32_t)setup->parity | (uint32_t)setup->stopBits | (uint32_t)overSampVal);
 
-        /* Configure USART1 mode */
-        usartMode = USART1_REGS->US_MR;
-        usartMode &= ~(US_MR_USART_CHRL_Msk | US_MR_USART_MODE9_Msk | US_MR_USART_PAR_Msk | US_MR_USART_NBSTOP_Msk | US_MR_USART_OVER_Msk);
-        USART1_REGS->US_MR = usartMode | ((uint32_t)setup->dataWidth | (uint32_t)setup->parity | (uint32_t)setup->stopBits | (uint32_t)overSampVal);
+            /* Configure USART1 Baud Rate */
+            USART1_REGS->US_BRGR = US_BRGR_CD(brgVal);
 
-        /* Configure USART1 Baud Rate */
-        USART1_REGS->US_BRGR = US_BRGR_CD(brgVal);
-        status = true;
-    }
-
-    return status;
-}
-
-bool USART1_Read( void *buffer, const size_t size )
-{
-    bool status = false;
-    if(buffer != NULL)
-    {
-        /* Check if receive request is in progress */
-        if(usart1Obj.rxBusyStatus == false)
-        {
-            /* Clear errors that may have got generated when there was no active read request pending */
-            USART1_ErrorClear();
-
-            /* Clear the errors related to previous read requests */
-            usart1Obj.errorStatus = USART_ERROR_NONE;
-
-            usart1Obj.rxBuffer = buffer;
-            usart1Obj.rxSize = size;
-            usart1Obj.rxProcessedSize = 0;
-            usart1Obj.rxBusyStatus = true;
-
-            status = true;
-
-            /* Enable Read, Overrun, Parity and Framing error interrupts */
-            USART1_REGS->US_IER = (US_IER_USART_RXRDY_Msk | US_IER_USART_FRAME_Msk | US_IER_USART_PARE_Msk | US_IER_USART_OVRE_Msk);
-        }
-    }
-
-    return status;
-}
-
-bool USART1_Write( void *buffer, const size_t size )
-{
-    bool status = false;
-    if(NULL != buffer)
-    {
-        uint8_t* pu8Data = (uint8_t *)buffer;
-        uint16_t* pu16Data = (uint16_t*)buffer;
-        uint32_t txData = 0U;
-        /* Check if transmit request is in progress */
-        if(usart1Obj.txBusyStatus == false)
-        {
-            usart1Obj.txBuffer = buffer;
-            usart1Obj.txSize = size;
-            usart1Obj.txProcessedSize = 0;
-            usart1Obj.txBusyStatus = true;
-            status = true;
-
-
-            size_t txSize = usart1Obj.txSize;
-            size_t txProcessedSize = usart1Obj.txProcessedSize;
-
-            /* Initiate the transfer by writing as many bytes as possible */
-            while (((USART1_REGS->US_CSR & US_CSR_USART_TXRDY_Msk) != 0U) && (txProcessedSize < txSize))
+            if((USART1_REGS->US_MR & US_MR_USART_MODE9_Msk) != 0U)
             {
-                if ((USART1_REGS->US_MR & US_MR_USART_MODE9_Msk) != 0U)
-                {
-                    txData = pu16Data[txProcessedSize];
-                }
-                else
-                {
-                    txData = pu8Data[txProcessedSize];
-                }
-                USART1_REGS->US_THR = (txData & US_THR_TXCHR_Msk);
-                txProcessedSize++;
+                usart1Obj.rdBufferSize = USART1_READ_BUFFER_SIZE_9BIT;
+                usart1Obj.wrBufferSize = USART1_WRITE_BUFFER_SIZE_9BIT;
+            }
+            else
+            {
+                usart1Obj.rdBufferSize = USART1_READ_BUFFER_SIZE;
+                usart1Obj.wrBufferSize = USART1_WRITE_BUFFER_SIZE;
             }
 
-            usart1Obj.txProcessedSize = txProcessedSize;
-
-            USART1_REGS->US_IER = US_IER_USART_TXRDY_Msk;
         }
     }
     return status;
 }
 
-
-bool USART1_TransmitComplete( void )
+static void USART1_ErrorClear( void )
 {
-    return((USART1_REGS->US_CSR & US_CSR_USART_TXEMPTY_Msk) != 0U);
+    uint32_t dummyData = 0U;
 
-}
+    USART1_REGS->US_CR = US_CR_USART_RSTSTA_Msk;
 
-void USART1_WriteCallbackRegister( USART_CALLBACK callback, uintptr_t context )
-{
-    usart1Obj.txCallback = callback;
-    usart1Obj.txContext = context;
-}
-
-void USART1_ReadCallbackRegister( USART_CALLBACK callback, uintptr_t context )
-{
-    usart1Obj.rxCallback = callback;
-    usart1Obj.rxContext = context;
-}
-
-bool USART1_WriteIsBusy( void )
-{
-    return usart1Obj.txBusyStatus;
-}
-
-bool USART1_ReadIsBusy( void )
-{
-    return usart1Obj.rxBusyStatus;
-}
-
-bool USART1_ReadAbort(void)
-{
-    if (usart1Obj.rxBusyStatus == true)
+    /* Flush existing error bytes from the RX FIFO */
+    while( US_CSR_USART_RXRDY_Msk == (USART1_REGS->US_CSR & US_CSR_USART_RXRDY_Msk))
     {
-        /* Disable Read, Overrun, Parity and Framing error interrupts */
-        USART1_REGS->US_IDR = (US_IDR_USART_RXRDY_Msk | US_IDR_USART_FRAME_Msk | US_IDR_USART_PARE_Msk | US_IDR_USART_OVRE_Msk);
-
-        usart1Obj.rxBusyStatus = false;
-
-        /* If required, application should read the num bytes processed prior to calling the read abort API */
-        usart1Obj.rxProcessedSize = 0U;
-        usart1Obj.rxSize = 0U;
+        dummyData = (USART1_REGS->US_RHR & US_RHR_RXCHR_Msk);
     }
 
-    return true;
+    /* Ignore the warning */
+    (void)dummyData;
 }
 
-size_t USART1_WriteCountGet( void )
+USART_ERROR USART1_ErrorGet( void )
 {
-    return usart1Obj.txProcessedSize;
+    USART_ERROR errors = usart1Obj.errorStatus;
+
+    usart1Obj.errorStatus = USART_ERROR_NONE;
+
+    /* All errors are cleared, but send the previous error state */
+    return errors;
 }
 
-size_t USART1_ReadCountGet( void )
+/* This routine is only called from ISR. Hence do not disable/enable USART interrupts. */
+static inline bool USART1_RxPushByte(uint16_t rdByte)
 {
-    return usart1Obj.rxProcessedSize;
+    uint32_t tempInIndex;
+    bool isSuccess = false;
+    uint32_t rdInIdx;
+
+    tempInIndex = usart1Obj.rdInIndex + 1U;
+
+    if (tempInIndex >= usart1Obj.rdBufferSize)
+    {
+        tempInIndex = 0U;
+    }
+
+    if (tempInIndex == usart1Obj.rdOutIndex)
+    {
+        /* Queue is full - Report it to the application. Application gets a chance to free up space by reading data out from the RX ring buffer */
+        if(usart1Obj.rdCallback != NULL)
+        {
+            uintptr_t rdContext = usart1Obj.rdContext;
+
+            usart1Obj.rdCallback(USART_EVENT_READ_BUFFER_FULL, rdContext);
+
+            /* Read the indices again in case application has freed up space in RX ring buffer */
+            tempInIndex = usart1Obj.rdInIndex + 1U;
+
+            if (tempInIndex >= usart1Obj.rdBufferSize)
+            {
+                tempInIndex = 0U;
+            }
+        }
+    }
+
+    if (tempInIndex != usart1Obj.rdOutIndex)
+    {
+        if ((USART1_REGS->US_MR & US_MR_USART_MODE9_Msk) != 0U)
+        {
+            rdInIdx = usart1Obj.rdInIndex << 1U;
+            USART1_ReadBuffer[rdInIdx] = (uint8_t)rdByte;
+            USART1_ReadBuffer[rdInIdx + 1U] = (uint8_t)(rdByte >> 8U);
+        }
+        else
+        {
+            uint32_t rdInIndex = usart1Obj.rdInIndex;
+
+            USART1_ReadBuffer[rdInIndex] = (uint8_t)rdByte;
+        }
+
+        usart1Obj.rdInIndex = tempInIndex;
+        isSuccess = true;
+    }
+    else
+    {
+        /* Queue is full. Data will be lost. */
+    }
+
+    return isSuccess;
 }
 
+/* This routine is only called from ISR. Hence do not disable/enable USART interrupts. */
+static void USART1_ReadNotificationSend(void)
+{
+    uint32_t nUnreadBytesAvailable;
+
+    if (usart1Obj.isRdNotificationEnabled == true)
+    {
+        nUnreadBytesAvailable = USART1_ReadCountGet();
+
+        if(usart1Obj.rdCallback != NULL)
+        {
+            uintptr_t rdContext = usart1Obj.rdContext;
+
+            if (usart1Obj.isRdNotifyPersistently == true)
+            {
+                if (nUnreadBytesAvailable >= usart1Obj.rdThreshold)
+                {
+                    usart1Obj.rdCallback(USART_EVENT_READ_THRESHOLD_REACHED, rdContext);
+                }
+            }
+            else
+            {
+                if (nUnreadBytesAvailable == usart1Obj.rdThreshold)
+                {
+                    usart1Obj.rdCallback(USART_EVENT_READ_THRESHOLD_REACHED, rdContext);
+                }
+            }
+        }
+    }
+}
+
+size_t USART1_Read(uint8_t* pRdBuffer, const size_t size)
+{
+    size_t nBytesRead = 0;
+
+    /* Take a snapshot of indices to avoid creation of critical section */
+    uint32_t rdOutIndex = usart1Obj.rdOutIndex;
+    uint32_t rdInIndex = usart1Obj.rdInIndex;
+    uint32_t rdOut16Idx;
+    uint32_t nBytesRead16Idx;
+
+    while (nBytesRead < size)
+    {
+        if (rdOutIndex != rdInIndex)
+        {
+            if ((USART1_REGS->US_MR & US_MR_USART_MODE9_Msk) != 0U)
+            {
+                rdOut16Idx = rdOutIndex << 1U;
+                nBytesRead16Idx = nBytesRead << 1U;
+
+                pRdBuffer[nBytesRead16Idx] = USART1_ReadBuffer[rdOut16Idx];
+                pRdBuffer[nBytesRead16Idx + 1U] = USART1_ReadBuffer[rdOut16Idx + 1U];
+            }
+            else
+            {
+                pRdBuffer[nBytesRead] = USART1_ReadBuffer[rdOutIndex];
+            }
+
+            nBytesRead++;
+            rdOutIndex++;
+
+            if (rdOutIndex >= usart1Obj.rdBufferSize)
+            {
+                rdOutIndex = 0;
+            }
+        }
+        else
+        {
+            /* No more data available in the RX buffer */
+            break;
+        }
+    }
+
+    usart1Obj.rdOutIndex = rdOutIndex;
+
+    return nBytesRead;
+}
+
+size_t USART1_ReadCountGet(void)
+{
+    size_t nUnreadBytesAvailable;
+
+    /* Take a snapshot of indices to avoid creation of critical section */
+    uint32_t rdOutIndex = usart1Obj.rdOutIndex;
+    uint32_t rdInIndex = usart1Obj.rdInIndex;
+
+    if ( rdInIndex >=  rdOutIndex)
+    {
+        nUnreadBytesAvailable =  rdInIndex - rdOutIndex;
+    }
+    else
+    {
+        nUnreadBytesAvailable =  (usart1Obj.rdBufferSize -  rdOutIndex) + rdInIndex;
+    }
+
+    return nUnreadBytesAvailable;
+}
+
+size_t USART1_ReadFreeBufferCountGet(void)
+{
+    return (usart1Obj.rdBufferSize - 1U) - USART1_ReadCountGet();
+}
+
+size_t USART1_ReadBufferSizeGet(void)
+{
+    return (usart1Obj.rdBufferSize - 1U);
+}
+
+bool USART1_ReadNotificationEnable(bool isEnabled, bool isPersistent)
+{
+    bool previousStatus = usart1Obj.isRdNotificationEnabled;
+
+    usart1Obj.isRdNotificationEnabled = isEnabled;
+
+    usart1Obj.isRdNotifyPersistently = isPersistent;
+
+    return previousStatus;
+}
+
+void USART1_ReadThresholdSet(uint32_t nBytesThreshold)
+{
+    if (nBytesThreshold > 0U)
+    {
+        usart1Obj.rdThreshold = nBytesThreshold;
+    }
+}
+
+void USART1_ReadCallbackRegister( USART_RING_BUFFER_CALLBACK callback, uintptr_t context)
+{
+    usart1Obj.rdCallback = callback;
+
+    usart1Obj.rdContext = context;
+}
+
+/* This routine is only called from ISR. Hence do not disable/enable USART interrupts. */
+static bool USART1_TxPullByte(void* pWrData)
+{
+    uint8_t* pWrByte = (uint8_t*)pWrData;
+    uint32_t wrOutIndex = usart1Obj.wrOutIndex;
+    uint32_t wrInIndex = usart1Obj.wrInIndex;
+    uint32_t wrOut16Idx;
+    bool isSuccess = false;
+
+    if (wrOutIndex != wrInIndex)
+    {
+        if((USART1_REGS->US_MR & US_MR_USART_MODE9_Msk) != 0U)
+        {
+            wrOut16Idx = wrOutIndex << 1U;
+            pWrByte[0] = USART1_WriteBuffer[wrOut16Idx];
+            pWrByte[1] = USART1_WriteBuffer[wrOut16Idx + 1U];
+        }
+        else
+        {
+            *pWrByte = USART1_WriteBuffer[wrOutIndex];
+        }
+
+        wrOutIndex++;
+        if (wrOutIndex >= usart1Obj.wrBufferSize)
+        {
+            wrOutIndex = 0U;
+        }
+
+        usart1Obj.wrOutIndex = wrOutIndex;
+
+        isSuccess = true;
+    }
+
+    return isSuccess;
+}
+
+static inline bool USART1_TxPushByte(uint16_t wrByte)
+{
+    uint32_t tempInIndex;
+    uint32_t wrOutIndex = usart1Obj.wrOutIndex;
+    uint32_t wrInIndex = usart1Obj.wrInIndex;
+    uint32_t wrIn16Idx;
+    bool isSuccess = false;
+
+    tempInIndex = wrInIndex + 1U;
+
+    if (tempInIndex >= usart1Obj.wrBufferSize)
+    {
+        tempInIndex = 0U;
+    }
+    if (tempInIndex != wrOutIndex)
+    {
+        if((USART1_REGS->US_MR & US_MR_USART_MODE9_Msk) != 0U)
+        {
+            wrIn16Idx = wrInIndex << 1U;
+            USART1_WriteBuffer[wrIn16Idx] = (uint8_t)wrByte;
+            USART1_WriteBuffer[wrIn16Idx + 1U] = (uint8_t)(wrByte >> 8U);
+        }
+        else
+        {
+            USART1_WriteBuffer[wrInIndex] = (uint8_t)wrByte;
+        }
+
+        usart1Obj.wrInIndex = tempInIndex;
+
+        isSuccess = true;
+    }
+    else
+    {
+        /* Queue is full. Report Error. */
+    }
+
+    return isSuccess;
+}
+
+/* This routine is only called from ISR. Hence do not disable/enable USART interrupts. */
+static void USART1_WriteNotificationSend(void)
+{
+    uint32_t nFreeWrBufferCount;
+
+    if (usart1Obj.isWrNotificationEnabled == true)
+    {
+        nFreeWrBufferCount = USART1_WriteFreeBufferCountGet();
+
+        if(usart1Obj.wrCallback != NULL)
+        {
+            uintptr_t wrContext = usart1Obj.wrContext;
+
+            if (usart1Obj.isWrNotifyPersistently == true)
+            {
+                if (nFreeWrBufferCount >= usart1Obj.wrThreshold)
+                {
+                    usart1Obj.wrCallback(USART_EVENT_WRITE_THRESHOLD_REACHED, wrContext);
+                }
+            }
+            else
+            {
+                if (nFreeWrBufferCount == usart1Obj.wrThreshold)
+                {
+                    usart1Obj.wrCallback(USART_EVENT_WRITE_THRESHOLD_REACHED, wrContext);
+                }
+            }
+        }
+    }
+}
+
+static size_t USART1_WritePendingBytesGet(void)
+{
+    size_t nPendingTxBytes;
+
+    /* Take a snapshot of indices to avoid creation of critical section */
+    uint32_t wrOutIndex = usart1Obj.wrOutIndex;
+    uint32_t wrInIndex = usart1Obj.wrInIndex;
+
+    if ( wrInIndex >= wrOutIndex)
+    {
+        nPendingTxBytes =  wrInIndex -  wrOutIndex;
+    }
+    else
+    {
+        nPendingTxBytes =  (usart1Obj.wrBufferSize -  wrOutIndex) + wrInIndex;
+    }
+
+    return nPendingTxBytes;
+}
+
+size_t USART1_WriteCountGet(void)
+{
+    size_t nPendingTxBytes;
+
+    nPendingTxBytes = USART1_WritePendingBytesGet();
+
+    return nPendingTxBytes;
+}
+
+size_t USART1_Write(uint8_t* pWrBuffer, const size_t size )
+{
+    size_t nBytesWritten  = 0U;
+    uint16_t halfWordData = 0U;
+
+    while (nBytesWritten < size)
+    {
+        if ((USART1_REGS->US_MR & US_MR_USART_MODE9_Msk) != 0U)
+        {
+            halfWordData = pWrBuffer[(2U * nBytesWritten) + 1U];
+            halfWordData <<= 8U;
+            halfWordData |= pWrBuffer[(2U * nBytesWritten)];
+            if (USART1_TxPushByte(halfWordData) == true)
+            {
+                nBytesWritten++;
+            }
+            else
+            {
+                /* Queue is full, exit the loop */
+                break;
+            }
+        }
+        else
+        {
+            if (USART1_TxPushByte(pWrBuffer[nBytesWritten]) == true)
+            {
+                nBytesWritten++;
+            }
+            else
+            {
+                /* Queue is full, exit the loop */
+                break;
+            }
+        }
+    }
+
+    /* Check if any data is pending for transmission */
+    if (USART1_WritePendingBytesGet() > 0U)
+    {
+        /* Enable TX interrupt as data is pending for transmission */
+        USART1_TX_INT_ENABLE();
+    }
+
+    return nBytesWritten;
+}
+
+size_t USART1_WriteFreeBufferCountGet(void)
+{
+    return (usart1Obj.wrBufferSize - 1U) - USART1_WriteCountGet();
+}
+
+size_t USART1_WriteBufferSizeGet(void)
+{
+    return (usart1Obj.wrBufferSize - 1U);
+}
+
+bool USART1_TransmitComplete(void)
+{
+    return ((USART1_REGS->US_CSR & US_CSR_USART_TXEMPTY_Msk) != 0U);
+}
+
+bool USART1_WriteNotificationEnable(bool isEnabled, bool isPersistent)
+{
+    bool previousStatus = usart1Obj.isWrNotificationEnabled;
+
+    usart1Obj.isWrNotificationEnabled = isEnabled;
+
+    usart1Obj.isWrNotifyPersistently = isPersistent;
+
+    return previousStatus;
+}
+
+void USART1_WriteThresholdSet(uint32_t nBytesThreshold)
+{
+    if (nBytesThreshold > 0U)
+    {
+        usart1Obj.wrThreshold = nBytesThreshold;
+    }
+}
+
+void USART1_WriteCallbackRegister( USART_RING_BUFFER_CALLBACK callback, uintptr_t context)
+{
+    usart1Obj.wrCallback = callback;
+    usart1Obj.wrContext = context;
+}
+
+static void __attribute__((used)) USART1_ISR_RX_Handler( void )
+{
+    uint32_t rdData = 0;
+
+    /* Keep reading until there is a character availabe in the RX FIFO */
+    while ((USART1_REGS->US_CSR & US_CSR_USART_RXRDY_Msk) != 0U)
+    {
+        rdData = USART1_REGS->US_RHR & US_RHR_RXCHR_Msk;
+
+        if (USART1_RxPushByte((uint16_t)rdData ) == true)
+        {
+            USART1_ReadNotificationSend();
+        }
+        else
+        {
+            /* UART RX buffer is full */
+        }
+    }
+}
+
+static void __attribute__((used)) USART1_ISR_TX_Handler( void )
+{
+    uint16_t wrByte = 0U;
+
+    /* Keep writing to the TX FIFO as long as there is space */
+    while ((USART1_REGS->US_CSR & US_CSR_USART_TXRDY_Msk) != 0U)
+    {
+        if (USART1_TxPullByte(&wrByte) == true)
+        {
+            if ((USART1_REGS->US_MR & US_MR_USART_MODE9_Msk) != 0U)
+            {
+                USART1_REGS->US_THR = ((uint32_t)wrByte & US_THR_TXCHR_Msk);
+            }
+            else
+            {
+                USART1_REGS->US_THR = (uint8_t)wrByte;
+            }
+
+            /* Send notification */
+            USART1_WriteNotificationSend();
+        }
+        else
+        {
+            /* Nothing to transmit. Disable the data register empty interrupt. */
+            USART1_TX_INT_DISABLE();
+            break;
+        }
+    }
+}
+
+void __attribute__((used)) USART1_InterruptHandler( void )
+{
+    /* Error status */
+    uint32_t errorStatus = (USART1_REGS->US_CSR & (US_CSR_USART_OVRE_Msk | US_CSR_USART_FRAME_Msk | US_CSR_USART_PARE_Msk));
+
+    if(errorStatus != 0U)
+    {
+        /* Save the error so that it can be reported when application calls the USART1_ErrorGet() API */
+        usart1Obj.errorStatus = (USART_ERROR)errorStatus;
+
+        /* Clear the error flags and flush out the error bytes */
+        USART1_ErrorClear();
+
+        /* USART errors are normally associated with the receiver, hence calling receiver callback */
+        if( usart1Obj.rdCallback != NULL)
+        {
+            uintptr_t rdContext = usart1Obj.rdContext;
+
+            usart1Obj.rdCallback(USART_EVENT_READ_ERROR, rdContext);
+        }
+    }
+
+    /* Receiver status */
+    if((USART1_REGS->US_CSR & US_CSR_USART_RXRDY_Msk) != 0U)
+    {
+        USART1_ISR_RX_Handler();
+    }
+
+    /* Transmitter status */
+    if((USART1_REGS->US_CSR & US_CSR_USART_TXRDY_Msk) != 0U)
+    {
+        USART1_ISR_TX_Handler();
+    }
+}

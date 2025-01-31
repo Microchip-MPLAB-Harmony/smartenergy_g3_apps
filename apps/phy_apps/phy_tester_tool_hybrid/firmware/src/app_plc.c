@@ -237,20 +237,24 @@ void _APP_PLC_UsiPhyProtocolEventCb(uint8_t *pData, size_t length)
 
 static void APP_PLC_SetCouplingConfiguration(void)
 {
-    SRV_PLC_PCOUP_BRANCH plcBranch;
+    uint8_t plcPhyBand;
 
-    plcBranch = SRV_PCOUP_Get_Default_Branch();
-    SRV_PCOUP_Set_Config(app_plcData.drvPlcHandle, plcBranch);
+    plcPhyBand = SRV_PCOUP_Get_Default_Phy_Band();
+    SRV_PCOUP_Set_Config(app_plcData.drvPlcHandle, plcPhyBand);
+
+    /* Set  PHY Band PIB */
+    app_plcData.plcPIB.id = PLC_ID_BAND;
+    app_plcData.plcPIB.length = 1;
+    *app_plcData.plcPIB.pData = plcPhyBand;
+    DRV_PLC_PHY_PIBSet(app_plcData.drvPlcHandle, &app_plcData.plcPIB);
 
     /* Disable AUTO mode and set VLO behavior by default in order to
      * maximize signal level in any case */
     app_plcData.plcPIB.id = PLC_ID_CFG_AUTODETECT_IMPEDANCE;
-    app_plcData.plcPIB.length = 1;
     *app_plcData.plcPIB.pData = 0;
     DRV_PLC_PHY_PIBSet(app_plcData.drvPlcHandle, &app_plcData.plcPIB);
 
     app_plcData.plcPIB.id = PLC_ID_CFG_IMPEDANCE;
-    app_plcData.plcPIB.length = 1;
     *app_plcData.plcPIB.pData = VLO_STATE;
     DRV_PLC_PHY_PIBSet(app_plcData.drvPlcHandle, &app_plcData.plcPIB);
 }
