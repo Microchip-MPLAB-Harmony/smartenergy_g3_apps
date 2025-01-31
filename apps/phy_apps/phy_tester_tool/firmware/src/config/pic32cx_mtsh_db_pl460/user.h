@@ -33,13 +33,13 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-#define USER_BLINK_LED_On()           LED_RED_On()
-#define USER_BLINK_LED_Off()          LED_RED_Off()
-#define USER_BLINK_LED_Toggle()       LED_RED_Toggle()
+#define USER_BLINK_LED_On()           BSP_RED_LED_PD17_On()
+#define USER_BLINK_LED_Off()          BSP_RED_LED_PD17_Off()
+#define USER_BLINK_LED_Toggle()       BSP_RED_LED_PD17_Toggle()
 
-#define USER_PLC_IND_LED_On()         LED_IR_On()
-#define USER_PLC_IND_LED_Off()        LED_IR_Off()
-#define USER_PLC_IND_LED_Toggle()     LED_IR_Toggle()
+#define USER_PLC_IND_LED_On()         BSP_RED_LED_PD18_On()
+#define USER_PLC_IND_LED_Off()        BSP_RED_LED_PD18_Off()
+#define USER_PLC_IND_LED_Toggle()     BSP_RED_LED_PD18_Toggle()
 
 #define CLEAR_WATCHDOG()              DWDT_WDT0_Clear()
 

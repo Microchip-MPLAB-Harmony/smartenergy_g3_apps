@@ -269,6 +269,12 @@
       <itemPath>../src/app_display.h</itemPath>
       <itemPath>../src/app.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>g3_phy_tester_tool_pic32cx_mtsh_db_pl460.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -348,6 +354,7 @@
             <logicalFolder name="sefc" displayName="sefc" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtsh_db_pl460/peripheral/sefc/plib_sefc0.c</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460/peripheral/sefc/plib_sefc1.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460/peripheral/sefc/plib_sefc_common.c</itemPath>
             </logicalFolder>
             <logicalFolder name="supc" displayName="supc" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtsh_db_pl460/peripheral/supc/plib_supc.c</itemPath>
@@ -401,12 +408,6 @@
       <itemPath>../src/app.c</itemPath>
       <itemPath>../src/main.c</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>g3_phy_tester_tool_pic32cx_mtsh_db_pl460.mc3</itemPath>
-    </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -418,7 +419,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>jlink</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.40</languageToolchainVersion>
+        <languageToolchainVersion>4.45</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

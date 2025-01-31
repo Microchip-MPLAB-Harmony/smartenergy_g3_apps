@@ -91,10 +91,6 @@ void PIO_Initialize ( void )
    PIOA_REGS->PIO_MSKR = 0x4U;
    PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x3001400U;
 
- /* Port A Pin 7 configuration */
-   PIOA_REGS->PIO_MSKR = 0x80U;
-   PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x200U;
-
  /* Port A Latch configuration */
    PIOA_REGS->PIO_CODR = 0x87U;
 
@@ -133,8 +129,8 @@ void PIO_Initialize ( void )
    PIOD_REGS->PIO_CFGR = (PIOD_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
 
  /* Port D Latch configuration */
-   PIOD_REGS->PIO_SODR = 0x10008U;
-   PIOD_REGS->PIO_CODR = 0x98008U & ~0x10008U;
+   PIOD_REGS->PIO_SODR = 0x90008U;
+   PIOD_REGS->PIO_CODR = 0x98008U & ~0x90008U;
 
 
 

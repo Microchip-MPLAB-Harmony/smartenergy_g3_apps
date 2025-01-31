@@ -79,10 +79,10 @@ extern uint8_t plc_phy_bin2_end;
 // *****************************************************************************
 
 /* G3-PLC Bandplan */
-#define G3_CEN_A                                   0U
-#define G3_CEN_B                                   1U
-#define G3_FCC                                     2U
-#define G3_ARIB                                    3U
+#define G3_CEN_A                                   1U
+#define G3_CEN_B                                   2U
+#define G3_FCC                                     3U
+#define G3_ARIB                                    4U
 #define G3_INVALID                                 0xFFU
 
 /* Number of carriers for CENELEC-A bandplan */
@@ -257,6 +257,7 @@ typedef enum {
   PLC_ID_PDC_ZC_TIME_LAST_RX,
   PLC_ID_PDC_ZC_PERIOD_LAST_RX,
   PLC_ID_PREAMBLE_NUM_SYNCP,
+  PLC_ID_BAND,
   PLC_ID_END_ID,
 } DRV_PLC_PHY_ID;
 
@@ -346,6 +347,8 @@ typedef enum {
   DRV_PLC_PHY_TX_CANCELLED = 11,
   /* Transmission result: high temperature error */
   DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120 = 12,
+  /* Transmission result: high temperature warning */
+  DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_110 = 13,
   /* Transmission result: No transmission ongoing */
   DRV_PLC_PHY_TX_RESULT_NO_TX = 255,
 }DRV_PLC_PHY_TX_RESULT;

@@ -93,7 +93,6 @@ typedef struct
     USI_CDC_PLIB_READ_CALLBACK_REG readCallbackRegister;
     USI_CDC_PLIB_WRRD readData;
     USI_CDC_PLIB_WRRD writeData;
-    USI_CDC_PLIB_WRITE_ISBUSY writeIsBusy;
 } SRV_USI_CDC_INTERFACE;
 
 typedef struct
@@ -144,8 +143,6 @@ DRV_HANDLE USI_CDC_Open(uint32_t index);
 void USI_CDC_Tasks (uint32_t index);
 
 void USI_CDC_Write(uint32_t index, void* pData, size_t length);
-
-bool USI_CDC_WriteIsBusy(uint32_t index);
 
 void USI_CDC_RegisterCallback(uint32_t index, USI_CDC_CALLBACK cbFunc, uintptr_t context);
 

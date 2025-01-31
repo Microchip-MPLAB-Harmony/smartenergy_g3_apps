@@ -75,39 +75,42 @@ void SERCOM1_USART_Enable( void );
 
 void SERCOM1_USART_Disable( void );
 
-void SERCOM1_USART_TransmitterEnable( void );
-
-void SERCOM1_USART_TransmitterDisable( void );
-
-bool SERCOM1_USART_Write( void *buffer, const size_t size );
-
-bool SERCOM1_USART_TransmitComplete( void );
-
-
-bool SERCOM1_USART_WriteIsBusy( void );
-
-size_t SERCOM1_USART_WriteCountGet( void );
-
-void SERCOM1_USART_WriteCallbackRegister( SERCOM_USART_CALLBACK callback, uintptr_t context );
-
-
-void SERCOM1_USART_ReceiverEnable( void );
-
-void SERCOM1_USART_ReceiverDisable( void );
-
-bool SERCOM1_USART_Read( void *buffer, const size_t size );
-
-bool SERCOM1_USART_ReadIsBusy( void );
-
-size_t SERCOM1_USART_ReadCountGet( void );
-
-bool SERCOM1_USART_ReadAbort(void);
-
-void SERCOM1_USART_ReadCallbackRegister( SERCOM_USART_CALLBACK callback, uintptr_t context );
-
 USART_ERROR SERCOM1_USART_ErrorGet( void );
 
 uint32_t SERCOM1_USART_FrequencyGet( void );
+
+
+bool SERCOM1_USART_TransmitComplete( void );
+
+size_t SERCOM1_USART_Write(uint8_t* pWrBuffer, const size_t size );
+
+size_t SERCOM1_USART_WriteCountGet(void);
+
+size_t SERCOM1_USART_WriteFreeBufferCountGet(void);
+
+size_t SERCOM1_USART_WriteBufferSizeGet(void);
+
+bool SERCOM1_USART_WriteNotificationEnable(bool isEnabled, bool isPersistent);
+
+void SERCOM1_USART_WriteThresholdSet(uint32_t nBytesThreshold);
+
+void SERCOM1_USART_WriteCallbackRegister( SERCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
+
+
+
+size_t SERCOM1_USART_Read(uint8_t* pRdBuffer, const size_t size);
+
+size_t SERCOM1_USART_ReadCountGet(void);
+
+size_t SERCOM1_USART_ReadFreeBufferCountGet(void);
+
+size_t SERCOM1_USART_ReadBufferSizeGet(void);
+
+bool SERCOM1_USART_ReadNotificationEnable(bool isEnabled, bool isPersistent);
+
+void SERCOM1_USART_ReadThresholdSet(uint32_t nBytesThreshold);
+
+void SERCOM1_USART_ReadCallbackRegister( SERCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

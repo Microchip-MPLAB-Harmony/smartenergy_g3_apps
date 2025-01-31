@@ -178,8 +178,6 @@ typedef void (*SRV_USI_REGISTER_READ_CALLBACK_FPTR) (uint32_t index, USI_READ_CA
 
 typedef void (*SRV_USI_WRITE_FPTR) (uint32_t index, void* buf, size_t length);
 
-typedef bool (*SRV_USI_WRITE_IS_BUSY_FPTR) (uint32_t index);
-
 typedef void (*SRV_USI_TASK_FPTR) (uint32_t index);
 
 typedef SRV_USI_STATUS (*SRV_USI_STATUS_FPTR) (uint32_t index);
@@ -212,8 +210,6 @@ typedef struct
     SRV_USI_REGISTER_READ_CALLBACK_FPTR setReadCallback;
 
     SRV_USI_WRITE_FPTR writeData;
-
-    SRV_USI_WRITE_IS_BUSY_FPTR writeIsBusy;
 
     SRV_USI_TASK_FPTR task;
 
@@ -311,7 +307,6 @@ typedef struct
         .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)UART2_ReadCallbackRegister,
         .readData = (USI_USART_PLIB_WRRD)UART2_Read,
         .writeData = (USI_USART_PLIB_WRRD)UART2_Write,
-        .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)UART2_WriteIsBusy,
     };
 
     const USI_USART_INIT_DATA srvUsi0InitData = {
@@ -588,7 +583,7 @@ void SRV_USI_Tasks( SYS_MODULE_OBJ object );
 
 // *****************************************************************************
 /* Function:
-      void SRV_USI_Send_Message( SRV_USI_HANDLE handle,
+      size_t SRV_USI_Send_Message( SRV_USI_HANDLE handle,
         SRV_USI_PROTOCOL_ID protocol, uint8_t *data, size_t length )
 
   Summary:
@@ -609,7 +604,7 @@ void SRV_USI_Tasks( SYS_MODULE_OBJ object );
     length      - Length of the data to send in bytes
 
   Returns:
-    None
+    Number of bytes sent.
 
   Example:
     <code>
@@ -622,7 +617,7 @@ void SRV_USI_Tasks( SYS_MODULE_OBJ object );
     None.
   */
 
-void SRV_USI_Send_Message( SRV_USI_HANDLE handle,
+size_t SRV_USI_Send_Message( SRV_USI_HANDLE handle,
         SRV_USI_PROTOCOL_ID protocol, uint8_t *data, size_t length );
 
 // DOM-IGNORE-BEGIN

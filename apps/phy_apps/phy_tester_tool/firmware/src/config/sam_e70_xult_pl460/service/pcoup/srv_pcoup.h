@@ -70,8 +70,8 @@ Microchip or any third party.
 #endif
 // DOM-IGNORE-END
 
-/* Default branch of the PLC transmission coupling */
-#define SRV_PCOUP_DEFAULT_BRANCH                 SRV_PLC_PCOUP_MAIN_BRANCH
+/* Default G3-PLC PHY band of the PLC transmission coupling */
+#define SRV_PCOUP_DEFAULT_BAND                   G3_FCC
 
 /* Equalization number of coefficients (number of carriers) for Main branch */
 #define SRV_PCOUP_EQU_NUM_COEF                   72U
@@ -102,28 +102,6 @@ Microchip or any third party.
                                                   0x7348, 0x7371, 0x7453, 0x7566, 0x75C8, 0x764F, 0x77A2, 0x78F2, 0x7929, 0x7990, 0x7AB0, 0x7B90, 0x7B35, 0x7C1E, \
                                                   0x7DE6, 0x7FFF}
 
-/* Equalization number of coefficients (number of carriers) for Auxiliary branch */
-#define SRV_PCOUP_AUX_EQU_NUM_COEF               36U
-
-/* PLC PHY Coupling parameters for Auxiliary branch */
-#define SRV_PCOUP_AUX_RMS_HIGH_TBL               {1991, 1381, 976, 695, 495, 351, 250, 179}
-#define SRV_PCOUP_AUX_RMS_VLOW_TBL               {6356, 4706, 3317, 2308, 1602, 1112, 778, 546}
-#define SRV_PCOUP_AUX_THRS_HIGH_TBL              {0, 0, 0, 0, 0, 0, 0, 0, 1685, 1173, 828, 589, 419, 298, 212, 151}
-#define SRV_PCOUP_AUX_THRS_VLOW_TBL              {0, 0, 0, 0, 0, 0, 0, 0, 8988, 6370, 4466, 3119, 2171, 1512, 1061, 752}
-#define SRV_PCOUP_AUX_DACC_TBL                   {0x0UL, 0x21200000UL, 0x73f0000UL, 0x3f3f0000UL, 0xcccUL, 0x0UL, \
-                                                 0xa20000ffUL, 0x14141414UL, 0x20200000UL, 0x4400UL, 0xfd20004UL, 0x3aaUL, \
-                                                 0xf0000000UL, 0x1020f0UL, 0x3aaUL, 0xf0000000UL, 0x1020ffUL}
-#define SRV_PCOUP_AUX_GAIN_HIGH_TBL              {142, 70, 336}
-#define SRV_PCOUP_AUX_GAIN_VLOW_TBL              {474, 230, 597}
-#define SRV_PCOUP_AUX_NUM_TX_LEVELS              8
-#define SRV_PCOUP_AUX_LINE_DRV_CONF              8
-
-#define SRV_PCOUP_AUX_PRED_HIGH_TBL              {0x670A, 0x660F, 0x676A, 0x6A6B, 0x6F3F, 0x7440, 0x74ED, 0x7792, 0x762D, 0x7530, 0x7938, 0x7C0A, 0x7C2A, 0x7B0E, \
-                                                  0x7AF2, 0x784B, 0x7899, 0x76F9, 0x76D6, 0x769F, 0x775D, 0x70C0, 0x6EB9, 0x6F18, 0x6F1E, 0x6FA2, 0x6862, 0x67C9, \
-                                                  0x68F9, 0x68A5, 0x6CA3, 0x7153, 0x7533, 0x750B, 0x7B59, 0x7FFF}
-#define SRV_PCOUP_AUX_PRED_VLOW_TBL              {0x7FFF, 0x7DB1, 0x7CE6, 0x7B36, 0x772F, 0x7472, 0x70AA, 0x6BC2, 0x682D, 0x6618, 0x6384, 0x6210, 0x61D7, 0x6244, \
-                                                  0x6269, 0x63A8, 0x6528, 0x65CC, 0x67F6, 0x693B, 0x6B13, 0x6C29, 0x6D43, 0x6E26, 0x6D70, 0x6C94, 0x6BB5, 0x6AC9, \
-                                                  0x6A5F, 0x6B65, 0x6B8C, 0x6A62, 0x6CEC, 0x6D5A, 0x6F9D, 0x6FD3}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -131,27 +109,6 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 // *****************************************************************************
-/* PLC PHY Coupling Branch definitions
-
- Summary:
-    List of possible transmission branches.
-
- Description:
-    This type defines the possible values of PLC transmission coupling branches.
-
- Remarks:
-    None.
-*/
-
-typedef enum
-{
-    /* Main Transmission Branch */
-    SRV_PLC_PCOUP_MAIN_BRANCH,
-
-    /* Auxiliary Transmission Branch */
-    SRV_PLC_PCOUP_AUXILIARY_BRANCH,
-
-} SRV_PLC_PCOUP_BRANCH;
 
 // *****************************************************************************
 /* PLC PHY Coupling data
@@ -222,33 +179,33 @@ typedef struct
 
 /***************************************************************************
   Function:
-    SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch)
+    SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(uint8_t phyBand)
 
   Summary:
-    Get the PLC PHY Coupling parameters for the specified transmission branch.
+    Get the PLC PHY Coupling parameters for the specified G3-PLC PHY band.
 
   Description:
     This function allows to get the PLC PHY Coupling parameters for the
-    specified transmission branch. These parameters can be sent to the PLC
+    specified G3-PLC PHY band. These parameters can be sent to the PLC
     device through PLC Driver PIB interface (DRV_PLC_PHY_PIBSet).
 
   Precondition:
     None.
 
   Parameters:
-    branch          - Transmission branch for which the parameters are requested
+    phyBand - G3-PLC PHY band for which the parameters are requested
 
   Returns:
     - Pointer PLC PHY Coupling parameters
-      - if branch parameter is valid
+      - if phyBand parameter is valid
     - NULL
-      - if branch parameter is not valid
+      - if phyBand parameter is not valid
 
   Example:
     <code>
     SRV_PLC_PCOUP_DATA *pCoupValues;
 
-    pCoupValues = SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_MAIN_BRANCH);
+    pCoupValues = SRV_PCOUP_Get_Config(G3_FCC);
     </code>
 
   Remarks:
@@ -256,19 +213,19 @@ typedef struct
     this function is not needed.
   ***************************************************************************/
 
-SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch);
+SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(uint8_t phyBand);
 
 /***************************************************************************
   Function:
-    bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
+    bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, uint8_t phyBand);
 
   Summary:
-    Set the PLC PHY Coupling parameters for the specified transmission branch.
+    Set the PLC PHY Coupling parameters for the specified G3-PLC PHY band.
 
   Description:
     This function allows to set the PLC PHY Coupling parameters for the
-    specified transmission branch, using the PLC Driver PIB
-    interface (DRV_PLC_PHY_PIBSet).
+    specified G3-PLC PHY band, using the PLC Driver PIB interface
+    (DRV_PLC_PHY_PIBSet).
 
   Precondition:
     DRV_PLC_PHY_Open must have been called to obtain a valid
@@ -276,37 +233,37 @@ SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch);
 
   Parameters:
     handle  - A valid instance handle, returned from DRV_PLC_PHY_Open
-    branch  - Transmission branch for which the parameters will be set
+    phyBand - G3-PLC PHY band for which the parameters are requested
 
   Returns:
     - true
       - Successful configuration
     - false
-      - if branch parameter is not valid
+      - if phyBand parameter is not valid
       - if there is an error when calling DRV_PLC_PHY_PIBSet
 
   Example:
     <code>
     bool result;
 
-    result = SRV_PCOUP_Set_Config(handle, SRV_PLC_PCOUP_MAIN_BRANCH);
+    result = SRV_PCOUP_Set_Config(handle, G3_FCC);
     </code>
 
   Remarks:
     None.
   ***************************************************************************/
 
-bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
+bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, uint8_t phyBand);
 
 /***************************************************************************
   Function:
-    SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void )
+    uint8_t SRV_PCOUP_Get_Default_Phy_Band( void )
 
   Summary:
-    Get the default branch of the PLC transmission coupling.
+    Get the default G3-PLC PHY band.
 
   Description:
-    This function allows to get the tranmission branch used by default.
+    This function allows to get the G3-PLC PHY band used by default.
 
   Precondition:
     None.
@@ -315,63 +272,21 @@ bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
     None.
 
   Returns:
-    Default transmission branch.
+    Default G3-PLC PHY band.
 
   Example:
     <code>
-    SRV_PLC_PCOUP_BRANCH plcDefaultBranch;
+    uint8_t plcPhyBand;
 
-    plcDefaultBranch = SRV_PCOUP_Get_Default_Branch();
-    SRV_PCOUP_Set_Config(plcDefaultBranch);
+    plcPhyBand = SRV_PCOUP_Get_Default_Phy_Band();
+    SRV_PCOUP_Set_Config(plcPhyBand);
     </code>
 
   Remarks:
     None.
   ***************************************************************************/
 
-SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void );
-
-/***************************************************************************
-  Function:
-    uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch)
-
-  Summary:
-    Get the G3-PLC PHY band associated to the specified transmission branch.
-
-  Description:
-    This function allows to get the G3-PLC PHY band associated to the
-    specified transmission branch.
-
-  Precondition:
-    None.
-
-  Parameters:
-    branch         - Transmission branch from which the PHY band is requested
-
-  Returns:
-    G3-PLC PHY band associated to the specified transmission branch
-    (see drv_plc_phy_comm.h):
-    - 0: G3_CEN_A
-    - 1: G3_CEN_B
-    - 2: G3_FCC
-    - 3: G3_ARIB
-    - 0xFF: G3_INVALID (if transmission branch is not valid)
-
-  Example:
-    <code>
-    phyBand = SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_MAIN_BRANCH);
-
-    if (phyBand == G3_CEN_A)
-    {
-
-    }
-    </code>
-
-  Remarks:
-    None.
-  ***************************************************************************/
-
-uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch);
+uint8_t SRV_PCOUP_Get_Default_Phy_Band( void );
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

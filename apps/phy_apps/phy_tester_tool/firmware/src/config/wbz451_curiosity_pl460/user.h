@@ -41,6 +41,10 @@ extern "C" {
 #define USER_PLC_IND_LED_Off()        RGB_LED_BLUE_Off()
 #define USER_PLC_IND_LED_Toggle()     RGB_LED_BLUE_Toggle()
 
+#define CLEAR_WATCHDOG()              WDT_Clear()
+
+#define APP_PLC_DISABLE_PVDDMON
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

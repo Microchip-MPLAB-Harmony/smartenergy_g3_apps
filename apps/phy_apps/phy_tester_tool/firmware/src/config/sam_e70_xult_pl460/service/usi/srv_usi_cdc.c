@@ -73,7 +73,6 @@ const SRV_USI_DEV_DESC srvUSICDCDevDesc =
     .open                       = USI_CDC_Open,
     .setReadCallback            = USI_CDC_RegisterCallback,
     .writeData                  = USI_CDC_Write,
-    .writeIsBusy                = USI_CDC_WriteIsBusy,
     .task                       = USI_CDC_Tasks,
     .close                      = USI_CDC_Close,
     .status                     = USI_CDC_Status,
@@ -426,12 +425,6 @@ void USI_CDC_Write(uint32_t index, void* pData, size_t length)
     (void) USB_DEVICE_CDC_Write(dObj->cdcInstanceIndex,
             &dObj->writeTransferHandle, pData, length,
             USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
-}
-
-bool USI_CDC_WriteIsBusy(uint32_t index)
-{
-    /* USB CDC is always free for writing */
-    return false;
 }
 
 void USI_CDC_RegisterCallback(uint32_t index, USI_CDC_CALLBACK cbFunc,

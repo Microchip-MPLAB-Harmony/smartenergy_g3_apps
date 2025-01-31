@@ -49,8 +49,8 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include "service/pcoup/srv_pcoup.h"
-#include "service/pserial/srv_pserial.h"
 #include "peripheral/sercom/usart/plib_sercom1_usart.h"
+#include "service/pserial/srv_pserial.h"
 #include "peripheral/evsys/plib_evsys.h"
 #include "peripheral/sercom/spi_master/plib_sercom0_spi_master.h"
 #include "peripheral/clk/plib_clk.h"
@@ -64,10 +64,10 @@
 #include "service/usi/srv_usi.h"
 #include "service/usi/srv_usi_usart.h"
 #include "service/pcrc/srv_pcrc.h"
-#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
+#include "system/time/sys_time.h"
 #include "bsp/bsp.h"
 #include "system/int/sys_int.h"
 #include "system/ports/sys_ports.h"
@@ -75,7 +75,7 @@
 #include "system/dma/sys_dma.h"
 #include "osal/osal.h"
 #include "system/debug/sys_debug.h"
-#include "app_wbz451.h"
+#include "app.h"
 
 
 
@@ -88,13 +88,13 @@ extern "C" {
 // DOM-IGNORE-END
 
 /* Device Information */
-#define DEVICE_NAME			 "WBZ451"
-#define DEVICE_ARCH			 "CORTEX-M4"
-#define DEVICE_FAMILY		 "PIC32CX_BZ2"
-#define DEVICE_SERIES		 "BZ45"
+#define DEVICE_NAME          "WBZ451"
+#define DEVICE_ARCH          "CORTEX-M4"
+#define DEVICE_FAMILY        "PIC32CX_BZ2"
+#define DEVICE_SERIES        "BZ45"
 
 /* CPU clock frequency */
-#define CPU_CLOCK_FREQUENCY 64000000
+#define CPU_CLOCK_FREQUENCY 64000000U
 
 // *****************************************************************************
 // *****************************************************************************
@@ -206,9 +206,9 @@ Remarks:
 
 typedef struct
 {
-    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ drvPlcPhy;
+    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ srvUSI0;
 

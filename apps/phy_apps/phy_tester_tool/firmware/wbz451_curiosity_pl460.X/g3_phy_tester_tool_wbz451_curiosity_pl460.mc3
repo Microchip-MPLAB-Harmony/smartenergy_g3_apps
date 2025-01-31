@@ -87,7 +87,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.5.2"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.5.4"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -114,7 +114,7 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
       &lt;String dnOrder=&quot;1&quot; id=&quot;name&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;app_wbz451.c&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;app.c&lt;/Value&gt;
       &lt;/String&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -130,7 +130,7 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
       &lt;String dnOrder=&quot;1&quot; id=&quot;name&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;app_wbz451.h&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;app.h&lt;/Value&gt;
       &lt;/String&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -250,7 +250,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;GEN_APP_TASK_NAME_0&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;app_wbz451&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;app&quot;/&gt;
     &lt;/Values&gt;
   &lt;/HarmonyCore&gt;
 &lt;/HarmonyCore&gt;
@@ -265,7 +265,10 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
     &lt;GraphSettings canvasHeight=&quot;446&quot; canvasWidth=&quot;478&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;PowerProfiles dnOrder=&quot;1&quot;&gt;
+      &lt;Profile dnOrder=&quot;0&quot; id=&quot;profile0&quot; name=&quot;Main&quot;/&gt;
+    &lt;/PowerProfiles&gt;
+    &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_WBZ451_Curiosity&quot; x=&quot;125&quot; y=&quot;44&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;402&quot; y=&quot;24&quot;/&gt;
@@ -1318,12 +1321,64 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="DMAC_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;DMAC_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="DMAC_HIGHEST_CHANNEL"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;DMAC_HIGHEST_CHANNEL&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="DMAC_SOURCE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;DMAC_SOURCE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="DMAC_SYS_DEF"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;DMAC_SYS_DEF&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="DMAC_SYS_INIT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;DMAC_SYS_INIT&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -3178,7 +3233,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
   &lt;drvPlcPhy dnOrder=&quot;0&quot;&gt;
     &lt;Attachments dnOrder=&quot;0&quot;&gt;
-      &lt;DirectDependency dnOrder=&quot;0&quot; id=&quot;drv_plc_phy_SPI_dependency&quot;&gt;
+      &lt;DirectDependency dnOrder=&quot;0&quot; id=&quot;drvPlcPhy_SPI_dependency&quot;&gt;
         &lt;Attributes dnOrder=&quot;0&quot;&gt;
           &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
             &lt;Value dnOrder=&quot;0&quot;&gt;sercom0&lt;/Value&gt;
@@ -3209,14 +3264,12 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_COUP_G3_HIGH_ATTENUATION"/>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_COUP_G3_SETTING_PL460"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_COUP_G3_HIGH_ATTENUATION&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
+  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_COUP_G3_SETTING_PL460&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;FCC default (only FCC; main branch)&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
 </value>
@@ -3260,17 +3313,6 @@
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_EXT_INT_SRC&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvPlcPhy&quot; value=&quot;PIOA_IRQn&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_G3_BAND"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_G3_BAND&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;FCC&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
@@ -3337,6 +3379,17 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_SPI_NUM_CSR"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
+  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_SPI_NUM_CSR&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvPlcPhy&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvPlcPhy&gt;
+&lt;/drvPlcPhy&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_TX_DMA_CHANNEL"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_TX_DMA_CHANNEL&quot;&gt;
@@ -3359,6 +3412,32 @@
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;14&quot;/&gt;
     &lt;/Values&gt;
+  &lt;/drvPlcPhy&gt;
+&lt;/drvPlcPhy&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="PLC_SOURCE_BIN_G3_FCC"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
+  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;PLC_SOURCE_BIN_G3_FCC&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/drvPlcPhy&gt;
+&lt;/drvPlcPhy&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="PLC_SOURCE_BIN_G3_MULTIBAND"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
+  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;PLC_SOURCE_BIN_G3_MULTIBAND&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
 </value>
@@ -3840,7 +3919,7 @@
             &lt;Value dnOrder=&quot;0&quot;&gt;drvPlcPhy&lt;/Value&gt;
           &lt;/String&gt;
           &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;drv_plc_phy_SPI_dependency&lt;/Value&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;drvPlcPhy_SPI_dependency&lt;/Value&gt;
           &lt;/String&gt;
         &lt;/Attributes&gt;
       &lt;/DirectCapability&gt;
@@ -3934,6 +4013,84 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sercom0" name="SERCOM_SPIM_COMMON_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom0&gt;
+  &lt;sercom0 dnOrder=&quot;0&quot; id=&quot;SERCOM_SPIM_COMMON_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/sercom0&gt;
+&lt;/sercom0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sercom0" name="SERCOM_SPIM_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom0&gt;
+  &lt;sercom0 dnOrder=&quot;0&quot; id=&quot;SERCOM_SPIM_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/sercom0&gt;
+&lt;/sercom0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sercom0" name="SERCOM_SPIM_SOURCE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom0&gt;
+  &lt;sercom0 dnOrder=&quot;0&quot; id=&quot;SERCOM_SPIM_SOURCE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/sercom0&gt;
+&lt;/sercom0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sercom0" name="SERCOM_USART_COMMON_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom0&gt;
+  &lt;sercom0 dnOrder=&quot;0&quot; id=&quot;SERCOM_USART_COMMON_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/sercom0&gt;
+&lt;/sercom0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sercom0" name="SERCOM_USART_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom0&gt;
+  &lt;sercom0 dnOrder=&quot;0&quot; id=&quot;SERCOM_USART_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/sercom0&gt;
+&lt;/sercom0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sercom0" name="SERCOM_USART_SOURCE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom0&gt;
+  &lt;sercom0 dnOrder=&quot;0&quot; id=&quot;SERCOM_USART_SOURCE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/sercom0&gt;
+&lt;/sercom0&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sercom0" name="SPI_BAUD_RATE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom0&gt;
   &lt;sercom0 dnOrder=&quot;0&quot; id=&quot;SPI_BAUD_RATE&quot;&gt;
@@ -3965,12 +4122,34 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom0&gt;
   &lt;sercom0 dnOrder=&quot;0&quot; id=&quot;SPI_CLOCK_PHASE&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+      &lt;Boolean dnOrder=&quot;1&quot; id=&quot;visible&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvPlcPhy&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/sercom0&gt;
+&lt;/sercom0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sercom0" name="SPI_CLOCK_POLARITY"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom0&gt;
+  &lt;sercom0 dnOrder=&quot;0&quot; id=&quot;SPI_CLOCK_POLARITY&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+      &lt;Boolean dnOrder=&quot;1&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvPlcPhy&quot; value=&quot;0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/sercom0&gt;
 &lt;/sercom0&gt;
@@ -4020,6 +4199,25 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
+  &lt;/sercom0&gt;
+&lt;/sercom0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sercom0" name="SPI_RECIEVER_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom0&gt;
+  &lt;sercom0 dnOrder=&quot;0&quot; id=&quot;SPI_RECIEVER_ENABLE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+      &lt;Boolean dnOrder=&quot;1&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvPlcPhy&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/sercom0&gt;
 &lt;/sercom0&gt;
 </value>
@@ -4284,6 +4482,22 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sercom1" name="USART_RX_RING_BUFFER_SIZE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom1&gt;
+  &lt;sercom1 dnOrder=&quot;0&quot; id=&quot;USART_RX_RING_BUFFER_SIZE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1024&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/sercom1&gt;
+&lt;/sercom1&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sercom1" name="USART_SAMPLE_COUNT"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom1&gt;
   &lt;sercom1 dnOrder=&quot;0&quot; id=&quot;USART_SAMPLE_COUNT&quot;&gt;
@@ -4300,6 +4514,22 @@
   &lt;sercom1 dnOrder=&quot;0&quot; id=&quot;USART_SAMPLE_RATE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;sercom1&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/sercom1&gt;
+&lt;/sercom1&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sercom1" name="USART_TX_RING_BUFFER_SIZE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sercom1&gt;
+  &lt;sercom1 dnOrder=&quot;0&quot; id=&quot;USART_TX_RING_BUFFER_SIZE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1024&quot;/&gt;
     &lt;/Values&gt;
   &lt;/sercom1&gt;
 &lt;/sercom1&gt;
@@ -6387,12 +6617,12 @@
    </tokenMap>
    <generatedFileHashHistoryMap class="java.util.TreeMap">
       <entry>
-         <file>..\src\app_wbz451.c</file>
-         <hash>9f1689893885603406b478ec7c6185c35b9e05842cea09188a4e9eb4875e6883</hash>
+         <file>..\src\app.c</file>
+         <hash/>
       </entry>
       <entry>
-         <file>..\src\app_wbz451.h</file>
-         <hash>1e409ee4f6822958f1e1f2c4aa6dc9311a9b3e9b8da8bfec6256ac677c96f43b</hash>
+         <file>..\src\app.h</file>
+         <hash/>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\WBZ451.ld</file>
@@ -6408,11 +6638,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\configuration.h</file>
-         <hash>2b786b7b9514046bb3b0c4f113a67d01c893e4458460d15404c4d0672a4be0ee</hash>
+         <hash>e4b95360b49f24020060563780e40375c72295b3594461e16edf618749fbe64f</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\definitions.h</file>
-         <hash>9cee8f43837d6374a3bc635e2327956b5832e89bb38690364a9ea8e99a3bdf14</hash>
+         <hash>d9d0947481d9d94503b31cfaf8aa70b5a366762fccba61600f6645d3c6590262</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\device.h</file>
@@ -6444,7 +6674,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\common\drv_plc_hal.c</file>
-         <hash>55a1fee431d58a04a98d869e55e864dea88d587e76839028c077106a15459708</hash>
+         <hash>37ecfd24078f9a6fbaf204900846ea24fad2695ee23cb3a692ee1739500e9eb9</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\common\drv_plc_hal.h</file>
@@ -6452,35 +6682,35 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\bin\PLC_PHY_G3_FCC.bin</file>
-         <hash>9b58e022530cf632b16b66d0c50bc5519898b2cae4a0d3b3c6f66e5792354cb7</hash>
+         <hash>a02b65ad001fe4dee9bbd14db15683884741c86f07efdc2b4a3420a23605651c</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\bin\plc_phy_bin.S</file>
-         <hash>0fc5151d89891b4e5d22626a73178131c44d5599f1a04afc6bba051172bca34f</hash>
+         <hash>367a1b6f5fe4ad3f1e54248509703cfcd3404016ebfe50f5f3390240aa0e42a1</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy.c</file>
-         <hash>f33d2e0a6e002d22f3bd51b2df9454383f028369412e4cfed8c260ee280230ee</hash>
+         <hash>75003485eced321213d051a7002f9717d9dbecc9c54f912730482d908ee6b6c7</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy.h</file>
-         <hash>23f68d5c831824ce3dcbc192cb08d982ef50a8014c393f9142a49ac8d4dff3d8</hash>
+         <hash>d3202c0cd60d0f633a8bdc59784eabad8a7afd727088c3a37f37f18bcd09e4af</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>413447464aa723490584682b51fac89ad1ddf2bc6b1d30942c36269e514b27c9</hash>
+         <hash>79e15d369b3e87a31a68751b189d284f90e7c4e6857360fc216d7438dc8b19aa</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy_comm.h</file>
-         <hash>07110c4f2ebec5f4c07ecf190295b217d4e9abdd6fd67633655981780dc29eb2</hash>
+         <hash>87d20d630efd1216f1166fa24c1a6f411c87bfd39831219a9ee7b3259402d348</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy_definitions.h</file>
-         <hash>97bc7e4ab4509638c4fdd93092a496b95d5fbebd1d47c8958d9fbd40578dc182</hash>
+         <hash>2b30947ea00e0e8babc2df79acc018fcac95b9f31e9796fbe050fefbd9259914</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy_local.h</file>
-         <hash>8b5e43186d22a05e3a091598a332f11b8f71f60336ebf7ef4f0601dff5608c6b</hash>
+         <hash>3fd3dddd9946550741bdf7a010abbfc1c50dcca6c5f4dce8c2676592eaf7cf9e</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy_local_comm.h</file>
@@ -6488,11 +6718,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\exceptions.c</file>
-         <hash>89852728a9a1cc4c9746839cc3caf5308b8698c0c30bf6bfbad0db9e552a387e</hash>
+         <hash>a565e8d25d218b3e1069267ae9cc317161d062683a27c64e3cb454757bb82fd9</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\initialization.c</file>
-         <hash>60737adbe7cf108472e018880e6f762706720d80b98f732c2c051ce30e3413fe</hash>
+         <hash>47f6f572f6cb61ea42d6a3114c08c22a73a12f812d3b40fa53bae651fc41d3fd</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\interrupts.c</file>
@@ -6508,7 +6738,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\osal\osal.h</file>
-         <hash>8404fbe44807fa0484ffb38843a72cb9af8e31c9c30bd1b2594e609b8ea317d9</hash>
+         <hash>1cfe3b61d9693b2369922041eef33fe16b3c1ccd9c85d4ded808b805f90a869c</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\osal\osal_definitions.h</file>
@@ -6516,7 +6746,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\osal\osal_impl_basic.h</file>
-         <hash>67ce72d34fd1e4dee0b6937fa026ab2c7bd285f82a24da09742c68333adaf0fc</hash>
+         <hash>65e68edbc0320d0407399f65e6d06ff7e6d3d7697231cf1fe0a1fdf1d65f0463</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\clk\plib_clk.c</file>
@@ -6576,7 +6806,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\sercom\spi_master\plib_sercom0_spi_master.c</file>
-         <hash>191f32c83e42cf6087594eec63c1606d0d0790c7f108a453b2ffd6b427d4ff43</hash>
+         <hash>5ab6f4113d7495eb93366ecb254d53d03293e68220f539c0f49056fd8145476f</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\sercom\spi_master\plib_sercom0_spi_master.h</file>
@@ -6584,19 +6814,19 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\sercom\spi_master\plib_sercom_spi_master_common.h</file>
-         <hash>f28c2694b21a2c5ebad94edb7de6fac0acb2bd5686d78d08289cd2185cdccfbf</hash>
+         <hash>06e3c7813e1608b5008e3c8955569f9cff04bef321a34c35421f7979368a4ada</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\sercom\usart\plib_sercom1_usart.c</file>
-         <hash>ed94f8bd22e2b1b57b33c7c48969f3ed73ede922783ce4bbbf89d3a2b8493b95</hash>
+         <hash>cc1c13459f02270fe6e1d366d22db03894dc24d8a9c9de7a7c1bc813da20de04</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\sercom\usart\plib_sercom1_usart.h</file>
-         <hash>31ecd4d25e40afbba112cd54d25fd2d83a03ac60ec8af86178f70f70392cdf19</hash>
+         <hash>f139e664f91fb7ed962f61e210a4fd17059e895a06a64a243d2fd979ac59b674</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\sercom\usart\plib_sercom_usart_common.h</file>
-         <hash>f19dafabe0928d60dd83d7e19f35889f200e3fbadff09e2f42523d320acf780a</hash>
+         <hash>3653b66472c558c50f7037a1dd25d2678e9a13aa718f3c53a2195e6f3919ea48</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\peripheral\tc\plib_tc0.c</file>
@@ -6620,19 +6850,19 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\pcoup\srv_pcoup.c</file>
-         <hash>045d2af93afcd113eaec0ea771e163aae3dacfffe62a43c7f71299c03e375699</hash>
+         <hash>f766ec6db40edd624db74db309713ddba2f8784437639d3d44d97496c4b32dd3</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\pcoup\srv_pcoup.h</file>
-         <hash>b91d11d3b8e08775059c0ff915cbe6b29b52e75df91a2c3eddde9b61e8a52fb6</hash>
+         <hash>4f4773ff0b8e2f04bd8ad78b735d65cb02f3962d1b646e3b33ae26dec3e080b3</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\pcrc\srv_pcrc.c</file>
-         <hash>cee2a40fb67c8c165cdb9ffbd8ecb62c2314ed98cb1afbb6428e0eb19483ee30</hash>
+         <hash>15fa5e599ebd2c081f1a32062df60ceb43eafea9217c5f4a46ff126070bc7b52</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\pcrc\srv_pcrc.h</file>
-         <hash>7904842354daf6416d6953acf74ed4e9a8d5471690edd688b0965e7c334ab1e6</hash>
+         <hash>f257598d31bd730b45f4679376a130000cb6ac18277e5c1575ea45876a3005d4</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\pserial\srv_pserial.c</file>
@@ -6644,11 +6874,11 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\usi\srv_usi.c</file>
-         <hash>ca24c5f10fae659cae9d293c0eb6915f9319771d8dac8c1c1ec5c55f3b0701e1</hash>
+         <hash>57ec6239bcb3b2c44eb9cca3be09bdeed94e2c7c95804a1828180d82030764cf</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\usi\srv_usi.h</file>
-         <hash>a61029a933d71216dd2ccc706219c621dcf6ea3856438b508956ecff12be7b28</hash>
+         <hash>50fbe388350ef30644db606b46c244d423cc4d5c6695fd0058501075ce9e0c84</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\usi\srv_usi_definitions.h</file>
@@ -6660,15 +6890,15 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\usi\srv_usi_usart.c</file>
-         <hash>fa697b6e16fc5428856e1166762e89057b09680143e20885bf7711fa3eba4240</hash>
+         <hash>638670a3d13b444b4cb77005cf93a44506b2aeec4f96c189796cbc1d90142087</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\service\usi\srv_usi_usart.h</file>
-         <hash>45cb9174e8b10bd9fd4e2ceca0823bf18cd7da49f3573609961022c834c1cded</hash>
+         <hash>76c9fbddcce26a5bea9262686ce09189f878d4646b629fe3bc7509f632ec66d8</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\startup_xc32.c</file>
-         <hash>6945b6a1826ae28babaae6cd59e20b8e74e464d4de4fa6fdbb92158ffaa02257</hash>
+         <hash>95d22da03176bc3a797e2e56be702fe4776ce754d18448cd86ca42ccd4083e00</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\stdio\xc32_monitor.c</file>
@@ -6752,7 +6982,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\tasks.c</file>
-         <hash>91b4f960826fb4ba7cdd124b9ae54290a7ef65ff9a6c453f78ffb87f86f57055</hash>
+         <hash>cd7abcfdb790996b873c8e6251556abced6903be29fa4025515be9e033addd59</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\toolchain_specifics.h</file>
@@ -6796,7 +7026,7 @@
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_version.h</file>
-         <hash>2de01ae2556a38eb82c389de23c701805ec63308cfbcf3f84cb12141589b0858</hash>
+         <hash>8cda7ac3ff6f0eb5e83c4fe613dd195151b24da54167f5c3c007e599a03f1edc</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\core_cm4.h</file>
