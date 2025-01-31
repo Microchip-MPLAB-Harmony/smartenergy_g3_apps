@@ -66,9 +66,10 @@
 // *****************************************************************************
 // *****************************************************************************
 /* Following MISRA-C rules are deviated in the below code block */
-/* MISRA C-2012 Rule 11.1 */
-/* MISRA C-2012 Rule 11.3 */
-/* MISRA C-2012 Rule 11.8 */
+/* MISRA C-2012 Rule 7.2 - Deviation record ID - H3_MISRAC_2012_R_7_2_DR_1 */
+/* MISRA C-2012 Rule 11.1 - Deviation record ID - H3_MISRAC_2012_R_11_1_DR_1 */
+/* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+/* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 // <editor-fold defaultstate="collapsed" desc="DRV_RF215 Initialization Data">
 
 /* RF215 Driver Initialization Data */
@@ -104,8 +105,6 @@ static const DRV_RF215_INIT drvRf215InitData = {
 
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
-
-
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 /* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
@@ -123,9 +122,9 @@ void _on_reset(void)
     /* Disable STBY Pin */
     SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA3);
     SYS_PORT_PinClear(SYS_PORT_PIN_PA3);
-    /* Disable LDO Pin */
+    /* Enable LDO Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
-    SYS_PORT_PinClear(DRV_PLC_LDO_EN_PIN);
+    SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -242,9 +241,6 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
     /* PLC PHY Number of clients */
     .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,  
 
-    /* PLC PHY profile */
-    .plcProfile = DRV_PLC_PHY_PROFILE,
- 
     /* PLC Binary start address */
     .binStartAddress = (uint32_t)&plc_phy_bin_start,
     
@@ -438,7 +434,6 @@ void SYS_Initialize ( void* data )
     
 	BSP_Initialize();
 	SPI0_Initialize();
-
 
 
     /* MISRAC 2012 deviation block start */

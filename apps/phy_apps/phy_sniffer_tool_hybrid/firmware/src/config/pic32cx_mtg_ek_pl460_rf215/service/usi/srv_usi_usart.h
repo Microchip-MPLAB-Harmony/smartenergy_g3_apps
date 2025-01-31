@@ -74,21 +74,6 @@ extern const SRV_USI_DEV_DESC srvUSIUSARTDevDesc;
 
 typedef void ( * USI_USART_CALLBACK ) ( uint8_t *data, uint16_t length, uintptr_t context );
 
-typedef struct USI_USART_MSG_tag
-{
-    uint8_t*                                 pMessage;
-    uint8_t*                                 pDataRd;
-    size_t                                   length;
-    bool                                     inUse;
-    struct USI_USART_MSG_tag*                next;
-} USI_USART_MSG;
-
-typedef struct
-{
-    USI_USART_MSG*                           front;
-    USI_USART_MSG*                           rear;
-} USI_USART_MSG_QUEUE;
-
 typedef enum
 {
     USI_USART_IDLE,
@@ -99,38 +84,38 @@ typedef enum
 typedef void (* USI_USART_PLIB_CALLBACK)( uintptr_t context );
 
 typedef void(* USI_USART_PLIB_READ_CALLBACK_REG)(USI_USART_PLIB_CALLBACK callback, uintptr_t context);
-typedef bool(* USI_USART_PLIB_WRRD)(void *buffer, const size_t size);
-typedef bool(* USI_USART_PLIB_WRITE_ISBUSY)(void);
+typedef size_t(* USI_USART_PLIB_WRRD)(void *buffer, const size_t size);
 
 typedef struct
 {
     USI_USART_PLIB_READ_CALLBACK_REG readCallbackRegister;
     USI_USART_PLIB_WRRD readData;
     USI_USART_PLIB_WRRD writeData;
-    USI_USART_PLIB_WRITE_ISBUSY writeIsBusy;
     IRQn_Type intSource;
 } SRV_USI_USART_INTERFACE;
 
 typedef struct
 {
     void*                                    plib;
-    void*                                    pRdBuffer;
+    uint8_t*                                 pRdBuffer;
     size_t                                   rdBufferSize;
+    uint8_t*                                 usartReadBuffer;
+    size_t                                   usartBufferSize;
 } USI_USART_INIT_DATA;
 
 typedef struct
 {
     SRV_USI_USART_INTERFACE*                 plib;
     USI_USART_CALLBACK                       cbFunc;
-    void*                                    pRdBuffer;
+    uint8_t*                                 pRdBuffer;
     size_t                                   rdBufferSize;
     size_t                                   byteCount;
-    uint8_t                                  rcvChar;
-    USI_USART_MSG*                           pRcvMsg;
-    USI_USART_MSG_QUEUE*                     pMsgQueue;
     USI_USART_STATE                          devStatus;
     SRV_USI_STATUS                           usiStatus;
     uintptr_t                                context;
+    
+    size_t                                   usartBufferSize;
+    uint8_t*                                 usartReadBuffer;
 } USI_USART_OBJ;
 
 // *****************************************************************************
@@ -146,8 +131,6 @@ DRV_HANDLE USI_USART_Open(uint32_t index);
 void USI_USART_Tasks (uint32_t index);
 
 void USI_USART_Write(uint32_t index, void* pData, size_t length);
-
-bool USI_USART_WriteIsBusy(uint32_t index);
 
 void USI_USART_RegisterCallback(uint32_t index, USI_USART_CALLBACK cbFunc, uintptr_t context);
 

@@ -141,7 +141,7 @@ bool FLEXCOM3_SPI_WriteRead (void* pTransmitData, size_t txSize, void* pReceiveD
             }
             else
             {
-                if (rxSize > 0)
+                if (rxSize > 0U)
                 {
                     /* txSize is 0. Need to use the dummy data buffer for transmission.
                      * Find out the max data that can be received, given the limited size of the dummy data buffer.
@@ -249,7 +249,7 @@ void __attribute__((used)) FLEXCOM3_InterruptHandler(void)
 
     FLEXCOM3_REGS->FLEX_PTCR = FLEX_PTCR_ERRCLR_Msk;
 
-    if(flexcom3SpiObj.rxCount > 0)
+    if(flexcom3SpiObj.rxCount > 0U)
     {
         /* txPending is 0. Need to use the dummy data buffer for transmission.
          * Find out the max data that can be received, given the limited size of the dummy data buffer.
@@ -265,7 +265,7 @@ void __attribute__((used)) FLEXCOM3_InterruptHandler(void)
 
         setupDMA(dummyDataBuffer,&((uint8_t*)flexcom3SpiObj.rxBuffer)[index],size);
     }
-    else if(flexcom3SpiObj.txCount > 0)
+    else if(flexcom3SpiObj.txCount > 0U)
     {
         /* rxSize is 0. Need to use the dummy data buffer for reception.
          * Find out the max data that can be transmitted, given the limited size of the dummy data buffer.
