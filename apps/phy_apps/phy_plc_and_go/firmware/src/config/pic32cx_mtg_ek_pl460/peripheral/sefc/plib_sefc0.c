@@ -46,6 +46,7 @@ It allows user to Program, Erase and lock the on-chip FLASH memory.
 #include "interrupts.h"
 
 static uint32_t sefc_status = 0;
+static uint32_t SEFC0_PanelBaseAddr = 0;
 
 
 // *****************************************************************************
@@ -94,149 +95,6 @@ __longramfunc__ static bool SEFC0_sequenceRead(uint32_t cmdStart, uint32_t cmdSt
     return true;
 }
 
-// *****************************************************************************
-// *****************************************************************************
-// SEFC0 PLib Interface Routines
-// *****************************************************************************
-// *****************************************************************************
-// *****************************************************************************
-
-void SEFC0_Initialize(void)
-{
-    SEFC0_REGS->SEFC_EEFC_FMR = SEFC_EEFC_FMR_FWS(7U) | SEFC_EEFC_FMR_CLOE_Msk | SEFC_EEFC_FMR_ALWAYS1_Msk;
-}
-
-bool SEFC0_Read( uint32_t *data, uint32_t length, uint32_t address )
-{
-    uint32_t *pAddress = (uint32_t*)address;
-    (void)memcpy(data, pAddress, length);
-    return true;
-}
-
-bool SEFC0_SectorErase( uint32_t address )
-{
-    uint16_t page_number;
-
-    /* Calculate the Page number to be passed for FARG register */
-    page_number = (uint16_t)((address - IFLASH0_ADDR) / IFLASH0_PAGE_SIZE);
-
-    /* Issue the FLASH erase operation */
-    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_EPA | SEFC_EEFC_FCR_FARG((uint32_t)page_number | 0x2U) | SEFC_EEFC_FCR_FKEY_PASSWD);
-
-    sefc_status = 0;
-
-
-    return true;
-}
-
-bool SEFC0_PageBufferWrite( uint32_t *data, const uint32_t address)
-{
-    uint16_t page_number;
-
-    /* Calculate the Page number to be passed for FARG register */
-    page_number = (uint16_t)((address - IFLASH0_ADDR) / IFLASH0_PAGE_SIZE);
-
-    for (uint32_t i = 0; i < IFLASH0_PAGE_SIZE; i += 4U)
-    {
-        *((uint32_t *)( IFLASH0_ADDR + ( page_number * IFLASH0_PAGE_SIZE ) + i )) = *data ;
-        data++;
-    }
-
-    __DSB();
-    __ISB();
-
-    return true;
-}
-
-bool SEFC0_PageBufferCommit( const uint32_t address)
-{
-    uint16_t page_number;
-
-    /* Calculate the Page number to be passed for FARG register */
-    page_number = (uint16_t)((address - IFLASH0_ADDR) / IFLASH0_PAGE_SIZE);
-
-    __DSB();
-    __ISB();
-
-    /* Issue the FLASH write operation*/
-    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_WP | SEFC_EEFC_FCR_FARG((uint32_t)page_number) | SEFC_EEFC_FCR_FKEY_PASSWD);
-
-    sefc_status = 0;
-
-
-    return true;
-}
-
-bool SEFC0_PageWrite( uint32_t *data, uint32_t address )
-{
-    uint16_t page_number;
-
-    /* Calculate the Page number to be passed for FARG register */
-    page_number = (uint16_t)((address - IFLASH0_ADDR) / IFLASH0_PAGE_SIZE);
-
-    for (uint32_t i = 0; i < IFLASH0_PAGE_SIZE; i += 4U)
-    {
-        *((uint32_t *)( IFLASH0_ADDR + ( page_number * IFLASH0_PAGE_SIZE ) + i )) = *data;
-        data++;
-    }
-
-    __DSB();
-    __ISB();
-
-    /* Issue the FLASH write operation*/
-    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_WP | SEFC_EEFC_FCR_FARG((uint32_t)page_number) | SEFC_EEFC_FCR_FKEY_PASSWD);
-
-    sefc_status = 0;
-
-
-    return true;
-}
-
-bool SEFC0_QuadWordWrite( uint32_t *data, uint32_t address )
-{
-    uint16_t page_number;
-
-    /* Calculate the Page number to be passed for FARG register */
-    page_number = (uint16_t)((address - IFLASH0_ADDR) / IFLASH0_PAGE_SIZE);
-
-    for (uint32_t i = 0; i < 16U; i += 4U)
-    {
-        *((uint32_t *)(( address ) + i )) = *data;
-        data++;
-    }
-    /* Issue the FLASH write operation */
-    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_WP | SEFC_EEFC_FCR_FARG((uint32_t)page_number) | SEFC_EEFC_FCR_FKEY_PASSWD);
-
-    sefc_status = 0;
-
-
-    return true;
-}
-
-void SEFC0_RegionLock(uint32_t address)
-{
-    uint16_t page_number;
-
-    /*Calculate the Page number to be passed for FARG register*/
-    page_number = (uint16_t)((address - IFLASH0_ADDR) / IFLASH0_PAGE_SIZE);
-    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_SLB | SEFC_EEFC_FCR_FARG((uint32_t)page_number) | SEFC_EEFC_FCR_FKEY_PASSWD);
-
-    sefc_status = 0;
-
-}
-
-void SEFC0_RegionUnlock(uint32_t address)
-{
-    uint16_t page_number;
-
-    /*Calculate the Page number to be passed for FARG register*/
-    page_number = (uint16_t)((address - IFLASH0_ADDR) / IFLASH0_PAGE_SIZE);
-    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_CLB | SEFC_EEFC_FCR_FARG((uint32_t)page_number) | SEFC_EEFC_FCR_FKEY_PASSWD);
-
-    sefc_status = 0;
-
-}
-
 __longramfunc__ void SEFC0_GpnvmBitSet(uint8_t GpnvmBitNumber)
 {
     SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_SGPB | SEFC_EEFC_FCR_FARG((uint32_t)GpnvmBitNumber) | SEFC_EEFC_FCR_FKEY_PASSWD);
@@ -259,6 +117,7 @@ __longramfunc__ void SEFC0_GpnvmBitClear(uint8_t GpnvmBitNumber)
 
 __longramfunc__ uint32_t SEFC0_GpnvmBitRead(void)
 {
+    /* GPNVM bits can only be read from Flash Panel 0 (SEFC0 Plib instance) */
     SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_GGPB | SEFC_EEFC_FCR_FKEY_PASSWD);
 
     while ((SEFC0_REGS->SEFC_EEFC_FSR & SEFC_EEFC_FSR_FRDY_Msk) == 0U)
@@ -269,6 +128,174 @@ __longramfunc__ uint32_t SEFC0_GpnvmBitRead(void)
     return (uint32_t)SEFC0_REGS->SEFC_EEFC_FRR;
 }
 
+uint32_t SEFC0_FlashPanelBaseAddrGet(void)
+{
+    bool isPanelSwap = ((SEFC0_GpnvmBitRead() & 0x02U) != 0U);
+
+    return isPanelSwap == false? IFLASH0_ADDR : IFLASH1_ADDR;
+
+}
+
+// *****************************************************************************
+// *****************************************************************************
+// SEFC0 PLib Interface Routines
+// *****************************************************************************
+// *****************************************************************************
+// *****************************************************************************
+
+void SEFC0_Initialize(void)
+{
+    SEFC0_REGS->SEFC_EEFC_FMR = SEFC_EEFC_FMR_FWS(7U) | SEFC_EEFC_FMR_CLOE_Msk | SEFC_EEFC_FMR_ALWAYS1_Msk;
+   SEFC0_PanelBaseAddr = SEFC0_FlashPanelBaseAddrGet();
+}
+
+bool SEFC0_Read( uint32_t *data, uint32_t length, uint32_t address )
+{
+    uint32_t *pAddress = (uint32_t*)address;
+    (void)memcpy(data, pAddress, length);
+    return true;
+}
+
+bool SEFC0_SectorErase( uint32_t address )
+{
+    uint16_t page_number;
+
+    /* Calculate the Page number to be passed for FARG register */
+    page_number = (uint16_t)((address - SEFC0_PanelBaseAddr) / IFLASH0_PAGE_SIZE);
+
+    /* Issue the FLASH erase operation */
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_ES | SEFC_EEFC_FCR_FARG((uint32_t)page_number) | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    sefc_status = 0;
+
+
+    return true;
+}
+
+bool SEFC0_PageErase( uint32_t address )
+{
+    uint16_t page_number;
+
+    /* Calculate the Page number to be passed for FARG register */
+    page_number = (uint16_t)((address - SEFC0_PanelBaseAddr) / IFLASH0_PAGE_SIZE);
+
+    /* Issue the FLASH erase operation */
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_EPA | SEFC_EEFC_FCR_FARG((uint32_t)page_number | 0x2U) | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    sefc_status = 0;
+
+
+    return true;
+}
+
+bool SEFC0_PageBufferWrite( uint32_t *data, const uint32_t address)
+{
+    uint16_t page_number;
+
+    /* Calculate the Page number to be passed for FARG register */
+    page_number = (uint16_t)((address - SEFC0_PanelBaseAddr) / IFLASH0_PAGE_SIZE);
+
+    for (uint32_t i = 0; i < IFLASH0_PAGE_SIZE; i += 4U)
+    {
+        *((uint32_t *)( SEFC0_PanelBaseAddr + ( page_number * IFLASH0_PAGE_SIZE ) + i )) = *data ;
+        data++;
+    }
+
+    __DSB();
+    __ISB();
+
+    return true;
+}
+
+bool SEFC0_PageBufferCommit( const uint32_t address)
+{
+    uint16_t page_number;
+
+    /* Calculate the Page number to be passed for FARG register */
+    page_number = (uint16_t)((address - SEFC0_PanelBaseAddr) / IFLASH0_PAGE_SIZE);
+
+    __DSB();
+    __ISB();
+
+    /* Issue the FLASH write operation*/
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_WP | SEFC_EEFC_FCR_FARG((uint32_t)page_number) | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    sefc_status = 0;
+
+
+    return true;
+}
+
+bool SEFC0_PageWrite( uint32_t *data, uint32_t address )
+{
+    uint16_t page_number;
+
+    /* Calculate the Page number to be passed for FARG register */
+    page_number = (uint16_t)((address - SEFC0_PanelBaseAddr) / IFLASH0_PAGE_SIZE);
+
+    for (uint32_t i = 0; i < IFLASH0_PAGE_SIZE; i += 4U)
+    {
+        *((uint32_t *)( SEFC0_PanelBaseAddr + ( page_number * IFLASH0_PAGE_SIZE ) + i )) = *data;
+        data++;
+    }
+
+    __DSB();
+    __ISB();
+
+    /* Issue the FLASH write operation*/
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_WP | SEFC_EEFC_FCR_FARG((uint32_t)page_number) | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    sefc_status = 0;
+
+
+    return true;
+}
+
+bool SEFC0_QuadWordWrite( uint32_t *data, uint32_t address )
+{
+    uint16_t page_number;
+
+    /* Calculate the Page number to be passed for FARG register */
+    page_number = (uint16_t)((address - SEFC0_PanelBaseAddr) / IFLASH0_PAGE_SIZE);
+
+    for (uint32_t i = 0; i < 16U; i += 4U)
+    {
+        *((uint32_t *)(( address ) + i )) = *data;
+        data++;
+    }
+    /* Issue the FLASH write operation */
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_WP | SEFC_EEFC_FCR_FARG((uint32_t)page_number) | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    sefc_status = 0;
+
+
+    return true;
+}
+
+void SEFC0_RegionLock(uint32_t address)
+{
+    uint16_t page_number;
+
+    /*Calculate the Page number to be passed for FARG register*/
+    page_number = (uint16_t)((address - SEFC0_PanelBaseAddr) / IFLASH0_PAGE_SIZE);
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_SLB | SEFC_EEFC_FCR_FARG((uint32_t)page_number) | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    sefc_status = 0;
+
+}
+
+void SEFC0_RegionUnlock(uint32_t address)
+{
+    uint16_t page_number;
+
+    /*Calculate the Page number to be passed for FARG register*/
+    page_number = (uint16_t)((address - SEFC0_PanelBaseAddr) / IFLASH0_PAGE_SIZE);
+    SEFC0_REGS->SEFC_EEFC_FCR = (SEFC_EEFC_FCR_FCMD_CLB | SEFC_EEFC_FCR_FARG((uint32_t)page_number) | SEFC_EEFC_FCR_FKEY_PASSWD);
+
+    sefc_status = 0;
+
+}
+
 bool SEFC0_UniqueIdentifierRead(uint32_t *data, uint32_t length)
 {
     /* Check Unique Identifier length (128 bits) */
@@ -277,7 +304,7 @@ bool SEFC0_UniqueIdentifierRead(uint32_t *data, uint32_t length)
         return false;
     }
 
-    return SEFC0_sequenceRead(SEFC_EEFC_FCR_FCMD_STUI, SEFC_EEFC_FCR_FCMD_SPUI, data, length, IFLASH0_ADDR);
+    return SEFC0_sequenceRead(SEFC_EEFC_FCR_FCMD_STUI, SEFC_EEFC_FCR_FCMD_SPUI, data, length, SEFC0_PanelBaseAddr);
 }
 
 void SEFC0_UserSignatureRightsSet(uint32_t userSignatureRights)
@@ -294,7 +321,7 @@ bool SEFC0_UserSignatureRead(uint32_t *data, uint32_t length, SEFC_USERSIGNATURE
 {
     uint32_t address;
 
-    address = IFLASH0_ADDR + ((((uint32_t)block * 8U) + (uint32_t)page) * SEFC0_PAGESIZE);
+    address = SEFC0_PanelBaseAddr + ((((uint32_t)block * 8U) + (uint32_t)page) * SEFC0_PAGESIZE);
 
     return SEFC0_sequenceRead(SEFC_EEFC_FCR_FCMD_STUS, SEFC_EEFC_FCR_FCMD_SPUS, data, length, address);
 }
@@ -313,7 +340,7 @@ bool SEFC0_UserSignatureWrite(void *data, uint32_t length, SEFC_USERSIGNATURE_BL
 
     page_number = (((uint32_t)block * 8U) + (uint32_t)page);
 
-    dest = (uint64_t *)(IFLASH0_ADDR + (page_number * IFLASH0_PAGE_SIZE));
+    dest = (uint64_t *)(SEFC0_PanelBaseAddr + (page_number * IFLASH0_PAGE_SIZE));
 
     /* Writing 8-bit and 16-bit data is not allowed and may lead to unpredictable data corruption */
     for (count = 0; count < (length >> 1); count++)

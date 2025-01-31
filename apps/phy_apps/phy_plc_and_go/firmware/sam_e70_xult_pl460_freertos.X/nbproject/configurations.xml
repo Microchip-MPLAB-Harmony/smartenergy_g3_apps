@@ -170,6 +170,7 @@
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/projdefs.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/semphr.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/stream_buffer.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/mpu_syscall_numbers.h</itemPath>
           </logicalFolder>
           <logicalFolder name="portable" displayName="portable" projectFiles="true">
             <logicalFolder name="GCC" displayName="GCC" projectFiles="true">
@@ -309,6 +310,12 @@
       <itemPath>../src/app_plc.h</itemPath>
       <itemPath>../src/app_console.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>g3_phy_plc_and_go_sam_e70_xult_pl460_freertos.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -442,6 +449,7 @@
                   <itemPath>../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/CM7/port.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
+              <itemPath>../src/third_party/rtos/FreeRTOS/Source/portable/GCC/Common/mpu_wrappers_v2.c</itemPath>
             </logicalFolder>
             <logicalFolder name="MemMang" displayName="MemMang" projectFiles="true">
               <itemPath>../src/third_party/rtos/FreeRTOS/Source/portable/MemMang/heap_1.c</itemPath>
@@ -461,12 +469,6 @@
       <itemPath>../src/app_console.c</itemPath>
       <itemPath>../src/config/sam_e70_xult_pl460_freertos/pin_configurations.csv</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>g3_phy_plc_and_go_sam_e70_xult_pl460_freertos.mc3</itemPath>
-    </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -478,7 +480,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.40</languageToolchainVersion>
+        <languageToolchainVersion>4.45</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

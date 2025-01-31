@@ -90,9 +90,6 @@ typedef struct
     /* Number of clients */
     size_t                          numClients;
 
-    /* PLC Profile */
-    uint8_t                         plcProfile;
-
     /* Start Address where PLC binary file is located */
     uint32_t                        binStartAddress;
 

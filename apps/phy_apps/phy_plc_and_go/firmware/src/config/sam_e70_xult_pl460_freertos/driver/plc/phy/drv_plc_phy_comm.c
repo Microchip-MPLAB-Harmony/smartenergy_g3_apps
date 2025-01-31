@@ -115,21 +115,25 @@ static uint16_t lDRV_PLC_PHY_COMM_GetDelayUs(DRV_PLC_PHY_ID id)
         switch (id)
         {
             case PLC_ID_TONE_MASK:
-            delay = 600;
-            break;
+                delay = 600;
+                break;
 
             case PLC_ID_PREDIST_COEF_TABLE_HI:
             case PLC_ID_PREDIST_COEF_TABLE_LO:
-            delay = 250;
-            break;
+                delay = 250;
+                break;
 
             case PLC_ID_PREDIST_COEF_TABLE_VLO:
-            delay = 350;
-            break;
+                delay = 350;
+                break;
+
+            case PLC_ID_BAND:
+                delay = 1000;
+                break;
 
             default:
-            delay = 50;
-            break;
+                delay = 50;
+                break;
         }
     }
 
@@ -258,10 +262,13 @@ static void lDRV_PLC_PHY_COMM_RxEvent(DRV_PLC_PHY_RECEPTION_OBJ *pRxObj)
 
 static bool lDRV_PLC_PHY_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
 {
+    bool result = false;
+
     if (info->key == DRV_PLC_HAL_KEY_CORTEX)
     {
         /* Communication correct */
-        return true;
+        result = true;
+        gPlcPhyObj->consecutiveSpiErrors = 0;
     }
     else if (info->key == DRV_PLC_HAL_KEY_BOOT)
     {
@@ -269,6 +276,7 @@ static bool lDRV_PLC_PHY_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
         if ((info->flags & DRV_PLC_HAL_FLAG_RST_WDOG) != 0U)
         {
             /* Debugger is connected */
+            result = true;
             DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_SOFT);
             if (gPlcPhyObj->exceptionCallback != NULL)
             {
@@ -283,9 +291,35 @@ static bool lDRV_PLC_PHY_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
             {
                 gPlcPhyObj->exceptionCallback(DRV_PLC_PHY_EXCEPTION_RESET, gPlcPhyObj->contextExc);
             }
+        }
+    }
+    else
+    {
+        /* PLC needs boot process to upload firmware */
+        DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_HARD);
+        if (gPlcPhyObj->exceptionCallback != NULL)
+        {
+            gPlcPhyObj->exceptionCallback(DRV_PLC_PHY_EXCEPTION_UNEXPECTED_KEY, gPlcPhyObj->contextExc);
+        }
+    }
 
+    if (false == result)
+    {
+        /* Firmware is uploaded 2 times as maximum */
+        gPlcPhyObj->consecutiveSpiErrors++;
+        if (gPlcPhyObj->consecutiveSpiErrors <= 2U)
+        {
             /* Update Driver Status */
             gPlcPhyObj->status = SYS_STATUS_BUSY;
+        }
+        else
+        {
+            /* Update Driver Status */
+            gPlcPhyObj->status = SYS_STATUS_ERROR;
+            if (gPlcPhyObj->exceptionCallback != NULL)
+            {
+                gPlcPhyObj->exceptionCallback(DRV_PLC_PHY_EXCEPTION_CRITICAL_ERROR, gPlcPhyObj->contextExc);
+            }
         }
 
         /* Check if there is any tx_cfm pending to be reported */
@@ -296,30 +330,15 @@ static bool lDRV_PLC_PHY_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
             /* Post semaphore to resume task */
             (void) OSAL_SEM_PostISR(&gPlcPhyObj->semaphoreID);
         }
-
-        return true;
     }
-    else
-    {
-        /* PLC needs boot process to upload firmware */
-        DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_HARD);
-        if (gPlcPhyObj->exceptionCallback != NULL)
-        {
-            gPlcPhyObj->exceptionCallback(DRV_PLC_PHY_EXCEPTION_UNEXPECTED_KEY, gPlcPhyObj->contextExc);
-        }
 
-        /* Update Driver Status */
-        gPlcPhyObj->status = SYS_STATUS_ERROR;
-
-        return false;
-    }
+    return result;
 }
 
 static void lDRV_PLC_PHY_COMM_SpiWriteCmd(DRV_PLC_PHY_MEM_ID id, uint8_t *pData, uint16_t length)
 {
     DRV_PLC_HAL_CMD halCmd;
     DRV_PLC_HAL_INFO halInfo;
-    uint8_t failures = 0;
 
     /* Disable external interrupt from PLC */
     gPlcPhyObj->plcHal->enableExtInt(false);
@@ -332,29 +351,17 @@ static void lDRV_PLC_PHY_COMM_SpiWriteCmd(DRV_PLC_PHY_MEM_ID id, uint8_t *pData,
     gPlcPhyObj->plcHal->sendWrRdCmd(&halCmd, &halInfo);
 
     /* Check communication integrity */
-    while(!lDRV_PLC_PHY_COMM_CheckComm(&halInfo))
+    if (lDRV_PLC_PHY_COMM_CheckComm(&halInfo))
     {
-        failures++;
-        if (failures == 2U) {
-            if (gPlcPhyObj->exceptionCallback != NULL)
-            {
-                gPlcPhyObj->exceptionCallback(DRV_PLC_PHY_EXCEPTION_CRITICAL_ERROR, gPlcPhyObj->contextExc);
-            }
-            break;
-        }
-        gPlcPhyObj->plcHal->reset();
-        gPlcPhyObj->plcHal->sendWrRdCmd(&halCmd, &halInfo);
+        /* Enable external interrupt from PLC */
+        gPlcPhyObj->plcHal->enableExtInt(true);
     }
-
-    /* Enable external interrupt from PLC */
-    gPlcPhyObj->plcHal->enableExtInt(true);
 }
 
 static void lDRV_PLC_PHY_COMM_SpiReadCmd(DRV_PLC_PHY_MEM_ID id, uint8_t *pData, uint16_t length)
 {
     DRV_PLC_HAL_CMD halCmd;
     DRV_PLC_HAL_INFO halInfo;
-    uint8_t failures = 0;
 
     /* Disable external interrupt from PLC */
     gPlcPhyObj->plcHal->enableExtInt(false);
@@ -367,22 +374,11 @@ static void lDRV_PLC_PHY_COMM_SpiReadCmd(DRV_PLC_PHY_MEM_ID id, uint8_t *pData, 
     gPlcPhyObj->plcHal->sendWrRdCmd(&halCmd, &halInfo);
 
     /* Check communication integrity */
-    while(!lDRV_PLC_PHY_COMM_CheckComm(&halInfo))
+    if (lDRV_PLC_PHY_COMM_CheckComm(&halInfo))
     {
-        failures++;
-        if (failures == 2U) {
-            if (gPlcPhyObj->exceptionCallback != NULL)
-            {
-                gPlcPhyObj->exceptionCallback(DRV_PLC_PHY_EXCEPTION_CRITICAL_ERROR, gPlcPhyObj->contextExc);
-            }
-            break;
-        }
-        gPlcPhyObj->plcHal->reset();
-        gPlcPhyObj->plcHal->sendWrRdCmd(&halCmd, &halInfo);
+        /* Enable external interrupt from PLC */
+        gPlcPhyObj->plcHal->enableExtInt(true);
     }
-
-    /* Enable external interrupt from PLC */
-    gPlcPhyObj->plcHal->enableExtInt(true);
 }
 
 static void lDRV_PLC_PHY_COMM_GetEventsInfo(DRV_PLC_PHY_EVENTS_OBJ *eventsObj)
@@ -390,7 +386,6 @@ static void lDRV_PLC_PHY_COMM_GetEventsInfo(DRV_PLC_PHY_EVENTS_OBJ *eventsObj)
     uint8_t *pData;
     DRV_PLC_HAL_CMD halCmd;
     DRV_PLC_HAL_INFO halInfo;
-    uint8_t failures = 0;
 
     pData = sDataInfo;
 
@@ -402,17 +397,10 @@ static void lDRV_PLC_PHY_COMM_GetEventsInfo(DRV_PLC_PHY_EVENTS_OBJ *eventsObj)
     gPlcPhyObj->plcHal->sendWrRdCmd(&halCmd, &halInfo);
 
     /* Check communication integrity */
-    while(!lDRV_PLC_PHY_COMM_CheckComm(&halInfo))
+    if (!lDRV_PLC_PHY_COMM_CheckComm(&halInfo))
     {
-        failures++;
-        if (failures == 2U) {
-            if (gPlcPhyObj->exceptionCallback != NULL)
-            {
-                gPlcPhyObj->exceptionCallback(DRV_PLC_PHY_EXCEPTION_CRITICAL_ERROR, gPlcPhyObj->contextExc);
-            }
-            break;
-        }
-        gPlcPhyObj->plcHal->sendWrRdCmd(&halCmd, &halInfo);
+        /* Disable external interrupt from PLC */
+        gPlcPhyObj->plcHal->enableExtInt(false);
     }
 
     /* Extract Events information */
@@ -563,11 +551,11 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
             /* Send TX data */
             if (gPlcPhyObj->state[0] == DRV_PLC_PHY_STATE_TX)
             {
-                /* Send TX data content */
-                lDRV_PLC_PHY_COMM_SpiWriteCmd(TX_DAT_ID, transmitObj->pTransmitData, transmitObj->dataLength);
-
                 /* Update PLC state: waiting confirmation */
                 gPlcPhyObj->state[0] = DRV_PLC_PHY_STATE_WAITING_TX_CFM;
+
+                /* Send TX data content */
+                lDRV_PLC_PHY_COMM_SpiWriteCmd(TX_DAT_ID, transmitObj->pTransmitData, transmitObj->dataLength);
             }
             else
             {

@@ -98,9 +98,15 @@ static void APP_PLC_SetInitialConfiguration ( void )
     DRV_PLC_PHY_PIB_OBJ pibObj;
     uint8_t plcCrcEnable;
     bool applyStaticNotching = false;
+    
+    /* Set PLC PHY Band */
+    appPlc.plcPIB.id = PLC_ID_BAND;
+    appPlc.plcPIB.length = 1;
+    *appPlc.plcPIB.pData = appPlc.plcBand;
+    DRV_PLC_PHY_PIBSet(appPlc.drvPlcHandle, &appPlc.plcPIB);
 
     /* Apply PLC coupling configuration */
-    SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlcTx.couplingBranch);
+    SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlc.plcBand);
 
     /* Force Transmission to VLO mode by default in order to maximize signal level in anycase */
     /* Disable autodetect mode */
@@ -124,9 +130,9 @@ static void APP_PLC_SetInitialConfiguration ( void )
     DRV_PLC_PHY_PIBGet(appPlc.drvPlcHandle, &pibObj);
 
     /* Adjust ToneMap Info */
-    switch ((uint8_t)(appPlcTx.plcPhyVersion >> 16))
+    switch (appPlc.plcBand)
     {
-        case 1:
+        case G3_CEN_A:
             /* CEN A */
             appPlcTx.toneMapSize = TONE_MAP_SIZE_CENELEC;
             appPlcTx.plcPhyTx.toneMap[0] = 0x3F;
@@ -137,7 +143,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
             }
             break;
 
-        case 2:
+        case G3_FCC:
             /* FCC */
             appPlcTx.toneMapSize = TONE_MAP_SIZE_FCC;
             appPlcTx.plcPhyTx.toneMap[0] = 0xFF;
@@ -145,7 +151,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
             appPlcTx.plcPhyTx.toneMap[2] = 0xFF;
             break;
 
-        case 3:
+        case G3_ARIB:
             /* ARIB */
             appPlcTx.toneMapSize = TONE_MAP_SIZE_ARIB;
             appPlcTx.plcPhyTx.toneMap[0] = 0x03;
@@ -153,7 +159,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
             appPlcTx.plcPhyTx.toneMap[2] = 0xFF;
             break;
 
-        case 4:
+        case G3_CEN_B:
             /* CEN B */
             appPlcTx.toneMapSize = TONE_MAP_SIZE_CENELEC;
             appPlcTx.plcPhyTx.toneMap[0] = 0x0F;
@@ -359,21 +365,42 @@ void APP_PLC_Initialize ( void )
     appPlcTx.pDataTx = appPlcTxDataBuffer;
     appPlcTx.plcPhyTx.pTransmitData = appPlcTx.pDataTx;
 
-    /* Set PLC state */
-    appPlc.state = APP_PLC_STATE_IDLE;
-
     /* Set PVDD Monitor tracking data */
     appPlc.pvddMonTxEnable = true;
 
-    /* Init PLC TX status */
+    /* Initialize PLC TX status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
 
-    /* Init Timer handler */
+    /* Initialize Timer handler */
     appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr2Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr1Expired = false;
     appPlc.tmr2Expired = false;
 
+    /* Initialize PLC PHY band */
+    appPlc.plcBand = SRV_PCOUP_Get_Default_Phy_Band();
+    
+    /* Set Static Notching capability (example only valid for CEN-A band */
+    /* Caution: Example provided only for CEN-A band */
+    appPlc.staticNotchingEnable = APP_PLC_STATIC_NOTCHING_ENABLE;
+
+    /* Set configuration by default */
+    appPlcTx.plcPhyTx.timeIni = 0;
+    appPlcTx.plcPhyTx.attenuation = 0;
+    appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_DIFFERENTIAL;
+    appPlcTx.plcPhyTx.modType = MOD_TYPE_BPSK;
+    appPlcTx.plcPhyTx.delimiterType = DT_SOF_NO_RESP;
+    appPlcTx.plcPhyTx.mode = TX_MODE_FORCED | TX_MODE_RELATIVE;
+    /* Set 1 Reed-Solomon block. In this example it cannot be configured dynamically. To test 2 Reed-Solomon blocks change 0 by 1 (Only for FCC). */
+    appPlcTx.plcPhyTx.rs2Blocks = 0;
+    appPlcTx.plcPhyTx.pdc = 0;
+    appPlcTx.plcPhyTx.pTransmitData = appPlcTx.pDataTx;
+    appPlcTx.plcPhyTx.dataLength = 0;
+
+    memset(appPlcTx.plcPhyTx.preemphasis, 0, sizeof(appPlcTx.plcPhyTx.preemphasis));
+
+    /* Initialize PLC state */
+    appPlc.state = APP_PLC_STATE_INIT;
 }
 
 /******************************************************************************
@@ -402,79 +429,8 @@ void APP_PLC_Tasks ( void )
     /* Check the application's current state. */
     switch ( appPlc.state )
     {
-        case APP_PLC_STATE_IDLE:
-        {
-            /* Set Static Notching capability (example only valid for CEN-A band */
-            /* Caution: Example provided only for CEN-A band */
-            appPlc.staticNotchingEnable = APP_PLC_STATIC_NOTCHING_ENABLE;
-
-            /* Set configuration by default */
-            appPlcTx.plcPhyTx.timeIni = 0;
-            appPlcTx.plcPhyTx.attenuation = 0;
-            appPlcTx.plcPhyTx.modScheme = MOD_SCHEME_DIFFERENTIAL;
-            appPlcTx.plcPhyTx.modType = MOD_TYPE_BPSK;
-            appPlcTx.plcPhyTx.delimiterType = DT_SOF_NO_RESP;
-            appPlcTx.plcPhyTx.mode = TX_MODE_FORCED | TX_MODE_RELATIVE;
-            /* Set 1 Reed-Solomon block. In this example it cannot be configured dynamically. To test 2 Reed-Solomon blocks change 0 by 1 (Only for FCC). */
-            appPlcTx.plcPhyTx.rs2Blocks = 0;
-            appPlcTx.plcPhyTx.pdc = 0;
-            appPlcTx.plcPhyTx.pTransmitData = appPlcTx.pDataTx;
-            appPlcTx.plcPhyTx.dataLength = 0;
-
-            memset(appPlcTx.plcPhyTx.preemphasis, 0, sizeof(appPlcTx.plcPhyTx.preemphasis));
-
-            /* Set PLC Multiband / Couling Branch flag */
-            appPlcTx.couplingBranch = SRV_PCOUP_Get_Default_Branch();
-            if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == NULL) {
-                /* Auxiliary branch is not configured. Single branch */
-                appPlc.plcMultiband = false;
-                appPlcTx.bin2InUse = false;
-            } else {
-                /* Dual branch */
-                appPlc.plcMultiband = true;
-                if (appPlcTx.couplingBranch == SRV_PLC_PCOUP_MAIN_BRANCH)
-                {
-                    appPlcTx.bin2InUse = false;
-                }
-                else
-                {
-                    appPlcTx.bin2InUse = true;
-                }
-            }
-
-            /* Initialize PLC driver */
-            appPlc.state = APP_PLC_STATE_INIT;
-        }
-        break;
-
         case APP_PLC_STATE_INIT:
         {
-            SYS_STATUS drvPlcStatus = DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX);
-
-            /* Select PLC Binary file for multi-band solution */
-            if (appPlc.plcMultiband && (drvPlcStatus == SYS_STATUS_UNINITIALIZED))
-            {
-                if (appPlcTx.bin2InUse)
-                {
-                    drvPlcPhyInitData.binStartAddress = (uint32_t)&plc_phy_bin2_start;
-                    drvPlcPhyInitData.binEndAddress = (uint32_t)&plc_phy_bin2_end;
-                    /* Set Coupling Auxiliary branch */
-                    appPlcTx.couplingBranch = SRV_PLC_PCOUP_AUXILIARY_BRANCH;
-                }
-                else
-                {
-                    drvPlcPhyInitData.binStartAddress = (uint32_t)&plc_phy_bin_start;
-                    drvPlcPhyInitData.binEndAddress = (uint32_t)&plc_phy_bin_end;
-                    /* Set Coupling Main branch */
-                    appPlcTx.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
-                }
-
-                /* Initialize PLC Driver Instance */
-                sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
-                /* Register Callback function to handle PLC interruption */
-                PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
-            }
-
             /* Open PLC driver */
             appPlc.drvPlcHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
 
@@ -536,27 +492,6 @@ void APP_PLC_Tasks ( void )
             {
                  appPlc.state = APP_PLC_STATE_WAITING;
             }
-            break;
-        }
-
-        case APP_PLC_STATE_SET_BAND:
-        {
-            if (!appPlc.plcMultiband)
-            {
-                /* PLC Multi-band is not supported */
-                appPlc.state = APP_PLC_STATE_WAITING;
-                break;
-            }
-
-            /* Close PLC Driver */
-            DRV_PLC_PHY_Close(appPlc.drvPlcHandle);
-
-            /* Stop timer */
-            SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
-
-            /* Restart PLC Driver */
-            appPlc.state = APP_PLC_STATE_INIT;
-            appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
             break;
         }
 
@@ -643,6 +578,15 @@ void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME
         appPlcTx.maxPsduLen = appPlc.plcPIB.pData[0];
         appPlcTx.maxPsduLen += (uint16_t)appPlc.plcPIB.pData[1] << 8;
     }
+}
+
+void APP_PLC_SetBand ( uint8_t plcBand )
+{
+    /* Store new PLC band */
+    appPlc.plcBand = plcBand;
+
+    /* Restore configuration with new band */
+    APP_PLC_SetInitialConfiguration();
 }
 
 bool APP_PLC_SetSleepMode ( bool enable )

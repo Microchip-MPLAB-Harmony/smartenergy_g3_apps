@@ -90,18 +90,21 @@ static void F_DRV_USBHSV1_Tasks(  void *pvParameters  )
     }
 }
 
-void lSYS_CONSOLE_0_Tasks(  void *pvParameters  )
+static void lSYS_CONSOLE_0_Tasks(  void *pvParameters  )
 {
-    while(1)
+    while(true)
     {
         SYS_CONSOLE_Tasks(SYS_CONSOLE_INDEX_0);
-        vTaskDelay(10 / portTICK_PERIOD_MS);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 
 
+
 /* Handle for the APP_PLC_Tasks. */
 TaskHandle_t xAPP_PLC_Tasks;
+
+
 
 static void lAPP_PLC_Tasks(  void *pvParameters  )
 {   
@@ -111,8 +114,11 @@ static void lAPP_PLC_Tasks(  void *pvParameters  )
         vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
+
 /* Handle for the APP_CONSOLE_Tasks. */
 TaskHandle_t xAPP_CONSOLE_Tasks;
+
+
 
 static void lAPP_CONSOLE_Tasks(  void *pvParameters  )
 {   
@@ -146,7 +152,7 @@ void SYS_Tasks ( void )
         "SYS_CONSOLE_0_TASKS",
         SYS_CONSOLE_RTOS_STACK_SIZE_IDX0,
         (void*)NULL,
-        SYS_CONSOLE_RTOS_TASK_PRIORITY_IDX0,
+        SYS_CONSOLE_RTOS_TASK_PRIORITY_IDX0 ,
         (TaskHandle_t*)NULL
     );
 
@@ -186,22 +192,24 @@ void SYS_Tasks ( void )
 
 
     /* Maintain the application's state machine. */
-        /* Create OS Thread for APP_PLC_Tasks. */
-    (void) xTaskCreate((TaskFunction_t) lAPP_PLC_Tasks,
-                "APP_PLC_Tasks",
-                1024,
-                NULL,
-                1,
-                &xAPP_PLC_Tasks);
+    
+    /* Create OS Thread for APP_PLC_Tasks. */
+    (void) xTaskCreate(
+           (TaskFunction_t) lAPP_PLC_Tasks,
+           "APP_PLC_Tasks",
+           1024,
+           NULL,
+           1U ,
+           &xAPP_PLC_Tasks);
 
     /* Create OS Thread for APP_CONSOLE_Tasks. */
-    (void) xTaskCreate((TaskFunction_t) lAPP_CONSOLE_Tasks,
-                "APP_CONSOLE_Tasks",
-                1024,
-                NULL,
-                1,
-                &xAPP_CONSOLE_Tasks);
-
+    (void) xTaskCreate(
+           (TaskFunction_t) lAPP_CONSOLE_Tasks,
+           "APP_CONSOLE_Tasks",
+           1024,
+           NULL,
+           1U ,
+           &xAPP_CONSOLE_Tasks);
 
 
 

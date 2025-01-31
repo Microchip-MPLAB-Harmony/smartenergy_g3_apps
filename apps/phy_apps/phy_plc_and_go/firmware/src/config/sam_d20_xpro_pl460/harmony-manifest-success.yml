@@ -4,21 +4,21 @@
 
 
 project: phy_plc_and_go
-creation_date: 2024-07-09T15:50:22.741+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-01-31T14:46:32.670+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
-mcc_mode: Headless            # [IDE|Standalone|Headless]
+mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.5.1
 mcc_core_version: v5.7.1
-mplabx_version: NA        # if MPLAB X plugin only
-harmony_version: v1.5.1
-compiler: NA
+mplabx_version: v6.20        # if MPLAB X plugin only
+harmony_version: v1.5.4
+compiler: XC32 4.40
 
 modules:
-    - {name: "csp", version: "v3.19.1"}
-    - {name: "core", version: "v3.13.5"}
-    - {name: "CMSIS_5", version: "5.8.0"}
-    - {name: "smartenergy", version: "v1.2.1"}
-    - {name: "bsp", version: "v3.20.1"}
+    - {name: "csp", version: "v3.20.0"}
+    - {name: "core", version: "v3.14.1"}
+    - {name: "CMSIS_5", version: "5.9.0"}
+    - {name: "smartenergy", version: "SMS-4128-support-pl460-multiband-single-branch-coupling-in-h3"}
+    - {name: "shd", version: "dev"}
 
 packs:
     - {name: "SAMD20_DFP", version: "3.6.112"}

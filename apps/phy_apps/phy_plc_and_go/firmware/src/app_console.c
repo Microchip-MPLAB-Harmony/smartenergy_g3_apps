@@ -173,9 +173,6 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
     DRV_PLC_PHY_MOD_TYPE modType = MOD_TYPE_BPSK;
     DRV_PLC_PHY_MOD_SCHEME modScheme = MOD_SCHEME_DIFFERENTIAL;
     bool result = true;
-    uint8_t version;
-
-    version = (uint8_t)(appPlcTx.plcPhyVersion >> 16);
 
     switch (*scheme)
     {
@@ -200,7 +197,7 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
         case '3':
             modType = MOD_TYPE_8PSK;
             modScheme = MOD_SCHEME_DIFFERENTIAL;
-            if (version == 0x03)
+            if (appPlc.plcBand == G3_ARIB)
             {
                 APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
                 result = false;
@@ -214,7 +211,7 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
         case '4':
             modType = MOD_TYPE_BPSK_ROBO;
             modScheme = MOD_SCHEME_COHERENT;
-            if (version == 0x03)
+            if (appPlc.plcBand == G3_ARIB)
             {
                 APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
                 result = false;
@@ -228,7 +225,7 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
         case '5':
             modType = MOD_TYPE_BPSK;
             modScheme = MOD_SCHEME_COHERENT;
-            if (version == 0x03)
+            if (appPlc.plcBand == G3_ARIB)
             {
                 APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
                 result = false;
@@ -242,7 +239,7 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
         case '6':
             modType = MOD_TYPE_QPSK;
             modScheme = MOD_SCHEME_COHERENT;
-            if (version == 0x03)
+            if (appPlc.plcBand == G3_ARIB)
             {
                 APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
                 result = false;
@@ -256,7 +253,7 @@ static bool APP_CONSOLE_SetScheme(char *scheme)
         case '7':
             modType = MOD_TYPE_8PSK;
             modScheme = MOD_SCHEME_COHERENT;
-            if (version == 0x03)
+            if (appPlc.plcBand == G3_ARIB)
             {
                 APP_CONSOLE_Print("\r\nCoherent modulation not supported in ARIB band. Skipping configuration\r\n");
                 result = false;
@@ -283,9 +280,6 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 {
     uint8_t schemeMenu = 0xFF;
     uint8_t index;
-    uint8_t version;
-
-    version = (uint8_t)(appPlcTx.plcPhyVersion >> 16);
 
     APP_CONSOLE_Print("\r\n--- Tx Modulation Configuration Menu ---\r\n");
     APP_CONSOLE_Print("Select Modulation:\r\n");
@@ -344,15 +338,15 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
         {
             case 0:
                 APP_CONSOLE_Print("0: BPSK Robust Differential ... ");
-                switch (version)
+                switch (appPlc.plcBand)
                 {
-                    case 1:
+                    case G3_CEN_A:
                     default:
                         /* CENELEC-A */
                         APP_CONSOLE_Print("5.5 kbit/s\r\n");
                         break;
 
-                    case 2:
+                    case G3_FCC:
                         /* FCC */
                         if (appPlcTx.plcPhyTx.rs2Blocks == 0)
                         {
@@ -366,12 +360,12 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
                         }
                         break;
 
-                    case 3:
+                    case G3_ARIB:
                         /* ARIB */
                         APP_CONSOLE_Print("25.7 kbit/s\r\n");
                         break;
 
-                    case 4:
+                    case G3_CEN_B:
                         /* CENELEC-B */
                         APP_CONSOLE_Print("2.1 kbit/s\r\n");
                         break;
@@ -380,15 +374,15 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
             case 1:
                 APP_CONSOLE_Print("1: BPSK Differential .......... ");
-                switch (version)
+                switch (appPlc.plcBand)
                 {
-                    case 1:
+                    case G3_CEN_A:
                     default:
                         /* CENELEC-A */
                         APP_CONSOLE_Print("20.1 kbit/s\r\n");
                         break;
 
-                    case 2:
+                    case G3_FCC:
                         /* FCC */
                         if (appPlcTx.plcPhyTx.rs2Blocks == 0)
                         {
@@ -402,12 +396,12 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
                         }
                         break;
 
-                    case 3:
+                    case G3_ARIB:
                         /* ARIB */
                         APP_CONSOLE_Print("81.2 kbit/s\r\n");
                         break;
 
-                    case 4:
+                    case G3_CEN_B:
                         /* CENELEC-B */
                         APP_CONSOLE_Print("9.2 kbit/s\r\n");
                         break;
@@ -416,15 +410,15 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
             case 2:
                 APP_CONSOLE_Print("2: QPSK Differential .......... ");
-                switch (version)
+                switch (appPlc.plcBand)
                 {
-                    case 1:
+                    case G3_CEN_A:
                     default:
                         /* CENELEC-A */
                         APP_CONSOLE_Print("34.5 kbit/s\r\n");
                         break;
 
-                    case 2:
+                    case G3_FCC:
                         /* FCC */
                         if (appPlcTx.plcPhyTx.rs2Blocks == 0)
                         {
@@ -438,12 +432,12 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
                         }
                         break;
 
-                    case 3:
+                    case G3_ARIB:
                         /* ARIB */
                         APP_CONSOLE_Print("130.4 kbit/s\r\n");
                         break;
 
-                    case 4:
+                    case G3_CEN_B:
                         /* CENELEC-B */
                         APP_CONSOLE_Print("16.4 kbit/s\r\n");
                         break;
@@ -452,15 +446,15 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
             case 3:
                 APP_CONSOLE_Print("3: 8PSK Differential .......... ");
-                switch (version)
+                switch (appPlc.plcBand)
                 {
-                    case 1:
+                    case G3_CEN_A:
                     default:
                         /* CENELEC-A */
                         APP_CONSOLE_Print("44.6 kbit/s\r\n");
                         break;
 
-                    case 2:
+                    case G3_FCC:
                         /* FCC */
                         if (appPlcTx.plcPhyTx.rs2Blocks == 0)
                         {
@@ -474,7 +468,7 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
                         }
                         break;
 
-                    case 4:
+                    case G3_CEN_B:
                         /* CENELEC-B */
                         APP_CONSOLE_Print("21.8 kbit/s\r\n");
                         break;
@@ -483,15 +477,15 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
             case 4:
                 APP_CONSOLE_Print("4: BPSK Robust Coherent ....... ");
-                switch (version)
+                switch (appPlc.plcBand)
                 {
-                    case 1:
+                    case G3_CEN_A:
                     default:
                         /* CENELEC-A */
                         APP_CONSOLE_Print("5 kbit/s\r\n");
                         break;
 
-                    case 2:
+                    case G3_FCC:
                         /* FCC */
                         if (appPlcTx.plcPhyTx.rs2Blocks == 0)
                         {
@@ -505,7 +499,7 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
                         }
                         break;
 
-                    case 4:
+                    case G3_CEN_B:
                         /* CENELEC-B */
                         APP_CONSOLE_Print("1.7 kbit/s\r\n");
                         break;
@@ -514,15 +508,15 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
             case 5:
                 APP_CONSOLE_Print("5: BPSK Coherent .............. ");
-                switch (version)
+                switch (appPlc.plcBand)
                 {
-                    case 1:
+                    case G3_CEN_A:
                     default:
                         /* CENELEC-A */
                         APP_CONSOLE_Print("18.5 kbit/s\r\n");
                         break;
 
-                    case 2:
+                    case G3_FCC:
                         /* FCC */
                         if (appPlcTx.plcPhyTx.rs2Blocks == 0)
                         {
@@ -536,7 +530,7 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
                         }
                         break;
 
-                    case 4:
+                    case G3_CEN_B:
                         /* CENELEC-B */
                         APP_CONSOLE_Print("7.9 kbit/s\r\n");
                         break;
@@ -545,15 +539,15 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
             case 6:
                 APP_CONSOLE_Print("6: QPSK Coherent .............. ");
-                switch (version)
+                switch (appPlc.plcBand)
                 {
-                    case 1:
+                    case G3_CEN_A:
                     default:
                         /* CENELEC-A */
                         APP_CONSOLE_Print("31.3 kbit/s\r\n");
                         break;
 
-                    case 2:
+                    case G3_FCC:
                         /* FCC */
                         if (appPlcTx.plcPhyTx.rs2Blocks == 0)
                         {
@@ -567,7 +561,7 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
                         }
                         break;
 
-                    case 4:
+                    case G3_CEN_B:
                         /* CENELEC-B */
                         APP_CONSOLE_Print("14.5 kbit/s\r\n");
                         break;
@@ -576,15 +570,15 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
 
             case 7:
                 APP_CONSOLE_Print("7: 8PSK Coherent .............. ");
-                switch (version)
+                switch (appPlc.plcBand)
                 {
-                    case 1:
+                    case G3_CEN_A:
                     default:
                         /* CENELEC-A */
                         APP_CONSOLE_Print("41.2 kbit/s\r\n");
                         break;
 
-                    case 2:
+                    case G3_FCC:
                         /* FCC */
                         if (appPlcTx.plcPhyTx.rs2Blocks == 0)
                         {
@@ -598,7 +592,7 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
                         }
                         break;
 
-                    case 4:
+                    case G3_CEN_B:
                         /* CENELEC-B */
                         APP_CONSOLE_Print("19.6 kbit/s\r\n");
                         break;
@@ -630,54 +624,39 @@ static void APP_CONSOLE_ShowSetSleepMenu( void )
 
 static void APP_CONSOLE_ShowMultibandMenu( void )
 {
-    SRV_PLC_PCOUP_BRANCH currentBranch;
-    SRV_PLC_PCOUP_BRANCH index;
-    uint8_t band;
-
-    APP_CONSOLE_Print("\r\n--- Tx/Rx Coupling Band Configuration Menu ---\r\n");
-    APP_CONSOLE_Print("Select PLC Coupling branch:\r\n");
-
-    currentBranch = appPlcTx.couplingBranch;
-
-    for (index = 0; index < 2; index++)
+    APP_CONSOLE_Print("\r\n--- Tx/Rx PLC Band Configuration Menu ---\r\n");
+    APP_CONSOLE_Print("Select PLC PHY Band:\r\n");
+    
+    for (uint8_t band = G3_CEN_A; band <= G3_CEN_B; band++)
     {
-        if (index == currentBranch)
+        if (SRV_PCOUP_Get_Config(band) != NULL)
         {
-            APP_CONSOLE_Print("->\t");
-        }
-        else
-        {
-            APP_CONSOLE_Print("\t");
-        }
+            if (appPlc.plcBand == band)
+            {
+                APP_CONSOLE_Print("->");
+            }
 
-        if (index == SRV_PLC_PCOUP_MAIN_BRANCH)
-        {
-            APP_CONSOLE_Print("0: Main Branch ");
-        }
-        else
-        {
-            APP_CONSOLE_Print("1: Auxiliary ");
-        }
+            APP_CONSOLE_Print("\t%hhu: ", band);
+            
+            switch (band)
+            {
+                case G3_CEN_A:
+                    APP_CONSOLE_Print("CENELEC-A band (35 - 91 KHz)\r\n");
+                    break;
 
-        band = SRV_PCOUP_Get_Phy_Band(index);
-        switch (band)
-        {
-            case G3_CEN_A:
-                APP_CONSOLE_Print("(CENELEC-A band: 35 - 91 KHz)\r\n");
-                break;
+                case G3_CEN_B:
+                    APP_CONSOLE_Print("CENELEC-B band (98 - 122 kHz)\r\n");
+                    break;
 
-            case G3_CEN_B:
-                APP_CONSOLE_Print("(CENELEC-B band: 98 - 122 kHz)\r\n");
-                break;
+                case G3_FCC:
+                    APP_CONSOLE_Print("FCC band (154 - 488 KHz)\r\n");
+                    break;
 
-            case G3_FCC:
-                APP_CONSOLE_Print("(FCC band: 154 - 488 KHz)\r\n");
-                break;
+                case G3_ARIB:
+                    APP_CONSOLE_Print("ARIB band (154 - 404 KHz)\r\n");
+                    break;
 
-            case G3_ARIB:
-                APP_CONSOLE_Print("(ARIB band: 154 - 404 KHz)\r\n");
-                break;
-
+            }
         }
     }
 
@@ -687,26 +666,12 @@ static void APP_CONSOLE_ShowMultibandMenu( void )
 static bool APP_CONSOLE_SetPlcBand(char *mode)
 {
     bool result = false;
-
-    switch (*mode)
+    uint8_t band = (uint8_t)(*mode - '0');
+    
+    if (SRV_PCOUP_Get_Config(band) != NULL)
     {
-        case '0':
-            if (appPlcTx.couplingBranch == SRV_PLC_PCOUP_AUXILIARY_BRANCH)
-            {
-                appPlcTx.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
-                appPlcTx.bin2InUse = 0;
-                result = true;
-            }
-            break;
-
-        case '1':
-            if (appPlcTx.couplingBranch == SRV_PLC_PCOUP_MAIN_BRANCH)
-            {
-                appPlcTx.couplingBranch = SRV_PLC_PCOUP_AUXILIARY_BRANCH;
-                appPlcTx.bin2InUse = 1;
-                result = true;
-            }
-            break;
+        APP_PLC_SetBand(band);
+        result = true;
     }
 
     return result;
@@ -788,25 +753,25 @@ void APP_CONSOLE_Tasks ( void )
                         (uint8_t)(appPlcTx.plcPhyVersion >> 24), (uint8_t)(appPlcTx.plcPhyVersion >> 16),
                         (uint8_t)(appPlcTx.plcPhyVersion >> 8), (uint8_t)(appPlcTx.plcPhyVersion));
 
-                if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x01)
+                /* Show PHY Band */
+                switch (appPlc.plcBand)
                 {
-                    /* Show PHY Band */
-                    APP_CONSOLE_Print("(CENELEC-A band: 35 - 91 kHz)\r\n");
-                }
-                else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x02)
-                {
-                    /* Show PHY Band */
-                    APP_CONSOLE_Print("(FCC band: 154 - 488 kHz)\r\n");
-                }
-                else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x03)
-                {
-                    /* Show PHY Band */
-                    APP_CONSOLE_Print("(ARIB band: 154 - 404 kHz)\r\n");
-                }
-                else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x04)
-                {
-                    /* Show PHY Band */
-                    APP_CONSOLE_Print("(CENELEC-B band: 98 - 122 kHz)\r\n");
+                    case G3_CEN_A:
+                    default:
+                        APP_CONSOLE_Print("(CENELEC-A band: 35 - 91 kHz)\r\n");
+                        break;
+
+                    case G3_FCC:
+                        APP_CONSOLE_Print("(FCC band: 154 - 488 kHz)\r\n");
+                        break;
+
+                    case G3_ARIB:
+                        APP_CONSOLE_Print("(ARIB band: 154 - 404 kHz)\r\n");
+                        break;
+
+                    case G3_CEN_B:
+                        APP_CONSOLE_Print("(CENELEC-B band: 98 - 122 kHz)\r\n");
+                        break;
                 }
 
                 APP_CONSOLE_Print("\r\nPress 'CTRL+S' to enter configuration menu. " \
@@ -842,10 +807,7 @@ void APP_CONSOLE_Tasks ( void )
                         APP_CONSOLE_Print("Select parameter to configure:\r\n");
                         APP_CONSOLE_Print("\t0: Enable/Disable sleep mode\n\r");
                         APP_CONSOLE_Print("\t1: Tx Modulation\n\r");
-                        if (appPlc.plcMultiband)
-                        {
-                            APP_CONSOLE_Print("\t2: Tx/Rx Coupling Band\n\r");
-                        }
+                        APP_CONSOLE_Print("\t2: PLC PHY Band\n\r");
                         break;
 
                     default:
@@ -894,7 +856,7 @@ void APP_CONSOLE_Tasks ( void )
                     APP_CONSOLE_ShowSetSchemeMenu();
                     APP_CONSOLE_ReadRestart(1);
                 }
-                else if (appPlc.plcMultiband && (appConsole.pReceivedChar[0] == '2'))
+                else if (appConsole.pReceivedChar[0] == '2')
                 {
                     appConsole.state = APP_CONSOLE_STATE_SET_PLC_BAND;
                     APP_CONSOLE_ShowMultibandMenu();
@@ -1026,16 +988,7 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (APP_CONSOLE_SetPlcBand(appConsole.pReceivedChar))
                 {
-                    if (appPlcTx.bin2InUse)
-                    {
-                        APP_CONSOLE_Print("\r\nSet Auxiliary branch\r\n");
-                    }
-                    else
-                    {
-                        APP_CONSOLE_Print("\r\nSet Main branch\r\n");
-                    }
-
-                    appPlc.state = APP_PLC_STATE_SET_BAND;
+                    APP_CONSOLE_Print("\r\nSet PLC Band to %hhu\r\n", *appConsole.pReceivedChar);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
                 }
                 else

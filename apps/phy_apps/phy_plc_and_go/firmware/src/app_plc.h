@@ -94,13 +94,11 @@ extern "C" {
 typedef enum
 {
     /* Application's state machine's initial state. */
-    APP_PLC_STATE_IDLE=0,
-    APP_PLC_STATE_INIT,
+    APP_PLC_STATE_INIT=0,
     APP_PLC_STATE_OPEN,
     APP_PLC_STATE_WAITING,
     APP_PLC_STATE_TX,
     APP_PLC_STATE_WAITING_TX_CFM,
-    APP_PLC_STATE_SET_BAND,
     APP_PLC_STATE_SLEEP,
     APP_PLC_STATE_EXCEPTION,
     APP_PLC_STATE_ERROR,
@@ -153,8 +151,6 @@ typedef struct
 
     DRV_PLC_PHY_TX_RESULT lastTxResult;
 
-    bool plcMultiband;
-
     DRV_PLC_PHY_PIB_OBJ plcPIB;
 
     bool staticNotchingEnable;
@@ -162,6 +158,8 @@ typedef struct
     bool pvddMonTxEnable;
 
     APP_PLC_TX_STATE plcTxState;
+
+    uint8_t plcBand;
 
 } APP_PLC_DATA;
 
@@ -180,8 +178,6 @@ typedef struct
     uint8_t toneMapSize;
 
     bool bin2InUse;
-
-    SRV_PLC_PCOUP_BRANCH couplingBranch;
 
     uint16_t maxPsduLen;
 
@@ -264,12 +260,10 @@ void APP_PLC_Initialize ( void );
 
 void APP_PLC_Tasks( void );
 
-
 bool APP_PLC_SendData ( uint8_t* pData, uint16_t length );
 void APP_PLC_SetModScheme ( DRV_PLC_PHY_MOD_TYPE modType, DRV_PLC_PHY_MOD_SCHEME modScheme );
+void APP_PLC_SetBand ( uint8_t plcBand );
 bool APP_PLC_SetSleepMode ( bool enable );
-
-
 
 #endif /* _APP_PLC_H */
 

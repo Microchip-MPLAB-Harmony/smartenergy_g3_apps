@@ -93,7 +93,6 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize(
 
     gDrvPlcPhyObj.plcHal                = plcPhyInit->plcHal;
     gDrvPlcPhyObj.nClientsMax           = plcPhyInit->numClients;
-    gDrvPlcPhyObj.plcProfile            = plcPhyInit->plcProfile;
     gDrvPlcPhyObj.binSize               = plcPhyInit->binEndAddress - plcPhyInit->binStartAddress;
     gDrvPlcPhyObj.binStartAddress       = plcPhyInit->binStartAddress;
     gDrvPlcPhyObj.secure                = plcPhyInit->secure;
@@ -161,9 +160,13 @@ DRV_HANDLE DRV_PLC_PHY_Open(
         bootInfo.contextBoot = 0;
     }
 
+    /* Delay to ensure that NRST is pushed at least 2.15 ms after LDO is enabled */
+    gDrvPlcPhyObj.plcHal->delay(2150);
+
     DRV_PLC_BOOT_Start(&bootInfo, gDrvPlcPhyObj.plcHal);
 
     gDrvPlcPhyObj.nClients++;
+    gDrvPlcPhyObj.consecutiveSpiErrors = 0;
 
     return ((DRV_HANDLE)0);
 }
@@ -175,6 +178,7 @@ void DRV_PLC_PHY_Close( const DRV_HANDLE handle )
         gDrvPlcPhyObj.nClients--;
         gDrvPlcPhyObj.inUse = false;
         gDrvPlcPhyObj.status = SYS_STATUS_UNINITIALIZED;
+        gDrvPlcPhyObj.plcHal->enableExtInt(false);
     }
 }
 
@@ -236,7 +240,6 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
         }
         else if (state == DRV_PLC_BOOT_STATUS_READY)
         {
-            DRV_PLC_PHY_Init(&gDrvPlcPhyObj);
             gDrvPlcPhyObj.status = SYS_STATUS_READY;
             gDrvPlcPhyObj.state[0] = DRV_PLC_PHY_STATE_IDLE;
 
@@ -245,6 +248,8 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
                 gDrvPlcPhyObj.sleep = false;
                 gDrvPlcPhyObj.sleepDisableCallback(gDrvPlcPhyObj.contextSleep);
             }
+
+            DRV_PLC_PHY_Init(&gDrvPlcPhyObj);
         }
         else
         {
