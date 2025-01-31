@@ -105,6 +105,12 @@ void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
 {
     sPlcPlib = plcPlib;
 
+    /* Enable LDO_EN pin */
+    SYS_PORT_PinSet(sPlcPlib->ldoPin);
+
+    /* Push NRST pin */
+    SYS_PORT_PinClear(sPlcPlib->resetPin);
+
     /* Disable External Interrupt */
     EIC_InterruptDisable(sPlcPlib->extIntPin);
     /* Enable External Interrupt Source */
@@ -131,23 +137,13 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
 
 void DRV_PLC_HAL_Reset(void)
 {
-    /* Disable LDO pin */
-    SYS_PORT_PinClear(sPlcPlib->ldoPin);
-
-    /* Enable Reset Pin */
+    /* Pulse of 50 us in NRST pin of PLC modem */
     SYS_PORT_PinClear(sPlcPlib->resetPin);
-
-    /* Wait to PLC startup (50us) */
     DRV_PLC_HAL_Delay(50);
-
-    /* Enable LDO pin */
-    SYS_PORT_PinSet(sPlcPlib->ldoPin);
-
-    /* Disable Reset pin */
     SYS_PORT_PinSet(sPlcPlib->resetPin);
 
-    /* Wait to PLC startup (1000us) */
-    DRV_PLC_HAL_Delay(1000);
+    /* 1.2 ms is needed after releasing NRST for the System to be up */
+    DRV_PLC_HAL_Delay(1500);
 }
 
 void DRV_PLC_HAL_SetTxEnable(bool enable)

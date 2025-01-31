@@ -19,7 +19,7 @@
 
 // DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -53,6 +53,7 @@ Microchip or any third party.
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 #include "system/system.h"
 
 // DOM-IGNORE-BEGIN
@@ -82,10 +83,11 @@ Microchip or any third party.
 
 typedef enum
 {
-    PCRC_HT_GENERIC = 0, /* PRIME Generic Packet type */
-    PCRC_HT_PROMOTION = 1, /* PRIME Promotion Packet type */
-    PCRC_HT_BEACON = 2, /* PRIME Beacon Packet type */
-    PCRC_HT_USI = 3 /* USI Packet type */
+    PCRC_HT_GENERIC = 0, /* GENERIC Packet type */
+    PCRC_HT_PRIME_GENERIC, /* PRIME Generic Packet type */
+    PCRC_HT_PRIME_BEACON14, /* PRIME 1.4 Beacon Packet type */
+    PCRC_HT_USI, /* USI Packet type */
+    PCRC_HT_MM /* Meters And More Packet type */
 }PCRC_HEADER_TYPE;
 
 // *****************************************************************************
@@ -101,16 +103,20 @@ typedef enum
 typedef enum
 {
     PCRC_CRC8 = 0, /* 8-bit CRC */
-    PCRC_CRC16 = 1, /* 16-bit CRC */
-    PCRC_CRC32 = 2, /* 32-bit CRC */
-    PCRC_NOCRC = 3 /* No CRC */
+    PCRC_CRC16, /* 16-bit CRC */
+    PCRC_CRC32, /* 32-bit CRC */
+    PCRC_NOCRC  /* No CRC */
 }PCRC_CRC_TYPE;
 
 /* SRV_PCRC Handle Macro: Invalid CRC */
 #define PCRC_INVALID     0xFFFFFFFFUL
 
 /* SRV_PCRC Handle Macro: SNA size */
-#define PCRC_SNA_SIZE 6
+#define PCRC_SNA_SIZE    6
+
+
+/* PRIME v1.4 constant CRC size: Constant CRC field size */
+#define PCRC_CONST_BCN_PRIME_1_4_SIZE       4
 
 // *****************************************************************************
 // *****************************************************************************
@@ -144,14 +150,10 @@ typedef enum
     length -    Length of the data stream.
 
     hdrType -   Header type to determine the method to obtain CRC.
-                It is different for USI and PRIME
-                packets (GENERIC, PROMOTION and BEACON).
 
-    crcType -   CRC type(8, 16 or 32 bits). Valid only in case of
-                header type PCRC_HT_USI.
+    crcType -   CRC type(8, 16 or 32 bits).
 
-    initValue - Initialization value for CRC computation. Valid only in case
-                of header type PCRC_HT_USI.
+    initValue - Initialization value for CRC computation.
 
   Returns:
     If successful, the routine returns a valid CRC value.
@@ -164,18 +166,18 @@ typedef enum
     <code>
     uint32_t valueTmp32;
 
-    valueTmp32 = SRV_PCRC_GetValue(pData, length, PCRC_HT_USI, PCRC_CRC32);
+    valueTmp32 = SRV_PCRC_GetValue(pData, length, PCRC_HT_USI, PCRC_CRC32, 0);
     </code>
 
   Remarks:
     None.
 */
 uint32_t SRV_PCRC_GetValue(uint8_t *pData, size_t length,
-        PCRC_HEADER_TYPE hdrType, PCRC_CRC_TYPE crcType, uint32_t initValue);
+    PCRC_HEADER_TYPE hdrType, PCRC_CRC_TYPE crcType, uint32_t initValue);
 
 // *****************************************************************************
 /* Function:
-    void SRV_PCRC_SetSNAValue (uint8_t* sna);
+    void SRV_PCRC_ConfigureSNA (uint8_t* sna);
 
   Summary:
     Sets SNA (Sub-Network Address) value to be used as initial value on
@@ -198,12 +200,12 @@ uint32_t SRV_PCRC_GetValue(uint8_t *pData, size_t length,
     <code>
     uint8_t sna[PCRC_SNA_SIZE];
 
-    SRV_PCRC_SetSNAValue(sna);
+    SRV_PCRC_ConfigureSNA(sna);
     </code>
 
   Remarks:
     None.
 */
-void SRV_PCRC_SetSNAValue (uint8_t* sna);
+void SRV_PCRC_ConfigureSNA (uint8_t* sna);
 
 #endif //SRV_PCRC_H

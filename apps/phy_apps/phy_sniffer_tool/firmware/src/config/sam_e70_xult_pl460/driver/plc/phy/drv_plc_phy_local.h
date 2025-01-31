@@ -135,8 +135,8 @@ typedef struct
     /* HAL API list that will be used by the driver to access the hardware */
     DRV_PLC_HAL_INTERFACE           *plcHal;
 
-    /* PLC Profile */
-    uint8_t                         plcProfile;
+    /* Number of consecutive SPI errors */
+    uint8_t                         consecutiveSpiErrors;
 
     /* Size (in Bytes) of the PLC binary file */
     uint32_t                        binSize;
@@ -147,9 +147,6 @@ typedef struct
     /* Secure mode */
     bool                            secure;
 
-    /* Sleep mode */
-    bool                            sleep;
-
     /* Application Data Confirm Callback */
     DRV_PLC_PHY_TX_CFM_CALLBACK     txCfmCallback;
 
@@ -158,9 +155,6 @@ typedef struct
 
     /* Application Exception Callback */
     DRV_PLC_PHY_EXCEPTION_CALLBACK  exceptionCallback;
-
-    /* Application Exception Callback */
-    DRV_PLC_PHY_SLEEP_CALLBACK      sleepDisableCallback;
 
     /* Application Bootloader Data Callback */
     DRV_PLC_BOOT_DATA_CALLBACK      bootDataCallback;
@@ -173,9 +167,6 @@ typedef struct
 
     /* Application context for Exception Callback */
     uintptr_t                       contextExc;
-
-    /* Application context for Sleep Mode Callback */
-    uintptr_t                       contextSleep;
 
     /* Application context for Bootloader Dara Callback */
     uintptr_t                       contextBoot;
