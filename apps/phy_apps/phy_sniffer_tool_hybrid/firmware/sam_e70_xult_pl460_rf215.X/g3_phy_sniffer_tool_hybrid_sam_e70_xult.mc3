@@ -4962,7 +4962,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\definitions.h</file>
-         <hash>8983194bfbd38e15797e110eb9ca10fefc81fee4a9eacf2ae2234ae075703596</hash>
+         <hash>7d113e06b16dd9ce748ffb95f6683fcbcd7a286a268ecba2217281809042b7ff</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\device.h</file>
@@ -5022,7 +5022,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.h</file>
-         <hash>87d20d630efd1216f1166fa24c1a6f411c87bfd39831219a9ee7b3259402d348</hash>
+         <hash>2d90c22b9b733a21f8e71d5ee4b190f5cbec4e936e706316b68e19e74003559f</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy_definitions.h</file>

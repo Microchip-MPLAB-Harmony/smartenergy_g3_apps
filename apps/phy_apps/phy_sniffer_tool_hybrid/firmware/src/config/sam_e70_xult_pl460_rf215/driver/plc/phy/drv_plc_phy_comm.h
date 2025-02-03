@@ -80,9 +80,9 @@ extern uint8_t plc_phy_bin2_end;
 
 /* G3-PLC Bandplan */
 #define G3_CEN_A                                   1U
-#define G3_CEN_B                                   2U
-#define G3_FCC                                     3U
-#define G3_ARIB                                    4U
+#define G3_FCC                                     2U
+#define G3_ARIB                                    3U
+#define G3_CEN_B                                   4U
 #define G3_INVALID                                 0xFFU
 
 /* Number of carriers for CENELEC-A bandplan */

@@ -6642,7 +6642,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\definitions.h</file>
-         <hash>d9d0947481d9d94503b31cfaf8aa70b5a366762fccba61600f6645d3c6590262</hash>
+         <hash>1cd752fd86927d255a4c33ce16b4cb3c4bad5aa3930a33f68eb3ef8a9a8ed614</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\device.h</file>
@@ -6702,7 +6702,7 @@
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy_comm.h</file>
-         <hash>87d20d630efd1216f1166fa24c1a6f411c87bfd39831219a9ee7b3259402d348</hash>
+         <hash>2d90c22b9b733a21f8e71d5ee4b190f5cbec4e936e706316b68e19e74003559f</hash>
       </entry>
       <entry>
          <file>..\src\config\wbz451_curiosity_pl460\driver\plc\phy\drv_plc_phy_definitions.h</file>
