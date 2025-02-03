@@ -54,6 +54,7 @@ Microchip or any third party.
 #include <stdarg.h>
 #include <math.h>
 #include "definitions.h"
+#include "service/random/srv_random.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -320,7 +321,7 @@ static bool APP_CONSOLE_SetDataMode(char *mode)
             length++;
             while(length--)
             {
-                dataValue = TRNG_ReadData();
+                dataValue = SRV_RANDOM_Get32bits();
                 *pData++ = (uint8_t)dataValue;
                 *pData++ = (uint8_t)(dataValue >> 8);
                 *pData++ = (uint8_t)(dataValue >> 16);
@@ -393,7 +394,7 @@ static bool APP_CONSOLE_SetToneMap(char *toneMap, size_t length)
     if (result)
     {
         /* Validate New Tone Map */
-        if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x01)
+        if (appPlcTx.plcBand == G3_CEN_A)
         {
             /* CENA(01 - 3F) */
             if (newToneMap[0] > 0x3F)
@@ -401,7 +402,7 @@ static bool APP_CONSOLE_SetToneMap(char *toneMap, size_t length)
                 result = false;
             }
         }
-        else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x04)
+        else if (appPlcTx.plcBand == G3_CEN_B)
         {
             /* CENB(01 - 0F) */
             if (newToneMap[0] > 0x0F)
@@ -450,20 +451,13 @@ static bool APP_CONSOLE_SetBranchMode(char *mode)
 
 static bool APP_CONSOLE_SetPlcBand(char *mode)
 {
-    bool result = true;
-
-    switch (*mode)
+    bool result = false;
+    uint8_t band = (uint8_t)(*mode - '0');
+    
+    if (SRV_PCOUP_Get_Config(band) != NULL)
     {
-        case '0':
-            appPlcTx.bin2InUse = 0;
-            break;
-
-        case '1':
-            appPlcTx.bin2InUse = 1;
-            break;
-
-        default:
-            result = false;
+        APP_PLC_SetBand(band);
+        result = true;
     }
 
     return result;
@@ -646,17 +640,17 @@ void APP_CONSOLE_Tasks ( void )
             if (appPlc.state == APP_PLC_STATE_WAITING)
             {
                 /* Set PLC Phy Tone Map Size */
-                if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x01)
+                if (appPlcTx.plcBand == G3_CEN_A)
                 {
                     /* CENA(01 - 3F) */
                     appPlcTx.toneMapSize = 1;
                 }
-                else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x02)
+                else if (appPlcTx.plcBand == G3_FCC)
                 {
                     /* FCC(000001 - FFFFFF) */
                     appPlcTx.toneMapSize = 3;
                 }
-                else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x04)
+                else if (appPlcTx.plcBand == G3_CEN_B)
                 {
                     /* CENB(01 - 0F) */
                     appPlcTx.toneMapSize = 1;
@@ -718,19 +712,19 @@ void APP_CONSOLE_Tasks ( void )
                         break;
 
                     case '4':
-                        if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x01)
+                        if (appPlcTx.plcBand == G3_CEN_A)
                         {
                             APP_CONSOLE_Print("\r\nEnter enter value for tone map. CENA(01 - 3F) : ");
                             appPlcTx.toneMapSize = 1;
                             APP_CONSOLE_ReadRestart(2);
                         }
-                        else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x02)
+                        else if (appPlcTx.plcBand == G3_FCC)
                         {
                             APP_CONSOLE_Print("\r\nEnter enter value for tone map. FCC(000001 - FFFFFF) : ");
                             appPlcTx.toneMapSize = 3;
                             APP_CONSOLE_ReadRestart(6);
                         }
-                        else if (((appPlcTx.plcPhyVersion >> 16) & 0xFF) == 0x04)
+                        else if (appPlcTx.plcBand == G3_CEN_B)
                         {
                             APP_CONSOLE_Print("\r\nEnter enter value for tone map. CENB(01 - 0F) : ");
                             appPlcTx.toneMapSize = 1;
@@ -747,54 +741,42 @@ void APP_CONSOLE_Tasks ( void )
                         break;
 
                     case '6':
-                        if (appPlc.plcMultiband)
+                    {
+                        APP_CONSOLE_Print("\n\r-- Select PLC band  --------------\r\n");
+
+                        for (uint8_t phyBand = G3_CEN_A; phyBand <= G3_CEN_B; phyBand++)
                         {
-                            uint8_t phyBand;
-
-                            APP_CONSOLE_Print("\n\r-- Select PLC band  --------------\r\n");
-                            phyBand = SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_MAIN_BRANCH);
-                            switch(phyBand)
+                            if (SRV_PCOUP_Get_Config(phyBand) != NULL)
                             {
-                                case G3_CEN_A:
-                                    APP_CONSOLE_Print("0: MAIN BRANCH [CEN-A]\n\r");
-                                    break;
+                                APP_CONSOLE_Print("%hhu: ", phyBand);
 
-                                case G3_CEN_B:
-                                    APP_CONSOLE_Print("0: MAIN BRANCH [CEN-B]\n\r");
-                                    break;
+                                switch (phyBand)
+                                {
+                                    case G3_CEN_A:
+                                        APP_CONSOLE_Print("CENELEC-A band (35 - 91 KHz)\r\n");
+                                        break;
 
-                                case G3_FCC:
-                                    APP_CONSOLE_Print("0: MAIN BRANCH [FCC]\n\r");
-                                    break;
+                                    case G3_CEN_B:
+                                        APP_CONSOLE_Print("CENELEC-B band (98 - 122 kHz)\r\n");
+                                        break;
 
+                                    case G3_FCC:
+                                        APP_CONSOLE_Print("FCC band (154 - 488 KHz)\r\n");
+                                        break;
+
+                                    case G3_ARIB:
+                                        APP_CONSOLE_Print("ARIB band (154 - 404 KHz)\r\n");
+                                        break;
+
+                                }
                             }
-
-                            phyBand = SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_AUXILIARY_BRANCH);
-                            switch(phyBand)
-                            {
-                                case G3_CEN_A:
-                                    APP_CONSOLE_Print("1: AUXILIARY BRANCH [CEN-A]\n\r");
-                                    break;
-
-                                case G3_CEN_B:
-                                    APP_CONSOLE_Print("1: AUXILIARY BRANCH [CEN-B]\n\r");
-                                    break;
-
-                                case G3_FCC:
-                                    APP_CONSOLE_Print("1: AUXILIARY BRANCH [FCC]\n\r");
-                                    break;
-
-                            }
-
-                            appConsole.state = APP_CONSOLE_STATE_SET_PLC_BAND;
-                            APP_CONSOLE_ReadRestart(1);
                         }
-                        else
-                        {
-                            APP_CONSOLE_Print("\r\nMulti-band option is not supported.\r\n");
-                            APP_CONSOLE_ReadRestart(1);
-                        }
+
+                        appConsole.state = APP_CONSOLE_STATE_SET_PLC_BAND;
+                        APP_CONSOLE_ReadRestart(1);
                         break;
+                    }
+                    
 
                     case 'v':
                     case 'V':
@@ -997,16 +979,7 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (APP_CONSOLE_SetPlcBand(appConsole.pReceivedChar))
                 {
-                    if (appPlcTx.bin2InUse)
-                    {
-                        APP_CONSOLE_Print("\r\nSet Auxiliary branch\r\n");
-                    }
-                    else
-                    {
-                        APP_CONSOLE_Print("\r\nSet Main branch\r\n");
-                    }
-
-                    appPlc.state = APP_PLC_STATE_SET_BAND;
+                    APP_CONSOLE_Print("\r\nSet PLC Band to %hhu\r\n", *appConsole.pReceivedChar);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_MENU;
                 }
                 else

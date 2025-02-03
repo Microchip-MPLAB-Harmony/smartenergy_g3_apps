@@ -82,7 +82,6 @@ extern DRV_PLC_PHY_INIT drvPlcPhyInitData;
 CACHE_ALIGN APP_PLC_DATA appPlc;
 CACHE_ALIGN APP_PLC_DATA_TX appPlcTx;
 
-static CACHE_ALIGN uint8_t appPlcPibDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_PIB_BUFFER_SIZE)];
 static CACHE_ALIGN uint8_t appPlcTxDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_BUFFER_SIZE)];
 
 // *****************************************************************************
@@ -226,18 +225,11 @@ void APP_PLC_Initialize ( void )
     /* IDLE state is used to signal when application is started */
     appPlc.state = APP_PLC_STATE_IDLE;
 
-    /* Init PLC PIB buffer */
-    appPlc.plcPIB.pData = appPlcPibDataBuffer;
-
     /* Init PLC TX Buffer */
     appPlcTx.plcPhyTx.pTransmitData = appPlcTxDataBuffer;
 
-    /* Set PLC Multiband flag */
-    if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == NULL) {
-        appPlc.plcMultiband = false;
-    } else {
-        appPlc.plcMultiband = true;
-    }
+    /* Initialize PLC PHY band */
+    appPlcTx.plcBand = SRV_PCOUP_Get_Default_Phy_Band();
 
     /* Init Timer handler */
     appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
@@ -361,9 +353,6 @@ void APP_PLC_Tasks ( void )
 
                     /* Clear Transmission flag */
                     appPlcTx.inTx = false;
-
-                    /* Select PLC binary by default */
-                    appPlcTx.bin2InUse = false;
                 }
 
                 /* Initialize PLC driver */
@@ -403,55 +392,11 @@ void APP_PLC_Tasks ( void )
 
         case APP_PLC_STATE_INIT:
         {
-            SYS_STATUS drvPlcStatus = DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX);
-
-            /* Set Coupling branch by default */
-            appPlcTx.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
-
-            /* Select PLC Binary file for multi-band solution */
-            if (appPlc.plcMultiband == true)
-            {
-                if (appPlcTx.bin2InUse == true)
-                {
-                    drvPlcPhyInitData.binStartAddress = (uint32_t)&plc_phy_bin2_start;
-                    drvPlcPhyInitData.binEndAddress = (uint32_t)&plc_phy_bin2_end;
-                    /* Set Coupling Auxiliary branch */
-                    appPlcTx.couplingBranch = SRV_PLC_PCOUP_AUXILIARY_BRANCH;
-                }
-                else
-                {
-                    drvPlcPhyInitData.binStartAddress = (uint32_t)&plc_phy_bin_start;
-                    drvPlcPhyInitData.binEndAddress = (uint32_t)&plc_phy_bin_end;
-                }
-
-                if (drvPlcStatus == SYS_STATUS_UNINITIALIZED)
-                {
-                    /* Initialize PLC Driver Instance */
-                    sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
-                    /* Register Callback function to handle PLC interruption */
-                    PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
-                }
-            }
-
             /* Open PLC driver */
             appPlc.drvPlcHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
 
             if (appPlc.drvPlcHandle != DRV_HANDLE_INVALID)
             {
-                if ((appPlc.plcMultiband == true) && (appPlcTx.bin2InUse == true) && (drvPlcStatus == SYS_STATUS_BUSY))
-                {
-                    /* Close PLC Driver */
-                    DRV_PLC_PHY_Close(appPlc.drvPlcHandle);
-
-                    /* Initialize PLC Driver Instance */
-                    sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
-                    /* Register Callback function to handle PLC interruption */
-                    PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
-
-                    /* Open PLC driver again */
-                    appPlc.drvPlcHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX_0, NULL);
-                }
-
                 appPlc.state = APP_PLC_STATE_OPEN;
             }
             else
@@ -474,8 +419,8 @@ void APP_PLC_Tasks ( void )
                 DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
 
-                /* Apply PLC coupling configuration */
-                SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlcTx.couplingBranch);
+                /* Set PHY Band and apply PLC coupling configuration */
+                APP_PLC_SetBand(appPlcTx.plcBand);
 
 #ifndef APP_PLC_DISABLE_PVDDMON
                 /* Disable TX Enable at the beginning */
@@ -517,15 +462,15 @@ void APP_PLC_Tasks ( void )
                     appPlcTx.plcPhyVersion = version;
 
                     /* Adjust ToneMap Info */
-                    switch ((uint8_t)(appPlcTx.plcPhyVersion >> 16))
+                    switch (appPlcTx.plcBand)
                     {
-                        case 1:
+                        case G3_CEN_A:
                             /* CEN A */
                             appPlcTx.toneMapSize = TONE_MAP_SIZE_CENELEC;
                             appPlcTx.plcPhyTx.toneMap[0] = 0x3F;
                             break;
 
-                        case 2:
+                        case G3_FCC:
                             /* FCC */
                             appPlcTx.toneMapSize = TONE_MAP_SIZE_FCC;
                             appPlcTx.plcPhyTx.toneMap[0] = 0xFF;
@@ -533,7 +478,7 @@ void APP_PLC_Tasks ( void )
                             appPlcTx.plcPhyTx.toneMap[2] = 0xFF;
                             break;
 
-                        case 3:
+                        case G3_ARIB:
                             /* ARIB */
                             appPlcTx.toneMapSize = TONE_MAP_SIZE_FCC;
                             appPlcTx.plcPhyTx.toneMap[0] = 0x03;
@@ -541,7 +486,7 @@ void APP_PLC_Tasks ( void )
                             appPlcTx.plcPhyTx.toneMap[2] = 0xFF;
                             break;
 
-                        case 4:
+                        case G3_CEN_B:
                             /* CEN B */
                             appPlcTx.toneMapSize = TONE_MAP_SIZE_CENELEC;
                             appPlcTx.plcPhyTx.toneMap[0] = 0x0F;
@@ -630,31 +575,6 @@ void APP_PLC_Tasks ( void )
             break;
         }
 
-        case APP_PLC_STATE_SET_BAND:
-        {
-            if (!appPlc.plcMultiband)
-            {
-                /* PLC Multi-band is not supported */
-                appPlc.state = APP_PLC_STATE_WAITING;
-                break;
-            }
-
-            /* Clear Transmission flags */
-            appPlcTx.inTx = false;
-
-            /* Close PLC Driver */
-            DRV_PLC_PHY_Close(appPlc.drvPlcHandle);
-
-            /* Destroy Blink Timer */
-            SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
-            appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
-
-            /* Restart PLC Driver */
-            appPlc.state = APP_PLC_STATE_INIT;
-            appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
-            break;
-        }
-
         /* The default state should never be executed. */
         default:
         {
@@ -663,6 +583,22 @@ void APP_PLC_Tasks ( void )
     }
 }
 
+void APP_PLC_SetBand ( uint8_t plcBand )
+{
+    DRV_PLC_PHY_PIB_OBJ pibObj;
+
+    /* Store new PLC band */
+    appPlcTx.plcBand = plcBand;
+
+    /* Set PLC PHY Band */
+    pibObj.id = PLC_ID_BAND;
+    pibObj.length = 1;
+    pibObj.pData = &appPlcTx.plcBand;
+    DRV_PLC_PHY_PIBSet(appPlc.drvPlcHandle, &pibObj);
+
+    /* Apply PLC coupling configuration */
+    SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlcTx.plcBand);
+}
 
 /*******************************************************************************
  End of File

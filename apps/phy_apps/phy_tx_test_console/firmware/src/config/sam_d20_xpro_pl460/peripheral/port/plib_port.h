@@ -65,63 +65,91 @@
 // *****************************************************************************
 // *****************************************************************************
 
-/*** Macros for PLC_INT pin ***/
-#define PLC_INT_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 4U)) & 0x01U)
-#define PLC_INT_PIN                  PORT_PIN_PB04
+/*** Macros for PL460_EXTINT pin ***/
+#define PL460_EXTINT_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 4U)) & 0x01U)
+#define PL460_EXTINT_PIN                  PORT_PIN_PB04
 
-/*** Macros for PLC_THMON pin ***/
-#define PLC_THMON_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 5U))
-#define PLC_THMON_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 5U))
-#define PLC_THMON_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 5U))
-#define PLC_THMON_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 5U))
-#define PLC_THMON_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 5U))
-#define PLC_THMON_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 5U)) & 0x01U)
-#define PLC_THMON_PIN                  PORT_PIN_PB05
+/*** Macros for PL460_NTHW0 pin ***/
+#define PL460_NTHW0_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 5U))
+#define PL460_NTHW0_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 5U))
+#define PL460_NTHW0_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 5U))
+#define PL460_NTHW0_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 5U))
+#define PL460_NTHW0_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 5U))
+#define PL460_NTHW0_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 5U)) & 0x01U)
+#define PL460_NTHW0_PIN                  PORT_PIN_PB05
 
-/*** Macros for PLC_SPI_CS pin ***/
-#define PLC_SPI_CS_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 5U))
-#define PLC_SPI_CS_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 5U))
-#define PLC_SPI_CS_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 5U))
-#define PLC_SPI_CS_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 5U))
-#define PLC_SPI_CS_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 5U))
-#define PLC_SPI_CS_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 5U)) & 0x01U)
-#define PLC_SPI_CS_PIN                  PORT_PIN_PA05
+/*** Macros for PL460_MISO pin ***/
+#define PL460_MISO_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 4U)) & 0x01U)
+#define PL460_MISO_PIN                  PORT_PIN_PA04
 
-/*** Macros for PLC_STBY pin ***/
-#define PLC_STBY_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 8U))
-#define PLC_STBY_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 8U))
-#define PLC_STBY_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 8U))
-#define PLC_STBY_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 8U))
-#define PLC_STBY_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 8U))
-#define PLC_STBY_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 8U)) & 0x01U)
-#define PLC_STBY_PIN                  PORT_PIN_PA08
+/*** Macros for PL460_CS pin ***/
+#define PL460_CS_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 5U)) & 0x01U)
+#define PL460_CS_PIN                  PORT_PIN_PA05
 
-/*** Macros for PLC_TXEN pin ***/
-#define PLC_TXEN_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 9U))
-#define PLC_TXEN_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 9U))
-#define PLC_TXEN_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 9U))
-#define PLC_TXEN_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 9U))
-#define PLC_TXEN_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 9U))
-#define PLC_TXEN_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 9U)) & 0x01U)
-#define PLC_TXEN_PIN                  PORT_PIN_PA09
+/*** Macros for PL460_MOSI pin ***/
+#define PL460_MOSI_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 6U)) & 0x01U)
+#define PL460_MOSI_PIN                  PORT_PIN_PA06
 
-/*** Macros for PLC_RST pin ***/
-#define PLC_RST_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 2U))
-#define PLC_RST_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 2U))
-#define PLC_RST_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 2U))
-#define PLC_RST_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 2U))
-#define PLC_RST_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 2U))
-#define PLC_RST_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 2U)) & 0x01U)
-#define PLC_RST_PIN                  PORT_PIN_PB02
+/*** Macros for PL460_SCK pin ***/
+#define PL460_SCK_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 7U)) & 0x01U)
+#define PL460_SCK_PIN                  PORT_PIN_PA07
 
-/*** Macros for PLC_LDO pin ***/
-#define PLC_LDO_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 3U))
-#define PLC_LDO_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 3U))
-#define PLC_LDO_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 3U))
-#define PLC_LDO_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 3U))
-#define PLC_LDO_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 3U))
-#define PLC_LDO_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 3U)) & 0x01U)
-#define PLC_LDO_PIN                  PORT_PIN_PB03
+/*** Macros for PL460_STBY pin ***/
+#define PL460_STBY_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 8U))
+#define PL460_STBY_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 8U))
+#define PL460_STBY_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 8U))
+#define PL460_STBY_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 8U))
+#define PL460_STBY_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 8U))
+#define PL460_STBY_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 8U)) & 0x01U)
+#define PL460_STBY_PIN                  PORT_PIN_PA08
+
+/*** Macros for PL460_TXEN pin ***/
+#define PL460_TXEN_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 9U))
+#define PL460_TXEN_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 9U))
+#define PL460_TXEN_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 9U))
+#define PL460_TXEN_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 9U))
+#define PL460_TXEN_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 9U))
+#define PL460_TXEN_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 9U)) & 0x01U)
+#define PL460_TXEN_PIN                  PORT_PIN_PA09
+
+/*** Macros for LED0 pin ***/
+#define LED0_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 14U))
+#define LED0_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 14U))
+#define LED0_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 14U))
+#define LED0_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 14U))
+#define LED0_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 14U))
+#define LED0_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 14U)) & 0x01U)
+#define LED0_PIN                  PORT_PIN_PA14
+
+/*** Macros for VIRTUAL_COM_TX pin ***/
+#define VIRTUAL_COM_TX_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 24U)) & 0x01U)
+#define VIRTUAL_COM_TX_PIN                  PORT_PIN_PA24
+
+/*** Macros for VIRTUAL_COM_RX pin ***/
+#define VIRTUAL_COM_RX_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 25U)) & 0x01U)
+#define VIRTUAL_COM_RX_PIN                  PORT_PIN_PA25
+
+/*** Macros for PL460_SUPPLY_MON pin ***/
+#define PL460_SUPPLY_MON_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 0U)) & 0x01U)
+#define PL460_SUPPLY_MON_PIN                  PORT_PIN_PB00
+
+/*** Macros for PL460_NRST pin ***/
+#define PL460_NRST_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 2U))
+#define PL460_NRST_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 2U))
+#define PL460_NRST_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 2U))
+#define PL460_NRST_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 2U))
+#define PL460_NRST_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 2U))
+#define PL460_NRST_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 2U)) & 0x01U)
+#define PL460_NRST_PIN                  PORT_PIN_PB02
+
+/*** Macros for PL460_ENABLE pin ***/
+#define PL460_ENABLE_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 3U))
+#define PL460_ENABLE_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 3U))
+#define PL460_ENABLE_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 3U))
+#define PL460_ENABLE_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 3U))
+#define PL460_ENABLE_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 3U))
+#define PL460_ENABLE_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 3U)) & 0x01U)
+#define PL460_ENABLE_PIN                  PORT_PIN_PB03
 
 // *****************************************************************************
 /* PORT Group

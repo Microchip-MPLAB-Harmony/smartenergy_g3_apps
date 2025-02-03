@@ -73,7 +73,6 @@ extern "C" {
 #define LED_PLC_RX_MSG_RATE_MS                    50
 
 #define APP_PLC_BUFFER_SIZE                       512
-#define APP_PLC_PIB_BUFFER_SIZE                   256
 
 // *****************************************************************************
 /* Application states
@@ -99,7 +98,6 @@ typedef enum
     APP_PLC_STATE_WAITING,
     APP_PLC_STATE_TX,
     APP_PLC_STATE_STOP_TX,
-    APP_PLC_STATE_SET_BAND,
     APP_PLC_STATE_ERROR,
 
 } APP_PLC_STATES;
@@ -148,12 +146,6 @@ typedef struct
 
     DRV_HANDLE drvPlcHandle;
 
-    bool couplingConfig;
-
-    bool plcMultiband;
-
-    DRV_PLC_PHY_PIB_OBJ plcPIB;
-
     uint8_t signalResetCounter;
 
     bool pvddMonTxEnable;
@@ -177,10 +169,8 @@ typedef struct
     uint8_t toneMapSize;
 
     bool inTx;
-
-    bool bin2InUse;
-
-    SRV_PLC_PCOUP_BRANCH couplingBranch;
+    
+    uint8_t plcBand;
 
 } APP_PLC_DATA_TX;
 
@@ -261,7 +251,7 @@ void APP_PLC_Initialize ( void );
 
 void APP_PLC_Tasks( void );
 
-
+void APP_PLC_SetBand ( uint8_t plcBand );
 
 #endif /* _APP_PLC_H */
 

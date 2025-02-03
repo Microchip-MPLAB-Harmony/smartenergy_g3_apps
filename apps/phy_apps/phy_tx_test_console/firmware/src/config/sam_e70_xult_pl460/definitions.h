@@ -49,6 +49,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include "service/pcoup/srv_pcoup.h"
+#include "bsp/bsp.h"
 #include "peripheral/clk/plib_clk.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/nvic/plib_nvic.h"
@@ -61,11 +62,10 @@
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
-#include "bsp/bsp.h"
 #include "driver/memory/drv_memory_efc.h"
 #include "peripheral/afec/plib_afec1.h"
-#include "service/pvddmon/srv_pvddmon.h"
 #include "peripheral/trng/plib_trng.h"
+#include "service/pvddmon/srv_pvddmon.h"
 #include "peripheral/spi/spi_master/plib_spi0_master.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
@@ -91,13 +91,13 @@ extern "C" {
 // DOM-IGNORE-END
 
 /* Device Information */
-#define DEVICE_NAME			 "ATSAME70Q21B"
-#define DEVICE_ARCH			 "CORTEX-M7"
-#define DEVICE_FAMILY		 "SAME"
-#define DEVICE_SERIES		 "SAME70"
+#define DEVICE_NAME          "ATSAME70Q21B"
+#define DEVICE_ARCH          "CORTEX-M7"
+#define DEVICE_FAMILY        "SAME"
+#define DEVICE_SERIES        "SAME70"
 
 /* CPU clock frequency */
-#define CPU_CLOCK_FREQUENCY 300000000
+#define CPU_CLOCK_FREQUENCY 300000000U
 
 // *****************************************************************************
 // *****************************************************************************

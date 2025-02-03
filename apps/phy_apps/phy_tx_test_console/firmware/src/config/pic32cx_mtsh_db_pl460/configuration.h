@@ -88,15 +88,15 @@ extern "C" {
 #define SYS_TIME_CPU_CLOCK_FREQUENCY                (200000000)
 #define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (232)
 
+#define SYS_CONSOLE_INDEX_0                       0
+
+
+
+
 #define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
 #define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(1U)
 #define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(0U)
 #define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(512U)
-
-
-#define SYS_CONSOLE_INDEX_0                       0
-
-
 
 
 
@@ -108,13 +108,6 @@ extern "C" {
 // *****************************************************************************
 /* Memory Driver Global Configuration Options */
 #define DRV_MEMORY_INSTANCES_NUMBER          (1U)
-/* SST26 Driver Instance Configuration */
-#define DRV_SST26_INDEX                 (0U)
-#define DRV_SST26_CLIENTS_NUMBER        (1U)
-#define DRV_SST26_START_ADDRESS         (0x0U)
-#define DRV_SST26_PAGE_SIZE             (256U)
-#define DRV_SST26_ERASE_BUFFER_SIZE     (4096U)
-
 
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
@@ -134,7 +127,6 @@ extern "C" {
 #define DRV_PLC_PHY_INDEX                     0U
 #define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1U
 #define DRV_PLC_PHY_PROFILE                   2U
-#define DRV_PLC_PHY_NUM_CARRIERS              NUM_CARRIERS_FCC
 #define DRV_PLC_PHY_HOST_PRODUCT              0x3601U
 #define DRV_PLC_PHY_HOST_VERSION              0x36010300UL
 #define DRV_PLC_PHY_HOST_PHY                  0x36020103UL
@@ -142,10 +134,19 @@ extern "C" {
 #define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
 
+
+
 /* Memory Driver Instance 0 Configuration */
 #define DRV_MEMORY_INDEX_0                   0
 #define DRV_MEMORY_CLIENTS_NUMBER_IDX0       1
 #define DRV_MEMORY_BUF_Q_SIZE_IDX0    1
+
+/* SST26 Driver Instance Configuration */
+#define DRV_SST26_INDEX                 (0U)
+#define DRV_SST26_CLIENTS_NUMBER        (1U)
+#define DRV_SST26_START_ADDRESS         (0x0U)
+#define DRV_SST26_PAGE_SIZE             (256U)
+#define DRV_SST26_ERASE_BUFFER_SIZE     (4096U)
 
 
 

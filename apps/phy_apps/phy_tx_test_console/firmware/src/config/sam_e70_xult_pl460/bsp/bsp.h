@@ -17,7 +17,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -54,28 +54,74 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "device.h"
+#include "peripheral/pio/plib_pio.h"
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: BSP Macros
 // *****************************************************************************
 // *****************************************************************************
-#define sam_e70_xult
-#define BSP_NAME             "sam_e70_xult"
+#define SAME70_XPLAINED_ULTRA
+#define BOARD_NAME    "SAME70-XPLAINED-ULTRA"
 
-/*** LED Macros for LED1 ***/
-#define LED1_Toggle() (PIOA_REGS->PIO_ODSR ^= (1UL<<5))
-#define LED1_On() (PIOA_REGS->PIO_CODR = (1UL<<5))
-#define LED1_Off() (PIOA_REGS->PIO_SODR = (1UL<<5))
-/*** LED Macros for LED2 ***/
-#define LED2_Toggle() (PIOB_REGS->PIO_ODSR ^= (1UL<<8))
-#define LED2_On() (PIOB_REGS->PIO_CODR = (1UL<<8))
-#define LED2_Off() (PIOB_REGS->PIO_SODR = (1UL<<8))
-/*** SWITCH Macros for SWITCH ***/
-#define SWITCH_Get() ((PIOA_REGS->PIO_PDSR >> 11) & 0x1)
-#define SWITCH_STATE_PRESSED 0
-#define SWITCH_STATE_RELEASED 1
+/*** OUTPUT PIO Macros for PL460_ENABLE ***/
+#define BSP_PL460_ENABLE_PIN        PIO_PIN_PC30
+#define BSP_PL460_ENABLE_Get()      ((PIOC_REGS->PIO_PDSR >> 30) & 0x1)
+#define BSP_PL460_ENABLE_On()       (PIOC_REGS->PIO_CODR = (1UL<<30))
+#define BSP_PL460_ENABLE_Off()      (PIOC_REGS->PIO_SODR = (1UL<<30))
+#define BSP_PL460_ENABLE_Toggle()   (PIOC_REGS->PIO_ODSR ^= (1UL<<30))
 
+/*** OUTPUT PIO Macros for LED1 ***/
+#define BSP_LED1_PIN        PIO_PIN_PA5
+#define BSP_LED1_Get()      ((PIOA_REGS->PIO_PDSR >> 5) & 0x1)
+#define BSP_LED1_On()       (PIOA_REGS->PIO_CODR = (1UL<<5))
+#define BSP_LED1_Off()      (PIOA_REGS->PIO_SODR = (1UL<<5))
+#define BSP_LED1_Toggle()   (PIOA_REGS->PIO_ODSR ^= (1UL<<5))
+
+/*** OUTPUT PIO Macros for PL460_TXEN ***/
+#define BSP_PL460_TXEN_PIN        PIO_PIN_PA4
+#define BSP_PL460_TXEN_Get()      ((PIOA_REGS->PIO_PDSR >> 4) & 0x1)
+#define BSP_PL460_TXEN_On()       (PIOA_REGS->PIO_SODR = (1UL<<4))
+#define BSP_PL460_TXEN_Off()      (PIOA_REGS->PIO_CODR = (1UL<<4))
+#define BSP_PL460_TXEN_Toggle()   (PIOA_REGS->PIO_ODSR ^= (1UL<<4))
+
+/*** OUTPUT PIO Macros for PL460_STBY ***/
+#define BSP_PL460_STBY_PIN        PIO_PIN_PA3
+#define BSP_PL460_STBY_Get()      ((PIOA_REGS->PIO_PDSR >> 3) & 0x1)
+#define BSP_PL460_STBY_On()       (PIOA_REGS->PIO_SODR = (1UL<<3))
+#define BSP_PL460_STBY_Off()      (PIOA_REGS->PIO_CODR = (1UL<<3))
+#define BSP_PL460_STBY_Toggle()   (PIOA_REGS->PIO_ODSR ^= (1UL<<3))
+
+/*** OUTPUT PIO Macros for PL460_NRST ***/
+#define BSP_PL460_NRST_PIN        PIO_PIN_PA0
+#define BSP_PL460_NRST_Get()      ((PIOA_REGS->PIO_PDSR >> 0) & 0x1)
+#define BSP_PL460_NRST_On()       (PIOA_REGS->PIO_SODR = (1UL<<0))
+#define BSP_PL460_NRST_Off()      (PIOA_REGS->PIO_CODR = (1UL<<0))
+#define BSP_PL460_NRST_Toggle()   (PIOA_REGS->PIO_ODSR ^= (1UL<<0))
+
+/*** OUTPUT PIO Macros for LED2 ***/
+#define BSP_LED2_PIN        PIO_PIN_PB8
+#define BSP_LED2_Get()      ((PIOB_REGS->PIO_PDSR >> 8) & 0x1)
+#define BSP_LED2_On()       (PIOB_REGS->PIO_CODR = (1UL<<8))
+#define BSP_LED2_Off()      (PIOB_REGS->PIO_SODR = (1UL<<8))
+#define BSP_LED2_Toggle()   (PIOB_REGS->PIO_ODSR ^= (1UL<<8))
+
+
+/*** INPUT PIO Macros for PL460_EXTINT ***/
+#define BSP_PL460_EXTINT_PIN                    PIO_PIN_PD28
+#define BSP_PL460_EXTINT_Get()                  ((PIOD_REGS->PIO_PDSR >> 28) & 0x1)
+#define BSP_PL460_EXTINT_STATE_PRESSED          1
+#define BSP_PL460_EXTINT_STATE_RELEASED         0
+#define BSP_PL460_EXTINT_InterruptEnable()      (PIOD_REGS->PIO_IER = (1UL<<28))
+#define BSP_PL460_EXTINT_InterruptDisable()     (PIOD_REGS->PIO_IDR = (1UL<<28))
+
+/*** INPUT PIO Macros for PL460_NTHW0 ***/
+#define BSP_PL460_NTHW0_PIN                    PIO_PIN_PC17
+#define BSP_PL460_NTHW0_Get()                  ((PIOC_REGS->PIO_PDSR >> 17) & 0x1)
+#define BSP_PL460_NTHW0_STATE_PRESSED          0
+#define BSP_PL460_NTHW0_STATE_RELEASED         1
+#define BSP_PL460_NTHW0_InterruptEnable()      (PIOC_REGS->PIO_IER = (1UL<<17))
+#define BSP_PL460_NTHW0_InterruptDisable()     (PIOC_REGS->PIO_IDR = (1UL<<17))
 
 
 

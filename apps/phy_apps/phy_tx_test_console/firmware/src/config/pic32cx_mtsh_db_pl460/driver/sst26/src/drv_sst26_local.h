@@ -136,6 +136,9 @@ typedef enum
 
     /* Request is read operation. */
     DRV_SST26_OPERATION_TYPE_READ,
+	
+    /* Request is read operation status. */
+    DRV_SST26_OPERATION_TYPE_READ_STATUS,
 
     /* Request is write operation. */
     DRV_SST26_OPERATION_TYPE_WRITE,
@@ -152,6 +155,9 @@ typedef struct
 {
     /* Flag to indicate in use  */
     bool inUse;
+	
+	/* Flag to indication read operation status*/
+	volatile bool internal_write_complete_flag;
 
     /* Flag to indicate status of transfer */
     volatile bool isTransferDone;

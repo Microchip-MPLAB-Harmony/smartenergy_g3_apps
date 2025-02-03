@@ -90,6 +90,14 @@
 #define PIO_PORT_MAX    4U
 
 
+/*** Macros for PL460_MOSI pin ***/
+#define PL460_MOSI_Get()               ((PIOA_REGS->PIO_PDSR >> 8U) & 0x1U)
+#define PL460_MOSI_PIN                  PIO_PIN_PA8
+
+/*** Macros for PL460_MISO pin ***/
+#define PL460_MISO_Get()               ((PIOA_REGS->PIO_PDSR >> 9U) & 0x1U)
+#define PL460_MISO_PIN                  PIO_PIN_PA9
+
 /*** Macros for PL460_NRST pin ***/
 #define PL460_NRST_Set()               (PIOD_REGS->PIO_SODR = ((uint32_t)1U<<3U))
 #define PL460_NRST_Clear()             (PIOD_REGS->PIO_CODR = ((uint32_t)1U<<3U))
@@ -125,6 +133,50 @@
                                         } while (0)
 #define PL460_ENABLE_Get()               ((PIOD_REGS->PIO_PDSR >> 16U) & 0x1U)
 #define PL460_ENABLE_PIN                  PIO_PIN_PD16
+
+/*** Macros for RED_LED_PD17 pin ***/
+#define RED_LED_PD17_Set()               (PIOD_REGS->PIO_SODR = ((uint32_t)1U<<17U))
+#define RED_LED_PD17_Clear()             (PIOD_REGS->PIO_CODR = ((uint32_t)1U<<17U))
+#define RED_LED_PD17_Toggle()            do {\
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<17U); \
+                                            PIOD_REGS->PIO_ODSR ^= ((uint32_t)1U<<17U);\
+                                        } while (0)
+#define RED_LED_PD17_OutputEnable()      do {\
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<17U); \
+                                            PIOD_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
+                                        }while(0)
+#define RED_LED_PD17_InputEnable()       do { \
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<17U); \
+                                            PIOD_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
+                                        } while (0)
+#define RED_LED_PD17_Get()               ((PIOD_REGS->PIO_PDSR >> 17U) & 0x1U)
+#define RED_LED_PD17_PIN                  PIO_PIN_PD17
+
+/*** Macros for RED_LED_PD18 pin ***/
+#define RED_LED_PD18_Set()               (PIOD_REGS->PIO_SODR = ((uint32_t)1U<<18U))
+#define RED_LED_PD18_Clear()             (PIOD_REGS->PIO_CODR = ((uint32_t)1U<<18U))
+#define RED_LED_PD18_Toggle()            do {\
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<18U); \
+                                            PIOD_REGS->PIO_ODSR ^= ((uint32_t)1U<<18U);\
+                                        } while (0)
+#define RED_LED_PD18_OutputEnable()      do {\
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<18U); \
+                                            PIOD_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
+                                        }while(0)
+#define RED_LED_PD18_InputEnable()       do { \
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<18U); \
+                                            PIOD_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
+                                        } while (0)
+#define RED_LED_PD18_Get()               ((PIOD_REGS->PIO_PDSR >> 18U) & 0x1U)
+#define RED_LED_PD18_PIN                  PIO_PIN_PD18
+
+/*** Macros for PL460_SCK pin ***/
+#define PL460_SCK_Get()               ((PIOA_REGS->PIO_PDSR >> 10U) & 0x1U)
+#define PL460_SCK_PIN                  PIO_PIN_PA10
+
+/*** Macros for PL460_CS pin ***/
+#define PL460_CS_Get()               ((PIOA_REGS->PIO_PDSR >> 11U) & 0x1U)
+#define PL460_CS_PIN                  PIO_PIN_PA11
 
 /*** Macros for PL460_NTHW0 pin ***/
 #define PL460_NTHW0_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<2U))
@@ -164,6 +216,14 @@
 #define PL460_EXTINT_InterruptEnable()   (PIOA_REGS->PIO_IER = (1<<3))
 #define PL460_EXTINT_InterruptDisable()  (PIOA_REGS->PIO_IDR = (1<<3))
 
+/*** Macros for DBG_UART_TX pin ***/
+#define DBG_UART_TX_Get()               ((PIOA_REGS->PIO_PDSR >> 4U) & 0x1U)
+#define DBG_UART_TX_PIN                  PIO_PIN_PA4
+
+/*** Macros for DBG_UART_RX pin ***/
+#define DBG_UART_RX_Get()               ((PIOA_REGS->PIO_PDSR >> 5U) & 0x1U)
+#define DBG_UART_RX_PIN                  PIO_PIN_PA5
+
 /*** Macros for PL460_STBY pin ***/
 #define PL460_STBY_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<16U))
 #define PL460_STBY_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<16U))
@@ -199,6 +259,10 @@
                                         } while (0)
 #define PL460_TXEN_Get()               ((PIOA_REGS->PIO_PDSR >> 17U) & 0x1U)
 #define PL460_TXEN_PIN                  PIO_PIN_PA17
+
+/*** Macros for PL460_SUPPLY_MON pin ***/
+#define PL460_SUPPLY_MON_Get()               ((PIOA_REGS->PIO_PDSR >> 30U) & 0x1U)
+#define PL460_SUPPLY_MON_PIN                  PIO_PIN_PA30
 // *****************************************************************************
 /* PIO Ports
 

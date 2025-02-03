@@ -118,9 +118,8 @@ extern "C" {
 #define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PA0
 #define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PC30
 #define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA4
-#define DRV_PLC_STBY_PIN                      SYS_PORT_PIN_PA3
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PC17
-#define DRV_PLC_CSR_INDEX                     1
+#define DRV_PLC_CSR_INDEX                     0
 #define DRV_PLC_SPI_CLK                       8000000
 
 /* PLC Driver Identification */
@@ -128,13 +127,14 @@ extern "C" {
 #define DRV_PLC_PHY_INDEX                     0U
 #define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1U
 #define DRV_PLC_PHY_PROFILE                   2U
-#define DRV_PLC_PHY_NUM_CARRIERS              NUM_CARRIERS_FCC
 #define DRV_PLC_PHY_HOST_PRODUCT              0x3601U
 #define DRV_PLC_PHY_HOST_VERSION              0x36010300UL
 #define DRV_PLC_PHY_HOST_PHY                  0x36020103UL
 #define DRV_PLC_PHY_HOST_DESC                 "ATSAME70Q21B"
 #define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
+
+
 
 /* Memory Driver Instance 0 Configuration */
 #define DRV_MEMORY_INDEX_0                   0
