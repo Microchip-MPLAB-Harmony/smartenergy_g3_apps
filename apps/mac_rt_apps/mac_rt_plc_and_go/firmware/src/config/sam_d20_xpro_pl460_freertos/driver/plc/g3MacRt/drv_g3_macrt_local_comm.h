@@ -146,7 +146,8 @@ typedef enum {
     COMM_STATUS_ID,
     RX_PAR_IND_ID,
     REG_RSP_ID,
-    PHY_SNF_ID
+    PHY_SNF_ID,
+    SET_BAND_ID
 } DRV_G3_MACRT_MEM_ID;
 
 /****************************** DRV_PLC Interface ***************************/

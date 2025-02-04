@@ -57,8 +57,8 @@
 // Section: RTOS "Tasks" Handles
 // *****************************************************************************
 // *****************************************************************************
-/* Declaration of  APP_PLC_WBZ451_Tasks task handle */
-extern TaskHandle_t xAPP_PLC_WBZ451_Tasks;
+/* Declaration of  APP_PLC_Tasks task handle */
+extern TaskHandle_t xAPP_PLC_Tasks;
 
 /* Declaration of  APP_CONSOLE_Tasks task handle */
 extern TaskHandle_t xAPP_CONSOLE_Tasks;

@@ -89,6 +89,9 @@
             <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_pl460_freertos/service/pvddmon/srv_pvddmon.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/sam_e70_xult_pl460_freertos/service/random/srv_random.h</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
@@ -173,6 +176,7 @@
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/task.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/semphr.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/timers.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/mpu_syscall_numbers.h</itemPath>
           </logicalFolder>
           <logicalFolder name="portable" displayName="portable" projectFiles="true">
             <logicalFolder name="GCC" displayName="GCC" projectFiles="true">
@@ -312,6 +316,12 @@
       <itemPath>../src/app_plc.h</itemPath>
       <itemPath>../src/app_console.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>g3_mac_rt_plc_and_go_sam_e70_xult_pl460_freertos.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -400,6 +410,9 @@
             <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_pl460_freertos/service/pvddmon/srv_pvddmon.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/sam_e70_xult_pl460_freertos/service/random/srv_random.c</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
             <itemPath>../src/config/sam_e70_xult_pl460_freertos/stdio/xc32_monitor.c</itemPath>
@@ -467,12 +480,6 @@
       <itemPath>../src/config/sam_e70_xult_pl460_freertos/pin_configurations.csv</itemPath>
       <itemPath>../src/app_console.c</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>g3_mac_rt_plc_and_go_sam_e70_xult_pl460_freertos.mc3</itemPath>
-    </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -484,7 +491,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.40</languageToolchainVersion>
+        <languageToolchainVersion>4.45</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

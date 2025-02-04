@@ -43,6 +43,9 @@ extern "C" {
     
 #define CLEAR_WATCHDOG()              WDT_Clear()
 
+#define APP_PLC_DISABLE_PVDDMON
+#define APP_PLC_DISABLE_SLEEP_MODE
+    
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

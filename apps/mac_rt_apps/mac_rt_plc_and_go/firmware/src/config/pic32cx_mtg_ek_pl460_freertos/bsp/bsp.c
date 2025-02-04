@@ -16,7 +16,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -69,15 +69,12 @@
   Remarks:
     Refer to bsp.h for usage information.
 */
-
 void BSP_Initialize(void )
 {
-
-
-    /* Switch off LEDs */
-		LED_BLUE_Off(); 
-		LED_GREEN_Off(); 
-
+    /* Switch off LED1 */
+    BSP_LED1_Off();
+    /* Switch off LED0 */
+    BSP_LED0_Off();
 
 }
 

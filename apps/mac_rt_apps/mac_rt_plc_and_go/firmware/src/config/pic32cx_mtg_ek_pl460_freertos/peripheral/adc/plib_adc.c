@@ -61,7 +61,7 @@ void ADC_Initialize(void)
     ADC_REGS->ADC_CR = ADC_CR_SWRST_Msk;
 
     /* Prescaler and different time settings as per CLOCK section  */
-    ADC_REGS->ADC_MR =  ADC_MR_ALWAYS_Msk |  ADC_MR_PRESCAL(4U) | ADC_MR_TRACKTIM(14U) | ADC_MR_STARTUP_SUT512 |
+    ADC_REGS->ADC_MR =  ADC_MR_ALWAYS_Msk |  ADC_MR_PRESCAL(0U) | ADC_MR_TRACKTIM(14U) | ADC_MR_STARTUP_SUT512 |
         ADC_MR_TRANSFER(2U) | ADC_MR_ANACH_ALLOWED;
 
     /* Resolution and Sign mode of result */

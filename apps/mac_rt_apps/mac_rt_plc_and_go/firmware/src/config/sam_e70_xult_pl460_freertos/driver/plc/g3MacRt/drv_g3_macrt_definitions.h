@@ -86,9 +86,6 @@ typedef struct
      * peripherals. */
     DRV_PLC_HAL_INTERFACE           *plcHal;
 
-    /* PLC Profile */
-    uint8_t                         plcProfile;
-
     /* Start Address where PLC binary file is located */
     uint32_t                        binStartAddress;
 

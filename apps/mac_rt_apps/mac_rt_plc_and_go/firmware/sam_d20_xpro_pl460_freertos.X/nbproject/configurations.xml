@@ -81,6 +81,9 @@
             <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
               <itemPath>../src/config/sam_d20_xpro_pl460_freertos/service/pvddmon/srv_pvddmon.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/sam_d20_xpro_pl460_freertos/service/random/srv_random.h</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="console" displayName="console" projectFiles="true">
@@ -140,11 +143,13 @@
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/stream_buffer.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/FreeRTOS.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/stack_macros.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/mpu_syscall_numbers.h</itemPath>
           </logicalFolder>
           <logicalFolder name="portable" displayName="portable" projectFiles="true">
             <logicalFolder name="GCC" displayName="GCC" projectFiles="true">
               <logicalFolder name="ARM_CM0" displayName="ARM_CM0" projectFiles="true">
                 <itemPath>../src/third_party/rtos/FreeRTOS/Source/portable/GCC/ARM_CM0/portmacro.h</itemPath>
+                <itemPath>../src/third_party/rtos/FreeRTOS/Source/portable/GCC/ARM_CM0/portasm.h</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -235,6 +240,12 @@
       <itemPath>../src/app_plc.h</itemPath>
       <itemPath>../src/app_console.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>g3_mac_rt_plc_and_go_sam_d20_xpro_pl460_freertos.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -318,6 +329,9 @@
             <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
               <itemPath>../src/config/sam_d20_xpro_pl460_freertos/service/pvddmon/srv_pvddmon.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/sam_d20_xpro_pl460_freertos/service/random/srv_random.c</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
             <itemPath>../src/config/sam_d20_xpro_pl460_freertos/stdio/xc32_monitor.c</itemPath>
@@ -349,6 +363,7 @@
             <logicalFolder name="GCC" displayName="GCC" projectFiles="true">
               <logicalFolder name="ARM_CM0" displayName="ARM_CM0" projectFiles="true">
                 <itemPath>../src/third_party/rtos/FreeRTOS/Source/portable/GCC/ARM_CM0/port.c</itemPath>
+                <itemPath>../src/third_party/rtos/FreeRTOS/Source/portable/GCC/ARM_CM0/portasm.c</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="MemMang" displayName="MemMang" projectFiles="true">
@@ -368,12 +383,6 @@
       <itemPath>../src/config/sam_d20_xpro_pl460_freertos/pin_configurations.csv</itemPath>
       <itemPath>../src/app_console.c</itemPath>
       <itemPath>../src/main.c</itemPath>
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>g3_mac_rt_plc_and_go_sam_d20_xpro_pl460_freertos.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -423,6 +432,7 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -452,6 +462,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -480,6 +491,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -519,6 +531,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>

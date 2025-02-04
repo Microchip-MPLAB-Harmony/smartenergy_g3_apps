@@ -87,8 +87,8 @@ void SYS_Tasks ( void )
     
 
     /* Maintain the application's state machine. */
-        /* Call Application task APP_PLC_WBZ451. */
-    APP_PLC_WBZ451_Tasks();
+        /* Call Application task APP_PLC. */
+    APP_PLC_Tasks();
 
     /* Call Application task APP_CONSOLE. */
     APP_CONSOLE_Tasks();

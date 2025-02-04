@@ -104,8 +104,8 @@ typedef struct
     /* HAL API list that will be used by the driver to access the hardware */
     DRV_PLC_HAL_INTERFACE                     *plcHal;
 
-    /* PLC Profile */
-    uint8_t                                   plcProfile;
+    /* Number of consecutive SPI errors */
+    uint8_t                                   consecutiveSpiErrors;
 
     /* Size (in Bytes) of the PLC binary file */
     uint32_t                                  binSize;

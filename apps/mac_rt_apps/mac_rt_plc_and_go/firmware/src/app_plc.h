@@ -102,8 +102,7 @@ extern "C" {
 typedef enum
 {
     /* Application's state machine's initial state. */
-    APP_PLC_STATE_IDLE=0,
-    APP_PLC_STATE_INIT,
+    APP_PLC_STATE_INIT=0,
     APP_PLC_STATE_OPEN,
     APP_PLC_STATE_WAITING,
     APP_PLC_STATE_TX,
@@ -157,10 +156,6 @@ typedef struct
 
     DRV_HANDLE drvPlcHandle;
 
-    bool plcMultiband;
-
-    bool bin2InUse;
-
     bool staticNotchingEnable;
 
     bool pvddMonTxEnable;
@@ -178,8 +173,8 @@ typedef struct
     APP_PLC_TX_STATE plcTxState;
 
     MAC_RT_PIB_OBJ plcPIB;
-
-    SRV_PLC_PCOUP_BRANCH couplingBranch;
+    
+    MAC_RT_BAND plcBand;
 
 } APP_PLC_DATA;
 
@@ -274,14 +269,12 @@ void APP_PLC_Initialize ( void );
 
 void APP_PLC_Tasks( void );
 
-
 bool APP_PLC_SendData ( uint8_t* pData, uint16_t length );
 bool APP_PLC_SetSleepMode ( bool enable );
 void APP_PLC_SetSourceAddress ( uint16_t address );
 void APP_PLC_SetDestinationAddress ( uint16_t address );
 void APP_PLC_SetPANID ( uint16_t panid );
-
-
+void APP_PLC_SetBand ( MAC_RT_BAND plcBand );
 
 #endif /* _APP_PLC_H */
 

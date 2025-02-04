@@ -80,6 +80,9 @@
             <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460/service/pcoup/srv_pcoup.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/wbz451_curiosity_pl460/service/random/srv_random.h</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
@@ -241,7 +244,14 @@
         </logicalFolder>
       </logicalFolder>
       <itemPath>../src/app_console.h</itemPath>
-      <itemPath>../src/app_plc_wbz451.h</itemPath>
+      <itemPath>../src/app_plc.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>wbz451_curiosity_pl460.mc3</itemPath>
+      <itemPath>g3_mac_rt_plc_and_go_wbz451_curiosity_pl460.mc3</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -323,6 +333,9 @@
             <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
               <itemPath>../src/config/wbz451_curiosity_pl460/service/pcoup/srv_pcoup.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/wbz451_curiosity_pl460/service/random/srv_random.c</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
             <itemPath>../src/config/wbz451_curiosity_pl460/stdio/xc32_monitor.c</itemPath>
@@ -355,14 +368,7 @@
       </logicalFolder>
       <itemPath>../src/app_console.c</itemPath>
       <itemPath>../src/main.c</itemPath>
-      <itemPath>../src/app_plc_wbz451.c</itemPath>
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>wbz451_curiosity_pl460.mc3</itemPath>
-      <itemPath>g3_mac_rt_plc_and_go_wbz451_curiosity_pl460.mc3</itemPath>
+      <itemPath>../src/app_plc.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -375,7 +381,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>pkob4hybrid</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.40</languageToolchainVersion>
+        <languageToolchainVersion>4.45</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -498,7 +504,7 @@
         <property key="no-startup-files" value="false"/>
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value="-O1"/>
-        <property key="preprocessor-macros" value=""/>
+        <property key="preprocessor-macros" value="VECTOR_REGION=boot_rom"/>
         <property key="remove-unused-sections" value="false"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>

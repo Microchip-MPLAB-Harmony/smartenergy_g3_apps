@@ -70,19 +70,25 @@ static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
     }
 }
 
-/* Handle for the APP_PLC_WBZ451_Tasks. */
-TaskHandle_t xAPP_PLC_WBZ451_Tasks;
 
-static void lAPP_PLC_WBZ451_Tasks(  void *pvParameters  )
+/* Handle for the APP_PLC_Tasks. */
+TaskHandle_t xAPP_PLC_Tasks;
+
+
+
+static void lAPP_PLC_Tasks(  void *pvParameters  )
 {   
     while(true)
     {
-        APP_PLC_WBZ451_Tasks();
+        APP_PLC_Tasks();
         vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
+
 /* Handle for the APP_CONSOLE_Tasks. */
 TaskHandle_t xAPP_CONSOLE_Tasks;
+
+
 
 static void lAPP_CONSOLE_Tasks(  void *pvParameters  )
 {   
@@ -131,22 +137,24 @@ void SYS_Tasks ( void )
     
 
     /* Maintain the application's state machine. */
-        /* Create OS Thread for APP_PLC_WBZ451_Tasks. */
-    (void) xTaskCreate((TaskFunction_t) lAPP_PLC_WBZ451_Tasks,
-                "APP_PLC_WBZ451_Tasks",
-                512,
-                NULL,
-                1,
-                &xAPP_PLC_WBZ451_Tasks);
+    
+    /* Create OS Thread for APP_PLC_Tasks. */
+    (void) xTaskCreate(
+           (TaskFunction_t) lAPP_PLC_Tasks,
+           "APP_PLC_Tasks",
+           512,
+           NULL,
+           1U ,
+           &xAPP_PLC_Tasks);
 
     /* Create OS Thread for APP_CONSOLE_Tasks. */
-    (void) xTaskCreate((TaskFunction_t) lAPP_CONSOLE_Tasks,
-                "APP_CONSOLE_Tasks",
-                512,
-                NULL,
-                1,
-                &xAPP_CONSOLE_Tasks);
-
+    (void) xTaskCreate(
+           (TaskFunction_t) lAPP_CONSOLE_Tasks,
+           "APP_CONSOLE_Tasks",
+           512,
+           NULL,
+           1U ,
+           &xAPP_CONSOLE_Tasks);
 
 
 

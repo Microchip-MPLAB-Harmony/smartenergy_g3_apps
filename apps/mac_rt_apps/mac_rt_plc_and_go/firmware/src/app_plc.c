@@ -53,6 +53,7 @@ Microchip or any third party.
 #include "stdint.h"
 #include <string.h>
 #include "definitions.h"
+#include "service/random/srv_random.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -92,8 +93,11 @@ static const MAC_RT_TONE_MASK appPlcToneMask = {
 
 static void APP_PLC_SetInitialConfiguration ( void )
 {
+    /* Set PLC Band */
+    DRV_G3_MACRT_SetBand(appPlc.drvPlcHandle, appPlc.plcBand);
+    
     /* Apply PLC coupling configuration */
-    SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlc.couplingBranch);
+    SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlc.plcBand);
 
     /* Force Transmission to VLO mode by default in order to maximize signal level in any case */
     /* Disable auto-detect mode */
@@ -128,7 +132,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
 
     /* Set Addresses */
     APP_PLC_SetDestinationAddress(MAC_RT_SHORT_ADDRESS_BROADCAST);
-    APP_PLC_SetSourceAddress((uint16_t)TRNG_ReadData());
+    APP_PLC_SetSourceAddress(SRV_RANDOM_Get16bits());
 
     if (appPlc.staticNotchingEnable)
     {
@@ -250,6 +254,7 @@ static void APP_PLC_PVDDMonitorCallback( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t
 }
 #endif
 
+#ifndef APP_PLC_DISABLE_SLEEP_MODE
 static void APP_PLC_SleepModeDisableCallback( void )
 {
     /* Apply PLC initial configuration */
@@ -258,6 +263,7 @@ static void APP_PLC_SleepModeDisableCallback( void )
     /* Set PLC state */
     appPlc.state = APP_PLC_STATE_WAITING;
 }
+#endif
 
 static void APP_PLC_ExceptionCallback( DRV_G3_MACRT_EXCEPTION exceptionObj )
 {
@@ -375,7 +381,7 @@ void APP_PLC_Initialize ( void )
     appPlcTx.pTxFrame = appPlcTxFrameBuffer;
 
     /* Set PLC state */
-    appPlc.state = APP_PLC_STATE_IDLE;
+    appPlc.state = APP_PLC_STATE_INIT;
 
     /* Set PVDD Monitor tracking data */
     appPlc.pvddMonTxEnable = true;
@@ -388,6 +394,10 @@ void APP_PLC_Initialize ( void )
     appPlc.tmr2Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr1Expired = false;
     appPlc.tmr2Expired = false;
+    
+    /* Set Static Notching capability (example only valid for FCC band */
+    /* Caution: Example provided only for FCC band */
+    appPlc.staticNotchingEnable = APP_PLC_STATIC_NOTCHING_ENABLE;
 
 }
 
@@ -417,64 +427,8 @@ void APP_PLC_Tasks ( void )
     /* Check the application's current state. */
     switch ( appPlc.state )
     {
-        case APP_PLC_STATE_IDLE:
-        {
-            /* Set Static Notching capability (example only valid for FCC band */
-            /* Caution: Example provided only for FCC band */
-            appPlc.staticNotchingEnable = APP_PLC_STATIC_NOTCHING_ENABLE;
-
-            /* Set PLC Multi-band / Coupling Branch flag */
-            appPlc.couplingBranch = SRV_PCOUP_Get_Default_Branch();
-            if (SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_AUXILIARY_BRANCH) == NULL) {
-                /* Auxiliary branch is not configured. Single branch */
-                appPlc.plcMultiband = false;
-                appPlc.bin2InUse = false;
-            } else {
-                /* Dual branch */
-                appPlc.plcMultiband = true;
-                if (appPlc.couplingBranch == SRV_PLC_PCOUP_MAIN_BRANCH)
-                {
-                    appPlc.bin2InUse = false;
-                }
-                else
-                {
-                    appPlc.bin2InUse = true;
-                }
-            }
-
-            /* Initialize PLC driver */
-            appPlc.state = APP_PLC_STATE_INIT;
-        }
-        break;
-
         case APP_PLC_STATE_INIT:
         {
-            DRV_G3_MACRT_STATE drvG3MacRtStatus = DRV_G3_MACRT_Status(DRV_G3_MACRT_INDEX);
-
-            /* Select PLC Binary file for multi-band solution */
-            if (appPlc.plcMultiband && (drvG3MacRtStatus == DRV_G3_MACRT_STATE_UNINITIALIZED))
-            {
-                if (appPlc.bin2InUse)
-                {
-                    drvG3MacRtInitData.binStartAddress = (uint32_t)&g3_mac_rt_bin2_start;
-                    drvG3MacRtInitData.binEndAddress = (uint32_t)&g3_mac_rt_bin2_end;
-                    /* Set Coupling Auxiliary branch */
-                    appPlc.couplingBranch = SRV_PLC_PCOUP_AUXILIARY_BRANCH;
-                }
-                else
-                {
-                    drvG3MacRtInitData.binStartAddress = (uint32_t)&g3_mac_rt_bin_start;
-                    drvG3MacRtInitData.binEndAddress = (uint32_t)&g3_mac_rt_bin_end;
-                    /* Set Coupling Main branch */
-                    appPlc.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
-                }
-
-                /* Initialize PLC Driver Instance */
-                sysObj.drvG3MacRt = DRV_G3_MACRT_Initialize(DRV_G3_MACRT_INDEX, (SYS_MODULE_INIT *)&drvG3MacRtInitData);
-                /* Register Callback function to handle PLC interruption */
-                PIO_PinInterruptCallbackRegister(DRV_PLC_EXT_INT_PIN, DRV_G3_MACRT_ExternalInterruptHandler, sysObj.drvG3MacRt);
-            }
-
             /* Set G3 MAC RT initialization callback */
             DRV_G3_MACRT_InitCallbackRegister(DRV_G3_MACRT_INDEX_0, APP_PLC_G3MACRTInitCallback);
 
@@ -502,7 +456,9 @@ void APP_PLC_Tasks ( void )
                 DRV_G3_MACRT_TxCfmCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataCfmCallback);
                 DRV_G3_MACRT_DataIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataIndCallback);
                 DRV_G3_MACRT_RxParamsIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_RxParamsIndCallback);
+#ifndef APP_PLC_DISABLE_SLEEP_MODE
                 DRV_G3_MACRT_SleepIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_SleepModeDisableCallback);
+#endif
 
 #ifndef APP_PLC_DISABLE_PVDDMON
                 /* Disable TX Enable at the beginning */
@@ -542,13 +498,6 @@ void APP_PLC_Tasks ( void )
 
         case APP_PLC_STATE_SET_BAND:
         {
-            if (!appPlc.plcMultiband)
-            {
-                /* PLC Multi-band is not supported */
-                appPlc.state = APP_PLC_STATE_WAITING;
-                break;
-            }
-
             /* Close PLC Driver */
             DRV_G3_MACRT_Close(appPlc.drvPlcHandle);
 
@@ -620,6 +569,7 @@ bool APP_PLC_SendData ( uint8_t* pData, uint16_t length )
 
 bool APP_PLC_SetSleepMode ( bool enable )
 {
+#ifndef APP_PLC_DISABLE_SLEEP_MODE
     bool sleepIsEnabled = (appPlc.state == APP_PLC_STATE_SLEEP);
 
     if (sleepIsEnabled != enable)
@@ -637,6 +587,7 @@ bool APP_PLC_SetSleepMode ( bool enable )
 
         return true;
     }
+#endif
 
     return false;
 }
@@ -677,6 +628,15 @@ void APP_PLC_SetPANID ( uint16_t panid )
     appPlc.plcPIB.length = 2;
     memcpy(appPlc.plcPIB.pData, (uint8_t *)&panid, 2);
     DRV_G3_MACRT_PIBSet(appPlc.drvPlcHandle, &appPlc.plcPIB);
+}
+
+void APP_PLC_SetBand ( MAC_RT_BAND plcBand )
+{
+    /* Store new PLC band */
+    appPlc.plcBand = plcBand;
+
+    /* Restore configuration with new band */
+    APP_PLC_SetInitialConfiguration();
 }
 
 /*******************************************************************************

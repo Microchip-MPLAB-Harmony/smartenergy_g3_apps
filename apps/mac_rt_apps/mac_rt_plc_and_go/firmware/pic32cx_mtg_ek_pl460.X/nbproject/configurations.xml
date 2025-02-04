@@ -91,6 +91,9 @@
             <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460/service/pvddmon/srv_pvddmon.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460/service/random/srv_random.h</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
@@ -346,6 +349,9 @@
             </logicalFolder>
             <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460/service/pvddmon/srv_pvddmon.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460/service/random/srv_random.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stdio" displayName="stdio" projectFiles="true">

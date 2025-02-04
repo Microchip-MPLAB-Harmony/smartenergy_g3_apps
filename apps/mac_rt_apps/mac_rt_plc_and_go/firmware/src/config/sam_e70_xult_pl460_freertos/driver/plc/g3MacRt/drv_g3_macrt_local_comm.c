@@ -86,14 +86,29 @@ static bool lDRV_G3_MACRT_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
     {
         /* Communication correct */
         result = true;
+        gG3MacRtObj->consecutiveSpiErrors = 0;
     }
     else if (info->key == DRV_PLC_HAL_KEY_BOOT)
     {
-        /* PLC doesn't need boot process to upload firmware */
-        DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_SOFT);
-        if (gG3MacRtObj->exceptionCallback != NULL)
+        /* Communication Error : Check reset value */
+        if ((info->flags & DRV_PLC_HAL_FLAG_RST_WDOG) != 0U)
         {
-            gG3MacRtObj->exceptionCallback(DRV_G3_MACRT_EXCEPTION_RESET);
+            /* Debugger is connected */
+            result = true;
+            DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_SOFT);
+            if (gG3MacRtObj->exceptionCallback != NULL)
+            {
+                gG3MacRtObj->exceptionCallback(DRV_G3_MACRT_EXCEPTION_DEBUG);
+            }
+        }
+        else
+        {
+            /* PLC needs boot process to upload firmware */
+            DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_HARD);
+            if (gG3MacRtObj->exceptionCallback != NULL)
+            {
+                gG3MacRtObj->exceptionCallback(DRV_G3_MACRT_EXCEPTION_RESET);
+            }
         }
     }
     else
@@ -103,6 +118,35 @@ static bool lDRV_G3_MACRT_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
         if (gG3MacRtObj->exceptionCallback != NULL)
         {
             gG3MacRtObj->exceptionCallback(DRV_G3_MACRT_EXCEPTION_UNEXPECTED_KEY);
+        }
+    }
+
+    if (false == result)
+    {
+        /* Firmware is uploaded 2 times as maximum */
+        gG3MacRtObj->consecutiveSpiErrors++;
+        if (gG3MacRtObj->consecutiveSpiErrors <= 2)
+        {
+            /* Update Driver Status */
+            gG3MacRtObj->state = DRV_G3_MACRT_STATE_BUSY;
+        }
+        else
+        {
+            /* Update Driver Status */
+            gG3MacRtObj->state = DRV_G3_MACRT_STATE_ERROR_COMM;
+            if (gG3MacRtObj->exceptionCallback != NULL)
+            {
+                gG3MacRtObj->exceptionCallback(DRV_PLC_PHY_EXCEPTION_CRITICAL_ERROR);
+            }
+        }
+
+        /* Check if there is any tx_cfm pending to be reported */
+        if (gG3MacRtObj->state == DRV_G3_MACRT_STATE_WAITING_TX_CFM)
+        {
+            gG3MacRtObj->evResetTxCfm = true;
+
+            /* Post semaphore to resume task */
+            (void) OSAL_SEM_PostISR(&gG3MacRtObj->semaphoreID);
         }
     }
 
@@ -126,20 +170,7 @@ static void lDRV_G3_MACRT_COMM_SpiWriteCmd(DRV_G3_MACRT_MEM_ID id, uint8_t *pDat
     gG3MacRtObj->plcHal->sendWrRdCmd(&halCmd, &halInfo);
 
     /* Check communication integrity */
-    if (lDRV_G3_MACRT_COMM_CheckComm(&halInfo) == false)
-    {
-        /* Check if there is any tx_cfm pending to be reported */
-        if (gG3MacRtObj->state == DRV_G3_MACRT_STATE_WAITING_TX_CFM)
-        {
-            gG3MacRtObj->evResetTxCfm = true;
-
-            /* Post semaphore to resume task */
-            (void) OSAL_SEM_PostISR(&gG3MacRtObj->semaphoreID);
-        }
-
-        gG3MacRtObj->state = DRV_G3_MACRT_STATE_ERROR_COMM;
-    }
-    else
+    if (lDRV_G3_MACRT_COMM_CheckComm(&halInfo))
     {
         /* Enable external interrupt from PLC */
         gG3MacRtObj->plcHal->enableExtInt(true);
@@ -163,22 +194,11 @@ static void lDRV_G3_MACRT_COMM_SpiReadCmd(DRV_G3_MACRT_MEM_ID id, uint8_t *pData
     gG3MacRtObj->plcHal->sendWrRdCmd(&halCmd, &halInfo);
 
     /* Check communication integrity */
-    if (lDRV_G3_MACRT_COMM_CheckComm(&halInfo) == false)
+    if (lDRV_G3_MACRT_COMM_CheckComm(&halInfo))
     {
-        /* Check if there is any tx_cfm pending to be reported */
-        if (gG3MacRtObj->state == DRV_G3_MACRT_STATE_WAITING_TX_CFM)
-        {
-            gG3MacRtObj->evResetTxCfm = true;
-
-            /* Post semaphore to resume task */
-            (void) OSAL_SEM_PostISR(&gG3MacRtObj->semaphoreID);
-        }
-
-        gG3MacRtObj->state = DRV_G3_MACRT_STATE_ERROR_COMM;
+        /* Enable external interrupt from PLC */
+        gG3MacRtObj->plcHal->enableExtInt(true);
     }
-
-    /* Enable external interrupt from PLC */
-    gG3MacRtObj->plcHal->enableExtInt(true);
 }
 
 static void lDRV_G3_MACRT_COMM_GetEventsInfo(DRV_G3_MACRT_EVENTS_OBJ *eventsObj)
@@ -197,18 +217,10 @@ static void lDRV_G3_MACRT_COMM_GetEventsInfo(DRV_G3_MACRT_EVENTS_OBJ *eventsObj)
     gG3MacRtObj->plcHal->sendWrRdCmd(&halCmd, &halInfo);
 
     /* Check communication integrity */
-    if (lDRV_G3_MACRT_COMM_CheckComm(&halInfo) == false)
+    if (!lDRV_G3_MACRT_COMM_CheckComm(&halInfo))
     {
-        /* Check if there is any tx_cfm pending to be reported */
-        if (gG3MacRtObj->state == DRV_G3_MACRT_STATE_WAITING_TX_CFM)
-        {
-            gG3MacRtObj->evResetTxCfm = true;
-
-            /* Post semaphore to resume task */
-            (void) OSAL_SEM_PostISR(&gG3MacRtObj->semaphoreID);
-        }
-
-        gG3MacRtObj->state = DRV_G3_MACRT_STATE_ERROR_COMM;
+        /* Disable external interrupt from PLC */
+        gG3MacRtObj->plcHal->enableExtInt(false);
     }
 
     /* Extract Events information */
@@ -582,6 +594,21 @@ void DRV_G3_MACRT_SetCoordinator(const DRV_HANDLE handle)
         coordinator = 1U;
         /* Send Coordinator Capabilities Request */
         lDRV_G3_MACRT_COMM_SpiWriteCmd(SET_COORD_ID, &coordinator, 1U);
+    }
+}
+
+void DRV_G3_MACRT_SetBand(const DRV_HANDLE handle, MAC_RT_BAND band)
+{
+    if ((handle != DRV_HANDLE_INVALID) && (handle == 0U))
+    {
+        uint8_t bandValue;
+
+        bandValue = (uint8_t)band;
+        /* Send Set Band Request */
+        lDRV_G3_MACRT_COMM_SpiWriteCmd(SET_BAND_ID, &bandValue, 1U);
+
+        /* Delay to ensure new band is completely configured */
+        gG3MacRtObj->plcHal->delay(1000);
     }
 }
 

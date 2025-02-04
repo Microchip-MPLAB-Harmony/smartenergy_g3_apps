@@ -32,9 +32,9 @@ extern "C" {
 // Section: User Configuration macros
 // *****************************************************************************
 // *****************************************************************************
-#define USER_BLINK_LED_On()           LED_On()
-#define USER_BLINK_LED_Off()          LED_Off()
-#define USER_BLINK_LED_Toggle()       LED_Toggle()
+#define USER_BLINK_LED_On()           BSP_LED0_On()
+#define USER_BLINK_LED_Off()          BSP_LED0_Off()
+#define USER_BLINK_LED_Toggle()       BSP_LED0_Toggle()
 
 #define USER_PLC_IND_LED_On()         
 #define USER_PLC_IND_LED_Off()        
@@ -42,11 +42,7 @@ extern "C" {
 
 #define CLEAR_WATCHDOG()              WDT_Clear()
     
-#define PIO_PinInterruptCallbackRegister     EIC_CallbackRegister
-    
 #define APP_PLC_DISABLE_PVDDMON
-    
-#define TRNG_ReadData()          *(uint16_t *)0x0080A044
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

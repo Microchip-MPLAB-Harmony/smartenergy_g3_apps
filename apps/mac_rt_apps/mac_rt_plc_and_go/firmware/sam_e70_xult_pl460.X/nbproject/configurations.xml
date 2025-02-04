@@ -89,6 +89,9 @@
             <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_pl460/service/pvddmon/srv_pvddmon.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/sam_e70_xult_pl460/service/random/srv_random.h</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
@@ -280,6 +283,12 @@
       <itemPath>../src/app_plc.h</itemPath>
       <itemPath>../src/app_console.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>g3_mac_rt_plc_and_go_sam_e70_xult_pl460.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -310,8 +319,6 @@
               <logicalFolder name="g3MacRt" displayName="g3MacRt" projectFiles="true">
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
                   <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/bin/drv_g3_macrt_bin.S</itemPath>
-                  <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/bin/G3_MAC_RT_CENA.bin</itemPath>
-                  <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/bin/G3_MAC_RT_FCC.bin</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/drv_g3_macrt.c</itemPath>
                 <itemPath>../src/config/sam_e70_xult_pl460/driver/plc/g3MacRt/drv_g3_macrt_local_comm.c</itemPath>
@@ -367,6 +374,9 @@
             <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_pl460/service/pvddmon/srv_pvddmon.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/sam_e70_xult_pl460/service/random/srv_random.c</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
             <itemPath>../src/config/sam_e70_xult_pl460/stdio/xc32_monitor.c</itemPath>
@@ -410,12 +420,6 @@
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/config/sam_e70_xult_pl460/pin_configurations.csv</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>g3_mac_rt_plc_and_go_sam_e70_xult_pl460.mc3</itemPath>
-    </logicalFolder>
   </logicalFolder>
   <sourceRootList>
     <Elem>../src</Elem>
@@ -430,7 +434,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.40</languageToolchainVersion>
+        <languageToolchainVersion>4.45</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

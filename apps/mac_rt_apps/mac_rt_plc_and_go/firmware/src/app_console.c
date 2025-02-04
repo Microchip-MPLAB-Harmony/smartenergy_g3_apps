@@ -222,57 +222,42 @@ static void APP_CONSOLE_ShowSetSleepMenu( void )
 
 static void APP_CONSOLE_ShowMultibandMenu( void )
 {
-    SRV_PLC_PCOUP_BRANCH currentBranch;
-    SRV_PLC_PCOUP_BRANCH index;
-    uint8_t band;
+    APP_CONSOLE_Print("\r\n--- Tx/Rx PLC Band Configuration Menu ---\r\n");
+    APP_CONSOLE_Print("Select PLC PHY Band:\r\n");
     
-    APP_CONSOLE_Print("\r\n--- Tx/Rx Coupling Band Configuration Menu ---\r\n");
-    APP_CONSOLE_Print("Select PLC Coupling branch:\r\n");
-    
-    currentBranch = appPlc.couplingBranch;
-    
-    for (index = 0; index < 2; index++)
+    for (uint8_t band = G3_CEN_A; band <= G3_CEN_B; band++)
     {
-        if (index == currentBranch)
+        if (SRV_PCOUP_Get_Config(band) != NULL)
         {
-            APP_CONSOLE_Print("->\t");
-        }
-        else
-        {
-            APP_CONSOLE_Print("\t");
-        }
-        
-        if (index == SRV_PLC_PCOUP_MAIN_BRANCH)
-        {
-            APP_CONSOLE_Print("0: Main Branch ");
-        }
-        else
-        {
-            APP_CONSOLE_Print("1: Auxiliary ");
-        }
-        
-        band = SRV_PCOUP_Get_Phy_Band(index);
-        switch (band)
-        {
-            case G3_CEN_A:
-                APP_CONSOLE_Print("(CENELEC-A band: 35 - 91 KHz)\r\n");
-                break;
-                
-            case G3_CEN_B:
-                APP_CONSOLE_Print("(CENELEC-B band: 98 - 122 kHz)\r\n");
-                break;
-                
-            case G3_FCC:
-                APP_CONSOLE_Print("(FCC band: 154 - 488 KHz)\r\n");
-                break;
-                
-            case G3_ARIB:
-                APP_CONSOLE_Print("(ARIB band: 154 - 404 KHz)\r\n");
-                break;
-                
+            if (appPlc.plcBand == band)
+            {
+                APP_CONSOLE_Print("->");
+            }
+
+            APP_CONSOLE_Print("\t%hhu: ", band);
+            
+            switch (band)
+            {
+                case G3_CEN_A:
+                    APP_CONSOLE_Print("CENELEC-A band (35 - 91 KHz)\r\n");
+                    break;
+
+                case G3_CEN_B:
+                    APP_CONSOLE_Print("CENELEC-B band (98 - 122 kHz)\r\n");
+                    break;
+
+                case G3_FCC:
+                    APP_CONSOLE_Print("FCC band (154 - 488 KHz)\r\n");
+                    break;
+
+                case G3_ARIB:
+                    APP_CONSOLE_Print("ARIB band (154 - 404 KHz)\r\n");
+                    break;
+
+            }
         }
     }
-        
+
     APP_CONSOLE_Print(MENU_CMD_PROMPT);
 }
 
@@ -383,64 +368,41 @@ static bool APP_CONSOLE_SetACKRequest( char *enable )
     return result;
 }
 
-static bool APP_CONSOLE_SetPlcBand( char *mode )
+static bool APP_CONSOLE_SetPlcBand(char *mode)
 {
     bool result = false;
-
-	switch (*mode)
+    uint8_t band = (uint8_t)(*mode - '0');
+    
+    if (SRV_PCOUP_Get_Config(band) != NULL)
     {
-		case '0':
-            if (appPlc.couplingBranch == SRV_PLC_PCOUP_AUXILIARY_BRANCH)
-            {
-                appPlc.couplingBranch = SRV_PLC_PCOUP_MAIN_BRANCH;
-                appPlc.bin2InUse = 0;
-                result = true;
-            }
-			break;
-
-		case '1':
-            if (appPlc.couplingBranch == SRV_PLC_PCOUP_MAIN_BRANCH)
-            {
-                appPlc.couplingBranch = SRV_PLC_PCOUP_AUXILIARY_BRANCH;
-                appPlc.bin2InUse = 1;
-                result = true;
-            }
-			break;
-           
-        default:
-            result = false;
-	}
+        APP_PLC_SetBand(band);
+        result = true;
+    }
 
     return result;
 }
 
-static void APP_CONSOLE_ShowPhyBand( uint32_t phyVersion )
+static void APP_CONSOLE_ShowPhyBand( void )
 {
-    APP_CONSOLE_Print("G3 Tx/Rx Band: ");
-    if (((phyVersion >> 16) & 0xFF) == 0x01)
+    /* Show PHY Band */
+    switch (appPlc.plcBand)
     {
-        /* Show PHY Band */
-        APP_CONSOLE_Print("CENELEC-A band (35 - 91 kHz)\r\n");
-    }
-    else if (((phyVersion >> 16) & 0xFF) == 0x02)
-    {
-        /* Show PHY Band */
-        APP_CONSOLE_Print("FCC band (154 - 488 kHz)\r\n");
-    }
-    else if (((phyVersion >> 16) & 0xFF) == 0x03)
-    {
-        /* Show PHY Band */
-        APP_CONSOLE_Print("ARIB band (154 - 404 kHz)\r\n");
-    }
-    else if (((phyVersion >> 16) & 0xFF) == 0x04)
-    {
-        /* Show PHY Band */
-        APP_CONSOLE_Print("CENELEC-B band (98 - 122 kHz)\r\n");
-    }
-    else
-    {
-        /* ERROR in PHY Band */
-        APP_CONSOLE_Print("Find ERROR in PHY band\r\n");
+        case G3_CEN_A:
+        default:
+            APP_CONSOLE_Print("(CENELEC-A band: 35 - 91 kHz)\r\n");
+            break;
+
+        case G3_FCC:
+            APP_CONSOLE_Print("(FCC band: 154 - 488 kHz)\r\n");
+            break;
+
+        case G3_ARIB:
+            APP_CONSOLE_Print("(ARIB band: 154 - 404 kHz)\r\n");
+            break;
+
+        case G3_CEN_B:
+            APP_CONSOLE_Print("(CENELEC-B band: 98 - 122 kHz)\r\n");
+            break;
     }
 }
 
@@ -520,32 +482,8 @@ void APP_CONSOLE_Tasks ( void )
                         (uint8_t)(appPlc.phyVersion >> 24), (uint8_t)(appPlc.phyVersion >> 16),
                         (uint8_t)(appPlc.phyVersion >> 8), (uint8_t)(appPlc.phyVersion));
                 
-                /* Set PLC Phy Tone Map Size */
-                if (((appPlc.phyVersion >> 16) & 0xFF) == 0x01)
-                {
-                    /* Show PHY Band */
-                    APP_CONSOLE_Print("(CENELEC-A band: 35 - 91 kHz)\r\n");
-                }
-                else if (((appPlc.phyVersion >> 16) & 0xFF) == 0x02)
-                {
-                    /* Show PHY Band */
-                    APP_CONSOLE_Print("(FCC band: 154 - 488 kHz)\r\n");
-                }
-                else if (((appPlc.phyVersion >> 16) & 0xFF) == 0x03)
-                {
-                    /* Show PHY Band */
-                    APP_CONSOLE_Print("(ARIB band: 154 - 404 kHz)\r\n");
-                }
-                else if (((appPlc.phyVersion >> 16) & 0xFF) == 0x04)
-                {
-                    /* Show PHY Band */
-                    APP_CONSOLE_Print("(CENELEC-B band: 98 - 122 kHz)\r\n");
-                }
-                else
-                {
-                    /* Show PHY Band */
-                    APP_CONSOLE_Print(" (Find ERROR in PHY version.)\r\n");
-                }
+                /* Show PHY Band */
+                APP_CONSOLE_ShowPhyBand();
                 
                 /* Show G3 MAC RT Configuration */
                 APP_CONSOLE_Print("Configuring G3 MAC RT Header\r\n" \
@@ -599,7 +537,7 @@ void APP_CONSOLE_Tasks ( void )
                             appPlcTx.txHeader.destinationAddress.shortAddress,
                             appPlcTx.txHeader.frameControl.ackRequest);
                         
-                        APP_CONSOLE_ShowPhyBand(appPlc.phyVersion);
+                        APP_CONSOLE_ShowPhyBand();
                         appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
                         break;
                         
@@ -612,10 +550,7 @@ void APP_CONSOLE_Tasks ( void )
                         APP_CONSOLE_Print("\t1: G3 MAC Source Address\n\r");
                         APP_CONSOLE_Print("\t2: G3 MAC Destination Address\n\r");
                         APP_CONSOLE_Print("\t3: G3 MAC ACK request\n\r");
-                        if (appPlc.plcMultiband)
-                        {
-                            APP_CONSOLE_Print("\t4: Tx/Rx Band\n\r");
-                        }
+                        APP_CONSOLE_Print("\t4: Tx/Rx Band\n\r");
                         break;
                         
                     default:
@@ -676,7 +611,7 @@ void APP_CONSOLE_Tasks ( void )
                     APP_CONSOLE_ShowSetACKMenu();
                     APP_CONSOLE_ReadRestart(1);
                 }
-                else if (appPlc.plcMultiband && (appConsole.pReceivedChar[0] == '4'))
+                else if (appConsole.pReceivedChar[0] == '4')
                 {
                     appConsole.state = APP_CONSOLE_STATE_SET_PLC_BAND;
                     APP_CONSOLE_ShowMultibandMenu();
@@ -838,16 +773,7 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (APP_CONSOLE_SetPlcBand(appConsole.pReceivedChar))
                 {
-                    if (appPlc.bin2InUse)
-                    {
-                        APP_CONSOLE_Print("\r\nSet Auxiliary branch\r\n");
-                    }
-                    else
-                    {
-                        APP_CONSOLE_Print("\r\nSet Main branch\r\n");
-                    }
-
-                    appPlc.state = APP_PLC_STATE_SET_BAND;
+                    APP_CONSOLE_Print("\r\nSet PLC Band to %hhu\r\n", *appConsole.pReceivedChar);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
                 }
                 else
