@@ -237,16 +237,16 @@ void _APP_PLC_UsiPhyProtocolEventCb(uint8_t *pData, size_t length)
 
 static void APP_PLC_SetCouplingConfiguration(void)
 {
-    uint8_t plcPhyBand;
+    uint8_t plcPhyBand = SRV_PCOUP_Get_Default_Phy_Band();
 
-    plcPhyBand = SRV_PCOUP_Get_Default_Phy_Band();
-    SRV_PCOUP_Set_Config(app_plcData.drvPlcHandle, plcPhyBand);
+    /* Set PHY Band PIB */
+    appData.plcPIB.id = PLC_ID_BAND;
+    appData.plcPIB.length = 1;
+    *appData.plcPIB.pData = plcPhyBand;
+    DRV_PLC_PHY_PIBSet(appData.drvPlcHandle, &appData.plcPIB);
 
-    /* Set  PHY Band PIB */
-    app_plcData.plcPIB.id = PLC_ID_BAND;
-    app_plcData.plcPIB.length = 1;
-    *app_plcData.plcPIB.pData = plcPhyBand;
-    DRV_PLC_PHY_PIBSet(app_plcData.drvPlcHandle, &app_plcData.plcPIB);
+    /* Apply PLC coupling configuration */
+    SRV_PCOUP_Set_Config(appData.drvPlcHandle, plcPhyBand);
 
     /* Disable AUTO mode and set VLO behavior by default in order to
      * maximize signal level in any case */

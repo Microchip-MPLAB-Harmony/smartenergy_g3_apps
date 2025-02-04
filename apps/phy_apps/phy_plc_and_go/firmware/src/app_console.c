@@ -749,7 +749,7 @@ void APP_CONSOLE_Tasks ( void )
                 APP_CONSOLE_Print(STRING_HEADER);
 
                 /* Show PHY version */
-                APP_CONSOLE_Print("PLC PHY binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x",
+                APP_CONSOLE_Print("PLC PHY binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x ",
                         (uint8_t)(appPlcTx.plcPhyVersion >> 24), (uint8_t)(appPlcTx.plcPhyVersion >> 16),
                         (uint8_t)(appPlcTx.plcPhyVersion >> 8), (uint8_t)(appPlcTx.plcPhyVersion));
 
@@ -988,7 +988,7 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (APP_CONSOLE_SetPlcBand(appConsole.pReceivedChar))
                 {
-                    APP_CONSOLE_Print("\r\nSet PLC Band to %hhu\r\n", *appConsole.pReceivedChar);
+                    APP_CONSOLE_Print("\r\nSet PLC Band to %c\r\n", *appConsole.pReceivedChar);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
                 }
                 else

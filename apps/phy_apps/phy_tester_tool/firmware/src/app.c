@@ -88,16 +88,16 @@ static CACHE_ALIGN uint8_t pSerialDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_SERIAL_D
 
 static void APP_PLC_SetCouplingConfiguration(void)
 {
-    uint8_t plcPhyBand;
+    uint8_t plcPhyBand = SRV_PCOUP_Get_Default_Phy_Band();
 
-    plcPhyBand = SRV_PCOUP_Get_Default_Phy_Band();
-    SRV_PCOUP_Set_Config(appData.drvPlcHandle, plcPhyBand);
-
-    /* Set  PHY Band PIB */
+    /* Set PHY Band PIB */
     appData.plcPIB.id = PLC_ID_BAND;
     appData.plcPIB.length = 1;
     *appData.plcPIB.pData = plcPhyBand;
     DRV_PLC_PHY_PIBSet(appData.drvPlcHandle, &appData.plcPIB);
+
+    /* Apply PLC coupling configuration */
+    SRV_PCOUP_Set_Config(appData.drvPlcHandle, plcPhyBand);
 
     /* Disable AUTO mode and set VLO behavior by default in order to
      * maximize signal level in any case */

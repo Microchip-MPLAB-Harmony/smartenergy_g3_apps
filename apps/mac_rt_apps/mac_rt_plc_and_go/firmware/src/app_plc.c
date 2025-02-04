@@ -399,6 +399,8 @@ void APP_PLC_Initialize ( void )
     /* Caution: Example provided only for FCC band */
     appPlc.staticNotchingEnable = APP_PLC_STATIC_NOTCHING_ENABLE;
 
+    /* Initialize PLC PHY band */
+    appPlc.plcBand = SRV_PCOUP_Get_Default_Phy_Band();
 }
 
 /******************************************************************************

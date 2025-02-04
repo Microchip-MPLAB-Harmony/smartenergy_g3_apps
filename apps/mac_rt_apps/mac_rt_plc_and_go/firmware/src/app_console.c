@@ -225,7 +225,7 @@ static void APP_CONSOLE_ShowMultibandMenu( void )
     APP_CONSOLE_Print("\r\n--- Tx/Rx PLC Band Configuration Menu ---\r\n");
     APP_CONSOLE_Print("Select PLC PHY Band:\r\n");
     
-    for (uint8_t band = G3_CEN_A; band <= G3_CEN_B; band++)
+    for (uint8_t band = G3_CEN_A; band <= G3_ARIB; band++)
     {
         if (SRV_PCOUP_Get_Config(band) != NULL)
         {
@@ -478,7 +478,7 @@ void APP_CONSOLE_Tasks ( void )
                 APP_CONSOLE_Print(STRING_HEADER);
             
                 /* Show PHY version */
-                APP_CONSOLE_Print("G3-PLC MAC-RT binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x", 
+                APP_CONSOLE_Print("G3-PLC MAC-RT binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x ", 
                         (uint8_t)(appPlc.phyVersion >> 24), (uint8_t)(appPlc.phyVersion >> 16),
                         (uint8_t)(appPlc.phyVersion >> 8), (uint8_t)(appPlc.phyVersion));
                 
@@ -773,7 +773,7 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (APP_CONSOLE_SetPlcBand(appConsole.pReceivedChar))
                 {
-                    APP_CONSOLE_Print("\r\nSet PLC Band to %hhu\r\n", *appConsole.pReceivedChar);
+                    APP_CONSOLE_Print("\r\nSet PLC Band to %c\r\n", *appConsole.pReceivedChar);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
                 }
                 else

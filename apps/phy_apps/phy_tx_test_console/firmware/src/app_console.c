@@ -979,7 +979,7 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (APP_CONSOLE_SetPlcBand(appConsole.pReceivedChar))
                 {
-                    APP_CONSOLE_Print("\r\nSet PLC Band to %hhu\r\n", *appConsole.pReceivedChar);
+                    APP_CONSOLE_Print("\r\nSet PLC Band to %c\r\n", *appConsole.pReceivedChar);
                     appConsole.state = APP_CONSOLE_STATE_SHOW_MENU;
                 }
                 else
