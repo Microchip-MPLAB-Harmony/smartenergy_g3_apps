@@ -2,12 +2,12 @@
 
 manifest_file_version: 1.0.0
 project: g3_mac_rt_plc_and_go_sam_d20_xpro_pl460_freertos
-creation_date: 2025-02-04T09:10:11.916+01:00[Europe/Paris]
+creation_date: 2025-02-06T14:19:46.322+01:00[Europe/Paris]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
 device_name: ATSAMD20J18
-compiler: XC32 4.40
+compiler: XC32 4.45
 mcc_version: 5.5.1
 mcc_core_version: 5.7.1
 content_manager_version: 5.0.1

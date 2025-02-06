@@ -10,7 +10,7 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 11,PB08,,Available,,,,,,NORMAL
 12,PB09,,Available,,,,,,NORMAL
 13,PA04,PL460_MISO,SERCOM0_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
-14,PA05,PL460_CS,SERCOM0_PAD1,Digital,Out,High,,,NORMAL
+14,PA05,PL460_CS,GPIO,Digital,Out,High,,,NORMAL
 15,PA06,PL460_MOSI,SERCOM0_PAD2,Digital,High Impedance,n/a,No,No,NORMAL
 16,PA07,PL460_SCK,SERCOM0_PAD3,Digital,High Impedance,n/a,No,No,NORMAL
 17,PA08,PL460_STBY,GPIO,Digital,Out,Low,,,NORMAL
