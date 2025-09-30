@@ -264,7 +264,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                 size_t len;
 
                 /* Serialize PIB data */
-                len = SRV_PSERIAL_SerialSetPIB(&appData.pSerialData[1], &appData.plcPIB);
+                len = SRV_PSERIAL_SerialSetPIB(appData.pSerialData, &appData.plcPIB);
                 /* Send through USI */
                 SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_PHY,
                         appData.pSerialData, len);
