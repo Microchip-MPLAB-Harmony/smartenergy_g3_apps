@@ -92,6 +92,22 @@ Microchip or any third party.
 #define DRV_G3ADP_MAC_INDEX_COUNT  GMAC_NUMBER_OF_MODULES
 
 // *****************************************************************************
+/* G3 ADP MAC Driver MAC Object Definition
+
+  Summary:
+    Object definition for G3 ADP MAC Driver.
+
+  Description:
+    This constant identifies the MAC Driver Object which is later used by
+    the TCP/IP layer.
+
+  Remarks:
+    None.
+*/
+
+extern const TCPIP_MAC_OBJECT DRV_G3ADP_MACObject;
+
+// *****************************************************************************
 // *****************************************************************************
 // Section: Interface Routines - Client Level
 // *****************************************************************************
@@ -681,7 +697,7 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMETERS*
 
 // *****************************************************************************
 /* Function:
-    TCPIP_MAC_RES DRV_G3ADP_MAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, int nEntries, int* pHwEntries);
+    TCPIP_MAC_RES DRV_G3ADP_MAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, size_t nEntries, size_t* pHwEntries);
 
   Summary:
     Gets the current MAC hardware statistics registers.
@@ -719,7 +735,7 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMETERS*
     - The reported values are info only and change dynamically.
 
 */
-TCPIP_MAC_RES DRV_G3ADP_MAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, int nEntries, int* pHwEntries);
+TCPIP_MAC_RES DRV_G3ADP_MAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, size_t nEntries, size_t* pHwEntries);
 
 // *****************************************************************************
 /* Function:

@@ -66,7 +66,7 @@ static void WDT0_Initialize(void)
     DWDT_REGS->DWDT_WDT0_IL = DWDT_WDT0_IL_PRESC_RATIO128;
 
     /* Configure WDT0 modes */
-    DWDT_REGS->DWDT_WDT0_MR = DWDT_WDT0_MR_PERIODRST_Msk;
+    DWDT_REGS->DWDT_WDT0_MR = DWDT_WDT0_MR_WDNRSTDIS_Msk | DWDT_WDT0_MR_PERIODRST_Msk;
 
     /* Disable all interrupts */
     DWDT_REGS->DWDT_WDT0_IDR = DWDT_WDT0_IDR_Msk;

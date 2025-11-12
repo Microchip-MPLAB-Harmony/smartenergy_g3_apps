@@ -88,8 +88,8 @@ FLEXCOM0_REGS->FLEX_US_FIER = (FLEX_US_FIER_TXFTHF_Msk); \
 #define FLEXCOM0_USART_WRITE_BUFFER_SIZE            1024U
 #define FLEXCOM0_USART_9BIT_WRITE_BUFFER_SIZE       (1024U >> 1U)
 
-volatile static uint8_t FLEXCOM0_USART_ReadBuffer[FLEXCOM0_USART_READ_BUFFER_SIZE];
-volatile static uint8_t FLEXCOM0_USART_WriteBuffer[FLEXCOM0_USART_WRITE_BUFFER_SIZE];
+static volatile uint8_t FLEXCOM0_USART_ReadBuffer[FLEXCOM0_USART_READ_BUFFER_SIZE];
+static volatile uint8_t FLEXCOM0_USART_WriteBuffer[FLEXCOM0_USART_WRITE_BUFFER_SIZE];
 
 // *****************************************************************************
 // *****************************************************************************
@@ -97,7 +97,7 @@ volatile static uint8_t FLEXCOM0_USART_WriteBuffer[FLEXCOM0_USART_WRITE_BUFFER_S
 // *****************************************************************************
 // *****************************************************************************
 
-volatile static FLEXCOM_USART_RING_BUFFER_OBJECT flexcom0UsartObj;
+static volatile FLEXCOM_USART_RING_BUFFER_OBJECT flexcom0UsartObj;
 
 void FLEXCOM0_USART_Initialize( void )
 {
@@ -111,6 +111,7 @@ void FLEXCOM0_USART_Initialize( void )
 
     FLEXCOM0_REGS->FLEX_US_FMR = FLEX_US_FMR_RXFTHRES(FLEXCOM0_USART_HW_RX_FIFO_THRES) | FLEX_US_FMR_TXFTHRES(FLEXCOM0_USART_HW_TX_FIFO_THRES);
 
+    /* Setup transmitter timeguard register */
     FLEXCOM0_REGS->FLEX_US_TTGR = 0;
 
     /* Enable FLEXCOM0 USART */
@@ -150,10 +151,11 @@ void FLEXCOM0_USART_Initialize( void )
         flexcom0UsartObj.wrBufferSize = FLEXCOM0_USART_WRITE_BUFFER_SIZE;
     }
 
+    /* Enable Read, Overrun, Parity and Framing error interrupts */
     FLEXCOM0_USART_RX_INT_ENABLE();
 }
 
-void static FLEXCOM0_USART_ErrorClear( void )
+static void FLEXCOM0_USART_ErrorClear( void )
 {
     /* Clear the error flags */
     FLEXCOM0_REGS->FLEX_US_CR = FLEX_US_CR_RSTSTA_Msk;
@@ -756,7 +758,7 @@ void FLEXCOM0_USART_ReadCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK cal
     flexcom0UsartObj.rdContext = context;
 }
 
-void static __attribute__((used)) FLEXCOM0_USART_ISR_RX_Handler( void )
+static void __attribute__((used)) FLEXCOM0_USART_ISR_RX_Handler( void )
 {
     uint16_t rdData = 0;
 
@@ -786,7 +788,7 @@ void static __attribute__((used)) FLEXCOM0_USART_ISR_RX_Handler( void )
 
 }
 
-void static __attribute__((used)) FLEXCOM0_USART_ISR_TX_Handler( void )
+static void __attribute__((used)) FLEXCOM0_USART_ISR_TX_Handler( void )
 {
     uint16_t wrByte;
 
@@ -809,13 +811,13 @@ void static __attribute__((used)) FLEXCOM0_USART_ISR_TX_Handler( void )
         }
         else
         {
-            /* Nothing to transmit. Disable the data register empty/fifo Threshold interrupt. */
+            /* Nothing to transmit. Disable the data register empty interrupt. */
             FLEXCOM0_USART_TX_INT_DISABLE();
             break;
         }
     }
 
-    /* At this point, either FIFO is completly full or all bytes are transmitted (copied in FIFO). If FIFO is full, then threshold interrupt
+    /* At this point, either FIFO is completely full or all bytes are transmitted (copied in FIFO). If FIFO is full, then threshold interrupt
     *  will be generated. If all bytes are transmitted then interrupts are disabled as interrupt generation is not needed in ring buffer mode
     */
 
