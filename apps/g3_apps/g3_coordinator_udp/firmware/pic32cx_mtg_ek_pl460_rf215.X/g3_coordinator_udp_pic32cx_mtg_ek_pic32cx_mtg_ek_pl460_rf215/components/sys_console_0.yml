@@ -1,0 +1,107 @@
+configVersion: 1.0.0
+componentName: sys_console_0
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: sys_console_0
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.1-dev
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  name: smartenergy
+  type: package
+  version: v1.4.1
+- dependencyPackage: ''
+  name: smartenergy_g3
+  type: package
+  version: v1.0.1
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: sys_console_UART_dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: flexcom0
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: FLEXCOM0_UART
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: sys_console_0
+  elementPosition: {}
+  symbols:
+    SYS_CONSOLE_DEVICE:
+      attributes:
+        id: SYS_CONSOLE_DEVICE
+      children:
+      - children:
+        - attributes:
+            id: sys_console_0
+            value: FLEXCOM0
+          type: Dynamic
+        type: Values
+      type: String
+    SYS_CONSOLE_DEVICE_SET:
+      attributes:
+        id: SYS_CONSOLE_DEVICE_SET
+      children:
+      - children:
+        - attributes:
+            id: sys_console_0
+            value: UART
+          type: Dynamic
+        type: Values
+      type: String
+    SYS_CONSOLE_DEVICE_UART_INDEX:
+      attributes:
+        id: SYS_CONSOLE_DEVICE_UART_INDEX
+      children:
+      - children:
+        - attributes:
+            id: sys_console
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

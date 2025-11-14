@@ -1,0 +1,103 @@
+configVersion: 1.0.0
+componentName: tcpipUdp
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: tcpipUdp
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.1-dev
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  name: smartenergy
+  type: package
+  version: v1.4.1
+- dependencyPackage: ''
+  name: smartenergy_g3
+  type: package
+  version: v1.0.1
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: TRANSPORT LAYER
+    children:
+    - children:
+      - attributes:
+          id: tcpipUdp
+          x: '20'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    TCPIP_UDP_HEAP_SIZE:
+      attributes:
+        id: TCPIP_UDP_HEAP_SIZE
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: tcpipUdp
+            value: '7880'
+          type: Dynamic
+        type: Values
+      type: Integer
+    TCPIP_UDP_MAX_SOCKETS:
+      attributes:
+        id: TCPIP_UDP_MAX_SOCKETS
+      children:
+      - children:
+        - attributes:
+            value: '2'
+          type: User
+        type: Values
+      type: Integer
+    TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE:
+      attributes:
+        id: TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE
+      children:
+      - children:
+        - attributes:
+            id: tcpipUdp
+            value: '1280'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

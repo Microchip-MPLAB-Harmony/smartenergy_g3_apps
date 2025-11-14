@@ -1,0 +1,181 @@
+configVersion: 1.0.0
+componentName: g3_config
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: g3_config
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.1-dev
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  name: smartenergy
+  type: package
+  version: v1.4.1
+- dependencyPackage: ''
+  name: smartenergy_g3
+  type: package
+  version: v1.0.1
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: g3_palplc_dependency
+        children:
+        - children:
+          - attributes:
+              id: enabled
+            children:
+            - type: Value
+              value: 'true'
+            type: Boolean
+          type: Attributes
+        type: GenericDependency
+      - attributes:
+          id: g3_palrf_dependency
+        children:
+        - children:
+          - attributes:
+              id: enabled
+            children:
+            - type: Value
+              value: 'true'
+            type: Boolean
+          type: Attributes
+        type: GenericDependency
+      - attributes:
+          id: g3_srv_log_report_dependency
+        children:
+        - children:
+          - attributes:
+              id: enabled
+            children:
+            - type: Value
+              value: 'true'
+            type: Boolean
+          type: Attributes
+        type: GenericDependency
+      - attributes:
+          id: g3_srv_queue_dependency
+        children:
+        - children:
+          - attributes:
+              id: enabled
+            children:
+            - type: Value
+              value: 'true'
+            type: Boolean
+          type: Attributes
+        type: GenericDependency
+      - attributes:
+          id: g3_srv_random_dependency
+        children:
+        - children:
+          - attributes:
+              id: enabled
+            children:
+            - type: Value
+              value: 'true'
+            type: Boolean
+          type: Attributes
+        type: GenericDependency
+      - attributes:
+          id: g3_srv_security_dependency
+        children:
+        - children:
+          - attributes:
+              id: enabled
+            children:
+            - type: Value
+              value: 'true'
+            type: Boolean
+          type: Attributes
+        type: GenericDependency
+      type: Attachments
+    type: g3_config
+  elementPosition:
+    attributes:
+      id: G3 STACK
+    children:
+    - children:
+      - attributes:
+          id: g3_config
+          x: '0'
+          y: '13'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    G3_COORDINATOR:
+      attributes:
+        id: G3_COORDINATOR
+      children:
+      - children:
+        - attributes:
+            id: g3_config
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    G3_DEVICE:
+      attributes:
+        id: G3_DEVICE
+      children:
+      - children:
+        - attributes:
+            id: g3_config
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    G3_MODE:
+      attributes:
+        id: G3_MODE
+      children:
+      - children:
+        - attributes:
+            value: G3 Stack (ADP + MAC) Hybrid PLC & RF
+          type: User
+        type: Values
+      type: Combo
+    G3_ROLE:
+      attributes:
+        id: G3_ROLE
+      children:
+      - children:
+        - attributes:
+            value: PAN Coordinator
+          type: User
+        type: Values
+      type: Combo
+  userData: {}

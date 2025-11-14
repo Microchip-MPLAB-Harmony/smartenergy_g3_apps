@@ -1,0 +1,234 @@
+configVersion: 1.0.0
+componentName: HarmonyCore
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: HarmonyCore
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.1-dev
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  name: smartenergy
+  type: package
+  version: v1.4.1
+- dependencyPackage: ''
+  name: smartenergy_g3
+  type: package
+  version: v1.0.1
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: HarmonyCore
+          x: '298'
+          y: '7'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    ENABLE_APP_FILE:
+      attributes:
+        id: ENABLE_APP_FILE
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_DRV_COMMON:
+      attributes:
+        id: ENABLE_DRV_COMMON
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_OSAL:
+      attributes:
+        id: ENABLE_OSAL
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_CACHE:
+      attributes:
+        id: ENABLE_SYS_CACHE
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_COMMON:
+      attributes:
+        id: ENABLE_SYS_COMMON
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_INT:
+      attributes:
+        id: ENABLE_SYS_INT
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_PORTS:
+      attributes:
+        id: ENABLE_SYS_PORTS
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    GEN_APP_TASK_COUNT:
+      attributes:
+        id: GEN_APP_TASK_COUNT
+      children:
+      - children:
+        - attributes:
+            value: '6'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_TASK_NAME_0:
+      attributes:
+        id: GEN_APP_TASK_NAME_0
+      children:
+      - children:
+        - attributes:
+            value: app_g3_management
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_1:
+      attributes:
+        id: GEN_APP_TASK_NAME_1
+      children:
+      - children:
+        - attributes:
+            value: app_udp_responder
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_2:
+      attributes:
+        id: GEN_APP_TASK_NAME_2
+      children:
+      - children:
+        - attributes:
+            value: app_storage_pic32cxmt
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_3:
+      attributes:
+        id: GEN_APP_TASK_NAME_3
+      children:
+      - children:
+        - attributes:
+            value: app_eap_server
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_4:
+      attributes:
+        id: GEN_APP_TASK_NAME_4
+      children:
+      - children:
+        - attributes:
+            value: app_cycles
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_5:
+      attributes:
+        id: GEN_APP_TASK_NAME_5
+      children:
+      - children:
+        - attributes:
+            value: app_tcpip_management
+          type: User
+        type: Values
+      type: String
+  userData: {}

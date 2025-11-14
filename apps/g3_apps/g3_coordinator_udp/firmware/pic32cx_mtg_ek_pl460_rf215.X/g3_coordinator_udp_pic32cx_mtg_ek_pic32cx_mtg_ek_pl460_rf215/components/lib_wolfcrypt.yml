@@ -1,0 +1,291 @@
+configVersion: 1.0.0
+componentName: lib_wolfcrypt
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: lib_wolfcrypt
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.1-dev
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  name: smartenergy
+  type: package
+  version: v1.4.1
+- dependencyPackage: ''
+  name: smartenergy_g3
+  type: package
+  version: v1.0.1
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: LIB_WOLFCRYPT_DEPENDENCY
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: lib_crypto
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: LIB_WOLFCRYPT_CAPABILITY
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: lib_wolfcrypt
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: lib_wolfcrypt
+          x: '459'
+          y: '454'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    CRYPTO_WC_AES_CCM:
+      attributes:
+        id: CRYPTO_WC_AES_CCM
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    CRYPTO_WC_AES_CMAC:
+      attributes:
+        id: CRYPTO_WC_AES_CMAC
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    CRYPTO_WC_AES_EAX:
+      attributes:
+        id: CRYPTO_WC_AES_EAX
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    crypto_aead_wc_wrapper_c_ftl_flag:
+      attributes:
+        id: crypto_aead_wc_wrapper_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_aead_wc_wrapper_h_ftl_flag:
+      attributes:
+        id: crypto_aead_wc_wrapper_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_common_wc_wrapper_c_ftl_flag:
+      attributes:
+        id: crypto_common_wc_wrapper_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_common_wc_wrapper_h_ftl_flag:
+      attributes:
+        id: crypto_common_wc_wrapper_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_digisign_wc_wrapper_c_ftl_flag:
+      attributes:
+        id: crypto_digisign_wc_wrapper_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_digisign_wc_wrapper_h_ftl_flag:
+      attributes:
+        id: crypto_digisign_wc_wrapper_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_hash_wc_wrapper_c_ftl_flag:
+      attributes:
+        id: crypto_hash_wc_wrapper_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_hash_wc_wrapper_h_ftl_flag:
+      attributes:
+        id: crypto_hash_wc_wrapper_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_kas_wc_wrapper_c_ftl_flag:
+      attributes:
+        id: crypto_kas_wc_wrapper_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_kas_wc_wrapper_h_ftl_flag:
+      attributes:
+        id: crypto_kas_wc_wrapper_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_mac_wc_wrapper_c_ftl_flag:
+      attributes:
+        id: crypto_mac_wc_wrapper_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_mac_wc_wrapper_h_ftl_flag:
+      attributes:
+        id: crypto_mac_wc_wrapper_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_rng_wc_wrapper_c_ftl_flag:
+      attributes:
+        id: crypto_rng_wc_wrapper_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_rng_wc_wrapper_h_ftl_flag:
+      attributes:
+        id: crypto_rng_wc_wrapper_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_sym_wc_wrapper_c_ftl_flag:
+      attributes:
+        id: crypto_sym_wc_wrapper_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_sym_wc_wrapper_h_ftl_flag:
+      attributes:
+        id: crypto_sym_wc_wrapper_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+  userData: {}
