@@ -88,7 +88,6 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize(
     }
 
     gDrvG3MacRtObj.plcHal                = g3MacRtInit->plcHal;
-    gDrvG3MacRtObj.plcProfile            = g3MacRtInit->plcProfile;
     gDrvG3MacRtObj.binSize               = g3MacRtInit->binEndAddress - g3MacRtInit->binStartAddress;
     gDrvG3MacRtObj.binStartAddress       = g3MacRtInit->binStartAddress;
     gDrvG3MacRtObj.secure                = g3MacRtInit->secure;
@@ -179,6 +178,7 @@ DRV_HANDLE DRV_G3_MACRT_Open(
     DRV_PLC_BOOT_Start(&bootInfo, gDrvG3MacRtObj.plcHal);
 
     gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_BUSY;
+    gDrvG3MacRtObj.consecutiveSpiErrors = 0;
 
     /* Post semaphore to resume task */
     if (gDrvG3MacRtObj.semaphoreID != NULL)
@@ -305,7 +305,7 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object )
     /* Suspend task until semaphore is posted or timeout expires */
     if (gDrvG3MacRtObj.semaphoreID != NULL)
     {
-        uint16_t waitMS = 1;
+        OSAL_TICK_TYPE waitMS = 1;
 
         /* If PLC device is running, wait forever. Otherwise, wait for 1 ms. */
         if ((gDrvG3MacRtObj.state == DRV_G3_MACRT_STATE_READY) ||
@@ -335,8 +335,8 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object )
         }
         else if (state == DRV_PLC_BOOT_STATUS_READY)
         {
-            DRV_G3_MACRT_Init(&gDrvG3MacRtObj);
             gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_READY;
+            DRV_G3_MACRT_Init(&gDrvG3MacRtObj);
             if (gDrvG3MacRtObj.initCallback != NULL)
             {
                 gDrvG3MacRtObj.initCallback(true);

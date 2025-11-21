@@ -649,6 +649,12 @@
       <itemPath>../src/app_cycles.h</itemPath>
       <itemPath>../src/app_tcpip_management.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>g3_coordinator_udp_pic32cx_mtg_ek_freertos.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -1021,12 +1027,6 @@
       <itemPath>../src/app_cycles.c</itemPath>
       <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/pin_configurations.csv</itemPath>
       <itemPath>../src/app_tcpip_management.c</itemPath>
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>g3_coordinator_udp_pic32cx_mtg_ek_freertos.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

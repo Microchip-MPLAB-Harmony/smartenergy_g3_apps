@@ -116,7 +116,7 @@ void SUPC_Initialize(void)
     {
         SUPC_REGS->SUPC_SMMR = SUPC_SMMR_VDD3V3SMSMPL(0x1) | SUPC_SMMR_VDD3V3SMTH(8) | SUPC_SMMR_VDD3V3SMPWRM(0) ;
 
-        SUPC_REGS->SUPC_MR = (SUPC_REGS->SUPC_MR & ~SUPC_MR_Msk) | (SUPC_REGS->SUPC_MR & SUPC_MR_OSCBYPASS_Msk) | SUPC_MR_KEY_PASSWD | SUPC_MR_IO_BACKUP_ISO_Msk | SUPC_MR_CORSMRSTEN_Msk | SUPC_MR_VREGDIS_Msk | SUPC_MR_CORSMM_Msk;
+        SUPC_REGS->SUPC_MR = (SUPC_REGS->SUPC_MR & ~SUPC_MR_Msk) | (SUPC_REGS->SUPC_MR & SUPC_MR_OSCBYPASS_Msk) | SUPC_MR_KEY_PASSWD | SUPC_MR_IO_BACKUP_ISO_Msk | SUPC_MR_CORSMRSTEN_Msk | SUPC_MR_VREGDIS_Msk ;
 
         SUPC_REGS->SUPC_WUMR = SUPC_WUMR_LPDBC0(0x0) | SUPC_WUMR_LPDBC1(0x0) | SUPC_WUMR_LPDBC2(0x0) | SUPC_WUMR_LPDBC3(0x0) | SUPC_WUMR_LPDBC4(0x0) | SUPC_WUMR_WKUPDBC(0x0) | SUPC_WUMR_FWUPDBC(0x0) ;
 
@@ -189,7 +189,7 @@ void SUPC_WaitModeEnter(WAITMODE_FLASH_STATE flash_lpm, WAITMODE_WKUP_SOURCE sou
     /* Restore Clock Setting */
     SEFC0_Initialize();
     SEFC1_Initialize();
-    CLK_Initialize();
+    CLOCK_Initialize();
 
     /* Enable CPU Interrupt */
     __DMB();
@@ -212,7 +212,7 @@ void SUPC_BackupModeEnter(void)
     __WFI();
 }
 
-volatile static SUPC_OBJECT supcObj;
+static volatile SUPC_OBJECT supcObj;
 
 void SUPC_CallbackRegister(SUPC_CALLBACK callback, uintptr_t context)
 {

@@ -1,0 +1,262 @@
+configVersion: 1.0.0
+componentName: tcpipNetConfig_0
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: tcpipNetConfig_0
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: NETCONFIG_MAC_Dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: drvMacG3Adp
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: libdrvMacG3Adp
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: tcpipNetConfig_0
+  elementPosition: {}
+  symbols:
+    TCPIP_NETWORK_CONFIG_MULTICAST_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_CONFIG_MULTICAST_IDX0
+      children:
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    TCPIP_NETWORK_DEFAULT_DNS_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_DEFAULT_DNS_IDX0
+      children:
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: 0.0.0.0
+          type: Dynamic
+        type: Values
+      type: String
+    TCPIP_NETWORK_DEFAULT_GATEWAY_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_DEFAULT_GATEWAY_IDX0
+      children:
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: 0.0.0.0
+          type: Dynamic
+        type: Values
+      type: String
+    TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0
+      children:
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: MCHPBOARD_PLC
+          type: Dynamic
+        type: Values
+      type: String
+    TCPIP_NETWORK_DEFAULT_INTERFACE_NAME_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_DEFAULT_INTERFACE_NAME_IDX0
+      children:
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: G3ADPMAC
+          type: Dynamic
+        type: Values
+      type: String
+    TCPIP_NETWORK_DEFAULT_IPV6_ADDRESS_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_DEFAULT_IPV6_ADDRESS_IDX0
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: fd00::781D:00:1122:3344:5566
+          type: Dynamic
+        - attributes:
+            value: fd00::781D:00:1122:3344:5566
+          type: User
+        type: Values
+      type: String
+    TCPIP_NETWORK_DEFAULT_IPV6_GATEWAY_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_DEFAULT_IPV6_GATEWAY_IDX0
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: fe80::781D:ff:fe00:0000
+          type: Dynamic
+        - attributes:
+            value: fe80::781D:ff:fe00:0000
+          type: User
+        type: Values
+      type: String
+    TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0
+      children:
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: 0.0.0.0
+          type: Dynamic
+        type: Values
+      type: String
+    TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0
+      children:
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: DRV_G3ADP_MACObject
+          type: Dynamic
+        type: Values
+      type: String
+    TCPIP_NETWORK_INTERFACE_FLAG_DHCP_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_INTERFACE_FLAG_DHCP_IDX0
+      children:
+      - children:
+        - attributes:
+            value: '3'
+          type: User
+        type: Values
+      type: KeyValueSet
+    TCPIP_NETWORK_INTERFACE_FLAG_DNS_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_INTERFACE_FLAG_DNS_IDX0
+      children:
+      - children:
+        - attributes:
+            value: '2'
+          type: User
+        type: Values
+      type: KeyValueSet
+    TCPIP_NETWORK_INTERFACE_FLAG_IPV6_ADDRESS_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_INTERFACE_FLAG_IPV6_ADDRESS_IDX0
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    TCPIP_NETWORK_INTERFACE_FLAG_IPV6_G3_NET_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_INTERFACE_FLAG_IPV6_G3_NET_IDX0
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    TCPIP_NETWORK_INTERFACE_FLAG_IPV6_G3_NET_ROUTER_IDX0:
+      attributes:
+        id: TCPIP_NETWORK_INTERFACE_FLAG_IPV6_G3_NET_ROUTER_IDX0
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    TCPIP_STACK_NETWORK_CONFIG_IDX0:
+      attributes:
+        id: TCPIP_STACK_NETWORK_CONFIG_IDX0
+      children:
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    TCPIP_STACK_NETWORK_CONFIG_NUMBER:
+      attributes:
+        id: TCPIP_STACK_NETWORK_CONFIG_NUMBER
+      children:
+      - children:
+        - attributes:
+            id: tcpipNetConfig_0
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

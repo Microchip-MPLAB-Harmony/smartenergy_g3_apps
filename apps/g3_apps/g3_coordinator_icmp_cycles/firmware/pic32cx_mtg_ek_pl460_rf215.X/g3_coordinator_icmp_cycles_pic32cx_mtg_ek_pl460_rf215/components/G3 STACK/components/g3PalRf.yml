@@ -1,0 +1,32 @@
+configVersion: 1.0.0
+componentName: g3PalRf
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: g3PalRf
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_g3
+  type: package
+  version: v1.1.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: G3 STACK
+    children:
+    - children:
+      - attributes:
+          id: g3PalRf
+          x: '309'
+          y: '14'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols: {}
+  userData: {}

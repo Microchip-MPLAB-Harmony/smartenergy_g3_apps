@@ -75,17 +75,17 @@ uint16_t SRV_RANDOM_Get16bits(void)
     return retValue;
 }
 
-uint16_t  SRV_RANDOM_Get16bitsInRange(uint16_t min, uint16_t max)
+uint16_t  SRV_RANDOM_Get16bitsInRange(uint16_t minVal, uint16_t maxVal)
 {
-    uint16_t localMin = min;
+    uint16_t localMin = minVal;
 
-    if (max < min)
+    if (maxVal < minVal)
     {
-        localMin = max;
-        max = min;
+        localMin = maxVal;
+        maxVal = minVal;
     }
 
-    return (SRV_RANDOM_Get16bits() % (max - localMin + 1U) + localMin);
+    return (SRV_RANDOM_Get16bits() % (maxVal - localMin + 1U) + localMin);
 }
 
 uint32_t SRV_RANDOM_Get32bits(void)
@@ -97,17 +97,17 @@ uint32_t SRV_RANDOM_Get32bits(void)
     return retValue;
 }
 
-uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t min, uint32_t max)
+uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t minVal, uint32_t maxVal)
 {
-    uint32_t localMin = min;
+    uint32_t localMin = minVal;
 
-    if (max < min)
+    if (maxVal < minVal)
     {
-        localMin = max;
-        max = min;
+        localMin = maxVal;
+        maxVal = minVal;
     }
 
-    return (SRV_RANDOM_Get32bits() % (max - localMin + 1U) + localMin);
+    return (SRV_RANDOM_Get32bits() % (maxVal - localMin + 1U) + localMin);
 }
 
 void SRV_RANDOM_Get128bits(uint8_t *rndValue)

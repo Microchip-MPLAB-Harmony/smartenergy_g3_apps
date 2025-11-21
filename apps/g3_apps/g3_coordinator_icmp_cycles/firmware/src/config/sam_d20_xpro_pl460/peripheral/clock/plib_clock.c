@@ -42,7 +42,7 @@
 #include "device.h"
 #include "interrupts.h"
 
-volatile static SYSCTRL_CALLBACK_OBJECT SYSCTRL_CallbackObj;
+static volatile SYSCTRL_CALLBACK_OBJECT SYSCTRL_CallbackObj;
 
 static void SYSCTRL_Initialize(void)
 {
@@ -92,7 +92,7 @@ static void DFLL_Initialize(void)
     {
         /* Waiting for DFLL to fully lock to meet clock accuracy */
     }
-    
+
 }
 
 

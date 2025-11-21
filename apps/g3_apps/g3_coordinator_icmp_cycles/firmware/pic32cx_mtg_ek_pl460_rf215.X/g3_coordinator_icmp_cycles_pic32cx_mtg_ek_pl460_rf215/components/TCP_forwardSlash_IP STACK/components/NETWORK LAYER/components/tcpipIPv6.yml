@@ -1,0 +1,94 @@
+configVersion: 1.0.0
+componentName: tcpipIPv6
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: tcpipIPv6
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: NETWORK LAYER
+    children:
+    - children:
+      - attributes:
+          id: tcpipIPv6
+          x: '18'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    TCPIP_IPV6_DEFAULT_LINK_MTU:
+      attributes:
+        id: TCPIP_IPV6_DEFAULT_LINK_MTU
+      children:
+      - children:
+        - attributes:
+            id: tcpipIPv6
+            value: '1280'
+          type: Dynamic
+        type: Values
+      type: Integer
+    TCPIP_IPV6_G3_PLC_BORDER_ROUTER:
+      attributes:
+        id: TCPIP_IPV6_G3_PLC_BORDER_ROUTER
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: tcpipIPv6
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    TCPIP_IPV6_G3_PLC_SUPPORT:
+      attributes:
+        id: TCPIP_IPV6_G3_PLC_SUPPORT
+      children:
+      - children:
+        - attributes:
+            id: tcpipIPv6
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    TCPIP_IPV6_HEAP_SIZE:
+      attributes:
+        id: TCPIP_IPV6_HEAP_SIZE
+      children:
+      - children:
+        - attributes:
+            id: tcpipIPv6
+            value: '1024'
+          type: Dynamic
+        type: Values
+      type: Integer
+    TCPIP_IPV6_RX_FRAGMENTED_BUFFER_SIZE:
+      attributes:
+        id: TCPIP_IPV6_RX_FRAGMENTED_BUFFER_SIZE
+      children:
+      - children:
+        - attributes:
+            id: tcpipIPv6
+            value: '1280'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

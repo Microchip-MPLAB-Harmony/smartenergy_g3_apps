@@ -135,20 +135,20 @@ Microchip or any third party.
  * 50 us + 10000 execution cycles. */
 #define RF215_TX_IRQ_MARGIN_US_Q5       ((50U << 5) + EX_CYCL_TO_USQ5(10000U))
 
-/* Delay of TRXRDY interrupt handling. 7500 execution cycles + 6 SPI bytes */
-#define RF215_TX_TRXRDY_DELAY_US_Q5     (EX_CYCL_TO_USQ5(7500U) + \
-    (RF215_SPI_BYTE_DURATION_US_Q5 * 6U))
-
-/* Delay of TX parameter configuration (_RF215_TX_ParamCfg).
- * 2000 cycles + 9 SPI bytes + TRXOFF->TXPREP transition + TRXRDY delay +
- * + IRQ margin */
-#define RF215_TX_PARAM_CFG_DELAY_US_Q5  (EX_CYCL_TO_USQ5(2000U) + \
-    (RF215_SPI_BYTE_DURATION_US_Q5 * 9U) + RF215_TRXOFF_TXPREP_TIME_US_Q5 + \
-    RF215_TX_TRXRDY_DELAY_US_Q5 + RF215_TX_IRQ_MARGIN_US_Q5)
-
 /* Delay of time interrupt handling: IRQ margin + 5000 execution cycles */
 #define RF215_TX_TIME_IRQ_DELAY_US_Q5   (RF215_TX_IRQ_MARGIN_US_Q5 + \
     EX_CYCL_TO_USQ5(5000U))
+
+/* Delay of TRXRDY interrupt handling. 5000 execution cycles + 6 SPI bytes */
+#define RF215_TX_TRXRDY_DELAY_US_Q5     (EX_CYCL_TO_USQ5(5000U) + \
+    (RF215_SPI_BYTE_DURATION_US_Q5 * 6U))
+
+/* Delay of TX parameter configuration (_RF215_TX_ParamCfg).
+ * 5000 cycles + 9 SPI bytes + TRXOFF->TXPREP transition + TRXRDY delay +
+ * + Time IRQ delay */
+#define RF215_TX_PARAM_CFG_DELAY_US_Q5  (EX_CYCL_TO_USQ5(5000U) + \
+    ((RF215_SPI_BYTE_DURATION_US_Q5 + EX_CYCL_TO_USQ5(200U)) * 9U) + RF215_TRXOFF_TXPREP_TIME_US_Q5 + \
+    RF215_TX_TRXRDY_DELAY_US_Q5 + RF215_TX_TIME_IRQ_DELAY_US_Q5)
 
 // *****************************************************************************
 /* RF215 PLL Frequency Ranges

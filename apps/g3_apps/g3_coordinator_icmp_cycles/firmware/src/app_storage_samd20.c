@@ -68,8 +68,8 @@ static void lWDT_EarlyWarningCallback(uintptr_t context)
 static void lSYSCTRL_BOD33DETCallback (SYSCTRL_INTERRUPT_MASK interruptMask, uintptr_t context)
 {
     NVIC_INT_Disable();
-    PLC_RST_Clear();
-    PLC_LDO_Clear();
+    PL460_RST_Clear();
+    PL460_ENABLE_Clear();
     NVMCTRL_RowErase(app_storage_samd20Data.nonVolatileDataAddress);
     NVMCTRL_PageBufferCommit(app_storage_samd20Data.nonVolatileDataAddress);
     NVIC_INT_Enable();

@@ -109,7 +109,7 @@ uint16_t SRV_RANDOM_Get16bits(void);
 
 //******************************************************************************
 /* Function:
-    uint16_t SRV_RANDOM_Get16bitsInRange(uint16_t min, uint16_t max)
+    uint16_t SRV_RANDOM_Get16bitsInRange(uint16_t minVal, uint16_t maxVal)
 
   Summary:
     Returns a random value of 16 bits within the given range.
@@ -121,8 +121,8 @@ uint16_t SRV_RANDOM_Get16bits(void);
     None.
 
   Parameters:
-    min       - Minimum value of the range
-    max       - Maximum value of the range
+    minVal       - Minimum value of the range
+    maxVal       - Maximum value of the range
 
   Returns:
     16-bit random value.
@@ -136,7 +136,7 @@ uint16_t SRV_RANDOM_Get16bits(void);
     None.
 */
 
-uint16_t SRV_RANDOM_Get16bitsInRange(uint16_t min, uint16_t max);
+uint16_t SRV_RANDOM_Get16bitsInRange(uint16_t minVal, uint16_t maxVal);
 
 //******************************************************************************
 /* Function:
@@ -170,7 +170,7 @@ uint32_t SRV_RANDOM_Get32bits(void);
 
 //******************************************************************************
 /* Function:
-    uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t min, uint32_t max)
+    uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t minVal, uint32_t maxVal)
 
   Summary:
     Returns a random value of 32 bits within the given range.
@@ -182,8 +182,8 @@ uint32_t SRV_RANDOM_Get32bits(void);
     None.
 
   Parameters:
-    min       - Minimum value of the range
-    max       - Maximum value of the range
+    minVal       - Minimum value of the range
+    maxVal       - Maximum value of the range
 
   Returns:
     32-bit random value.
@@ -197,7 +197,7 @@ uint32_t SRV_RANDOM_Get32bits(void);
     None.
 */
 
-uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t min, uint32_t max);
+uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t minVal, uint32_t maxVal);
 
 //******************************************************************************
 /* Function:

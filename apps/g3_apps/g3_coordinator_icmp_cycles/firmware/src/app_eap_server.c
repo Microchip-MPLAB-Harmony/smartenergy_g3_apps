@@ -289,14 +289,12 @@ void APP_EAP_SERVER_Tasks ( void )
             ADP_STATUS adpStatus = ADP_Status();
             if (adpStatus == ADP_STATUS_LBP_CONNECTED)
             {
-                SRV_PLC_PCOUP_BRANCH plcBranch;
                 ADP_BAND plcBand;
                 LBP_NOTIFICATIONS_COORD lbpCoordNotifications;
                 LBP_SET_PARAM_CONFIRM lbpSetConfirm;
 
                 /* Get configured PLC band */
-                plcBranch = SRV_PCOUP_Get_Default_Branch();
-                plcBand = SRV_PCOUP_Get_Phy_Band(plcBranch);
+                plcBand = SRV_PCOUP_Get_Default_Phy_Band();
 
                 /* Initialize LoWPAN Bootstrapping Protocol (LBP) in Coordinator
                  * mode, set call-backs and set PSK and GMK keys  */
