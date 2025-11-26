@@ -45,10 +45,10 @@
 #include "interrupts.h"
 
 /* Array to store callback objects of each configured interrupt */
-volatile static PIO_PIN_CALLBACK_OBJ portPinCbObj[2];
+static volatile PIO_PIN_CALLBACK_OBJ portPinCbObj[3];
 
 /* Array to store number of interrupts in each PORT Channel + previous interrupt count */
-volatile static uint8_t portNumCb[7 + 1] = { 0, 1, 1, 2, 2, 2, 2, 2, };
+static volatile uint8_t portNumCb[7 + 1] = { 0, 2, 2, 3, 3, 3, 3, 3, };
 
 /* PIO base address for each port group */
 static pio_registers_t* const PIO_REGS[PIO_PORT_MAX] = { PIO0_REGS, PIO0_REGS, PIO0_REGS, PIO1_REGS };
@@ -89,11 +89,11 @@ void PIO_Initialize ( void )
 
  /* Port A Pin 2 configuration */
    PIOA_REGS->PIO_MSKR = 0x4U;
-   PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x3001400U;
+   PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x3000400U;
 
  /* Port A Pin 7 configuration */
    PIOA_REGS->PIO_MSKR = 0x80U;
-   PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x200U;
+   PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x1000200U;
 
  /* Port A Pin 8 configuration */
    PIOA_REGS->PIO_MSKR = 0x100U;
@@ -157,8 +157,8 @@ void PIO_Initialize ( void )
    PIOD_REGS->PIO_CFGR = (PIOD_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
 
  /* Port D Latch configuration */
-   PIOD_REGS->PIO_SODR = 0x10008U;
-   PIOD_REGS->PIO_CODR = 0x98008U & ~0x10008U;
+   PIOD_REGS->PIO_SODR = 0x90008U;
+   PIOD_REGS->PIO_CODR = 0x98008U & ~0x90008U;
 
 
 
@@ -167,9 +167,11 @@ void PIO_Initialize ( void )
     /* Initialize Interrupt Pin data structures */
     portPinCbObj[0 + 0].pin = PIO_PIN_PA2;
     
-    portPinCbObj[1 + 0].pin = PIO_PIN_PC7;
+    portPinCbObj[0 + 1].pin = PIO_PIN_PA7;
     
-    for(i = 0U; i < 2U; i++)
+    portPinCbObj[2 + 0].pin = PIO_PIN_PC7;
+    
+    for(i = 0U; i < 3U; i++)
     {
         portPinCbObj[i].callback = NULL;
     }
@@ -425,7 +427,7 @@ void __attribute__((used)) PIOA_InterruptHandler(void)
     status = PIOA_REGS->PIO_ISR;
     status &= PIOA_REGS->PIO_IMR;
 
-    for( j = 0U; j < 1U; j++ )
+    for( j = 0U; j < 2U; j++ )
     {
         pin = portPinCbObj[j].pin;
         context = portPinCbObj[j].context;
@@ -460,7 +462,7 @@ void __attribute__((used)) PIOC_InterruptHandler(void)
     status = PIOC_REGS->PIO_ISR;
     status &= PIOC_REGS->PIO_IMR;
 
-    for( j = 1U; j < 2U; j++ )
+    for( j = 2U; j < 3U; j++ )
     {
         pin = portPinCbObj[j].pin;
         context = portPinCbObj[j].context;

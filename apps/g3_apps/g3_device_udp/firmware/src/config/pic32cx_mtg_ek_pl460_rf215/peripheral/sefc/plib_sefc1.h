@@ -68,6 +68,8 @@ bool SEFC1_Read( uint32_t *data, uint32_t length, uint32_t address );
 
 bool SEFC1_SectorErase( uint32_t address );
 
+bool SEFC1_PageErase( uint32_t address );
+
 bool SEFC1_PageBufferWrite( uint32_t *data, const uint32_t address);
 
 bool SEFC1_PageBufferCommit( const uint32_t address);
@@ -108,6 +110,8 @@ void SEFC1_WriteProtectionSet(uint32_t mode);
 
 uint32_t SEFC1_WriteProtectionGet(void);
 
+
+uint32_t SEFC1_FlashPanelBaseAddrGet(void);
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus // Provide C++ Compatibility

@@ -105,8 +105,11 @@ void _TCPIP_STACK_Task(  void *pvParameters  )
     }
 }
 
+
 /* Handle for the APP_G3_MANAGEMENT_Tasks. */
 TaskHandle_t xAPP_G3_MANAGEMENT_Tasks;
+
+
 
 static void lAPP_G3_MANAGEMENT_Tasks(  void *pvParameters  )
 {   
@@ -116,8 +119,11 @@ static void lAPP_G3_MANAGEMENT_Tasks(  void *pvParameters  )
         vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
+
 /* Handle for the APP_UDP_RESPONDER_Tasks. */
 TaskHandle_t xAPP_UDP_RESPONDER_Tasks;
+
+
 
 static void lAPP_UDP_RESPONDER_Tasks(  void *pvParameters  )
 {   
@@ -127,8 +133,11 @@ static void lAPP_UDP_RESPONDER_Tasks(  void *pvParameters  )
         vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
+
 /* Handle for the APP_STORAGE_PIC32CXMT_Tasks. */
 TaskHandle_t xAPP_STORAGE_PIC32CXMT_Tasks;
+
+
 
 static void lAPP_STORAGE_PIC32CXMT_Tasks(  void *pvParameters  )
 {   
@@ -137,8 +146,11 @@ static void lAPP_STORAGE_PIC32CXMT_Tasks(  void *pvParameters  )
         APP_STORAGE_PIC32CXMT_Tasks();
     }
 }
+
 /* Handle for the APP_TCPIP_MANAGEMENT_Tasks. */
 TaskHandle_t xAPP_TCPIP_MANAGEMENT_Tasks;
+
+
 
 static void lAPP_TCPIP_MANAGEMENT_Tasks(  void *pvParameters  )
 {   
@@ -215,38 +227,42 @@ void SYS_Tasks ( void )
 
 
     /* Maintain the application's state machine. */
-        /* Create OS Thread for APP_G3_MANAGEMENT_Tasks. */
-    (void) xTaskCreate((TaskFunction_t) lAPP_G3_MANAGEMENT_Tasks,
-                "APP_G3_MANAGEMENT_Tasks",
-                512,
-                NULL,
-                1,
-                &xAPP_G3_MANAGEMENT_Tasks);
+    
+    /* Create OS Thread for APP_G3_MANAGEMENT_Tasks. */
+    (void) xTaskCreate(
+           (TaskFunction_t) lAPP_G3_MANAGEMENT_Tasks,
+           "APP_G3_MANAGEMENT_Tasks",
+           512,
+           NULL,
+           1U ,
+           &xAPP_G3_MANAGEMENT_Tasks);
 
     /* Create OS Thread for APP_UDP_RESPONDER_Tasks. */
-    (void) xTaskCreate((TaskFunction_t) lAPP_UDP_RESPONDER_Tasks,
-                "APP_UDP_RESPONDER_Tasks",
-                256,
-                NULL,
-                1,
-                &xAPP_UDP_RESPONDER_Tasks);
+    (void) xTaskCreate(
+           (TaskFunction_t) lAPP_UDP_RESPONDER_Tasks,
+           "APP_UDP_RESPONDER_Tasks",
+           256,
+           NULL,
+           1U ,
+           &xAPP_UDP_RESPONDER_Tasks);
 
     /* Create OS Thread for APP_STORAGE_PIC32CXMT_Tasks. */
-    (void) xTaskCreate((TaskFunction_t) lAPP_STORAGE_PIC32CXMT_Tasks,
-                "APP_STORAGE_PIC32CXMT_Tasks",
-                128,
-                NULL,
-                1,
-                &xAPP_STORAGE_PIC32CXMT_Tasks);
+    (void) xTaskCreate(
+           (TaskFunction_t) lAPP_STORAGE_PIC32CXMT_Tasks,
+           "APP_STORAGE_PIC32CXMT_Tasks",
+           128,
+           NULL,
+           1U ,
+           &xAPP_STORAGE_PIC32CXMT_Tasks);
 
     /* Create OS Thread for APP_TCPIP_MANAGEMENT_Tasks. */
-    (void) xTaskCreate((TaskFunction_t) lAPP_TCPIP_MANAGEMENT_Tasks,
-                "APP_TCPIP_MANAGEMENT_Tasks",
-                256,
-                NULL,
-                1,
-                &xAPP_TCPIP_MANAGEMENT_Tasks);
-
+    (void) xTaskCreate(
+           (TaskFunction_t) lAPP_TCPIP_MANAGEMENT_Tasks,
+           "APP_TCPIP_MANAGEMENT_Tasks",
+           256,
+           NULL,
+           1U ,
+           &xAPP_TCPIP_MANAGEMENT_Tasks);
 
 
 

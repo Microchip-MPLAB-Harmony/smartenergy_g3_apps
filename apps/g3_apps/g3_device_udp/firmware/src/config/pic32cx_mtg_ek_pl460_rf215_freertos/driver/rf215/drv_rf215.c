@@ -95,11 +95,11 @@ const RF215_REG_VALUES_OBJ rf215RegValues = {
 
 static const DRV_RF215_FW_VERSION rf215FwVersion = {
     .major = 2,
-    .minor = 1,
+    .minor = 2,
     .revision = 0,
-    .day = 16,
+    .day = 3,
     .month = 10,
-    .year = 23
+    .year = 24
 };
 
 // *****************************************************************************
@@ -882,10 +882,6 @@ DRV_RF215_PIB_RESULT DRV_RF215_GetPib (
 
         case RF215_PIB_FW_VERSION:
             (void) memcpy(value, (const void *) &rf215FwVersion, sizeof(rf215FwVersion));
-            break;
-
-        case RF215_PIB_PHY_MAX_TX_POWER:
-            *((int8_t *) value) = 14;
             break;
 
         default:

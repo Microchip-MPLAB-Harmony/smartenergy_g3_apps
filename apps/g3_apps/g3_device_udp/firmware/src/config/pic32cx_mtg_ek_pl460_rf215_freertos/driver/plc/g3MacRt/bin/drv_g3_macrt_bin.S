@@ -34,15 +34,9 @@ Microchip or any third party.
   .section .rodata
   .global g3_mac_rt_bin_start
   .global g3_mac_rt_bin_end
-  .global g3_mac_rt_bin2_start
-  .global g3_mac_rt_bin2_end
 
   .align 8
 g3_mac_rt_bin_start:
-  .incbin "./G3_MAC_RT_FCC.bin"
+  .incbin "./G3_MAC_RT_MULTIBAND.bin"
   .align 8
 g3_mac_rt_bin_end:
-g3_mac_rt_bin2_start:
-  .incbin "./G3_MAC_RT_CENA.bin"
-  .align 8
-g3_mac_rt_bin2_end:

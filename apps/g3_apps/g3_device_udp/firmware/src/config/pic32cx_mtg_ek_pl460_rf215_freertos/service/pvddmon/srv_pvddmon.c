@@ -193,7 +193,7 @@ void SRV_PVDDMON_CallbackRegister (SRV_PVDDMON_CALLBACK callback, uintptr_t cont
 
 bool SRV_PVDDMON_CheckWindow(void)
 {
-    uint32_t adcValue;
+    uint16_t adcValue;
 
     adcValue = ADC_ChannelResultGet(ADC_CH4);
     while(adcValue == 0U)

@@ -15,31 +15,23 @@
             <logicalFolder name="common_crypto"
                            displayName="common_crypto"
                            projectFiles="true">
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Hash.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Common.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_DigSign_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Sym_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Aead_Config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Sym_Cipher.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Mac_Config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Kas_Config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Aead_Cipher.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/user_settings.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Kas_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Kas.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Hash_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_DigSign.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Sym_Config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Aead_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Hash_Config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Mac_Cipher.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_DigSign_Config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Mac_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_RNG.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_RNG_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_RNG_Config.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/crypto_rng.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/crypto_sym_cipher.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/crypto_common.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/crypto_aead_cipher.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/crypto_mac_cipher.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/config.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/crypto_aead_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/crypto_rng_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/wolfcrypt_config.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/user_settings.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/crypto_common_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/crypto_mac_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/crypto_sym_wc_wrapper.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/sam_d20_xpro_pl460/crypto/crypto_config.h</itemPath>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="plc" displayName="plc" projectFiles="true">
@@ -65,133 +57,127 @@
                   <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/common/sys_fs_shell.h</itemPath>
                   <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/common/helpers.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/zero_conf_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/lldp_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcp_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ddns_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_manager_control.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/hash_fnv.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcp_server_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ftpc_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_reboot_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tftpc_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcps_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_helpers_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/smtpc_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/snmpv3_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_packet.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dns_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/icmp_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/igmp_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/lldp_tlv.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/snmp_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcps_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ipv4_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/arp_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ftpc_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/udp_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ftp_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_module_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tftpc_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/telnet_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/iperf_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcp_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/http_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/icmpv6_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dnss_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ipv6_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_heap_alloc.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/link_list.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/nbns_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ndp_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/smtpc_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/udp_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ftp_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcpv6_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcp_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/http_net_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcp_server_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/arp_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ipv4_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tftps_private.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/oahash.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/snmp_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_notify.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tftps_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/igmp_manager.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/berkeley_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_commands_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/igmp_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dns_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/lldp_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/sntp_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/smtp_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/snmp_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dnss_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/smtpc_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/link_list.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ftp_private.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/http_net_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tftps_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcp_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcp_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ftpc_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tftpc_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_reboot_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/wsc_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ftp_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dns_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcps_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_announce_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/igmp_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcp_server_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/udp_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/zero_conf_helper.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_module_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ndp_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_notify.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcpv6_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_heap_alloc.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/sntp_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/zero_conf_link_local_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/hash_fnv.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_packet.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/arp_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/udp_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/icmpv6_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ipv6_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/zero_conf_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ipv4_private.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ndp_manager.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_types.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_announce_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ipv6_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcp_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/http_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dnss_private.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/zero_conf_link_local_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tftpc_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/snmp_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/snmpv3_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/nbns_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/iperf_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/smtpc_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ftpc_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_commands_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/http_net_private.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/zero_conf_helper.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcp_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/telnet_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dnss_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcp_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcps_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ipv6_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tftps_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dns_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/wsc_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcp_server_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ipv4_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/icmp_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_manager_control.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/arp_private.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ddns_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcpv6_manager.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_helpers_private.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/ftp.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/ipv6.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/iperf.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/dhcpv6.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_helpers.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_common_ports.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_mac.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/smtp.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tftps.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tftpc.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/ftpc.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_ethernet.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/nbns.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/sntp.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/zero_conf_link_local.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/ipv4.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/ndp.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/dnss.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/http.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/dhcp_server.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/arp.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/ddns.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcp.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/icmpv6.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/smtpc.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/telnet.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/dns.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_heap.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/berkeley_api.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/icmp.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/snmpv3.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/dhcps.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/zero_conf_multicast_dns.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_commands.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/udp.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/lldp.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_mac_bridge.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/http_net.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/igmp.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_manager.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_mac_object.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/icmp.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/iperf.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/ddns.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_reboot.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/dnss.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_mac_bridge.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/dhcpv6.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_announce.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/telnet.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/icmpv6.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_helpers.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/nbns.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/wsc.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_mac.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/berkeley_api.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/dhcps.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/dhcp_server.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/ipv4.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_commands.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/ftpc.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/arp.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/dns.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcp.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/zero_conf_link_local.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/udp.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/ipv6.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_common_ports.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/sntp.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/ndp.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/zero_conf_multicast_dns.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/snmp.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_heap.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/http_net.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/snmpv3.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tftps.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/smtpc.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tftpc.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/tcpip_ethernet.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/dhcp.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/igmp.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="net_pres" displayName="net_pres" projectFiles="true">
             <logicalFolder name="pres" displayName="pres" projectFiles="true">
-              <itemPath>../src/config/sam_d20_xpro_pl460/net_pres/pres/net_pres_socketapi.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/net_pres/pres/net_pres_socketapiconversion.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/net_pres/pres/net_pres_socketapi.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/net_pres/pres/net_pres.h</itemPath>
             </logicalFolder>
           </logicalFolder>
@@ -546,6 +532,12 @@
       <itemPath>../src/app_storage_samd20.h</itemPath>
       <itemPath>../src/app_udp_responder.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>g3_device_udp_sam_d20_xpro_pl460.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -571,22 +563,17 @@
             <logicalFolder name="common_crypto"
                            displayName="common_crypto"
                            projectFiles="true">
-              <logicalFolder name="src" displayName="src" projectFiles="true">
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Sym_WolfcryptWrapper.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Hash_WolfcryptWrapper.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Sym_Cipher.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Mac_Cipher.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Aead_WolfCryptWrapper.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Hash.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Kas_WolfcryptWrapper.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Aead_Cipher.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Mac_WolfCryptWrapper.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_DigSign_WolfcryptWrapper.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_DigSign.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Kas.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_RNG.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_RNG_WolfcryptWrapper.c</itemPath>
-              </logicalFolder>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/crypto_aead_cipher.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/crypto_sym_cipher.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/crypto_mac_cipher.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/crypto_rng.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/src/crypto_sym_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/src/crypto_aead_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/src/crypto_mac_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/src/crypto_rng_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/src/crypto_common_wc_wrapper.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
@@ -610,20 +597,20 @@
                 <logicalFolder name="common" displayName="common" projectFiles="true">
                   <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/helpers.c</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/hash_fnv.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_packet.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/icmpv6.c</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/oahash.c</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_helpers.c</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dns.c</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/dhcp.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_heap_alloc.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_helpers.c</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ndp.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ipv6.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/oahash.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_notify.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/udp.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_heap_internal.c</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_manager.c</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/ipv6.c</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_notify.c</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_heap_alloc.c</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_heap_internal.c</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/tcpip_packet.c</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/hash_fnv.c</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/icmpv6.c</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/library/tcpip/src/udp.c</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -842,6 +829,7 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/hmac.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/camellia.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_lms_impl.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
@@ -865,12 +853,6 @@
       <itemPath>../src/app_storage_samd20.c</itemPath>
       <itemPath>../src/app_udp_responder.c</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>g3_device_udp_sam_d20_xpro_pl460.mc3</itemPath>
-    </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -882,7 +864,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.40</languageToolchainVersion>
+        <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -929,7 +911,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_d20_xpro_pl460;../src/config/sam_d20_xpro_pl460/library;../src/config/sam_d20_xpro_pl460/library/tcpip/src;../src/config/sam_d20_xpro_pl460/library/tcpip/src/common;../src/packs/ATSAMD20J18_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl;../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt;../src/third_party/wolfcrypt;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
+                  value="../src;../src/config/sam_d20_xpro_pl460;../src/config/sam_d20_xpro_pl460/crypto/drivers;../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt;../src/config/sam_d20_xpro_pl460/library;../src/config/sam_d20_xpro_pl460/library/tcpip/src;../src/config/sam_d20_xpro_pl460/library/tcpip/src/common;../src/packs/ATSAMD20J18_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/third_party/wolfcrypt;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>

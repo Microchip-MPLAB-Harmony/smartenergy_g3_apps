@@ -1,5 +1,5 @@
 /*******************************************************************************
-  Source for the AES wrapper between G3 stack and AES
+  Source for the AES wrapper between Smart Energy stacks and AES
 
   Company:
     Microchip Technology Inc.
@@ -8,10 +8,12 @@
     aes_wrapper.c
 
   Summary:
-    Interface implementation of the AES wrapper between G3 and AES.
+    Interface implementation of the AES wrapper between Smart Energy stacks and
+    AES.
 
   Description:
-    This file implements the interface for the wrapper between G3 and AES.
+    This file implements the interface for the AES wrapper between Smart Energy
+    stacks and AES.
 *******************************************************************************/
 
 /*
@@ -44,7 +46,7 @@ Microchip or any third party.
 // *****************************************************************************
 
 #include "aes_wrapper.h"
-#include "crypto/common_crypto/MCHP_Crypto_Sym_Cipher.h"
+#include "crypto/common_crypto/crypto_sym_cipher.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -65,10 +67,11 @@ void AES_Wrapper_SetEncryptEcbKey(uint8_t *key)
 {
     (void) Crypto_Sym_Aes_Init(&aesWrapperContext, CRYPTO_HANDLER_SW_WOLFCRYPT,
             CRYPTO_CIOP_ENCRYPT, CRYPTO_SYM_OPMODE_ECB,
-            key, CRYPTO_AESKEYSIZE_128, NULL, 1);
+            key, (uint32_t)(CRYPTO_AESKEYSIZE_128), NULL, 1);
 }
 
 void AES_Wrapper_EncryptEcb(uint8_t *in, uint8_t *out)
 {
     (void) Crypto_Sym_Aes_Cipher(&aesWrapperContext, in, 16, out);
 }
+

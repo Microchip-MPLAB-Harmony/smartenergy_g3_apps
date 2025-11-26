@@ -50,7 +50,7 @@ Microchip or any third party.
 #include <stdint.h>
 #include "definitions.h"
 #include <stdlib.h>
-#include "crypto/common_crypto/MCHP_Crypto_RNG.h"
+#include "crypto/common_crypto/crypto_rng.h"
 #include "srv_random.h"
 
 // *****************************************************************************
@@ -68,13 +68,15 @@ uint8_t SRV_RANDOM_Get8bits(void)
     uint8_t randBuf[1];
 
     // Generate random number from Crypto
-    status = Crypto_Rng_Prng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT,
+    status = Crypto_Rng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT,
         randBuf, 1, NULL, 0, 1);
 
-    if (status == CRYPTO_RNG_SUCCESS) {
+    if (status == CRYPTO_RNG_SUCCESS)
+    {
         retValue = randBuf[0];
     }
-    else {
+    else
+    {
         seed = SYS_TIME_CounterGet();
         srand(seed);
         retValue = (uint8_t)rand();
@@ -92,13 +94,15 @@ uint16_t SRV_RANDOM_Get16bits(void)
     uint8_t randBuf[2];
 
     // Generate random number from Crypto
-    status = Crypto_Rng_Prng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT,
+    status = Crypto_Rng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT,
         randBuf, 2, NULL, 0, 1);
 
-    if (status == CRYPTO_RNG_SUCCESS) {
-        retValue = (randBuf[1] << 8) + randBuf[0];
+    if (status == CRYPTO_RNG_SUCCESS)
+    {
+        retValue = ((uint16_t)randBuf[1] << 8) + (uint16_t)randBuf[0];
     }
-    else {
+    else
+    {
         seed = SYS_TIME_CounterGet();
         srand(seed);
         retValue = (uint16_t)rand();
@@ -107,17 +111,17 @@ uint16_t SRV_RANDOM_Get16bits(void)
     return retValue;
 }
 
-uint16_t  SRV_RANDOM_Get16bitsInRange(uint16_t min, uint16_t max)
+uint16_t  SRV_RANDOM_Get16bitsInRange(uint16_t minVal, uint16_t maxVal)
 {
-    uint16_t localMin = min;
+    uint16_t localMin = minVal;
 
-    if (max < min)
+    if (maxVal < minVal)
     {
-        localMin = max;
-        max = min;
+        localMin = maxVal;
+        maxVal = minVal;
     }
 
-    return (SRV_RANDOM_Get16bits() % (max - localMin + 1U) + localMin);
+    return (SRV_RANDOM_Get16bits() % (maxVal - localMin + 1U) + localMin);
 }
 
 uint32_t SRV_RANDOM_Get32bits(void)
@@ -129,33 +133,35 @@ uint32_t SRV_RANDOM_Get32bits(void)
     uint8_t randBuf[4];
 
     // Generate random number from Crypto
-    status = Crypto_Rng_Prng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT,
+    status = Crypto_Rng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT,
         randBuf, 4, NULL, 0, 1);
 
-    if (status == CRYPTO_RNG_SUCCESS) {
-        retValue = (randBuf[3] << 24) + (randBuf[2] << 16) +
-            (randBuf[1] << 8) + randBuf[0];
+    if (status == CRYPTO_RNG_SUCCESS)
+    {
+        retValue = ((uint32_t)randBuf[3] << 24) + ((uint32_t)randBuf[2] << 16) +
+            ((uint32_t)randBuf[1] << 8) + (uint32_t)randBuf[0];
     }
-    else {
+    else
+    {
         seed = SYS_TIME_CounterGet();
         srand(seed);
-        retValue = rand();
+        retValue = (uint32_t)rand();
     }
 
     return retValue;
 }
 
-uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t min, uint32_t max)
+uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t minVal, uint32_t maxVal)
 {
-    uint32_t localMin = min;
+    uint32_t localMin = minVal;
 
-    if (max < min)
+    if (maxVal < minVal)
     {
-        localMin = max;
-        max = min;
+        localMin = maxVal;
+        maxVal = minVal;
     }
 
-    return (SRV_RANDOM_Get32bits() % (max - localMin + 1U) + localMin);
+    return (SRV_RANDOM_Get32bits() % (maxVal - localMin + 1U) + localMin);
 }
 
 void SRV_RANDOM_Get128bits(uint8_t *rndValue)
@@ -166,16 +172,17 @@ void SRV_RANDOM_Get128bits(uint8_t *rndValue)
     uint8_t n;
 
     // Generate random number from Crypto
-    status = Crypto_Rng_Prng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT,
+    status = Crypto_Rng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT,
         rndValue, 16, NULL, 0, 1);
 
-    if (status != CRYPTO_RNG_SUCCESS) {
+    if (status != CRYPTO_RNG_SUCCESS)
+    {
         seed = SYS_TIME_CounterGet();
         srand(seed);
 
-        for (n = 0; n < 4; n ++)
+        for (n = 0; n < 4U; n ++)
         {
-            randNum = rand();
+            randNum = (uint32_t)rand();
 
             *rndValue++ = (uint8_t)(randNum >> 24);
             *rndValue++ = (uint8_t)(randNum >> 16);

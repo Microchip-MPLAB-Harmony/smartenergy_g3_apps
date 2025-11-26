@@ -15,7 +15,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -80,12 +80,11 @@
 // *****************************************************************************
 // *****************************************************************************
 /* Following MISRA-C rules are deviated in the below code block */
-/* MISRA C-2012 Rule 11.1 */
-/* MISRA C-2012 Rule 11.3 */
-/* MISRA C-2012 Rule 11.8 */
+/* MISRA C-2012 Rule 7.2 - Deviation record ID - H3_MISRAC_2012_R_7_2_DR_1 */
+/* MISRA C-2012 Rule 11.1 - Deviation record ID - H3_MISRAC_2012_R_11_1_DR_1 */
+/* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+/* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
-
-
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 /* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
@@ -95,15 +94,15 @@
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-    /* Disable STBY Pin */
-    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA08);
-    SYS_PORT_PinClear(SYS_PORT_PIN_PA08);
+    /* Enable LDO Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
+    SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
     /* Enable Reset Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
-    /* Disable LDO Pin */
-    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
-    SYS_PORT_PinClear(DRV_PLC_LDO_EN_PIN);
+    /* Disable STBY Pin */
+    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA08);
+    SYS_PORT_PinClear(SYS_PORT_PIN_PA08);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -204,7 +203,7 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 
     /* SPI PLIB API interface*/
     .plcHal = &drvPLCHalAPI,
- 
+
     /* PLC MAC RT Binary start address */
     .binStartAddress = (uint32_t)&g3_mac_rt_bin_start,
     
@@ -323,7 +322,6 @@ const TCPIP_UDP_MODULE_CONFIG tcpipUDPInitData =
 
 
 
-
 /*** IPv6 Initialization Data ***/
 const TCPIP_IPV6_MODULE_CONFIG  tcpipIPv6InitData = 
 {
@@ -338,9 +336,10 @@ const TCPIP_IPV6_MODULE_CONFIG  tcpipIPv6InitData =
 
 
 
+
 TCPIP_STACK_HEAP_INTERNAL_CONFIG tcpipHeapConfig =
 {
-    .heapType = TCPIP_STACK_HEAP_TYPE_INTERNAL_HEAP,
+    .heapType = TCPIP_STACK_HEAP_TYPE_INTERNAL,
     .heapFlags = TCPIP_STACK_HEAP_USE_FLAGS,
     .heapUsage = TCPIP_STACK_HEAP_USAGE_CONFIG,
     .malloc_fnc = TCPIP_STACK_MALLOC_FUNC,
@@ -351,6 +350,9 @@ TCPIP_STACK_HEAP_INTERNAL_CONFIG tcpipHeapConfig =
 
 const TCPIP_NETWORK_CONFIG __attribute__((unused))  TCPIP_HOSTS_CONFIGURATION[] =
 {
+
+
+
     /*** Network Configuration Index 0 ***/
     {
         .interface = TCPIP_NETWORK_DEFAULT_INTERFACE_NAME_IDX0,
@@ -364,6 +366,7 @@ const TCPIP_NETWORK_CONFIG __attribute__((unused))  TCPIP_HOSTS_CONFIGURATION[] 
         .powerMode = TCPIP_NETWORK_DEFAULT_POWER_MODE_IDX0,
         .startFlags = TCPIP_NETWORK_DEFAULT_INTERFACE_FLAGS_IDX0,
         .pMacObject = &TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0,
+
     },
 };
 
@@ -381,7 +384,6 @@ const TCPIP_STACK_MODULE_CONFIG TCPIP_STACK_MODULE_CONFIG_TBL [] =
     { TCPIP_MODULE_MANAGER,         &tcpipHeapConfig },             // TCPIP_MODULE_MANAGER
 
 // MAC modules
-
     {TCPIP_MODULE_MAC_G3ADP,        0},                             // TCPIP_MODULE_MAC_G3ADP
 };
 
@@ -412,13 +414,14 @@ SYS_MODULE_OBJ TCPIP_STACK_Init(void)
 {
     TCPIP_STACK_INIT    tcpipInit;
 
+    (void)memset(&tcpipInit, 0, sizeof(tcpipInit));
     tcpipInit.pNetConf = TCPIP_HOSTS_CONFIGURATION;
     tcpipInit.nNets = TCPIP_HOSTS_CONFIGURATION_SIZE;
     tcpipInit.pModConfig = TCPIP_STACK_MODULE_CONFIG_TBL;
     tcpipInit.nModules = TCPIP_STACK_MODULE_CONFIG_TBL_SIZE;
-    tcpipInit.initCback = 0;
+    tcpipInit.initCback = NULL;
 
-    return TCPIP_STACK_Initialize(0, &tcpipInit.moduleInit);
+    return TCPIP_STACK_Initialize(0, &tcpipInit);
 }
 // </editor-fold>
 
@@ -528,7 +531,6 @@ void SYS_Initialize ( void* data )
     ADC_Initialize();
     TC0_TimerInitialize();
 
-	BSP_Initialize();
     SERCOM3_USART_Initialize();
 
 
@@ -536,7 +538,7 @@ void SYS_Initialize ( void* data )
 
     EIC_Initialize();
 
-
+    BSP_Initialize();
 
     /* MISRAC 2012 deviation block start */
     /* Following MISRA-C rules deviated in this block  */
@@ -551,10 +553,6 @@ void SYS_Initialize ( void* data )
 
     /* Initialize PVDD Monitor Service */
     SRV_PVDDMON_Initialize();
-
-    /* Crypto Callback initialize */
-    //CRYPT_WCCB_Initialize();
-
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/

@@ -62,31 +62,31 @@ Microchip or any third party.
     .macId                                  = (uint16_t)TCPIP_MODULE_MAC_G3ADP,
     .macType                                = (uint8_t)TCPIP_MAC_TYPE_G3ADP,
     .macName                                = "G3ADPMAC",
-    .TCPIP_MAC_Initialize                   = DRV_G3ADP_MAC_Initialize,
+    .MAC_Initialize                         = DRV_G3ADP_MAC_Initialize,
 #if (TCPIP_STACK_MAC_DOWN_OPERATION != 0)
-    .TCPIP_MAC_Deinitialize                 = DRV_G3ADP_MAC_Deinitialize,
-    .TCPIP_MAC_Reinitialize                 = NULL,
+    .MAC_Deinitialize                       = DRV_G3ADP_MAC_Deinitialize,
+    .MAC_Reinitialize                       = NULL,
 #else
-    .TCPIP_MAC_Deinitialize                 = NULL,
-    .TCPIP_MAC_Reinitialize                 = NULL,
+    .MAC_Deinitialize                       = NULL,
+    .MAC_Reinitialize                       = NULL,
 #endif  // (TCPIP_STACK_DOWN_OPERATION != 0)
-    .TCPIP_MAC_Status                       = DRV_G3ADP_MAC_Status,
-    .TCPIP_MAC_Tasks                        = DRV_G3ADP_MAC_Tasks,
-    .TCPIP_MAC_Open                         = DRV_G3ADP_MAC_Open,
-    .TCPIP_MAC_Close                        = DRV_G3ADP_MAC_Close,
-    .TCPIP_MAC_LinkCheck                    = DRV_G3ADP_MAC_LinkCheck,
-    .TCPIP_MAC_RxFilterHashTableEntrySet    = DRV_G3ADP_MAC_RxFilterHashTableEntrySet,
-    .TCPIP_MAC_PowerMode                    = DRV_G3ADP_MAC_PowerMode,
-    .TCPIP_MAC_PacketTx                     = DRV_G3ADP_MAC_PacketTx,
-    .TCPIP_MAC_PacketRx                     = DRV_G3ADP_MAC_PacketRx,
-    .TCPIP_MAC_Process                      = DRV_G3ADP_MAC_Process,
-    .TCPIP_MAC_StatisticsGet                = DRV_G3ADP_MAC_StatisticsGet,
-    .TCPIP_MAC_ParametersGet                = DRV_G3ADP_MAC_ParametersGet,
-    .TCPIP_MAC_RegisterStatisticsGet        = DRV_G3ADP_MAC_RegisterStatisticsGet,
-    .TCPIP_MAC_ConfigGet                    = DRV_G3ADP_MAC_ConfigGet,
-    .TCPIP_MAC_EventMaskSet                 = DRV_G3ADP_MAC_EventMaskSet,
-    .TCPIP_MAC_EventAcknowledge             = DRV_G3ADP_MAC_EventAcknowledge,
-    .TCPIP_MAC_EventPendingGet              = DRV_G3ADP_MAC_EventPendingGet,
+    .MAC_Status                             = DRV_G3ADP_MAC_Status,
+    .MAC_Tasks                              = DRV_G3ADP_MAC_Tasks,
+    .MAC_Open                               = DRV_G3ADP_MAC_Open,
+    .MAC_Close                              = DRV_G3ADP_MAC_Close,
+    .MAC_LinkCheck                          = DRV_G3ADP_MAC_LinkCheck,
+    .MAC_RxFilterHashTableEntrySet          = DRV_G3ADP_MAC_RxFilterHashTableEntrySet,
+    .MAC_PowerMode                          = DRV_G3ADP_MAC_PowerMode,
+    .MAC_PacketTx                           = DRV_G3ADP_MAC_PacketTx,
+    .MAC_PacketRx                           = DRV_G3ADP_MAC_PacketRx,
+    .MAC_Process                            = DRV_G3ADP_MAC_Process,
+    .MAC_StatisticsGet                      = DRV_G3ADP_MAC_StatisticsGet,
+    .MAC_ParametersGet                      = DRV_G3ADP_MAC_ParametersGet,
+    .MAC_RegisterStatisticsGet              = DRV_G3ADP_MAC_RegisterStatisticsGet,
+    .MAC_ConfigGet                          = DRV_G3ADP_MAC_ConfigGet,
+    .MAC_EventMaskSet                       = DRV_G3ADP_MAC_EventMaskSet,
+    .MAC_EventAcknowledge                   = DRV_G3ADP_MAC_EventAcknowledge,
+    .MAC_EventPendingGet                    = DRV_G3ADP_MAC_EventPendingGet,
 };
 
 // *****************************************************************************
@@ -716,7 +716,7 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_StatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_RX_STATISTI
 
 }
 
-TCPIP_MAC_RES DRV_G3ADP_MAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, int nEntries, int* pHwEntries)
+TCPIP_MAC_RES DRV_G3ADP_MAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, size_t nEntries, size_t* pHwEntries)
 {
     // not supported
     return TCPIP_MAC_RES_OP_ERR;

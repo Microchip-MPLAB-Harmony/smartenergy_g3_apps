@@ -81,8 +81,6 @@ typedef struct
 
     MAC_RT_BAND plcBand;
 
-    SRV_PLC_PCOUP_BRANCH plcBranch;
-
     MAC_RT_PIB_OBJ plcPIB;
 
     MAC_RT_MIB_INIT_OBJ mibInitData;
