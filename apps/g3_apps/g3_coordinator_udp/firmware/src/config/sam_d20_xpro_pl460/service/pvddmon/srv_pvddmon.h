@@ -5,7 +5,7 @@
     Microchip Technology Inc.
 
   File Name:
-    srv_pvddmon.h (U2204)
+    srv_pvddmon.h
 
   Summary:
     Interface definition of the PLC PVDD Monitor service.
@@ -15,7 +15,7 @@
 *******************************************************************************/
 
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -47,9 +47,8 @@ Microchip or any third party.
 // *****************************************************************************
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "device.h"
-#include "interrupts.h"
-#include "peripheral/adc/plib_adc_common.h"
 
 #ifdef __cplusplus // Provide C++ Compatibility
  extern "C" {

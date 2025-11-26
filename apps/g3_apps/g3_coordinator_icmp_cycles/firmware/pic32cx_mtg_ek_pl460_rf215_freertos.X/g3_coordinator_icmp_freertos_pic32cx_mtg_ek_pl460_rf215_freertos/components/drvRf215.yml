@@ -1,0 +1,199 @@
+configVersion: 1.0.0
+componentName: drvRf215
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: drvRf215
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: FreeRTOS-Kernel
+  type: package
+  version: V11.1.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_g3
+  type: package
+  version: v1.1.0
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: drvRf215_SPI_dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: flexcom3
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: FLEXCOM3_SPI
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: drvRf215
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: drvRf215
+          x: '133'
+          y: '369'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    DRV_RF215_EXT_INT_PIN:
+      attributes:
+        id: DRV_RF215_EXT_INT_PIN
+      children:
+      - children:
+        - attributes:
+            value: '66'
+          type: User
+        type: Values
+      type: KeyValueSet
+    DRV_RF215_LED_RX_PIN:
+      attributes:
+        id: DRV_RF215_LED_RX_PIN
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '9'
+          type: User
+        type: Values
+      type: KeyValueSet
+    DRV_RF215_LED_TX_PIN:
+      attributes:
+        id: DRV_RF215_LED_TX_PIN
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '8'
+          type: User
+        type: Values
+      type: KeyValueSet
+    DRV_RF215_PLIB:
+      attributes:
+        id: DRV_RF215_PLIB
+      children:
+      - children:
+        - attributes:
+            id: drvRf215
+            value: FLEXCOM3
+          type: Dynamic
+        type: Values
+      type: String
+    DRV_RF215_RESET_PIN:
+      attributes:
+        id: DRV_RF215_RESET_PIN
+      children:
+      - children:
+        - attributes:
+            value: '25'
+          type: User
+        type: Values
+      type: KeyValueSet
+    DRV_RF215_SPI_NUM_CSR:
+      attributes:
+        id: DRV_RF215_SPI_NUM_CSR
+      children:
+      - children:
+        - attributes:
+            id: drvRf215
+            value: '2'
+          type: Dynamic
+        type: Values
+      type: Integer
+    DRV_RF215_TRX09_PHY_CHANNEL:
+      attributes:
+        id: DRV_RF215_TRX09_PHY_CHANNEL
+      children:
+      - children:
+        - attributes:
+            value: '29'
+          type: User
+        type: Values
+      type: Integer
+    DRV_RF215_USE_LED_RX:
+      attributes:
+        id: DRV_RF215_USE_LED_RX
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    DRV_RF215_USE_LED_TX:
+      attributes:
+        id: DRV_RF215_USE_LED_TX
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+  userData: {}

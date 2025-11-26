@@ -1,5 +1,5 @@
 /*******************************************************************************
-  Source for the cipher wrapper between G3 stack and Crypto
+  Source for the cipher wrapper between Smart Energy stacks and Crypto
 
   Company:
     Microchip Technology Inc.
@@ -8,11 +8,12 @@
     cipher_wrapper.h
 
   Summary:
-    Interface implementation of the wrapper between G3 and Crypto.
+    Interface implementation of the wrapper between Smart Energy stacks and
+    Crypto.
 
   Description:
-    This file implements the interface for the wrapper between G3 and Crypto.
-    It includes calls to handle CCM, CMAC and EAX.
+    This file implements the interface for the wrapper between Smart Energy
+    stacks and Crypto. It includes calls to handle CCM, CMAC and EAX (only G3).
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
@@ -47,8 +48,8 @@ Microchip or any third party.
 // *****************************************************************************
 
 #include "cipher_wrapper.h"
-#include "crypto/common_crypto/MCHP_Crypto_Mac_Cipher.h"
-#include "crypto/common_crypto/MCHP_Crypto_Aead_Cipher.h"
+#include "crypto/common_crypto/crypto_mac_cipher.h"
+#include "crypto/common_crypto/crypto_aead_cipher.h"
 #include <string.h>
 
 // *****************************************************************************
@@ -73,13 +74,13 @@ int32_t CIPHER_Wrapper_AesCmacDirect(uint8_t *input, uint32_t inputLen,
                                      uint8_t *outputMac, uint8_t *key)
 {
     return (int32_t) Crypto_Mac_AesCmac_Direct(CRYPTO_HANDLER_SW_WOLFCRYPT,
-            input, inputLen, outputMac, 16, key, CRYPTO_AESKEYSIZE_128, 1);
+            input, inputLen, outputMac, 16, key, (uint32_t)(CRYPTO_AESKEYSIZE_128), 1);
 }
 
 int32_t CIPHER_Wrapper_AesCcmSetkey(uint8_t *key)
 {
     return (int32_t) Crypto_Aead_AesCcm_Init(&cipherWrapperCcmContext,
-            CRYPTO_HANDLER_SW_WOLFCRYPT, key, CRYPTO_AESKEYSIZE_128, 1);
+            CRYPTO_HANDLER_SW_WOLFCRYPT, key, (uint32_t)(CRYPTO_AESKEYSIZE_128), 1);
 }
 
 int32_t CIPHER_Wrapper_AesCcmAuthDecrypt(uint8_t *data, uint32_t dataLen,
@@ -114,7 +115,7 @@ int32_t CIPHER_Wrapper_AesEaxEncrypt(uint8_t *data, uint32_t dataLen,
     {
         result = (int32_t) Crypto_Aead_AesEax_EncryptAuthDirect(
                 CRYPTO_HANDLER_SW_WOLFCRYPT, data, dataLen, cipherWrapperOutAux, key,
-                CRYPTO_AESKEYSIZE_128, iv, ivLen, aad, aadLen, tag, tagLen, 1);
+                (uint32_t)(CRYPTO_AESKEYSIZE_128), iv, ivLen, aad, aadLen, tag, tagLen, 1);
 
         (void) memcpy(data, cipherWrapperOutAux, dataLen);
     }
@@ -134,7 +135,7 @@ int32_t CIPHER_Wrapper_AesEaxDecrypt(uint8_t *data, uint32_t dataLen,
     {
         result = (int32_t) Crypto_Aead_AesEax_DecryptAuthDirect(
                 CRYPTO_HANDLER_SW_WOLFCRYPT, data, dataLen, cipherWrapperOutAux, key,
-                CRYPTO_AESKEYSIZE_128, iv, ivLen, aad, aadLen, tag, tagLen, 1);
+                (uint32_t)(CRYPTO_AESKEYSIZE_128), iv, ivLen, aad, aadLen, tag, tagLen, 1);
 
         (void) memcpy(data, cipherWrapperOutAux, dataLen);
     }

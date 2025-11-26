@@ -52,7 +52,7 @@
 // *****************************************************************************
 // *****************************************************************************
 /* Object to hold callback function and context */
-volatile static ADC_CALLBACK_OBJECT ADC_CallbackObj;
+static volatile ADC_CALLBACK_OBJECT ADC_CallbackObj;
 
 /* Initialize ADC peripheral */
 void ADC_Initialize(void)

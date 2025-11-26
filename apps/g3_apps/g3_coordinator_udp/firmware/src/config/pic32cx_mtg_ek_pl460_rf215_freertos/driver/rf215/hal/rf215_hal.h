@@ -158,17 +158,17 @@ typedef struct
     /* Status of the SYS_TIME interrupt */
     bool                            sysTimeIntStatus;
 
-    /* Interrupt source ID for the DMA interrupt */
-    INT_SOURCE                      dmaIntSource;
-
-    /* Status of the DMA interrupt */
-    bool                            dmaIntStatus;
-
     /* Interrupt source ID for PLC external interrupt */
     INT_SOURCE                      plcExtIntSource;
 
     /* Status of the PLC external interrupt */
     bool                            plcExtIntStatus;
+
+    /* Interrupt source ID for the DMA interrupt */
+    INT_SOURCE                      dmaIntSource;
+
+    /* Status of the DMA interrupt */
+    bool                            dmaIntStatus;
 
     /* First reset flag */
     bool                            firstReset;

@@ -14,7 +14,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -70,7 +70,6 @@
 #include "peripheral/tc/plib_tc0.h"
 #include "system/time/sys_time.h"
 #include "service/log_report/srv_log_report.h"
-#include "bsp/bsp.h"
 #include "library/tcpip/tcpip.h"
 #include "system/sys_time_h2_adapter.h"
 #include "system/sys_random_h2_adapter.h"
@@ -79,19 +78,17 @@
 #include "osal/osal.h"
 #include "system/debug/sys_debug.h"
 #include "peripheral/sercom/usart/plib_sercom3_usart.h"
-#include "peripheral/sercom/spi_master/plib_sercom0_spi_master.h"
 #include "peripheral/evsys/plib_evsys.h"
+#include "peripheral/sercom/spi_master/plib_sercom0_spi_master.h"
 #include "peripheral/port/plib_port.h"
 #include "peripheral/clock/plib_clock.h"
 #include "peripheral/nvic/plib_nvic.h"
 #include "peripheral/wdt/plib_wdt.h"
 #include "peripheral/eic/plib_eic.h"
 #include "service/pvddmon/srv_pvddmon.h"
+#include "bsp/bsp.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
-//KEEP THIS - Not used for now
-//#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
-//#include "crypto/crypto.h"
 #include "stack/g3/net/macg3adp/drv_mac_g3adp.h"
 #include "app_g3_management.h"
 #include "app_eap_server.h"
@@ -110,13 +107,13 @@ extern "C" {
 // DOM-IGNORE-END
 
 /* Device Information */
-#define DEVICE_NAME			 "ATSAMD20J18"
-#define DEVICE_ARCH			 "CORTEX-M0PLUS"
-#define DEVICE_FAMILY		 "SAMD"
-#define DEVICE_SERIES		 "SAMD20"
+#define DEVICE_NAME          "ATSAMD20J18"
+#define DEVICE_ARCH          "CORTEX-M0PLUS"
+#define DEVICE_FAMILY        "SAMD"
+#define DEVICE_SERIES        "SAMD20"
 
 /* CPU clock frequency */
-#define CPU_CLOCK_FREQUENCY 48000000
+#define CPU_CLOCK_FREQUENCY 48000000U
 
 // *****************************************************************************
 // *****************************************************************************
@@ -239,6 +236,7 @@ typedef struct
 
 
     SYS_MODULE_OBJ  tcpip;
+
     SYS_MODULE_OBJ  sysDebug;
 
 
