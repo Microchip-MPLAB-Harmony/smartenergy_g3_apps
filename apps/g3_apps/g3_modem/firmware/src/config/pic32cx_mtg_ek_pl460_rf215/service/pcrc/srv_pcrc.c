@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -40,11 +40,6 @@ implied, are granted under any patent or other intellectual property rights of
 Microchip or any third party.
 */
 //DOM-IGNORE-END
-// *****************************************************************************
-// *****************************************************************************
-// Section: Macro Definitions
-// *****************************************************************************
-// *****************************************************************************
 
 // *****************************************************************************
 // *****************************************************************************
@@ -52,7 +47,6 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-#include "stddef.h"
 #include "string.h"
 #include "srv_pcrc.h"
 
@@ -63,7 +57,13 @@ Microchip or any third party.
 // *****************************************************************************
 
 /* This is the internal SNA to use in PRIME CRC service. */
-static uint8_t pCrcSna[PCRC_SNA_SIZE] = {0};
+static uint8_t pCrcSna8 = 0;
+static uint32_t pCrcSna32 = 0;
+
+/* PRIME v1.4: The CRC shall be calculated over the whole BPDU, including */
+/* constant CRC field */
+static uint8_t pCrcConstBcn14[PCRC_CONST_BCN_PRIME_1_4_SIZE] =
+    {0x00, 0x01, 0x04, 0x00};
 
 /* Table used to get CRC32 value */
 static const uint32_t pCrcTable32[256] = {
@@ -254,6 +254,20 @@ static uint8_t lSRV_PCRC_Get8(uint8_t *pData, size_t length,
     return crc;
 }
 
+static uint8_t lSRV_PCRC_Get8ForUsi(uint8_t *pData, size_t length,
+        uint32_t crcInitValue)
+{
+    uint8_t crc;
+
+    crc = (uint8_t)crcInitValue;
+    while ((length--) > 0U)
+    {
+        crc = crc ^ *pData++;
+    }
+
+    return crc;
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: CRC Service Interface Implementation
@@ -263,53 +277,97 @@ static uint8_t lSRV_PCRC_Get8(uint8_t *pData, size_t length,
 uint32_t SRV_PCRC_GetValue(uint8_t *pData, size_t length,
         PCRC_HEADER_TYPE hdrType, PCRC_CRC_TYPE crcType, uint32_t initValue)
 {
-    uint32_t crc32;
+    uint32_t crc32Val;
 
     switch(hdrType)
     {
         case PCRC_HT_GENERIC:
-            crc32 = PCRC_INVALID;
+            switch (crcType)
+            {
+                case PCRC_CRC8:
+                    crc32Val = (uint32_t)lSRV_PCRC_Get8(pData, length, initValue);
+                    break;
+
+                case PCRC_CRC16:
+                    crc32Val = (uint32_t)lSRV_PCRC_Get16(pData, length, initValue);
+                    break;
+
+                case PCRC_CRC32:
+                    crc32Val = (uint32_t)lSRV_PCRC_Get32(pData, length, initValue);
+                    break;
+
+                default:
+                    crc32Val = PCRC_INVALID;
+                    break;
+            }
             break;
 
-        case PCRC_HT_PROMOTION:
-            crc32 = PCRC_INVALID;
+        case PCRC_HT_PRIME_GENERIC:
+            switch (crcType)
+            {
+                case PCRC_CRC8:
+                    crc32Val = (uint32_t)lSRV_PCRC_Get8(pData, length, pCrcSna8);
+                    break;
+
+                case PCRC_CRC16:
+                    crc32Val = (uint32_t)lSRV_PCRC_Get16(pData, length, 0);
+                    break;
+
+                case PCRC_CRC32:
+                    crc32Val = (uint32_t)lSRV_PCRC_Get32(pData, length, pCrcSna32);
+                    break;
+
+                default:
+                    crc32Val = PCRC_INVALID;
+                    break;
+            }
             break;
 
-        case PCRC_HT_BEACON:
-            crc32 = PCRC_INVALID;
+        case PCRC_HT_PRIME_BEACON14:
+            crc32Val = (uint32_t)lSRV_PCRC_Get32(pData, length, 0);
+            crc32Val = (uint32_t)lSRV_PCRC_Get32(pCrcConstBcn14,
+                                                 PCRC_CONST_BCN_PRIME_1_4_SIZE,
+                                                 crc32Val);
             break;
 
         case PCRC_HT_USI:
-            if (crcType == PCRC_CRC8)
+            switch(crcType)
             {
-                crc32 = (uint32_t)lSRV_PCRC_Get8(pData, length, initValue);
-            }
-            else if (crcType == PCRC_CRC16)
-            {
-                crc32 = (uint32_t)lSRV_PCRC_Get16(pData, length, initValue);
-            }
-            else if (crcType == PCRC_CRC32)
-            {
-                crc32 = (uint32_t)lSRV_PCRC_Get32(pData, length, initValue);
-            }
-            else
-            {
-                crc32 = PCRC_INVALID;
+                case PCRC_CRC8:
+                    crc32Val = (uint32_t)lSRV_PCRC_Get8ForUsi(pData, length, initValue);
+                    break;
+
+                case PCRC_CRC16:
+                    crc32Val = (uint32_t)lSRV_PCRC_Get16(pData, length, initValue);
+                    break;
+
+                case PCRC_CRC32:
+                    crc32Val = (uint32_t)lSRV_PCRC_Get32(pData, length, initValue);
+                    break;
+
+                default:
+                    crc32Val = PCRC_INVALID;
+                    break;
             }
             break;
 
         default:
-            crc32 = PCRC_INVALID;
+            crc32Val = PCRC_INVALID;
             break;
     }
 
-    return crc32;
+    return crc32Val;
 
 }
 
-void SRV_PCRC_SetSNAValue (uint8_t* sna)
+void SRV_PCRC_ConfigureSNA (uint8_t* sna)
 {
+    uint8_t pCrcSna[PCRC_SNA_SIZE] = {0};
+
     (void) memcpy(pCrcSna, sna, PCRC_SNA_SIZE);
+
+    pCrcSna8  = (uint8_t)lSRV_PCRC_Get8(pCrcSna, PCRC_SNA_SIZE, 0);
+	pCrcSna32 = (uint32_t)lSRV_PCRC_Get32(pCrcSna, PCRC_SNA_SIZE, 0);
 }
 
 

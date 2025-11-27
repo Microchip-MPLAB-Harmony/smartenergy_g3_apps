@@ -15,31 +15,28 @@
             <logicalFolder name="common_crypto"
                            displayName="common_crypto"
                            projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Hash.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Common.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_DigSign_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Sym_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Aead_Config.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Sym_Cipher.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Mac_Config.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Kas_Config.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Aead_Cipher.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/user_settings.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Kas_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Kas.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Hash_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_DigSign.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Sym_Config.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Aead_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Hash_Config.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Mac_Cipher.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_DigSign_Config.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/config.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_Mac_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_RNG.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_RNG_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/MCHP_Crypto_RNG_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/crypto_mac_cipher.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/crypto_aead_cipher.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/crypto_common.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/crypto_sym_cipher.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
+              <logicalFolder name="driver" displayName="driver" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/drivers/driver/drv_crypto_aes_hw_6149.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="wrapper" displayName="wrapper" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/drivers/wrapper/crypto_sym_aes6149_wrapper.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/wolfcrypt_config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/user_settings.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/crypto_mac_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/crypto_common_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/crypto_aead_wc_wrapper.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/crypto_config.h</itemPath>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="plc" displayName="plc" projectFiles="true">
@@ -261,6 +258,7 @@
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/event_groups.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/portable.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/mpu_wrappers.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/mpu_syscall_numbers.h</itemPath>
           </logicalFolder>
           <logicalFolder name="portable" displayName="portable" projectFiles="true">
             <logicalFolder name="GCC" displayName="GCC" projectFiles="true">
@@ -498,6 +496,12 @@
       </logicalFolder>
       <itemPath>../src/app.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>g3_modem_pic32cx_mtg_ek_pl460_rf215_freertos.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -523,22 +527,22 @@
             <logicalFolder name="common_crypto"
                            displayName="common_crypto"
                            projectFiles="true">
-              <logicalFolder name="src" displayName="src" projectFiles="true">
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Sym_WolfcryptWrapper.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Hash_WolfcryptWrapper.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Sym_Cipher.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Mac_Cipher.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Aead_WolfCryptWrapper.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Hash.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Kas_WolfcryptWrapper.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Aead_Cipher.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Mac_WolfCryptWrapper.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_DigSign_WolfcryptWrapper.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_DigSign.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_Kas.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_RNG.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/MCHP_Crypto_RNG_WolfcryptWrapper.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/crypto_sym_cipher.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/crypto_mac_cipher.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/common_crypto/src/crypto_aead_cipher.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
+              <logicalFolder name="driver" displayName="driver" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/drivers/driver/src/drv_crypto_aes_hw_6149.c</itemPath>
               </logicalFolder>
+              <logicalFolder name="wrapper" displayName="wrapper" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/drivers/wrapper/src/crypto_sym_aes6149_wrapper.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/src/crypto_common_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/src/crypto_mac_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt/src/crypto_aead_wc_wrapper.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
@@ -604,6 +608,7 @@
             <logicalFolder name="sefc" displayName="sefc" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/peripheral/sefc/plib_sefc1.c</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/peripheral/sefc/plib_sefc0.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/peripheral/sefc/plib_sefc_common.c</itemPath>
             </logicalFolder>
             <logicalFolder name="supc" displayName="supc" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/peripheral/supc/plib_supc.c</itemPath>
@@ -817,6 +822,7 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/hmac.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/camellia.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_lms_impl.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
@@ -837,12 +843,6 @@
       <itemPath>../src/app.c</itemPath>
       <itemPath>../src/main.c</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>g3_modem_pic32cx_mtg_ek_pl460_rf215_freertos.mc3</itemPath>
-    </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -854,7 +854,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool></platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.40</languageToolchainVersion>
+        <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -902,7 +902,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt;../src/third_party/wolfcrypt;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
+                  value="../src;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/drivers;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F;../src/third_party/wolfcrypt;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>

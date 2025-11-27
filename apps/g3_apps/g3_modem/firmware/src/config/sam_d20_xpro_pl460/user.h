@@ -32,9 +32,9 @@ extern "C" {
 // Section: User Configuration macros
 // *****************************************************************************
 // *****************************************************************************
-#define USER_BLINK_LED_On()                  LED_On()
-#define USER_BLINK_LED_Off()                 LED_Off()
-#define USER_BLINK_LED_Toggle()              LED_Toggle()
+#define USER_BLINK_LED_On()                  LED0_On()
+#define USER_BLINK_LED_Off()                 LED0_Off()
+#define USER_BLINK_LED_Toggle()              LED0_Toggle()
 
 #define USER_PLC_IND_LED_On()         
 #define USER_PLC_IND_LED_Off()        

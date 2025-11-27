@@ -15,7 +15,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -67,12 +67,11 @@
 // *****************************************************************************
 // *****************************************************************************
 /* Following MISRA-C rules are deviated in the below code block */
-/* MISRA C-2012 Rule 11.1 */
-/* MISRA C-2012 Rule 11.3 */
-/* MISRA C-2012 Rule 11.8 */
+/* MISRA C-2012 Rule 7.2 - Deviation record ID - H3_MISRAC_2012_R_7_2_DR_1 */
+/* MISRA C-2012 Rule 11.1 - Deviation record ID - H3_MISRAC_2012_R_11_1_DR_1 */
+/* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+/* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
-
-
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 /* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
@@ -82,14 +81,47 @@
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-    PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
-    while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
-    {
-        /* Wait for clock to be initialized */
-    }
-    /* Disable STBY Pin */
-    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA0);
-    SYS_PORT_PinClear(SYS_PORT_PIN_PA0);
+   /* Enable co-processor bus clock  */
+   PMC_REGS->PMC_SCER = (PMC_SCER_CPKEY_PASSWD | PMC_SCER_CPBMCK_Msk);
+   /* Coprocessor Peripheral Enable */
+   RSTC_REGS->RSTC_MR |= (RSTC_MR_KEY_PASSWD | RSTC_MR_CPEREN_Msk);
+   /* Program PMC_CPU_CKR.CPPRES and wait for PMC_SR.CPMCKRDY to be set   */
+   uint32_t prescaler;
+   uint32_t reg = PMC_REGS->PMC_CPU_CKR;
+   if ((reg & PMC_CPU_CKR_CPPRES_Msk) == PMC_CPU_CKR_CPPRES_CLK_1)
+   {
+       prescaler = PMC_CPU_CKR_CPPRES_CLK_2;
+   }
+   else
+   {
+       prescaler = PMC_CPU_CKR_CPPRES_CLK_1;
+   }
+   reg &= ~PMC_CPU_CKR_CPPRES_Msk;
+   reg |= prescaler | PMC_CPU_CKR_CPCSS_MAINCK;
+   PMC_REGS->PMC_CPU_CKR = reg;
+   while ((PMC_REGS->PMC_SR & PMC_SR_CPMCKRDY_Msk) != PMC_SR_CPMCKRDY_Msk)
+   {
+       /* Wait for status CPMCKRDY */
+   }
+   PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOD);
+   while((PMC_REGS->PMC_CSR2 & PMC_CSR2_PID85_Msk) == 0U)
+   {
+       /* Wait for clock to be initialized */
+   }
+   /* Enable LDO Pin */
+   SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
+   SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
+   /* Enable Reset Pin */
+   SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
+   SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
+   PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
+   while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
+   {
+       /* Wait for clock to be initialized */
+   }
+   /* Disable STBY Pin */
+   SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA0);
+   SYS_PORT_PinClear(SYS_PORT_PIN_PA0);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -181,7 +213,7 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 
     /* SPI PLIB API interface*/
     .plcHal = &drvPLCHalAPI,
- 
+
     /* PLC MAC RT Binary start address */
     .binStartAddress = (uint32_t)&g3_mac_rt_bin_start,
     
@@ -216,7 +248,7 @@ static const DRV_RF215_INIT drvRf215InitData = {
     .sysTimeIntSource = TC0_CH0_IRQn,
 
     /* Interrupt source ID for PLC external interrupt */
-    .plcExtIntSource = PIOA_IRQn,
+    .plcExtIntSource = DRV_PLC_EXT_INT_SRC,
 
     /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */
     .rf09PhyBandOpmIni = SUN_FSK_BAND_863_OPM1,
@@ -238,14 +270,16 @@ static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM0 = {
     .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM0_USART_ReadCallbackRegister,
     .readData = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Read,
     .writeData = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Write,
-    .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)FLEXCOM0_USART_WriteIsBusy,
-    .intSource = FLEXCOM0_IRQn,
 };
+
+static uint8_t CACHE_ALIGN srvUSI0USARTReadBuffer[128] = {0};
 
 static const USI_USART_INIT_DATA srvUsi0InitData = {
     .plib = (void*)&srvUsi0InitDataFLEXCOM0,
     .pRdBuffer = (void*)srvUSI0ReadBuffer,
     .rdBufferSize = SRV_USI0_RD_BUF_SIZE,
+    .usartReadBuffer = (void *)srvUSI0USARTReadBuffer,
+    .usartBufferSize = 128,
 };
 
 /* srvUSIUSARTDevDesc declared in USI USART service implementation (srv_usi_usart.c) */
@@ -386,7 +420,7 @@ void SYS_Initialize ( void* data )
     SEFC1_Initialize();
   
     DWDT_Initialize();
-    CLK_Initialize();
+    CLOCK_Initialize();
     RSTC_Initialize();
 
     PIO_Initialize();
@@ -406,8 +440,9 @@ void SYS_Initialize ( void* data )
     
     FLEXCOM0_USART_Initialize();
 
-	BSP_Initialize();
+	TRNG_Initialize();
 
+    BSP_Initialize();
 
     /* MISRAC 2012 deviation block start */
     /* Following MISRA-C rules deviated in this block  */
@@ -427,10 +462,6 @@ void SYS_Initialize ( void* data )
 
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
-
-    /* Crypto Callback initialize */
-    //CRYPT_WCCB_Initialize();
-
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/

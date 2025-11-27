@@ -335,8 +335,8 @@ void RF215_HAL_Initialize(const DRV_RF215_INIT * const init)
 {
     /* Store interrupt sources */
     rf215HalObj.sysTimeIntSource = init->sysTimeIntSource;
-    rf215HalObj.dmaIntSource = init->dmaIntSource;
     rf215HalObj.plcExtIntSource = init->plcExtIntSource;
+    rf215HalObj.dmaIntSource = init->dmaIntSource;
 
     /* Store pointers to SPI PLIB functions */
     rf215HalObj.spiPlibIsBusy = init->spiPlibIsBusy;

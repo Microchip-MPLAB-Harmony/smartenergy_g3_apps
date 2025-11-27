@@ -70,17 +70,17 @@ Microchip or any third party.
 #endif
 // DOM-IGNORE-END
 
-/* Default branch of the PLC transmission coupling */
-#define SRV_PCOUP_DEFAULT_BRANCH                 SRV_PLC_PCOUP_MAIN_BRANCH
+/* Default G3-PLC PHY band of the PLC transmission coupling */
+#define SRV_PCOUP_DEFAULT_BAND                   G3_FCC
 
 /* Equalization number of coefficients (number of carriers) for Main branch */
 #define SRV_PCOUP_EQU_NUM_COEF                   72U
 
 /* PLC PHY Coupling parameters for Main branch */
-#define SRV_PCOUP_RMS_HIGH_TBL                   {1313, 937, 667, 477, 342, 247, 180, 131}
-#define SRV_PCOUP_RMS_VLOW_TBL                   {4329, 3314, 2387, 1692, 1201, 853, 608, 432}
-#define SRV_PCOUP_THRS_HIGH_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 1025, 729, 519, 372, 265, 191, 140, 101}
-#define SRV_PCOUP_THRS_VLOW_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 10242, 7302, 5197, 3708, 2649, 1906, 1366, 979}
+#define SRV_PCOUP_RMS_HIGH_TBL                   {1201, 850, 602, 427, 304, 217, 155, 112}
+#define SRV_PCOUP_RMS_VLOW_TBL                   {4617, 3509, 2512, 1769, 1247, 882, 624, 443}
+#define SRV_PCOUP_THRS_HIGH_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 1020, 721, 510, 362, 257, 183, 131, 95}
+#define SRV_PCOUP_THRS_VLOW_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 10327, 7247, 5074, 3562, 2510, 1776, 1261, 896}
 #define SRV_PCOUP_DACC_TBL                       {0x0UL, 0x0UL, 0x100UL, 0x100UL, 0x0UL, 0x0UL, \
                                                  0x4f5000ffUL, 0x1b1b1b1bUL, 0x0UL, 0x0UL, 0x6UL, 0x355UL, \
                                                  0x0UL, 0x1020f0UL, 0x355UL, 0x0UL, 0x1020ffUL}
@@ -89,19 +89,41 @@ Microchip or any third party.
 #define SRV_PCOUP_NUM_TX_LEVELS                  8
 #define SRV_PCOUP_LINE_DRV_CONF                  5
 
-#define SRV_PCOUP_PRED_HIGH_TBL                  {0x7399, 0x6D5B, 0x6982, 0x671E, 0x6699, 0x6730, 0x6875, 0x6975, 0x6AE7, 0x6CE3, 0x6EF9, 0x70A7, 0x7276, 0x74B0, \
-                                                  0x76BF, 0x77FE, 0x7905, 0x7A70, 0x7BC9, 0x7C88, 0x7D0A, 0x7DF6, 0x7EDF, 0x7F32, 0x7EF1, 0x7F6D, 0x7FFB, 0x7FFF, \
-                                                  0x7F96, 0x7F76, 0x7F9D, 0x7EF8, 0x7E1B, 0x7D55, 0x7D2F, 0x7C3C, 0x7B39, 0x7A6C, 0x79CE, 0x790C, 0x779B, 0x76A4, \
-                                                  0x7560, 0x7498, 0x72B8, 0x7185, 0x7049, 0x6F5D, 0x6DA6, 0x6C38, 0x6B46, 0x6A5E, 0x6940, 0x6855, 0x6802, 0x678A, \
-                                                  0x6676, 0x6567, 0x654C, 0x6546, 0x651F, 0x65CD, 0x673D, 0x6876, 0x69C8, 0x6AD5, 0x6C7A, 0x6E1D, 0x6F4E, 0x70B3, \
-                                                  0x72F9, 0x74E0}
-#define SRV_PCOUP_PRED_VLOW_TBL                  {0x7FEC, 0x7D9A, 0x7BBA, 0x7987, 0x7752, 0x75E3, 0x7429, 0x71CE, 0x6FA1, 0x6E0A, 0x6C89, 0x6A9E, 0x68D7, 0x67BA, \
-                                                  0x66CC, 0x655C, 0x63F4, 0x6318, 0x626F, 0x6186, 0x6093, 0x602C, 0x604E, 0x6022, 0x5F9A, 0x5FB6, 0x602F, 0x6049, \
-                                                  0x6024, 0x608F, 0x615F, 0x61D9, 0x61E3, 0x6265, 0x6372, 0x6414, 0x6464, 0x6519, 0x6647, 0x672B, 0x679F, 0x6834, \
-                                                  0x6959, 0x6A44, 0x6A93, 0x6B1F, 0x6C52, 0x6D4F, 0x6D98, 0x6E0E, 0x6F43, 0x7047, 0x70A5, 0x7136, 0x7258, 0x732C, \
-                                                  0x7348, 0x7371, 0x7453, 0x7566, 0x75C8, 0x764F, 0x77A2, 0x78F2, 0x7929, 0x7990, 0x7AB0, 0x7B90, 0x7B35, 0x7C1E, \
-                                                  0x7DE6, 0x7FFF}
+#define SRV_PCOUP_PRED_HIGH_TBL                  {0x7FFF, 0x7519, 0x6C54, 0x6476, 0x5E1A, 0x58E0, 0x5539, 0x51FC, 0x4FFA, 0x4EFA, 0x4F08, 0x4F36, 0x5006, 0x5182,  \
+                                                  0x536B, 0x5503, 0x5674, 0x586A, 0x5A42, 0x5BB6, 0x5CC7, 0x5E5C, 0x5FEB, 0x610F, 0x61EF, 0x6356, 0x64E5, 0x65C1,  \
+                                                  0x6664, 0x6721, 0x6881, 0x6886, 0x6924, 0x693D, 0x6A8F, 0x6A3C, 0x6AC5, 0x6A68, 0x6B60, 0x6B17, 0x6B3C, 0x6AEF,  \
+                                                  0x6B6A, 0x6B46, 0x6AE5, 0x6A38, 0x6A61, 0x69FF, 0x6976, 0x6844, 0x681A, 0x67A6, 0x66B6, 0x6609, 0x65B8, 0x653D,  \
+                                                  0x63FE, 0x62A1, 0x61C5, 0x614F, 0x6029, 0x5F81, 0x5FA3, 0x5F3D, 0x5EB8, 0x5E23, 0x5DC9, 0x5D56, 0x5CD2, 0x5CC2,  \
+                                                  0x5D78, 0x5E49}
+#define SRV_PCOUP_PRED_VLOW_TBL                  {0x7FFF, 0x7666, 0x6ED8, 0x6939, 0x650D, 0x6178, 0x5F4B, 0x5D03, 0x5B7B, 0x593E, 0x5784, 0x5465, 0x515B, 0x4E98,  \
+                                                  0x4CDB, 0x4B46, 0x49F2, 0x495C, 0x48D0, 0x47B9, 0x459C, 0x44E1, 0x449D, 0x4487, 0x448A, 0x452A, 0x45B4, 0x462B,  \
+                                                  0x45DA, 0x45CE, 0x4699, 0x46F5, 0x46B9, 0x47D9, 0x488E, 0x495C, 0x497C, 0x4AAF, 0x4AD6, 0x4BA0, 0x4B14, 0x4B7E,  \
+                                                  0x4BA5, 0x4C44, 0x4C2A, 0x4DEF, 0x4DE4, 0x4E0F, 0x4DC3, 0x4DAB, 0x4D8B, 0x4EA7, 0x4F17, 0x4E98, 0x4F3C, 0x4EF0,  \
+                                                  0x4EFA, 0x4EEB, 0x4FC6, 0x5109, 0x51A2, 0x51FC, 0x52D0, 0x535B, 0x52E4, 0x530D, 0x534B, 0x539D, 0x5468, 0x5515,  \
+                                                  0x5577, 0x5629}
 
+/* Equalization number of coefficients (number of carriers) for Auxiliary branch */
+#define SRV_PCOUP_AUX_EQU_NUM_COEF               36U
+
+/* PLC PHY Coupling parameters for Auxiliary branch */
+#define SRV_PCOUP_AUX_RMS_HIGH_TBL               {1991, 1381, 976, 695, 495, 351, 250, 179}
+#define SRV_PCOUP_AUX_RMS_VLOW_TBL               {6356, 4706, 3317, 2308, 1602, 1112, 778, 546}
+#define SRV_PCOUP_AUX_THRS_HIGH_TBL              {0, 0, 0, 0, 0, 0, 0, 0, 1685, 1173, 828, 589, 419, 298, 212, 151}
+#define SRV_PCOUP_AUX_THRS_VLOW_TBL              {0, 0, 0, 0, 0, 0, 0, 0, 8988, 6370, 4466, 3119, 2171, 1512, 1061, 752}
+#define SRV_PCOUP_AUX_DACC_TBL                   {0x0UL, 0x21200000UL, 0x73f0000UL, 0x3f3f0000UL, 0xcccUL, 0x0UL, \
+                                                 0xa20000ffUL, 0x14141414UL, 0x20200000UL, 0x4400UL, 0xfd20004UL, 0x3aaUL, \
+                                                 0xf0000000UL, 0x1020f0UL, 0x3aaUL, 0xf0000000UL, 0x1020ffUL}
+#define SRV_PCOUP_AUX_GAIN_HIGH_TBL              {142, 70, 336}
+#define SRV_PCOUP_AUX_GAIN_VLOW_TBL              {474, 230, 597}
+#define SRV_PCOUP_AUX_NUM_TX_LEVELS              8
+#define SRV_PCOUP_AUX_LINE_DRV_CONF              8
+
+#define SRV_PCOUP_AUX_PRED_HIGH_TBL              {0x670A, 0x660F, 0x676A, 0x6A6B, 0x6F3F, 0x7440, 0x74ED, 0x7792, 0x762D, 0x7530, 0x7938, 0x7C0A, 0x7C2A, 0x7B0E, \
+                                                  0x7AF2, 0x784B, 0x7899, 0x76F9, 0x76D6, 0x769F, 0x775D, 0x70C0, 0x6EB9, 0x6F18, 0x6F1E, 0x6FA2, 0x6862, 0x67C9, \
+                                                  0x68F9, 0x68A5, 0x6CA3, 0x7153, 0x7533, 0x750B, 0x7B59, 0x7FFF}
+#define SRV_PCOUP_AUX_PRED_VLOW_TBL              {0x7FFF, 0x7DB1, 0x7CE6, 0x7B36, 0x772F, 0x7472, 0x70AA, 0x6BC2, 0x682D, 0x6618, 0x6384, 0x6210, 0x61D7, 0x6244, \
+                                                  0x6269, 0x63A8, 0x6528, 0x65CC, 0x67F6, 0x693B, 0x6B13, 0x6C29, 0x6D43, 0x6E26, 0x6D70, 0x6C94, 0x6BB5, 0x6AC9, \
+                                                  0x6A5F, 0x6B65, 0x6B8C, 0x6A62, 0x6CEC, 0x6D5A, 0x6F9D, 0x6FD3}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -109,27 +131,6 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 // *****************************************************************************
-/* PLC PHY Coupling Branch definitions
-
- Summary:
-    List of possible transmission branches.
-
- Description:
-    This type defines the possible values of PLC transmission coupling branches.
-
- Remarks:
-    None.
-*/
-
-typedef enum
-{
-    /* Main Transmission Branch */
-    SRV_PLC_PCOUP_MAIN_BRANCH,
-
-    /* Auxiliary Transmission Branch */
-    SRV_PLC_PCOUP_AUXILIARY_BRANCH,
-
-} SRV_PLC_PCOUP_BRANCH;
 
 // *****************************************************************************
 /* PLC PHY Coupling data
@@ -200,33 +201,33 @@ typedef struct
 
 /***************************************************************************
   Function:
-    SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch)
+    SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(uint8_t phyBand)
 
   Summary:
-    Get the PLC PHY Coupling parameters for the specified transmission branch.
+    Get the PLC PHY Coupling parameters for the specified G3-PLC PHY band.
 
   Description:
     This function allows to get the PLC PHY Coupling parameters for the
-    specified transmission branch. These parameters can be sent to the PLC
+    specified G3-PLC PHY band. These parameters can be sent to the PLC
     device through PLC Driver PIB interface (DRV_G3_MACRT_PIBSet).
 
   Precondition:
     None.
 
   Parameters:
-    branch          - Transmission branch for which the parameters are requested
+    phyBand - G3-PLC PHY band for which the parameters are requested
 
   Returns:
     - Pointer PLC PHY Coupling parameters
-      - if branch parameter is valid
+      - if phyBand parameter is valid
     - NULL
-      - if branch parameter is not valid
+      - if phyBand parameter is not valid
 
   Example:
     <code>
     SRV_PLC_PCOUP_DATA *pCoupValues;
 
-    pCoupValues = SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_MAIN_BRANCH);
+    pCoupValues = SRV_PCOUP_Get_Config(G3_FCC);
     </code>
 
   Remarks:
@@ -234,19 +235,19 @@ typedef struct
     this function is not needed.
   ***************************************************************************/
 
-SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch);
+SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(uint8_t phyBand);
 
 /***************************************************************************
   Function:
-    bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
+    bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, uint8_t phyBand);
 
   Summary:
-    Set the PLC PHY Coupling parameters for the specified transmission branch.
+    Set the PLC PHY Coupling parameters for the specified G3-PLC PHY band.
 
   Description:
     This function allows to set the PLC PHY Coupling parameters for the
-    specified transmission branch, using the PLC Driver PIB
-    interface (DRV_G3_MACRT_PIBSet).
+    specified G3-PLC PHY band, using the PLC Driver PIB interface
+    (DRV_G3_MACRT_PIBSet).
 
   Precondition:
     DRV_G3_MACRT_Open must have been called to obtain a valid
@@ -254,37 +255,37 @@ SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(SRV_PLC_PCOUP_BRANCH branch);
 
   Parameters:
     handle  - A valid instance handle, returned from DRV_G3_MACRT_Open
-    branch  - Transmission branch for which the parameters will be set
+    phyBand - G3-PLC PHY band for which the parameters are requested
 
   Returns:
     - true
       - Successful configuration
     - false
-      - if branch parameter is not valid
+      - if phyBand parameter is not valid
       - if there is an error when calling DRV_G3_MACRT_PIBSet
 
   Example:
     <code>
     bool result;
 
-    result = SRV_PCOUP_Set_Config(handle, SRV_PLC_PCOUP_MAIN_BRANCH);
+    result = SRV_PCOUP_Set_Config(handle, G3_FCC);
     </code>
 
   Remarks:
     None.
   ***************************************************************************/
 
-bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
+bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, uint8_t phyBand);
 
 /***************************************************************************
   Function:
-    SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void )
+    uint8_t SRV_PCOUP_Get_Default_Phy_Band( void )
 
   Summary:
-    Get the default branch of the PLC transmission coupling.
+    Get the default G3-PLC PHY band.
 
   Description:
-    This function allows to get the tranmission branch used by default.
+    This function allows to get the G3-PLC PHY band used by default.
 
   Precondition:
     None.
@@ -293,63 +294,21 @@ bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, SRV_PLC_PCOUP_BRANCH branch);
     None.
 
   Returns:
-    Default transmission branch.
+    Default G3-PLC PHY band.
 
   Example:
     <code>
-    SRV_PLC_PCOUP_BRANCH plcDefaultBranch;
+    uint8_t plcPhyBand;
 
-    plcDefaultBranch = SRV_PCOUP_Get_Default_Branch();
-    SRV_PCOUP_Set_Config(plcDefaultBranch);
+    plcPhyBand = SRV_PCOUP_Get_Default_Phy_Band();
+    SRV_PCOUP_Set_Config(plcPhyBand);
     </code>
 
   Remarks:
     None.
   ***************************************************************************/
 
-SRV_PLC_PCOUP_BRANCH SRV_PCOUP_Get_Default_Branch( void );
-
-/***************************************************************************
-  Function:
-    uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch)
-
-  Summary:
-    Get the G3-PLC PHY band associated to the specified transmission branch.
-
-  Description:
-    This function allows to get the G3-PLC PHY band associated to the
-    specified transmission branch.
-
-  Precondition:
-    None.
-
-  Parameters:
-    branch         - Transmission branch from which the PHY band is requested
-
-  Returns:
-    G3-PLC PHY band associated to the specified transmission branch
-    (see drv_g3_macrt_comm.h):
-    - 0: G3_CEN_A
-    - 1: G3_CEN_B
-    - 2: G3_FCC
-    - 3: G3_ARIB
-    - 0xFF: G3_INVALID (if transmission branch is not valid)
-
-  Example:
-    <code>
-    phyBand = SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_MAIN_BRANCH);
-
-    if (phyBand == G3_CEN_A)
-    {
-
-    }
-    </code>
-
-  Remarks:
-    None.
-  ***************************************************************************/
-
-uint8_t SRV_PCOUP_Get_Phy_Band(SRV_PLC_PCOUP_BRANCH branch);
+uint8_t SRV_PCOUP_Get_Default_Phy_Band( void );
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

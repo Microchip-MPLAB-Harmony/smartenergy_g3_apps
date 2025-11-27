@@ -15,31 +15,23 @@
             <logicalFolder name="common_crypto"
                            displayName="common_crypto"
                            projectFiles="true">
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Hash.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Common.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_DigSign_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Sym_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Aead_Config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Sym_Cipher.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Mac_Config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Kas_Config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Aead_Cipher.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/user_settings.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Kas_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Kas.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Hash_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_DigSign.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Sym_Config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Aead_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Hash_Config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Mac_Cipher.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_DigSign_Config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/config.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_Mac_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_RNG.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_RNG_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/MCHP_Crypto_RNG_Config.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/crypto_common.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/crypto_rng.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/crypto_mac_cipher.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/crypto_aead_cipher.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/crypto_sym_cipher.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/crypto_aead_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/crypto_sym_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/crypto_common_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/crypto_mac_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/crypto_rng_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/wolfcrypt_config.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/config.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/user_settings.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/sam_d20_xpro_pl460/crypto/crypto_config.h</itemPath>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="plc" displayName="plc" projectFiles="true">
@@ -48,20 +40,20 @@
                 <itemPath>../src/config/sam_d20_xpro_pl460/driver/plc/common/drv_plc_hal.h</itemPath>
               </logicalFolder>
               <logicalFolder name="g3MacRt" displayName="g3MacRt" projectFiles="true">
-                <itemPath>../src/config/sam_d20_xpro_pl460/driver/plc/g3MacRt/drv_g3_macrt_local.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/driver/plc/g3MacRt/drv_g3_macrt_local_comm.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/driver/plc/g3MacRt/drv_g3_macrt_comm.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/driver/plc/g3MacRt/drv_g3_macrt.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/driver/plc/g3MacRt/drv_g3_macrt_local.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/driver/plc/g3MacRt/drv_g3_macrt_definitions.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/driver/plc/g3MacRt/drv_g3_macrt_local_comm.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <itemPath>../src/config/sam_d20_xpro_pl460/driver/driver_common.h</itemPath>
             <itemPath>../src/config/sam_d20_xpro_pl460/driver/driver.h</itemPath>
           </logicalFolder>
           <logicalFolder name="osal" displayName="osal" projectFiles="true">
-            <itemPath>../src/config/sam_d20_xpro_pl460/osal/osal_impl_basic.h</itemPath>
             <itemPath>../src/config/sam_d20_xpro_pl460/osal/osal_definitions.h</itemPath>
             <itemPath>../src/config/sam_d20_xpro_pl460/osal/osal.h</itemPath>
+            <itemPath>../src/config/sam_d20_xpro_pl460/osal/osal_impl_basic.h</itemPath>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="adc" displayName="adc" projectFiles="true">
@@ -88,8 +80,8 @@
             </logicalFolder>
             <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
               <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
-                <itemPath>../src/config/sam_d20_xpro_pl460/peripheral/sercom/spi_master/plib_sercom0_spi_master.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/peripheral/sercom/spi_master/plib_sercom0_spi_master.h</itemPath>
               </logicalFolder>
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/sam_d20_xpro_pl460/peripheral/sercom/usart/plib_sercom3_usart.h</itemPath>
@@ -128,27 +120,27 @@
               <itemPath>../src/config/sam_d20_xpro_pl460/service/security/aes_wrapper.h</itemPath>
             </logicalFolder>
             <logicalFolder name="usi" displayName="usi" projectFiles="true">
-              <itemPath>../src/config/sam_d20_xpro_pl460/service/usi/srv_usi_usart.h</itemPath>
-              <itemPath>../src/config/sam_d20_xpro_pl460/service/usi/srv_usi.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/service/usi/srv_usi_local.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/service/usi/srv_usi_definitions.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/service/usi/srv_usi_usart.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/service/usi/srv_usi.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stack" displayName="stack" projectFiles="true">
             <logicalFolder name="g3" displayName="g3" projectFiles="true">
               <logicalFolder name="adaptation" displayName="adaptation" projectFiles="true">
+                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/lbp_encode_decode.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/adp.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/adp_api_types.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/adp_serial.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/routing_wrapper.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/eap_psk.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/adp_shared_types.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/lbp_version.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/loadng.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/adp_api_types.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/adp.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/routing_types.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/lbp_encode_decode.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/eap_psk.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/adp_serial.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/lbp_dev.h</itemPath>
+                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/routing_types.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/lbp_defs.h</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/routing_wrapper.h</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/adaptation/lbp_coord.h</itemPath>
               </logicalFolder>
               <logicalFolder name="mac" displayName="mac" projectFiles="true">
@@ -158,8 +150,8 @@
                 </logicalFolder>
                 <logicalFolder name="mac_plc" displayName="mac_plc" projectFiles="true">
                   <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/mac/mac_plc/mac_plc.h</itemPath>
-                  <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/mac/mac_plc/mac_plc_mib.h</itemPath>
                   <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/mac/mac_plc/mac_plc_defs.h</itemPath>
+                  <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/mac/mac_plc/mac_plc_mib.h</itemPath>
                 </logicalFolder>
                 <logicalFolder name="mac_wrapper" displayName="mac_wrapper" projectFiles="true">
                   <itemPath>../src/config/sam_d20_xpro_pl460/stack/g3/mac/mac_wrapper/mac_wrapper_defs.h</itemPath>
@@ -179,12 +171,12 @@
               <itemPath>../src/config/sam_d20_xpro_pl460/system/debug/sys_debug.h</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
-              <itemPath>../src/config/sam_d20_xpro_pl460/system/int/sys_int_mapping.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/system/int/sys_int.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/system/int/sys_int_mapping.h</itemPath>
             </logicalFolder>
             <logicalFolder name="ports" displayName="ports" projectFiles="true">
-              <itemPath>../src/config/sam_d20_xpro_pl460/system/ports/sys_ports.h</itemPath>
               <itemPath>../src/config/sam_d20_xpro_pl460/system/ports/sys_ports_mapping.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/system/ports/sys_ports.h</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/sam_d20_xpro_pl460/system/time/sys_time.h</itemPath>
@@ -195,15 +187,15 @@
             <itemPath>../src/config/sam_d20_xpro_pl460/system/system.h</itemPath>
             <itemPath>../src/config/sam_d20_xpro_pl460/system/system_common.h</itemPath>
           </logicalFolder>
-          <itemPath>../src/config/sam_d20_xpro_pl460/definitions.h</itemPath>
-          <itemPath>../src/config/sam_d20_xpro_pl460/device_vectors.h</itemPath>
           <itemPath>../src/config/sam_d20_xpro_pl460/toolchain_specifics.h</itemPath>
-          <itemPath>../src/config/sam_d20_xpro_pl460/interrupts.h</itemPath>
-          <itemPath>../src/config/sam_d20_xpro_pl460/device.h</itemPath>
+          <itemPath>../src/config/sam_d20_xpro_pl460/definitions.h</itemPath>
           <itemPath>../src/config/sam_d20_xpro_pl460/device_cache.h</itemPath>
-          <itemPath>../src/config/sam_d20_xpro_pl460/user.h</itemPath>
+          <itemPath>../src/config/sam_d20_xpro_pl460/interrupts.h</itemPath>
+          <itemPath>../src/config/sam_d20_xpro_pl460/device_vectors.h</itemPath>
           <itemPath>../src/config/sam_d20_xpro_pl460/configuration.h</itemPath>
+          <itemPath>../src/config/sam_d20_xpro_pl460/device.h</itemPath>
           <itemPath>../src/config/sam_d20_xpro_pl460/sys_tasks.h</itemPath>
+          <itemPath>../src/config/sam_d20_xpro_pl460/user.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">
@@ -398,6 +390,12 @@
       </logicalFolder>
       <itemPath>../src/app_samd20.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>g3_modem_sam_d20_xpro_pl460.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -423,22 +421,17 @@
             <logicalFolder name="common_crypto"
                            displayName="common_crypto"
                            projectFiles="true">
-              <logicalFolder name="src" displayName="src" projectFiles="true">
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Sym_WolfcryptWrapper.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Hash_WolfcryptWrapper.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Sym_Cipher.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Mac_Cipher.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Aead_WolfCryptWrapper.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Hash.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Kas_WolfcryptWrapper.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Aead_Cipher.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Mac_WolfCryptWrapper.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_DigSign_WolfcryptWrapper.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_DigSign.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_Kas.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_RNG.c</itemPath>
-                <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/MCHP_Crypto_RNG_WolfcryptWrapper.c</itemPath>
-              </logicalFolder>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/crypto_sym_cipher.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/crypto_mac_cipher.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/crypto_rng.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/common_crypto/src/crypto_aead_cipher.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/src/crypto_sym_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/src/crypto_common_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/src/crypto_mac_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/src/crypto_aead_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt/src/crypto_rng_wc_wrapper.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
@@ -665,6 +658,7 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/hmac.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/camellia.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_lms_impl.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
@@ -685,12 +679,6 @@
       <itemPath>../src/config/sam_d20_xpro_pl460/pin_configurations.csv</itemPath>
       <itemPath>../src/app_samd20.c</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>g3_modem_sam_d20_xpro_pl460.mc3</itemPath>
-    </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -702,7 +690,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.40</languageToolchainVersion>
+        <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -749,7 +737,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_d20_xpro_pl460;../src/packs/ATSAMD20J18_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl;../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt;../src/third_party/wolfcrypt;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
+                  value="../src;../src/config/sam_d20_xpro_pl460;../src/config/sam_d20_xpro_pl460/crypto/drivers;../src/config/sam_d20_xpro_pl460/crypto/wolfcrypt;../src/packs/ATSAMD20J18_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/third_party/wolfcrypt;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>

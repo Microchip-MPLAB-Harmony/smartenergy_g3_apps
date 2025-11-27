@@ -15,7 +15,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -80,12 +80,11 @@
 // *****************************************************************************
 // *****************************************************************************
 /* Following MISRA-C rules are deviated in the below code block */
-/* MISRA C-2012 Rule 11.1 */
-/* MISRA C-2012 Rule 11.3 */
-/* MISRA C-2012 Rule 11.8 */
+/* MISRA C-2012 Rule 7.2 - Deviation record ID - H3_MISRAC_2012_R_7_2_DR_1 */
+/* MISRA C-2012 Rule 11.1 - Deviation record ID - H3_MISRAC_2012_R_11_1_DR_1 */
+/* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+/* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
-
-
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
 /* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
@@ -95,15 +94,15 @@
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-    /* Disable STBY Pin */
-    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA08);
-    SYS_PORT_PinClear(SYS_PORT_PIN_PA08);
+    /* Enable LDO Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
+    SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
     /* Enable Reset Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
-    /* Disable LDO Pin */
-    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
-    SYS_PORT_PinClear(DRV_PLC_LDO_EN_PIN);
+    /* Disable STBY Pin */
+    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA08);
+    SYS_PORT_PinClear(SYS_PORT_PIN_PA08);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -204,7 +203,7 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 
     /* SPI PLIB API interface*/
     .plcHal = &drvPLCHalAPI,
- 
+
     /* PLC MAC RT Binary start address */
     .binStartAddress = (uint32_t)&g3_mac_rt_bin_start,
     
@@ -230,14 +229,16 @@ static const SRV_USI_USART_INTERFACE srvUsi0InitDataSERCOM3 = {
     .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)SERCOM3_USART_ReadCallbackRegister,
     .readData = (USI_USART_PLIB_WRRD)SERCOM3_USART_Read,
     .writeData = (USI_USART_PLIB_WRRD)SERCOM3_USART_Write,
-    .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)SERCOM3_USART_WriteIsBusy,
-    .intSource = SERCOM3_IRQn,
 };
+
+static uint8_t CACHE_ALIGN srvUSI0USARTReadBuffer[128] = {0};
 
 static const USI_USART_INIT_DATA srvUsi0InitData = {
     .plib = (void*)&srvUsi0InitDataSERCOM3,
     .pRdBuffer = (void*)srvUSI0ReadBuffer,
     .rdBufferSize = SRV_USI0_RD_BUF_SIZE,
+    .usartReadBuffer = (void *)srvUSI0USARTReadBuffer,
+    .usartBufferSize = 128,
 };
 
 /* srvUSIUSARTDevDesc declared in USI USART service implementation (srv_usi_usart.c) */
@@ -387,7 +388,6 @@ void SYS_Initialize ( void* data )
     ADC_Initialize();
     TC0_TimerInitialize();
 
-	BSP_Initialize();
     SERCOM3_USART_Initialize();
 
 
@@ -395,7 +395,7 @@ void SYS_Initialize ( void* data )
 
     EIC_Initialize();
 
-
+    BSP_Initialize();
 
     /* MISRAC 2012 deviation block start */
     /* Following MISRA-C rules deviated in this block  */
@@ -413,10 +413,6 @@ void SYS_Initialize ( void* data )
 
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
-
-    /* Crypto Callback initialize */
-    //CRYPT_WCCB_Initialize();
-
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/

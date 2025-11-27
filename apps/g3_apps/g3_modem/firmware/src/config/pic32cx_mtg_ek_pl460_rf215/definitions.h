@@ -14,7 +14,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -81,6 +81,7 @@
 #include "system/time/sys_time.h"
 #include "service/log_report/srv_log_report.h"
 #include "peripheral/trng/plib_trng.h"
+#include "bsp/bsp.h"
 #include "system/int/sys_int.h"
 #include "system/ports/sys_ports.h"
 #include "system/cache/sys_cache.h"
@@ -93,15 +94,11 @@
 #include "peripheral/cmcc/plib_cmcc.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/supc/plib_supc.h"
-#include "bsp/bsp.h"
 #include "service/pcrc/srv_pcrc.h"
 #include "peripheral/sefc/plib_sefc0.h"
 #include "peripheral/sefc/plib_sefc1.h"
 #include "stack/g3/pal/rf/pal_rf.h"
 #include "service/pvddmon/srv_pvddmon.h"
-//KEEP THIS - Not used for now
-//#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
-//#include "crypto/crypto.h"
 #include "app.h"
 
 
@@ -115,13 +112,13 @@ extern "C" {
 // DOM-IGNORE-END
 
 /* Device Information */
-#define DEVICE_NAME			 "PIC32CX2051MTG128"
-#define DEVICE_ARCH			 "CORTEX-M4"
-#define DEVICE_FAMILY		 "PIC32CX_MT"
-#define DEVICE_SERIES		 "PIC32CXMTG"
+#define DEVICE_NAME          "PIC32CX2051MTG128"
+#define DEVICE_ARCH          "CORTEX-M4"
+#define DEVICE_FAMILY        "PIC32CX_MT"
+#define DEVICE_SERIES        "PIC32CXMTG"
 
 /* CPU clock frequency */
-#define CPU_CLOCK_FREQUENCY 200000000
+#define CPU_CLOCK_FREQUENCY 200000000U
 
 // *****************************************************************************
 // *****************************************************************************

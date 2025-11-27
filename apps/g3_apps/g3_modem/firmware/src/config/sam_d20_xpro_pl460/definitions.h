@@ -14,7 +14,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -74,7 +74,6 @@
 #include "service/usi/srv_usi_usart.h"
 #include "system/time/sys_time.h"
 #include "service/log_report/srv_log_report.h"
-#include "bsp/bsp.h"
 #include "system/int/sys_int.h"
 #include "system/ports/sys_ports.h"
 #include "osal/osal.h"
@@ -89,9 +88,7 @@
 #include "peripheral/eic/plib_eic.h"
 #include "service/pcrc/srv_pcrc.h"
 #include "service/pvddmon/srv_pvddmon.h"
-//KEEP THIS - Not used for now
-//#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
-//#include "crypto/crypto.h"
+#include "bsp/bsp.h"
 #include "app_samd20.h"
 
 
@@ -105,13 +102,13 @@ extern "C" {
 // DOM-IGNORE-END
 
 /* Device Information */
-#define DEVICE_NAME			 "ATSAMD20J18"
-#define DEVICE_ARCH			 "CORTEX-M0PLUS"
-#define DEVICE_FAMILY		 "SAMD"
-#define DEVICE_SERIES		 "SAMD20"
+#define DEVICE_NAME          "ATSAMD20J18"
+#define DEVICE_ARCH          "CORTEX-M0PLUS"
+#define DEVICE_FAMILY        "SAMD"
+#define DEVICE_SERIES        "SAMD20"
 
 /* CPU clock frequency */
-#define CPU_CLOCK_FREQUENCY 48000000
+#define CPU_CLOCK_FREQUENCY 48000000U
 
 // *****************************************************************************
 // *****************************************************************************

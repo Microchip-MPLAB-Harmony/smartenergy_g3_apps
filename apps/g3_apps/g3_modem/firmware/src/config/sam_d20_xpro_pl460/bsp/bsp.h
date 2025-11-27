@@ -17,7 +17,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -54,29 +54,81 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "device.h"
+#include "peripheral/port/plib_port.h"
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: BSP Macros
 // *****************************************************************************
 // *****************************************************************************
-#define sam_d20_xpro
-#define BSP_NAME             "sam_d20_xpro"
+#define SAMD20_XPLAINED_PRO
+#define BOARD_NAME    "SAMD20-XPLAINED-PRO"
+
+/*** Macros for PLC_SPI_CS output pin ***/ 
+#define BSP_PLC_SPI_CS_PIN        PORT_PIN_PA5
+#define BSP_PLC_SPI_CS_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 5U) & 0x01U)
+#define BSP_PLC_SPI_CS_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 5U))
+#define BSP_PLC_SPI_CS_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 5U))
+#define BSP_PLC_SPI_CS_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 5U))
+#define BSP_PLC_SPI_CS_On()       BSP_PLC_SPI_CS_Clear()
+#define BSP_PLC_SPI_CS_Off()      BSP_PLC_SPI_CS_Set() 
+
+/*** Macros for PL460_STBY output pin ***/ 
+#define BSP_PL460_STBY_PIN        PORT_PIN_PA8
+#define BSP_PL460_STBY_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 8U) & 0x01U)
+#define BSP_PL460_STBY_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 8U))
+#define BSP_PL460_STBY_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 8U))
+#define BSP_PL460_STBY_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 8U))
+#define BSP_PL460_STBY_On()       BSP_PL460_STBY_Set()
+#define BSP_PL460_STBY_Off()      BSP_PL460_STBY_Clear() 
+
+/*** Macros for PL460_TXEN output pin ***/ 
+#define BSP_PL460_TXEN_PIN        PORT_PIN_PA9
+#define BSP_PL460_TXEN_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 9U) & 0x01U)
+#define BSP_PL460_TXEN_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 9U))
+#define BSP_PL460_TXEN_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 9U))
+#define BSP_PL460_TXEN_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 9U))
+#define BSP_PL460_TXEN_On()       BSP_PL460_TXEN_Set()
+#define BSP_PL460_TXEN_Off()      BSP_PL460_TXEN_Clear() 
+
+/*** Macros for LED0 output pin ***/ 
+#define BSP_LED0_PIN        PORT_PIN_PA14
+#define BSP_LED0_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 14U) & 0x01U)
+#define BSP_LED0_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 14U))
+#define BSP_LED0_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 14U))
+#define BSP_LED0_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 14U))
+#define BSP_LED0_On()       BSP_LED0_Clear()
+#define BSP_LED0_Off()      BSP_LED0_Set() 
+
+/*** Macros for PL460_RST output pin ***/ 
+#define BSP_PL460_RST_PIN        PORT_PIN_PB2
+#define BSP_PL460_RST_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 2U) & 0x01U)
+#define BSP_PL460_RST_Set()      (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 2U))
+#define BSP_PL460_RST_Clear()    (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 2U))
+#define BSP_PL460_RST_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 2U))
+#define BSP_PL460_RST_On()       BSP_PL460_RST_Set()
+#define BSP_PL460_RST_Off()      BSP_PL460_RST_Clear() 
+
+/*** Macros for PL460_ENABLE output pin ***/ 
+#define BSP_PL460_ENABLE_PIN        PORT_PIN_PB3
+#define BSP_PL460_ENABLE_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 3U) & 0x01U)
+#define BSP_PL460_ENABLE_Set()      (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 3U))
+#define BSP_PL460_ENABLE_Clear()    (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 3U))
+#define BSP_PL460_ENABLE_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 3U))
+#define BSP_PL460_ENABLE_On()       BSP_PL460_ENABLE_Clear()
+#define BSP_PL460_ENABLE_Off()      BSP_PL460_ENABLE_Set() 
 
 
-
-/*** LED Macros for LED ***/
-#define LED_Toggle()     (PORT_REGS->GROUP[0].PORT_OUTTGL = 1UL << 14)
-#define LED_On()         (PORT_REGS->GROUP[0].PORT_OUTCLR = 1UL << 14)
-#define LED_Off()        (PORT_REGS->GROUP[0].PORT_OUTSET = 1UL << 14)
-
-/*** SWITCH Macros for SWITCH ***/
-#define SWITCH_Get()     ((PORT_REGS->GROUP[0].PORT_IN >> 15) & 0x01)
-#define SWITCH_STATE_PRESSED   0
-#define SWITCH_STATE_RELEASED  1
-
-
-
+/*** Macros for PL460_NTHW0 input pin ***/ 
+#define BSP_PL460_NTHW0_PIN                    PORT_PIN_PB5
+#define BSP_PL460_NTHW0_Get()                  ((PORT_REGS->GROUP[1].PORT_IN >> 5U) & 0x01U)
+#define BSP_PL460_NTHW0_STATE_PRESSED          1
+#define BSP_PL460_NTHW0_STATE_RELEASED         0
+/*** Macros for USER_BUTTON0 input pin ***/ 
+#define BSP_USER_BUTTON0_PIN                    PORT_PIN_PA15
+#define BSP_USER_BUTTON0_Get()                  ((PORT_REGS->GROUP[0].PORT_IN >> 15U) & 0x01U)
+#define BSP_USER_BUTTON0_STATE_PRESSED          1
+#define BSP_USER_BUTTON0_STATE_RELEASED         0
 
 
 // *****************************************************************************

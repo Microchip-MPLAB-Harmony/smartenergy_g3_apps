@@ -50,7 +50,7 @@
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-/* This section lists the other files that are included in this file. */
+
 #include "device.h"
 #include "plib_flexcom_usart_local.h"
 
@@ -73,27 +73,37 @@ void FLEXCOM0_USART_Initialize( void );
 
 FLEXCOM_USART_ERROR FLEXCOM0_USART_ErrorGet( void );
 
-bool FLEXCOM0_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP *setup, uint32_t srcClkFreq );
+bool FLEXCOM0_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP* setup, uint32_t srcClkFreq );
 
-bool FLEXCOM0_USART_Write( void *buffer, const size_t size );
+size_t FLEXCOM0_USART_Write(uint8_t* pWrBuffer, const size_t size );
 
-bool FLEXCOM0_USART_Read( void *buffer, const size_t size );
+size_t FLEXCOM0_USART_Read(uint8_t* pRdBuffer, const size_t size);
 
-bool FLEXCOM0_USART_WriteIsBusy( void );
+size_t FLEXCOM0_USART_WriteFreeBufferCountGet(void);
 
-bool FLEXCOM0_USART_ReadIsBusy( void );
+size_t FLEXCOM0_USART_WriteBufferSizeGet(void);
 
-size_t FLEXCOM0_USART_WriteCountGet( void );
+bool FLEXCOM0_USART_WriteNotificationEnable(bool isEnabled, bool isPersistent);
 
-size_t FLEXCOM0_USART_ReadCountGet( void );
+void FLEXCOM0_USART_WriteThresholdSet(uint32_t nBytesThreshold);
 
-bool FLEXCOM0_USART_ReadAbort(void);
+size_t FLEXCOM0_USART_ReadFreeBufferCountGet(void);
 
-void FLEXCOM0_USART_WriteCallbackRegister( FLEXCOM_USART_CALLBACK callback, uintptr_t context );
+size_t FLEXCOM0_USART_ReadBufferSizeGet(void);
 
-void FLEXCOM0_USART_ReadCallbackRegister( FLEXCOM_USART_CALLBACK callback, uintptr_t context );
+bool FLEXCOM0_USART_ReadNotificationEnable(bool isEnabled, bool isPersistent);
 
-bool FLEXCOM0_USART_TransmitComplete( void );
+void FLEXCOM0_USART_ReadThresholdSet(uint32_t nBytesThreshold);
+
+size_t FLEXCOM0_USART_WriteCountGet(void);
+
+size_t FLEXCOM0_USART_ReadCountGet(void);
+
+void FLEXCOM0_USART_WriteCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
+
+void FLEXCOM0_USART_ReadCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
+
+bool FLEXCOM0_USART_TransmitComplete(void);
 
 
 // DOM-IGNORE-BEGIN
