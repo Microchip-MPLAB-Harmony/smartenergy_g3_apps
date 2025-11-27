@@ -1,0 +1,202 @@
+configVersion: 1.0.0
+componentName: HarmonyCore
+coreVersion: 5.8.3
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: HarmonyCore
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: HarmonyCore
+          x: '400'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    ENABLE_APP_FILE:
+      attributes:
+        id: ENABLE_APP_FILE
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_DRV_COMMON:
+      attributes:
+        id: ENABLE_DRV_COMMON
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_OSAL:
+      attributes:
+        id: ENABLE_OSAL
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_CACHE:
+      attributes:
+        id: ENABLE_SYS_CACHE
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_COMMON:
+      attributes:
+        id: ENABLE_SYS_COMMON
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_INT:
+      attributes:
+        id: ENABLE_SYS_INT
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_PORTS:
+      attributes:
+        id: ENABLE_SYS_PORTS
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    GEN_APP_TASK_COUNT:
+      attributes:
+        id: GEN_APP_TASK_COUNT
+      children:
+      - children:
+        - attributes:
+            value: '5'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_TASK_NAME_0:
+      attributes:
+        id: GEN_APP_TASK_NAME_0
+      children:
+      - children:
+        - attributes:
+            value: app_g3_management
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_1:
+      attributes:
+        id: GEN_APP_TASK_NAME_1
+      children:
+      - children:
+        - attributes:
+            value: app_eap_server
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_2:
+      attributes:
+        id: GEN_APP_TASK_NAME_2
+      children:
+      - children:
+        - attributes:
+            value: app_storage_samd20
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_3:
+      attributes:
+        id: GEN_APP_TASK_NAME_3
+      children:
+      - children:
+        - attributes:
+            value: app_tcpip_management
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_4:
+      attributes:
+        id: GEN_APP_TASK_NAME_4
+      children:
+      - children:
+        - attributes:
+            value: app_cycles
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_5:
+      attributes:
+        id: GEN_APP_TASK_NAME_5
+      children:
+      - children:
+        - attributes:
+            value: app_eap_server
+          type: User
+        type: Values
+      type: String
+  userData: {}

@@ -1,0 +1,42 @@
+configVersion: 1.0.0
+componentName: g3PalPlc
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: g3PalPlc
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_g3
+  type: package
+  version: v1.1.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: G3 STACK
+    children:
+    - children:
+      - attributes:
+          id: g3PalPlc
+          x: '143'
+          y: '15'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    G3_PAL_PLC_PVDD_MONITOR:
+      attributes:
+        id: G3_PAL_PLC_PVDD_MONITOR
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+  userData: {}

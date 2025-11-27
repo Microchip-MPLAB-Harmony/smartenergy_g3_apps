@@ -644,8 +644,97 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
+      <logicalFolder name="g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos"
+                     displayName="g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos"
+                     projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <logicalFolder name="G3 STACK" displayName="G3 STACK" projectFiles="true">
+            <logicalFolder name="components" displayName="components" projectFiles="true">
+              <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/srvLogReport.yml</itemPath>
+              <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/g3PalRf.yml</itemPath>
+              <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/srvSecurity.yml</itemPath>
+              <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/g3_config.yml</itemPath>
+              <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/srvQueue.yml</itemPath>
+              <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/g3PalPlc.yml</itemPath>
+              <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/srvRandom.yml</itemPath>
+            </logicalFolder>
+            <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/G3 STACK.yml</itemPath>
+          </logicalFolder>
+          <logicalFolder name="TCP_forwardSlash_IP STACK"
+                         displayName="TCP_forwardSlash_IP STACK"
+                         projectFiles="true">
+            <logicalFolder name="components" displayName="components" projectFiles="true">
+              <logicalFolder name="BASIC CONFIGURATION"
+                             displayName="BASIC CONFIGURATION"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipStack.yml</itemPath>
+                </logicalFolder>
+                <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/BASIC CONFIGURATION.yml</itemPath>
+              </logicalFolder>
+              <logicalFolder name="DATA LINK LAYER"
+                             displayName="DATA LINK LAYER"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvMacG3Adp.yml</itemPath>
+                  <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/tcpipNetConfig.yml</itemPath>
+                </logicalFolder>
+                <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/DATA LINK LAYER.yml</itemPath>
+              </logicalFolder>
+              <logicalFolder name="NETWORK LAYER"
+                             displayName="NETWORK LAYER"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipNdp.yml</itemPath>
+                  <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIcmpv6.yml</itemPath>
+                  <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIPv6.yml</itemPath>
+                </logicalFolder>
+                <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/NETWORK LAYER.yml</itemPath>
+              </logicalFolder>
+              <logicalFolder name="TRANSPORT LAYER"
+                             displayName="TRANSPORT LAYER"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/components/tcpipUdp.yml</itemPath>
+                </logicalFolder>
+                <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/TRANSPORT LAYER.yml</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/TCP_forwardSlash_IP STACK/TCP_forwardSlash_IP STACK.yml</itemPath>
+          </logicalFolder>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/cmsis.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/lib_crypto.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/tcpipNetConfig_0.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/drvG3MacRt.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/flexcom3.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/HarmonyCore.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/srv_pcoup.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/drvRf215.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/core.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/dfp.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/sys_console.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/flexcom0.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/trng.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/FreeRTOS.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/sefc1.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/tc0.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/sys_time.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/flexcom5.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/sefc0.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/sys_debug.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/lib_wolfcrypt.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/sys_console_0.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/adc.yml</itemPath>
+          <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/srv_pvddmon.yml</itemPath>
+        </logicalFolder>
+        <itemPath>g3_coordinator_udp_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/mcc-config.mc4</itemPath>
+      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>g3_coordinator_udp_pic32cx_mtg_ek_freertos.mc3</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
