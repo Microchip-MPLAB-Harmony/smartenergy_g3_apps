@@ -1,0 +1,32 @@
+configVersion: 1.0.0
+componentName: g3PalPlc
+coreVersion: 5.8.3
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: g3PalPlc
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_g3
+  type: package
+  version: v1.1.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: G3 STACK
+    children:
+    - children:
+      - attributes:
+          id: g3PalPlc
+          x: '157'
+          y: '153'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols: {}
+  userData: {}

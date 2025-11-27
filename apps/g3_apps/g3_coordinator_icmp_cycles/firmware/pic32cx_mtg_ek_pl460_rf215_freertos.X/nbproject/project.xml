@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_freertos</name>
+            <name>g3_coordinator_icmp_freertos</name>
             <creation-uuid>8a95758d-9d29-4cf0-b82c-60e1a5d1145c</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

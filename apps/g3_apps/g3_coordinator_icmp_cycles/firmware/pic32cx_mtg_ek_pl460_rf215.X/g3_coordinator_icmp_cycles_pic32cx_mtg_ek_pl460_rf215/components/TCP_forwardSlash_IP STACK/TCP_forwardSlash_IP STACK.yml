@@ -35,7 +35,7 @@ dependency:
 - dependencyPackage: ''
   name: smartenergy
   type: package
-  version: v1.4.1
+  version: v1.5.0
 - dependencyPackage: ''
   name: smartenergy_g3
   type: package

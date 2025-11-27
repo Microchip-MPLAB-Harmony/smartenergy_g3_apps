@@ -1,0 +1,42 @@
+configVersion: 1.0.0
+componentName: tcpipNdp
+coreVersion: 5.8.3
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: tcpipNdp
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: NETWORK LAYER
+    children:
+    - children:
+      - attributes:
+          id: tcpipNdp
+          x: '300'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    TCPIP_RTR_SOLICITATION_INTERVAL:
+      attributes:
+        id: TCPIP_RTR_SOLICITATION_INTERVAL
+      children:
+      - children:
+        - attributes:
+            id: tcpipNdp
+            value: '20'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

@@ -37,12 +37,10 @@ dependency:
   type: package
   version: v1.2.1
 - dependencyPackage: ''
-  devMode: true
   name: smartenergy
   type: package
   version: v1.5.0
 - dependencyPackage: ''
-  devMode: true
   name: smartenergy_g3
   type: package
   version: v1.1.0

@@ -87,7 +87,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\bsp\bsp.h
   hash: 4f124497ee0b86184954581d4578c11aa47dd9ccba83465e08f5a2c934741bb8
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\configuration.h
-  hash: 58ae9ba9f998e016ac93ba7376b44a48782df8b882faa0482517fe2de8b94cba
+  hash: be1be64585db7caa5121d2b0e70cc716efa85ed09aa24bccca3c050878f3ed9b
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\crypto\common_crypto\crypto_aead_cipher.h
   hash: 7087b0cbc716590f5347440a7944a964bc1df0c118a46cb6753456d3f9165beb
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\crypto\common_crypto\crypto_common.h
