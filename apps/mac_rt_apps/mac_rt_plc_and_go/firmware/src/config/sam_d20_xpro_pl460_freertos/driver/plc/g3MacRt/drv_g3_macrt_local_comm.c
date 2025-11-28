@@ -646,6 +646,12 @@ void DRV_G3_MACRT_ExternalInterruptHandler(uintptr_t context)
     {
         DRV_G3_MACRT_EVENTS_OBJ evObj;
 
+        if (gG3MacRtObj->plcHal->getPinLevel(gG3MacRtObj->plcHal->plcPlib->extIntPio) == true)
+        {
+            /* External interrupt pin is not active */
+            return;
+        }
+
         /* Time guard */
         gG3MacRtObj->plcHal->delay(20);
 

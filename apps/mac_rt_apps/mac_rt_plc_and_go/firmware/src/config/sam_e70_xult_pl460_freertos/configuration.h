@@ -93,7 +93,7 @@ extern "C" {
 #define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(1U)
 #define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(512U)
 
-#define SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE 	(64)
+#define SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE 	(512)
 
 #define SYS_CONSOLE_INDEX_0                       0
 
@@ -117,7 +117,6 @@ extern "C" {
 
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
-#define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_D
 #define DRV_PLC_EXT_INT_SRC                   PIOD_IRQn
 #define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PD28
 #define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PD28

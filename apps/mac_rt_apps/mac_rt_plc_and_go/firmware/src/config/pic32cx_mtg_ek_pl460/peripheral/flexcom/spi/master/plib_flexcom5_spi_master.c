@@ -63,9 +63,9 @@
 // *****************************************************************************
 // *****************************************************************************
 /* Global object to save FLEXCOM SPI Exchange related data */
-volatile static FLEXCOM_SPI_OBJECT flexcom5SpiObj;
+static volatile FLEXCOM_SPI_OBJECT flexcom5SpiObj;
 
-volatile static uint8_t dummyDataBuffer[512];
+static volatile uint8_t dummyDataBuffer[512];
 
 static void setupDMA( volatile void* pTransmitData, volatile void* pReceiveData, size_t size )
 {

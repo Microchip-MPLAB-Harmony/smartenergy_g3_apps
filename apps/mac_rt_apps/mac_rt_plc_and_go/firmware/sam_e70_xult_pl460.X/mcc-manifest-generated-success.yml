@@ -2,13 +2,13 @@
 
 manifest_file_version: 1.0.0
 project: g3_mac_rt_plc_and_go_sam_e70_xult_pl460
-creation_date: 2025-02-04T09:25:42.149+01:00[Europe/Paris]
-operating_system: Windows 10
+creation_date: 2025-11-28T18:50:39.828+01:00[Europe/Paris]
+operating_system: Windows 11
 mcc_mode: IDE
-mcc_mode_version: v6.20
+mcc_mode_version: v6.25
 device_name: ATSAME70Q21B
 compiler: XC32 4.45
-mcc_version: 5.5.1
+mcc_version: 5.5.2
 mcc_core_version: 5.7.1
 content_manager_version: 5.0.1
 is_mcc_offline: false
@@ -16,11 +16,11 @@ is_using_prerelease_versions: true
 mcc_content_registries: https://registry.npmjs.org/
 device_library: {library_class: com.microchip.mcc.harmony.Harmony3Library, name: Harmony
     V3, version: 1.5.4}
-packs: {name: SAME70_DFP, version: 4.11.257}
+packs: {name: SAME70_DFP, version: 4.12.265}
 modules:
-- {name: csp, type: HARMONY, version: v3.20.0}
-- {name: core, type: HARMONY, version: v3.14.1}
+- {name: csp, type: HARMONY, version: v3.23.0}
+- {name: core, type: HARMONY, version: v3.15.5}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: usb, type: HARMONY, version: v3.15.0}
-- {name: smartenergy, type: HARMONY, version: SMS-4128-support-pl460-multiband-single-branch-coupling-in-h3}
-- {name: shd, type: HARMONY, version: dev}
+- {name: usb, type: HARMONY, version: v3.16.0}
+- {name: smartenergy, type: HARMONY, version: v1.4.1-21-gbfb71f5}
+- {name: shd, type: HARMONY, version: v1.2.1}

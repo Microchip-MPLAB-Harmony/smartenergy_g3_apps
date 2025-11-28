@@ -329,7 +329,7 @@ typedef enum {
     PHY_PIB_PDC_ZC_PERIOD_LAST_RX,
     PHY_PIB_PREAMBLE_NUM_SYNCP,
     PHY_PIB_RSV1,
-	  PHY_PIB_CARRIER_DETECT
+    PHY_PIB_CARRIER_DETECT
 } MAC_RT_PHY_PIB;
 
 // *****************************************************************************
