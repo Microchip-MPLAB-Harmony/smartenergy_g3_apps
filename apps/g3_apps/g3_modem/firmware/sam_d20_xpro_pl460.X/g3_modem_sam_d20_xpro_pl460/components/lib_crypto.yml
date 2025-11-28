@@ -1,0 +1,229 @@
+configVersion: 1.0.0
+componentName: lib_crypto
+coreVersion: 5.8.3
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: lib_crypto
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: LIB_WOLFCRYPT_CAPABILITY
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: lib_wolfcrypt
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: LIB_WOLFCRYPT_DEPENDENCY
+            type: String
+          type: Attributes
+        type: DirectCapability
+      type: Attachments
+    type: lib_crypto
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: lib_crypto
+          x: '313'
+          y: '365'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    crypto_aead_cipher_c_ftl_flag:
+      attributes:
+        id: crypto_aead_cipher_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_aead_cipher_h_ftl_flag:
+      attributes:
+        id: crypto_aead_cipher_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_common_h_ftl_flag:
+      attributes:
+        id: crypto_common_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_config_h_ftl_flag:
+      attributes:
+        id: crypto_config_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_digsign_c_ftl_flag:
+      attributes:
+        id: crypto_digsign_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_digsign_h_ftl_flag:
+      attributes:
+        id: crypto_digsign_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_hash_c_ftl_flag:
+      attributes:
+        id: crypto_hash_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_hash_h_ftl_flag:
+      attributes:
+        id: crypto_hash_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_kas_c_ftl_flag:
+      attributes:
+        id: crypto_kas_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_kas_h_ftl_flag:
+      attributes:
+        id: crypto_kas_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_mac_cipher_c_ftl_flag:
+      attributes:
+        id: crypto_mac_cipher_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_mac_cipher_h_ftl_flag:
+      attributes:
+        id: crypto_mac_cipher_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_rng_c_ftl_flag:
+      attributes:
+        id: crypto_rng_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_rng_h_ftl_flag:
+      attributes:
+        id: crypto_rng_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_sym_cipher_c_ftl_flag:
+      attributes:
+        id: crypto_sym_cipher_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_sym_cipher_h_ftl_flag:
+      attributes:
+        id: crypto_sym_cipher_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+  userData: {}

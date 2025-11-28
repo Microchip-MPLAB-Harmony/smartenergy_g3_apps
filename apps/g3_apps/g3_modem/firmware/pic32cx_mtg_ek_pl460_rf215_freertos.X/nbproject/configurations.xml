@@ -499,8 +499,54 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
+      <logicalFolder name="g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos"
+                     displayName="g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos"
+                     projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <logicalFolder name="G3 STACK" displayName="G3 STACK" projectFiles="true">
+            <logicalFolder name="components" displayName="components" projectFiles="true">
+              <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/srvRandom.yml</itemPath>
+              <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/g3PalPlc.yml</itemPath>
+              <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/g3_config.yml</itemPath>
+              <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/srvQueue.yml</itemPath>
+              <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/srvLogReport.yml</itemPath>
+              <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/g3PalRf.yml</itemPath>
+              <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/components/srvSecurity.yml</itemPath>
+            </logicalFolder>
+            <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/G3 STACK/G3 STACK.yml</itemPath>
+          </logicalFolder>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/srv_usi.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/dfp.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/FreeRTOS.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/adc.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/srv_pvddmon.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/flexcom0.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/srv_usi_0.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/trng.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/sys_time.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/flexcom3.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/core.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/lib_wolfcrypt.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/drvRf215.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/sefc1.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/tc0.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/cmsis.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/srv_pcrc.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/srv_pcoup.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/lib_crypto.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/drvG3MacRt.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/sefc0.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/flexcom5.yml</itemPath>
+          <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/components/HarmonyCore.yml</itemPath>
+        </logicalFolder>
+        <itemPath>g3_modem_freertos_pic32cx_mtg_ek_pl460_rf215_freertos/mcc-config.mc4</itemPath>
+      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>g3_modem_pic32cx_mtg_ek_pl460_rf215_freertos.mc3</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -893,34 +939,11 @@
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <C32>
-        <property key="additional-warnings" value="true"/>
-        <property key="addresss-attribute-use" value="false"/>
         <property key="appendMe" value=""/>
-        <property key="enable-app-io" value="false"/>
-        <property key="enable-omit-frame-pointer" value="false"/>
-        <property key="enable-symbols" value="true"/>
-        <property key="enable-unroll-loops" value="false"/>
-        <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/drivers;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F;../src/third_party/wolfcrypt;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
-        <property key="generate-16-bit-code" value="false"/>
-        <property key="generate-micro-compressed-code" value="false"/>
-        <property key="isolate-each-function" value="true"/>
-        <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value="-O1"/>
-        <property key="place-data-into-section" value="true"/>
-        <property key="post-instruction-scheduling" value="default"/>
-        <property key="pre-instruction-scheduling" value="default"/>
+                  value="../src;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/drivers;../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/crypto/wolfcrypt;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F;../src/third_party/wolfcrypt;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
         <property key="preprocessor-macros"
                   value="HAVE_CONFIG_H;WOLFSSL_IGNORE_FILE_WARN;WOLFSSL_USER_SETTINGS"/>
-        <property key="strict-ansi" value="false"/>
-        <property key="support-ansi" value="false"/>
-        <property key="tentative-definitions" value="-fno-common"/>
-        <property key="toplevel-reordering" value=""/>
-        <property key="unaligned-access" value=""/>
-        <property key="use-cci" value="false"/>
-        <property key="use-iar" value="false"/>
-        <property key="use-indirect-calls" value="false"/>
       </C32>
       <C32-AR>
         <property key="additional-options-chop-files" value="false"/>

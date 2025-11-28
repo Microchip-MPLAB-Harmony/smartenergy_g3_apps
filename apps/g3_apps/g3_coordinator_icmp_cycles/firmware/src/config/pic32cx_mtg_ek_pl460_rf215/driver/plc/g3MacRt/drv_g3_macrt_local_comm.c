@@ -643,6 +643,12 @@ void DRV_G3_MACRT_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
     {
         DRV_G3_MACRT_EVENTS_OBJ evObj;
 
+        if (gG3MacRtObj->plcHal->getPinLevel(gG3MacRtObj->plcHal->plcPlib->extIntPio) == true)
+        {
+            /* External interrupt pin is not active */
+            return;
+        }
+
         /* Time guard */
         gG3MacRtObj->plcHal->delay(20);
 
@@ -787,7 +793,4 @@ void DRV_G3_MACRT_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
         /* Time guard */
         gG3MacRtObj->plcHal->delay(20);
     }
-
-    /* PORT Interrupt Status Clear */
-    (&(PIO0_REGS->PIO_GROUP[DRV_PLC_EXT_INT_PIO_PORT]))->PIO_ISR;
 }

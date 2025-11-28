@@ -1,0 +1,76 @@
+configVersion: 1.0.0
+componentName: srv_usi
+coreVersion: 5.8.3
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: srv_usi
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: srv_usi
+          x: '138'
+          y: '286'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SRV_USI_CDC_API:
+      attributes:
+        id: SRV_USI_CDC_API
+      children:
+      - children:
+        - attributes:
+            id: srv_usi
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_USI_NUM_CDC:
+      attributes:
+        id: SRV_USI_NUM_CDC
+      children:
+      - children:
+        - attributes:
+            id: srv_usi
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_USI_NUM_USART:
+      attributes:
+        id: SRV_USI_NUM_USART
+      children:
+      - children:
+        - attributes:
+            id: srv_usi
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_USI_USART_API:
+      attributes:
+        id: SRV_USI_USART_API
+      children:
+      - children:
+        - attributes:
+            id: srv_usi
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+  userData: {}

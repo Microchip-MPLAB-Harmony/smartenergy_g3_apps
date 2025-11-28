@@ -4,7 +4,7 @@
 
 
 project: g3_coordinator_icmp_cycles
-creation_date: 2025-11-24T17:22:03.042+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-11-28T16:55:46.746+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3
@@ -17,11 +17,11 @@ modules:
     - {name: "csp", version: "v3.23.0"}
     - {name: "core", version: "v3.15.5"}
     - {name: "CMSIS_5", version: "5.9.0"}
-    - {name: "smartenergy_g3", version: "v1.0.1"}
+    - {name: "smartenergy_g3", version: "v1.1.0"}
     - {name: "crypto_v4", version: "v4.0.0-E3"}
     - {name: "wolfssl", version: "v5.7.0"}
     - {name: "net", version: "v3.14.4"}
-    - {name: "smartenergy", version: "v1.4.1"}
+    - {name: "smartenergy", version: "v1.5.0"}
     - {name: "shd", version: "v1.2.1"}
 
 packs:

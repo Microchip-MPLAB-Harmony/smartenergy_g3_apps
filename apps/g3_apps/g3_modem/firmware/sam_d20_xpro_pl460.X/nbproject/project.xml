@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>g3_modem_sam_d20_xpro_pl460</name>
+            <name>g3_modem</name>
             <creation-uuid>ba7f986d-e95e-49c9-ac24-b8b2cdcedb99</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

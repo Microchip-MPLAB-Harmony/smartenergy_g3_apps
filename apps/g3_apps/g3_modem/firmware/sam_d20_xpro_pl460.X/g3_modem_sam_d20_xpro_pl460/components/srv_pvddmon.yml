@@ -1,0 +1,119 @@
+configVersion: 1.0.0
+componentName: srv_pvddmon
+coreVersion: 5.8.3
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: srv_pvddmon
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: srv_pvddmon_ADC_dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: adc
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: ADC_ADC
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: srv_pvddmon
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: srv_pvddmon
+          x: '451'
+          y: '288'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SRV_PVDDMON_HIGH_THRESHOLD_HEX:
+      attributes:
+        id: SRV_PVDDMON_HIGH_THRESHOLD_HEX
+      children:
+      - children:
+        - attributes:
+            id: srv_pvddmon
+            value: '0x9b1'
+          type: Dynamic
+        type: Values
+      type: String
+    SRV_PVDDMON_HIGH_THRESHOLD_HEX_HYST:
+      attributes:
+        id: SRV_PVDDMON_HIGH_THRESHOLD_HEX_HYST
+      children:
+      - children:
+        - attributes:
+            id: srv_pvddmon
+            value: '0x99d'
+          type: Dynamic
+        type: Values
+      type: String
+    SRV_PVDDMON_LOW_THRESHOLD_HEX:
+      attributes:
+        id: SRV_PVDDMON_LOW_THRESHOLD_HEX
+      children:
+      - children:
+        - attributes:
+            id: srv_pvddmon
+            value: '0x774'
+          type: Dynamic
+        type: Values
+      type: String
+    SRV_PVDDMON_LOW_THRESHOLD_HEX_HYST:
+      attributes:
+        id: SRV_PVDDMON_LOW_THRESHOLD_HEX_HYST
+      children:
+      - children:
+        - attributes:
+            id: srv_pvddmon
+            value: '0x785'
+          type: Dynamic
+        type: Values
+      type: String
+    SRV_PVDDMON_PLIB:
+      attributes:
+        id: SRV_PVDDMON_PLIB
+      children:
+      - children:
+        - attributes:
+            id: srv_pvddmon
+            value: ADC
+          type: Dynamic
+        type: Values
+      type: String
+    SRV_PVDDMON_RES_DOWN:
+      attributes:
+        id: SRV_PVDDMON_RES_DOWN
+      children:
+      - children:
+        - attributes:
+            value: '3000'
+          type: User
+        type: Values
+      type: Integer
+  userData: {}

@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>g3_modem_pic32cx_mtg_ek_pl460_rf215_freertos</name>
+            <name>g3_modem_freertos</name>
             <creation-uuid>c76db411-bc1c-4863-9648-4ac2ae1aa81d</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
