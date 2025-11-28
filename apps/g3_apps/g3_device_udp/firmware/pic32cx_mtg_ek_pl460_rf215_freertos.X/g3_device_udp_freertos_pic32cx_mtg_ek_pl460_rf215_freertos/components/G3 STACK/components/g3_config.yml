@@ -1,0 +1,42 @@
+configVersion: 1.0.0
+componentName: g3_config
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: g3_config
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_g3
+  type: package
+  version: v1.1.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: G3 STACK
+    children:
+    - children:
+      - attributes:
+          id: g3_config
+          x: '0'
+          y: '13'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    G3_MODE:
+      attributes:
+        id: G3_MODE
+      children:
+      - children:
+        - attributes:
+            value: G3 Stack (ADP + MAC) Hybrid PLC & RF
+          type: User
+        type: Values
+      type: Combo
+  userData: {}

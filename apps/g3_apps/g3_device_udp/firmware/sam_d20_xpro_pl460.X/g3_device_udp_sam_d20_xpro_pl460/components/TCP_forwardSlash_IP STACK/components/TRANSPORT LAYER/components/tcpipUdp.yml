@@ -1,0 +1,83 @@
+configVersion: 1.0.0
+componentName: tcpipUdp
+coreVersion: 5.8.3
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: tcpipUdp
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: TRANSPORT LAYER
+    children:
+    - children:
+      - attributes:
+          id: tcpipUdp
+          x: '20'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    TCPIP_UDP_HEAP_SIZE:
+      attributes:
+        id: TCPIP_UDP_HEAP_SIZE
+      children:
+      - children:
+        - attributes:
+            id: tcpipUdp
+            value: '5000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    TCPIP_UDP_MAX_SOCKETS:
+      attributes:
+        id: TCPIP_UDP_MAX_SOCKETS
+      children:
+      - children:
+        - attributes:
+            value: '2'
+          type: User
+        type: Values
+      type: Integer
+    TCPIP_UDP_SOCKET_DEFAULT_RX_QUEUE_LIMIT:
+      attributes:
+        id: TCPIP_UDP_SOCKET_DEFAULT_RX_QUEUE_LIMIT
+      children:
+      - children:
+        - attributes:
+            value: '2'
+          type: User
+        type: Values
+      type: Integer
+    TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT:
+      attributes:
+        id: TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT
+      children:
+      - children:
+        - attributes:
+            value: '2'
+          type: User
+        type: Values
+      type: Integer
+    TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE:
+      attributes:
+        id: TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE
+      children:
+      - children:
+        - attributes:
+            id: tcpipUdp
+            value: '1200'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

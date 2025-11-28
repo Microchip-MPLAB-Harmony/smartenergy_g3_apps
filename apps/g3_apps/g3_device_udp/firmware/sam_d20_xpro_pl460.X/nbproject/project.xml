@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>g3_device_udp_sam_d20_xpro_pl460</name>
+            <name>g3_device_udp</name>
             <creation-uuid>9f5f2c60-e0bf-430f-b3f9-1d95f996611d</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

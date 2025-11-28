@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>g3_device_udp_pic32cx_mtg_ek</name>
+            <name>g3_device_udp</name>
             <creation-uuid>1d2ef022-bcce-4f76-8703-c50909547c25</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

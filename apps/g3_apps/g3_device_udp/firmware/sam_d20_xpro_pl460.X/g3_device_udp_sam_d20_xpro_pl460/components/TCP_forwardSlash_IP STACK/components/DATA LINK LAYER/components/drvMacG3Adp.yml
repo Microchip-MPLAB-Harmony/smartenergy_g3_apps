@@ -1,0 +1,42 @@
+configVersion: 1.0.0
+componentName: drvMacG3Adp
+coreVersion: 5.8.3
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: drvMacG3Adp
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_g3
+  type: package
+  version: v1.1.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: DATA LINK LAYER
+    children:
+    - children:
+      - attributes:
+          id: drvMacG3Adp
+          x: '20'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT:
+      attributes:
+        id: DRV_MAC_G3ADP_PACKET_TX_QUEUE_LIMIT
+      children:
+      - children:
+        - attributes:
+            value: '2'
+          type: User
+        type: Values
+      type: Integer
+  userData: {}

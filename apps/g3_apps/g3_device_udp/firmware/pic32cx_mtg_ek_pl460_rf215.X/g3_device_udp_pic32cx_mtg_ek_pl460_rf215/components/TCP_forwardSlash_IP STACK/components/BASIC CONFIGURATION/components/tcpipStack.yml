@@ -1,0 +1,127 @@
+configVersion: 1.0.0
+componentName: tcpipStack
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: tcpipStack
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: BASIC CONFIGURATION
+    children:
+    - children:
+      - attributes:
+          id: tcpipStack
+          x: '20'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    TCPIP_STACK_DOWN_OPERATION:
+      attributes:
+        id: TCPIP_STACK_DOWN_OPERATION
+      children:
+      - children:
+        - attributes:
+            value: 'false'
+          type: User
+        type: Values
+      type: Boolean
+    TCPIP_STACK_DRAM_SIZE:
+      attributes:
+        id: TCPIP_STACK_DRAM_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '11264'
+          type: User
+        type: Values
+      type: Integer
+    TCPIP_STACK_HEAP_CALC_MASK:
+      attributes:
+        id: TCPIP_STACK_HEAP_CALC_MASK
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    TCPIP_STACK_HEAP_SIZE_RECOMMEND:
+      attributes:
+        id: TCPIP_STACK_HEAP_SIZE_RECOMMEND
+      children:
+      - children:
+        - attributes:
+            id: tcpipStack
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    TCPIP_STACK_INTMAC_INTERFACE_NUM:
+      attributes:
+        id: TCPIP_STACK_INTMAC_INTERFACE_NUM
+      children:
+      - children:
+        - attributes:
+            id: tcpipStack
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    TCPIP_STACK_INT_MAC_IDX0:
+      attributes:
+        id: TCPIP_STACK_INT_MAC_IDX0
+      children:
+      - children:
+        - attributes:
+            id: tcpipStack
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    TCPIP_STACK_MII_MODE_IDX0:
+      attributes:
+        id: TCPIP_STACK_MII_MODE_IDX0
+      children:
+      - children:
+        - attributes:
+            id: tcpipStack
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    TCPIP_STACK_NET_INTERFACE_NAME_IDX0:
+      attributes:
+        id: TCPIP_STACK_NET_INTERFACE_NAME_IDX0
+      children:
+      - children:
+        - attributes:
+            id: tcpipStack
+            value: G3ADPMAC
+          type: Dynamic
+        type: Values
+      type: String
+    TCPIP_STACK_NET_INTERFACE_NUM:
+      attributes:
+        id: TCPIP_STACK_NET_INTERFACE_NUM
+      children:
+      - children:
+        - attributes:
+            id: tcpipStack
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}
