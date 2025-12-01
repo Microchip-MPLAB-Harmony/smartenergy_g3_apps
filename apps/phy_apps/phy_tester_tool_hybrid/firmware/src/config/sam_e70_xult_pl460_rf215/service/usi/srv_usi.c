@@ -66,7 +66,7 @@ static SRV_USI_OBJ gSrvUSIOBJ[SRV_USI_INSTANCES_NUMBER] = {
 };
 
 /* This is the USI callback object for each USI instance. */
-static SRV_USI_CALLBACK gSrvUSICallbackOBJ[SRV_USI_INSTANCES_NUMBER][11];
+static SRV_USI_CALLBACK gSrvUSICallbackOBJ[SRV_USI_INSTANCES_NUMBER][12];
 
 // *****************************************************************************
 // *****************************************************************************
@@ -130,6 +130,10 @@ static SRV_USI_CALLBACK_INDEX lSRV_USI_GetCallbackIndexFromProtocol(SRV_USI_PROT
         case SRV_USI_PROT_ID_PHY_RF215:
             callbackIndex = 10;
             break;
+        
+        case SRV_USI_PROT_ID_MM_AL_API:
+            callbackIndex = 11;
+            break;
 
         case SRV_USI_PROT_ID_INVALID:
         default:
@@ -169,6 +173,7 @@ static PCRC_CRC_TYPE lSRV_USI_GetCRCTypeFromProtocol(SRV_USI_PROTOCOL_ID protoco
             break;
             
         case SRV_USI_PROT_ID_PRIME_API:
+        case SRV_USI_PROT_ID_MM_AL_API:
         case SRV_USI_PROT_ID_PHY_MICROPLC:
         case SRV_USI_PROT_ID_INVALID:
         default:
@@ -236,7 +241,8 @@ static void lSRV_USI_Callback_Handle ( uint8_t *pData, uint16_t length, uintptr_
         /* Add extended length */
         if ((protocol == SRV_USI_PROT_ID_ADP_G3) ||
             (protocol == SRV_USI_PROT_ID_COORD_G3) ||
-            (protocol == SRV_USI_PROT_ID_PRIME_API))
+            (protocol == SRV_USI_PROT_ID_PRIME_API) ||
+            (protocol == SRV_USI_PROT_ID_MM_AL_API))
         {
             dataLength += ((uint16_t) pData[USI_XLEN_OFFSET] & USI_XLEN_MSK) << USI_XLEN_SHIFT_L;
         }
@@ -371,7 +377,8 @@ static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
 
     if ((protocol == SRV_USI_PROT_ID_ADP_G3) ||
         (protocol == SRV_USI_PROT_ID_COORD_G3) ||
-        (protocol == SRV_USI_PROT_ID_PRIME_API))
+        (protocol == SRV_USI_PROT_ID_PRIME_API) ||
+        (protocol == SRV_USI_PROT_ID_MM_AL_API))
     {
         /* Adjust extended length */
         command = pData[0];

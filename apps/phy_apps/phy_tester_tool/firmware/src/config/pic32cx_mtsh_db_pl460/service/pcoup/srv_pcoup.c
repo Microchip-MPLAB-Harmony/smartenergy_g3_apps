@@ -107,7 +107,7 @@ SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(uint8_t phyBand)
     /* MISRA C-2012 deviation block start */
     /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
-    if (band == G3_FCC)
+    if (band == G3_CEN_A)
     {
         /* PLC PHY Coupling parameters for Main transmission branch */
         return (SRV_PLC_PCOUP_DATA *)&srvPlcCoup;

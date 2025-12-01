@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>g3_phy_plc_and_go_sam_e70_xult_pl460_freertos</name>
+            <name>g3_phy_plc_and_go_freertos</name>
             <creation-uuid>f0382546-1328-4dda-9297-5e6d3d513623</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

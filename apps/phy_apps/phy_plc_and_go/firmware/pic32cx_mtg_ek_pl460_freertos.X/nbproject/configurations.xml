@@ -284,8 +284,36 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
+      <logicalFolder name="g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos"
+                     displayName="g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos"
+                     projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/dfp.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/HarmonyCore.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/srv_pvddmon.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/adc.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/sys_time.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/cmsis.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/drvPlcPhy.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/flexcom0.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/sefc1.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/sys_console_0.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/sys_console.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/FreeRTOS.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/flexcom5.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/srv_pcoup.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/sefc0.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/tc0.yml</itemPath>
+          <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/components/core.yml</itemPath>
+        </logicalFolder>
+        <itemPath>g3_phy_plc_and_go_freertos_pic32cx_mtg_ek_pl460_freertos/mcc-config.mc4</itemPath>
+      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>g3_phy_plc_and_go_pic32cx_mtg_ek_pl460_freertos.mc3</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -444,7 +472,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>jlink</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.45</languageToolchainVersion>
+        <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

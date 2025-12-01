@@ -248,7 +248,8 @@ static const RF215_OFDM_BW_OPT_CONST_OBJ ofdmBwOptConst[4] = {
         /* Higher threshold than in Table 6-93 to avoid false detections */
         .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(6U),
         .minMCS = OFDM_MCS_0,
-        .sensitivityDBm = -85
+        .sensitivityDBm = -85,
+        .maxTxPowerDBm = 10
     },
 
     /* Option 2 */
@@ -262,7 +263,8 @@ static const RF215_OFDM_BW_OPT_CONST_OBJ ofdmBwOptConst[4] = {
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_1333kHz,
         .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(5U),
         .minMCS = OFDM_MCS_0,
-        .sensitivityDBm = -88
+        .sensitivityDBm = -88,
+        .maxTxPowerDBm = 10
     },
 
     /* Option 3 */
@@ -276,7 +278,8 @@ static const RF215_OFDM_BW_OPT_CONST_OBJ ofdmBwOptConst[4] = {
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_667kHz,
         .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(4U),
         .minMCS = OFDM_MCS_1, /* MCS0 not available in option 3 */
-        .sensitivityDBm = -91
+        .sensitivityDBm = -91,
+        .maxTxPowerDBm = 10
     },
 
     /* Option 4 */
@@ -291,7 +294,8 @@ static const RF215_OFDM_BW_OPT_CONST_OBJ ofdmBwOptConst[4] = {
         /* Higher threshold than in Table 6-93 to avoid false detections */
         .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(4U),
         .minMCS = OFDM_MCS_2, /* MCS0 and MCS1 not available in option 4 */
-        .sensitivityDBm = -94
+        .sensitivityDBm = -94,
+        .maxTxPowerDBm = 11
     }
 };
 
@@ -301,49 +305,49 @@ static const RF215_OFDM_MCS_CONST_OBJ ofdmMcsConst[7] = {
     {
         .repFactorShift = 2U,
         .bitsCarrierShift = 0U,
-        .minTxPwrAttMin = 0U
+        .minTxPwrAtt = 0U
     },
 
     /* MCS1 */
     {
         .repFactorShift = 1U,
         .bitsCarrierShift = 0U,
-        .minTxPwrAttMin = 0U
+        .minTxPwrAtt = 0U
     },
 
     /* MCS2 */
     {
         .repFactorShift = 1U,
         .bitsCarrierShift = 1U,
-        .minTxPwrAttMin = 0U
+        .minTxPwrAtt = 0U
     },
 
     /* MCS3 */
     {
         .repFactorShift = 0U,
         .bitsCarrierShift = 1U,
-        .minTxPwrAttMin = 0U
+        .minTxPwrAtt = 0U
     },
 
     /* MCS4 */
     {
         .repFactorShift = 0U,
         .bitsCarrierShift = 1U,
-        .minTxPwrAttMin = 1U
+        .minTxPwrAtt = 1U
     },
 
     /* MCS5 */
     {
         .repFactorShift = 0U,
         .bitsCarrierShift = 2U,
-        .minTxPwrAttMin = 3U
+        .minTxPwrAtt = 3U
     },
 
     /* MCS6 */
     {
         .repFactorShift = 0U,
         .bitsCarrierShift = 2U,
-        .minTxPwrAttMin = 5U
+        .minTxPwrAtt = 5U
     }
 };
 
@@ -401,6 +405,7 @@ static uint8_t rf215PhyRegRF_IQIFC1;
 // *****************************************************************************
 // *****************************************************************************
 
+static bool lRF215_TRX_SwitchTrxOff(uint8_t trxIdx);
 static void lRF215_TX_PrepareTimeExpired(uintptr_t context);
 static DRV_RF215_PIB_RESULT lRF215_PHY_SetPhyConfig (
     uint8_t trxIdx,
@@ -1704,6 +1709,23 @@ static int8_t lRF215_PHY_SensitivityDBm(uint8_t trxIdx)
     }
 }
 
+static inline int8_t lRF215_PHY_MaxTxPowerDBm(uint8_t trxIdx)
+{
+    DRV_RF215_PHY_CFG_OBJ* phyCfg = &rf215PhyObj[trxIdx].phyConfig;
+    int8_t maxTxPowerDBm = 0;
+
+    if (phyCfg->phyType == PHY_TYPE_FSK)
+    {
+        maxTxPowerDBm += 14;
+    }
+    else /* PHY_TYPE_OFDM */
+    {
+        maxTxPowerDBm += ofdmBwOptConst[phyCfg->phyTypeCfg.ofdm.opt].maxTxPowerDBm;
+    }
+
+    return maxTxPowerDBm;
+}
+
 static bool lRF215_PHY_BandOpModeToPhyCfg (
     DRV_RF215_PHY_BAND_OPM bandOpMode,
     DRV_RF215_PHY_CFG_OBJ* phyConfig
@@ -2245,6 +2267,7 @@ static void lRF215_TRX_RxListen(uint8_t trxIdx)
 
     /* Update PHY state */
     pObj->phyState = PHY_STATE_RX_LISTEN;
+
 
     if (pObj->phyCfgPending == true)
     {
@@ -3526,8 +3549,8 @@ static DRV_RF215_TX_RESULT lRF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 
     /* Check modulation scheme and TX power attenuation parameters */
     txPwrAtt = txBufObj->reqObj.txPwrAtt;
-    phrtx = BBC_FSKPHRTX_FEC_OFF;
     phyRegs = &pObj->phyRegs;
+    phrtx = BBC_FSKPHRTX_FEC_OFF;
     pPHR = &phyRegs->BBCn_FSKPHRTX;
     addrPHR = RF215_BBCn_FSKPHRTX(trxIdx);
 
@@ -3545,7 +3568,7 @@ static DRV_RF215_TX_RESULT lRF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
         mcsIndex = (uint8_t) txBufObj->reqObj.modScheme;
         if (txPwrAtt < 31U)
         {
-            txPwrAtt += ofdmMcsConst[mcsIndex].minTxPwrAttMin;
+            txPwrAtt += ofdmMcsConst[mcsIndex].minTxPwrAtt;
         }
 
         /* BBCn_OFDMPHRTX register value, depending on MCS
@@ -4842,6 +4865,10 @@ DRV_RF215_PIB_RESULT RF215_PHY_GetPib (
 
         case RF215_PIB_PHY_SENSITIVITY:
             *((int8_t *) value) = lRF215_PHY_SensitivityDBm(trxIndex);
+            break;
+
+        case RF215_PIB_PHY_MAX_TX_POWER:
+            *((int8_t *) value) = lRF215_PHY_MaxTxPowerDBm(trxIndex);
             break;
 
         case RF215_PIB_PHY_TURNAROUND_TIME:

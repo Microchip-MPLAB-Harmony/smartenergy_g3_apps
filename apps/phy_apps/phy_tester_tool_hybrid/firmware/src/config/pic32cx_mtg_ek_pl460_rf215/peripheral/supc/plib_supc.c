@@ -187,7 +187,7 @@ void SUPC_WaitModeEnter(WAITMODE_FLASH_STATE flash_lpm, WAITMODE_WKUP_SOURCE sou
     /* Restore Clock Setting */
     SEFC0_Initialize();
     SEFC1_Initialize();
-    CLK_Initialize();
+    CLOCK_Initialize();
 
     /* Enable CPU Interrupt */
     __DMB();

@@ -290,8 +290,39 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
+      <logicalFolder name="g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215"
+                     displayName="g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215"
+                     projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/usb_device_cdc.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/srv_usi.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/srv_rsniffer.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/spi0.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/efc.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/srv_spisplit.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/cmsis.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/srv_usi_0.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/core.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/drvPlcPhy.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/HarmonyCore.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/drv_usbhs_v1.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/BSP_SAM_E70_Xplained_Ultra.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/usb_device_cdc_0.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/srv_pcrc.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/tc0.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/dfp.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/drvRf215.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/srv_psniffer.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/usb_device.yml</itemPath>
+          <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/components/sys_time.yml</itemPath>
+        </logicalFolder>
+        <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult_pl460_rf215/mcc-config.mc4</itemPath>
+      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>g3_phy_sniffer_tool_hybrid_sam_e70_xult.mc3</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -437,7 +468,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.45</languageToolchainVersion>
+        <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -475,6 +506,11 @@
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
         <property key="appendMe" value=""/>
+        <property key="cast-align" value="false"/>
+        <property key="code-model" value="default"/>
+        <property key="const-model" value="default"/>
+        <property key="data-model" value="default"/>
+        <property key="disable-instruction-scheduling" value="false"/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -603,6 +639,7 @@
       </C32CPP>
       <C32Global>
         <property key="appendMe" value=""/>
+        <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="gp-relative-option" value=""/>
         <property key="legacy-libc" value="false"/>

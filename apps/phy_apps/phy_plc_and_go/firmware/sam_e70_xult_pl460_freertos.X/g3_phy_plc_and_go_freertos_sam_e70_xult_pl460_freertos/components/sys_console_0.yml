@@ -1,0 +1,115 @@
+configVersion: 1.0.0
+componentName: sys_console_0
+coreVersion: 5.8.3
+device: ATSAME70Q21B
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: sys_console_0
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: sys_console_USB_DEVICE_CDC_dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: usb_device_cdc_0
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: USB Device
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: sys_console_0
+  elementPosition: {}
+  symbols:
+    SYS_CONSOLE_DEVICE:
+      attributes:
+        id: SYS_CONSOLE_DEVICE
+      children:
+      - children:
+        - attributes:
+            id: sys_console_0
+            value: USB_DEVICE_CDC_0
+          type: Dynamic
+        type: Values
+      type: String
+    SYS_CONSOLE_DEVICE_INDEX:
+      attributes:
+        id: SYS_CONSOLE_DEVICE_INDEX
+      children:
+      - children:
+        - attributes:
+            id: sys_console_0
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SYS_CONSOLE_DEVICE_SET:
+      attributes:
+        id: SYS_CONSOLE_DEVICE_SET
+      children:
+      - children:
+        - attributes:
+            id: sys_console_0
+            value: USB_CDC
+          type: Dynamic
+        type: Values
+      type: String
+    SYS_CONSOLE_DEVICE_USB_INDEX:
+      attributes:
+        id: SYS_CONSOLE_DEVICE_USB_INDEX
+      children:
+      - children:
+        - attributes:
+            id: sys_console
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SYS_CONSOLE_TX_BUFFER_SIZE:
+      attributes:
+        id: SYS_CONSOLE_TX_BUFFER_SIZE
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '512'
+          type: User
+        type: Values
+      type: Integer
+    SYS_CONSOLE_USB_DEVICE_SPEED:
+      attributes:
+        id: SYS_CONSOLE_USB_DEVICE_SPEED
+      children:
+      - children:
+        - attributes:
+            id: sys_console_0
+            value: Full Speed
+          type: Dynamic
+        type: Values
+      type: String
+  userData: {}

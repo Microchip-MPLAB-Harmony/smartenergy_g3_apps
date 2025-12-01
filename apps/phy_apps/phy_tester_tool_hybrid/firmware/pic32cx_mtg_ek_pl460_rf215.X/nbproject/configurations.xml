@@ -274,8 +274,40 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
+      <logicalFolder name="g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215"
+                     displayName="g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215"
+                     projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/drvRf215.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/srv_pcoup.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/srv_rserial.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/dfp.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/flexcom3.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/sefc0.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/adc.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/HarmonyCore.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/srv_pcrc.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/flexcom5.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/sys_time.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/tc0.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/sefc1.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/cmsis.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/srv_usi.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/drvPlcPhy.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/srv_pserial.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/srv_pvddmon.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/flexcom0.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/core.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/srv_usi_0.yml</itemPath>
+        </logicalFolder>
+        <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/mcc-config.mc4</itemPath>
+      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>g3_phy_tester_tool_hybrid_pic32cx_mtg_ek.mc3</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -426,7 +458,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>jlink</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.45</languageToolchainVersion>
+        <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

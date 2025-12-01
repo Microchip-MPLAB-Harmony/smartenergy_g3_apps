@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>g3_phy_plc_and_go_pic32cx_mtg_ek_pl460</name>
+            <name>g3_phy_plc_and_go</name>
             <creation-uuid>4f0de522-1393-4ec9-b0cf-afc20cb1e241</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

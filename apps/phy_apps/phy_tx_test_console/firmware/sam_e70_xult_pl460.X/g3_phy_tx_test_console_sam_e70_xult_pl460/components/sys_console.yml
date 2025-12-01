@@ -1,0 +1,52 @@
+configVersion: 1.0.0
+componentName: sys_console
+coreVersion: 5.8.3
+device: ATSAME70Q21B
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: sys_console
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: sys_console
+          x: '143'
+          y: '347'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SYS_CONSOLE_PRINT_BUFFER_SIZE:
+      attributes:
+        id: SYS_CONSOLE_PRINT_BUFFER_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '512'
+          type: User
+        type: Values
+      type: Integer
+    SYS_CONSOLE_UART_CONNECTION_COUNTER:
+      attributes:
+        id: SYS_CONSOLE_UART_CONNECTION_COUNTER
+      children:
+      - children:
+        - attributes:
+            id: sys_console
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

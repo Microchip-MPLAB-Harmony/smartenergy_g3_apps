@@ -184,7 +184,7 @@ typedef struct
     volatile uint16_t               evRegRspLength;
 
     /* Event detection flag: reset waiting tx cfm */
-    volatile bool                   evResetTxCfm;
+    volatile bool                   evResetTxCfm[1];
 
 } DRV_PLC_PHY_OBJ;
 

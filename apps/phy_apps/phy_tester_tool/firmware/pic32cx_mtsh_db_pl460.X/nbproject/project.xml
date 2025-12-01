@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>g3_phy_tester_tool_pic32cx_mtsh_db_pl460</name>
+            <name>g3_phy_tester_tool</name>
             <creation-uuid>db7b085f-3762-4685-a105-76d0c6c2831e</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

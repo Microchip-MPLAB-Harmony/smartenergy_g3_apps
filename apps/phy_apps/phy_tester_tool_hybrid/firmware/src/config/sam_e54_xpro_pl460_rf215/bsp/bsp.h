@@ -136,14 +136,14 @@
 #define BSP_PL460_TXEN_On()       BSP_PL460_TXEN_Set()
 #define BSP_PL460_TXEN_Off()      BSP_PL460_TXEN_Clear() 
 
-/*** Macros for EXT1_SPI_CS output pin ***/ 
-#define BSP_EXT1_SPI_CS_PIN        PORT_PIN_PB28
-#define BSP_EXT1_SPI_CS_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 28U) & 0x01U)
-#define BSP_EXT1_SPI_CS_Set()      (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 28U))
-#define BSP_EXT1_SPI_CS_Clear()    (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 28U))
-#define BSP_EXT1_SPI_CS_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 28U))
-#define BSP_EXT1_SPI_CS_On()       BSP_EXT1_SPI_CS_Clear()
-#define BSP_EXT1_SPI_CS_Off()      BSP_EXT1_SPI_CS_Set() 
+/*** Macros for PL460_CS output pin ***/ 
+#define BSP_PL460_CS_PIN        PORT_PIN_PB28
+#define BSP_PL460_CS_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 28U) & 0x01U)
+#define BSP_PL460_CS_Set()      (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 28U))
+#define BSP_PL460_CS_Clear()    (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 28U))
+#define BSP_PL460_CS_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 28U))
+#define BSP_PL460_CS_On()       BSP_PL460_CS_Clear()
+#define BSP_PL460_CS_Off()      BSP_PL460_CS_Set() 
 
 /*** Macros for GPIO_PB01 output pin ***/ 
 #define BSP_GPIO_PB01_PIN        PORT_PIN_PB1

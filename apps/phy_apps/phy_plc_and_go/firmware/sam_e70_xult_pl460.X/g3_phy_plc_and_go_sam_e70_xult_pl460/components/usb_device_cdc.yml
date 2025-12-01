@@ -1,0 +1,42 @@
+configVersion: 1.0.0
+componentName: usb_device_cdc
+coreVersion: 5.8.3
+device: ATSAME70Q21B
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: usb_device_cdc
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: usb
+  type: package
+  version: v3.16.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: usb_device_cdc
+          x: '18'
+          y: '306'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    CONFIG_USB_DEVICE_CDC_INSTANCES:
+      attributes:
+        id: CONFIG_USB_DEVICE_CDC_INSTANCES
+      children:
+      - children:
+        - attributes:
+            id: usb_device_cdc
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

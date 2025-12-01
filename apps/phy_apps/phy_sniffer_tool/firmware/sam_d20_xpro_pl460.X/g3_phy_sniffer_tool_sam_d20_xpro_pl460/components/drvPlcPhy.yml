@@ -1,0 +1,207 @@
+configVersion: 1.0.0
+componentName: drvPlcPhy
+coreVersion: 5.8.3
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: drvPlcPhy
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: drvPlcPhy_SPI_dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: sercom0
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: SERCOM0_SPI
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: drvPlcPhy
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: drvPlcPhy
+          x: '476'
+          y: '114'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    DRV_PLC_BAND_IN_USE:
+      attributes:
+        id: DRV_PLC_BAND_IN_USE
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: '2'
+          type: Dynamic
+        type: Values
+      type: Integer
+    DRV_PLC_COUP_G3_SETTING_PL460:
+      attributes:
+        id: DRV_PLC_COUP_G3_SETTING_PL460
+      children:
+      - children:
+        - attributes:
+            value: FCC default (FCC only; main branch)
+          type: User
+        type: Values
+      type: Combo
+    DRV_PLC_EIC_SIGNAL:
+      attributes:
+        id: DRV_PLC_EIC_SIGNAL
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: EIC_PIN_4
+          type: Dynamic
+        type: Values
+      type: Combo
+    DRV_PLC_EXT_INT_PIN:
+      attributes:
+        id: DRV_PLC_EXT_INT_PIN
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: '34'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    DRV_PLC_EXT_INT_PIO_PORT:
+      attributes:
+        id: DRV_PLC_EXT_INT_PIO_PORT
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: PIO_PORT_B
+          type: Dynamic
+        type: Values
+      type: String
+    DRV_PLC_EXT_INT_SRC:
+      attributes:
+        id: DRV_PLC_EXT_INT_SRC
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: PIOB_IRQn
+          type: Dynamic
+        type: Values
+      type: String
+    DRV_PLC_LDO_EN_PIN:
+      attributes:
+        id: DRV_PLC_LDO_EN_PIN
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: '33'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    DRV_PLC_PLIB:
+      attributes:
+        id: DRV_PLC_PLIB
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: SERCOM0
+          type: Dynamic
+        type: Values
+      type: String
+    DRV_PLC_RESET_PIN:
+      attributes:
+        id: DRV_PLC_RESET_PIN
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: '32'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    DRV_PLC_SPI_CS_PIN:
+      attributes:
+        id: DRV_PLC_SPI_CS_PIN
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    DRV_PLC_SPI_NUM_CSR:
+      attributes:
+        id: DRV_PLC_SPI_NUM_CSR
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    DRV_PLC_STBY_PIN:
+      attributes:
+        id: DRV_PLC_STBY_PIN
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: '8'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    DRV_PLC_THMON_PIN:
+      attributes:
+        id: DRV_PLC_THMON_PIN
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: '35'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    DRV_PLC_TX_ENABLE_PIN:
+      attributes:
+        id: DRV_PLC_TX_ENABLE_PIN
+      children:
+      - children:
+        - attributes:
+            id: drvPlcPhy
+            value: '9'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+  userData: {}

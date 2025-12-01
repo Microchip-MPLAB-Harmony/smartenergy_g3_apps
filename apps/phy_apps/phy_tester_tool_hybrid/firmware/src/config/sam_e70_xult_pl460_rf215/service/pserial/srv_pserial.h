@@ -70,10 +70,10 @@ Microchip or any third party.
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
-#define PSERIAL_TONEMAP_SIZE     3U
-#define PSERIAL_SUBBANDS_SIZE    24U
-#define PSERIAL_CARRIERS_SIZE    72U
-#define PSERIAL_MAX_DATA_LEN     494U
+#define PSERIAL_TONEMAP_SIZE     1U
+#define PSERIAL_SUBBANDS_SIZE    6U
+#define PSERIAL_CARRIERS_SIZE    36U
+#define PSERIAL_MAX_DATA_LEN     237U
 
 /* PLC Phy Tester Tool command
 

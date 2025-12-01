@@ -15,7 +15,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -86,17 +86,19 @@ void _on_reset(void)
    /* Coprocessor Peripheral Enable */
    RSTC_REGS->RSTC_MR |= (RSTC_MR_KEY_PASSWD | RSTC_MR_CPEREN_Msk);
    /* Program PMC_CPU_CKR.CPPRES and wait for PMC_SR.CPMCKRDY to be set   */
-   uint32_t reg = (PMC_REGS->PMC_CPU_CKR & ~PMC_CPU_CKR_CPPRES_Msk);
-   reg |= PMC_CPU_CKR_CPPRES_CLK_2;
-   PMC_REGS->PMC_CPU_CKR = reg;
-   PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
-   while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
+   uint32_t prescaler;
+   uint32_t reg = PMC_REGS->PMC_CPU_CKR;
+   if ((reg & PMC_CPU_CKR_CPPRES_Msk) == PMC_CPU_CKR_CPPRES_CLK_1)
    {
-       /* Wait for clock to be initialized */
+       prescaler = PMC_CPU_CKR_CPPRES_CLK_2;
    }
-   /* Disable STBY Pin */
-   SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA16);
-   SYS_PORT_PinClear(SYS_PORT_PIN_PA16);
+   else
+   {
+       prescaler = PMC_CPU_CKR_CPPRES_CLK_1;
+   }
+   reg &= ~PMC_CPU_CKR_CPPRES_Msk;
+   reg |= prescaler | PMC_CPU_CKR_CPCSS_MAINCK;
+   PMC_REGS->PMC_CPU_CKR = reg;
    while ((PMC_REGS->PMC_SR & PMC_SR_CPMCKRDY_Msk) != PMC_SR_CPMCKRDY_Msk)
    {
        /* Wait for status CPMCKRDY */
@@ -106,12 +108,20 @@ void _on_reset(void)
    {
        /* Wait for clock to be initialized */
    }
-   /* Enable Reset Pin */
-   SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
-   SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
    /* Enable LDO Pin */
    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
    SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
+   /* Enable Reset Pin */
+   SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
+   SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
+   PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
+   while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
+   {
+       /* Wait for clock to be initialized */
+   }
+   /* Disable STBY Pin */
+   SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA16);
+   SYS_PORT_PinClear(SYS_PORT_PIN_PA16);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -374,7 +384,7 @@ void SYS_Initialize ( void* data )
     SEFC1_Initialize();
   
     DWDT_Initialize();
-    CLK_Initialize();
+    CLOCK_Initialize();
     RSTC_Initialize();
 
     PIO_Initialize();

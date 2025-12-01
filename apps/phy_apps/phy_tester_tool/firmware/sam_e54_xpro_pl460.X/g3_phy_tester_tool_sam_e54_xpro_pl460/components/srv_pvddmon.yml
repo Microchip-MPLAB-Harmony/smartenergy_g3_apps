@@ -1,0 +1,65 @@
+configVersion: 1.0.0
+componentName: srv_pvddmon
+coreVersion: 5.8.3
+device: ATSAME54P20A
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: srv_pvddmon
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: srv_pvddmon_ADC_dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: adc1
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: ADC1_ADC
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: srv_pvddmon
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: srv_pvddmon
+          x: '453'
+          y: '188'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SRV_PVDDMON_PLIB:
+      attributes:
+        id: SRV_PVDDMON_PLIB
+      children:
+      - children:
+        - attributes:
+            id: srv_pvddmon
+            value: ADC1
+          type: Dynamic
+        type: Values
+      type: String
+  userData: {}

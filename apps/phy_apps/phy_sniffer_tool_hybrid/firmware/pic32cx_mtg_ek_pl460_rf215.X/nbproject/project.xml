@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>g3_phy_sniffer_tool_hybrid_pic32cx_mtg_ek</name>
+            <name>g3_phy_sniffer_tool</name>
             <creation-uuid>8f6712b7-3fc4-4a83-9511-fb33eb129c54</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

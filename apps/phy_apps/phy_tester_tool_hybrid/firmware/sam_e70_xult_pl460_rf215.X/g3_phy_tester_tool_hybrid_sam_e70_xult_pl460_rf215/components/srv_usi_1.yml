@@ -1,0 +1,76 @@
+configVersion: 1.0.0
+componentName: srv_usi_1
+coreVersion: 5.8.3
+device: ATSAME70Q21B
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: srv_usi_1
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: srv_usi_USART_dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: usart1
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: USART1_UART
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: srv_usi_1
+  elementPosition: {}
+  symbols:
+    SRV_USI_DEVICE:
+      attributes:
+        id: SRV_USI_DEVICE
+      children:
+      - children:
+        - attributes:
+            id: srv_usi_1
+            value: USART1
+          type: Dynamic
+        type: Values
+      type: String
+    SRV_USI_DEVICE_SET:
+      attributes:
+        id: SRV_USI_DEVICE_SET
+      children:
+      - children:
+        - attributes:
+            id: srv_usi_1
+            value: UART
+          type: Dynamic
+        type: Values
+      type: String
+    SRV_USI_USART_API_INDEX:
+      attributes:
+        id: SRV_USI_USART_API_INDEX
+      children:
+      - children:
+        - attributes:
+            id: srv_usi
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

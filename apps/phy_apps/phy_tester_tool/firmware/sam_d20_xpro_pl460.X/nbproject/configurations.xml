@@ -213,8 +213,38 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
+      <logicalFolder name="g3_phy_tester_tool_sam_d20_xpro_pl460"
+                     displayName="g3_phy_tester_tool_sam_d20_xpro_pl460"
+                     projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/cmsis.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/dfp.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/eic.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/adc.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/core.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/evsys.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_pserial.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_usi.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/nvmctrl.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_pvddmon.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/tc0.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/sys_time.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/sercom0.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/drvPlcPhy.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/sercom3.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_pcrc.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/mainBoard_SAMD20_XPLAINED_PRO.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_pcoup.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_usi_0.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/HarmonyCore.yml</itemPath>
+        </logicalFolder>
+        <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/mcc-config.mc4</itemPath>
+      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460.mc3</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -341,7 +371,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.45</languageToolchainVersion>
+        <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

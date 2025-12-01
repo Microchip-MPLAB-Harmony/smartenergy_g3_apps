@@ -866,10 +866,6 @@ DRV_RF215_PIB_RESULT DRV_RF215_GetPib (
             (void) memcpy(value, (const void *) &rf215FwVersion, sizeof(rf215FwVersion));
             break;
 
-        case RF215_PIB_PHY_MAX_TX_POWER:
-            *((int8_t *) value) = 14;
-            break;
-
         default:
             result = RF215_PHY_GetPib(clientObj->trxIndex, attr, value);
             break;

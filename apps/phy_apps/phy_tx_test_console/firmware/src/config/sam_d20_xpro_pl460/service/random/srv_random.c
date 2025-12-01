@@ -105,7 +105,7 @@ uint32_t SRV_RANDOM_Get32bits(void)
 
     seed = SYS_TIME_CounterGet();
     srand(seed);
-    retValue = rand();
+    retValue = (uint32_t)rand();
 
     return retValue;
 }
@@ -132,9 +132,9 @@ void SRV_RANDOM_Get128bits(uint8_t *rndValue)
     seed = SYS_TIME_CounterGet();
     srand(seed);
 
-    for (n = 0; n < 4; n ++)
+    for (n = 0; n < 4U; n ++)
     {
-        randNum = rand();
+        randNum = (uint32_t)rand();
 
         *rndValue++ = (uint8_t)(randNum >> 24);
         *rndValue++ = (uint8_t)(randNum >> 16);

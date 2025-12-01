@@ -1,0 +1,111 @@
+configVersion: 1.0.0
+componentName: efc
+coreVersion: 5.8.3
+device: ATSAME70Q21B
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: efc
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: EFC_MEMORY
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: drv_memory_0
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: drv_memory_MEMORY_dependency
+            type: String
+          type: Attributes
+        type: DirectCapability
+      type: Attachments
+    type: efc
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: efc
+          x: '0'
+          y: '253'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    DRV_MEMORY_CONNECTED:
+      attributes:
+        id: DRV_MEMORY_CONNECTED
+      children:
+      - children:
+        - attributes:
+            id: drv_memory_0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    MEMORY_MEDIA_SIZE:
+      attributes:
+        id: MEMORY_MEDIA_SIZE
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '8'
+          type: User
+        type: Values
+      type: Integer
+    NVM_RWS:
+      attributes:
+        id: NVM_RWS
+      children:
+      - children:
+        - attributes:
+            id: efc
+            value: '6'
+          type: Dynamic
+        type: Values
+      type: Integer
+    START_ADDRESS:
+      attributes:
+        id: START_ADDRESS
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '500000'
+          type: User
+        type: Values
+      type: String
+  userData: {}

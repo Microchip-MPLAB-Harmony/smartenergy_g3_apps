@@ -182,14 +182,14 @@
 #define PL460_MOSI_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 27U)) & 0x01U)
 #define PL460_MOSI_PIN                  PORT_PIN_PB27
 
-/*** Macros for EXT1_SPI_CS pin ***/
-#define EXT1_SPI_CS_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 28U))
-#define EXT1_SPI_CS_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 28U))
-#define EXT1_SPI_CS_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 28U))
-#define EXT1_SPI_CS_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 28U))
-#define EXT1_SPI_CS_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 28U))
-#define EXT1_SPI_CS_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 28U)) & 0x01U)
-#define EXT1_SPI_CS_PIN                  PORT_PIN_PB28
+/*** Macros for PL460_CS pin ***/
+#define PL460_CS_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 28U))
+#define PL460_CS_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 28U))
+#define PL460_CS_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 28U))
+#define PL460_CS_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 28U))
+#define PL460_CS_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 28U))
+#define PL460_CS_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 28U)) & 0x01U)
+#define PL460_CS_PIN                  PORT_PIN_PB28
 
 /*** Macros for PL460_MISO pin ***/
 #define PL460_MISO_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 29U)) & 0x01U)
