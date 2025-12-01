@@ -139,6 +139,9 @@ typedef enum
     /* PRIME API  */
     SRV_USI_PROT_ID_PRIME_API                 = 0x30,
 
+    /* Meters&More AL API */
+    SRV_USI_PROT_ID_MM_AL_API                 = 0x31,
+
     /* Invalid protocol  */
     SRV_USI_PROT_ID_INVALID                   = 0xFF
 

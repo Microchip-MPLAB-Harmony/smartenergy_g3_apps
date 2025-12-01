@@ -1242,6 +1242,26 @@ DRV_RF215_TX_BUFFER_OBJ* DRV_RF215_TxHandleValidate(DRV_RF215_TX_HANDLE txHandle
 #define RF215_BBCn_FSKPHRRX_FCST_32      RF215_BBCn_FSKPHRRX_FCST(0U) /* FCS type 32-bit */
 #define RF215_BBCn_FSKPHRRX_FCST_16      RF215_BBCn_FSKPHRRX_FCST(1U) /* FCS type 16-bit */
 
+/** BBCn_FSKRPC - FSK Reduced Power Consumption */
+/* Bit 2:0 - FSKRPC.BASET: Base Time */
+#define RF215_BBCn_FSKRPC_BASET_Pos            0U
+#define RF215_BBCn_FSKRPC_BASET_Msk            (0x7U << RF215_BBCn_FSKRPC_BASET_Pos)
+#define RF215_BBCn_FSKRPC_BASET(x)             (((x) << RF215_BBCn_FSKRPC_BASET_Pos) & RF215_BBCn_FSKRPC_BASET_Msk)
+#define RF215_BBCn_FSKRPC_BASET_0_5us          RF215_BBCn_FSKRPC_BASET(0U)
+#define RF215_BBCn_FSKRPC_BASET_1us            RF215_BBCn_FSKRPC_BASET(1U)
+#define RF215_BBCn_FSKRPC_BASET_2us            RF215_BBCn_FSKRPC_BASET(2U)
+#define RF215_BBCn_FSKRPC_BASET_4us            RF215_BBCn_FSKRPC_BASET(3U) /* Default */
+#define RF215_BBCn_FSKRPC_BASET_8us            RF215_BBCn_FSKRPC_BASET(4U)
+#define RF215_BBCn_FSKRPC_BASET_16us           RF215_BBCn_FSKRPC_BASET(5U)
+#define RF215_BBCn_FSKRPC_BASET_32us           RF215_BBCn_FSKRPC_BASET(6U)
+#define RF215_BBCn_FSKRPC_BASET_64us           RF215_BBCn_FSKRPC_BASET(7U)
+/* Bit 3 - FSKRPC.EN: Enable */
+#define RF215_BBCn_FSKRPC_EN_Pos               3U
+#define RF215_BBCn_FSKRPC_EN_Msk               (0x1U << RF215_BBCn_FSKRPC_EN_Pos)
+#define RF215_BBCn_FSKRPC_EN(x)                (((x) << RF215_BBCn_FSKRPC_EN_Pos) & RF215_BBCn_FSKRPC_EN_Msk)
+#define RF215_BBCn_FSKRPC_EN_DIS               RF215_BBCn_FSKRPC_EN(0U)
+#define RF215_BBCn_FSKRPC_EN_EN                RF215_BBCn_FSKRPC_EN(1U)
+
 /** BBCn_FSKDM - FSK Direct Modulation */
 /* Bit 0 - FSKDM.EN: FSK Direct Modulation Enable */
 #define RF215_BBCn_FSKDM_EN              (1U << 0)
@@ -1303,6 +1323,9 @@ DRV_RF215_TX_BUFFER_OBJ* DRV_RF215_TxHandleValidate(DRV_RF215_TX_HANDLE txHandle
 #define RF215_BBCn_FSKSFD1H_Rst          (0x72U)
 #define RF215_BBCn_FSKPHRTX_Rst          (RF215_BBCn_FSKPHRTX_DW_EN)
 #define RF215_BBCn_FSKPHRRX_Rst          (0x00U)
+#define RF215_BBCn_FSKRPC_Rst            (RF215_BBCn_FSKRPC_BASET_4us | RF215_BBCn_FSKRPC_EN_DIS)
+#define RF215_BBCn_FSKRPCONT_Rst         (0xA0U)
+#define RF215_BBCn_FSKRPCOFFT_Rst        (0xA0U)
 #define RF215_BBCn_FSKRRXFLL_Rst         (0xFFU)
 #define RF215_BBCn_FSKRRXFLH_Rst         (0x07U)
 #define RF215_BBCn_FSKDM_Rst             (0x00U)

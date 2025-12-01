@@ -335,7 +335,7 @@ static void lRF215_HAL_SpiDmaHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
     RF215_SPI_TRANSFER_OBJ* transfer = rf215HalObj.spiQueueFirst;
     SYS_DMA_CHANNEL dmaChannel = (SYS_DMA_CHANNEL) ctxt;
     bool restartTransfer = false;
-
+    
     if (transfer == NULL)
     {
         /* Empty SPI transfer queue, probably because of RF215_HAL_Reset */
@@ -425,8 +425,8 @@ void RF215_HAL_Initialize(const DRV_RF215_INIT * const init)
 {
     /* Store interrupt sources */
     rf215HalObj.sysTimeIntSource = init->sysTimeIntSource;
-    rf215HalObj.dmaIntSource = init->dmaIntSource;
     rf215HalObj.plcExtIntSource = init->plcExtIntSource;
+    rf215HalObj.dmaIntSource = init->dmaIntSource;
 
     /* Store pointers to SPI PLIB functions */
     rf215HalObj.spiPlibIsBusy = init->spiPlibIsBusy;

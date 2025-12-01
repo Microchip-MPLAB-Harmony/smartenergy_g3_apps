@@ -45,10 +45,10 @@
 #include "interrupts.h"
 
 /* Array to store callback objects of each configured interrupt */
-volatile static PIO_PIN_CALLBACK_OBJ portPinCbObj[1];
+static volatile PIO_PIN_CALLBACK_OBJ portPinCbObj[1];
 
 /* Array to store number of interrupts in each PORT Channel + previous interrupt count */
-volatile static uint8_t portNumCb[7 + 1] = { 0, 1, 1, 1, 1, 1, 1, 1, };
+static volatile uint8_t portNumCb[7 + 1] = { 0, 1, 1, 1, 1, 1, 1, 1, };
 
 /* PIO base address for each port group */
 static pio_registers_t* const PIO_REGS[PIO_PORT_MAX] = { PIO0_REGS, PIO0_REGS, PIO0_REGS, PIO1_REGS };

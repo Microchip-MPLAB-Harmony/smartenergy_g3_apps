@@ -403,6 +403,10 @@ typedef struct
      * Sensitivity for MCS6 is selected (worst case) */
     int8_t                          sensitivityDBm;
 
+    /* Maximum Tx Power in dBm.
+     * From Figure 11-2 of RF215 datasheet */
+    int8_t                          maxTxPowerDBm;
+
 } RF215_OFDM_BW_OPT_CONST_OBJ;
 
 // *****************************************************************************
@@ -421,7 +425,7 @@ typedef struct
     uint8_t                         bitsCarrierShift;
 
     /* Minimum TX power attenuation to satisfy EVM requirements [Table 6-91] */
-    uint8_t                         minTxPwrAttMin;
+    uint8_t                         minTxPwrAtt;
 
 } RF215_OFDM_MCS_CONST_OBJ;
 

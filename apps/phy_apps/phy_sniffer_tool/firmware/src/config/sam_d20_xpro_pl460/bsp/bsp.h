@@ -64,6 +64,15 @@
 #define SAMD20_XPLAINED_PRO
 #define BOARD_NAME    "SAMD20-XPLAINED-PRO"
 
+/*** Macros for PL460_CS output pin ***/ 
+#define BSP_PL460_CS_PIN        PORT_PIN_PA5
+#define BSP_PL460_CS_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 5U) & 0x01U)
+#define BSP_PL460_CS_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 5U))
+#define BSP_PL460_CS_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 5U))
+#define BSP_PL460_CS_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 5U))
+#define BSP_PL460_CS_On()       BSP_PL460_CS_Clear()
+#define BSP_PL460_CS_Off()      BSP_PL460_CS_Set() 
+
 /*** Macros for PL460_STBY output pin ***/ 
 #define BSP_PL460_STBY_PIN        PORT_PIN_PA8
 #define BSP_PL460_STBY_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 8U) & 0x01U)

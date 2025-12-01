@@ -47,9 +47,8 @@ Microchip or any third party.
 // *****************************************************************************
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "device.h"
-#include "interrupts.h"
-#include "peripheral/afec/plib_afec_common.h"
 
 #ifdef __cplusplus // Provide C++ Compatibility
  extern "C" {

@@ -6664,15 +6664,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_MM_BAND"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_MM_BAND&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_MODE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_MODE&quot;&gt;
@@ -6783,15 +6774,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_PRIME_BAND_AUX"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_PRIME_BAND_AUX&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_PRIME_CH1"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_PRIME_CH1&quot;&gt;
@@ -6876,15 +6858,6 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_PRIME_DEF_CHN"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_PRIME_DEF_CHN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_PRIME_HIGH_ATTENUATION"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_PRIME_HIGH_ATTENUATION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
@@ -7501,98 +7474,6 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAME70_XPLAINED_ULTRA" name="SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_UART"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAME70_XPLAINED_ULTRA&gt;
   &lt;mainBoard_SAME70_XPLAINED_ULTRA dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_UART&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-&lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAME70_XPLAINED_ULTRA" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-Header"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAME70_XPLAINED_ULTRA&gt;
-  &lt;mainBoard_SAME70_XPLAINED_ULTRA dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-Header&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-&lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAME70_XPLAINED_ULTRA" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_AN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAME70_XPLAINED_ULTRA&gt;
-  &lt;mainBoard_SAME70_XPLAINED_ULTRA dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_AN&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;/&gt;
-  &lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-&lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAME70_XPLAINED_ULTRA" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_I2C"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAME70_XPLAINED_ULTRA&gt;
-  &lt;mainBoard_SAME70_XPLAINED_ULTRA dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_I2C&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;/&gt;
-  &lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-&lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAME70_XPLAINED_ULTRA" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_INT"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAME70_XPLAINED_ULTRA&gt;
-  &lt;mainBoard_SAME70_XPLAINED_ULTRA dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_INT&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;/&gt;
-  &lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-&lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAME70_XPLAINED_ULTRA" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_PWM"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAME70_XPLAINED_ULTRA&gt;
-  &lt;mainBoard_SAME70_XPLAINED_ULTRA dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_PWM&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;/&gt;
-  &lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-&lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAME70_XPLAINED_ULTRA" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_RST"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAME70_XPLAINED_ULTRA&gt;
-  &lt;mainBoard_SAME70_XPLAINED_ULTRA dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_RST&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-&lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAME70_XPLAINED_ULTRA" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_SPI"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAME70_XPLAINED_ULTRA&gt;
-  &lt;mainBoard_SAME70_XPLAINED_ULTRA dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_SPI&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-&lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAME70_XPLAINED_ULTRA" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_UART"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAME70_XPLAINED_ULTRA&gt;
-  &lt;mainBoard_SAME70_XPLAINED_ULTRA dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-Header_UART&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
 &lt;/mainBoard_SAME70_XPLAINED_ULTRA&gt;
@@ -11637,15 +11518,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\configuration.h</file>
-         <hash>130708f0d9093fbcd46d201a3e73151ef9cf102dd42cef33070b975013aa3028</hash>
+         <hash>24f3367fb7e8abee170a44d588431c4499721ae7d94fa860004b3217f72469b0</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\definitions.h</file>
-         <hash>b61a829609eed8d52a49b91ea78b248b6e8411e27b38c6051602897b3cbcb7cf</hash>
+         <hash>c3524b0991fc503358bac483298bf0d419dd3a581a8c86a834d624c6127d019a</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\device.h</file>
-         <hash>d3fa0c4731e363e46dd050fe9faed0c1c67626d1b1501883c7fbfe67991291ea</hash>
+         <hash>20dfb84db53f624d3d222de5c7063708d1393bbfe5dfa2ead18ae753ceb5988f</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\device_cache.h</file>
@@ -11681,7 +11562,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\driver\plc\phy\bin\PLC_PHY_G3_MULTIBAND.bin</file>
-         <hash>6d50fce081e405214f7c9b9a895e9efd6cb694cf753795adb68916bd6e48127f</hash>
+         <hash>f6a248a8f053375ef5136b94c878770a217d9c3fd598b87689f02f54431043e2</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\driver\plc\phy\bin\plc_phy_bin.S</file>
@@ -11697,11 +11578,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>00b3e4b6f24e3eaf1a3785f9605c73955a6d7a264059a35eb5b68aae9415fba4</hash>
+         <hash>b8a92ce207c81f28de046ebc7664185a107712b54e730730ec46e1c71140cfb9</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\driver\plc\phy\drv_plc_phy_comm.h</file>
-         <hash>784d1eeff081623deb12a080f7a4aa7d4da7a948f02aaef3bebf6cc51421dde6</hash>
+         <hash>0d57b6a3b488207b56870219853b84847b3f7e1ab9756e78af447787555ef214</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\driver\plc\phy\drv_plc_phy_definitions.h</file>
@@ -11709,7 +11590,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\driver\plc\phy\drv_plc_phy_local.h</file>
-         <hash>d87d611475a8617df0d6d2841fc0fced5714e57850332c837538fa20b71b76ae</hash>
+         <hash>c8cb9c6fc3cd8ef6dce380db09e127255ea348ab2ecd9d763ea11c6be464e352</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\driver\plc\phy\drv_plc_phy_local_comm.h</file>
@@ -11753,15 +11634,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\initialization.c</file>
-         <hash>54fe35b67c1d6710ba805d4abb324b8ad0c67cf00be8ea8cfef24f1be1e6ce5c</hash>
+         <hash>326372740f8616fd8a06b80df209ed64baa5f84e085db7c844021ca662b8c149</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\interrupts.c</file>
-         <hash>6a31892950c783f8abd0175dfd7b3f909446f3e717aec74ec58a72827fd43478</hash>
+         <hash>e4566b9009de1fabc4309585176b80fc96f9f9f9e6cc01b47a9613586b1fc4de</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\interrupts.h</file>
-         <hash>677ac8411172a008dd7cdf2a060881b9e65108b561008e41ad6ba299adf9ec6b</hash>
+         <hash>94533ddde233a95e913b6ab3c754fef28fe580a0ae9fc07cda1a563ba81aac04</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\libc_syscalls.c</file>
@@ -11785,7 +11666,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\peripheral\afec\plib_afec1.c</file>
-         <hash>8a8ab6d07727361b85ea7fd9cd40d932c506cc76b07dc6606954794fc043fdb3</hash>
+         <hash>694c8a72e9b6eabc1117c89fb2c48453b4cb2dbeded6a11a96ceda23a1b76758</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\peripheral\afec\plib_afec1.h</file>
@@ -11821,7 +11702,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\peripheral\pio\plib_pio.c</file>
-         <hash>1719c091fdaf8d2ac03e89eedfc40dd1f3c2f4eec5fe5a09d6333296a7515766</hash>
+         <hash>f76483544fe251ae5a3a64a179d8c727431aff97e43a59452601edc98b611a86</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\peripheral\pio\plib_pio.h</file>
@@ -11841,7 +11722,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\peripheral\tc\plib_tc0.c</file>
-         <hash>b193f7c7dade208f4ccef393a627107f5c5bb9a1116b6f0642183f97d1caad93</hash>
+         <hash>4d5a4efca80fca58ba09f149661a63c503f666cce5e3618db12cf62ee28076d7</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\peripheral\tc\plib_tc0.h</file>
@@ -11861,7 +11742,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\peripheral\xdmac\plib_xdmac.c</file>
-         <hash>c8260c8725ea63dbd6f8a6eb616853a5aee886ae441ef55d1d9bf6586680e39e</hash>
+         <hash>81a9f61366ee519f9cf10f06c34e1c514dce9d9757b3888929b9cbd9b634afa6</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\peripheral\xdmac\plib_xdmac.h</file>
@@ -11881,15 +11762,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\service\pcoup\srv_pcoup.h</file>
-         <hash>e0f53efb2627a0f9613c07c62699b5e650a6d3abfdafda9e05521bc75fd642f2</hash>
+         <hash>8e94e1c742914680907ea83721531d880e27fa776c07074943505863caa4db4b</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\service\pvddmon\srv_pvddmon.c</file>
-         <hash>3e50c5012823f71b229f9a3fdcfa2db8cbb9a4789c25933cbcc4a6e3f0453fb9</hash>
+         <hash>1955d94b1a3a6c36814bf7b06cb9f2bc03e04f4f31f33de91622e88cfa5abacb</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\service\pvddmon\srv_pvddmon.h</file>
-         <hash>1db4c7fa83311a565a25281a90770178c38db71e3666b7d7c0c1ab9d40a7b49f</hash>
+         <hash>d1d727feba9ff94067ae663d9dff93bdb83e69af52f3e02c4fe113a7428cb10a</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\startup_xc32.c</file>
@@ -11921,11 +11802,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\system\console\src\sys_console_usb_cdc.c</file>
-         <hash>055fe02aee469083368ab61a1b5edc3748eb1fe456caa70db740fbe9fde6c9c0</hash>
+         <hash>85693128463d52f0adf2a48544de209706b29f16412abc31b6eb666a8aee0887</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\system\console\src\sys_console_usb_cdc.h</file>
-         <hash>a8af18238daf32c58e7ec78adf255e18e9ac62f9d959120e1c600f2c3f1216f0</hash>
+         <hash>bde5eeb0073be98db7670a3e79ba388ee1452eb79bfa2dda4271479898e22db2</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_freertos\system\console\src\sys_console_usb_cdc_definitions.h</file>

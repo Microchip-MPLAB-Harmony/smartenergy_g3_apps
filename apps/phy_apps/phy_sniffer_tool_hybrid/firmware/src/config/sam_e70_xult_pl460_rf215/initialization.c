@@ -15,7 +15,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -93,7 +93,7 @@ static const DRV_RF215_INIT drvRf215InitData = {
     .sysTimeIntSource = TC0_CH0_IRQn,
 
     /* Interrupt source ID for PLC external interrupt */
-    .plcExtIntSource = PIOD_IRQn,
+    .plcExtIntSource = DRV_PLC_EXT_INT_SRC,
 
     /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */
     .rf09PhyBandOpmIni = SUN_FSK_BAND_863_OPM1,
@@ -116,15 +116,15 @@ void _on_reset(void)
 {
     /* Enables PIOA and PIOC */
     PMC_REGS->PMC_PCER0 = PMC_PCER0_PID10_Msk | PMC_PCER0_PID12_Msk;
+    /* Enable LDO Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
+    SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
     /* Enable Reset Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
     /* Disable STBY Pin */
     SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA3);
     SYS_PORT_PinClear(SYS_PORT_PIN_PA3);
-    /* Enable LDO Pin */
-    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
-    SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
 }
 
 /* MISRA C-2012 deviation block end */

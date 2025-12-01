@@ -249,6 +249,7 @@ static uint8_t rf215PhyRegRF_IQIFC1;
 // *****************************************************************************
 // *****************************************************************************
 
+static bool lRF215_TRX_SwitchTrxOff(uint8_t trxIdx);
 static void lRF215_TX_PrepareTimeExpired(uintptr_t context);
 static DRV_RF215_PIB_RESULT lRF215_PHY_SetPhyConfig (
     uint8_t trxIdx,
@@ -1225,6 +1226,15 @@ static int8_t lRF215_PHY_SensitivityDBm(uint8_t trxIdx)
     return fskSymRateConst[phyCfg->phyTypeCfg.fsk.symRate].sensitivityDBm;
 }
 
+static inline int8_t lRF215_PHY_MaxTxPowerDBm(uint8_t trxIdx)
+{
+    int8_t maxTxPowerDBm = 0;
+
+    maxTxPowerDBm += 14;
+
+    return maxTxPowerDBm;
+}
+
 static bool lRF215_PHY_BandOpModeToPhyCfg (
     DRV_RF215_PHY_BAND_OPM bandOpMode,
     DRV_RF215_PHY_CFG_OBJ* phyConfig
@@ -1610,6 +1620,7 @@ static void lRF215_TRX_RxListen(uint8_t trxIdx)
 
     /* Update PHY state */
     pObj->phyState = PHY_STATE_RX_LISTEN;
+
 
     if (pObj->phyCfgPending == true)
     {
@@ -2753,8 +2764,8 @@ static DRV_RF215_TX_RESULT lRF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 
     /* Check modulation scheme and TX power attenuation parameters */
     txPwrAtt = txBufObj->reqObj.txPwrAtt;
-    phrtx = BBC_FSKPHRTX_FEC_OFF;
     phyRegs = &pObj->phyRegs;
+    phrtx = BBC_FSKPHRTX_FEC_OFF;
     pPHR = &phyRegs->BBCn_FSKPHRTX;
     addrPHR = RF215_BBCn_FSKPHRTX(trxIdx);
 
@@ -4001,6 +4012,10 @@ DRV_RF215_PIB_RESULT RF215_PHY_GetPib (
 
         case RF215_PIB_PHY_SENSITIVITY:
             *((int8_t *) value) = lRF215_PHY_SensitivityDBm(trxIndex);
+            break;
+
+        case RF215_PIB_PHY_MAX_TX_POWER:
+            *((int8_t *) value) = lRF215_PHY_MaxTxPowerDBm(trxIndex);
             break;
 
         case RF215_PIB_PHY_TURNAROUND_TIME:

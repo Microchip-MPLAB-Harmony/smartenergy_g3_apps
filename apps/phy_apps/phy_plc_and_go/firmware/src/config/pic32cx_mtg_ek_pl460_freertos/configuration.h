@@ -109,7 +109,6 @@ extern "C" {
 
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
-#define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A
 #define DRV_PLC_EXT_INT_SRC                   PIOA_IRQn
 #define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PA2
 #define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PA2

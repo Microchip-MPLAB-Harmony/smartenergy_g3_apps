@@ -37,6 +37,6 @@ Microchip or any third party.
 
   .align 8
 plc_phy_bin_start:
-  .incbin "./PLC_PHY_G3_FCC.bin"
+  .incbin "./PLC_PHY_G3_CENA.bin"
   .align 8
 plc_phy_bin_end:

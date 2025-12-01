@@ -52,6 +52,7 @@ Microchip or any third party.
 #include <stdbool.h>
 #include "system/ports/sys_ports.h"
 #include "peripheral/sercom/spi_master/plib_sercom_spi_master_common.h"
+
 #include "peripheral/eic/plib_eic.h"
 
 // DOM-IGNORE-BEGIN

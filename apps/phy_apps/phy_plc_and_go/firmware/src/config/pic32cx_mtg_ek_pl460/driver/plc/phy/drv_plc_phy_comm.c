@@ -325,7 +325,7 @@ static bool lDRV_PLC_PHY_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
         /* Check if there is any tx_cfm pending to be reported */
         if (gPlcPhyObj->state[0] == DRV_PLC_PHY_STATE_WAITING_TX_CFM)
         {
-            gPlcPhyObj->evResetTxCfm = true;
+            gPlcPhyObj->evResetTxCfm[0] = true;
         }
     }
 
@@ -433,7 +433,7 @@ void DRV_PLC_PHY_Init(DRV_PLC_PHY_OBJ *plcPhyObj)
     gPlcPhyObj->evRxPar = false;
     gPlcPhyObj->evRxDat = false;
     gPlcPhyObj->evRegRspLength = 0;
-    gPlcPhyObj->evResetTxCfm = false;
+    gPlcPhyObj->evResetTxCfm[0] = false;
 
     /* Enable external interrupt from PLC */
     gPlcPhyObj->plcHal->enableExtInt(true);
@@ -447,16 +447,16 @@ void DRV_PLC_PHY_Task(void)
     }
 
     /* Check event flags */
-    if ((gPlcPhyObj->evTxCfm[0]) || (gPlcPhyObj->evResetTxCfm))
+    if ((gPlcPhyObj->evTxCfm[0]) || (gPlcPhyObj->evResetTxCfm[0]))
     {
         DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmObj;
 
         /* Reset event flag */
         gPlcPhyObj->evTxCfm[0] = false;
 
-        if (gPlcPhyObj->evResetTxCfm)
+        if (gPlcPhyObj->evResetTxCfm[0])
         {
-            gPlcPhyObj->evResetTxCfm = false;
+            gPlcPhyObj->evResetTxCfm[0] = false;
             gPlcPhyObj->state[0] = DRV_PLC_PHY_STATE_IDLE;
 
             cfmObj.rmsCalc = 0;
@@ -798,6 +798,12 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
     {
         DRV_PLC_PHY_EVENTS_OBJ evObj;
 
+        if (gPlcPhyObj->plcHal->getPinLevel(gPlcPhyObj->plcHal->plcPlib->extIntPio) == true)
+        {
+            /* External interrupt pin is not active */
+            return;
+        }
+
         /* Time guard */
         gPlcPhyObj->plcHal->delay(20);
 
@@ -841,7 +847,4 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
         /* Time guard */
         gPlcPhyObj->plcHal->delay(20);
     }
-
-    /* PORT Interrupt Status Clear */
-    (&(PIO0_REGS->PIO_GROUP[DRV_PLC_EXT_INT_PIO_PORT]))->PIO_ISR;
 }

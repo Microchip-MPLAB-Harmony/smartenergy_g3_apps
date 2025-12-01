@@ -7795,17 +7795,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAMD20_XPLAINED_PRO" name="SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_SPI_PA05_CSASGPIO"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAMD20_XPLAINED_PRO&gt;
-  &lt;mainBoard_SAMD20_XPLAINED_PRO dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_SPI_PA05_CSASGPIO&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/mainBoard_SAMD20_XPLAINED_PRO&gt;
-&lt;/mainBoard_SAMD20_XPLAINED_PRO&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAMD20_XPLAINED_PRO" name="SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_UART"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAMD20_XPLAINED_PRO&gt;
   &lt;mainBoard_SAMD20_XPLAINED_PRO dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_UART&quot;&gt;
@@ -7919,15 +7908,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAMD20_XPLAINED_PRO" name="SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_SPI_PA17_CSASGPIO"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAMD20_XPLAINED_PRO&gt;
-  &lt;mainBoard_SAMD20_XPLAINED_PRO dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_SPI_PA17_CSASGPIO&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_SAMD20_XPLAINED_PRO&gt;
-&lt;/mainBoard_SAMD20_XPLAINED_PRO&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAMD20_XPLAINED_PRO" name="SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_UART"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAMD20_XPLAINED_PRO&gt;
   &lt;mainBoard_SAMD20_XPLAINED_PRO dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_UART&quot;&gt;
@@ -8035,15 +8015,6 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAMD20_XPLAINED_PRO" name="SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_SPI"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAMD20_XPLAINED_PRO&gt;
   &lt;mainBoard_SAMD20_XPLAINED_PRO dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_SPI&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_SAMD20_XPLAINED_PRO&gt;
-&lt;/mainBoard_SAMD20_XPLAINED_PRO&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_SAMD20_XPLAINED_PRO" name="SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_SPI_PB17_CSASGPIO"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_SAMD20_XPLAINED_PRO&gt;
-  &lt;mainBoard_SAMD20_XPLAINED_PRO dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_SPI_PB17_CSASGPIO&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/mainBoard_SAMD20_XPLAINED_PRO&gt;
 &lt;/mainBoard_SAMD20_XPLAINED_PRO&gt;
@@ -11299,11 +11270,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\definitions.h</file>
-         <hash>e9dbe86bd2e0ac0656066c30c48de38849973045a6061546042d9df25e6aac23</hash>
+         <hash>10b30af757a009c7281e3b879720852d803eefe1a9474d5f672250235f94303d</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\device.h</file>
-         <hash>befedb7992f5343119e04dcf150c9fb7fa9bc60ccb392cc9421855a5275de6f6</hash>
+         <hash>5847311f7358c9120549b11e53650ee68db8c2d886fa1aa8659af1ca42789dac</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\device_cache.h</file>
@@ -11335,11 +11306,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\common\drv_plc_hal.h</file>
-         <hash>b9f93ee726b177a4d80e159fe97ce4473ef5a7b869abdd03deef457eaabd9141</hash>
+         <hash>441dbf5b681f976f98834f2d3fff654261f7739e62057383efe971ada38d10bc</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\bin\PLC_PHY_G3_FCC.bin</file>
-         <hash>a02b65ad001fe4dee9bbd14db15683884741c86f07efdc2b4a3420a23605651c</hash>
+         <hash>86697e4da1cff4eaf25016b0c305d28db90ce9c8f8b95e4e005f5fe0d17fd5b3</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\bin\plc_phy_bin.S</file>
@@ -11355,7 +11326,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>79e15d369b3e87a31a68751b189d284f90e7c4e6857360fc216d7438dc8b19aa</hash>
+         <hash>a852492dac99b0088abe37297bfbbb12698bca67071971cd660e5478b542af99</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_comm.h</file>
@@ -11367,7 +11338,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_local.h</file>
-         <hash>3fd3dddd9946550741bdf7a010abbfc1c50dcca6c5f4dce8c2676592eaf7cf9e</hash>
+         <hash>29abc781982ab52a93cedcb5fe4f818bb20ae2ae0532db26d984ed6ea4d857f3</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_local_comm.h</file>
@@ -11379,15 +11350,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\initialization.c</file>
-         <hash>3f5a489b169fea4439756409b96baf3581d4166a7e5d8b714bac165c8f81122b</hash>
+         <hash>b3daa7cdc2f4f423a73abf42059a4ed2197dcb1f0339934af1868be5554bccac</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\interrupts.c</file>
-         <hash>51221c0e90586e8b397f2025b8aa051cb86aaeaaea68ca520d8e434e54ad79d0</hash>
+         <hash>68ccd1c2d054360ca04080279db42297b1205d33d1acd7b5cabd32b916c62cd1</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\interrupts.h</file>
-         <hash>1ab9c2b81437c625ce5148dec833fad8ee9d7da921308fbc2e44a7c5ac6fc70b</hash>
+         <hash>c16106421b7d2dad04b09b5062bb6afd0a2c6f6467c4371e4d73817649da1331</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\libc_syscalls.c</file>
@@ -11407,7 +11378,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\clock\plib_clock.c</file>
-         <hash>b04772dba6f24c7effce407695212384ae4ebd53939a820c8e531677585e4a48</hash>
+         <hash>5b570d6ee8ece516d9c48e839f8610db3e9d2032985aa904e803599089537e2e</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\clock\plib_clock.h</file>
@@ -11415,7 +11386,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\eic\plib_eic.c</file>
-         <hash>cfe415d73876d1a8986972819614c45892e193060a4ec4f3abf378f2ccf53bf1</hash>
+         <hash>eee148adce20477895f28796847de401d7e3942c595443c111bc1d0bcaf496c9</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\eic\plib_eic.h</file>
@@ -11447,15 +11418,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\port\plib_port.c</file>
-         <hash>1be290e68860cd8e60157107a8ef186cb2179b249a083cd4cf47d6919c67cdb0</hash>
+         <hash>88c776dd15d1bad11482133b6c7a443e3e08d5dde130fa965230fbec263c2c51</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\port\plib_port.h</file>
-         <hash>b54955f0416722d7d9858696f93d8960bf109bb03faa0b43d83651f59cc698fe</hash>
+         <hash>1a995c03ef7160a67ffc33928eb8fc36cc5a57b463ad5881f5a629bcbb193529</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\sercom\spi_master\plib_sercom0_spi_master.c</file>
-         <hash>7b59ee62b0fde5e1c207da5714623ad1d48c929fe63a21d0aafe866172579102</hash>
+         <hash>16c03125702513f044d6672933c29038ebac7ed1170174ef2c68cc7d7a301734</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\sercom\spi_master\plib_sercom0_spi_master.h</file>
@@ -11467,7 +11438,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\sercom\usart\plib_sercom3_usart.c</file>
-         <hash>a67d4077c84277a48ec726638d9fdffc2787ecd08f2f1f2ea9636a5c993c1b90</hash>
+         <hash>7392512d033f564115c60d06db8df8f53ba962ad0e9df01e0e0bfa76aff0df14</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\sercom\usart\plib_sercom3_usart.h</file>
@@ -11479,7 +11450,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\tc\plib_tc0.c</file>
-         <hash>01c47d410a4177a7222f595b85408a49e0753dfe351e6025d388cc96f1203ef0</hash>
+         <hash>2152a5b284ed514d291bae0d9f6f3e15ad50115d8bebc951aaad15dda26de1e2</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\peripheral\tc\plib_tc0.h</file>
@@ -11499,7 +11470,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\pin_configurations.csv</file>
-         <hash>ca10f77d13270027ebb4810ee264e04ed58b1b6d843cf24c75047847609953c4</hash>
+         <hash>e023deac8f18098a79e2d8d75ae3b2b0444587c99d3e57b5d91ea462d5c520ea</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\pcrc\srv_pcrc.c</file>
@@ -11519,7 +11490,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi.c</file>
-         <hash>57ec6239bcb3b2c44eb9cca3be09bdeed94e2c7c95804a1828180d82030764cf</hash>
+         <hash>7f5b8d43b56965cccd657790ebf027b1a799e0548d49e7e12d8f6bd2ef74dccf</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi.h</file>
@@ -11527,7 +11498,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_definitions.h</file>
-         <hash>660aeea82ed1d88e6e998264c504c48bbefc478fd0151e91d323acd8f4634392</hash>
+         <hash>1133126b8cbb855afd42755e92c8831c2aa3a560760282c3e080d92e934ea505</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_local.h</file>
@@ -11539,7 +11510,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_usart.h</file>
-         <hash>76c9fbddcce26a5bea9262686ce09189f878d4646b629fe3bc7509f632ec66d8</hash>
+         <hash>63b3f6aa27eb1a9d1204c9ac85f64d8f17f1cb5139eb6a5ce89e9a0f9a20309f</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_d20_xpro_pl460\startup_xc32.c</file>

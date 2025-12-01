@@ -91,7 +91,6 @@ typedef struct
     USI_USART_PLIB_READ_CALLBACK_REG readCallbackRegister;
     USI_USART_PLIB_WRRD readData;
     USI_USART_PLIB_WRRD writeData;
-    IRQn_Type intSource;
 } SRV_USI_USART_INTERFACE;
 
 typedef struct

@@ -3026,7 +3026,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_BAND_IN_USE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvPlcPhy&quot; value=&quot;2&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvPlcPhy&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
@@ -3037,7 +3037,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_COUP_G3_SETTING_PL460&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;FCC default (only FCC; main branch)&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;CEN-A (CENELEC-A only; main branch)&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
@@ -3205,6 +3205,32 @@
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;4&quot;/&gt;
     &lt;/Values&gt;
+  &lt;/drvPlcPhy&gt;
+&lt;/drvPlcPhy&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="PLC_SOURCE_BIN_G3_CENA"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
+  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;PLC_SOURCE_BIN_G3_CENA&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/drvPlcPhy&gt;
+&lt;/drvPlcPhy&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="PLC_SOURCE_BIN_G3_CENB"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
+  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;PLC_SOURCE_BIN_G3_CENB&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
 </value>
@@ -4011,7 +4037,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_psniffer&gt;
   &lt;srv_psniffer dnOrder=&quot;0&quot; id=&quot;SRV_PSNF_PLC_PROFILE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_psniffer&quot; value=&quot;2&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_psniffer&quot; value=&quot;0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/srv_psniffer&gt;
 &lt;/srv_psniffer&gt;
@@ -4958,15 +4984,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\configuration.h</file>
-         <hash>0af29ec24999be8a996d1780dd6f66a8907ced9e3d75dec43741169d772fc5eb</hash>
+         <hash>6814927e2b891e88093c146035d48253bee4e8d78befd5f9c6de374503593fa3</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\definitions.h</file>
-         <hash>7d113e06b16dd9ce748ffb95f6683fcbcd7a286a268ecba2217281809042b7ff</hash>
+         <hash>4f2cb94813d722f58eaebb2e88965fcd3819f03a5cff1bc06af8e771207f9b6c</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\device.h</file>
-         <hash>d3fa0c4731e363e46dd050fe9faed0c1c67626d1b1501883c7fbfe67991291ea</hash>
+         <hash>20dfb84db53f624d3d222de5c7063708d1393bbfe5dfa2ead18ae753ceb5988f</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\device_cache.h</file>
@@ -5001,12 +5027,12 @@
          <hash>48286cee27366e79109e9386aee02a7056d7bf38d7664e545c6b1740353ad2cd</hash>
       </entry>
       <entry>
-         <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\bin\PLC_PHY_G3_FCC.bin</file>
-         <hash>a02b65ad001fe4dee9bbd14db15683884741c86f07efdc2b4a3420a23605651c</hash>
+         <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\bin\PLC_PHY_G3_CENA.bin</file>
+         <hash>cee3e8dc83e5e53ea814bbc3fa768624780fa04eae213a5809c7c6dd6e1398ae</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\bin\plc_phy_bin.S</file>
-         <hash>367a1b6f5fe4ad3f1e54248509703cfcd3404016ebfe50f5f3390240aa0e42a1</hash>
+         <hash>b26ba4cdcb147505e0cc59e42bfaa8efc11423a7ab57d2f9f4bdd1d2bf6183a1</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy.c</file>
@@ -5018,11 +5044,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>6e08396ff89f08751eaf165b4edd4aef71e324ea43898ec9176e40a43203a92e</hash>
+         <hash>b12455202be451b966eb47f0bfa95624dc27e0d5b1f3091df9044187d308f9c2</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.h</file>
-         <hash>2d90c22b9b733a21f8e71d5ee4b190f5cbec4e936e706316b68e19e74003559f</hash>
+         <hash>1e026a9f339d151db24dbb0f8d9b850790806048f839b3a2239540b83e84d682</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy_definitions.h</file>
@@ -5030,7 +5056,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy_local.h</file>
-         <hash>7ee26bcfa45c96a040ee4b9ab098637bb5bf2f834f145ef275ec139ba38694ac</hash>
+         <hash>bba2fb38d2e6327171c40ca9ca007c11ee2dc438a3603544f0abe13d086dacfb</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy_local_comm.h</file>
@@ -5038,7 +5064,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\drv_rf215.c</file>
-         <hash>a991f8277141cb8288c8cec99579c8a199ccb006bf5cff0968f5676943459cda</hash>
+         <hash>8a79d2e50bfea63fc71ba03a19f01c374d87597218c284db604b608ff63d5f37</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\drv_rf215.h</file>
@@ -5050,15 +5076,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\drv_rf215_local.h</file>
-         <hash>dcddfe8c984e2347da09c75583ad5775a58e6602691e17ce4c798fac24f1b2af</hash>
+         <hash>a07989d1660b428fb468020430bcce6370bc524c83892de77bdc757999393bde</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\hal\rf215_hal.c</file>
-         <hash>978f3645bab4a3197e0a3eb1daec9528bc14dfe770f394d06d402d7cfd928b2f</hash>
+         <hash>85cf43f279cb32636fb226af53ddf489c7d3033602348eabdb063e4671bc954f</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\hal\rf215_hal.h</file>
-         <hash>1447146f08fca3b45b59ac90450626f421ee614fd6ebedbac4b4375cc40f3c62</hash>
+         <hash>6231a398eb0e9d8899c92be295baa7395bd700db4706a49a1cd01ae712b4d1b3</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\phy\ieee_15_4_sun_fsk.h</file>
@@ -5066,11 +5092,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\phy\rf215_phy.c</file>
-         <hash>a9bc80f46428118e6ec498b4fec10a3db2c06b794a74656966d9fd770448c4dc</hash>
+         <hash>ac4b4e50fabf1df8851b11bb6e497da83d81f5ba5dc7f09e478eb79dc993f96e</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\phy\rf215_phy.h</file>
-         <hash>f1be9abbe05cb9eca5ebae6a8ef7c073fadc05b33193a3201c8396528bfe372f</hash>
+         <hash>196d54b1ce1f2a0755c24f739e5c18a900280bbcb4708a14d7d9e7bbf2e41955</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\usb\drv_usb.h</file>
@@ -5106,15 +5132,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\initialization.c</file>
-         <hash>820224029cdc33a8bac7aec5c4f05adc387fdab4a9b7e315a80e48ba1b889fea</hash>
+         <hash>5bfa9eb0be9661927a468bc6edc22dfecb16d7010d30a50c7723a67688099828</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\interrupts.c</file>
-         <hash>a522b22623c23aac431f3d0ddb8f78a8155a1c0a9c727a0fa1b8a7019721982e</hash>
+         <hash>bb892eb56250e85675ea6595a5b0e453be29bf9fe624cccb1c4770f6db35a80d</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\interrupts.h</file>
-         <hash>0d04651c7e53723e522fdba3fb15ae40923c05fd80890f8134f4374196a6a629</hash>
+         <hash>b4d8c9e847adc010a07a5fa4d19925042196b0a207ac469b50a12efab4f300cf</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\libc_syscalls.c</file>
@@ -5158,7 +5184,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\pio\plib_pio.c</file>
-         <hash>2bc67203a1787a96b136b6589e4d441ec449e46dfc257011d3e290572a1d007d</hash>
+         <hash>a85a4d961f706d6c3cb414f861d3f3248293e1cc2fbcc4c49f0d29579740b648</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\pio\plib_pio.h</file>
@@ -5178,7 +5204,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\tc\plib_tc0.c</file>
-         <hash>5c86cd5679802fa45c33227073fbce55bd53181af12cefa0286905fcef73ba16</hash>
+         <hash>c7ad5533f681c6a3e00899b9c80d8dceb995a5f1bbf4c1392613205efb7ad93f</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\tc\plib_tc0.h</file>
@@ -5198,7 +5224,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\xdmac\plib_xdmac.c</file>
-         <hash>7f5beebfa972c4f0029b9f0dbd391db826c2a6688408c344c892c004ec549763</hash>
+         <hash>2c3e689ae447683cccb959093ca745b16ac36ea34f95d437af6339f003366dd5</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\xdmac\plib_xdmac.h</file>
@@ -5226,7 +5252,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\service\psniffer\srv_psniffer.h</file>
-         <hash>cba3d6748d4ce20dcdd9cd8eb699f8526ebc4a8aca89ce20b00b4404d0b62134</hash>
+         <hash>838cc478d5685d58f295c3e8c06c974278dbacecf0932a820ac2a4460585e53e</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\service\rsniffer\srv_rsniffer.c</file>
@@ -5238,7 +5264,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\service\usi\srv_usi.c</file>
-         <hash>57ec6239bcb3b2c44eb9cca3be09bdeed94e2c7c95804a1828180d82030764cf</hash>
+         <hash>7f5b8d43b56965cccd657790ebf027b1a799e0548d49e7e12d8f6bd2ef74dccf</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\service\usi\srv_usi.h</file>
@@ -5254,7 +5280,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\service\usi\srv_usi_definitions.h</file>
-         <hash>660aeea82ed1d88e6e998264c504c48bbefc478fd0151e91d323acd8f4634392</hash>
+         <hash>1133126b8cbb855afd42755e92c8831c2aa3a560760282c3e080d92e934ea505</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\service\usi\srv_usi_local.h</file>
