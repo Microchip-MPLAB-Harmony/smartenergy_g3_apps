@@ -1,0 +1,55 @@
+configVersion: 1.0.0
+componentName: FreeRTOS
+coreVersion: 5.8.3
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: FreeRTOS
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: FreeRTOS-Kernel
+  type: package
+  version: V11.1.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: FreeRTOS
+          x: '576'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    FREERTOS_TOTAL_HEAP_SIZE:
+      attributes:
+        id: FREERTOS_TOTAL_HEAP_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '8192'
+          type: User
+        type: Values
+      type: Integer
+    FREERTOS_USE_TIME_SLICING:
+      attributes:
+        id: FREERTOS_USE_TIME_SLICING
+      children:
+      - children:
+        - attributes:
+            value: 'false'
+          type: User
+        type: Values
+      type: Boolean
+  userData: {}
