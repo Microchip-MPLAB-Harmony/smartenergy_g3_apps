@@ -418,7 +418,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.45</languageToolchainVersion>
+        <languageToolchainVersion>5.00</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
