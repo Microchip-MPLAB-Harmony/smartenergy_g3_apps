@@ -1,0 +1,53 @@
+configVersion: 1.0.0
+componentName: gfx_disp_slcd1-PIC32CXMT
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: gfx_disp_slcd1-PIC32CXMT
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: gfx
+  type: package
+  version: v3.16.2
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: slcd_display
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: le_gfx_slcdc
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: Segmented Display
+            type: String
+          type: Attributes
+        type: DirectCapability
+      type: Attachments
+    type: gfx_disp_slcd1-PIC32CXMT
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: gfx_disp_slcd1-PIC32CXMT
+          x: '293'
+          y: '362'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols: {}
+  userData: {}

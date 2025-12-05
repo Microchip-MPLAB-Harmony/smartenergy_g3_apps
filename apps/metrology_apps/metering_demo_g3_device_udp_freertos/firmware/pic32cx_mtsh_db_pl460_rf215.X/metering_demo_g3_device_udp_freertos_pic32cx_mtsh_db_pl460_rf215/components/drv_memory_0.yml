@@ -1,0 +1,86 @@
+configVersion: 1.0.0
+componentName: drv_memory_0
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: drv_memory_0
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: drv_memory_MEMORY_dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: drv_sst26
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: memory
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: drv_memory_0
+  elementPosition: {}
+  symbols:
+    DRV_MEMORY_DEVICE:
+      attributes:
+        id: DRV_MEMORY_DEVICE
+      children:
+      - children:
+        - attributes:
+            id: drv_memory_0
+            value: DRV_SST26
+          type: Dynamic
+        type: Values
+      type: String
+    DRV_MEMORY_ERASE_ENABLE:
+      attributes:
+        id: DRV_MEMORY_ERASE_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: drv_memory_0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    DRV_MEMORY_FS_ENABLE:
+      attributes:
+        id: DRV_MEMORY_FS_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: drv_memory_0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    DRV_MEMORY_INTERRUPT_ENABLE:
+      attributes:
+        id: DRV_MEMORY_INTERRUPT_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: drv_memory_0
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+  userData: {}

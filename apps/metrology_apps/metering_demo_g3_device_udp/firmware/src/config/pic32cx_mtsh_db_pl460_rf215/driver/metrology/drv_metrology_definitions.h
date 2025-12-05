@@ -77,6 +77,7 @@ extern uint8_t met_bin_end;
 // Section: Macro Definitions
 // *****************************************************************************
 // *****************************************************************************
+#define DRV_METROLOGY_HARMONICS_MAX_ORDER         31U
 
 #define DRV_METROLOGY_IPC_INIT_IRQ_MSK            IPC_ISR_IRQ20_Msk
 #define DRV_METROLOGY_IPC_INTEGRATION_IRQ_MSK     IPC_ISR_IRQ0_Msk
@@ -184,7 +185,7 @@ typedef struct {
 typedef struct {
     DRV_METROLOGY_REGS_CONTROL metControlConf;
     DRV_METROLOGY_CALIBRATION_REFS references;
-    uint32_t featureCtrl0Backup;
+    uint32_t featureCtrlBackup;
     double freq;
     uint32_t numIntegrationPeriods;
     uint64_t dspAccIa;
@@ -241,6 +242,7 @@ typedef struct {
     uint8_t harmonicNum;
     uint8_t integrationPeriods;
     bool  running;
+    bool holdRegs;
 } DRV_METROLOGY_HARMONIC_ANALYSIS;
 
 /* Metrology Driver AFE Events

@@ -153,7 +153,6 @@ extern "C" {
 
 /* PLC MAC RT Configuration Options */
 #define DRV_PLC_SECURE                        false
-#define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A
 #define DRV_PLC_EXT_INT_SRC                   PIOA_IRQn
 #define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PA3
 #define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PA3
@@ -224,14 +223,14 @@ extern "C" {
 #define DRV_METROLOGY_CONF_CREEP_Q            0x2e9aUL
 /* Metrology Default Config: CREEP I */
 #define DRV_METROLOGY_CONF_CREEP_I            0x212dUL
-/* Metrology Default Config: FEATURE_CTRL0 */
-#define DRV_METROLOGY_CONF_FCTRL0             0x300UL
-/* Metrology Default Config: FEATURE_CTRL1 */
-#define DRV_METROLOGY_CONF_FCTRL1             0x0UL
+/* Metrology Default Config: FEATURE_CTRL */
+#define DRV_METROLOGY_CONF_FCTRL              0x300UL
+/* Metrology Default Config: HARMONIC_CTRL */
+#define DRV_METROLOGY_CONF_HARMONIC_CTRL      0x0UL
 /* Metrology Default Config: PULSE0_CTRL */
-#define DRV_METROLOGY_CONF_PULSE0_CTRL        0x81009100UL
+#define DRV_METROLOGY_CONF_PULSE0_CTRL        0x810001d0UL
 /* Metrology Default Config: PULSE1_CTRL */
-#define DRV_METROLOGY_CONF_PULSE1_CTRL        0x81029100UL
+#define DRV_METROLOGY_CONF_PULSE1_CTRL        0x810201d0UL
 /* Metrology Default Config: PULSE2_CTRL */
 #define DRV_METROLOGY_CONF_PULSE2_CTRL        0x0UL
 /* Metrology Default Config: Waveform Capture */
@@ -253,12 +252,6 @@ extern "C" {
 /* PAL RF Configuration Options */
 #define PAL_RF_PHY_INDEX                      0U
 
-
-/*** Crypto Library Configuration ***/
-
-//Crypto V4 Common Crypto API - WolfCrypt Library Support
-#define CRYPTO_V4_API
-#define CRYPTO_WOLFCRYPT_SUPPORT_ENABLE
 
 
 
@@ -354,6 +347,11 @@ extern "C" {
 
 
 
+#define TCPIP_NETWORK_VLAN_ID_IDX0         0
+#define TCPIP_NETWORK_VLAN_PCP_IDX0         0
+
+
+
 
 /*** IPv6 Configuration ***/
 #define TCPIP_IPV6_DEFAULT_ALLOCATION_BLOCK_SIZE 		64
@@ -379,6 +377,9 @@ extern "C" {
 #define TCPIP_IPV6_G3_PLC_SUPPORT                       true
 
 #define TCPIP_IPV6_G3_PLC_BORDER_ROUTER                 false
+
+#define TCPIP_IPV6_RANDOM_INTERFACE_ID_ENABLE           false
+
 
 
 
@@ -419,6 +420,8 @@ extern "C" {
 
 #define TCPIP_STACK_ALIAS_INTERFACE_SUPPORT   false
 
+#define TCPIP_STACK_VLAN_INTERFACE_SUPPORT   false
+
 #define TCPIP_PACKET_LOG_ENABLE     0
 
 /* TCP/IP stack event notification */
@@ -453,130 +456,6 @@ extern "C" {
 #define TCPIP_UDP_COMMANDS   false
 #define TCPIP_UDP_EXTERN_PACKET_PROCESS   false
 
-
-
-/*** wolfCrypt Library Configuration ***/
-//configuration.h included in config.h and user_settings.h allowing these
-//files to configure WolfSSL library
-//--WolfSSL project defines to use these files are WOLFSSL_USER_SETTINGS and
-//  HAVE_CONFIG_H
-
-/*** wolfCrypt Library Configuration ***/
-#define MICROCHIP_PIC32
-#define MICROCHIP_MPLAB_HARMONY
-#define MICROCHIP_MPLAB_HARMONY_3
-#define HAVE_MCAPI
-#define SIZEOF_LONG_LONG 8
-#define WOLFSSL_USER_IO
-#define NO_WRITEV
-#define NO_FILESYSTEM
-#define USE_FAST_MATH
-#define NO_INLINE 
-
-//Math Model Defines
-//#define WOLFSSL_SP_MATH_ALL  //As recommended by WolfSSL (Garski)
-#define WOLFSSL_SP_SMALL
-//Using this to declare wolfmath functions:
-//mp_reverse used by fp_to_unsigned_bin (tfm.c)unctions: 
-//get_digit_count,get_digit in ecc.c 
-#define WOLFSSL_SP_MATH   
-
-//Needed when WOFSSL_SP_MATH defined
-#define WOLFSSL_HAVE_SP_RSA  
-
-//To prevent usage of SP functions defined by this: 
-//#if defined(HAVE_FIPS_VERSION) && HAVE_FIPS_VERSION == 2 
-//&& ( defined(WOLFSSL_SP_ARM32_ASM) || defined(WOLFSSL_SP_ARM64_ASM) ) 
-#define WOLFSSL_SP_NO_256   
-
-//#define WOLFSSL_SP_ARM32_ASM   //Dependent on MCU Arch.
-
-#define NO_PWDBASED
-//#define WOLF_CRYPTO_CB  // provide call-back support if this is disable then its does not use callback from Wolfcrypt
-#define WOLFCRYPT_ONLY
-
-// ---------- FUNCTIONAL CONFIGURATION START ----------
-#define WOLFSSL_AES_SMALL_TABLES
-#define NO_MD4
-#define WOLFSSL_SHA224
-#define WOLFSSL_SHA384
-#define WOLFSSL_SHA512
-#define HAVE_SHA512
-#define WOLFSSL_SHA3
-#define HAVE_BLAKE2
-#define WOLFSSL_RIPEMD
-#define NO_HMAC
-#define WOLFSSL_AES_128
-#define WOLFSSL_AES_192
-#define WOLFSSL_AES_256
-#define WOLFSSL_AES_DIRECT
-#define HAVE_AES_DECRYPT
-#define HAVE_AES_ECB
-#define HAVE_AES_CBC
-#define WOLFSSL_AES_COUNTER
-#define WOLFSSL_AES_CFB
-#define WOLFSSL_AES_OFB
-#define HAVE_AESGCM
-#define WOLFSSL_AES_XTS
-#define HAVE_AESCCM
-#define WOLFSSL_CMAC
-#define HAVE_CAMELLIA
-#define HAVE_IDEA
-#define HAVE_HC128
-#define HAVE_RABBIT
-
-#define HAVE_ECC
-#define HAVE_ECC_KEY_EXPORT    //Required for WOLFCRYPT_HAVE_ECCSI
-#define HAVE_X963_KDF
-#define ECC_SHAMIR
-#define WOLFSSL_CUSTOM_CURVES
-#define HAVE_CURVE25519
-#define HAVE_ED25519
-#define FP_ECC
-#define HAVE_ECC521    //ECC_MAX_BITS
-
-//#define HAVE_DH
-//#define WOLFSSL_HAVE_SP_DH
-    
-#define HAVE_ANON
-#define WOLFSSL_OLD_PRIME_CHECK
-#define NO_DSA
-#define FP_MAX_BITS 4096
-#define USE_CERT_BUFFERS_2048
-#define WOLFSSL_RSA_PUBLIC_ONLY
-#define WC_RSA_PSS
-#define WOLFSSL_STATIC_RSA
-#define NO_DEV_RANDOM
-#define HAVE_HASHDRBG
-#define WC_NO_HARDEN //why this is used
-#define SINGLE_THREADED
-#define NO_ERROR_STRINGS
-#define NO_WOLFSSL_MEMORY
-// ---------- FUNCTIONAL CONFIGURATION END ----------
-
-//********************************************************
-//#define WOLFSSL_SHAKE128  //Manually Commented, Not supported by Wolfcrypt
-#define WOLFSSL_SHAKE256 
-#define HAVE_BLAKE2S    
-#define HAVE_BLAKE2B   
-#define HAVE_CHACHA      
-#define HAVE_AES_KEYWRAP
-#define HAVE_ECC_DHE   
-#define WOLFCRYPT_HAVE_ECCSI 
-#define WOLFSSL_AES_EAX 
-//*********************************************************
-
-//*********************************************************
-//#define WC_NO_RNG //when using RNG
-//#define WC_NO_HASHDRBG
-//#define HAVE_ECC_ENCRYPT
-//#define NO_RSA
-//#define NO_DH
-//#define NO_SIG_WRAPPER
-//#define NO_RSA  
-//**********************************************************
-
-// ---------- FUNCTIONAL CONFIGURATION END ----------
 
 #define TCPIP_STACK_NETWORK_INTERAFCE_COUNT  	1
 

@@ -1,5 +1,5 @@
  /*******************************************************************************
-  Header for the cipher wrapper between G3 stack and Crypto
+  Header for the cipher wrapper between Smart Energy stacks and Crypto
 
   Company:
     Microchip Technology Inc.
@@ -8,11 +8,11 @@
     cipher_wrapper.h
 
   Summary:
-    Interface definition of the wrapper between G3 and Crypto.
+    Interface definition of the wrapper between Smart Energy stacks and Crypto.
 
   Description:
-    This file defines the interface for the wrapper between G3 and Crypto.
-    It includes calls to handle CCM, CMAC and EAX.
+    This file defines the interface for the wrapper between Smart Energy stacks 
+    and Crypto. It includes calls to handle CCM, CMAC and EAX (only G3).
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN

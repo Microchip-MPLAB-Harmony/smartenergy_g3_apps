@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>metering_demo_g3_device_udp_pic32cx_mtsh_db</name>
+            <name>metering_demo_g3_device_udp</name>
             <creation-uuid>501462d3-9e8c-47b2-9672-34f3d780136f</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

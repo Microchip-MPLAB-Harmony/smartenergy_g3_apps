@@ -1,0 +1,79 @@
+configVersion: 1.0.0
+componentName: BASIC CONFIGURATION
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyGroupModule
+  name: BASIC CONFIGURATION
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: gfx
+  type: package
+  version: v3.16.2
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  name: smartenergy
+  type: package
+  version: v1.5.0
+- dependencyPackage: ''
+  name: smartenergy_g3
+  type: package
+  version: v1.1.0
+- dependencyPackage: ''
+  name: smartenergy_metrology
+  type: package
+  version: v1.0.0-E1
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: Core_SysConsole_Dependency
+          namespace: tcpipStack
+        type: Attachment
+      type: Attachments
+    type: BASIC CONFIGURATION
+  elementPosition:
+    attributes:
+      id: TCP/IP STACK
+    children:
+    - children:
+      - attributes:
+          id: BASIC CONFIGURATION
+          x: '20'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols: {}
+  userData: {}

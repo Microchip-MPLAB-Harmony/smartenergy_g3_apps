@@ -657,10 +657,10 @@ void APP_DISPLAY_Initialize ( void )
     APP_DISPLAY_SetTimerLoop(3);
 
     /* Configure Switches */
-    PIO_PinInterruptCallbackRegister(SWITCH_SCRUP_PIN,
+    PIO_PinInterruptCallbackRegister(SCRL_UP_BTN_PIN,
             APP_DISPLAY_ScrollUp_Callback, (uintptr_t)NULL);
 
-    PIO_PinInterruptCallbackRegister(SWITCH_SCRDOWN_PIN,
+    PIO_PinInterruptCallbackRegister(SCRL_DOWN_BTN_PIN,
             APP_DISPLAY_ScrollDown_Callback, (uintptr_t)NULL);
 
     /* Create the Display Semaphore */
@@ -743,8 +743,8 @@ void APP_DISPLAY_Tasks ( void )
                 APP_DISPLAY_AddLoopInfo(APP_DISPLAY_TOU4_MAX_DEMAND);
 
                 /* Enable Switches interrupts */
-                PIO_PinInterruptEnable(SWITCH_SCRUP_PIN);
-                PIO_PinInterruptEnable(SWITCH_SCRDOWN_PIN);
+                PIO_PinInterruptEnable(SCRL_UP_BTN_PIN);
+                PIO_PinInterruptEnable(SCRL_DOWN_BTN_PIN);
 
                 app_displayData.state = APP_DISPLAY_STATE_SERVICE_TASKS;
             }
@@ -761,7 +761,7 @@ void APP_DISPLAY_Tasks ( void )
                 /* If any button has been pressed, change the information */
                 if (app_displayData.scrdown_pressed)
                 {
-                    if (SWITCH_SCRUP_Get() == 0)
+                    if (SCRL_UP_BTN_Get() == 0)
                     {
                         SYS_CMD_MESSAGE("Entering Low Power... Press FWUP/TAMPER switch to wake up.\r\n");
 
@@ -783,7 +783,7 @@ void APP_DISPLAY_Tasks ( void )
 
                 if (app_displayData.scrup_pressed)
                 {
-                    if (SWITCH_SCRDOWN_Get() == 0)
+                    if (SCRL_DOWN_BTN_Get() == 0)
                     {
                         SYS_CMD_MESSAGE("Emulating application holds ... Resetting by DWDT0.\r\n");
 

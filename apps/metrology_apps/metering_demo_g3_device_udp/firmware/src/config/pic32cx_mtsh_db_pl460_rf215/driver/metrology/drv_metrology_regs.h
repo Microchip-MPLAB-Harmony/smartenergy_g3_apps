@@ -38,92 +38,117 @@ Microchip or any third party.
 #define   STATE_CTRL_STATE_CTRL_INIT_Val                _UINT32_(0x1)                           /* (STATE_CTRL) Input control registers are initialized and metrology can initialize itself.  */
 #define   STATE_CTRL_STATE_CTRL_RUN_Val                 _UINT32_(0x2)                           /* (STATE_CTRL) Metrology filters are free to run, and outputs are updated at commanded rate.  */
 
-/* -------- FEATURE_CTRL0 : (MET_CONTROL Offset: 0x04) (R/W 32) Metrology feature setting register 0 -------- */
-#define FEATURE_CTRL0_RZC_CHAN_SELECT_Pos             _UINT32_(0)                               /* (FEATURE_CTRL0) Raw Zero-Crossing Channel Select Position */
-#define FEATURE_CTRL0_RZC_CHAN_SELECT_Msk             (_UINT32_(0x7) << FEATURE_CTRL0_RZC_CHAN_SELECT_Pos)    /* (FEATURE_CTRL0) Raw Zero-Crossing Channel Select Mask */
-#define FEATURE_CTRL0_RZC_CHAN_SELECT(value)          (FEATURE_CTRL0_RZC_CHAN_SELECT_Msk & (_UINT32_(value) << FEATURE_CTRL0_RZC_CHAN_SELECT_Pos))
-#define   FEATURE_CTRL0_RZC_CHAN_SELECT_DISABLED_Val    _UINT32_(0x0)                           /* (FEATURE_CTRL0) Raw Zero-Crossing detection is disabled */
-#define   FEATURE_CTRL0_RZC_CHAN_SELECT_V1_Val          _UINT32_(0x1)                           /* (FEATURE_CTRL0) Raw Zero-Crossing detection based on input voltage channel V1 */
-#define   FEATURE_CTRL0_RZC_CHAN_SELECT_V2_Val          _UINT32_(0x3)                           /* (FEATURE_CTRL0) Raw Zero-Crossing detection based on input voltage channel V2 */
-#define   FEATURE_CTRL0_RZC_CHAN_SELECT_V3_Val          _UINT32_(0x5)                           /* (FEATURE_CTRL0) Raw Zero-Crossing detection based on input voltage channel V3 */
-#define FEATURE_CTRL0_RZC_DIR_Pos                     _UINT32_(3)                               /* (FEATURE_CTRL0) Raw Zero-Crossing Direction Selection Position */
-#define FEATURE_CTRL0_RZC_DIR_Msk                     (_UINT32_(0x1) << FEATURE_CTRL0_RZC_DIR_Pos)            /* (FEATURE_CTRL0) Raw Zero-Crossing Direction Selection Mask */
-#define FEATURE_CTRL0_RZC_DIR(value)                  (FEATURE_CTRL0_RZC_DIR_Msk & (_UINT32_(value) << FEATURE_CTRL0_RZC_DIR_Pos))
-#define   FEATURE_CTRL0_RZC_DIR_POSITIVE_Val            _UINT32_(0x0)                           /* (FEATURE_CTRL0) Positive-going raw zero-crossings selected */
-#define   FEATURE_CTRL0_RZC_DIR_NEGATIVE_Val            _UINT32_(0x1)                           /* (FEATURE_CTRL0) Negative-going raw zero-crossings selected */
-#define FEATURE_CTRL0_SYNCH_Pos                       _UINT32_(4)                               /* (FEATURE_CTRL0) Active Voltage Channel Selection Position */
-#define FEATURE_CTRL0_SYNCH_Msk                       (_UINT32_(0x2) << FEATURE_CTRL0_SYNCH_Pos)    /* (FEATURE_CTRL0) Active Voltage Channel Selection Mask */
-#define FEATURE_CTRL0_SYNCH(value)                    (FEATURE_CTRL0_SYNCH_Msk & (_UINT32_(value) << FEATURE_CTRL0_SYNCH_Pos))
-#define   FEATURE_CTRL0_SYNCH_ACTIVE_PHASE_Val          _UINT32_(0x0)                           /* (FEATURE_CTRL0) Measurement interval based on active phase, determined dynamically */
-#define   FEATURE_CTRL0_SYNCH_A_Val                     _UINT32_(0x1)                           /* (FEATURE_CTRL0) Measurement interval based on phase-A */
-#define   FEATURE_CTRL0_SYNCH_B_Val                     _UINT32_(0x2)                           /* (FEATURE_CTRL0) Measurement interval based on phase-B */
-#define   FEATURE_CTRL0_SYNCH_C_Val                     _UINT32_(0x3)                           /* (FEATURE_CTRL0) Measurement interval based on phase-C */
-#define FEATURE_CTRL0_PHASE_A_EN_Pos                 _UINT32_(8)                               /* (FEATURE_CTRL0) Enable Phase A Position */
-#define FEATURE_CTRL0_PHASE_A_EN_Msk                 (_UINT32_(0x1) << FEATURE_CTRL0_PHASE_A_EN_Pos)    /* (FEATURE_CTRL0) Enable Phase A Mask */
-#define FEATURE_CTRL0_PHASE_A_EN(value)              (FEATURE_CTRL0_PHASE_A_EN_Msk & (_UINT32_(value) << FEATURE_CTRL0_PHASE_A_EN_Pos))
-#define   FEATURE_CTRL0_PHASE_A_EN_DISABLED_Val        _UINT32_(0x0)                           /* (FEATURE_CTRL0) Disable phase */
-#define   FEATURE_CTRL0_PHASE_A_EN_ENABLED_Val         _UINT32_(0x1)                           /* (FEATURE_CTRL0) Enable phase */
-#define FEATURE_CTRL0_PHASE_B_EN_Pos                 _UINT32_(9)                               /* (FEATURE_CTRL0) Enable Phase B Position */
-#define FEATURE_CTRL0_PHASE_B_EN_Msk                 (_UINT32_(0x1) << FEATURE_CTRL0_PHASE_B_EN_Pos)    /* (FEATURE_CTRL0) Enable Phase B Mask */
-#define FEATURE_CTRL0_PHASE_B_EN(value)              (FEATURE_CTRL0_PHASE_B_EN_Msk & (_UINT32_(value) << FEATURE_CTRL0_PHASE_B_EN_Pos))
-#define   FEATURE_CTRL0_PHASE_B_EN_DISABLED_Val        _UINT32_(0x0)                           /* (FEATURE_CTRL0) Disable phase */
-#define   FEATURE_CTRL0_PHASE_B_EN_ENABLED_Val         _UINT32_(0x1)                           /* (FEATURE_CTRL0) Enable phase */
-#define FEATURE_CTRL0_PHASE_C_EN_Pos                 _UINT32_(10)                               /* (FEATURE_CTRL0) Enable Phase C Position */
-#define FEATURE_CTRL0_PHASE_C_EN_Msk                 (_UINT32_(0x1) << FEATURE_CTRL0_PHASE_C_EN_Pos)    /* (FEATURE_CTRL0) Enable Phase C Mask */
-#define FEATURE_CTRL0_PHASE_C_EN(value)              (FEATURE_CTRL0_PHASE_C_EN_Msk & (_UINT32_(value) << FEATURE_CTRL0_PHASE_C_EN_Pos))
-#define   FEATURE_CTRL0_PHASE_C_EN_DISABLED_Val        _UINT32_(0x0)                           /* (FEATURE_CTRL0) Disable phase */
-#define   FEATURE_CTRL0_PHASE_C_EN_ENABLED_Val         _UINT32_(0x1)                           /* (FEATURE_CTRL0) Enable phase */
-#define FEATURE_CTRL0_MAX_INT_SELECT_Pos             _UINT32_(12)                               /* (FEATURE_CTRL0) Max Integration Period Select Position */
-#define FEATURE_CTRL0_MAX_INT_SELECT_Msk             (_UINT32_(0x1) << FEATURE_CTRL0_MAX_INT_SELECT_Pos)    /* (FEATURE_CTRL0) Max Integration Period Select Mask */
-#define FEATURE_CTRL0_MAX_INT_SELECT(value)          (FEATURE_CTRL0_MAX_INT_SELECT_Msk & (_UINT32_(value) << FEATURE_CTRL0_MAX_INT_SELECT_Pos))
-#define   FEATURE_CTRL0_MAX_INT_SELECT_CL1_Val          _UINT32_(0x0)                           /* (FEATURE_CTRL0) Metrology DSP will integrate for an integral number of cycles closest to 1 second */
-#define   FEATURE_CTRL0_MAX_INT_SELECT_NGT1_Val         _UINT32_(0x1)                           /* (FEATURE_CTRL0) Metrology DSP will integrate for an integral number of cycles no greater than 1 second */
-#define FEATURE_CTRL0_F9_PULSE_SEL_Pos             _UINT32_(15)                               /* (FEATURE_CTRL0) METER_TYPE_09 Pulse Select Position */
-#define FEATURE_CTRL0_F9_PULSE_SEL_Msk             (_UINT32_(0x1) << FEATURE_CTRL0_F9_PULSE_SEL_Pos)    /* (FEATURE_CTRL0) METER_TYPE_09 Pulse Select Mask */
-#define FEATURE_CTRL0_F9_PULSE_SEL(value)          (FEATURE_CTRL0_F9_PULSE_SEL_Msk & (_UINT32_(value) << FEATURE_CTRL0_F9_PULSE_SEL_Pos))
-#define   FEATURE_CTRL0_F9_PULSE_SEL_A_Val           _UINT32_(0x0)                           /* (FEATURE_CTRL0) Metrology pulsing computed only using ?phase-A? quantities (V1*I1) */
-#define   FEATURE_CTRL0_F9_PULSE_SEL_B_Val           _UINT32_(0x1)                           /* (FEATURE_CTRL0) Metrology pulsing computed only using ?phase-B? quantities (V1*I0) */
-#define FEATURE_CTRL0_SWAP_B_and_C_Pos             _UINT32_(16)                              /* (FEATURE_CTRL0) Swap processing channels Position */
-#define FEATURE_CTRL0_SWAP_B_and_C_Msk             (_UINT32_(0x1) << FEATURE_CTRL0_SWAP_B_and_C_Pos)    /* (FEATURE_CTRL0) Swap processing channels Mask */
-#define FEATURE_CTRL0_SWAP_B_and_C(value)          (FEATURE_CTRL0_SWAP_B_and_C_Msk & (_UINT32_(value) << FEATURE_CTRL0_SWAP_B_and_C_Pos))
-#define   FEATURE_CTRL0_SWAP_B_and_C_I2IB_Val        _UINT32_(0x0)                           /* (FEATURE_CTRL0) DSP input mapping: I2/V2 mapped I_B/V_B; I3/V3 mapped I_C/V_C (default) */
-#define   FEATURE_CTRL0_SWAP_B_and_C_I2IC_Val        _UINT32_(0x1)                           /* (FEATURE_CTRL0) DSP input mapping: I2/V2 mapped I_C/V_C; I3/V3 mapped I_B/V_B */
+/* -------- FEATURE_CTRL : (MET_CONTROL Offset: 0x04) (R/W 32) Metrology feature setting register 0 -------- */
+#define FEATURE_CTRL_RZC_CHAN_SELECT_Pos             _UINT32_(0)                               /* (FEATURE_CTRL) Raw Zero-Crossing Channel Select Position */
+#define FEATURE_CTRL_RZC_CHAN_SELECT_Msk             (_UINT32_(0x7) << FEATURE_CTRL_RZC_CHAN_SELECT_Pos)    /* (FEATURE_CTRL) Raw Zero-Crossing Channel Select Mask */
+#define FEATURE_CTRL_RZC_CHAN_SELECT(value)          (FEATURE_CTRL_RZC_CHAN_SELECT_Msk & (_UINT32_(value) << FEATURE_CTRL_RZC_CHAN_SELECT_Pos))
+#define   FEATURE_CTRL_RZC_CHAN_SELECT_DISABLED_Val    _UINT32_(0x0)                           /* (FEATURE_CTRL) Raw Zero-Crossing detection is disabled */
+#define   FEATURE_CTRL_RZC_CHAN_SELECT_V1_Val          _UINT32_(0x1)                           /* (FEATURE_CTRL) Raw Zero-Crossing detection based on input voltage channel V1 */
+#define   FEATURE_CTRL_RZC_CHAN_SELECT_V2_Val          _UINT32_(0x3)                           /* (FEATURE_CTRL) Raw Zero-Crossing detection based on input voltage channel V2 */
+#define   FEATURE_CTRL_RZC_CHAN_SELECT_V3_Val          _UINT32_(0x5)                           /* (FEATURE_CTRL) Raw Zero-Crossing detection based on input voltage channel V3 */
+#define FEATURE_CTRL_RZC_DIR_Pos                     _UINT32_(3)                               /* (FEATURE_CTRL) Raw Zero-Crossing Direction Selection Position */
+#define FEATURE_CTRL_RZC_DIR_Msk                     (_UINT32_(0x1) << FEATURE_CTRL_RZC_DIR_Pos)            /* (FEATURE_CTRL) Raw Zero-Crossing Direction Selection Mask */
+#define FEATURE_CTRL_RZC_DIR(value)                  (FEATURE_CTRL_RZC_DIR_Msk & (_UINT32_(value) << FEATURE_CTRL_RZC_DIR_Pos))
+#define   FEATURE_CTRL_RZC_DIR_POSITIVE_Val            _UINT32_(0x0)                           /* (FEATURE_CTRL) Positive-going raw zero-crossings selected */
+#define   FEATURE_CTRL_RZC_DIR_NEGATIVE_Val            _UINT32_(0x1)                           /* (FEATURE_CTRL) Negative-going raw zero-crossings selected */
+#define FEATURE_CTRL_SYNCH_Pos                       _UINT32_(4)                               /* (FEATURE_CTRL) Active Voltage Channel Selection Position */
+#define FEATURE_CTRL_SYNCH_Msk                       (_UINT32_(0x2) << FEATURE_CTRL_SYNCH_Pos)    /* (FEATURE_CTRL) Active Voltage Channel Selection Mask */
+#define FEATURE_CTRL_SYNCH(value)                    (FEATURE_CTRL_SYNCH_Msk & (_UINT32_(value) << FEATURE_CTRL_SYNCH_Pos))
+#define   FEATURE_CTRL_SYNCH_ACTIVE_PHASE_Val          _UINT32_(0x0)                           /* (FEATURE_CTRL) Measurement interval based on active phase, determined dynamically */
+#define   FEATURE_CTRL_SYNCH_A_Val                     _UINT32_(0x1)                           /* (FEATURE_CTRL) Measurement interval based on phase-A */
+#define   FEATURE_CTRL_SYNCH_B_Val                     _UINT32_(0x2)                           /* (FEATURE_CTRL) Measurement interval based on phase-B */
+#define   FEATURE_CTRL_SYNCH_C_Val                     _UINT32_(0x3)                           /* (FEATURE_CTRL) Measurement interval based on phase-C */
+#define FEATURE_CTRL_PHASE_A_EN_Pos                  _UINT32_(8)                               /* (FEATURE_CTRL) Enable Phase A Position */
+#define FEATURE_CTRL_PHASE_A_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_PHASE_A_EN_Pos)    /* (FEATURE_CTRL) Enable Phase A Mask */
+#define FEATURE_CTRL_PHASE_A_EN(value)               (FEATURE_CTRL_PHASE_A_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_PHASE_A_EN_Pos))
+#define   FEATURE_CTRL_PHASE_A_EN_DISABLED_Val         _UINT32_(0x0)                           /* (FEATURE_CTRL) Disable phase */
+#define   FEATURE_CTRL_PHASE_A_EN_ENABLED_Val          _UINT32_(0x1)                           /* (FEATURE_CTRL) Enable phase */
+#define FEATURE_CTRL_PHASE_B_EN_Pos                  _UINT32_(9)                               /* (FEATURE_CTRL) Enable Phase B Position */
+#define FEATURE_CTRL_PHASE_B_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_PHASE_B_EN_Pos)    /* (FEATURE_CTRL) Enable Phase B Mask */
+#define FEATURE_CTRL_PHASE_B_EN(value)               (FEATURE_CTRL_PHASE_B_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_PHASE_B_EN_Pos))
+#define   FEATURE_CTRL_PHASE_B_EN_DISABLED_Val         _UINT32_(0x0)                           /* (FEATURE_CTRL) Disable phase */
+#define   FEATURE_CTRL_PHASE_B_EN_ENABLED_Val          _UINT32_(0x1)                           /* (FEATURE_CTRL) Enable phase */
+#define FEATURE_CTRL_PHASE_C_EN_Pos                  _UINT32_(10)                               /* (FEATURE_CTRL) Enable Phase C Position */
+#define FEATURE_CTRL_PHASE_C_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_PHASE_C_EN_Pos)    /* (FEATURE_CTRL) Enable Phase C Mask */
+#define FEATURE_CTRL_PHASE_C_EN(value)               (FEATURE_CTRL_PHASE_C_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_PHASE_C_EN_Pos))
+#define   FEATURE_CTRL_PHASE_C_EN_DISABLED_Val         _UINT32_(0x0)                           /* (FEATURE_CTRL) Disable phase */
+#define   FEATURE_CTRL_PHASE_C_EN_ENABLED_Val          _UINT32_(0x1)                           /* (FEATURE_CTRL) Enable phase */
+#define FEATURE_CTRL_MAX_INT_SELECT_Pos              _UINT32_(12)                               /* (FEATURE_CTRL) Max Integration Period Select Position */
+#define FEATURE_CTRL_MAX_INT_SELECT_Msk              (_UINT32_(0x1) << FEATURE_CTRL_MAX_INT_SELECT_Pos)    /* (FEATURE_CTRL) Max Integration Period Select Mask */
+#define FEATURE_CTRL_MAX_INT_SELECT(value)           (FEATURE_CTRL_MAX_INT_SELECT_Msk & (_UINT32_(value) << FEATURE_CTRL_MAX_INT_SELECT_Pos))
+#define   FEATURE_CTRL_MAX_INT_SELECT_CL1_Val           _UINT32_(0x0)                           /* (FEATURE_CTRL) Metrology DSP will integrate for an integral number of cycles closest to 1 second */
+#define   FEATURE_CTRL_MAX_INT_SELECT_NGT1_Val          _UINT32_(0x1)                           /* (FEATURE_CTRL) Metrology DSP will integrate for an integral number of cycles no greater than 1 second */
+#define FEATURE_CTRL_CREEP_I_EN_Pos                  _UINT32_(13)                                /* (FEATURE_CTRL) Current Creep Threshold Function Enable Position */
+#define FEATURE_CTRL_CREEP_I_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_CREEP_I_EN_Pos)    /* (FEATURE_CTRL) Current Creep Threshold Function Enable Mask */
+#define FEATURE_CTRL_CREEP_I_EN(value)               (FEATURE_CTRL_CREEP_I_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_CREEP_I_EN_Pos))
+#define   FEATURE_CTRL_CREEP_I_EN_DISABLED_Val         _UINT32_(0x0)                             /* (FEATURE_CTRL) Disable current creep threshold feature */
+#define   FEATURE_CTRL_CREEP_I_EN_ENABLED_Val          _UINT32_(0x1)                             /* (FEATURE_CTRL) Enable current creep threshold feature */
+#define FEATURE_CTRL_CREEP_Q_EN_Pos                  _UINT32_(14)                                /* (FEATURE_CTRL) Reactive Creep Threshold Function Enable Position */
+#define FEATURE_CTRL_CREEP_Q_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_CREEP_Q_EN_Pos)    /* (FEATURE_CTRL) Reactive Creep Threshold Function Enable Mask */
+#define FEATURE_CTRL_CREEP_Q_EN(value)               (FEATURE_CTRL_CREEP_Q_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_CREEP_Q_EN_Pos))
+#define   FEATURE_CTRL_CREEP_Q_EN_DISABLED_Val         _UINT32_(0x0)                             /* (FEATURE_CTRL) Disable Reactive creep threshold feature */
+#define   FEATURE_CTRL_CREEP_Q_EN_ENABLED_Val          _UINT32_(0x1)                             /* (FEATURE_CTRL) Enable Reactive creep threshold feature */
+#define FEATURE_CTRL_CREEP_P_EN_Pos                  _UINT32_(15)                                /* (FEATURE_CTRL) Active Creep Threshold Function Enable Position */
+#define FEATURE_CTRL_CREEP_P_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_CREEP_P_EN_Pos)    /* (FEATURE_CTRL) Active Creep Threshold Function Enable Mask */
+#define FEATURE_CTRL_CREEP_P_EN(value)               (FEATURE_CTRL_CREEP_P_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_CREEP_P_EN_Pos))
+#define   FEATURE_CTRL_CREEP_P_EN_DISABLED_Val         _UINT32_(0x0)                             /* (FEATURE_CTRL) Disable Active creep threshold feature */
+#define   FEATURE_CTRL_CREEP_P_EN_ENABLED_Val          _UINT32_(0x1)                             /* (FEATURE_CTRL) Enable Active creep threshold feature */
+#define FEATURE_CTRL_SWAP_B_and_C_Pos                _UINT32_(16)                              /* (FEATURE_CTRL) Swap processing channels Position */
+#define FEATURE_CTRL_SWAP_B_and_C_Msk                (_UINT32_(0x1) << FEATURE_CTRL_SWAP_B_and_C_Pos)    /* (FEATURE_CTRL) Swap processing channels Mask */
+#define FEATURE_CTRL_SWAP_B_and_C(value)             (FEATURE_CTRL_SWAP_B_and_C_Msk & (_UINT32_(value) << FEATURE_CTRL_SWAP_B_and_C_Pos))
+#define   FEATURE_CTRL_SWAP_B_and_C_I2IB_Val           _UINT32_(0x0)                           /* (FEATURE_CTRL) DSP input mapping: I2/V2 mapped I_B/V_B; I3/V3 mapped I_C/V_C (default) */
+#define   FEATURE_CTRL_SWAP_B_and_C_I2IC_Val           _UINT32_(0x1)                           /* (FEATURE_CTRL) DSP input mapping: I2/V2 mapped I_C/V_C; I3/V3 mapped I_B/V_B */
+#define FEATURE_CTRL_I_MAX_RESET_Pos                 _UINT32_(17)                                /* (FEATURE_CTRL) Reset All I_x_MAX values Position */
+#define FEATURE_CTRL_I_MAX_RESET_Msk                 (_UINT32_(0x1) << FEATURE_CTRL_I_MAX_RESET_Pos)    /* (FEATURE_CTRL) Reset All I_x_MAX values Mask */
+#define FEATURE_CTRL_I_MAX_RESET(value)              (FEATURE_CTRL_I_MAX_RESET_Msk & (_UINT32_(value) << FEATURE_CTRL_I_MAX_RESET_Pos))
+#define FEATURE_CTRL_V_MAX_RESET_Pos                 _UINT32_(18)                                /* (FEATURE_CTRL) Reset All V_x_MAX values Position */
+#define FEATURE_CTRL_V_MAX_RESET_Msk                 (_UINT32_(0x1) << FEATURE_CTRL_V_MAX_RESET_Pos)    /* (FEATURE_CTRL) Reset All V_x_MAX values Mask */
+#define FEATURE_CTRL_V_MAX_RESET(value)              (FEATURE_CTRL_V_MAX_RESET_Msk & (_UINT32_(value) << FEATURE_CTRL_V_MAX_RESET_Pos))
+#define FEATURE_CTRL_IA_HARM_DIS_Pos                 _UINT32_(24)                                /* (FEATURE_CTRL) Disable Harmonic IA Analysis */
+#define FEATURE_CTRL_IA_HARM_DIS_Msk                 (_UINT32_(0x1) << FEATURE_CTRL_IA_HARM_DIS_Pos)    /* (FEATURE_CTRL) Enable Harmonic IA Analysis Mask */
+#define FEATURE_CTRL_IA_HARM_DIS(value)              (FEATURE_CTRL_IA_HARM_DIS_Msk & (_UINT32_(value) << FEATURE_CTRL_IA_HARM_DIS_Pos))
+#define   FEATURE_CTRL_IA_HARM_ENABLED_Val             _UINT32_(0x0)                             /* (FEATURE_CTRL) Enable harmonic IA Analysis  */
+#define   FEATURE_CTRL_IA_HARM_DISABLED_Val            _UINT32_(0x1)                             /* (FEATURE_CTRL) Disable harmonic IA Analysis  */
+#define FEATURE_CTRL_VA_HARM_DIS_Pos                 _UINT32_(25)                                /* (FEATURE_CTRL) Disable Harmonic VA Analysis */
+#define FEATURE_CTRL_VA_HARM_DIS_Msk                 (_UINT32_(0x1) << FEATURE_CTRL_VA_HARM_DIS_Pos)    /* (FEATURE_CTRL) Enable Harmonic VA Analysis Mask */
+#define FEATURE_CTRL_VA_HARM_DIS(value)              (FEATURE_CTRL_VA_HARM_DIS_Msk & (_UINT32_(value) << FEATURE_CTRL_VA_HARM_DIS_Pos))
+#define   FEATURE_CTRL_VA_HARM_ENABLED_Val             _UINT32_(0x0)                             /* (FEATURE_CTRL) Enable harmonic VA Analysis  */
+#define   FEATURE_CTRL_VA_HARM_DISABLED_Val            _UINT32_(0x1)                             /* (FEATURE_CTRL) Disable harmonic VA Analysis  */
+#define FEATURE_CTRL_IB_HARM_DIS_Pos                 _UINT32_(26)                                /* (FEATURE_CTRL) Disable Harmonic IB Analysis */
+#define FEATURE_CTRL_IB_HARM_DIS_Msk                 (_UINT32_(0x1) << FEATURE_CTRL_IB_HARM_DIS_Pos)    /* (FEATURE_CTRL) Enable Harmonic IB Analysis Mask */
+#define FEATURE_CTRL_IB_HARM_DIS(value)              (FEATURE_CTRL_IB_HARM_DIS_Msk & (_UINT32_(value) << FEATURE_CTRL_IB_HARM_DIS_Pos))
+#define   FEATURE_CTRL_IB_HARM_ENABLED_Val             _UINT32_(0x0)                             /* (FEATURE_CTRL) Enable harmonic IB Analysis  */
+#define   FEATURE_CTRL_IB_HARM_DISABLED_Val            _UINT32_(0x1)                             /* (FEATURE_CTRL) Disable harmonic IB Analysis  */
+#define FEATURE_CTRL_VB_HARM_DIS_Pos                 _UINT32_(27)                                /* (FEATURE_CTRL) Disable Harmonic VB Analysis */
+#define FEATURE_CTRL_VB_HARM_DIS_Msk                 (_UINT32_(0x1) << FEATURE_CTRL_VB_HARM_DIS_Pos)    /* (FEATURE_CTRL) Enable Harmonic VB Analysis Mask */
+#define FEATURE_CTRL_VB_HARM_DIS(VBlue)              (FEATURE_CTRL_VB_HARM_DIS_Msk & (_UINT32_(Value) << FEATURE_CTRL_VB_HARM_DIS_Pos))
+#define   FEATURE_CTRL_VB_HARM_ENABLED_Val             _UINT32_(0x0)                             /* (FEATURE_CTRL) Enable harmonic VB Analysis  */
+#define   FEATURE_CTRL_VB_HARM_DISABLED_Val            _UINT32_(0x1)                             /* (FEATURE_CTRL) Disable harmonic VB Analysis  */
+#define FEATURE_CTRL_IC_HARM_DIS_Pos                 _UINT32_(28)                                /* (FEATURE_CTRL) Disable Harmonic IC Analysis */
+#define FEATURE_CTRL_IC_HARM_DIS_Msk                 (_UINT32_(0x1) << FEATURE_CTRL_IC_HARM_DIS_Pos)    /* (FEATURE_CTRL) Enable Harmonic IC Analysis Mask */
+#define FEATURE_CTRL_IC_HARM_DIS(value)              (FEATURE_CTRL_IC_HARM_DIS_Msk & (_UINT32_(value) << FEATURE_CTRL_IC_HARM_DIS_Pos))
+#define   FEATURE_CTRL_IC_HARM_ENABLED_Val             _UINT32_(0x0)                             /* (FEATURE_CTRL) Enable harmonic IC Analysis  */
+#define   FEATURE_CTRL_IC_HARM_DISABLED_Val            _UINT32_(0x1)                             /* (FEATURE_CTRL) Disable harmonic IC Analysis  */
+#define FEATURE_CTRL_VC_HARM_DIS_Pos                 _UINT32_(29)                                /* (FEATURE_CTRL) Disable Harmonic VC Analysis */
+#define FEATURE_CTRL_VC_HARM_DIS_Msk                 (_UINT32_(0x1) << FEATURE_CTRL_VC_HARM_DIS_Pos)    /* (FEATURE_CTRL) Enable Harmonic VC Analysis Mask */
+#define FEATURE_CTRL_VC_HARM_DIS(value)              (FEATURE_CTRL_VC_HARM_DIS_Msk & (_UINT32_(value) << FEATURE_CTRL_VC_HARM_DIS_Pos))
+#define   FEATURE_CTRL_VC_HARM_ENABLED_Val             _UINT32_(0x0)                             /* (FEATURE_CTRL) Enable harmonic VC Analysis  */
+#define   FEATURE_CTRL_VC_HARM_DISABLED_Val            _UINT32_(0x1)                             /* (FEATURE_CTRL) Disable harmonic VC Analysis  */
+#define FEATURE_CTRL_IN_HARM_DIS_Pos                 _UINT32_(30)                                /* (FEATURE_CTRL) Disable Harmonic IN Analysis */
+#define FEATURE_CTRL_IN_HARM_DIS_Msk                 (_UINT32_(0x1) << FEATURE_CTRL_IN_HARM_DIS_Pos)    /* (FEATURE_CTRL) Enable Harmonic IN Analysis Mask */
+#define FEATURE_CTRL_IN_HARM_DIS(value)              (FEATURE_CTRL_IN_HARM_DIS_Msk & (_UINT32_(value) << FEATURE_CTRL_IN_HARM_DIS_Pos))
+#define   FEATURE_CTRL_IN_HARM_ENABLED_Val             _UINT32_(0x0)                             /* (FEATURE_CTRL) Enable harmonic IN Analysis  */
+#define   FEATURE_CTRL_IN_HARM_DISABLED_Val            _UINT32_(0x1)                             /* (FEATURE_CTRL) Disable harmonic IN Analysis  */
 
-/* -------- FEATURE_CTRL1 : (MET_CONTROL Offset: 0x08) (R/W 32) Metrology feature setting register 1 -------- */
-#define FEATURE_CTRL1_CREEP_I_EN_Pos             _UINT32_(0)                                 /* (FEATURE_CTRL1) Current Creep Threshold Function Enable Position */
-#define FEATURE_CTRL1_CREEP_I_EN_Msk             (_UINT32_(0x1) << FEATURE_CTRL1_CREEP_I_EN_Pos)    /* (FEATURE_CTRL1) Current Creep Threshold Function Enable Mask */
-#define FEATURE_CTRL1_CREEP_I_EN(value)          (FEATURE_CTRL1_CREEP_I_EN_Msk & (_UINT32_(value) << FEATURE_CTRL1_CREEP_I_EN_Pos))
-#define   FEATURE_CTRL1_CREEP_I_EN_DISABLED_Val    _UINT32_(0x0)                             /* (FEATURE_CTRL1) Disable current creep threshold feature */
-#define   FEATURE_CTRL1_CREEP_I_EN_ENABLED_Val     _UINT32_(0x1)                             /* (FEATURE_CTRL1) Enable current creep threshold feature */
-#define FEATURE_CTRL1_CREEP_Q_EN_Pos             _UINT32_(1)                                 /* (FEATURE_CTRL1) Reactive Creep Threshold Function Enable Position */
-#define FEATURE_CTRL1_CREEP_Q_EN_Msk             (_UINT32_(0x1) << FEATURE_CTRL1_CREEP_Q_EN_Pos)    /* (FEATURE_CTRL1) Reactive Creep Threshold Function Enable Mask */
-#define FEATURE_CTRL1_CREEP_Q_EN(value)          (FEATURE_CTRL1_CREEP_Q_EN_Msk & (_UINT32_(value) << FEATURE_CTRL1_CREEP_Q_EN_Pos))
-#define   FEATURE_CTRL1_CREEP_Q_EN_DISABLED_Val    _UINT32_(0x0)                             /* (FEATURE_CTRL1) Disable Reactive creep threshold feature */
-#define   FEATURE_CTRL1_CREEP_Q_EN_ENABLED_Val     _UINT32_(0x1)                             /* (FEATURE_CTRL1) Enable Reactive creep threshold feature */
-#define FEATURE_CTRL1_CREEP_P_EN_Pos             _UINT32_(2)                                 /* (FEATURE_CTRL1) Active Creep Threshold Function Enable Position */
-#define FEATURE_CTRL1_CREEP_P_EN_Msk             (_UINT32_(0x1) << FEATURE_CTRL1_CREEP_P_EN_Pos)    /* (FEATURE_CTRL1) Active Creep Threshold Function Enable Mask */
-#define FEATURE_CTRL1_CREEP_P_EN(value)          (FEATURE_CTRL1_CREEP_P_EN_Msk & (_UINT32_(value) << FEATURE_CTRL1_CREEP_P_EN_Pos))
-#define   FEATURE_CTRL1_CREEP_P_EN_DISABLED_Val    _UINT32_(0x0)                             /* (FEATURE_CTRL1) Disable Active creep threshold feature */
-#define   FEATURE_CTRL1_CREEP_P_EN_ENABLED_Val     _UINT32_(0x1)                             /* (FEATURE_CTRL1) Enable Active creep threshold feature */
-#define FEATURE_CTRL1_Ni_DATA_SEL_Pos            _UINT32_(7)                                 /* (FEATURE_CTRL1) Imputed Neutral Current Data Select Position */
-#define FEATURE_CTRL1_Ni_DATA_SEL_Msk            (_UINT32_(0x1) << FEATURE_CTRL1_Ni_DATA_SEL_Pos)    /* (FEATURE_CTRL1) Imputed Neutral Current Data Select Mask */
-#define FEATURE_CTRL1_Ni_DATA_SEL(value)         (FEATURE_CTRL1_Ni_DATA_SEL_Msk & (_UINT32_(value) << FEATURE_CTRL1_Ni_DATA_SEL_Pos))
-#define   FEATURE_CTRL1_Ni_DATA_SEL_BEFORE_Val     _UINT32_(0x0)                             /* (FEATURE_CTRL1) Select imputed neutral current source before FT  */
-#define   FEATURE_CTRL1_Ni_DATA_SEL_AFTER_Val      _UINT32_(0x1)                             /* (FEATURE_CTRL1) Select imputed neutral current source after FT  */
-#define FEATURE_CTRL1_HARMONIC_m_REQ_Pos            _UINT32_(8)                              /* (FEATURE_CTRL1) Request number of harmonic for analysis Position */
-#define FEATURE_CTRL1_HARMONIC_m_REQ_Msk            (_UINT32_(0x3F) << FEATURE_CTRL1_HARMONIC_m_REQ_Pos)    /* (FEATURE_CTRL1) Request number of harmonic for analysis Mask */
-#define FEATURE_CTRL1_HARMONIC_m_REQ(value)         (FEATURE_CTRL1_HARMONIC_m_REQ_Msk & (_UINT32_(value) << FEATURE_CTRL1_HARMONIC_m_REQ_Pos))
-#define FEATURE_CTRL1_HARMONIC_EN_Pos            _UINT32_(15)                                /* (FEATURE_CTRL1) Enable Harmonic Analysis Position */
-#define FEATURE_CTRL1_HARMONIC_EN_Msk            (_UINT32_(0x1) << FEATURE_CTRL1_HARMONIC_EN_Pos)    /* (FEATURE_CTRL1) Enable Harmonic Analysis Mask */
-#define FEATURE_CTRL1_HARMONIC_EN(value)         (FEATURE_CTRL1_HARMONIC_EN_Msk & (_UINT32_(value) << FEATURE_CTRL1_HARMONIC_EN_Pos))
-#define   FEATURE_CTRL1_HARMONIC_EN_DISABLED_Val   _UINT32_(0x0)                             /* (FEATURE_CTRL1) Disable harmonic analysis  */
-#define   FEATURE_CTRL1_HARMONIC_EN_ENABLED_Val    _UINT32_(0x1)                             /* (FEATURE_CTRL1) Enable harmonic analysis  */
-#define FEATURE_CTRL1_I_MAX_RESET_Pos            _UINT32_(19)                                /* (FEATURE_CTRL1) Reset All I_x_MAX values Position */
-#define FEATURE_CTRL1_I_MAX_RESET_Msk            (_UINT32_(0x1) << FEATURE_CTRL1_I_MAX_RESET_Pos)    /* (FEATURE_CTRL1) Reset All I_x_MAX values Mask */
-#define FEATURE_CTRL1_I_MAX_RESET(value)         (FEATURE_CTRL1_I_MAX_RESET_Msk & (_UINT32_(value) << FEATURE_CTRL1_I_MAX_RESET_Pos))
-#define FEATURE_CTRL1_V_MAX_RESET_Pos            _UINT32_(23)                                /* (FEATURE_CTRL1) Reset All V_x_MAX values Position */
-#define FEATURE_CTRL1_V_MAX_RESET_Msk            (_UINT32_(0x1) << FEATURE_CTRL1_V_MAX_RESET_Pos)    /* (FEATURE_CTRL1) Reset All V_x_MAX values Mask */
-#define FEATURE_CTRL1_V_MAX_RESET(value)         (FEATURE_CTRL1_V_MAX_RESET_Msk & (_UINT32_(value) << FEATURE_CTRL1_V_MAX_RESET_Pos))
+/* -------- HARMONIC_CTRL : (MET_CONTROL Offset: 0x08) (R/W 32) Metrology feature setting register for Harmonics -------- */
+#define HARMONIC_CTRL_HARMONIC_m_REQ_Pos              _UINT32_(0)                                 /* (HARMONIC_CTRL) Request harmonic order for analysis Position */
+#define HARMONIC_CTRL_HARMONIC_m_REQ_Msk              (_UINT32_(0x7FFFFFFF) << HARMONIC_CTRL_HARMONIC_m_REQ_Pos)    /* (HARMONIC_CTRL) Request harmonic order for analysis Mask */
+#define HARMONIC_CTRL_HARMONIC_m_REQ(value)           (HARMONIC_CTRL_HARMONIC_m_REQ_Msk & (_UINT32_(value) << HARMONIC_CTRL_HARMONIC_m_REQ_Pos))
+#define HARMONIC_CTRL_HARMONIC_EN_Pos                 _UINT32_(31)                                /* (HARMONIC_CTRL) Enable Harmonic Analysis Position */
+#define HARMONIC_CTRL_HARMONIC_EN_Msk                 (_UINT32_(0x1) << HARMONIC_CTRL_HARMONIC_EN_Pos)    /* (HARMONIC_CTRL) Enable Harmonic Analysis Mask */
+#define HARMONIC_CTRL_HARMONIC_EN(value)              (HARMONIC_CTRL_HARMONIC_EN_Msk & (_UINT32_(value) << HARMONIC_CTRL_HARMONIC_EN_Pos))
+#define   HARMONIC_CTRL_HARMONIC_EN_DISABLED_Val        _UINT32_(0x0)                             /* (HARMONIC_CTRL) Disable harmonic analysis  */
+#define   HARMONIC_CTRL_HARMONIC_EN_ENABLED_Val         _UINT32_(0x1)                             /* (HARMONIC_CTRL) Enable harmonic analysis  */
 
 /* -------- METER_TYPE : (MET_CONTROL Offset: 0x0C) (R/W  32) Sensor type and service type settings register -------- */
 #define METER_TYPE_SENSOR_TYPE_I_A_Pos             _UINT32_(0)                                 /* (METER_TYPE) Current Sensor Type on A Phase Position */
@@ -825,9 +850,6 @@ Microchip or any third party.
 #define STATUS_STATE_FLAG_ATSENSE_FAIL(value)        (STATUS_STATE_FLAG_ATSENSE_FAIL_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_ATSENSE_FAIL_Pos))
 #define   STATUS_STATE_FLAG_ATSENSE_FAIL_DISABLED_Val   _UINT32_(0x0)                   /* (STATUS) ATSENSE initialization is successful  */
 #define   STATUS_STATE_FLAG_ATSENSE_FAIL_ENABLED_Val    _UINT32_(0x1)                   /* (STATUS) ATSENSE initialization is failed */
-#define STATUS_STATE_FLAG_HARMONIC_m_CONF_Pos        _UINT32_(8)                       /* (STATUS) Harmonic Analysis Result Indication Position */
-#define STATUS_STATE_FLAG_HARMONIC_m_CONF_Msk        (_UINT32_(0x7F) << STATUS_STATE_FLAG_HARMONIC_m_CONF_Pos)      /* (STATUS) Harmonic Analysis Result Indication Mask */
-#define STATUS_STATE_FLAG_HARMONIC_m_CONF(value)     (STATUS_STATE_FLAG_HARMONIC_m_CONF_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_HARMONIC_m_CONF_Pos))
 #define STATUS_STATE_FLAG_HOST_ID_FAIL_Pos           _UINT32_(15)                       /* (STATUS) Host Identification Failure Indication Position */
 #define STATUS_STATE_FLAG_HOST_ID_FAIL_Msk           (_UINT32_(0x01) << STATUS_STATE_FLAG_HOST_ID_FAIL_Pos)      /* (STATUS) Host Identification Failure Indication Mask */
 #define STATUS_STATE_FLAG_HOST_ID_FAIL(value)        (STATUS_STATE_FLAG_HOST_ID_FAIL_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_HOST_ID_FAIL_Pos))
@@ -1147,20 +1169,20 @@ Microchip or any third party.
 /** \brief Metrology Harmonic Analysis Output register API structure */
 typedef struct
 {
-    __O  uint32_t I_A_m_R;            /**< Offset: 0x00 (R/  32) The real part of DFT result for current, phase-A, m-th harmonics (sQ25.6) */
-    __O  uint32_t V_A_m_R;            /**< Offset: 0x04 (R/  32) The real part of DFT result for voltage, phase-A, m-th harmonics (sQ25.6) */
-    __O  uint32_t I_B_m_R;            /**< Offset: 0x08 (R/  32) The real part of DFT result for current, phase-B, m-th harmonics (sQ25.6) */
-    __O  uint32_t V_B_m_R;            /**< Offset: 0x0C (R/  32) The real part of DFT result for voltage, phase-B, m-th harmonics (sQ25.6) */
-    __O  uint32_t I_C_m_R;            /**< Offset: 0x10 (R/  32) The real part of DFT result for current, phase-C, m-th harmonics (sQ25.6) */
-    __O  uint32_t V_C_m_R;            /**< Offset: 0x14 (R/  32) The real part of DFT result for voltage, phase-C, m-th harmonics (sQ25.6) */
-    __O  uint32_t I_N_m_R;            /**< Offset: 0x18 (R/  32) The real part of DFT result for voltage, phase-N, m-th harmonics (sQ25.6) */
-    __O  uint32_t I_A_m_I;            /**< Offset: 0x1C (R/  32) The imaginary part of DFT result for current, phase-A, m-th harmonics (sQ25.6) */
-    __O  uint32_t V_A_m_I;            /**< Offset: 0x20 (R/  32) The imaginary part of DFT result for voltage, phase-A, m-th harmonics (sQ25.6) */
-    __O  uint32_t I_B_m_I;            /**< Offset: 0x24 (R/  32) The imaginary part of DFT result for current, phase-B, m-th harmonics (sQ25.6) */
-    __O  uint32_t V_B_m_I;            /**< Offset: 0x28 (R/  32) The imaginary part of DFT result for voltage, phase-B, m-th harmonics (sQ25.6) */
-    __O  uint32_t I_C_m_I;            /**< Offset: 0x2C (R/  32) The imaginary part of DFT result for current, phase-C, m-th harmonics (sQ25.6) */
-    __O  uint32_t V_C_m_I;            /**< Offset: 0x30 (R/  32) The imaginary part of DFT result for voltage, phase-C, m-th harmonics (sQ25.6) */
-    __O  uint32_t I_N_m_I;            /**< Offset: 0x34 (R/  32) The imaginary part of DFT result for voltage, phase-N, m-th harmonics (sQ25.6) */
+    __O  uint32_t I_A_m_R[31];            /**< Offset: 0x00 (R/  32) The real part of DFT result for current, phase-A, m-th harmonics (sQ13.18) */
+    __O  uint32_t V_A_m_R[31];            /**< Offset: 0x7C (R/  32) The real part of DFT result for voltage, phase-A, m-th harmonics (sQ13.18) */
+    __O  uint32_t I_B_m_R[31];            /**< Offset: 0xF8 (R/  32) The real part of DFT result for current, phase-B, m-th harmonics (sQ13.18) */
+    __O  uint32_t V_B_m_R[31];            /**< Offset: 0x174 (R/  32) The real part of DFT result for voltage, phase-B, m-th harmonics (sQ13.18) */
+    __O  uint32_t I_C_m_R[31];            /**< Offset: 0x1F0 (R/  32) The real part of DFT result for current, phase-C, m-th harmonics (sQ13.18) */
+    __O  uint32_t V_C_m_R[31];            /**< Offset: 0x26C (R/  32) The real part of DFT result for voltage, phase-C, m-th harmonics (sQ13.18) */
+    __O  uint32_t I_N_m_R[31];            /**< Offset: 0x2E8 (R/  32) The real part of DFT result for voltage, phase-N, m-th harmonics (sQ13.18) */
+    __O  uint32_t I_A_m_I[31];            /**< Offset: 0x364 (R/  32) The imaginary part of DFT result for current, phase-A, m-th harmonics (sQ13.18) */
+    __O  uint32_t V_A_m_I[31];            /**< Offset: 0x3E0 (R/  32) The imaginary part of DFT result for voltage, phase-A, m-th harmonics (sQ13.18) */
+    __O  uint32_t I_B_m_I[31];            /**< Offset: 0x45C (R/  32) The imaginary part of DFT result for current, phase-B, m-th harmonics (sQ13.18) */
+    __O  uint32_t V_B_m_I[31];            /**< Offset: 0x4D8 (R/  32) The imaginary part of DFT result for voltage, phase-B, m-th harmonics (sQ13.18) */
+    __O  uint32_t I_C_m_I[31];            /**< Offset: 0x554 (R/  32) The imaginary part of DFT result for current, phase-C, m-th harmonics (sQ13.18) */
+    __O  uint32_t V_C_m_I[31];            /**< Offset: 0x5D0 (R/  32) The imaginary part of DFT result for voltage, phase-C, m-th harmonics (sQ13.18) */
+    __O  uint32_t I_N_m_I[31];            /**< Offset: 0x64C (R/  32) The imaginary part of DFT result for voltage, phase-N, m-th harmonics (sQ13.18) */
 } DRV_METROLOGY_REGS_HARMONICS;
 
 /** \brief Metrology Accumulated Output register API structure */
@@ -1257,8 +1279,8 @@ typedef struct
 typedef struct
 {
    __IO  uint32_t STATE_CTRL;              /**< Offset: 0x00 (R/W  32) Metrology state control register */
-   __IO  uint32_t FEATURE_CTRL0;           /**< Offset: 0x04 (R/W  32) Metrology feature setting register 0 */
-   __IO  uint32_t FEATURE_CTRL1;           /**< Offset: 0x08 (R/W  32) Metrology feature setting register 1 */
+   __IO  uint32_t FEATURE_CTRL;            /**< Offset: 0x04 (R/W  32) Metrology feature setting register */
+   __IO  uint32_t HARMONIC_CTRL;           /**< Offset: 0x08 (R/W  32) Metrology feature setting register for Harmonics */
    __IO  uint32_t METER_TYPE;              /**< Offset: 0x0C (R/W  32) Sensor type and service type settings register */
    __IO  uint32_t M;                       /**< Offset: 0x10 (R/W  32) Number of line cycles for integration period (uQ12.0) */
    __IO  uint32_t N_MAX;                   /**< Offset: 0x14 (R/W  32) Maximum number of samples in an integration period (uQ24.0) */

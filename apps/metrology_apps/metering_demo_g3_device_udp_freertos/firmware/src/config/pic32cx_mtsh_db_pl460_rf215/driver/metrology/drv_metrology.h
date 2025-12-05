@@ -165,7 +165,8 @@ typedef void (* DRV_METROLOGY_CALIBRATION_CALLBACK) (bool result);
     when the Harmonics analysis has been completed.
 
   Parameters:
-    harmonicNum  - The number of the harmonic that has been analyzed.
+    harmonicNum  - The number of the harmonic that has been analyzed. If 0, all
+                    harmonics from 0 to 31 have been processed.
 
   Remarks:
     None.
@@ -695,8 +696,8 @@ DRV_METROLOGY_REGS_CONTROL * DRV_METROLOGY_GetControlData(void);
       const DRV_METROLOGY_CONTROL gDrvMetControlDefault =
         {
             STATE_CTRL_STATE_CTRL_RESET_Val,
-            (uint32_t)(DRV_METROLOGY_CONF_FCTRL0),
-            (uint32_t)(DRV_METROLOGY_CONF_FCTRL1),
+            (uint32_t)(DRV_METROLOGY_CONF_FCTRL),
+            (uint32_t)(DRV_METROLOGY_CONF_HARMONIC_CTRL),
             (uint32_t)(DRV_METROLOGY_CONF_MT),
             (uint32_t)(0x00000000),
             (uint32_t)(0x00001130),
@@ -1219,7 +1220,7 @@ void DRV_METROLOGY_StartCalibration(void);
     None.
 
   Parameters:
-    harmonicNum - Harmonic number.
+    harmonicNum - Harmonic number. If 0, all harmonics from 0 to 31 will be processed.
     pHarmonicResponse - Pointer to the harmonic analysis struct data to store the harmonic data result.
 
   Returns:

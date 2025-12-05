@@ -1,0 +1,91 @@
+configVersion: 1.0.0
+componentName: rtc
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: rtc
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: rtc
+          x: '458'
+          y: '175'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    RTC_CR_CALEVSEL:
+      attributes:
+        id: RTC_CR_CALEVSEL
+      children:
+      - children:
+        - attributes:
+            value: MONTH
+          type: User
+        type: Values
+      type: Combo
+    RTC_FGPBRCLR:
+      attributes:
+        id: RTC_FGPBRCLR
+      children:
+      - children:
+        - attributes:
+            value: 'false'
+          type: User
+        type: Values
+      type: Boolean
+    RTC_MR_OUT0:
+      attributes:
+        id: RTC_MR_OUT0
+      children:
+      - children:
+        - attributes:
+            value: FREQ32HZ
+          type: User
+        type: Values
+      type: Combo
+    RTC_TAMPCLR:
+      attributes:
+        id: RTC_TAMPCLR
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    RTC_TAMPEN0:
+      attributes:
+        id: RTC_TAMPEN0
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    RTC_TAMPEN1:
+      attributes:
+        id: RTC_TAMPEN1
+      children:
+      - children:
+        - attributes:
+            value: 'false'
+          type: User
+        type: Values
+      type: Boolean
+  userData: {}

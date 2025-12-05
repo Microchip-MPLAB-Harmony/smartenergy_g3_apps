@@ -3,29 +3,29 @@ Pin Number,Pin ID,Custom Name,Function,Direction,Latch,Open Drain,PIO Interrupt,
 2,PC21,RF215_LED_TX,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
 3,PC22,,Available,In,,,,,,,
 4,PD0,,Available,In,,,,,,,
-5,PA8,,FLEXCOM1_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
-6,PA9,,FLEXCOM1_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+5,PA8,PL460_MOSI,FLEXCOM1_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+6,PA9,PL460_MISO,FLEXCOM1_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 7,PD3,PL460_NRST,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
-20,PD16,PL460_ENABLE,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
+20,PD16,PL460_ENABLE,GPIO,Out,High,No,Disabled,No,No,Glitch Filter,0x0
 22,PD17,,Available,In,,,,,,,
 23,PD18,,Available,In,,,,,,,
-24,PD19,,Available,In,,,,,,,
-25,PA10,,FLEXCOM1_IO2,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
-26,PA11,,FLEXCOM1_IO3,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+24,PD19,RED_LED_PD19,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
+25,PA10,PL460_SCK,FLEXCOM1_IO2,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+26,PA11,PL460_CS,FLEXCOM1_IO3,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 27,PA2,PL460_NTHW0,GPIO,In,n/a,No,Disabled,Yes,No,Glitch Filter,0x0
 28,PA3,PL460_EXTINT,GPIO,In,n/a,No,Low Level,No,Yes,Disabled,0x0
-29,PA4,,FLEXCOM0_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
-30,PA5,,FLEXCOM0_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+29,PA4,,Available,In,,,,,,,
+30,PA5,,Available,In,,,,,,,
 31,PA6,,Available,In,,,,,,,
 32,PA7,,Available,In,,,,,,,
-33,PA16,,Available,In,,,,,,,
+33,PA16,PL460_STBY,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
 34,PA17,PL460_TXEN,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
 35,PA18,,Available,In,,,,,,,
 36,PA19,,Available,In,,,,,,,
 37,PA12,,Available,In,,,,,,,
 38,PA13,,Available,In,,,,,,,
-39,PA14,SWITCH_SCRUP,GPIO,In,n/a,No,Falling Edge,Yes,No,Glitch Filter,0x0
-40,PA15,SWITCH_SCRDOWN,GPIO,In,n/a,No,Falling Edge,Yes,No,Glitch Filter,0x0
+39,PA14,SCRL_UP_BTN,GPIO,In,n/a,No,Raising Edge,Yes,No,Glitch Filter,0x0
+40,PA15,SCRL_DOWN_BTN,GPIO,In,n/a,No,Raising Edge,Yes,No,Glitch Filter,0x0
 42,PD1,,Available,In,,,,,,,
 43,PD2,,Available,In,,,,,,,
 44,PD12,,Available,In,,,,,,,

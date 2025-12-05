@@ -1,0 +1,67 @@
+configVersion: 1.0.0
+componentName: drv_memory
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: drv_memory
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: drv_memory
+          x: '318'
+          y: '571'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    DRV_MEMORY_COMMON_FS_ENABLE:
+      attributes:
+        id: DRV_MEMORY_COMMON_FS_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: drv_memory
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    DRV_MEMORY_COMMON_MODE:
+      attributes:
+        id: DRV_MEMORY_COMMON_MODE
+      children:
+      - children:
+        - attributes:
+            id: drv_memory
+            value: Synchronous
+          type: Dynamic
+        - attributes:
+            value: Asynchronous
+          type: User
+        type: Values
+      type: Combo
+    DRV_MEMORY_COMMON_SYS_TIME_ENABLE:
+      attributes:
+        id: DRV_MEMORY_COMMON_SYS_TIME_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: drv_memory
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+  userData: {}

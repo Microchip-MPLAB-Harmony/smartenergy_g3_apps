@@ -702,10 +702,10 @@ void APP_DISPLAY_Initialize ( void )
     app_displayData.comm_signal = APP_DISPLAY_COM_SIGNAL_OFF;
 
     /* Configure Switches */
-    PIO_PinInterruptCallbackRegister(SWITCH_SCRUP_PIN,
+    PIO_PinInterruptCallbackRegister(SCRL_UP_BTN_PIN,
             _APP_DISPLAY_ScrollUp_Callback, (uintptr_t)NULL);
 
-    PIO_PinInterruptCallbackRegister(SWITCH_SCRDOWN_PIN,
+    PIO_PinInterruptCallbackRegister(SCRL_DOWN_BTN_PIN,
             _APP_DISPLAY_ScrollDown_Callback, (uintptr_t)NULL);
 
     /* Reload DWDT0 at startup */
@@ -782,8 +782,8 @@ void APP_DISPLAY_Tasks ( void )
                 APP_DISPLAY_AddLoopInfo(APP_DISPLAY_TOU4_MAX_DEMAND);
 
                 /* Enable Switches interrupts */
-                PIO_PinInterruptEnable(SWITCH_SCRUP_PIN);
-                PIO_PinInterruptEnable(SWITCH_SCRDOWN_PIN);
+                PIO_PinInterruptEnable(SCRL_UP_BTN_PIN);
+                PIO_PinInterruptEnable(SCRL_DOWN_BTN_PIN);
 
                 /* Configure display timer loop */
                 APP_DISPLAY_SetTimerLoop(3);
@@ -800,7 +800,7 @@ void APP_DISPLAY_Tasks ( void )
                 /* If any button has been pressed, change the information */
                 if (app_displayData.scrdown_pressed)
                 {
-                    if (SWITCH_SCRUP_Get() == 0)
+                    if (SCRL_UP_BTN_Get() == 0)
                     {
                         SYS_CMD_MESSAGE("Entering Low Power... Press FWUP/TAMPER switch to wake up.\r\n");
 
@@ -820,7 +820,7 @@ void APP_DISPLAY_Tasks ( void )
 
                 if (app_displayData.scrup_pressed)
                 {
-                    if (SWITCH_SCRDOWN_Get() == 0)
+                    if (SCRL_DOWN_BTN_Get() == 0)
                     {
                         SYS_CMD_MESSAGE("Emulating application holds ... Resetting by DWDT0.\r\n");
 

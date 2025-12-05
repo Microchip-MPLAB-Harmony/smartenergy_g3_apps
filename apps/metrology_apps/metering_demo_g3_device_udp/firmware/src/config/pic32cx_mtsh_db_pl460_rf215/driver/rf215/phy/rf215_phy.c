@@ -210,7 +210,8 @@ static const RF215_OFDM_BW_OPT_CONST_OBJ ofdmBwOptConst[4] = {
         /* Higher threshold than in Table 6-93 to avoid false detections */
         .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(6U),
         .minMCS = OFDM_MCS_0,
-        .sensitivityDBm = -85
+        .sensitivityDBm = -85,
+        .maxTxPowerDBm = 10
     },
 
     /* Option 2 */
@@ -224,7 +225,8 @@ static const RF215_OFDM_BW_OPT_CONST_OBJ ofdmBwOptConst[4] = {
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_1333kHz,
         .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(5U),
         .minMCS = OFDM_MCS_0,
-        .sensitivityDBm = -88
+        .sensitivityDBm = -88,
+        .maxTxPowerDBm = 10
     },
 
     /* Option 3 */
@@ -238,7 +240,8 @@ static const RF215_OFDM_BW_OPT_CONST_OBJ ofdmBwOptConst[4] = {
         .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_667kHz,
         .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(4U),
         .minMCS = OFDM_MCS_1, /* MCS0 not available in option 3 */
-        .sensitivityDBm = -91
+        .sensitivityDBm = -91,
+        .maxTxPowerDBm = 10
     },
 
     /* Option 4 */
@@ -253,7 +256,8 @@ static const RF215_OFDM_BW_OPT_CONST_OBJ ofdmBwOptConst[4] = {
         /* Higher threshold than in Table 6-93 to avoid false detections */
         .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(4U),
         .minMCS = OFDM_MCS_2, /* MCS0 and MCS1 not available in option 4 */
-        .sensitivityDBm = -94
+        .sensitivityDBm = -94,
+        .maxTxPowerDBm = 11
     }
 };
 
@@ -263,49 +267,49 @@ static const RF215_OFDM_MCS_CONST_OBJ ofdmMcsConst[7] = {
     {
         .repFactorShift = 2U,
         .bitsCarrierShift = 0U,
-        .minTxPwrAttMin = 0U
+        .minTxPwrAtt = 0U
     },
 
     /* MCS1 */
     {
         .repFactorShift = 1U,
         .bitsCarrierShift = 0U,
-        .minTxPwrAttMin = 0U
+        .minTxPwrAtt = 0U
     },
 
     /* MCS2 */
     {
         .repFactorShift = 1U,
         .bitsCarrierShift = 1U,
-        .minTxPwrAttMin = 0U
+        .minTxPwrAtt = 0U
     },
 
     /* MCS3 */
     {
         .repFactorShift = 0U,
         .bitsCarrierShift = 1U,
-        .minTxPwrAttMin = 0U
+        .minTxPwrAtt = 0U
     },
 
     /* MCS4 */
     {
         .repFactorShift = 0U,
         .bitsCarrierShift = 1U,
-        .minTxPwrAttMin = 1U
+        .minTxPwrAtt = 1U
     },
 
     /* MCS5 */
     {
         .repFactorShift = 0U,
         .bitsCarrierShift = 2U,
-        .minTxPwrAttMin = 3U
+        .minTxPwrAtt = 3U
     },
 
     /* MCS6 */
     {
         .repFactorShift = 0U,
         .bitsCarrierShift = 2U,
-        .minTxPwrAttMin = 5U
+        .minTxPwrAtt = 5U
     }
 };
 
@@ -363,6 +367,7 @@ static uint8_t rf215PhyRegRF_IQIFC1;
 // *****************************************************************************
 // *****************************************************************************
 
+static bool lRF215_TRX_SwitchTrxOff(uint8_t trxIdx);
 static void lRF215_TX_PrepareTimeExpired(uintptr_t context);
 static DRV_RF215_PIB_RESULT lRF215_PHY_SetPhyConfig (
     uint8_t trxIdx,
@@ -1666,6 +1671,23 @@ static int8_t lRF215_PHY_SensitivityDBm(uint8_t trxIdx)
     }
 }
 
+static inline int8_t lRF215_PHY_MaxTxPowerDBm(uint8_t trxIdx)
+{
+    DRV_RF215_PHY_CFG_OBJ* phyCfg = &rf215PhyObj[trxIdx].phyConfig;
+    int8_t maxTxPowerDBm = 0;
+
+    if (phyCfg->phyType == PHY_TYPE_FSK)
+    {
+        maxTxPowerDBm += 14;
+    }
+    else /* PHY_TYPE_OFDM */
+    {
+        maxTxPowerDBm += ofdmBwOptConst[phyCfg->phyTypeCfg.ofdm.opt].maxTxPowerDBm;
+    }
+
+    return maxTxPowerDBm;
+}
+
 static bool lRF215_PHY_BandOpModeToPhyCfg (
     DRV_RF215_PHY_BAND_OPM bandOpMode,
     DRV_RF215_PHY_CFG_OBJ* phyConfig
@@ -2179,6 +2201,7 @@ static void lRF215_TRX_RxListen(uint8_t trxIdx)
 
     /* Update PHY state */
     pObj->phyState = PHY_STATE_RX_LISTEN;
+
 
     if (pObj->phyCfgPending == true)
     {
@@ -2817,26 +2840,27 @@ static uint32_t lRF215_TX_CommandDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 
 static uint32_t lRF215_TX_PrepareDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 {
-    uint32_t txPrepDelayUSq5 = RF215_TX_TRXRDY_DELAY_US_Q5;
+    uint32_t txPrepDelayUSq5;
     DRV_RF215_PHY_CCA_MODE ccaMode = txBufObj->reqObj.ccaMode;
     uint8_t spiBytes = 6;
 
     /* Common: 6 SPI bytes (TXPREP command, BBCn_AMCS) +
-     * TRXRDY interrupt delay + IRQ margin + 5000 execution cycles. */
-    txPrepDelayUSq5 += RF215_TX_IRQ_MARGIN_US_Q5 + EX_CYCL_TO_USQ5(5000U);
+     * TRXRDY interrupt delay + Time IRQ delay + 5000 execution cycles. */
+    txPrepDelayUSq5 = RF215_TX_TRXRDY_DELAY_US_Q5 + RF215_TX_TIME_IRQ_DELAY_US_Q5 + EX_CYCL_TO_USQ5(5000U);
 
     if ((ccaMode == PHY_CCA_MODE_1) || (ccaMode == PHY_CCA_MODE_3))
     {
-        /* CCA with ED: 9 SPI bytes (BB disable, ED duration, RX command) */
+        /* CCA with ED: 9 SPI bytes (BB disable, ED duration, RX command) + 2000 execution cycles */
         spiBytes += 9U;
+        txPrepDelayUSq5 += EX_CYCL_TO_USQ5(2000U);
     }
 
-    /* 4 SPI bytes (PSDU length) + 5000 execution cycles */
+    /* 4 SPI bytes (PSDU length) + 2000 execution cycles */
     spiBytes += 4U;
-    txPrepDelayUSq5 += EX_CYCL_TO_USQ5(5000U);
+    txPrepDelayUSq5 += EX_CYCL_TO_USQ5(2000U);
 
     /* Add duration of SPI bytes */
-    txPrepDelayUSq5 += (uint32_t) spiBytes * RF215_SPI_BYTE_DURATION_US_Q5;
+    txPrepDelayUSq5 += (uint32_t) spiBytes * (RF215_SPI_BYTE_DURATION_US_Q5 + EX_CYCL_TO_USQ5(200U));
     return txPrepDelayUSq5;
 }
 
@@ -3054,14 +3078,26 @@ static void lRF215_TX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t timeRead)
 static void lRF215_TX_ReadCaptureTimeExpired(uintptr_t context)
 {
     bool readTime = true;
-    uint8_t trxIdx = (uint8_t) context;
-    RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
+    SYS_TIME_HANDLE timeHandle = SYS_TIME_HANDLE_INVALID;
+    DRV_RF215_TX_BUFFER_OBJ* txBufObj;
+    uint8_t trxIdx;
+    RF215_PHY_OBJ* pObj;
 
-    /* Check if TX buffer is still in use */
-    if (pObj->txBufObj->inUse == false)
+    /* Validate TX handle and obtain pointer to TX buffer object */
+    txBufObj = DRV_RF215_TxHandleValidate(context);
+    if (txBufObj == NULL)
     {
         return;
     }
+
+    /* Check if TX buffer is still in use */
+    if (txBufObj->inUse == false)
+    {
+        return;
+    }
+
+    trxIdx = txBufObj->clientObj->trxIndex;
+    pObj = &rf215PhyObj[trxIdx];
 
     /* Critical region to avoid conflicts in PHY object data */
     RF215_HAL_EnterCritical();
@@ -3075,20 +3111,20 @@ static void lRF215_TX_ReadCaptureTimeExpired(uintptr_t context)
     {
         if (pObj->phyState != PHY_STATE_TX)
         {
-            SYS_TIME_HANDLE timeHandle;
             uint32_t timeReadDelay;
             uint32_t timeReadDelayUSq5 = pObj->txCmdDelayUSq5 + (150U << 5);
 
             /* TX has not started yet. Create new timer to postpone TX time read */
             readTime = false;
             timeReadDelayUSq5 += RF215_TX_TRXRDY_DELAY_US_Q5;
-            timeReadDelayUSq5 += RF215_TX_IRQ_MARGIN_US_Q5;
+            timeReadDelayUSq5 += RF215_TX_TIME_IRQ_DELAY_US_Q5;
             timeReadDelay = (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) timeReadDelayUSq5);
             timeHandle = SYS_TIME_TimerCreate(0U, timeReadDelay,
                 lRF215_TX_ReadCaptureTimeExpired, context, SYS_TIME_SINGLE);
             if (SYS_TIME_TimerStart(timeHandle) != SYS_TIME_SUCCESS)
             {
                 (void) SYS_TIME_TimerDestroy(timeHandle);
+                timeHandle = SYS_TIME_HANDLE_INVALID;
             }
         }
     }
@@ -3101,6 +3137,8 @@ static void lRF215_TX_ReadCaptureTimeExpired(uintptr_t context)
         RF215_HAL_SpiRead(RF215_BBCn_CNT0(trxIdx), &pObj->phyRegs.BBCn_CNT0, 4U,
                     lRF215_TX_ReadCNT, (uintptr_t) pObj);
     }
+
+    txBufObj->timeHandle = timeHandle;
 
     RF215_HAL_LeaveCritical();
 }
@@ -3355,8 +3393,8 @@ static DRV_RF215_TX_RESULT lRF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 
     /* Check modulation scheme and TX power attenuation parameters */
     txPwrAtt = txBufObj->reqObj.txPwrAtt;
-    phrtx = BBC_FSKPHRTX_FEC_OFF;
     phyRegs = &pObj->phyRegs;
+    phrtx = BBC_FSKPHRTX_FEC_OFF;
     pPHR = &phyRegs->BBCn_FSKPHRTX;
     addrPHR = RF215_BBCn_FSKPHRTX(trxIdx);
 
@@ -3374,7 +3412,7 @@ static DRV_RF215_TX_RESULT lRF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
         mcsIndex = (uint8_t) txBufObj->reqObj.modScheme;
         if (txPwrAtt < 31U)
         {
-            txPwrAtt += ofdmMcsConst[mcsIndex].minTxPwrAttMin;
+            txPwrAtt += ofdmMcsConst[mcsIndex].minTxPwrAtt;
         }
 
         /* BBCn_OFDMPHRTX register value, depending on MCS
@@ -3440,28 +3478,34 @@ static SYS_TIME_HANDLE lRF215_TX_TimeSchedule (
 {
     uint64_t txTimeDelay;
     int64_t txIntDelay;
-    uint32_t txIntMargin, txTimeMaxError;
+    uint32_t txIntMargin, txTimeMaxError, minIntDelay;
+    bool intStatus;
+    SYS_TIME_RESULT timeResult;
     SYS_TIME_HANDLE timeHandle = SYS_TIME_HANDLE_INVALID;
 
     /* Add margin for higher/same priority interrupts or critical regions */
     txIntMargin = (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) RF215_TX_TIME_IRQ_DELAY_US_Q5);
     txTime -= txIntMargin;
+    txTimeMaxError = SYS_TIME_USToCount(DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US);
+    minIntDelay = SYS_TIME_USToCount(5);
+
+    /* Critical region to avoid delays in current time computations */
+    intStatus = SYS_INT_Disable();
 
     /* Remaining time until the SYS_TIME interrupt is needed.
      * It must fit in 32 bits.
      * If it is already late, the maximum error must not be exceeded. */
     txTimeDelay = txTime - SYS_TIME_Counter64Get();
     txIntDelay = (int64_t) txTimeDelay;
-    txTimeMaxError = SYS_TIME_USToCount(DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US);
     if ((txIntDelay > (int64_t) UINT32_MAX) || (txIntDelay < (-((int64_t) txTimeMaxError))))
     {
         /* Error: delay too long or it is too late for the requested time */
+        SYS_INT_Restore(intStatus);
         return timeHandle;
     }
 
     if (force == true)
     {
-        uint32_t minIntDelay = SYS_TIME_USToCount(5);
         if (txIntDelay < (int64_t) minIntDelay)
         {
             /* We are late. Generate time interrupt "immediately". */
@@ -3473,6 +3517,7 @@ static SYS_TIME_HANDLE lRF215_TX_TimeSchedule (
         if (txIntDelay < (int64_t) txIntMargin)
         {
             /* No time to wait for new time interrupt */
+            SYS_INT_Restore(intStatus);
             return timeHandle;
         }
     }
@@ -3482,10 +3527,15 @@ static SYS_TIME_HANDLE lRF215_TX_TimeSchedule (
             timeContext, SYS_TIME_SINGLE);
 
     /* Start the timer */
-    if (SYS_TIME_TimerStart(timeHandle) != SYS_TIME_SUCCESS)
+    timeResult = SYS_TIME_TimerStart(timeHandle);
+
+    /* Leave critical region */
+    SYS_INT_Restore(intStatus);
+
+    if (timeResult != SYS_TIME_SUCCESS)
     {
         (void) SYS_TIME_TimerDestroy(timeHandle);
-        return SYS_TIME_HANDLE_INVALID;
+        timeHandle = SYS_TIME_HANDLE_INVALID;
     }
 
     return timeHandle;
@@ -3501,7 +3551,9 @@ static void lRF215_TX_StartTimeExpired(uintptr_t context)
     DRV_RF215_TX_BUFFER_OBJ* txBufObj;
     uint64_t txTime;
     uint32_t startDelayUSq5 = 0;
+    uint32_t auxTime;
     SYS_TIME_HANDLE timeHandle = SYS_TIME_HANDLE_INVALID;
+    bool txError = false;
 
     /* Validate TX handle and obtain pointer to TX buffer object */
     txBufObj = DRV_RF215_TxHandleValidate(context);
@@ -3528,8 +3580,7 @@ static void lRF215_TX_StartTimeExpired(uintptr_t context)
     {
         /* SPI is not free. Add estimated delay for SPI queue to be empty. */
         size_t spiQueueSize = RF215_HAL_GetSpiQueueSize();
-        startDelayUSq5 += (uint32_t) spiQueueSize * RF215_SPI_BYTE_DURATION_US_Q5;
-        startDelayUSq5 += EX_CYCL_TO_USQ5(2000U);
+        startDelayUSq5 += (uint32_t) spiQueueSize * (RF215_SPI_BYTE_DURATION_US_Q5 + EX_CYCL_TO_USQ5(200U));
     }
 
     if (pObj->trxRdy == false)
@@ -3549,7 +3600,8 @@ static void lRF215_TX_StartTimeExpired(uintptr_t context)
 
         /* Not ready to start and it is not too late.
          * Create new timer to start TX later. */
-        startDelay = (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) startDelayUSq5);
+        auxTime = startDelayUSq5 + RF215_TX_TIME_IRQ_DELAY_US_Q5;
+        startDelay = (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) (auxTime));
         timeHandle = SYS_TIME_TimerCreate(0U, startDelay,
                 lRF215_TX_StartTimeExpired, context, SYS_TIME_SINGLE);
 
@@ -3567,7 +3619,6 @@ static void lRF215_TX_StartTimeExpired(uintptr_t context)
         uint64_t criticalTime;
         uint32_t txTimeMaxError;
         bool intStatus;
-        bool txError = false;
 
         /* Maximum TX time error delay allowed */
         txTimeMaxError = SYS_TIME_USToCount(DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US);
@@ -3602,8 +3653,8 @@ static void lRF215_TX_StartTimeExpired(uintptr_t context)
 
             /* No ED contention window. At least TX command delay is needed
              * for the TX capture event time to be ready in RF215.
-             * Add 150 us for margin. */
-            timeReadDelayUSq5 = pObj->txCmdDelayUSq5 + (150U << 5);
+             * Add Time IRQ delay and 150 us for margin. */
+            timeReadDelayUSq5 = pObj->txCmdDelayUSq5 + RF215_TX_TIME_IRQ_DELAY_US_Q5 + (150U << 5);
             if (pObj->phyState <= PHY_STATE_TX_TXPREP)
             {
                 /* TX/CCATX command has not been sent. Add TRXRDY delay. */
@@ -3620,21 +3671,21 @@ static void lRF215_TX_StartTimeExpired(uintptr_t context)
                 (void) SYS_TIME_TimerDestroy(timeHandle);
                 timeHandle = SYS_TIME_HANDLE_INVALID;
             }
-
-            /* Update SYS_TIME handle */
-            txBufObj->timeHandle = timeHandle;
         }
         else
         {
             txError = true;
         }
+    }
 
-        if (txError == true)
-        {
-            /* Continue listening and set pending TX confirm with TX error */
-            lRF215_TRX_RxListen(trxIdx);
-            RF215_PHY_SetTxCfm(txBufObj, RF215_TX_TIMEOUT);
-        }
+    /* Update SYS_TIME handle */
+    txBufObj->timeHandle = timeHandle;
+
+    if (txError == true)
+    {
+        /* Continue listening and set pending TX confirm with TX error */
+        lRF215_TRX_RxListen(trxIdx);
+        RF215_PHY_SetTxCfm(txBufObj, RF215_TX_TIMEOUT);
     }
 
     RF215_HAL_SpiUnlock();
@@ -3642,10 +3693,11 @@ static void lRF215_TX_StartTimeExpired(uintptr_t context)
 
 static void lRF215_TX_PrepareTimeExpired(uintptr_t context)
 {
-    DRV_RF215_TX_RESULT result;
+    DRV_RF215_TX_RESULT result = RF215_TX_SUCCESS;
     uint8_t trxIdx;
     RF215_PHY_OBJ* pObj;
     DRV_RF215_TX_BUFFER_OBJ* txBufObj;
+    SYS_TIME_HANDLE timeHandle = SYS_TIME_HANDLE_INVALID;
 
     /* Validate TX handle and obtain pointer to TX buffer object */
     txBufObj = DRV_RF215_TxHandleValidate(context);
@@ -3663,11 +3715,21 @@ static void lRF215_TX_PrepareTimeExpired(uintptr_t context)
     if ((pObj->phyState == PHY_STATE_TX_CCA_ED) || (pObj->txPendingState == PHY_STATE_TX_CCA_ED))
     {
         /* CCA ED still in progress. New interrupt for later (ED duration) */
-        txBufObj->timeHandle = SYS_TIME_CallbackRegisterUS(lRF215_TX_PrepareTimeExpired,
-                context, pObj->phyConfig.ccaEdDurationUS, SYS_TIME_SINGLE);
+        timeHandle = SYS_TIME_CallbackRegisterUS(lRF215_TX_PrepareTimeExpired,
+                context, pObj->phyConfig.ccaEdDurationUS + (RF215_TX_TIME_IRQ_DELAY_US_Q5 >> 5), SYS_TIME_SINGLE);
 
-        RF215_HAL_LeaveCritical();
-        return;
+        if (timeHandle == SYS_TIME_HANDLE_INVALID)
+        {
+            /* Error: Timer could not be started. Continue listening. */
+            lRF215_TRX_RxListen(trxIdx);
+            result = RF215_TX_TIMEOUT;
+        }
+        else
+        {
+            txBufObj->timeHandle = timeHandle;
+            RF215_HAL_LeaveCritical();
+            return;
+        }
     }
 
     if (txBufObj->cfmPending == true)
@@ -3677,6 +3739,12 @@ static void lRF215_TX_PrepareTimeExpired(uintptr_t context)
         return;
     }
 
+    if (result == RF215_TX_SUCCESS)
+    {
+        /* Carrier sense CCA and TX parameters configuration */
+        result = lRF215_TX_ParamCfg(txBufObj);
+    }
+
     /* Carrier sense CCA and TX parameters configuration */
     result = lRF215_TX_ParamCfg(txBufObj);
 
@@ -3684,7 +3752,6 @@ static void lRF215_TX_PrepareTimeExpired(uintptr_t context)
     {
         uint64_t interruptTime;
         uint64_t txTime = txBufObj->reqObj.timeCount;
-        SYS_TIME_HANDLE timeHandle = SYS_TIME_HANDLE_INVALID;
 
         /* Schedule a new time interrupt (if TX parameters not configured) */
         if ((pObj->phyState < PHY_STATE_TX_CONFIG) && (pObj->txPendingState < PHY_STATE_TX_CONFIG))
@@ -3721,11 +3788,6 @@ static void lRF215_TX_PrepareTimeExpired(uintptr_t context)
             lRF215_TRX_RxListen(trxIdx);
             result = RF215_TX_TIMEOUT;
         }
-        else
-        {
-            /* Timer to prepare/start TX scheduled successfully */
-            txBufObj->timeHandle = timeHandle;
-        }
     }
 
     if (result != RF215_TX_SUCCESS)
@@ -3733,6 +3795,9 @@ static void lRF215_TX_PrepareTimeExpired(uintptr_t context)
         /* Set pending TX confirm with TX error */
         RF215_PHY_SetTxCfm(txBufObj, result);
     }
+
+    /* Update SYS_TIME handle */
+    txBufObj->timeHandle = timeHandle;
 
     RF215_HAL_LeaveCritical();
 }
@@ -4456,7 +4521,6 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
         uint64_t interruptTime;
         uint32_t txTotalDelay;
         SYS_TIME_HANDLE timeHandle;
-        bool intStatus;
         uint64_t txTime = txBufObj->reqObj.timeCount;
 
         if (pObj->resetInProgress == true)
@@ -4489,9 +4553,6 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
         /* Time when we need the scheduled interrupt */
         interruptTime = txTime - txTotalDelay;
 
-        /* Critical region to avoid delays in current time computations */
-        intStatus = SYS_INT_Disable();
-
         /* Schedule timer for the specified time */
         timeHandle = lRF215_TX_TimeSchedule(interruptTime, true,
                 lRF215_TX_PrepareTimeExpired, txBufObj->txHandle);
@@ -4506,9 +4567,6 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
             /* Timer created and started */
             txBufObj->timeHandle = timeHandle;
         }
-
-        /* Leave critical region */
-        SYS_INT_Restore(intStatus);
     }
 
     if (result != RF215_TX_SUCCESS)
@@ -4638,6 +4696,10 @@ DRV_RF215_PIB_RESULT RF215_PHY_GetPib (
 
         case RF215_PIB_PHY_SENSITIVITY:
             *((int8_t *) value) = lRF215_PHY_SensitivityDBm(trxIndex);
+            break;
+
+        case RF215_PIB_PHY_MAX_TX_POWER:
+            *((int8_t *) value) = lRF215_PHY_MaxTxPowerDBm(trxIndex);
             break;
 
         case RF215_PIB_PHY_TURNAROUND_TIME:

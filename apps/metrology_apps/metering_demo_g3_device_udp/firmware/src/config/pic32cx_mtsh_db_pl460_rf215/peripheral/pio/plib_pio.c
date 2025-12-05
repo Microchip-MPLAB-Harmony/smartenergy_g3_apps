@@ -45,10 +45,10 @@
 #include "interrupts.h"
 
 /* Array to store callback objects of each configured interrupt */
-volatile static PIO_PIN_CALLBACK_OBJ portPinCbObj[4];
+static volatile PIO_PIN_CALLBACK_OBJ portPinCbObj[4];
 
 /* Array to store number of interrupts in each PORT Channel + previous interrupt count */
-volatile static uint8_t portNumCb[7 + 1] = { 0, 3, 4, 4, 4, 4, 4, 4, };
+static volatile uint8_t portNumCb[7 + 1] = { 0, 3, 4, 4, 4, 4, 4, 4, };
 
 /* PIO base address for each port group */
 static pio_registers_t* const PIO_REGS[PIO_PORT_MAX] = { PIO0_REGS, PIO0_REGS, PIO0_REGS, PIO1_REGS };
@@ -68,11 +68,11 @@ static const uint32_t PIO_INDEX[PIO_PORT_MAX] = { 0U, 1U, 2U, 0U };
 void PIO_Initialize ( void )
 {
  /* Port A Peripheral function A configuration */
-   PIOA_REGS->PIO_MSKR = 0x1fe00f30LU;
+   PIOA_REGS->PIO_MSKR = 0x1fe00f00LU;
    PIOA_REGS->PIO_CFGR = 0x1U;
 
  /* Port A Peripheral function GPIO configuration */
-   PIOA_REGS->PIO_MSKR = 0x4002c00cLU;
+   PIOA_REGS->PIO_MSKR = 0x4003c00cLU;
    PIOA_REGS->PIO_CFGR = 0x0U;
 
  /* Port A Pin 2 configuration */
@@ -91,6 +91,10 @@ void PIO_Initialize ( void )
    PIOA_REGS->PIO_MSKR = 0x8000U;
    PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x200U;
 
+ /* Port A Pin 16 configuration */
+   PIOA_REGS->PIO_MSKR = 0x10000U;
+   PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
+
  /* Port A Pin 17 configuration */
    PIOA_REGS->PIO_MSKR = 0x20000U;
    PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
@@ -100,7 +104,7 @@ void PIO_Initialize ( void )
    PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
 
  /* Port A Latch configuration */
-   PIOA_REGS->PIO_CODR = 0x4002c00cLU;
+   PIOA_REGS->PIO_CODR = 0x4003c00cLU;
 
     /* Clear the ISR register */
    (uint32_t)PIOA_REGS->PIO_ISR;
@@ -153,7 +157,7 @@ void PIO_Initialize ( void )
    PIOC_REGS->PIO_CODR = 0x300000U;
 
  /* Port D Peripheral function GPIO configuration */
-   PIOD_REGS->PIO_MSKR = 0x10008U;
+   PIOD_REGS->PIO_MSKR = 0x90008U;
    PIOD_REGS->PIO_CFGR = 0x0U;
 
  /* Port D Pin 3 configuration */
@@ -164,8 +168,13 @@ void PIO_Initialize ( void )
    PIOD_REGS->PIO_MSKR = 0x10000U;
    PIOD_REGS->PIO_CFGR = (PIOD_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
 
+ /* Port D Pin 19 configuration */
+   PIOD_REGS->PIO_MSKR = 0x80000U;
+   PIOD_REGS->PIO_CFGR = (PIOD_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
+
  /* Port D Latch configuration */
-   PIOD_REGS->PIO_CODR = 0x10008U;
+   PIOD_REGS->PIO_SODR = 0x10000U;
+   PIOD_REGS->PIO_CODR = 0x90008U & ~0x10000U;
 
 
 

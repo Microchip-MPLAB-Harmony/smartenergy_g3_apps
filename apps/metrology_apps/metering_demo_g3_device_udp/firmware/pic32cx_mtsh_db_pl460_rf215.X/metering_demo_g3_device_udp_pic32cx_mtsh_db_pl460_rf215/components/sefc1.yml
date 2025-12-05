@@ -1,0 +1,42 @@
+configVersion: 1.0.0
+componentName: sefc1
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: sefc1
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: sefc1
+          x: '133'
+          y: '64'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    NVM_RWS:
+      attributes:
+        id: NVM_RWS
+      children:
+      - children:
+        - attributes:
+            id: sefc1
+            value: '7'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

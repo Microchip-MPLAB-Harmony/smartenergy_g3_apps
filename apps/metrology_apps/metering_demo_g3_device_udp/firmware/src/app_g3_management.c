@@ -857,12 +857,10 @@ void APP_G3_MANAGEMENT_Tasks ( void )
         /* Application's initial state. */
         case APP_G3_MANAGEMENT_STATE_ADP_OPEN:
         {
-            SRV_PLC_PCOUP_BRANCH plcBranch;
             ADP_BAND plcBand;
 
             /* Get configured PLC band */
-            plcBranch = SRV_PCOUP_Get_Default_Branch();
-            plcBand = SRV_PCOUP_Get_Phy_Band(plcBranch);
+            plcBand = SRV_PCOUP_Get_Default_Phy_Band();
 
             /* Open G3 Adaptation Layer (ADP) */
             ADP_Open(plcBand);

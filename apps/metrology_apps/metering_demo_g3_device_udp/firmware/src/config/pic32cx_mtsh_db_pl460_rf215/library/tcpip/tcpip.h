@@ -16,9 +16,8 @@
     of the TCP/IP stack modules.
   
 *******************************************************************************/
-//DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2016-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2016-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -47,10 +46,8 @@ Microchip or any third party.
 
 
 
-//DOM-IGNORE-END
-
-#ifndef __TCPIP_H__
-#define __TCPIP_H__
+#ifndef H_TCPIP_H__
+#define H_TCPIP_H__
 
 
 #include <string.h>
@@ -63,20 +60,18 @@ Microchip or any third party.
 #include "system/system_common.h"
 #include "system/system_module.h"
 
-// DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
     extern "C" {
 
 #endif
-// DOM-IGNORE-END  
 
 
 // TCP/IP stack version
-#define TCPIP_STACK_VERSION_MAJOR         8
-#define TCPIP_STACK_VERSION_MINOR         1
+#define TCPIP_STACK_VERSION_MAJOR         14
+#define TCPIP_STACK_VERSION_MINOR         4
 #define TCPIP_STACK_VERSION_PATCH         0
-#define TCPIP_STACK_VERSION_STR           "8.10 - H3"
+#define TCPIP_STACK_VERSION_STR           "14.4.0 - H3"
 
 
 // *****************************************************************************
@@ -136,11 +131,11 @@ typedef IPV4_ADDR   IP_ADDR;
     None.
 */
 
-typedef union
+typedef union __attribute__((__packed__))
 {
     uint8_t  v[16];
     uint16_t w[8];
-    uint32_t d[4];
+    uint32_t d32[4];
 } IPV6_ADDR;
 
 // *****************************************************************************
@@ -159,7 +154,7 @@ typedef union
 typedef enum
 {
     /* either IPv4 or IPv6, unspecified; */
-    IP_ADDRESS_TYPE_ANY /*DOM-IGNORE-BEGIN*/ = 0 /*DOM-IGNORE-END*/,
+    IP_ADDRESS_TYPE_ANY = 0 ,
     /* IPv4 address type */
     IP_ADDRESS_TYPE_IPV4,
     /* IPv6 address type */
@@ -201,13 +196,13 @@ typedef union
 
 typedef enum
 {
-    IPV6_ADDR_SCOPE_UNKNOWN         /*DOM-IGNORE-BEGIN*/ = 0x00 /*DOM-IGNORE-END*/,
-    IPV6_ADDR_SCOPE_INTERFACE_LOCAL /*DOM-IGNORE-BEGIN*/ = 0x01 /*DOM-IGNORE-END*/,
-    IPV6_ADDR_SCOPE_LINK_LOCAL      /*DOM-IGNORE-BEGIN*/ = 0x02 /*DOM-IGNORE-END*/,
-    IPV6_ADDR_SCOPE_ADMIN_LOCAL     /*DOM-IGNORE-BEGIN*/ = 0x04 /*DOM-IGNORE-END*/,
-    IPV6_ADDR_SCOPE_SITE_LOCAL      /*DOM-IGNORE-BEGIN*/ = 0x05 /*DOM-IGNORE-END*/,
-    IPV6_ADDR_SCOPE_ORG_LOCAL       /*DOM-IGNORE-BEGIN*/ = 0x08 /*DOM-IGNORE-END*/,
-    IPV6_ADDR_SCOPE_GLOBAL          /*DOM-IGNORE-BEGIN*/ = 0x0E /*DOM-IGNORE-END*/,
+    IPV6_ADDR_SCOPE_UNKNOWN         = 0x00 ,
+    IPV6_ADDR_SCOPE_INTERFACE_LOCAL = 0x01 ,
+    IPV6_ADDR_SCOPE_LINK_LOCAL      = 0x02 ,
+    IPV6_ADDR_SCOPE_ADMIN_LOCAL     = 0x04 ,
+    IPV6_ADDR_SCOPE_SITE_LOCAL      = 0x05 ,
+    IPV6_ADDR_SCOPE_ORG_LOCAL       = 0x08 ,
+    IPV6_ADDR_SCOPE_GLOBAL          = 0x0E ,
 }IPV6_ADDR_SCOPE;
 
 // *****************************************************************************
@@ -226,13 +221,13 @@ typedef enum
 typedef enum
 {
     /* Invalid/unknown address type */
-    IPV6_ADDR_TYPE_UNKNOWN                  /*DOM-IGNORE-BEGIN*/ = 0 /*DOM-IGNORE-END*/,
+    IPV6_ADDR_TYPE_UNKNOWN                  = 0 ,
     /* Only link-local and global are currently valid for unicast */
-    IPV6_ADDR_TYPE_UNICAST                  /*DOM-IGNORE-BEGIN*/ = 0x01 /*DOM-IGNORE-END*/,
-    IPV6_ADDR_TYPE_ANYCAST                  /*DOM-IGNORE-BEGIN*/ = 0x02 /*DOM-IGNORE-END*/,
-    IPV6_ADDR_TYPE_MULTICAST                /*DOM-IGNORE-BEGIN*/ = 0x03 /*DOM-IGNORE-END*/,
-    IPV6_ADDR_TYPE_SOLICITED_NODE_MULTICAST /*DOM-IGNORE-BEGIN*/ = 0x04 /*DOM-IGNORE-END*/,
-    IPV6_ADDR_TYPE_UNICAST_TENTATIVE        /*DOM-IGNORE-BEGIN*/ = 0x05 /*DOM-IGNORE-END*/,
+    IPV6_ADDR_TYPE_UNICAST                  = 0x01 ,
+    IPV6_ADDR_TYPE_ANYCAST                  = 0x02 ,
+    IPV6_ADDR_TYPE_MULTICAST                = 0x03 ,
+    IPV6_ADDR_TYPE_SOLICITED_NODE_MULTICAST = 0x04 ,
+    IPV6_ADDR_TYPE_UNICAST_TENTATIVE        = 0x05 ,
 }IPV6_ADDR_TYPE;
 
 
@@ -250,19 +245,19 @@ typedef enum
     None.
 */
 
-typedef struct __attribute__((__packed__)) _IPV6_ADDR_STRUCT
+typedef struct __attribute__((__packed__)) S_IPV6_ADDR_STRUCT
 {
-    struct _IPV6_ADDR_STRUCT * next;
-    struct _IPV6_ADDR_STRUCT * prev;
-    IPV6_ADDR address;
-    unsigned long validLifetime;
-    unsigned long preferredLifetime;
-    unsigned long lastTickTime;
-    unsigned char prefixLen;
+    struct S_IPV6_ADDR_STRUCT * next;
+    struct S_IPV6_ADDR_STRUCT * prev;
+    IPV6_ADDR   address;
+    uint32_t    validLifetime;
+    uint32_t    preferredLifetime;
+    uint32_t    lastTickTime;
+    uint8_t     prefixLen;
     struct __attribute__((__packed__))
     {
         /* Allow preferences */
-        unsigned char precedence;                  
+        uint8_t precedence;                  
         /* Link-local, site-local, global. */
         unsigned scope                  :4;
         /* Policy label */
@@ -304,29 +299,32 @@ typedef const void*   IPV6_ADDR_HANDLE;
     16 bit values only.
 */
 
+#define TCPIP_MODULE_LAYER1 TCPIP_MODULE_ARP
+#define TCPIP_MODULE_LAYER2 TCPIP_MODULE_ICMP
+#define TCPIP_MODULE_LAYER3 TCPIP_MODULE_DHCP_CLIENT
 typedef enum
 {
     /* unspecified/unknown module */
     TCPIP_MODULE_NONE              = 0,
-    /*DOM-IGNORE-BEGIN*/     // manager: layer 0 module /*DOM-IGNORE-END*/
+    // manager: layer 0 module 
     TCPIP_MODULE_MANAGER,    /* stack manager + packet allocation manager */ 
 
-    /*DOM-IGNORE-BEGIN*/    TCPIP_MODULE_LAYER1,  // 1st layer modules: 2 - 5 /*DOM-IGNORE-END*/
-    TCPIP_MODULE_ARP        /*DOM-IGNORE-BEGIN*/ = TCPIP_MODULE_LAYER1 /*DOM-IGNORE-END*/,
+    // TCPIP_MODULE_LAYER1 - 1st layer modules: 2 - 5
+    TCPIP_MODULE_ARP,
     TCPIP_MODULE_IPV4,
     TCPIP_MODULE_IPV6,
     TCPIP_MODULE_LLDP,              /* LLDP module */
 
-    /*DOM-IGNORE-BEGIN*/    TCPIP_MODULE_LAYER2, // 2nd layer modules: 6 - 11 /*DOM-IGNORE-END*/
-    TCPIP_MODULE_ICMP       /*DOM-IGNORE-BEGIN*/ = TCPIP_MODULE_LAYER2 /*DOM-IGNORE-END*/,
+    // TCPIP_MODULE_LAYER2 - 2nd layer modules: 6 - 11
+    TCPIP_MODULE_ICMP,
     TCPIP_MODULE_ICMPV6,
     TCPIP_MODULE_NDP,
     TCPIP_MODULE_UDP,
     TCPIP_MODULE_TCP,
     TCPIP_MODULE_IGMP,      /* IGMP host module */
 
-    /*DOM-IGNORE-BEGIN*/    TCPIP_MODULE_LAYER3, // 3rd layer modules: 12 - 19 /*DOM-IGNORE-END*/
-    TCPIP_MODULE_DHCP_CLIENT  /*DOM-IGNORE-BEGIN*/ = TCPIP_MODULE_LAYER3 /*DOM-IGNORE-END*/,
+    // TCPIP_MODULE_LAYER3 - 3rd layer modules: 12 - 19
+    TCPIP_MODULE_DHCP_CLIENT,
     TCPIP_MODULE_DHCP_SERVER,
     TCPIP_MODULE_ANNOUNCE,
     TCPIP_MODULE_DNS_CLIENT,
@@ -335,21 +333,19 @@ typedef enum
     TCPIP_MODULE_MDNS,              /* Bonjour/mDNS */
     TCPIP_MODULE_NBNS,
 
-    /*DOM-IGNORE-BEGIN*/    // 3rd layer modules: 20 - 29 /*DOM-IGNORE-END*/
-    TCPIP_MODULE_SMTP_CLIENT,       /* Obsolete - old SMTP client */
+    // 3rd layer modules: 20 - 29
     TCPIP_MODULE_SNTP,
     TCPIP_MODULE_FTP_SERVER,
-    TCPIP_MODULE_HTTP_SERVER,
     TCPIP_MODULE_HTTP_NET_SERVER,
     TCPIP_MODULE_HTTP_SERVER_V2,    /* new HTTP server v2 module */
     TCPIP_MODULE_TELNET_SERVER,
     TCPIP_MODULE_SNMP_SERVER,
     TCPIP_MODULE_SNMPV3_SERVER,
     TCPIP_MODULE_DYNDNS_CLIENT,
-
-    /*DOM-IGNORE-BEGIN*/    // 3rd layer modules: 30 - 38 /*DOM-IGNORE-END*/
     TCPIP_MODULE_BERKELEY,
     TCPIP_MODULE_REBOOT_SERVER,
+
+    // 3rd layer modules: 30 - 37
     TCPIP_MODULE_COMMAND,
     TCPIP_MODULE_IPERF,
     TCPIP_MODULE_TFTP_CLIENT,       /* TFTP client module */
@@ -357,6 +353,7 @@ typedef enum
     TCPIP_MODULE_SMTPC,             /* SMTP (new) client */
     TCPIP_MODULE_TFTP_SERVER,       /* TFTP Server module */
     TCPIP_MODULE_FTP_CLIENT,        /* FTP client */
+    TCPIP_MODULE_WS_CLIENT,         /* WS client */
 
     /* add other modules here */
     TCPIP_MODULE_MAC_BRIDGE,        /* MAC layer 2 bridge */
@@ -366,10 +363,9 @@ typedef enum
     /*  */
     /* starting here is list of supported MAC modules */
     /* and are defined in the tcpip_mac.h  */
-    TCPIP_MODULE_MAC_START /*DOM-IGNORE-BEGIN*/ = 0x1000 /*DOM-IGNORE-END*/, 
+    TCPIP_MODULE_MAC_START = 0x1000
 
 }TCPIP_STACK_MODULE;
-
 
 // *****************************************************************************
 /* TCP/IP stack supported network interfaces
@@ -452,47 +448,56 @@ typedef enum
 {
     /* Start the interface with a static IP address */
     /* No address service is enabled on this interface (DHCPc, ZCLL or DHCPs) */
-    TCPIP_NETWORK_CONFIG_IP_STATIC            /*DOM-IGNORE-BEGIN*/ = 0x0000 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_IP_STATIC            = 0x0000 ,   
     /* DHCP client enabled on this interface */
-    TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON       /*DOM-IGNORE-BEGIN*/ = 0x0001 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON       = 0x0001 ,   
     /* ZeroConf LinkLocal enabled on this interface */
-    TCPIP_NETWORK_CONFIG_ZCLL_ON              /*DOM-IGNORE-BEGIN*/ = 0x0002 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_ZCLL_ON              = 0x0002 ,   
     /* DHCP server enabled on this interface */
-    TCPIP_NETWORK_CONFIG_DHCP_SERVER_ON       /*DOM-IGNORE-BEGIN*/ = 0x0004 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_DHCP_SERVER_ON       = 0x0004 ,   
 
     /* DNS CLIENT enabled on this interface */
-    TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON        /*DOM-IGNORE-BEGIN*/ = 0x0008 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON        = 0x0008 ,   
     /* DNS Server Enabled on this Interface */
-    TCPIP_NETWORK_CONFIG_DNS_SERVER_ON        /*DOM-IGNORE-BEGIN*/ = 0x0010 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_DNS_SERVER_ON        = 0x0010 ,   
     /* Multicast traffic enabled on this Interface */
-    TCPIP_NETWORK_CONFIG_MULTICAST_ON         /*DOM-IGNORE-BEGIN*/ = 0x0020 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_MULTICAST_ON         = 0x0020 ,   
     /* Packet logging is enabled on this Interface */
-    TCPIP_NETWORK_CONFIG_PKT_LOG_ON           /*DOM-IGNORE-BEGIN*/ = 0x0040 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_PKT_LOG_ON           = 0x0040 ,   
+    /* VLAN Drop Eligibility Indicator flag
+       If set and the VLAN traffic is enabled, the traffic on the vlan network is drop eligible.
+       Default should not be set */
+    TCPIP_NETWORK_CONFIG_VLAN_DEI             = 0x0080 ,   
+    /* VLAN use the NULL vlan ID flag
+       If set and VLAN traffic is enabled, the untagged traffic is transmitted with VID == 0.
+       Otherwise the untagged traffic does not carry the VID.
+       Default is not set */
+    TCPIP_NETWORK_CONFIG_VLAN_USE_VID_NULL    = 0x0100 ,   
 
     /* the network configuration contains an IPv6 static address and subnet prefix length */
-    TCPIP_NETWORK_CONFIG_IPV6_ADDRESS         /*DOM-IGNORE-BEGIN*/ = 0x0100 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_IPV6_ADDRESS         = 0x0200 ,   
 
     /* G3-PLC IPv6 general interface flags */
     /* the network will be part of a G3-PLC network */
-    TCPIP_NETWORK_CONFIG_IPV6_G3_NET          /*DOM-IGNORE-BEGIN*/ = 0x0200 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_IPV6_G3_NET          = 0x0400 ,   
 
     /* The IPv6 will suppress the Duplicate Address Detection on this interface */
-    TCPIP_NETWORK_CONFIG_IPV6_NO_DAD          /*DOM-IGNORE-BEGIN*/ = 0x0400 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_IPV6_NO_DAD          = 0x0800 ,   
     
     /* G3-PLC IPv6 router/coordinator interface flags */
     /* the network will act as an IPv6 border router/coordinator, replying to solicitations */
-    TCPIP_NETWORK_CONFIG_IPV6_ROUTER          /*DOM-IGNORE-BEGIN*/ = 0x0800 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_IPV6_ROUTER          = 0x1000 ,   
 
     /* when configured as an IPv6 router, sending advertisements is enabled  */
-    TCPIP_NETWORK_CONFIG_IPV6_ADV_ENABLED     /*DOM-IGNORE-BEGIN*/ = 0x1000 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_IPV6_ADV_ENABLED     = 0x2000 ,   
 
     /* Suppress the RS (Router Solicitation) messages on this interface */
-    TCPIP_NETWORK_CONFIG_IPV6_NO_RS           /*DOM-IGNORE-BEGIN*/ = 0x2000 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_IPV6_NO_RS           = 0x4000 ,   
     
     /* G3-PLC IPv6 device interface flags */
     /* Send RS messages to a router unicast address rather than multicast.
       By default the 'all IPv6 routers' multicast address: 'ff02::02' is used */
-    TCPIP_NETWORK_CONFIG_IPV6_UNICAST_RS      /*DOM-IGNORE-BEGIN*/ = 0x4000 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_IPV6_UNICAST_RS      = 0x8000 ,   
 
     /* add other configuration flags here */
 }TCPIP_NETWORK_CONFIG_FLAGS;
@@ -524,33 +529,41 @@ struct TCPIP_MAC_OBJECT_TYPE;
     for a specific interface.
 
   Remarks:
-    IPv4 aliased interfaces can be created by specifying the same MAC object member
+    Aliased interfaces can be created by specifying the same MAC object member
     TCPIP_NETWORK_CONFIG.pMacObject. 
     An aliased interface is one that shares the same physical interface
     and MAC object with a primary interface.
 
-    Note that the .macAddr is irrelevant for an IPv4 aliased interface.
-    The first interface fully configured will be the primary interface, others will
-    be aliases.
+        Note that the .macAddr is irrelevant for an aliased interface.
+        The first interface fully configured will be the primary interface, others will
+        be aliases.
 
-    An IPv4 alias interface will allow, for example, 
-    having a different static/dynamic IPv4 address on the same physical interface.
+        An alias interface will allow, for example, 
+        having a different static/dynamic IPv4 address on the same physical interface.
 
-    Note that the stack won't allow initialization of multiple interfaces
-    with the same static IPv4 address.
+        Note that the stack won't allow initialization of multiple interfaces
+        with the same static IPv4 address.
 
-    It is also recommended that each interface has a different host name.
+        It is also recommended that each interface has a different host name.
 
-    For an IPv4 alias interface .powerMode ==  TCPIP_STACK_IF_POWER_DOWN can be used to prevent
-    the alias to be started when the stack is initialized and the primary interfaces go up.
- 
-    A primary interface currently supports only the
-    TCPIP_STACK_IF_POWER_FULL and TCPIP_STACK_IF_POWER_DOWN power modes.
+        For an IPv4 alias interface .powerMode ==  TCPIP_STACK_IF_POWER_DOWN can be used to prevent
+        the alias to be started when the stack is initialized and the primary interfaces go up.
+     
+        A primary interface currently supports only the
+        TCPIP_STACK_IF_POWER_FULL and TCPIP_STACK_IF_POWER_DOWN power modes.
 
-    Alias interfaces are not currently supported on IPv6.
+        Alias interfaces are not currently supported on IPv6.
 
-    Currently a broadcast message received (on a primary interface)
-    is not duplicated on all aliases but it will appear only on the primary interface. 
+        Currently a broadcast message received (on a primary interface)
+        is not duplicated on all aliases but it will appear only on the primary interface. 
+
+        The symbol TCPIP_STACK_ALIAS_INTERFACE_SUPPORT has to be defined and != 0
+        for alias interface support
+
+    An interface with vlanId != 0 is a VLAN interface.
+        A VLAN interface will process only VLAN tagged frames.
+        If untagged traffic is required on the same physical wire, a virtual interface should be used.
+        Usually the primary interface should be the untagged one and an alias the VLAN one.
 */
 typedef struct
 {
@@ -606,11 +619,29 @@ typedef struct
     /* subnet prefix length; only if TCPIP_NETWORK_CONFIG_IPV6_ADDRESS specified
        0 means default value (64)
        should probably always be 64 as requested by the RFC */
-    int             ipv6PrefixLen;
+    size_t          ipv6PrefixLen;
 
     /* default IPv6 gateway address; only if TCPIP_NETWORK_CONFIG_IPV6_ADDRESS specified
-       can be NULL if not needed*/
+       can be NULL if not needed */
     const char*     ipv6Gateway; 
+
+    /* IPv6 DNS to use; only if TCPIP_NETWORK_CONFIG_IPV6_ADDRESS specified
+       can be NULL if not needed */
+    const char*     ipv6Dns; 
+
+    /* VLAN ID (VID) to be used for this interface */
+    /* This is a 12 bit identifier for the C-VLAN network interface */
+    /* A value of 0 (the NULL VID) means that no VID is used. Default case */
+    /* Note: Some values are reserved and should NOT be used:
+            - 0x01: The default Port VID for ingress Bridge Port
+            - 0x02: The default SR (Stream Reservation) Port VID
+            - 0xFFF: Reserved for implementation use. */
+    uint16_t        vlanId;
+
+    /* VLAN Priotity Code point */
+    /* A 3 bit priority value, 0- 7.  Should be 0, default value */ 
+    uint8_t         vlanPcp;
+
 }TCPIP_NETWORK_CONFIG;
 
 // *****************************************************************************
@@ -703,20 +734,51 @@ typedef struct TCPIP_STACK_INIT
     /* pointer to array of network configurations */
     const TCPIP_NETWORK_CONFIG*         pNetConf;   
     /* number of networks in the configuration array */
-    int                                 nNets;      
+    size_t                              nNets;      
     /* pointer to array of module configurations */
     const TCPIP_STACK_MODULE_CONFIG*    pModConfig; 
     /* number of modules in the array  */
-    int                                 nModules;   
+    size_t                              nModules;   
     /* initialization callback */
     TCPIP_STACK_INIT_CALLBACK           initCback;
 }TCPIP_STACK_INIT;
 
-//DOM-IGNORE-BEGIN
+// *****************************************************************************
+/* VLAN Configuration data
+
+  Summary:
+    Defines the VlAN specific data for a network interface.
+
+  Description:
+    This data type defines the VLAN configuration data for a specific interface.
+
+  Remarks:
+    None
+*/
+typedef struct
+{
+    /* VLAN ID (VID) of this interface */
+    /* This is a 12 bit identifier for the C-VLAN network interface */
+    /* A value of 0 (the NULL VID) means that no VID is used. */
+    uint16_t        id;
+
+    /* VLAN Priotity Code point */
+    /* A 3 bit priority value, 0- 7.  Normally 0 */ 
+    uint8_t         pcp;
+
+    /* VLAN Drop Eligibility Indicator flag. 
+       Boolean value; Normally 0/false */
+    uint8_t         dei;
+
+    /* VLAN use NULL VID flag. 
+       Boolean value 0/1 */
+    uint8_t         useNullVid;
+
+}TCPIP_NETWORK_VLAN_CONFIG;
+
 #ifdef __cplusplus
 }
 #endif
-//DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -738,6 +800,5 @@ typedef struct TCPIP_STACK_INIT
 #include "tcpip/dhcpv6.h"
 #include "tcpip/tcp.h"
 #include "tcpip/udp.h"
-#include "tcpip/lldp.h"
 #endif  // __TCPIP_H__
 

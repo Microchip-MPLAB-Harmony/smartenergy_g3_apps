@@ -1,0 +1,545 @@
+configVersion: 1.0.0
+componentName: HarmonyCore
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: HarmonyCore
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: HarmonyCore
+          x: '404'
+          y: '11'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    ENABLE_APP_FILE:
+      attributes:
+        id: ENABLE_APP_FILE
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_DRV_COMMON:
+      attributes:
+        id: ENABLE_DRV_COMMON
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_OSAL:
+      attributes:
+        id: ENABLE_OSAL
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_CACHE:
+      attributes:
+        id: ENABLE_SYS_CACHE
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_COMMON:
+      attributes:
+        id: ENABLE_SYS_COMMON
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_INT:
+      attributes:
+        id: ENABLE_SYS_INT
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_MEDIA:
+      attributes:
+        id: ENABLE_SYS_MEDIA
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_PORTS:
+      attributes:
+        id: ENABLE_SYS_PORTS
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_RESET:
+      attributes:
+        id: ENABLE_SYS_RESET
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    GEN_APP_RTOS_TASK_10_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_10_DELAY
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '10'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_10_SIZE:
+      attributes:
+        id: GEN_APP_RTOS_TASK_10_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '1024'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_10_USE_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_10_USE_DELAY
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    GEN_APP_RTOS_TASK_1_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_1_DELAY
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '100'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_2_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_2_DELAY
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '100'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_2_USE_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_2_USE_DELAY
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    GEN_APP_RTOS_TASK_3_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_3_DELAY
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '250'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_4_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_4_DELAY
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '100'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_6_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_6_DELAY
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '10'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_6_SIZE:
+      attributes:
+        id: GEN_APP_RTOS_TASK_6_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '2048'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_6_USE_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_6_USE_DELAY
+      children:
+      - children:
+        - attributes:
+            value: 'false'
+          type: User
+        type: Values
+      type: Boolean
+    GEN_APP_RTOS_TASK_7_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_7_DELAY
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '10'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_7_SIZE:
+      attributes:
+        id: GEN_APP_RTOS_TASK_7_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '1024'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_7_USE_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_7_USE_DELAY
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    GEN_APP_RTOS_TASK_8_SIZE:
+      attributes:
+        id: GEN_APP_RTOS_TASK_8_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '512'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_9_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_9_DELAY
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '10'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_9_SIZE:
+      attributes:
+        id: GEN_APP_RTOS_TASK_9_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '1024'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_RTOS_TASK_9_USE_DELAY:
+      attributes:
+        id: GEN_APP_RTOS_TASK_9_USE_DELAY
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    GEN_APP_TASK_COUNT:
+      attributes:
+        id: GEN_APP_TASK_COUNT
+      children:
+      - children:
+        - attributes:
+            value: '11'
+          type: User
+        type: Values
+      type: Integer
+    GEN_APP_TASK_NAME_0:
+      attributes:
+        id: GEN_APP_TASK_NAME_0
+      children:
+      - children:
+        - attributes:
+            value: app_metrology
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_1:
+      attributes:
+        id: GEN_APP_TASK_NAME_1
+      children:
+      - children:
+        - attributes:
+            value: app_console
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_10:
+      attributes:
+        id: GEN_APP_TASK_NAME_10
+      children:
+      - children:
+        - attributes:
+            value: app_tcpip_management
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_2:
+      attributes:
+        id: GEN_APP_TASK_NAME_2
+      children:
+      - children:
+        - attributes:
+            value: app_datalog
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_3:
+      attributes:
+        id: GEN_APP_TASK_NAME_3
+      children:
+      - children:
+        - attributes:
+            value: app_display
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_4:
+      attributes:
+        id: GEN_APP_TASK_NAME_4
+      children:
+      - children:
+        - attributes:
+            value: app_energy
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_5:
+      attributes:
+        id: GEN_APP_TASK_NAME_5
+      children:
+      - children:
+        - attributes:
+            value: app_events
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_6:
+      attributes:
+        id: GEN_APP_TASK_NAME_6
+      children:
+      - children:
+        - attributes:
+            value: app_g3_management
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_7:
+      attributes:
+        id: GEN_APP_TASK_NAME_7
+      children:
+      - children:
+        - attributes:
+            value: app_udp_responder
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_8:
+      attributes:
+        id: GEN_APP_TASK_NAME_8
+      children:
+      - children:
+        - attributes:
+            value: app_storage_pic32cxmt
+          type: User
+        type: Values
+      type: String
+    GEN_APP_TASK_NAME_9:
+      attributes:
+        id: GEN_APP_TASK_NAME_9
+      children:
+      - children:
+        - attributes:
+            value: app_udp_metrology
+          type: User
+        type: Values
+      type: String
+    SELECT_RTOS:
+      attributes:
+        id: SELECT_RTOS
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: FreeRTOS
+          type: Dynamic
+        type: Values
+      type: Combo
+  userData: {}

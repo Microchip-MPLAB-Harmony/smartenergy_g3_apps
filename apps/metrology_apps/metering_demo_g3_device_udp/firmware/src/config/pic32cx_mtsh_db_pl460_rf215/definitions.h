@@ -14,7 +14,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -78,7 +78,6 @@
 #include "peripheral/flexcom/spi/master/plib_flexcom1_spi_master.h"
 #include "system/time/sys_time.h"
 #include "service/log_report/srv_log_report.h"
-#include "bsp/bsp.h"
 #include "peripheral/trng/plib_trng.h"
 #include "driver/metrology/drv_metrology_definitions.h"
 #include "driver/metrology/drv_metrology.h"
@@ -114,11 +113,9 @@
 #include "service/pvddmon/srv_pvddmon.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
-//KEEP THIS - Not used for now
-//#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
-//#include "crypto/crypto.h"
 #include "gfx/driver/controller/slcdc/cl010.h"
 #include "stack/g3/net/macg3adp/drv_mac_g3adp.h"
+#include "bsp/bsp.h"
 #include "app_metrology.h"
 #include "app_console.h"
 #include "app_datalog.h"
@@ -142,13 +139,13 @@ extern "C" {
 // DOM-IGNORE-END
 
 /* Device Information */
-#define DEVICE_NAME			 "PIC32CX2051MTSH128"
-#define DEVICE_ARCH			 "CORTEX-M4"
-#define DEVICE_FAMILY		 "PIC32CX_MT"
-#define DEVICE_SERIES		 "PIC32CXMTSH"
+#define DEVICE_NAME          "PIC32CX2051MTSH128"
+#define DEVICE_ARCH          "CORTEX-M4"
+#define DEVICE_FAMILY        "PIC32CX_MT"
+#define DEVICE_SERIES        "PIC32CXMTSH"
 
 /* CPU clock frequency */
-#define CPU_CLOCK_FREQUENCY 200000000
+#define CPU_CLOCK_FREQUENCY 200000000U
 
 // *****************************************************************************
 // *****************************************************************************
@@ -275,6 +272,9 @@ typedef struct
 
 
     SYS_MODULE_OBJ  tcpip;
+
+    SYS_MODULE_OBJ sysCommand;
+
     SYS_MODULE_OBJ  drvSST26;
 
 } SYSTEM_OBJECTS;

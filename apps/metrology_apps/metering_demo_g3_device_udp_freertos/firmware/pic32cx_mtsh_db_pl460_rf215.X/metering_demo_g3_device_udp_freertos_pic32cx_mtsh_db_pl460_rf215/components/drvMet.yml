@@ -1,0 +1,178 @@
+configVersion: 1.0.0
+componentName: drvMet
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: drvMet
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: smartenergy_metrology
+  type: package
+  version: v1.0.0-E1
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: drvMet
+          x: '454'
+          y: '221'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    DRV_MET_CONF_CAPTURE_BUFFER_SIZE:
+      attributes:
+        id: DRV_MET_CONF_CAPTURE_BUFFER_SIZE
+      children:
+      - children:
+        - attributes:
+            id: drvMet
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    DRV_MET_CONF_KU:
+      attributes:
+        id: DRV_MET_CONF_KU
+      children:
+      - children:
+        - attributes:
+            value: '1651'
+          type: User
+        type: Values
+      type: Integer
+    DRV_MET_CONF_WAVEFORM_CAPTURE:
+      attributes:
+        id: DRV_MET_CONF_WAVEFORM_CAPTURE
+      children:
+      - children:
+        - attributes:
+            id: drvMet
+            value: '3840'
+          type: Dynamic
+        type: Values
+      type: Hex
+    DRV_MET_CTRL_KV:
+      attributes:
+        id: DRV_MET_CTRL_KV
+      children:
+      - children:
+        - attributes:
+            id: drvMet
+            value: '1690624'
+          type: Dynamic
+        type: Values
+      type: Hex
+    DRV_MET_CTRL_SWELL:
+      attributes:
+        id: DRV_MET_CTRL_SWELL
+      children:
+      - children:
+        - attributes:
+            id: drvMet
+            value: '99268888'
+          type: Dynamic
+        type: Values
+      type: Hex
+    DRV_MET_RTOS_ENABLE:
+      attributes:
+        id: DRV_MET_RTOS_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: drvMet
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    DRV_MET_WAVECAPT_CH_IA:
+      attributes:
+        id: DRV_MET_WAVECAPT_CH_IA
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    DRV_MET_WAVECAPT_CH_IB:
+      attributes:
+        id: DRV_MET_WAVECAPT_CH_IB
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    DRV_MET_WAVECAPT_CH_VA:
+      attributes:
+        id: DRV_MET_WAVECAPT_CH_VA
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    DRV_MET_WAVECAPT_CH_VB:
+      attributes:
+        id: DRV_MET_WAVECAPT_CH_VB
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    DRV_MET_WAVEFORM_CAPTURE:
+      attributes:
+        id: DRV_MET_WAVEFORM_CAPTURE
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+  userData: {}

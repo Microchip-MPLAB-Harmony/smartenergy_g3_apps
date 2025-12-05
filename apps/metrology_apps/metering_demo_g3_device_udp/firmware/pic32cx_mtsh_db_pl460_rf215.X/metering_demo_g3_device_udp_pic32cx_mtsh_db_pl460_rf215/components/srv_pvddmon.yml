@@ -1,0 +1,76 @@
+configVersion: 1.0.0
+componentName: srv_pvddmon
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: srv_pvddmon
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: srv_pvddmon_ADC_dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: adc
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: ADC_ADC
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: srv_pvddmon
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: srv_pvddmon
+          x: '458'
+          y: '441'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SRV_PVDDMON_ADC_CHANNEL:
+      attributes:
+        id: SRV_PVDDMON_ADC_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: srv_pvddmon
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PVDDMON_PLIB:
+      attributes:
+        id: SRV_PVDDMON_PLIB
+      children:
+      - children:
+        - attributes:
+            id: srv_pvddmon
+            value: ADC
+          type: Dynamic
+        type: Values
+      type: String
+  userData: {}

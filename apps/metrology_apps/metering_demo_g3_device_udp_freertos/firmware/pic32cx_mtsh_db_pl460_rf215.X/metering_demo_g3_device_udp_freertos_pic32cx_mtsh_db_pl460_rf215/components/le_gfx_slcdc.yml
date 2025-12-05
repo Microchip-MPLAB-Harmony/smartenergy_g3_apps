@@ -1,0 +1,73 @@
+configVersion: 1.0.0
+componentName: le_gfx_slcdc
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: le_gfx_slcdc
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: gfx
+  type: package
+  version: v3.16.2
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: Segmented Display
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: gfx_disp_slcd1-PIC32CXMT
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: slcd_display
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: le_gfx_slcdc
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: le_gfx_slcdc
+          x: '471'
+          y: '362'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    rtosTaskDelay:
+      attributes:
+        id: rtosTaskDelay
+      children:
+      - children:
+        - attributes:
+            value: '60000'
+          type: User
+        type: Values
+      type: Integer
+    rtosTaskSize:
+      attributes:
+        id: rtosTaskSize
+      children:
+      - children:
+        - attributes:
+            value: '128'
+          type: User
+        type: Values
+      type: Integer
+  userData: {}
