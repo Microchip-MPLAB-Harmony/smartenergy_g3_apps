@@ -238,6 +238,37 @@
       </logicalFolder>
       <itemPath>../src/app.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <logicalFolder name="pic32cxmtg_ek_pic32cxmtg"
+                     displayName="pic32cxmtg_ek_pic32cxmtg"
+                     projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/trng.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/srv_pvddmon.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/drvG3MacRt.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/HarmonyCore.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/cmsis.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/sefc1.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/srv_pcoup.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/adc.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/dfp.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/tc0.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/flexcom5.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/core.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/sys_time.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/sefc0.yml</itemPath>
+        </logicalFolder>
+        <itemPath>pic32cxmtg_ek_pic32cxmtg/mcc-config.mc4</itemPath>
+      </logicalFolder>
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -302,6 +333,7 @@
             <logicalFolder name="sefc" displayName="sefc" projectFiles="true">
               <itemPath>../src/config/pic32cxmtg/peripheral/sefc/plib_sefc0.c</itemPath>
               <itemPath>../src/config/pic32cxmtg/peripheral/sefc/plib_sefc1.c</itemPath>
+              <itemPath>../src/config/pic32cxmtg/peripheral/sefc/plib_sefc_common.c</itemPath>
             </logicalFolder>
             <logicalFolder name="supc" displayName="supc" projectFiles="true">
               <itemPath>../src/config/pic32cxmtg/peripheral/supc/plib_supc.c</itemPath>
@@ -347,12 +379,6 @@
       <itemPath>../src/app.c</itemPath>
       <itemPath>../src/config/pic32cxmtg/pin_configurations.csv</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>my_first_plc_app_pic32cx_mtg_ek_pl460.mc3</itemPath>
-    </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -364,7 +390,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>jlink</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.40</languageToolchainVersion>
+        <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

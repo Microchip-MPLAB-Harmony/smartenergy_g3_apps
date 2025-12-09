@@ -44,13 +44,13 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-#define USER_BLINK_LED_On()           LED_GREEN_On()
-#define USER_BLINK_LED_Off()          LED_GREEN_Off()
-#define USER_BLINK_LED_Toggle()       LED_GREEN_Toggle()
+#define USER_BLINK_LED_On()           LED0_On()
+#define USER_BLINK_LED_Off()          LED0_Off()
+#define USER_BLINK_LED_Toggle()       LED0_Toggle()
 
-#define USER_PLC_IND_LED_On()         LED_BLUE_On()
-#define USER_PLC_IND_LED_Off()        LED_BLUE_Off()
-#define USER_PLC_IND_LED_Toggle()     LED_BLUE_Toggle()
+#define USER_PLC_IND_LED_On()         BSP_LED1_On()
+#define USER_PLC_IND_LED_Off()        BSP_LED1_Off()
+#define USER_PLC_IND_LED_Toggle()     LED1_Toggle()
 
 #define CLEAR_WATCHDOG()              DWDT_WDT0_Clear()
 
@@ -133,7 +133,7 @@ typedef struct
 
     MAC_RT_PIB_OBJ plcPIB;
 
-    SRV_PLC_PCOUP_BRANCH couplingBranch;
+    //SRV_PLC_PCOUP_BRANCH couplingBranch;
 
 } APP_PLC_DATA;
 

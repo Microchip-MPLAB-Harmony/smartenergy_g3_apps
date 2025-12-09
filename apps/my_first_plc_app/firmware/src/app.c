@@ -98,10 +98,6 @@ static void APP_PLC_SetPANID ( uint16_t panid )
 
 static void APP_PLC_SetInitialConfiguration ( void )
 {
-    /* Apply PLC coupling configuration */
-    appPlc.couplingBranch = SRV_PCOUP_Get_Default_Branch();
-    SRV_PCOUP_Set_Config(appPlc.drvPlcHandle, appPlc.couplingBranch);
-
     /* Fill MAC RT Header */
     appPlcTx.txHeader.frameControl.frameType = MAC_RT_FRAME_TYPE_DATA;
     appPlcTx.txHeader.frameControl.securityEnabled = 0;
