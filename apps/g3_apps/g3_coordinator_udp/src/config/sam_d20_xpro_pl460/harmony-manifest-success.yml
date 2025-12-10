@@ -4,14 +4,14 @@
 
 
 project: g3_coordinator_udp
-creation_date: 2025-11-28T08:58:41.715+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-12-10T16:52:48.798+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3
 mcc_core_version: v5.8.3
 mplabx_version: v6.25        # if MPLAB X plugin only
 harmony_version: v5.6.3
-compiler: XC32 4.60
+compiler: XC32 5.00
 
 modules:
     - {name: "csp", version: "v3.23.0"}

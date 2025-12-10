@@ -634,7 +634,11 @@ void PAL_PLC_SetCoordinator(PAL_PLC_HANDLE handle)
     }
 
     /* Enable Coordinator capabilities */
-    DRV_G3_MACRT_SetCoordinator(palPlcData.drvG3MacRtHandle);
     palPlcData.mibInitData.coordinator = true;
     palPlcData.coordinator = true;
+    if (palPlcData.status == PAL_PLC_STATUS_READY)
+    {
+        /* Access MAC RT only if Ready */
+        DRV_G3_MACRT_SetCoordinator(palPlcData.drvG3MacRtHandle);
+    }
 }
