@@ -1,24 +1,22 @@
 /*******************************************************************************
-  Header for log report service
+  Queue Service Local Data Structures
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    srv_log_report.h
+    srv_queue_local.h
 
   Summary:
-    Interface definition for the log report service.
+    Queue Service Local Data Structures
 
   Description:
-    This file defines the interface for the log report service.
-    Debug messages and log information is printed on the console.
-    If a display is available, debug code errors will be shown.
+    Queue Service Local Data Structures
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -41,60 +39,34 @@ Microchip or any third party.
 */
 //DOM-IGNORE-END
 
-#ifndef SRV_LOG_REPORT_H
-#define SRV_LOG_REPORT_H
-
-#ifdef __cplusplus // Provide C++ Compatibility
- extern "C" {
-#endif
+#ifndef SRV_QUEUE_LOCAL_H
+#define SRV_QUEUE_LOCAL_H
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Data Types
+// Section: Data Type Definitions
 // *****************************************************************************
 // *****************************************************************************
 
-// *****************************************************************************
-/* Log level enumeration
+/* Queue Service Errors (reserved 200 - 299) */
+#define QUEUE_FULL_INSERT_END               200UL
+#define QUEUE_FULL_INSERT_BEFORE            201UL
+#define QUEUE_FULL_INSERT_AFTER             202UL
+#define QUEUE_FULL_INSERT_FIRST             203UL
+#define QUEUE_EMPTY_REMOVE_HEAD             204UL
+#define QUEUE_EMPTY_READ_REMOVE             205UL
+#define QUEUE_FULL_APPEND                   206UL
+#define QUEUE_APPEND_BAD_ELEMENT            207UL
+#define QUEUE_BAD_ELEMENT                   208UL
+#define QUEUE_BAD_TAIL                      209UL
+#define QUEUE_APPEND_PRIO_SINGLE            210UL
+#define QUEUE_NOT_INIT_NULL_SIZE            211UL
+#define QUEUE_FIRST_BAD_INIT                212UL
+#define QUEUE_LAST_NOT_TAIL                 213UL
+#define QUEUE_TOO_BIG                       214UL
+#define QUEUE_BAD_NEXT_ELEMENT              215UL
+#define QUEUE_WRONG_CHAIN                   216UL
+#define QUEUE_APPEND_AGAIN                  217UL
+#define QUEUE_APPEND_AGAIN_ONE_ELEMENT      218UL
 
-   Summary:
-    Log message priority levels.
-
-   Description:
-    This enumeration maps the log levels to the supported system error
-    message priority values.
-
-   Remarks:
-    Used to add the right individual message priority before reporting through
-    SYS_DEBUG.
-*/
-
-typedef enum
-{
-    /* Errors that have the potential to cause a system crash. */
-    SRV_LOG_REPORT_FATAL = 0,
-
-    /* Errors that have the potential to cause incorrect behavior. */
-    SRV_LOG_REPORT_ERROR = 1,
-
-    /* Warnings about potentially unexpected behavior or side effects. */
-    SRV_LOG_REPORT_WARNING = 2,
-
-    /* Information helpful to understanding potential errors and warnings. */
-    SRV_LOG_REPORT_INFO = 3,
-
-    /* Verbose information helpful during debugging and testing. */
-    SRV_LOG_REPORT_DEBUG = 4
-
-} SRV_LOG_REPORT_LEVEL;
-
-
-#define SRV_LOG_REPORT_Message_With_Code(logLevel, code, info, ...)
-#define SRV_LOG_REPORT_Message(logLevel, info, ...)
-#define SRV_LOG_REPORT_Buffer(logLevel, buffer, bufferLength, info, ...)
-
-#ifdef __cplusplus // Provide C++ Compatibility
- }
-#endif
-
-#endif /* SRV_LOG_REPORT_H */
+#endif //#ifndef SRV_QUEUE_LOCAL_H

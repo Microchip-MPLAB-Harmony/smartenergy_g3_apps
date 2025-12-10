@@ -95,7 +95,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\crypto\wolfcrypt\wolfcrypt_config.h
   hash: ee0712706d1d9203a21334680e076155fc8f2ad8a8c0ee07231295670f972e71
 - file: ..\src\config\sam_d20_xpro_pl460\definitions.h
-  hash: e3fc534b58791f953c982df63a0b3b1fc35470a875f90bf0e336b0af18b40fe1
+  hash: 5e0594d4d68a2b8ad53ad705f3a9ccfa752b44035aae088bec95fab43b1c3417
 - file: ..\src\config\sam_d20_xpro_pl460\device.h
   hash: 5847311f7358c9120549b11e53650ee68db8c2d886fa1aa8659af1ca42789dac
 - file: ..\src\config\sam_d20_xpro_pl460\device_cache.h
@@ -135,7 +135,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\exceptions.c
   hash: b0b65c30aa1f7a01ef7be6c1628c331a5ca3eae7dc3bd76ebe647703b76f432d
 - file: ..\src\config\sam_d20_xpro_pl460\initialization.c
-  hash: 2931cc5febb6232886c8d07ac36a8981fbec1b916f49cf6645e7c090f7c15787
+  hash: c6372431b0875c29aa04157db70c7bc1b1452a4c5cbd9119939aa0e842e33b6d
 - file: ..\src\config\sam_d20_xpro_pl460\interrupts.c
   hash: 4d7684c9e7c88a326e8f1cbbeb9526295e3a03d529583b2b4bdf6069797b3477
 - file: ..\src\config\sam_d20_xpro_pl460\interrupts.h
@@ -203,7 +203,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\pin_configurations.csv
   hash: 298ed884ea5df2eaef8fc3a20f906102f117cc7a8b35eac2d99abdb6e5c18c47
 - file: ..\src\config\sam_d20_xpro_pl460\service\log_report\srv_log_report.h
-  hash: dde04d448d0f003ba3f7895c84daa97332bdab9feb50610aed03ea26667b1be7
+  hash: 3918cdae72c71135fb1797ea42d99db896159f9db3a89ac3a8cd1b21d304ae1c
 - file: ..\src\config\sam_d20_xpro_pl460\service\pcoup\srv_pcoup.c
   hash: 6c4107a19360dbbb794b12cf41936887d1b88dccca0399b96f9c8644380460aa
 - file: ..\src\config\sam_d20_xpro_pl460\service\pcoup\srv_pcoup.h
@@ -217,9 +217,11 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\service\pvddmon\srv_pvddmon.h
   hash: d45d51b283f796d4842dc4ba4d00233224f096c009c2872693342ac128833876
 - file: ..\src\config\sam_d20_xpro_pl460\service\queue\srv_queue.c
-  hash: 1ee1a40e363124e2db628b1b18ad7b896710d49c1331ad645360764d405ac75b
+  hash: 9efc5c8c03244706fafbb923e7191b75a0c3ca610b81ef28e5e92aebc0b9bedd
 - file: ..\src\config\sam_d20_xpro_pl460\service\queue\srv_queue.h
   hash: e5c5687a5504867589b1679c046ba82ce2b0a7a62d3c48a74dde22bb886d1a59
+- file: ..\src\config\sam_d20_xpro_pl460\service\queue\srv_queue_local.h
+  hash: fc6385f319bc7e02ce7d2fcb2412c4e5f7e84f158a52839f2cd5ce16db1ac2e8
 - file: ..\src\config\sam_d20_xpro_pl460\service\random\srv_random.c
   hash: 19ae6cec5992e07f1d406db586d0268435bf89f25cdece8bf82f74b08d67b893
 - file: ..\src\config\sam_d20_xpro_pl460\service\random\srv_random.h
@@ -229,7 +231,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\service\security\aes_wrapper.h
   hash: 7ed8ea0ffe3660595cc577a636df208e2f39b6b9dc091cad1b69e4e50a9fe6fe
 - file: ..\src\config\sam_d20_xpro_pl460\service\security\cipher_wrapper.c
-  hash: c48ba936619843dbe3187c8d87c1fad29b73c0369f919236972f79db8b09d79f
+  hash: 4747697bcb2a0b2bd8ef75fa85d342373f6f2d8a4f68336f6cd2dcf0dc5c5607
 - file: ..\src\config\sam_d20_xpro_pl460\service\security\cipher_wrapper.h
   hash: 05c4e569821798c136878bcbeecf7d13b48d0fb08dcc7a755b67b056e2307588
 - file: ..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi.c
@@ -239,7 +241,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_definitions.h
   hash: 1133126b8cbb855afd42755e92c8831c2aa3a560760282c3e080d92e934ea505
 - file: ..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_local.h
-  hash: cbd80d3ecb1d78130ce3d61bdbf0b6f37e524666f24299dd8eb4037162a0a503
+  hash: afb81dfb99d2b3a66102822fbbd7639a7765e1ef14b725434b40762b3d3f9f4f
 - file: ..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_usart.c
   hash: 638670a3d13b444b4cb77005cf93a44506b2aeec4f96c189796cbc1d90142087
 - file: ..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_usart.h
@@ -307,7 +309,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\stack\g3\mac\mac_wrapper\mac_wrapper_defs.h
   hash: aa5749b8e45d245e1c84a5d829f6523a74789dab78436aa69adaf793b1ab5341
 - file: ..\src\config\sam_d20_xpro_pl460\stack\g3\pal\plc\pal_plc.c
-  hash: d45d42f73bd30b315aeb70980d3668525e4714febc9b33c216a85b304433a327
+  hash: 8d6d7911d1bb4bf7c68b8a03f16b0a6c8614f05b822339d016acdcabea44e678
 - file: ..\src\config\sam_d20_xpro_pl460\stack\g3\pal\plc\pal_plc.h
   hash: b539e3084b5fa170c6be7c3e483303e65211151e0852049787245cc1007cad09
 - file: ..\src\config\sam_d20_xpro_pl460\stack\g3\pal\plc\pal_plc_local.h
