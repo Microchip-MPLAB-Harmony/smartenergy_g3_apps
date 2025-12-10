@@ -268,6 +268,7 @@
             </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/queue/srv_queue.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/queue/srv_queue_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="random" displayName="random" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/random/srv_random.h</itemPath>
@@ -616,13 +617,13 @@
         <logicalFolder name="components" displayName="components" projectFiles="true">
           <logicalFolder name="G3 STACK" displayName="G3 STACK" projectFiles="true">
             <logicalFolder name="components" displayName="components" projectFiles="true">
+              <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/components/srvLogReport.yml</itemPath>
+              <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/components/srvQueue.yml</itemPath>
+              <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/components/g3PalPlc.yml</itemPath>
+              <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/components/srvRandom.yml</itemPath>
+              <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/components/g3_config.yml</itemPath>
               <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/components/srvSecurity.yml</itemPath>
               <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/components/g3PalRf.yml</itemPath>
-              <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/components/srvQueue.yml</itemPath>
-              <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/components/srvRandom.yml</itemPath>
-              <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/components/g3PalPlc.yml</itemPath>
-              <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/components/g3_config.yml</itemPath>
-              <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/components/srvLogReport.yml</itemPath>
             </logicalFolder>
             <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/G3 STACK/G3 STACK.yml</itemPath>
           </logicalFolder>
@@ -660,30 +661,30 @@
             </logicalFolder>
             <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/TCP_forwardSlash_IP STACK/TCP_forwardSlash_IP STACK.yml</itemPath>
           </logicalFolder>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/lib_wolfcrypt.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/srv_pvddmon.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/HarmonyCore.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/sys_time.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/flexcom5.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/lib_crypto.yml</itemPath>
           <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/flexcom3.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/sefc1.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/dfp.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/sys_debug.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/srv_pcoup.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/core.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/sefc0.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/flexcom0.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/tc0.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/trng.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/sys_console_0.yml</itemPath>
           <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/tcpipNetConfig_0.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/cmsis.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/adc.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/drvRf215.yml</itemPath>
-          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
           <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/sys_console.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/srv_pcoup.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/trng.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/core.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/lib_wolfcrypt.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/tc0.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/HarmonyCore.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/cmsis.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/srv_pvddmon.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/sys_console_0.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/dfp.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/drvRf215.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/adc.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/flexcom0.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/sefc1.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/flexcom5.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/sys_time.yml</itemPath>
           <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/drvG3MacRt.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/lib_crypto.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/sefc0.yml</itemPath>
+          <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/components/sys_debug.yml</itemPath>
         </logicalFolder>
         <itemPath>g3_coordinator_icmp_cycles_pic32cx_mtg_ek_pl460_rf215/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -745,6 +746,7 @@
               <logicalFolder name="g3MacRt" displayName="g3MacRt" projectFiles="true">
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
                   <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/g3MacRt/bin/drv_g3_macrt_bin.S</itemPath>
+                  <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/g3MacRt/bin/G3_MAC_RT_MULTIBAND.bin</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/g3MacRt/drv_g3_macrt_local_comm.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/g3MacRt/drv_g3_macrt.c</itemPath>
@@ -1091,6 +1093,7 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -1140,6 +1143,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -1171,6 +1175,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1217,6 +1222,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1245,6 +1251,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>
