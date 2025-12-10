@@ -50,6 +50,7 @@ Microchip or any third party.
 #include <stdbool.h>
 #include <stdio.h>
 #include "srv_queue.h"
+#include "srv_queue_local.h"
 #include "service/log_report/srv_log_report.h"
 
 // *****************************************************************************

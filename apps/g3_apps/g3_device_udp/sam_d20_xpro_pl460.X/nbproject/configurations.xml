@@ -239,6 +239,7 @@
             </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/sam_d20_xpro_pl460/service/queue/srv_queue.h</itemPath>
+              <itemPath>../src/config/sam_d20_xpro_pl460/service/queue/srv_queue_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="random" displayName="random" projectFiles="true">
               <itemPath>../src/config/sam_d20_xpro_pl460/service/random/srv_random.h</itemPath>
@@ -541,12 +542,12 @@
         <logicalFolder name="components" displayName="components" projectFiles="true">
           <logicalFolder name="G3 STACK" displayName="G3 STACK" projectFiles="true">
             <logicalFolder name="components" displayName="components" projectFiles="true">
-              <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/G3 STACK/components/srvQueue.yml</itemPath>
-              <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/G3 STACK/components/srvSecurity.yml</itemPath>
-              <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/G3 STACK/components/g3PalPlc.yml</itemPath>
-              <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/G3 STACK/components/srvRandom.yml</itemPath>
-              <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/G3 STACK/components/g3_config.yml</itemPath>
               <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/G3 STACK/components/srvLogReport.yml</itemPath>
+              <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/G3 STACK/components/srvQueue.yml</itemPath>
+              <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/G3 STACK/components/g3PalPlc.yml</itemPath>
+              <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/G3 STACK/components/g3_config.yml</itemPath>
+              <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/G3 STACK/components/srvRandom.yml</itemPath>
+              <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/G3 STACK/components/srvSecurity.yml</itemPath>
             </logicalFolder>
             <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/G3 STACK/G3 STACK.yml</itemPath>
           </logicalFolder>
@@ -575,9 +576,9 @@
                              displayName="NETWORK LAYER"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipNdp.yml</itemPath>
-                  <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIcmpv6.yml</itemPath>
                   <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIPv6.yml</itemPath>
+                  <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIcmpv6.yml</itemPath>
+                  <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipNdp.yml</itemPath>
                 </logicalFolder>
                 <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/NETWORK LAYER.yml</itemPath>
               </logicalFolder>
@@ -592,28 +593,28 @@
             </logicalFolder>
             <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/TCP_forwardSlash_IP STACK/TCP_forwardSlash_IP STACK.yml</itemPath>
           </logicalFolder>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/sercom0.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/dfp.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/nvmctrl.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/core.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/evsys.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/sys_console.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/tc0.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/lib_crypto.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/mainBoard_SAMD20_XPLAINED_PRO.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/tcpipNetConfig_0.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/sercom3.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/srv_pvddmon.yml</itemPath>
           <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/sys_console_0.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/lib_wolfcrypt.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/srv_pcoup.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/sys_time.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/adc.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/eic.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/drvG3MacRt.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/cmsis.yml</itemPath>
-          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/HarmonyCore.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/dfp.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/tc0.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/srv_pvddmon.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/evsys.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/nvmctrl.yml</itemPath>
           <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/sys_debug.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/HarmonyCore.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/sys_time.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/srv_pcoup.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/tcpipNetConfig_0.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/drvG3MacRt.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/lib_wolfcrypt.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/sys_console.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/sercom0.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/lib_crypto.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/cmsis.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/eic.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/adc.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/core.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/sercom3.yml</itemPath>
+          <itemPath>g3_device_udp_sam_d20_xpro_pl460/components/mainBoard_SAMD20_XPLAINED_PRO.yml</itemPath>
         </logicalFolder>
         <itemPath>g3_device_udp_sam_d20_xpro_pl460/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -989,6 +990,7 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -1038,6 +1040,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -1069,6 +1072,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1114,6 +1118,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
