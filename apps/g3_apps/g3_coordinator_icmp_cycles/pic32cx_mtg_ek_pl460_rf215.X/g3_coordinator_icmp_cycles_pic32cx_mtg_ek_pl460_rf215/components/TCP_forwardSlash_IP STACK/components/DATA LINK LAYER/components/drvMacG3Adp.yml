@@ -9,9 +9,10 @@ dependency:
   type: module
   version: ''
 - dependencyPackage: ''
+  devMode: true
   name: smartenergy_g3
   type: package
-  version: v1.0.1
+  version: v1.1.0
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}

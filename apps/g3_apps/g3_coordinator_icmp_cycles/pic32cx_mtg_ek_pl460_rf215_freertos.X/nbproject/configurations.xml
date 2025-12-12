@@ -780,6 +780,7 @@
               <logicalFolder name="g3MacRt" displayName="g3MacRt" projectFiles="true">
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
                   <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/driver/plc/g3MacRt/bin/drv_g3_macrt_bin.S</itemPath>
+                  <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/driver/plc/g3MacRt/bin/G3_MAC_RT_MULTIBAND.bin</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/driver/plc/g3MacRt/drv_g3_macrt_local_comm.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215_freertos/driver/plc/g3MacRt/drv_g3_macrt.c</itemPath>

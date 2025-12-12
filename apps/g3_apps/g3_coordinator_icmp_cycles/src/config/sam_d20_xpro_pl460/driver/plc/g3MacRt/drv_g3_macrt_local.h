@@ -116,9 +116,6 @@ typedef struct
     /* Secure mode */
     bool                                      secure;
 
-    /* Sleep mode */
-    bool                                      sleep;
-
     /* PLC Initialization Confirm Callback */
     DRV_G3_MACRT_INIT_CALLBACK                initCallback;
 
@@ -142,9 +139,6 @@ typedef struct
 
     /* Application PLC PHY Sniffer Callback */
     DRV_G3_MACRT_PHY_SNIFFER_IND_CALLBACK     phySnifferIndCallback;
-
-    /* Application Sleep Indication Callback */
-    DRV_G3_MACRT_SLEEP_IND_CALLBACK           sleepIndCallback;
 
     /* Application Exception Callback */
     DRV_G3_MACRT_EXCEPTION_CALLBACK           exceptionCallback;

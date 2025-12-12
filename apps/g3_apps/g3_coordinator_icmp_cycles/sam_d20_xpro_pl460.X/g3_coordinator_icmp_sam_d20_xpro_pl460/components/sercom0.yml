@@ -68,8 +68,8 @@ data:
     - children:
       - attributes:
           id: sercom0
-          x: '321'
-          y: '206'
+          x: '334'
+          y: '200'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -115,6 +115,108 @@ data:
           type: Dynamic
         type: Values
       type: KeyValueSet
+    SERCOM_SPIM_COMMON_HEADER:
+      attributes:
+        id: SERCOM_SPIM_COMMON_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SERCOM_SPIM_HEADER:
+      attributes:
+        id: SERCOM_SPIM_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SERCOM_SPIM_SOURCE:
+      attributes:
+        id: SERCOM_SPIM_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SERCOM_USART_7816_HEADER:
+      attributes:
+        id: SERCOM_USART_7816_HEADER
+      children:
+      - children:
+        - attributes:
+            id: source
+          children:
+          - type: Value
+          type: String
+        type: Attributes
+      type: File
+    SERCOM_USART_7816_SOURCE:
+      attributes:
+        id: SERCOM_USART_7816_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: source
+          children:
+          - type: Value
+          type: String
+        type: Attributes
+      type: File
+    SERCOM_USART_COMMON_HEADER:
+      attributes:
+        id: SERCOM_USART_COMMON_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
+    SERCOM_USART_HEADER:
+      attributes:
+        id: SERCOM_USART_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
+    SERCOM_USART_SOURCE:
+      attributes:
+        id: SERCOM_USART_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
     SPI_BAUD_RATE:
       attributes:
         id: SPI_BAUD_RATE
@@ -274,6 +376,17 @@ data:
           type: Dynamic
         type: Values
       type: String
+    USART_7816_BAUD_VALUE:
+      attributes:
+        id: USART_7816_BAUD_VALUE
+      children:
+      - children:
+        - attributes:
+            id: sercom0
+            value: '14'
+          type: Dynamic
+        type: Values
+      type: Integer
     USART_BAUD_VALUE:
       attributes:
         id: USART_BAUD_VALUE
@@ -285,9 +398,42 @@ data:
           type: Dynamic
         type: Values
       type: Integer
+    USART_DATA_BITS:
+      attributes:
+        id: USART_DATA_BITS
+      children:
+      - children:
+        - attributes:
+            id: sercom0
+            value: DRV_USART_DATA_8_BIT
+          type: Dynamic
+        type: Values
+      type: String
+    USART_INTERRUPT_MODE_ENABLE:
+      attributes:
+        id: USART_INTERRUPT_MODE_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: sercom0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
     USART_LIN_MASTER_SUPPORTED:
       attributes:
         id: USART_LIN_MASTER_SUPPORTED
+      children:
+      - children:
+        - attributes:
+            id: sercom0
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    USART_RING_BUFFER_MODE_ENABLE:
+      attributes:
+        id: USART_RING_BUFFER_MODE_ENABLE
       children:
       - children:
         - attributes:
