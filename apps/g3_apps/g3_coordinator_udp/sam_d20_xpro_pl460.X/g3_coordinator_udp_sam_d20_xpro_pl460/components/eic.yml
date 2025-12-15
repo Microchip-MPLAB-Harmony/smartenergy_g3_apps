@@ -22,8 +22,8 @@ data:
     - children:
       - attributes:
           id: eic
-          x: '553'
-          y: '20'
+          x: '459'
+          y: '136'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -37,9 +37,6 @@ data:
             id: eic
             value: 'true'
           type: Dynamic
-        - attributes:
-            value: 'true'
-          type: User
         type: Values
       type: Boolean
     EIC_CONFIG_SENSE_4:
@@ -83,9 +80,6 @@ data:
             id: eic
             value: 'true'
           type: Dynamic
-        - attributes:
-            value: 'true'
-          type: User
         type: Values
       type: Boolean
     EIC_WAKEUP:

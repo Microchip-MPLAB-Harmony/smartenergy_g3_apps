@@ -45,8 +45,8 @@ data:
     - children:
       - attributes:
           id: drvG3MacRt
-          x: '439'
-          y: '290'
+          x: '502'
+          y: '350'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -95,17 +95,6 @@ data:
           type: Dynamic
         type: Values
       type: String
-    DRV_PLC_LDO_EN_PIN:
-      attributes:
-        id: DRV_PLC_LDO_EN_PIN
-      children:
-      - children:
-        - attributes:
-            id: drvG3MacRt
-            value: '101'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     DRV_PLC_PLIB:
       attributes:
         id: DRV_PLC_PLIB
@@ -124,7 +113,7 @@ data:
       - children:
         - attributes:
             id: drvG3MacRt
-            value: '97'
+            value: '28'
           type: Dynamic
         type: Values
       type: KeyValueSet
@@ -158,31 +147,29 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    DRV_PLC_STBY_PIN:
-      attributes:
-        id: DRV_PLC_STBY_PIN
-      children:
-      - children:
-        - attributes:
-            id: drvG3MacRt
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     DRV_PLC_THERMAL_MONITOR:
       attributes:
         id: DRV_PLC_THERMAL_MONITOR
       children:
       - children:
         - attributes:
+            id: drvG3MacRt
             value: 'true'
-          type: User
+          type: Dynamic
         type: Values
       type: Boolean
     DRV_PLC_THMON_PIN:
       attributes:
         id: DRV_PLC_THMON_PIN
       children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: drvG3MacRt
@@ -197,7 +184,7 @@ data:
       - children:
         - attributes:
             id: drvG3MacRt
-            value: '1'
+            value: '31'
           type: Dynamic
         type: Values
       type: KeyValueSet
