@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: metering_demo_g3_device_udp_freertos
-creation_date: 2025-12-11T10:52:01.338+01:00[Europe/Paris]
+creation_date: 2025-12-16T15:40:50.888+01:00[Europe/Paris]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
@@ -24,7 +24,7 @@ modules:
 - {name: smartenergy_g3, type: HARMONY, version: v1.1.0}
 - {name: wolfssl, type: HARMONY, version: v5.7.0}
 - {name: smartenergy, type: HARMONY, version: v1.5.0}
-- {name: shd, type: HARMONY, version: v1.2.1}
+- {name: shd, type: HARMONY, version: v1.3.0}
 - {name: core, type: HARMONY, version: v3.15.5}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
 - {name: gfx, type: HARMONY, version: v3.16.2}

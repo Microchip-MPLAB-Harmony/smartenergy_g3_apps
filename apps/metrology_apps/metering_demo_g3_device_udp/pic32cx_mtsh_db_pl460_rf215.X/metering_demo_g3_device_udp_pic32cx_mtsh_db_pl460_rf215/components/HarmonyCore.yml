@@ -448,4 +448,617 @@ data:
           type: Dynamic
         type: Values
       type: Combo
+    CONFIGURATION_H:
+      attributes:
+        id: CONFIGURATION_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    DRIVER_ROOT:
+      attributes:
+        id: DRIVER_ROOT
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    APP0_C:
+      attributes:
+        id: APP0_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_metrology.c
+          type: String
+        type: Attributes
+      type: File
+    APP1_C:
+      attributes:
+        id: APP1_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_console.c
+          type: String
+        type: Attributes
+      type: File
+    APP2_C:
+      attributes:
+        id: APP2_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_datalog.c
+          type: String
+        type: Attributes
+      type: File
+    APP3_C:
+      attributes:
+        id: APP3_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_display.c
+          type: String
+        type: Attributes
+      type: File
+    APP4_C:
+      attributes:
+        id: APP4_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_energy.c
+          type: String
+        type: Attributes
+      type: File
+    APP5_C:
+      attributes:
+        id: APP5_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_events.c
+          type: String
+        type: Attributes
+      type: File
+    APP6_C:
+      attributes:
+        id: APP6_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_g3_management.c
+          type: String
+        type: Attributes
+      type: File
+    APP7_C:
+      attributes:
+        id: APP7_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_udp_responder.c
+          type: String
+        type: Attributes
+      type: File
+    APP8_C:
+      attributes:
+        id: APP8_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_storage_pic32cxmt.c
+          type: String
+        type: Attributes
+      type: File
+    APP9_C:
+      attributes:
+        id: APP9_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_udp_metrology.c
+          type: String
+        type: Attributes
+      type: File
+    APP10_C:
+      attributes:
+        id: APP10_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_tcpip_management.c
+          type: String
+        type: Attributes
+      type: File
+    APP0_H:
+      attributes:
+        id: APP0_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_metrology.h
+          type: String
+        type: Attributes
+      type: File
+    APP1_H:
+      attributes:
+        id: APP1_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_console.h
+          type: String
+        type: Attributes
+      type: File
+    APP2_H:
+      attributes:
+        id: APP2_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_datalog.h
+          type: String
+        type: Attributes
+      type: File
+    APP3_H:
+      attributes:
+        id: APP3_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_display.h
+          type: String
+        type: Attributes
+      type: File
+    APP4_H:
+      attributes:
+        id: APP4_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_energy.h
+          type: String
+        type: Attributes
+      type: File
+    APP5_H:
+      attributes:
+        id: APP5_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_events.h
+          type: String
+        type: Attributes
+      type: File
+    APP6_H:
+      attributes:
+        id: APP6_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_g3_management.h
+          type: String
+        type: Attributes
+      type: File
+    APP7_H:
+      attributes:
+        id: APP7_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_udp_responder.h
+          type: String
+        type: Attributes
+      type: File
+    APP8_H:
+      attributes:
+        id: APP8_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_storage_pic32cxmt.h
+          type: String
+        type: Attributes
+      type: File
+    APP9_H:
+      attributes:
+        id: APP9_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_udp_metrology.h
+          type: String
+        type: Attributes
+      type: File
+    APP10_H:
+      attributes:
+        id: APP10_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: app_tcpip_management.h
+          type: String
+        type: Attributes
+      type: File
+    GEN_APP_TASKS:
+      attributes:
+        id: GEN_APP_TASKS
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    USER_H:
+      attributes:
+        id: USER_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_TASKS_H:
+      attributes:
+        id: SYS_TASKS_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    TASKS_C:
+      attributes:
+        id: TASKS_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    INT_MAPPING:
+      attributes:
+        id: INT_MAPPING
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    INT_HEADER:
+      attributes:
+        id: INT_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    INT_DEF:
+      attributes:
+        id: INT_DEF
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    INT_SOURCE:
+      attributes:
+        id: INT_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    OSAL_H:
+      attributes:
+        id: OSAL_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    OSAL_DEFINITIONS_H:
+      attributes:
+        id: OSAL_DEFINITIONS_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    OSAL_SYSDEF_H:
+      attributes:
+        id: OSAL_SYSDEF_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    OSAL_IMPL_BASIC_H:
+      attributes:
+        id: OSAL_IMPL_BASIC_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    DRIVER_COMMON:
+      attributes:
+        id: DRIVER_COMMON
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
   userData: {}

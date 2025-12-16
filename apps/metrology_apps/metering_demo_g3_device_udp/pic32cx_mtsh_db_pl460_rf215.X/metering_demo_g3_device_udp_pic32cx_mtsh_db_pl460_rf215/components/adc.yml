@@ -44,8 +44,8 @@ data:
     - children:
       - attributes:
           id: adc
-          x: '315'
-          y: '441'
+          x: '312'
+          y: '437'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
