@@ -45,8 +45,8 @@ data:
     - children:
       - attributes:
           id: srv_pvddmon
-          x: '137'
-          y: '293'
+          x: '168'
+          y: '292'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

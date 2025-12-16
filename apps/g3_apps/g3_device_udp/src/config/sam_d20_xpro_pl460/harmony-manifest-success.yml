@@ -4,7 +4,7 @@
 
 
 project: g3_device_udp
-creation_date: 2025-12-10T17:04:29.349+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-12-16T09:23:42.925+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3
@@ -22,7 +22,7 @@ modules:
     - {name: "wolfssl", version: "v5.7.0"}
     - {name: "net", version: "v3.14.4"}
     - {name: "smartenergy", version: "v1.5.0"}
-    - {name: "shd", version: "v1.2.1"}
+    - {name: "shd", version: "v1.3.0"}
 
 packs:
     - {name: "SAMD20_DFP", version: "3.6.112"}
