@@ -44,7 +44,7 @@ data:
     - children:
       - attributes:
           id: adc
-          x: '314'
+          x: '382'
           y: '310'
         type: ElementPosition
       type: ElementPositions

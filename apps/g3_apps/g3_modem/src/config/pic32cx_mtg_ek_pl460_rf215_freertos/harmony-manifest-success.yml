@@ -4,7 +4,7 @@
 
 
 project: g3_modem_freertos
-creation_date: 2025-12-10T17:25:24.602+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-12-16T10:27:46.861+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3
@@ -22,7 +22,7 @@ modules:
     - {name: "crypto_v4", version: "v4.0.0-E3"}
     - {name: "wolfssl", version: "v5.7.0"}
     - {name: "smartenergy", version: "v1.5.0"}
-    - {name: "shd", version: "v1.2.1"}
+    - {name: "shd", version: "v1.3.0"}
 
 packs:
     - {name: "PIC32CX-MT_DFP", version: "1.3.132"}

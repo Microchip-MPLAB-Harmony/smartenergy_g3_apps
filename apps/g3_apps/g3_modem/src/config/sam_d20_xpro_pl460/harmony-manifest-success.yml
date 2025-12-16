@@ -4,7 +4,7 @@
 
 
 project: g3_modem
-creation_date: 2025-12-10T17:27:44.854+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-12-16T10:32:57.947+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3
@@ -21,7 +21,7 @@ modules:
     - {name: "crypto_v4", version: "v4.0.0-E3"}
     - {name: "wolfssl", version: "v5.7.0"}
     - {name: "smartenergy", version: "v1.5.0"}
-    - {name: "shd", version: "v1.2.1"}
+    - {name: "shd", version: "v1.3.0"}
 
 packs:
     - {name: "SAMD20_DFP", version: "3.6.112"}

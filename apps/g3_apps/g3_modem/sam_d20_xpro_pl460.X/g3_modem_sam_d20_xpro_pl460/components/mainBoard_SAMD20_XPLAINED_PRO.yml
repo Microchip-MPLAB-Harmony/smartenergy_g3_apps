@@ -9,9 +9,10 @@ dependency:
   type: module
   version: ''
 - dependencyPackage: ''
+  devMode: true
   name: shd
   type: package
-  version: v1.2.1
+  version: v1.3.0
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}
@@ -37,96 +38,9 @@ data:
             id: label
           children:
           - type: Value
-            value: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_ADC PLUS
+            value: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_ADC MINUS
           type: String
         type: Attributes
-      - children:
-        - attributes:
-            id: mainBoard_SAMD20_XPLAINED_PRO
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1:
-      attributes:
-        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1
-      children:
-      - children:
-        - attributes:
-            value: PL460 Evaluation Kit (G3 MAC RT)
-          type: User
-        type: Values
-      type: Combo
-    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_ADC PLUS:
-      attributes:
-        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_ADC PLUS
-      children:
-      - children:
-        - attributes:
-            id: mainBoard_SAMD20_XPLAINED_PRO
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_GPIO SS:
-      attributes:
-        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_GPIO SS
-      children:
-      - children:
-        - attributes:
-            id: mainBoard_SAMD20_XPLAINED_PRO
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_I2C:
-      attributes:
-        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_I2C
-      children:
-      - children:
-        - attributes:
-            id: mainBoard_SAMD20_XPLAINED_PRO
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_IRQ:
-      attributes:
-        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_IRQ
-      children:
-      - children:
-        - attributes:
-            id: mainBoard_SAMD20_XPLAINED_PRO
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_PWM MINUS:
-      attributes:
-        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_PWM MINUS
-      children:
-      - children:
-        - attributes:
-            id: mainBoard_SAMD20_XPLAINED_PRO
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_PWM PLUS:
-      attributes:
-        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_PWM PLUS
-      children:
-      - children:
-        - attributes:
-            id: mainBoard_SAMD20_XPLAINED_PRO
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_SPI:
-      attributes:
-        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_SPI
-      children:
       - children:
         - attributes:
             id: mainBoard_SAMD20_XPLAINED_PRO
@@ -154,4 +68,80 @@ data:
           type: User
         type: Values
       type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_SPI:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_SPI
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_IRQ:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_IRQ
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_GPIO1:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_GPIO1
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_GPIO SS:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_GPIO SS
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_ADC PLUS:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_ADC PLUS
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_ADC MINUS:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_ADC MINUS
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1
+      children:
+      - children:
+        - attributes:
+            value: PL460 EK v5 (G3 MAC RT)
+          type: User
+        type: Values
+      type: Combo
   userData: {}

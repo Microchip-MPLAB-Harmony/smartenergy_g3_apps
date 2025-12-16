@@ -27,7 +27,7 @@ dependency:
 - dependencyPackage: ''
   name: shd
   type: package
-  version: v1.2.1
+  version: v1.3.0
 - dependencyPackage: ''
   name: smartenergy
   type: package

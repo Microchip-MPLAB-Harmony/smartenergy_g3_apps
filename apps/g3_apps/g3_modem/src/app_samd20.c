@@ -121,8 +121,7 @@ static void _APP_WDT_EarlyWarningCallback(uintptr_t context)
 static void _APP_SYSCTRL_BOD33DETCallback (SYSCTRL_INTERRUPT_MASK interruptMask, uintptr_t context)
 {
     NVIC_INT_Disable();
-    PL460_RST_Clear();
-    PL460_ENABLE_Clear();
+    PL460_NRST_Clear();
     (void) NVMCTRL_RowErase(appData.nonVolatileDataAddress);
     (void) NVMCTRL_PageBufferCommit(appData.nonVolatileDataAddress);
     NVIC_INT_Enable();

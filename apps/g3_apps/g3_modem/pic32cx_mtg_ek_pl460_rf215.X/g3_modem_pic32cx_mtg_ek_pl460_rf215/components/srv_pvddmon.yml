@@ -45,7 +45,7 @@ data:
     - children:
       - attributes:
           id: srv_pvddmon
-          x: '455'
+          x: '545'
           y: '310'
         type: ElementPosition
       type: ElementPositions

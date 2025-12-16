@@ -94,15 +94,9 @@
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-    /* Enable LDO Pin */
-    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
-    SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
-    /* Enable Reset Pin */
+    /* Enable and Clear Reset Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
-    /* Disable STBY Pin */
-    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA08);
-    SYS_PORT_PinClear(SYS_PORT_PIN_PA08);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -128,9 +122,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
 
-    /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN,
-
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
 
@@ -142,9 +133,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
-
-    /* PLC StandBy Pin */
-    .stByPin = DRV_PLC_STBY_PIN,
 
     /* PLC External Interrupt Pin */
     .thMonPin = DRV_PLC_THMON_PIN,
@@ -165,9 +153,6 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC transceiver reset */
     .reset = (DRV_PLC_HAL_RESET)DRV_PLC_HAL_Reset,
-
-    /* PLC Set StandBy Mode */
-    .setStandBy = (DRV_PLC_HAL_SET_STBY)DRV_PLC_HAL_SetStandBy,
 
     /* PLC Get Thermal Monitor value */
     .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,
@@ -390,8 +375,8 @@ void SYS_Initialize ( void* data )
 
     SERCOM3_USART_Initialize();
 
-    SERCOM0_SPI_Initialize();
 
+    SERCOM0_SPI_Initialize();
 
     EIC_Initialize();
 

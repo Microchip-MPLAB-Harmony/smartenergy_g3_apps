@@ -14,14 +14,14 @@ Pin Number,Pin ID,Custom Name,Function,Direction,Latch,Open Drain,PIO Interrupt,
 13,PD9,,Available,In,,,,,,,
 14,PD10,,Available,In,,,,,,,
 15,PD11,,Available,In,,,,,,,
-16,PA0,PL460_STBY,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
-17,PA1,PL460_TXEN,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
+16,PA0,,Available,In,,,,,,,
+17,PA1,,Available,In,,,,,,,
 18,PD14,,Available,In,,,,,,,
-19,PD15,PL460_NRST,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
+19,PD15,,Available,In,,,,,,,
 20,PD16,LED0,GPIO,Out,High,No,Disabled,No,No,Glitch Filter,0x0
 22,PD17,,Available,In,,,,,,,
 23,PD18,,Available,In,,,,,,,
-24,PD19,PL460_ENABLE,GPIO,Out,High,No,Disabled,No,No,Glitch Filter,0x0
+24,PD19,,Available,In,,,,,,,
 25,PA10,,Available,In,,,,,,,
 26,PA11,,Available,In,,,,,,,
 27,PA2,PL460_EXTINT,GPIO,In,n/a,No,Low Level,No,Yes,Glitch Filter,0x0
@@ -50,13 +50,13 @@ Pin Number,Pin ID,Custom Name,Function,Direction,Latch,Open Drain,PIO Interrupt,
 67,PA25,RF215_RSTN,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
 68,PA26,,Available,In,,,,,,,
 69,PA27,,Available,In,,,,,,,
-70,PA28,,Available,In,,,,,,,
+70,PA28,PL460_NRST,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
 71,PA29,,Available,In,,,,,,,
 72,PA30,,Available,In,,,,,,,
 74,PB1,PL460_SUPPLY_MON,ADC_AD4/ACC_INN1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 75,PB0,,Available,In,,,,,,,
 76,PB2,,Available,In,,,,,,,
-77,PA31,,Available,In,,,,,,,
+77,PA31,PL460_TXEN,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
 81,PB3,,FLEXCOM7_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 82,PB4,,FLEXCOM7_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 83,PB5,,Available,In,,,,,,,
