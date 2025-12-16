@@ -23,8 +23,8 @@ data:
     - children:
       - attributes:
           id: srvRandom
-          x: '310'
-          y: '400'
+          x: '440'
+          y: '403'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

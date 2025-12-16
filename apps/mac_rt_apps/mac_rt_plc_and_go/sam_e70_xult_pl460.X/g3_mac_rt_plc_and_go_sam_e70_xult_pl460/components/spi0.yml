@@ -44,8 +44,8 @@ data:
     - children:
       - attributes:
           id: spi0
-          x: '336'
-          y: '386'
+          x: '461'
+          y: '204'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -54,6 +54,14 @@ data:
       attributes:
         id: SPI_CSR0_BAUD_RATE
       children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: drvG3MacRt
@@ -66,6 +74,12 @@ data:
         id: SPI_CSR0_CPOL
       children:
       - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
         - attributes:
             id: visible
           children:
@@ -86,6 +100,12 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        - attributes:
             id: visible
           children:
           - type: Value
@@ -104,6 +124,12 @@ data:
         id: SPI_CSR0_CSNAAT
       children:
       - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
         - attributes:
             id: visible
           children:
@@ -124,6 +150,14 @@ data:
       children:
       - children:
         - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: drvG3MacRt
             value: '0'
           type: Dynamic
@@ -133,6 +167,14 @@ data:
       attributes:
         id: SPI_CSR0_DLYBS
       children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: drvG3MacRt
@@ -145,6 +187,12 @@ data:
         id: SPI_CSR0_NCPHA
       children:
       - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
         - attributes:
             id: visible
           children:
@@ -355,6 +403,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: drvG3MacRt
             value: 'false'
           type: Dynamic
@@ -416,6 +472,19 @@ data:
             value: '0'
           type: Dynamic
         type: Values
+      type: KeyValueSet
+    SPI_MR_PCS:
+      attributes:
+        id: SPI_MR_PCS
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
       type: KeyValueSet
     SPI_NUM_CSR:
       attributes:

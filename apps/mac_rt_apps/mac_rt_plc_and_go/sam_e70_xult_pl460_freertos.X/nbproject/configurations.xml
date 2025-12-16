@@ -323,28 +323,28 @@
                      displayName="g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos"
                      projectFiles="true">
         <logicalFolder name="components" displayName="components" projectFiles="true">
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/sys_time.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/efc.yml</itemPath>
           <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/spi0.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/trng.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/usb_device_cdc_0.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/drvG3MacRt.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/usb_device_cdc.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/cmsis.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/core.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/mainBoard_SAME70_XPLAINED_ULTRA.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/usb_device.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/HarmonyCore.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/sys_console.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/sys_console_0.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/FreeRTOS.yml</itemPath>
           <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/srvRandom.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/tc0.yml</itemPath>
-          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/drv_usbhs_v1.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/drvG3MacRt.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/sys_console.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/trng.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/efc.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/FreeRTOS.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/usb_device.yml</itemPath>
           <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/dfp.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/drv_usbhs_v1.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/mainBoard_SAME70_XPLAINED_ULTRA.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/core.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/HarmonyCore.yml</itemPath>
           <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/afec1.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/sys_console_0.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/cmsis.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/usb_device_cdc_0.yml</itemPath>
           <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/srv_pcoup.yml</itemPath>
           <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/srv_pvddmon.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/sys_time.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/tc0.yml</itemPath>
+          <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/components/usb_device_cdc.yml</itemPath>
         </logicalFolder>
         <itemPath>g3_mac_rt_plc_and_go_freertos_sam_e70_xult_pl460_freertos/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -384,6 +384,7 @@
               <logicalFolder name="g3MacRt" displayName="g3MacRt" projectFiles="true">
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
                   <itemPath>../src/config/sam_e70_xult_pl460_freertos/driver/plc/g3MacRt/bin/drv_g3_macrt_bin.S</itemPath>
+                  <itemPath>../src/config/sam_e70_xult_pl460_freertos/driver/plc/g3MacRt/bin/G3_MAC_RT_MULTIBAND.bin</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/sam_e70_xult_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt_local_comm.c</itemPath>
                 <itemPath>../src/config/sam_e70_xult_pl460_freertos/driver/plc/g3MacRt/drv_g3_macrt.c</itemPath>
@@ -528,7 +529,7 @@
       </toolsSet>
       <packs>
         <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
-        <pack name="SAME70_DFP" vendor="Microchip" version="4.10.248"/>
+        <pack name="SAME70_DFP" vendor="Microchip" version="4.11.257"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -560,6 +561,7 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -608,6 +610,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -639,6 +642,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -685,6 +689,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -713,6 +718,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>

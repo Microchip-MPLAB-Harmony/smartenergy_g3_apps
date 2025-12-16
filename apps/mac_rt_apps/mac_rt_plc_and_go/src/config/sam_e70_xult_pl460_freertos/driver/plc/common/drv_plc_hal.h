@@ -188,9 +188,6 @@ typedef struct
     /* SPI clock frequency */
     uint32_t                               spiClockFrequency;
 
-    /* PLC LDO enable pin */
-    SYS_PORT_PIN                           ldoPin;
-
     /* PLC reset pin */
     SYS_PORT_PIN                           resetPin;
 
@@ -202,9 +199,6 @@ typedef struct
 
     /* PLC Tx Enable pin */
     SYS_PORT_PIN                           txEnablePin;
-
-    /* PLC StandBy Pin */
-    SYS_PORT_PIN                           stByPin;
 
     /* PLC Thermal Monitor pin */
     SYS_PORT_PIN                           thMonPin;
@@ -218,8 +212,6 @@ typedef void (* DRV_PLC_HAL_INIT)(DRV_PLC_PLIB_INTERFACE *plcPlib);
 typedef void (* DRV_PLC_HAL_SETUP)(bool set16Bits);
 
 typedef void (* DRV_PLC_HAL_RESET)(void);
-
-typedef void (* DRV_PLC_HAL_SET_STBY)(bool enable);
 
 typedef bool (* DRV_PLC_HAL_GET_THMON)(void);
 
@@ -262,9 +254,6 @@ typedef struct
 
     /* PLC HAL reset device */
     DRV_PLC_HAL_RESET                        reset;
-
-    /* PLC low power management */
-    DRV_PLC_HAL_SET_STBY                     setStandBy;
 
     /* PLC Temperature Monitor */
     DRV_PLC_HAL_GET_THMON                    getThermalMonitor;
@@ -337,7 +326,6 @@ typedef struct
 
 void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib);
 void DRV_PLC_HAL_Reset(void);
-void DRV_PLC_HAL_SetStandBy(bool enable);
 bool DRV_PLC_HAL_GetThermalMonitor(void);
 void DRV_PLC_HAL_Setup(bool set16Bits);
 void DRV_PLC_HAL_SetTxEnable(bool enable);

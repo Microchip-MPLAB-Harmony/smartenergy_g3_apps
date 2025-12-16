@@ -44,8 +44,8 @@ data:
     - children:
       - attributes:
           id: adc
-          x: '335'
-          y: '369'
+          x: '162'
+          y: '343'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -61,9 +61,30 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    ADC_4_IER_EOC:
+    ADC_CLK:
       attributes:
-        id: ADC_4_IER_EOC
+        id: ADC_CLK
+      children:
+      - children:
+        - attributes:
+            id: adc
+            value: '10000000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    ADC_COMP_WINDOW:
+      attributes:
+        id: ADC_COMP_WINDOW
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    ADC_IER_COMPE:
+      attributes:
+        id: ADC_IER_COMPE
       children:
       - children:
         - attributes:
@@ -79,17 +100,6 @@ data:
           type: User
         type: Values
       type: Boolean
-    ADC_CLK:
-      attributes:
-        id: ADC_CLK
-      children:
-      - children:
-        - attributes:
-            id: adc
-            value: '10000000'
-          type: Dynamic
-        type: Values
-      type: Integer
     ADC_MR_PRESCAL:
       attributes:
         id: ADC_MR_PRESCAL

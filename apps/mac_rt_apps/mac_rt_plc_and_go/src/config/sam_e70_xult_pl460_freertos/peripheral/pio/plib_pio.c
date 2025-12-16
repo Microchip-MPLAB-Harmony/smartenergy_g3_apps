@@ -78,8 +78,8 @@ void PIO_Initialize ( void )
     /* PORTA Output Write Enable */
     ((pio_registers_t*)PIO_PORT_A)->PIO_OWER = PIO_OWER_Msk;
     /* PORTA Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_A)->PIO_OER = 0x39U;
-    ((pio_registers_t*)PIO_PORT_A)->PIO_ODR = ~0x39U;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_OER = 0x80020U;
+    ((pio_registers_t*)PIO_PORT_A)->PIO_ODR = ~0x80020U;
     /* Initialize PORTA pin state */
     ((pio_registers_t*)PIO_PORT_A)->PIO_ODSR = 0x20U;
     /* PORTA drive control */
@@ -95,8 +95,8 @@ void PIO_Initialize ( void )
     /* PORTB Output Write Enable */
     ((pio_registers_t*)PIO_PORT_B)->PIO_OWER = PIO_OWER_Msk;
     /* PORTB Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_B)->PIO_OER = 0x0U;
-    ((pio_registers_t*)PIO_PORT_B)->PIO_ODR = ~0x0U;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_OER = 0x8U;
+    ((pio_registers_t*)PIO_PORT_B)->PIO_ODR = ~0x8U;
     /* Initialize PORTB pin state */
     ((pio_registers_t*)PIO_PORT_B)->PIO_ODSR = 0x0U;
     /* PORTB drive control */
@@ -109,15 +109,14 @@ void PIO_Initialize ( void )
     ((pio_registers_t*)PIO_PORT_C)->PIO_PUDR = ~0x20000U;
     ((pio_registers_t*)PIO_PORT_C)->PIO_PUER = 0x20000U;
     /* PORTC Pull Down Enable/Disable as per MHC selection */
-    ((pio_registers_t*)PIO_PORT_C)->PIO_PPDDR = ~0x20000U;
-    ((pio_registers_t*)PIO_PORT_C)->PIO_PPDER = 0x20000U;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_PPDDR = 0xFFFFFFFFU;
     /* PORTC Output Write Enable */
     ((pio_registers_t*)PIO_PORT_C)->PIO_OWER = PIO_OWER_Msk;
     /* PORTC Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_C)->PIO_OER = 0x40000000U;
-    ((pio_registers_t*)PIO_PORT_C)->PIO_ODR = ~0x40000000U;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_OER = 0x0U;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_ODR = ~0x0U;
     /* Initialize PORTC pin state */
-    ((pio_registers_t*)PIO_PORT_C)->PIO_ODSR = 0x40000000U;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_ODSR = 0x0U;
     /* PORTC drive control */
     ((pio_registers_t*)PIO_PORT_C)->PIO_DRIVER = 0x0U;
 

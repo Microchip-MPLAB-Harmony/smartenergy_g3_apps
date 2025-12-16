@@ -61,17 +61,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    AFEC1_CLOCK_ENABLE:
-      attributes:
-        id: AFEC1_CLOCK_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: afec1
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     AFEC1_CLOCK_FREQUENCY:
       attributes:
         id: AFEC1_CLOCK_FREQUENCY
@@ -83,17 +72,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    AFEC1_INTERRUPT_ENABLE:
-      attributes:
-        id: AFEC1_INTERRUPT_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: afec1
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     AFEC1_INTERRUPT_ENABLE_UPDATE:
       attributes:
         id: AFEC1_INTERRUPT_ENABLE_UPDATE
@@ -102,28 +80,6 @@ data:
         - attributes:
             id: core
             value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    AFEC1_INTERRUPT_HANDLER:
-      attributes:
-        id: AFEC1_INTERRUPT_HANDLER
-      children:
-      - children:
-        - attributes:
-            id: afec1
-            value: AFEC1_InterruptHandler
-          type: Dynamic
-        type: Values
-      type: String
-    AFEC1_INTERRUPT_HANDLER_LOCK:
-      attributes:
-        id: AFEC1_INTERRUPT_HANDLER_LOCK
-      children:
-      - children:
-        - attributes:
-            id: afec1
-            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -204,17 +160,6 @@ data:
     DMA_CH_NEEDED_FOR_SPI0_Transmit:
       attributes:
         id: DMA_CH_NEEDED_FOR_SPI0_Transmit
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    DMA_ENABLE:
-      attributes:
-        id: DMA_ENABLE
       children:
       - children:
         - attributes:
@@ -740,10 +685,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Out
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_102_FUNCTION_NAME:
       attributes:
@@ -751,10 +698,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: PL460_NRST
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_102_FUNCTION_TYPE:
       attributes:
@@ -762,10 +711,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_102_LAT:
       attributes:
@@ -773,10 +724,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Low
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_102_PERIPHERAL_FUNCTION:
       attributes:
@@ -784,10 +737,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_103_DIR:
       attributes:
@@ -795,9 +750,20 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: In
           type: Dynamic
+        - attributes:
+            value: ''
+          type: User
         type: Values
       type: String
     PIN_103_FUNCTION_NAME:
@@ -806,9 +772,20 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: PL460_NTHW0
           type: Dynamic
+        - attributes:
+            value: PL460_NTHW0
+          type: User
         type: Values
       type: String
     PIN_103_FUNCTION_TYPE:
@@ -817,9 +794,20 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: GPIO
           type: Dynamic
+        - attributes:
+            value: GPIO
+          type: User
         type: Values
       type: String
     PIN_103_PD:
@@ -828,7 +816,7 @@ data:
       children:
       - children:
         - attributes:
-            value: 'True'
+            value: ''
           type: User
         type: Values
       type: String
@@ -838,9 +826,20 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: GPIO
           type: Dynamic
+        - attributes:
+            value: GPIO
+          type: User
         type: Values
       type: String
     PIN_103_PU:
@@ -849,9 +848,20 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: 'True'
           type: Dynamic
+        - attributes:
+            value: 'True'
+          type: User
         type: Values
       type: String
     PIN_109_FUNCTION_TYPE:
@@ -937,6 +947,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: PL460_SUPPLY_MON
           type: Dynamic
@@ -946,6 +964,14 @@ data:
       attributes:
         id: PIN_14_FUNCTION_TYPE
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -959,6 +985,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: Alternate
           type: Dynamic
@@ -970,10 +1004,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Out
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_15_FUNCTION_NAME:
       attributes:
@@ -981,10 +1017,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: PL460_ENABLE
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_15_FUNCTION_TYPE:
       attributes:
@@ -992,10 +1030,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_15_LAT:
       attributes:
@@ -1003,10 +1043,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: High
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_15_PERIPHERAL_FUNCTION:
       attributes:
@@ -1014,10 +1056,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_23_DIR:
       attributes:
@@ -1025,7 +1069,11 @@ data:
       children:
       - children:
         - attributes:
-            value: ''
+            id: core
+            value: Out
+          type: Dynamic
+        - attributes:
+            value: Out
           type: User
         type: Values
       type: String
@@ -1035,7 +1083,11 @@ data:
       children:
       - children:
         - attributes:
-            value: ''
+            id: core
+            value: PL460_TXEN
+          type: Dynamic
+        - attributes:
+            value: PL460_TXEN
           type: User
         type: Values
       type: String
@@ -1045,7 +1097,11 @@ data:
       children:
       - children:
         - attributes:
-            value: ''
+            id: core
+            value: GPIO
+          type: Dynamic
+        - attributes:
+            value: GPIO
           type: User
         type: Values
       type: String
@@ -1054,6 +1110,10 @@ data:
         id: PIN_23_LAT
       children:
       - children:
+        - attributes:
+            id: core
+            value: Low
+          type: Dynamic
         - attributes:
             value: ''
           type: User
@@ -1065,7 +1125,11 @@ data:
       children:
       - children:
         - attributes:
-            value: ''
+            id: core
+            value: GPIO
+          type: Dynamic
+        - attributes:
+            value: GPIO
           type: User
         type: Values
       type: String
@@ -1073,6 +1137,14 @@ data:
       attributes:
         id: PIN_52_FUNCTION_NAME
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1086,6 +1158,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: SPI0_NPCS1
           type: Dynamic
@@ -1095,6 +1175,14 @@ data:
       attributes:
         id: PIN_52_PERIPHERAL_FUNCTION
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1108,6 +1196,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: PL460_SCK
           type: Dynamic
@@ -1117,6 +1213,14 @@ data:
       attributes:
         id: PIN_60_FUNCTION_TYPE
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1130,6 +1234,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: B
           type: Dynamic
@@ -1139,6 +1251,14 @@ data:
       attributes:
         id: PIN_63_FUNCTION_NAME
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1152,6 +1272,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: SPI0_MOSI
           type: Dynamic
@@ -1161,6 +1289,14 @@ data:
       attributes:
         id: PIN_63_PERIPHERAL_FUNCTION
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1184,6 +1320,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: PL460_MISO
           type: Dynamic
@@ -1193,6 +1337,14 @@ data:
       attributes:
         id: PIN_65_FUNCTION_TYPE
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1206,6 +1358,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: B
           type: Dynamic
@@ -1215,6 +1375,14 @@ data:
       attributes:
         id: PIN_71_DIR
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1228,6 +1396,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: PL460_EXTINT
           type: Dynamic
@@ -1237,6 +1413,14 @@ data:
       attributes:
         id: PIN_71_FUNCTION_TYPE
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1250,14 +1434,31 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: core
             value: 'True'
-          type: User
+          type: Dynamic
         type: Values
       type: String
     PIN_71_PERIPHERAL_FUNCTION:
       attributes:
         id: PIN_71_PERIPHERAL_FUNCTION
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1269,6 +1470,14 @@ data:
       attributes:
         id: PIN_71_PIO_INTERRUPT
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1340,10 +1549,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Out
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_77_FUNCTION_NAME:
       attributes:
@@ -1351,10 +1562,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: PL460_TXEN
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_77_FUNCTION_TYPE:
       attributes:
@@ -1362,10 +1575,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_77_LAT:
       attributes:
@@ -1373,10 +1588,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Low
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_77_PERIPHERAL_FUNCTION:
       attributes:
@@ -1384,10 +1601,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_79_FUNCTION_TYPE:
       attributes:
@@ -1435,10 +1654,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Out
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_91_FUNCTION_NAME:
       attributes:
@@ -1446,10 +1667,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: PL460_STBY
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_91_FUNCTION_TYPE:
       attributes:
@@ -1457,10 +1680,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_91_LAT:
       attributes:
@@ -1468,10 +1693,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Low
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_91_PERIPHERAL_FUNCTION:
       attributes:
@@ -1479,10 +1706,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIOA_ABCDSR1_VALUE:
       attributes:
@@ -1524,7 +1753,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '57'
+            value: '524320'
           type: Dynamic
         type: Values
       type: Hex
@@ -1601,7 +1830,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0'
+            value: '8'
           type: Dynamic
         type: Values
       type: Hex
@@ -1667,7 +1896,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '1073741824'
+            value: '0'
           type: Dynamic
         type: Values
       type: Hex
@@ -1689,7 +1918,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '131072'
+            value: '0'
           type: Dynamic
         type: Values
       type: Hex
@@ -1711,7 +1940,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '1073741824'
+            value: '0'
           type: Dynamic
         type: Values
       type: Hex
@@ -2089,17 +2318,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    SPI0_CLOCK_ENABLE:
-      attributes:
-        id: SPI0_CLOCK_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: spi0
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     SPI0_CLOCK_FREQUENCY:
       attributes:
         id: SPI0_CLOCK_FREQUENCY
@@ -2111,17 +2329,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    SPI0_INTERRUPT_ENABLE:
-      attributes:
-        id: SPI0_INTERRUPT_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: spi0
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
     SPI0_INTERRUPT_ENABLE_UPDATE:
       attributes:
         id: SPI0_INTERRUPT_ENABLE_UPDATE
@@ -2130,28 +2337,6 @@ data:
         - attributes:
             id: core
             value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    SPI0_INTERRUPT_HANDLER:
-      attributes:
-        id: SPI0_INTERRUPT_HANDLER
-      children:
-      - children:
-        - attributes:
-            id: spi0
-            value: SPI0_Handler
-          type: Dynamic
-        type: Values
-      type: String
-    SPI0_INTERRUPT_HANDLER_LOCK:
-      attributes:
-        id: SPI0_INTERRUPT_HANDLER_LOCK
-      children:
-      - children:
-        - attributes:
-            id: spi0
-            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -2594,72 +2779,6 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    XDMAC_CC0_CSIZE:
-      attributes:
-        id: XDMAC_CC0_CSIZE
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC0_DAM:
-      attributes:
-        id: XDMAC_CC0_DAM
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC0_DIF:
-      attributes:
-        id: XDMAC_CC0_DIF
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '1'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC0_DSYNC:
-      attributes:
-        id: XDMAC_CC0_DSYNC
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '1'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC0_DWIDTH:
-      attributes:
-        id: XDMAC_CC0_DWIDTH
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC0_MBSIZE:
-      attributes:
-        id: XDMAC_CC0_MBSIZE
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     XDMAC_CC0_PERID:
       attributes:
         id: XDMAC_CC0_PERID
@@ -2682,127 +2801,6 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    XDMAC_CC0_PERID_VAL:
-      attributes:
-        id: XDMAC_CC0_PERID_VAL
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '1'
-          type: Dynamic
-        type: Values
-      type: Integer
-    XDMAC_CC0_SAM:
-      attributes:
-        id: XDMAC_CC0_SAM
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '1'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC0_SIF:
-      attributes:
-        id: XDMAC_CC0_SIF
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC0_SWREQ:
-      attributes:
-        id: XDMAC_CC0_SWREQ
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC0_TYPE:
-      attributes:
-        id: XDMAC_CC0_TYPE
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '1'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC1_CSIZE:
-      attributes:
-        id: XDMAC_CC1_CSIZE
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC1_DAM:
-      attributes:
-        id: XDMAC_CC1_DAM
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '1'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC1_DIF:
-      attributes:
-        id: XDMAC_CC1_DIF
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC1_DSYNC:
-      attributes:
-        id: XDMAC_CC1_DSYNC
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC1_DWIDTH:
-      attributes:
-        id: XDMAC_CC1_DWIDTH
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC1_MBSIZE:
-      attributes:
-        id: XDMAC_CC1_MBSIZE
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     XDMAC_CC1_PERID:
       attributes:
         id: XDMAC_CC1_PERID
@@ -2825,61 +2823,6 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    XDMAC_CC1_PERID_VAL:
-      attributes:
-        id: XDMAC_CC1_PERID_VAL
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '2'
-          type: Dynamic
-        type: Values
-      type: Integer
-    XDMAC_CC1_SAM:
-      attributes:
-        id: XDMAC_CC1_SAM
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC1_SIF:
-      attributes:
-        id: XDMAC_CC1_SIF
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '1'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC1_SWREQ:
-      attributes:
-        id: XDMAC_CC1_SWREQ
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    XDMAC_CC1_TYPE:
-      attributes:
-        id: XDMAC_CC1_TYPE
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '1'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     XDMAC_CH0_ENABLE:
       attributes:
         id: XDMAC_CH0_ENABLE
@@ -2921,17 +2864,6 @@ data:
         - attributes:
             id: core
             value: '150000000'
-          type: Dynamic
-        type: Values
-      type: Integer
-    XDMAC_HIGHEST_CHANNEL:
-      attributes:
-        id: XDMAC_HIGHEST_CHANNEL
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '2'
           type: Dynamic
         type: Values
       type: Integer
@@ -3007,6 +2939,5240 @@ data:
         - attributes:
             value: 'true'
           type: User
+        type: Values
+      type: Boolean
+    PIN_1_PIO_PIN:
+      attributes:
+        id: PIN_1_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_1_PIO_CHANNEL:
+      attributes:
+        id: PIN_1_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_1_EXPORT_NAME:
+      attributes:
+        id: PIN_1_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 1:PD0
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_2_PIO_PIN:
+      attributes:
+        id: PIN_2_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '31'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_2_PIO_CHANNEL:
+      attributes:
+        id: PIN_2_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_2_EXPORT_NAME:
+      attributes:
+        id: PIN_2_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 2:PD31
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_3_PIO_PIN:
+      attributes:
+        id: PIN_3_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_3_PIO_CHANNEL:
+      attributes:
+        id: PIN_3_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_3_EXPORT_NAME:
+      attributes:
+        id: PIN_3_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 3:VDDOUT
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_4_PIO_PIN:
+      attributes:
+        id: PIN_4_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_4_PIO_CHANNEL:
+      attributes:
+        id: PIN_4_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: E
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_4_EXPORT_NAME:
+      attributes:
+        id: PIN_4_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 4:PE0
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_5_PIO_PIN:
+      attributes:
+        id: PIN_5_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_5_PIO_CHANNEL:
+      attributes:
+        id: PIN_5_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_5_EXPORT_NAME:
+      attributes:
+        id: PIN_5_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 5:VDDIN
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_6_PIO_PIN:
+      attributes:
+        id: PIN_6_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_6_PIO_CHANNEL:
+      attributes:
+        id: PIN_6_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: E
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_6_EXPORT_NAME:
+      attributes:
+        id: PIN_6_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 6:PE1
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_7_PIO_PIN:
+      attributes:
+        id: PIN_7_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '2'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_7_PIO_CHANNEL:
+      attributes:
+        id: PIN_7_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: E
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_7_EXPORT_NAME:
+      attributes:
+        id: PIN_7_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 7:PE2
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_8_PIO_PIN:
+      attributes:
+        id: PIN_8_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_8_PIO_CHANNEL:
+      attributes:
+        id: PIN_8_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_8_EXPORT_NAME:
+      attributes:
+        id: PIN_8_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 8:VREFN
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_9_PIO_PIN:
+      attributes:
+        id: PIN_9_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_9_PIO_CHANNEL:
+      attributes:
+        id: PIN_9_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_9_EXPORT_NAME:
+      attributes:
+        id: PIN_9_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 9:VREFP
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_10_PIO_PIN:
+      attributes:
+        id: PIN_10_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '3'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_10_PIO_CHANNEL:
+      attributes:
+        id: PIN_10_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: E
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_10_EXPORT_NAME:
+      attributes:
+        id: PIN_10_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 10:PE3
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_11_PIO_PIN:
+      attributes:
+        id: PIN_11_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_11_PIO_CHANNEL:
+      attributes:
+        id: PIN_11_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_11_EXPORT_NAME:
+      attributes:
+        id: PIN_11_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 11:PC0
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_12_PIO_PIN:
+      attributes:
+        id: PIN_12_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '27'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_12_PIO_CHANNEL:
+      attributes:
+        id: PIN_12_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_12_EXPORT_NAME:
+      attributes:
+        id: PIN_12_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 12:PC27
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_13_PIO_PIN:
+      attributes:
+        id: PIN_13_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '26'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_13_PIO_CHANNEL:
+      attributes:
+        id: PIN_13_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_13_EXPORT_NAME:
+      attributes:
+        id: PIN_13_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 13:PC26
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_14_PIO_PIN:
+      attributes:
+        id: PIN_14_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '31'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_14_PIO_CHANNEL:
+      attributes:
+        id: PIN_14_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_14_EXPORT_NAME:
+      attributes:
+        id: PIN_14_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 14:PC31
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_15_PIO_PIN:
+      attributes:
+        id: PIN_15_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '30'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_15_PIO_CHANNEL:
+      attributes:
+        id: PIN_15_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_15_EXPORT_NAME:
+      attributes:
+        id: PIN_15_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 15:PC30
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_16_PIO_PIN:
+      attributes:
+        id: PIN_16_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '29'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_16_PIO_CHANNEL:
+      attributes:
+        id: PIN_16_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_16_EXPORT_NAME:
+      attributes:
+        id: PIN_16_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 16:PC29
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_17_PIO_PIN:
+      attributes:
+        id: PIN_17_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '12'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_17_PIO_CHANNEL:
+      attributes:
+        id: PIN_17_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_17_EXPORT_NAME:
+      attributes:
+        id: PIN_17_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 17:PC12
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_18_PIO_PIN:
+      attributes:
+        id: PIN_18_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '15'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_18_PIO_CHANNEL:
+      attributes:
+        id: PIN_18_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_18_EXPORT_NAME:
+      attributes:
+        id: PIN_18_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 18:PC15
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_19_PIO_PIN:
+      attributes:
+        id: PIN_19_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '13'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_19_PIO_CHANNEL:
+      attributes:
+        id: PIN_19_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_19_EXPORT_NAME:
+      attributes:
+        id: PIN_19_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 19:PC13
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_20_PIO_PIN:
+      attributes:
+        id: PIN_20_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_20_PIO_CHANNEL:
+      attributes:
+        id: PIN_20_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: B
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_20_EXPORT_NAME:
+      attributes:
+        id: PIN_20_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 20:PB1
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_21_PIO_PIN:
+      attributes:
+        id: PIN_21_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_21_PIO_CHANNEL:
+      attributes:
+        id: PIN_21_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: B
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_21_EXPORT_NAME:
+      attributes:
+        id: PIN_21_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 21:PB0
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_22_PIO_PIN:
+      attributes:
+        id: PIN_22_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '20'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_22_PIO_CHANNEL:
+      attributes:
+        id: PIN_22_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_22_EXPORT_NAME:
+      attributes:
+        id: PIN_22_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 22:PA20
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_23_PIO_PIN:
+      attributes:
+        id: PIN_23_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '19'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_23_PIO_CHANNEL:
+      attributes:
+        id: PIN_23_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_23_EXPORT_NAME:
+      attributes:
+        id: PIN_23_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 23:PA19
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_24_PIO_PIN:
+      attributes:
+        id: PIN_24_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '18'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_24_PIO_CHANNEL:
+      attributes:
+        id: PIN_24_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_24_EXPORT_NAME:
+      attributes:
+        id: PIN_24_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 24:PA18
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_25_PIO_PIN:
+      attributes:
+        id: PIN_25_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '17'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_25_PIO_CHANNEL:
+      attributes:
+        id: PIN_25_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_25_EXPORT_NAME:
+      attributes:
+        id: PIN_25_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 25:PA17
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_26_PIO_PIN:
+      attributes:
+        id: PIN_26_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '2'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_26_PIO_CHANNEL:
+      attributes:
+        id: PIN_26_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: B
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_26_EXPORT_NAME:
+      attributes:
+        id: PIN_26_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 26:PB2
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_27_PIO_PIN:
+      attributes:
+        id: PIN_27_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '4'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_27_PIO_CHANNEL:
+      attributes:
+        id: PIN_27_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: E
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_27_EXPORT_NAME:
+      attributes:
+        id: PIN_27_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 27:PE4
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_28_PIO_PIN:
+      attributes:
+        id: PIN_28_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_28_PIO_CHANNEL:
+      attributes:
+        id: PIN_28_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: E
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_28_EXPORT_NAME:
+      attributes:
+        id: PIN_28_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 28:PE5
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_29_PIO_PIN:
+      attributes:
+        id: PIN_29_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_29_PIO_CHANNEL:
+      attributes:
+        id: PIN_29_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_29_EXPORT_NAME:
+      attributes:
+        id: PIN_29_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 29:VDDCORE
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_30_PIO_PIN:
+      attributes:
+        id: PIN_30_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_30_PIO_CHANNEL:
+      attributes:
+        id: PIN_30_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_30_EXPORT_NAME:
+      attributes:
+        id: PIN_30_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 30:VDDIO
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_31_PIO_PIN:
+      attributes:
+        id: PIN_31_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '3'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_31_PIO_CHANNEL:
+      attributes:
+        id: PIN_31_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: B
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_31_EXPORT_NAME:
+      attributes:
+        id: PIN_31_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 31:PB3
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_32_PIO_PIN:
+      attributes:
+        id: PIN_32_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '21'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_32_PIO_CHANNEL:
+      attributes:
+        id: PIN_32_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_32_EXPORT_NAME:
+      attributes:
+        id: PIN_32_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 32:PA21
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_33_PIO_PIN:
+      attributes:
+        id: PIN_33_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_33_PIO_CHANNEL:
+      attributes:
+        id: PIN_33_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_33_EXPORT_NAME:
+      attributes:
+        id: PIN_33_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 33:VDDCORE
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_34_PIO_PIN:
+      attributes:
+        id: PIN_34_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '30'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_34_PIO_CHANNEL:
+      attributes:
+        id: PIN_34_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_34_EXPORT_NAME:
+      attributes:
+        id: PIN_34_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 34:PD30
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_35_PIO_PIN:
+      attributes:
+        id: PIN_35_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '7'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_35_PIO_CHANNEL:
+      attributes:
+        id: PIN_35_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_35_EXPORT_NAME:
+      attributes:
+        id: PIN_35_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 35:PA7
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_36_PIO_PIN:
+      attributes:
+        id: PIN_36_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '8'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_36_PIO_CHANNEL:
+      attributes:
+        id: PIN_36_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_36_EXPORT_NAME:
+      attributes:
+        id: PIN_36_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 36:PA8
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_37_PIO_PIN:
+      attributes:
+        id: PIN_37_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '22'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_37_PIO_CHANNEL:
+      attributes:
+        id: PIN_37_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_37_EXPORT_NAME:
+      attributes:
+        id: PIN_37_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 37:PA22
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_38_PIO_PIN:
+      attributes:
+        id: PIN_38_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_38_PIO_CHANNEL:
+      attributes:
+        id: PIN_38_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_38_EXPORT_NAME:
+      attributes:
+        id: PIN_38_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 38:PC1
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_39_PIO_PIN:
+      attributes:
+        id: PIN_39_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '2'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_39_PIO_CHANNEL:
+      attributes:
+        id: PIN_39_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_39_EXPORT_NAME:
+      attributes:
+        id: PIN_39_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 39:PC2
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_40_PIO_PIN:
+      attributes:
+        id: PIN_40_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '3'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_40_PIO_CHANNEL:
+      attributes:
+        id: PIN_40_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_40_EXPORT_NAME:
+      attributes:
+        id: PIN_40_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 40:PC3
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_41_PIO_PIN:
+      attributes:
+        id: PIN_41_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '4'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_41_PIO_CHANNEL:
+      attributes:
+        id: PIN_41_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_41_EXPORT_NAME:
+      attributes:
+        id: PIN_41_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 41:PC4
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_42_PIO_PIN:
+      attributes:
+        id: PIN_42_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '13'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_42_PIO_CHANNEL:
+      attributes:
+        id: PIN_42_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_42_EXPORT_NAME:
+      attributes:
+        id: PIN_42_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 42:PA13
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_43_PIO_PIN:
+      attributes:
+        id: PIN_43_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_43_PIO_CHANNEL:
+      attributes:
+        id: PIN_43_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_43_EXPORT_NAME:
+      attributes:
+        id: PIN_43_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 43:VDDIO
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_44_PIO_PIN:
+      attributes:
+        id: PIN_44_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_44_PIO_CHANNEL:
+      attributes:
+        id: PIN_44_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_44_EXPORT_NAME:
+      attributes:
+        id: PIN_44_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 44:GND
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_45_PIO_PIN:
+      attributes:
+        id: PIN_45_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '16'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_45_PIO_CHANNEL:
+      attributes:
+        id: PIN_45_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_45_EXPORT_NAME:
+      attributes:
+        id: PIN_45_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 45:PA16
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_46_PIO_PIN:
+      attributes:
+        id: PIN_46_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '23'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_46_PIO_CHANNEL:
+      attributes:
+        id: PIN_46_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_46_EXPORT_NAME:
+      attributes:
+        id: PIN_46_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 46:PA23
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_47_PIO_PIN:
+      attributes:
+        id: PIN_47_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '27'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_47_PIO_CHANNEL:
+      attributes:
+        id: PIN_47_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_47_EXPORT_NAME:
+      attributes:
+        id: PIN_47_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 47:PD27
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_48_PIO_PIN:
+      attributes:
+        id: PIN_48_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '7'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_48_PIO_CHANNEL:
+      attributes:
+        id: PIN_48_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_48_EXPORT_NAME:
+      attributes:
+        id: PIN_48_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 48:PC7
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_49_PIO_PIN:
+      attributes:
+        id: PIN_49_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '15'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_49_PIO_CHANNEL:
+      attributes:
+        id: PIN_49_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_49_EXPORT_NAME:
+      attributes:
+        id: PIN_49_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 49:PA15
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_50_PIO_PIN:
+      attributes:
+        id: PIN_50_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_50_PIO_CHANNEL:
+      attributes:
+        id: PIN_50_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_50_EXPORT_NAME:
+      attributes:
+        id: PIN_50_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 50:VDDCORE
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_51_PIO_PIN:
+      attributes:
+        id: PIN_51_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '14'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_51_PIO_CHANNEL:
+      attributes:
+        id: PIN_51_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_51_EXPORT_NAME:
+      attributes:
+        id: PIN_51_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 51:PA14
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_52_PIO_PIN:
+      attributes:
+        id: PIN_52_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '25'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_52_PIO_CHANNEL:
+      attributes:
+        id: PIN_52_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_52_EXPORT_NAME:
+      attributes:
+        id: PIN_52_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 52:PD25
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_53_PIO_PIN:
+      attributes:
+        id: PIN_53_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '26'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_53_PIO_CHANNEL:
+      attributes:
+        id: PIN_53_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_53_EXPORT_NAME:
+      attributes:
+        id: PIN_53_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 53:PD26
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_54_PIO_PIN:
+      attributes:
+        id: PIN_54_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '6'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_54_PIO_CHANNEL:
+      attributes:
+        id: PIN_54_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_54_EXPORT_NAME:
+      attributes:
+        id: PIN_54_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 54:PC6
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_55_PIO_PIN:
+      attributes:
+        id: PIN_55_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '24'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_55_PIO_CHANNEL:
+      attributes:
+        id: PIN_55_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_55_EXPORT_NAME:
+      attributes:
+        id: PIN_55_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 55:PD24
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_56_PIO_PIN:
+      attributes:
+        id: PIN_56_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '24'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_56_PIO_CHANNEL:
+      attributes:
+        id: PIN_56_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_56_EXPORT_NAME:
+      attributes:
+        id: PIN_56_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 56:PA24
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_57_PIO_PIN:
+      attributes:
+        id: PIN_57_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '23'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_57_PIO_CHANNEL:
+      attributes:
+        id: PIN_57_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_57_EXPORT_NAME:
+      attributes:
+        id: PIN_57_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 57:PD23
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_58_PIO_PIN:
+      attributes:
+        id: PIN_58_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_58_PIO_CHANNEL:
+      attributes:
+        id: PIN_58_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_58_EXPORT_NAME:
+      attributes:
+        id: PIN_58_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 58:PC5
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_59_PIO_PIN:
+      attributes:
+        id: PIN_59_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '25'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_59_PIO_CHANNEL:
+      attributes:
+        id: PIN_59_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_59_EXPORT_NAME:
+      attributes:
+        id: PIN_59_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 59:PA25
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_60_PIO_PIN:
+      attributes:
+        id: PIN_60_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '22'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_60_PIO_CHANNEL:
+      attributes:
+        id: PIN_60_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_60_EXPORT_NAME:
+      attributes:
+        id: PIN_60_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 60:PD22
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_61_PIO_PIN:
+      attributes:
+        id: PIN_61_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_61_PIO_CHANNEL:
+      attributes:
+        id: PIN_61_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_61_EXPORT_NAME:
+      attributes:
+        id: PIN_61_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 61:GND
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_62_PIO_PIN:
+      attributes:
+        id: PIN_62_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '26'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_62_PIO_CHANNEL:
+      attributes:
+        id: PIN_62_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_62_EXPORT_NAME:
+      attributes:
+        id: PIN_62_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 62:PA26
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_63_PIO_PIN:
+      attributes:
+        id: PIN_63_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '21'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_63_PIO_CHANNEL:
+      attributes:
+        id: PIN_63_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_63_EXPORT_NAME:
+      attributes:
+        id: PIN_63_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 63:PD21
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_64_PIO_PIN:
+      attributes:
+        id: PIN_64_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '11'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_64_PIO_CHANNEL:
+      attributes:
+        id: PIN_64_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_64_EXPORT_NAME:
+      attributes:
+        id: PIN_64_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 64:PA11
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_65_PIO_PIN:
+      attributes:
+        id: PIN_65_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '20'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_65_PIO_CHANNEL:
+      attributes:
+        id: PIN_65_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_65_EXPORT_NAME:
+      attributes:
+        id: PIN_65_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 65:PD20
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_66_PIO_PIN:
+      attributes:
+        id: PIN_66_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '10'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_66_PIO_CHANNEL:
+      attributes:
+        id: PIN_66_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_66_EXPORT_NAME:
+      attributes:
+        id: PIN_66_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 66:PA10
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_67_PIO_PIN:
+      attributes:
+        id: PIN_67_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '19'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_67_PIO_CHANNEL:
+      attributes:
+        id: PIN_67_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_67_EXPORT_NAME:
+      attributes:
+        id: PIN_67_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 67:PD19
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_68_PIO_PIN:
+      attributes:
+        id: PIN_68_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '12'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_68_PIO_CHANNEL:
+      attributes:
+        id: PIN_68_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_68_EXPORT_NAME:
+      attributes:
+        id: PIN_68_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 68:PA12
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_69_PIO_PIN:
+      attributes:
+        id: PIN_69_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '18'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_69_PIO_CHANNEL:
+      attributes:
+        id: PIN_69_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_69_EXPORT_NAME:
+      attributes:
+        id: PIN_69_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 69:PD18
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_70_PIO_PIN:
+      attributes:
+        id: PIN_70_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '27'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_70_PIO_CHANNEL:
+      attributes:
+        id: PIN_70_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_70_EXPORT_NAME:
+      attributes:
+        id: PIN_70_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 70:PA27
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_71_PIO_PIN:
+      attributes:
+        id: PIN_71_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '28'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_71_PIO_CHANNEL:
+      attributes:
+        id: PIN_71_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_71_EXPORT_NAME:
+      attributes:
+        id: PIN_71_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 71:PD28
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_72_PIO_PIN:
+      attributes:
+        id: PIN_72_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_72_PIO_CHANNEL:
+      attributes:
+        id: PIN_72_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_72_EXPORT_NAME:
+      attributes:
+        id: PIN_72_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 72:VDDIO
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_73_PIO_PIN:
+      attributes:
+        id: PIN_73_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_73_PIO_CHANNEL:
+      attributes:
+        id: PIN_73_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_73_EXPORT_NAME:
+      attributes:
+        id: PIN_73_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 73:PA5
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_74_PIO_PIN:
+      attributes:
+        id: PIN_74_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '17'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_74_PIO_CHANNEL:
+      attributes:
+        id: PIN_74_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_74_EXPORT_NAME:
+      attributes:
+        id: PIN_74_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 74:PD17
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_75_PIO_PIN:
+      attributes:
+        id: PIN_75_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '9'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_75_PIO_CHANNEL:
+      attributes:
+        id: PIN_75_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_75_EXPORT_NAME:
+      attributes:
+        id: PIN_75_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 75:PA9
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_76_PIO_PIN:
+      attributes:
+        id: PIN_76_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '28'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_76_PIO_CHANNEL:
+      attributes:
+        id: PIN_76_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_76_EXPORT_NAME:
+      attributes:
+        id: PIN_76_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 76:PC28
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_77_PIO_PIN:
+      attributes:
+        id: PIN_77_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '4'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_77_PIO_CHANNEL:
+      attributes:
+        id: PIN_77_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_77_EXPORT_NAME:
+      attributes:
+        id: PIN_77_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 77:PA4
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_78_PIO_PIN:
+      attributes:
+        id: PIN_78_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '16'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_78_PIO_CHANNEL:
+      attributes:
+        id: PIN_78_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_78_EXPORT_NAME:
+      attributes:
+        id: PIN_78_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 78:PD16
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_79_PIO_PIN:
+      attributes:
+        id: PIN_79_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '6'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_79_PIO_CHANNEL:
+      attributes:
+        id: PIN_79_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: B
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_79_EXPORT_NAME:
+      attributes:
+        id: PIN_79_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 79:PB6
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_80_PIO_PIN:
+      attributes:
+        id: PIN_80_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_80_PIO_CHANNEL:
+      attributes:
+        id: PIN_80_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_80_EXPORT_NAME:
+      attributes:
+        id: PIN_80_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 80:VDDIO
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_81_PIO_PIN:
+      attributes:
+        id: PIN_81_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_81_PIO_CHANNEL:
+      attributes:
+        id: PIN_81_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_81_EXPORT_NAME:
+      attributes:
+        id: PIN_81_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 81:VDDCORE
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_82_PIO_PIN:
+      attributes:
+        id: PIN_82_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '8'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_82_PIO_CHANNEL:
+      attributes:
+        id: PIN_82_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_82_EXPORT_NAME:
+      attributes:
+        id: PIN_82_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 82:PC8
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_83_PIO_PIN:
+      attributes:
+        id: PIN_83_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_83_PIO_CHANNEL:
+      attributes:
+        id: PIN_83_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_83_EXPORT_NAME:
+      attributes:
+        id: PIN_83_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 83:NRST
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_84_PIO_PIN:
+      attributes:
+        id: PIN_84_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '14'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_84_PIO_CHANNEL:
+      attributes:
+        id: PIN_84_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_84_EXPORT_NAME:
+      attributes:
+        id: PIN_84_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 84:PD14
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_85_PIO_PIN:
+      attributes:
+        id: PIN_85_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_85_PIO_CHANNEL:
+      attributes:
+        id: PIN_85_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_85_EXPORT_NAME:
+      attributes:
+        id: PIN_85_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 85:TST
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_86_PIO_PIN:
+      attributes:
+        id: PIN_86_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '9'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_86_PIO_CHANNEL:
+      attributes:
+        id: PIN_86_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_86_EXPORT_NAME:
+      attributes:
+        id: PIN_86_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 86:PC9
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_87_PIO_PIN:
+      attributes:
+        id: PIN_87_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '12'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_87_PIO_CHANNEL:
+      attributes:
+        id: PIN_87_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: B
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_87_EXPORT_NAME:
+      attributes:
+        id: PIN_87_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 87:PB12
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_88_PIO_PIN:
+      attributes:
+        id: PIN_88_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '13'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_88_PIO_CHANNEL:
+      attributes:
+        id: PIN_88_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_88_EXPORT_NAME:
+      attributes:
+        id: PIN_88_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 88:PD13
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_89_PIO_PIN:
+      attributes:
+        id: PIN_89_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '7'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_89_PIO_CHANNEL:
+      attributes:
+        id: PIN_89_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: B
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_89_EXPORT_NAME:
+      attributes:
+        id: PIN_89_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 89:PB7
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_90_PIO_PIN:
+      attributes:
+        id: PIN_90_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '10'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_90_PIO_CHANNEL:
+      attributes:
+        id: PIN_90_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_90_EXPORT_NAME:
+      attributes:
+        id: PIN_90_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 90:PC10
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_91_PIO_PIN:
+      attributes:
+        id: PIN_91_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '3'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_91_PIO_CHANNEL:
+      attributes:
+        id: PIN_91_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_91_EXPORT_NAME:
+      attributes:
+        id: PIN_91_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 91:PA3
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_92_PIO_PIN:
+      attributes:
+        id: PIN_92_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '12'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_92_PIO_CHANNEL:
+      attributes:
+        id: PIN_92_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_92_EXPORT_NAME:
+      attributes:
+        id: PIN_92_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 92:PD12
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_93_PIO_PIN:
+      attributes:
+        id: PIN_93_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '2'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_93_PIO_CHANNEL:
+      attributes:
+        id: PIN_93_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_93_EXPORT_NAME:
+      attributes:
+        id: PIN_93_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 93:PA2
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_94_PIO_PIN:
+      attributes:
+        id: PIN_94_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '11'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_94_PIO_CHANNEL:
+      attributes:
+        id: PIN_94_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_94_EXPORT_NAME:
+      attributes:
+        id: PIN_94_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 94:PC11
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_95_PIO_PIN:
+      attributes:
+        id: PIN_95_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_95_PIO_CHANNEL:
+      attributes:
+        id: PIN_95_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_95_EXPORT_NAME:
+      attributes:
+        id: PIN_95_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 95:GND
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_96_PIO_PIN:
+      attributes:
+        id: PIN_96_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_96_PIO_CHANNEL:
+      attributes:
+        id: PIN_96_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_96_EXPORT_NAME:
+      attributes:
+        id: PIN_96_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 96:VDDIO
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_97_PIO_PIN:
+      attributes:
+        id: PIN_97_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '14'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_97_PIO_CHANNEL:
+      attributes:
+        id: PIN_97_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_97_EXPORT_NAME:
+      attributes:
+        id: PIN_97_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 97:PC14
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_98_PIO_PIN:
+      attributes:
+        id: PIN_98_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '11'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_98_PIO_CHANNEL:
+      attributes:
+        id: PIN_98_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_98_EXPORT_NAME:
+      attributes:
+        id: PIN_98_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 98:PD11
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_99_PIO_PIN:
+      attributes:
+        id: PIN_99_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_99_PIO_CHANNEL:
+      attributes:
+        id: PIN_99_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_99_EXPORT_NAME:
+      attributes:
+        id: PIN_99_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 99:PA1
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_100_PIO_PIN:
+      attributes:
+        id: PIN_100_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '16'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_100_PIO_CHANNEL:
+      attributes:
+        id: PIN_100_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_100_EXPORT_NAME:
+      attributes:
+        id: PIN_100_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 100:PC16
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_101_PIO_PIN:
+      attributes:
+        id: PIN_101_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '10'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_101_PIO_CHANNEL:
+      attributes:
+        id: PIN_101_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_101_EXPORT_NAME:
+      attributes:
+        id: PIN_101_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 101:PD10
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_102_PIO_PIN:
+      attributes:
+        id: PIN_102_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_102_PIO_CHANNEL:
+      attributes:
+        id: PIN_102_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_102_EXPORT_NAME:
+      attributes:
+        id: PIN_102_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 102:PA0
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_103_PIO_PIN:
+      attributes:
+        id: PIN_103_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '17'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_103_PIO_CHANNEL:
+      attributes:
+        id: PIN_103_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_103_EXPORT_NAME:
+      attributes:
+        id: PIN_103_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 103:PC17
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_104_PIO_PIN:
+      attributes:
+        id: PIN_104_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_104_PIO_CHANNEL:
+      attributes:
+        id: PIN_104_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_104_EXPORT_NAME:
+      attributes:
+        id: PIN_104_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 104:JTAGSEL
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_105_PIO_PIN:
+      attributes:
+        id: PIN_105_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '4'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_105_PIO_CHANNEL:
+      attributes:
+        id: PIN_105_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: B
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_105_EXPORT_NAME:
+      attributes:
+        id: PIN_105_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 105:PB4
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_106_PIO_PIN:
+      attributes:
+        id: PIN_106_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '15'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_106_PIO_CHANNEL:
+      attributes:
+        id: PIN_106_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_106_EXPORT_NAME:
+      attributes:
+        id: PIN_106_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 106:PD15
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_107_PIO_PIN:
+      attributes:
+        id: PIN_107_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_107_PIO_CHANNEL:
+      attributes:
+        id: PIN_107_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_107_EXPORT_NAME:
+      attributes:
+        id: PIN_107_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 107:VDDCORE
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_108_PIO_PIN:
+      attributes:
+        id: PIN_108_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '29'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_108_PIO_CHANNEL:
+      attributes:
+        id: PIN_108_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_108_EXPORT_NAME:
+      attributes:
+        id: PIN_108_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 108:PD29
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_109_PIO_PIN:
+      attributes:
+        id: PIN_109_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_109_PIO_CHANNEL:
+      attributes:
+        id: PIN_109_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: B
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_109_EXPORT_NAME:
+      attributes:
+        id: PIN_109_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 109:PB5
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_110_PIO_PIN:
+      attributes:
+        id: PIN_110_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '9'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_110_PIO_CHANNEL:
+      attributes:
+        id: PIN_110_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_110_EXPORT_NAME:
+      attributes:
+        id: PIN_110_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 110:PD9
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_111_PIO_PIN:
+      attributes:
+        id: PIN_111_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '18'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_111_PIO_CHANNEL:
+      attributes:
+        id: PIN_111_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_111_EXPORT_NAME:
+      attributes:
+        id: PIN_111_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 111:PC18
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_112_PIO_PIN:
+      attributes:
+        id: PIN_112_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '28'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_112_PIO_CHANNEL:
+      attributes:
+        id: PIN_112_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_112_EXPORT_NAME:
+      attributes:
+        id: PIN_112_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 112:PA28
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_113_PIO_PIN:
+      attributes:
+        id: PIN_113_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '8'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_113_PIO_CHANNEL:
+      attributes:
+        id: PIN_113_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_113_EXPORT_NAME:
+      attributes:
+        id: PIN_113_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 113:PD8
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_114_PIO_PIN:
+      attributes:
+        id: PIN_114_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '6'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_114_PIO_CHANNEL:
+      attributes:
+        id: PIN_114_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_114_EXPORT_NAME:
+      attributes:
+        id: PIN_114_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 114:PA6
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_115_PIO_PIN:
+      attributes:
+        id: PIN_115_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_115_PIO_CHANNEL:
+      attributes:
+        id: PIN_115_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_115_EXPORT_NAME:
+      attributes:
+        id: PIN_115_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 115:GND
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_116_PIO_PIN:
+      attributes:
+        id: PIN_116_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '30'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_116_PIO_CHANNEL:
+      attributes:
+        id: PIN_116_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_116_EXPORT_NAME:
+      attributes:
+        id: PIN_116_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 116:PA30
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_117_PIO_PIN:
+      attributes:
+        id: PIN_117_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '19'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_117_PIO_CHANNEL:
+      attributes:
+        id: PIN_117_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_117_EXPORT_NAME:
+      attributes:
+        id: PIN_117_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 117:PC19
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_118_PIO_PIN:
+      attributes:
+        id: PIN_118_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '31'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_118_PIO_CHANNEL:
+      attributes:
+        id: PIN_118_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_118_EXPORT_NAME:
+      attributes:
+        id: PIN_118_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 118:PA31
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_119_PIO_PIN:
+      attributes:
+        id: PIN_119_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '7'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_119_PIO_CHANNEL:
+      attributes:
+        id: PIN_119_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_119_EXPORT_NAME:
+      attributes:
+        id: PIN_119_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 119:PD7
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_120_PIO_PIN:
+      attributes:
+        id: PIN_120_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '20'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_120_PIO_CHANNEL:
+      attributes:
+        id: PIN_120_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_120_EXPORT_NAME:
+      attributes:
+        id: PIN_120_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 120:PC20
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_121_PIO_PIN:
+      attributes:
+        id: PIN_121_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '6'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_121_PIO_CHANNEL:
+      attributes:
+        id: PIN_121_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_121_EXPORT_NAME:
+      attributes:
+        id: PIN_121_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 121:PD6
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_122_PIO_PIN:
+      attributes:
+        id: PIN_122_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '21'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_122_PIO_CHANNEL:
+      attributes:
+        id: PIN_122_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_122_EXPORT_NAME:
+      attributes:
+        id: PIN_122_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 122:PC21
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_123_PIO_PIN:
+      attributes:
+        id: PIN_123_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_123_PIO_CHANNEL:
+      attributes:
+        id: PIN_123_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_123_EXPORT_NAME:
+      attributes:
+        id: PIN_123_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 123:VDDPLL
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_124_PIO_PIN:
+      attributes:
+        id: PIN_124_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '22'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_124_PIO_CHANNEL:
+      attributes:
+        id: PIN_124_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_124_EXPORT_NAME:
+      attributes:
+        id: PIN_124_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 124:PC22
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_125_PIO_PIN:
+      attributes:
+        id: PIN_125_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_125_PIO_CHANNEL:
+      attributes:
+        id: PIN_125_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_125_EXPORT_NAME:
+      attributes:
+        id: PIN_125_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 125:PD5
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_126_PIO_PIN:
+      attributes:
+        id: PIN_126_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '4'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_126_PIO_CHANNEL:
+      attributes:
+        id: PIN_126_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_126_EXPORT_NAME:
+      attributes:
+        id: PIN_126_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 126:PD4
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_127_PIO_PIN:
+      attributes:
+        id: PIN_127_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '23'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_127_PIO_CHANNEL:
+      attributes:
+        id: PIN_127_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_127_EXPORT_NAME:
+      attributes:
+        id: PIN_127_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 127:PC23
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_128_PIO_PIN:
+      attributes:
+        id: PIN_128_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '3'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_128_PIO_CHANNEL:
+      attributes:
+        id: PIN_128_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_128_EXPORT_NAME:
+      attributes:
+        id: PIN_128_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 128:PD3
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_129_PIO_PIN:
+      attributes:
+        id: PIN_129_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '29'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_129_PIO_CHANNEL:
+      attributes:
+        id: PIN_129_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_129_EXPORT_NAME:
+      attributes:
+        id: PIN_129_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 129:PA29
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_130_PIO_PIN:
+      attributes:
+        id: PIN_130_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '24'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_130_PIO_CHANNEL:
+      attributes:
+        id: PIN_130_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_130_EXPORT_NAME:
+      attributes:
+        id: PIN_130_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 130:PC24
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_131_PIO_PIN:
+      attributes:
+        id: PIN_131_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '2'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_131_PIO_CHANNEL:
+      attributes:
+        id: PIN_131_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_131_EXPORT_NAME:
+      attributes:
+        id: PIN_131_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 131:PD2
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_132_PIO_PIN:
+      attributes:
+        id: PIN_132_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_132_PIO_CHANNEL:
+      attributes:
+        id: PIN_132_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: D
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_132_EXPORT_NAME:
+      attributes:
+        id: PIN_132_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 132:PD1
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_133_PIO_PIN:
+      attributes:
+        id: PIN_133_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '25'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_133_PIO_CHANNEL:
+      attributes:
+        id: PIN_133_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: C
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_133_EXPORT_NAME:
+      attributes:
+        id: PIN_133_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 133:PC25
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_134_PIO_PIN:
+      attributes:
+        id: PIN_134_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_134_PIO_CHANNEL:
+      attributes:
+        id: PIN_134_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_134_EXPORT_NAME:
+      attributes:
+        id: PIN_134_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 134:VDDUTMII
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_135_PIO_PIN:
+      attributes:
+        id: PIN_135_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_135_PIO_CHANNEL:
+      attributes:
+        id: PIN_135_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_135_EXPORT_NAME:
+      attributes:
+        id: PIN_135_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 135:GND
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_136_PIO_PIN:
+      attributes:
+        id: PIN_136_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_136_PIO_CHANNEL:
+      attributes:
+        id: PIN_136_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_136_EXPORT_NAME:
+      attributes:
+        id: PIN_136_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 136:HSDM
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_137_PIO_PIN:
+      attributes:
+        id: PIN_137_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_137_PIO_CHANNEL:
+      attributes:
+        id: PIN_137_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_137_EXPORT_NAME:
+      attributes:
+        id: PIN_137_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 137:HSDP
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_138_PIO_PIN:
+      attributes:
+        id: PIN_138_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_138_PIO_CHANNEL:
+      attributes:
+        id: PIN_138_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_138_EXPORT_NAME:
+      attributes:
+        id: PIN_138_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 138:GND
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_139_PIO_PIN:
+      attributes:
+        id: PIN_139_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_139_PIO_CHANNEL:
+      attributes:
+        id: PIN_139_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_139_EXPORT_NAME:
+      attributes:
+        id: PIN_139_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 139:VDDUTMIC
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_140_PIO_PIN:
+      attributes:
+        id: PIN_140_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_140_PIO_CHANNEL:
+      attributes:
+        id: PIN_140_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_140_EXPORT_NAME:
+      attributes:
+        id: PIN_140_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 140:VBG
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_141_PIO_PIN:
+      attributes:
+        id: PIN_141_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '8'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_141_PIO_CHANNEL:
+      attributes:
+        id: PIN_141_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: B
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_141_EXPORT_NAME:
+      attributes:
+        id: PIN_141_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 141:PB8
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_142_PIO_PIN:
+      attributes:
+        id: PIN_142_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '9'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_142_PIO_CHANNEL:
+      attributes:
+        id: PIN_142_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: B
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_142_EXPORT_NAME:
+      attributes:
+        id: PIN_142_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 142:PB9
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_143_PIO_PIN:
+      attributes:
+        id: PIN_143_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '-1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_143_PIO_CHANNEL:
+      attributes:
+        id: PIN_143_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_143_EXPORT_NAME:
+      attributes:
+        id: PIN_143_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 143:VDDPLLUSB
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_144_PIO_PIN:
+      attributes:
+        id: PIN_144_PIO_PIN
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '13'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PIN_144_PIO_CHANNEL:
+      attributes:
+        id: PIN_144_PIO_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: B
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_144_EXPORT_NAME:
+      attributes:
+        id: PIN_144_EXPORT_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 144:PB13
+          type: Dynamic
+        type: Values
+      type: String
+    COMPONENT_PACKAGE:
+      attributes:
+        id: COMPONENT_PACKAGE
+      children:
+      - children:
+        - attributes:
+            value: LQFP144
+          type: User
+        type: Values
+      type: Combo
+    xdmacHeaderFile:
+      attributes:
+        id: xdmacHeaderFile
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    xdmacCommonHeaderFile:
+      attributes:
+        id: xdmacCommonHeaderFile
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    xdmacSourceFile:
+      attributes:
+        id: xdmacSourceFile
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    xdmacSystemInitFile:
+      attributes:
+        id: xdmacSystemInitFile
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    xdmacSystemDefFile:
+      attributes:
+        id: xdmacSystemDefFile
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SPI0_CLOCK_ENABLE:
+      attributes:
+        id: SPI0_CLOCK_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: spi0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    XDMAC_CC0_DSYNC:
+      attributes:
+        id: XDMAC_CC0_DSYNC
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC0_DWIDTH:
+      attributes:
+        id: XDMAC_CC0_DWIDTH
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC0_MBSIZE:
+      attributes:
+        id: XDMAC_CC0_MBSIZE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC0_DIF:
+      attributes:
+        id: XDMAC_CC0_DIF
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC0_DAM:
+      attributes:
+        id: XDMAC_CC0_DAM
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC0_SIF:
+      attributes:
+        id: XDMAC_CC0_SIF
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC0_SWREQ:
+      attributes:
+        id: XDMAC_CC0_SWREQ
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC0_SAM:
+      attributes:
+        id: XDMAC_CC0_SAM
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC0_TYPE:
+      attributes:
+        id: XDMAC_CC0_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC0_PERID_VAL:
+      attributes:
+        id: XDMAC_CC0_PERID_VAL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    XDMAC_CC0_CSIZE:
+      attributes:
+        id: XDMAC_CC0_CSIZE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_HIGHEST_CHANNEL:
+      attributes:
+        id: XDMAC_HIGHEST_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '2'
+          type: Dynamic
+        type: Values
+      type: Integer
+    DMA_ENABLE:
+      attributes:
+        id: DMA_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    XDMAC_CC1_SWREQ:
+      attributes:
+        id: XDMAC_CC1_SWREQ
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC1_DWIDTH:
+      attributes:
+        id: XDMAC_CC1_DWIDTH
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC1_SAM:
+      attributes:
+        id: XDMAC_CC1_SAM
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC1_CSIZE:
+      attributes:
+        id: XDMAC_CC1_CSIZE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC1_DIF:
+      attributes:
+        id: XDMAC_CC1_DIF
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC1_DAM:
+      attributes:
+        id: XDMAC_CC1_DAM
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC1_MBSIZE:
+      attributes:
+        id: XDMAC_CC1_MBSIZE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC1_PERID_VAL:
+      attributes:
+        id: XDMAC_CC1_PERID_VAL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '2'
+          type: Dynamic
+        type: Values
+      type: Integer
+    XDMAC_CC1_SIF:
+      attributes:
+        id: XDMAC_CC1_SIF
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC1_TYPE:
+      attributes:
+        id: XDMAC_CC1_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    XDMAC_CC1_DSYNC:
+      attributes:
+        id: XDMAC_CC1_DSYNC
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    SPI0_INTERRUPT_ENABLE:
+      attributes:
+        id: SPI0_INTERRUPT_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: spi0
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SPI0_INTERRUPT_HANDLER:
+      attributes:
+        id: SPI0_INTERRUPT_HANDLER
+      children:
+      - children:
+        - attributes:
+            id: spi0
+            value: SPI0_Handler
+          type: Dynamic
+        type: Values
+      type: String
+    SPI0_INTERRUPT_HANDLER_LOCK:
+      attributes:
+        id: SPI0_INTERRUPT_HANDLER_LOCK
+      children:
+      - children:
+        - attributes:
+            id: spi0
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PIN_31_FUNCTION_TYPE:
+      attributes:
+        id: PIN_31_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: GPIO
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_31_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_31_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: GPIO
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_31_FUNCTION_NAME:
+      attributes:
+        id: PIN_31_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: PL460_NRST
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_31_LAT:
+      attributes:
+        id: PIN_31_LAT
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: Low
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_31_DIR:
+      attributes:
+        id: PIN_31_DIR
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: Out
+          type: Dynamic
+        type: Values
+      type: String
+    AFEC1_CLOCK_ENABLE:
+      attributes:
+        id: AFEC1_CLOCK_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: afec1
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    AFEC1_INTERRUPT_ENABLE:
+      attributes:
+        id: AFEC1_INTERRUPT_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: afec1
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    AFEC1_INTERRUPT_HANDLER:
+      attributes:
+        id: AFEC1_INTERRUPT_HANDLER
+      children:
+      - children:
+        - attributes:
+            id: afec1
+            value: AFEC1_InterruptHandler
+          type: Dynamic
+        type: Values
+      type: String
+    AFEC1_INTERRUPT_HANDLER_LOCK:
+      attributes:
+        id: AFEC1_INTERRUPT_HANDLER_LOCK
+      children:
+      - children:
+        - attributes:
+            id: afec1
+            value: 'true'
+          type: Dynamic
         type: Values
       type: Boolean
   userData:

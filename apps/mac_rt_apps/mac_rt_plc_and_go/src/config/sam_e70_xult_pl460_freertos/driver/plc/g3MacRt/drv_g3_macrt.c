@@ -91,7 +91,6 @@ SYS_MODULE_OBJ DRV_G3_MACRT_Initialize(
     gDrvG3MacRtObj.binSize               = g3MacRtInit->binEndAddress - g3MacRtInit->binStartAddress;
     gDrvG3MacRtObj.binStartAddress       = g3MacRtInit->binStartAddress;
     gDrvG3MacRtObj.secure                = g3MacRtInit->secure;
-    gDrvG3MacRtObj.sleep                 = false;
 
     /* Callbacks initialization */
     gDrvG3MacRtObj.initCallback          = NULL;
@@ -337,12 +336,6 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object )
         else if (state == DRV_PLC_BOOT_STATUS_READY)
         {
             gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_READY;
-            /*if (gDrvG3MacRtObj.sleep && gDrvG3MacRtObj.sleepIndCallback)
-            {
-                gDrvG3MacRtObj.sleep = false;
-                gDrvG3MacRtObj.sleepIndCallback(gDrvG3MacRtObj.contextSleep);
-            }*/
-
             DRV_G3_MACRT_Init(&gDrvG3MacRtObj);
             if (gDrvG3MacRtObj.initCallback != NULL)
             {
@@ -361,52 +354,6 @@ void DRV_G3_MACRT_Tasks( SYS_MODULE_OBJ object )
     else
     {
         /* DRV_G3_MACRT_STATE_ERROR: Nothing to do */
-    }
-}
-
-void DRV_G3_MACRT_SleepIndCallbackRegister(
-    const DRV_HANDLE handle,
-    const DRV_G3_MACRT_SLEEP_IND_CALLBACK callback
-)
-{
-    if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
-    {
-        gDrvG3MacRtObj.sleepIndCallback = callback;
-    }
-}
-
-void DRV_G3_MACRT_Sleep( const DRV_HANDLE handle, bool enable )
-{
-    if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
-    {
-        if (gDrvG3MacRtObj.sleep != enable)
-        {
-            if (enable)
-            {
-                /* Disable PLC interrupt */
-                gDrvG3MacRtObj.plcHal->enableExtInt(false);
-                /* Set Stand By pin */
-                gDrvG3MacRtObj.plcHal->setStandBy(true);
-                /* Set Sleep flag */
-                gDrvG3MacRtObj.sleep = true;
-                gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_SLEEP;
-            }
-            else
-            {
-                /* Clear Stand By pin */
-                gDrvG3MacRtObj.plcHal->setStandBy(false);
-
-                /* Restart from Sleep mode */
-                gDrvG3MacRtObj.state = DRV_G3_MACRT_STATE_BUSY;
-                DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_SLEEP);
-
-                /* Post semaphore to resume task */
-                if (gDrvG3MacRtObj.semaphoreID != NULL)
-                {
-                    (void) OSAL_SEM_Post(&gDrvG3MacRtObj.semaphoreID);
-                }
-            }
-        }
     }
 }
 

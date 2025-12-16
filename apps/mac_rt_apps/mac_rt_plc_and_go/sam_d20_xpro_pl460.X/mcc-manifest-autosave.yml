@@ -2,12 +2,12 @@
 
 manifest_file_version: 1.0.0
 project: g3_mac_rt_plc_and_go
-creation_date: 2025-12-01T13:14:55.520+01:00[Europe/Paris]
+creation_date: 2025-12-16T12:25:08.020+01:00[Europe/Paris]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
 device_name: ATSAMD20J18
-compiler: XC32 4.60
+compiler: XC32 5.00
 mcc_version: 5.6.3
 mcc_core_version: 5.8.3
 content_manager_version: 6.0.3
@@ -22,4 +22,4 @@ modules:
 - {name: core, type: HARMONY, version: v3.15.5}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
 - {name: smartenergy, type: HARMONY, version: v1.5.0}
-- {name: shd, type: HARMONY, version: v1.2.1}
+- {name: shd, type: HARMONY, version: v1.3.0}

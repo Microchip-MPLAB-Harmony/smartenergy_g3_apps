@@ -48,8 +48,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "service/pcoup/srv_pcoup.h"
 #include "bsp/bsp.h"
+#include "service/pcoup/srv_pcoup.h"
 #include "peripheral/clk/plib_clk.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/nvic/plib_nvic.h"
@@ -67,8 +67,8 @@
 #include "usb/usb_device_cdc.h"
 #include "usb/usb_cdc.h"
 #include "peripheral/afec/plib_afec1.h"
-#include "service/pvddmon/srv_pvddmon.h"
 #include "peripheral/trng/plib_trng.h"
+#include "service/pvddmon/srv_pvddmon.h"
 #include "peripheral/spi/spi_master/plib_spi0_master.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_usb_cdc_definitions.h"

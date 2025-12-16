@@ -45,8 +45,8 @@ data:
     - children:
       - attributes:
           id: drvG3MacRt
-          x: '479'
-          y: '283'
+          x: '518'
+          y: '203'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -95,17 +95,6 @@ data:
           type: Dynamic
         type: Values
       type: String
-    DRV_PLC_LDO_EN_PIN:
-      attributes:
-        id: DRV_PLC_LDO_EN_PIN
-      children:
-      - children:
-        - attributes:
-            id: drvG3MacRt
-            value: '74'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     DRV_PLC_PLIB:
       attributes:
         id: DRV_PLC_PLIB
@@ -124,7 +113,7 @@ data:
       - children:
         - attributes:
             id: drvG3MacRt
-            value: '0'
+            value: '35'
           type: Dynamic
         type: Values
       type: KeyValueSet
@@ -147,16 +136,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    DRV_PLC_SLEEP_MODE:
-      attributes:
-        id: DRV_PLC_SLEEP_MODE
-      children:
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
-      type: Boolean
     DRV_PLC_SPI_NPCS:
       attributes:
         id: DRV_PLC_SPI_NPCS
@@ -187,31 +166,29 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    DRV_PLC_STBY_PIN:
-      attributes:
-        id: DRV_PLC_STBY_PIN
-      children:
-      - children:
-        - attributes:
-            id: drvG3MacRt
-            value: '3'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     DRV_PLC_THERMAL_MONITOR:
       attributes:
         id: DRV_PLC_THERMAL_MONITOR
       children:
       - children:
         - attributes:
+            id: drvG3MacRt
             value: 'true'
-          type: User
+          type: Dynamic
         type: Values
       type: Boolean
     DRV_PLC_THMON_PIN:
       attributes:
         id: DRV_PLC_THMON_PIN
       children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: drvG3MacRt
@@ -245,7 +222,7 @@ data:
       - children:
         - attributes:
             id: drvG3MacRt
-            value: '4'
+            value: '19'
           type: Dynamic
         type: Values
       type: KeyValueSet
