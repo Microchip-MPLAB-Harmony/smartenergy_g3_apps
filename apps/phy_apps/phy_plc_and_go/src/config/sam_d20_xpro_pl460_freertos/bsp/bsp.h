@@ -64,6 +64,15 @@
 #define SAMD20_XPLAINED_PRO
 #define BOARD_NAME    "SAMD20-XPLAINED-PRO"
 
+/*** Macros for PL460_NRST output pin ***/ 
+#define BSP_PL460_NRST_PIN        PORT_PIN_PB6
+#define BSP_PL460_NRST_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 6U) & 0x01U)
+#define BSP_PL460_NRST_Set()      (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 6U))
+#define BSP_PL460_NRST_Clear()    (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 6U))
+#define BSP_PL460_NRST_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 6U))
+#define BSP_PL460_NRST_On()       BSP_PL460_NRST_Set()
+#define BSP_PL460_NRST_Off()      BSP_PL460_NRST_Clear() 
+
 /*** Macros for PL460_CS output pin ***/ 
 #define BSP_PL460_CS_PIN        PORT_PIN_PA5
 #define BSP_PL460_CS_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 5U) & 0x01U)
@@ -72,24 +81,6 @@
 #define BSP_PL460_CS_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 5U))
 #define BSP_PL460_CS_On()       BSP_PL460_CS_Clear()
 #define BSP_PL460_CS_Off()      BSP_PL460_CS_Set() 
-
-/*** Macros for PL460_STBY output pin ***/ 
-#define BSP_PL460_STBY_PIN        PORT_PIN_PA8
-#define BSP_PL460_STBY_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 8U) & 0x01U)
-#define BSP_PL460_STBY_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 8U))
-#define BSP_PL460_STBY_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 8U))
-#define BSP_PL460_STBY_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 8U))
-#define BSP_PL460_STBY_On()       BSP_PL460_STBY_Set()
-#define BSP_PL460_STBY_Off()      BSP_PL460_STBY_Clear() 
-
-/*** Macros for PL460_TXEN output pin ***/ 
-#define BSP_PL460_TXEN_PIN        PORT_PIN_PA9
-#define BSP_PL460_TXEN_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 9U) & 0x01U)
-#define BSP_PL460_TXEN_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 9U))
-#define BSP_PL460_TXEN_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 9U))
-#define BSP_PL460_TXEN_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 9U))
-#define BSP_PL460_TXEN_On()       BSP_PL460_TXEN_Set()
-#define BSP_PL460_TXEN_Off()      BSP_PL460_TXEN_Clear() 
 
 /*** Macros for LED0 output pin ***/ 
 #define BSP_LED0_PIN        PORT_PIN_PA14
@@ -100,23 +91,14 @@
 #define BSP_LED0_On()       BSP_LED0_Clear()
 #define BSP_LED0_Off()      BSP_LED0_Set() 
 
-/*** Macros for PL460_NRST output pin ***/ 
-#define BSP_PL460_NRST_PIN        PORT_PIN_PB2
-#define BSP_PL460_NRST_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 2U) & 0x01U)
-#define BSP_PL460_NRST_Set()      (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 2U))
-#define BSP_PL460_NRST_Clear()    (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 2U))
-#define BSP_PL460_NRST_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 2U))
-#define BSP_PL460_NRST_On()       BSP_PL460_NRST_Set()
-#define BSP_PL460_NRST_Off()      BSP_PL460_NRST_Clear() 
-
-/*** Macros for PL460_ENABLE output pin ***/ 
-#define BSP_PL460_ENABLE_PIN        PORT_PIN_PB3
-#define BSP_PL460_ENABLE_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 3U) & 0x01U)
-#define BSP_PL460_ENABLE_Set()      (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 3U))
-#define BSP_PL460_ENABLE_Clear()    (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 3U))
-#define BSP_PL460_ENABLE_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 3U))
-#define BSP_PL460_ENABLE_On()       BSP_PL460_ENABLE_Clear()
-#define BSP_PL460_ENABLE_Off()      BSP_PL460_ENABLE_Set() 
+/*** Macros for PL460_TXEN output pin ***/ 
+#define BSP_PL460_TXEN_PIN        PORT_PIN_PB1
+#define BSP_PL460_TXEN_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 1U) & 0x01U)
+#define BSP_PL460_TXEN_Set()      (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 1U))
+#define BSP_PL460_TXEN_Clear()    (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 1U))
+#define BSP_PL460_TXEN_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 1U))
+#define BSP_PL460_TXEN_On()       BSP_PL460_TXEN_Set()
+#define BSP_PL460_TXEN_Off()      BSP_PL460_TXEN_Clear() 
 
 
 /*** Macros for PL460_NTHW0 input pin ***/ 

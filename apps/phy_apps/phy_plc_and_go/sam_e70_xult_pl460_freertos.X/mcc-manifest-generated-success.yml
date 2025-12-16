@@ -2,12 +2,12 @@
 
 manifest_file_version: 1.0.0
 project: g3_phy_plc_and_go_freertos
-creation_date: 2025-12-02T08:32:31.802+01:00[Europe/Paris]
+creation_date: 2025-12-16T18:02:50.947+01:00[Europe/Paris]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
 device_name: ATSAME70Q21B
-compiler: XC32 4.60
+compiler: XC32 5.00
 mcc_version: 5.6.3
 mcc_core_version: 5.8.3
 content_manager_version: 6.0.3
@@ -23,5 +23,5 @@ modules:
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
 - {name: usb, type: HARMONY, version: v3.16.0}
 - {name: FreeRTOS-Kernel, type: HARMONY, version: V11.1.0}
-- {name: shd, type: HARMONY, version: v1.2.1}
 - {name: smartenergy, type: HARMONY, version: v1.5.0}
+- {name: shd, type: HARMONY, version: v1.3.0}

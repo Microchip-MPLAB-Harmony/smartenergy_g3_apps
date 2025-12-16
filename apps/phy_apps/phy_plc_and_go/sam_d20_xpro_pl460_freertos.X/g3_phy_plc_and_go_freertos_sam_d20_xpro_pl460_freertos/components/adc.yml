@@ -44,8 +44,8 @@ data:
     - children:
       - attributes:
           id: adc
-          x: '360'
-          y: '323'
+          x: '428'
+          y: '354'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -203,16 +203,6 @@ data:
           type: Dynamic
         type: Values
       type: String
-    ADC_SAMPCTRL_SAMPLEN:
-      attributes:
-        id: ADC_SAMPCTRL_SAMPLEN
-      children:
-      - children:
-        - attributes:
-            value: '1'
-          type: User
-        type: Values
-      type: Integer
     ADC_START_API:
       attributes:
         id: ADC_START_API

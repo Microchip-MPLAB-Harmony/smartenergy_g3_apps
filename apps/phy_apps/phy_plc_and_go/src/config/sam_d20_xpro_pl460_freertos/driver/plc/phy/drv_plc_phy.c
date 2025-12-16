@@ -96,14 +96,12 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize(
     gDrvPlcPhyObj.binSize               = plcPhyInit->binEndAddress - plcPhyInit->binStartAddress;
     gDrvPlcPhyObj.binStartAddress       = plcPhyInit->binStartAddress;
     gDrvPlcPhyObj.secure                = plcPhyInit->secure;
-    gDrvPlcPhyObj.sleep                 = false;
 
     /* Callbacks initialization */
     gDrvPlcPhyObj.txCfmCallback         = NULL;
     gDrvPlcPhyObj.dataIndCallback       = NULL;
     gDrvPlcPhyObj.exceptionCallback     = NULL;
     gDrvPlcPhyObj.bootDataCallback      = NULL;
-    gDrvPlcPhyObj.sleepDisableCallback  = NULL;
 
     /* HAL init */
     gDrvPlcPhyObj.plcHal->init((DRV_PLC_PLIB_INTERFACE *)plcPhyInit->plcHal->plcPlib);
@@ -273,13 +271,6 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
         {
             gDrvPlcPhyObj.status = SYS_STATUS_READY;
             gDrvPlcPhyObj.state[0] = DRV_PLC_PHY_STATE_IDLE;
-
-            if (gDrvPlcPhyObj.sleep && (gDrvPlcPhyObj.sleepDisableCallback != NULL))
-            {
-                gDrvPlcPhyObj.sleep = false;
-                gDrvPlcPhyObj.sleepDisableCallback(gDrvPlcPhyObj.contextSleep);
-            }
-
             DRV_PLC_PHY_Init(&gDrvPlcPhyObj);
         }
         else
@@ -291,53 +282,6 @@ void DRV_PLC_PHY_Tasks( SYS_MODULE_OBJ object )
     else
     {
         /* SYS_STATUS_ERROR: Nothing to do */
-    }
-}
-
-void DRV_PLC_PHY_SleepDisableCallbackRegister(
-    const DRV_HANDLE handle,
-    const DRV_PLC_PHY_SLEEP_CALLBACK callback,
-    const uintptr_t context
-)
-{
-    if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
-    {
-        gDrvPlcPhyObj.sleepDisableCallback = callback;
-        gDrvPlcPhyObj.contextSleep = context;
-    }
-}
-
-void DRV_PLC_PHY_Sleep( const DRV_HANDLE handle, bool enable )
-{
-    if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
-    {
-        if (gDrvPlcPhyObj.sleep != enable)
-        {
-            if (enable)
-            {
-                /* Disable PLC interrupt */
-                gDrvPlcPhyObj.plcHal->enableExtInt(false);
-                /* Set Stand By pin */
-                gDrvPlcPhyObj.plcHal->setStandBy(true);
-                /* Set Sleep flag */
-                gDrvPlcPhyObj.sleep = true;
-            }
-            else
-            {
-                /* Clear Stand By pin */
-                gDrvPlcPhyObj.plcHal->setStandBy(false);
-
-                /* Restart from Sleep mode */
-                gDrvPlcPhyObj.status = SYS_STATUS_BUSY;
-                DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_SLEEP);
-
-                /* Post semaphore to resume task */
-                if (gDrvPlcPhyObj.semaphoreID != NULL)
-                {
-                    (void) OSAL_SEM_Post(&gDrvPlcPhyObj.semaphoreID);
-                }
-            }
-        }
     }
 }
 

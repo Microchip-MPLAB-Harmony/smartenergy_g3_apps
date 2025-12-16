@@ -127,4 +127,15 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
+    GENERATOR_ADC_RESRDY_ACTIVE:
+      attributes:
+        id: GENERATOR_ADC_RESRDY_ACTIVE
+      children:
+      - children:
+        - attributes:
+            id: adc
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
   userData: {}

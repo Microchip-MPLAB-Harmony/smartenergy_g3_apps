@@ -120,12 +120,10 @@ extern "C" {
 #define DRV_PLC_EXT_INT_SRC                   PIOD_IRQn
 #define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PD28
 #define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PD28
-#define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PA0
-#define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PC30
-#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA4
-#define DRV_PLC_STBY_PIN                      SYS_PORT_PIN_PA3
+#define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PB3
+#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA19
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PC17
-#define DRV_PLC_CSR_INDEX                     0
+#define DRV_PLC_CSR_INDEX                     1
 #define DRV_PLC_SPI_CLK                       8000000
 
 /* PLC PHY Driver RTOS Configuration Options */

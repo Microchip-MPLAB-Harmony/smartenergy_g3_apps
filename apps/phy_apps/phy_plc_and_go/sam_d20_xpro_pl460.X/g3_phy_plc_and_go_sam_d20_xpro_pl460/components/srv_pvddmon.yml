@@ -45,56 +45,12 @@ data:
     - children:
       - attributes:
           id: srv_pvddmon
-          x: '432'
-          y: '330'
+          x: '504'
+          y: '218'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
   symbols:
-    SRV_PVDDMON_HIGH_THRESHOLD_HEX:
-      attributes:
-        id: SRV_PVDDMON_HIGH_THRESHOLD_HEX
-      children:
-      - children:
-        - attributes:
-            id: srv_pvddmon
-            value: '0x9b1'
-          type: Dynamic
-        type: Values
-      type: String
-    SRV_PVDDMON_HIGH_THRESHOLD_HEX_HYST:
-      attributes:
-        id: SRV_PVDDMON_HIGH_THRESHOLD_HEX_HYST
-      children:
-      - children:
-        - attributes:
-            id: srv_pvddmon
-            value: '0x99d'
-          type: Dynamic
-        type: Values
-      type: String
-    SRV_PVDDMON_LOW_THRESHOLD_HEX:
-      attributes:
-        id: SRV_PVDDMON_LOW_THRESHOLD_HEX
-      children:
-      - children:
-        - attributes:
-            id: srv_pvddmon
-            value: '0x774'
-          type: Dynamic
-        type: Values
-      type: String
-    SRV_PVDDMON_LOW_THRESHOLD_HEX_HYST:
-      attributes:
-        id: SRV_PVDDMON_LOW_THRESHOLD_HEX_HYST
-      children:
-      - children:
-        - attributes:
-            id: srv_pvddmon
-            value: '0x785'
-          type: Dynamic
-        type: Values
-      type: String
     SRV_PVDDMON_PLIB:
       attributes:
         id: SRV_PVDDMON_PLIB
@@ -106,14 +62,4 @@ data:
           type: Dynamic
         type: Values
       type: String
-    SRV_PVDDMON_RES_DOWN:
-      attributes:
-        id: SRV_PVDDMON_RES_DOWN
-      children:
-      - children:
-        - attributes:
-            value: '3000'
-          type: User
-        type: Values
-      type: Integer
   userData: {}

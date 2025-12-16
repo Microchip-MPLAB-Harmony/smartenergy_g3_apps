@@ -44,8 +44,8 @@ data:
     - children:
       - attributes:
           id: afec1
-          x: '312'
-          y: '173'
+          x: '445'
+          y: '364'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

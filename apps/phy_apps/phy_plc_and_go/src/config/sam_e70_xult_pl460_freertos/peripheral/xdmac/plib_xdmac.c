@@ -126,13 +126,13 @@ void XDMAC_Initialize( void )
 
     /* Configure Channel 0 */
     XDMAC_REGS->XDMAC_CHID[0].XDMAC_CC =  (XDMAC_CC_TYPE_PER_TRAN |
-                                            XDMAC_CC_PERID(2U) |
-                                            XDMAC_CC_DSYNC_PER2MEM |
+                                            XDMAC_CC_PERID(1U) |
+                                            XDMAC_CC_DSYNC_MEM2PER |
                                             XDMAC_CC_SWREQ_HWR_CONNECTED |
-                                            XDMAC_CC_DAM_INCREMENTED_AM |
-                                            XDMAC_CC_SAM_FIXED_AM |
-                                            XDMAC_CC_SIF_AHB_IF1 |
-                                            XDMAC_CC_DIF_AHB_IF0 |
+                                            XDMAC_CC_DAM_FIXED_AM |
+                                            XDMAC_CC_SAM_INCREMENTED_AM |
+                                            XDMAC_CC_SIF_AHB_IF0 |
+                                            XDMAC_CC_DIF_AHB_IF1 |
                                             XDMAC_CC_DWIDTH_BYTE |
                                             XDMAC_CC_CSIZE_CHK_1 |\
                                             XDMAC_CC_MBSIZE_SINGLE);
@@ -141,13 +141,13 @@ void XDMAC_Initialize( void )
     xdmacChannelObj[0].inUse = true;
     /* Configure Channel 1 */
     XDMAC_REGS->XDMAC_CHID[1].XDMAC_CC =  (XDMAC_CC_TYPE_PER_TRAN |
-                                            XDMAC_CC_PERID(1U) |
-                                            XDMAC_CC_DSYNC_MEM2PER |
+                                            XDMAC_CC_PERID(2U) |
+                                            XDMAC_CC_DSYNC_PER2MEM |
                                             XDMAC_CC_SWREQ_HWR_CONNECTED |
-                                            XDMAC_CC_DAM_FIXED_AM |
-                                            XDMAC_CC_SAM_INCREMENTED_AM |
-                                            XDMAC_CC_SIF_AHB_IF0 |
-                                            XDMAC_CC_DIF_AHB_IF1 |
+                                            XDMAC_CC_DAM_INCREMENTED_AM |
+                                            XDMAC_CC_SAM_FIXED_AM |
+                                            XDMAC_CC_SIF_AHB_IF1 |
+                                            XDMAC_CC_DIF_AHB_IF0 |
                                             XDMAC_CC_DWIDTH_BYTE |
                                             XDMAC_CC_CSIZE_CHK_1 |\
                                             XDMAC_CC_MBSIZE_SINGLE);
