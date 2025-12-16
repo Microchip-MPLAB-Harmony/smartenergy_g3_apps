@@ -87,7 +87,7 @@ static void lADC_PVDDMONCallback( uint32_t status, uint32_t eocStatus, uintptr_t
 
 void SRV_PVDDMON_Initialize (void)
 {
-    ADC_CHANNEL_MASK channelMsk = ADC_CH0_MASK;
+    ADC_CHANNEL_MASK channelMsk = ADC_CH4_MASK;
 
     /* Disable ADC channel */
     ADC_ChannelsDisable(channelMsk);
@@ -99,7 +99,7 @@ void SRV_PVDDMON_Initialize (void)
 void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
 {
     uint32_t emr = 0;
-    ADC_CHANNEL_MASK channelMsk = ADC_CH0_MASK;
+    ADC_CHANNEL_MASK channelMsk = ADC_CH4_MASK;
 
     /* Set Free Run reset */
     ADC_REGS->ADC_TRGR |= ADC_TRGR_TRGMOD_CONTINUOUS;
@@ -121,7 +121,7 @@ void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
     }
 
     /* Set Comparison Selected Channel */
-    emr |= ADC_EMR_CMPSEL(0);
+    emr |= ADC_EMR_CMPSEL(4);
 
     /* Set Compare Type */
     emr |= ADC_EMR_CMPTYPE_Msk;
@@ -146,7 +146,7 @@ void SRV_PVDDMON_Start (SRV_PVDDMON_CMP_MODE cmpMode)
 void SRV_PVDDMON_Restart (SRV_PVDDMON_CMP_MODE cmpMode)
 {
     uint32_t emr;
-    ADC_CHANNEL_MASK channelMsk = ADC_CH0_MASK;
+    ADC_CHANNEL_MASK channelMsk = ADC_CH4_MASK;
 
     /* Disable channel COMPE interrupt */
     ADC_REGS->ADC_IDR |= ADC_IER_COMPE_Msk;
@@ -195,10 +195,10 @@ bool SRV_PVDDMON_CheckWindow(void)
 {
     uint16_t adcValue;
 
-    adcValue = ADC_ChannelResultGet(ADC_CH0);
+    adcValue = ADC_ChannelResultGet(ADC_CH4);
     while(adcValue == 0U)
     {
-        adcValue = ADC_ChannelResultGet(ADC_CH0);
+        adcValue = ADC_ChannelResultGet(ADC_CH4);
     }
 
     if ((adcValue <= SRV_PVDDMON_HIGH_TRESHOLD) && (adcValue >= SRV_PVDDMON_LOW_TRESHOLD))

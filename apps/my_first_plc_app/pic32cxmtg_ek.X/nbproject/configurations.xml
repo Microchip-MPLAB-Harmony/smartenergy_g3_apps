@@ -245,21 +245,21 @@
                      displayName="pic32cxmtg_ek_pic32cxmtg"
                      projectFiles="true">
         <logicalFolder name="components" displayName="components" projectFiles="true">
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/trng.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/srv_pvddmon.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/drvG3MacRt.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/HarmonyCore.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/cmsis.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/sefc1.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/srv_pcoup.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/adc.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/dfp.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/tc0.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/flexcom5.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/core.yml</itemPath>
-          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/sys_time.yml</itemPath>
           <itemPath>pic32cxmtg_ek_pic32cxmtg/components/sefc0.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/trng.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/adc.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/sefc1.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/core.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/dfp.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/sys_time.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/drvG3MacRt.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/flexcom5.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/cmsis.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/srv_pvddmon.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/HarmonyCore.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/tc0.yml</itemPath>
+          <itemPath>pic32cxmtg_ek_pic32cxmtg/components/srv_pcoup.yml</itemPath>
         </logicalFolder>
         <itemPath>pic32cxmtg_ek_pic32cxmtg/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -295,6 +295,7 @@
               <logicalFolder name="g3MacRt" displayName="g3MacRt" projectFiles="true">
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
                   <itemPath>../src/config/pic32cxmtg/driver/plc/g3MacRt/bin/drv_g3_macrt_bin.S</itemPath>
+                  <itemPath>../src/config/pic32cxmtg/driver/plc/g3MacRt/bin/G3_MAC_RT_MULTIBAND.bin</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/pic32cxmtg/driver/plc/g3MacRt/drv_g3_macrt.c</itemPath>
                 <itemPath>../src/config/pic32cxmtg/driver/plc/g3MacRt/drv_g3_macrt_local_comm.c</itemPath>

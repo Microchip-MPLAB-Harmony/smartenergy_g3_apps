@@ -81,47 +81,15 @@
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-   /* Enable co-processor bus clock  */
-   PMC_REGS->PMC_SCER = (PMC_SCER_CPKEY_PASSWD | PMC_SCER_CPBMCK_Msk);
-   /* Coprocessor Peripheral Enable */
-   RSTC_REGS->RSTC_MR |= (RSTC_MR_KEY_PASSWD | RSTC_MR_CPEREN_Msk);
-   /* Program PMC_CPU_CKR.CPPRES and wait for PMC_SR.CPMCKRDY to be set   */
-   uint32_t prescaler;
-   uint32_t reg = PMC_REGS->PMC_CPU_CKR;
-   if ((reg & PMC_CPU_CKR_CPPRES_Msk) == PMC_CPU_CKR_CPPRES_CLK_1)
-   {
-       prescaler = PMC_CPU_CKR_CPPRES_CLK_2;
-   }
-   else
-   {
-       prescaler = PMC_CPU_CKR_CPPRES_CLK_1;
-   }
-   reg &= ~PMC_CPU_CKR_CPPRES_Msk;
-   reg |= prescaler | PMC_CPU_CKR_CPCSS_MAINCK;
-   PMC_REGS->PMC_CPU_CKR = reg;
-   while ((PMC_REGS->PMC_SR & PMC_SR_CPMCKRDY_Msk) != PMC_SR_CPMCKRDY_Msk)
-   {
-       /* Wait for status CPMCKRDY */
-   }
-   PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOD);
-   while((PMC_REGS->PMC_CSR2 & PMC_CSR2_PID85_Msk) == 0U)
-   {
-       /* Wait for clock to be initialized */
-   }
-   /* Enable LDO Pin */
-   SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
-   SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
-   /* Enable Reset Pin */
-   SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
-   SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
-   PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
-   while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
-   {
-       /* Wait for clock to be initialized */
-   }
-   /* Disable STBY Pin */
-   SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA0);
-   SYS_PORT_PinClear(SYS_PORT_PIN_PA0);
+    /* Enable PIOA clock */
+    PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
+    while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
+    {
+        /* Wait for clock to be initialized */
+    }
+    /* Enable and Clear Reset Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
+    SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -144,9 +112,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
 
-    /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN,
-
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
 
@@ -158,9 +123,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
-
-    /* PLC StandBy Pin */
-    .stByPin = DRV_PLC_STBY_PIN,
 
     /* PLC External Interrupt Pin */
     .thMonPin = DRV_PLC_THMON_PIN,
@@ -181,9 +143,6 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC transceiver reset */
     .reset = (DRV_PLC_HAL_RESET)DRV_PLC_HAL_Reset,
-
-    /* PLC Set StandBy Mode */
-    .setStandBy = (DRV_PLC_HAL_SET_STBY)DRV_PLC_HAL_SetStandBy,
 
     /* PLC Get Thermal Monitor value */
     .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,

@@ -45,8 +45,8 @@ data:
     - children:
       - attributes:
           id: drvG3MacRt
-          x: '193'
-          y: '287'
+          x: '374'
+          y: '236'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -62,28 +62,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    DRV_PLC_COUP_G3_SETTING_PL460:
-      attributes:
-        id: DRV_PLC_COUP_G3_SETTING_PL460
-      children:
-      - children:
-        - attributes:
-            value: Multiband FCC default & CEN-A (FCC + CENELEC-A; main branch + auxiliary
-              branch)
-          type: User
-        type: Values
-      type: Combo
-    DRV_PLC_COUP_IMP_DETECT_BAND_FORCED:
-      attributes:
-        id: DRV_PLC_COUP_IMP_DETECT_BAND_FORCED
-      children:
-      - children:
-        - attributes:
-            id: drvG3MacRt
-            value: None
-          type: Dynamic
-        type: Values
-      type: Combo
     DRV_PLC_EXT_INT_PIN:
       attributes:
         id: DRV_PLC_EXT_INT_PIN
@@ -117,17 +95,6 @@ data:
           type: Dynamic
         type: Values
       type: String
-    DRV_PLC_LDO_EN_PIN:
-      attributes:
-        id: DRV_PLC_LDO_EN_PIN
-      children:
-      - children:
-        - attributes:
-            id: drvG3MacRt
-            value: '101'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     DRV_PLC_PLIB:
       attributes:
         id: DRV_PLC_PLIB
@@ -146,20 +113,10 @@ data:
       - children:
         - attributes:
             id: drvG3MacRt
-            value: '97'
+            value: '28'
           type: Dynamic
         type: Values
       type: KeyValueSet
-    DRV_PLC_SLEEP_MODE:
-      attributes:
-        id: DRV_PLC_SLEEP_MODE
-      children:
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
-      type: Boolean
     DRV_PLC_SPI_NPCS:
       attributes:
         id: DRV_PLC_SPI_NPCS
@@ -190,31 +147,29 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    DRV_PLC_STBY_PIN:
-      attributes:
-        id: DRV_PLC_STBY_PIN
-      children:
-      - children:
-        - attributes:
-            id: drvG3MacRt
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     DRV_PLC_THERMAL_MONITOR:
       attributes:
         id: DRV_PLC_THERMAL_MONITOR
       children:
       - children:
         - attributes:
+            id: drvG3MacRt
             value: 'true'
-          type: User
+          type: Dynamic
         type: Values
       type: Boolean
     DRV_PLC_THMON_PIN:
       attributes:
         id: DRV_PLC_THMON_PIN
       children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: drvG3MacRt
@@ -229,7 +184,7 @@ data:
       - children:
         - attributes:
             id: drvG3MacRt
-            value: '1'
+            value: '31'
           type: Dynamic
         type: Values
       type: KeyValueSet

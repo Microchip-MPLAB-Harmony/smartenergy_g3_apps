@@ -45,12 +45,23 @@ data:
     - children:
       - attributes:
           id: srv_pvddmon
-          x: '192'
-          y: '429'
+          x: '264'
+          y: '370'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
   symbols:
+    SRV_PVDDMON_ADC_CHANNEL:
+      attributes:
+        id: SRV_PVDDMON_ADC_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: srv_pvddmon
+            value: '4'
+          type: Dynamic
+        type: Values
+      type: Integer
     SRV_PVDDMON_PLIB:
       attributes:
         id: SRV_PVDDMON_PLIB
