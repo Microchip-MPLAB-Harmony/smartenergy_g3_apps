@@ -298,29 +298,29 @@
                      displayName="g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215"
                      projectFiles="true">
         <logicalFolder name="components" displayName="components" projectFiles="true">
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/sercom2.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/tc0.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/drvRf215.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/srv_pcrc.yml</itemPath>
           <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/srv_usi.yml</itemPath>
           <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/drvPlcPhy.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/drvRf215.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/srv_usi_0.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/core.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/srv_pserial.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/cmsis.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/sercom6.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/dfp.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/eic.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/sercom4.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/srv_pcrc.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/srv_pvddmon.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/evsys.yml</itemPath>
           <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/nvmctrl.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/tc0.yml</itemPath>
           <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/sys_time.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/srv_usi_0.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/eic.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/core.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/evsys.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/sercom4.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/srv_pvddmon.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/HarmonyCore.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/cmsis.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/srv_pcoup.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/srv_pserial.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/sercom2.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/mainBoard_SAME54_XPLAINED_PRO.yml</itemPath>
           <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/srv_rserial.yml</itemPath>
           <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/adc1.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/mainBoard_SAME54_XPLAINED_PRO.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/HarmonyCore.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/srv_pcoup.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/dfp.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/components/sercom6.yml</itemPath>
         </logicalFolder>
         <itemPath>g3_phy_tester_tool_hybrid_sam_e54_xpro_pl460_rf215/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -360,6 +360,7 @@
               <logicalFolder name="phy" displayName="phy" projectFiles="true">
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
                   <itemPath>../src/config/sam_e54_xpro_pl460_rf215/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
+                  <itemPath>../src/config/sam_e54_xpro_pl460_rf215/driver/plc/phy/bin/PLC_PHY_G3_MULTIBAND.bin</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/sam_e54_xpro_pl460_rf215/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
                 <itemPath>../src/config/sam_e54_xpro_pl460_rf215/driver/plc/phy/drv_plc_phy.c</itemPath>
@@ -518,6 +519,7 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -566,6 +568,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -597,6 +600,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -642,6 +646,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -670,6 +675,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>

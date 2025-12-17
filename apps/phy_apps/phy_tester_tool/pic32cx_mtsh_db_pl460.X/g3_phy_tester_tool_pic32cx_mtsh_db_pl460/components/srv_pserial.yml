@@ -36,7 +36,7 @@ data:
       - children:
         - attributes:
             id: srv_pserial
-            value: '0'
+            value: '2'
           type: Dynamic
         type: Values
       type: KeyValueSet

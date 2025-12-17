@@ -71,31 +71,59 @@ Microchip or any third party.
 // DOM-IGNORE-END
 
 /* Default G3-PLC PHY band of the PLC transmission coupling */
-#define SRV_PCOUP_DEFAULT_BAND                   G3_CEN_A
+#define SRV_PCOUP_DEFAULT_BAND                   G3_FCC
 
 /* Equalization number of coefficients (number of carriers) for Main branch */
-#define SRV_PCOUP_EQU_NUM_COEF                   36U
+#define SRV_PCOUP_EQU_NUM_COEF                   72U
 
 /* PLC PHY Coupling parameters for Main branch */
-#define SRV_PCOUP_RMS_HIGH_TBL                   {2146, 1532, 1093, 778, 554, 395, 283, 202}
-#define SRV_PCOUP_RMS_VLOW_TBL                   {5838, 4515, 3272, 2333, 1657, 1175, 832, 590}
-#define SRV_PCOUP_THRS_HIGH_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 1823, 1302, 929, 661, 471, 335, 240, 172}
-#define SRV_PCOUP_THRS_VLOW_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 9433, 6840, 4924, 3539, 2535, 1824, 1307, 941}
+#define SRV_PCOUP_RMS_HIGH_TBL                   {1201, 850, 602, 427, 304, 217, 155, 112}
+#define SRV_PCOUP_RMS_VLOW_TBL                   {4617, 3509, 2512, 1769, 1247, 882, 624, 443}
+#define SRV_PCOUP_THRS_HIGH_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 1020, 721, 510, 362, 257, 183, 131, 95}
+#define SRV_PCOUP_THRS_VLOW_TBL                  {0, 0, 0, 0, 0, 0, 0, 0, 10327, 7247, 5074, 3562, 2510, 1776, 1261, 896}
 #define SRV_PCOUP_DACC_TBL                       {0x0UL, 0x0UL, 0x100UL, 0x100UL, 0x0UL, 0x0UL, \
-                                                 0x9d5c00ffUL, 0x14141414UL, 0x0UL, 0x0UL, 0x4UL, 0x355UL, \
+                                                 0x4f5000ffUL, 0x1b1b1b1bUL, 0x0UL, 0x0UL, 0x6UL, 0x355UL, \
                                                  0x0UL, 0x1020f0UL, 0x355UL, 0x0UL, 0x1020ffUL}
-#define SRV_PCOUP_GAIN_HIGH_TBL                  {126, 60, 336}
-#define SRV_PCOUP_GAIN_VLOW_TBL                  {532, 230, 597}
+#define SRV_PCOUP_GAIN_HIGH_TBL                  {49, 20, 256}
+#define SRV_PCOUP_GAIN_VLOW_TBL                  {364, 180, 408}
 #define SRV_PCOUP_NUM_TX_LEVELS                  8
 #define SRV_PCOUP_LINE_DRV_CONF                  5
 
-#define SRV_PCOUP_PRED_HIGH_TBL                  {0x5620, 0x59C7, 0x5E1E, 0x6333, 0x698B, 0x6F03, 0x72CD, 0x760E, 0x7904, 0x7B57, 0x7D2C, 0x7E72, 0x7F0F, 0x7FC6, \
-                                                  0x7FFF, 0x7ED1, 0x7D11, 0x7BCE, 0x7A1A, 0x777C, 0x7496, 0x720F, 0x6F8E, 0x6BE0, 0x6780, 0x6357, 0x5F5E, 0x5C0C, \
-                                                  0x597B, 0x5782, 0x572D, 0x57A2, 0x5823, 0x59F2, 0x5D86, 0x6153}
-#define SRV_PCOUP_PRED_VLOW_TBL                  {0x7FFF, 0x7934, 0x71F2, 0x6C8A, 0x694E, 0x6481, 0x5F97, 0x5A9E, 0x5487, 0x4F83, 0x4BF5, 0x495C, 0x4777, 0x46B8,  \
-                                                  0x4634, 0x45B7, 0x45C1, 0x46FC, 0x4890, 0x4AC5, 0x4CEE, 0x4E87, 0x4F98, 0x50BC, 0x5111, 0x5244, 0x53A1, 0x55A0,  \
-                                                  0x5661, 0x56EE, 0x5748, 0x5880, 0x5944, 0x5C03, 0x5F63, 0x630B}
+#define SRV_PCOUP_PRED_HIGH_TBL                  {0x7FFF, 0x7519, 0x6C54, 0x6476, 0x5E1A, 0x58E0, 0x5539, 0x51FC, 0x4FFA, 0x4EFA, 0x4F08, 0x4F36, 0x5006, 0x5182,  \
+                                                  0x536B, 0x5503, 0x5674, 0x586A, 0x5A42, 0x5BB6, 0x5CC7, 0x5E5C, 0x5FEB, 0x610F, 0x61EF, 0x6356, 0x64E5, 0x65C1,  \
+                                                  0x6664, 0x6721, 0x6881, 0x6886, 0x6924, 0x693D, 0x6A8F, 0x6A3C, 0x6AC5, 0x6A68, 0x6B60, 0x6B17, 0x6B3C, 0x6AEF,  \
+                                                  0x6B6A, 0x6B46, 0x6AE5, 0x6A38, 0x6A61, 0x69FF, 0x6976, 0x6844, 0x681A, 0x67A6, 0x66B6, 0x6609, 0x65B8, 0x653D,  \
+                                                  0x63FE, 0x62A1, 0x61C5, 0x614F, 0x6029, 0x5F81, 0x5FA3, 0x5F3D, 0x5EB8, 0x5E23, 0x5DC9, 0x5D56, 0x5CD2, 0x5CC2,  \
+                                                  0x5D78, 0x5E49}
+#define SRV_PCOUP_PRED_VLOW_TBL                  {0x7FFF, 0x7666, 0x6ED8, 0x6939, 0x650D, 0x6178, 0x5F4B, 0x5D03, 0x5B7B, 0x593E, 0x5784, 0x5465, 0x515B, 0x4E98,  \
+                                                  0x4CDB, 0x4B46, 0x49F2, 0x495C, 0x48D0, 0x47B9, 0x459C, 0x44E1, 0x449D, 0x4487, 0x448A, 0x452A, 0x45B4, 0x462B,  \
+                                                  0x45DA, 0x45CE, 0x4699, 0x46F5, 0x46B9, 0x47D9, 0x488E, 0x495C, 0x497C, 0x4AAF, 0x4AD6, 0x4BA0, 0x4B14, 0x4B7E,  \
+                                                  0x4BA5, 0x4C44, 0x4C2A, 0x4DEF, 0x4DE4, 0x4E0F, 0x4DC3, 0x4DAB, 0x4D8B, 0x4EA7, 0x4F17, 0x4E98, 0x4F3C, 0x4EF0,  \
+                                                  0x4EFA, 0x4EEB, 0x4FC6, 0x5109, 0x51A2, 0x51FC, 0x52D0, 0x535B, 0x52E4, 0x530D, 0x534B, 0x539D, 0x5468, 0x5515,  \
+                                                  0x5577, 0x5629}
 
+/* Equalization number of coefficients (number of carriers) for Auxiliary branch */
+#define SRV_PCOUP_AUX_EQU_NUM_COEF               36U
+
+/* PLC PHY Coupling parameters for Auxiliary branch */
+#define SRV_PCOUP_AUX_RMS_HIGH_TBL               {1991, 1381, 976, 695, 495, 351, 250, 179}
+#define SRV_PCOUP_AUX_RMS_VLOW_TBL               {6356, 4706, 3317, 2308, 1602, 1112, 778, 546}
+#define SRV_PCOUP_AUX_THRS_HIGH_TBL              {0, 0, 0, 0, 0, 0, 0, 0, 1685, 1173, 828, 589, 419, 298, 212, 151}
+#define SRV_PCOUP_AUX_THRS_VLOW_TBL              {0, 0, 0, 0, 0, 0, 0, 0, 8988, 6370, 4466, 3119, 2171, 1512, 1061, 752}
+#define SRV_PCOUP_AUX_DACC_TBL                   {0x0UL, 0x21200000UL, 0x73f0000UL, 0x3f3f0000UL, 0xcccUL, 0x0UL, \
+                                                 0xa20000ffUL, 0x14141414UL, 0x20200000UL, 0x4400UL, 0xfd20004UL, 0x3aaUL, \
+                                                 0xf0000000UL, 0x1020f0UL, 0x3aaUL, 0xf0000000UL, 0x1020ffUL}
+#define SRV_PCOUP_AUX_GAIN_HIGH_TBL              {142, 70, 336}
+#define SRV_PCOUP_AUX_GAIN_VLOW_TBL              {474, 230, 597}
+#define SRV_PCOUP_AUX_NUM_TX_LEVELS              8
+#define SRV_PCOUP_AUX_LINE_DRV_CONF              8
+
+#define SRV_PCOUP_AUX_PRED_HIGH_TBL              {0x670A, 0x660F, 0x676A, 0x6A6B, 0x6F3F, 0x7440, 0x74ED, 0x7792, 0x762D, 0x7530, 0x7938, 0x7C0A, 0x7C2A, 0x7B0E, \
+                                                  0x7AF2, 0x784B, 0x7899, 0x76F9, 0x76D6, 0x769F, 0x775D, 0x70C0, 0x6EB9, 0x6F18, 0x6F1E, 0x6FA2, 0x6862, 0x67C9, \
+                                                  0x68F9, 0x68A5, 0x6CA3, 0x7153, 0x7533, 0x750B, 0x7B59, 0x7FFF}
+#define SRV_PCOUP_AUX_PRED_VLOW_TBL              {0x7FFF, 0x7DB1, 0x7CE6, 0x7B36, 0x772F, 0x7472, 0x70AA, 0x6BC2, 0x682D, 0x6618, 0x6384, 0x6210, 0x61D7, 0x6244, \
+                                                  0x6269, 0x63A8, 0x6528, 0x65CC, 0x67F6, 0x693B, 0x6B13, 0x6C29, 0x6D43, 0x6E26, 0x6D70, 0x6C94, 0x6BB5, 0x6AC9, \
+                                                  0x6A5F, 0x6B65, 0x6B8C, 0x6A62, 0x6CEC, 0x6D5A, 0x6F9D, 0x6FD3}
 
 // *****************************************************************************
 // *****************************************************************************

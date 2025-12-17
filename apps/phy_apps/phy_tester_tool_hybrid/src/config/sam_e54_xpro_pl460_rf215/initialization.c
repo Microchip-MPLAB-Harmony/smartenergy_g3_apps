@@ -93,7 +93,7 @@ static const DRV_RF215_INIT drvRf215InitData = {
     .spiReceiveAddress = (const void *)&(SERCOM6_REGS->SPIM.SERCOM_DATA),
 
     /* Interrupt source ID for DMA */
-    .dmaIntSource = DMAC_3_IRQn,
+    .dmaIntSource = DMAC_1_IRQn,
 
     /* Interrupt source ID for SYS_TIME */
     .sysTimeIntSource = TC0_IRQn,
@@ -120,15 +120,9 @@ static const DRV_RF215_INIT drvRf215InitData = {
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-    /* Enable LDO Pin */
-    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
-    SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
-    /* Enable Reset Pin */
+    /* Enable and Clear Reset Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
-    /* Disable STBY Pin */
-    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA22);
-    SYS_PORT_PinClear(SYS_PORT_PIN_PA22);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -143,10 +137,10 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SERCOM4_SPI_TransferSetup,
 
     /* DMA Channel for Transmit */
-    .dmaChannelTx = SYS_DMA_CHANNEL_0,
+    .dmaChannelTx = SYS_DMA_CHANNEL_4,
 
     /* DMA Channel for Receive */
-    .dmaChannelRx = SYS_DMA_CHANNEL_1,
+    .dmaChannelRx = SYS_DMA_CHANNEL_5,
 
     /* SPI Transmit Register */
     .spiAddressTx = (void *)&(SERCOM4_REGS->SPIM.SERCOM_DATA),
@@ -159,9 +153,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-
-    /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN,
 
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,

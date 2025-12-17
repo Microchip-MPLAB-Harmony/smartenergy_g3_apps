@@ -1,0 +1,342 @@
+configVersion: 1.0.0
+componentName: mainBoard_SAME70_XPLAINED_ULTRA
+coreVersion: 5.8.3
+device: ATSAME70Q21B
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: mainBoard_SAME70_XPLAINED_ULTRA
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: shd
+  type: package
+  version: v1.3.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: mainBoard_SAME70_XPLAINED_ULTRA
+          x: '485'
+          y: '32'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SHD_CHECK_COLLISIONS:
+      attributes:
+        id: SHD_CHECK_COLLISIONS
+      children:
+      - children:
+        - attributes:
+            id: label
+          children:
+          - type: Value
+            value: SHD_MAINBOARD_INTERFACE_0_OPT_1
+          type: String
+        type: Attributes
+      - children:
+        - attributes:
+            id: mainBoard_SAME70_XPLAINED_ULTRA
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1
+      children:
+      - children:
+        - attributes:
+            value: PL460 EK v5 (PLC PHY)
+          type: User
+        type: Values
+      type: Combo
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_ADC MINUS:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_ADC MINUS
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAME70_XPLAINED_ULTRA
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_ADC PLUS:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_ADC PLUS
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAME70_XPLAINED_ULTRA
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_GPIO SS:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_GPIO SS
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAME70_XPLAINED_ULTRA
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_GPIO1:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_GPIO1
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAME70_XPLAINED_ULTRA
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_IRQ:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_IRQ
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAME70_XPLAINED_ULTRA
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_SPI:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_SPI
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAME70_XPLAINED_ULTRA
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_mikroBUS-Header_AN:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_mikroBUS-Header_AN
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_mikroBUS-Header_INT:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_mikroBUS-Header_INT
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_mikroBUS-Header_SPI:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_mikroBUS-Header_SPI
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_0_OPT_0:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_0_OPT_0
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_0_OPT_1:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_0_OPT_1
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_1_OPT_0:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_1_OPT_0
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_3_OPT_2:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_3_OPT_2
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_3_OPT_3:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_3_OPT_3
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_4_OPT_0:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_4_OPT_0
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_4_OPT_4:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_4_OPT_4
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_4_OPT_6:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_4_OPT_6
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_6_OPT_1:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_6_OPT_1
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_6_OPT_12:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_6_OPT_12
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_6_OPT_3:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_6_OPT_3
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_6_OPT_6:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_6_OPT_6
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_7_OPT_4:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_7_OPT_4
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_8_OPT_7:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_8_OPT_7
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+  userData: {}

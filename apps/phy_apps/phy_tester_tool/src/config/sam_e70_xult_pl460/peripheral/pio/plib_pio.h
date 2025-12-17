@@ -66,14 +66,23 @@
 #define PL460_SUPPLY_MON_Get()               ((PIOC_REGS->PIO_PDSR >> 31U) & 0x1U)
 #define PL460_SUPPLY_MON_PIN                  PIO_PIN_PC31
 
-/*** Macros for PL460_ENABLE pin ***/
-#define PL460_ENABLE_Set()               (PIOC_REGS->PIO_SODR = ((uint32_t)1U<<30U))
-#define PL460_ENABLE_Clear()             (PIOC_REGS->PIO_CODR = ((uint32_t)1U<<30U))
-#define PL460_ENABLE_Toggle()            (PIOC_REGS->PIO_ODSR ^= ((uint32_t)1U<<30U))
-#define PL460_ENABLE_OutputEnable()      (PIOC_REGS->PIO_OER = ((uint32_t)1U<<30U))
-#define PL460_ENABLE_InputEnable()       (PIOC_REGS->PIO_ODR = ((uint32_t)1U<<30U))
-#define PL460_ENABLE_Get()               ((PIOC_REGS->PIO_PDSR >> 30U) & 0x1U)
-#define PL460_ENABLE_PIN                  PIO_PIN_PC30
+/*** Macros for Pl460_TXEN pin ***/
+#define Pl460_TXEN_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<19U))
+#define Pl460_TXEN_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<19U))
+#define Pl460_TXEN_Toggle()            (PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<19U))
+#define Pl460_TXEN_OutputEnable()      (PIOA_REGS->PIO_OER = ((uint32_t)1U<<19U))
+#define Pl460_TXEN_InputEnable()       (PIOA_REGS->PIO_ODR = ((uint32_t)1U<<19U))
+#define Pl460_TXEN_Get()               ((PIOA_REGS->PIO_PDSR >> 19U) & 0x1U)
+#define Pl460_TXEN_PIN                  PIO_PIN_PA19
+
+/*** Macros for PL460_NRST pin ***/
+#define PL460_NRST_Set()               (PIOB_REGS->PIO_SODR = ((uint32_t)1U<<3U))
+#define PL460_NRST_Clear()             (PIOB_REGS->PIO_CODR = ((uint32_t)1U<<3U))
+#define PL460_NRST_Toggle()            (PIOB_REGS->PIO_ODSR ^= ((uint32_t)1U<<3U))
+#define PL460_NRST_OutputEnable()      (PIOB_REGS->PIO_OER = ((uint32_t)1U<<3U))
+#define PL460_NRST_InputEnable()       (PIOB_REGS->PIO_ODR = ((uint32_t)1U<<3U))
+#define PL460_NRST_Get()               ((PIOB_REGS->PIO_PDSR >> 3U) & 0x1U)
+#define PL460_NRST_PIN                  PIO_PIN_PB3
 
 /*** Macros for PL460_CS pin ***/
 #define PL460_CS_Get()               ((PIOD_REGS->PIO_PDSR >> 25U) & 0x1U)
@@ -110,33 +119,6 @@
 #define LED1_InputEnable()       (PIOA_REGS->PIO_ODR = ((uint32_t)1U<<5U))
 #define LED1_Get()               ((PIOA_REGS->PIO_PDSR >> 5U) & 0x1U)
 #define LED1_PIN                  PIO_PIN_PA5
-
-/*** Macros for PL460_TXEN pin ***/
-#define PL460_TXEN_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<4U))
-#define PL460_TXEN_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<4U))
-#define PL460_TXEN_Toggle()            (PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<4U))
-#define PL460_TXEN_OutputEnable()      (PIOA_REGS->PIO_OER = ((uint32_t)1U<<4U))
-#define PL460_TXEN_InputEnable()       (PIOA_REGS->PIO_ODR = ((uint32_t)1U<<4U))
-#define PL460_TXEN_Get()               ((PIOA_REGS->PIO_PDSR >> 4U) & 0x1U)
-#define PL460_TXEN_PIN                  PIO_PIN_PA4
-
-/*** Macros for PL460_STBY pin ***/
-#define PL460_STBY_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<3U))
-#define PL460_STBY_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<3U))
-#define PL460_STBY_Toggle()            (PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<3U))
-#define PL460_STBY_OutputEnable()      (PIOA_REGS->PIO_OER = ((uint32_t)1U<<3U))
-#define PL460_STBY_InputEnable()       (PIOA_REGS->PIO_ODR = ((uint32_t)1U<<3U))
-#define PL460_STBY_Get()               ((PIOA_REGS->PIO_PDSR >> 3U) & 0x1U)
-#define PL460_STBY_PIN                  PIO_PIN_PA3
-
-/*** Macros for PL460_NRST pin ***/
-#define PL460_NRST_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<0U))
-#define PL460_NRST_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<0U))
-#define PL460_NRST_Toggle()            (PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<0U))
-#define PL460_NRST_OutputEnable()      (PIOA_REGS->PIO_OER = ((uint32_t)1U<<0U))
-#define PL460_NRST_InputEnable()       (PIOA_REGS->PIO_ODR = ((uint32_t)1U<<0U))
-#define PL460_NRST_Get()               ((PIOA_REGS->PIO_PDSR >> 0U) & 0x1U)
-#define PL460_NRST_PIN                  PIO_PIN_PA0
 
 /*** Macros for PL460_NTHW0 pin ***/
 #define PL460_NTHW0_Set()               (PIOC_REGS->PIO_SODR = ((uint32_t)1U<<17U))

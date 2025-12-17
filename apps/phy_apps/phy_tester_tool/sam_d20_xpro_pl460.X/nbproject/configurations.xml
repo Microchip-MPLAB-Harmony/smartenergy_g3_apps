@@ -218,25 +218,25 @@
                      projectFiles="true">
         <logicalFolder name="components" displayName="components" projectFiles="true">
           <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/cmsis.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/dfp.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/eic.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/adc.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/core.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/evsys.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_pserial.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_usi.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/nvmctrl.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_pvddmon.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/tc0.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/sys_time.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/sercom0.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/drvPlcPhy.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/sercom3.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_pcrc.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/HarmonyCore.yml</itemPath>
           <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/mainBoard_SAMD20_XPLAINED_PRO.yml</itemPath>
           <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_pcoup.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_pserial.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/sys_time.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/core.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_pvddmon.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/tc0.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/adc.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/sercom3.yml</itemPath>
           <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_usi_0.yml</itemPath>
-          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/HarmonyCore.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/drvPlcPhy.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/sercom0.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/eic.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_pcrc.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/dfp.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/nvmctrl.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/srv_usi.yml</itemPath>
+          <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/components/evsys.yml</itemPath>
         </logicalFolder>
         <itemPath>g3_phy_tester_tool_sam_d20_xpro_pl460/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -276,6 +276,7 @@
               <logicalFolder name="phy" displayName="phy" projectFiles="true">
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
                   <itemPath>../src/config/sam_d20_xpro_pl460/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
+                  <itemPath>../src/config/sam_d20_xpro_pl460/driver/plc/phy/bin/PLC_PHY_G3_MULTIBAND.bin</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/sam_d20_xpro_pl460/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
                 <itemPath>../src/config/sam_d20_xpro_pl460/driver/plc/phy/drv_plc_phy.c</itemPath>
@@ -408,6 +409,7 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -456,6 +458,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -487,6 +490,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -532,6 +536,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>

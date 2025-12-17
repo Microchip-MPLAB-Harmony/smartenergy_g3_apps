@@ -8,16 +8,16 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 9,PA02,,Available,,,,,,NORMAL
 10,PA03,,Available,,,,,,NORMAL
 11,PB04,PL460_SUPPLY_MON,ADC1_AIN6,Analog,High Impedance,n/a,,,NORMAL
-12,PB05,,Available,,,,,,NORMAL
+12,PB05,PL460_TXEN,GPIO,Digital,Out,Low,,,NORMAL
 13,PD00,,Available,,,,,,NORMAL
 16,PD01,,Available,,,,,,NORMAL
 17,PB06,,Available,,,,,,NORMAL
 18,PB07,PL460_EXTINT,EIC_EXTINT7,Digital,High Impedance,n/a,No,Yes,NORMAL
-19,PB08,PL460_NRST,GPIO,Digital,Out,Low,,,NORMAL
-20,PB09,PL460_ENABLE,GPIO,Digital,Out,High,,,NORMAL
+19,PB08,,Available,,,,,,NORMAL
+20,PB09,,Available,,,,,,NORMAL
 21,PA04,,Available,,,,,,NORMAL
 22,PA05,,Available,,,,,,NORMAL
-23,PA06,,Available,,,,,,NORMAL
+23,PA06,PL460_NRST,GPIO,Digital,Out,Low,,,NORMAL
 24,PA07,,Available,,,,,,NORMAL
 27,PC04,,Available,,,,,,NORMAL
 28,PC05,,Available,,,,,,NORMAL
@@ -70,8 +70,8 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 87,PB21,,Available,,,,,,NORMAL
 88,PA20,,Available,,,,,,NORMAL
 89,PA21,,Available,,,,,,NORMAL
-92,PA22,PL460_STBY,GPIO,Digital,Out,Low,,,NORMAL
-93,PA23,PL460_TXEN,GPIO,Digital,Out,Low,,,NORMAL
+92,PA22,,Available,,,,,,NORMAL
+93,PA23,,Available,,,,,,NORMAL
 94,PA24,,Available,,,,,,NORMAL
 95,PA25,,Available,,,,,,NORMAL
 98,PB22,,Available,,,,,,NORMAL

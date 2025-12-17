@@ -68,12 +68,153 @@ data:
     - children:
       - attributes:
           id: flexcom1
-          x: '6'
-          y: '164'
+          x: '5'
+          y: '172'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
   symbols:
+    FLEXCOM1_COMMON_HEADER:
+      attributes:
+        id: FLEXCOM1_COMMON_HEADER
+      children:
+      - children:
+        - attributes:
+            id: dest
+          children:
+          - type: Value
+            value: /peripheral/flexcom/spi/master/
+          type: String
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: markup
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: plib_flexcom_spi_master_common.h
+          type: String
+        - attributes:
+            id: project
+          children:
+          - type: Value
+            value: config/pic32cx_mtsh_db_pl460/peripheral/flexcom/spi/master/
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/plib_flexcom_spi_master_common.h.ftl
+          type: String
+        - attributes:
+            id: type
+          children:
+          - type: Value
+            value: HEADER
+          type: String
+        type: Attributes
+      type: File
+    FLEXCOM1_HEADER:
+      attributes:
+        id: FLEXCOM1_HEADER
+      children:
+      - children:
+        - attributes:
+            id: dest
+          children:
+          - type: Value
+            value: /peripheral/flexcom/spi/master/
+          type: String
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: markup
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: plib_flexcom1_spi_master.h
+          type: String
+        - attributes:
+            id: project
+          children:
+          - type: Value
+            value: config/pic32cx_mtsh_db_pl460/peripheral/flexcom/spi/master/
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/plib_flexcom_spi_master.h.ftl
+          type: String
+        - attributes:
+            id: type
+          children:
+          - type: Value
+            value: HEADER
+          type: String
+        type: Attributes
+      type: File
+    FLEXCOM1_SOURCE:
+      attributes:
+        id: FLEXCOM1_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: dest
+          children:
+          - type: Value
+            value: /peripheral/flexcom/spi/master/
+          type: String
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: markup
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: plib_flexcom1_spi_master.c
+          type: String
+        - attributes:
+            id: project
+          children:
+          - type: Value
+            value: config/pic32cx_mtsh_db_pl460/peripheral/flexcom/spi/master/
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/plib_flexcom_spi_master.c.ftl
+          type: String
+        type: Attributes
+      type: File
     FLEXCOM_MODE:
       attributes:
         id: FLEXCOM_MODE
@@ -311,7 +452,7 @@ data:
             id: readOnly
           children:
           - type: Value
-            value: 'true'
+            value: 'false'
           type: Boolean
         - attributes:
             id: visible
@@ -374,6 +515,68 @@ data:
           type: Dynamic
         type: Values
       type: Integer
+    FLEXCOM_SYS_DEF:
+      attributes:
+        id: FLEXCOM_SYS_DEF
+      children:
+      - children:
+        - attributes:
+            id: markup
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: core.LIST_SYSTEM_DEFINITIONS_H_INCLUDES
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/system/definitions.h.ftl
+          type: String
+        - attributes:
+            id: type
+          children:
+          - type: Value
+            value: STRING
+          type: String
+        type: Attributes
+      type: File
+    FLEXCOM_SYS_INIT:
+      attributes:
+        id: FLEXCOM_SYS_INIT
+      children:
+      - children:
+        - attributes:
+            id: markup
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: core.LIST_SYSTEM_INIT_C_SYS_INITIALIZE_PERIPHERALS
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/system/initialization.c.ftl
+          type: String
+        - attributes:
+            id: type
+          children:
+          - type: Value
+            value: STRING
+          type: String
+        type: Attributes
+      type: File
     FLEXCOM_TWI_CLK_SRC_FREQ:
       attributes:
         id: FLEXCOM_TWI_CLK_SRC_FREQ
@@ -460,7 +663,7 @@ data:
             id: readOnly
           children:
           - type: Value
-            value: 'true'
+            value: 'false'
           type: Boolean
         - attributes:
             id: visible

@@ -44,8 +44,8 @@ data:
     - children:
       - attributes:
           id: afec1
-          x: '382'
-          y: '420'
+          x: '455'
+          y: '416'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -144,8 +144,9 @@ data:
       children:
       - children:
         - attributes:
+            id: afec1
             value: 'true'
-          type: User
+          type: Dynamic
         type: Values
       type: Boolean
     AFEC_6_IER_EOC:
@@ -173,7 +174,7 @@ data:
       - children:
         - attributes:
             id: afec1
-            value: '7500000'
+            value: '4545454'
           type: Dynamic
         type: Values
       type: Integer
@@ -183,7 +184,7 @@ data:
       children:
       - children:
         - attributes:
-            value: '19'
+            value: '32'
           type: User
         type: Values
       type: Integer

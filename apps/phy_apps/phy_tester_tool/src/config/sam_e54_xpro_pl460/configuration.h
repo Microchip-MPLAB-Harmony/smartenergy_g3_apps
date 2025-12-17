@@ -104,13 +104,12 @@ extern "C" {
 
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
-#define DRV_PLC_SPI_CS_PIN                    SYS_PORT_PIN_PB28
+#define DRV_PLC_SPI_CS_PIN                    SYS_PORT_PIN_PA00
 #define DRV_PLC_EXT_INT_SRC                   EIC_EXTINT_7_IRQn
 #define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PB07
 #define DRV_PLC_EXT_INT_PIN                   EIC_PIN_7
-#define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PB08
-#define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PB09
-#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA23
+#define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PA06
+#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PB05
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PA27
 #define DRV_PLC_SPI_CLK                       8000000
 

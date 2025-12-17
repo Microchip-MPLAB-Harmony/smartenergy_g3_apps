@@ -36,7 +36,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: None
+            value: CEN-A
           type: Dynamic
         type: Values
       type: Combo
@@ -893,7 +893,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '4'
+            value: '6'
           type: Dynamic
         type: Values
       type: Hex
@@ -1014,7 +1014,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '2640052479'
+            value: '1330643199'
           type: Dynamic
         type: Values
       type: Hex
@@ -1025,7 +1025,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '336860180'
+            value: '454761243'
           type: Dynamic
         type: Values
       type: Hex
@@ -1060,13 +1060,13 @@ data:
             id: min
           children:
           - type: Value
-            value: '60'
+            value: '20'
           type: Integer
         type: Attributes
       - children:
         - attributes:
             id: srv_pcoup
-            value: '126'
+            value: '49'
           type: Dynamic
         type: Values
       type: Integer
@@ -1077,7 +1077,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '60'
+            value: '20'
           type: Dynamic
         type: Values
       type: Integer
@@ -1090,13 +1090,13 @@ data:
             id: min
           children:
           - type: Value
-            value: '126'
+            value: '49'
           type: Integer
         type: Attributes
       - children:
         - attributes:
             id: srv_pcoup
-            value: '336'
+            value: '256'
           type: Dynamic
         type: Values
       type: Integer
@@ -1109,13 +1109,13 @@ data:
             id: min
           children:
           - type: Value
-            value: '230'
+            value: '180'
           type: Integer
         type: Attributes
       - children:
         - attributes:
             id: srv_pcoup
-            value: '532'
+            value: '364'
           type: Dynamic
         type: Values
       type: Integer
@@ -1126,7 +1126,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '230'
+            value: '180'
           type: Dynamic
         type: Values
       type: Integer
@@ -1139,13 +1139,13 @@ data:
             id: min
           children:
           - type: Value
-            value: '532'
+            value: '364'
           type: Integer
         type: Attributes
       - children:
         - attributes:
             id: srv_pcoup
-            value: '597'
+            value: '408'
           type: Dynamic
         type: Values
       type: Integer
@@ -1167,7 +1167,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: CEN-A
+            value: FCC
           type: Dynamic
         type: Values
       type: Combo
@@ -1178,7 +1178,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '2146'
+            value: '1201'
           type: Dynamic
         type: Values
       type: Integer
@@ -1189,7 +1189,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1532'
+            value: '850'
           type: Dynamic
         type: Values
       type: Integer
@@ -1200,7 +1200,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1093'
+            value: '602'
           type: Dynamic
         type: Values
       type: Integer
@@ -1211,7 +1211,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '778'
+            value: '427'
           type: Dynamic
         type: Values
       type: Integer
@@ -1222,7 +1222,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '554'
+            value: '304'
           type: Dynamic
         type: Values
       type: Integer
@@ -1233,7 +1233,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '395'
+            value: '217'
           type: Dynamic
         type: Values
       type: Integer
@@ -1244,7 +1244,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '283'
+            value: '155'
           type: Dynamic
         type: Values
       type: Integer
@@ -1255,7 +1255,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '202'
+            value: '112'
           type: Dynamic
         type: Values
       type: Integer
@@ -1266,7 +1266,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '5838'
+            value: '4617'
           type: Dynamic
         type: Values
       type: Integer
@@ -1277,7 +1277,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '4515'
+            value: '3509'
           type: Dynamic
         type: Values
       type: Integer
@@ -1288,7 +1288,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '3272'
+            value: '2512'
           type: Dynamic
         type: Values
       type: Integer
@@ -1299,7 +1299,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '2333'
+            value: '1769'
           type: Dynamic
         type: Values
       type: Integer
@@ -1310,7 +1310,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1657'
+            value: '1247'
           type: Dynamic
         type: Values
       type: Integer
@@ -1321,7 +1321,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1175'
+            value: '882'
           type: Dynamic
         type: Values
       type: Integer
@@ -1332,7 +1332,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '832'
+            value: '624'
           type: Dynamic
         type: Values
       type: Integer
@@ -1343,7 +1343,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '590'
+            value: '443'
           type: Dynamic
         type: Values
       type: Integer
@@ -1376,7 +1376,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '929'
+            value: '510'
           type: Dynamic
         type: Values
       type: Integer
@@ -1387,7 +1387,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '661'
+            value: '362'
           type: Dynamic
         type: Values
       type: Integer
@@ -1398,7 +1398,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '471'
+            value: '257'
           type: Dynamic
         type: Values
       type: Integer
@@ -1409,7 +1409,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '335'
+            value: '183'
           type: Dynamic
         type: Values
       type: Integer
@@ -1420,7 +1420,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '240'
+            value: '131'
           type: Dynamic
         type: Values
       type: Integer
@@ -1431,7 +1431,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '172'
+            value: '95'
           type: Dynamic
         type: Values
       type: Integer
@@ -1508,7 +1508,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1823'
+            value: '1020'
           type: Dynamic
         type: Values
       type: Integer
@@ -1519,7 +1519,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1302'
+            value: '721'
           type: Dynamic
         type: Values
       type: Integer
@@ -1552,7 +1552,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '4924'
+            value: '5074'
           type: Dynamic
         type: Values
       type: Integer
@@ -1563,7 +1563,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '3539'
+            value: '3562'
           type: Dynamic
         type: Values
       type: Integer
@@ -1574,7 +1574,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '2535'
+            value: '2510'
           type: Dynamic
         type: Values
       type: Integer
@@ -1585,7 +1585,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1824'
+            value: '1776'
           type: Dynamic
         type: Values
       type: Integer
@@ -1596,7 +1596,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1307'
+            value: '1261'
           type: Dynamic
         type: Values
       type: Integer
@@ -1607,7 +1607,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '941'
+            value: '896'
           type: Dynamic
         type: Values
       type: Integer
@@ -1684,7 +1684,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '9433'
+            value: '10327'
           type: Dynamic
         type: Values
       type: Integer
@@ -1695,7 +1695,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '6840'
+            value: '7247'
           type: Dynamic
         type: Values
       type: Integer

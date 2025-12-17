@@ -51,17 +51,6 @@ data:
       type: ElementPositions
     type: ComponentGraph
   symbols:
-    SRV_SPISPLIT_PLIB:
-      attributes:
-        id: SRV_SPISPLIT_PLIB
-      children:
-      - children:
-        - attributes:
-            id: srv_spisplit
-            value: SPI0
-          type: Dynamic
-        type: Values
-      type: String
     SRV_SPISPLIT_RX_DMA_CHANNEL:
       attributes:
         id: SRV_SPISPLIT_RX_DMA_CHANNEL
@@ -100,4 +89,15 @@ data:
           type: Dynamic
         type: Values
       type: Integer
+    SRV_SPISPLIT_PLIB:
+      attributes:
+        id: SRV_SPISPLIT_PLIB
+      children:
+      - children:
+        - attributes:
+            id: srv_spisplit
+            value: SPI0
+          type: Dynamic
+        type: Values
+      type: String
   userData: {}

@@ -70,9 +70,11 @@ void ADC_Initialize(void)
     /* Trigger mode */
     ADC_REGS->ADC_TRGR = ADC_TRGR_TRGMOD_CONTINUOUS;
 
-    /* Enable interrupt */
-    ADC_REGS->ADC_EOC_IER = ADC_EOC_IER_EOC4_Msk;
-    ADC_CallbackObj.callback_fn = NULL;
+    /* Automatic Window Comparison */
+    ADC_REGS->ADC_EMR |= ADC_EMR_CMPMODE_LOW | ADC_EMR_CMPTYPE_FLAG_ONLY | ADC_EMR_CMPSEL(ADC_CH0);
+    ADC_REGS->ADC_CWR = ADC_CWR_LOWTHRES(0U) | ADC_CWR_HIGHTHRES(0U);
+    ADC_REGS->ADC_IER = ADC_IER_COMPE_Msk;
+
     /* Enable channel */
     ADC_REGS->ADC_CHER = ADC_CHER_CH4_Msk;
 }

@@ -171,7 +171,7 @@ void SRV_PSERIAL_ParseTxMessage(DRV_PLC_PHY_TRANSMISSION_OBJ* pDataDst, uint8_t*
         pDataDst->toneMap[PSERIAL_TONEMAP_SIZE - (indexTM + 1U)] = *pDataSrc++;
     }
 
-    pDataDst->rs2Blocks = 0U;
+    pDataDst->rs2Blocks = *pDataSrc++;
 
     (void) memcpy(pDataDst->preemphasis, pDataSrc, PSERIAL_SUBBANDS_SIZE);
     pDataSrc += PSERIAL_SUBBANDS_SIZE;

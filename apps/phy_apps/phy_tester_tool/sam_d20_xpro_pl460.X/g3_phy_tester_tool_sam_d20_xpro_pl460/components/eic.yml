@@ -22,8 +22,8 @@ data:
     - children:
       - attributes:
           id: eic
-          x: '15'
-          y: '146'
+          x: '512'
+          y: '116'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

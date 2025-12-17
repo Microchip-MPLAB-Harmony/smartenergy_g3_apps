@@ -82,7 +82,7 @@ void EIC_Initialize (void)
     /* NMI Control register */
 
     /* Interrupt sense type and filter control for EXTINT channels 0 to 7*/
-    EIC_REGS->EIC_CONFIG[0] =  EIC_CONFIG_SENSE0_HIGH  |
+    EIC_REGS->EIC_CONFIG[0] =  EIC_CONFIG_SENSE0_LOW | EIC_CONFIG_FILTEN0_Msk |
                               EIC_CONFIG_SENSE1_NONE  |
                               EIC_CONFIG_SENSE2_NONE  |
                               EIC_CONFIG_SENSE3_NONE  |
@@ -107,7 +107,7 @@ void EIC_Initialize (void)
 
 
     /* External Interrupt enable*/
-    EIC_REGS->EIC_INTENSET = 0x81U;
+    EIC_REGS->EIC_INTENSET = 0x80U;
 
     /* Callbacks for enabled interrupts */
     eicCallbackObject[0].eicPinNo = EIC_PIN_0;
@@ -155,18 +155,6 @@ void EIC_CallbackRegister(EIC_PIN pin, EIC_CALLBACK callback, uintptr_t context)
     }
 }
 
-void __attribute__((used)) EIC_EXTINT_0_InterruptHandler(void)
-{
-    /* Clear interrupt flag */
-    EIC_REGS->EIC_INTFLAG = (1UL << 0);
-    /* Find any associated callback entries in the callback table */
-    if ((eicCallbackObject[0].callback != NULL))
-    {
-        uintptr_t context = eicCallbackObject[0].context;
-        eicCallbackObject[0].callback(context);
-    }
-
-}
 void __attribute__((used)) EIC_EXTINT_7_InterruptHandler(void)
 {
     /* Clear interrupt flag */

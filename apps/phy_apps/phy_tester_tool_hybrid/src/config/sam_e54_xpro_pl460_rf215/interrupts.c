@@ -96,6 +96,7 @@ extern void SUPC_OTHER_Handler         ( void ) __attribute__((weak, alias("Dumm
 extern void SUPC_BODDET_Handler        ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void WDT_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void RTC_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
+extern void EIC_EXTINT_0_Handler       ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void EIC_EXTINT_1_Handler       ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void EIC_EXTINT_2_Handler       ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void EIC_EXTINT_3_Handler       ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
@@ -113,7 +114,6 @@ extern void EIC_EXTINT_15_Handler      ( void ) __attribute__((weak, alias("Dumm
 extern void FREQM_Handler              ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void NVMCTRL_0_Handler          ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void NVMCTRL_1_Handler          ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
-extern void DMAC_OTHER_Handler         ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void EVSYS_0_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void EVSYS_1_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void EVSYS_2_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
@@ -190,7 +190,7 @@ extern void PDEC_MC0_Handler           ( void ) __attribute__((weak, alias("Dumm
 extern void PDEC_MC1_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void ADC0_OTHER_Handler         ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void ADC0_RESRDY_Handler        ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
-extern void ADC1_RESRDY_Handler        ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
+extern void ADC1_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void AC_Handler                 ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void DAC_OTHER_Handler          ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void DAC_EMPTY_0_Handler        ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
@@ -242,7 +242,7 @@ const H3DeviceVectors exception_table=
     .pfnSUPC_BODDET_Handler        = SUPC_BODDET_Handler,
     .pfnWDT_Handler                = WDT_Handler,
     .pfnRTC_Handler                = RTC_Handler,
-    .pfnEIC_EXTINT_0_Handler       = EIC_EXTINT_0_InterruptHandler,
+    .pfnEIC_EXTINT_0_Handler       = EIC_EXTINT_0_Handler,
     .pfnEIC_EXTINT_1_Handler       = EIC_EXTINT_1_Handler,
     .pfnEIC_EXTINT_2_Handler       = EIC_EXTINT_2_Handler,
     .pfnEIC_EXTINT_3_Handler       = EIC_EXTINT_3_Handler,
@@ -265,7 +265,7 @@ const H3DeviceVectors exception_table=
     .pfnDMAC_1_Handler             = DMAC_1_InterruptHandler,
     .pfnDMAC_2_Handler             = DMAC_2_InterruptHandler,
     .pfnDMAC_3_Handler             = DMAC_3_InterruptHandler,
-    .pfnDMAC_OTHER_Handler         = DMAC_OTHER_Handler,
+    .pfnDMAC_OTHER_Handler         = DMAC_OTHER_InterruptHandler,
     .pfnEVSYS_0_Handler            = EVSYS_0_Handler,
     .pfnEVSYS_1_Handler            = EVSYS_1_Handler,
     .pfnEVSYS_2_Handler            = EVSYS_2_Handler,
@@ -348,7 +348,7 @@ const H3DeviceVectors exception_table=
     .pfnADC0_OTHER_Handler         = ADC0_OTHER_Handler,
     .pfnADC0_RESRDY_Handler        = ADC0_RESRDY_Handler,
     .pfnADC1_OTHER_Handler         = ADC1_OTHER_InterruptHandler,
-    .pfnADC1_RESRDY_Handler        = ADC1_RESRDY_Handler,
+    .pfnADC1_RESRDY_Handler        = ADC1_Handler,
     .pfnAC_Handler                 = AC_Handler,
     .pfnDAC_OTHER_Handler          = DAC_OTHER_Handler,
     .pfnDAC_EMPTY_0_Handler        = DAC_EMPTY_0_Handler,

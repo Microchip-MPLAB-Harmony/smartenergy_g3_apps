@@ -64,32 +64,23 @@
 #define SAME54_XPLAINED_PRO
 #define BOARD_NAME    "SAME54-XPLAINED-PRO"
 
-/*** Macros for GPIO_PB06 output pin ***/ 
-#define BSP_GPIO_PB06_PIN        PORT_PIN_PB6
-#define BSP_GPIO_PB06_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 6U) & 0x01U)
-#define BSP_GPIO_PB06_Set()      (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 6U))
-#define BSP_GPIO_PB06_Clear()    (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 6U))
-#define BSP_GPIO_PB06_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 6U))
-#define BSP_GPIO_PB06_On()       BSP_GPIO_PB06_Set()
-#define BSP_GPIO_PB06_Off()      BSP_GPIO_PB06_Clear() 
+/*** Macros for PL460_TXEN output pin ***/ 
+#define BSP_PL460_TXEN_PIN        PORT_PIN_PB5
+#define BSP_PL460_TXEN_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 5U) & 0x01U)
+#define BSP_PL460_TXEN_Set()      (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 5U))
+#define BSP_PL460_TXEN_Clear()    (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 5U))
+#define BSP_PL460_TXEN_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 5U))
+#define BSP_PL460_TXEN_On()       BSP_PL460_TXEN_Set()
+#define BSP_PL460_TXEN_Off()      BSP_PL460_TXEN_Clear() 
 
 /*** Macros for PL460_NRST output pin ***/ 
-#define BSP_PL460_NRST_PIN        PORT_PIN_PB8
-#define BSP_PL460_NRST_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 8U) & 0x01U)
-#define BSP_PL460_NRST_Set()      (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 8U))
-#define BSP_PL460_NRST_Clear()    (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 8U))
-#define BSP_PL460_NRST_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 8U))
+#define BSP_PL460_NRST_PIN        PORT_PIN_PA6
+#define BSP_PL460_NRST_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 6U) & 0x01U)
+#define BSP_PL460_NRST_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 6U))
+#define BSP_PL460_NRST_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 6U))
+#define BSP_PL460_NRST_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 6U))
 #define BSP_PL460_NRST_On()       BSP_PL460_NRST_Set()
 #define BSP_PL460_NRST_Off()      BSP_PL460_NRST_Clear() 
-
-/*** Macros for PL460_ENABLE output pin ***/ 
-#define BSP_PL460_ENABLE_PIN        PORT_PIN_PB9
-#define BSP_PL460_ENABLE_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 9U) & 0x01U)
-#define BSP_PL460_ENABLE_Set()      (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 9U))
-#define BSP_PL460_ENABLE_Clear()    (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 9U))
-#define BSP_PL460_ENABLE_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 9U))
-#define BSP_PL460_ENABLE_On()       BSP_PL460_ENABLE_Clear()
-#define BSP_PL460_ENABLE_Off()      BSP_PL460_ENABLE_Set() 
 
 /*** Macros for EXT2_SPI_CS output pin ***/ 
 #define BSP_EXT2_SPI_CS_PIN        PORT_PIN_PC6
@@ -117,24 +108,6 @@
 #define BSP_LED0_Toggle()   (PORT_REGS->GROUP[2].PORT_OUTTGL = ((uint32_t)1U << 18U))
 #define BSP_LED0_On()       BSP_LED0_Clear()
 #define BSP_LED0_Off()      BSP_LED0_Set() 
-
-/*** Macros for PL460_STBY output pin ***/ 
-#define BSP_PL460_STBY_PIN        PORT_PIN_PA22
-#define BSP_PL460_STBY_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 22U) & 0x01U)
-#define BSP_PL460_STBY_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 22U))
-#define BSP_PL460_STBY_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 22U))
-#define BSP_PL460_STBY_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 22U))
-#define BSP_PL460_STBY_On()       BSP_PL460_STBY_Set()
-#define BSP_PL460_STBY_Off()      BSP_PL460_STBY_Clear() 
-
-/*** Macros for PL460_TXEN output pin ***/ 
-#define BSP_PL460_TXEN_PIN        PORT_PIN_PA23
-#define BSP_PL460_TXEN_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 23U) & 0x01U)
-#define BSP_PL460_TXEN_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 23U))
-#define BSP_PL460_TXEN_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 23U))
-#define BSP_PL460_TXEN_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 23U))
-#define BSP_PL460_TXEN_On()       BSP_PL460_TXEN_Set()
-#define BSP_PL460_TXEN_Off()      BSP_PL460_TXEN_Clear() 
 
 /*** Macros for PL460_CS output pin ***/ 
 #define BSP_PL460_CS_PIN        PORT_PIN_PB28

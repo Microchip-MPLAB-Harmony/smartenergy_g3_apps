@@ -54,7 +54,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define DMAC_CHANNELS_NUMBER        (4U)
+#define DMAC_CHANNELS_NUMBER        (6U)
 
 #define DMAC_CRC_CHANNEL_OFFSET     (0x20U)
 
@@ -110,7 +110,7 @@ void DMAC_Initialize( void )
     DMAC_REGS->DMAC_PRICTRL0 |= DMAC_PRICTRL0_LVLPRI0(1U) | DMAC_PRICTRL0_RRLVLEN0_Msk | DMAC_PRICTRL0_LVLPRI1(1U) | DMAC_PRICTRL0_RRLVLEN1_Msk | DMAC_PRICTRL0_LVLPRI2(1U) | DMAC_PRICTRL0_RRLVLEN2_Msk | DMAC_PRICTRL0_LVLPRI3(1U) | DMAC_PRICTRL0_RRLVLEN3_Msk;
 
    /***************** Configure DMA channel 0 ********************/
-   DMAC_REGS->CHANNEL[0].DMAC_CHCTRLA = DMAC_CHCTRLA_TRIGACT(2U) | DMAC_CHCTRLA_TRIGSRC(13U) | DMAC_CHCTRLA_THRESHOLD(0U) | DMAC_CHCTRLA_BURSTLEN(0U) ;
+   DMAC_REGS->CHANNEL[0].DMAC_CHCTRLA = DMAC_CHCTRLA_TRIGACT(2U) | DMAC_CHCTRLA_TRIGSRC(17U) | DMAC_CHCTRLA_THRESHOLD(0U) | DMAC_CHCTRLA_BURSTLEN(0U) ;
 
    descriptor_section[0].DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_INT | DMAC_BTCTRL_BEATSIZE_BYTE | DMAC_BTCTRL_VALID_Msk | DMAC_BTCTRL_SRCINC_Msk ;
 
@@ -122,7 +122,7 @@ void DMAC_Initialize( void )
 
 
    /***************** Configure DMA channel 1 ********************/
-   DMAC_REGS->CHANNEL[1].DMAC_CHCTRLA = DMAC_CHCTRLA_TRIGACT(2U) | DMAC_CHCTRLA_TRIGSRC(12U) | DMAC_CHCTRLA_THRESHOLD(0U) | DMAC_CHCTRLA_BURSTLEN(0U) ;
+   DMAC_REGS->CHANNEL[1].DMAC_CHCTRLA = DMAC_CHCTRLA_TRIGACT(2U) | DMAC_CHCTRLA_TRIGSRC(16U) | DMAC_CHCTRLA_THRESHOLD(0U) | DMAC_CHCTRLA_BURSTLEN(0U) ;
 
    descriptor_section[1].DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_INT | DMAC_BTCTRL_BEATSIZE_BYTE | DMAC_BTCTRL_VALID_Msk | DMAC_BTCTRL_DSTINC_Msk ;
 
@@ -155,6 +155,30 @@ void DMAC_Initialize( void )
    dmacChannelObj[3].inUse = true;
 
    DMAC_REGS->CHANNEL[3].DMAC_CHINTENSET = (DMAC_CHINTENSET_TERR_Msk | DMAC_CHINTENSET_TCMPL_Msk);
+
+
+   /***************** Configure DMA channel 4 ********************/
+   DMAC_REGS->CHANNEL[4].DMAC_CHCTRLA = DMAC_CHCTRLA_TRIGACT(2U) | DMAC_CHCTRLA_TRIGSRC(13U) | DMAC_CHCTRLA_THRESHOLD(0U) | DMAC_CHCTRLA_BURSTLEN(0U) ;
+
+   descriptor_section[4].DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_INT | DMAC_BTCTRL_BEATSIZE_BYTE | DMAC_BTCTRL_VALID_Msk | DMAC_BTCTRL_SRCINC_Msk ;
+
+   DMAC_REGS->CHANNEL[4].DMAC_CHPRILVL = DMAC_CHPRILVL_PRILVL(0U);
+
+   dmacChannelObj[4].inUse = true;
+
+   DMAC_REGS->CHANNEL[4].DMAC_CHINTENSET = (DMAC_CHINTENSET_TERR_Msk | DMAC_CHINTENSET_TCMPL_Msk);
+
+
+   /***************** Configure DMA channel 5 ********************/
+   DMAC_REGS->CHANNEL[5].DMAC_CHCTRLA = DMAC_CHCTRLA_TRIGACT(2U) | DMAC_CHCTRLA_TRIGSRC(12U) | DMAC_CHCTRLA_THRESHOLD(0U) | DMAC_CHCTRLA_BURSTLEN(0U) ;
+
+   descriptor_section[5].DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_INT | DMAC_BTCTRL_BEATSIZE_BYTE | DMAC_BTCTRL_VALID_Msk | DMAC_BTCTRL_DSTINC_Msk ;
+
+   DMAC_REGS->CHANNEL[5].DMAC_CHPRILVL = DMAC_CHPRILVL_PRILVL(0U);
+
+   dmacChannelObj[5].inUse = true;
+
+   DMAC_REGS->CHANNEL[5].DMAC_CHINTENSET = (DMAC_CHINTENSET_TERR_Msk | DMAC_CHINTENSET_TCMPL_Msk);
 
     /* Enable the DMAC module & Priority Level x Enable */
     DMAC_REGS->DMAC_CTRL = DMAC_CTRL_DMAENABLE_Msk | DMAC_CTRL_LVLEN0_Msk | DMAC_CTRL_LVLEN1_Msk | DMAC_CTRL_LVLEN2_Msk | DMAC_CTRL_LVLEN3_Msk;
@@ -532,5 +556,18 @@ void __attribute__((used)) DMAC_2_InterruptHandler( void )
 void __attribute__((used)) DMAC_3_InterruptHandler( void )
 {
    DMAC_channel_interruptHandler(3U);
+}
+
+void __attribute__((used)) DMAC_OTHER_InterruptHandler( void )
+{
+    uint8_t channel = 0U;
+
+    for(channel = 4U; channel <= 5U; channel++)
+    {
+        if (((DMAC_REGS->DMAC_INTSTATUS >> channel) & 0x1U) != 0U)
+        {
+            DMAC_channel_interruptHandler(channel);
+        }
+    }
 }
 

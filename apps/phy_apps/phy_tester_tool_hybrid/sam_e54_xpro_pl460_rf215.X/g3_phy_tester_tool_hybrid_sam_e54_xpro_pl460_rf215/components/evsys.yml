@@ -380,9 +380,9 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    GENERATOR_EIC_EXTINT_0_ACTIVE:
+    GENERATOR_EIC_EXTINT_7_ACTIVE:
       attributes:
-        id: GENERATOR_EIC_EXTINT_0_ACTIVE
+        id: GENERATOR_EIC_EXTINT_7_ACTIVE
       children:
       - children:
         - attributes:
@@ -391,9 +391,20 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    GENERATOR_EIC_EXTINT_7_ACTIVE:
+    GENERATOR_ADC1_WINMON_ACTIVE:
       attributes:
-        id: GENERATOR_EIC_EXTINT_7_ACTIVE
+        id: GENERATOR_ADC1_WINMON_ACTIVE
+      children:
+      - children:
+        - attributes:
+            id: adc1
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    GENERATOR_EIC_EXTINT_0_ACTIVE:
+      attributes:
+        id: GENERATOR_EIC_EXTINT_0_ACTIVE
       children:
       - children:
         - attributes:

@@ -64,12 +64,19 @@
 #define SAME70_XPLAINED_ULTRA
 #define BOARD_NAME    "SAME70-XPLAINED-ULTRA"
 
-/*** OUTPUT PIO Macros for PL460_ENABLE ***/
-#define BSP_PL460_ENABLE_PIN        PIO_PIN_PC30
-#define BSP_PL460_ENABLE_Get()      ((PIOC_REGS->PIO_PDSR >> 30) & 0x1)
-#define BSP_PL460_ENABLE_On()       (PIOC_REGS->PIO_CODR = (1UL<<30))
-#define BSP_PL460_ENABLE_Off()      (PIOC_REGS->PIO_SODR = (1UL<<30))
-#define BSP_PL460_ENABLE_Toggle()   (PIOC_REGS->PIO_ODSR ^= (1UL<<30))
+/*** OUTPUT PIO Macros for Pl460_TXEN ***/
+#define BSP_PL460_TXEN_PIN        PIO_PIN_PA19
+#define BSP_PL460_TXEN_Get()      ((PIOA_REGS->PIO_PDSR >> 19) & 0x1)
+#define BSP_PL460_TXEN_On()       (PIOA_REGS->PIO_SODR = (1UL<<19))
+#define BSP_PL460_TXEN_Off()      (PIOA_REGS->PIO_CODR = (1UL<<19))
+#define BSP_PL460_TXEN_Toggle()   (PIOA_REGS->PIO_ODSR ^= (1UL<<19))
+
+/*** OUTPUT PIO Macros for PL460_NRST ***/
+#define BSP_PL460_NRST_PIN        PIO_PIN_PB3
+#define BSP_PL460_NRST_Get()      ((PIOB_REGS->PIO_PDSR >> 3) & 0x1)
+#define BSP_PL460_NRST_On()       (PIOB_REGS->PIO_SODR = (1UL<<3))
+#define BSP_PL460_NRST_Off()      (PIOB_REGS->PIO_CODR = (1UL<<3))
+#define BSP_PL460_NRST_Toggle()   (PIOB_REGS->PIO_ODSR ^= (1UL<<3))
 
 /*** OUTPUT PIO Macros for LED1 ***/
 #define BSP_LED1_PIN        PIO_PIN_PA5
@@ -77,27 +84,6 @@
 #define BSP_LED1_On()       (PIOA_REGS->PIO_CODR = (1UL<<5))
 #define BSP_LED1_Off()      (PIOA_REGS->PIO_SODR = (1UL<<5))
 #define BSP_LED1_Toggle()   (PIOA_REGS->PIO_ODSR ^= (1UL<<5))
-
-/*** OUTPUT PIO Macros for PL460_TXEN ***/
-#define BSP_PL460_TXEN_PIN        PIO_PIN_PA4
-#define BSP_PL460_TXEN_Get()      ((PIOA_REGS->PIO_PDSR >> 4) & 0x1)
-#define BSP_PL460_TXEN_On()       (PIOA_REGS->PIO_SODR = (1UL<<4))
-#define BSP_PL460_TXEN_Off()      (PIOA_REGS->PIO_CODR = (1UL<<4))
-#define BSP_PL460_TXEN_Toggle()   (PIOA_REGS->PIO_ODSR ^= (1UL<<4))
-
-/*** OUTPUT PIO Macros for PL460_STBY ***/
-#define BSP_PL460_STBY_PIN        PIO_PIN_PA3
-#define BSP_PL460_STBY_Get()      ((PIOA_REGS->PIO_PDSR >> 3) & 0x1)
-#define BSP_PL460_STBY_On()       (PIOA_REGS->PIO_SODR = (1UL<<3))
-#define BSP_PL460_STBY_Off()      (PIOA_REGS->PIO_CODR = (1UL<<3))
-#define BSP_PL460_STBY_Toggle()   (PIOA_REGS->PIO_ODSR ^= (1UL<<3))
-
-/*** OUTPUT PIO Macros for PL460_NRST ***/
-#define BSP_PL460_NRST_PIN        PIO_PIN_PA0
-#define BSP_PL460_NRST_Get()      ((PIOA_REGS->PIO_PDSR >> 0) & 0x1)
-#define BSP_PL460_NRST_On()       (PIOA_REGS->PIO_SODR = (1UL<<0))
-#define BSP_PL460_NRST_Off()      (PIOA_REGS->PIO_CODR = (1UL<<0))
-#define BSP_PL460_NRST_Toggle()   (PIOA_REGS->PIO_ODSR ^= (1UL<<0))
 
 
 /*** INPUT PIO Macros for PL460_EXTINT ***/

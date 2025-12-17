@@ -391,4 +391,15 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
+    GENERATOR_ADC1_WINMON_ACTIVE:
+      attributes:
+        id: GENERATOR_ADC1_WINMON_ACTIVE
+      children:
+      - children:
+        - attributes:
+            id: adc1
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
   userData: {}

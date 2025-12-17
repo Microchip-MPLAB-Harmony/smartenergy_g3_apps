@@ -23,8 +23,8 @@ data:
     - children:
       - attributes:
           id: srv_pserial
-          x: '348'
-          y: '243'
+          x: '459'
+          y: '203'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -36,7 +36,7 @@ data:
       - children:
         - attributes:
             id: srv_pserial
-            value: '0'
+            value: '2'
           type: Dynamic
         type: Values
       type: KeyValueSet

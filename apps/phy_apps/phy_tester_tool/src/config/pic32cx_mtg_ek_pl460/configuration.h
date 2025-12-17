@@ -107,9 +107,8 @@ extern "C" {
 #define DRV_PLC_EXT_INT_SRC                   PIOA_IRQn
 #define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PA2
 #define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PA2
-#define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PD15
-#define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PD19
-#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA1
+#define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PA28
+#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA31
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PB15
 #define DRV_PLC_CSR_INDEX                     0
 #define DRV_PLC_SPI_CLK                       8000000
@@ -118,10 +117,10 @@ extern "C" {
 #define DRV_PLC_PHY_INSTANCES_NUMBER          1U
 #define DRV_PLC_PHY_INDEX                     0U
 #define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1U
-#define DRV_PLC_PHY_PROFILE                   0U
+#define DRV_PLC_PHY_PROFILE                   2U
 #define DRV_PLC_PHY_HOST_PRODUCT              0x3601U
 #define DRV_PLC_PHY_HOST_VERSION              0x36010300UL
-#define DRV_PLC_PHY_HOST_PHY                  0x36010103UL
+#define DRV_PLC_PHY_HOST_PHY                  0x36020103UL
 #define DRV_PLC_PHY_HOST_DESC                 "PIC32CX2051MTG128"
 #define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE

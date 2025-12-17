@@ -45,8 +45,8 @@ data:
     - children:
       - attributes:
           id: drvPlcPhy
-          x: '150'
-          y: '138'
+          x: '179'
+          y: '153'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -106,17 +106,6 @@ data:
           type: Dynamic
         type: Values
       type: String
-    DRV_PLC_LDO_EN_PIN:
-      attributes:
-        id: DRV_PLC_LDO_EN_PIN
-      children:
-      - children:
-        - attributes:
-            id: drvPlcPhy
-            value: '38'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     DRV_PLC_PLIB:
       attributes:
         id: DRV_PLC_PLIB
@@ -135,7 +124,7 @@ data:
       - children:
         - attributes:
             id: drvPlcPhy
-            value: '37'
+            value: '6'
           type: Dynamic
         type: Values
       type: KeyValueSet
@@ -154,21 +143,10 @@ data:
       - children:
         - attributes:
             id: drvPlcPhy
-            value: '1'
+            value: '5'
           type: Dynamic
         type: Values
       type: Integer
-    DRV_PLC_SPI_CS_PIN:
-      attributes:
-        id: DRV_PLC_SPI_CS_PIN
-      children:
-      - children:
-        - attributes:
-            id: drvPlcPhy
-            value: '57'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     DRV_PLC_SPI_NUM_CSR:
       attributes:
         id: DRV_PLC_SPI_NUM_CSR
@@ -180,31 +158,29 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    DRV_PLC_STBY_PIN:
-      attributes:
-        id: DRV_PLC_STBY_PIN
-      children:
-      - children:
-        - attributes:
-            id: drvPlcPhy
-            value: '22'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     DRV_PLC_THERMAL_MONITOR:
       attributes:
         id: DRV_PLC_THERMAL_MONITOR
       children:
       - children:
         - attributes:
+            id: drvPlcPhy
             value: 'true'
-          type: User
+          type: Dynamic
         type: Values
       type: Boolean
     DRV_PLC_THMON_PIN:
       attributes:
         id: DRV_PLC_THMON_PIN
       children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: drvPlcPhy
@@ -227,7 +203,7 @@ data:
       - children:
         - attributes:
             id: drvPlcPhy
-            value: '0'
+            value: '4'
           type: Dynamic
         type: Values
       type: Integer
@@ -238,18 +214,8 @@ data:
       - children:
         - attributes:
             id: drvPlcPhy
-            value: '23'
+            value: '34'
           type: Dynamic
         type: Values
       type: KeyValueSet
-    PLC_EIC_ID:
-      attributes:
-        id: PLC_EIC_ID
-      children:
-      - children:
-        - attributes:
-            value: U2254
-          type: User
-        type: Values
-      type: String
   userData: {}

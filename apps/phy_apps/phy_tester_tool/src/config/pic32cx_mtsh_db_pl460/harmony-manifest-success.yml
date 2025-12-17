@@ -4,14 +4,14 @@
 
 
 project: g3_phy_tester_tool
-creation_date: 2025-12-02T09:43:30.630+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-12-17T19:10:42.011+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3
 mcc_core_version: v5.8.3
 mplabx_version: v6.25        # if MPLAB X plugin only
 harmony_version: v5.6.3
-compiler: XC32 4.60
+compiler: XC32 5.00
 
 modules:
     - {name: "csp", version: "v3.23.0"}
@@ -19,7 +19,7 @@ modules:
     - {name: "CMSIS_5", version: "5.9.0"}
     - {name: "gfx", version: "v3.16.2"}
     - {name: "smartenergy", version: "v1.5.0"}
-    - {name: "shd", version: "v1.2.1"}
+    - {name: "shd", version: "v1.3.0"}
 
 packs:
     - {name: "PIC32CX-MT_DFP", version: "1.3.132"}
