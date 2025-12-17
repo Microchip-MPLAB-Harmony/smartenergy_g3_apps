@@ -16,18 +16,7 @@ dependency:
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}
-  elementPosition:
-    attributes:
-      id: __ROOTVIEW
-    children:
-    - children:
-      - attributes:
-          id: mainBoard_SAME70_XPLAINED_ULTRA
-          x: '19'
-          y: '52'
-        type: ElementPosition
-      type: ElementPositions
-    type: ComponentGraph
+  elementPosition: {}
   symbols:
     SHD_CHECK_COLLISIONS:
       attributes:
@@ -48,55 +37,9 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_PWM MINUS:
+    SHD_MAINBOARD_INTERFACE_3_OPT_0:
       attributes:
-        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_PWM MINUS
-      children:
-      - children:
-        - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: Boolean
-    SHD_MAINBOARD_INTERFACE_0_OPT_0:
-      attributes:
-        id: SHD_MAINBOARD_INTERFACE_0_OPT_0
-      children:
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
-      type: Boolean
-    SHD_MAINBOARD_INTERFACE_1_OPT_0:
-      attributes:
-        id: SHD_MAINBOARD_INTERFACE_1_OPT_0
-      children:
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
-      type: Boolean
-    SHD_MAINBOARD_INTERFACE_6_OPT_0:
-      attributes:
-        id: SHD_MAINBOARD_INTERFACE_6_OPT_0
-      children:
-      - children:
-        - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: Boolean
-    SHD_MAINBOARD_CONNECTOR_mikroBUS-Header_SPI:
-      attributes:
-        id: SHD_MAINBOARD_CONNECTOR_mikroBUS-Header_SPI
+        id: SHD_MAINBOARD_INTERFACE_3_OPT_0
       children:
       - children:
         - attributes:
@@ -120,9 +63,61 @@ data:
           type: Boolean
         type: Attributes
       type: Boolean
+    SHD_MAINBOARD_INTERFACE_8_OPT_3:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_8_OPT_3
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_SPI:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_SPI
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_mikroBUS-Header_SPI:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_mikroBUS-Header_SPI
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
     SHD_MAINBOARD_INTERFACE_4_OPT_6:
       attributes:
         id: SHD_MAINBOARD_INTERFACE_4_OPT_6
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_7_OPT_4:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_7_OPT_4
       children:
       - children:
         - attributes:

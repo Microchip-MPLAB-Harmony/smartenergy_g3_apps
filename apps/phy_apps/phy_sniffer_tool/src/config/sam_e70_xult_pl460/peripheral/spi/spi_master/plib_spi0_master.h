@@ -66,6 +66,7 @@ bool SPI0_TransferSetup( SPI_TRANSFER_SETUP *setup, uint32_t spiSourceClock );
 
 bool SPI0_IsTransmitterBusy( void );
 
+void SPI0_ChipSelectSetup(SPI_CHIP_SELECT chipSelect);
 
 
 /* Provide C++ Compatibility */

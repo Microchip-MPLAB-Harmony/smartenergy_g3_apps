@@ -70,7 +70,7 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-#define PSNIFFER_CARRIERS_SIZE    36
+#define PSNIFFER_CARRIERS_SIZE    72
 #define PSNIFFER_VERSION          0x02
 #define PSNIFFER_PROFILE          0x12
 

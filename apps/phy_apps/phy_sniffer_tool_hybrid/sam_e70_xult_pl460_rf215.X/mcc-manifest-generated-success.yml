@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: g3_phy_sniffer_tool_hybrid
-creation_date: 2025-12-09T12:08:34.480+01:00[Europe/Paris]
+creation_date: 2025-12-17T14:37:01.036+01:00[Europe/Paris]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
@@ -22,5 +22,5 @@ modules:
 - {name: core, type: HARMONY, version: v3.15.5}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
 - {name: usb, type: HARMONY, version: v3.16.0}
+- {name: shd, type: HARMONY, version: v1.3.0}
 - {name: smartenergy, type: HARMONY, version: v1.5.0}
-- {name: bsp, type: HARMONY, version: v3.23.0}

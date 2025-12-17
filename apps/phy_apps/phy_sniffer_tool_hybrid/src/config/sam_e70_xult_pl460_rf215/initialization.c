@@ -114,17 +114,11 @@ static const DRV_RF215_INIT drvRf215InitData = {
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-    /* Enables PIOA and PIOC */
-    PMC_REGS->PMC_PCER0 = PMC_PCER0_PID10_Msk | PMC_PCER0_PID12_Msk;
-    /* Enable LDO Pin */
-    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
-    SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
-    /* Enable Reset Pin */
+    /* Enable PIOB clock */
+    PMC_REGS->PMC_PCER0 = PMC_PCER0_PID11_Msk;
+    /* Enable and Clear Reset Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
-    /* Disable STBY Pin */
-    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA3);
-    SYS_PORT_PinClear(SYS_PORT_PIN_PA3);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -159,9 +153,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
 
-    /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN,
-
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
 
@@ -174,8 +165,8 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
 
-    /* PLC StandBy Pin */
-    .stByPin = DRV_PLC_STBY_PIN,
+    /* PLC External Interrupt Pin */
+    .thMonPin = DRV_PLC_THMON_PIN,
 
     /* Interrupt source ID for RF external interrupt */
     .rfExtIntSource = PIOA_IRQn,
@@ -203,8 +194,8 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
     /* PLC transceiver reset */
     .reset = (DRV_PLC_HAL_RESET)DRV_PLC_HAL_Reset,
 
-    /* PLC Set StandBy Mode */
-    .setStandBy = (DRV_PLC_HAL_SET_STBY)DRV_PLC_HAL_SetStandBy,
+    /* PLC Get Thermal Monitor value */
+    .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,
 
     /* PLC Set TX Enable Pin */
     .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
@@ -421,6 +412,7 @@ void SYS_Initialize ( void* data )
 
 
 
+    BSP_Initialize();
 	RSWDT_REGS->RSWDT_MR = RSWDT_MR_WDDIS_Msk;	// Disable RSWDT 
 
 	WDT_Initialize();
@@ -432,7 +424,6 @@ void SYS_Initialize ( void* data )
     TC0_CH0_TimerInitialize(); 
      
     
-	BSP_Initialize();
 	SPI0_Initialize();
 
 

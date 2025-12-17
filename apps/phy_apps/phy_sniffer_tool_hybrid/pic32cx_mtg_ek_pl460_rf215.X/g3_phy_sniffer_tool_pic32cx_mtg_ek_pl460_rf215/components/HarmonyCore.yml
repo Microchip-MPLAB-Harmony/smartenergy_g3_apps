@@ -159,4 +159,43 @@ data:
           type: User
         type: Values
       type: String
+    PORTS_HEADER:
+      attributes:
+        id: PORTS_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    PORTS_MAPPING:
+      attributes:
+        id: PORTS_MAPPING
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    PORTS_DEF:
+      attributes:
+        id: PORTS_DEF
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
   userData: {}

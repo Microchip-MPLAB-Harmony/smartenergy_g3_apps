@@ -489,6 +489,21 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
 {
     DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmObj;
 
+    if (gPlcPhyObj->plcHal->getThermalMonitor())
+    {
+        /* Check thermal warning (>110ºC). Do not transmit and report High Temperature warning. */
+        if (gPlcPhyObj->txCfmCallback != NULL)
+        {
+            cfmObj.rmsCalc = 0;
+            cfmObj.timeEnd = 0;
+            cfmObj.result = DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_110;
+            /* Report to upper layer */
+            gPlcPhyObj->txCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
+        }
+
+        return;
+    }
+
     if((handle != DRV_HANDLE_INVALID) && (handle == 0U) &&
             ((gPlcPhyObj->state[0] == DRV_PLC_PHY_STATE_IDLE) || ((transmitObj->mode & TX_MODE_CANCEL) != 0U)))
     {

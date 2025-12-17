@@ -45,8 +45,8 @@ data:
     - children:
       - attributes:
           id: drvPlcPhy
-          x: '156'
-          y: '284'
+          x: '173'
+          y: '302'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -58,20 +58,10 @@ data:
       - children:
         - attributes:
             id: drvPlcPhy
-            value: '1'
+            value: '6'
           type: Dynamic
         type: Values
       type: Integer
-    DRV_PLC_COUP_G3_SETTING_PL460:
-      attributes:
-        id: DRV_PLC_COUP_G3_SETTING_PL460
-      children:
-      - children:
-        - attributes:
-            value: CEN-A (CENELEC-A only; main branch)
-          type: User
-        type: Values
-      type: Combo
     DRV_PLC_EXT_INT_PIN:
       attributes:
         id: DRV_PLC_EXT_INT_PIN
@@ -105,17 +95,6 @@ data:
           type: Dynamic
         type: Values
       type: String
-    DRV_PLC_LDO_EN_PIN:
-      attributes:
-        id: DRV_PLC_LDO_EN_PIN
-      children:
-      - children:
-        - attributes:
-            id: drvPlcPhy
-            value: '101'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
     DRV_PLC_PLIB:
       attributes:
         id: DRV_PLC_PLIB
@@ -134,7 +113,7 @@ data:
       - children:
         - attributes:
             id: drvPlcPhy
-            value: '97'
+            value: '28'
           type: Dynamic
         type: Values
       type: KeyValueSet
@@ -168,21 +147,29 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    DRV_PLC_STBY_PIN:
+    DRV_PLC_THERMAL_MONITOR:
       attributes:
-        id: DRV_PLC_STBY_PIN
+        id: DRV_PLC_THERMAL_MONITOR
       children:
       - children:
         - attributes:
             id: drvPlcPhy
-            value: '0'
+            value: 'true'
           type: Dynamic
         type: Values
-      type: KeyValueSet
+      type: Boolean
     DRV_PLC_THMON_PIN:
       attributes:
         id: DRV_PLC_THMON_PIN
       children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: drvPlcPhy
@@ -197,7 +184,7 @@ data:
       - children:
         - attributes:
             id: drvPlcPhy
-            value: '1'
+            value: '31'
           type: Dynamic
         type: Values
       type: KeyValueSet

@@ -82,9 +82,6 @@ void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
 {
     sPlcPlib = plcPlib;
 
-    /* Enable LDO_EN pin */
-    SYS_PORT_PinSet(sPlcPlib->ldoPin);
-
     /* Push NRST pin */
     SYS_PORT_PinClear(sPlcPlib->resetPin);
 
@@ -126,6 +123,18 @@ void DRV_PLC_HAL_Reset(void)
 
     /* 1.2 ms is needed after releasing NRST for the System to be up */
     DRV_PLC_HAL_Delay(1500);
+}
+
+bool DRV_PLC_HAL_GetThermalMonitor(void)
+{
+    if (SYS_PORT_PinRead(sPlcPlib->thMonPin))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
 void DRV_PLC_HAL_SetTxEnable(bool enable)
