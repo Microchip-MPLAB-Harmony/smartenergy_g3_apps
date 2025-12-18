@@ -94,15 +94,9 @@
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-    /* Enable LDO Pin */
-    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
-    SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
-    /* Enable Reset Pin */
+    /* Enable and Clear Reset Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
-    /* Disable STBY Pin */
-    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA08);
-    SYS_PORT_PinClear(SYS_PORT_PIN_PA08);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -127,9 +121,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-
-    /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN,
 
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,

@@ -80,17 +80,11 @@
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-    /* Enables PIOA and PIOC */
-    PMC_REGS->PMC_PCER0 = PMC_PCER0_PID10_Msk | PMC_PCER0_PID12_Msk;
-    /* Enable LDO Pin */
-    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
-    SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
-    /* Enable Reset Pin */
+    /* Enable PIOB clock */
+    PMC_REGS->PMC_PCER0 = PMC_PCER0_PID11_Msk;
+    /* Enable and Clear Reset Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
-    /* Disable STBY Pin */
-    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA3);
-    SYS_PORT_PinClear(SYS_PORT_PIN_PA3);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -118,9 +112,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-
-    /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN,
 
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,

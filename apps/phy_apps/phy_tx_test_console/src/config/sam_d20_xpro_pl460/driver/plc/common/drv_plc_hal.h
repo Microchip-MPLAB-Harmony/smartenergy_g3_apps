@@ -182,9 +182,6 @@ typedef struct
     /* SPI clock frequency */
     uint32_t                               spiClockFrequency;
 
-    /* PLC LDO enable pin */
-    SYS_PORT_PIN                           ldoPin;
-
     /* PLC reset pin */
     SYS_PORT_PIN                           resetPin;
 

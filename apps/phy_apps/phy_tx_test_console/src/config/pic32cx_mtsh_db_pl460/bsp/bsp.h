@@ -64,26 +64,6 @@
 #define PIC32CXMTSH_DB
 #define BOARD_NAME    "PIC32CXMTSH-DB"
 
-/*** OUTPUT PIO Macros for PL460_NRST ***/
-#define BSP_PL460_NRST_PIN        PIO_PIN_PD3
-#define BSP_PL460_NRST_Get()      ((PIOD_REGS->PIO_PDSR >> 3) & 0x1)
-#define BSP_PL460_NRST_On()       (PIOD_REGS->PIO_SODR = (1UL<<3))
-#define BSP_PL460_NRST_Off()      (PIOD_REGS->PIO_CODR = (1UL<<3))
-#define BSP_PL460_NRST_Toggle()   do {\
-                                    PIOD_REGS->PIO_MSKR = (1<<3); \
-                                    PIOD_REGS->PIO_ODSR ^= (1<<3);\
-                                } while (0)
-
-/*** OUTPUT PIO Macros for PL460_ENABLE ***/
-#define BSP_PL460_ENABLE_PIN        PIO_PIN_PD16
-#define BSP_PL460_ENABLE_Get()      ((PIOD_REGS->PIO_PDSR >> 16) & 0x1)
-#define BSP_PL460_ENABLE_On()       (PIOD_REGS->PIO_CODR = (1UL<<16))
-#define BSP_PL460_ENABLE_Off()      (PIOD_REGS->PIO_SODR = (1UL<<16))
-#define BSP_PL460_ENABLE_Toggle()   do {\
-                                    PIOD_REGS->PIO_MSKR = (1<<16); \
-                                    PIOD_REGS->PIO_ODSR ^= (1<<16);\
-                                } while (0)
-
 /*** OUTPUT PIO Macros for RED_LED_PD17 ***/
 #define BSP_RED_LED_PD17_PIN        PIO_PIN_PD17
 #define BSP_RED_LED_PD17_Get()      ((PIOD_REGS->PIO_PDSR >> 17) & 0x1)
@@ -104,24 +84,24 @@
                                     PIOD_REGS->PIO_ODSR ^= (1<<18);\
                                 } while (0)
 
-/*** OUTPUT PIO Macros for PL460_STBY ***/
-#define BSP_PL460_STBY_PIN        PIO_PIN_PA16
-#define BSP_PL460_STBY_Get()      ((PIOA_REGS->PIO_PDSR >> 16) & 0x1)
-#define BSP_PL460_STBY_On()       (PIOA_REGS->PIO_SODR = (1UL<<16))
-#define BSP_PL460_STBY_Off()      (PIOA_REGS->PIO_CODR = (1UL<<16))
-#define BSP_PL460_STBY_Toggle()   do {\
-                                    PIOA_REGS->PIO_MSKR = (1<<16); \
-                                    PIOA_REGS->PIO_ODSR ^= (1<<16);\
+/*** OUTPUT PIO Macros for PL460_NRST ***/
+#define BSP_PL460_NRST_PIN        PIO_PIN_PA18
+#define BSP_PL460_NRST_Get()      ((PIOA_REGS->PIO_PDSR >> 18) & 0x1)
+#define BSP_PL460_NRST_On()       (PIOA_REGS->PIO_SODR = (1UL<<18))
+#define BSP_PL460_NRST_Off()      (PIOA_REGS->PIO_CODR = (1UL<<18))
+#define BSP_PL460_NRST_Toggle()   do {\
+                                    PIOA_REGS->PIO_MSKR = (1<<18); \
+                                    PIOA_REGS->PIO_ODSR ^= (1<<18);\
                                 } while (0)
 
 /*** OUTPUT PIO Macros for PL460_TXEN ***/
-#define BSP_PL460_TXEN_PIN        PIO_PIN_PA17
-#define BSP_PL460_TXEN_Get()      ((PIOA_REGS->PIO_PDSR >> 17) & 0x1)
-#define BSP_PL460_TXEN_On()       (PIOA_REGS->PIO_SODR = (1UL<<17))
-#define BSP_PL460_TXEN_Off()      (PIOA_REGS->PIO_CODR = (1UL<<17))
+#define BSP_PL460_TXEN_PIN        PIO_PIN_PB1
+#define BSP_PL460_TXEN_Get()      ((PIOB_REGS->PIO_PDSR >> 1) & 0x1)
+#define BSP_PL460_TXEN_On()       (PIOB_REGS->PIO_SODR = (1UL<<1))
+#define BSP_PL460_TXEN_Off()      (PIOB_REGS->PIO_CODR = (1UL<<1))
 #define BSP_PL460_TXEN_Toggle()   do {\
-                                    PIOA_REGS->PIO_MSKR = (1<<17); \
-                                    PIOA_REGS->PIO_ODSR ^= (1<<17);\
+                                    PIOB_REGS->PIO_MSKR = (1<<1); \
+                                    PIOB_REGS->PIO_ODSR ^= (1<<1);\
                                 } while (0)
 
 

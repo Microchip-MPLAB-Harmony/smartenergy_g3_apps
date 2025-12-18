@@ -78,6 +78,15 @@
 #define PL460_NTHW0_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 5U)) & 0x01U)
 #define PL460_NTHW0_PIN                  PORT_PIN_PB05
 
+/*** Macros for PL460_NRST pin ***/
+#define PL460_NRST_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 6U))
+#define PL460_NRST_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 6U))
+#define PL460_NRST_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 6U))
+#define PL460_NRST_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 6U))
+#define PL460_NRST_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 6U))
+#define PL460_NRST_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 6U)) & 0x01U)
+#define PL460_NRST_PIN                  PORT_PIN_PB06
+
 /*** Macros for PL460_MISO pin ***/
 #define PL460_MISO_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 4U)) & 0x01U)
 #define PL460_MISO_PIN                  PORT_PIN_PA04
@@ -98,24 +107,6 @@
 /*** Macros for PL460_SCK pin ***/
 #define PL460_SCK_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 7U)) & 0x01U)
 #define PL460_SCK_PIN                  PORT_PIN_PA07
-
-/*** Macros for PL460_STBY pin ***/
-#define PL460_STBY_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 8U))
-#define PL460_STBY_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 8U))
-#define PL460_STBY_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 8U))
-#define PL460_STBY_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 8U))
-#define PL460_STBY_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 8U))
-#define PL460_STBY_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 8U)) & 0x01U)
-#define PL460_STBY_PIN                  PORT_PIN_PA08
-
-/*** Macros for PL460_TXEN pin ***/
-#define PL460_TXEN_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 9U))
-#define PL460_TXEN_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 9U))
-#define PL460_TXEN_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 9U))
-#define PL460_TXEN_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 9U))
-#define PL460_TXEN_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 9U))
-#define PL460_TXEN_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 9U)) & 0x01U)
-#define PL460_TXEN_PIN                  PORT_PIN_PA09
 
 /*** Macros for LED0 pin ***/
 #define LED0_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 14U))
@@ -138,23 +129,14 @@
 #define PL460_SUPPLY_MON_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 0U)) & 0x01U)
 #define PL460_SUPPLY_MON_PIN                  PORT_PIN_PB00
 
-/*** Macros for PL460_NRST pin ***/
-#define PL460_NRST_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 2U))
-#define PL460_NRST_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 2U))
-#define PL460_NRST_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 2U))
-#define PL460_NRST_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 2U))
-#define PL460_NRST_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 2U))
-#define PL460_NRST_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 2U)) & 0x01U)
-#define PL460_NRST_PIN                  PORT_PIN_PB02
-
-/*** Macros for PL460_ENABLE pin ***/
-#define PL460_ENABLE_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 3U))
-#define PL460_ENABLE_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 3U))
-#define PL460_ENABLE_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 3U))
-#define PL460_ENABLE_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 3U))
-#define PL460_ENABLE_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 3U))
-#define PL460_ENABLE_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 3U)) & 0x01U)
-#define PL460_ENABLE_PIN                  PORT_PIN_PB03
+/*** Macros for PL460_TXEN pin ***/
+#define PL460_TXEN_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 1U))
+#define PL460_TXEN_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 1U))
+#define PL460_TXEN_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 1U))
+#define PL460_TXEN_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 1U))
+#define PL460_TXEN_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 1U))
+#define PL460_TXEN_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 1U)) & 0x01U)
+#define PL460_TXEN_PIN                  PORT_PIN_PB01
 
 // *****************************************************************************
 /* PORT Group

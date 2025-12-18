@@ -86,8 +86,8 @@ data:
     - children:
       - attributes:
           id: drv_sst26
-          x: '430'
-          y: '342'
+          x: '476'
+          y: '386'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
