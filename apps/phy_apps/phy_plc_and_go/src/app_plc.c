@@ -98,7 +98,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
     DRV_PLC_PHY_PIB_OBJ pibObj;
     uint8_t plcCrcEnable;
     bool applyStaticNotching = false;
-    
+
     /* Set PLC PHY Band */
     appPlc.plcPIB.id = PLC_ID_BAND;
     appPlc.plcPIB.length = 1;
@@ -229,6 +229,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
 }
 #endif
 
+#ifndef APP_PLC_DISABLE_SLEEP_MODE
 static void APP_PLC_SleepModeDisableCb( uintptr_t context )
 {
     /* Avoid warning */
@@ -240,6 +241,7 @@ static void APP_PLC_SleepModeDisableCb( uintptr_t context )
     /* Set PLC state */
     appPlc.state = APP_PLC_STATE_WAITING;
 }
+#endif
 
 static void APP_PLC_ExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj, uintptr_t context )
 {
@@ -379,7 +381,7 @@ void APP_PLC_Initialize ( void )
 
     /* Initialize PLC PHY band */
     appPlc.plcBand = SRV_PCOUP_Get_Default_Phy_Band();
-    
+
     /* Set Static Notching capability (example only valid for CEN-A band */
     /* Caution: Example provided only for CEN-A band */
     appPlc.staticNotchingEnable = APP_PLC_STATIC_NOTCHING_ENABLE;
@@ -454,7 +456,9 @@ void APP_PLC_Tasks ( void )
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPlcHandle, APP_PLC_ExceptionCb, 0);
                 DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataCfmCb, 0);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataIndCb, 0);
+#ifndef APP_PLC_DISABLE_SLEEP_MODE
                 DRV_PLC_PHY_SleepDisableCallbackRegister(appPlc.drvPlcHandle, APP_PLC_SleepModeDisableCb, 0);
+#endif
 
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
@@ -591,6 +595,7 @@ void APP_PLC_SetBand ( uint8_t plcBand )
 
 bool APP_PLC_SetSleepMode ( bool enable )
 {
+#ifndef APP_PLC_DISABLE_SLEEP_MODE
     bool sleepIsEnabled = (appPlc.state == APP_PLC_STATE_SLEEP);
 
     if (sleepIsEnabled != enable)
@@ -603,6 +608,7 @@ bool APP_PLC_SetSleepMode ( bool enable )
 
         return true;
     }
+#endif
 
     return false;
 }

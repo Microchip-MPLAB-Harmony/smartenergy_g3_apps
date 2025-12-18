@@ -72,6 +72,8 @@ extern "C" {
 #define APP_PLC_BUFFER_SIZE                       512
 #define APP_PLC_PIB_BUFFER_SIZE                   256
 
+#define APP_PLC_DISABLE_SLEEP_MODE
+
 /* Each carrier corresponding to the band can be notched (no energy is sent in those carriers) */
 /* Each carrier is represented by one byte (0: carrier used; 1: carrier notched). By default it is all 0's in PLC device */
 /* The length is the number of carriers corresponding to the band in use. */
