@@ -220,13 +220,13 @@ void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TC
              * (respectively) of the response frame, setting the message type to
              * 0x02 (UDP reply) and copying the message data from the request */
             uint16_t responseSize, availableTxSize, chunkSize;
-            IPV6_ADDR multicastAddr;
+            IP_MULTI_ADDRESS multicastAddr;
 
             /* Set multi-cast address as destination */
             TCPIP_Helper_StringToIPv6Address(
-                    APP_TCPIP_MANAGEMENT_IPV6_MULTICAST_0_CONFORMANCE, &multicastAddr);
+                    APP_TCPIP_MANAGEMENT_IPV6_MULTICAST_0_CONFORMANCE, &(multicastAddr.v6Add));
             TCPIP_UDP_DestinationIPAddressSet(hUDP, IP_ADDRESS_TYPE_IPV6,
-                    (IP_MULTI_ADDRESS*) &multicastAddr);
+                    &multicastAddr);
 
             /* Put the first byte (2: UDP reply) */
             TCPIP_UDP_Put(hUDP, 2);

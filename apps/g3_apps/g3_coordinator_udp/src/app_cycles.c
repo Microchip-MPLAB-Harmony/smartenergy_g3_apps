@@ -162,6 +162,7 @@ static void _APP_CYCLES_SendPacket(void)
 static void _APP_CYCLES_StartDeviceCycle(void)
 {
     IPV6_ADDR targetAddress;
+    IP_MULTI_ADDRESS targetAddressMulti;
     APP_CYCLES_STATISTICS_ENTRY* pFreeStatsEntry = NULL;
     APP_CYCLES_STATISTICS_ENTRY* pStatsEntry = NULL;
     uint16_t shortAddress, panId;
@@ -177,6 +178,7 @@ static void _APP_CYCLES_StartDeviceCycle(void)
     targetAddress.v[14] = (uint8_t) (shortAddress >> 8);
     targetAddress.v[15] = (uint8_t) shortAddress;
     TCPIP_Helper_IPv6AddressToString(&targetAddress, targetAddressString, sizeof(targetAddressString) - 1);
+    targetAddressMulti.v6Add = targetAddress;
 
     /* Close socket if already opened */
     if (app_cyclesData.socket != INVALID_SOCKET)
@@ -186,7 +188,7 @@ static void _APP_CYCLES_StartDeviceCycle(void)
 
     /* Open UDP client socket */
     app_cyclesData.socket = TCPIP_UDP_ClientOpen(IP_ADDRESS_TYPE_IPV6,
-            APP_CYCLES_SOCKET_PORT, (IP_MULTI_ADDRESS*) &targetAddress);
+            APP_CYCLES_SOCKET_PORT, &targetAddressMulti);
 
     SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_CYCLES: Starting cycle for %s (Short Address: 0x%04X,"
             " EUI64: 0x%02X%02X%02X%02X%02X%02X%02X%02X)\r\n", targetAddressString, shortAddress,
@@ -277,7 +279,7 @@ static void _APP_CYCLES_NextPacket(void)
                    SYS_TIME_SINGLE);
 
             app_cyclesData.state = APP_CYCLES_STATE_WAIT_NEXT_DEVICE_CYCLE;
-        }        
+        }
 
         return;
     }
