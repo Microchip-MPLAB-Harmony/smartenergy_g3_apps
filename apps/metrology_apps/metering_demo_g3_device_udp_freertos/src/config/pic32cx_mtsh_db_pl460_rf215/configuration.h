@@ -96,46 +96,17 @@ extern "C" {
 
 #define SYS_CMD_ENABLE
 #define SYS_CMD_DEVICE_MAX_INSTANCES       SYS_CONSOLE_DEVICE_MAX_INSTANCES
-#define SYS_CMD_PRINT_BUFFER_SIZE          512U
+#define SYS_CMD_PRINT_BUFFER_SIZE          1024U
 #define SYS_CMD_BUFFER_DMA_READY
 
 /* Command System Service RTOS Configurations*/
 #define SYS_CMD_RTOS_STACK_SIZE                512
 #define SYS_CMD_RTOS_TASK_PRIORITY             1
 
-
-/* File System Service Configuration */
-
-#define SYS_FS_MEDIA_NUMBER               (1U)
-#define SYS_FS_VOLUME_NUMBER              (1U)
-
-#define SYS_FS_AUTOMOUNT_ENABLE           false
-#define SYS_FS_MAX_FILES                  (5U)
-#define SYS_FS_MAX_FILE_SYSTEM_TYPE       (1U)
-#define SYS_FS_MEDIA_MAX_BLOCK_SIZE       (512U)
-#define SYS_FS_MEDIA_MANAGER_BUFFER_SIZE  (2048U)
-#define SYS_FS_USE_LFN                    (1)
-#define SYS_FS_FILE_NAME_LEN              (255U)
-#define SYS_FS_CWD_STRING_LEN             (1024)
-
-/* File System RTOS Configurations*/
-#define SYS_FS_STACK_SIZE                 256
-#define SYS_FS_PRIORITY                   1
-
-#define SYS_FS_FAT_VERSION                "v0.15"
-#define SYS_FS_FAT_READONLY               false
-#define SYS_FS_FAT_CODE_PAGE              437
-#define SYS_FS_FAT_MAX_SS                 SYS_FS_MEDIA_MAX_BLOCK_SIZE
-
-
-
-
-
-
 #define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
 #define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(1U)
 #define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(0U)
-#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(512U)
+#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(1024U)
 
 
 
@@ -197,45 +168,94 @@ extern "C" {
 #define DRV_MEMORY_PRIORITY_IDX0                 1
 #define DRV_MEMORY_RTOS_DELAY_IDX0               10U
 
-
 /* Metrology Configuration Options */
 #define DRV_METROLOGY_REG_BASE_ADDRESS        0x20088000UL
-/* Metrology Default Config: Meter Constant */
-#define DRV_METROLOGY_CONF_PKT                0x500000UL
-/* Metrology Default Config: Meter Type */
-#define DRV_METROLOGY_CONF_MT                 0xcccUL
-/* Metrology Default Config: Current conversion factor */
-#define DRV_METROLOGY_CONF_KI                 0x9a523UL
-/* Metrology Default Config: Voltage conversion factor */
-#define DRV_METROLOGY_CONF_KV                 0x19cc00UL
-/* Metrology Default Config: ATSENSE CTRL 20 23 */
-#define DRV_METROLOGY_CONF_ATS2023            0x1010103UL
-/* Metrology Default Config: ATSENSE CTRL 24 27 */
-#define DRV_METROLOGY_CONF_ATS2427            0x7000001UL
-/* Metrology Default Config: SWELL */
-#define DRV_METROLOGY_CONF_SWELL              0x5eab918UL
-/* Metrology Default Config: SAG */
-#define DRV_METROLOGY_CONF_SAG                0x1a2ec26UL
-/* Metrology Default Config: CREEP P */
-#define DRV_METROLOGY_CONF_CREEP_P            0x2e9aUL
-/* Metrology Default Config: CREEP Q */
-#define DRV_METROLOGY_CONF_CREEP_Q            0x2e9aUL
-/* Metrology Default Config: CREEP I */
-#define DRV_METROLOGY_CONF_CREEP_I            0x212dUL
 /* Metrology Default Config: FEATURE_CTRL */
 #define DRV_METROLOGY_CONF_FCTRL              0x300UL
+/* Metrology Default Config: AFE SELECTION */
+#define DRV_METROLOGY_CONF_AFE_SEL            0x0UL
+/* Metrology Default Config: CHANNEL_MATRIX */
+#define DRV_METROLOGY_CONF_CHN_MATRIX         0xfff3210fUL
 /* Metrology Default Config: HARMONIC_CTRL */
 #define DRV_METROLOGY_CONF_HARMONIC_CTRL      0x0UL
+/* Metrology Default Config: Meter Type */
+#define DRV_METROLOGY_CONF_MT                 0xccUL
 /* Metrology Default Config: PULSE0_CTRL */
 #define DRV_METROLOGY_CONF_PULSE0_CTRL        0x810001d0UL
+/* Metrology Default Config: PULSE0_K_t */
+#define DRV_METROLOGY_CONF_PULSE0_KT          0x500000UL
 /* Metrology Default Config: PULSE1_CTRL */
 #define DRV_METROLOGY_CONF_PULSE1_CTRL        0x810201d0UL
+/* Metrology Default Config: PULSE1_K_t */
+#define DRV_METROLOGY_CONF_PULSE1_KT          0x500000UL
 /* Metrology Default Config: PULSE2_CTRL */
-#define DRV_METROLOGY_CONF_PULSE2_CTRL        0x0UL
-/* Metrology Default Config: Waveform Capture */
-#define DRV_METROLOGY_CONF_WAVEFORM           0xf00UL
-/* Metrology Default Config: Capture Buffer Size */
-#define DRV_METROLOGY_CAPTURE_BUF_SIZE        32000UL
+#define DRV_METROLOGY_CONF_PULSE2_CTRL        0x1d0UL
+/* Metrology Default Config: PULSE2_K_t */
+#define DRV_METROLOGY_CONF_PULSE2_KT          0x500000UL
+/* Metrology Default Config: PULSE2_K_t */
+#define DRV_METROLOGY_CONF_SYNTH_ADDR         0x0UL
+/* Metrology Default Config: CREEP P */
+#define DRV_METROLOGY_CONF_CREEP_P            0x2e9aUL
+/* Metrology Default Config: CREEP PA */
+#define DRV_METROLOGY_CONF_CREEP_PA           0x2e9aUL
+/* Metrology Default Config: CREEP PB */
+#define DRV_METROLOGY_CONF_CREEP_PB           0x2e9aUL
+/* Metrology Default Config: CREEP PC */
+#define DRV_METROLOGY_CONF_CREEP_PC           0x0UL
+/* Metrology Default Config: CREEP Q */
+#define DRV_METROLOGY_CONF_CREEP_Q            0x2e9aUL
+/* Metrology Default Config: CREEP QA */
+#define DRV_METROLOGY_CONF_CREEP_QA           0x2e9aUL
+/* Metrology Default Config: CREEP QB */
+#define DRV_METROLOGY_CONF_CREEP_QB           0x2e9aUL
+/* Metrology Default Config: CREEP QC */
+#define DRV_METROLOGY_CONF_CREEP_QC           0x0UL
+/* Metrology Default Config: CREEP I */
+#define DRV_METROLOGY_CONF_CREEP_I            0x212dUL
+/* Metrology Default Config: CREEP IA */
+#define DRV_METROLOGY_CONF_CREEP_IA           0x212dUL
+/* Metrology Default Config: CREEP IB */
+#define DRV_METROLOGY_CONF_CREEP_IB           0x212dUL
+/* Metrology Default Config: CREEP IC */
+#define DRV_METROLOGY_CONF_CREEP_IC           0x0UL
+/* Metrology Default Config: CREEP S */
+#define DRV_METROLOGY_CONF_CREEP_S            0x2e9aUL
+/* Metrology Default Config: SWELLA */
+#define DRV_METROLOGY_CONF_SWELLA             0x5e84f62UL
+/* Metrology Default Config: SWELLB */
+#define DRV_METROLOGY_CONF_SWELLB             0x5e84f62UL
+/* Metrology Default Config: SWELLC */
+#define DRV_METROLOGY_CONF_SWELLC             0x0UL
+/* Metrology Default Config: SAGA */
+#define DRV_METROLOGY_CONF_SAGA               0x1a2ec26UL
+/* Metrology Default Config: SAGB */
+#define DRV_METROLOGY_CONF_SAGB               0x1a2ec26UL
+/* Metrology Default Config: SAGC */
+#define DRV_METROLOGY_CONF_SAGC               0x0UL
+/* Metrology Default Config: INTA */
+#define DRV_METROLOGY_CONF_INTA               0x68bb0aUL
+/* Metrology Default Config: INTB */
+#define DRV_METROLOGY_CONF_INTB               0x68bb0aUL
+/* Metrology Default Config: INTC */
+#define DRV_METROLOGY_CONF_INTC               0x0UL
+/* Metrology Default Config: Current conversion factor */
+#define DRV_METROLOGY_CONF_KIA                0x9a523UL
+/* Metrology Default Config: Voltage conversion factor */
+#define DRV_METROLOGY_CONF_KVA                0x19cc00UL
+/* Metrology Default Config: Current conversion factor */
+#define DRV_METROLOGY_CONF_KIB                0x9a523UL
+/* Metrology Default Config: Voltage conversion factor */
+#define DRV_METROLOGY_CONF_KVB                0x19cc00UL
+/* Metrology Default Config: Current conversion factor */
+#define DRV_METROLOGY_CONF_KIC                0x0UL
+/* Metrology Default Config: Voltage conversion factor */
+#define DRV_METROLOGY_CONF_KVC                0x0UL
+/* Metrology Default Config: Current conversion factor */
+#define DRV_METROLOGY_CONF_KIN                0x0UL
+/* Metrology Default Config: Voltage conversion factor */
+#define DRV_METROLOGY_CONF_KVD                0x0UL
+/* Metrology Default Config: AFE_CTRL */
+#define DRV_METROLOGY_CONF_AFE_CTRL           0x0UL
 
 /* Metrology Driver RTOS Configurations */
 #define DRV_METROLOGY_RTOS_STACK_SIZE         256U

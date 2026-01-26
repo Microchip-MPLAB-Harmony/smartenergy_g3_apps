@@ -49,7 +49,6 @@
 
 #include "driver/memory/src/drv_memory_local.h"
 #include "system/debug/sys_debug.h"
-#include "driver/memory/src/drv_memory_file_system.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -805,10 +804,6 @@ SYS_MODULE_OBJ DRV_MEMORY_Initialize
         return SYS_MODULE_OBJ_INVALID;
     }
 
-    if (memoryInit->isFsEnabled == true)
-    {
-        DRV_MEMORY_RegisterWithSysFs(drvIndex, memoryInit->deviceMediaType);
-    }
 
     /* Set the driver state as busy as the attached memory device needs to be opened and
      * queried for the geometry data. */

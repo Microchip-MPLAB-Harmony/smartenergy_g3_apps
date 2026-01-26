@@ -119,6 +119,12 @@ extern "C" {
 
 #define DEMO_APP_VERSION ((DEMO_APP_MAJOR_VERSION)*10000 + (DEMO_APP_MINOR_VERSION)*100 + (DEMO_APP_PATCH_VERSION))
 
+/* Scroll buttons macro definition */
+#define SCR_UP_BUTTON_PIN    BSP_SCRL_UP_BTN_PIN
+#define SCR_DOWN_BUTTON_PIN  BSP_SCRL_DOWN_BTN_PIN
+#define SCR_UP_BUTTON_Get    BSP_SCRL_UP_BTN_Get
+#define SCR_DOWN_BUTTON_Get  BSP_SCRL_DOWN_BTN_Get
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

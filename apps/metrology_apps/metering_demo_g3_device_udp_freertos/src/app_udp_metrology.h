@@ -125,83 +125,83 @@ typedef struct
 typedef struct
 {
     /* RMS voltage for phase A */
-    uint32_t rmsUA;
+    float rmsUA;
 
     /* RMS voltage for phase B */
-    uint32_t rmsUB;
+    float rmsUB;
 
     /* RMS voltage for phase C */
-    uint32_t rmsUC;
+    float rmsUC;
 
     /* RMS current for phase A */
-    uint32_t rmsIA;
+    float rmsIA;
 
     /* RMS current for phase B */
-    uint32_t rmsIB;
+    float rmsIB;
 
     /* RMS current for phase C */
-    uint32_t rmsIC;
+    float rmsIC;
 
     /* RMS current for neutral */
-    uint32_t rmsINI;
+    float rmsINI;
 
     /* RMS current for neutral */
-    uint32_t rmsINM;
+    float rmsINM;
 
     /* RMS current for neutral */
-    uint32_t rmsINMI;
+    float rmsINMI;
 
     /* RMS active power total */
-    int32_t rmsPT;
+    float rmsPT;
 
     /* RMS active power for phase A */
-    int32_t rmsPA;
+    float rmsPA;
 
     /* RMS active power for phase B */
-    int32_t rmsPB;
+    float rmsPB;
 
     /* RMS active power for phase C */
-    int32_t rmsPC;
+    float rmsPC;
 
     /* RMS reactive power total */
-    int32_t rmsQT;
+    float rmsQT;
 
     /* RMS reactive power for phase A */
-    int32_t rmsQA;
+    float rmsQA;
 
     /* RMS reactive power for phase B */
-    int32_t rmsQB;
+    float rmsQB;
 
     /* RMS reactive power for phase C */
-    int32_t rmsQC;
+    float rmsQC;
 
     /* RMS aparent power total */
-    uint32_t rmsST;
+    float rmsST;
 
     /* RMS aparent power for phase A */
-    uint32_t rmsSA;
+    float rmsSA;
 
     /* RMS aparent power for phase B */
-    uint32_t rmsSB;
+    float rmsSB;
 
     /* RMS aparent power for phase C */
-    uint32_t rmsSC;
+    float rmsSC;
 
     /* Frequency of the line voltage fundamental harmonic component determined
      * by the Metrology library using the dominant phase */
-    uint32_t freq;
+    float freq;
 
     /* Angle between the voltage and current vectors for phase A */
-    int32_t angleA;
+    float angleA;
 
     /* Angle between the voltage and current vectors for phase B */
-    int32_t angleB;
+    float angleB;
 
     /* Angle between the voltage and current vectors for phase C */
-    int32_t angleC;
+    float angleC;
 
     /* Angle between the voltage and current vectors for neutral */
-    int32_t angleN;
+    float angleN;
 
 } APP_UDP_METROLOGY_RESPONSE_DATA;
 

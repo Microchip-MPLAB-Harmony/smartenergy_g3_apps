@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -154,7 +154,7 @@ static void _APP_DISPLAY_UpdateComSignal (APP_DISPLAY_COM_SIGNAL signal)
             cl010_show_icon(CL010_ICON_COMM_SIGNAL_MED);
         }
 
-        if (signal == APP_DISPLAY_COM_SIGNAL_HIGH)
+        if (signal == APP_DISPLAY_COM_SIGNAL_HIG)
         {
             cl010_show_icon(CL010_ICON_COMM_SIGNAL_HIG);
         }
@@ -222,27 +222,47 @@ static void APP_DISPLAY_ChangeInfo(void)
     Show Energy data and units depending on its value
  */
 
-static void APP_DISPLAY_ShowEnergyDataUnits(uint64_t value)
+static void APP_DISPLAY_ShowEnergyDataUnits(int64_t value)
 {
     uint8_t buff1[9];
+    int64_t valueInt;
 
     /* Check magnitude to select units to show */
-    if (value > 999999999) {
+    if (value >= 99999.5f)
+    {
         /* Format: xxxxxx.xx kWh */
         cl010_show_units(CL010_UNIT_kWh);
-        value = value/100000;
-        sprintf((char *)buff1, "%6u%02u", (unsigned int)(value/100),
-                 (unsigned int)(value%100));
+        valueInt = (int64_t)(value / 10);
+        sprintf((char *)buff1, "%6u%02u", (unsigned int)(valueInt/100),
+                 (unsigned int)(valueInt%100));
         cl010_show_icon(CL010_ICON_DOT_2);
     }
-    else
+    else if (value >= 0.0f)
     {
         /* Format: xxxxx.xxx Wh */
         cl010_show_units(CL010_UNIT_Wh);
-        value = value/10;
-        sprintf((char *)buff1, "%5u%03u", (unsigned int)(value/1000),
-                 (unsigned int)(value%1000));
+        valueInt = (int64_t)(value * 1000);
+        sprintf((char *)buff1, "%5u%03u", (unsigned int)(valueInt/1000),
+                 (unsigned int)(valueInt%1000));
         cl010_show_icon(CL010_ICON_DOT_1);
+    }
+    else if (value <= -99999.5f)
+    {
+        /* Format: -xxxxxx.x kWh */
+        cl010_show_units(CL010_UNIT_kWh);
+        valueInt = (int64_t)(-value / 100);
+        sprintf((char *)buff1, "-%6u%01u", (unsigned int)(valueInt/10),
+                 (unsigned int)(valueInt%10));
+        cl010_show_icon(CL010_ICON_DOT_3);
+    }
+    else
+    {
+        /* Format: -xxxxx.xx Wh */
+        cl010_show_units(CL010_UNIT_Wh);
+        valueInt = (int64_t)(-value * 100);
+        sprintf((char *)buff1, "-%5u%02u", (unsigned int)(valueInt/100),
+                 (unsigned int)(valueInt%100));
+        cl010_show_icon(CL010_ICON_DOT_2);
     }
 
     cl010_show_numeric_string(CL010_LINE_UP, buff1);
@@ -255,9 +275,9 @@ static void APP_DISPLAY_ShowEnergyDataUnits(uint64_t value)
 
 static void APP_DISPLAY_Process(void)
 {
-    uint64_t total;
+    float total;
     uint64_t upd_symbols = 1;
-    uint32_t rmsValue;
+    float value;
     uint8_t buff1[12];
     uint8_t idx;
     struct tm current_time;
@@ -340,10 +360,8 @@ static void APP_DISPLAY_Process(void)
 
         case APP_DISPLAY_VA_RMS:
         {
-            APP_METROLOGY_GetRMS(RMS_UA, &rmsValue, NULL);
-            sprintf((char *)buff1, "%5u%03u",
-                    (unsigned int)(rmsValue/10000),
-                    (unsigned int)((rmsValue%10000)/10));
+            APP_METROLOGY_GetMeasure(MEASURE_UA_RMS, &value, false);
+            sprintf((char *)buff1, "%08u", (unsigned int)(value * 1000.0));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_units(CL010_UNIT_V);
             cl010_show_icon(CL010_ICON_DOT_1);
@@ -354,10 +372,8 @@ static void APP_DISPLAY_Process(void)
 
         case APP_DISPLAY_VB_RMS:
         {
-            APP_METROLOGY_GetRMS(RMS_UB, &rmsValue, NULL);
-            sprintf((char *)buff1, "%5u%03u",
-                    (unsigned int)(rmsValue/10000),
-                    (unsigned int)((rmsValue%10000)/10));
+            APP_METROLOGY_GetMeasure(MEASURE_UB_RMS, &value, false);
+            sprintf((char *)buff1, "%08u", (unsigned int)(value * 1000.0));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_units(CL010_UNIT_V);
             cl010_show_icon(CL010_ICON_DOT_1);
@@ -368,10 +384,8 @@ static void APP_DISPLAY_Process(void)
 
         case APP_DISPLAY_VC_RMS:
         {
-            APP_METROLOGY_GetRMS(RMS_UC, &rmsValue, NULL);
-            sprintf((char *)buff1, "%5u%03u",
-                    (unsigned int)(rmsValue/10000),
-                    (unsigned int)((rmsValue%10000)/10));
+            APP_METROLOGY_GetMeasure(MEASURE_UC_RMS, &value, false);
+            sprintf((char *)buff1, "%08u", (unsigned int)(value * 1000.0));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_units(CL010_UNIT_V);
             cl010_show_icon(CL010_ICON_DOT_1);
@@ -382,10 +396,8 @@ static void APP_DISPLAY_Process(void)
 
         case APP_DISPLAY_IA_RMS:
         {
-            APP_METROLOGY_GetRMS(RMS_IA, &rmsValue, NULL);
-            sprintf((char *)buff1, "%5u%03u",
-                    (unsigned int)(rmsValue/10000),
-                    (unsigned int)((rmsValue%10000)/10));
+            APP_METROLOGY_GetMeasure(MEASURE_IA_RMS, &value, false);
+            sprintf((char *)buff1, "%08u", (unsigned int)(value * 1000.0));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_units(CL010_UNIT_A);
             cl010_show_icon(CL010_ICON_DOT_1);
@@ -396,10 +408,8 @@ static void APP_DISPLAY_Process(void)
 
         case APP_DISPLAY_IB_RMS:
         {
-            APP_METROLOGY_GetRMS(RMS_IB, &rmsValue, NULL);
-            sprintf((char *)buff1, "%5u%03u",
-                    (unsigned int)(rmsValue/10000),
-                    (unsigned int)((rmsValue%10000)/10));
+            APP_METROLOGY_GetMeasure(MEASURE_IB_RMS, &value, false);
+            sprintf((char *)buff1, "%08u", (unsigned int)(value * 1000.0));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_units(CL010_UNIT_A);
             cl010_show_icon(CL010_ICON_DOT_1);
@@ -410,10 +420,8 @@ static void APP_DISPLAY_Process(void)
 
         case APP_DISPLAY_IC_RMS:
         {
-            APP_METROLOGY_GetRMS(RMS_IC, &rmsValue, NULL);
-            sprintf((char *)buff1, "%5u%03u",
-                    (unsigned int)(rmsValue/10000),
-                    (unsigned int)((rmsValue%10000)/10));
+            APP_METROLOGY_GetMeasure(MEASURE_IC_RMS, &value, false);
+            sprintf((char *)buff1, "%08u", (unsigned int)(value * 1000.0));
             cl010_show_numeric_string(CL010_LINE_UP, buff1);
             cl010_show_units(CL010_UNIT_A);
             cl010_show_icon(CL010_ICON_DOT_1);
@@ -551,7 +559,7 @@ static void APP_DISPLAY_Process(void)
 
     if (upd_symbols)
     {
-        APP_EVENTS_FLAGS eventFlags;
+        DRV_METROLOGY_AFE_EVENTS eventFlags;
         APP_EVENTS_GetLastEventFlags(&eventFlags);
 
         if (APP_METROLOGY_CheckPhaseEnabled(APP_METROLOGY_PHASE_A) && (eventFlags.sagA))
@@ -604,7 +612,6 @@ static void APP_DISPLAY_Process(void)
     {
         _APP_DISPLAY_UpdateComSignal(app_displayData.comm_signal);
     }
-
 }
 
 // *****************************************************************************
@@ -657,10 +664,10 @@ void APP_DISPLAY_Initialize ( void )
     APP_DISPLAY_SetTimerLoop(3);
 
     /* Configure Switches */
-    PIO_PinInterruptCallbackRegister(SCRL_UP_BTN_PIN,
+    PIO_PinInterruptCallbackRegister(SCR_UP_BUTTON_PIN,
             APP_DISPLAY_ScrollUp_Callback, (uintptr_t)NULL);
 
-    PIO_PinInterruptCallbackRegister(SCRL_DOWN_BTN_PIN,
+    PIO_PinInterruptCallbackRegister(SCR_DOWN_BUTTON_PIN,
             APP_DISPLAY_ScrollDown_Callback, (uintptr_t)NULL);
 
     /* Create the Display Semaphore */
@@ -743,8 +750,8 @@ void APP_DISPLAY_Tasks ( void )
                 APP_DISPLAY_AddLoopInfo(APP_DISPLAY_TOU4_MAX_DEMAND);
 
                 /* Enable Switches interrupts */
-                PIO_PinInterruptEnable(SCRL_UP_BTN_PIN);
-                PIO_PinInterruptEnable(SCRL_DOWN_BTN_PIN);
+                PIO_PinInterruptEnable(SCR_UP_BUTTON_PIN);
+                PIO_PinInterruptEnable(SCR_DOWN_BUTTON_PIN);
 
                 app_displayData.state = APP_DISPLAY_STATE_SERVICE_TASKS;
             }
@@ -761,7 +768,7 @@ void APP_DISPLAY_Tasks ( void )
                 /* If any button has been pressed, change the information */
                 if (app_displayData.scrdown_pressed)
                 {
-                    if (SCRL_UP_BTN_Get() == 0)
+                    if (SCR_UP_BUTTON_Get() == 0)
                     {
                         SYS_CMD_MESSAGE("Entering Low Power... Press FWUP/TAMPER switch to wake up.\r\n");
 
@@ -783,7 +790,7 @@ void APP_DISPLAY_Tasks ( void )
 
                 if (app_displayData.scrup_pressed)
                 {
-                    if (SCRL_DOWN_BTN_Get() == 0)
+                    if (SCR_DOWN_BUTTON_Get() == 0)
                     {
                         SYS_CMD_MESSAGE("Emulating application holds ... Resetting by DWDT0.\r\n");
 

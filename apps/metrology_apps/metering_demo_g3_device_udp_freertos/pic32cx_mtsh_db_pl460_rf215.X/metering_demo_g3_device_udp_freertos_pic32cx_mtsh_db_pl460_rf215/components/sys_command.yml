@@ -11,7 +11,7 @@ dependency:
 - dependencyPackage: ''
   name: core
   type: package
-  version: v3.15.5
+  version: v3.16.0
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments:
@@ -56,7 +56,7 @@ data:
       children:
       - children:
         - attributes:
-            value: '12'
+            value: '15'
           type: User
         type: Values
       type: Integer
@@ -76,7 +76,7 @@ data:
       children:
       - children:
         - attributes:
-            value: '512'
+            value: '1024'
           type: User
         type: Values
       type: Integer

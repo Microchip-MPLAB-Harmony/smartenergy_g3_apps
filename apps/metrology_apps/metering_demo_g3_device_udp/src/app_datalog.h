@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -84,42 +84,38 @@ extern "C" {
 
 typedef enum
 {
-#if SYS_FS_AUTOMOUNT_ENABLE
-    /* Wait for disk Mount */
-    APP_DATALOG_STATE_MOUNT_WAIT = 0,
-#else
     /* Mount the disk */
-    APP_DATALOG_STATE_MOUNT_DISK = 0,
-#endif
+    APP_DATALOG_STATE_INIT = 0,
 
-    /* The app formats the disk. */
-    APP_DATALOG_STATE_FORMAT_DISK,
+    /* Send Read Request to check data content */
+    APP_DATALOG_STATE_CHECK_CONTENT,
 
-    /* The app checks directories for storage. */
-    APP_DATALOG_STATE_CHECK_DIRECTORIES,
-
-    /* The app reads data from file */
-    APP_DATALOG_STATE_READ_FROM_FILE,
-
-    /* The app writes data to a file from the beginning */
-    APP_DATALOG_STATE_WRITE_TO_FILE,
-
-    /* The app closes the file. */
-    APP_DATALOG_STATE_CLOSE_FILE,
-
-    /* The app reports the result from file operation. */
-    APP_DATALOG_STATE_REPORT_RESULT,
+    /* Wait Read result to check data content */
+    APP_DATALOG_STATE_WAIT_CHECK_CONTENT,
 
     /* The app is ready to accept requests */
     APP_DATALOG_STATE_READY,
 
-    /* An app error has occurred */
-    APP_DATALOG_STATE_ERROR,
+    /* The app reads data from nvm */
+    APP_DATALOG_STATE_READ,
 
-#if SYS_FS_AUTOMOUNT_ENABLE
-    /* Wait for delay */
-    APP_DATALOG_STATE_DELAY,
-#endif
+    /* The app waits to read-transfer done  */
+    APP_DATALOG_STATE_WAIT_READ,
+
+    /* The app writes data to nvm */
+    APP_DATALOG_STATE_WRITE,
+
+    /* The app waits to write-transfer done  */
+    APP_DATALOG_STATE_WAIT_WRITE,
+
+    /* The app erases data from nvm */
+    APP_DATALOG_STATE_ERASE,
+
+    /* The app reports the result from file operation. */
+    APP_DATALOG_STATE_REPORT_RESULT,
+
+    /* An app error has occurred */
+    APP_DATALOG_STATE_ERROR
 
 } APP_DATALOG_STATES;
 
@@ -152,14 +148,14 @@ typedef enum
     /* Console data */
     APP_DATALOG_USER_CONSOLE,
 
-    /* Events data */
-    APP_DATALOG_USER_EVENTS,
-
     /* Energy data */
     APP_DATALOG_USER_ENERGY,
 
     /* Demand data */
     APP_DATALOG_USER_DEMAND,
+
+    /* Events data */
+    APP_DATALOG_USER_EVENTS,
 
     /* Last value used to get number of Users */
     APP_DATALOG_USER_NUM
@@ -180,11 +176,11 @@ typedef enum
     /* Read operation */
     APP_DATALOG_READ = 0,
 
-    /* Append operation */
-    APP_DATALOG_APPEND,
-
     /* Read operation */
-    APP_DATALOG_WRITE
+    APP_DATALOG_WRITE,
+
+    /* Erase operation */
+    APP_DATALOG_ERASE
 
 } APP_DATALOG_OPERATION;
 
@@ -265,6 +261,9 @@ typedef struct
     // Datalog User ID
     APP_DATALOG_USER userId;
 
+    // Datalog Event ID
+    uint8_t eventId;
+
     // Read/ReadPrevious/Write/Append operation
     APP_DATALOG_OPERATION operation;
 
@@ -309,12 +308,6 @@ typedef struct
     // Datalog Queue in process
     APP_DATALOG_QUEUE_DATA data;
 
-    // File Handle
-    SYS_FS_HANDLE fileHandle;
-
-    // File Name
-    char fileName[32];
-
 } APP_DATALOG_DATA_IN_PROCESS;
 
 // *****************************************************************************
@@ -335,40 +328,35 @@ typedef struct
     /* The application's current state */
     APP_DATALOG_STATES state;
 
-    /* Format Options */
-    SYS_FS_FORMAT_PARAM formatOpt;
+    /* NVM driver handler */
+    DRV_HANDLE nvmHandler;
+
+    /* NVM command handler */
+    DRV_MEMORY_COMMAND_HANDLE cmdHandler;
+
+    /* Flag to indicate if the transfer has been completed */
+    bool xfer_done;
 
     /* Element extracted from Queue to be processed */
     APP_DATALOG_DATA_IN_PROCESS newData;
 
-    /* Current File Name */
-    char fileName[32];
-
     /* Result from file operation */
     APP_DATALOG_RESULT result;
 
-    /* Flag to indicate whether disk is mounted */
-    bool diskMounted;
+    /* UserId to check data content */
+    APP_DATALOG_USER userId;
 
-    /* Flag to indicate whether disk needs format */
-    bool diskFormatRequired;
+    /* Size of read blocks*/
+    uint32_t rdBlockSize;
 
-    /* Path File Name Buffer used in clear data routine */
-    char filePath[257];
+    /* Size of write blocks*/
+    uint32_t wrBlockSize;
 
-    /* SYS FS File status structure used in clear data routine */
-    SYS_FS_FSTAT stat;
+    /* Size of erase blocks*/
+    uint32_t erBlockSize;
 
-#if SYS_FS_AUTOMOUNT_ENABLE
-    /* The application's next state */
-    APP_CONSOLE_STATES nextState;
-
-    /* Timer handler to drive delay function */
-    SYS_TIME_HANDLE timer;
-
-    /* Delay time in milliseconds */
-    uint32_t delayMs;
-#endif
+    /* Data Key */
+    uint32_t key;
 
 } APP_DATALOG_DATA;
 
@@ -489,7 +477,7 @@ APP_DATALOG_STATES APP_DATALOG_GetStatus(void);
 
 /*******************************************************************************
   Function:
-    bool APP_DATALOG_FileExists(APP_DATALOG_USER userId, APP_DATALOG_DATE *date)
+    bool APP_DATALOG_DataIsValid(APP_DATALOG_USER userId)
 
   Summary:
     Checks whether a file exists.
@@ -503,19 +491,14 @@ APP_DATALOG_STATES APP_DATALOG_GetStatus(void);
 
   Parameters:
     userId - ID of module to which file is associated to.
-    date - Pointer to Date structure to derive filename from.
-           NULL to avoid indexing by date.
 
   Returns:
     True if file exists. Otherwise False.
 
   Example:
     <code>
-    APP_DATALOG_DATE date;
-    date.year = 22;
-    date.month = 1;
 
-    if (APP_DATALOG_FileExists(APP_DATALOG_USER_DEMAND, &date))
+    if (APP_DATALOG_DataIsValid(APP_DATALOG_USER_DEMAND))
       // Put element in Datalog queue for file read/write operation
     }
     </code>
@@ -524,39 +507,7 @@ APP_DATALOG_STATES APP_DATALOG_GetStatus(void);
     None.
  */
 
-bool APP_DATALOG_FileExists(APP_DATALOG_USER userId, APP_DATALOG_DATE *date);
-
-/*******************************************************************************
-  Function:
-    void APP_DATALOG_ClearData(APP_DATALOG_USER userId)
-
-  Summary:
-    Clears all stored data for a given user (module).
-
-  Description:
-    This routine clears all data for a given user id.
-    As users ids have their own directory, it clear all files in it.
-
-  Precondition:
-    None.
-
-  Parameters:
-    userId - ID of module to clear data.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    // Clear all stored energy data
-    APP_DATALOG_ClearData(APP_DATALOG_USER_ENERGY)
-    </code>
-
-  Remarks:
-    None.
- */
-
-void APP_DATALOG_ClearData(APP_DATALOG_USER userId);
+bool APP_DATALOG_DataIsValid(APP_DATALOG_USER userId);
 
 /*******************************************************************************
   Function:

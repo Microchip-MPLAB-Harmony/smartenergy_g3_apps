@@ -11,7 +11,7 @@ dependency:
 - dependencyPackage: ''
   name: smartenergy_metrology
   type: package
-  version: v1.0.0-E1
+  version: v2.0.0
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}
@@ -22,47 +22,129 @@ data:
     - children:
       - attributes:
           id: drvMet
-          x: '454'
-          y: '221'
+          x: '448'
+          y: '228'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
   symbols:
-    DRV_MET_CONF_CAPTURE_BUFFER_SIZE:
+    DRV_MET_CHANNEL_SENSOR_I_1:
       attributes:
-        id: DRV_MET_CONF_CAPTURE_BUFFER_SIZE
+        id: DRV_MET_CHANNEL_SENSOR_I_1
       children:
       - children:
         - attributes:
-            id: drvMet
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: Integer
-    DRV_MET_CONF_KU:
-      attributes:
-        id: DRV_MET_CONF_KU
-      children:
-      - children:
-        - attributes:
-            value: '1651'
+            value: '1'
           type: User
         type: Values
-      type: Integer
-    DRV_MET_CONF_WAVEFORM_CAPTURE:
+      type: KeyValueSet
+    DRV_MET_CHANNEL_SENSOR_I_3:
       attributes:
-        id: DRV_MET_CONF_WAVEFORM_CAPTURE
+        id: DRV_MET_CHANNEL_SENSOR_I_3
+      children:
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: KeyValueSet
+    DRV_MET_CHANNEL_SENSOR_V_2:
+      attributes:
+        id: DRV_MET_CHANNEL_SENSOR_V_2
+      children:
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: KeyValueSet
+    DRV_MET_CHANNEL_SENSOR_V_4:
+      attributes:
+        id: DRV_MET_CHANNEL_SENSOR_V_4
+      children:
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: KeyValueSet
+    DRV_MET_CONF_KU_2:
+      attributes:
+        id: DRV_MET_CONF_KU_2
+      children:
+      - children:
+        - attributes:
+            id: label
+          children:
+          - type: Value
+            value: Voltage divider ratio
+          type: String
+        type: Attributes
+      type: Integer
+    DRV_MET_CONF_KU_4:
+      attributes:
+        id: DRV_MET_CONF_KU_4
+      children:
+      - children:
+        - attributes:
+            id: label
+          children:
+          - type: Value
+            value: Voltage divider ratio
+          type: String
+        type: Attributes
+      type: Integer
+    DRV_MET_CONF_RL_1:
+      attributes:
+        id: DRV_MET_CONF_RL_1
+      children:
+      - children:
+        - attributes:
+            id: label
+          children:
+          - type: Value
+            value: Burden Resistor (uOhms)
+          type: String
+        type: Attributes
+      type: Integer
+    DRV_MET_CONF_RL_3:
+      attributes:
+        id: DRV_MET_CONF_RL_3
+      children:
+      - children:
+        - attributes:
+            id: label
+          children:
+          - type: Value
+            value: Burden Resistor (uOhms)
+          type: String
+        type: Attributes
+      type: Integer
+    DRV_MET_REG_KIA:
+      attributes:
+        id: DRV_MET_REG_KIA
       children:
       - children:
         - attributes:
             id: drvMet
-            value: '3840'
+            value: '632099'
           type: Dynamic
         type: Values
       type: Hex
-    DRV_MET_CTRL_KV:
+    DRV_MET_REG_KIB:
       attributes:
-        id: DRV_MET_CTRL_KV
+        id: DRV_MET_REG_KIB
+      children:
+      - children:
+        - attributes:
+            id: drvMet
+            value: '632099'
+          type: Dynamic
+        type: Values
+      type: Hex
+    DRV_MET_REG_KVA:
+      attributes:
+        id: DRV_MET_REG_KVA
       children:
       - children:
         - attributes:
@@ -71,97 +153,70 @@ data:
           type: Dynamic
         type: Values
       type: Hex
-    DRV_MET_CTRL_SWELL:
+    DRV_MET_REG_KVB:
       attributes:
-        id: DRV_MET_CTRL_SWELL
+        id: DRV_MET_REG_KVB
       children:
       - children:
         - attributes:
             id: drvMet
-            value: '99268888'
+            value: '1690624'
           type: Dynamic
         type: Values
       type: Hex
-    DRV_MET_WAVECAPT_CH_IA:
+    DRV_MET_REG_MT:
       attributes:
-        id: DRV_MET_WAVECAPT_CH_IA
+        id: DRV_MET_REG_MT
       children:
       - children:
         - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
+            id: drvMet
+            value: '204'
+          type: Dynamic
         type: Values
-      type: Boolean
-    DRV_MET_WAVECAPT_CH_IB:
+      type: Hex
+    REG_MET_CONF_K_CH_1:
       attributes:
-        id: DRV_MET_WAVECAPT_CH_IB
+        id: REG_MET_CONF_K_CH_1
       children:
       - children:
         - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
+            id: drvMet
+            value: '632099'
+          type: Dynamic
         type: Values
-      type: Boolean
-    DRV_MET_WAVECAPT_CH_VA:
+      type: Hex
+    REG_MET_CONF_K_CH_2:
       attributes:
-        id: DRV_MET_WAVECAPT_CH_VA
+        id: REG_MET_CONF_K_CH_2
       children:
       - children:
         - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
+            id: drvMet
+            value: '1690624'
+          type: Dynamic
         type: Values
-      type: Boolean
-    DRV_MET_WAVECAPT_CH_VB:
+      type: Hex
+    REG_MET_CONF_K_CH_3:
       attributes:
-        id: DRV_MET_WAVECAPT_CH_VB
+        id: REG_MET_CONF_K_CH_3
       children:
       - children:
         - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
+            id: drvMet
+            value: '632099'
+          type: Dynamic
         type: Values
-      type: Boolean
-    DRV_MET_WAVEFORM_CAPTURE:
+      type: Hex
+    REG_MET_CONF_K_CH_4:
       attributes:
-        id: DRV_MET_WAVEFORM_CAPTURE
+        id: REG_MET_CONF_K_CH_4
       children:
       - children:
         - attributes:
-            value: 'true'
-          type: User
+            id: drvMet
+            value: '1690624'
+          type: Dynamic
         type: Values
-      type: Boolean
+      type: Hex
   userData: {}

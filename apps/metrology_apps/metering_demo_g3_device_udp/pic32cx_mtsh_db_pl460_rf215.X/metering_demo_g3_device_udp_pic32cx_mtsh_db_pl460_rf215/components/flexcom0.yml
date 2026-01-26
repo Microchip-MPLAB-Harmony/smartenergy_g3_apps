@@ -11,7 +11,7 @@ dependency:
 - dependencyPackage: ''
   name: csp
   type: package
-  version: v3.23.0
+  version: v3.25.0
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments:
@@ -364,4 +364,175 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
+    USART_RX_RING_BUFFER_SIZE:
+      attributes:
+        id: USART_RX_RING_BUFFER_SIZE
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '512'
+          type: User
+        type: Values
+      type: Integer
+    FLEXCOM_USART_RX_FIFO_THRESHOLD:
+      attributes:
+        id: FLEXCOM_USART_RX_FIFO_THRESHOLD
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: Integer
+    FLEXCOM_USART_TX_FIFO_THRESHOLD:
+      attributes:
+        id: FLEXCOM_USART_TX_FIFO_THRESHOLD
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: Integer
+    FLEXCOM0_HEADER:
+      attributes:
+        id: FLEXCOM0_HEADER
+      children:
+      - children:
+        - attributes:
+            id: dest
+          children:
+          - type: Value
+            value: /peripheral/flexcom/usart/
+          type: String
+        - attributes:
+            id: markup
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: plib_flexcom0_usart.h
+          type: String
+        - attributes:
+            id: project
+          children:
+          - type: Value
+            value: config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/plib_flexcom_usart_ring_buffer.h.ftl
+          type: String
+        - attributes:
+            id: type
+          children:
+          - type: Value
+            value: HEADER
+          type: String
+        type: Attributes
+      type: File
+    FLEXCOM0_COMMON_HEADER:
+      attributes:
+        id: FLEXCOM0_COMMON_HEADER
+      children:
+      - children:
+        - attributes:
+            id: dest
+          children:
+          - type: Value
+            value: /peripheral/flexcom/usart/
+          type: String
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: plib_flexcom_usart_local.h
+          type: String
+        - attributes:
+            id: project
+          children:
+          - type: Value
+            value: config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/plib_flexcom_usart_local.h
+          type: String
+        - attributes:
+            id: type
+          children:
+          - type: Value
+            value: HEADER
+          type: String
+        type: Attributes
+      type: File
+    FLEXCOM0_SOURCE:
+      attributes:
+        id: FLEXCOM0_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: dest
+          children:
+          - type: Value
+            value: /peripheral/flexcom/usart/
+          type: String
+        - attributes:
+            id: markup
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: plib_flexcom0_usart.c
+          type: String
+        - attributes:
+            id: project
+          children:
+          - type: Value
+            value: config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/plib_flexcom_usart_ring_buffer.c.ftl
+          type: String
+        type: Attributes
+      type: File
   userData: {}

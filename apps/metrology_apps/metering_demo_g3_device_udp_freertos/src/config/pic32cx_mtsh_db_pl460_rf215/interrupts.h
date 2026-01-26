@@ -75,6 +75,7 @@ void PIOA_InterruptHandler (void);
 void PIOB_InterruptHandler (void);
 void ADC_InterruptHandler (void);
 void TC0_CH0_InterruptHandler (void);
+void ICM_InterruptHandler (void);
 void IPC1_InterruptHandler (void);
 
 

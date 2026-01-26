@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -103,28 +103,28 @@ typedef enum
 */
 typedef enum
 {
-	APP_DISPLAY_TOTAL_ENERGY = 0,
-	APP_DISPLAY_TOU1_ENERGY,
-	APP_DISPLAY_TOU2_ENERGY,
-	APP_DISPLAY_TOU3_ENERGY,
-	APP_DISPLAY_TOU4_ENERGY,
-	APP_DISPLAY_RTC_TIME,
-	APP_DISPLAY_RTC_DATE,
-	APP_DISPLAY_VA_RMS,
-	APP_DISPLAY_VB_RMS,
-	APP_DISPLAY_VC_RMS,
-	APP_DISPLAY_IA_RMS,
-	APP_DISPLAY_IB_RMS,
-	APP_DISPLAY_IC_RMS,
-	APP_DISPLAY_TOTAL_MAX_DEMAND,
-	APP_DISPLAY_TOU1_MAX_DEMAND,
-	APP_DISPLAY_TOU2_MAX_DEMAND,
-	APP_DISPLAY_TOU3_MAX_DEMAND,
-	APP_DISPLAY_TOU4_MAX_DEMAND,
-	APP_DISPLAY_APP_INFO,
-	APP_DISPLAY_BOARD_ID,
-	APP_DISPLAY_DEMO_VERSION,
-	APP_DISPLAY_MAX_TYPE,
+    APP_DISPLAY_TOTAL_ENERGY = 0,
+    APP_DISPLAY_TOU1_ENERGY,
+    APP_DISPLAY_TOU2_ENERGY,
+    APP_DISPLAY_TOU3_ENERGY,
+    APP_DISPLAY_TOU4_ENERGY,
+    APP_DISPLAY_RTC_TIME,
+    APP_DISPLAY_RTC_DATE,
+    APP_DISPLAY_VA_RMS,
+    APP_DISPLAY_VB_RMS,
+    APP_DISPLAY_VC_RMS,
+    APP_DISPLAY_IA_RMS,
+    APP_DISPLAY_IB_RMS,
+    APP_DISPLAY_IC_RMS,
+    APP_DISPLAY_TOTAL_MAX_DEMAND,
+    APP_DISPLAY_TOU1_MAX_DEMAND,
+    APP_DISPLAY_TOU2_MAX_DEMAND,
+    APP_DISPLAY_TOU3_MAX_DEMAND,
+    APP_DISPLAY_TOU4_MAX_DEMAND,
+    APP_DISPLAY_APP_INFO,
+    APP_DISPLAY_BOARD_ID,
+    APP_DISPLAY_DEMO_VERSION,
+    APP_DISPLAY_MAX_TYPE,
 
 } APP_DISPLAY_INFO;
 
@@ -160,7 +160,7 @@ typedef enum
     APP_DISPLAY_COM_SIGNAL_OFF = 0,
     APP_DISPLAY_COM_SIGNAL_LOW,
     APP_DISPLAY_COM_SIGNAL_MED,
-    APP_DISPLAY_COM_SIGNAL_HIGH,
+    APP_DISPLAY_COM_SIGNAL_HIG,
 
 } APP_DISPLAY_COM_SIGNAL;
 
@@ -195,19 +195,19 @@ typedef struct
     bool app_info_en;
 
     /* Reload time to display each information in the display (in seconds) */
-	uint32_t reload_display_time;
+    uint32_t reload_display_time;
 
     /* Time to display each information in the display (in seconds) */
-	uint32_t display_time;
+    uint32_t display_time;
 
     /* Information about the external communication signal */
-	APP_DISPLAY_COM_SIGNAL comm_signal;
+    APP_DISPLAY_COM_SIGNAL comm_signal;
 
     /* Information shown in display */
-	APP_DISPLAY_INFO display_info;
+    APP_DISPLAY_INFO display_info;
 
     /* Direction of the circular information in the display */
-	APP_DISPLAY_DIRECTION direction;
+    APP_DISPLAY_DIRECTION direction;
 
     /* Circular information loop */
     APP_DISPLAY_INFO loop_info[APP_DISPLAY_MAX_TYPE];
@@ -408,7 +408,7 @@ void APP_DISPLAY_SetSerialCommunication(void);
     <code>
     if (ext_com_enable == True)
     {
-        APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL_HIGH);
+        APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL_HIG);
     }
     </code>
 

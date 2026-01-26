@@ -79,9 +79,6 @@ SYS_CMD_Tasks();
 
 
 
-SYS_FS_Tasks();
-
-
 
     /* Maintain Device Drivers */
     

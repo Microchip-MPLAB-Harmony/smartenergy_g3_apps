@@ -4,7 +4,7 @@
 
 
 project: metering_demo_g3_device_udp
-creation_date: 2025-12-16T15:32:28.417+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2026-01-27T14:48:24.397+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3
@@ -14,9 +14,9 @@ harmony_version: v5.6.3
 compiler: XC32 5.00
 
 modules:
-    - {name: "core", version: "v3.15.5"}
-    - {name: "csp", version: "v3.23.0"}
-    - {name: "smartenergy_metrology", version: "v1.0.0-E1"}
+    - {name: "core", version: "v3.16.0"}
+    - {name: "csp", version: "v3.25.0"}
+    - {name: "smartenergy_metrology", version: "v2.0.0"}
     - {name: "CMSIS_5", version: "5.9.0"}
     - {name: "smartenergy_g3", version: "v1.1.0"}
     - {name: "gfx", version: "v3.16.2"}

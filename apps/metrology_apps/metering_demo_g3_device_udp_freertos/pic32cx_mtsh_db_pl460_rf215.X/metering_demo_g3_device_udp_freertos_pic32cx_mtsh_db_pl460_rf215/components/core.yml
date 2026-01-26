@@ -11,7 +11,7 @@ dependency:
 - dependencyPackage: ''
   name: csp
   type: package
-  version: v3.23.0
+  version: v3.25.0
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}
@@ -518,17 +518,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    IPC1_CLOCK_ENABLE:
-      attributes:
-        id: IPC1_CLOCK_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: drvMet
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     IPC1_CLOCK_FREQUENCY:
       attributes:
         id: IPC1_CLOCK_FREQUENCY
@@ -1350,6 +1339,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: LCD_SEG19
+          type: Dynamic
+        - attributes:
             value: ''
           type: User
         type: Values
@@ -1359,6 +1352,10 @@ data:
         id: PIN_100_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG25
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG25
           type: User
@@ -1390,6 +1387,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -1399,6 +1400,10 @@ data:
         id: PIN_101_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG26
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG26
           type: User
@@ -1420,6 +1425,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -1429,6 +1438,10 @@ data:
         id: PIN_102_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG27
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG27
           type: User
@@ -1449,6 +1462,10 @@ data:
         id: PIN_102_PERIPHERAL_FUNCTION
       children:
       - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
         - attributes:
             value: A
           type: User
@@ -1772,6 +1789,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: QSPI_QIO3
+          type: Dynamic
+        - attributes:
             value: QSPI_QIO3
           type: User
         type: Values
@@ -1781,6 +1802,10 @@ data:
         id: PIN_118_PERIPHERAL_FUNCTION
       children:
       - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
         - attributes:
             value: A
           type: User
@@ -1792,6 +1817,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: 'True'
+          type: Dynamic
+        - attributes:
             value: 'True'
           type: User
         type: Values
@@ -1801,6 +1830,10 @@ data:
         id: PIN_119_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: QSPI_QIO2
+          type: Dynamic
         - attributes:
             value: QSPI_QIO2
           type: User
@@ -1812,6 +1845,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -1821,6 +1858,10 @@ data:
         id: PIN_121_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: QSPI_QIO1
+          type: Dynamic
         - attributes:
             value: QSPI_QIO1
           type: User
@@ -1832,6 +1873,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -1841,6 +1886,10 @@ data:
         id: PIN_122_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: QSPI_QIO0
+          type: Dynamic
         - attributes:
             value: QSPI_QIO0
           type: User
@@ -1852,6 +1901,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -1861,6 +1914,10 @@ data:
         id: PIN_123_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: QSPI_QCS
+          type: Dynamic
         - attributes:
             value: QSPI_QCS
           type: User
@@ -1872,6 +1929,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -1882,6 +1943,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: QSPI_QSCK
+          type: Dynamic
+        - attributes:
             value: QSPI_QSCK
           type: User
         type: Values
@@ -1891,6 +1956,10 @@ data:
         id: PIN_124_PERIPHERAL_FUNCTION
       children:
       - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
         - attributes:
             value: A
           type: User
@@ -2057,13 +2126,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Out
-          type: Dynamic
-        - attributes:
-            value: ''
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_22_FUNCTION_NAME:
       attributes:
@@ -2071,13 +2139,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: RED_LED_PD17
-          type: Dynamic
-        - attributes:
-            value: ''
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_22_FUNCTION_TYPE:
       attributes:
@@ -2085,13 +2152,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        - attributes:
-            value: ''
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_22_LAT:
       attributes:
@@ -2099,13 +2165,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Low
-          type: Dynamic
-        - attributes:
-            value: ''
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_22_PD:
       attributes:
@@ -2123,13 +2188,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        - attributes:
-            value: ''
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_23_DIR:
       attributes:
@@ -2137,13 +2201,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Out
-          type: Dynamic
-        - attributes:
-            value: ''
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_23_FUNCTION_NAME:
       attributes:
@@ -2151,13 +2214,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: RED_LED_PD18
-          type: Dynamic
-        - attributes:
-            value: ''
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_23_FUNCTION_TYPE:
       attributes:
@@ -2165,13 +2227,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        - attributes:
-            value: ''
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_23_LAT:
       attributes:
@@ -2179,13 +2240,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Low
-          type: Dynamic
-        - attributes:
-            value: ''
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_23_PERIPHERAL_FUNCTION:
       attributes:
@@ -2193,13 +2253,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        - attributes:
-            value: ''
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_24_DIR:
       attributes:
@@ -2207,10 +2266,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Out
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_24_FUNCTION_NAME:
       attributes:
@@ -2218,10 +2279,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: RED_LED_PD19
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_24_FUNCTION_TYPE:
       attributes:
@@ -2229,10 +2292,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_24_LAT:
       attributes:
@@ -2240,10 +2305,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Low
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_24_PERIPHERAL_FUNCTION:
       attributes:
@@ -2251,10 +2318,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_25_FUNCTION_NAME:
       attributes:
@@ -3032,6 +3101,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: LCD_COM1
+          type: Dynamic
+        - attributes:
             value: ''
           type: User
         type: Values
@@ -3041,6 +3114,10 @@ data:
         id: PIN_63_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_COM0
+          type: Dynamic
         - attributes:
             value: SLCDC_COM0
           type: User
@@ -3072,6 +3149,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3091,6 +3172,10 @@ data:
         id: PIN_64_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_COM1
+          type: Dynamic
         - attributes:
             value: SLCDC_COM1
           type: User
@@ -3112,6 +3197,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3121,6 +3210,10 @@ data:
         id: PIN_65_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_COM2
+          type: Dynamic
         - attributes:
             value: SLCDC_COM2
           type: User
@@ -3142,6 +3235,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3151,6 +3248,10 @@ data:
         id: PIN_66_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_COM3
+          type: Dynamic
         - attributes:
             value: SLCDC_COM3
           type: User
@@ -3172,6 +3273,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3181,6 +3286,10 @@ data:
         id: PIN_67_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_COM4
+          type: Dynamic
         - attributes:
             value: SLCDC_COM4
           type: User
@@ -3202,6 +3311,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3211,6 +3324,10 @@ data:
         id: PIN_68_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_COM5
+          type: Dynamic
         - attributes:
             value: SLCDC_COM5
           type: User
@@ -3232,6 +3349,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3241,6 +3362,10 @@ data:
         id: PIN_69_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_COM6
+          type: Dynamic
         - attributes:
             value: SLCDC_COM6
           type: User
@@ -3261,6 +3386,10 @@ data:
         id: PIN_69_PERIPHERAL_FUNCTION
       children:
       - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
         - attributes:
             value: A
           type: User
@@ -3321,6 +3450,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: SLCDC_COM7
+          type: Dynamic
+        - attributes:
             value: SLCDC_COM7
           type: User
         type: Values
@@ -3340,6 +3473,10 @@ data:
         id: PIN_70_PERIPHERAL_FUNCTION
       children:
       - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
         - attributes:
             value: A
           type: User
@@ -3643,6 +3780,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: SLCDC_SEG6
+          type: Dynamic
+        - attributes:
             value: SLCDC_SEG6
           type: User
         type: Values
@@ -3663,6 +3804,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3672,6 +3817,10 @@ data:
         id: PIN_82_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG7
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG7
           type: User
@@ -3693,6 +3842,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3702,6 +3855,10 @@ data:
         id: PIN_83_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG8
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG8
           type: User
@@ -3723,6 +3880,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3732,6 +3893,10 @@ data:
         id: PIN_84_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG9
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG9
           type: User
@@ -3753,6 +3918,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3762,6 +3931,10 @@ data:
         id: PIN_85_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG10
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG10
           type: User
@@ -3783,6 +3956,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3792,6 +3969,10 @@ data:
         id: PIN_86_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG11
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG11
           type: User
@@ -3813,6 +3994,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3822,6 +4007,10 @@ data:
         id: PIN_87_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG12
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG12
           type: User
@@ -3843,6 +4032,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3852,6 +4045,10 @@ data:
         id: PIN_88_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG13
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG13
           type: User
@@ -3873,6 +4070,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3882,6 +4083,10 @@ data:
         id: PIN_89_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG14
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG14
           type: User
@@ -3903,6 +4108,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3912,6 +4121,10 @@ data:
         id: PIN_90_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG15
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG15
           type: User
@@ -3933,6 +4146,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3942,6 +4159,10 @@ data:
         id: PIN_91_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG16
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG16
           type: User
@@ -3963,6 +4184,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -3972,6 +4197,10 @@ data:
         id: PIN_92_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG17
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG17
           type: User
@@ -3993,6 +4222,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -4002,6 +4235,10 @@ data:
         id: PIN_93_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG18
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG18
           type: User
@@ -4023,6 +4260,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -4032,6 +4273,10 @@ data:
         id: PIN_94_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG19
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG19
           type: User
@@ -4053,6 +4298,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -4062,6 +4311,10 @@ data:
         id: PIN_95_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG20
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG20
           type: User
@@ -4083,6 +4336,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -4092,6 +4349,10 @@ data:
         id: PIN_96_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: SLCDC_SEG21
+          type: Dynamic
         - attributes:
             value: SLCDC_SEG21
           type: User
@@ -4112,6 +4373,10 @@ data:
         id: PIN_96_PERIPHERAL_FUNCTION
       children:
       - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
         - attributes:
             value: A
           type: User
@@ -4153,6 +4418,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: SLCDC_SEG23
+          type: Dynamic
+        - attributes:
             value: SLCDC_SEG23
           type: User
         type: Values
@@ -4172,6 +4441,10 @@ data:
         id: PIN_98_PERIPHERAL_FUNCTION
       children:
       - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
         - attributes:
             value: A
           type: User
@@ -4591,7 +4864,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: 0x1fe00f00L
+            value: 0x1fe00f30L
           type: Dynamic
         type: Values
       type: String
@@ -5284,7 +5557,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x100'
+            value: '0x0'
           type: Dynamic
         type: Values
       type: String
@@ -5394,7 +5667,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x80000'
+            value: '0x0'
           type: Dynamic
         type: Values
       type: String
@@ -5615,17 +5888,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    SRAM1_CLOCK_ENABLE:
-      attributes:
-        id: SRAM1_CLOCK_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: drvMet
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     SRAM1_CLOCK_FREQUENCY:
       attributes:
         id: SRAM1_CLOCK_FREQUENCY
@@ -6428,6 +6690,501 @@ data:
       - children:
         - attributes:
             id: adc
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ICM_CLOCK_ENABLE:
+      attributes:
+        id: ICM_CLOCK_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: icm
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ICM_INTERRUPT_ENABLE_UPDATE:
+      attributes:
+        id: ICM_INTERRUPT_ENABLE_UPDATE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    NVIC_57_0_ENABLE:
+      attributes:
+        id: NVIC_57_0_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ICM_INTERRUPT_ENABLE:
+      attributes:
+        id: ICM_INTERRUPT_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: icm
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    NVIC_57_0_HANDLER:
+      attributes:
+        id: NVIC_57_0_HANDLER
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: ICM_InterruptHandler
+          type: Dynamic
+        type: Values
+      type: String
+    ICM_INTERRUPT_HANDLER:
+      attributes:
+        id: ICM_INTERRUPT_HANDLER
+      children:
+      - children:
+        - attributes:
+            id: icm
+            value: ICM_InterruptHandler
+          type: Dynamic
+        type: Values
+      type: String
+    NVIC_57_0_HANDLER_LOCK:
+      attributes:
+        id: NVIC_57_0_HANDLER_LOCK
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ICM_INTERRUPT_HANDLER_LOCK:
+      attributes:
+        id: ICM_INTERRUPT_HANDLER_LOCK
+      children:
+      - children:
+        - attributes:
+            id: icm
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PIN_29_FUNCTION_TYPE:
+      attributes:
+        id: PIN_29_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: FLEXCOM0_IO0
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_29_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_29_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_29_FUNCTION_NAME:
+      attributes:
+        id: PIN_29_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: DBG_UART_TX
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_30_FUNCTION_TYPE:
+      attributes:
+        id: PIN_30_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: FLEXCOM0_IO1
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_30_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_30_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_30_FUNCTION_NAME:
+      attributes:
+        id: PIN_30_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: DBG_UART_RX
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_85_FUNCTION_NAME:
+      attributes:
+        id: PIN_85_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG9
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_87_FUNCTION_NAME:
+      attributes:
+        id: PIN_87_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG7
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_86_FUNCTION_NAME:
+      attributes:
+        id: PIN_86_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG8
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_91_FUNCTION_NAME:
+      attributes:
+        id: PIN_91_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG5
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_89_FUNCTION_NAME:
+      attributes:
+        id: PIN_89_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG6
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_82_FUNCTION_NAME:
+      attributes:
+        id: PIN_82_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG12
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_81_FUNCTION_NAME:
+      attributes:
+        id: PIN_81_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG13
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_84_FUNCTION_NAME:
+      attributes:
+        id: PIN_84_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG10
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_83_FUNCTION_NAME:
+      attributes:
+        id: PIN_83_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG11
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_92_FUNCTION_NAME:
+      attributes:
+        id: PIN_92_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG16
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_70_FUNCTION_NAME:
+      attributes:
+        id: PIN_70_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_COM8
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_94_FUNCTION_NAME:
+      attributes:
+        id: PIN_94_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG17
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_69_FUNCTION_NAME:
+      attributes:
+        id: PIN_69_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_COM7
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_88_FUNCTION_NAME:
+      attributes:
+        id: PIN_88_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG14
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_68_FUNCTION_NAME:
+      attributes:
+        id: PIN_68_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_COM6
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_90_FUNCTION_NAME:
+      attributes:
+        id: PIN_90_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG15
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_67_FUNCTION_NAME:
+      attributes:
+        id: PIN_67_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_COM5
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_66_FUNCTION_NAME:
+      attributes:
+        id: PIN_66_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_COM4
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_65_FUNCTION_NAME:
+      attributes:
+        id: PIN_65_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_COM3
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_96_FUNCTION_NAME:
+      attributes:
+        id: PIN_96_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG18
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_64_FUNCTION_NAME:
+      attributes:
+        id: PIN_64_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_COM2
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_95_FUNCTION_NAME:
+      attributes:
+        id: PIN_95_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG3
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_93_FUNCTION_NAME:
+      attributes:
+        id: PIN_93_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG4
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_101_FUNCTION_NAME:
+      attributes:
+        id: PIN_101_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG1
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_98_FUNCTION_NAME:
+      attributes:
+        id: PIN_98_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG2
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_102_FUNCTION_NAME:
+      attributes:
+        id: PIN_102_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: LCD_SEG0
+          type: Dynamic
+        type: Values
+      type: String
+    NVIC_88_0_HANDLER:
+      attributes:
+        id: NVIC_88_0_HANDLER
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: IPC1_InterruptHandler
+          type: Dynamic
+        type: Values
+      type: String
+    IPC1_INTERRUPT_ENABLE:
+      attributes:
+        id: IPC1_INTERRUPT_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: drvMet
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    IPC1_INTERRUPT_HANDLER:
+      attributes:
+        id: IPC1_INTERRUPT_HANDLER
+      children:
+      - children:
+        - attributes:
+            id: drvMet
+            value: IPC1_InterruptHandler
+          type: Dynamic
+        type: Values
+      type: String
+    IPC1_CLOCK_ENABLE:
+      attributes:
+        id: IPC1_CLOCK_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: drvMet
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRAM1_CLOCK_ENABLE:
+      attributes:
+        id: SRAM1_CLOCK_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: drvMet
             value: 'true'
           type: Dynamic
         type: Values

@@ -57,8 +57,8 @@
 #define FLEXCOM_USART_THR_8BIT_REG      (*(volatile uint8_t* const)((FLEXCOM0_BASE_ADDRESS + FLEX_US_THR_REG_OFST)))
 #define FLEXCOM_USART_THR_9BIT_REG      (*(volatile uint16_t* const)((FLEXCOM0_BASE_ADDRESS + FLEX_US_THR_REG_OFST)))
 
-#define FLEXCOM0_USART_HW_RX_FIFO_THRES                 4U
-#define FLEXCOM0_USART_HW_TX_FIFO_THRES                 4U
+#define FLEXCOM0_USART_HW_RX_FIFO_THRES                 1U
+#define FLEXCOM0_USART_HW_TX_FIFO_THRES                 1U
 
 /* Disable Read, Overrun, Parity and Framing error interrupts */
 #define FLEXCOM0_USART_RX_INT_DISABLE()      do { \
@@ -82,8 +82,8 @@ FLEXCOM0_REGS->FLEX_US_IER = FLEX_US_IER_TXRDY_Msk; \
 FLEXCOM0_REGS->FLEX_US_FIER = (FLEX_US_FIER_TXFTHF_Msk); \
 }while(false)
 
-#define FLEXCOM0_USART_READ_BUFFER_SIZE             128U
-#define FLEXCOM0_USART_9BIT_READ_BUFFER_SIZE        (128U >> 1U)
+#define FLEXCOM0_USART_READ_BUFFER_SIZE             512U
+#define FLEXCOM0_USART_9BIT_READ_BUFFER_SIZE        (512U >> 1U)
 
 #define FLEXCOM0_USART_WRITE_BUFFER_SIZE            2048U
 #define FLEXCOM0_USART_9BIT_WRITE_BUFFER_SIZE       (2048U >> 1U)

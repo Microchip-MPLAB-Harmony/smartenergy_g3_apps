@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -69,6 +69,9 @@ QueueHandle_t appEventsQueueID = NULL;
 extern QueueHandle_t appDatalogQueueID;
 APP_DATALOG_QUEUE_DATA appEventsDatalogQueueData;
 
+/* Define the time in seconds to store events in NVM memory: 15 min by default */
+#define APP_EVENTS_TIME_DIFF_TO_STORE_NVM     900
+
 // *****************************************************************************
 /* Application Data
 
@@ -107,17 +110,22 @@ void _APP_EVENTS_GetDataLogCallback(APP_DATALOG_RESULT result)
     {
         app_eventsData.dataIsRdy = true;
     }
+    else
+    {
+        app_eventsData.dataIsRdy = false;
+    }
 
     // Post semaphore to wakeup task
     OSAL_SEM_Post(&appEventsSemID);
 }
 
-static void _APP_EVENTS_LoadEvenstDataFromMemory(void)
+static void _APP_EVENTS_LoadEventsDataFromMemory(APP_EVENTS_EVENT_ID id)
 {
     appEventsDatalogQueueData.userId = APP_DATALOG_USER_EVENTS;
+    appEventsDatalogQueueData.eventId = (uint8_t )id;
     appEventsDatalogQueueData.operation = APP_DATALOG_READ;
-    appEventsDatalogQueueData.pData = (uint8_t *)&app_eventsData.events;
-    appEventsDatalogQueueData.dataLen = sizeof(APP_EVENTS_DATA);
+    appEventsDatalogQueueData.pData = (uint8_t *)&app_eventsData.events.event[id];
+    appEventsDatalogQueueData.dataLen = sizeof(APP_EVENTS_EVENT_DATA);
     appEventsDatalogQueueData.endCallback = _APP_EVENTS_GetDataLogCallback;
     appEventsDatalogQueueData.date.month = APP_DATALOG_INVALID_MONTH;
     appEventsDatalogQueueData.date.year = APP_DATALOG_INVALID_YEAR;
@@ -125,13 +133,14 @@ static void _APP_EVENTS_LoadEvenstDataFromMemory(void)
     xQueueSend(appDatalogQueueID, &appEventsDatalogQueueData, (TickType_t) 0);
 }
 
-static void _APP_EVENTS_StoreEventsDataInMemory(void)
+static void _APP_EVENTS_StoreEventsDataInMemory(APP_EVENTS_EVENT_ID id)
 {
     appEventsDatalogQueueData.userId = APP_DATALOG_USER_EVENTS;
+    appEventsDatalogQueueData.eventId = (uint8_t )id;
     appEventsDatalogQueueData.operation = APP_DATALOG_WRITE;
-    appEventsDatalogQueueData.pData = (uint8_t *)&app_eventsData.events;
-    appEventsDatalogQueueData.dataLen = sizeof(APP_EVENTS_DATA);
-    appEventsDatalogQueueData.endCallback = NULL;
+    appEventsDatalogQueueData.pData = (uint8_t *)&app_eventsData.events.event[id];
+    appEventsDatalogQueueData.dataLen = sizeof(APP_EVENTS_EVENT_DATA);
+    appEventsDatalogQueueData.endCallback = _APP_EVENTS_GetDataLogCallback;
     appEventsDatalogQueueData.date.month = APP_DATALOG_INVALID_MONTH;
     appEventsDatalogQueueData.date.year = APP_DATALOG_INVALID_YEAR;
 
@@ -151,40 +160,17 @@ static bool _APP_EVENTS_RegisterEvent(APP_EVENTS_EVENT_ID type, bool enabled, st
         {
             if (enabled)
             {
-                /* Start Holding Start time */
-                eventData->status = EVENT_HOLDING_START;
-                eventData->holdingCounter = EVENT_HOLDING_START_COUNTER;
+                APP_EVENTS_EVENT_INFO * eventInfo;
+
+                /* Register Starting Event */
+                eventInfo = &eventData->data[eventData->dataIndex];
+
+                /* Register Starting Event */
+                eventInfo->startTime = *timeEvent;
+                memset(&eventInfo->endTime, 0, sizeof(struct tm));
+
+                eventData->status = EVENT_START;
             }
-            break;
-        }
-
-        case EVENT_HOLDING_START:
-        {
-            APP_EVENTS_EVENT_INFO * eventInfo;
-
-            /* Register Starting Event */
-            eventInfo = &eventData->data[eventData->dataIndex];
-
-            if (enabled)
-            {
-                eventData->holdingCounter--;
-                if (eventData->holdingCounter == 0)
-                {
-                    /* Register Starting Event */
-                    eventInfo->startTime = *timeEvent;
-                    memset(&eventInfo->endTime, 0, sizeof(struct tm));
-
-                    eventData->status = EVENT_START;
-                }
-            }
-            else
-            {
-                /* Cancel Starting event */
-                eventData->status = NO_EVENT;
-                /* Clean starting time */
-                memset(&eventInfo->startTime, 0, sizeof(struct tm));
-            }
-
             break;
         }
 
@@ -192,47 +178,26 @@ static bool _APP_EVENTS_RegisterEvent(APP_EVENTS_EVENT_ID type, bool enabled, st
         {
             if (enabled == 0)
             {
-                /* Start Holding End time */
-                eventData->status = EVENT_HOLDING_END;
-                eventData->holdingCounter = EVENT_HOLDING_END_COUNTER;
+                APP_EVENTS_EVENT_INFO * eventInfo;
+
+                /* Register Ending Event */
+                eventInfo = &eventData->data[eventData->dataIndex];
+                eventInfo->endTime = *timeEvent;
+
+                /* Set index to next logged data */
+                eventData->dataIndex++;
+                eventData->dataIndex %= EVENT_LOG_MAX_NUMBER;
+
+                /* Clear data of the next index */
+                eventInfo = &eventData->data[eventData->dataIndex];
+                memset(eventInfo, 0, sizeof(APP_EVENTS_EVENT_INFO));
+
+                eventData->counter++;
+                eventData->status = NO_EVENT;
+
+                /* Register event is completed */
+                registered = true;
             }
-            break;
-        }
-
-        case EVENT_HOLDING_END:
-        {
-            if (enabled == 0)
-            {
-                eventData->holdingCounter--;
-                if (eventData->holdingCounter == 0)
-                {
-                    APP_EVENTS_EVENT_INFO * eventInfo;
-
-                    /* Register Ending Event */
-                    eventInfo = &eventData->data[eventData->dataIndex];
-                    eventInfo->endTime = *timeEvent;
-
-                    /* Set index to next logged data */
-                    eventData->dataIndex++;
-                    eventData->dataIndex %= EVENT_LOG_MAX_NUMBER;
-
-                    /* Clear data of the next index */
-                    eventInfo = &eventData->data[eventData->dataIndex];
-                    memset(eventInfo, 0, sizeof(APP_EVENTS_EVENT_INFO));
-
-                    eventData->counter++;
-                    eventData->status = NO_EVENT;
-
-                    /* Register event is completed */
-                    registered = true;
-                }
-            }
-            else
-            {
-                /* Cancel Ending event */
-                eventData->status = EVENT_START;
-            }
-
             break;
         }
     }
@@ -240,57 +205,59 @@ static bool _APP_EVENTS_RegisterEvent(APP_EVENTS_EVENT_ID type, bool enabled, st
     return registered;
 }
 
-static bool _APP_EVENTS_UpdateEvents(APP_EVENTS_QUEUE_DATA * newEvent)
+static uint32_t _APP_EVENTS_UpdateEvents(APP_EVENTS_QUEUE_DATA * newEvent)
 {
-    bool update = false;
+    uint32_t eventMask = 0UL;
 
     if (_APP_EVENTS_RegisterEvent(SAG_UA_EVENT_ID, newEvent->eventFlags.sagA, &newEvent->eventTime))
     {
-        update = true;
+        eventMask |= (1 << SAG_UA_EVENT_ID);
     }
 
     if (_APP_EVENTS_RegisterEvent(SAG_UB_EVENT_ID, newEvent->eventFlags.sagB, &newEvent->eventTime))
     {
-        update = true;
+        eventMask |= (1 << SAG_UB_EVENT_ID);
     }
 
     if (_APP_EVENTS_RegisterEvent(SAG_UC_EVENT_ID, newEvent->eventFlags.sagC, &newEvent->eventTime))
     {
-        update = true;
+        eventMask |= (1 << SAG_UC_EVENT_ID);
     }
 
-    if (_APP_EVENTS_RegisterEvent(POW_UA_EVENT_ID, newEvent->eventFlags.swellA, &newEvent->eventTime))
+    if (_APP_EVENTS_RegisterEvent(SWELL_UA_EVENT_ID, newEvent->eventFlags.swellA, &newEvent->eventTime))
     {
-        update = true;
+        eventMask |= (1 << SWELL_UA_EVENT_ID);
     }
 
-    if (_APP_EVENTS_RegisterEvent(POW_UB_EVENT_ID, newEvent->eventFlags.swellB, &newEvent->eventTime))
+    if (_APP_EVENTS_RegisterEvent(SWELL_UB_EVENT_ID, newEvent->eventFlags.swellB, &newEvent->eventTime))
     {
-        update = true;
+        eventMask |= (1 << SWELL_UB_EVENT_ID);
     }
 
-    if (_APP_EVENTS_RegisterEvent(POW_UC_EVENT_ID, newEvent->eventFlags.swellC, &newEvent->eventTime))
+    if (_APP_EVENTS_RegisterEvent(SWELL_UC_EVENT_ID, newEvent->eventFlags.swellC, &newEvent->eventTime))
     {
-        update = true;
+        eventMask |= (1 << SWELL_UC_EVENT_ID);
+    }
+
+    if (_APP_EVENTS_RegisterEvent(POW_PA_EVENT_ID, newEvent->eventFlags.paDir, &newEvent->eventTime))
+    {
+        eventMask |= (1 << POW_PA_EVENT_ID);
+    }
+
+    if (_APP_EVENTS_RegisterEvent(POW_PB_EVENT_ID, newEvent->eventFlags.pbDir, &newEvent->eventTime))
+    {
+        eventMask |= (1 << POW_PB_EVENT_ID);
+    }
+
+    if (_APP_EVENTS_RegisterEvent(POW_PC_EVENT_ID, newEvent->eventFlags.pcDir, &newEvent->eventTime))
+    {
+        eventMask |= (1 << POW_PC_EVENT_ID);
     }
 
     /* Update Event Flags */
-    app_eventsData.flags.paDir = newEvent->eventFlags.paDir;
-    app_eventsData.flags.pbDir = newEvent->eventFlags.pbDir;
-    app_eventsData.flags.pcDir = newEvent->eventFlags.pcDir;
-    app_eventsData.flags.ptDir = newEvent->eventFlags.ptDir;
-    app_eventsData.flags.qaDir = newEvent->eventFlags.qaDir;
-    app_eventsData.flags.qbDir = newEvent->eventFlags.qbDir;
-    app_eventsData.flags.qcDir = newEvent->eventFlags.qcDir;
-    app_eventsData.flags.qtDir = newEvent->eventFlags.qtDir;
-    app_eventsData.flags.sagA = newEvent->eventFlags.sagA;
-    app_eventsData.flags.sagB = newEvent->eventFlags.sagB;
-    app_eventsData.flags.sagC = newEvent->eventFlags.sagC;
-    app_eventsData.flags.swellA = newEvent->eventFlags.swellA;
-    app_eventsData.flags.swellB = newEvent->eventFlags.swellB;
-    app_eventsData.flags.swellC = newEvent->eventFlags.swellC;
+    app_eventsData.flags = newEvent->eventFlags;
 
-    return update;
+    return eventMask;
 }
 
 // *****************************************************************************
@@ -322,8 +289,8 @@ void APP_EVENTS_Initialize ( void )
         app_eventsData.state = APP_EVENTS_STATE_ERROR;
     }
 
-    // Create a queue capable of containing 5 queue data elements.
-    appEventsQueueID = xQueueCreate(5, sizeof(APP_EVENTS_QUEUE_DATA));
+    // Create a queue capable of containing APP_EVENTS_QUEUE_DATA_SIZE queue data elements.
+    appEventsQueueID = xQueueCreate(APP_EVENTS_QUEUE_DATA_SIZE, sizeof(APP_EVENTS_QUEUE_DATA));
 
     if (appEventsQueueID == NULL)
     {
@@ -351,35 +318,42 @@ void APP_EVENTS_Tasks ( void )
         {
             if (APP_DATALOG_GetStatus() == APP_DATALOG_STATE_READY)
             {
-                app_eventsData.state = APP_EVENTS_STATE_INIT;
+                app_eventsData.eventId = (APP_EVENTS_EVENT_ID)0U;
+                app_eventsData.state = APP_EVENTS_STATE_READ_EVENT;
             }
 
             vTaskDelay(10 / portTICK_PERIOD_MS);
             break;
         }
 
-        case APP_EVENTS_STATE_INIT:
+        case APP_EVENTS_STATE_READ_EVENT:
         {
-            /* Reset flag to request data to datalog app */
-            app_eventsData.dataIsRdy = false;
+            _APP_EVENTS_LoadEventsDataFromMemory(app_eventsData.eventId);
 
-            /* Check if there are ENERGY data in memory */
-            if (APP_DATALOG_FileExists(APP_DATALOG_USER_EVENTS, NULL))
+            /* Wait for the semaphore to load data from memory */
+            OSAL_SEM_Pend(&appEventsSemID, OSAL_WAIT_FOREVER);
+
+            if (app_eventsData.dataIsRdy == true)
             {
-                /* EVENTS data exists */
-                _APP_EVENTS_LoadEvenstDataFromMemory();
-                /* Wait for the semaphore to load data from memory */
-                OSAL_SEM_Pend(&appEventsSemID, OSAL_WAIT_FOREVER);
+                app_eventsData.eventId++;
+                if (app_eventsData.eventId >= EVENTS_NUM_ID)
+                {
+                    app_eventsData.state = APP_EVENTS_STATE_RUNNING;
+                    RTC_TimeGet(&app_eventsData.lastNVMUpdTime);
+                    app_eventsData.eventMask = 0;
+                }
             }
             else
             {
-                /* There is no valid data in memory. Create Events Data in memory. */
-                _APP_EVENTS_StoreEventsDataInMemory();
+                /* Store event and read it again */
+                _APP_EVENTS_StoreEventsDataInMemory(app_eventsData.eventId);
+
+                /* Wait for the semaphore to load data from memory */
+                OSAL_SEM_Pend(&appEventsSemID, OSAL_WAIT_FOREVER);
             }
 
-            app_eventsData.state = APP_EVENTS_STATE_RUNNING;
-
             vTaskDelay(10 / portTICK_PERIOD_MS);
+
             break;
         }
 
@@ -387,11 +361,53 @@ void APP_EVENTS_Tasks ( void )
         {
             if (xQueueReceive(appEventsQueueID, &app_eventsData.newEvent, portMAX_DELAY) == pdPASS)
             {
-                if (_APP_EVENTS_UpdateEvents(&app_eventsData.newEvent))
+                app_eventsData.eventMask |= _APP_EVENTS_UpdateEvents(&app_eventsData.newEvent);
+
+                if (app_eventsData.eventMask > 0)
                 {
-                    _APP_EVENTS_StoreEventsDataInMemory();
+                    time_t currTime;
+                    time_t lastNvmUpdTime;
+
+                    RTC_TimeGet(&app_eventsData.currentTime);
+
+                    currTime = mktime(&app_eventsData.currentTime);
+                    lastNvmUpdTime = mktime(&app_eventsData.lastNVMUpdTime);
+
+                    if (difftime(currTime, lastNvmUpdTime) >= APP_EVENTS_TIME_DIFF_TO_STORE_NVM)
+                    {
+                        app_eventsData.state = APP_EVENTS_STATE_STORE_NVM;
+                    }
                 }
             }
+
+            break;
+        }
+
+        case APP_EVENTS_STATE_STORE_NVM:
+        {
+            APP_EVENTS_EVENT_ID id = (APP_EVENTS_EVENT_ID)0U;
+            uint32_t eventMask = app_eventsData.eventMask;
+
+            while (eventMask != 0U)
+            {
+                if (eventMask & 0x01)
+                {
+                    _APP_EVENTS_StoreEventsDataInMemory(id);
+                    /* Wait for the semaphore to load data from memory */
+                    OSAL_SEM_Pend(&appEventsSemID, OSAL_WAIT_FOREVER);
+                }
+                eventMask >>= 1U;
+                id++;
+            }
+
+            app_eventsData.eventMask = 0;
+            RTC_TimeGet(&app_eventsData.lastNVMUpdTime);
+
+            app_eventsData.state = APP_EVENTS_STATE_RUNNING;
+
+            vTaskDelay(10 / portTICK_PERIOD_MS);
+
+            break;
         }
 
         /* The default state should never be executed. */
@@ -399,6 +415,9 @@ void APP_EVENTS_Tasks ( void )
         default:
         {
             /* TODO: Handle error in application's state machine. */
+            SYS_CMD_MESSAGE("ERROR: Events app has been corrupted.\r\n");
+            /* Wait for the metrology semaphore */
+            OSAL_SEM_Pend(&appEventsSemID, OSAL_WAIT_FOREVER);
             break;
         }
     }
@@ -406,8 +425,18 @@ void APP_EVENTS_Tasks ( void )
 
 void APP_EVENTS_ClearEvents(void)
 {
+
     /* Erase all the event records stored in non volatile memory */
-    APP_DATALOG_ClearData(APP_DATALOG_USER_EVENTS);
+    appEventsDatalogQueueData.userId = APP_DATALOG_USER_EVENTS;
+    appEventsDatalogQueueData.operation = APP_DATALOG_ERASE;
+    appEventsDatalogQueueData.pData = NULL;
+    /* Use full events size */
+    appEventsDatalogQueueData.dataLen = sizeof(APP_EVENTS_EVENTS);
+    appEventsDatalogQueueData.endCallback = NULL;
+    appEventsDatalogQueueData.date.month = APP_DATALOG_INVALID_MONTH;
+    appEventsDatalogQueueData.date.year = APP_DATALOG_INVALID_YEAR;
+
+    xQueueSend(appDatalogQueueID, &appEventsDatalogQueueData, (TickType_t) 0);
 
     /* Clear all events data */
     memset(&app_eventsData.events, 0, sizeof(APP_EVENTS_EVENTS));
@@ -454,7 +483,7 @@ bool APP_EVENTS_GetEventInfo(APP_EVENTS_EVENT_ID eventId, uint8_t offset, APP_EV
     return true;
 }
 
-void APP_EVENTS_GetLastEventFlags(APP_EVENTS_FLAGS *eventFlags)
+void APP_EVENTS_GetLastEventFlags(DRV_METROLOGY_AFE_EVENTS *eventFlags)
 {
     if (eventFlags)
     {

@@ -13,9 +13,13 @@ dependency:
   type: package
   version: 5.9.0
 - dependencyPackage: ''
+  name: bsp
+  type: package
+  version: v3.24.0
+- dependencyPackage: ''
   name: core
   type: package
-  version: v3.15.5
+  version: v3.16.0
 - dependencyPackage: ''
   name: crypto_v4
   type: package
@@ -23,7 +27,7 @@ dependency:
 - dependencyPackage: ''
   name: csp
   type: package
-  version: v3.23.0
+  version: v3.25.0
 - dependencyPackage: ''
   name: gfx
   type: package
@@ -47,7 +51,7 @@ dependency:
 - dependencyPackage: ''
   name: smartenergy_metrology
   type: package
-  version: v1.0.0-E1
+  version: v2.0.0
 - dependencyPackage: ''
   name: wolfssl
   type: package

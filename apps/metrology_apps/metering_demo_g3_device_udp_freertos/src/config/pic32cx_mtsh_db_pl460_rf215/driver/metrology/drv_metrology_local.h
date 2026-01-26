@@ -69,6 +69,55 @@ Microchip or any third party.
 // *****************************************************************************
 
 // *****************************************************************************
+/* Metrology Driver Frequencies Object
+
+  Summary:
+    Object used to store frequency values measured by Metrology.
+
+  Description:
+    None.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    /* Frequency of dominant phase */
+    uint32_t freq;
+    /* Frequency of phase A */
+    uint32_t freqA;
+    /* Frequency of phase B */
+    uint32_t freqB;
+    /* Frequency of phase C */
+    uint32_t freqC;
+} DRV_METROLOGY_FREQS;
+
+// *****************************************************************************
+/* Metrology Driver Zero-Cross Data
+
+  Summary:
+    Object used to store Zero-Cross values measured by Metrology at the end of 
+    the integration period.
+
+  Description:
+    None.
+
+  Remarks:
+    None.
+*/
+
+typedef struct
+{
+    /* Zero-Cross of phase A */
+    uint32_t zcA;
+    /* Zero-Cross of phase B */
+    uint32_t zcB;
+    /* Zero-Cross of phase C */
+    uint32_t zcC;
+} DRV_METROLOGY_ZC;
+
+// *****************************************************************************
 /* Metrology Driver Instance Object
 
   Summary:
@@ -95,11 +144,20 @@ typedef struct
     /* Flag to indicate that a new integration period has been completed */
     volatile bool                                 integrationFlag;
 
+    /* Flag to indicate that a full cycle has been completed */
+    volatile bool                                 fullCycleFlag;
+
     /* Size (in Bytes) of the PLC binary file */
     uint32_t                                      binSize;
 
     /* Address where PLC binary file is located */
     uint32_t                                      binStartAddress;
+
+    /* Number of samples for accumulators in last Integration Period */
+    uint32_t                                      samplesInPeriod;
+
+    /* Number of samples for accumulators in last cycle */
+    uint32_t                                      samplesInCycle;
 
     /* Metrology Control interface */
     MET_REGISTERS *                               metRegisters;
@@ -107,11 +165,20 @@ typedef struct
     /* Metrology Accumulated Output Data */
     DRV_METROLOGY_REGS_ACCUMULATORS               metAccData;
 
+    /* Metrology Per-Cycle Accumulated Output Data */
+    DRV_METROLOGY_REGS_PERCYCLE_ACC               metPerCycleAccData;
+
     /* Metrology Harmonic Analysis Output Data */
     DRV_METROLOGY_REGS_HARMONICS                  metHarData;
 
     /* Metrology Analog Front End Data */
     DRV_METROLOGY_AFE_DATA                        metAFEData;
+
+    /* Metrology Frequency values */
+    DRV_METROLOGY_FREQS                           metFreqData;
+
+    /* Metrology Zero-Cross values */
+    DRV_METROLOGY_ZC                              metZCData;
 
     /* Metrology Calibration interface */
     DRV_METROLOGY_CALIBRATION                     calibrationData;
@@ -121,6 +188,12 @@ typedef struct
 
     /* IPC metrology lib integration Callback */
     DRV_METROLOGY_CALLBACK                        integrationCallback;
+
+    /* IPC metrology lib Full Cycle Callback */
+    DRV_METROLOGY_CALLBACK                        fullCycleCallback;
+
+    /* IPC metrology lib Half Cycle Callback */
+    DRV_METROLOGY_CALLBACK                        halfCycleCallback;
 
     /* Calibration Process Callback */
     DRV_METROLOGY_CALIBRATION_CALLBACK            calibrationCallback;

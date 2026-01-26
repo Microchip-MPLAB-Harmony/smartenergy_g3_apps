@@ -84,16 +84,6 @@
                                     PIOC_REGS->PIO_ODSR ^= (1<<21);\
                                 } while (0)
 
-/*** OUTPUT PIO Macros for RED_LED_PD19 ***/
-#define BSP_RED_LED_PD19_PIN        PIO_PIN_PD19
-#define BSP_RED_LED_PD19_Get()      ((PIOD_REGS->PIO_PDSR >> 19) & 0x1)
-#define BSP_RED_LED_PD19_On()       (PIOD_REGS->PIO_SODR = (1UL<<19))
-#define BSP_RED_LED_PD19_Off()      (PIOD_REGS->PIO_CODR = (1UL<<19))
-#define BSP_RED_LED_PD19_Toggle()   do {\
-                                    PIOD_REGS->PIO_MSKR = (1<<19); \
-                                    PIOD_REGS->PIO_ODSR ^= (1<<19);\
-                                } while (0)
-
 /*** OUTPUT PIO Macros for RF215_RSTN ***/
 #define BSP_RF215_RSTN_PIN        PIO_PIN_PB26
 #define BSP_RF215_RSTN_Get()      ((PIOB_REGS->PIO_PDSR >> 26) & 0x1)

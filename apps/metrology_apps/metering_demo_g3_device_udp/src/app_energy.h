@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -71,47 +71,47 @@ extern "C" {
 // *****************************************************************************
 
 typedef struct {
-  uint32_t energy;
-  uint32_t Pt;
+    float energy;
+    float Pt;
 } APP_ENERGY_QUEUE_DATA;
 
 #define APP_ENERGY_QUEUE_DATA_SIZE     5
 
 typedef struct {
-  APP_ENERGY_QUEUE_DATA data[APP_ENERGY_QUEUE_DATA_SIZE];
-  APP_ENERGY_QUEUE_DATA * dataRd;
-  APP_ENERGY_QUEUE_DATA * dataWr;
-  uint8_t dataSize;
+    APP_ENERGY_QUEUE_DATA data[APP_ENERGY_QUEUE_DATA_SIZE];
+    APP_ENERGY_QUEUE_DATA * dataRd;
+    APP_ENERGY_QUEUE_DATA * dataWr;
+    uint8_t dataSize;
 } APP_ENERGY_QUEUE;
 
 typedef enum {
-  TARIFF_1 = 1,
-  TARIFF_2,
-  TARIFF_3,
-  TARIFF_4,
-  TARIFF_NUM_TYPE = TARIFF_4,
-  TARIFF_INVALID = 0xFF
+    TARIFF_1 = 1,
+    TARIFF_2,
+    TARIFF_3,
+    TARIFF_4,
+    TARIFF_NUM_TYPE = TARIFF_4,
+    TARIFF_INVALID = 0xFF
 } APP_ENERGY_TARIFF_TYPE;
 
 typedef struct {
-  APP_ENERGY_TARIFF_TYPE tariff;
-  uint8_t hour;
-  uint8_t minute;
+    APP_ENERGY_TARIFF_TYPE tariff;
+    uint8_t hour;
+    uint8_t minute;
 } APP_ENERGY_TOU_TIME_ZONE;
 
 #define APP_ENERGY_TOU_MAX_ZONES             8
 
 typedef struct {
-  APP_ENERGY_TOU_TIME_ZONE timeZone[APP_ENERGY_TOU_MAX_ZONES];
+    APP_ENERGY_TOU_TIME_ZONE timeZone[APP_ENERGY_TOU_MAX_ZONES];
     uint32_t usedZones;
 } APP_ENERGY_TOU;
 
 typedef struct {
-    uint32_t value;
+    float value;
     uint8_t month;
     uint8_t day;
     uint8_t hour;
-  uint8_t minute;
+    uint8_t minute;
 } APP_ENERGY_DEMAND_DATA;
 
 typedef struct {
@@ -121,11 +121,11 @@ typedef struct {
 
 typedef struct {
     APP_ENERGY_MAX_DEMAND maxDemand;
-    uint32_t window[60];
+    float window[15];
 } APP_ENERGY_DEMAND;
 
 typedef struct {
-    uint64_t tariff[TARIFF_NUM_TYPE];
+    float tariff[TARIFF_NUM_TYPE];
 } APP_ENERGY_ACCUMULATORS;
 
 typedef void (* APP_ENERGY_MAXDEMAND_CALLBACK) (struct tm * time, bool dataValid);
@@ -185,15 +185,17 @@ typedef struct
 
     APP_ENERGY_TARIFF_TYPE currentTariffIndex;
 
-    uint32_t energyThreshold;
-
     APP_ENERGY_TOU tou;
 
     APP_ENERGY_DEMAND demand;
 
+    APP_ENERGY_MAX_DEMAND demandToStore;
+
     APP_ENERGY_ACCUMULATORS energyAccumulator;
 
-    uint32_t demandAccumulator;
+    APP_ENERGY_ACCUMULATORS energyAccumulatorToStore;
+
+    float demandAccumulator;
 
     uint32_t counterIntegrationPeriods;
 
@@ -214,6 +216,8 @@ typedef struct
     struct tm timeResponse;
 
     struct tm time;
+
+    struct tm startupTime;
 
     uint8_t minRtcBackup;
 

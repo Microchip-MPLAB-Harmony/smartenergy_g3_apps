@@ -510,6 +510,8 @@ static void PeripheralClockInitialize(void)
 
         { ID_TRNG, 1U, 0U, 0U, 0U},
 
+        { ID_ICM, 1U, 0U, 0U, 0U},
+
         { ID_PIOD, 1U, 0U, 0U, 0U},
 
         { ID_IPC1, 1U, 0U, 0U, 0U},

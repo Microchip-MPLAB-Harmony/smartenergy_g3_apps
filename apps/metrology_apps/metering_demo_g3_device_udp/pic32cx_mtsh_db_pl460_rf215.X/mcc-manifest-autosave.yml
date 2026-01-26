@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: metering_demo_g3_device_udp
-creation_date: 2025-12-16T15:33:39.280+01:00[Europe/Paris]
+creation_date: 2026-01-27T14:48:35.795+01:00[Europe/Paris]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
@@ -18,9 +18,9 @@ device_library: {library_class: com.microchip.mcc.harmony.Harmony3Library, name:
   version: Bundled}
 packs: {name: PIC32CX-MT_DFP, version: 1.3.132}
 modules:
-- {name: core, type: HARMONY, version: v3.15.5}
-- {name: csp, type: HARMONY, version: v3.23.0}
-- {name: smartenergy_metrology, type: HARMONY, version: v1.0.0-E1}
+- {name: core, type: HARMONY, version: v3.16.0}
+- {name: csp, type: HARMONY, version: v3.25.0}
+- {name: smartenergy_metrology, type: HARMONY, version: v2.0.0}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
 - {name: smartenergy_g3, type: HARMONY, version: v1.1.0}
 - {name: gfx, type: HARMONY, version: v3.16.2}

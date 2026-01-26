@@ -75,8 +75,11 @@ void ADC_Initialize(void)
     ADC_REGS->ADC_CWR = ADC_CWR_LOWTHRES(0U) | ADC_CWR_HIGHTHRES(0U);
     ADC_REGS->ADC_IER = ADC_IER_COMPE_Msk;
 
+    /* Differential mode */
+    ADC_REGS->ADC_CCR = ADC_CCR_DIFF0_Msk;
+
     /* Enable channel */
-    ADC_REGS->ADC_CHER = ADC_CHER_CH1_Msk;
+    ADC_REGS->ADC_CHER = ADC_CHER_CH0_Msk;
 }
 
 /* Enable ADC channels */

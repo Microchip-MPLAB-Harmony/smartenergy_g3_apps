@@ -44,6 +44,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+/* MISRAC-2023 Rule 21.10 deviation taken for using time.h header file */
 #include <time.h>
 #include "plib_rtc_common.h"
 

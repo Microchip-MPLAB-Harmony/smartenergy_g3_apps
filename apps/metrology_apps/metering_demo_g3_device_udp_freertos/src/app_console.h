@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -74,7 +74,7 @@ extern "C" {
 /* Default password for Console commands */
 #define APP_CONSOLE_DEFAULT_PWD                   "PIC"
 /* Max time (in ms) to wait for datalog to be ready.
- * Once time expires, console app continues without storaga capabilities */
+ * Once time expires, console app continues without storage capabilities */
 #define CONSOLE_MAX_WAIT_MS_UNTIL_DATALOG_READY   2000
 
 // *****************************************************************************
@@ -102,14 +102,16 @@ typedef enum
     APP_CONSOLE_STATE_READ_ALL_CONTROL_REGS,
     APP_CONSOLE_STATE_READ_ACCUM_REG,
     APP_CONSOLE_STATE_READ_ALL_ACCUM_REGS,
+    APP_CONSOLE_STATE_READ_PC_ACCUM_REG,
+    APP_CONSOLE_STATE_READ_ALL_PC_ACCUM_REGS,
     APP_CONSOLE_STATE_READ_STATUS_REG,
     APP_CONSOLE_STATE_READ_ALL_STATUS_REGS,
-    APP_CONSOLE_STATE_READ_HARMONICS_REG,
+    APP_CONSOLE_STATE_READ_HARMONIC_REGS,
     APP_CONSOLE_STATE_READ_ALL_HARMONICS_REGS,
     APP_CONSOLE_STATE_READ_METER_ID,
     APP_CONSOLE_STATE_READ_TOU,
     APP_CONSOLE_STATE_READ_RTC,
-    APP_CONSOLE_STATE_PRINT_HARMONIC_ANALYSIS,
+    APP_CONSOLE_STATE_PRINT_ALL_HARMONIC_ANALYSIS,
     APP_CONSOLE_STATE_PRINT_MONTHLY_ENERGY,
     APP_CONSOLE_STATE_PRINT_EVENT,
     APP_CONSOLE_STATE_PRINT_MAX_DEMAND,
@@ -118,15 +120,45 @@ typedef enum
     APP_CONSOLE_STATE_PRINT_ACTIVE_POWER,
     APP_CONSOLE_STATE_PRINT_REACTIVE_POWER,
     APP_CONSOLE_STATE_PRINT_APARENT_POWER,
+    APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_VOLTAGE,
+    APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_CURRENT,
+    APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_ACTIVE_POWER,
+    APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_REACTIVE_POWER,
+    APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_APARENT_POWER,
     APP_CONSOLE_STATE_PRINT_FREQUENCY,
+    APP_CONSOLE_STATE_PRINT_TOTAL_FREQUENCY,
     APP_CONSOLE_STATE_PRINT_ANGLE,
     APP_CONSOLE_STATE_PRINT_WAVEFORM_DATA,
     APP_CONSOLE_STATE_PRINT_CALIBRATION_RESULT,
     APP_CONSOLE_STATE_PRINT_HELP,
     APP_CONSOLE_STATE_LOW_POWER_MODE,
     APP_CONSOLE_STATE_SW_RESET,
+    APP_CONSOLE_STATE_READ_CHANNELS_CONFIG,
+    APP_CONSOLE_STATE_SYN_DISABLE,
+    APP_CONSOLE_STATE_SYN_ENABLE,
+    APP_CONSOLE_STATE_SYN_DEBUG,
+    APP_CONSOLE_STATE_WAIT_DATA,
 } APP_CONSOLE_STATES;
 
+// *****************************************************************************
+/* Synthesizer Command Operation
+
+  Summary:
+    Synthesizer Command operation enumeration
+
+  Description:
+    This enumeration defines the Synthesizer commands.
+*/
+
+typedef enum
+{
+    /* Application's state machine's initial state. */
+    APP_CONSOLE_SYN_OPCMD_DISABLE=0,
+    APP_CONSOLE_SYN_OPCMD_ENABLE,
+    APP_CONSOLE_SYN_OPCMD_CHN_TRANSFER_START,
+    APP_CONSOLE_SYN_OPCMD_CHN_TRANSFERRING,
+    APP_CONSOLE_SYN_OPCMD_CHN_TRANSFER_END,
+} APP_CONSOLE_SYN_OPCMD;
 
 #define APP_CONSOLE_MAX_REGS   64
 
@@ -151,35 +183,39 @@ typedef struct
 
 typedef struct
 {
-    APP_CONSOLE_STATES state;
-    uint8_t ctrlRegToRead;
-    uint8_t accumRegToRead;
-    uint8_t statusRegToRead;
-    uint8_t harRegToRead;
-    uint32_t *rawData;
-    size_t rawDataLen;
-    bool rawDataFlag;
-    APP_CONSOLE_REG regsToModify[APP_CONSOLE_MAX_REGS];
-    struct tm timeRequest;
-    struct tm sysTime;
-    APP_EVENTS_EVENT_ID eventIdRequest;
-    uint8_t eventLastTimeRequest;
-    uint32_t currentWaitForDatalogReady;
-    uint8_t harmonicNumRequest;
-    bool calibrationResult;
-    int8_t numCommands;
-    int8_t cmdNumToShowHelp;
-    SYS_CMD_DESCRIPTOR *pCmdDescToShowHelp;
-    uint8_t requestCounter;
+  uint32_t *rawData;
+  DRV_METROLOGY_SYN_DESCRIPTOR *pSynDescriptor;
+  DRV_METROLOGY_SYN_DESCRIPTOR *pSynCurrentDesc;
+  SYS_CMD_DESCRIPTOR *pCmdDescToShowHelp;
+  uint32_t *pSynCurrentData;
+  char *pRegDescription;
+  uint32_t currentWaitForDatalogReady;
+  uint32_t harmonicBitmap;
+  uint32_t captNumSamples;
+  DRV_METROLOGY_REGS_ACCUMULATORS metAccRegs;
+  DRV_METROLOGY_REGS_PERCYCLE_ACC metPerCycleAccRegs;
+  APP_CONSOLE_REG regsToModify[APP_CONSOLE_MAX_REGS];
+  struct tm timeRequest;
+  struct tm sysTime;
+  size_t rawDataLen;
+  APP_EVENTS_EVENT_ID eventIdRequest;
+  APP_CONSOLE_STATES state;
+  int8_t cmdNumToShowHelp;
+  int8_t numCommands;
+  uint8_t ctrlRegToRead;
+  uint8_t accumRegToRead;
+  uint8_t statusRegToRead;
+  uint8_t harNumToRead;
+  uint8_t numRegsPending;
+  uint8_t numHarmsPending;
+  uint8_t eventLastTimeRequest;
+  uint8_t requestCounter;
+  uint8_t perCyclePar;
+  uint8_t synFrameCounter;
+  bool rawDataFlag;
+  bool synIsRunning;
+  bool calibrationResult;
 } APP_CONSOLE_DATA;
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Callback Routines
-// *****************************************************************************
-// *****************************************************************************
-/* These routines are called by drivers when certain events occur.
-*/
 
 // *****************************************************************************
 // *****************************************************************************

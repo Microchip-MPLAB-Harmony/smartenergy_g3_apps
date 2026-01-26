@@ -249,7 +249,7 @@ static void _LBP_ADP_NetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS* pNetwor
         ADP_SetRequestSync(ADP_IB_PREFIX_TABLE, 0, 27, (const uint8_t*) prefixData, &setConfirm);
 
         /* Notify display application to show communication symbol */
-        APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL_HIGH);
+        APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL_HIG);
 
         SYS_DEBUG_PRINT(SYS_ERROR_INFO, "APP_G3_MANAGEMENT: Joined to the network. "
                 "PAN ID: 0x%04X, Short Address: 0x%04X\r\n", panId, shortAddress);

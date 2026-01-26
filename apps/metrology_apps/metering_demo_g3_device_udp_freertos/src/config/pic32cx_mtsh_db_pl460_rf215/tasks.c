@@ -282,17 +282,6 @@ static void lSYS_CMD_Tasks(  void *pvParameters  )
 }
 
 
-
-static void lSYS_FS_Tasks(  void *pvParameters  )
-{
-    while(true)
-    {
-        SYS_FS_Tasks();
-        vTaskDelay(10U / portTICK_PERIOD_MS);
-    }
-}
-
-
 void _SLCDC_Tasks(  void *pvParameters  )
 {
     while(1)
@@ -331,15 +320,6 @@ void SYS_Tasks ( void )
         &xSYS_CMD_Tasks
     );
 
-
-
-    (void) xTaskCreate( lSYS_FS_Tasks,
-        "SYS_FS_TASKS",
-        SYS_FS_STACK_SIZE,
-        (void*)NULL,
-        SYS_FS_PRIORITY ,
-        (TaskHandle_t*)NULL
-    );
 
 
 

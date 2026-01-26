@@ -77,24 +77,52 @@ extern uint8_t met_bin_end;
 // Section: Macro Definitions
 // *****************************************************************************
 // *****************************************************************************
+#define DRV_METROLOGY_CHANNELS_NUMBER             5U
+#define DRV_METROLOGY_AFE_SELECTION               0U
 #define DRV_METROLOGY_HARMONICS_MAX_ORDER         31U
 
 #define DRV_METROLOGY_IPC_INIT_IRQ_MSK            IPC_ISR_IRQ20_Msk
 #define DRV_METROLOGY_IPC_INTEGRATION_IRQ_MSK     IPC_ISR_IRQ0_Msk
+#define DRV_METROLOGY_IPC_FULLCYCLE_IRQ_MSK       IPC_ISR_IRQ4_Msk
+#define DRV_METROLOGY_IPC_HALFCYCLE_IRQ_MSK       IPC_ISR_IRQ5_Msk
 
-#define  FREQ_Q         12U
-#define  GAIN_P_K_T_Q   24U
-#define  GAIN_VI_Q      10U
-#define  RMS_DIV_G      1024U    /* (1<<GAIN_VI_Q) */
-#define  CAL_VI_Q       29U
-#define  CAL_PH_Q       31U
-#define  RMS_Q          40U
-#define  RMS_DIV_Q      0x10000000000ULL  /* (1<<RMS_Q) */
-#define  RMS_Inx_Q      20U
-#define  RMS_DIV_Inx_Q  0x100000UL /* (1<< RMS_Inx_Q) */
-#define  RMS_PQ_SYMB    0x8000000000000000ULL       /* p/q symbol bit */
-#define  RMS_HARMONIC   0x80000000UL
-#define  CONST_Pi       3.1415926
+#define FORMAT_CONST_sQ031     31U
+#define FORMAT_CONST_uQ2012    12U
+#define FORMAT_CONST_sQ229     29U
+#define FORMAT_CONST_uQ2440    40U
+#define FORMAT_CONST_sQ2340    40U
+#define FORMAT_CONST_sQ3330    30U
+#define FORMAT_CONST_uQ824     24U
+#define FORMAT_CONST_uQ230     30U
+#define FORMAT_CONST_uQ1220    20U
+#define FORMAT_CONST_sQ130     30U
+#define FORMAT_CONST_uQ032     32U
+#define FORMAT_CONST_uQ2210    10U
+#define FORMAT_CONST_sQ940     40U
+#define FORMAT_CONST_sQ1318    18U
+#define FORMAT_CONST_uQ4420    20U
+
+#define GAIN_P_K_T_Q           24U
+#define GAIN_VI_Q              10U
+#define DIV_GAIN               1024U /* (1 << GAIN_VI_Q) */
+#define CAL_VI_Q               29U
+#define CAL_PH_Q               31U
+#define SAMPLING_FREQ          4000.0
+
+#define SECS_IN_HOUR_DOUBLE    3600.0
+
+/* Metrology Analog front End (AFE) description
+
+  Summary:
+    Describes the connection with AFE devices
+
+  Description:
+    The metrology driver has been designed to interface with several AFE devices.
+*/
+typedef enum {
+    AFE_1xATSENSE203 = 0,
+    AFE_NUM_TYPE
+} DRV_METROLOGY_AFE_TYPE;
 
 /* Metrology Driver Sensor Type
 
@@ -108,6 +136,9 @@ typedef enum {
     SENSOR_CT        = 0,
     SENSOR_SHUNT     = 1,
     SENSOR_ROGOWSKI  = 2,
+    SENSOR_VRD       = 3,
+    SENSOR_TEMP      = 4,
+    SENSOR_NOTUSED   = 5,
     SENSOR_NUM_TYPE
 } DRV_METROLOGY_SENSOR_TYPE;
 
@@ -127,22 +158,148 @@ typedef enum {
     GAIN_NUM_TYPE
 } DRV_METROLOGY_GAIN_TYPE;
 
-/* Metrology Driver Phase Identifier
+/* Metrology Channel Description
 
   Summary:
-    Line identifier used in the calibration process.
+    Describes the channel configuration
 
   Description:
-    Phase A, B and C are used to identify Ua, Ub and Uc respectively. Phase T includes all phases.
+    - Sensor Type
+    - Channel Name
+    - Channel Gain
+
+*/
+typedef struct {
+    char *name;
+    DRV_METROLOGY_GAIN_TYPE gain;
+    DRV_METROLOGY_SENSOR_TYPE sensorType;
+} DRV_METROLOGY_CHANNEL;
+
+/* Metrology Driver Dominant Voltage Selection
+
+  Summary:
+    Dominant Voltage Selection (SYNCH field in FEATURE_CTRL register).
+
+  Description:
+    These are the allowed values for SYNCH field in FEATURE_CTRL register.
+    It is used for Neutral Current phase calibration, to select which is the
+    voltage channel used as reference.
 */
 typedef enum {
-    PHASE_A        = 1,
-    PHASE_B        = 2,
-    PHASE_C        = 3,
-    PHASE_T        = 5,
-    PHASE_ID_NUM   = PHASE_T
-} DRV_METROLOGY_PHASE_ID;
+    DOMINANT_V_DYNAMIC = 0,
+    DOMINANT_V_PHASE_A = 1,
+    DOMINANT_V_PHASE_B = 2,
+    DOMINANT_V_PHASE_C = 3,
+    DOMINANT_V_NUM
+} DRV_METROLOGY_DOMINANT_V_SEL;
 
+/* Metrology Driver Calibration Mask
+
+  Summary:
+    Mask to select which metrology parameters are calibrated.
+
+  Description:
+    - magnitudeVx. Enables calibration of voltage channel Vx magnitude.
+    - magnitudeIx. Enables calibration of current channel Ix magnitude.
+    - anglePhaseX. Enables calibration of phase X angle (angle between IX and VX)
+    - angleVAB. Enables calibration of angle between VB and VA
+    - angleVAC. Enables calibration of angle between VC and VA
+    - vRefPhaseN. Selects the reference voltage channel for neutral current angle calibration.
+*/
+typedef struct {
+    unsigned int magnitudeVa : 1;
+    unsigned int magnitudeVb : 1;
+    unsigned int magnitudeVc : 1;
+    unsigned int magnitudeVd : 1;
+    unsigned int magnitudeIa : 1;
+    unsigned int magnitudeIb : 1;
+    unsigned int magnitudeIc : 1;
+    unsigned int magnitudeIn : 1;
+    unsigned int anglePhaseA : 1;
+    unsigned int anglePhaseB : 1;
+    unsigned int anglePhaseC : 1;
+    unsigned int anglePhaseN : 1;
+    unsigned int angleVAB : 1;
+    unsigned int angleVAC : 1;
+    unsigned int vRefPhaseN : 2;
+} DRV_METROLOGY_CALIBRATION_MASK;
+
+/* Metrology Driver Capture Channel Identifier
+
+  Summary:
+    Channel identifier used in the waveform capture process.
+
+  Description:
+    Identify the channel to be captured. Up to 7 channels of data may be captured at the same time
+
+*/
+typedef enum {
+    CAPTURE_CHN_IA    = 0,
+    CAPTURE_CHN_VA    = 1,
+    CAPTURE_CHN_IB    = 2,
+    CAPTURE_CHN_VB    = 3,
+    CAPTURE_CHN_IC    = 4,
+    CAPTURE_CHN_VC    = 5,
+    CAPTURE_CHN_IN    = 6,
+    CAPTURE_CHN_VD    = 7
+} DRV_METROLOGY_CAPTURE_CHN_MASK;
+
+/* Metrology Driver Capture Source Data
+
+  Summary:
+    Source data used in the waveform capture process.
+
+  Description:
+    - CAPTURE_SRC_16KHz captures 16 kHz data [sQ1.30] before DSP filtering
+    - CAPTURE_SRC_4KHz_FBW captures 4 kHz FBW data [sQ2.29] (Full Bandwidth = fundamental + harmonics)
+    - CAPTURE_SRC_4KHz_NBW captures 4 kHz NBW data [sQ2.29] (Narrow Bandwidth = fundamental only)
+    - CAPTURE_SRC_8KHz_FBW captures 8 kHz FBW data [sQ2.29] (Full Bandwidth = fundamental + harmonics)
+
+*/
+typedef enum {
+    CAPTURE_SRC_16KHz        = CAPTURE_CTRL_CAPTURE_SOURCE_16KHz_Val,
+    CAPTURE_SRC_4KHz_FBW     = CAPTURE_CTRL_CAPTURE_SOURCE_4KHz_FBW_Val,
+    CAPTURE_SRC_4KHz_NBW     = CAPTURE_CTRL_CAPTURE_SOURCE_4KHz_NBW_Val,
+    CAPTURE_SRC_8KHz_FBW     = CAPTURE_CTRL_CAPTURE_SOURCE_8KHz_FBW_Val,
+    CAPTURE_SRC_NUM
+} DRV_METROLOGY_CAPTURE_SOURCE;
+
+/* Metrology Driver Capture Type
+
+  Summary:
+    Identify the type of the capture process.
+
+  Description:
+    - CAPTURE_ONE_SHOT captures total CAPTURE_BUFF_SIZE of future data. Capture will stop after capture
+        finishes or is disabled
+    - CAPTURE_CONTINUOUS captures of waveform data in circular-buffer fashion. Capture will stop
+        immediately after capture is disabled.
+
+  Note:
+    When using Continuous capture, CAPTURE_OFFSET indicates the offset of latest
+    sample in capture buffer. This offset can be obtained by DRV_METROLOGY_CaptureGetOffset() function.
+
+*/
+typedef enum {
+    CAPTURE_ONE_SHOT    = CAPTURE_CTRL_CAPTURE_TYPE_ONE_SHOT_Val,
+    CAPTURE_CONTINUOUS  = CAPTURE_CTRL_CAPTURE_TYPE_CONTINUOS_Val,
+    CAPTURE_TYPE_NUM
+} DRV_METROLOGY_CAPTURE_TYPE;
+
+/* Metrology Driver Capture State
+
+  Summary:
+    Identify the state of the capture process.
+
+  Description:
+    Waveform Capture Status.
+
+*/
+typedef enum {
+    CAPTURE_DISABLED    = CAPTURE_STATUS_CAPTURE_STATE_DISABLED_Val,
+    CAPTURE_ACTIVE      = CAPTURE_STATUS_CAPTURE_STATE_ACTIVE_Val,
+    CAPTURE_COMPLETE    = CAPTURE_STATUS_CAPTURE_STATE_COMPLETE_Val
+} DRV_METROLOGY_CAPTURE_STATE;
 
 /* Metrology Driver Calibration References
 
@@ -150,22 +307,27 @@ typedef enum {
     Specifies the all reference values used for the auto calibration process.
 
   Description:
-    - aimVx refers to the RMS voltage applied to the voltage input where x = A,B,C
-    - aimIx refers to the Rms current applied to the current input where x = A,B,C
-    - anglex refers to the Angle between the voltage and current vectors where x = A,B,C
-    - lineID identifies the phase/phases to calibrate
+    - vx refers to the RMS voltage applied to the voltage input where x = A,B,C,D
+    - ix refers to the Rms current applied to the current input where x = A,B,C,N
+    - ax refers to the Angle between the voltage and current vectors where x = A,B,C,N,VAB,VAC
+    - calMask is a bitmask of the parameters to be calibrated
 */
 typedef struct {
-    double aimVA;
-    double aimIA;
-    double angleA;
-    double aimVB;
-    double aimIB;
-    double angleB;
-    double aimVC;
-    double aimIC;
-    double angleC;
-    DRV_METROLOGY_PHASE_ID lineId;
+    double va;
+    double ia;
+    double aa;
+    double vb;
+    double ib;
+    double ab;
+    double vc;
+    double ic;
+    double ac;
+    double in;
+    double an;
+    double vd;
+    double avab;
+    double avac;
+    DRV_METROLOGY_CALIBRATION_MASK calMask;
 } DRV_METROLOGY_CALIBRATION_REFS;
 
 /* Metrology Driver Calibration Data
@@ -174,20 +336,14 @@ typedef struct {
     Specifies all data internally needed for the auto calibration process.
 
   Description:
-    - metControlConf. Dummy variable used in internal computations.
     - references. Calibration references. Client must be set the references before starting the calibration process.
-    - freq. Stores the mains frequency passed as parameter in the DRV_METROLOGY_SetConfiguration() routine.
+    - numPreIntegrationPeriods. Number of integration periods to wait before starting the calibration process. It is set internally to 2.
     - numIntegrationPeriods. Number of integration periods needed to complete the calibration process. It is set internally to 4.
     - running. Flag used to check if the calibration process was completed.
     - result. Flag used to check if the calibration process has been successful.
     - Rest of the values are internally used to perform the calibration process.
 */
 typedef struct {
-    DRV_METROLOGY_REGS_CONTROL metControlConf;
-    DRV_METROLOGY_CALIBRATION_REFS references;
-    uint32_t featureCtrlBackup;
-    double freq;
-    uint32_t numIntegrationPeriods;
     uint64_t dspAccIa;
     uint64_t dspAccIb;
     uint64_t dspAccIc;
@@ -195,13 +351,25 @@ typedef struct {
     uint64_t dspAccUa;
     uint64_t dspAccUb;
     uint64_t dspAccUc;
-    uint64_t dspAccUn;
+    uint64_t dspAccUd;
+    uint64_t dspAccUaf;
+    uint64_t dspAccUbf;
+    uint64_t dspAccUcf;
+    uint64_t dspAccUdf;
+    uint64_t dspAccUabf;
+    uint64_t dspAccUcaf;
     int64_t  dspAccPa;
     int64_t  dspAccPb;
     int64_t  dspAccPc;
+    int64_t  dspAccPn;
     int64_t  dspAccQa;
     int64_t  dspAccQb;
     int64_t  dspAccQc;
+    int64_t  dspAccQn;
+    uint32_t featureCtrlBackup;
+    DRV_METROLOGY_CALIBRATION_REFS references;
+    uint8_t numPreIntegrationPeriods;
+    uint8_t numIntegrationPeriods;
     bool  running;
     bool  result;
 } DRV_METROLOGY_CALIBRATION;
@@ -233,17 +401,58 @@ typedef struct {
 
   Description:
     - pHarmonicAnalysisResponse. Pointer to store the result of the Harmonic Analysis.
-    - harmonicNum: Store the harmonic number to be analyzed.
+    - harmonicBitmap: Store the harmonics to be analyzed.
     - integrationPeriods: Indicate the number of integration periods that must be waited until get the response
     - running: Flag to indicate that harmonic analysis is in process.
 */
 typedef struct {
     DRV_METROLOGY_HARMONICS_RMS * pHarmonicAnalysisResponse;
-    uint8_t harmonicNum;
+    uint32_t harmonicBitmap;
     uint8_t integrationPeriods;
     bool  running;
     bool holdRegs;
 } DRV_METROLOGY_HARMONIC_ANALYSIS;
+
+#define DRV_METROLOGY_SYN_CONTROL_KEY  0xA5
+
+/* Metrology Synthesizer Control
+
+  Summary:
+    Data descriptor used to configure the synthesizer function
+
+  Description:
+    - numSamples: Number of samples to be transfered.
+    - channel: Indicates the channel number to which the samples belong to.
+    - key: Security key. It must be set to DRV_METROLOGY_SYNTHESIZER_CONTROL_KEY.
+
+  Remarks:
+    Any other Key value aborts the data transfer of the corresponding channel.
+*/
+
+typedef struct
+{
+    unsigned int numSamples : 19;
+    unsigned int channel : 5;
+    unsigned int key : 8;
+} DRV_METROLOGY_SYN_CONTROL;
+
+/* Metrology Synthesizer Descriptor
+
+  Summary:
+    Data descriptor used to configure the synthesizer function
+
+  Description:
+    - control: Synthesizer control values. See DRV_METROLOGY_SYNTHESIZER_CONTROL.
+    - *pData: Pointer to the data buffer with the waveform samples.
+    - *next: Pointer to the next descriptor address. If NULL, the descriptor is the last one to be performed.
+    - *prev: Pointer to the previous descriptor address. If NULL, the descriptor is the first one to be performed.
+*/
+typedef struct DRV_METROLOGY_SYN_DESCRIPTOR{
+    DRV_METROLOGY_SYN_CONTROL control;
+    uint32_t *pData;
+    struct DRV_METROLOGY_SYN_DESCRIPTOR *next;
+    struct DRV_METROLOGY_SYN_DESCRIPTOR *prev;
+} DRV_METROLOGY_SYN_DESCRIPTOR;
 
 /* Metrology Driver AFE Events
 
@@ -255,6 +464,8 @@ typedef struct {
     - qXDir. Identifies the sign of the reactive power in channel X. "1" means a negative value, "0" is a positive value.
     - sagX. Voltage Sag Detected Flag for Channel X. "1" means that voltage sag is detected.
     - swellX. Voltage Swell Detected Flag for Channel X. "1" means that voltage Swell is detected.
+    - creepX. Channel X Current or Power Creep Detected Flag. "1" means that Creep is detected.
+    - phActiveX. Voltage Active Detected Flag for Channel X. "1" means that voltage Active is detected.
 */
 typedef struct {
     unsigned int paDir : 1;
@@ -265,60 +476,113 @@ typedef struct {
     unsigned int qbDir : 1;
     unsigned int qcDir : 1;
     unsigned int qtDir : 1;
-    unsigned int sagA : 1;
-    unsigned int sagB : 1;
-    unsigned int sagC : 1;
-    unsigned int reserved1 : 1;
+    unsigned int pafDir : 1;
+    unsigned int pbfDir : 1;
+    unsigned int pcfDir : 1;
+    unsigned int ptfDir : 1;
+    unsigned int qafDir : 1;
+    unsigned int qbfDir : 1;
+    unsigned int qcfDir : 1;
+    unsigned int qtfDir : 1;
     unsigned int swellA : 1;
     unsigned int swellB : 1;
     unsigned int swellC : 1;
-    unsigned int reserved2 : 17;
+    unsigned int sagA : 1;
+    unsigned int sagB : 1;
+    unsigned int sagC : 1;
+    unsigned int creepP : 1;
+    unsigned int creepPA : 1;
+    unsigned int creepPB : 1;
+    unsigned int creepPC : 1;
+    unsigned int creepQ : 1;
+    unsigned int creepQA : 1;
+    unsigned int creepQB : 1;
+    unsigned int creepQC : 1;
+    unsigned int creepIA : 1;
+    unsigned int creepIB : 1;
+    unsigned int creepIC : 1;
+    unsigned int creepS : 1;
+    unsigned int phActiveA : 1;
+    unsigned int phActiveB : 1;
+    unsigned int phActiveC : 1;
+    unsigned int reserved : 1;
 } DRV_METROLOGY_AFE_EVENTS;
 
-/* Metrology Driver RMS type
+typedef union {
+    DRV_METROLOGY_AFE_EVENTS afeEvents;
+    uint64_t afeEventsMask;
+} DRV_METROLOGY_AFE_EVENTS_UNION;
+
+/* Metrology Driver Measurements type
 
   Summary:
-    Identifies the all RMS types of measurements.
+    Identifies all types of measurements.
 
   Description:
-    RMS values are calculated including all harmonics of each phase, where:
+    Values are calculated both including all harmonics and fundamental only (F added at the end of magnitude name), where:
         - U = Voltage RMS value
         - I = Current RMS value
-        - P = Active power RMS value
-        - Q = Reactive power RMS value
-        - S = Aparent power RMS value
+        - P = Active power value
+        - Q = Reactive power value
+        - S = Aparent power value
         - FREQ = Frequency of the line voltage fundamental harmonic component determined by the Metrology library using the dominant phase
         - ANGLE = Angle between the voltage and current vectors
 */
 typedef enum {
-    RMS_UA = 0,
-    RMS_UB,
-    RMS_UC,
-    RMS_IA,
-    RMS_IB,
-    RMS_IC,
-    RMS_INI,
-    RMS_INM,
-    RMS_INMI,
-    RMS_PT,
-    RMS_PA,
-    RMS_PB,
-    RMS_PC,
-    RMS_QT,
-    RMS_QA,
-    RMS_QB,
-    RMS_QC,
-    RMS_ST,
-    RMS_SA,
-    RMS_SB,
-    RMS_SC,
-    RMS_FREQ,
-    RMS_ANGLEA,
-    RMS_ANGLEB,
-    RMS_ANGLEC,
-    RMS_ANGLEN,
-    RMS_TYPE_NUM
-} DRV_METROLOGY_RMS_TYPE;
+    MEASURE_UA_RMS = 0,
+    MEASURE_UB_RMS,
+    MEASURE_UC_RMS,
+    MEASURE_UD_RMS,
+    MEASURE_IA_RMS,
+    MEASURE_IB_RMS,
+    MEASURE_IC_RMS,
+    MEASURE_INI_RMS,
+    MEASURE_INM_RMS,
+    MEASURE_INMI_RMS,
+    MEASURE_PT,
+    MEASURE_PA,
+    MEASURE_PB,
+    MEASURE_PC,
+    MEASURE_QT,
+    MEASURE_QA,
+    MEASURE_QB,
+    MEASURE_QC,
+    MEASURE_ST,
+    MEASURE_SA,
+    MEASURE_SB,
+    MEASURE_SC,
+    MEASURE_UAF_RMS,
+    MEASURE_UBF_RMS,
+    MEASURE_UCF_RMS,
+    MEASURE_UDF_RMS,
+    MEASURE_IAF_RMS,
+    MEASURE_IBF_RMS,
+    MEASURE_ICF_RMS,
+    MEASURE_IMNF_RMS,
+    MEASURE_PTF,
+    MEASURE_PAF,
+    MEASURE_PBF,
+    MEASURE_PCF,
+    MEASURE_QTF,
+    MEASURE_QAF,
+    MEASURE_QBF,
+    MEASURE_QCF,
+    MEASURE_STF,
+    MEASURE_SAF,
+    MEASURE_SBF,
+    MEASURE_SCF,
+    MEASURE_FREQ,
+    MEASURE_FREQA,
+    MEASURE_FREQB,
+    MEASURE_FREQC,
+    MEASURE_ANGLEA,
+    MEASURE_ANGLEB,
+    MEASURE_ANGLEC,
+    MEASURE_ANGLEN,
+    MEASURE_ANGLEVAB,
+    MEASURE_ANGLEVAC,
+    MEASURE_TYPE_NUM
+} DRV_METROLOGY_MEASURE_TYPE;
 
 /* Metrology Driver AFE calculated data
 
@@ -328,41 +592,14 @@ typedef enum {
   Description:
     - energy. Active energy calculated value.
     - afeEvents. AFE events data.
-    - RMS[RMS_TYPE_NUM]. RMS calculated values.
+    - measure[MEASURE_TYPE_NUM]. Measure calculated values.
 */
 typedef struct {
-    uint32_t energy;
     DRV_METROLOGY_AFE_EVENTS afeEvents;
-    uint32_t RMS[RMS_TYPE_NUM];
+    float energy;
+    float measure[MEASURE_TYPE_NUM];
+    float cycleMeasure[MEASURE_TYPE_NUM];
 } DRV_METROLOGY_AFE_DATA;
-
-/* Metrology Driver Configuration
-
-  Summary:
-    Identifies values needed to set different metrology configurations.
-
-  Description:
-    - mc. Meter Constant (amount of energy signified by one output pulse). Units: pulses/kWh (active energy), pulses/kVARh (reactive energy), or pulses/kAmp2-h (amp square)
-    - freq. Mains frequency. Units: Hz.
-    - tr.
-      - In the case of a current transformer, this is the current transformer ratio
-      - In the case of a Rogowski Coil, this is the current sensitivity (units: uV/A) at the main frequency specified in ?Frequency? parameter.
-    - rl.
-      - In the case of current transformer, this is the resistor load or burden resistor (units: ?).
-      - In the case of shunt resistor, this is the shunt resistor value (units: u?)
-    - ku. Voltage divider ratio.
-    - st. Sensor Type. Refer to DRV_METROLOGY_SENSOR_TYPE.
-    - gain. Programmable Gain Amplifier of the AFE (analog front end). Refer to DRV_METROLOGY_GAIN_TYPE.
-*/
-typedef struct {
-    uint32_t mc;
-    double freq;
-    double tr;
-    double rl;
-    uint32_t ku;
-    DRV_METROLOGY_SENSOR_TYPE st;
-    DRV_METROLOGY_GAIN_TYPE gain;
-} DRV_METROLOGY_CONFIGURATION;
 
 /* METROLOGY Driver Status
 

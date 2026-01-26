@@ -134,24 +134,6 @@
 #define PL460_MISO_Get()               ((PIOA_REGS->PIO_PDSR >> 9U) & 0x1U)
 #define PL460_MISO_PIN                  PIO_PIN_PA9
 
-/*** Macros for RED_LED_PD19 pin ***/
-#define RED_LED_PD19_Set()               (PIOD_REGS->PIO_SODR = ((uint32_t)1U<<19U))
-#define RED_LED_PD19_Clear()             (PIOD_REGS->PIO_CODR = ((uint32_t)1U<<19U))
-#define RED_LED_PD19_Toggle()            do {\
-                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<19U); \
-                                            PIOD_REGS->PIO_ODSR ^= ((uint32_t)1U<<19U);\
-                                        } while (0)
-#define RED_LED_PD19_OutputEnable()      do {\
-                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<19U); \
-                                            PIOD_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
-                                        }while(0)
-#define RED_LED_PD19_InputEnable()       do { \
-                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<19U); \
-                                            PIOD_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
-                                        } while (0)
-#define RED_LED_PD19_Get()               ((PIOD_REGS->PIO_PDSR >> 19U) & 0x1U)
-#define RED_LED_PD19_PIN                  PIO_PIN_PD19
-
 /*** Macros for PL460_SCK pin ***/
 #define PL460_SCK_Get()               ((PIOA_REGS->PIO_PDSR >> 10U) & 0x1U)
 #define PL460_SCK_PIN                  PIO_PIN_PA10
@@ -198,6 +180,14 @@
 #define PL460_EXTINT_InterruptEnable()   (PIOA_REGS->PIO_IER = (1<<3))
 #define PL460_EXTINT_InterruptDisable()  (PIOA_REGS->PIO_IDR = (1<<3))
 
+/*** Macros for DBG_UART_TX pin ***/
+#define DBG_UART_TX_Get()               ((PIOA_REGS->PIO_PDSR >> 4U) & 0x1U)
+#define DBG_UART_TX_PIN                  PIO_PIN_PA4
+
+/*** Macros for DBG_UART_RX pin ***/
+#define DBG_UART_RX_Get()               ((PIOA_REGS->PIO_PDSR >> 5U) & 0x1U)
+#define DBG_UART_RX_PIN                  PIO_PIN_PA5
+
 /*** Macros for SCRL_UP_BTN pin ***/
 #define SCRL_UP_BTN_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<14U))
 #define SCRL_UP_BTN_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<14U))
@@ -238,9 +228,113 @@
 #define SCRL_DOWN_BTN_InterruptEnable()   (PIOA_REGS->PIO_IER = (1<<15))
 #define SCRL_DOWN_BTN_InterruptDisable()  (PIOA_REGS->PIO_IDR = (1<<15))
 
+/*** Macros for LCD_COM2 pin ***/
+#define LCD_COM2_Get()               ((PIOA_REGS->PIO_PDSR >> 22U) & 0x1U)
+#define LCD_COM2_PIN                  PIO_PIN_PA22
+
+/*** Macros for LCD_COM3 pin ***/
+#define LCD_COM3_Get()               ((PIOA_REGS->PIO_PDSR >> 23U) & 0x1U)
+#define LCD_COM3_PIN                  PIO_PIN_PA23
+
+/*** Macros for LCD_COM4 pin ***/
+#define LCD_COM4_Get()               ((PIOA_REGS->PIO_PDSR >> 24U) & 0x1U)
+#define LCD_COM4_PIN                  PIO_PIN_PA24
+
+/*** Macros for LCD_COM5 pin ***/
+#define LCD_COM5_Get()               ((PIOA_REGS->PIO_PDSR >> 25U) & 0x1U)
+#define LCD_COM5_PIN                  PIO_PIN_PA25
+
+/*** Macros for LCD_COM6 pin ***/
+#define LCD_COM6_Get()               ((PIOA_REGS->PIO_PDSR >> 26U) & 0x1U)
+#define LCD_COM6_PIN                  PIO_PIN_PA26
+
+/*** Macros for LCD_COM7 pin ***/
+#define LCD_COM7_Get()               ((PIOA_REGS->PIO_PDSR >> 27U) & 0x1U)
+#define LCD_COM7_PIN                  PIO_PIN_PA27
+
+/*** Macros for LCD_COM8 pin ***/
+#define LCD_COM8_Get()               ((PIOA_REGS->PIO_PDSR >> 28U) & 0x1U)
+#define LCD_COM8_PIN                  PIO_PIN_PA28
+
 /*** Macros for PL460_SUPPLY_MON pin ***/
 #define PL460_SUPPLY_MON_Get()               ((PIOA_REGS->PIO_PDSR >> 30U) & 0x1U)
 #define PL460_SUPPLY_MON_PIN                  PIO_PIN_PA30
+
+/*** Macros for LCD_SEG13 pin ***/
+#define LCD_SEG13_Get()               ((PIOB_REGS->PIO_PDSR >> 3U) & 0x1U)
+#define LCD_SEG13_PIN                  PIO_PIN_PB3
+
+/*** Macros for LCD_SEG12 pin ***/
+#define LCD_SEG12_Get()               ((PIOB_REGS->PIO_PDSR >> 4U) & 0x1U)
+#define LCD_SEG12_PIN                  PIO_PIN_PB4
+
+/*** Macros for LCD_SEG11 pin ***/
+#define LCD_SEG11_Get()               ((PIOB_REGS->PIO_PDSR >> 5U) & 0x1U)
+#define LCD_SEG11_PIN                  PIO_PIN_PB5
+
+/*** Macros for LCD_SEG10 pin ***/
+#define LCD_SEG10_Get()               ((PIOB_REGS->PIO_PDSR >> 6U) & 0x1U)
+#define LCD_SEG10_PIN                  PIO_PIN_PB6
+
+/*** Macros for LCD_SEG9 pin ***/
+#define LCD_SEG9_Get()               ((PIOB_REGS->PIO_PDSR >> 7U) & 0x1U)
+#define LCD_SEG9_PIN                  PIO_PIN_PB7
+
+/*** Macros for LCD_SEG8 pin ***/
+#define LCD_SEG8_Get()               ((PIOB_REGS->PIO_PDSR >> 8U) & 0x1U)
+#define LCD_SEG8_PIN                  PIO_PIN_PB8
+
+/*** Macros for LCD_SEG7 pin ***/
+#define LCD_SEG7_Get()               ((PIOB_REGS->PIO_PDSR >> 9U) & 0x1U)
+#define LCD_SEG7_PIN                  PIO_PIN_PB9
+
+/*** Macros for LCD_SEG14 pin ***/
+#define LCD_SEG14_Get()               ((PIOB_REGS->PIO_PDSR >> 10U) & 0x1U)
+#define LCD_SEG14_PIN                  PIO_PIN_PB10
+
+/*** Macros for LCD_SEG6 pin ***/
+#define LCD_SEG6_Get()               ((PIOB_REGS->PIO_PDSR >> 11U) & 0x1U)
+#define LCD_SEG6_PIN                  PIO_PIN_PB11
+
+/*** Macros for LCD_SEG15 pin ***/
+#define LCD_SEG15_Get()               ((PIOB_REGS->PIO_PDSR >> 12U) & 0x1U)
+#define LCD_SEG15_PIN                  PIO_PIN_PB12
+
+/*** Macros for LCD_SEG5 pin ***/
+#define LCD_SEG5_Get()               ((PIOB_REGS->PIO_PDSR >> 13U) & 0x1U)
+#define LCD_SEG5_PIN                  PIO_PIN_PB13
+
+/*** Macros for LCD_SEG16 pin ***/
+#define LCD_SEG16_Get()               ((PIOB_REGS->PIO_PDSR >> 14U) & 0x1U)
+#define LCD_SEG16_PIN                  PIO_PIN_PB14
+
+/*** Macros for LCD_SEG4 pin ***/
+#define LCD_SEG4_Get()               ((PIOB_REGS->PIO_PDSR >> 15U) & 0x1U)
+#define LCD_SEG4_PIN                  PIO_PIN_PB15
+
+/*** Macros for LCD_SEG17 pin ***/
+#define LCD_SEG17_Get()               ((PIOB_REGS->PIO_PDSR >> 16U) & 0x1U)
+#define LCD_SEG17_PIN                  PIO_PIN_PB16
+
+/*** Macros for LCD_SEG3 pin ***/
+#define LCD_SEG3_Get()               ((PIOB_REGS->PIO_PDSR >> 17U) & 0x1U)
+#define LCD_SEG3_PIN                  PIO_PIN_PB17
+
+/*** Macros for LCD_SEG18 pin ***/
+#define LCD_SEG18_Get()               ((PIOB_REGS->PIO_PDSR >> 18U) & 0x1U)
+#define LCD_SEG18_PIN                  PIO_PIN_PB18
+
+/*** Macros for LCD_SEG2 pin ***/
+#define LCD_SEG2_Get()               ((PIOB_REGS->PIO_PDSR >> 20U) & 0x1U)
+#define LCD_SEG2_PIN                  PIO_PIN_PB20
+
+/*** Macros for LCD_SEG1 pin ***/
+#define LCD_SEG1_Get()               ((PIOB_REGS->PIO_PDSR >> 23U) & 0x1U)
+#define LCD_SEG1_PIN                  PIO_PIN_PB23
+
+/*** Macros for LCD_SEG0 pin ***/
+#define LCD_SEG0_Get()               ((PIOB_REGS->PIO_PDSR >> 24U) & 0x1U)
+#define LCD_SEG0_PIN                  PIO_PIN_PB24
 
 /*** Macros for RF215_IRQ pin ***/
 #define RF215_IRQ_Set()               (PIOB_REGS->PIO_SODR = ((uint32_t)1U<<25U))

@@ -27,10 +27,10 @@ Microchip or any third party.
 /* ************************************************************************** */
 /*   SOFTWARE API DEFINITION FOR METROLOGY REGISTERS                          */
 /* ************************************************************************** */
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.4 deviated 64 times.  Deviation record ID - H3_MISRAC_2012_R_5_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.4 deviated 64 times.  Deviation record ID - H3_MISRAC_2023_R_5_4_DR_1 */
 
-/* -------- STATE_CTRL : (MET_CONTROL Offset: 0x00) (R/W 32) Metrology state control register -------- */
+/* -------- STATE_CTRL : (R/W 32) Metrology state control register -------- */
 #define STATE_CTRL_STATE_CTRL_Pos                     _UINT32_(0)                               /* (STATE_CTRL) State Control Position */
 #define STATE_CTRL_STATE_CTRL_Msk                     (_UINT32_(0xF) << STATE_CTRL_STATE_CTRL_Pos)         /* (STATE_CTRL) State Control Mask */
 #define STATE_CTRL_STATE_CTRL(value)                  (STATE_CTRL_STATE_CTRL_Msk & (_UINT32_(value) << STATE_CTRL_STATE_CTRL_Pos))
@@ -38,7 +38,7 @@ Microchip or any third party.
 #define   STATE_CTRL_STATE_CTRL_INIT_Val                _UINT32_(0x1)                           /* (STATE_CTRL) Input control registers are initialized and metrology can initialize itself.  */
 #define   STATE_CTRL_STATE_CTRL_RUN_Val                 _UINT32_(0x2)                           /* (STATE_CTRL) Metrology filters are free to run, and outputs are updated at commanded rate.  */
 
-/* -------- FEATURE_CTRL : (MET_CONTROL Offset: 0x04) (R/W 32) Metrology feature setting register 0 -------- */
+/* -------- FEATURE_CTRL : (R/W 32) Metrology feature setting register 0 -------- */
 #define FEATURE_CTRL_RZC_CHAN_SELECT_Pos             _UINT32_(0)                               /* (FEATURE_CTRL) Raw Zero-Crossing Channel Select Position */
 #define FEATURE_CTRL_RZC_CHAN_SELECT_Msk             (_UINT32_(0x7) << FEATURE_CTRL_RZC_CHAN_SELECT_Pos)    /* (FEATURE_CTRL) Raw Zero-Crossing Channel Select Mask */
 #define FEATURE_CTRL_RZC_CHAN_SELECT(value)          (FEATURE_CTRL_RZC_CHAN_SELECT_Msk & (_UINT32_(value) << FEATURE_CTRL_RZC_CHAN_SELECT_Pos))
@@ -52,12 +52,17 @@ Microchip or any third party.
 #define   FEATURE_CTRL_RZC_DIR_POSITIVE_Val            _UINT32_(0x0)                           /* (FEATURE_CTRL) Positive-going raw zero-crossings selected */
 #define   FEATURE_CTRL_RZC_DIR_NEGATIVE_Val            _UINT32_(0x1)                           /* (FEATURE_CTRL) Negative-going raw zero-crossings selected */
 #define FEATURE_CTRL_SYNCH_Pos                       _UINT32_(4)                               /* (FEATURE_CTRL) Active Voltage Channel Selection Position */
-#define FEATURE_CTRL_SYNCH_Msk                       (_UINT32_(0x2) << FEATURE_CTRL_SYNCH_Pos)    /* (FEATURE_CTRL) Active Voltage Channel Selection Mask */
+#define FEATURE_CTRL_SYNCH_Msk                       (_UINT32_(0x3) << FEATURE_CTRL_SYNCH_Pos)    /* (FEATURE_CTRL) Active Voltage Channel Selection Mask */
 #define FEATURE_CTRL_SYNCH(value)                    (FEATURE_CTRL_SYNCH_Msk & (_UINT32_(value) << FEATURE_CTRL_SYNCH_Pos))
 #define   FEATURE_CTRL_SYNCH_ACTIVE_PHASE_Val          _UINT32_(0x0)                           /* (FEATURE_CTRL) Measurement interval based on active phase, determined dynamically */
 #define   FEATURE_CTRL_SYNCH_A_Val                     _UINT32_(0x1)                           /* (FEATURE_CTRL) Measurement interval based on phase-A */
 #define   FEATURE_CTRL_SYNCH_B_Val                     _UINT32_(0x2)                           /* (FEATURE_CTRL) Measurement interval based on phase-B */
 #define   FEATURE_CTRL_SYNCH_C_Val                     _UINT32_(0x3)                           /* (FEATURE_CTRL) Measurement interval based on phase-C */
+#define FEATURE_CTRL_RZC_THRESHOLD_DIS_Pos           _UINT32_(7)                               /* (FEATURE_CTRL) Raw Zero-Crossing Threshold Disable Position */
+#define FEATURE_CTRL_RZC_THRESHOLD_DIS_Msk           (_UINT32_(0x1) << FEATURE_CTRL_RZC_THRESHOLD_DIS_Pos)  /* (FEATURE_CTRL) Raw Zero-Crossing Threshold Disable Mask */
+#define FEATURE_CTRL_RZC_THRESHOLD_DIS(value)        (FEATURE_CTRL_RZC_THRESHOLD_DIS_Msk & (_UINT32_(value) << FEATURE_CTRL_RZC_THRESHOLD_DIS_Pos))
+#define   FEATURE_CTRL_RZC_THRESHOLD_DIS_AVG_Val       _UINT32_(0x0)                           /* (FEATURE_CTRL) Threshold set to the average value computed in the last integration period */
+#define   FEATURE_CTRL_RZC_THRESHOLD_DIS_0_Val         _UINT32_(0x1)                           /* (FEATURE_CTRL) Threshold set to 0 */
 #define FEATURE_CTRL_PHASE_A_EN_Pos                  _UINT32_(8)                               /* (FEATURE_CTRL) Enable Phase A Position */
 #define FEATURE_CTRL_PHASE_A_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_PHASE_A_EN_Pos)    /* (FEATURE_CTRL) Enable Phase A Mask */
 #define FEATURE_CTRL_PHASE_A_EN(value)               (FEATURE_CTRL_PHASE_A_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_PHASE_A_EN_Pos))
@@ -73,26 +78,26 @@ Microchip or any third party.
 #define FEATURE_CTRL_PHASE_C_EN(value)               (FEATURE_CTRL_PHASE_C_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_PHASE_C_EN_Pos))
 #define   FEATURE_CTRL_PHASE_C_EN_DISABLED_Val         _UINT32_(0x0)                           /* (FEATURE_CTRL) Disable phase */
 #define   FEATURE_CTRL_PHASE_C_EN_ENABLED_Val          _UINT32_(0x1)                           /* (FEATURE_CTRL) Enable phase */
+#define FEATURE_CTRL_NEUTRAL_DIS_Pos                 _UINT32_(11)                               /* (FEATURE_CTRL) Disable neutral measurement Position */
+#define FEATURE_CTRL_NEUTRAL_DIS_Msk                 (_UINT32_(0x1) << FEATURE_CTRL_NEUTRAL_DIS_Pos)  /* (FEATURE_CTRL) Disable neutral measurement Mask */
+#define FEATURE_CTRL_NEUTRAL_DIS(value)              (FEATURE_CTRL_NEUTRAL_DIS_Msk & (_UINT32_(value) << FEATURE_CTRL_NEUTRAL_DIS_Pos))
+#define   FEATURE_CTRL_NEUTRAL_DIS_DISABLE_Val         _UINT32_(0x0)                           /* (FEATURE_CTRL) Neutral measurement is disabled, and the shared channel is continuously acquiring temperature readings */
+#define   FEATURE_CTRL_NEUTRAL_DIS_ENABLE_Val          _UINT32_(0x1)                           /* (FEATURE_CTRL) Neutral and temperature measurements are acquired using the shared channel */
 #define FEATURE_CTRL_MAX_INT_SELECT_Pos              _UINT32_(12)                               /* (FEATURE_CTRL) Max Integration Period Select Position */
 #define FEATURE_CTRL_MAX_INT_SELECT_Msk              (_UINT32_(0x1) << FEATURE_CTRL_MAX_INT_SELECT_Pos)    /* (FEATURE_CTRL) Max Integration Period Select Mask */
 #define FEATURE_CTRL_MAX_INT_SELECT(value)           (FEATURE_CTRL_MAX_INT_SELECT_Msk & (_UINT32_(value) << FEATURE_CTRL_MAX_INT_SELECT_Pos))
 #define   FEATURE_CTRL_MAX_INT_SELECT_CL1_Val           _UINT32_(0x0)                           /* (FEATURE_CTRL) Metrology DSP will integrate for an integral number of cycles closest to 1 second */
 #define   FEATURE_CTRL_MAX_INT_SELECT_NGT1_Val          _UINT32_(0x1)                           /* (FEATURE_CTRL) Metrology DSP will integrate for an integral number of cycles no greater than 1 second */
-#define FEATURE_CTRL_CREEP_I_EN_Pos                  _UINT32_(13)                                /* (FEATURE_CTRL) Current Creep Threshold Function Enable Position */
-#define FEATURE_CTRL_CREEP_I_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_CREEP_I_EN_Pos)    /* (FEATURE_CTRL) Current Creep Threshold Function Enable Mask */
-#define FEATURE_CTRL_CREEP_I_EN(value)               (FEATURE_CTRL_CREEP_I_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_CREEP_I_EN_Pos))
-#define   FEATURE_CTRL_CREEP_I_EN_DISABLED_Val         _UINT32_(0x0)                             /* (FEATURE_CTRL) Disable current creep threshold feature */
-#define   FEATURE_CTRL_CREEP_I_EN_ENABLED_Val          _UINT32_(0x1)                             /* (FEATURE_CTRL) Enable current creep threshold feature */
-#define FEATURE_CTRL_CREEP_Q_EN_Pos                  _UINT32_(14)                                /* (FEATURE_CTRL) Reactive Creep Threshold Function Enable Position */
-#define FEATURE_CTRL_CREEP_Q_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_CREEP_Q_EN_Pos)    /* (FEATURE_CTRL) Reactive Creep Threshold Function Enable Mask */
-#define FEATURE_CTRL_CREEP_Q_EN(value)               (FEATURE_CTRL_CREEP_Q_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_CREEP_Q_EN_Pos))
-#define   FEATURE_CTRL_CREEP_Q_EN_DISABLED_Val         _UINT32_(0x0)                             /* (FEATURE_CTRL) Disable Reactive creep threshold feature */
-#define   FEATURE_CTRL_CREEP_Q_EN_ENABLED_Val          _UINT32_(0x1)                             /* (FEATURE_CTRL) Enable Reactive creep threshold feature */
-#define FEATURE_CTRL_CREEP_P_EN_Pos                  _UINT32_(15)                                /* (FEATURE_CTRL) Active Creep Threshold Function Enable Position */
-#define FEATURE_CTRL_CREEP_P_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_CREEP_P_EN_Pos)    /* (FEATURE_CTRL) Active Creep Threshold Function Enable Mask */
-#define FEATURE_CTRL_CREEP_P_EN(value)               (FEATURE_CTRL_CREEP_P_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_CREEP_P_EN_Pos))
-#define   FEATURE_CTRL_CREEP_P_EN_DISABLED_Val         _UINT32_(0x0)                             /* (FEATURE_CTRL) Disable Active creep threshold feature */
-#define   FEATURE_CTRL_CREEP_P_EN_ENABLED_Val          _UINT32_(0x1)                             /* (FEATURE_CTRL) Enable Active creep threshold feature */
+#define FEATURE_CTRL_SYNTH_EN_Pos                    _UINT32_(13)                               /* (FEATURE_CTRL) Synthesizer Enable Position */
+#define FEATURE_CTRL_SYNTH_EN_Msk                    (_UINT32_(0x1) << FEATURE_CTRL_SYNTH_EN_Pos)    /* (FEATURE_CTRL) Synthesizer Enable Mask */
+#define FEATURE_CTRL_SYNTH_EN(value)                 (FEATURE_CTRL_SYNTH_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_SYNTH_EN_Pos))
+#define   FEATURE_CTRL_SYNTH_EN_ENABLED_Val             _UINT32_(0x0)                           /* (FEATURE_CTRL) Synthesizer Enabled */
+#define   FEATURE_CTRL_SYNTH_EN_DISABLED_Val            _UINT32_(0x1)                           /* (FEATURE_CTRL) Synthesizer Disabled */
+#define FEATURE_CTRL_VD_DC_EN_Pos                    _UINT32_(15)                               /* (FEATURE_CTRL) Enable DC for VD channel Position */
+#define FEATURE_CTRL_VD_DC_EN_Msk                    (_UINT32_(0x1) << FEATURE_CTRL_VD_DC_EN_Pos)    /* (FEATURE_CTRL) Enable DC for VD channel Mask */
+#define FEATURE_CTRL_VD_DC_EN(value)                 (FEATURE_CTRL_VD_DC_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_VD_DC_EN_Pos))
+#define   FEATURE_CTRL_VD_DC_EN_ENABLED_Val             _UINT32_(0x0)                           /* (FEATURE_CTRL) DC is included in VD channel */
+#define   FEATURE_CTRL_VD_DC_EN_DISABLED_Val            _UINT32_(0x1)                           /* (FEATURE_CTRL) DC is removed from VD channel */
 #define FEATURE_CTRL_SWAP_B_and_C_Pos                _UINT32_(16)                              /* (FEATURE_CTRL) Swap processing channels Position */
 #define FEATURE_CTRL_SWAP_B_and_C_Msk                (_UINT32_(0x1) << FEATURE_CTRL_SWAP_B_and_C_Pos)    /* (FEATURE_CTRL) Swap processing channels Mask */
 #define FEATURE_CTRL_SWAP_B_and_C(value)             (FEATURE_CTRL_SWAP_B_and_C_Msk & (_UINT32_(value) << FEATURE_CTRL_SWAP_B_and_C_Pos))
@@ -104,6 +109,26 @@ Microchip or any third party.
 #define FEATURE_CTRL_V_MAX_RESET_Pos                 _UINT32_(18)                                /* (FEATURE_CTRL) Reset All V_x_MAX values Position */
 #define FEATURE_CTRL_V_MAX_RESET_Msk                 (_UINT32_(0x1) << FEATURE_CTRL_V_MAX_RESET_Pos)    /* (FEATURE_CTRL) Reset All V_x_MAX values Mask */
 #define FEATURE_CTRL_V_MAX_RESET(value)              (FEATURE_CTRL_V_MAX_RESET_Msk & (_UINT32_(value) << FEATURE_CTRL_V_MAX_RESET_Pos))
+#define FEATURE_CTRL_CREEP_I_EN_Pos                  _UINT32_(20)                                /* (FEATURE_CTRL) Current Creep Threshold Function Enable Position */
+#define FEATURE_CTRL_CREEP_I_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_CREEP_I_EN_Pos)    /* (FEATURE_CTRL) Current Creep Threshold Function Enable Mask */
+#define FEATURE_CTRL_CREEP_I_EN(value)               (FEATURE_CTRL_CREEP_I_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_CREEP_I_EN_Pos))
+#define   FEATURE_CTRL_CREEP_I_EN_DISABLED_Val         _UINT32_(0x0)                             /* (FEATURE_CTRL) Disable current creep threshold feature */
+#define   FEATURE_CTRL_CREEP_I_EN_ENABLED_Val          _UINT32_(0x1)                             /* (FEATURE_CTRL) Enable current creep threshold feature */
+#define FEATURE_CTRL_CREEP_Q_EN_Pos                  _UINT32_(21)                                /* (FEATURE_CTRL) Reactive Power Creep Threshold Function Enable Position */
+#define FEATURE_CTRL_CREEP_Q_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_CREEP_Q_EN_Pos)    /* (FEATURE_CTRL) Reactive Power Creep Threshold Function Enable Mask */
+#define FEATURE_CTRL_CREEP_Q_EN(value)               (FEATURE_CTRL_CREEP_Q_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_CREEP_Q_EN_Pos))
+#define   FEATURE_CTRL_CREEP_Q_EN_DISABLED_Val         _UINT32_(0x0)                             /* (FEATURE_CTRL) Disable Reactive Power creep threshold feature */
+#define   FEATURE_CTRL_CREEP_Q_EN_ENABLED_Val          _UINT32_(0x1)                             /* (FEATURE_CTRL) Enable Reactive Power creep threshold feature */
+#define FEATURE_CTRL_CREEP_P_EN_Pos                  _UINT32_(22)                                /* (FEATURE_CTRL) Active Power Creep Threshold Function Enable Position */
+#define FEATURE_CTRL_CREEP_P_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_CREEP_P_EN_Pos)    /* (FEATURE_CTRL) Active Power Creep Threshold Function Enable Mask */
+#define FEATURE_CTRL_CREEP_P_EN(value)               (FEATURE_CTRL_CREEP_P_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_CREEP_P_EN_Pos))
+#define   FEATURE_CTRL_CREEP_P_EN_DISABLED_Val         _UINT32_(0x0)                             /* (FEATURE_CTRL) Disable Active Power creep threshold feature */
+#define   FEATURE_CTRL_CREEP_P_EN_ENABLED_Val          _UINT32_(0x1)                             /* (FEATURE_CTRL) Enable Active Power creep threshold feature */
+#define FEATURE_CTRL_CREEP_S_EN_Pos                  _UINT32_(23)                                /* (FEATURE_CTRL) Aparent Power Creep Threshold Function Enable Position */
+#define FEATURE_CTRL_CREEP_S_EN_Msk                  (_UINT32_(0x1) << FEATURE_CTRL_CREEP_S_EN_Pos)    /* (FEATURE_CTRL) Aparent Power Creep Threshold Function Enable Mask */
+#define FEATURE_CTRL_CREEP_S_EN(value)               (FEATURE_CTRL_CREEP_S_EN_Msk & (_UINT32_(value) << FEATURE_CTRL_CREEP_S_EN_Pos))
+#define   FEATURE_CTRL_CREEP_S_EN_DISABLED_Val         _UINT32_(0x0)                             /* (FEATURE_CTRL) Disable Aparent Power creep threshold feature */
+#define   FEATURE_CTRL_CREEP_S_EN_ENABLED_Val          _UINT32_(0x1)                             /* (FEATURE_CTRL) Enable Aparent Power creep threshold feature */
 #define FEATURE_CTRL_IA_HARM_DIS_Pos                 _UINT32_(24)                                /* (FEATURE_CTRL) Disable Harmonic IA Analysis */
 #define FEATURE_CTRL_IA_HARM_DIS_Msk                 (_UINT32_(0x1) << FEATURE_CTRL_IA_HARM_DIS_Pos)    /* (FEATURE_CTRL) Enable Harmonic IA Analysis Mask */
 #define FEATURE_CTRL_IA_HARM_DIS(value)              (FEATURE_CTRL_IA_HARM_DIS_Msk & (_UINT32_(value) << FEATURE_CTRL_IA_HARM_DIS_Pos))
@@ -140,7 +165,31 @@ Microchip or any third party.
 #define   FEATURE_CTRL_IN_HARM_ENABLED_Val             _UINT32_(0x0)                             /* (FEATURE_CTRL) Enable harmonic IN Analysis  */
 #define   FEATURE_CTRL_IN_HARM_DISABLED_Val            _UINT32_(0x1)                             /* (FEATURE_CTRL) Disable harmonic IN Analysis  */
 
-/* -------- HARMONIC_CTRL : (MET_CONTROL Offset: 0x08) (R/W 32) Metrology feature setting register for Harmonics -------- */
+/* -------- AFE_SELECTION : (R/W 32) AFE selection register -------- */
+#define AFE_SELECTION_DEV_Pos                 _UINT32_(28)                                /* (AFE_SELECTION) Configure the Analog Front End (AFE) */
+#define AFE_SELECTION_DEV_Msk                 (_UINT32_(0xF) << AFE_SELECTION_DEV_Pos)    /* (AFE_SELECTION) Configure the Analog Front End (AFE) Mask */
+#define AFE_SELECTION_DEV(value)              (AFE_SELECTION_DEV_Msk & (_UINT32_(value) << AFE_SELECTION_DEV_Pos))
+#define   AFE_SELECTION_DEV_1xATSENSE301        _UINT32_(0x0)                             /* (AFE_SELECTION) 1xATSENSE301: 7 channels (3 voltages and 4 currents)  */
+#define   AFE_SELECTION_DEV_3xMCP1910           _UINT32_(0x1)                             /* (AFE_SELECTION) 3xMCP1910: Typically used for 3 phase shunt meters   */
+#define   AFE_SELECTION_DEV_4xMCP1910           _UINT32_(0x2)                             /* (AFE_SELECTION) 4xMCP1910: Typically used for 3 phase shunt meters with neutral current measurement  */
+#define   AFE_SELECTION_DEV_1xMCP3912           _UINT32_(0x3)                             /* (AFE_SELECTION) 1xMCP3912: 4 channels (2 voltages and 2 currents) */
+#define   AFE_SELECTION_DEV_1xMCP3913           _UINT32_(0x4)                             /* (AFE_SELECTION) 1xMCP3913: 6 channels (3 voltages and 3 currents) */
+#define   AFE_SELECTION_DEV_1xMCP3914           _UINT32_(0x5)                             /* (AFE_SELECTION) 1xMCP3914: 8 channels (4 voltages and 4 currents) */
+
+/* -------- CHANNEL_MATRIX : (R/W 32) Physical to logical channel assignment matrix -------- */
+#define CHANNEL_MATRIX_CHx_Pos                  _UINT32_(0)                                 /* (CHANNEL_MATRIX) Current Sensor Type on A Phase Position */
+#define CHANNEL_MATRIX_CHx_Msk                  (_UINT32_(0xF) << CHANNEL_MATRIX_CHx_Pos)   /* (CHANNEL_MATRIX) Current Sensor Type on A Phase Mask */
+#define CHANNEL_MATRIX_CHx(channel, value)      ((CHANNEL_MATRIX_CHx_Msk & (_UINT32_(value) << CHANNEL_MATRIX_CHx_Pos)) << (channel << 2))
+#define   CHANNEL_MATRIX_CHx_I_A                  _UINT32_(0x0)                             /* (CHANNEL_MATRIX) Physical channel mapped to logical channel I_A  */
+#define   CHANNEL_MATRIX_CHx_V_A                  _UINT32_(0x1)                             /* (CHANNEL_MATRIX) Physical channel mapped to logical channel V_A  */
+#define   CHANNEL_MATRIX_CHx_I_B                  _UINT32_(0x2)                             /* (CHANNEL_MATRIX) Physical channel mapped to logical channel I_B  */
+#define   CHANNEL_MATRIX_CHx_V_B                  _UINT32_(0x3)                             /* (CHANNEL_MATRIX) Physical channel mapped to logical channel V_B  */
+#define   CHANNEL_MATRIX_CHx_I_C                  _UINT32_(0x4)                             /* (CHANNEL_MATRIX) Physical channel mapped to logical channel I_C  */
+#define   CHANNEL_MATRIX_CHx_V_C                  _UINT32_(0x5)                             /* (CHANNEL_MATRIX) Physical channel mapped to logical channel V_C (default value) */
+#define   CHANNEL_MATRIX_CHx_I_N                  _UINT32_(0x6)                             /* (CHANNEL_MATRIX) Physical channel mapped to logical channel I_N  */
+#define   CHANNEL_MATRIX_CHx_V_D                  _UINT32_(0x7)                             /* (CHANNEL_MATRIX) Physical channel mapped to logical channel V_D  */
+
+/* -------- HARMONIC_CTRL : (R/W 32) Metrology feature setting register for Harmonics -------- */
 #define HARMONIC_CTRL_HARMONIC_m_REQ_Pos              _UINT32_(0)                                 /* (HARMONIC_CTRL) Request harmonic order for analysis Position */
 #define HARMONIC_CTRL_HARMONIC_m_REQ_Msk              (_UINT32_(0x7FFFFFFF) << HARMONIC_CTRL_HARMONIC_m_REQ_Pos)    /* (HARMONIC_CTRL) Request harmonic order for analysis Mask */
 #define HARMONIC_CTRL_HARMONIC_m_REQ(value)           (HARMONIC_CTRL_HARMONIC_m_REQ_Msk & (_UINT32_(value) << HARMONIC_CTRL_HARMONIC_m_REQ_Pos))
@@ -150,7 +199,7 @@ Microchip or any third party.
 #define   HARMONIC_CTRL_HARMONIC_EN_DISABLED_Val        _UINT32_(0x0)                             /* (HARMONIC_CTRL) Disable harmonic analysis  */
 #define   HARMONIC_CTRL_HARMONIC_EN_ENABLED_Val         _UINT32_(0x1)                             /* (HARMONIC_CTRL) Enable harmonic analysis  */
 
-/* -------- METER_TYPE : (MET_CONTROL Offset: 0x0C) (R/W  32) Sensor type and service type settings register -------- */
+/* -------- METER_TYPE : (R/W  32) Sensor type and service type settings register -------- */
 #define METER_TYPE_SENSOR_TYPE_I_A_Pos             _UINT32_(0)                                 /* (METER_TYPE) Current Sensor Type on A Phase Position */
 #define METER_TYPE_SENSOR_TYPE_I_A_Msk             (_UINT32_(0x3) << METER_TYPE_SENSOR_TYPE_I_A_Pos)    /* (METER_TYPE) Current Sensor Type on A Phase Mask */
 #define METER_TYPE_SENSOR_TYPE_I_A(value)          (METER_TYPE_SENSOR_TYPE_I_A_Msk & (_UINT32_(value) << METER_TYPE_SENSOR_TYPE_I_A_Pos))
@@ -219,17 +268,17 @@ Microchip or any third party.
 #define   METER_TYPE_Dto4WY_TRANSFORM_DISABLED_Val   _UINT32_(0x0)                             /* (METER_TYPE) Phase voltages remain in native service (no transformation) */
 #define   METER_TYPE_Dto4WY_TRANSFORM_ENABLED_Val    _UINT32_(0x1)                             /* (METER_TYPE) Phase voltages transformed into an equivalent 4-wire Wye service */
 
-/* -------- M : (MET_CONTROL Offset: 0x10) (R/W  32) Number of line cycles for integration period (uQ12.0) -------- */
+/* -------- M : (R/W  32) Number of line cycles for integration period (uQ12.0) -------- */
 #define M_Pos                                      _UINT32_(0)                                 /* (M) Number of cycles of the integration period Position */
 #define M_Msk                                      (_UINT32_(0xFFF) << M_Pos)                  /* (M) Number of cycles of the integration period Mask */
 #define M_Val(value)                               (M_Msk & (_UINT32_(value) << M_Pos))
 
-/* -------- N_MAX : (MET_CONTROL Offset: 0x14) (R/W  32) Maximum number of samples in an integration period (uQ24.0) -------- */
+/* -------- N_MAX : (R/W  32) Maximum number of samples in an integration period (uQ24.0) -------- */
 #define N_MAX_Pos                                 _UINT32_(0)                                  /* (N_MAX) Maximum number of samples in an integration period Position */
 #define N_MAX_Msk                                 (_UINT32_(0xFFF) << N_MAX_Pos)               /* (N_MAX) Maximum number of samples in an integration period Mask */
 #define N_MAX_Val(value)                          (N_MAX_Msk & (_UINT32_(value) << N_MAX_Pos))
 
-/* -------- PULSE0_CTRL : (MET_CONTROL Offset: 0x18) (R/W  32) Pulse 0 control: enable/disable, polarity, quantity type selection -------- */
+/* -------- PULSE0_CTRL : (R/W  32) Pulse 0 control: enable/disable, polarity, quantity type selection -------- */
 #define PULSE0_CTRL_PC0_WIDTH_Pos                  _UINT32_(0)                                 /* (PULSE0_CTRL) Pulse Width  */
 #define PULSE0_CTRL_PC0_WIDTH_Msk                  (_UINT32_(0xFFFF) << PULSE0_CTRL_PC0_WIDTH_Pos)      /* (PULSE0_CTRL) Pulse Width  */
 #define PULSE0_CTRL_PC0_WIDTH(value)               (PULSE0_CTRL_PC0_WIDTH_Msk & (_UINT32_(value) << PULSE0_CTRL_PC0_WIDTH_Pos))
@@ -242,6 +291,9 @@ Microchip or any third party.
 #define   PULSE0_CTRL_PC0_TYPE_Q_T_F_Val            _UINT32_(0x3)                             /* (PULSE0_CTRL) Var-hours, total all phases, fundamental only */
 #define   PULSE0_CTRL_PC0_TYPE_I_T_Val              _UINT32_(0x4)                             /* (PULSE0_CTRL) Amp-squared-hours, total all phases, fundamental + harmonics */
 #define   PULSE0_CTRL_PC0_TYPE_I_T_F_Val            _UINT32_(0x5)                             /* (PULSE0_CTRL) Amp-squared-hours, total all phases, fundamental only */
+#define   PULSE0_CTRL_PC0_TYPE_S_T_Val              _UINT32_(0x6)                             /* (PULSE0_CTRL) VA-hours, total all phases, fundamental + harmonics. It is computed by multiplying Irms by Vrms */
+#define   PULSE0_CTRL_PC0_TYPE_S_T_F_Val            _UINT32_(0x7)                             /* (PULSE0_CTRL) VA-hours, total all phases, fundamental only. It is computed by multiplying Irms (fundamental) by Vrms (fundamental) */
+#define   PULSE0_CTRL_PC0_TYPE_S2_T_Val             _UINT32_(0x8)                             /* (PULSE0_CTRL) VA-hours, total all phases. It is computed as the square root of (P2+Q2) */
 #define PULSE0_CTRL_PC0_POLARITY_Pos               _UINT32_(24)                                 /* (PULSE0_CTRL) Pulse Polarity Position  */
 #define PULSE0_CTRL_PC0_POLARITY_Msk               (_UINT32_(0x1) << PULSE0_CTRL_PC0_POLARITY_Pos)      /* (PULSE0_CTRL) Pulse Polarity Mask  */
 #define PULSE0_CTRL_PC0_POLARITY(value)            (PULSE0_CTRL_PC0_POLARITY_Msk & (_UINT32_(value) << PULSE0_CTRL_PC0_POLARITY_Pos))
@@ -280,7 +332,12 @@ Microchip or any third party.
 #define   PULSE0_CTRL_PC0_ENABLE_DISABLED_Val        _UINT32_(0x0)                             /* (PULSE0_CTRL) Pulse output disabled, inactive level determined by PULSE_POLARITY */
 #define   PULSE0_CTRL_PC0_ENABLE_ENABLED_Val         _UINT32_(0x1)                             /* (PULSE0_CTRL) Pulse output enabled */
 
-/* -------- PULSE1_CTRL : (MET_CONTROL Offset: 0x18) (R/W  32) Pulse 1 control: enable/disable, polarity, quantity type selection -------- */
+/* -------- PULSEx_K_t : (R/W  32) Pulse 0 Meter constant register -------- */
+#define PULSEx_K_t_Pos                             _UINT32_(0)                                  /* (PULSEx_K_t) Pulse 0 Meter constant register */
+#define PULSEx_K_t_Msk                             (_UINT32_(0xFFFFFFFF) << PULSEx_K_t_Pos)               /* (PULSEx_K_t) Pulse 0 Meter constant register */
+#define PULSEx_K_t_Val(value)                      (PULSEx_K_t_Msk & (_UINT32_(value) << PULSEx_K_t_Pos))
+
+/* -------- PULSE1_CTRL : (R/W  32) Pulse 1 control: enable/disable, polarity, quantity type selection -------- */
 #define PULSE1_CTRL_PC1_WIDTH_Pos                  _UINT32_(0)                                 /* (PULSE1_CTRL) Pulse Width  */
 #define PULSE1_CTRL_PC1_WIDTH_Msk                  (_UINT32_(0xFFFF) << PULSE1_CTRL_PC1_WIDTH_Pos)      /* (PULSE1_CTRL) Pulse Width  */
 #define PULSE1_CTRL_PC1_WIDTH(value)               (PULSE1_CTRL_PC1_WIDTH_Msk & (_UINT32_(value) << PULSE1_CTRL_PC1_WIDTH_Pos))
@@ -293,6 +350,9 @@ Microchip or any third party.
 #define   PULSE1_CTRL_PC1_TYPE_Q_T_F_Val            _UINT32_(0x3)                             /* (PULSE1_CTRL) Var-hours, total all phases, fundamental only */
 #define   PULSE1_CTRL_PC1_TYPE_I_T_Val              _UINT32_(0x4)                             /* (PULSE1_CTRL) Amp-squared-hours, total all phases, fundamental + harmonics */
 #define   PULSE1_CTRL_PC1_TYPE_I_T_F_Val            _UINT32_(0x5)                             /* (PULSE1_CTRL) Amp-squared-hours, total all phases, fundamental only */
+#define   PULSE1_CTRL_PC1_TYPE_S_T_Val              _UINT32_(0x6)                             /* (PULSE1_CTRL) VA-hours, total all phases, fundamental + harmonics. It is computed by multiplying Irms by Vrms */
+#define   PULSE1_CTRL_PC1_TYPE_S_T_F_Val            _UINT32_(0x7)                             /* (PULSE1_CTRL) VA-hours, total all phases, fundamental only. It is computed by multiplying Irms (fundamental) by Vrms (fundamental) */
+#define   PULSE1_CTRL_PC1_TYPE_S2_T_Val             _UINT32_(0x8)                             /* (PULSE1_CTRL) VA-hours, total all phases. It is computed as the square root of (P2+Q2) */
 #define PULSE1_CTRL_PC1_POLARITY_Pos               _UINT32_(24)                                 /* (PULSE1_CTRL) Pulse Polarity Position  */
 #define PULSE1_CTRL_PC1_POLARITY_Msk               (_UINT32_(0x1) << PULSE1_CTRL_PC1_POLARITY_Pos)      /* (PULSE1_CTRL) Pulse Polarity Mask  */
 #define PULSE1_CTRL_PC1_POLARITY(value)            (PULSE1_CTRL_PC1_POLARITY_Msk & (_UINT32_(value) << PULSE1_CTRL_PC1_POLARITY_Pos))
@@ -331,7 +391,12 @@ Microchip or any third party.
 #define   PULSE1_CTRL_PC1_ENABLE_DISABLED_Val        _UINT32_(0x0)                             /* (PULSE1_CTRL) Pulse output disabled, inactive level determined by PULSE_POLARITY */
 #define   PULSE1_CTRL_PC1_ENABLE_ENABLED_Val         _UINT32_(0x1)                             /* (PULSE1_CTRL) Pulse output enabled */
 
-/* -------- PULSE2_CTRL : (MET_CONTROL Offset: 0x18) (R/W  32) Pulse 2 control: enable/disable, polarity, quantity type selection -------- */
+/* -------- PULSE1_K_t : (R/W  32) Pulse 1 Meter constant register -------- */
+#define PULSE1_K_T_Pos                             _UINT32_(0)                                  /* (PULSE1_K_t) Pulse 1 Meter constant register */
+#define PULSE1_K_T_Msk                             (_UINT32_(0xFFFFFFFF) << PULSE1_K_T_Pos)               /* (PULSE1_K_t) Pulse 1 Meter constant register */
+#define PULSE1_K_T_Val(value)                      (PULSE1_K_T_Msk & (_UINT32_(value) << PULSE1_K_T_Pos))
+
+/* -------- PULSE2_CTRL : (R/W  32) Pulse 2 control: enable/disable, polarity, quantity type selection -------- */
 #define PULSE2_CTRL_PC2_WIDTH_Pos                  _UINT32_(0)                                 /* (PULSE2_CTRL) Pulse Width  */
 #define PULSE2_CTRL_PC2_WIDTH_Msk                  (_UINT32_(0xFFFF) << PULSE2_CTRL_PC2_WIDTH_Pos)      /* (PULSE2_CTRL) Pulse Width  */
 #define PULSE2_CTRL_PC2_WIDTH(value)               (PULSE2_CTRL_PC2_WIDTH_Msk & (_UINT32_(value) << PULSE2_CTRL_PC2_WIDTH_Pos))
@@ -344,6 +409,9 @@ Microchip or any third party.
 #define   PULSE2_CTRL_PC2_TYPE_Q_T_F_Val            _UINT32_(0x3)                             /* (PULSE2_CTRL) Var-hours, total all phases, fundamental only */
 #define   PULSE2_CTRL_PC2_TYPE_I_T_Val              _UINT32_(0x4)                             /* (PULSE2_CTRL) Amp-squared-hours, total all phases, fundamental + harmonics */
 #define   PULSE2_CTRL_PC2_TYPE_I_T_F_Val            _UINT32_(0x5)                             /* (PULSE2_CTRL) Amp-squared-hours, total all phases, fundamental only */
+#define   PULSE2_CTRL_PC2_TYPE_S_T_Val              _UINT32_(0x6)                             /* (PULSE2_CTRL) VA-hours, total all phases, fundamental + harmonics. It is computed by multiplying Irms by Vrms */
+#define   PULSE2_CTRL_PC2_TYPE_S_T_F_Val            _UINT32_(0x7)                             /* (PULSE2_CTRL) VA-hours, total all phases, fundamental only. It is computed by multiplying Irms (fundamental) by Vrms (fundamental) */
+#define   PULSE2_CTRL_PC2_TYPE_S2_T_Val             _UINT32_(0x8)                             /* (PULSE2_CTRL) VA-hours, total all phases. It is computed as the square root of (P2+Q2) */
 #define PULSE2_CTRL_PC2_POLARITY_Pos               _UINT32_(24)                                 /* (PULSE2_CTRL) Pulse Polarity Position  */
 #define PULSE2_CTRL_PC2_POLARITY_Msk               (_UINT32_(0x1) << PULSE2_CTRL_PC2_POLARITY_Pos)      /* (PULSE2_CTRL) Pulse Polarity Mask  */
 #define PULSE2_CTRL_PC2_POLARITY(value)            (PULSE2_CTRL_PC2_POLARITY_Msk & (_UINT32_(value) << PULSE2_CTRL_PC2_POLARITY_Pos))
@@ -382,37 +450,37 @@ Microchip or any third party.
 #define   PULSE2_CTRL_PC2_ENABLE_DISABLED_Val        _UINT32_(0x0)                             /* (PULSE2_CTRL) Pulse output disabled, inactive level determined by PULSE_POLARITY */
 #define   PULSE2_CTRL_PC2_ENABLE_ENABLED_Val         _UINT32_(0x1)                             /* (PULSE2_CTRL) Pulse output enabled */
 
-/* -------- P_K_t : (MET_CONTROL Offset: 0x24) (R/W  32) Meter Active Power Pulse Constant (uQ8.24) -------- */
-#define P_K_t_Pos                                  _UINT32_(0)                                 /* (P_K_t) Meter Active Power Pulse Constant Position */
-#define P_K_t_Msk                                  (_UINT32_(0xFFFFFFFF) << P_K_t_Pos)         /* (P_K_t) Meter Active Power Pulse Constant Mask */
-#define P_K_t_Val(value)                           (P_K_t_Msk & (_UINT32_(value) << P_K_t_Pos))
+/* -------- PULSE2_K_t : (R/W  32) Pulse 2 Meter constant register -------- */
+#define PULSE2_K_T_Pos                             _UINT32_(0)                                  /* (PULSE2_K_t) Pulse 2 Meter constant register */
+#define PULSE2_K_T_Msk                             (_UINT32_(0xFFFFFFFF) << PULSE2_K_T_Pos)               /* (PULSE2_K_t) Pulse 2 Meter constant register */
+#define PULSE2_K_T_Val(value)                      (PULSE2_K_T_Msk & (_UINT32_(value) << PULSE2_K_T_Pos))
 
-/* -------- Q_K_t : (MET_CONTROL Offset: 0x28) (R/W  32) Meter Reactive Power Pulse Constant (uQ8.24) -------- */
-#define Q_K_t_Pos                                  _UINT32_(0)                                 /* (Q_K_t) Meter Reactive Power Pulse Constantt Position */
-#define Q_K_t_Msk                                  (_UINT32_(0xFFFFFFFF) << Q_K_t_Pos)         /* (Q_K_t) Meter Reactive Power Pulse Constant Mask */
-#define Q_K_t_Val(value)                           (Q_K_t_Msk & (_UINT32_(value) << Q_K_t_Pos))
+/* -------- SYNTHESIZER_ADDR : (R/W  32) Synthesizer Address Control  -------- */
+#define SYNTHESIZER_ADDR_Pos                        _UINT32_(0)                                 /* (SYNTHESIZER_ADDR) Synthesizer Descriptor Address Position */
+#define SYNTHESIZER_ADDR_Msk                        (_UINT32_(0xFFFFFFFF) << SYNTHESIZER_ADDR_Pos)      /* (SYNTHESIZER_ADDR) Synthesizer Descriptor Address Mask */
+#define SYNTHESIZER_ADDR_Val(value)                 (SYNTHESIZER_ADDR_Msk & (_UINT32_(value) << SYNTHESIZER_ADDR_Pos))
 
-/* -------- I_K_t : (MET_CONTROL Offset: 0x2C) (R/W  32) Meter Current Pulse Constant (uQ8.24) -------- */
-#define I_K_t_Pos                                  _UINT32_(0)                                 /* (I_K_t) Meter Current Pulse Constant Position */
-#define I_K_t_Msk                                  (_UINT32_(0xFFFFFFFF) << I_K_t_Pos)         /* (I_K_t) Meter Current Pulse Constant Mask */
-#define I_K_t_Val(value)                           (I_K_t_Msk & (_UINT32_(value) << I_K_t_Pos))
+/* -------- CREEP_THRESHOLD_Px :  (R/W  32) Creep Threshold for Active Energy (uQ2.30) -------- */
+#define CREEP_THRESHOLD_Px_Pos                      _UINT32_(0)                                 /* (CREEP_THRESHOLD_Px) Creep Threshold for Active Energy Position */
+#define CREEP_THRESHOLD_Px_Msk                      (_UINT32_(0xFFFFFFFF) << CREEP_THRESHOLD_Px_Pos)         /* (CREEP_THRESHOLD_Px) Creep Threshold for Active Energy Mask */
+#define CREEP_THRESHOLD_Px_Val(value)               (CREEP_THRESHOLD_Px_Msk & (_UINT32_(value) << CREEP_THRESHOLD_Px_Pos))
 
-/* -------- CREEP_THRESHOLD_P : (MET_CONTROL Offset: 0x30) (R/W  32) Creep Threshold for Active Energy (uQ2.30) -------- */
-#define CREEP_THRESHOLD_P_Pos                      _UINT32_(0)                                 /* (CREEP_THRESHOLD_P) Creep Threshold for Active Energy Position */
-#define CREEP_THRESHOLD_P_Msk                      (_UINT32_(0xFFFFFFFF) << CREEP_THRESHOLD_P_Pos)         /* (CREEP_THRESHOLD_P) Creep Threshold for Active Energy Mask */
-#define CREEP_THRESHOLD_P_Val(value)               (CREEP_THRESHOLD_P_Msk & (_UINT32_(value) << CREEP_THRESHOLD_P_Pos))
+/* -------- CREEP_THRESHOLD_Qx :  (R/W  32) Creep Threshold for Quadenergy (uQ2.30) -------- */
+#define CREEP_THRESHOLD_Qx_Pos                      _UINT32_(0)                                 /* (CREEP_THRESHOLD_Qx) Creep Threshold for Quadenergy Position */
+#define CREEP_THRESHOLD_Qx_Msk                      (_UINT32_(0xFFFFFFFF) << CREEP_THRESHOLD_Qx_Pos)         /* (CREEP_THRESHOLD_Qx) Creep Threshold for Quadenergy Mask */
+#define CREEP_THRESHOLD_Qx_Val(value)               (CREEP_THRESHOLD_Qx_Msk & (_UINT32_(value) << CREEP_THRESHOLD_Qx_Pos))
 
-/* -------- CREEP_THRESHOLD_Q : (MET_CONTROL Offset: 0x34) (R/W  32) Creep Threshold for Quadenergy (uQ2.30) -------- */
-#define CREEP_THRESHOLD_Q_Pos                      _UINT32_(0)                                 /* (CREEP_THRESHOLD_Q) Creep Threshold for Quadenergy Position */
-#define CREEP_THRESHOLD_Q_Msk                      (_UINT32_(0xFFFFFFFF) << CREEP_THRESHOLD_Q_Pos)         /* (CREEP_THRESHOLD_Q) Creep Threshold for Quadenergy Mask */
-#define CREEP_THRESHOLD_Q_Val(value)               (CREEP_THRESHOLD_Q_Msk & (_UINT32_(value) << CREEP_THRESHOLD_Q_Pos))
+/* -------- CREEP_THRESHOLD_Ix :  (R/W  32) Creep Threshold of Phase Current (uQ2.30) -------- */
+#define CREEP_THRESHOLD_Ix_Pos                      _UINT32_(0)                                 /* (CREEP_THRESHOLD_Ix) Creep Threshold of Phase Current Position */
+#define CREEP_THRESHOLD_Ix_Msk                      (_UINT32_(0xFFFFFFFF) << CREEP_THRESHOLD_Ix_Pos)         /* (CREEP_THRESHOLD_Ix) Creep Threshold of Phase Current Mask */
+#define CREEP_THRESHOLD_Ix_Val(value)               (CREEP_THRESHOLD_Ix_Msk & (_UINT32_(value) << CREEP_THRESHOLD_Ix_Pos))
 
-/* -------- CREEP_THRESHOLD_I : (MET_CONTROL Offset: 0x38) (R/W  32) Creep Threshold of Phase Current (uQ2.30) -------- */
-#define CREEP_THRESHOLD_I_Pos                      _UINT32_(0)                                 /* (CREEP_THRESHOLD_I) Creep Threshold of Phase Current Position */
-#define CREEP_THRESHOLD_I_Msk                      (_UINT32_(0xFFFFFFFF) << CREEP_THRESHOLD_I_Pos)         /* (CREEP_THRESHOLD_I) Creep Threshold of Phase Current Mask */
-#define CREEP_THRESHOLD_I_Val(value)               (CREEP_THRESHOLD_I_Msk & (_UINT32_(value) << CREEP_THRESHOLD_I_Pos))
+/* -------- CREEP_THRESHOLD_S :  (R/W  32) Creep Threshold for Apparent Energy (uQ2.30) -------- */
+#define CREEP_THRESHOLD_S_Pos                      _UINT32_(0)                                 /* (CREEP_THRESHOLD_S) Creep Threshold for Apparent Energy Position */
+#define CREEP_THRESHOLD_S_Msk                      (_UINT32_(0xFFFFFFFF) << CREEP_THRESHOLD_S_Pos)         /* (CREEP_THRESHOLD_S) Creep Threshold for Apparent Energy Mask */
+#define CREEP_THRESHOLD_S_Val(value)               (CREEP_THRESHOLD_S_Msk & (_UINT32_(value) << CREEP_THRESHOLD_S_Pos))
 
-/* -------- POWER_OFFSET_CTRL : (MET_CONTROL Offset: 0x3C) (R/W  32) Power offset control -------- */
+/* -------- POWER_OFFSET_CTRL :  (R/W  32) Power offset control -------- */
 #define POWER_OFFSET_CTRL_Q_OFFSET_ACC_A_Pos       _UINT32_(16)                                 /* (POWER_OFFSET_CTRL) Reactive Power Offset for Accumulator Quantities Enable Position */
 #define POWER_OFFSET_CTRL_Q_OFFSET_ACC_A_Msk       (_UINT32_(0x1) << POWER_OFFSET_CTRL_Q_OFFSET_ACC_A_Pos)         /* (POWER_OFFSET_CTRL) Reactive Power Offset for Accumulator Quantities Enable Mask */
 #define POWER_OFFSET_CTRL_Q_OFFSET_ACC_A(value)    (POWER_OFFSET_CTRL_Q_OFFSET_ACC_A_Msk & (_UINT32_(value) << POWER_OFFSET_CTRL_Q_OFFSET_ACC_A_Pos))
@@ -443,168 +511,68 @@ Microchip or any third party.
 #define POWER_OFFSET_CTRL_P_OFFSET_ACC_C(value)    (POWER_OFFSET_CTRL_P_OFFSET_ACC_C_Msk & (_UINT32_(value) << POWER_OFFSET_CTRL_P_OFFSET_ACC_C_Pos))
 #define   POWER_OFFSET_CTRL_P_OFFSET_ACC_C_DISABLED_Val        _UINT32_(0x0)                   /* (POWER_OFFSET_CTRL) Active Power Offset disabled */
 #define   POWER_OFFSET_CTRL_P_OFFSET_ACC_C_ENABLED_Val         _UINT32_(0x1)                   /* (POWER_OFFSET_CTRL) Active Power Offset enabled */
+#define POWER_OFFSET_CTRL_S_OFFSET_PUL_Pos         _UINT32_(24)                                /* (POWER_OFFSET_CTRL) Apparent Power Offset for Pulse Quantities Enable Position */
+#define POWER_OFFSET_CTRL_S_OFFSET_PUL_Msk         (_UINT32_(0x1) << POWER_OFFSET_CTRL_S_OFFSET_PUL_Pos)        /* (POWER_OFFSET_CTRL) Apparent Power Offset for Pulse Quantities Enable Mask */
+#define POWER_OFFSET_CTRL_S_OFFSET_PUL(value)      (POWER_OFFSET_CTRL_S_OFFSET_PUL_Msk & (_UINT32_(value) << POWER_OFFSET_CTRL_S_OFFSET_PUL_Pos))
+#define   POWER_OFFSET_CTRL_S_OFFSET_PUL_DISABLED_Val      _UINT32_(0x0)                            /* (POWER_OFFSET_CTRL) Apparent Power Offset for Pulse Quantities Enable disabled */
+#define   POWER_OFFSET_CTRL_S_OFFSET_PUL_ENABLED_Val       _UINT32_(0x1)                            /* (POWER_OFFSET_CTRL) Apparent Power Offset for Pulse Quantities Enable enabled */
 #define POWER_OFFSET_CTRL_Q_OFFSET_PUL_Pos         _UINT32_(27)                                /* (POWER_OFFSET_CTRL) Reactive Power Offset for Pulse Quantities Enable Position */
-#define POWER_OFFSET_CTRL_Q_OFFSET_PUL_Msk         (_UINT32_(0x1) << POWER_OFFSET_Q_OFFSET_PUL_Pos)        /* (POWER_OFFSET_CTRL) Reactive Power Offset for Pulse Quantities Enable Mask */
-#define POWER_OFFSET_CTRL_Q_OFFSET_PUL(value)      (POWER_OFFSET_Q_OFFSET_PUL_Msk & (_UINT32_(value) << POWER_OFFSET_Q_OFFSET_PUL_Pos))
+#define POWER_OFFSET_CTRL_Q_OFFSET_PUL_Msk         (_UINT32_(0x1) << POWER_OFFSET_CTRL_Q_OFFSET_PUL_Pos)        /* (POWER_OFFSET_CTRL) Reactive Power Offset for Pulse Quantities Enable Mask */
+#define POWER_OFFSET_CTRL_Q_OFFSET_PUL(value)      (POWER_OFFSET_CTRL_Q_OFFSET_PUL_Msk & (_UINT32_(value) << POWER_OFFSET_CTRL_Q_OFFSET_PUL_Pos))
 #define   POWER_OFFSET_CTRL_Q_OFFSET_PUL_DISABLED_Val      _UINT32_(0x0)                            /* (POWER_OFFSET_CTRL) Reactive Power Offset for Pulse Quantities Enable disabled */
 #define   POWER_OFFSET_CTRL_Q_OFFSET_PUL_ENABLED_Val       _UINT32_(0x1)                            /* (POWER_OFFSET_CTRL) Reactive Power Offset for Pulse Quantities Enable enabled */
 #define POWER_OFFSET_CTRL_P_OFFSET_PUL_Pos         _UINT32_(31)                                /* (POWER_OFFSET_CTRL) Active Power Offset for Pulse Quantities Enable Position */
-#define POWER_OFFSET_CTRL_P_OFFSET_PUL_Msk         (_UINT32_(0x1) << POWER_OFFSET_P_OFFSET_PUL_Pos)        /* (POWER_OFFSET_CTRL) Active Power Offset for Pulse Quantities Enable Mask */
-#define POWER_OFFSET_CTRL_P_OFFSET_PUL(value)      (POWER_OFFSET_P_OFFSET_PUL_Msk & (_UINT32_(value) << POWER_OFFSET_P_OFFSET_PUL_Pos))
+#define POWER_OFFSET_CTRL_P_OFFSET_PUL_Msk         (_UINT32_(0x1) << POWER_OFFSET_CTRL_P_OFFSET_PUL_Pos)        /* (POWER_OFFSET_CTRL) Active Power Offset for Pulse Quantities Enable Mask */
+#define POWER_OFFSET_CTRL_P_OFFSET_PUL(value)      (POWER_OFFSET_CTRL_P_OFFSET_PUL_Msk & (_UINT32_(value) << POWER_OFFSET_CTRL_P_OFFSET_PUL_Pos))
 #define   POWER_OFFSET_CTRL_P_OFFSET_PUL_DISABLED_Val      _UINT32_(0x0)                            /* (POWER_OFFSET_CTRL) Active Power Offset for Pulse Quantities Enable disabled */
 #define   POWER_OFFSET_CTRL_P_OFFSET_PUL_ENABLED_Val       _UINT32_(0x1)                            /* (POWER_OFFSET_CTRL) Active Power Offset for Pulse Quantities Enable enabled */
 
-/* -------- POWER_OFFSET_P : (MET_CONTROL Offset: 0x40) (R/W  32) Active Power Offset (sQ1.30) -------- */
+/* -------- POWER_OFFSET_P :  (R/W  32) Active Power Offset (sQ1.30) -------- */
 #define POWER_OFFSET_P_Pos                         _UINT32_(0)                                 /* (POWER_OFFSET_P) Active Power Offset Position */
 #define POWER_OFFSET_P_Msk                         (_UINT32_(0xFFFFFFFF) << POWER_OFFSET_P_Pos)         /* (POWER_OFFSET_P) Active Power Offset Mask */
 #define POWER_OFFSET_P_Val(value)                  (POWER_OFFSET_P_Msk & (_UINT32_(value) << POWER_OFFSET_P_Pos))
 
-/* -------- POWER_OFFSET_Q : (MET_CONTROL Offset: 0x44) (R/W  32) Active Power Offset (sQ1.30) -------- */
+/* -------- POWER_OFFSET_Q :  (R/W  32) Active Power Offset (sQ1.30) -------- */
 #define POWER_OFFSET_Q_Pos                         _UINT32_(0)                                 /* (POWER_OFFSET_Q) Active Power Offset Position */
 #define POWER_OFFSET_Q_Msk                         (_UINT32_(0xFFFFFFFF) << POWER_OFFSET_Q_Pos)         /* (POWER_OFFSET_Q) Active Power Offset Mask */
 #define POWER_OFFSET_Q_Val(value)                  (POWER_OFFSET_Q_Msk & (_UINT32_(value) << POWER_OFFSET_Q_Pos))
 
-/* -------- SWELL_THRESHOLD_VA : (MET_CONTROL Offset: 0x48) (R/W  32) Voltage swell threshold for each half cycle of phase-A voltage (uQ0.32) -------- */
-#define SWELL_THRESHOLD_VA_Pos                     _UINT32_(0)                                 /* (SWELL_THRESHOLD_VA) Voltage swell threshold Position */
-#define SWELL_THRESHOLD_VA_Msk                     (_UINT32_(0xFFFFFFFF) << SWELL_THRESHOLD_VA_Pos)         /* (SWELL_THRESHOLD_VA) Voltage swell threshold Mask */
-#define SWELL_THRESHOLD_VA_Val(value)              (SWELL_THRESHOLD_VA_Msk & (_UINT32_(value) << SWELL_THRESHOLD_VA_Pos))
+/* -------- POWER_OFFSET_S :  (R/W  32) Apparent Power Offset (sQ1.30) -------- */
+#define POWER_OFFSET_S_Pos                         _UINT32_(0)                                 /* (POWER_OFFSET_S) Apparent Power Offset Position */
+#define POWER_OFFSET_S_Msk                         (_UINT32_(0xFFFFFFFF) << POWER_OFFSET_S_Pos)         /* (POWER_OFFSET_S) Apparent Power Offset Mask */
+#define POWER_OFFSET_S_Val(value)                  (POWER_OFFSET_S_Msk & (_UINT32_(value) << POWER_OFFSET_S_Pos))
 
-/* -------- SWELL_THRESHOLD_VB : (MET_CONTROL Offset: 0x4C) (R/W  32) Voltage swell threshold for each half cycle of phase-B voltage (uQ0.32) -------- */
-#define SWELL_THRESHOLD_VB_Pos                     _UINT32_(0)                                 /* (SWELL_THRESHOLD_VB) Voltage swell threshold Position */
-#define SWELL_THRESHOLD_VB_Msk                     (_UINT32_(0xFFFFFFFF) << SWELL_THRESHOLD_VB_Pos)         /* (SWELL_THRESHOLD_VB) Voltage swell threshold Mask */
-#define SWELL_THRESHOLD_VB_Val(value)              (SWELL_THRESHOLD_VB_Msk & (_UINT32_(value) << SWELL_THRESHOLD_VB_Pos))
+/* -------- SWELL_THRESHOLD_Vx :  (R/W  32) Voltage swell threshold for each half cycle of voltage (uQ0.32) -------- */
+#define SWELL_THRESHOLD_Vx_Pos                     _UINT32_(0)                                 /* (SWELL_THRESHOLD_Vx) Voltage swell threshold Position */
+#define SWELL_THRESHOLD_Vx_Msk                     (_UINT32_(0xFFFFFFFF) << SWELL_THRESHOLD_Vx_Pos)         /* (SWELL_THRESHOLD_Vx) Voltage swell threshold Mask */
+#define SWELL_THRESHOLD_Vx_Val(value)              (SWELL_THRESHOLD_Vx_Msk & (_UINT32_(value) << SWELL_THRESHOLD_Vx_Pos))
 
-/* -------- SWELL_THRESHOLD_VC : (MET_CONTROL Offset: 0x50) (R/W  32) Voltage swell threshold for each half cycle of phase-C voltage (uQ0.32) -------- */
-#define SWELL_THRESHOLD_VC_Pos                     _UINT32_(0)                                 /* (SWELL_THRESHOLD_VC) Voltage swell threshold Position */
-#define SWELL_THRESHOLD_VC_Msk                     (_UINT32_(0xFFFFFFFF) << SWELL_THRESHOLD_VC_Pos)         /* (SWELL_THRESHOLD_VC) Voltage swell threshold Mask */
-#define SWELL_THRESHOLD_VC_Val(value)              (SWELL_THRESHOLD_VC_Msk & (_UINT32_(value) << SWELL_THRESHOLD_VC_Pos))
+/* -------- SAG_THRESHOLD_Vx :  (R/W  32) Voltage sag threshold for each half cycle of voltage (uQ0.32) -------- */
+#define SAG_THRESHOLD_Vx_Pos                     _UINT32_(0)                                 /* (SAG_THRESHOLD_Vx) Voltage sag threshold Position */
+#define SAG_THRESHOLD_Vx_Msk                     (_UINT32_(0xFFFFFFFF) << SAG_THRESHOLD_Vx_Pos)         /* (SAG_THRESHOLD_Vx) Voltage sag threshold Mask */
+#define SAG_THRESHOLD_Vx_Val(value)              (SAG_THRESHOLD_Vx_Msk & (_UINT32_(value) << SAG_THRESHOLD_Vx_Pos))
 
-/* -------- SAG_THRESHOLD_VA : (MET_CONTROL Offset: 0x54) (R/W  32) Voltage sag threshold for each half cycle of phase-A voltage (uQ0.32) -------- */
-#define SAG_THRESHOLD_VA_Pos                     _UINT32_(0)                                 /* (SAG_THRESHOLD_VA) Voltage sag threshold Position */
-#define SAG_THRESHOLD_VA_Msk                     (_UINT32_(0xFFFFFFFF) << SAG_THRESHOLD_VA_Pos)         /* (SAG_THRESHOLD_VA) Voltage sag threshold Mask */
-#define SAG_THRESHOLD_VA_Val(value)              (SAG_THRESHOLD_VA_Msk & (_UINT32_(value) << SAG_THRESHOLD_VA_Pos))
+/* -------- INTERRUPT_THRESHOLD_Vx :  (R/W  32) Interrupt threshold for each half cycle of voltage (uQ0.32) -------- */
+#define INTERRUPT_THRESHOLD_Vx_Pos               _UINT32_(0)                                 /* (INTERRUPT_THRESHOLD_Vx) Interrupt threshold Position */
+#define INTERRUPT_THRESHOLD_Vx_Msk               (_UINT32_(0xFFFFFFFF) << INTERRUPT_THRESHOLD_Vx_Pos)         /* (INTERRUPT_THRESHOLD_Vx) Interrupt threshold Mask */
+#define INTERRUPT_THRESHOLD_Vx_Val(value)        (INTERRUPT_THRESHOLD_Vx_Msk & (_UINT32_(value) << INTERRUPT_THRESHOLD_Vx_Pos))
 
-/* -------- SAG_THRESHOLD_VB : (MET_CONTROL Offset: 0x58) (R/W  32) Voltage sag threshold for each half cycle of phase-B voltage (uQ0.32) -------- */
-#define SAG_THRESHOLD_VB_Pos                     _UINT32_(0)                                 /* (SAG_THRESHOLD_VB) Voltage sag threshold Position */
-#define SAG_THRESHOLD_VB_Msk                     (_UINT32_(0xFFFFFFFF) << SAG_THRESHOLD_VB_Pos)         /* (SAG_THRESHOLD_VB) Voltage sag threshold Mask */
-#define SAG_THRESHOLD_VB_Val(value)              (SAG_THRESHOLD_VB_Msk & (_UINT32_(value) << SAG_THRESHOLD_VB_Pos))
+/* -------- K_xx :  (R/W  32) Current/Volatge Conversion Factor (uQ22.10) -------- */
+#define K_xx_Pos                                 _UINT32_(0)                                 /* (K_xx) Current/Volatge Conversion Factor Position */
+#define K_xx_Msk                                 (_UINT32_(0xFFFFFFFF) << K_xx_Pos)          /* (K_xx) Current/Volatge Conversion Factor Mask */
+#define K_xx_Val(value)                          (K_xx_Msk & (_UINT32_(value) << K_xx_Pos))
 
-/* -------- SAG_THRESHOLD_VC : (MET_CONTROL Offset: 0x5C) (R/W  32) Voltage sag threshold for each half cycle of phase-C voltage (uQ0.32) -------- */
-#define SAG_THRESHOLD_VC_Pos                     _UINT32_(0)                                 /* (SAG_THRESHOLD_VC) Voltage sag threshold Position */
-#define SAG_THRESHOLD_VC_Msk                     (_UINT32_(0xFFFFFFFF) << SAG_THRESHOLD_VC_Pos)         /* (SAG_THRESHOLD_VC) Voltage sag threshold Mask */
-#define SAG_THRESHOLD_VC_Val(value)              (SAG_THRESHOLD_VC_Msk & (_UINT32_(value) << SAG_THRESHOLD_VC_Pos))
+/* -------- CAL_M_xx :  (R/W  32) Current/Volatge magnitude calibration constant (sQ2.29) -------- */
+#define CAL_M_xx_Pos                             _UINT32_(0)                                 /* (CAL_M_xx) Current/Volatge magnitude calibration constant Position */
+#define CAL_M_xx_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_M_xx_Pos)      /* (CAL_M_xx) Current/Volatge magnitude calibration constant Mask */
+#define CAL_M_xx_Val(value)                      (CAL_M_xx_Msk & (_UINT32_(value) << CAL_M_xx_Pos))
 
-/* -------- SAG_THRESHOLD_VC : (MET_CONTROL Offset: 0x5C) (R/W  32) Voltage sag threshold for each half cycle of phase-C voltage (uQ0.32) -------- */
-#define SAG_THRESHOLD_VC_Pos                     _UINT32_(0)                                 /* (SAG_THRESHOLD_VC) Voltage sag threshold Position */
-#define SAG_THRESHOLD_VC_Msk                     (_UINT32_(0xFFFFFFFF) << SAG_THRESHOLD_VC_Pos)         /* (SAG_THRESHOLD_VC) Voltage sag threshold Mask */
-#define SAG_THRESHOLD_VC_Val(value)              (SAG_THRESHOLD_VC_Msk & (_UINT32_(value) << SAG_THRESHOLD_VC_Pos))
+/* -------- CAL_PH_xx :  (R/W  32) Current/Volatge phase calibration constant (sQ0.31) -------- */
+#define CAL_PH_xx_Pos                             _UINT32_(0)                                 /* (CAL_PH_xx) Current/Volatge phase calibration constant Position */
+#define CAL_PH_xx_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_PH_xx_Pos)      /* (CAL_PH_xx) Current/Volatge phase calibration constant Mask */
+#define CAL_PH_xx_Val(value)                      (CAL_PH_xx_Msk & (_UINT32_(value) << CAL_PH_xx_Pos))
 
-/* -------- K_IA : (MET_CONTROL Offset: 0x60) (R/W  32) Current Conversion Factor (uQ22.10) -------- */
-#define K_IA_Pos                                 _UINT32_(0)                                 /* (K_IA) Current Conversion Factor Position */
-#define K_IA_Msk                                 (_UINT32_(0xFFFFFFFF) << K_IA_Pos)          /* (K_IA) Current Conversion Factor Mask */
-#define K_IA_Val(value)                          (K_IA_Msk & (_UINT32_(value) << K_IA_Pos))
-
-/* -------- K_VA : (MET_CONTROL Offset: 0x64) (R/W  32) Volatge Conversion Factor (uQ22.10) -------- */
-#define K_VA_Pos                                 _UINT32_(0)                                 /* (K_VA) Volatge Conversion Factor Position */
-#define K_VA_Msk                                 (_UINT32_(0xFFFFFFFF) << K_VA_Pos)          /* (K_VA) Volatge Conversion Factor Mask */
-#define K_VA_Val(value)                          (K_VA_Msk & (_UINT32_(value) << K_VA_Pos))
-
-/* -------- K_IB : (MET_CONTROL Offset: 0x68) (R/W  32) Current Conversion Factor (uQ22.10) -------- */
-#define K_IB_Pos                                 _UINT32_(0)                                 /* (K_IB) Current Conversion Factor Position */
-#define K_IB_Msk                                 (_UINT32_(0xFFFFFFFF) << K_IB_Pos)          /* (K_IB) Current Conversion Factor Mask */
-#define K_IB_Val(value)                          (K_IB_Msk & (_UINT32_(value) << K_IB_Pos))
-
-/* -------- K_VB : (MET_CONTROL Offset: 0x6C) (R/W  32) Volatge Conversion Factor (uQ22.10) -------- */
-#define K_VB_Pos                                 _UINT32_(0)                                 /* (K_VB) Volatge Conversion Factor Position */
-#define K_VB_Msk                                 (_UINT32_(0xFFFFFFFF) << K_VB_Pos)          /* (K_VB) Volatge Conversion Factor Mask */
-#define K_VB_Val(value)                          (K_VB_Msk & (_UINT32_(value) << K_VB_Pos))
-
-/* -------- K_IC : (MET_CONTROL Offset: 0x70) (R/W  32) Current Conversion Factor (uQ22.10) -------- */
-#define K_IC_Pos                                 _UINT32_(0)                                 /* (K_IC) Current Conversion Factor Position */
-#define K_IC_Msk                                 (_UINT32_(0xFFFFFFFF) << K_IC_Pos)          /* (K_IC) Current Conversion Factor Mask */
-#define K_IC_Val(value)                          (K_IC_Msk & (_UINT32_(value) << K_IC_Pos))
-
-/* -------- K_VC : (MET_CONTROL Offset: 0x74) (R/W  32) Volatge Conversion Factor (uQ22.10) -------- */
-#define K_VC_Pos                                 _UINT32_(0)                                 /* (K_VC) Volatge Conversion Factor Position */
-#define K_VC_Msk                                 (_UINT32_(0xFFFFFFFF) << K_VC_Pos)          /* (K_VC) Volatge Conversion Factor Mask */
-#define K_VC_Val(value)                          (K_VC_Msk & (_UINT32_(value) << K_VC_Pos))
-
-/* -------- K_IN : (MET_CONTROL Offset: 0x78) (R/W  32) Current Conversion Factor (uQ22.10) -------- */
-#define K_IN_Pos                                 _UINT32_(0)                                 /* (K_IN) Current Conversion Factor Position */
-#define K_IN_Msk                                 (_UINT32_(0xFFFFFFFF) << K_IN_Pos)          /* (K_IN) Current Conversion Factor Mask */
-#define K_IN_Val(value)                          (K_IN_Msk & (_UINT32_(value) << K_IN_Pos))
-
-/* -------- CAL_M_IA : (MET_CONTROL Offset: 0x7C) (R/W  32) Current magnitude calibration constant, I_A (sQ2.29) -------- */
-#define CAL_M_IA_Pos                             _UINT32_(0)                                 /* (CAL_M_IA) Current Conversion Factor Position */
-#define CAL_M_IA_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_M_IA_Pos)      /* (CAL_M_IA) Current Conversion Factor Mask */
-#define CAL_M_IA_Val(value)                      (CAL_M_IA_Msk & (_UINT32_(value) << CAL_M_IA_Pos))
-
-/* -------- CAL_M_VA : (MET_CONTROL Offset: 0x80) (R/W  32) Voltage magnitude calibration constant, V_A (sQ2.29) -------- */
-#define CAL_M_VA_Pos                             _UINT32_(0)                                 /* (CAL_M_VA) Voltage Conversion Factor Position */
-#define CAL_M_VA_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_M_VA_Pos)      /* (CAL_M_VA) Voltage Conversion Factor Mask */
-#define CAL_M_VA_Val(value)                      (CAL_M_VA_Msk & (_UINT32_(value) << CAL_M_VA_Pos))
-
-/* -------- CAL_M_IB : (MET_CONTROL Offset: 0x84) (R/W  32) Current magnitude calibration constant, I_B (sQ2.29) -------- */
-#define CAL_M_IB_Pos                             _UINT32_(0)                                 /* (CAL_M_IB) Current Conversion Factor Position */
-#define CAL_M_IB_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_M_IB_Pos)      /* (CAL_M_IB) Current Conversion Factor Mask */
-#define CAL_M_IB_Val(value)                      (CAL_M_IB_Msk & (_UINT32_(value) << CAL_M_IB_Pos))
-
-/* -------- CAL_M_VB : (MET_CONTROL Offset: 0x88) (R/W  32) Voltage magnitude calibration constant, V_B (sQ2.29) -------- */
-#define CAL_M_VB_Pos                             _UINT32_(0)                                 /* (CAL_M_VB) Voltage Conversion Factor Position */
-#define CAL_M_VB_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_M_VB_Pos)      /* (CAL_M_VB) Voltage Conversion Factor Mask */
-#define CAL_M_VB_Val(value)                      (CAL_M_VB_Msk & (_UINT32_(value) << CAL_M_VB_Pos))
-
-/* -------- CAL_M_IC : (MET_CONTROL Offset: 0x8C) (R/W  32) Current magnitude calibration constant, I_C (sQ2.29) -------- */
-#define CAL_M_IC_Pos                             _UINT32_(0)                                 /* (CAL_M_IC) Current Conversion Factor Position */
-#define CAL_M_IC_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_M_IC_Pos)      /* (CAL_M_IC) Current Conversion Factor Mask */
-#define CAL_M_IC_Val(value)                      (CAL_M_IC_Msk & (_UINT32_(value) << CAL_M_IC_Pos))
-
-/* -------- CAL_M_VC : (MET_CONTROL Offset: 0x90) (R/W  32) Voltage magnitude calibration constant, V_C (sQ2.29) -------- */
-#define CAL_M_VC_Pos                             _UINT32_(0)                                 /* (CAL_M_VC) Voltage Conversion Factor Position */
-#define CAL_M_VC_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_M_VC_Pos)      /* (CAL_M_VC) Voltage Conversion Factor Mask */
-#define CAL_M_VC_Val(value)                      (CAL_M_VC_Msk & (_UINT32_(value) << CAL_M_VC_Pos))
-
-/* -------- CAL_M_IN : (MET_CONTROL Offset: 0x94) (R/W  32) Current magnitude calibration constant, I_N (sQ2.29) -------- */
-#define CAL_M_IN_Pos                             _UINT32_(0)                                 /* (CAL_M_IN) Current Conversion Factor Position */
-#define CAL_M_IN_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_M_IN_Pos)      /* (CAL_M_IN) Current Conversion Factor Mask */
-#define CAL_M_IN_Val(value)                      (CAL_M_IN_Msk & (_UINT32_(value) << CAL_M_IN_Pos))
-
-/* -------- CAL_PH_IA : (MET_CONTROL Offset: 0x98) (R/W  32) Current phase calibration constant, I_A (sQ2.29) -------- */
-#define CAL_PH_IA_Pos                             _UINT32_(0)                                 /* (CAL_PH_IA) Current phase calibration constant Position */
-#define CAL_PH_IA_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_PH_IA_Pos)      /* (CAL_PH_IA) Current phase calibration constant Mask */
-#define CAL_PH_IA_Val(value)                      (CAL_PH_IA_Msk & (_UINT32_(value) << CAL_PH_IA_Pos))
-
-/* -------- CAL_PH_VA : (MET_CONTROL Offset: 0x9C) (R/W  32) Voltage phase calibration constant, V_A (sQ2.29) -------- */
-#define CAL_PH_VA_Pos                             _UINT32_(0)                                 /* (CAL_PH_VA) Voltage phase calibration constant Position */
-#define CAL_PH_VA_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_PH_VA_Pos)      /* (CAL_PH_VA) Voltage phase calibration constant Mask */
-#define CAL_PH_VA_Val(value)                      (CAL_PH_VA_Msk & (_UINT32_(value) << CAL_PH_VA_Pos))
-
-/* -------- CAL_PH_IB : (MET_CONTROL Offset: 0xA0) (R/W  32) Current phase calibration constant, I_B (sQ2.29) -------- */
-#define CAL_PH_IB_Pos                             _UINT32_(0)                                 /* (CAL_PH_IB) Current phase calibration constant Position */
-#define CAL_PH_IB_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_PH_IB_Pos)      /* (CAL_PH_IB) Current phase calibration constant Mask */
-#define CAL_PH_IB_Val(value)                      (CAL_PH_IB_Msk & (_UINT32_(value) << CAL_PH_IB_Pos))
-
-/* -------- CAL_PH_VB : (MET_CONTROL Offset: 0xA4) (R/W  32) Voltage phase calibration constant, V_B (sQ2.29) -------- */
-#define CAL_PH_VB_Pos                             _UINT32_(0)                                 /* (CAL_PH_VB) Voltage phase calibration constant Position */
-#define CAL_PH_VB_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_PH_VB_Pos)      /* (CAL_PH_VB) Voltage phase calibration constant Mask */
-#define CAL_PH_VB_Val(value)                      (CAL_PH_VB_Msk & (_UINT32_(value) << CAL_PH_VB_Pos))
-
-/* -------- CAL_PH_IC : (MET_CONTROL Offset: 0xA8) (R/W  32) Current phase calibration constant, I_C (sQ2.29) -------- */
-#define CAL_PH_IC_Pos                             _UINT32_(0)                                 /* (CAL_PH_IC) Current phase calibration constant Position */
-#define CAL_PH_IC_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_PH_IC_Pos)      /* (CAL_PH_IC) Current phase calibration constant Mask */
-#define CAL_PH_IC_Val(value)                      (CAL_PH_IC_Msk & (_UINT32_(value) << CAL_PH_IC_Pos))
-
-/* -------- CAL_PH_VC : (MET_CONTROL Offset: 0xAC) (R/W  32) Voltage phase calibration constant, V_C (sQ2.29) -------- */
-#define CAL_PH_VC_Pos                             _UINT32_(0)                                 /* (CAL_PH_VC) Voltage phase calibration constant Position */
-#define CAL_PH_VC_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_PH_VC_Pos)      /* (CAL_PH_VC) Voltage phase calibration constant Mask */
-#define CAL_PH_VC_Val(value)                      (CAL_PH_VC_Msk & (_UINT32_(value) << CAL_PH_VC_Pos))
-
-/* -------- CAL_PH_IN : (MET_CONTROL Offset: 0xB0) (R/W  32) Current phase calibration constant, I_N (sQ2.29) -------- */
-#define CAL_PH_IN_Pos                             _UINT32_(0)                                 /* (CAL_PH_IN) Current phase calibration constant Position */
-#define CAL_PH_IN_Msk                             (_UINT32_(0xFFFFFFFF) << CAL_PH_IN_Pos)      /* (CAL_PH_IN) Current phase calibration constant Mask */
-#define CAL_PH_IN_Val(value)                      (CAL_PH_IN_Msk & (_UINT32_(value) << CAL_PH_IN_Pos))
-
-/* -------- CAPTURE_CTRL : (MET_CONTROL Offset: 0xB4) (R/W  32) Waveform capture control register -------- */
+/* -------- CAPTURE_CTRL :  (R/W  32) Waveform capture control register -------- */
 #define CAPTURE_CTRL_CAPTURE_TYPE_Pos             _UINT32_(0)                                 /* (CAPTURE_CTRL) Waveform capture control register Position */
 #define CAPTURE_CTRL_CAPTURE_TYPE_Msk             (_UINT32_(0x3) << CAPTURE_CTRL_CAPTURE_TYPE_Pos)         /* (CAPTURE_CTRL) Waveform capture control register Mask */
 #define CAPTURE_CTRL_CAPTURE_TYPE(value)          (CAPTURE_CTRL_CAPTURE_TYPE_Msk & (_UINT32_(value) << CAPTURE_CTRL_CAPTURE_TYPE_Pos))
@@ -616,6 +584,7 @@ Microchip or any third party.
 #define   CAPTURE_CTRL_CAPTURE_SOURCE_16KHz_Val     _UINT32_(0x0)                   /* (CAPTURE_CTRL) Capture 16kHz data [sQ1.30] before DSP filtering */
 #define   CAPTURE_CTRL_CAPTURE_SOURCE_4KHz_FBW_Val  _UINT32_(0x1)                   /* (CAPTURE_CTRL) Capture 4kHz FBW data [sQ2.29] (Full Bandwidth = fundamental + harmonics) */
 #define   CAPTURE_CTRL_CAPTURE_SOURCE_4KHz_NBW_Val  _UINT32_(0x2)                   /* (CAPTURE_CTRL) Capture 4kHz NBW data [sQ2.29] (Narrow Bandwidth = fundamental only) */
+#define   CAPTURE_CTRL_CAPTURE_SOURCE_8KHz_FBW_Val  _UINT32_(0x3)                   /* (CAPTURE_CTRL) Capture 8kHz FBW data [sQ2.29] (Full Bandwidth = fundamental + harmonics) */
 #define CAPTURE_CTRL_CH_SEL_IA_Pos                _UINT32_(8)                                 /* (CAPTURE_CTRL) Capture Channel Select Position */
 #define CAPTURE_CTRL_CH_SEL_IA_Msk                (_UINT32_(0x1) << CAPTURE_CTRL_CH_SEL_IA_Pos)         /* (CAPTURE_CTRL) Capture Channel Select Mask */
 #define CAPTURE_CTRL_CH_SEL_IA(value)             (CAPTURE_CTRL_CH_SEL_IA_Msk & (_UINT32_(value) << CAPTURE_CTRL_CH_SEL_IA_Pos))
@@ -646,154 +615,118 @@ Microchip or any third party.
 #define CAPTURE_CTRL_CH_SEL_VC(value)             (CAPTURE_CTRL_CH_SEL_VC_Msk & (_UINT32_(value) << CAPTURE_CTRL_CH_SEL_VC_Pos))
 #define   CAPTURE_CTRL_CH_SEL_VC_DISABLED_Val       _UINT32_(0x0)                   /* (CAPTURE_CTRL) Waveform capture is disabled  */
 #define   CAPTURE_CTRL_CH_SEL_VC_ENABLED_Val        _UINT32_(0x1)                   /* (CAPTURE_CTRL) Waveform capture is enabled */
+#define CAPTURE_CTRL_CH_SEL_IN_Pos                _UINT32_(14)                                 /* (CAPTURE_CTRL) Capture Channel Select Position */
+#define CAPTURE_CTRL_CH_SEL_IN_Msk                (_UINT32_(0x1) << CAPTURE_CTRL_CH_SEL_IN_Pos)         /* (CAPTURE_CTRL) Capture Channel Select Mask */
+#define CAPTURE_CTRL_CH_SEL_IN(value)             (CAPTURE_CTRL_CH_SEL_IN_Msk & (_UINT32_(value) << CAPTURE_CTRL_CH_SEL_IN_Pos))
+#define   CAPTURE_CTRL_CH_SEL_IN_DISABLED_Val       _UINT32_(0x0)                   /* (CAPTURE_CTRL) Waveform capture is disabled  */
+#define   CAPTURE_CTRL_CH_SEL_IN_ENABLED_Val        _UINT32_(0x1)                   /* (CAPTURE_CTRL) Waveform capture is enabled */
+#define CAPTURE_CTRL_CH_SEL_VD_Pos                _UINT32_(15)                                 /* (CAPTURE_CTRL) Capture Channel Select Position */
+#define CAPTURE_CTRL_CH_SEL_VD_Msk                (_UINT32_(0x1) << CAPTURE_CTRL_CH_SEL_VD_Pos)         /* (CAPTURE_CTRL) Capture Channel Select Mask */
+#define CAPTURE_CTRL_CH_SEL_VD(value)             (CAPTURE_CTRL_CH_SEL_VD_Msk & (_UINT32_(value) << CAPTURE_CTRL_CH_SEL_VD_Pos))
+#define   CAPTURE_CTRL_CH_SEL_VD_DISABLED_Val       _UINT32_(0x0)                   /* (CAPTURE_CTRL) Waveform capture is disabled  */
+#define   CAPTURE_CTRL_CH_SEL_VD_ENABLED_Val        _UINT32_(0x1)                   /* (CAPTURE_CTRL) Waveform capture is enabled */
 #define CAPTURE_CTRL_CAPTURE_EN_Pos                _UINT32_(31)                                 /* (CAPTURE_CTRL) Enable waveform capture Position */
 #define CAPTURE_CTRL_CAPTURE_EN_Msk                (_UINT32_(0x1) << CAPTURE_CTRL_CAPTURE_EN_Pos)         /* (CAPTURE_CTRL) Enable waveform capture Mask */
 #define CAPTURE_CTRL_CAPTURE_EN(value)             (CAPTURE_CTRL_CAPTURE_EN_Msk & (_UINT32_(value) << CAPTURE_CTRL_CAPTURE_EN_Pos))
 #define   CAPTURE_CTRL_CAPTURE_EN_DISABLED_Val       _UINT32_(0x0)                   /* (CAPTURE_CTRL) Waveform capture feature is disabled  */
 #define   CAPTURE_CTRL_CAPTURE_EN_ENABLED_Val        _UINT32_(0x1)                   /* (CAPTURE_CTRL) Waveform capture feature is enabled */
 
-/* -------- CAPTURE_BUFF_SIZE : (MET_CONTROL Offset: 0xB8) (R/W  32) Waveform capture buffer size in units of 32-bits -------- */
+/* -------- CAPTURE_BUFF_SIZE :  (R/W  32) Waveform capture buffer size in units of 32-bits -------- */
 #define CAPTURE_BUFF_SIZE_Pos                      _UINT32_(0)                                 /* (CAPTURE_BUFF_SIZE) Waveform capture buffer size Position */
 #define CAPTURE_BUFF_SIZE_Msk                      (_UINT32_(0xFFFFFF) << CAPTURE_BUFF_SIZE_Pos)      /* (CAPTURE_BUFF_SIZE) Waveform capture buffer size Mask */
 #define CAPTURE_BUFF_SIZE_Val(value)               (CAPTURE_BUFF_SIZE_Msk & (_UINT32_(value) << CAPTURE_BUFF_SIZE_Pos))
 
-/* -------- CAPTURE_ADDR_SIZE : (MET_CONTROL Offset: 0xBC) (R/W  32) Waveform capture buffer address pointer -------- */
-#define CAPTURE_ADDR_SIZE_Pos                      _UINT32_(0)                                 /* (CAPTURE_ADDR_SIZE) Waveform capture buffer address pointer Position */
-#define CAPTURE_ADDR_SIZE_Msk                      (_UINT32_(0xFFFFFFFF) << CAPTURE_ADDR_SIZE_Pos)      /* (CAPTURE_ADDR_SIZE) Waveform capture buffer address pointer Mask */
-#define CAPTURE_ADDR_SIZE_Val(value)               (CAPTURE_ADDR_SIZE_Msk & (_UINT32_(value) << CAPTURE_ADDR_SIZE_Pos))
+/* -------- CAPTURE_ADDR :  (R/W  32) Waveform capture buffer address pointer -------- */
+#define CAPTURE_ADDR_Pos                           _UINT32_(0)                                 /* (CAPTURE_ADDR) Waveform capture buffer address pointer Position */
+#define CAPTURE_ADDR_Msk                           (_UINT32_(0xFFFFFFFF) << CAPTURE_ADDR_Pos)      /* (CAPTURE_ADDR) Waveform capture buffer address pointer Mask */
+#define CAPTURE_ADDR_Val(value)                    (CAPTURE_ADDR_Msk & (_UINT32_(value) << CAPTURE_ADDR_Pos))
 
-/* -------- ATSENSE_CTRL_20_23 : (MET_CONTROL Offset: 0xCC) (R/W  32) ATSense control: channels I0,I1,V1,I2 -------- */
-#define ATSENSE_CTRL_20_23_I0_ON_Pos                _UINT32_(0)                                 /* (ATSENSE_CTRL_20_23) Enable channel I0 Position */
-#define ATSENSE_CTRL_20_23_I0_ON_Msk                (_UINT32_(0x1) << ATSENSE_CTRL_20_23_I0_ON_Pos)         /* (ATSENSE_CTRL_20_23) Enable channel I0 Mask */
-#define ATSENSE_CTRL_20_23_I0_ON(value)             (ATSENSE_CTRL_20_23_I0_ON_Msk & (_UINT32_(value) << ATSENSE_CTRL_20_23_I0_ON_Pos))
-#define   ATSENSE_CTRL_20_23_I0_ON_DISABLED_Val       _UINT32_(0x0)                   /* (ATSENSE_CTRL_20_23) Channel is disabled  */
-#define   ATSENSE_CTRL_20_23_I0_ON_ENABLED_Val        _UINT32_(0x1)                   /* (ATSENSE_CTRL_20_23) Channel is enabled */
-#define ATSENSE_CTRL_20_23_TEMPMEAS_Pos             _UINT32_(1)                                 /* (ATSENSE_CTRL_20_23) Channel I0/Temperature multiplex select bit Position */
-#define ATSENSE_CTRL_20_23_TEMPMEAS_Msk             (_UINT32_(0x1) << ATSENSE_CTRL_20_23_TEMPMEAS_Pos)         /* (ATSENSE_CTRL_20_23) Channel I0/Temperature multiplex select bit Mask */
-#define ATSENSE_CTRL_20_23_TEMPMEAS(value)          (ATSENSE_CTRL_20_23_TEMPMEAS_Msk & (_UINT32_(value) << ATSENSE_CTRL_20_23_TEMPMEAS_Pos))
-#define   ATSENSE_CTRL_20_23_TEMPMEAS_CURRENT_I0_Val  _UINT32_(0x0)                   /* (ATSENSE_CTRL_20_23) Measurement of external current I0  */
-#define   ATSENSE_CTRL_20_23_TEMPMEAS_TEMP_Val        _UINT32_(0x1)                   /* (ATSENSE_CTRL_20_23) Measurement of internal temperature sensor */
-#define ATSENSE_CTRL_20_23_I0_GAIN_Pos              _UINT32_(4)                                 /* (ATSENSE_CTRL_20_23) Channel I0 gain Position */
-#define ATSENSE_CTRL_20_23_I0_GAIN_Msk              (_UINT32_(0x3) << ATSENSE_CTRL_20_23_I0_GAIN_Pos)         /* (ATSENSE_CTRL_20_23) Channel I0 gain Mask */
-#define ATSENSE_CTRL_20_23_I0_GAIN(value)           (ATSENSE_CTRL_20_23_I0_GAIN_Msk & (_UINT32_(value) << ATSENSE_CTRL_20_23_I0_GAIN_Pos))
-#define   ATSENSE_CTRL_20_23_I0_GAIN_1_Val            _UINT32_(0x0)                   /* (ATSENSE_CTRL_20_23) Channel has a gain of 1  */
-#define   ATSENSE_CTRL_20_23_I0_GAIN_2_Val            _UINT32_(0x1)                   /* (ATSENSE_CTRL_20_23) Channel has a gain of 2 */
-#define   ATSENSE_CTRL_20_23_I0_GAIN_4_Val            _UINT32_(0x2)                   /* (ATSENSE_CTRL_20_23) Channel has a gain of 4 */
-#define   ATSENSE_CTRL_20_23_I0_GAIN_8_Val            _UINT32_(0x3)                   /* (ATSENSE_CTRL_20_23) Channel has a gain of 8 */
-#define ATSENSE_CTRL_20_23_I1_ON_Pos                _UINT32_(8)                                 /* (ATSENSE_CTRL_20_23) Enable channel I1 Position */
-#define ATSENSE_CTRL_20_23_I1_ON_Msk                (_UINT32_(0x1) << ATSENSE_CTRL_20_23_I1_ON_Pos)         /* (ATSENSE_CTRL_20_23) Enable channel I1 Mask */
-#define ATSENSE_CTRL_20_23_I1_ON(value)             (ATSENSE_CTRL_20_23_I1_ON_Msk & (_UINT32_(value) << ATSENSE_CTRL_20_23_I1_ON_Pos))
-#define   ATSENSE_CTRL_20_23_I1_ON_DISABLED_Val       _UINT32_(0x0)                   /* (ATSENSE_CTRL_20_23) Channel is disabled  */
-#define   ATSENSE_CTRL_20_23_I1_ON_ENABLED_Val        _UINT32_(0x1)                   /* (ATSENSE_CTRL_20_23) Channel is enabled */
-#define ATSENSE_CTRL_20_23_I1_GAIN_Pos              _UINT32_(12)                                /* (ATSENSE_CTRL_20_23) Channel I1 gain Position */
-#define ATSENSE_CTRL_20_23_I1_GAIN_Msk              (_UINT32_(0x3) << ATSENSE_CTRL_20_23_I1_GAIN_Pos)         /* (ATSENSE_CTRL_20_23) Channel I1 gain Mask */
-#define ATSENSE_CTRL_20_23_I1_GAIN(value)           (ATSENSE_CTRL_20_23_I1_GAIN_Msk & (_UINT32_(value) << ATSENSE_CTRL_20_23_I1_GAIN_Pos))
-#define   ATSENSE_CTRL_20_23_I1_GAIN_1_Val            _UINT32_(0x0)                   /* (ATSENSE_CTRL_20_23) Channel has a gain of 1  */
-#define   ATSENSE_CTRL_20_23_I1_GAIN_2_Val            _UINT32_(0x1)                   /* (ATSENSE_CTRL_20_23) Channel has a gain of 2 */
-#define   ATSENSE_CTRL_20_23_I1_GAIN_4_Val            _UINT32_(0x2)                   /* (ATSENSE_CTRL_20_23) Channel has a gain of 4 */
-#define   ATSENSE_CTRL_20_23_I1_GAIN_8_Val            _UINT32_(0x3)                   /* (ATSENSE_CTRL_20_23) Channel has a gain of 8 */
-#define ATSENSE_CTRL_20_23_V1_ON_Pos                _UINT32_(16)                                 /* (ATSENSE_CTRL_20_23) Enable channel V1 Position */
-#define ATSENSE_CTRL_20_23_V1_ON_Msk                (_UINT32_(0x1) << ATSENSE_CTRL_20_23_V1_ON_Pos)         /* (ATSENSE_CTRL_20_23) Enable channel V1 Mask */
-#define ATSENSE_CTRL_20_23_V1_ON(value)             (ATSENSE_CTRL_20_23_V1_ON_Msk & (_UINT32_(value) << ATSENSE_CTRL_20_23_V1_ON_Pos))
-#define   ATSENSE_CTRL_20_23_V1_ON_DISABLED_Val       _UINT32_(0x0)                   /* (ATSENSE_CTRL_20_23) Channel is disabled  */
-#define   ATSENSE_CTRL_20_23_V1_ON_ENABLED_Val        _UINT32_(0x1)                   /* (ATSENSE_CTRL_20_23) Channel is enabled */
-#define ATSENSE_CTRL_20_23_I2_ON_Pos                _UINT32_(24)                                 /* (ATSENSE_CTRL_20_23) Enable channel I2 Position */
-#define ATSENSE_CTRL_20_23_I2_ON_Msk                (_UINT32_(0x1) << ATSENSE_CTRL_20_23_I2_ON_Pos)         /* (ATSENSE_CTRL_20_23) Enable channel I2 Mask */
-#define ATSENSE_CTRL_20_23_I2_ON(value)             (ATSENSE_CTRL_20_23_I2_ON_Msk & (_UINT32_(value) << ATSENSE_CTRL_20_23_I2_ON_Pos))
-#define   ATSENSE_CTRL_20_23_I2_ON_DISABLED_Val       _UINT32_(0x0)                   /* (ATSENSE_CTRL_20_23) Channel is disabled  */
-#define   ATSENSE_CTRL_20_23_I2_ON_ENABLED_Val        _UINT32_(0x1)                   /* (ATSENSE_CTRL_20_23) Channel is enabled */
-#define ATSENSE_CTRL_20_23_I2_GAIN_Pos              _UINT32_(28)                                /* (ATSENSE_CTRL_20_23) Channel I2 gain Position */
-#define ATSENSE_CTRL_20_23_I2_GAIN_Msk              (_UINT32_(0x3) << ATSENSE_CTRL_20_23_I2_GAIN_Pos)         /* (ATSENSE_CTRL_20_23) Channel I2 gain Mask */
-#define ATSENSE_CTRL_20_23_I2_GAIN(value)           (ATSENSE_CTRL_20_23_I2_GAIN_Msk & (_UINT32_(value) << ATSENSE_CTRL_20_23_I2_GAIN_Pos))
-#define   ATSENSE_CTRL_20_23_I2_GAIN_1_Val            _UINT32_(0x0)                   /* (ATSENSE_CTRL_20_23) Channel has a gain of 1  */
-#define   ATSENSE_CTRL_20_23_I2_GAIN_2_Val            _UINT32_(0x1)                   /* (ATSENSE_CTRL_20_23) Channel has a gain of 2 */
-#define   ATSENSE_CTRL_20_23_I2_GAIN_4_Val            _UINT32_(0x2)                   /* (ATSENSE_CTRL_20_23) Channel has a gain of 4 */
-#define   ATSENSE_CTRL_20_23_I2_GAIN_8_Val            _UINT32_(0x3)                   /* (ATSENSE_CTRL_20_23) Channel has a gain of 8 */
+/* -------- AFE_CTRL :  (R/W  32) ATSENSE control  -------- */
+#define AFE_CTRL_I0_GAIN_Pos              _UINT32_(0)                                 /* (AFE_CTRL) Channel I0 gain Position */
+#define AFE_CTRL_I0_GAIN_Msk              (_UINT32_(0x3) << AFE_CTRL_I0_GAIN_Pos)         /* (AFE_CTRL) Channel I0 gain Mask */
+#define AFE_CTRL_I0_GAIN(value)           (AFE_CTRL_I0_GAIN_Msk & (_UINT32_(value) << AFE_CTRL_I0_GAIN_Pos))
+#define   AFE_CTRL_I0_GAIN_1_Val            _UINT32_(0x0)                   /* (AFE_CTRL) Channel has a gain of 1  */
+#define   AFE_CTRL_I0_GAIN_2_Val            _UINT32_(0x1)                   /* (AFE_CTRL) Channel has a gain of 2 */
+#define   AFE_CTRL_I0_GAIN_4_Val            _UINT32_(0x2)                   /* (AFE_CTRL) Channel has a gain of 4 */
+#define   AFE_CTRL_I0_GAIN_8_Val            _UINT32_(0x3)                   /* (AFE_CTRL) Channel has a gain of 8 */
+#define AFE_CTRL_I1_GAIN_Pos              _UINT32_(2)                                /* (AFE_CTRL) Channel I1 gain Position */
+#define AFE_CTRL_I1_GAIN_Msk              (_UINT32_(0x3) << AFE_CTRL_I1_GAIN_Pos)         /* (AFE_CTRL) Channel I1 gain Mask */
+#define AFE_CTRL_I1_GAIN(value)           (AFE_CTRL_I1_GAIN_Msk & (_UINT32_(value) << AFE_CTRL_I1_GAIN_Pos))
+#define   AFE_CTRL_I1_GAIN_1_Val            _UINT32_(0x0)                   /* (AFE_CTRL) Channel has a gain of 1  */
+#define   AFE_CTRL_I1_GAIN_2_Val            _UINT32_(0x1)                   /* (AFE_CTRL) Channel has a gain of 2 */
+#define   AFE_CTRL_I1_GAIN_4_Val            _UINT32_(0x2)                   /* (AFE_CTRL) Channel has a gain of 4 */
+#define   AFE_CTRL_I1_GAIN_8_Val            _UINT32_(0x3)                   /* (AFE_CTRL) Channel has a gain of 8 */
+#define AFE_CTRL_I2_GAIN_Pos              _UINT32_(4)                                /* (AFE_CTRL) Channel I2 gain Position */
+#define AFE_CTRL_I2_GAIN_Msk              (_UINT32_(0x3) << AFE_CTRL_I2_GAIN_Pos)         /* (AFE_CTRL) Channel I2 gain Mask */
+#define AFE_CTRL_I2_GAIN(value)           (AFE_CTRL_I2_GAIN_Msk & (_UINT32_(value) << AFE_CTRL_I2_GAIN_Pos))
+#define   AFE_CTRL_I2_GAIN_1_Val            _UINT32_(0x0)                   /* (AFE_CTRL) Channel has a gain of 1  */
+#define   AFE_CTRL_I2_GAIN_2_Val            _UINT32_(0x1)                   /* (AFE_CTRL) Channel has a gain of 2 */
+#define   AFE_CTRL_I2_GAIN_4_Val            _UINT32_(0x2)                   /* (AFE_CTRL) Channel has a gain of 4 */
+#define   AFE_CTRL_I2_GAIN_8_Val            _UINT32_(0x3)                   /* (AFE_CTRL) Channel has a gain of 8 */
+#define AFE_CTRL_I3_GAIN_Pos              _UINT32_(6)                                /* (AFE_CTRL) Channel I2 gain Position */
+#define AFE_CTRL_I3_GAIN_Msk              (_UINT32_(0x3) << AFE_CTRL_I3_GAIN_Pos)         /* (AFE_CTRL) Channel I2 gain Mask */
+#define AFE_CTRL_I3_GAIN(value)           (AFE_CTRL_I3_GAIN_Msk & (_UINT32_(value) << AFE_CTRL_I3_GAIN_Pos))
+#define   AFE_CTRL_I3_GAIN_1_Val            _UINT32_(0x0)                   /* (AFE_CTRL) Channel has a gain of 1  */
+#define   AFE_CTRL_I3_GAIN_2_Val            _UINT32_(0x1)                   /* (AFE_CTRL) Channel has a gain of 2 */
+#define   AFE_CTRL_I3_GAIN_4_Val            _UINT32_(0x2)                   /* (AFE_CTRL) Channel has a gain of 4 */
+#define   AFE_CTRL_I3_GAIN_8_Val            _UINT32_(0x3)                   /* (AFE_CTRL) Channel has a gain of 8 */
 
-/* -------- ATSENSE_CTRL_24_27 : (MET_CONTROL Offset: 0xD0) (R/W  32) ATSense control: channels V2,I3,V3,ANA -------- */
-#define ATSENSE_CTRL_24_27_V2_ON_Pos                _UINT32_(0)                                 /* (ATSENSE_CTRL_24_27) Enable channel V2 Position */
-#define ATSENSE_CTRL_24_27_V2_ON_Msk                (_UINT32_(0x1) << ATSENSE_CTRL_24_27_V2_ON_Pos)         /* (ATSENSE_CTRL_24_27) Enable channel V2 Mask */
-#define ATSENSE_CTRL_24_27_V2_ON(value)             (ATSENSE_CTRL_24_27_V2_ON_Msk & (_UINT32_(value) << ATSENSE_CTRL_24_27_V2_ON_Pos))
-#define   ATSENSE_CTRL_24_27_V2_ON_DISABLED_Val       _UINT32_(0x0)                   /* (ATSENSE_CTRL_24_27) Channel is disabled  */
-#define   ATSENSE_CTRL_24_27_V2_ON_ENABLED_Val        _UINT32_(0x1)                   /* (ATSENSE_CTRL_24_27) Channel is enabled */
-#define ATSENSE_CTRL_24_27_I3_ON_Pos                _UINT32_(8)                                 /* (ATSENSE_CTRL_24_27) Enable channel I3 Position */
-#define ATSENSE_CTRL_24_27_I3_ON_Msk                (_UINT32_(0x1) << ATSENSE_CTRL_24_27_I3_ON_Pos)         /* (ATSENSE_CTRL_24_27) Enable channel I3 Mask */
-#define ATSENSE_CTRL_24_27_I3_ON(value)             (ATSENSE_CTRL_24_27_I3_ON_Msk & (_UINT32_(value) << ATSENSE_CTRL_24_27_I3_ON_Pos))
-#define   ATSENSE_CTRL_24_27_I3_ON_DISABLED_Val       _UINT32_(0x0)                   /* (ATSENSE_CTRL_24_27) Channel is disabled  */
-#define   ATSENSE_CTRL_24_27_I3_ON_ENABLED_Val        _UINT32_(0x1)                   /* (ATSENSE_CTRL_24_27) Channel is enabled */
-#define ATSENSE_CTRL_24_27_I3_GAIN_Pos              _UINT32_(12)                                /* (ATSENSE_CTRL_24_27) Channel I3 gain Position */
-#define ATSENSE_CTRL_24_27_I3_GAIN_Msk              (_UINT32_(0x3) << ATSENSE_CTRL_24_27_I3_GAIN_Pos)         /* (ATSENSE_CTRL_24_27) Channel I3 gain Mask */
-#define ATSENSE_CTRL_24_27_I3_GAIN(value)           (ATSENSE_CTRL_24_27_I3_GAIN_Msk & (_UINT32_(value) << ATSENSE_CTRL_24_27_I3_GAIN_Pos))
-#define   ATSENSE_CTRL_24_27_I3_GAIN_1_Val            _UINT32_(0x0)                   /* (ATSENSE_CTRL_24_27) Channel has a gain of 1  */
-#define   ATSENSE_CTRL_24_27_I3_GAIN_2_Val            _UINT32_(0x1)                   /* (ATSENSE_CTRL_24_27) Channel has a gain of 2 */
-#define   ATSENSE_CTRL_24_27_I3_GAIN_4_Val            _UINT32_(0x2)                   /* (ATSENSE_CTRL_24_27) Channel has a gain of 4 */
-#define   ATSENSE_CTRL_24_27_I3_GAIN_8_Val            _UINT32_(0x3)                   /* (ATSENSE_CTRL_24_27) Channel has a gain of 8 */
-#define ATSENSE_CTRL_24_27_V3_ON_Pos                _UINT32_(16)                                 /* (ATSENSE_CTRL_24_27) Enable channel V3 Position */
-#define ATSENSE_CTRL_24_27_V3_ON_Msk                (_UINT32_(0x1) << ATSENSE_CTRL_24_27_V3_ON_Pos)         /* (ATSENSE_CTRL_24_27) Enable channel V3 Mask */
-#define ATSENSE_CTRL_24_27_V3_ON(value)             (ATSENSE_CTRL_24_27_V3_ON_Msk & (_UINT32_(value) << ATSENSE_CTRL_24_27_V3_ON_Pos))
-#define   ATSENSE_CTRL_24_27_V3_ON_DISABLED_Val       _UINT32_(0x0)                   /* (ATSENSE_CTRL_24_27) Channel is disabled  */
-#define   ATSENSE_CTRL_24_27_V3_ON_ENABLED_Val        _UINT32_(0x1)                   /* (ATSENSE_CTRL_24_27) Channel is enabled */
-#define ATSENSE_CTRL_24_27_ONBIAS_Pos                _UINT32_(24)                                 /* (ATSENSE_CTRL_24_27) Enable bias Position */
-#define ATSENSE_CTRL_24_27_ONBIAS_Msk                (_UINT32_(0x1) << ATSENSE_CTRL_24_27_ONBIAS_Pos)         /* (ATSENSE_CTRL_24_27) Enable bias Mask */
-#define ATSENSE_CTRL_24_27_ONBIAS(value)             (ATSENSE_CTRL_24_27_ONBIAS_Msk & (_UINT32_(value) << ATSENSE_CTRL_24_27_ONBIAS_Pos))
-#define   ATSENSE_CTRL_24_27_ONBIAS_DISABLED_Val       _UINT32_(0x0)                   /* (ATSENSE_CTRL_24_27) Bias is disabled  */
-#define   ATSENSE_CTRL_24_27_ONBIAS_ENABLED_Val        _UINT32_(0x1)                   /* (ATSENSE_CTRL_24_27) Bias is enabled */
-#define ATSENSE_CTRL_24_27_ONREF_Pos                _UINT32_(25)                                 /* (ATSENSE_CTRL_24_27) Enable internal reference Position */
-#define ATSENSE_CTRL_24_27_ONREF_Msk                (_UINT32_(0x1) << ATSENSE_CTRL_24_27_ONREF_Pos)         /* (ATSENSE_CTRL_24_27) Enable internal reference Mask */
-#define ATSENSE_CTRL_24_27_ONREF(value)             (ATSENSE_CTRL_24_27_ONREF_Msk & (_UINT32_(value) << ATSENSE_CTRL_24_27_ONREF_Pos))
-#define   ATSENSE_CTRL_24_27_ONREF_DISABLED_Val       _UINT32_(0x0)                   /* (ATSENSE_CTRL_24_27) Internal reference is disabled  */
-#define   ATSENSE_CTRL_24_27_ONREF_ENABLED_Val        _UINT32_(0x1)                   /* (ATSENSE_CTRL_24_27) Internal reference is enabled */
-#define ATSENSE_CTRL_24_27_ONLDO_Pos                _UINT32_(26)                                 /* (ATSENSE_CTRL_24_27) Enable internal LDO Position */
-#define ATSENSE_CTRL_24_27_ONLDO_Msk                (_UINT32_(0x1) << ATSENSE_CTRL_24_27_ONLDO_Pos)         /* (ATSENSE_CTRL_24_27) Enable internal LDO Mask */
-#define ATSENSE_CTRL_24_27_ONLDO(value)             (ATSENSE_CTRL_24_27_ONLDO_Msk & (_UINT32_(value) << ATSENSE_CTRL_24_27_ONLDO_Pos))
-#define   ATSENSE_CTRL_24_27_ONLDO_DISABLED_Val       _UINT32_(0x0)                   /* (ATSENSE_CTRL_24_27) Internal LDO is disabled  */
-#define   ATSENSE_CTRL_24_27_ONLDO_ENABLED_Val        _UINT32_(0x1)                   /* (ATSENSE_CTRL_24_27) Internal LDO is enabled */
+/* -------- AFE_CTRL :  (R/W  32) MCP control -------- */
+#define AFE_CTRL_CHNx_PGA_Pos              _UINT32_(0)                                 /* (AFE_CTRL) Channel gain Position */
+#define AFE_CTRL_CHNx_PGA_Msk              (_UINT32_(0x3) << AFE_CTRL_CHNx_PGA_Pos)         /* (AFE_CTRL) Channel gain Mask */
+#define AFE_CTRL_CHNx_PGA(channel, value)      ((AFE_CTRL_CHNx_PGA_Msk & (_UINT32_(value) << AFE_CTRL_CHNx_PGA_Pos)) << (3 * channel))
+#define   AFE_CTRL_CHNx_PGA_1_Val            _UINT32_(0x0)                   /* (AFE_CTRL) Channel has a gain of 1  */
+#define   AFE_CTRL_CHNx_PGA_2_Val            _UINT32_(0x1)                   /* (AFE_CTRL) Channel has a gain of 2 */
+#define   AFE_CTRL_CHNx_PGA_4_Val            _UINT32_(0x2)                   /* (AFE_CTRL) Channel has a gain of 4 */
+#define   AFE_CTRL_CHNx_PGA_8_Val            _UINT32_(0x3)                   /* (AFE_CTRL) Channel has a gain of 8 */
+#define   AFE_CTRL_CHNx_PGA_16_Val           _UINT32_(0x4)                   /* (AFE_CTRL) Channel has a gain of 16 */
+#define   AFE_CTRL_CHNx_PGA_32_Val           _UINT32_(0x5)                   /* (AFE_CTRL) Channel has a gain of 32 */
+#define AFE_CTRL_BOOST_Pos                 _UINT32_(24)                                /* (AFE_CTRL) Bias Current Selection Position */
+#define AFE_CTRL_BOOST_Msk                 (_UINT32_(0x2) << AFE_CTRL_BOOST_Pos)         /* (AFE_CTRL) Bias Current Selection Mask */
+#define AFE_CTRL_BOOST(value)              (AFE_CTRL_BOOST_Msk & (_UINT32_(value) << AFE_CTRL_BOOST_Pos))
+#define   AFE_CTRL_BOOST_05_Val              _UINT32_(0x0)                   /* (AFE_CTRL) All channels have current x 0.5  */
+#define   AFE_CTRL_BOOST_066_Val             _UINT32_(0x1)                   /* (AFE_CTRL) All channels have current x 0.66 */
+#define   AFE_CTRL_BOOST_1_Val               _UINT32_(0x2)                   /* (AFE_CTRL) All channels have current x 1 */
+#define   AFE_CTRL_BOOST_2_Val               _UINT32_(0x3)                   /* (AFE_CTRL) All channels have current x 2 */
+#define AFE_CTRL_DITHER_Pos                 _UINT32_(26)                                /* (AFE_CTRL) Dithering Circuit Position */
+#define AFE_CTRL_DITHER_Msk                 (_UINT32_(0x2) << AFE_CTRL_DITHER_Pos)         /* (AFE_CTRL) Dithering Circuit Mask */
+#define AFE_CTRL_DITHER(value)              (AFE_CTRL_DITHER_Msk & (_UINT32_(value) << AFE_CTRL_DITHER_Pos))
+#define   AFE_CTRL_DITHER_OFF_Val              _UINT32_(0x0)                   /* (AFE_CTRL) Dithering turned off  */
+#define   AFE_CTRL_DITHER_ON_MIN_Val           _UINT32_(0x1)                   /* (AFE_CTRL) Dithering turned on. Strength min. */
+#define   AFE_CTRL_DITHER_ON_MED_Val           _UINT32_(0x2)                   /* (AFE_CTRL) Dithering turned on. Strength med. */
+#define   AFE_CTRL_DITHER_ON_MAX_Val           _UINT32_(0x3)                   /* (AFE_CTRL) Dithering turned on. Strength max. */
 
-/* -------- ATSENSE_CTRL_28_2B : (MET_CONTROL Offset: 0xD4) (R/W  32) ATSense control: Registers: x28, x2A-2B, x2D -------- */
-#define ATSENSE_CTRL_28_2B_OSR_Pos                  _UINT32_(0)                                 /* (ATSENSE_CTRL_28_2B) Over Sampling Ratio Position */
-#define ATSENSE_CTRL_28_2B_OSR_Msk                  (_UINT32_(0x3) << ATSENSE_CTRL_28_2B_OSR_Pos)         /* (ATSENSE_CTRL_28_2B) Over Sampling Ratio Mask */
-#define ATSENSE_CTRL_28_2B_OSR(value)               (ATSENSE_CTRL_28_2B_OSR_Msk & (_UINT32_(value) << ATSENSE_CTRL_28_2B_OSR_Pos))
-#define   ATSENSE_CTRL_28_2B_OSR8_Val                 _UINT32_(0x0)                   /* (ATSENSE_CTRL_28_2B) System OSR = 8  */
-#define   ATSENSE_CTRL_24_27_OSR16_Val                _UINT32_(0x1)                   /* (ATSENSE_CTRL_28_2B) System OSR = 16 */
-#define   ATSENSE_CTRL_24_27_OSR32_Val                _UINT32_(0x2)                   /* (ATSENSE_CTRL_28_2B) System OSR = 32 */
-#define   ATSENSE_CTRL_24_27_OSR64_Val                _UINT32_(0x3)                   /* (ATSENSE_CTRL_28_2B) System OSR = 64 */
-#define ATSENSE_CTRL_28_2B_MSB_MODE_Pos             _UINT32_(4)                                 /* (ATSENSE_CTRL_28_2B) Mode Selection Position */
-#define ATSENSE_CTRL_28_2B_MSB_MODE_Msk             (_UINT32_(0x1) << ATSENSE_CTRL_28_2B_MSB_MODE_Pos)         /* (ATSENSE_CTRL_28_2B) Mode Selection Mask */
-#define ATSENSE_CTRL_28_2B_MSB_MODE(value)          (ATSENSE_CTRL_28_2B_MSB_MODE_Msk & (_UINT32_(value) << ATSENSE_CTRL_28_2B_MSB_MODE_Pos))
-#define   ATSENSE_CTRL_28_2B_MSB_MODE_32BITS_Val      _UINT32_(0x0)                   /* (ATSENSE_CTRL_28_2B) 32-bits mode  */
-#define   ATSENSE_CTRL_28_2B_MSB_MODE_16BITS_Val      _UINT32_(0x1)                   /* (ATSENSE_CTRL_28_2B) 16-bits mode */
-
-/* -------- POWER_OFFSET_P_A : (MET_CONTROL Offset: 0xDC) (R/W  32) Phase-A active power offset (sQ9.40) -------- */
+/* -------- POWER_OFFSET_P_A :  (R/W  32) Phase-A active power offset (sQ9.40) -------- */
 #define POWER_OFFSET_P_A_Pos                        _UINT32_(0)                                 /* (POWER_OFFSET_P_A) Phase-A active power offset Position */
 #define POWER_OFFSET_P_A_Msk                        (_UINT32_(0xFFFFFFFF) << POWER_OFFSET_P_A_Pos)      /* (POWER_OFFSET_P_A) Phase-A active power offset Mask */
 #define POWER_OFFSET_P_A_Val(value)                 (POWER_OFFSET_P_A_Msk & (_UINT32_(value) << POWER_OFFSET_P_A_Pos))
 
-/* -------- POWER_OFFSET_P_B : (MET_CONTROL Offset: 0xE0) (R/W  32) Phase-B active power offset (sQ9.40) -------- */
+/* -------- POWER_OFFSET_P_B :  (R/W  32) Phase-B active power offset (sQ9.40) -------- */
 #define POWER_OFFSET_P_B_Pos                        _UINT32_(0)                                 /* (POWER_OFFSET_P_B) Phase-B active power offset Position */
 #define POWER_OFFSET_P_B_Msk                        (_UINT32_(0xFFFFFFFF) << POWER_OFFSET_P_B_Pos)      /* (POWER_OFFSET_P_B) Phase-B active power offset Mask */
 #define POWER_OFFSET_P_B_Val(value)                 (POWER_OFFSET_P_B_Msk & (_UINT32_(value) << POWER_OFFSET_P_B_Pos))
 
-/* -------- POWER_OFFSET_P_C : (MET_CONTROL Offset: 0xE4) (R/W  32) Phase-C active power offset (sQ9.40) -------- */
+/* -------- POWER_OFFSET_P_C :  (R/W  32) Phase-C active power offset (sQ9.40) -------- */
 #define POWER_OFFSET_P_C_Pos                        _UINT32_(0)                                 /* (POWER_OFFSET_P_C) Phase-C active power offset Position */
 #define POWER_OFFSET_P_C_Msk                        (_UINT32_(0xFFFFFFFF) << POWER_OFFSET_P_C_Pos)      /* (POWER_OFFSET_P_C) Phase-C active power offset Mask */
 #define POWER_OFFSET_P_C_Val(value)                 (POWER_OFFSET_P_C_Msk & (_UINT32_(value) << POWER_OFFSET_P_C_Pos))
 
-/* -------- POWER_OFFSET_Q_A : (MET_CONTROL Offset: 0xDC) (R/W  32) Phase-A reactive power offset (sQ9.40) -------- */
+/* -------- POWER_OFFSET_Q_A :  (R/W  32) Phase-A reactive power offset (sQ9.40) -------- */
 #define POWER_OFFSET_Q_A_Pos                        _UINT32_(0)                                 /* (POWER_OFFSET_Q_A) Phase-A reactive power offset Position */
 #define POWER_OFFSET_Q_A_Msk                        (_UINT32_(0xFFFFFFFF) << POWER_OFFSET_Q_A_Pos)      /* (POWER_OFFSET_Q_A) Phase-A reactive power offset Mask */
 #define POWER_OFFSET_Q_A_Val(value)                 (POWER_OFFSET_Q_A_Msk & (_UINT32_(value) << POWER_OFFSET_Q_A_Pos))
 
-/* -------- POWER_OFFSET_Q_B : (MET_CONTROL Offset: 0xE0) (R/W  32) Phase-B reactive power offset (sQ9.40) -------- */
+/* -------- POWER_OFFSET_Q_B :  (R/W  32) Phase-B reactive power offset (sQ9.40) -------- */
 #define POWER_OFFSET_Q_B_Pos                        _UINT32_(0)                                 /* (POWER_OFFSET_Q_B) Phase-B reactive power offset Position */
 #define POWER_OFFSET_Q_B_Msk                        (_UINT32_(0xFFFFFFFF) << POWER_OFFSET_Q_B_Pos)      /* (POWER_OFFSET_Q_B) Phase-B reactive power offset Mask */
 #define POWER_OFFSET_Q_B_Val(value)                 (POWER_OFFSET_Q_B_Msk & (_UINT32_(value) << POWER_OFFSET_Q_B_Pos))
 
-/* -------- POWER_OFFSET_Q_C : (MET_CONTROL Offset: 0xE4) (R/W  32) Phase-C reactive power offset (sQ9.40) -------- */
+/* -------- POWER_OFFSET_Q_C :  (R/W  32) Phase-C reactive power offset (sQ9.40) -------- */
 #define POWER_OFFSET_Q_C_Pos                        _UINT32_(0)                                 /* (POWER_OFFSET_Q_C) Phase-C reactive power offset Position */
 #define POWER_OFFSET_Q_C_Msk                        (_UINT32_(0xFFFFFFFF) << POWER_OFFSET_Q_C_Pos)      /* (POWER_OFFSET_Q_C) Phase-C reactive power offset Mask */
 #define POWER_OFFSET_Q_C_Val(value)                 (POWER_OFFSET_Q_C_Msk & (_UINT32_(value) << POWER_OFFSET_Q_C_Pos))
 
-/* -------- VERSION : (MET_STATUS Offset: 0x00) (R/W  32) Metrology Version -------- */
+/* -------- VERSION :  (R/W  32) Metrology Version -------- */
 #define VERSION_FIRMWARE_REV_Pos                    _UINT32_(0)                                 /* (VERSION) Firmware Revision Position */
 #define VERSION_FIRMWARE_REV_Msk                    (_UINT32_(0xFF) << VERSION_FIRMWARE_REV_Pos)      /* (VERSION) Firmware Revision Mask */
 #define VERSION_FIRMWARE_REV(value)                 (VERSION_FIRMWARE_REV_Msk & (_UINT32_(value) << VERSION_FIRMWARE_REV_Pos))
@@ -804,7 +737,7 @@ Microchip or any third party.
 #define VERSION_FIRMWARE_MAJOR_REV_Msk              (_UINT32_(0xFF) << VERSION_FIRMWARE_MAJOR_REV_Pos)      /* (VERSION) Major  Firmware Revision Mask */
 #define VERSION_FIRMWARE_MAJOR_REV(value)           (VERSION_FIRMWARE_MAJOR_REV_Msk & (_UINT32_(value) << VERSION_FIRMWARE_MAJOR_REV_Pos))
 
-/* -------- STATUS : (MET_STATUS Offset: 0x04) (R/W  32) Metrology status -------- */
+/* -------- STATUS :  (R/W  32) Metrology status -------- */
 #define STATUS_STATUS_Pos                           _UINT32_(0)                       /* (STATUS) Metrology status Position */
 #define STATUS_STATUS_Msk                           (_UINT32_(0x0F) << STATUS_STATUS_Pos)      /* (STATUS) Metrology status Mask */
 #define STATUS_STATUS(value)                        (STATUS_STATUS_Msk & (_UINT32_(value) << STATUS_STATUS_Pos))
@@ -818,7 +751,7 @@ Microchip or any third party.
 #define   STATUS_STATUS_DSP_SETTLING                _UINT32_(0x7)                   /* (STATUS) Waiting for DSP filters to stabilize to full accuracy */
 #define   STATUS_STATUS_DSP_RUNNING                 _UINT32_(0x8)                   /* (STATUS) DSP filters have stabilized to full accuracy */
 
-/* -------- STATUS : (MET_STATUS Offset: 0x08) (R/W  32) Metrology state flags -------- */
+/* -------- STATUS :  (R/W  32) Metrology state flags -------- */
 #define STATUS_STATE_FLAG_PH_A_ACTIVE_Pos           _UINT32_(0)                       /* (STATUS) Phase A active Position */
 #define STATUS_STATE_FLAG_PH_A_ACTIVE_Msk           (_UINT32_(0x01) << STATUS_STATE_FLAG_PH_A_ACTIVE_Pos)      /* (STATUS) Phase A active Mask */
 #define STATUS_STATE_FLAG_PH_A_ACTIVE(value)        (STATUS_STATE_FLAG_PH_A_ACTIVE_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_PH_A_ACTIVE_Pos))
@@ -845,11 +778,41 @@ Microchip or any third party.
 #define STATUS_STATE_FLAG_FREQ_LOCKED(value)        (STATUS_STATE_FLAG_FREQ_LOCKED_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_FREQ_LOCKED_Pos))
 #define   STATUS_STATE_FLAG_FREQ_LOCKED_DISABLED_Val   _UINT32_(0x0)                   /* (STATUS) Line frequency is not determined  */
 #define   STATUS_STATE_FLAG_FREQ_LOCKED_ENABLED_Val    _UINT32_(0x1)                   /* (STATUS) Line frequency has been determined */
-#define STATUS_STATE_FLAG_ATSENSE_FAIL_Pos           _UINT32_(7)                       /* (STATUS) ATSENSE state Position */
-#define STATUS_STATE_FLAG_ATSENSE_FAIL_Msk           (_UINT32_(0x01) << STATUS_STATE_FLAG_ATSENSE_FAIL_Pos)      /* (STATUS) ATSENSE state Mask */
-#define STATUS_STATE_FLAG_ATSENSE_FAIL(value)        (STATUS_STATE_FLAG_ATSENSE_FAIL_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_ATSENSE_FAIL_Pos))
-#define   STATUS_STATE_FLAG_ATSENSE_FAIL_DISABLED_Val   _UINT32_(0x0)                   /* (STATUS) ATSENSE initialization is successful  */
-#define   STATUS_STATE_FLAG_ATSENSE_FAIL_ENABLED_Val    _UINT32_(0x1)                   /* (STATUS) ATSENSE initialization is failed */
+#define STATUS_STATE_FLAG_AFE_FAIL_Pos               _UINT32_(7)                       /* (STATUS) AFE state Position */
+#define STATUS_STATE_FLAG_AFE_FAIL_Msk               (_UINT32_(0x01) << STATUS_STATE_FLAG_AFE_FAIL_Pos)      /* (STATUS) AFE state Mask */
+#define STATUS_STATE_FLAG_AFE_FAIL(value)            (STATUS_STATE_FLAG_AFE_FAIL_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_AFE_FAIL_Pos))
+#define   STATUS_STATE_FLAG_AFE_FAIL_DISABLED_Val      _UINT32_(0x0)                   /* (STATUS) AFE initialization is successful  */
+#define   STATUS_STATE_FLAG_AFE_FAIL_ENABLED_Val       _UINT32_(0x1)                   /* (STATUS) AFE initialization is failed */
+#define STATUS_STATE_FLAG_CREEP_DET_QA_Pos           _UINT32_(8)                       /* (STATUS) Reactive power creep Detected Flag Position */
+#define STATUS_STATE_FLAG_CREEP_DET_QA_Msk           (_UINT32_(0x01) << STATUS_STATE_FLAG_CREEP_DET_QA_Pos)      /* (STATUS) Reactive power creep Detected Flag Mask */
+#define STATUS_STATE_FLAG_CREEP_DET_QA(value)        (STATUS_STATE_FLAG_CREEP_DET_QA_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_CREEP_DET_QA_Pos))
+#define   STATUS_STATE_FLAG_CREEP_DET_QA_NO_DETECT_Val   _UINT32_(0x0)                   /* (STATUS) Reactive phase-A power creep isn?t detected in the current full line cycle  */
+#define   STATUS_STATE_FLAG_CREEP_DET_QA_DETECT_Val      _UINT32_(0x1)                   /* (STATUS) Reactive phase-A power creep is detected in the current full line cycle */
+#define STATUS_STATE_FLAG_CREEP_DET_QB_Pos           _UINT32_(9)                       /* (STATUS) Reactive power creep Detected Flag Position */
+#define STATUS_STATE_FLAG_CREEP_DET_QB_Msk           (_UINT32_(0x01) << STATUS_STATE_FLAG_CREEP_DET_QB_Pos)      /* (STATUS) Reactive power creep Detected Flag Mask */
+#define STATUS_STATE_FLAG_CREEP_DET_QB(value)        (STATUS_STATE_FLAG_CREEP_DET_QB_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_CREEP_DET_QB_Pos))
+#define   STATUS_STATE_FLAG_CREEP_DET_QB_NO_DETECT_Val   _UINT32_(0x0)                   /* (STATUS) Reactive phase-B power creep isn?t detected in the current full line cycle  */
+#define   STATUS_STATE_FLAG_CREEP_DET_QB_DETECT_Val      _UINT32_(0x1)                   /* (STATUS) Reactive phase-B power creep is detected in the current full line cycle */
+#define STATUS_STATE_FLAG_CREEP_DET_QC_Pos           _UINT32_(10)                       /* (STATUS) Reactive power creep Detected Flag Position */
+#define STATUS_STATE_FLAG_CREEP_DET_QC_Msk           (_UINT32_(0x01) << STATUS_STATE_FLAG_CREEP_DET_QC_Pos)      /* (STATUS) Reactive power creep Detected Flag Mask */
+#define STATUS_STATE_FLAG_CREEP_DET_QC(value)        (STATUS_STATE_FLAG_CREEP_DET_QC_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_CREEP_DET_QC_Pos))
+#define   STATUS_STATE_FLAG_CREEP_DET_QC_NO_DETECT_Val   _UINT32_(0x0)                   /* (STATUS) Reactive phase-C power creep isn?t detected in the current full line cycle  */
+#define   STATUS_STATE_FLAG_CREEP_DET_QC_DETECT_Val      _UINT32_(0x1)                   /* (STATUS) Reactive phase-C power creep is detected in the current full line cycle */
+#define STATUS_STATE_FLAG_CREEP_DET_PA_Pos           _UINT32_(11)                       /* (STATUS) Active power creep Detected Flag Position */
+#define STATUS_STATE_FLAG_CREEP_DET_PA_Msk           (_UINT32_(0x01) << STATUS_STATE_FLAG_CREEP_DET_PA_Pos)      /* (STATUS) Active power creep Detected Flag Mask */
+#define STATUS_STATE_FLAG_CREEP_DET_PA(value)        (STATUS_STATE_FLAG_CREEP_DET_PA_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_CREEP_DET_PA_Pos))
+#define   STATUS_STATE_FLAG_CREEP_DET_PA_NO_DETECT_Val   _UINT32_(0x0)                   /* (STATUS) Active phase-A power creep isn?t detected in the current full line cycle  */
+#define   STATUS_STATE_FLAG_CREEP_DET_PA_DETECT_Val      _UINT32_(0x1)                   /* (STATUS) Active phase-A power creep is detected in the current full line cycle */
+#define STATUS_STATE_FLAG_CREEP_DET_PB_Pos           _UINT32_(12)                       /* (STATUS) Active power creep Detected Flag Position */
+#define STATUS_STATE_FLAG_CREEP_DET_PB_Msk           (_UINT32_(0x01) << STATUS_STATE_FLAG_CREEP_DET_PB_Pos)      /* (STATUS) Active power creep Detected Flag Mask */
+#define STATUS_STATE_FLAG_CREEP_DET_PB(value)        (STATUS_STATE_FLAG_CREEP_DET_PB_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_CREEP_DET_PB_Pos))
+#define   STATUS_STATE_FLAG_CREEP_DET_PB_NO_DETECT_Val   _UINT32_(0x0)                   /* (STATUS) Active phase-B power creep isn?t detected in the current full line cycle  */
+#define   STATUS_STATE_FLAG_CREEP_DET_PB_DETECT_Val      _UINT32_(0x1)                   /* (STATUS) Active phase-B power creep is detected in the current full line cycle */
+#define STATUS_STATE_FLAG_CREEP_DET_PC_Pos           _UINT32_(13)                       /* (STATUS) Active power creep Detected Flag Position */
+#define STATUS_STATE_FLAG_CREEP_DET_PC_Msk           (_UINT32_(0x01) << STATUS_STATE_FLAG_CREEP_DET_PC_Pos)      /* (STATUS) Active power creep Detected Flag Mask */
+#define STATUS_STATE_FLAG_CREEP_DET_PC(value)        (STATUS_STATE_FLAG_CREEP_DET_PC_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_CREEP_DET_PC_Pos))
+#define   STATUS_STATE_FLAG_CREEP_DET_PC_NO_DETECT_Val   _UINT32_(0x0)                   /* (STATUS) Active phase-C power creep isn?t detected in the current full line cycle  */
+#define   STATUS_STATE_FLAG_CREEP_DET_PC_DETECT_Val      _UINT32_(0x1)                   /* (STATUS) Active phase-C power creep is detected in the current full line cycle */
 #define STATUS_STATE_FLAG_HOST_ID_FAIL_Pos           _UINT32_(15)                       /* (STATUS) Host Identification Failure Indication Position */
 #define STATUS_STATE_FLAG_HOST_ID_FAIL_Msk           (_UINT32_(0x01) << STATUS_STATE_FLAG_HOST_ID_FAIL_Pos)      /* (STATUS) Host Identification Failure Indication Mask */
 #define STATUS_STATE_FLAG_HOST_ID_FAIL(value)        (STATUS_STATE_FLAG_HOST_ID_FAIL_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_HOST_ID_FAIL_Pos))
@@ -890,6 +853,11 @@ Microchip or any third party.
 #define STATUS_STATE_FLAG_PC_OUT_OF_RANGE(value)         (STATUS_STATE_FLAG_PC_OUT_OF_RANGE_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_PC_OUT_OF_RANGE_Pos))
 #define   STATUS_STATE_FLAG_PC_OUT_OF_RANGE_IN_Val         _UINT32_(0x0)                   /* (STATUS) Requested phase correction values in range  */
 #define   STATUS_STATE_FLAG_PC_OUT_OF_RANGE_OUT_Val        _UINT32_(0x1)                   /* (STATUS) Requested phase correction values out of range */
+#define STATUS_STATE_FLAG_CREEP_DET_S_Pos            _UINT32_(23)                       /* (STATUS) Total Apparent Power Creep Detected Flag Position */
+#define STATUS_STATE_FLAG_CREEP_DET_S_Msk            (_UINT32_(0x01) << STATUS_STATE_FLAG_CREEP_DET_S_Pos)      /* (STATUS) Total Apparent Power Creep Detected Flag Mask */
+#define STATUS_STATE_FLAG_CREEP_DET_S(value)         (STATUS_STATE_FLAG_CREEP_DET_S_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_CREEP_DET_S_Pos))
+#define   STATUS_STATE_FLAG_CREEP_DET_S_NO_DETECT_Val   _UINT32_(0x0)                   /* (STATUS) Apparent power creep isn?t detected in the current full line cycle  */
+#define   STATUS_STATE_FLAG_CREEP_DET_S_DETECT_Val      _UINT32_(0x1)                   /* (STATUS) Apparent power creep is detected in the current full line cycle */
 #define STATUS_STATE_FLAG_SAG_DET_VA_Pos                 _UINT32_(24)                       /* (STATUS) Voltage Sag Detected Flag for Channel A Position */
 #define STATUS_STATE_FLAG_SAG_DET_VA_Msk                 (_UINT32_(0x01) << STATUS_STATE_FLAG_SAG_DET_VA_Pos)      /* (STATUS) Voltage Sag Detected Flag for Channel A Mask */
 #define STATUS_STATE_FLAG_SAG_DET_VA(value)              (STATUS_STATE_FLAG_SAG_DET_VA_Msk & (_UINT32_(value) << STATUS_STATE_FLAG_SAG_DET_VA_Pos))
@@ -921,7 +889,7 @@ Microchip or any third party.
 #define   STATUS_STATE_FLAG_SWELL_DET_VC_NO_DETECTED_Val     _UINT32_(0x0)                   /* (STATUS) Voltage swell isn?t detected in the current half line cycle  */
 #define   STATUS_STATE_FLAG_SWELL_DET_VC_DETECTED_Val        _UINT32_(0x1)                   /* (STATUS) Voltage swell is detected in the current half line cycle */
 
-/* -------- CAPTURE_STATUS : (MET_STATUS Offset: 0x0C) (R/W  32) Waveform Capture Function Status -------- */
+/* -------- CAPTURE_STATUS :  (R/W  32) Waveform Capture Function Status -------- */
 #define CAPTURE_STATUS_CAPTURE_OFFSET_Pos                  _UINT32_(0)                       /* (CAPTURE_STATUS) Offset within the buffer Position */
 #define CAPTURE_STATUS_CAPTURE_OFFSET_Msk                  (_UINT32_(0xFFFFFF) << CAPTURE_STATUS_CAPTURE_OFFSET_Pos)      /* (CAPTURE_STATUS) Offset within the buffer Mask */
 #define CAPTURE_STATUS_CAPTURE_OFFSET(value)               (CAPTURE_STATUS_CAPTURE_OFFSET_Msk & (_UINT32_(value) << CAPTURE_STATUS_CAPTURE_OFFSET_Pos))
@@ -942,7 +910,7 @@ Microchip or any third party.
 #define   CAPTURE_STATUS_CAPTURE_WRAP_NOT_WRAPPED_Val        _UINT32_(0x0)                   /* (CAPTURE_STATUS) Buffer has not wrapped  */
 #define   CAPTURE_STATUS_CAPTURE_WRAP_WRAPPED_Val            _UINT32_(0x1)                   /* (CAPTURE_STATUS) Buffer has wrapped at least once */
 
-/* -------- INTERVAL_NUM : (MET_STATUS Offset: 0x10) (R/W  32) Measurement Interval Number -------- */
+/* -------- INTERVAL_NUM :  (R/W  32) Measurement Interval Number -------- */
 #define INTERVAL_NUM_HALFCYCLE_COUNT_Pos                   _UINT32_(0)                       /* (INTERVAL_NUM) Subinterval number Position */
 #define INTERVAL_NUM_HALFCYCLE_COUNT_Msk                   (_UINT32_(0xFFFF) << INTERVAL_NUM_HALFCYCLE_COUNT_Pos)      /* (INTERVAL_NUM) Subinterval number Mask */
 #define INTERVAL_NUM_HALFCYCLE_COUNT(value)                (INTERVAL_NUM_HALFCYCLE_COUNT_Msk & (_UINT32_(value) << INTERVAL_NUM_HALFCYCLE_COUNT_Pos))
@@ -950,82 +918,82 @@ Microchip or any third party.
 #define INTERVAL_NUM_INTERVAL_NUM_Msk                      (_UINT32_(0xFFFF) << INTERVAL_NUM_INTERVAL_NUM_Pos)      /* (INTERVAL_NUM) Interval number Mask */
 #define INTERVAL_NUM_INTERVAL_NUM(value)                   (INTERVAL_NUM_INTERVAL_NUM_Msk & (_UINT32_(value) << INTERVAL_NUM_INTERVAL_NUM_Pos))
 
-/* -------- N : (MET_STATUS Offset: 0x14) (R/W  32) Number of Samples in the Last Measurement Interval (uQ16.0) -------- */
+/* -------- N :  (R/W  32) Number of Samples in the Last Measurement Interval (uQ16.0) -------- */
 #define N_Pos                            _UINT32_(0)                       /* (N) Number of Samples in the Last Measurement Interval Position */
 #define N_Msk                            (_UINT32_(0xFFFF) << N_Pos)      /* (N) Number of Samples in the Last Measurement Interval Mask */
 #define N_Val(value)                     (N_Msk & (_UINT32_(value) << N_Pos))
 
-/* -------- PH_OFFSET : (MET_STATUS Offset: 0x18) (R/W  32) Phase Correction Filter Offset (sQ0.31) -------- */
+/* -------- PH_OFFSET :  (R/W  32) Phase Correction Filter Offset (sQ0.31) -------- */
 #define PH_OFFSET_Pos                    _UINT32_(0)                       /* (PH_OFFSET) Phase Correction Filter Offset Position */
 #define PH_OFFSET_Msk                    (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (PH_OFFSET) Phase Correction Filter Offset Mask */
 #define PH_OFFSET_Val(value)             (PH_OFFSET_Msk & (_UINT32_(value) << PH_OFFSET_Pos))
 
-/* -------- FREQ : (MET_STATUS Offset: 0x1C) (R/W  32) Active Line Voltage Fundamental Harmonic Frequency (uQ20.12) -------- */
+/* -------- FREQ :  (R/W  32) Active Line Voltage Fundamental Harmonic Frequency (uQ20.12) -------- */
 #define FREQ_Pos                         _UINT32_(0)                       /* (FREQ) Active Line Voltage Fundamental Harmonic Frequency Position */
 #define FREQ_Msk                         (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (FREQ) Active Line Voltage Fundamental Harmonic Frequency Mask */
 #define FREQ_Val(value)                  (FREQ_Msk & (_UINT32_(value) << FREQ_Pos))
 
-/* -------- FREQ_VA : (MET_STATUS Offset: 0x20) (R/W  32) Frequency of fundamental harmonic, VA (uQ20.12) -------- */
+/* -------- FREQ_VA :  (R/W  32) Frequency of fundamental harmonic, VA (uQ20.12) -------- */
 #define FREQ_VA_Pos                      _UINT32_(0)                       /* (FREQ_VA) Frequency of fundamental harmonic, VA Position */
 #define FREQ_VA_Msk                      (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (FREQ_VA) Frequency of fundamental harmonic, VA Mask */
 #define FREQ_VA_Val(value)               (FREQ_VA_Msk & (_UINT32_(value) << FREQ_VA_Pos))
 
-/* -------- FREQ_VB : (MET_STATUS Offset: 0x24) (R/W  32) Frequency of fundamental harmonic, VB (uQ20.12) -------- */
+/* -------- FREQ_VB :  (R/W  32) Frequency of fundamental harmonic, VB (uQ20.12) -------- */
 #define FREQ_VB_Pos                      _UINT32_(0)                       /* (FREQ_VB) Frequency of fundamental harmonic, VB Position */
 #define FREQ_VB_Msk                      (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (FREQ_VB) Frequency of fundamental harmonic, VB Mask */
 #define FREQ_VB_Val(value)               (FREQ_VB_Msk & (_UINT32_(value) << FREQ_VB_Pos))
 
-/* -------- FREQ_VC : (MET_STATUS Offset: 0x28) (R/W  32) Frequency of fundamental harmonic, VC (uQ20.12) -------- */
+/* -------- FREQ_VC :  (R/W  32) Frequency of fundamental harmonic, VC (uQ20.12) -------- */
 #define FREQ_VC_Pos                      _UINT32_(0)                       /* (FREQ_VC) Frequency of fundamental harmonic, VC Position */
 #define FREQ_VC_Msk                      (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (FREQ_VC) Frequency of fundamental harmonic, VC Mask */
 #define FREQ_VC_Val(value)               (FREQ_VC_Msk & (_UINT32_(value) << FREQ_VC_Pos))
 
-/* -------- TEMPERATURE : (MET_STATUS Offset: 0x30) (R/W  32) Sensor Temperature (sQ23.8) -------- */
+/* -------- TEMPERATURE :  (R/W  32) Sensor Temperature (sQ23.8) -------- */
 #define TEMPERATURE_Pos                  _UINT32_(0)                       /* (TEMPERATURE) Sensor Temperature Position */
 #define TEMPERATURE_Msk                  (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (TEMPERATURE) Sensor Temperature Mask */
 #define TEMPERATURE_Val(value)           (TEMPERATURE_Msk & (_UINT32_(value) << TEMPERATURE_Pos))
 
-/* -------- I_A_MAX : (MET_STATUS Offset: 0x34) (R/W  32) Phase A Current Peak (sQ2.29) -------- */
+/* -------- I_A_MAX :  (R/W  32) Phase A Current Peak (sQ2.29) -------- */
 #define I_A_MAX_Pos                      _UINT32_(0)                       /* (I_A_MAX) Phase A Current Peak Position */
 #define I_A_MAX_Msk                      (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (I_A_MAX) Phase A Current Peak Mask */
 #define I_A_MAX_Val(value)               (I_A_MAX_Msk & (_UINT32_(value) << I_A_MAX_Pos))
 
-/* -------- I_B_MAX : (MET_STATUS Offset: 0x38) (R/W  32) Phase B Current Peak (sQ2.29) -------- */
+/* -------- I_B_MAX :  (R/W  32) Phase B Current Peak (sQ2.29) -------- */
 #define I_B_MAX_Pos                      _UINT32_(0)                       /* (I_B_MAX) Phase B Current Peak Position */
 #define I_B_MAX_Msk                      (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (I_B_MAX) Phase B Current Peak Mask */
 #define I_B_MAX_Val(value)               (I_B_MAX_Msk & (_UINT32_(value) << I_B_MAX_Pos))
 
-/* -------- I_C_MAX : (MET_STATUS Offset: 0x3C) (R/W  32) Phase C Current Peak (sQ2.29) -------- */
+/* -------- I_C_MAX :  (R/W  32) Phase C Current Peak (sQ2.29) -------- */
 #define I_C_MAX_Pos                      _UINT32_(0)                       /* (I_C_MAX) Phase C Current Peak Position */
 #define I_C_MAX_Msk                      (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (I_C_MAX) Phase C Current Peak Mask */
 #define I_C_MAX_Val(value)               (I_C_MAX_Msk & (_UINT32_(value) << I_C_MAX_Pos))
 
-/* -------- I_Ni_MAX : (MET_STATUS Offset: 0x40) (R/W  32) Neutral Current Peak (sQ16.15) -------- */
+/* -------- I_Ni_MAX :  (R/W  32) Neutral Current Peak (sQ16.15) -------- */
 #define I_Ni_MAX_Pos                     _UINT32_(0)                       /* (I_Ni_MAX) Neutral Current Peak Position */
 #define I_Ni_MAX_Msk                     (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (I_Ni_MAX) Neutral Current Peak Mask */
 #define I_Ni_MAX_Val(value)              (I_Ni_MAX_Msk & (_UINT32_(value) << I_Ni_MAX_Pos))
 
-/* -------- I_Nm_MAX : (MET_STATUS Offset: 0x44) (R/W  32) Neutral Current Peak (sQ16.15) -------- */
+/* -------- I_Nm_MAX :  (R/W  32) Neutral Current Peak (sQ16.15) -------- */
 #define I_Nm_MAX_Pos                     _UINT32_(0)                       /* (I_Nm_MAX) Neutral Current Peak Position */
 #define I_Nm_MAX_Msk                     (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (I_Nm_MAX) Neutral Current Peak Mask */
 #define I_Nm_MAX_Val(value)              (I_Nm_MAX_Msk & (_UINT32_(value) << I_Nm_MAX_Pos))
 
-/* -------- V_A_MAX : (MET_STATUS Offset: 0x48) (R/W  32) Voltage A Peak (sQ2.29) -------- */
+/* -------- V_A_MAX :  (R/W  32) Voltage A Peak (sQ2.29) -------- */
 #define V_A_MAX_Pos                      _UINT32_(0)                       /* V_A_MAX) Voltage A Peak Position */
 #define V_A_MAX_Msk                      (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (V_A_MAX) Voltage A Peak Mask */
 #define V_A_MAX_Val(value)               (V_A_MAX_Msk & (_UINT32_(value) << V_A_MAX_Pos))
 
-/* -------- V_B_MAX : (MET_STATUS Offset: 0x4C) (R/W  32) Voltage B Peak (sQ2.29) -------- */
+/* -------- V_B_MAX :  (R/W  32) Voltage B Peak (sQ2.29) -------- */
 #define V_B_MAX_Pos                      _UINT32_(0)                       /* (V_B_MAX) Voltage B Peak Position */
 #define V_B_MAX_Msk                      (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (V_B_MAX) Voltage B Peak Mask */
 #define V_B_MAX_Val(value)               (V_B_MAX_Msk & (_UINT32_(value) << V_B_MAX_Pos))
 
-/* -------- V_C_MAX : (MET_STATUS Offset: 0x50) (R/W  32) Voltage C Peak (sQ2.29) -------- */
+/* -------- V_C_MAX :  (R/W  32) Voltage C Peak (sQ2.29) -------- */
 #define V_C_MAX_Pos                      _UINT32_(0)                       /* (V_C_MAX) Voltage C Peak Position */
 #define V_C_MAX_Msk                      (_UINT32_(0xFFFFFFFF) << N_Pos)      /* (V_C_MAX) Voltage C Peak Mask */
 #define V_C_MAX_Val(value)               (V_C_MAX_Msk & (_UINT32_(value) << V_C_MAX_Pos))
 
-/* -------- FEATURES : (MET_STATUS Offset: 0x54) (R/W  32) Compiled feature indicator -------- */
+/* -------- FEATURES :  (R/W  32) Compiled feature indicator -------- */
 #define FEATURES_DEBUG_MODES_Pos                    _UINT32_(0)
 #define FEATURES_DEBUG_MODES_Msk                    (_UINT32_(0x1) << FEATURES_DEBUG_MODES_Pos)
 #define FEATURES_DEBUG_MODES(value)                 (FEATURES_DEBUG_MODES_Msk & (_UINT32_(value) << FEATURES_DEBUG_MODES_Pos))
@@ -1121,22 +1089,27 @@ Microchip or any third party.
 #define FEATURES_POLYPHASE_Msk                      (_UINT32_(0x1) << FEATURES_POLYPHASE_Pos)
 #define FEATURES_POLYPHASE(value)                   (FEATURES_POLYPHASE_Msk & (_UINT32_(value) << FEATURES_POLYPHASE_Pos))
 
-/* -------- ZC_N_VA : (MET_STATUS Offset: 0x78) (R/W  32) Zero-crossing sample number of phase-A voltage (uQ20.12) -------- */
+/* -------- N_CYCLE :  (R/W  32) Number of Samples in the Last Measurement Interval (uQ32.0) -------- */
+#define N_CYCLE_Pos                            _UINT32_(0)                       /* (N) Number samples in the last cycle Position */
+#define N_CYCLE_Msk                            (_UINT32_(0xFFFF) << N_CYCLE_Pos)      /* (N) Number samples in the last cycle Mask */
+#define N_CYCLE_Val(value)                     (N_CYCLE_Msk & (_UINT32_(value) << N_CYCLE_Pos))
+
+/* -------- ZC_N_VA :  (R/W  32) Zero-crossing sample number of phase-A voltage (uQ20.12) -------- */
 #define ZC_N_VA_Pos                    _UINT32_(0)
 #define ZC_N_VA_Msk                    (_UINT32_(0xFFFFFF) << ZC_N_VA_Pos)
 #define ZC_N_VA_Val(value)             (ZC_N_VA_Msk & (_UINT32_(value) << ZC_N_VA_Pos))
 
-/* -------- ZC_N_VB : (MET_STATUS Offset: 0x7C) (R/W  32) Zero-crossing sample number of phase-B voltage (uQ20.12) -------- */
+/* -------- ZC_N_VB :  (R/W  32) Zero-crossing sample number of phase-B voltage (uQ20.12) -------- */
 #define ZC_N_VB_Pos                    _UINT32_(0)
 #define ZC_N_VB_Msk                    (_UINT32_(0xFFFFFF) << ZC_N_VB_Pos)
 #define ZC_N_VB_Val(value)             (ZC_N_VB_Msk & (_UINT32_(value) << ZC_N_VB_Pos))
 
-/* -------- ZC_N_VC : (MET_STATUS Offset: 0x80) (R/W  32) Zero-crossing sample number of phase-C voltage (uQ20.12) -------- */
+/* -------- ZC_N_VC :  (R/W  32) Zero-crossing sample number of phase-C voltage (uQ20.12) -------- */
 #define ZC_N_VC_Pos                    _UINT32_(0)
 #define ZC_N_VC_Msk                    (_UINT32_(0xFFFFFF) << ZC_N_VC_Pos)
 #define ZC_N_VC_Val(value)             (ZC_N_VC_Msk & (_UINT32_(value) << ZC_N_VC_Pos))
 
-/* -------- ATSENSE_CAL_41_44 : (MET_STATUS Offset: 0x84) (R/W  32) ATSENSE Calibration Trim Data, Registers: 0x41 ? 0x44 -------- */
+/* -------- ATSENSE_CAL_41_44 :  (R/W  32) ATSENSE Calibration Trim Data, Registers: 0x41 ? 0x44 -------- */
 #define ATSENSE_CAL_41_44_REF_TL_11_8_Pos                   _UINT32_(0)
 #define ATSENSE_CAL_41_44_REF_TL_11_8_Msk                   (_UINT32_(0xF) << ATSENSE_CAL_41_44_REF_TL_11_8_Pos)
 #define ATSENSE_CAL_41_44_REF_TL_11_8(value)                (ATSENSE_CAL_41_44_REF_TL_11_8_Msk & (_UINT32_(value) << ATSENSE_CAL_41_44_REF_TL_11_8_Pos))
@@ -1150,7 +1123,7 @@ Microchip or any third party.
 #define ATSENSE_CAL_41_44_TEMP_TL_0_7_Msk                   (_UINT32_(0xFF) << ATSENSE_CAL_41_44_TEMP_TL_0_7_Pos)
 #define ATSENSE_CAL_41_44_TEMP_TL_0_7(value)                (ATSENSE_CAL_41_44_TEMP_TL_0_7_Msk & (_UINT32_(value) << ATSENSE_CAL_41_44_TEMP_TL_0_7_Pos))
 
-/* -------- ATSENSE_CAL_45_48 : (MET_STATUS Offset: 0x88) (R/W  32) ATSENSE Calibration Trim Data, Registers: 0x45 ? 0x48 -------- */
+/* -------- ATSENSE_CAL_45_48 :  (R/W  32) ATSENSE Calibration Trim Data, Registers: 0x45 ? 0x48 -------- */
 #define ATSENSE_CAL_45_48_REF_TH_11_8_Pos                   _UINT32_(0)
 #define ATSENSE_CAL_45_48_REF_TH_11_8_Msk                   (_UINT32_(0xF) << ATSENSE_CAL_45_48_REF_TH_11_8_Pos)
 #define ATSENSE_CAL_45_48_REF_TH_11_8(value)                (ATSENSE_CAL_45_48_REF_TH_11_8_Msk & (_UINT32_(value) << ATSENSE_CAL_45_48_REF_TH_11_8_Pos))
@@ -1164,78 +1137,126 @@ Microchip or any third party.
 #define ATSENSE_CAL_45_48_TEMP_TH_0_7_Msk                   (_UINT32_(0xFF) << ATSENSE_CAL_45_48_TEMP_TH_0_7_Pos)
 #define ATSENSE_CAL_45_48_TEMP_TH_0_7(value)                (ATSENSE_CAL_45_48_TEMP_TH_0_7_Msk & (_UINT32_(value) << ATSENSE_CAL_45_48_TEMP_TH_0_7_Pos))
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 /** \brief Metrology Harmonic Analysis Output register API structure */
 typedef struct
 {
-    __O  uint32_t I_A_m_R[31];            /**< Offset: 0x00 (R/  32) The real part of DFT result for current, phase-A, m-th harmonics (sQ13.18) */
-    __O  uint32_t V_A_m_R[31];            /**< Offset: 0x7C (R/  32) The real part of DFT result for voltage, phase-A, m-th harmonics (sQ13.18) */
-    __O  uint32_t I_B_m_R[31];            /**< Offset: 0xF8 (R/  32) The real part of DFT result for current, phase-B, m-th harmonics (sQ13.18) */
-    __O  uint32_t V_B_m_R[31];            /**< Offset: 0x174 (R/  32) The real part of DFT result for voltage, phase-B, m-th harmonics (sQ13.18) */
-    __O  uint32_t I_C_m_R[31];            /**< Offset: 0x1F0 (R/  32) The real part of DFT result for current, phase-C, m-th harmonics (sQ13.18) */
-    __O  uint32_t V_C_m_R[31];            /**< Offset: 0x26C (R/  32) The real part of DFT result for voltage, phase-C, m-th harmonics (sQ13.18) */
-    __O  uint32_t I_N_m_R[31];            /**< Offset: 0x2E8 (R/  32) The real part of DFT result for voltage, phase-N, m-th harmonics (sQ13.18) */
-    __O  uint32_t I_A_m_I[31];            /**< Offset: 0x364 (R/  32) The imaginary part of DFT result for current, phase-A, m-th harmonics (sQ13.18) */
-    __O  uint32_t V_A_m_I[31];            /**< Offset: 0x3E0 (R/  32) The imaginary part of DFT result for voltage, phase-A, m-th harmonics (sQ13.18) */
-    __O  uint32_t I_B_m_I[31];            /**< Offset: 0x45C (R/  32) The imaginary part of DFT result for current, phase-B, m-th harmonics (sQ13.18) */
-    __O  uint32_t V_B_m_I[31];            /**< Offset: 0x4D8 (R/  32) The imaginary part of DFT result for voltage, phase-B, m-th harmonics (sQ13.18) */
-    __O  uint32_t I_C_m_I[31];            /**< Offset: 0x554 (R/  32) The imaginary part of DFT result for current, phase-C, m-th harmonics (sQ13.18) */
-    __O  uint32_t V_C_m_I[31];            /**< Offset: 0x5D0 (R/  32) The imaginary part of DFT result for voltage, phase-C, m-th harmonics (sQ13.18) */
-    __O  uint32_t I_N_m_I[31];            /**< Offset: 0x64C (R/  32) The imaginary part of DFT result for voltage, phase-N, m-th harmonics (sQ13.18) */
+    __O  int32_t I_A_m_R[31];            /**< Offset: 0x00 (R/  32) The real part of DFT result for current, phase-A, m-th harmonics (sQ13.18) */
+    __O  int32_t V_A_m_R[31];            /**< Offset: 0x7C (R/  32) The real part of DFT result for voltage, phase-A, m-th harmonics (sQ13.18) */
+    __O  int32_t I_B_m_R[31];            /**< Offset: 0xF8 (R/  32) The real part of DFT result for current, phase-B, m-th harmonics (sQ13.18) */
+    __O  int32_t V_B_m_R[31];            /**< Offset: 0x174 (R/  32) The real part of DFT result for voltage, phase-B, m-th harmonics (sQ13.18) */
+    __O  int32_t I_C_m_R[31];            /**< Offset: 0x1F0 (R/  32) The real part of DFT result for current, phase-C, m-th harmonics (sQ13.18) */
+    __O  int32_t V_C_m_R[31];            /**< Offset: 0x26C (R/  32) The real part of DFT result for voltage, phase-C, m-th harmonics (sQ13.18) */
+    __O  int32_t I_N_m_R[31];            /**< Offset: 0x2E8 (R/  32) The real part of DFT result for voltage, phase-N, m-th harmonics (sQ13.18) */
+    __O  int32_t I_A_m_I[31];            /**< Offset: 0x364 (R/  32) The imaginary part of DFT result for current, phase-A, m-th harmonics (sQ13.18) */
+    __O  int32_t V_A_m_I[31];            /**< Offset: 0x3E0 (R/  32) The imaginary part of DFT result for voltage, phase-A, m-th harmonics (sQ13.18) */
+    __O  int32_t I_B_m_I[31];            /**< Offset: 0x45C (R/  32) The imaginary part of DFT result for current, phase-B, m-th harmonics (sQ13.18) */
+    __O  int32_t V_B_m_I[31];            /**< Offset: 0x4D8 (R/  32) The imaginary part of DFT result for voltage, phase-B, m-th harmonics (sQ13.18) */
+    __O  int32_t I_C_m_I[31];            /**< Offset: 0x554 (R/  32) The imaginary part of DFT result for current, phase-C, m-th harmonics (sQ13.18) */
+    __O  int32_t V_C_m_I[31];            /**< Offset: 0x5D0 (R/  32) The imaginary part of DFT result for voltage, phase-C, m-th harmonics (sQ13.18) */
+    __O  int32_t I_N_m_I[31];            /**< Offset: 0x64C (R/  32) The imaginary part of DFT result for voltage, phase-N, m-th harmonics (sQ13.18) */
 } DRV_METROLOGY_REGS_HARMONICS;
+
+/** \brief Metrology Per-Cycle Accumulated Output register API structure */
+typedef struct
+{
+    __O  uint64_t V_A;               /**< Offset: 0x000 (R/  64) Per-cycle Volt-(sQuared-samples, phase-A, fundamental + harmonics	(uQ24.40) */
+    __O  uint64_t V_B;               /**< Offset: 0x008 (R/  64) Per-cycle Volt-(sQuared-samples, phase-B, fundamental + harmonics	(uQ24.40) */
+    __O  uint64_t V_C;               /**< Offset: 0x010 (R/  64) Per-cycle Volt-(sQuared-samples, phase-C, fundamental + harmonics	(uQ24.40) */
+    __O  uint64_t V_A_F;             /**< Offset: 0x018 (R/  64) Per-cycle Volt-(sQuared-samples, phase-A, fundamental only	(uQ24.40) */
+    __O  uint64_t V_B_F;             /**< Offset: 0x020 (R/  64) Per-cycle Volt-(sQuared-samples, phase-B, fundamental only	(uQ24.40) */
+    __O  uint64_t V_C_F;             /**< Offset: 0x028 (R/  64) Per-cycle Volt-(sQuared-samples, phase-C, fundamental only	(uQ24.40) */
+    __O  uint64_t V_AB;              /**< Offset: 0x030 (R/  64) Per-cycle Volt-(sQuared-samples, VA â?? VB, fundamental + harmonics	(uQ24.40) */
+    __O  uint64_t V_BC;              /**< Offset: 0x038 (R/  64) Per-cycle Volt-(sQuared-samples, VB â?? VC, fundamental + harmonics	(uQ24.40) */
+    __O  uint64_t V_CA;              /**< Offset: 0x040 (R/  64) Per-cycle Volt-(sQuared-samples, VC â?? VA, fundamental + harmonics	(uQ24.40) */
+    __O  uint64_t V_AB_F;            /**< Offset: 0x048 (R/  64) Per-cycle Volt-(sQuared-samples, VA â?? VB, fundamental only	(uQ24.40) */
+    __O  uint64_t V_BC_F;            /**< Offset: 0x050 (R/  64) Per-cycle Volt-(sQuared-samples, VB â?? VC, fundamental only	(uQ24.40) */
+    __O  uint64_t V_CA_F;            /**< Offset: 0x058 (R/  64) Per-cycle Volt-(sQuared-samples, VC â?? VA, fundamental only	(uQ24.40) */
+    __O  uint64_t I_A;               /**< Offset: 0x060 (R/  64) Per-cycle Amp-(sQuared-samples, phase-A, fundamental + harmonics	(uQ24.40) */
+    __O  uint64_t I_B;               /**< Offset: 0x068 (R/  64) Per-cycle Amp-(sQuared-samples, phase-B, fundamental + harmonics	(uQ24.40) */
+    __O  uint64_t I_C;               /**< Offset: 0x070 (R/  64) Per-cycle Amp-(sQuared-samples, phase-C, fundamental + harmonics	(uQ24.40) */
+    __O  uint64_t I_Nm;              /**< Offset: 0x078 (R/  64) Per-cycle Amp-(sQuared-samples, phase-N measured, fundamental + harmonics	(uQ24.40) */
+    __O  uint64_t I_A_F;             /**< Offset: 0x080 (R/  64) Per-cycle Amp-(sQuared-samples, phase-A, fundamental only	(uQ24.40) */
+    __O  uint64_t I_B_F;             /**< Offset: 0x088 (R/  64) Per-cycle Amp-(sQuared-samples, phase-B, fundamental only	(uQ24.40) */
+    __O  uint64_t I_C_F;             /**< Offset: 0x090 (R/  64) Per-cycle Amp-(sQuared-samples, phase-C, fundamental only	(uQ24.40) */
+    __O  uint64_t I_Nm_F;            /**< Offset: 0x098 (R/  64) Per-cycle Amp-(sQuared-samples, phase-N, fundamental only	(uQ24.40) */
+    __O  int64_t P_A;                /**< Offset: 0x0A0 (R/  64) Per-cycle Watt-samples, phase-A, fundamental + harmonics	(sQ23.40) */
+    __O  int64_t P_B;                /**< Offset: 0x0A8 (R/  64) Per-cycle Watt-samples, phase-B, fundamental + harmonics	(sQ23.40) */
+    __O  int64_t P_C;                /**< Offset: 0x0B0 (R/  64) Per-cycle Watt-samples, phase-C, fundamental + harmonics	(sQ23.40) */
+    __O  int64_t P_A_F;              /**< Offset: 0x0B8 (R/  64) Per-cycle Watt-samples, phase-A, fundamental only	(sQ23.40) */
+    __O  int64_t P_B_F;              /**< Offset: 0x0C0 (R/  64) Per-cycle Watt-samples, phase-B, fundamental only	(sQ23.40) */
+    __O  int64_t P_C_F;              /**< Offset: 0x0C8 (R/  64) Per-cycle Watt-samples, phase-C, fundamental only	(sQ23.40) */
+    __O  int64_t P_N;                /**< Offset: 0x0D0 (R/  64) Per-cycle Watt-samples, phase-N, fundamental + harmonics	(sQ23.40) */
+    __O  int64_t P_N_F;              /**< Offset: 0x0D8 (R/  64) Per-cycle Watt-samples, phase-N, fundamental only	(sQ23.40) */
+    __O  int64_t Q_A;                /**< Offset: 0x0E0 (R/  64) Per-cycle VAR-samples, phase-A, fundamental + harmonics	(sQ23.40) */
+    __O  int64_t Q_B;                /**< Offset: 0x0E8 (R/  64) Per-cycle VAR-samples, phase-B, fundamental + harmonics	(sQ23.40) */
+    __O  int64_t Q_C;                /**< Offset: 0x0F0 (R/  64) Per-cycle VAR-samples, phase-C, fundamental + harmonics	(sQ23.40) */
+    __O  int64_t Q_A_F;              /**< Offset: 0x0F8 (R/  64) Per-cycle VAR-samples, phase-A, fundamental only	(sQ23.40) */
+    __O  int64_t Q_B_F;              /**< Offset: 0x100 (R/  64) Per-cycle VAR-samples, phase-B, fundamental only	(sQ23.40) */
+    __O  int64_t Q_C_F;              /**< Offset: 0x108 (R/  64) Per-cycle VAR-samples, phase-C, fundamental only	(sQ23.40) */
+    __O  int64_t Q_N;                /**< Offset: 0x110 (R/  64) Per-cycle VAR-samples, phase-N, fundamental + harmonics	(sQ23.40) */
+    __O  int64_t Q_N_F;              /**< Offset: 0x118 (R/  64) Per-cycle VAR-samples, phase-N, fundamental only	(sQ23.40) */
+} DRV_METROLOGY_REGS_PERCYCLE_ACC;
 
 /** \brief Metrology Accumulated Output register API structure */
 typedef struct
 {
-    __O  uint64_t I_A;               /**< Offset: 0x08  (R/  32) Amp-squared-samples, phase-A, fundamental + harmonics (uQ24.40) */
-    __O  uint64_t I_B;               /**< Offset: 0x10  (R/  32) Amp-squared-samples, phase-B, fundamental + harmonics (uQ24.40) */
-    __O  uint64_t I_C;               /**< Offset: 0x18  (R/  32) Amp-squared-samples, phase-C, fundamental + harmonics (uQ24.40) */
-    __O  uint64_t I_Ni;              /**< Offset: 0x20  (R/  32) Amp-squared-samples, phase-N inputed, fundamental + harmonics (uQ44.20) */
-    __O  uint64_t I_Nm;              /**< Offset: 0x28  (R/  32) Amp-squared-samples, phase-N measured, fundamental + harmonics (uQ44.20) */
-    __O  uint64_t I_A_F;             /**< Offset: 0x30  (R/  32) Amp-squared-samples, phase-A, fundamental only (uQ24.40) */
-    __O  uint64_t I_B_F;             /**< Offset: 0x38  (R/  32) Amp-squared-samples, phase-B, fundamental only (uQ24.40) */
-    __O  uint64_t I_C_F;             /**< Offset: 0x40  (R/  32) Amp-squared-samples, phase-C, fundamental only (uQ24.40) */
-    __O  uint64_t I_Nmi;             /**< Offset: 0x48  (R/  32) Amp-squared-samples, phase-N, fundamental only (uQ44.20) */
-    __O  uint64_t I_Nm_F;            /**< Offset: 0x50  (R/  32) Amp-squared-samples, phase-N, fundamental only (uQ24.40) */
-    __O  uint64_t Reserved1[5];
-    __O  int64_t  P_A;               /**< Offset: 0x78  (R/  32) Watt-samples, phase-A, fundamental + harmonics (sQ23.40) */
-    __O  int64_t  P_B;               /**< Offset: 0x80  (R/  32) Watt-samples, phase-B, fundamental + harmonics (sQ23.40) */
-    __O  int64_t  P_C;               /**< Offset: 0x88  (R/  32) Watt-samples, phase-C, fundamental + harmonics (sQ23.40) */
-    __O  int64_t  P_A_F;             /**< Offset: 0x90  (R/  32) Watt-samples, phase-A, fundamental only (sQ23.40) */
-    __O  int64_t  P_B_F;             /**< Offset: 0x98  (R/  32) Watt-samples, phase-B, fundamental only (sQ23.40) */
-    __O  int64_t  P_C_F;             /**< Offset: 0xA0  (R/  32) Watt-samples, phase-C, fundamental only (sQ23.40) */
-    __O  int64_t  P_N;               /**< Offset: 0xA8  (R/  32) Watt-samples, phase-N, fundamental only (sQ23.40) */
-    __O  int64_t  P_N_F;             /**< Offset: 0xB0  (R/  32) Watt-samples, phase-N, fundamental only (sQ23.40) */
+    __O  uint64_t V_A;               /**< Offset: 0x000 (R/  64) Volt-square-samples, phase-A, fundamental + harmonics (uQ24.40) */
+    __O  uint64_t V_B;               /**< Offset: 0x008 (R/  64) Volt-square-samples, phase-B, fundamental + harmonics (uQ24.40) */
+    __O  uint64_t V_C;               /**< Offset: 0x010 (R/  64) Volt-square-samples, phase-C, fundamental + harmonics (uQ24.40) */
+    __O  uint64_t V_D;               /**< Offset: 0x018 (R/  64) Volt-square-samples, phase-D, fundamental + harmonics (uQ24.40) */
+    __O  uint64_t V_A_F;             /**< Offset: 0x020 (R/  64) Volt-square-samples, phase-A, fundamental only (uQ24.40) */
+    __O  uint64_t V_B_F;             /**< Offset: 0x028 (R/  64) Volt-square-samples, phase-B, fundamental only (uQ24.40) */
+    __O  uint64_t V_C_F;             /**< Offset: 0x030 (R/  64) Volt-square-samples, phase-C, fundamental only (uQ24.40) */
+    __O  uint64_t V_D_F;             /**< Offset: 0x038 (R/  64) Volt-square-samples, phase-D, fundamental only (uQ24.40) */
+    __O  uint64_t V_AB;              /**< Offset: 0x040 (R/  64) Volt-square-samples, VA - VB, fundamental + harmonics (uQ24.40) */
+    __O  uint64_t V_BC;              /**< Offset: 0x048 (R/  64) Volt-square-samples, VB - VC, fundamental + harmonics (uQ24.40) */
+    __O  uint64_t V_CA;              /**< Offset: 0x050 (R/  64) Volt-square-samples, VC - VA, fundamental + harmonics (uQ24.40) */
+    __O  uint64_t V_AB_F;            /**< Offset: 0x058 (R/  64) Volt-square-samples, VA - VB, fundamental only (uQ24.40) */
+    __O  uint64_t V_BC_F;            /**< Offset: 0x060 (R/  64) Volt-square-samples, VB - VC, fundamental only (uQ24.40) */
+    __O  uint64_t V_CA_F;            /**< Offset: 0x068 (R/  64) Volt-square-samples, VC - VA, fundamental only (uQ24.40) */
+    __O  uint64_t Reserved1;
     __O  uint64_t Reserved2;
-    __O  int64_t  Q_A;               /**< Offset: 0xC0  (R/  32) VAR-samples, phase-A, fundamental + harmonics (sQ23.40) */
-    __O  int64_t  Q_B;               /**< Offset: 0xC8  (R/  32) VAR-samples, phase-B, fundamental + harmonics (sQ23.40) */
-    __O  int64_t  Q_C;               /**< Offset: 0xD0  (R/  32) VAR-samples, phase-C, fundamental + harmonics (sQ23.40) */
-    __O  int64_t  Q_A_F;             /**< Offset: 0xD8  (R/  32) VAR-samples, phase-A, fundamental only (sQ23.40) */
-    __O  int64_t  Q_B_F;             /**< Offset: 0xE0  (R/  32) VAR-samples, phase-B, fundamental only (sQ23.40) */
-    __O  int64_t  Q_C_F;             /**< Offset: 0xE8  (R/  32) VAR-samples, phase-C, fundamental only (sQ23.40) */
-    __O  int64_t  Q_N;               /**< Offset: 0xF0  (R/  32) VAR-samples, phase-N, fundamental only (sQ23.40) */
-    __O  int64_t  Q_N_F;             /**< Offset: 0xF8  (R/  32) VAR-samples, phase-N, fundamental only (sQ23.40) */
     __O  uint64_t Reserved3;
-    __O  uint64_t V_A;               /**< Offset: 0x108 (R/  32) Volt-square-samples, phase-A, fundamental + harmonics (sQ24.40) */
-    __O  uint64_t V_B;               /**< Offset: 0x110 (R/  32) Volt-square-samples, phase-B, fundamental + harmonics (sQ24.40) */
-    __O  uint64_t V_C;               /**< Offset: 0x118 (R/  32) Volt-square-samples, phase-C, fundamental + harmonics (sQ24.40) */
+    __O  uint64_t I_A;               /**< Offset: 0x088 (R/  64) Amp-squared-samples, phase-A, fundamental + harmonics (uQ24.40) */
+    __O  uint64_t I_B;               /**< Offset: 0x090 (R/  64) Amp-squared-samples, phase-B, fundamental + harmonics (uQ24.40) */
+    __O  uint64_t I_C;               /**< Offset: 0x098 (R/  64) Amp-squared-samples, phase-C, fundamental + harmonics (uQ24.40) */
+    __O  uint64_t I_Ni;              /**< Offset: 0x0A0 (R/  64) Amp-squared-samples, phase-N inputed, fundamental + harmonics (uQ44.20) */
+    __O  uint64_t I_Nm;              /**< Offset: 0x0A8 (R/  64) Amp-squared-samples, phase-N measured, fundamental + harmonics (uQ24.40) */
+    __O  uint64_t I_A_F;             /**< Offset: 0x0B0 (R/  64) Amp-squared-samples, phase-A, fundamental only (uQ24.40) */
+    __O  uint64_t I_B_F;             /**< Offset: 0x0B8 (R/  64) Amp-squared-samples, phase-B, fundamental only (uQ24.40) */
+    __O  uint64_t I_C_F;             /**< Offset: 0x0C0 (R/  64) Amp-squared-samples, phase-C, fundamental only (uQ24.40) */
+    __O  uint64_t I_Nmi;             /**< Offset: 0x0C8 (R/  64) Amp-squared-samples, raw phase-N measured minus imputed, fundamental + harmonics (uQ44.20) */
+    __O  uint64_t I_Nm_F;            /**< Offset: 0x0D0 (R/  64) Amp-squared-samples, phase-N, fundamental only (uQ24.40) */
     __O  uint64_t Reserved4;
-    __O  uint64_t V_A_F;             /**< Offset: 0x128 (R/  32) Volt-square-samples, phase-A, fundamental only (uQ24.40) */
-    __O  uint64_t V_B_F;             /**< Offset: 0x130 (R/  32) Volt-square-samples, phase-B, fundamental only (uQ24.40 */
-    __O  uint64_t V_C_F;             /**< Offset: 0x138 (R/  32) Volt-square-samples, phase-C, fundamental only (uQ24.40 */
     __O  uint64_t Reserved5;
-    __O  uint64_t V_AB;              /**< Offset: 0x148 (R/  32) Volt-square-samples, VA - VB, fundamental + harmonics (uQ24.40 */
-    __O  uint64_t V_BC;              /**< Offset: 0x150 (R/  32) Volt-square-samples, VB - VC, fundamental + harmonics (uQ24.40 */
-    __O  uint64_t V_CA;              /**< Offset: 0x158 (R/  32) Volt-square-samples, VC - VA, fundamental + harmonics (uQ24.40 */
-    __O  uint64_t V_AB_F;            /**< Offset: 0x160 (R/  32) Volt-square-samples, VA - VB, fundamental only (uQ24.40 */
-    __O  uint64_t V_BC_F;            /**< Offset: 0x168 (R/  32) Volt-square-samples, VB - VC, fundamental only (uQ24.40 */
-    __O  uint64_t V_CA_F;            /**< Offset: 0x170 (R/  32) Volt-square-samples, VC - VA, fundamental only (uQ24.40 */
-    __O  uint64_t Reserved6[3];
-    __O  int64_t  ACC_T0;            /**< Offset: 0x190 (R/  32) Total accumulated quantities specified by PC0_TYPE (sQ33.30) */
-    __O  int64_t  ACC_T1;            /**< Offset: 0x198 (R/  32) Total accumulated quantities specified by PC1_TYPE (sQ33.30) */
-    __O  int64_t  ACC_T2;            /**< Offset: 0x1A0 (R/  32) Total accumulated quantities specified by PC2_TYPE (sQ33.30) */
-    __O  uint64_t Reserved7[2];
+    __O  uint64_t Reserved6;
+    __O  uint64_t Reserved7;
+    __O  uint64_t Reserved8;
+    __O  int64_t  P_A;               /**< Offset: 0x100 (R/  64) Watt-samples, phase-A, fundamental + harmonics (sQ23.40) */
+    __O  int64_t  P_B;               /**< Offset: 0x108 (R/  64) Watt-samples, phase-B, fundamental + harmonics (sQ23.40) */
+    __O  int64_t  P_C;               /**< Offset: 0x110 (R/  64) Watt-samples, phase-C, fundamental + harmonics (sQ23.40) */
+    __O  int64_t  P_A_F;             /**< Offset: 0x118 (R/  64) Watt-samples, phase-A, fundamental only (sQ23.40) */
+    __O  int64_t  P_B_F;             /**< Offset: 0x120 (R/  64) Watt-samples, phase-B, fundamental only (sQ23.40) */
+    __O  int64_t  P_C_F;             /**< Offset: 0x128 (R/  64) Watt-samples, phase-C, fundamental only (sQ23.40) */
+    __O  int64_t  P_N;               /**< Offset: 0x130 (R/  64) Watt-samples, phase-N, fundamental + harmonics (sQ23.40) */
+    __O  int64_t  P_N_F;             /**< Offset: 0x138 (R/  64) Watt-samples, phase-N, fundamental only (sQ23.40) */
+    __O  uint64_t Reserved9;
+    __O  int64_t  Q_A;               /**< Offset: 0x148 (R/  64) VAR-samples, phase-A, fundamental + harmonics (sQ23.40) */
+    __O  int64_t  Q_B;               /**< Offset: 0x150 (R/  64) VAR-samples, phase-B, fundamental + harmonics (sQ23.40) */
+    __O  int64_t  Q_C;               /**< Offset: 0x158 (R/  64) VAR-samples, phase-C, fundamental + harmonics (sQ23.40) */
+    __O  int64_t  Q_A_F;             /**< Offset: 0x160 (R/  64) VAR-samples, phase-A, fundamental only (sQ23.40) */
+    __O  int64_t  Q_B_F;             /**< Offset: 0x168 (R/  64) VAR-samples, phase-B, fundamental only (sQ23.40) */
+    __O  int64_t  Q_C_F;             /**< Offset: 0x170 (R/  64) VAR-samples, phase-C, fundamental only (sQ23.40) */
+    __O  int64_t  Q_N;               /**< Offset: 0x178 (R/  64) VAR-samples, phase-N, fundamental + harmonics (sQ23.40) */
+    __O  int64_t  Q_N_F;             /**< Offset: 0x180 (R/  64) VAR-samples, phase-N, fundamental only (sQ23.40) */
+    __O  uint64_t Reserved10;
+    __O  int64_t  ACC_T0;            /**< Offset: 0x190 (R/  64) Total accumulated quantities specified by PC0_TYPE (sQ33.30) */
+    __O  int64_t  ACC_T1;            /**< Offset: 0x198 (R/  64) Total accumulated quantities specified by PC1_TYPE (sQ33.30) */
+    __O  int64_t  ACC_T2;            /**< Offset: 0x1A0 (R/  64) Total accumulated quantities specified by PC2_TYPE (sQ33.30) */
+    __O  uint64_t Reserved11;
+    __O  uint64_t Reserved12;
 } DRV_METROLOGY_REGS_ACCUMULATORS;
 
 /** \brief Metrology Status register API structure */
@@ -1247,109 +1268,135 @@ typedef struct
     __O  uint32_t CAPTURE_STATUS;          /**< Offset: 0x0C (R/  32) Waveform Capture Function Status */
     __O  uint32_t INTERVAL_NUM;            /**< Offset: 0x10 (R/  32) Interval number */
     __O  uint32_t N;                       /**< Offset: 0x14 (R/  32) Number of Samples in the Last Measurement Interval (uQ16.0) */
-    __O  uint32_t PH_OFFSET;               /**< Offset: 0x18 (R/  32) Phase Correction Filter Offset (sQ0.31) */
+    __O  int32_t PH_OFFSET;                /**< Offset: 0x18 (R/  32) Phase Correction Filter Offset (sQ0.31) */
     __O  uint32_t FREQ;                    /**< Offset: 0x1C (R/  32) Active Line Voltage Fundamental Harmonic Frequency (uQ20.12) */
     __O  uint32_t FREQ_VA;                 /**< Offset: 0x20 (R/  32) Frequency of fundamental harmonic, VA (uQ20.12) */
     __O  uint32_t FREQ_VB;                 /**< Offset: 0x24 (R/  32) Frequency of fundamental harmonic, VB (uQ20.12) */
     __O  uint32_t FREQ_VC;                 /**< Offset: 0x28 (R/  32) Frequency of fundamental harmonic, VC (uQ20.12) */
     __O  uint32_t Reserved1;
-    __O  uint32_t TEMPERATURE;             /**< Offset: 0x30 (R/  32) Sensor Temperature (sQ23.8) */
-    __O  uint32_t I_A_MAX;                 /**< Offset: 0x34 (R/  32) Phase A Current Peak (sQ2.29) */
-    __O  uint32_t I_B_MAX;                 /**< Offset: 0x38 (R/  32) Phase B Current Peak (sQ2.29) */
-    __O  uint32_t I_C_MAX;                 /**< Offset: 0x3C (R/  32) Phase C Current Peak (sQ2.29) */
-    __O  uint32_t I_Ni_MAX;                /**< Offset: 0x40 (R/  32) Neutral Current Peak (sQ16.15) */
-    __O  uint32_t I_Nm_MAX;                /**< Offset: 0x44 (R/  32) Neutral Current Peak (sQ16.15) */
-    __O  uint32_t V_A_MAX;                 /**< Offset: 0x48 (R/  32) Max phase-A measured current during measurement interval (sQ2.29)*/
-    __O  uint32_t V_B_MAX;                 /**< Offset: 0x4C (R/  32) Max phase-B measured current during measurement interval (sQ2.29)*/
-    __O  uint32_t V_C_MAX;                 /**< Offset: 0x50 (R/  32) Max phase-C measured current during measurement interval (sQ2.29)*/
-    __O  uint32_t FEATURES;                /**< Offset: 0x54 (R/  32) Compiled feature indicator */
-    __O  uint32_t Reserved2[3];
-    __O  uint32_t PULSE0_COUNTER;          /**< Offset: 0x64 (R/  32) Counter of Pulse 0 */
-    __O  uint32_t PULSE1_COUNTER;          /**< Offset: 0x68 (R/  32) Counter of Pulse 1 */
-    __O  uint32_t PULSE2_COUNTER;          /**< Offset: 0x6C (R/  32) Counter of Pulse 2 */
-    __O  uint32_t Reserved3[2];
+    __O  int32_t TEMPERATURE;              /**< Offset: 0x30 (R/  32) Temperature, average (sQ23.8) */
+    __O  int32_t V_A_MAX;                  /**< Offset: 0x34 (R/  32) Max phase-A voltage during measurement interval (sQ2.29)*/
+    __O  int32_t V_B_MAX;                  /**< Offset: 0x38 (R/  32) Max phase-B voltage during measurement interval (sQ2.29)*/
+    __O  int32_t V_C_MAX;                  /**< Offset: 0x3C (R/  32) Max phase-C voltage during measurement interval (sQ2.29)*/
+    __O  uint32_t Reserved2;
+    __O  int32_t I_A_MAX;                  /**< Offset: 0x44 (R/  32) Phase A Current Peak (sQ2.29) */
+    __O  int32_t I_B_MAX;                  /**< Offset: 0x48 (R/  32) Phase B Current Peak (sQ2.29) */
+    __O  int32_t I_C_MAX;                  /**< Offset: 0x4C (R/  32) Phase C Current Peak (sQ2.29) */
+    __O  int32_t I_Nm_MAX;                 /**< Offset: 0x50 (R/  32) Max phase-N measured current during measurement interval (sQ2.29) */
+    __O  int32_t I_Ni_MAX;                 /**< Offset: 0x54 (R/  32) Max phase-N imputed current during measurement interval (sQ16.15) */
+    __O  uint32_t FEATURES;                /**< Offset: 0x58 (R/  32) Compiled feature indicator */
+    __O  uint32_t N_CYCLE;                 /**< Offset: 0x5C (R/  32) Number samples in the last cycle (uQ32.0) */
+    __O  uint32_t Reserved3;
+    __O  uint32_t Reserved4;
+    __O  uint32_t PULSE0_COUNTER;          /**< Offset: 0x68 (R/  32) Number of pulses issued (Pulse 0) */
+    __O  uint32_t PULSE1_COUNTER;          /**< Offset: 0x6C (R/  32) Number of pulses issued (Pulse 1) */
+    __O  uint32_t PULSE2_COUNTER;          /**< Offset: 0x70 (R/  32) Number of pulses issued (Pulse 2) */
+    __O  uint32_t Reserved5;
     __O  uint32_t ZC_N_VA;                 /**< Offset: 0x78 (R/  32) Zero-crossing sample number of phase-A voltage (uQ20.12) */
     __O  uint32_t ZC_N_VB;                 /**< Offset: 0x7C (R/  32) Zero-crossing sample number of phase-B voltage (uQ20.12) */
     __O  uint32_t ZC_N_VC;                 /**< Offset: 0x80 (R/  32) Zero-crossing sample number of phase-C voltage (uQ20.12) */
-    __O  uint32_t ATSENSE_CAL_41_44;       /**< Offset: 0x84 (R/  32) ATSENSE Calibration Trim Data, Registers: 0x41 ? 0x44 */
-    __O  uint32_t ATSENSE_CAL_45_48;       /**< Offset: 0x88 (R/  32) ATSENSE Calibration Trim Data, Registers: 0x45 ? 0x48 */
+    __O  uint32_t Reserved7;
+    __O  uint32_t ATSENSE_CAL_41_44;       /**< Offset: 0x88 (R/  32) ATSense manufacturing calibration data, registers 41-44 */
+    __O  uint32_t ATSENSE_CAL_45_48;       /**< Offset: 0x8C (R/  32) ATSense manufacturing calibration data, registers 45-48 */
 } DRV_METROLOGY_REGS_STATUS;
 
 /** \brief Metrology Control register API structure */
 typedef struct
 {
-   __IO  uint32_t STATE_CTRL;              /**< Offset: 0x00 (R/W  32) Metrology state control register */
-   __IO  uint32_t FEATURE_CTRL;            /**< Offset: 0x04 (R/W  32) Metrology feature setting register */
-   __IO  uint32_t HARMONIC_CTRL;           /**< Offset: 0x08 (R/W  32) Metrology feature setting register for Harmonics */
-   __IO  uint32_t METER_TYPE;              /**< Offset: 0x0C (R/W  32) Sensor type and service type settings register */
-   __IO  uint32_t M;                       /**< Offset: 0x10 (R/W  32) Number of line cycles for integration period (uQ12.0) */
-   __IO  uint32_t N_MAX;                   /**< Offset: 0x14 (R/W  32) Maximum number of samples in an integration period (uQ24.0) */
-   __IO  uint32_t PULSE0_CTRL;             /**< Offset: 0x18 (R/W  32) Pulse 0 control: enable/disable, polarity, quantity type selection */
-   __IO  uint32_t PULSE1_CTRL;             /**< Offset: 0x1C (R/W  32) Pulse 1 control: enable/disable, polarity, quantity type selection */
-   __IO  uint32_t PULSE2_CTRL;             /**< Offset: 0x20 (R/W  32) Pulse 2 control: enable/disable, polarity, quantity type selection */
-   __IO  uint32_t P_K_t;                   /**< Offset: 0x24 (R/W  32) Meter Active Power Pulse Constant (uQ8.24) */
-   __IO  uint32_t Q_K_t;                   /**< Offset: 0x28 (R/W  32) Meter Reactive Power Pulse Constant (uQ8.24) */
-   __IO  uint32_t I_K_t;                   /**< Offset: 0x2C (R/W  32) Meter Current Pulse Constant (uQ8.24) */
-   __IO  uint32_t CREEP_THRESHOLD_P;       /**< Offset: 0x30 (R/W  32) Creep Threshold for Active Energy (uQ2.30) */
-   __IO  uint32_t CREEP_THRESHOLD_Q;       /**< Offset: 0x34 (R/W  32) Creep Threshold for Quadergy (uQ2.30) */
-   __IO  uint32_t CREEP_THRESHOLD_I;       /**< Offset: 0x38 (R/W  32) Creep Threshold of Phase Current (uQ2.30) */
-   __IO  uint32_t POWER_OFFSET_CTRL;       /**< Offset: 0x3C (R/W  32) Power offset control */
-   __IO  uint32_t POWER_OFFSET_P;          /**< Offset: 0x40 (R/W  32) Active Power Offset (sQ1.30) */
-   __IO  uint32_t POWER_OFFSET_Q;          /**< Offset: 0x44 (R/W  32) Reactive Power Offset (sQ1.30) */
-   __IO  uint32_t SWELL_THRESHOLD_VA;      /**< Offset: 0x48 (R/W  32) Voltage swell threshold for each half cycle of phase-A voltage (uQ0.32) */
-   __IO  uint32_t SWELL_THRESHOLD_VB;      /**< Offset: 0x4C (R/W  32) Voltage swell threshold for each half cycle of phase-B voltage (uQ0.32) */
-   __IO  uint32_t SWELL_THRESHOLD_VC;      /**< Offset: 0x50 (R/W  32) Voltage swell threshold for each half cycle of phase-C voltage (uQ0.32) */
-   __IO  uint32_t SAG_THRESHOLD_VA;        /**< Offset: 0x54 (R/W  32) Voltage sag threshold for each half cycle of phase-A voltage (uQ0.32) */
-   __IO  uint32_t SAG_THRESHOLD_VB;        /**< Offset: 0x58 (R/W  32) Voltage sag threshold for each half cycle of phase-B voltage (uQ0.32) */
-   __IO  uint32_t SAG_THRESHOLD_VC;        /**< Offset: 0x5C (R/W  32) Voltage sag threshold for each half cycle of phase-B voltage (uQ0.32) */
-   __IO  uint32_t K_IA;                    /**< Offset: 0x60 (R/W  32) ADC input current conversion factor = I_A(rms)/Vadc(rms) (uQ22.10) */
-   __IO  uint32_t K_VA;                    /**< Offset: 0x64 (R/W  32) ADC input voltage conversion factor = V_A(rms)/Vadc(rms) (uQ22.10) */
-   __IO  uint32_t K_IB;                    /**< Offset: 0x68 (R/W  32) ADC input current conversion factor = I_B(rms)/Vadc(rms) (uQ22.10) */
-   __IO  uint32_t K_VB;                    /**< Offset: 0x6C (R/W  32) ADC input voltage conversion factor = V_B(rms)/Vadc(rms) (uQ22.10) */
-   __IO  uint32_t K_IC;                    /**< Offset: 0x70 (R/W  32) ADC input current conversion factor = I_C(rms)/Vadc(rms) (uQ22.10) */
-   __IO  uint32_t K_VC;                    /**< Offset: 0x74 (R/W  32) ADC input voltage conversion factor = V_C(rms)/Vadc(rms) (uQ22.10) */
-   __IO  uint32_t K_IN;                    /**< Offset: 0x78 (R/W  32) ADC input current conversion factor = I_N(rms)/Vadc(rms) (uQ22.10) */
-   __IO  uint32_t CAL_M_IA;                /**< Offset: 0x7C (R/W  32) Current magnitude calibration constant, I_A  (sQ2.29) */
-   __IO  uint32_t CAL_M_VA;                /**< Offset: 0x80 (R/W  32) Voltage magnitude calibration constant, V_A  (sQ2.29) */
-   __IO  uint32_t CAL_M_IB;                /**< Offset: 0x84 (R/W  32) Current magnitude calibration constant, I_B  (sQ2.29) */
-   __IO  uint32_t CAL_M_VB;                /**< Offset: 0x88 (R/W  32) Voltage magnitude calibration constant, V_B  (sQ2.29) */
-   __IO  uint32_t CAL_M_IC;                /**< Offset: 0x8C (R/W  32) Current magnitude calibration constant, I_C  (sQ2.29) */
-   __IO  uint32_t CAL_M_VC;                /**< Offset: 0x90 (R/W  32) Voltage magnitude calibration constant, V_C  (sQ2.29) */
-   __IO  uint32_t CAL_M_IN;                /**< Offset: 0x94 (R/W  32) Current magnitude calibration constant, I_N  (sQ2.29) */
-   __IO  uint32_t CAL_PH_IA;               /**< Offset: 0x98 (R/W  32) Current phase calibration constant, I_A (sQ0.31) */
-   __IO  uint32_t CAL_PH_VA;               /**< Offset: 0x9C (R/W  32) Voltage phase calibration constant, V_A (sQ0.31) */
-   __IO  uint32_t CAL_PH_IB;               /**< Offset: 0xA0 (R/W  32) Current phase calibration constant, I_B (sQ0.31) */
-   __IO  uint32_t CAL_PH_VB;               /**< Offset: 0xA4 (R/W  32) Voltage phase calibration constant, V_B (sQ0.31) */
-   __IO  uint32_t CAL_PH_IC;               /**< Offset: 0xA8 (R/W  32) Current phase calibration constant, I_C (sQ0.31) */
-   __IO  uint32_t CAL_PH_VC;               /**< Offset: 0xAC (R/W  32) Voltage phase calibration constant, V_C (sQ0.31) */
-   __IO  uint32_t CAL_PH_IN;               /**< Offset: 0xB0 (R/W  32) Current phase calibration constant, I_N (sQ0.31) */
-   __IO  uint32_t CAPTURE_CTRL;            /**< Offset: 0xB4 (R/W  32) Waveform capture control register */
-   __IO  uint32_t CAPTURE_BUFF_SIZE;       /**< Offset: 0xB8 (R/W  32) Waveform capture buffer size in units of 32-bits */
-   __IO  uint32_t CAPTURE_ADDR;            /**< Offset: 0xBC (R/W  32) Waveform capture buffer address pointer */
+   __IO  uint32_t STATE_CTRL;              /**< Offset: 0x000 (R/W  32) Metrology state control register */
+   __IO  uint32_t FEATURE_CTRL;            /**< Offset: 0x004 (R/W  32) Metrology feature setting register */
+   __IO  uint32_t AFE_SELECTION;           /**< Offset: 0x008 (R/W  32) AFE selection register */
+   __IO  uint32_t CHANNEL_MATRIX;          /**< Offset: 0x00C (R/W  32) Physical to logical channel assignment matrix */
+   __IO  uint32_t HARMONIC_CTRL;           /**< Offset: 0x010 (R/W  32) Metrology feature setting register for Harmonics */
+   __IO  uint32_t METER_TYPE;              /**< Offset: 0x014 (R/W  32) Sensor type and service type settings register */
+   __IO  uint32_t M;                       /**< Offset: 0x018 (R/W  32) Number of line cycles for integration period (uQ12.0) */
+   __IO  uint32_t N_MAX;                   /**< Offset: 0x01C (R/W  32) Maximum number of samples in an integration period (uQ24.0) */
+   __IO  uint32_t PULSE0_CTRL;             /**< Offset: 0x020 (R/W  32) Pulse 0 control: enable/disable, polarity, quantity type selection */
+   __IO  uint32_t PULSE0_K_t;              /**< Offset: 0x024 (R/W  32) Pulse 0 Meter constant register */
+   __IO  uint32_t PULSE1_CTRL;             /**< Offset: 0x028 (R/W  32) Pulse 1 control: enable/disable, polarity, quantity type selection */
+   __IO  uint32_t PULSE1_K_t;              /**< Offset: 0x02C (R/W  32) Pulse 1 Meter constant register */
+   __IO  uint32_t PULSE2_CTRL;             /**< Offset: 0x030 (R/W  32) Pulse 2 control: enable/disable, polarity, quantity type selection */
+   __IO  uint32_t PULSE2_K_t;              /**< Offset: 0x034 (R/W  32) Pulse 2 Meter constant register */
+   __IO  uint32_t SYNTHESIZER_ADDR;        /**< Offset: 0x038 (R/W  32) Synthesizer address */
+   __IO  uint32_t CREEP_THRESHOLD_P;       /**< Offset: 0x03C (R/W  32) Creep Threshold for Active Energy (uQ2.30) */
+   __IO  uint32_t CREEP_THRESHOLD_P_A;     /**< Offset: 0x040 (R/W  32) Starting per-cycle phase-A Active Energy for pulse and pulse accumulation (uQ2.30) */
+   __IO  uint32_t CREEP_THRESHOLD_P_B;     /**< Offset: 0x044 (R/W  32) Starting per-cycle phase-B Active Energy for pulse and pulse accumulation (uQ2.30) */
+   __IO  uint32_t CREEP_THRESHOLD_P_C;     /**< Offset: 0x048 (R/W  32) Starting per-cycle phase-C Active Energy for pulse and pulse accumulation (uQ2.30) */
+   __IO  uint32_t CREEP_THRESHOLD_Q;       /**< Offset: 0x04C (R/W  32) Creep Threshold for Quadergy (uQ2.30) */
+   __IO  uint32_t CREEP_THRESHOLD_Q_A;     /**< Offset: 0x050 (R/W  32) Starting per-cycle phase-A Reactive Quadergy for pulse and pulse accumulation (uQ2.30) */
+   __IO  uint32_t CREEP_THRESHOLD_Q_B;     /**< Offset: 0x054 (R/W  32) Starting per-cycle phase-B Reactive Quadergy for pulse and pulse accumulation (uQ2.30) */
+   __IO  uint32_t CREEP_THRESHOLD_Q_C;     /**< Offset: 0x058 (R/W  32) Starting per-cycle phase-C Reactive Quadergy for pulse and pulse accumulation (uQ2.30) */
+   __IO  uint32_t CREEP_THRESHOLD_I;       /**< Offset: 0x05C (R/W  32) Creep Threshold of Phase Current (uQ2.30) */
+   __IO  uint32_t CREEP_THRESHOLD_I_A;     /**< Offset: 0x060 (R/W  32) Starting per-cycle phase-A current for both Energy and Quadergy pulse and pulse accumulation (uQ2.30) */
+   __IO  uint32_t CREEP_THRESHOLD_I_B;     /**< Offset: 0x064 (R/W  32) Starting per-cycle phase-B current for both Energy and Quadergy pulse and pulse accumulation (uQ2.30) */
+   __IO  uint32_t CREEP_THRESHOLD_I_C;     /**< Offset: 0x068 (R/W  32) Starting per-cycle phase-C current for both Energy and Quadergy pulse and pulse accumulation (uQ2.30) */
+   __IO  uint32_t CREEP_THRESHOLD_S;       /**< Offset: 0x06C (R/W  32) Creep Threshold of Phase Apparent Power (uQ2.30) */
+   __IO  uint32_t POWER_OFFSET_CTRL;       /**< Offset: 0x070 (R/W  32) Power offset control */
+   __IO  int32_t POWER_OFFSET_P;           /**< Offset: 0x074 (R/W  32) Active Power Offset (sQ1.30) */
+   __IO  int32_t POWER_OFFSET_Q;           /**< Offset: 0x078 (R/W  32) Reactive Power Offset (sQ1.30) */
+   __IO  int32_t POWER_OFFSET_S;           /**< Offset: 0x07C (R/W  32) Apparent Power Offset (sQ1.30) */
+   __IO  uint32_t SWELL_THRESHOLD_VA;      /**< Offset: 0x080 (R/W  32) Voltage swell threshold for each half cycle of phase-A voltage (uQ0.32) */
+   __IO  uint32_t SWELL_THRESHOLD_VB;      /**< Offset: 0x084 (R/W  32) Voltage swell threshold for each half cycle of phase-B voltage (uQ0.32) */
+   __IO  uint32_t SWELL_THRESHOLD_VC;      /**< Offset: 0x088 (R/W  32) Voltage swell threshold for each half cycle of phase-C voltage (uQ0.32) */
+   __IO  uint32_t SAG_THRESHOLD_VA;        /**< Offset: 0x08C (R/W  32) Voltage sag threshold for each half cycle of phase-A voltage (uQ0.32) */
+   __IO  uint32_t SAG_THRESHOLD_VB;        /**< Offset: 0x090 (R/W  32) Voltage sag threshold for each half cycle of phase-B voltage (uQ0.32) */
+   __IO  uint32_t SAG_THRESHOLD_VC;        /**< Offset: 0x094 (R/W  32) Voltage sag threshold for each half cycle of phase-B voltage (uQ0.32) */
+   __IO  uint32_t INTERRUPT_THRESHOLD_VA;  /**< Offset: 0x098 (R/W  32) Interrupt threshold for each half cycle of phase-A voltage (uQ0.32) */
+   __IO  uint32_t INTERRUPT_THRESHOLD_VB;  /**< Offset: 0x09C (R/W  32) Interrupt threshold for each half cycle of phase-B voltage (uQ0.32) */
+   __IO  uint32_t INTERRUPT_THRESHOLD_VC;  /**< Offset: 0x0A0 (R/W  32) Interrupt threshold for each half cycle of phase-C voltage (uQ0.32) */
    __IO  uint32_t Reserved1;
    __IO  uint32_t Reserved2;
    __IO  uint32_t Reserved3;
-   __IO  uint32_t ATSENSE_CTRL_20_23;      /**< Offset: 0xCC (R/W  32) ATSense control: channels I0,I1,V1,I2 */
-   __IO  uint32_t ATSENSE_CTRL_24_27;      /**< Offset: 0xD0 (R/W  32) ATSense control: channels V2,I3,V3,ANA */
-   __IO  uint32_t ATSENSE_CTRL_28_2B;      /**< Offset: 0xD4 (R/W  32) ATSense control: Registers: x28, x2A-2B, x2D */
+   __IO  uint32_t K_IA;                    /**< Offset: 0x0B0 (R/W  32) ADC input current conversion factor = I_A(rms)/Vadc(rms) (uQ22.10) */
+   __IO  uint32_t K_VA;                    /**< Offset: 0x0B4 (R/W  32) ADC input voltage conversion factor = V_A(rms)/Vadc(rms) (uQ22.10) */
+   __IO  uint32_t K_IB;                    /**< Offset: 0x0B8 (R/W  32) ADC input current conversion factor = I_B(rms)/Vadc(rms) (uQ22.10) */
+   __IO  uint32_t K_VB;                    /**< Offset: 0x0BC (R/W  32) ADC input voltage conversion factor = V_B(rms)/Vadc(rms) (uQ22.10) */
+   __IO  uint32_t K_IC;                    /**< Offset: 0x0C0 (R/W  32) ADC input current conversion factor = I_C(rms)/Vadc(rms) (uQ22.10) */
+   __IO  uint32_t K_VC;                    /**< Offset: 0x0C4 (R/W  32) ADC input voltage conversion factor = V_C(rms)/Vadc(rms) (uQ22.10) */
+   __IO  uint32_t K_IN;                    /**< Offset: 0x0C8 (R/W  32) ADC input current conversion factor = I_N(rms)/Vadc(rms) (uQ22.10) */
+   __IO  uint32_t K_VD;                    /**< Offset: 0x0CC (R/W  32) ADC input voltage conversion factor = V_D(rms)/Vadc(rms) (uQ22.10) */
+   __IO  int32_t CAL_M_IA;                 /**< Offset: 0x0D0 (R/W  32) Current magnitude calibration constant, I_A  (sQ2.29) */
+   __IO  int32_t CAL_M_VA;                 /**< Offset: 0x0D4 (R/W  32) Voltage magnitude calibration constant, V_A  (sQ2.29) */
+   __IO  int32_t CAL_M_IB;                 /**< Offset: 0x0D8 (R/W  32) Current magnitude calibration constant, I_B  (sQ2.29) */
+   __IO  int32_t CAL_M_VB;                 /**< Offset: 0x0DC (R/W  32) Voltage magnitude calibration constant, V_B  (sQ2.29) */
+   __IO  int32_t CAL_M_IC;                 /**< Offset: 0x0E0 (R/W  32) Current magnitude calibration constant, I_C  (sQ2.29) */
+   __IO  int32_t CAL_M_VC;                 /**< Offset: 0x0E4 (R/W  32) Voltage magnitude calibration constant, V_C  (sQ2.29) */
+   __IO  int32_t CAL_M_IN;                 /**< Offset: 0x0E8 (R/W  32) Current magnitude calibration constant, I_N  (sQ2.29) */
+   __IO  int32_t CAL_M_VD;                 /**< Offset: 0x0EC (R/W  32) Current magnitude calibration constant, V_D  (sQ2.29) */
+   __IO  int32_t CAL_PH_IA;                /**< Offset: 0x0F0 (R/W  32) Current phase calibration constant, I_A (sQ0.31) */
+   __IO  int32_t CAL_PH_VA;                /**< Offset: 0x0F4 (R/W  32) Voltage phase calibration constant, V_A (sQ0.31) */
+   __IO  int32_t CAL_PH_IB;                /**< Offset: 0x0F8 (R/W  32) Current phase calibration constant, I_B (sQ0.31) */
+   __IO  int32_t CAL_PH_VB;                /**< Offset: 0x0FC (R/W  32) Voltage phase calibration constant, V_B (sQ0.31) */
+   __IO  int32_t CAL_PH_IC;                /**< Offset: 0x100 (R/W  32) Current phase calibration constant, I_C (sQ0.31) */
+   __IO  int32_t CAL_PH_VC;                /**< Offset: 0x104 (R/W  32) Voltage phase calibration constant, V_C (sQ0.31) */
+   __IO  int32_t CAL_PH_IN;                /**< Offset: 0x108 (R/W  32) Current phase calibration constant, I_N (sQ0.31) */
    __IO  uint32_t Reserved4;
-   __IO  uint32_t POWER_OFFSET_P_A;        /**< Offset: 0xDC (R/W  32) Phase-A active power offset (sQ9.40) */
-   __IO  uint32_t POWER_OFFSET_P_B;        /**< Offset: 0xE0 (R/W  32) Phase-B active power offset (sQ9.40) */
-   __IO  uint32_t POWER_OFFSET_P_C;        /**< Offset: 0xE4 (R/W  32) Phase-C active power offset (sQ9.40) */
-   __IO  uint32_t POWER_OFFSET_Q_A;        /**< Offset: 0xE8 (R/W  32) Phase-A reactive power offset (sQ9.40) */
-   __IO  uint32_t POWER_OFFSET_Q_B;        /**< Offset: 0xEC (R/W  32) Phase-B reactive power offset (sQ9.40) */
-   __IO  uint32_t POWER_OFFSET_Q_C;        /**< Offset: 0xF0 (R/W  32) Phase-C reactive power offset (sQ9.40) */
+   __IO  uint32_t CAPTURE_CTRL;            /**< Offset: 0x110 (R/W  32) Waveform capture control register */
+   __IO  uint32_t CAPTURE_BUFF_SIZE;       /**< Offset: 0x114 (R/W  32) Waveform capture buffer size in units of 32-bits */
+   __IO  uint32_t CAPTURE_ADDR;            /**< Offset: 0x118 (R/W  32) Waveform capture buffer address pointer */
+   __IO  uint32_t Reserved5;
+   __IO  uint32_t Reserved6;
+   __IO  uint32_t Reserved7;
+   __IO  uint32_t AFE_CTRL;                /**< Offset: 0x128 (R/W  32) AFE control register */
+   __IO  uint32_t Reserved8;
+   __IO  uint32_t Reserved9;
+   __IO  uint32_t Reserved10;
+   __IO  int32_t POWER_OFFSET_P_A;         /**< Offset: 0x138 (R/W  32) Phase-A active power offset (sQ-9.40) */
+   __IO  int32_t POWER_OFFSET_P_B;         /**< Offset: 0x13C (R/W  32) Phase-B active power offset (sQ-9.40) */
+   __IO  int32_t POWER_OFFSET_P_C;         /**< Offset: 0x140 (R/W  32) Phase-C active power offset (sQ-9.40) */
+   __IO  int32_t POWER_OFFSET_Q_A;         /**< Offset: 0x144 (R/W  32) Phase-A reactive power offset (sQ-9.40) */
+   __IO  int32_t POWER_OFFSET_Q_B;         /**< Offset: 0x148 (R/W  32) Phase-B reactive power offset (sQ-9.40) */
+   __IO  int32_t POWER_OFFSET_Q_C;         /**< Offset: 0x14C (R/W  32) Phase-C reactive power offset (sQ-9.40) */
 } DRV_METROLOGY_REGS_CONTROL;
 
 /** \brief METROLOGY register API structure */
 typedef struct
 {
     DRV_METROLOGY_REGS_CONTROL       MET_CONTROL;         /**< Offset: 0x0000 (R/W  32) Metrology Control Registers */
-    DRV_METROLOGY_REGS_STATUS        MET_STATUS;          /**< Offset: 0x00F4 (R/   32) Metrology Status Registers */
-    DRV_METROLOGY_REGS_ACCUMULATORS  MET_ACCUMULATORS;    /**< Offset: 0x0180 (R/   32) Metrology Accumulated Output Registers */
-    DRV_METROLOGY_REGS_HARMONICS     MET_HARMONICS;       /**< Offset: 0x0338 (R/   32) Metrology Harmonic Analysis Output Registers */
+    DRV_METROLOGY_REGS_STATUS        MET_STATUS;          /**< Offset: 0x0150 (R/   32) Metrology Status Registers */
+    DRV_METROLOGY_REGS_ACCUMULATORS  MET_ACCUMULATORS;    /**< Offset: 0x01E0 (R/   32) Metrology Accumulated Output Registers */
+    DRV_METROLOGY_REGS_PERCYCLE_ACC  MET_PERCYCLE_ACC;    /**< Offset: 0x0398 (R/   32) Metrology Per-Cycle Accumulated Output Registers */
+    DRV_METROLOGY_REGS_HARMONICS     MET_HARMONICS;       /**< Offset: 0x04B8 (R/   32) Metrology Harmonic Analysis Output Registers */
 } MET_REGISTERS;
-
-
 
 #endif /* METROLOGY_REGS_H */
