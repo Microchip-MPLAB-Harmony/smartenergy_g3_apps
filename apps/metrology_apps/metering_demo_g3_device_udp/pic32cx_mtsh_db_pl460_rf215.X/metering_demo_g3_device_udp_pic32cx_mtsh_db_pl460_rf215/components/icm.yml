@@ -1,0 +1,96 @@
+configVersion: 1.0.0
+componentName: icm
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: icm
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: smartenergy_metrology
+  type: package
+  version: v2.0.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: icm
+          x: '474'
+          y: '301'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    ICM_RCFG_0:
+      attributes:
+        id: ICM_RCFG_0
+      children:
+      - children:
+        - attributes:
+            id: icm
+            value: '16778212'
+          type: Dynamic
+        type: Values
+      type: Hex
+    ICM_REG_0_EOM:
+      attributes:
+        id: ICM_REG_0_EOM
+      children:
+      - children:
+        - attributes:
+            id: icm
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ICM_REG_0_RHIEN:
+      attributes:
+        id: ICM_REG_0_RHIEN
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    ICM_REG_1_EOM:
+      attributes:
+        id: ICM_REG_1_EOM
+      children:
+      - children:
+        - attributes:
+            id: icm
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ICM_REG_2_EOM:
+      attributes:
+        id: ICM_REG_2_EOM
+      children:
+      - children:
+        - attributes:
+            id: icm
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ICM_REG_3_EOM:
+      attributes:
+        id: ICM_REG_3_EOM
+      children:
+      - children:
+        - attributes:
+            id: icm
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+  userData: {}
