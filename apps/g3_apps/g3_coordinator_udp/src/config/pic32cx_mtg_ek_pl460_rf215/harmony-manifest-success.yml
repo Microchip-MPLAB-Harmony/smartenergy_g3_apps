@@ -4,7 +4,7 @@
 
 
 project: g3_coordinator_udp_pic32cx_mtg_ek
-creation_date: 2025-12-15T16:34:38.325+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2026-02-04T13:02:42.246+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3
