@@ -464,6 +464,12 @@
         <property key="coverage-enable" value=""/>
         <property key="stack-guidance" value="false"/>
       </C32-CO>
+      <C32-LD>
+        <property key="appendMe" value=""/>
+        <property key="heap-size" value="512"/>
+        <property key="no-device-startup-code" value="true"/>
+        <property key="preprocessor-macros" value=";"/>
+      </C32-LD>
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>

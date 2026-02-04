@@ -37,7 +37,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\configuration.h
   hash: 6690b9921bc812bbc8355215d7f8ff0b3d0005a1277f5c697e0d56306b695db0
 - file: ..\src\config\sam_d20_xpro_pl460\definitions.h
-  hash: c4f53bc31e9c378475c922c0f39440c28be77e651ef6bc4a0e97a374954a512c
+  hash: df628f54c2f84563ae3e32ab6df5e0dee6bfa4586ed1d083ba6a30935dc8d093
 - file: ..\src\config\sam_d20_xpro_pl460\device.h
   hash: 5847311f7358c9120549b11e53650ee68db8c2d886fa1aa8659af1ca42789dac
 - file: ..\src\config\sam_d20_xpro_pl460\device_cache.h
@@ -75,15 +75,15 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_local_comm.h
   hash: b4c23ca35d5019e027f3c4b790094a1af065da35db09de5089fc6407db0ddd84
 - file: ..\src\config\sam_d20_xpro_pl460\exceptions.c
-  hash: b0b65c30aa1f7a01ef7be6c1628c331a5ca3eae7dc3bd76ebe647703b76f432d
+  hash: 4460457d985f664a3dcd5a719dd869dec9348b072e04671de668948ee99faa56
 - file: ..\src\config\sam_d20_xpro_pl460\initialization.c
-  hash: 8a5b650b8fc9cc63119ddf2c49470b95184a736e3809638214b349978745dfcc
+  hash: 611496f3b297848d3b406f8045dd1e264512071fae44e971b0f19b0fa6148c91
 - file: ..\src\config\sam_d20_xpro_pl460\interrupts.c
-  hash: 68ccd1c2d054360ca04080279db42297b1205d33d1acd7b5cabd32b916c62cd1
+  hash: 7baaf4cfb3b68dce3a714242dfe24ebad3cc154f3777d8e7034666d1b208ebab
 - file: ..\src\config\sam_d20_xpro_pl460\interrupts.h
   hash: c16106421b7d2dad04b09b5062bb6afd0a2c6f6467c4371e4d73817649da1331
 - file: ..\src\config\sam_d20_xpro_pl460\libc_syscalls.c
-  hash: 88bb2e34c939601b5b7ad076556e3ee0fcedf388436b8cddb6d6fd3e9d07472f
+  hash: c9afc1b1257829415a1a6746ce3744f0a768b339d59fff2ab3ca1fab58b2a916
 - file: ..\src\config\sam_d20_xpro_pl460\osal\osal.h
   hash: 1cfe3b61d9693b2369922041eef33fe16b3c1ccd9c85d4ded808b805f90a869c
 - file: ..\src\config\sam_d20_xpro_pl460\osal\osal_definitions.h
@@ -159,7 +159,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_usart.h
   hash: 63b3f6aa27eb1a9d1204c9ac85f64d8f17f1cb5139eb6a5ce89e9a0f9a20309f
 - file: ..\src\config\sam_d20_xpro_pl460\startup_xc32.c
-  hash: e6227d89e36b74af1bc21e00e80b390502c97aaaa65796291f63b2d96cf0678e
+  hash: 3aa1360f333b564211c35f641c7327c2111e11aa633bd02ec5a0be9466b1df04
 - file: ..\src\config\sam_d20_xpro_pl460\stdio\xc32_monitor.c
   hash: 858f8710d4287200a5ee7f3b3ad7c24f505aed9c05c16956ab0ff9f7bb162a6a
 - file: ..\src\config\sam_d20_xpro_pl460\sys_tasks.h

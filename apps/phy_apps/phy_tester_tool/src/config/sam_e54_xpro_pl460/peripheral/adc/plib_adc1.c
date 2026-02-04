@@ -106,7 +106,7 @@ void ADC1_Initialize( void )
 
 
     /* positive and negative input pins */
-    ADC1_REGS->ADC_INPUTCTRL = (uint16_t) ADC_POSINPUT_AIN6 | (uint16_t) ADC_NEGINPUT_GND ;
+    ADC1_REGS->ADC_INPUTCTRL = (uint16_t) ADC_POSINPUT_AIN6 | (uint16_t) ADC_NEGINPUT_AIN7 | ADC_INPUTCTRL_DIFFMODE_Msk;
 
     /* Resolution & Operation Mode */
     ADC1_REGS->ADC_CTRLB = ADC_CTRLB_RESSEL_12BIT | ADC_CTRLB_WINMODE(3U) | ADC_CTRLB_FREERUN_Msk;

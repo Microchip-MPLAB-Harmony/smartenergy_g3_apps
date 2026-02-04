@@ -88,7 +88,8 @@ void PIO_Initialize ( void )
    PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
 
  /* Port A Latch configuration */
-   PIOA_REGS->PIO_CODR = 0x4004c00cU;
+   PIOA_REGS->PIO_SODR = 0x4U;
+   PIOA_REGS->PIO_CODR = 0x4004c00cU & ~0x4U;
 
     /* Clear the ISR register */
    (uint32_t)PIOA_REGS->PIO_ISR;

@@ -61,16 +61,16 @@
 #include "peripheral/wdt/plib_wdt.h"
 #include "peripheral/cmcc/plib_cmcc.h"
 #include "peripheral/sercom/spi_master/plib_sercom4_spi_master.h"
-#include "driver/rf215/drv_rf215.h"
 #include "peripheral/eic/plib_eic.h"
+#include "driver/rf215/drv_rf215.h"
 #include "peripheral/tc/plib_tc0.h"
 #include "service/usi/srv_usi.h"
 #include "service/usi/srv_usi_usart.h"
 #include "service/pcrc/srv_pcrc.h"
-#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
+#include "system/time/sys_time.h"
 #include "service/rserial/srv_rserial.h"
 #include "bsp/bsp.h"
 #include "service/pvddmon/srv_pvddmon.h"
@@ -214,9 +214,9 @@ Remarks:
 typedef struct
 {
     SYS_MODULE_OBJ drvRf215;
-    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ drvPlcPhy;
+    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ srvUSI0;
 
