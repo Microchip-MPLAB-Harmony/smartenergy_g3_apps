@@ -72,7 +72,7 @@ void PIO_Initialize ( void )
    PIOA_REGS->PIO_CFGR = 0x2U;
 
  /* Port A Peripheral function GPIO configuration */
-   PIOA_REGS->PIO_MSKR = 0x90000084LU;
+   PIOA_REGS->PIO_MSKR = 0x90080084LU;
    PIOA_REGS->PIO_CFGR = 0x0U;
 
  /* Port A Pin 2 configuration */
@@ -83,6 +83,10 @@ void PIO_Initialize ( void )
    PIOA_REGS->PIO_MSKR = 0x80U;
    PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x1000200U;
 
+ /* Port A Pin 19 configuration */
+   PIOA_REGS->PIO_MSKR = 0x80000U;
+   PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
+
  /* Port A Pin 28 configuration */
    PIOA_REGS->PIO_MSKR = 0x10000000U;
    PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
@@ -92,8 +96,8 @@ void PIO_Initialize ( void )
    PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
 
  /* Port A Latch configuration */
-   PIOA_REGS->PIO_SODR = 0x0LU;
-   PIOA_REGS->PIO_CODR = 0x90000084LU & ~0x0LU;
+   PIOA_REGS->PIO_SODR = 0x80000LU;
+   PIOA_REGS->PIO_CODR = 0x90080084LU & ~0x80000LU;
 
     /* Clear the ISR register */
    (uint32_t)PIOA_REGS->PIO_ISR;

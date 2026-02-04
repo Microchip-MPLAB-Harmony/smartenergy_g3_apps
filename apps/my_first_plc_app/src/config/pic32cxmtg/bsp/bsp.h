@@ -84,6 +84,16 @@
                                     PIOD_REGS->PIO_ODSR ^= (1<<16);\
                                 } while (0)
 
+/*** OUTPUT PIO Macros for MIKROBUS_1_SPI_CS ***/
+#define BSP_MIKROBUS_1_SPI_CS_PIN        PIO_PIN_PA19
+#define BSP_MIKROBUS_1_SPI_CS_Get()      ((PIOA_REGS->PIO_PDSR >> 19) & 0x1)
+#define BSP_MIKROBUS_1_SPI_CS_On()       (PIOA_REGS->PIO_CODR = (1UL<<19))
+#define BSP_MIKROBUS_1_SPI_CS_Off()      (PIOA_REGS->PIO_SODR = (1UL<<19))
+#define BSP_MIKROBUS_1_SPI_CS_Toggle()   do {\
+                                    PIOA_REGS->PIO_MSKR = (1<<19); \
+                                    PIOA_REGS->PIO_ODSR ^= (1<<19);\
+                                } while (0)
+
 /*** OUTPUT PIO Macros for PL460_NRST ***/
 #define BSP_PL460_NRST_PIN        PIO_PIN_PA28
 #define BSP_PL460_NRST_Get()      ((PIOA_REGS->PIO_PDSR >> 28) & 0x1)

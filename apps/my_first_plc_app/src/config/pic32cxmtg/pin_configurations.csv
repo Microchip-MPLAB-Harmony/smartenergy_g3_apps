@@ -33,7 +33,7 @@ Pin Number,Pin ID,Custom Name,Function,Direction,Latch,Open Drain,PIO Interrupt,
 33,PA16,,Available,In,,,,,,,
 34,PA17,,Available,In,,,,,,,
 35,PA18,,Available,In,,,,,,,
-36,PA19,,Available,In,,,,,,,
+36,PA19,MIKROBUS_1_SPI_CS,GPIO,Out,High,No,Disabled,No,No,Glitch Filter,0x0
 37,PA12,,Available,In,,,,,,,
 38,PA13,,Available,In,,,,,,,
 39,PA14,,Available,In,,,,,,,

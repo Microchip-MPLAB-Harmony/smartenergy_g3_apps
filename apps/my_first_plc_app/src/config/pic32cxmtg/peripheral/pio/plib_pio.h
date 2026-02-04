@@ -166,6 +166,24 @@
 #define USER_BUTTON1_InterruptEnable()   (PIOA_REGS->PIO_IER = (1<<7))
 #define USER_BUTTON1_InterruptDisable()  (PIOA_REGS->PIO_IDR = (1<<7))
 
+/*** Macros for MIKROBUS_1_SPI_CS pin ***/
+#define MIKROBUS_1_SPI_CS_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<19U))
+#define MIKROBUS_1_SPI_CS_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<19U))
+#define MIKROBUS_1_SPI_CS_Toggle()            do {\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<19U); \
+                                            PIOA_REGS->PIO_ODSR ^= ((uint32_t)1U<<19U);\
+                                        } while (0)
+#define MIKROBUS_1_SPI_CS_OutputEnable()      do {\
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<19U); \
+                                            PIOA_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
+                                        }while(0)
+#define MIKROBUS_1_SPI_CS_InputEnable()       do { \
+                                            PIOA_REGS->PIO_MSKR = ((uint32_t)1U<<19U); \
+                                            PIOA_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
+                                        } while (0)
+#define MIKROBUS_1_SPI_CS_Get()               ((PIOA_REGS->PIO_PDSR >> 19U) & 0x1U)
+#define MIKROBUS_1_SPI_CS_PIN                  PIO_PIN_PA19
+
 /*** Macros for PL460_CS pin ***/
 #define PL460_CS_Get()               ((PIOA_REGS->PIO_PDSR >> 21U) & 0x1U)
 #define PL460_CS_PIN                  PIO_PIN_PA21
