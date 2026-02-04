@@ -14,8 +14,8 @@ harmony_version: v5.6.3
 compiler: XC32 5.00
 
 modules:
-    - {name: "csp", version: "v3.23.0"}
-    - {name: "core", version: "v3.15.5"}
+    - {name: "csp", version: "v3.25.0"}
+    - {name: "core", version: "v3.16.0"}
     - {name: "CMSIS_5", version: "5.9.0"}
     - {name: "usb", version: "v3.16.0"}
     - {name: "FreeRTOS-Kernel", version: "V11.1.0"}

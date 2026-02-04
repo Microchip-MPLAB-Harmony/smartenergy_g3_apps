@@ -18,8 +18,8 @@ device_library: {library_class: com.microchip.mcc.harmony.Harmony3Library, name:
   version: Bundled}
 packs: {name: PIC32CX-MT_DFP, version: 1.3.132}
 modules:
-- {name: core, type: HARMONY, version: v3.15.5}
-- {name: csp, type: HARMONY, version: v3.23.0}
+- {name: core, type: HARMONY, version: v3.16.0}
+- {name: csp, type: HARMONY, version: v3.25.0}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
 - {name: gfx, type: HARMONY, version: v3.16.2}
 - {name: smartenergy, type: HARMONY, version: v1.5.0}

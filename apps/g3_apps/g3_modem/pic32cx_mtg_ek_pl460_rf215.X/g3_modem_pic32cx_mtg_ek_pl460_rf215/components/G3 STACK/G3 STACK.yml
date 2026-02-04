@@ -15,7 +15,7 @@ dependency:
 - dependencyPackage: ''
   name: core
   type: package
-  version: v3.15.5
+  version: v3.16.0
 - dependencyPackage: ''
   name: crypto_v4
   type: package
@@ -23,7 +23,7 @@ dependency:
 - dependencyPackage: ''
   name: csp
   type: package
-  version: v3.23.0
+  version: v3.25.0
 - dependencyPackage: ''
   name: shd
   type: package
