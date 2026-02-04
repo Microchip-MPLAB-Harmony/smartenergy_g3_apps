@@ -48,8 +48,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "bsp/bsp.h"
 #include "service/pcoup/srv_pcoup.h"
+#include "bsp/bsp.h"
 #include "peripheral/clk/plib_clk.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/nvic/plib_nvic.h"
@@ -63,9 +63,9 @@
 #include "peripheral/efc/plib_efc.h"
 #include "peripheral/tc/plib_tc0.h"
 #include "system/time/sys_time.h"
-#include "driver/usb/usbhsv1/drv_usbhsv1.h"
 #include "usb/usb_device_cdc.h"
 #include "usb/usb_cdc.h"
+#include "driver/usb/usbhsv1/drv_usbhsv1.h"
 #include "peripheral/afec/plib_afec1.h"
 #include "peripheral/trng/plib_trng.h"
 #include "service/pvddmon/srv_pvddmon.h"

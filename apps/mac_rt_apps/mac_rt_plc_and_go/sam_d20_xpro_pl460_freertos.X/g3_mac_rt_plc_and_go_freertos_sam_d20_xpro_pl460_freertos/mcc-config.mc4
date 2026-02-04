@@ -46,7 +46,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\configuration.h
   hash: 36d669d575f42705fbc77e88c43a9ef29c280364e06dda9af0b4b9ad9ae4bd85
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\definitions.h
-  hash: 0f45ca57580a0f6f79f453060e21e19491518ed64b817197c8884ae80b8d3c99
+  hash: 218e794ed6686fa94bb0dc676cdf0b46d125432bf8ecec7e0f57de5ef3dad614
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\device.h
   hash: 5847311f7358c9120549b11e53650ee68db8c2d886fa1aa8659af1ca42789dac
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\device_cache.h
@@ -84,17 +84,17 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\driver\plc\g3MacRt\drv_g3_macrt_local_comm.h
   hash: 8db9410735b2eed575b8ec98c8ff46ccd3ed7997d9db8fbca4a1ef95ccfbab0c
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\exceptions.c
-  hash: b0b65c30aa1f7a01ef7be6c1628c331a5ca3eae7dc3bd76ebe647703b76f432d
+  hash: 4460457d985f664a3dcd5a719dd869dec9348b072e04671de668948ee99faa56
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\freertos_hooks.c
   hash: c97b8f92ad60ff513a27ac7a27b3c6824b75005eb8f7b85fe5ae18deaf568c4e
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\initialization.c
-  hash: 33c9b5e17773fe63f19459d55b63bec9d414270b3693e18d1f9a90b05de7988d
+  hash: 939a1e1721d2984bebee92306505fc1fbff4d5545c11204d14bf63cf6e8b458f
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\interrupts.c
-  hash: 8a277b0e3db2d4179d0b274f36d14a842773d76d3e0e02a5ac59e30b8d0ccb26
+  hash: 007cc3740ee8dacbbcfe7aa224ff9859c4d0cc03ccdfad8a09c544af7f4d0233
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\interrupts.h
   hash: a14c380f934a743cec0c42158ea9edb594873f209aafadfb639ca2f3f60a9788
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\libc_syscalls.c
-  hash: 88bb2e34c939601b5b7ad076556e3ee0fcedf388436b8cddb6d6fd3e9d07472f
+  hash: c9afc1b1257829415a1a6746ce3744f0a768b339d59fff2ab3ca1fab58b2a916
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\osal\osal.h
   hash: 1cfe3b61d9693b2369922041eef33fe16b3c1ccd9c85d4ded808b805f90a869c
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\osal\osal_definitions.h
@@ -170,7 +170,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\service\random\srv_random.h
   hash: 74409dadccb1a152f9717e596b31af36c8cac01d1a33a4a40a15c5fbdcd52a78
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\startup_xc32.c
-  hash: e6227d89e36b74af1bc21e00e80b390502c97aaaa65796291f63b2d96cf0678e
+  hash: 3aa1360f333b564211c35f641c7327c2111e11aa633bd02ec5a0be9466b1df04
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\stdio\xc32_monitor.c
   hash: 858f8710d4287200a5ee7f3b3ad7c24f505aed9c05c16956ab0ff9f7bb162a6a
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\sys_tasks.h
