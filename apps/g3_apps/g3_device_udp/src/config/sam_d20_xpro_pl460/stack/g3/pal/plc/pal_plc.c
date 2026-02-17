@@ -242,14 +242,14 @@ static void lPAL_PLC_UpdateMibBackupInfo(MAC_RT_PIB pib, uint8_t *pValue)
             palPlcData.mibInitData.txHighPriority = (bool)value8;
             break;
 
-        /* MISRA C-2012 deviation block start */
-        /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+        /* MISRA C-2023 deviation block start */
+        /* MISRA C-2023 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
         case MAC_RT_PIB_GET_SET_ALL_MIB:
             palPlcData.mibInitData = *(MAC_RT_MIB_INIT_OBJ *)pValue;
             break;
 
-        /* MISRA C-2012 deviation block start */
-        /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+        /* MISRA C-2023 deviation block start */
+        /* MISRA C-2023 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_16_4_DR_1 */
 
         default:
             break;
@@ -267,7 +267,7 @@ static void lPAL_PLC_SetInitialConfiguration ( void )
     DRV_G3_MACRT_SetBand(palPlcData.drvG3MacRtHandle, plcBand);
 
     /* Apply PLC coupling configuration */
-    (void) SRV_PCOUP_Set_Config(palPlcData.drvG3MacRtHandle, plcBand);
+    (void) SRV_PCOUP_Set_Config(palPlcData.drvG3MacRtHandle, (uint8_t)plcBand);
 }
 
 // *****************************************************************************
@@ -380,8 +380,8 @@ static void lPAL_PLC_InitCallback(bool initResult)
 // *****************************************************************************
 // *****************************************************************************
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 11.3 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 11.3 deviated twice. Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
 
 SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
         const SYS_MODULE_INIT * const init)
@@ -413,7 +413,7 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
     palPlcData.waitingTxCfm = false;
 
     /* Manage G3-PLC Band */
-    if (SRV_PCOUP_Get_Config(palPlcData.plcBand) == NULL)
+    if (SRV_PCOUP_Get_Config((uint8_t)palPlcData.plcBand) == NULL)
     {
         /* Band not supported by PLC Coupling */
         return SYS_MODULE_OBJ_INVALID;
@@ -443,7 +443,7 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(const SYS_MODULE_INDEX index,
     }
 }
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 PAL_PLC_HANDLE PAL_PLC_HandleGet(const SYS_MODULE_INDEX index)
 {
@@ -525,8 +525,8 @@ void PAL_PLC_Reset(PAL_PLC_HANDLE handle, bool resetMib)
 
     PAL_PLC_Deinitialize(PAL_PLC_PHY_INDEX);
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 11.3 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.3 deviated twice. Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
 
     (void) PAL_PLC_Initialize(PAL_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&palInit);
 

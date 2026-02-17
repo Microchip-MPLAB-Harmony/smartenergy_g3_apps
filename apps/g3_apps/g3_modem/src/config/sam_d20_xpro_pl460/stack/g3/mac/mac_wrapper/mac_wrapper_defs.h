@@ -554,8 +554,8 @@ typedef struct
     bool valid;
 } MAC_WRP_SECURITY_KEY;
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.2 deviated 41 times.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.2 deviated 41 times.  Deviation record ID - H3_MISRAC_2023_R_5_2_DR_1 */
 
 // *****************************************************************************
 /* MAC Wrapper Parameter Information Base definition
@@ -1022,7 +1022,7 @@ typedef enum
     MAC_WRP_RF_PHY_PARAM_TX_OFDM_MCS = 0x8001,
 } MAC_WRP_PHY_PARAM_RF;
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // *****************************************************************************
 /* MAC Wrapper PIB Value definition
@@ -1064,8 +1064,8 @@ typedef struct
     uint8_t txCoef[6];
 } MAC_WRP_TX_COEF;
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 6.1 deviated 5 times.  Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 6.1 deviated 5 times.  Deviation record ID - H3_MISRAC_2023_R_6_1_DR_1 */
 
 // *****************************************************************************
 /* MAC Wrapper PLC Neighbour Table Entry definition
@@ -1094,7 +1094,7 @@ typedef struct __attribute__((packed))
     uint16_t tmrValidTime;
 } MAC_WRP_NEIGHBOUR_ENTRY;
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // *****************************************************************************
 /* MAC Wrapper PLC POS Table Entry definition

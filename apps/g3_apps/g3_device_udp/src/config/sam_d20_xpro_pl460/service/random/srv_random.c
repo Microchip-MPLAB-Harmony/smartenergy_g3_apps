@@ -53,6 +53,33 @@ Microchip or any third party.
 #include "crypto/common_crypto/crypto_rng.h"
 #include "srv_random.h"
 
+/* Linear Congruential Random Generator Implementation */
+/* MISRA C does not allow the usage of standard C rand() function */
+
+// Linear Congruential Generator parameters (32-bit)
+#define LCG_A 1664525UL
+#define LCG_C 1013904223UL
+
+// Next random number container
+static uint32_t nextRand = 1UL; // Default value
+
+// Seed the generator
+static void lcgSrand(uint32_t lcgSeed)
+{
+    if (lcgSeed == 0UL)
+    {
+        lcgSeed = 1UL; // Avoid zero seed to prevent constant output
+    }
+    nextRand = lcgSeed;
+}
+
+// Generate next pseudo-random number
+static uint32_t lcgRand(void)
+{
+    nextRand = (LCG_A * nextRand + LCG_C) & 0xFFFFFFFF;
+    return nextRand;
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Random Service Interface Implementation
@@ -78,8 +105,8 @@ uint8_t SRV_RANDOM_Get8bits(void)
     else
     {
         seed = SYS_TIME_CounterGet();
-        srand(seed);
-        retValue = (uint8_t)rand();
+        lcgSrand(seed);
+        retValue = (uint8_t)lcgRand();
     }
 
     return retValue;
@@ -104,8 +131,8 @@ uint16_t SRV_RANDOM_Get16bits(void)
     else
     {
         seed = SYS_TIME_CounterGet();
-        srand(seed);
-        retValue = (uint16_t)rand();
+        lcgSrand(seed);
+        retValue = (uint16_t)lcgRand();
     }
 
     return retValue;
@@ -144,8 +171,8 @@ uint32_t SRV_RANDOM_Get32bits(void)
     else
     {
         seed = SYS_TIME_CounterGet();
-        srand(seed);
-        retValue = (uint32_t)rand();
+        lcgSrand(seed);
+        retValue = (uint32_t)lcgRand();
     }
 
     return retValue;
@@ -178,11 +205,11 @@ void SRV_RANDOM_Get128bits(uint8_t *rndValue)
     if (status != CRYPTO_RNG_SUCCESS)
     {
         seed = SYS_TIME_CounterGet();
-        srand(seed);
+        lcgSrand(seed);
 
         for (n = 0; n < 4U; n ++)
         {
-            randNum = (uint32_t)rand();
+            randNum = (uint32_t)lcgRand();
 
             *rndValue++ = (uint8_t)(randNum >> 24);
             *rndValue++ = (uint8_t)(randNum >> 16);

@@ -72,9 +72,9 @@
 /* MISRA C-2023 Rule 11.3 - Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
 /* MISRA C-2023 Rule 11.8 - Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
-/* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_8_4_DR_1 */
+/* MISRA C-2023 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2023_R_21_2_DR_1 */
 
 /* This routine must initialize the PL460 control pins as soon as possible */
 /* after a power up reset to avoid risks on starting up PL460 device when */
@@ -92,7 +92,7 @@ void _on_reset(void)
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
 }
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // </editor-fold>
 
@@ -170,8 +170,8 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
 // <editor-fold defaultstate="collapsed" desc="DRV_G3_MACRT Initialization Data">
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_8_4_DR_1 */
 
 /* G3 MAC RT Driver Initialization Data */
 DRV_G3_MACRT_INIT drvG3MacRtInitData = {
@@ -181,16 +181,16 @@ DRV_G3_MACRT_INIT drvG3MacRtInitData = {
 
     /* PLC MAC RT Binary start address */
     .binStartAddress = (uint32_t)&g3_mac_rt_bin_start,
-    
+
     /* PLC MAC RT Binary end address */
     .binEndAddress = (uint32_t)&g3_mac_rt_bin_end,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
-    
+
 };
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_RF215 Initialization Data">
@@ -537,9 +537,9 @@ void SYS_Initialize ( void* data )
 
 
 
+    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
-    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  

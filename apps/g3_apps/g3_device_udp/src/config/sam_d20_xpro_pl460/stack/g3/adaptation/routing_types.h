@@ -182,8 +182,8 @@ typedef void (*ROUTING_WRP_DISCOVER_ROUTE_CALLBACK)(uint8_t status,
 typedef void (*ROUTING_WRP_DISCOVER_PATH_CALLBACK)(uint8_t status,
     ADP_PATH_DESCRIPTOR *pPathDescriptor);
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 6.1 deviated 8 times.  Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 6.1 deviated 8 times.  Deviation record ID - H3_MISRAC_2023_R_6_1_DR_1 */
 
 // *****************************************************************************
 /* Routing Table Entry Definition
@@ -221,7 +221,7 @@ typedef struct
 
 } ROUTING_TABLE_ENTRY;
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // *****************************************************************************
 /* Routing Blacklist Table Entry Definition

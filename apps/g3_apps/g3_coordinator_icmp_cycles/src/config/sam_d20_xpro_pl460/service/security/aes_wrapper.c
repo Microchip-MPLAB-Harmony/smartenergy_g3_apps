@@ -65,9 +65,10 @@ static st_Crypto_Sym_BlockCtx aesWrapperContext;
 
 void AES_Wrapper_SetEncryptEcbKey(uint8_t *key)
 {
-    (void) Crypto_Sym_Aes_Init(&aesWrapperContext, CRYPTO_HANDLER_SW_WOLFCRYPT,
-            CRYPTO_CIOP_ENCRYPT, CRYPTO_SYM_OPMODE_ECB,
-            key, (uint32_t)(CRYPTO_AESKEYSIZE_128), NULL, 1);
+        (void) Crypto_Sym_Aes_Init(&aesWrapperContext, CRYPTO_HANDLER_SW_WOLFCRYPT,
+                CRYPTO_CIOP_ENCRYPT, CRYPTO_SYM_OPMODE_ECB,
+                key, (uint32_t)(CRYPTO_AESKEYSIZE_128), NULL, 1);
+
 }
 
 void AES_Wrapper_EncryptEcb(uint8_t *in, uint8_t *out)

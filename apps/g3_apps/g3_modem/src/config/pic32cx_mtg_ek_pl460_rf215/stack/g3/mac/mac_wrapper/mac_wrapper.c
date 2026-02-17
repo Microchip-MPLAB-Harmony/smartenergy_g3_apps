@@ -554,7 +554,7 @@ static void lMAC_WRP_StringifyMsgStatus(MAC_WRP_SERIAL_STATUS status, MAC_WRP_SE
     serialRspBuffer[serialRspLen++] = (uint8_t) command;
 
     /* Send through USI */
-    SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
 }
 
 static void lMAC_WRP_StringifyDataConfirm(MAC_WRP_DATA_CONFIRM_PARAMS* dcParams)
@@ -572,7 +572,7 @@ static void lMAC_WRP_StringifyDataConfirm(MAC_WRP_DATA_CONFIRM_PARAMS* dcParams)
     serialRspBuffer[serialRspLen++] = (uint8_t) dcParams->mediaType;
 
     /* Send through USI */
-    SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
 }
 
 static void lMAC_WRP_StringifyDataIndication(MAC_WRP_DATA_INDICATION_PARAMS* diParams)
@@ -656,7 +656,7 @@ static void lMAC_WRP_StringifyDataIndication(MAC_WRP_DATA_INDICATION_PARAMS* diP
     serialRspLen += diParams->msduLength;
 
     /* Send through USI */
-    SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
 }
 
 static void lMAC_WRP_StringifySnifferIndication(MAC_WRP_SNIFFER_INDICATION_PARAMS* siParams)
@@ -741,7 +741,7 @@ static void lMAC_WRP_StringifySnifferIndication(MAC_WRP_SNIFFER_INDICATION_PARAM
     serialRspLen += siParams->msduLength;
 
     /* Send through USI */
-    SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
 }
 
 static void lMAC_WRP_StringifyResetConfirm(MAC_WRP_RESET_CONFIRM_PARAMS* rcParams)
@@ -753,7 +753,7 @@ static void lMAC_WRP_StringifyResetConfirm(MAC_WRP_RESET_CONFIRM_PARAMS* rcParam
     serialRspBuffer[serialRspLen++] = (uint8_t) rcParams->status;
 
     /* Send through USI */
-    SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
 }
 
 static void lMAC_WRP_StringifyBeaconNotIndication(MAC_WRP_BEACON_NOTIFY_INDICATION_PARAMS* bniParams)
@@ -772,7 +772,7 @@ static void lMAC_WRP_StringifyBeaconNotIndication(MAC_WRP_BEACON_NOTIFY_INDICATI
     serialRspBuffer[serialRspLen++] = (uint8_t) bniParams->panDescriptor.mediaType;
 
     /* Send through USI */
-    SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
 }
 
 static void lMAC_WRP_StringifyScanConfirm(MAC_WRP_SCAN_CONFIRM_PARAMS* scParams)
@@ -784,7 +784,7 @@ static void lMAC_WRP_StringifyScanConfirm(MAC_WRP_SCAN_CONFIRM_PARAMS* scParams)
     serialRspBuffer[serialRspLen++] = (uint8_t) scParams->status;
 
     /* Send through USI */
-    SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
 }
 
 static void lMAC_WRP_StringifyStartConfirm(MAC_WRP_START_CONFIRM_PARAMS* scParams)
@@ -796,7 +796,7 @@ static void lMAC_WRP_StringifyStartConfirm(MAC_WRP_START_CONFIRM_PARAMS* scParam
     serialRspBuffer[serialRspLen++] = (uint8_t) scParams->status;
 
     /* Send through USI */
-    SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
 }
 
 static void lMAC_WRP_StringifyCommStatusIndication(MAC_WRP_COMM_STATUS_INDICATION_PARAMS* csiParams)
@@ -854,7 +854,7 @@ static void lMAC_WRP_StringifyCommStatusIndication(MAC_WRP_COMM_STATUS_INDICATIO
     serialRspBuffer[serialRspLen++] = (uint8_t)csiParams->mediaType;
 
     /* Send through USI */
-    SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
 }
 
 static MAC_WRP_SERIAL_STATUS lMAC_WRP_ParseInitialize(uint8_t* pData)
@@ -966,7 +966,7 @@ static MAC_WRP_SERIAL_STATUS lMAC_WRP_ParseGetRequest(uint8_t* pData)
             getStatus, pibAttr, index, pibValue.value, pibValue.length);
 
     /* Send get confirm through USI */
-    SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
 
     return MAC_WRP_SERIAL_STATUS_SUCCESS;
 }
@@ -995,7 +995,7 @@ static MAC_WRP_SERIAL_STATUS lMAC_WRP_ParseSetRequest(uint8_t* pData)
             setStatus, attribute, index);
 
     /* Send set confirm through USI */
-    SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(macWrpData.usiHandle, SRV_USI_PROT_ID_MAC_G3, serialRspBuffer, serialRspLen);
 
     return MAC_WRP_SERIAL_STATUS_SUCCESS;
 }
@@ -2354,8 +2354,8 @@ uint32_t MAC_WRP_SerialParseGetRequest(uint8_t* pData, uint16_t* index)
     return attribute;
 }
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 16.4 deviated 6 times. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 16.4 deviated 6 times. Deviation record ID - H3_MISRAC_2023_R_16_4_DR_1 */
 
 uint8_t MAC_WRP_SerialStringifyGetConfirm (
     uint8_t *serialData,
@@ -3197,7 +3197,7 @@ MAC_WRP_PIB_ATTRIBUTE MAC_WRP_SerialParseSetRequest (
     return attribute;
 }
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 uint8_t MAC_WRP_SerialStringifySetConfirm (
     uint8_t *serialData,

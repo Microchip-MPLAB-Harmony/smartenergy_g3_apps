@@ -912,8 +912,8 @@ typedef struct
 */
 typedef void (*ADP_NETWORK_STATUS_IND_CALLBACK)(ADP_NETWORK_STATUS_IND_PARAMS* pNetworkStatusInd);
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 6.1 deviated 4 times.  Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 6.1 deviated 4 times.  Deviation record ID - H3_MISRAC_2023_R_6_1_DR_1 */
 
 // *****************************************************************************
 /* ADP Buffer Indication Parameters
@@ -954,7 +954,7 @@ typedef union
 
 } ADP_BUFFER_IND_PARAMS;
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // *****************************************************************************
 /* ADP Buffer Indication Event Handler Function Pointer

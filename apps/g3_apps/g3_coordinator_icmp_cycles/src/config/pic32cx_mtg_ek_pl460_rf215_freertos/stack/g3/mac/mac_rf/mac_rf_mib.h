@@ -79,8 +79,8 @@ Microchip or any third party.
 #define MAC_PIB_DUTY_CYCLE_LIMIT_RF_MIN_VALUE                1
 #define MAC_PIB_DUTY_CYCLE_THRESHOLD_RF_MIN_VALUE            1
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.4 deviated once.  Deviation record ID - H3_MISRAC_2012_R_5_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.4 deviated once.  Deviation record ID - H3_MISRAC_2023_R_5_4_DR_1 */
 
 #define MAC_PIB_MANUF_ACK_TX_DELAY_RF_MIN_VALUE              1000 // us
 #define MAC_PIB_MANUF_ACK_TX_DELAY_RF_MAX_VALUE              9000 // us
@@ -88,7 +88,7 @@ Microchip or any third party.
 #define MAC_PIB_MANUF_ACK_CONFIRM_WAIT_TIME_RF_MIN_VALUE     20000 // us
 #define MAC_PIB_MANUF_DATA_CONFIRM_WAIT_TIME_RF_MIN_VALUE    85000 // us
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // *****************************************************************************
 // *****************************************************************************
@@ -246,9 +246,9 @@ typedef struct
     uint8_t trickleMinLQIRF;
 } MAC_RF_MIB;
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.2 deviated 17 times.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
-/* MISRA C-2012 Rule 5.5 deviated 4 times.  Deviation record ID - H3_MISRAC_2012_R_5_5_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.2 deviated 17 times.  Deviation record ID - H3_MISRAC_2023_R_5_2_DR_1 */
+/* MISRA C-2023 Rule 5.5 deviated 4 times.  Deviation record ID - H3_MISRAC_2023_R_5_5_DR_1 */
 
 // *****************************************************************************
 /* MAC RF Parameter Information Base definition
@@ -375,7 +375,7 @@ typedef enum
     MAC_PIB_MANUF_PHY_PARAM_RF = 0x08000220
 } MAC_RF_PIB_ATTRIBUTE;
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

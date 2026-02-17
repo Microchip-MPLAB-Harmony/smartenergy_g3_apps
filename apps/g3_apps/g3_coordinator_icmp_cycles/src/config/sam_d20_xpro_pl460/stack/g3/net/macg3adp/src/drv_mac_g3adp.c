@@ -69,7 +69,7 @@ Microchip or any third party.
 #else
     .MAC_Deinitialize                       = NULL,
     .MAC_Reinitialize                       = NULL,
-#endif  // (TCPIP_STACK_DOWN_OPERATION != 0)
+#endif  // (TCPIP_STACK_MAC_DOWN_OPERATION != 0)
     .MAC_Status                             = DRV_G3ADP_MAC_Status,
     .MAC_Tasks                              = DRV_G3ADP_MAC_Tasks,
     .MAC_Open                               = DRV_G3ADP_MAC_Open,
@@ -213,10 +213,10 @@ static void lDRV_G3ADP_MAC_PutFreeQueueData(DRV_G3ADP_MAC_QUEUE_DATA *dataPool,
 
 static void lDRV_G3ADP_MAC_RxMacFreePacket(TCPIP_MAC_PACKET * pMacPacket, const void * param)
 {
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
     DRV_G3ADP_MAC_DRIVER * pMacDrv = (DRV_G3ADP_MAC_DRIVER *) param;
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 
     if ((pMacPacket != NULL) &&  (pMacPacket->pDSeg != NULL)
             &&  ((pMacPacket->pDSeg->segFlags & (uint16_t)TCPIP_MAC_SEG_FLAG_ACK_REQUIRED) != 0U))

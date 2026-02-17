@@ -60,8 +60,8 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.2 deviated 6 times.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.2 deviated 6 times.  Deviation record ID - H3_MISRAC_2023_R_5_2_DR_1 */
 
 typedef enum
 {
@@ -124,7 +124,7 @@ typedef enum
 
 } ADP_SERIAL_MSG_ID;
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 typedef enum
 {
@@ -219,7 +219,7 @@ static void lADP_SER_StringifyMsgStatus(ADP_SERIAL_STATUS status, ADP_SERIAL_MSG
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) command;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyBufferIndication(ADP_BUFFER_IND_PARAMS* bufferInd)
@@ -231,7 +231,7 @@ static void lADP_SER_StringifyBufferIndication(ADP_BUFFER_IND_PARAMS* bufferInd)
     adpSerialRspBuffer[serialRspLen++] = bufferInd->bufferIndicationBitmap;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyPreqIndication(void)
@@ -242,7 +242,7 @@ static void lADP_SER_StringifyPreqIndication(void)
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_PREQ_INDICATION;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StoreNonVolatileDataIndication(ADP_NON_VOLATILE_DATA_IND_PARAMS* pNonVolatileDataInd)
@@ -279,7 +279,7 @@ static void lADP_SER_StringifyRouteNotFoundIndication(ADP_ROUTE_NOT_FOUND_IND_PA
     serialRspLen += pRouteNotFoundInd->nsduLength;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyDataConfirm(ADP_DATA_CFM_PARAMS* pDataCfm)
@@ -292,7 +292,7 @@ static void lADP_SER_StringifyDataConfirm(ADP_DATA_CFM_PARAMS* pDataCfm)
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pDataCfm->nsduHandle;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyDataIndication(ADP_DATA_IND_PARAMS* pDataInd)
@@ -308,7 +308,7 @@ static void lADP_SER_StringifyDataIndication(ADP_DATA_IND_PARAMS* pDataInd)
     serialRspLen += pDataInd->nsduLength;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyNetworkStatusIndication(ADP_NETWORK_STATUS_IND_PARAMS* pNetworkStatusInd)
@@ -353,7 +353,7 @@ static void lADP_SER_StringifyNetworkStatusIndication(ADP_NETWORK_STATUS_IND_PAR
     adpSerialRspBuffer[serialRspLen++] = pNetworkStatusInd->mediaType;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyDiscoveryConfirm(uint8_t status)
@@ -365,7 +365,7 @@ static void lADP_SER_StringifyDiscoveryConfirm(uint8_t status)
     adpSerialRspBuffer[serialRspLen++] = status;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyDiscoveryIndication(ADP_PAN_DESCRIPTOR* pPanDescriptor)
@@ -384,7 +384,7 @@ static void lADP_SER_StringifyDiscoveryIndication(ADP_PAN_DESCRIPTOR* pPanDescri
     adpSerialRspBuffer[serialRspLen++] = pPanDescriptor->mediaType;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyNetworkStartConfirm(uint8_t status)
@@ -396,7 +396,7 @@ static void lADP_SER_StringifyNetworkStartConfirm(uint8_t status)
     adpSerialRspBuffer[serialRspLen++] = status;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyNetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS* pNetworkJoinCfm)
@@ -412,7 +412,7 @@ static void lADP_SER_StringifyNetworkJoinConfirm(LBP_ADP_NETWORK_JOIN_CFM_PARAMS
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pNetworkJoinCfm->panId;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyNetworkLeaveIndication(void)
@@ -423,7 +423,7 @@ static void lADP_SER_StringifyNetworkLeaveIndication(void)
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) ADP_SERIAL_MSG_ADP_NETWORK_LEAVE_INDICATION;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyNetworkLeaveConfirm(uint8_t status)
@@ -435,7 +435,7 @@ static void lADP_SER_StringifyNetworkLeaveConfirm(uint8_t status)
     adpSerialRspBuffer[serialRspLen++] = status;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyResetConfirm(uint8_t status)
@@ -447,7 +447,7 @@ static void lADP_SER_StringifyResetConfirm(uint8_t status)
     adpSerialRspBuffer[serialRspLen++] = status;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifySetConfirm(ADP_SET_CFM_PARAMS* pSetCfm)
@@ -465,7 +465,7 @@ static void lADP_SER_StringifySetConfirm(ADP_SET_CFM_PARAMS* pSetCfm)
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) pSetCfm->attributeIndex;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
@@ -694,18 +694,18 @@ static void lADP_SER_StringifyGetConfirm(ADP_GET_CFM_PARAMS* pGetCfm)
                 /* TODO */
                 break;
 
-            /* MISRA C-2012 deviation block start */
-            /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+            /* MISRA C-2023 deviation block start */
+            /* MISRA C-2023 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_16_4_DR_1 */
 
             default:
                 break;
 
-            /* MISRA C-2012 deviation block end */
+            /* MISRA C-2023 deviation block end */
         }
     }
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyRouteDiscoveryConfirm(uint8_t status)
@@ -717,7 +717,7 @@ static void lADP_SER_StringifyRouteDiscoveryConfirm(uint8_t status)
     adpSerialRspBuffer[serialRspLen++] = status;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyPathDiscoveryConfirm(ADP_PATH_DISCOVERY_CFM_PARAMS* pPathDiscoveryCfm)
@@ -759,7 +759,7 @@ static void lADP_SER_StringifyPathDiscoveryConfirm(ADP_PATH_DISCOVERY_CFM_PARAMS
     }
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyLbpCoordJoinRequestIndication(uint8_t* pLbdAddress)
@@ -772,7 +772,7 @@ static void lADP_SER_StringifyLbpCoordJoinRequestIndication(uint8_t* pLbdAddress
     serialRspLen += 8U;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyLbpCoordJoinCompleteIndication(uint8_t* pLbdAddress, uint16_t assignedAddress)
@@ -787,7 +787,7 @@ static void lADP_SER_StringifyLbpCoordJoinCompleteIndication(uint8_t* pLbdAddres
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) assignedAddress;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static void lADP_SER_StringifyLbpCoordLeaveIndication(uint16_t networkAddress)
@@ -800,7 +800,7 @@ static void lADP_SER_StringifyLbpCoordLeaveIndication(uint16_t networkAddress)
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) networkAddress;
 
     /* Send through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 }
 
 static ADP_SERIAL_STATUS lADP_SER_ParseInitialize(uint8_t* pData)
@@ -1208,13 +1208,13 @@ static ADP_SERIAL_STATUS lADP_SER_ParseSetRequest(uint8_t* pData)
             /* TODO */
             break;
 
-        /* MISRA C-2012 deviation block start */
-        /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+        /* MISRA C-2023 deviation block start */
+        /* MISRA C-2023 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_16_4_DR_1 */
 
         default:
             break;
 
-        /* MISRA C-2012 deviation block end */
+        /* MISRA C-2023 deviation block end */
     }
 
     /* Send set request to ADP */
@@ -1293,7 +1293,7 @@ static ADP_SERIAL_STATUS lADP_SER_ParseMacSetRequest(uint8_t* pData)
             setStatus, attributeId, attributeIndex);
 
     /* Send set confirm through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 
     return ADP_SERIAL_STATUS_SUCCESS;
 }
@@ -1331,7 +1331,7 @@ static ADP_SERIAL_STATUS lADP_SER_ParseMacGetRequest(uint8_t* pData)
             getStatus, macAttribute, attributeIndex, pibValue, pibLength);
 
     /* Send get confirm through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 
     return ADP_SERIAL_STATUS_SUCCESS;
 }
@@ -1399,13 +1399,13 @@ static ADP_SERIAL_STATUS lADP_SER_ParseLbpSetRequest(uint8_t* pData)
             (void) memcpy(attributeValue, pData, attributeLength);
             break;
 
-        /* MISRA C-2012 deviation block start */
-        /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+        /* MISRA C-2023 deviation block start */
+        /* MISRA C-2023 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_16_4_DR_1 */
 
         default:
             break;
 
-        /* MISRA C-2012 deviation block end */
+        /* MISRA C-2023 deviation block end */
     }
 
     /* Set LBP paramter */
@@ -1429,7 +1429,7 @@ static ADP_SERIAL_STATUS lADP_SER_ParseLbpSetRequest(uint8_t* pData)
     adpSerialRspBuffer[serialRspLen++] = (uint8_t) attributeIndex;
 
     /* Send get confirm through USI */
-    SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
+    (void)SRV_USI_Send_Message(adpSerialUsiHandle, SRV_USI_PROT_ID_ADP_G3, adpSerialRspBuffer, serialRspLen);
 
     return ADP_SERIAL_STATUS_SUCCESS;
 }

@@ -839,8 +839,8 @@ static void lLBP_AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
 
     SRV_LOG_REPORT_Message(SRV_LOG_REPORT_DEBUG, "LBPIndication_Notify(): LbaAddr: 0x%04X NsduLength: %hu.\r\n",origAddress, pLbpIndication->nsduLength);
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
 
     msgType = pLbpIndication->pNsdu[0] >> 4;
     mediaType = (pLbpIndication->pNsdu[0] & 0x08U) >> 3;
@@ -848,7 +848,7 @@ static void lLBP_AdpLbpIndicationCoord(ADP_LBP_IND_PARAMS *pLbpIndication)
     pLbpData = (uint8_t *)&pLbpIndication->pNsdu[10];
     lbpDataLength = pLbpIndication->nsduLength - 10U;
 
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 
     (void) memcpy(currentLbdAddress.value, &pLbpIndication->pNsdu[2], ADP_ADDRESS_64BITS);
 
@@ -1182,8 +1182,8 @@ void LBP_SetParamCoord(uint32_t attributeId, uint16_t attributeIndex,
 
         break;
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
 
     case LBP_IB_GMK:
         if (attributeLen == 16U)
@@ -1197,7 +1197,7 @@ void LBP_SetParamCoord(uint32_t attributeId, uint16_t attributeIndex,
 
         break;
 
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 
     case LBP_IB_REKEY_GMK:
         if (attributeLen == 16U)

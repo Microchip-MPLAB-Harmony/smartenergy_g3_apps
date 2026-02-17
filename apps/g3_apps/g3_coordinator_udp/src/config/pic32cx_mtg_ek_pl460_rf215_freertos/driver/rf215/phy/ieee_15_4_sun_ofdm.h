@@ -432,8 +432,8 @@ Microchip or any third party.
 
 /******************* Frequency band 902-907.5 & 915-928 MHz *******************/
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.4 deviated 3 times.  Deviation record ID - H3_MISRAC_2012_R_5_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.4 deviated 3 times.  Deviation record ID - H3_MISRAC_2023_R_5_4_DR_1 */
 
 /* OFDM Bandwidth Option 4 */
 #define SUN_OFDM_BAND_902_907_915_928_OPT4              (DRV_RF215_PHY_CFG_OBJ) \
@@ -507,7 +507,7 @@ Microchip or any third party.
         .ccaEdThresholdDBm = SUN_OFDM_OPT1_CCA_THRESHOLD, \
     }
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 /************************* Frequency band 915-928 MHz *************************/
 

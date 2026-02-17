@@ -506,8 +506,8 @@ typedef enum
 
 } DRV_RF215_TX_RESULT;
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.2 deviated once. Deviation record ID - H3_MISRAC_2023_R_5_2_DR_1 */
 
 // *****************************************************************************
 /* RF215 Driver PIB Attributes
@@ -666,7 +666,7 @@ typedef enum
 
 } DRV_RF215_PIB_ATTRIBUTE;
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // *****************************************************************************
 /* RF215 Driver PIB Results

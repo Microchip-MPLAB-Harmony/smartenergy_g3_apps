@@ -125,7 +125,7 @@ static bool lDRV_G3_MACRT_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
     {
         /* Firmware is uploaded 2 times as maximum */
         gG3MacRtObj->consecutiveSpiErrors++;
-        if (gG3MacRtObj->consecutiveSpiErrors <= 2)
+        if (gG3MacRtObj->consecutiveSpiErrors <= 2U)
         {
             /* Update Driver Status */
             gG3MacRtObj->state = DRV_G3_MACRT_STATE_BUSY;
@@ -299,10 +299,10 @@ void DRV_G3_MACRT_Task(void)
         }
         else
         {
-            /* MISRA C-2012 deviation block start */
-            /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+            /* MISRA C-2023 deviation block start */
+            /* MISRA C-2023 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
             pTxCfmObj = (MAC_RT_TX_CFM_OBJ *)gG3TxConfirm;
-            /* MISRA C-2012 deviation block end */
+            /* MISRA C-2023 deviation block end */
         }
 
         /* Report to upper layer */
@@ -323,10 +323,10 @@ void DRV_G3_MACRT_Task(void)
         /* Report to upper layer */
         if (gG3MacRtObj->rxParamsIndCallback != NULL)
         {
-            /* MISRA C-2012 deviation block start */
-            /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+            /* MISRA C-2023 deviation block start */
+            /* MISRA C-2023 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
             gG3MacRtObj->rxParamsIndCallback((MAC_RT_RX_PARAMETERS_OBJ *)gG3RxParameters[0]);
-            /* MISRA C-2012 deviation block end */
+            /* MISRA C-2023 deviation block end */
         }
     }
     else
@@ -339,10 +339,10 @@ void DRV_G3_MACRT_Task(void)
             /* Report to upper layer */
             if (gG3MacRtObj->rxParamsIndCallback != NULL)
             {
-                /* MISRA C-2012 deviation block start */
-                /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+                /* MISRA C-2023 deviation block start */
+                /* MISRA C-2023 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
                 gG3MacRtObj->rxParamsIndCallback((MAC_RT_RX_PARAMETERS_OBJ *)gG3RxParameters[1]);
-                /* MISRA C-2012 deviation block end */
+                /* MISRA C-2023 deviation block end */
             }
         }
     }
