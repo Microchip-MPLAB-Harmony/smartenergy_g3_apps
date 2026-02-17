@@ -94,8 +94,8 @@ typedef struct
     bool                    inUse;             // Flag to indicate if the element is being used in a queue
 } DRV_G3ADP_MAC_QUEUE_DATA;
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 6.1 deviated 3 times.  Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 6.1 deviated 3 times.  Deviation record ID - H3_MISRAC_2023_R_6_1_DR_1 */
 
 // *****************************************************************************
 /* G3 ADP MAC driver data.
@@ -139,7 +139,7 @@ typedef struct {
 
 } DRV_G3ADP_MAC_INSTANCE;
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // *****************************************************************************
 /* G3 ADP MAC driver structure.

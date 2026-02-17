@@ -138,7 +138,7 @@ extern const TCPIP_MAC_OBJECT DRV_G3ADP_MACObject;
     <code>
     TCPIP_MAC_INIT macInit =
     {
-        { 0 }, // SYS_MODULE_INIT not currently used
+        { 0 },
         &macCtrl,
         macConfig,
     };
@@ -160,6 +160,7 @@ extern const TCPIP_MAC_OBJECT DRV_G3ADP_MACObject;
 */
 SYS_MODULE_OBJ DRV_G3ADP_MAC_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE_INIT * const init);
 
+#if (TCPIP_STACK_MAC_DOWN_OPERATION != 0)
 // *****************************************************************************
 /* Function:
     void DRV_G3ADP_MAC_Deinitialize(SYS_MODULE_OBJ object);
@@ -193,6 +194,7 @@ SYS_MODULE_OBJ DRV_G3ADP_MAC_Initialize(const SYS_MODULE_INDEX index, const SYS_
 
 */
 void DRV_G3ADP_MAC_Deinitialize(SYS_MODULE_OBJ object);
+#endif  // (TCPIP_STACK_MAC_DOWN_OPERATION != 0)
 
 // *****************************************************************************
 /* Function:
@@ -223,12 +225,12 @@ void DRV_G3ADP_MAC_Deinitialize(SYS_MODULE_OBJ object);
     <code>
     SYS_STATUS macStat = DRV_G3ADP_MAC_Status(pNetIf->macObjHandle);
     if(macStat < 0)
-    {   // failed; kill the interface
+    {
         TCPIP_STACK_BringNetDown(&tcpip_stack_ctrl_data, pNetIf, TCPIP_STACK_ACTION_IF_DOWN, TCPIP_MAC_POWER_DOWN);
         pNetIf->Flags.bMacInitDone = true;
     }
     else if(macStat == SYS_STATUS_READY)
-    {   // get the MAC address and MAC processing flags
+    {
         ...
     }
     </code>
@@ -262,7 +264,6 @@ SYS_STATUS DRV_G3ADP_MAC_Status ( SYS_MODULE_OBJ object );
     <code>
     if(pNetIf->macObjHandle != 0)
     {
-        // process the underlying MAC module tasks
         DRV_G3ADP_MAC_Tasks(pNetIf->macObjHandle);
     }
     </code>
@@ -475,7 +476,6 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_RxFilterHashTableEntrySet(DRV_HANDLE hMac, const TCP
     TCPIP_MAC_RES res;
     TCPIP_MAC_PACKET * ptrPacket;
 
-    // The content of the packet must be built accordingly to TCPIP_MAC_PACKET
     if(pNetIf->hIfMac != 0)
     {
         res = DRV_G3ADP_MAC_PacketTx(pNetIf->hIfMac, ptrPacket);
@@ -533,10 +533,9 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_PacketTx(DRV_HANDLE hMac, TCPIP_MAC_PACKET * ptrPack
 <code>
     TCPIP_MAC_PACKET* pRxPkt;
 
-    // get all the new MAC packets
     while((pRxPkt = DRV_G3ADP_MAC_PacketRx(pNetIf->hIfMac, 0, 0)) != 0)
     {
-        // process or queue RX packet
+        ...
     }
 </code>
 
@@ -590,7 +589,7 @@ TCPIP_MAC_PACKET* DRV_G3ADP_MAC_PacketRx (DRV_HANDLE hMac, TCPIP_MAC_RES* pRes, 
   Example:
     <code>
     if(pNetIf->Flags.bMacProcessOnEvent != 0)
-    {   // MAC internal processing
+    {
         DRV_G3ADP_MAC_Process(pNetIf->hIfMac);
     }
     </code>
@@ -672,8 +671,7 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_StatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_RX_STATISTI
     <code>
     SYS_STATUS macStat = DRV_G3ADP_MAC_Status(pNetIf->macObjHandle);
     if(macStat == SYS_STATUS_READY)
-    {   // get the MAC address and MAC processing flags
-        // set the default MTU; MAC driver will override if needed
+    {
         TCPIP_MAC_PARAMETERS macParams = {{{0}}};
 
         macParams.linkMtu = TCPIP_MAC_LINK_MTU_DEFAULT;
@@ -682,7 +680,6 @@ TCPIP_MAC_RES DRV_G3ADP_MAC_StatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_RX_STATISTI
         pNetIf->Flags.bMacProcessOnEvent = macParams.processFlags != TCPIP_MAC_PROCESS_FLAG_NONE;
         pNetIf->linkMtu = macParams.linkMtu;
 
-        // enable the interface
         pNetIf->Flags.bInterfaceEnabled = true;
         pNetIf->Flags.bMacInitialize = false;
         pNetIf->Flags.bMacInitDone = true;
@@ -849,11 +846,10 @@ bool DRV_G3ADP_MAC_EventMaskSet(DRV_HANDLE hMac, TCPIP_MAC_EVENT macEvMask, bool
     <code>
     TCPIP_MAC_EVENT activeEvents;
 
-    // Get Pending events
     activeEvents = DRV_G3ADP_MAC_EventPendingGet(pNetIf->hIfMac);
-    // Process events
+
     (...)
-    // Acknowledge events
+
     DRV_G3ADP_MAC_EventAcknowledge( hMac, activeEvents );
     </code>
 
