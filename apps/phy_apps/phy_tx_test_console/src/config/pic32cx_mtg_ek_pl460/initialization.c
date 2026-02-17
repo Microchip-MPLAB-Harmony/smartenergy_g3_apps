@@ -88,9 +88,9 @@ static const DRV_SST26_INIT drvSST26InitData =
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
-/* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_8_4_DR_1 */
+/* MISRA C-2023 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2023_R_21_2_DR_1 */
 
 /* This routine must initialize the PL460 control pins as soon as possible */
 /* after a power up reset to avoid risks on starting up PL460 device when */
@@ -108,7 +108,7 @@ void _on_reset(void)
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
 }
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // </editor-fold>
 
@@ -186,8 +186,8 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_PHY Initialization Data">
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_8_4_DR_1 */
 
 /* PLC Driver Initialization Data */
 DRV_PLC_PHY_INIT drvPlcPhyInitData = {
@@ -196,20 +196,20 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
     .plcHal = &drvPLCHalAPI,
 
     /* PLC PHY Number of clients */
-    .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,  
+    .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,
 
     /* PLC Binary start address */
     .binStartAddress = (uint32_t)&plc_phy_bin_start,
-    
+
     /* PLC Binary end address */
     .binEndAddress = (uint32_t)&plc_phy_bin_end,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
-    
+
 };
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_MEMORY Instance 0 Initialization Data">

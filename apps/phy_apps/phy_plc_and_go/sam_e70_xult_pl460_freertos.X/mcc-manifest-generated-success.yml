@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: g3_phy_plc_and_go_freertos
-creation_date: 2026-02-04T15:08:51.353+01:00[Europe/Paris]
+creation_date: 2026-02-17T12:32:11.115+01:00[Europe/Paris]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
@@ -23,5 +23,5 @@ modules:
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
 - {name: usb, type: HARMONY, version: v3.16.0}
 - {name: FreeRTOS-Kernel, type: HARMONY, version: V11.1.0}
-- {name: shd, type: HARMONY, version: v1.3.0}
 - {name: smartenergy, type: HARMONY, version: v1.5.0}
+- {name: shd, type: HARMONY, version: v1.3.0}

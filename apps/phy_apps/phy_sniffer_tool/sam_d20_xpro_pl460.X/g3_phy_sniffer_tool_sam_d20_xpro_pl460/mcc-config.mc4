@@ -37,7 +37,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\configuration.h
   hash: 6690b9921bc812bbc8355215d7f8ff0b3d0005a1277f5c697e0d56306b695db0
 - file: ..\src\config\sam_d20_xpro_pl460\definitions.h
-  hash: df628f54c2f84563ae3e32ab6df5e0dee6bfa4586ed1d083ba6a30935dc8d093
+  hash: 10b30af757a009c7281e3b879720852d803eefe1a9474d5f672250235f94303d
 - file: ..\src\config\sam_d20_xpro_pl460\device.h
   hash: 5847311f7358c9120549b11e53650ee68db8c2d886fa1aa8659af1ca42789dac
 - file: ..\src\config\sam_d20_xpro_pl460\device_cache.h
@@ -55,19 +55,19 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\driver\plc\common\drv_plc_hal.c
   hash: c517263ea7f83826e264c3bd70089e8ec3e3657408ab385c5705ba5e51509904
 - file: ..\src\config\sam_d20_xpro_pl460\driver\plc\common\drv_plc_hal.h
-  hash: baf23ecb3dad370f9832321cc89f8a0112e200c136ef702189ab34fb9a87c46c
+  hash: e0d951967dac446975142015f43a81704968bee55b10403aed938662965cb0ec
 - file: ..\src\config\sam_d20_xpro_pl460\driver\plc\phy\bin\PLC_PHY_G3_MULTIBAND.bin
   hash: f6a248a8f053375ef5136b94c878770a217d9c3fd598b87689f02f54431043e2
 - file: ..\src\config\sam_d20_xpro_pl460\driver\plc\phy\bin\plc_phy_bin.S
   hash: 867d439037eef9d114f0c63d1e835fe7d9ce76989123a54040ba6d8f79d36844
 - file: ..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy.c
-  hash: 75003485eced321213d051a7002f9717d9dbecc9c54f912730482d908ee6b6c7
+  hash: 6230d732e65f07a260f4ec3f57dcaeea4851ac438d877ebbe7b6ce705e08d9aa
 - file: ..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy.h
   hash: d3202c0cd60d0f633a8bdc59784eabad8a7afd727088c3a37f37f18bcd09e4af
 - file: ..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_comm.c
   hash: f52132bc7717a030b4324be21d091ac729c85f9814f0eb81babede1c6282533f
 - file: ..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_comm.h
-  hash: 0d57b6a3b488207b56870219853b84847b3f7e1ab9756e78af447787555ef214
+  hash: f5971ad1350008caa7d6237d58c3cdfa64cbaaa9cf49892b2e826a39dca37e80
 - file: ..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_definitions.h
   hash: 2b30947ea00e0e8babc2df79acc018fcac95b9f31e9796fbe050fefbd9259914
 - file: ..\src\config\sam_d20_xpro_pl460\driver\plc\phy\drv_plc_phy_local.h
@@ -77,7 +77,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\exceptions.c
   hash: 4460457d985f664a3dcd5a719dd869dec9348b072e04671de668948ee99faa56
 - file: ..\src\config\sam_d20_xpro_pl460\initialization.c
-  hash: 611496f3b297848d3b406f8045dd1e264512071fae44e971b0f19b0fa6148c91
+  hash: 6ee989e13f086c62abf2c50c540d12c30c9385d2a880688c36169de7041522c2
 - file: ..\src\config\sam_d20_xpro_pl460\interrupts.c
   hash: 7baaf4cfb3b68dce3a714242dfe24ebad3cc154f3777d8e7034666d1b208ebab
 - file: ..\src\config\sam_d20_xpro_pl460\interrupts.h
@@ -147,11 +147,11 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\service\psniffer\srv_psniffer.h
   hash: cba3d6748d4ce20dcdd9cd8eb699f8526ebc4a8aca89ce20b00b4404d0b62134
 - file: ..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi.c
-  hash: 7f5b8d43b56965cccd657790ebf027b1a799e0548d49e7e12d8f6bd2ef74dccf
+  hash: e264c7bdd532feed19bf1814d8e594f01e38debadeed0933ce72ea110cf425f7
 - file: ..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi.h
   hash: 50fbe388350ef30644db606b46c244d423cc4d5c6695fd0058501075ce9e0c84
 - file: ..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_definitions.h
-  hash: 1133126b8cbb855afd42755e92c8831c2aa3a560760282c3e080d92e934ea505
+  hash: 48afe279e3e1636251d7cad9473af84ba060eaca2e4d82c16c07ec293b88d652
 - file: ..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_local.h
   hash: afb81dfb99d2b3a66102822fbbd7639a7765e1ef14b725434b40762b3d3f9f4f
 - file: ..\src\config\sam_d20_xpro_pl460\service\usi\srv_usi_usart.c

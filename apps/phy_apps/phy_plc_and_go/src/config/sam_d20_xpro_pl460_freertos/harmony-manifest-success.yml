@@ -4,7 +4,7 @@
 
 
 project: g3_phy_plc_and_go_freertos
-creation_date: 2026-02-04T15:02:32.729+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2026-02-17T12:29:00.216+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3

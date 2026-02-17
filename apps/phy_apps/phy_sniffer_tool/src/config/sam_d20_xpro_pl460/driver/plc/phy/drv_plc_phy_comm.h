@@ -308,8 +308,8 @@ typedef enum {
   DT_NACK = 3,
 }DRV_PLC_PHY_DEL_TYPE;
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.2 deviated once.  Deviation record ID - H3_MISRAC_2023_R_5_2_DR_1 */
 
 // *****************************************************************************
 /* G3-PLC Result values of a previous transmission
@@ -354,7 +354,7 @@ typedef enum {
   DRV_PLC_PHY_TX_RESULT_NO_TX = 255,
 }DRV_PLC_PHY_TX_RESULT;
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // *****************************************************************************
 /* G3-PLC Tone map response data

@@ -907,8 +907,8 @@ static void lRF215_BBC_WriteRegs(uint8_t trxIdx, RF215_PHY_REGS_OBJ* phyRegsNew)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 18.1 deviated 6 times. Deviation record ID - H3_MISRAC_2012_R_18_1_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 18.1 deviated 6 times. Deviation record ID - H3_MISRAC_2023_R_18_1_DR_1 */
 
     /* Write BBC configuration, depending on PHY type */
     if (pObj->phyConfig.phyType == PHY_TYPE_FSK)
@@ -928,7 +928,7 @@ static void lRF215_BBC_WriteRegs(uint8_t trxIdx, RF215_PHY_REGS_OBJ* phyRegsNew)
                 &phyRegsNew->BBCn_OFDMPHRRX, &pObj->phyRegs.BBCn_OFDMPHRRX, 3);
     }
 
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 }
 
 static inline void lRF215_BBC_SetPhyControl(uint8_t trxIdx, uint8_t pc)
@@ -968,14 +968,14 @@ static inline void lRF215_BBC_SetFBLI(uint8_t trxIdx, uint16_t fbli)
         regsOld->BBCn_FBLIH = regsNew.BBCn_FBLIH + 1U;
     }
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 18.1 deviated twice. Deviation record ID - H3_MISRAC_2012_R_18_1_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 18.1 deviated twice. Deviation record ID - H3_MISRAC_2023_R_18_1_DR_1 */
 
     /* Write up to 2 registers: BBCn_FBLIL, BBCn_FBLIH */
     RF215_HAL_SpiWriteUpdate(RF215_BBCn_FBLIL(trxIdx),
             &regsNew.BBCn_FBLIL, &regsOld->BBCn_FBLIL, 2U);
 
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 }
 
 static inline uint16_t lRF215_BBC_GetBestFBLI (
@@ -2155,24 +2155,24 @@ static void lRF215_PHY_CheckAborts(uint8_t trxIdx, bool reset)
             RF215_PHY_SetTxCfm(pObj->txBufObj, RF215_TX_ABORTED);
             break;
 
-        /* MISRA C-2012 deviation block start */
-        /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+        /* MISRA C-2023 deviation block start */
+        /* MISRA C-2023 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_16_4_DR_1 */
 
         default:
             break;
 
-        /* MISRA C-2012 deviation block end */
+        /* MISRA C-2023 deviation block end */
     }
 }
 
 static inline void lRF215_TRX_Command(uint8_t trxIdx, const uint8_t* pCommand)
 {
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
 
     RF215_HAL_SpiWrite(RF215_RFn_CMD(trxIdx), (void *) pCommand, 1);
 
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 }
 
 static inline void lRF215_TRX_CommandSleep(uint8_t trxIdx)
@@ -2614,10 +2614,10 @@ static inline void lRF215_TRX_ResetEvent(uint8_t trxIdx)
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     RF215_PHY_REGS_OBJ* regsOld = &pObj->phyRegs;
     RF215_PHY_STATE phyState = pObj->phyState;
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
     RF215_REG_VALUES_OBJ* constRegs = (RF215_REG_VALUES_OBJ *) &rf215RegValues;
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 
     if (phyState == PHY_STATE_SLEPT)
     {
@@ -2693,14 +2693,14 @@ static inline void lRF215_TRX_ResetEvent(uint8_t trxIdx)
     lRF215_BBC_Regs(pObj, &regsNew);
     lRF215_TXRXFE_Regs(pObj, &regsNew);
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 18.1 deviated twice. Deviation record ID - H3_MISRAC_2012_R_18_1_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 18.1 deviated twice. Deviation record ID - H3_MISRAC_2023_R_18_1_DR_1 */
 
     /* Write up to 16 registers: RFn_CS to RFn_TXDFE */
     RF215_HAL_SpiWriteUpdate(RF215_RFn_CS(trxIdx),
             &regsNew.RFn_CS, &regsOld->RFn_CS, 16);
 
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 
     /* Adjust CCA duration (minimum is AGC update time) */
     lRF215_RXFE_AdjustEDD(trxIdx);
@@ -2736,8 +2736,8 @@ static inline void lRF215_TRX_ResetEvent(uint8_t trxIdx)
     }
 }
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 17.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_17_2_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 17.2 deviated once. Deviation record ID - H3_MISRAC_2023_R_17_2_DR_1 */
 
 static DRV_RF215_PIB_RESULT lRF215_PHY_SetPhyConfig (
     uint8_t trxIdx,
@@ -2861,14 +2861,14 @@ static DRV_RF215_PIB_RESULT lRF215_PHY_SetPhyConfig (
     lRF215_BBC_Regs(pObj, &regsNew);
     lRF215_TXRXFE_Regs(pObj, &regsNew);
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 18.1 deviated twice. Deviation record ID - H3_MISRAC_2012_R_18_1_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 18.1 deviated twice. Deviation record ID - H3_MISRAC_2023_R_18_1_DR_1 */
 
     /* Write up to 16 registers: RFn_CS to RFn_TXDFE */
     RF215_HAL_SpiWriteUpdate(RF215_RFn_CS(trxIdx),
             &regsNew.RFn_CS, &pObj->phyRegs.RFn_CS, 16U);
 
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 
     /* Adjust CCA duration (minimum is AGC update time) */
     lRF215_RXFE_AdjustEDD(trxIdx);
@@ -2887,7 +2887,7 @@ static DRV_RF215_PIB_RESULT lRF215_PHY_SetPhyConfig (
     return RF215_PIB_RESULT_SUCCESS;
 }
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 static uint32_t lRF215_TX_ContentionWindowUS (DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 {
@@ -3578,8 +3578,8 @@ static void lRF215_TX_Prepare(uint8_t trxIdx)
         regsNew.BBCn_AMEDT = phyRegs->BBCn_AMEDT;
     }
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 18.1 deviated 4 times. Deviation record ID - H3_MISRAC_2012_R_18_1_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 18.1 deviated 4 times. Deviation record ID - H3_MISRAC_2023_R_18_1_DR_1 */
 
     /* Write up to 2 registers: BBCn_AMCS, BBCn_AMEDT */
     (void) regsNew.BBCn_AMEDT;
@@ -3599,7 +3599,7 @@ static void lRF215_TX_Prepare(uint8_t trxIdx)
                 &regsNew.BBCn_TXFLL, &phyRegs->BBCn_TXFLL, 2U);
     }
 
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 
     /* Update PHY state */
     pObj->phyState = PHY_STATE_TX_TXPREP;

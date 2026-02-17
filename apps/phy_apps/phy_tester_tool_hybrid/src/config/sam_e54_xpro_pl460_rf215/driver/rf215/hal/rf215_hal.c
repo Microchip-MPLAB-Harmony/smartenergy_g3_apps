@@ -307,7 +307,7 @@ static void lRF215_HAL_SpiDmaHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
     RF215_SPI_TRANSFER_OBJ* transfer = rf215HalObj.spiQueueFirst;
     SYS_DMA_CHANNEL dmaChannel = (SYS_DMA_CHANNEL) ctxt;
     bool restartTransfer = false;
-    
+
     if (dmaChannel == DRV_RF215_SPI_RX_DMA_CH)
     {
         /* De-assert CS pin */
@@ -402,8 +402,8 @@ void RF215_HAL_Initialize(const DRV_RF215_INIT * const init)
     rf215HalObj.spiTxAddr = init->spiTransmitAddress;
     rf215HalObj.spiRxAddr = init->spiReceiveAddress;
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 11.1 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_1_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.1 deviated twice. Deviation record ID - H3_MISRAC_2023_R_11_1_DR_1 */
 
     /* Register callback for SPI Transmit and Receive DMA */
     SYS_DMA_ChannelCallbackRegister(DRV_RF215_SPI_RX_DMA_CH,
@@ -411,7 +411,7 @@ void RF215_HAL_Initialize(const DRV_RF215_INIT * const init)
     SYS_DMA_ChannelCallbackRegister(DRV_RF215_SPI_TX_DMA_CH,
             lRF215_HAL_SpiDmaHandler, (uintptr_t) DRV_RF215_SPI_TX_DMA_CH);
 
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 
     /* Register callback for external interrupt pin */
     EIC_CallbackRegister(DRV_RF215_EXT_INT_EIC,

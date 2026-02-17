@@ -115,8 +115,8 @@ SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(uint8_t phyBand)
 {
     uint8_t band = phyBand;
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 11.8 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.8 deviated twice. Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
 
     if (band == G3_FCC)
     {
@@ -130,7 +130,7 @@ SRV_PLC_PCOUP_DATA * SRV_PCOUP_Get_Config(uint8_t phyBand)
         return (SRV_PLC_PCOUP_DATA *)&srvPlcCoupAux;
     }
 
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 
     /* G3-PLC PHY band not recognized */
     return NULL;
@@ -201,8 +201,8 @@ bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, uint8_t phyBand)
     resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
     result = result && resultOut;
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 11.8 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.8 deviated twice. Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
 
     pibObj.id = PLC_ID_PREDIST_COEF_TABLE_HI;
     pibObj.length = pCoupValues->equSize;
@@ -215,7 +215,7 @@ bool SRV_PCOUP_Set_Config(DRV_HANDLE handle, uint8_t phyBand)
     resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
     result = result && resultOut;
 
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 
     return result;
 }

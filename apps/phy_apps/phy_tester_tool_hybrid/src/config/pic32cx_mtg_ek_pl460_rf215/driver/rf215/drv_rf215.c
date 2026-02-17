@@ -171,13 +171,13 @@ static void lDRV_RF215_ReadPNVN(uintptr_t context, void* pData, uint64_t timeRea
         return;
     }
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
 
     /* Disable clock output by default (not used) */
     RF215_HAL_SpiWrite(RF215_RF_CLKO, (void *) &rf215RegValues.RF_CLKO, 1);
 
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 
     /* RF09 TRX reset event */
     RF215_PHY_ExtIntEvent(RF215_TRX_RF09_IDX, RF215_RFn_IRQ_WAKEUP, 0);
@@ -359,10 +359,10 @@ SYS_MODULE_OBJ DRV_RF215_Initialize (
     const SYS_MODULE_INIT * const init
 )
 {
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
     const DRV_RF215_INIT * const rfPhyInit = (const DRV_RF215_INIT * const)init;
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
     DRV_RF215_PHY_BAND_OPM bandOpMode;
     uint16_t channelNum;
 
