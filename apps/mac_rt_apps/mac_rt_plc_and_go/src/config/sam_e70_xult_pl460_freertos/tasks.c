@@ -60,16 +60,6 @@
 // Section: RTOS "Tasks" Routine
 // *****************************************************************************
 // *****************************************************************************
-static void F_USB_DEVICE_Tasks(  void *pvParameters  )
-{
-    while(true)
-    {
-                /* USB Device layer tasks routine */
-        USB_DEVICE_Tasks(sysObj.usbDevObject0);
-        vTaskDelay(10U / portTICK_PERIOD_MS);
-    }
-}
-
 
 static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
 {
@@ -77,6 +67,16 @@ static void lDRV_G3_MACRT_Tasks(  void *pvParameters  )
     {
         /* Maintain G3 MAC RT Driver */
         DRV_G3_MACRT_Tasks(sysObj.drvG3MacRt);
+    }
+}
+
+static void F_USB_DEVICE_Tasks(  void *pvParameters  )
+{
+    while(true)
+    {
+                /* USB Device layer tasks routine */
+        USB_DEVICE_Tasks(sysObj.usbDevObject0);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
     }
 }
 

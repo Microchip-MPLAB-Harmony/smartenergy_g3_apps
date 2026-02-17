@@ -4,7 +4,7 @@
 
 
 project: g3_mac_rt_plc_and_go_freertos
-creation_date: 2026-02-04T14:50:27.144+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2026-02-17T10:59:10.845+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3
@@ -19,8 +19,8 @@ modules:
     - {name: "CMSIS_5", version: "5.9.0"}
     - {name: "usb", version: "v3.16.0"}
     - {name: "FreeRTOS-Kernel", version: "V11.1.0"}
-    - {name: "smartenergy", version: "v1.5.0"}
     - {name: "shd", version: "v1.3.0"}
+    - {name: "smartenergy", version: "v1.5.0"}
 
 packs:
     - {name: "SAME70_DFP", version: "4.11.257"}

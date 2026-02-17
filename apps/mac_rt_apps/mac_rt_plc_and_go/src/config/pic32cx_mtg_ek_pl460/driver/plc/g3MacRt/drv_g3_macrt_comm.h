@@ -124,8 +124,8 @@ typedef enum {
     G3_INVALID = 0xFF
 } MAC_RT_BAND;
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.2 deviated 4 times.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.2 deviated 4 times.  Deviation record ID - H3_MISRAC_2023_R_5_2_DR_1 */
 
 /* G3-PLC MAC RT PIB list
 
@@ -237,7 +237,7 @@ typedef enum {
     MAC_RT_PIB_MANUF_PHY_PARAM = 0x08000020
 } MAC_RT_PIB;
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 /* G3-PLC PHY Parameters list
 
@@ -551,8 +551,8 @@ typedef struct {
     uint8_t txCoef[6];
 } MAC_RT_TX_COEF;
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 6.1 deviated 12 times.  Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 6.1 deviated 12 times.  Deviation record ID - H3_MISRAC_2023_R_6_1_DR_1 */
 
 // *****************************************************************************
 /* G3-PLC MAC neighbour entry
@@ -657,7 +657,7 @@ typedef struct {
     uint8_t keyIdentifier;
 } MAC_RT_AUX_SECURITY_HEADER;
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // *****************************************************************************
 /* G3 MAC header
