@@ -524,7 +524,7 @@ static void _APP_G3_MANAGEMENT_InitializeParameters(void)
     {
         /* In case we get here after a kick event, restore RF configuration set
          * by UDP responder */
-        APP_G3_MANAGEMENT_SetConfigRF(app_g3_managementData.savedParamsRF);
+        APP_G3_MANAGEMENT_ApplyConfigRF(app_g3_managementData.savedParamsRF);
     }
 }
 
@@ -1247,7 +1247,36 @@ uint8_t APP_G3_MANAGEMENT_SetConformanceTrickleConfig(uint8_t trickleActivation)
     return 1;
 }
 
-uint8_t APP_G3_MANAGEMENT_SetConfigRF(uint8_t* pParameters)
+uint8_t APP_G3_MANAGEMENT_CheckConfigRF(uint8_t* pParameters)
+{
+    ADP_MAC_GET_CFM_PARAMS macGetConfirm;
+    uint8_t frequencyBand, operatingMode, hoppingActivation;
+
+    /* Check RF interface availability */
+    ADP_MacGetRequestSync(MAC_WRP_PIB_MANUF_RF_IFACE_AVAILABLE, 0, &macGetConfirm);
+    if ((macGetConfirm.status != G3_SUCCESS) || (macGetConfirm.attributeValue[0] == 0))
+    {
+        /* RF interface not available */
+        return 2;
+    }
+
+    /* Decode parameters */
+    frequencyBand = *pParameters++;
+    operatingMode = *pParameters++;
+    hoppingActivation = *pParameters++;
+
+    if (hoppingActivation == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        /* Hopping not yet supported */
+        return 2;
+    }
+}
+
+void APP_G3_MANAGEMENT_ApplyConfigRF(uint8_t* pParameters)
 {
     ADP_SET_CFM_PARAMS setConfirm;
     ADP_MAC_GET_CFM_PARAMS macGetConfirm;
@@ -1259,7 +1288,7 @@ uint8_t APP_G3_MANAGEMENT_SetConfigRF(uint8_t* pParameters)
     if ((macGetConfirm.status != G3_SUCCESS) || (macGetConfirm.attributeValue[0] == 0))
     {
         /* RF interface not available */
-        return 1;
+        return;
     }
 
     /* Save RF parameters to restore configuration after kick */
@@ -1276,11 +1305,6 @@ uint8_t APP_G3_MANAGEMENT_SetConfigRF(uint8_t* pParameters)
     freqBandOpMode += (uint16_t) frequencyBand << 8;
     ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_PHY_PARAM_RF, MAC_WRP_RF_PHY_PARAM_PHY_BAND_OPERATING_MODE,
             2, (const uint8_t*) &freqBandOpMode, &setConfirm);
-    if (setConfirm.status != G3_SUCCESS)
-    {
-        /* Invalid/unsupported frequency band/operating mode */
-        return 2;
-    }
 
     if (hoppingActivation == 0)
     {
@@ -1289,19 +1313,6 @@ uint8_t APP_G3_MANAGEMENT_SetConfigRF(uint8_t* pParameters)
         /* Set channel */
         ADP_MacSetRequestSync(MAC_WRP_PIB_MANUF_PHY_PARAM_RF, MAC_WRP_RF_PHY_PARAM_PHY_CHANNEL_NUM,
             2, (const uint8_t*) &channelNumber, &setConfirm);
-        if (setConfirm.status != G3_SUCCESS)
-        {
-            /* Invalid/unsupported channel number */
-            return 1;
-        }
-
-        /* Success */
-        return 0;
-    }
-    else
-    {
-        /* Hopping not yet supported */
-        return 2;
     }
 }
 

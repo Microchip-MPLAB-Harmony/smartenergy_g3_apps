@@ -36,6 +36,12 @@
 // *****************************************************************************
 // *****************************************************************************
 
+/* Variables to store RF Config parameters and to apply them */
+#define RF_CONFIG_PARAMS_LEN     5
+#define RF_CONFIG_PARAMS_DELAY   50 /* Milliseconds */
+SYS_TIME_HANDLE timeHandle;
+static uint8_t rfConfigParams[RF_CONFIG_PARAMS_LEN];
+
 // *****************************************************************************
 /* Application Data
 
@@ -59,6 +65,16 @@ APP_UDP_RESPONDER_DATA app_udp_responderData;
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
+
+static void _APP_UDP_RESPONDER_RFConfigUpdate(uintptr_t context)
+{
+    APP_G3_MANAGEMENT_ApplyConfigRF(rfConfigParams);
+}
+
+static void _APP_UDP_RESPONDER_RFContinuousTx(uintptr_t context)
+{
+    APP_G3_MANAGEMENT_SetContinuousTxRF();
+}
 
 void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TCPIP_UDP_SIGNAL_TYPE sigType, const void* param)
 {
@@ -304,13 +320,19 @@ void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TC
 
             if ((rxPayloadSize >= 4) && (rxPayloadSize <= 5))
             {
-                uint8_t rfConfigData[4];
+                uint8_t rfConfigData[RF_CONFIG_PARAMS_LEN];
 
                 /* Read configuration data */
                 TCPIP_UDP_ArrayGet(hUDP, rfConfigData, rxPayloadSize - 1);
 
                 /* Set RF configuration */
-                result = APP_G3_MANAGEMENT_SetConfigRF(rfConfigData);
+                result = APP_G3_MANAGEMENT_CheckConfigRF(rfConfigData);
+                if (result == 0)
+                {
+                    memcpy(rfConfigParams, rfConfigData, RF_CONFIG_PARAMS_LEN);
+                    timeHandle = SYS_TIME_CallbackRegisterMS(_APP_UDP_RESPONDER_RFConfigUpdate,
+                        (uintptr_t)NULL, RF_CONFIG_PARAMS_DELAY, SYS_TIME_SINGLE);
+                }
                 SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_UDP_RESPONDER: Change "
                         "RF configuration request");
             }
@@ -370,7 +392,8 @@ void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TC
              * shall use channel 0 for the continuous TX mode. This transmission
              * shall be stopped when rebooting the DUT: after power-up, the DUT
              * shall recover its normal behaviour. */
-            APP_G3_MANAGEMENT_SetContinuousTxRF();
+            timeHandle = SYS_TIME_CallbackRegisterMS(_APP_UDP_RESPONDER_RFContinuousTx,
+                (uintptr_t)NULL, RF_CONFIG_PARAMS_DELAY, SYS_TIME_SINGLE);
             SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_UDP_RESPONDER: RF continuous TX request\r\n");
             break;
         }

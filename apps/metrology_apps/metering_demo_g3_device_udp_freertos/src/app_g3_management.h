@@ -750,13 +750,13 @@ uint8_t APP_G3_MANAGEMENT_SetConformanceTrickleConfig(uint8_t trickleActivation)
 
 /*******************************************************************************
   Function:
-    uint8_t APP_G3_MANAGEMENT_SetConfigRF(uint8_t* pParameters)
+    uint8_t APP_G3_MANAGEMENT_CheckConfigRF(uint8_t* pParameters)
 
   Summary:
-    Configures the RF PHY layer from UDP responder message.
+    Checks the RF PHY layer configuration from UDP responder message.
 
   Description:
-    This function configures the RF PHY layer from UDP responder message.
+    This function checks RF PHY layer configuration from UDP responder message.
 
   Precondition:
     APP_G3_MANAGEMENT_Initialize should be called before calling this routine.
@@ -765,20 +765,53 @@ uint8_t APP_G3_MANAGEMENT_SetConformanceTrickleConfig(uint8_t trickleActivation)
     pParameters - Pointer to RF configuration parameters.
 
   Returns:
-    Result of configuration. 0 if successful, 1 if failed, 2 if unsupported.
+    Result of checking. 0 if successful, 1 if failed, 2 if unsupported.
 
   Example:
     <code>
     uint8_t parameters[4];
 
-    uint8_t result = APP_G3_MANAGEMENT_SetConfigRF(parameters);
+    uint8_t result = APP_G3_MANAGEMENT_CheckConfigRF(parameters);
     </code>
 
   Remarks:
     None.
 */
 
-uint8_t APP_G3_MANAGEMENT_SetConfigRF(uint8_t* pParameters);
+uint8_t APP_G3_MANAGEMENT_CheckConfigRF(uint8_t* pParameters);
+
+/*******************************************************************************
+  Function:
+    void APP_G3_MANAGEMENT_ApplyConfigRF(uint8_t* pParameters)
+
+  Summary:
+    Applies the RF PHY layer configuration from UDP responder message.
+
+  Description:
+    This function applies RF PHY layer configuration from UDP responder message.
+
+  Precondition:
+    APP_G3_MANAGEMENT_Initialize should be called before calling this routine.
+
+  Parameters:
+    pParameters - Pointer to RF configuration parameters.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    if (APP_G3_MANAGEMENT_CheckConfigRF(parameters))
+    {
+        APP_G3_MANAGEMENT_ApplyConfigRF(parameters);
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
+
+void APP_G3_MANAGEMENT_ApplyConfigRF(uint8_t* pParameters);
 
 /*******************************************************************************
   Function:
