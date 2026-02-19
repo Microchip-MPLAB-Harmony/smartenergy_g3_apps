@@ -178,7 +178,7 @@ extern "C" {
 #define APP_G3_MANAGEMENT_KDC_RF_CONFORMANCE 10
 
 /* RF frequency band for conformance */
-#define APP_G3_MANAGEMENT_RF_FREQ_BAND_CONFORMANCE 15
+#define APP_G3_MANAGEMENT_RF_FREQ_BAND_CONFORMANCE 4
 
 /* Period to blink LED in milliseconds */
 #define APP_G3_MANAGEMENT_LED_BLINK_PERIOD_MS 500
