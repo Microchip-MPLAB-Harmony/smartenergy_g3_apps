@@ -29,6 +29,7 @@
 
 #include "definitions.h"
 #include "service/random/srv_random.h"
+#include "app_metrology.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -868,6 +869,12 @@ void APP_G3_MANAGEMENT_Tasks ( void )
     {
         /* LBP Device tasks */
         LBP_TasksDev();
+    }
+
+    if (APP_METROLOGY_GetState() < APP_METROLOGY_STATE_WAITING_DATALOG)
+    {
+        /* Metrology App performing ICM checks. Let it finish before launching G3 */
+        return;
     }
 
     /* Check the application's current state */
