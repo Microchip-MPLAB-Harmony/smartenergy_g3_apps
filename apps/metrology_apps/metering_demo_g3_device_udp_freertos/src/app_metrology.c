@@ -475,6 +475,35 @@ static void _APP_METROLOGY_GetNVMDataCallback(APP_DATALOG_RESULT result)
     OSAL_SEM_Post(&appMetrologySemID);
 }
 
+static void _APP_METROLOGY_ConfigureMatrixIcmPdc(void)
+{
+    /* MATRIX1 (LSACM): Prevent ICM from blocking PDC0 on LS2HSASB bridge.
+     *
+     * Problem: ICM DMA through LS2HSASB (clock-domain bridge to HSACM)
+     * holds the bridge slave port for the entire round-trip including
+     * clock crossing + HSACM-side memory access. Default SLOT_CYCLE=511
+     * allows ICM to hold the bridge far beyond its burst duration,
+     * blocking PDC0 SPI transfers and causing data corruption.
+     *
+     * LSACM Master 3 = ICM,  Master 4 = PDC0
+     * LSACM Slave 2 = LS2HSASB (bridge to FLEXRAM/Flash on HSACM)
+     */
+
+    /* 1. ICM burst limit: 4-beat (preserves Flash CLOE, creates
+     *    re-arbitration points every 4 words within a SHA block read) */
+    MATRIX1_REGS->MATRIX_MCFG[3] = MATRIX_MCFG_ULBT_4_BEAT;
+
+    /* 2. LS2HSASB bridge (Slave 2):
+     *    - SLOT_CYCLE=1: force re-arbitration every cycle (critical fix)
+     *    - DEFMSTR=PDC0 (4): 0-cycle arbitration when bridge is idle */
+    MATRIX1_REGS->MATRIX_SCFG[2] = MATRIX_SCFG_SLOT_CYCLE(1) | MATRIX_SCFG_DEFMSTR_TYPE_FIXED | MATRIX_SCFG_FIXED_DEFMSTR(4);
+
+    /* 3. LS2HSASB priority: PDC0 = highest, ICM = lowest.
+     *    Ensures PDC0 always wins re-arbitration on the bridge. */
+    MATRIX1_REGS->MATRIX_PR[2].MATRIX_PRAS &= ~(MATRIX_PRAS_M3PR_Msk | MATRIX_PRAS_M4PR_Msk);
+    MATRIX1_REGS->MATRIX_PR[2].MATRIX_PRAS |= MATRIX_PRAS_M3PR(0) | MATRIX_PRAS_M4PR(3);
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Initialization and State Machine Functions
@@ -552,6 +581,9 @@ void APP_METROLOGY_Initialize (void)
     {
         /* Handle error condition. Not sufficient memory to create semaphore */
     }
+
+    /* Configure MATRIX1 to avoid issues on PDC0 (PLC/RF SPI) because of ICM */
+    _APP_METROLOGY_ConfigureMatrixIcmPdc();
 }
 
 /******************************************************************************
@@ -620,6 +652,7 @@ void APP_METROLOGY_Tasks (void)
                 pDescriptor->config.bitfield.endMonitor = 0;
                 pDescriptor->config.bitfield.regHashIntDis = 1;
                 pDescriptor->config.bitfield.mismatchIntDis = 0;
+                pDescriptor->config.bitfield.procDelay = 1;
 
                 // Set ICM callbacks (Digest mismatch)
                 ICM_CallbackRegister(ICM_INTERRUPT_RDM, _APP_METROLOGY_ICMDigestMismatchCallback);

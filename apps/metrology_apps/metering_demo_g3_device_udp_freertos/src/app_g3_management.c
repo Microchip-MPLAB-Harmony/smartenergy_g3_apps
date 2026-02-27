@@ -871,12 +871,6 @@ void APP_G3_MANAGEMENT_Tasks ( void )
         LBP_TasksDev();
     }
 
-    if (APP_METROLOGY_GetState() < APP_METROLOGY_STATE_WAITING_DATALOG)
-    {
-        /* Metrology App performing ICM checks. Let it finish before launching G3 */
-        return;
-    }
-
     /* Check the application's current state */
     switch ( app_g3_managementData.state )
     {
