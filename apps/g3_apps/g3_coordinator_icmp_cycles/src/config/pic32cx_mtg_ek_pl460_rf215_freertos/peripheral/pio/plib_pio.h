@@ -182,6 +182,14 @@
 #define PL460_EXTINT_InterruptEnable()   (PIOA_REGS->PIO_IER = (1<<2))
 #define PL460_EXTINT_InterruptDisable()  (PIOA_REGS->PIO_IDR = (1<<2))
 
+/*** Macros for VIRTUAL_COM_TX pin ***/
+#define VIRTUAL_COM_TX_Get()               ((PIOA_REGS->PIO_PDSR >> 4U) & 0x1U)
+#define VIRTUAL_COM_TX_PIN                  PIO_PIN_PA4
+
+/*** Macros for VIRTUAL_COM_RX pin ***/
+#define VIRTUAL_COM_RX_Get()               ((PIOA_REGS->PIO_PDSR >> 5U) & 0x1U)
+#define VIRTUAL_COM_RX_PIN                  PIO_PIN_PA5
+
 /*** Macros for USER_BUTTON1 pin ***/
 #define USER_BUTTON1_Set()               (PIOA_REGS->PIO_SODR = ((uint32_t)1U<<7U))
 #define USER_BUTTON1_Clear()             (PIOA_REGS->PIO_CODR = ((uint32_t)1U<<7U))

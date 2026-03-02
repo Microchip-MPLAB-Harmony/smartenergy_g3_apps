@@ -1460,7 +1460,7 @@ data:
       children:
       - children:
         - attributes:
-            value: ''
+            value: FLEXCOM3_IO0
           type: User
         type: Values
       type: String
@@ -1470,7 +1470,7 @@ data:
       children:
       - children:
         - attributes:
-            value: ''
+            value: A
           type: User
         type: Values
       type: String
@@ -1480,7 +1480,7 @@ data:
       children:
       - children:
         - attributes:
-            value: ''
+            value: FLEXCOM3_IO1
           type: User
         type: Values
       type: String
@@ -1490,7 +1490,7 @@ data:
       children:
       - children:
         - attributes:
-            value: ''
+            value: A
           type: User
         type: Values
       type: String
@@ -1500,7 +1500,7 @@ data:
       children:
       - children:
         - attributes:
-            value: ''
+            value: FLEXCOM3_IO2
           type: User
         type: Values
       type: String
@@ -1510,7 +1510,7 @@ data:
       children:
       - children:
         - attributes:
-            value: ''
+            value: A
           type: User
         type: Values
       type: String
@@ -1520,7 +1520,7 @@ data:
       children:
       - children:
         - attributes:
-            value: ''
+            value: FLEXCOM3_IO3
           type: User
         type: Values
       type: String
@@ -1530,7 +1530,7 @@ data:
       children:
       - children:
         - attributes:
-            value: ''
+            value: A
           type: User
         type: Values
       type: String
@@ -2278,7 +2278,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: 0x30L
+            value: 0xf0030L
           type: Dynamic
         type: Values
       type: String

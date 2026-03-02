@@ -1443,9 +1443,6 @@ data:
             id: core
             value: FLEXCOM0_IO0
           type: Dynamic
-        - attributes:
-            value: ''
-          type: User
         type: Values
       type: String
     PIN_29_PERIPHERAL_FUNCTION:
@@ -1454,11 +1451,19 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: A
           type: Dynamic
         - attributes:
-            value: ''
+            value: A
           type: User
         type: Values
       type: String
@@ -1482,9 +1487,6 @@ data:
             id: core
             value: FLEXCOM0_IO1
           type: Dynamic
-        - attributes:
-            value: ''
-          type: User
         type: Values
       type: String
     PIN_30_PERIPHERAL_FUNCTION:
@@ -1493,11 +1495,19 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: A
           type: Dynamic
         - attributes:
-            value: ''
+            value: A
           type: User
         type: Values
       type: String

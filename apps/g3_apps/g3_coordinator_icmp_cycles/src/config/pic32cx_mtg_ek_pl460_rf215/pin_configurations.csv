@@ -30,10 +30,10 @@ Pin Number,Pin ID,Custom Name,Function,Direction,Latch,Open Drain,PIO Interrupt,
 30,PA5,VIRTUAL_COM_RX,FLEXCOM0_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 31,PA6,,Available,In,,,,,,,
 32,PA7,USER_BUTTON1,GPIO,In,n/a,No,Raising Edge,Yes,No,Glitch Filter,0x0
-33,PA16,,Available,In,,,,,,,
-34,PA17,,Available,In,,,,,,,
-35,PA18,,Available,In,,,,,,,
-36,PA19,,Available,In,,,,,,,
+33,PA16,,FLEXCOM3_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+34,PA17,,FLEXCOM3_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+35,PA18,,FLEXCOM3_IO2,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+36,PA19,,FLEXCOM3_IO3,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 37,PA12,,Available,In,,,,,,,
 38,PA13,,Available,In,,,,,,,
 39,PA14,,Available,In,,,,,,,
