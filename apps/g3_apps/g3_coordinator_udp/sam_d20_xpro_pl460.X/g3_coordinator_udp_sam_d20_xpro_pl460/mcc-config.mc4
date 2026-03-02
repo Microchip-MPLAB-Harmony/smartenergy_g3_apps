@@ -601,7 +601,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\stack\g3\pal\plc\pal_plc.h
   hash: b539e3084b5fa170c6be7c3e483303e65211151e0852049787245cc1007cad09
 - file: ..\src\config\sam_d20_xpro_pl460\stack\g3\pal\plc\pal_plc_local.h
-  hash: 5e80ce4d6ea23524070bb72bb65195ded22b500b4a020efc718453625685d1e3
+  hash: 646ce5d174ed4ea7dcb2abe58ede56447e19f6b878b6bedf262734fa0bc0d087
 - file: ..\src\config\sam_d20_xpro_pl460\startup_xc32.c
   hash: 3aa1360f333b564211c35f641c7327c2111e11aa633bd02ec5a0be9466b1df04
 - file: ..\src\config\sam_d20_xpro_pl460\stdio\xc32_monitor.c
