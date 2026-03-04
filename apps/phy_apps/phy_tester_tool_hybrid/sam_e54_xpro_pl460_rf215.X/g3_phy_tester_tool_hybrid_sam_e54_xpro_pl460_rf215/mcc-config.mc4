@@ -41,7 +41,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\bsp\bsp.h
   hash: 73643571c3daf02c0e81a8630a4e13caad96e6315b47515f7dc65c404dc94cd1
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\configuration.h
-  hash: e1c790dfab07bff4c1b75ef7c54dcf0ec704c049e6a1e55cec5f0e618d2fc585
+  hash: d71013d415ea25eac0e662a15af87f8a891d3a72baf51fe4f07d4f4f54ec44f6
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\definitions.h
   hash: 07809b40719b5254fd49adb64a835f7d33ef03e58e4e048df09da9a56e49654e
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\device.h
