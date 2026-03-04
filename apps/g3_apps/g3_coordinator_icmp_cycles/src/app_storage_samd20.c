@@ -215,9 +215,6 @@ void APP_STORAGE_UpdateNonVolatileData(ADP_NON_VOLATILE_DATA_IND_PARAMS* pNonVol
     }
     
     app_storage_samd20Data.validNonVolatileData = true;
-    
-    SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "APP_STORAGE: Update NVM fc: 0x%X\r\n", 
-                      app_storage_samd20Data.nonVolatileData.data.frameCounter);
 }
 
 
