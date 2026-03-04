@@ -38,7 +38,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\bsp\bsp.h
   hash: e647ed8f888c395a7ed50079d43bbaf127db797967974d354c50d44cf88b7d09
 - file: ..\src\config\sam_d20_xpro_pl460\configuration.h
-  hash: 6690b9921bc812bbc8355215d7f8ff0b3d0005a1277f5c697e0d56306b695db0
+  hash: 87b4069c3f81fe6f70c5830e8ee90eef2435e9c214673301bd1e9f5aa9409eb9
 - file: ..\src\config\sam_d20_xpro_pl460\definitions.h
   hash: 245e6f24a7050c15489a06078b12d1404e6d72e871cabd84d942a6cc73d263b9
 - file: ..\src\config\sam_d20_xpro_pl460\device.h

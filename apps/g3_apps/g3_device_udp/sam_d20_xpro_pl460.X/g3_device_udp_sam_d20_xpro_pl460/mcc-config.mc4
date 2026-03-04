@@ -81,7 +81,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\bsp\bsp.h
   hash: e647ed8f888c395a7ed50079d43bbaf127db797967974d354c50d44cf88b7d09
 - file: ..\src\config\sam_d20_xpro_pl460\configuration.h
-  hash: 48fa3b1e7e32fbd3076ce285c808f1e434a4742d96135076856a559a4c6d76f3
+  hash: 06104572841496ad73abc7f5deb031eebcecb1ca34987cb3e4b67e68ec5f6c61
 - file: ..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\crypto_aead_cipher.h
   hash: 7087b0cbc716590f5347440a7944a964bc1df0c118a46cb6753456d3f9165beb
 - file: ..\src\config\sam_d20_xpro_pl460\crypto\common_crypto\crypto_common.h

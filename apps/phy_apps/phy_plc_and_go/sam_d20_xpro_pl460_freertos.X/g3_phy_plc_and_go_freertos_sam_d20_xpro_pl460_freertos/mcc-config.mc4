@@ -43,7 +43,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\bsp\bsp.h
   hash: e647ed8f888c395a7ed50079d43bbaf127db797967974d354c50d44cf88b7d09
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\configuration.h
-  hash: 1cc84687a7304132ec93b9f082c21f8598ea42064ad2c1b704880828311ec1a1
+  hash: f0c0d5421734fb51a6bbdaa58d518b4f34a567f28705c165bdf0d85d847629a6
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\definitions.h
   hash: b34c2f28c88cb53289adea3ae25231939faba74e0f0f76973440203e7b59984a
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\device.h

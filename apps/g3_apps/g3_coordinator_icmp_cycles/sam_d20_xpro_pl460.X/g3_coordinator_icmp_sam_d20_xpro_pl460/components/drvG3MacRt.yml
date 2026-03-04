@@ -180,4 +180,14 @@ data:
           type: Dynamic
         type: Values
       type: KeyValueSet
+    DRV_PLC_SPI_CS_PIN:
+      attributes:
+        id: DRV_PLC_SPI_CS_PIN
+      children:
+      - children:
+        - attributes:
+            value: '5'
+          type: User
+        type: Values
+      type: KeyValueSet
   userData: {}
