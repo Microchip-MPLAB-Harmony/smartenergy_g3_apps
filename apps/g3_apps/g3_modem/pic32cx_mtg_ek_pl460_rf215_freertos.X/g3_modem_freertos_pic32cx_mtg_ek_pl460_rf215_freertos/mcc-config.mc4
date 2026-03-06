@@ -53,7 +53,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\bsp\bsp.h
   hash: 4f124497ee0b86184954581d4578c11aa47dd9ccba83465e08f5a2c934741bb8
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\configuration.h
-  hash: b83c0dbe24261790f45cf8a54af873c6b54340caa21ce7b05a8f6a8551a9ccce
+  hash: 51c2c87788d25d29098d97db3784564f0c80f0b50f6a5755b9db1b8e3364743b
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\crypto\common_crypto\crypto_aead_cipher.h
   hash: 7087b0cbc716590f5347440a7944a964bc1df0c118a46cb6753456d3f9165beb
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\crypto\common_crypto\crypto_common.h
@@ -201,7 +201,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\peripheral\flexcom\spi\master\plib_flexcom_spi_master_common.h
   hash: fc0dbecc8a91f0c2c05e70d54f6c2b1bfdf7573e8dc000f41a36742598cbc7e7
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\peripheral\flexcom\usart\plib_flexcom0_usart.c
-  hash: 9866ac57073f251a36067e5b4928b37515fe67a1d2b4758fbb4fbc1338140bf9
+  hash: 746cda39f34ef439d9214e7a3e4b61e0a33f9b953420a9fef487849806770644
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\peripheral\flexcom\usart\plib_flexcom0_usart.h
   hash: 6ff3d26bf626ef771cb42c71342dab16cccd25f77c7febe901bdef788e9de816
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215_freertos\peripheral\flexcom\usart\plib_flexcom_usart_local.h

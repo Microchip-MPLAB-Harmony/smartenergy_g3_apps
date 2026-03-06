@@ -38,7 +38,7 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 43,PA22,,Available,,,,,,NORMAL
 44,PA23,,Available,,,,,,NORMAL
 45,PA24,VIRTUAL_COM_TX,SERCOM3_PAD2,Digital,High Impedance,n/a,No,No,NORMAL
-46,PA25,VIRTUAL_COM_RX,SERCOM5_PAD3,Digital,High Impedance,n/a,No,No,NORMAL
+46,PA25,VIRTUAL_COM_RX,SERCOM3_PAD3,Digital,High Impedance,n/a,No,No,NORMAL
 49,PB22,,Available,,,,,,NORMAL
 50,PB23,,Available,,,,,,NORMAL
 51,PA27,,Available,,,,,,NORMAL

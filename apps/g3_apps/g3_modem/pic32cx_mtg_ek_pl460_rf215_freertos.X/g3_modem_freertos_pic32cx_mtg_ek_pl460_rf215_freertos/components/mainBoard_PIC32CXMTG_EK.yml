@@ -38,7 +38,7 @@ data:
             id: label
           children:
           - type: Value
-            value: SHD_MAINBOARD_CONNECTOR_Xplained-Pro_ADC MINUS
+            value: SHD_MAINBOARD_INTERFACE_2_OPT_0
           type: String
         type: Attributes
       - children:
@@ -154,4 +154,14 @@ data:
           type: User
         type: Values
       type: Combo
+    SHD_MAINBOARD_INTERFACE_2_OPT_0:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_2_OPT_0
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
   userData: {}

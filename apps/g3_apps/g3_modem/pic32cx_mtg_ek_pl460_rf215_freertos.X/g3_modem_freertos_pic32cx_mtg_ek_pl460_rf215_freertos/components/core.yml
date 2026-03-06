@@ -57,7 +57,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0'
+            value: '100000000'
           type: Dynamic
         type: Values
       type: Integer
@@ -68,7 +68,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -711,7 +711,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -722,7 +722,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: FLEXCOM0_Handler
+            value: FLEXCOM0_InterruptHandler
           type: Dynamic
         type: Values
       type: String
@@ -733,7 +733,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -1328,6 +1328,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: VIRTUAL_COM_TX
+          type: Dynamic
+        - attributes:
             value: VIRTUAL_COM_TX
           type: User
         type: Values
@@ -1337,6 +1341,10 @@ data:
         id: PIN_29_FUNCTION_TYPE
       children:
       - children:
+        - attributes:
+            id: core
+            value: FLEXCOM0_IO0
+          type: Dynamic
         - attributes:
             value: FLEXCOM0_IO0
           type: User
@@ -1348,6 +1356,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        - attributes:
             value: A
           type: User
         type: Values
@@ -1357,6 +1369,10 @@ data:
         id: PIN_30_FUNCTION_NAME
       children:
       - children:
+        - attributes:
+            id: core
+            value: VIRTUAL_COM_RX
+          type: Dynamic
         - attributes:
             value: VIRTUAL_COM_RX
           type: User
@@ -1368,6 +1384,10 @@ data:
       children:
       - children:
         - attributes:
+            id: core
+            value: FLEXCOM0_IO1
+          type: Dynamic
+        - attributes:
             value: FLEXCOM0_IO1
           type: User
         type: Values
@@ -1377,6 +1397,10 @@ data:
         id: PIN_30_PERIPHERAL_FUNCTION
       children:
       - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
         - attributes:
             value: A
           type: User
@@ -3456,6 +3480,39 @@ data:
       - children:
         - attributes:
             id: adc
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM0_INTERRUPT_ENABLE:
+      attributes:
+        id: FLEXCOM0_INTERRUPT_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM0_INTERRUPT_HANDLER:
+      attributes:
+        id: FLEXCOM0_INTERRUPT_HANDLER
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: FLEXCOM0_InterruptHandler
+          type: Dynamic
+        type: Values
+      type: String
+    FLEXCOM0_INTERRUPT_HANDLER_LOCK:
+      attributes:
+        id: FLEXCOM0_INTERRUPT_HANDLER_LOCK
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
             value: 'true'
           type: Dynamic
         type: Values

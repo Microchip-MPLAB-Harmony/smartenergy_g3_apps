@@ -73,4 +73,14 @@ data:
           type: Dynamic
         type: Values
       type: Integer
+    SRV_USI_WR_BUF_SIZE:
+      attributes:
+        id: SRV_USI_WR_BUF_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '2048'
+          type: User
+        type: Values
+      type: Integer
   userData: {}

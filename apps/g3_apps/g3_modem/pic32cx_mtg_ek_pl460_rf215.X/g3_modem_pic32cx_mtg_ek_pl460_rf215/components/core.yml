@@ -2110,7 +2110,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: 0xf0000L
+            value: 0xf0030L
           type: Dynamic
         type: Values
       type: String
@@ -3088,6 +3088,72 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
+    PIN_29_FUNCTION_TYPE:
+      attributes:
+        id: PIN_29_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: FLEXCOM0_IO0
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_29_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_29_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_29_FUNCTION_NAME:
+      attributes:
+        id: PIN_29_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: VIRTUAL_COM_TX
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_30_FUNCTION_TYPE:
+      attributes:
+        id: PIN_30_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: FLEXCOM0_IO1
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_30_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_30_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_30_FUNCTION_NAME:
+      attributes:
+        id: PIN_30_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: VIRTUAL_COM_RX
+          type: Dynamic
+        type: Values
+      type: String
   userData:
     children:
     - attributes:

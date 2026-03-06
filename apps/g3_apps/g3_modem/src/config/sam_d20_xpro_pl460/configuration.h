@@ -124,7 +124,7 @@ extern "C" {
 /* USI Service Instance 0 Configuration Options */
 #define SRV_USI_INDEX_0                       0
 #define SRV_USI0_RD_BUF_SIZE                  1024
-#define SRV_USI0_WR_BUF_SIZE                  1024
+#define SRV_USI0_WR_BUF_SIZE                  2048
 
 
 

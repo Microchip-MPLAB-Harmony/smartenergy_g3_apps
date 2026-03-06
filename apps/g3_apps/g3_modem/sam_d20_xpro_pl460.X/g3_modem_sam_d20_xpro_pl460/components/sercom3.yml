@@ -211,4 +211,124 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
+    USART_TX_RING_BUFFER_SIZE:
+      attributes:
+        id: USART_TX_RING_BUFFER_SIZE
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '2048'
+          type: User
+        type: Values
+      type: Integer
+    USART_RX_RING_BUFFER_SIZE:
+      attributes:
+        id: USART_RX_RING_BUFFER_SIZE
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '512'
+          type: User
+        type: Values
+      type: Integer
+    SERCOM_USART_HEADER:
+      attributes:
+        id: SERCOM_USART_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/sercom_u2201/templates/plib_sercom_usart_ring_buffer.h.ftl
+          type: String
+        type: Attributes
+      type: File
+    SERCOM_USART_SOURCE:
+      attributes:
+        id: SERCOM_USART_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/sercom_u2201/templates/plib_sercom_usart_ring_buffer.c.ftl
+          type: String
+        type: Attributes
+      type: File
+    SERCOM_USART_COMMON_HEADER:
+      attributes:
+        id: SERCOM_USART_COMMON_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SERCOM_USART_BAUD_NAME:
+      attributes:
+        id: SERCOM_USART_BAUD_NAME
+      children:
+      - children:
+        - attributes:
+            id: sercom3
+            value: USART_INT_BAUD_BAUD
+          type: Dynamic
+        type: Values
+      type: String
+    USART_RXPO:
+      attributes:
+        id: USART_RXPO
+      children:
+      - children:
+        - attributes:
+            id: sercom3
+            value: '3'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    USART_TXPO:
+      attributes:
+        id: USART_TXPO
+      children:
+      - children:
+        - attributes:
+            id: sercom3
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
   userData: {}

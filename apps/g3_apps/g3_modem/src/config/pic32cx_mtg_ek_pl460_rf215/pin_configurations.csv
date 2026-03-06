@@ -26,8 +26,8 @@ Pin Number,Pin ID,Custom Name,Function,Direction,Latch,Open Drain,PIO Interrupt,
 26,PA11,,Available,In,,,,,,,
 27,PA2,PL460_EXTINT,GPIO,In,n/a,No,Low Level,No,Yes,Disabled,0x0
 28,PA3,,Available,In,,,,,,,
-29,PA4,,Available,In,,,,,,,
-30,PA5,,Available,In,,,,,,,
+29,PA4,VIRTUAL_COM_TX,FLEXCOM0_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+30,PA5,VIRTUAL_COM_RX,FLEXCOM0_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 31,PA6,,Available,In,,,,,,,
 32,PA7,USER_BUTTON1,GPIO,In,n/a,No,Raising Edge,Yes,No,Glitch Filter,0x0
 33,PA16,,FLEXCOM3_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0

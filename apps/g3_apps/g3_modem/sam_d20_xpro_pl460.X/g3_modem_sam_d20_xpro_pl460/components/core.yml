@@ -1483,73 +1483,17 @@ data:
           type: Dynamic
         type: Values
       type: String
-    PIN_45_FUNCTION_NAME:
-      attributes:
-        id: PIN_45_FUNCTION_NAME
-      children:
-      - children:
-        - attributes:
-            value: VIRTUAL_COM_TX
-          type: User
-        type: Values
-      type: String
-    PIN_45_FUNCTION_TYPE:
-      attributes:
-        id: PIN_45_FUNCTION_TYPE
-      children:
-      - children:
-        - attributes:
-            value: SERCOM3_PAD2
-          type: User
-        type: Values
-      type: String
-    PIN_45_MODE:
-      attributes:
-        id: PIN_45_MODE
-      children:
-      - children:
-        - attributes:
-            value: ''
-          type: User
-        type: Values
-      type: String
     PIN_45_PERIPHERAL_FUNCTION:
       attributes:
         id: PIN_45_PERIPHERAL_FUNCTION
       children:
       - children:
         - attributes:
+            id: core
             value: C
-          type: User
-        type: Values
-      type: String
-    PIN_46_FUNCTION_NAME:
-      attributes:
-        id: PIN_46_FUNCTION_NAME
-      children:
-      - children:
+          type: Dynamic
         - attributes:
-            value: VIRTUAL_COM_RX
-          type: User
-        type: Values
-      type: String
-    PIN_46_FUNCTION_TYPE:
-      attributes:
-        id: PIN_46_FUNCTION_TYPE
-      children:
-      - children:
-        - attributes:
-            value: SERCOM5_PAD3
-          type: User
-        type: Values
-      type: String
-    PIN_46_MODE:
-      attributes:
-        id: PIN_46_MODE
-      children:
-      - children:
-        - attributes:
-            value: ''
+            value: C
           type: User
         type: Values
       type: String
@@ -1559,7 +1503,11 @@ data:
       children:
       - children:
         - attributes:
-            value: D
+            id: core
+            value: C
+          type: Dynamic
+        - attributes:
+            value: C
           type: User
         type: Values
       type: String
@@ -2331,7 +2279,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x32'
+            value: '0x22'
           type: Dynamic
         type: Values
       type: String
@@ -3466,6 +3414,70 @@ data:
             id: adc
             value: ADC_InterruptHandler
           type: Dynamic
+        type: Values
+      type: String
+    PIN_45_FUNCTION_TYPE:
+      attributes:
+        id: PIN_45_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: SERCOM3_PAD2
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_45_FUNCTION_NAME:
+      attributes:
+        id: PIN_45_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: VIRTUAL_COM_TX
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_46_FUNCTION_TYPE:
+      attributes:
+        id: PIN_46_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: SERCOM3_PAD3
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_46_FUNCTION_NAME:
+      attributes:
+        id: PIN_46_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: VIRTUAL_COM_RX
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_45_MODE:
+      attributes:
+        id: PIN_45_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_46_MODE:
+      attributes:
+        id: PIN_46_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
         type: Values
       type: String
   userData:
