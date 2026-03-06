@@ -397,6 +397,30 @@ static bool _APP_ENERGY_UpdateDemand(float demand, struct tm * time)
     return update;
 }
 
+static void _APP_ENERGY_SetMonthStore(APP_DATALOG_QUEUE_DATA *datalogQueueData, struct tm * time)
+{
+    if ((time->tm_mday == 1) && (time->tm_hour == 0) && (time->tm_min == 0))
+    {
+        /* Month has just changed. Set the previous month */
+        if (time->tm_mon == 0)
+        {
+            datalogQueueData->date.month = 11;
+            datalogQueueData->date.year = time->tm_year - 1;
+        }
+        else
+        {
+            datalogQueueData->date.month = time->tm_mon - 1;
+            datalogQueueData->date.year = time->tm_year;
+        }
+    }
+    else
+    {
+        /* Normal case */
+        datalogQueueData->date.month = time->tm_mon;
+        datalogQueueData->date.year = time->tm_year;
+    }
+}
+
 static void _APP_ENERGY_LoadRTCDataFromMemory(void)
 {
     appEnergyDatalogQueueData.userId = APP_DATALOG_USER_RTC;
@@ -471,29 +495,8 @@ static void _APP_ENERGY_StoreEnergyDataInMemory(struct tm * time)
     appEnergyDatalogQueueData.operation = APP_DATALOG_WRITE;
     appEnergyDatalogQueueData.pData = (uint8_t *)&app_energyData.energyAccumulatorToStore;
     appEnergyDatalogQueueData.dataLen = sizeof(APP_ENERGY_ACCUMULATORS);
-    appEnergyDatalogQueueData.date.month = time->tm_mon;
-    appEnergyDatalogQueueData.date.year = time->tm_year;
     appEnergyDatalogQueueData.endCallback = _APP_ENERGY_DataLogCallback;
-    if ((time->tm_mday == 1) && (time->tm_hour == 0) && (time->tm_min == 0))
-    {
-        /* Month has just changed. Set the previous month */
-        if (time->tm_mon == 0)
-        {
-            appEnergyDatalogQueueData.date.month = 11;
-            appEnergyDatalogQueueData.date.year = time->tm_year - 1;
-        }
-        else
-        {
-            appEnergyDatalogQueueData.date.month = time->tm_mon - 1;
-            appEnergyDatalogQueueData.date.year = time->tm_year;
-        }
-    }
-    else
-    {
-        /* Normal case */
-        appEnergyDatalogQueueData.date.month = time->tm_mon;
-        appEnergyDatalogQueueData.date.year = time->tm_year;
-    }
+    _APP_ENERGY_SetMonthStore(&appEnergyDatalogQueueData, time);
 
     xQueueSend(appDatalogQueueID, &appEnergyDatalogQueueData, (TickType_t) 0);
 }
@@ -520,9 +523,8 @@ static void _APP_ENERGY_StoreDemandDataInMemory(struct tm * time)
     appEnergyDatalogQueueData.operation = APP_DATALOG_WRITE;
     appEnergyDatalogQueueData.pData = (uint8_t *)&app_energyData.demandToStore;
     appEnergyDatalogQueueData.dataLen = sizeof(APP_ENERGY_MAX_DEMAND);
-    appEnergyDatalogQueueData.date.month = time->tm_mon;
-    appEnergyDatalogQueueData.date.year = time->tm_year;
     appEnergyDatalogQueueData.endCallback = _APP_ENERGY_DataLogCallback;
+    _APP_ENERGY_SetMonthStore(&appEnergyDatalogQueueData, time);
 
     xQueueSend(appDatalogQueueID, &appEnergyDatalogQueueData, (TickType_t) 0);
 }
@@ -769,12 +771,6 @@ void APP_ENERGY_Tasks (void)
         {
             if (xQueueReceive(appEnergyQueueID, &app_energyData.newQueuedData, 250 / portTICK_PERIOD_MS) == pdPASS)
             {
-                /* Read RTC */
-                RTC_TimeGet(&app_energyData.time);
-
-                /* Update current Tariff type */
-                app_energyData.currentTariffIndex = _APP_ENERGY_getTariffIndex(&app_energyData.time);
-
                 /* Update counter of integration periods */
                 app_energyData.counterIntegrationPeriods++;
 
@@ -791,7 +787,7 @@ void APP_ENERGY_Tasks (void)
                     /* Clear TIME Event flag */
                     app_energyData.eventMinute = false;
 
-                    /* Read again RTC to ensure minute has changed */
+                    /* Read RTC (only needs to be updated every minute) */
                     RTC_TimeGet(&app_energyData.time);
 
                     /* Update demand values */
@@ -819,6 +815,9 @@ void APP_ENERGY_Tasks (void)
                         /* Update RTC data in memory */
                         _APP_ENERGY_StoreRTCDataInMemory();
                     }
+
+                    /* Update tariff for the new minute */
+                    app_energyData.currentTariffIndex = _APP_ENERGY_getTariffIndex(&app_energyData.time);
                 }
 
                 /* Check CALENDAR Event (month) */
@@ -1007,7 +1006,7 @@ void APP_ENERGY_ClearMaxDemand(bool clearPersistentData)
         appEnergyDatalogQueueData.pData = NULL;
         appEnergyDatalogQueueData.dataLen = sizeof(APP_ENERGY_MAX_DEMAND);
         appEnergyDatalogQueueData.date.month = APP_DATALOG_INVALID_MONTH;
-        appEnergyDatalogQueueData.date.year = APP_DATALOG_INVALID_MONTH;
+        appEnergyDatalogQueueData.date.year = APP_DATALOG_INVALID_YEAR;
         appEnergyDatalogQueueData.endCallback = NULL;
 
     	xQueueSend(appDatalogQueueID, &appEnergyDatalogQueueData, (TickType_t) 0);
