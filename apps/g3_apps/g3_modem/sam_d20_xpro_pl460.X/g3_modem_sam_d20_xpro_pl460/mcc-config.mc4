@@ -167,7 +167,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\peripheral\evsys\plib_evsys.h
   hash: f7d08eb8162f271ce1db384c082586a6624e506aa7f502c64c4ab5a1aadac47d
 - file: ..\src\config\sam_d20_xpro_pl460\peripheral\nvic\plib_nvic.c
-  hash: 1cbb99b4b0a127ee8d35d7b29339627ebcd84a497a2fb39b664a456cab58b258
+  hash: 2b5a036f576d21f8e4401956ca03c6514a8a18832bb3bc5f4aeb4e695f6c64c9
 - file: ..\src\config\sam_d20_xpro_pl460\peripheral\nvic\plib_nvic.h
   hash: 9936ac782115af41003255283fa2f603f4ff2212d16275b7c80ea8d067a9e208
 - file: ..\src\config\sam_d20_xpro_pl460\peripheral\nvmctrl\plib_nvmctrl.c

@@ -2949,6 +2949,16 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
+    NVIC_9_0_PRIORITY:
+      attributes:
+        id: NVIC_9_0_PRIORITY
+      children:
+      - children:
+        - attributes:
+            value: '7'
+          type: User
+        type: Values
+      type: Combo
   userData:
     children:
     - attributes:

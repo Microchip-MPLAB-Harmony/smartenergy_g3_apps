@@ -143,7 +143,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\peripheral\evsys\plib_evsys.h
   hash: f7d08eb8162f271ce1db384c082586a6624e506aa7f502c64c4ab5a1aadac47d
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\peripheral\nvic\plib_nvic.c
-  hash: 69a03793c94873fe4818606100b657d6cc6839f2c065dcb591d1704a267542bc
+  hash: 604f73c75b9434b3297d1b6844118b2fabc7fa5ab21ddba5fa8574d2e0b4bafe
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\peripheral\nvic\plib_nvic.h
   hash: 9936ac782115af41003255283fa2f603f4ff2212d16275b7c80ea8d067a9e208
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\peripheral\nvmctrl\plib_nvmctrl.c

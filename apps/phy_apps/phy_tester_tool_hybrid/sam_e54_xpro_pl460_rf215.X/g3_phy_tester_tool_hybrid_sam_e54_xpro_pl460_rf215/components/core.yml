@@ -6196,6 +6196,46 @@ data:
           type: Dynamic
         type: Values
       type: String
+    NVIC_54_0_PRIORITY:
+      attributes:
+        id: NVIC_54_0_PRIORITY
+      children:
+      - children:
+        - attributes:
+            value: '5'
+          type: User
+        type: Values
+      type: Combo
+    NVIC_55_0_PRIORITY:
+      attributes:
+        id: NVIC_55_0_PRIORITY
+      children:
+      - children:
+        - attributes:
+            value: '5'
+          type: User
+        type: Values
+      type: Combo
+    NVIC_56_0_PRIORITY:
+      attributes:
+        id: NVIC_56_0_PRIORITY
+      children:
+      - children:
+        - attributes:
+            value: '5'
+          type: User
+        type: Values
+      type: Combo
+    NVIC_57_0_PRIORITY:
+      attributes:
+        id: NVIC_57_0_PRIORITY
+      children:
+      - children:
+        - attributes:
+            value: '5'
+          type: User
+        type: Values
+      type: Combo
   userData:
     children:
     - attributes:

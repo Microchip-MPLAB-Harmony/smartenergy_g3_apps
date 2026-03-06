@@ -8122,6 +8122,16 @@ data:
           type: User
         type: Values
       type: Combo
+    NVIC_34_0_PRIORITY:
+      attributes:
+        id: NVIC_34_0_PRIORITY
+      children:
+      - children:
+        - attributes:
+            value: '4'
+          type: User
+        type: Values
+      type: Combo
   userData:
     children:
     - attributes:

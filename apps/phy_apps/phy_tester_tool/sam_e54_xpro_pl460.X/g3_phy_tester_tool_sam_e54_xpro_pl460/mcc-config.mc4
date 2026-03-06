@@ -120,7 +120,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e54_xpro_pl460\peripheral\evsys\plib_evsys.h
   hash: f7d08eb8162f271ce1db384c082586a6624e506aa7f502c64c4ab5a1aadac47d
 - file: ..\src\config\sam_e54_xpro_pl460\peripheral\nvic\plib_nvic.c
-  hash: c45ebe06fccfda2f9184dd96b884429db4818b59bd7108dfb044708360937282
+  hash: 607ce7400d9fb153de4e20074336cfcd4f8812dfa54a473e321f6254cedc5925
 - file: ..\src\config\sam_e54_xpro_pl460\peripheral\nvic\plib_nvic.h
   hash: 9936ac782115af41003255283fa2f603f4ff2212d16275b7c80ea8d067a9e208
 - file: ..\src\config\sam_e54_xpro_pl460\peripheral\nvmctrl\plib_nvmctrl.c

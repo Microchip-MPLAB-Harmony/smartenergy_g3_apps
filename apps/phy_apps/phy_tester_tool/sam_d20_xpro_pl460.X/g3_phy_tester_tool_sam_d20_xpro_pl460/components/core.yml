@@ -3065,6 +3065,16 @@ data:
           type: Dynamic
         type: Values
       type: String
+    NVIC_10_0_PRIORITY:
+      attributes:
+        id: NVIC_10_0_PRIORITY
+      children:
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: Combo
   userData:
     children:
     - attributes:
