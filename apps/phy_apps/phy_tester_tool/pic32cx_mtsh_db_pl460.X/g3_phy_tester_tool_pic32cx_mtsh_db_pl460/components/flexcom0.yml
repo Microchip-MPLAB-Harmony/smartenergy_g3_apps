@@ -86,11 +86,6 @@ data:
             value: 'true'
           type: Boolean
         type: Attributes
-      - children:
-        - attributes:
-            value: '230400'
-          type: User
-        type: Values
       type: Integer
     BRG_VALUE:
       attributes:
@@ -99,7 +94,7 @@ data:
       - children:
         - attributes:
             id: flexcom0
-            value: '27'
+            value: '54'
           type: Dynamic
         type: Values
       type: Integer
@@ -305,7 +300,7 @@ data:
       - children:
         - attributes:
             id: flexcom0
-            value: '1'
+            value: '2'
           type: Dynamic
         type: Values
       type: Integer
