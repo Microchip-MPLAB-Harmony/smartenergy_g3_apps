@@ -41,7 +41,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\bsp\bsp.h
   hash: e647ed8f888c395a7ed50079d43bbaf127db797967974d354c50d44cf88b7d09
 - file: ..\src\config\sam_d20_xpro_pl460\configuration.h
-  hash: f6227293cd5ed1d383a028afa6bf3c886734b69bec985b159dcdd71bd2d91fd1
+  hash: 9e1ac5cdbdced8b391035e9292d9bc30a7c997be3fdce4dbce0f137d5ca12073
 - file: ..\src\config\sam_d20_xpro_pl460\definitions.h
   hash: e86aa8e181a3f73041fba8bd871af58962480d900b46fedb52a30354ff8329b3
 - file: ..\src\config\sam_d20_xpro_pl460\device.h
@@ -133,7 +133,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\peripheral\sercom\spi_master\plib_sercom_spi_master_common.h
   hash: 06e3c7813e1608b5008e3c8955569f9cff04bef321a34c35421f7979368a4ada
 - file: ..\src\config\sam_d20_xpro_pl460\peripheral\sercom\usart\plib_sercom3_usart.c
-  hash: bde042d5dfe4550a230d4590fbdceb3ebedbc138274f25530962f8f2b04cbe4b
+  hash: aa2247a1fb5fdcc442505fc1267ad9149e21247d6b7c014494dc7c984c3d729b
 - file: ..\src\config\sam_d20_xpro_pl460\peripheral\sercom\usart\plib_sercom3_usart.h
   hash: 6a399dec501682b3696dcbadea07b2cfc2366e216f4afc86a25b9b30933b8410
 - file: ..\src\config\sam_d20_xpro_pl460\peripheral\sercom\usart\plib_sercom_usart_common.h

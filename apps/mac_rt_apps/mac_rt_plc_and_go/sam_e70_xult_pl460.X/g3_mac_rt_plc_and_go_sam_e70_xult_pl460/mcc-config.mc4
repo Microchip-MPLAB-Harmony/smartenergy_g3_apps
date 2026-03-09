@@ -43,7 +43,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e70_xult_pl460\bsp\bsp.h
   hash: fea22fbf266104163d70b7a4919c18070ad3cd97b4d80a9e50f701ebf2432e28
 - file: ..\src\config\sam_e70_xult_pl460\configuration.h
-  hash: ff48cfe2b99fa328f63f33766eb65c532a9eab3488c5b0e47ab4b7773485bc2b
+  hash: 3daf3f6739ced71528337b70aab6ec206c3375e3dcf071452d5aa36540a3c93d
 - file: ..\src\config\sam_e70_xult_pl460\definitions.h
   hash: 64ff67b0c5617f2bdbcc17303cd0133bf7d4f8f5ba6c984a4cd30319bfac7f1d
 - file: ..\src\config\sam_e70_xult_pl460\device.h
@@ -131,7 +131,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e70_xult_pl460\peripheral\nvic\plib_nvic.h
   hash: 9936ac782115af41003255283fa2f603f4ff2212d16275b7c80ea8d067a9e208
 - file: ..\src\config\sam_e70_xult_pl460\peripheral\pio\plib_pio.c
-  hash: 1f7284d7df16b8f655c0e28647e7f8c68a068b86ddfc977f4e0375614e9c64b5
+  hash: 96295e1567cf333c3ec32a080e18226a29ce4084cea2f15e8494897b38d06c4f
 - file: ..\src\config\sam_e70_xult_pl460\peripheral\pio\plib_pio.h
   hash: ddf780448d3d86782f3d5d9739afc4845398566a5916987ea73c7a08af2da94c
 - file: ..\src\config\sam_e70_xult_pl460\peripheral\spi\spi_master\plib_spi0_master.c
@@ -161,7 +161,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e70_xult_pl460\peripheral\xdmac\plib_xdmac_common.h
   hash: 36a0f96ea0c5be39dec6d138bb799581e28321fc9d46f1cec049812ec67e146f
 - file: ..\src\config\sam_e70_xult_pl460\pin_configurations.csv
-  hash: aab14c296c9fe15bc02ace63af570b87809429849d7417903c75239e9fb56099
+  hash: b684c60b4e059c3615597cf889f85390aafe3fff338436c655c591e18024b722
 - file: ..\src\config\sam_e70_xult_pl460\service\pcoup\srv_pcoup.c
   hash: e3f29963b1c5318ee55b613b3b385cb79c025632c348c0d693135cd90e3570a1
 - file: ..\src\config\sam_e70_xult_pl460\service\pcoup\srv_pcoup.h

@@ -27,5 +27,15 @@ data:
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
-  symbols: {}
+  symbols:
+    USB_SPEED:
+      attributes:
+        id: USB_SPEED
+      children:
+      - children:
+        - attributes:
+            value: Full Speed
+          type: User
+        type: Values
+      type: Combo
   userData: {}
