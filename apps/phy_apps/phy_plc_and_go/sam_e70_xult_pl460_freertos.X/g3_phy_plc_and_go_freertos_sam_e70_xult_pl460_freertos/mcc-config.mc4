@@ -44,7 +44,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e70_xult_pl460_freertos\bsp\bsp.h
   hash: fea22fbf266104163d70b7a4919c18070ad3cd97b4d80a9e50f701ebf2432e28
 - file: ..\src\config\sam_e70_xult_pl460_freertos\configuration.h
-  hash: 8f66cc3e25b050ab50f88601a7bc90680a3faf59fda5d7ba3c8a882adc0f41ab
+  hash: 3254bb8c8a3491b3b56dd59ab6acd9628845942036b2acb29a05a802625816ef
 - file: ..\src\config\sam_e70_xult_pl460_freertos\definitions.h
   hash: c3524b0991fc503358bac483298bf0d419dd3a581a8c86a834d624c6127d019a
 - file: ..\src\config\sam_e70_xult_pl460_freertos\device.h
@@ -136,13 +136,13 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e70_xult_pl460_freertos\peripheral\nvic\plib_nvic.h
   hash: 9936ac782115af41003255283fa2f603f4ff2212d16275b7c80ea8d067a9e208
 - file: ..\src\config\sam_e70_xult_pl460_freertos\peripheral\pio\plib_pio.c
-  hash: 1f7284d7df16b8f655c0e28647e7f8c68a068b86ddfc977f4e0375614e9c64b5
+  hash: 96295e1567cf333c3ec32a080e18226a29ce4084cea2f15e8494897b38d06c4f
 - file: ..\src\config\sam_e70_xult_pl460_freertos\peripheral\pio\plib_pio.h
   hash: ddf780448d3d86782f3d5d9739afc4845398566a5916987ea73c7a08af2da94c
 - file: ..\src\config\sam_e70_xult_pl460_freertos\peripheral\spi\spi_master\plib_spi0_master.c
-  hash: dcafb9546f5cf95a4c82ea61e9bc2b40953a6f50aafe5857830d857c8644531c
+  hash: 7f4ea845efe0b4c12e8879703c86c886f1d1c025bd06532275930ef64393aefa
 - file: ..\src\config\sam_e70_xult_pl460_freertos\peripheral\spi\spi_master\plib_spi0_master.h
-  hash: 918915692afd6b9c946464651112fed0c2ea96f669bc2d1203d4d8b7c6f8d3c8
+  hash: baea54ccc662ad375d397641a8c8397e3b53d9dde17017eb6526ddac8984ac79
 - file: ..\src\config\sam_e70_xult_pl460_freertos\peripheral\spi\spi_master\plib_spi_master_common.h
   hash: e9a33a15a5f1458ccee12f902c1c4473038018a855a40614746be6e6e0e81b09
 - file: ..\src\config\sam_e70_xult_pl460_freertos\peripheral\tc\plib_tc0.c
@@ -162,7 +162,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e70_xult_pl460_freertos\peripheral\xdmac\plib_xdmac_common.h
   hash: 36a0f96ea0c5be39dec6d138bb799581e28321fc9d46f1cec049812ec67e146f
 - file: ..\src\config\sam_e70_xult_pl460_freertos\pin_configurations.csv
-  hash: aab14c296c9fe15bc02ace63af570b87809429849d7417903c75239e9fb56099
+  hash: b684c60b4e059c3615597cf889f85390aafe3fff338436c655c591e18024b722
 - file: ..\src\config\sam_e70_xult_pl460_freertos\service\pcoup\srv_pcoup.c
   hash: 82fb944715bc5c629658b012020f81c4650e6ed676e0ba8c288e0187a17184ab
 - file: ..\src\config\sam_e70_xult_pl460_freertos\service\pcoup\srv_pcoup.h

@@ -28,16 +28,6 @@ data:
       type: ElementPositions
     type: ComponentGraph
   symbols:
-    USB_DEVICE_VBUS_SENSE_PIN_NAME:
-      attributes:
-        id: USB_DEVICE_VBUS_SENSE_PIN_NAME
-      children:
-      - children:
-        - attributes:
-            value: USB_VBUS_SENSE
-          type: User
-        type: Values
-      type: String
     USB_SPEED:
       attributes:
         id: USB_SPEED

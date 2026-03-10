@@ -139,7 +139,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\peripheral\sercom\spi_master\plib_sercom_spi_master_common.h
   hash: 06e3c7813e1608b5008e3c8955569f9cff04bef321a34c35421f7979368a4ada
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\peripheral\sercom\usart\plib_sercom3_usart.c
-  hash: bde042d5dfe4550a230d4590fbdceb3ebedbc138274f25530962f8f2b04cbe4b
+  hash: c62be6910a1725830e6246b24fa3918dc72c1df87b0c68978dcb60a0adc731f4
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\peripheral\sercom\usart\plib_sercom3_usart.h
   hash: 6a399dec501682b3696dcbadea07b2cfc2366e216f4afc86a25b9b30933b8410
 - file: ..\src\config\sam_d20_xpro_pl460_freertos\peripheral\sercom\usart\plib_sercom_usart_common.h
