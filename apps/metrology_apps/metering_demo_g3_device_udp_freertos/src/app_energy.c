@@ -336,15 +336,12 @@ static void _APP_ENERGY_InitializeTOU(bool dataValid)
 
 static bool _APP_ENERGY_UpdateDemand(float demand, struct tm * time)
 {
-    float demandPeriod = 0.0f;
+    float demandPeriod;
     float demandMax = 0.0f;
-    uint8_t index = 0;
     uint8_t minIndex = 0;
     bool update = false;
 
-    demandPeriod = demand / (float)app_energyData.counterIntegrationPeriods;
-
-    // Update Min index to fill previous minute data
+    /* Data comes from previous minute */
     if (time->tm_min == 0U)
     {
         minIndex = 59U;
@@ -354,44 +351,45 @@ static bool _APP_ENERGY_UpdateDemand(float demand, struct tm * time)
         minIndex = time->tm_min - 1U;
     }
 
-    /* Get Max Demand : averaged over 15 minutes window */
+    /* Write average power from previous minute to the demand window */
     minIndex %= 15;
+    demandPeriod = demand / (float)app_energyData.counterIntegrationPeriods;
     app_energyData.demand.window[minIndex] = demandPeriod;
-    for (index = 0; index < 15U; index++)
-    {
-        demandMax += app_energyData.demand.window[index];
-    }
 
-    demandMax /= 15.0;
-
-    /* Update Demand Max according TOU Zone */
-    if (app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].value < demandMax)
-    {
-        app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].value = demandMax;
-        app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].month = time->tm_mon;
-        app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].day = time->tm_mday;
-        app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].hour = time->tm_hour;
-        app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].minute = time->tm_min;
-
-        update = true;
-    }
-
-    /* Update Demand Max in total */
-    if (app_energyData.demand.maxDemand.maxDemad.value < demandMax)
-    {
-        app_energyData.demand.maxDemand.maxDemad.value = demandMax;
-        app_energyData.demand.maxDemand.maxDemad.month = time->tm_mon;
-        app_energyData.demand.maxDemand.maxDemad.day = time->tm_mday;
-        app_energyData.demand.maxDemand.maxDemad.hour = time->tm_hour;
-        app_energyData.demand.maxDemand.maxDemad.minute = time->tm_min;
-
-        update = true;
-    }
-
-    // Clean Demand Window
+    /* Evaluate demand only at the end of each 15-minute window */
     if (minIndex == 14U)
     {
-        memset(app_energyData.demand.window, 0, sizeof(app_energyData.demand.window));
+        /* Average demand over 15-minute window */
+        for (uint8_t index = 0; index < 15U; index++)
+        {
+            demandMax += app_energyData.demand.window[index];
+        }
+
+        demandMax /= 15.0;
+        
+        /* Update Max Demand for the current tariff */
+        if (app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].value < demandMax)
+        {
+            app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].value = demandMax;
+            app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].month = time->tm_mon;
+            app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].day = time->tm_mday;
+            app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].hour = time->tm_hour;
+            app_energyData.demand.maxDemand.tariff[app_energyData.currentTariffIndex].minute = time->tm_min;
+
+            update = true;
+        }
+
+        /* Update total Max Demand */
+        if (app_energyData.demand.maxDemand.maxDemad.value < demandMax)
+        {
+            app_energyData.demand.maxDemand.maxDemad.value = demandMax;
+            app_energyData.demand.maxDemand.maxDemad.month = time->tm_mon;
+            app_energyData.demand.maxDemand.maxDemad.day = time->tm_mday;
+            app_energyData.demand.maxDemand.maxDemad.hour = time->tm_hour;
+            app_energyData.demand.maxDemand.maxDemad.minute = time->tm_min;
+
+            update = true;
+        }
     }
 
     return update;
@@ -771,23 +769,24 @@ void APP_ENERGY_Tasks (void)
         {
             if (xQueueReceive(appEnergyQueueID, &app_energyData.newQueuedData, 250 / portTICK_PERIOD_MS) == pdPASS)
             {
-                /* Update counter of integration periods */
-                app_energyData.counterIntegrationPeriods++;
+                /* Read RTC and update tariff for energy classification */
+                RTC_TimeGet(&app_energyData.time);
+                app_energyData.currentTariffIndex = _APP_ENERGY_getTariffIndex(&app_energyData.time);
 
                 /* Update Energy Accumulator */
                 app_energyData.energyAccumulator.tariff[app_energyData.currentTariffIndex] += app_energyData.newQueuedData.energy;
 
-                /* Update Demand Accumulator */
+                /* Update Demand Accumulator and counter of integration periods */
                 app_energyData.demandAccumulator += app_energyData.newQueuedData.Pt;
+                app_energyData.counterIntegrationPeriods++;
 
                 /* Check TIME Event (minute) */
-                /* Update the RTC at the end of this routine because we need to handle the energy accumulated in the previous minute */
                 if (app_energyData.eventMinute)
                 {
                     /* Clear TIME Event flag */
                     app_energyData.eventMinute = false;
 
-                    /* Read RTC (only needs to be updated every minute) */
+                    /* Re-read RTC to ensure minute has changed */
                     RTC_TimeGet(&app_energyData.time);
 
                     /* Update demand values */
@@ -815,9 +814,6 @@ void APP_ENERGY_Tasks (void)
                         /* Update RTC data in memory */
                         _APP_ENERGY_StoreRTCDataInMemory();
                     }
-
-                    /* Update tariff for the new minute */
-                    app_energyData.currentTariffIndex = _APP_ENERGY_getTariffIndex(&app_energyData.time);
                 }
 
                 /* Check CALENDAR Event (month) */
