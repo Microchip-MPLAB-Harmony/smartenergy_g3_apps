@@ -101,16 +101,18 @@
 #define BSP_PL460_CS_Off()      BSP_PL460_CS_Set() 
 
 
+
 /*** Macros for USB_VBUS_SENSE input pin ***/ 
 #define BSP_USB_VBUS_SENSE_PIN                    PORT_PIN_PC0
 #define BSP_USB_VBUS_SENSE_Get()                  ((PORT_REGS->GROUP[2].PORT_IN >> 0U) & 0x01U)
 #define BSP_USB_VBUS_SENSE_STATE_PRESSED          1
 #define BSP_USB_VBUS_SENSE_STATE_RELEASED         0
+
 /*** Macros for PL460_NTHW0 input pin ***/ 
 #define BSP_PL460_NTHW0_PIN                    PORT_PIN_PA27
 #define BSP_PL460_NTHW0_Get()                  ((PORT_REGS->GROUP[0].PORT_IN >> 27U) & 0x01U)
-#define BSP_PL460_NTHW0_STATE_PRESSED          1
-#define BSP_PL460_NTHW0_STATE_RELEASED         0
+#define BSP_PL460_NTHW0_STATE_PRESSED          0
+#define BSP_PL460_NTHW0_STATE_RELEASED         1
 
 
 // *****************************************************************************

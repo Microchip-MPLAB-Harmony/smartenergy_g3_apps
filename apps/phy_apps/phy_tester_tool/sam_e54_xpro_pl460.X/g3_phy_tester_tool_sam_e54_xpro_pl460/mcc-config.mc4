@@ -94,7 +94,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e54_xpro_pl460\osal\osal_impl_basic.h
   hash: 65e68edbc0320d0407399f65e6d06ff7e6d3d7697231cf1fe0a1fdf1d65f0463
 - file: ..\src\config\sam_e54_xpro_pl460\peripheral\adc\plib_adc1.c
-  hash: 117bd8de7eb03f77e7ce3ea88308d3d2e81c9cf4dd99379e8aea958d17205964
+  hash: 7e908b98a2e0a27ae43c769628da43edcc45d0c03176445540dfb96016087ad5
 - file: ..\src\config\sam_e54_xpro_pl460\peripheral\adc\plib_adc1.h
   hash: 889b0b3fa921fdafb9b4239b545677a7c14b221387df5b797fce215b76f85298
 - file: ..\src\config\sam_e54_xpro_pl460\peripheral\adc\plib_adc_common.h

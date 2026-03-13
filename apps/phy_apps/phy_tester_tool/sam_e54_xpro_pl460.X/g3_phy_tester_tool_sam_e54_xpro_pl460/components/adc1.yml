@@ -265,4 +265,18 @@ data:
           type: Dynamic
         type: Values
       type: String
+    ADC_INPUTCTRL_MUXNEG:
+      attributes:
+        id: ADC_INPUTCTRL_MUXNEG
+      children:
+      - children:
+        - attributes:
+            id: adc1
+            value: '7'
+          type: Dynamic
+        - attributes:
+            value: '8'
+          type: User
+        type: Values
+      type: KeyValueSet
   userData: {}
