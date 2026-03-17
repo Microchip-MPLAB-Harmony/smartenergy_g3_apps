@@ -799,7 +799,7 @@ data:
       children:
       - children:
         - attributes:
-            value: '2'
+            value: '1'
           type: User
         type: Values
       type: Combo
@@ -918,7 +918,7 @@ data:
       children:
       - children:
         - attributes:
-            value: '7'
+            value: '5'
           type: User
         type: Values
       type: Combo
@@ -1004,7 +1004,7 @@ data:
       children:
       - children:
         - attributes:
-            value: '6'
+            value: '7'
           type: User
         type: Values
       type: Combo
@@ -1080,7 +1080,7 @@ data:
       children:
       - children:
         - attributes:
-            value: '3'
+            value: '2'
           type: User
         type: Values
       type: Combo
@@ -1156,7 +1156,7 @@ data:
       children:
       - children:
         - attributes:
-            value: '5'
+            value: '6'
           type: User
         type: Values
       type: Combo
@@ -1243,7 +1243,7 @@ data:
       children:
       - children:
         - attributes:
-            value: '7'
+            value: '3'
           type: User
         type: Values
       type: Combo
@@ -7189,6 +7189,16 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
+    NVIC_2_0_PRIORITY:
+      attributes:
+        id: NVIC_2_0_PRIORITY
+      children:
+      - children:
+        - attributes:
+            value: '5'
+          type: User
+        type: Values
+      type: Combo
   userData:
     children:
     - attributes:

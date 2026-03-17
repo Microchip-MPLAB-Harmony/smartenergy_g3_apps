@@ -60,27 +60,27 @@ void NVIC_Initialize( void )
     /* Enable the interrupt sources and configure the priorities as configured
      * from within the "Interrupt Manager" of MHC. */
     NVIC_SetPriority(SysTick_IRQn, 7);
-    NVIC_SetPriority(SUPC_IRQn, 2);
+    NVIC_SetPriority(SUPC_IRQn, 1);
     NVIC_EnableIRQ(SUPC_IRQn);
-    NVIC_SetPriority(RTC_IRQn, 9);
+    NVIC_SetPriority(RTC_IRQn, 5);
     NVIC_EnableIRQ(RTC_IRQn);
     NVIC_SetPriority(FLEXCOM0_IRQn, 4);
     NVIC_EnableIRQ(FLEXCOM0_IRQn);
     NVIC_SetPriority(FLEXCOM1_IRQn, 8);
     NVIC_EnableIRQ(FLEXCOM1_IRQn);
-    NVIC_SetPriority(FLEXCOM5_IRQn, 7);
+    NVIC_SetPriority(FLEXCOM5_IRQn, 5);
     NVIC_EnableIRQ(FLEXCOM5_IRQn);
     NVIC_SetPriority(PIOA_IRQn, 9);
     NVIC_EnableIRQ(PIOA_IRQn);
-    NVIC_SetPriority(PIOB_IRQn, 6);
+    NVIC_SetPriority(PIOB_IRQn, 7);
     NVIC_EnableIRQ(PIOB_IRQn);
-    NVIC_SetPriority(ADC_IRQn, 3);
+    NVIC_SetPriority(ADC_IRQn, 2);
     NVIC_EnableIRQ(ADC_IRQn);
-    NVIC_SetPriority(TC0_CH0_IRQn, 5);
+    NVIC_SetPriority(TC0_CH0_IRQn, 6);
     NVIC_EnableIRQ(TC0_CH0_IRQn);
     NVIC_SetPriority(ICM_IRQn, 9);
     NVIC_EnableIRQ(ICM_IRQn);
-    NVIC_SetPriority(IPC1_IRQn, 7);
+    NVIC_SetPriority(IPC1_IRQn, 3);
     NVIC_EnableIRQ(IPC1_IRQn);
 
     /* Enable Usage fault */

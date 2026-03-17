@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: metering_demo_g3_device_udp_freertos
-creation_date: 2026-02-17T11:26:12.694+01:00[Europe/Paris]
+creation_date: 2026-03-18T11:09:30.180+01:00[Europe/Paris]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
