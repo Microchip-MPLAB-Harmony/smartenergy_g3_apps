@@ -143,6 +143,8 @@ void PIO_Initialize ( void )
     ((pio_registers_t*)PIO_PORT_D)->PIO_ODSR = 0x0U;
     /* PORTD Additional interrupt mode Enable */
     ((pio_registers_t*)PIO_PORT_D)->PIO_AIMER = 0x10000000U;
+    /* PORTD Level type interrupt Enable */
+    ((pio_registers_t*)PIO_PORT_D)->PIO_LSR = 0x10000000U;
     /* PORTD Interrupt Status Clear */
     ((pio_registers_t*)PIO_PORT_D)->PIO_ISR;
     /* PORTD system level interrupt will be enabled by NVIC Manager */

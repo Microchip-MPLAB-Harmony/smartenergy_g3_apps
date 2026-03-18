@@ -354,7 +354,7 @@
               <logicalFolder name="phy" displayName="phy" projectFiles="true">
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
                   <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
-                  <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/bin/PLC_PHY_G3_CENA.bin</itemPath>
+                  <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/bin/PLC_PHY_G3_MULTIBAND.bin</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/drv_plc_phy.c</itemPath>
                 <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/drv_plc_phy_comm.c</itemPath>

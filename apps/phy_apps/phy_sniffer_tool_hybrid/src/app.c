@@ -91,6 +91,29 @@ static void _APP_TimeExpired(uintptr_t context)
     *((bool *) context) = true;
 }
 
+static void APP_PLC_SetBand(void)
+{
+    uint8_t plcPhyBand;
+
+#if (DRV_PLC_PHY_PROFILE == 0)
+    plcPhyBand = G3_CEN_A;
+#elif (DRV_PLC_PHY_PROFILE == 1)
+    plcPhyBand = G3_CEN_B;
+#elif (DRV_PLC_PHY_PROFILE == 2)
+    plcPhyBand = G3_FCC;
+#elif (DRV_PLC_PHY_PROFILE == 3)
+    plcPhyBand = G3_ARIB;
+#else
+    plcPhyBand = G3_FCC;
+#endif
+
+    /* Set PHY Band PIB */
+    appData.plcPIB.id = PLC_ID_BAND;
+    appData.plcPIB.length = 1;
+    *appData.plcPIB.pData = plcPhyBand;
+    DRV_PLC_PHY_PIBSet(appData.drvPlcHandle, &appData.plcPIB);
+}
+
 static void _APP_PlcDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t ctxt)
 {
     size_t length;
@@ -281,6 +304,9 @@ void APP_Tasks ( void )
                 /* Register PLC driver callback */
                 DRV_PLC_PHY_DataIndCallbackRegister(appData.drvPlcHandle,
                         _APP_PlcDataIndCb, DRV_PLC_PHY_INDEX);
+
+                /* Set PLC Band */
+                APP_PLC_SetBand();
 
                 /* PLC driver opened successfully. Try to open RF215 driver. */
                 appData.state = APP_STATE_REGISTER_RF;

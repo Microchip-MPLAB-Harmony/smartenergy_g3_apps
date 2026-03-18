@@ -95,6 +95,29 @@ static void APP_Timer2_Callback (uintptr_t context)
     appData.tmr2Expired = true;
 }
 
+static void APP_PLC_SetBand(void)
+{
+    uint8_t plcPhyBand;
+
+#if (DRV_PLC_PHY_PROFILE == 0)
+    plcPhyBand = G3_CEN_A;
+#elif (DRV_PLC_PHY_PROFILE == 1)
+    plcPhyBand = G3_CEN_B;
+#elif (DRV_PLC_PHY_PROFILE == 2)
+    plcPhyBand = G3_FCC;
+#elif (DRV_PLC_PHY_PROFILE == 3)
+    plcPhyBand = G3_ARIB;
+#else
+    plcPhyBand = G3_FCC;
+#endif
+
+    /* Set PHY Band PIB */
+    appData.plcPIB.id = PLC_ID_BAND;
+    appData.plcPIB.length = 1;
+    *appData.plcPIB.pData = plcPhyBand;
+    DRV_PLC_PHY_PIBSet(appData.drvPlcHandle, &appData.plcPIB);
+}
+
 static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
 {
     /* Avoid warning */
@@ -246,6 +269,9 @@ void APP_Tasks(void)
                 /* Register PLC callback */
                 DRV_PLC_PHY_DataIndCallbackRegister(appData.drvPlcHandle,
                         APP_PLCDataIndCb, DRV_PLC_PHY_INDEX);
+
+                /* Set PLC Band */
+                APP_PLC_SetBand();
 
                 /* Open USI Service */
                 appData.srvUSIHandle = SRV_USI_Open(SRV_USI_INDEX_0);

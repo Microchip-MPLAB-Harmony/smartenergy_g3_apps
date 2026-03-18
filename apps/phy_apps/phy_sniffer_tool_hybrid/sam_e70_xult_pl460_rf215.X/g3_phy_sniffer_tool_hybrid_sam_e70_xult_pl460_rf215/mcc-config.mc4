@@ -39,7 +39,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e70_xult_pl460_rf215\bsp\bsp.h
   hash: 8e78bc46074bef91e853030e3b0ec103fb3143195e3bc4c0392d6876118d0a22
 - file: ..\src\config\sam_e70_xult_pl460_rf215\configuration.h
-  hash: 41e59fc255dc3a78093eb853a8fd461b2fbc70b72da478371fda73e1b311aadd
+  hash: 28e44fc7d88df996f5821c9230a81765dc633a4850e269ef3a2580afa19833f2
 - file: ..\src\config\sam_e70_xult_pl460_rf215\definitions.h
   hash: 2273353b133c361267e11268df785b48ef1cee7eaddf4b2aa3d08a2f0c2dc47c
 - file: ..\src\config\sam_e70_xult_pl460_rf215\device.h
@@ -60,10 +60,10 @@ generatedFileHashHistoryMap:
   hash: 565f3a7d9a83f07bde580ff265b6fa618c7cf479738d8592c58bb8bc0ee5741d
 - file: ..\src\config\sam_e70_xult_pl460_rf215\driver\plc\common\drv_plc_hal.h
   hash: 0bd378720be0c7896820b76cd119333a361ff44f1d6359b2f9d02a382c65d867
-- file: ..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\bin\PLC_PHY_G3_CENA.bin
-  hash: cee3e8dc83e5e53ea814bbc3fa768624780fa04eae213a5809c7c6dd6e1398ae
+- file: ..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\bin\PLC_PHY_G3_MULTIBAND.bin
+  hash: f6a248a8f053375ef5136b94c878770a217d9c3fd598b87689f02f54431043e2
 - file: ..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\bin\plc_phy_bin.S
-  hash: b26ba4cdcb147505e0cc59e42bfaa8efc11423a7ab57d2f9f4bdd1d2bf6183a1
+  hash: 867d439037eef9d114f0c63d1e835fe7d9ce76989123a54040ba6d8f79d36844
 - file: ..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy.c
   hash: 6230d732e65f07a260f4ec3f57dcaeea4851ac438d877ebbe7b6ce705e08d9aa
 - file: ..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy.h
@@ -173,7 +173,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e70_xult_pl460_rf215\service\psniffer\srv_psniffer.c
   hash: 811c8f8c8e3f11415065ec2dda9c11114b397f7aae14234daf4092be54832c5e
 - file: ..\src\config\sam_e70_xult_pl460_rf215\service\psniffer\srv_psniffer.h
-  hash: 838cc478d5685d58f295c3e8c06c974278dbacecf0932a820ac2a4460585e53e
+  hash: cba3d6748d4ce20dcdd9cd8eb699f8526ebc4a8aca89ce20b00b4404d0b62134
 - file: ..\src\config\sam_e70_xult_pl460_rf215\service\rsniffer\srv_rsniffer.c
   hash: 14b11854362e0e4c00603d330c7bb109f92cafef7d532172ae35d2f83f554205
 - file: ..\src\config\sam_e70_xult_pl460_rf215\service\rsniffer\srv_rsniffer.h
