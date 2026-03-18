@@ -153,7 +153,7 @@ typedef struct
     const void*                     spiRxAddr;
 
     /* Flag to indicate error in DMA for SPI transmit */
-    bool                            dmaTxError;
+    volatile bool                   dmaTxError;
 
     /* Interrupt source ID for the SYS_TIME interrupt */
     INT_SOURCE                      sysTimeIntSource;

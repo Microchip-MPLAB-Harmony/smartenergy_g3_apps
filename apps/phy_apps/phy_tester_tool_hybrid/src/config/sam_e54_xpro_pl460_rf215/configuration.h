@@ -99,10 +99,11 @@ extern "C" {
 #define DRV_RF215_INDEX_0                     0U
 #define DRV_RF215_CLIENTS_NUMBER              1U
 #define DRV_RF215_TX_BUFFERS_NUMBER           1U
-#define DRV_RF215_SPI_TX_DMA_CH               SYS_DMA_CHANNEL_0
-#define DRV_RF215_SPI_RX_DMA_CH               SYS_DMA_CHANNEL_1
+#define DRV_RF215_SPI_TX_DMA_CH               SYS_DMA_CHANNEL_2
+#define DRV_RF215_SPI_RX_DMA_CH               SYS_DMA_CHANNEL_3
 #define DRV_RF215_SPI_CS_PIN                  SYS_PORT_PIN_PC06
 #define DRV_RF215_EXT_INT_EIC                 EIC_PIN_0
+#define DRV_RF215_EXT_INT_SRC                 EIC_EXTINT_0_IRQn
 #define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PD00
 #define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PB14
 #define DRV_RF215_LED_TX_PIN                  SYS_PORT_PIN_PB06

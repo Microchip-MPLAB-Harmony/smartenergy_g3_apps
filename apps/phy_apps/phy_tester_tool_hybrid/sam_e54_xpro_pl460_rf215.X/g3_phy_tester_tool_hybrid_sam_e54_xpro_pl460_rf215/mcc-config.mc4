@@ -41,9 +41,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\bsp\bsp.h
   hash: 73643571c3daf02c0e81a8630a4e13caad96e6315b47515f7dc65c404dc94cd1
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\configuration.h
-  hash: d71013d415ea25eac0e662a15af87f8a891d3a72baf51fe4f07d4f4f54ec44f6
+  hash: b7a20a809cfec183c7221bd8bcd5787933eaf75859b0f23bd250ce793903b0aa
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\definitions.h
-  hash: 07809b40719b5254fd49adb64a835f7d33ef03e58e4e048df09da9a56e49654e
+  hash: 11592f9a3884545616976f531ed111ec8bfa7c5951d62c1f1e0cbfcc12e1960c
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\device.h
   hash: b8fdcc4ed83daa65a6f38614a689c97d414774be19ae106e6da07556c50a2c82
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\device_cache.h
@@ -89,9 +89,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\driver\rf215\drv_rf215_local.h
   hash: 23bca3d8cf10232d66be51389437345ca06629e790d75d51d63b970859634b2f
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\driver\rf215\hal\rf215_hal.c
-  hash: f2ad0bd247dc9cc68977e6f6a8b343af65fca8212efdc6107731165b9ade1f7d
+  hash: 2f3d95b6a8de2aa5f259e6dbc8aa8b3eac4dcdad97c7fa6862268da35b970152
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\driver\rf215\hal\rf215_hal.h
-  hash: 0849149b0595ccc221972cf97f0dad70f44d5f87a1ed4cbc6b34db09c32bcc52
+  hash: 132eb631d8799e6819d0cee17f221b45de24264d80d2470a13bce7254d48d510
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\driver\rf215\phy\ieee_15_4_sun_fsk.h
   hash: 65e6fa6fe7bb6fd7a16568651a93290af244c9f428f02ac6eb41811c42da3c3c
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\driver\rf215\phy\ieee_15_4_sun_ofdm.h
@@ -103,7 +103,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\exceptions.c
   hash: 251729130964d6a74b7a9ee99700b57a16c0e1b5d31029678e06ecd3d8dedc9e
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\initialization.c
-  hash: 39c8418ee8d66b4bbf712b515d09b1e16e80c22f20fb0937d2bd1f3f94a753ce
+  hash: 5a88e282148dfd908cc399f85422aeac096d11cada6e04c378002011ed7b4fdf
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\interrupts.c
   hash: 03312ffe89340cfd585266400db4b3a91a88ad4f421be431bab58ef86ffd4b35
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\interrupts.h
@@ -117,7 +117,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\osal\osal_impl_basic.h
   hash: 65e68edbc0320d0407399f65e6d06ff7e6d3d7697231cf1fe0a1fdf1d65f0463
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\peripheral\adc\plib_adc1.c
-  hash: 117bd8de7eb03f77e7ce3ea88308d3d2e81c9cf4dd99379e8aea958d17205964
+  hash: 7e908b98a2e0a27ae43c769628da43edcc45d0c03176445540dfb96016087ad5
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\peripheral\adc\plib_adc1.h
   hash: 889b0b3fa921fdafb9b4239b545677a7c14b221387df5b797fce215b76f85298
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\peripheral\adc\plib_adc_common.h
@@ -131,7 +131,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\peripheral\cmcc\plib_cmcc.h
   hash: 89b940242bfa0ecdba3ac53666c5996e25fab712227d37d2d6881c8a86b5f497
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\peripheral\dmac\plib_dmac.c
-  hash: b2dd3cb7b29f2e0ee511b1d47d7ed1724d6453ed3ef4cef62a4bbad3a365efa5
+  hash: 02dc042560c4dd6870bccc27dc337d83380f0a7dd80cde6c0391a52a353cef0c
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\peripheral\dmac\plib_dmac.h
   hash: f933b20e3f26b7c6251740ebd9da56122146366b5e0dddf49cbee8f6dabbf65a
 - file: ..\src\config\sam_e54_xpro_pl460_rf215\peripheral\eic\plib_eic.c

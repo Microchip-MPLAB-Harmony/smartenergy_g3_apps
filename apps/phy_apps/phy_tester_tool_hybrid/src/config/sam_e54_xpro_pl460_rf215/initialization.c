@@ -93,7 +93,7 @@ static const DRV_RF215_INIT drvRf215InitData = {
     .spiReceiveAddress = (const void *)&(SERCOM6_REGS->SPIM.SERCOM_DATA),
 
     /* Interrupt source ID for DMA */
-    .dmaIntSource = DMAC_1_IRQn,
+    .dmaIntSource = DMAC_3_IRQn,
 
     /* Interrupt source ID for SYS_TIME */
     .sysTimeIntSource = TC0_IRQn,
@@ -137,10 +137,10 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     .spiPlibTransferSetup = (DRV_PLC_SPI_PLIB_TRANSFER_SETUP)SERCOM4_SPI_TransferSetup,
 
     /* DMA Channel for Transmit */
-    .dmaChannelTx = SYS_DMA_CHANNEL_4,
+    .dmaChannelTx = SYS_DMA_CHANNEL_0,
 
     /* DMA Channel for Receive */
-    .dmaChannelRx = SYS_DMA_CHANNEL_5,
+    .dmaChannelRx = SYS_DMA_CHANNEL_1,
 
     /* SPI Transmit Register */
     .spiAddressTx = (void *)&(SERCOM4_REGS->SPIM.SERCOM_DATA),

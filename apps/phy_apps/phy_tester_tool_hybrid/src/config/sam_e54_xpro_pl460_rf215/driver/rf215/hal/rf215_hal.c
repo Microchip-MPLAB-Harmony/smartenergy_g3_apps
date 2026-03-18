@@ -156,6 +156,9 @@ static void lRF215_HAL_SpiTransferStart (
     /* Configure DMA channel for SPI receive */
     (void) SYS_DMA_ChannelTransfer(DRV_RF215_SPI_RX_DMA_CH, hObj->spiRxAddr, halSpiRxData, transferSize);
 
+    /* Clear TX DMA error flag for this transfer */
+    hObj->dmaTxError = false;
+
     /* Disable all interrupts for a while to avoid delays between SPI transfer
      * and SYS_TIME counter read */
     intStatus = SYS_INT_Disable();
@@ -301,18 +304,23 @@ static void lRF215_HAL_SpiTransferFinished(RF215_SPI_TRANSFER_OBJ* transfer)
     lRF215_HAL_ExtIntEnable();
 }
 
-static void lRF215_HAL_SpiDmaHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
+static void lRF215_HAL_SpiDmaTxHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
+{
+    if (ev == SYS_DMA_TRANSFER_ERROR)
+    {
+        /* Flag TX DMA error for the RX handler to detect */
+        rf215HalObj.dmaTxError = true;
+    }
+}
+
+static void lRF215_HAL_SpiDmaRxHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
 {
     bool dmaIntStatus, timeIntStatus, plcExtIntStatus;
     RF215_SPI_TRANSFER_OBJ* transfer = rf215HalObj.spiQueueFirst;
-    SYS_DMA_CHANNEL dmaChannel = (SYS_DMA_CHANNEL) ctxt;
     bool restartTransfer = false;
 
-    if (dmaChannel == DRV_RF215_SPI_RX_DMA_CH)
-    {
-        /* De-assert CS pin */
-        SYS_PORT_PinSet(DRV_RF215_SPI_CS_PIN);
-    }
+    /* De-assert CS pin */
+    SYS_PORT_PinSet(DRV_RF215_SPI_CS_PIN);
 
     if (transfer == NULL)
     {
@@ -326,36 +334,20 @@ static void lRF215_HAL_SpiDmaHandler(SYS_DMA_TRANSFER_EVENT ev, uintptr_t ctxt)
 
     if (ev == SYS_DMA_TRANSFER_ERROR)
     {
-        if (dmaChannel == DRV_RF215_SPI_TX_DMA_CH)
-        {
-            /* Set DMA error flag */
-            rf215HalObj.dmaTxError = true;
-        }
-        else /* DRV_RF215_SPI_RX_DMA_CH */
-        {
-            /* Restart SPI transfer */
-            restartTransfer = true;
-        }
+        /* RX DMA error: restart SPI transfer */
+        restartTransfer = true;
     }
     else /* SYS_DMA_TRANSFER_COMPLETE */
     {
-        if (dmaChannel == DRV_RF215_SPI_TX_DMA_CH)
+        if (rf215HalObj.dmaTxError == true)
         {
-            /* Clear DMA error flag */
-            rf215HalObj.dmaTxError = false;
+            /* TX DMA had an error: restart SPI transfer */
+            restartTransfer = true;
         }
-        else /* DRV_RF215_SPI_RX_DMA_CH */
+        else
         {
-            if (rf215HalObj.dmaTxError == true)
-            {
-                /* Restart SPI transfer */
-                restartTransfer = true;
-            }
-            else
-            {
-                /* SPI transfer finished successfully */
-                lRF215_HAL_SpiTransferFinished(transfer);
-            }
+            /* SPI transfer finished successfully */
+            lRF215_HAL_SpiTransferFinished(transfer);
         }
     }
 
@@ -405,11 +397,13 @@ void RF215_HAL_Initialize(const DRV_RF215_INIT * const init)
     /* MISRA C-2023 deviation block start */
     /* MISRA C-2023 Rule 11.1 deviated twice. Deviation record ID - H3_MISRAC_2023_R_11_1_DR_1 */
 
-    /* Register callback for SPI Transmit and Receive DMA */
+    /* Register callback for SPI Receive DMA */
     SYS_DMA_ChannelCallbackRegister(DRV_RF215_SPI_RX_DMA_CH,
-            lRF215_HAL_SpiDmaHandler, (uintptr_t) DRV_RF215_SPI_RX_DMA_CH);
+            lRF215_HAL_SpiDmaRxHandler, 0);
+
+    /* Register callback for SPI Transmit DMA (separate lightweight handler) */
     SYS_DMA_ChannelCallbackRegister(DRV_RF215_SPI_TX_DMA_CH,
-            lRF215_HAL_SpiDmaHandler, (uintptr_t) DRV_RF215_SPI_TX_DMA_CH);
+            lRF215_HAL_SpiDmaTxHandler, 0);
 
     /* MISRA C-2023 deviation block end */
 
@@ -420,6 +414,7 @@ void RF215_HAL_Initialize(const DRV_RF215_INIT * const init)
     /* Pin interrupt is disabled at initialization */
     rf215HalObj.extIntDisableCount = 0;
     lRF215_HAL_ExtIntDisable();
+    SYS_INT_SourceStatusClear(DRV_RF215_EXT_INT_SRC);
     rf215HalObj.firstReset = true;
 
     /* Zero initialization */

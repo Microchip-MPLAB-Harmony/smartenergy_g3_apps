@@ -96,9 +96,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\drv_rf215_local.h
   hash: 11a5ca0ba477c7bc12ad927a24f0fa5008be7397bae088cd1623d1151a4dc325
 - file: ..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\hal\rf215_hal.c
-  hash: adf0fcddac0c88222a285d983d237fe00b6d8b483570aea22e410570613a429e
+  hash: bbba48f1c985596e0076be245bbf17ed4e325172b841829183504b0f530d281a
 - file: ..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\hal\rf215_hal.h
-  hash: fac402176662333265f2c9a1b4cdce58b357e0ea2a2580b1e0f8efe5fe83389b
+  hash: c95916d1fb9e54a52d6907030d17c5bd95f91b909f9111d8bae346594a381150
 - file: ..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\phy\ieee_15_4_sun_fsk.h
   hash: 65e6fa6fe7bb6fd7a16568651a93290af244c9f428f02ac6eb41811c42da3c3c
 - file: ..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\phy\ieee_15_4_sun_ofdm.h

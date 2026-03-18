@@ -5719,28 +5719,6 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    DMAC_HIGHEST_CHANNEL:
-      attributes:
-        id: DMAC_HIGHEST_CHANNEL
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: '5'
-          type: Dynamic
-        type: Values
-      type: Integer
-    DMA_ENABLE:
-      attributes:
-        id: DMA_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     DMAC_ENABLE_CH_5:
       attributes:
         id: DMAC_ENABLE_CH_5
@@ -6236,6 +6214,28 @@ data:
           type: User
         type: Values
       type: Combo
+    DMAC_HIGHEST_CHANNEL:
+      attributes:
+        id: DMAC_HIGHEST_CHANNEL
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    DMA_ENABLE:
+      attributes:
+        id: DMA_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
   userData:
     children:
     - attributes:
