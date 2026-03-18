@@ -58,7 +58,7 @@
 68,PA12,,Available,In,,,,,,,
 69,PD18,,Available,In,,,,,,,
 70,PA27,,Available,In,,,,,,,
-71,PD28,PL460_EXTINT,GPIO,In,n/a,No,Falling Edge,No,Yes,Disabled,Low
+71,PD28,PL460_EXTINT,GPIO,In,n/a,No,Low Level,No,Yes,Disabled,Low
 73,PA5,LED1,GPIO,Out,High,No,Disabled,No,No,Disabled,Low
 74,PD17,,Available,In,,,,,,,
 75,PA9,,Available,In,,,,,,,

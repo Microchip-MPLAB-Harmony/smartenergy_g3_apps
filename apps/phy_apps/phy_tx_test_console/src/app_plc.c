@@ -326,6 +326,7 @@ void APP_PLC_Tasks ( void )
 
                     /* Set configuration by default */
                     appPlcTx.configKey = APP_PLC_CONFIG_KEY;
+                    appPlcTx.plcBand = SRV_PCOUP_Get_Default_Phy_Band();
                     appPlcTx.plcPhyVersion = 0;
                     appPlcTx.txImpedance = HI_STATE;
                     appPlcTx.txAuto = 1;
