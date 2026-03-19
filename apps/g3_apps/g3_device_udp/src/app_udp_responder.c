@@ -39,7 +39,7 @@
 /* Variables to store RF Config parameters and to apply them */
 #define RF_CONFIG_PARAMS_LEN     5
 #define RF_CONFIG_PARAMS_DELAY   50 /* Milliseconds */
-SYS_TIME_HANDLE timeHandle;
+static SYS_TIME_HANDLE rfConfigTimeHandle;
 static uint8_t rfConfigParams[RF_CONFIG_PARAMS_LEN];
 
 // *****************************************************************************
@@ -330,7 +330,7 @@ void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TC
                 if (result == 0)
                 {
                     memcpy(rfConfigParams, rfConfigData, RF_CONFIG_PARAMS_LEN);
-                    timeHandle = SYS_TIME_CallbackRegisterMS(_APP_UDP_RESPONDER_RFConfigUpdate,
+                    rfConfigTimeHandle = SYS_TIME_CallbackRegisterMS(_APP_UDP_RESPONDER_RFConfigUpdate,
                         (uintptr_t)NULL, RF_CONFIG_PARAMS_DELAY, SYS_TIME_SINGLE);
                 }
                 SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_UDP_RESPONDER: Change "
@@ -392,7 +392,7 @@ void _APP_UDP_RESPONDER_UdpRxCallback(UDP_SOCKET hUDP, TCPIP_NET_HANDLE hNet, TC
              * shall use channel 0 for the continuous TX mode. This transmission
              * shall be stopped when rebooting the DUT: after power-up, the DUT
              * shall recover its normal behaviour. */
-            timeHandle = SYS_TIME_CallbackRegisterMS(_APP_UDP_RESPONDER_RFContinuousTx,
+            rfConfigTimeHandle = SYS_TIME_CallbackRegisterMS(_APP_UDP_RESPONDER_RFContinuousTx,
                 (uintptr_t)NULL, RF_CONFIG_PARAMS_DELAY, SYS_TIME_SINGLE);
             SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, "APP_UDP_RESPONDER: RF continuous TX request\r\n");
             break;
