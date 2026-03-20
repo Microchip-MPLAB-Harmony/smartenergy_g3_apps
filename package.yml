@@ -22,3 +22,6 @@ package:
     - name: "usb"
       type: "package"
       version: "v3.16.0"
+    - name: "shd"
+      type: "package"
+      version: "v1.3.0"
